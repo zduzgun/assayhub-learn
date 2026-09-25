@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Uzman: Skor, Afinite ve Tarama</title>
+<style>
+:root{
+  --paper:#faf9f5; --ink:#243744; --muted:#5f6a73; --accent:#934b3c; --rule:#d6d6cd;
+  --panel:#f2f0e8; --panel-2:#ebe8de; --num:#2f6f95; --exact:#243744;
+  --good:#2f7254; --good-bg:#e3efe7; --warn:#96661c; --warn-bg:#f5ecd9; --bad:#a3402f; --bad-bg:#f6e3de;
+  --serif:Georgia,"Times New Roman",serif; --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --ala-c:#5F7486; --ala-c-hi:#93A6B5; --ala-n:#5C8FD6; --ala-n-hi:#9BBDEB; --ala-o:#E8746A; --ala-o-hi:#F5ADA5;
+  --ala-h:#F8F5EE; --ala-bond:#A7B6C0; --ala-edge:rgba(23,38,46,.24); --ala-face:#16222A; --ala-cheek:#F29E97;
+  --ala-ink:#17262E; --ala-accent:#1F8A7E; --ala-accent-ink:#FFFFFF; --ala-sweat:#9CC8F0; --ala-bulb:#F4CF5D; --ala-spark:#F4CF5D;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding-inline:20px;padding-block:0 80px}
+a{color:inherit;text-underline-offset:4px}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1060px;margin:0 auto}
+.prose{max-width:680px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 0 18px;border-bottom:1px solid var(--rule);font-size:13px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand b{font-family:var(--serif);font-size:26px;font-weight:normal;letter-spacing:-1px;border-right:1px solid var(--rule);padding-right:12px}
+.progress{display:flex;align-items:center;gap:10px}
+.progress .dots{display:flex;gap:5px}
+.progress .dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--accent);display:block}
+.progress .dots i.on{background:var(--accent)}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:30px;align-items:end;padding:54px 0 34px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 16px}
+h1{font-family:var(--serif);font-weight:normal;font-size:clamp(38px,5.2vw,58px);line-height:1.06;letter-spacing:-.03em;margin:0 0 18px;text-wrap:balance}
+.deck{font-family:var(--serif);font-size:21px;line-height:1.45;color:#4b5760;margin:0;max-width:40ch}
+.mast .ala-hello{width:150px}
+.goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);margin:0 0 56px}
+.goal{padding:16px 18px 18px 0;border-right:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start}
+.goal:last-child{border-right:0}
+.goal:not(:first-child){padding-left:18px}
+.goal span{font-family:var(--serif);font-size:26px;color:var(--accent);line-height:1}
+.goal p{margin:0;font-size:14px;line-height:1.5}
+section.unit{padding:10px 0 58px}
+h2{font-family:var(--serif);font-weight:normal;font-size:clamp(28px,3.4vw,36px);line-height:1.15;letter-spacing:-.02em;margin:0 0 18px;text-wrap:balance}
+h2 small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:600;margin-bottom:10px;text-transform:uppercase}
+.prose p{font-family:var(--serif);font-size:19px;line-height:1.68;margin:0 0 18px}
+.prose p.lead{font-size:21px}
+math{font-size:1.08em}
+.eq{margin:8px 0 22px;padding:14px 18px;background:var(--panel);border-left:3px solid var(--accent);font-size:21px;overflow-x:auto}
+.lab{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:22px 22px 18px;margin:26px 0 8px}
+.lab-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.lab-head h3{font-family:var(--serif);font-weight:normal;font-size:23px;margin:0}
+.lab-tag{font-size:11px;letter-spacing:.14em;font-weight:600;color:var(--accent);text-transform:uppercase}
+.lab-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,1fr);gap:22px;align-items:start}
+.lab-grid.stack{grid-template-columns:minmax(0,1fr)}
+.lab-grid.stack .steps{grid-template-columns:120px minmax(0,1fr) auto;font-size:16px}
+.plot{background:#fffefb;border:1px solid var(--rule);border-radius:4px;width:100%;height:auto;display:block;touch-action:none}
+.plot text{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.plot .axis{stroke:#8b949a;stroke-width:1}
+.plot .grid{stroke:#ebe9e1;stroke-width:1}
+.plot .curve{fill:none;stroke:var(--exact);stroke-width:2.4}
+.plot .num{fill:none;stroke:var(--num);stroke-width:2.2}
+.plot .num-dot{fill:var(--num)}
+.plot .err{fill:none;stroke:var(--accent);stroke-width:2}
+.plot .en{fill:none;stroke:var(--num);stroke-width:2;stroke-dasharray:5 4}
+.plot .tangent{stroke:var(--accent);stroke-width:2;stroke-dasharray:6 4}
+.plot .ball{fill:var(--accent);stroke:#fff;stroke-width:2;cursor:grab}
+.plot .force{stroke:var(--good);stroke-width:4;marker-end:url(#arrowF)}
+.plot .flabel{fill:var(--good);font-weight:600;font-size:13px}
+.plot .hint{fill:var(--muted);font-size:11px}
+.plot .zone-good{fill:var(--good-bg)} .plot .zone-warn{fill:var(--warn-bg)} .plot .zone-bad{fill:var(--bad-bg)}
+.ctrl{display:flex;flex-direction:column;gap:14px}
+.field label,.field .lbl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px}
+.field label output,.field .lbl output{font-family:var(--sans);font-variant-numeric:tabular-nums;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--rule);background:#fffefb;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:4px;padding:8px 14px;font-size:14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.readout{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;border-top:1px solid var(--rule);padding-top:12px;margin:0}
+.readout dt{color:var(--muted)} .readout dd{margin:0;font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.state{font-size:13px;font-weight:600;padding:8px 10px;border-radius:4px}
+.state.good{background:var(--good-bg);color:var(--good)} .state.warn{background:var(--warn-bg);color:var(--warn)} .state.bad{background:var(--bad-bg);color:var(--bad)}
+.task{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;align-items:start;margin-top:18px;padding-top:16px;border-top:1px dashed #c7c4b8}
+.task .ala-box svg{width:64px;height:auto;overflow:visible}
+.task h4{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.task p{margin:0 0 10px;font-size:15px;line-height:1.55}
+.task .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.task input[type=text]{width:120px;padding:7px 9px;border:1px solid #b9b6aa;border-radius:4px;background:#fffefb;font-variant-numeric:tabular-nums}
+.feedback{font-size:14px;margin:8px 0 0;min-height:1.4em;line-height:1.5}
+.feedback.ok{color:var(--good)} .feedback.no{color:var(--bad)}
+.done-badge{display:none;font-size:12px;font-weight:600;color:var(--good);border:1px solid var(--good);border-radius:999px;padding:2px 10px}
+.lab.is-done .done-badge{display:inline-block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0 0}
+.legend i{display:inline-block;width:18px;height:0;border-top:2.4px solid var(--exact);vertical-align:middle;margin-right:6px}
+.legend i.n{border-color:var(--num)} .legend i.e{border-color:var(--accent)} .legend i.d{border-top-style:dashed;border-color:var(--num)}
+.steps{display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;font-size:15px;margin:0 0 12px;align-items:baseline}
+.steps .k{font-size:12px;color:var(--muted)}
+.steps .f{font-family:var(--serif)}
+.steps .v{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.steps .hidden{color:#b0ada3}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--ink)}
+th:first-child,td:first-child{text-align:left}
+td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:right}
+td.ratio{color:var(--accent);font-weight:600}
+.motions{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.motions button{width:100%;display:flex;justify-content:space-between;gap:8px;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:6px 10px;font-size:13px;cursor:pointer;text-align:left}
+.motions button[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.motions button.off{text-decoration:line-through;color:#9a978d}
+.motions span.t{font-variant-numeric:tabular-nums}
+.toggle{display:flex;gap:8px;align-items:center;font-size:14px}
+.toggle input{width:18px;height:18px;accent-color:var(--accent)}
+.quiz{display:flex;flex-direction:column;gap:22px}
+.q{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:18px 20px}
+.q p.stem{font-family:var(--serif);font-size:19px;line-height:1.55;margin:0 0 12px}
+.q .opts{display:flex;flex-direction:column;gap:6px}
+.q .opts button{text-align:left;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:9px 12px;font-size:15px;line-height:1.45;cursor:pointer}
+.q .opts button.right{border-color:var(--good);background:var(--good-bg)}
+.q .opts button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.q .why{font-size:15px;line-height:1.55;margin:10px 0 0}
+.bridge{display:grid;grid-template-columns:90px minmax(0,1fr);gap:18px;align-items:center;border-top:1px solid var(--ink);padding-top:22px}
+.bridge svg{width:90px;height:auto}
+.bridge p{font-family:var(--serif);font-size:18px;line-height:1.6;margin:0}
+.about{font-size:13px;line-height:1.6;color:var(--muted);border-top:1px solid var(--rule);margin-top:40px;padding-top:16px;max-width:760px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:820px){
+  .lab-grid{grid-template-columns:minmax(0,1fr)}
+  .mast{grid-template-columns:minmax(0,1fr) 90px}
+  .mast .ala-hello{width:90px}
+  .goals{grid-template-columns:minmax(0,1fr)}
+  .goal{border-right:0;border-bottom:1px solid var(--rule);padding-left:0!important}
+  .goal:last-child{border-bottom:0}
+}
+@media (max-width:600px){.plot text{font-size:21px}.plot .hint{font-size:17px}.plot .flabel{font-size:22px}}
+@media (max-width:480px){
+  .lab{padding:16px 14px}
+  .prose p{font-size:18px}
+  .task{grid-template-columns:48px minmax(0,1fr)}
+  .task .ala-box svg{width:48px}
+  .bridge{grid-template-columns:60px minmax(0,1fr)}
+  .bridge svg{width:60px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ---- DK-T ek stiller ---- */
+.fig{margin:10px 0 50px}
+.fig svg{width:100%;height:auto;display:block}
+.fig figcaption,.cap{font-size:13px;line-height:1.55;color:var(--muted);margin-top:10px;max-width:760px}
+.fig figcaption b,.cap b{color:var(--ink)}
+.hero{background:#fffefb;border:1px solid var(--rule);border-radius:6px;padding:8px}
+.scene{background:#fffefb;border:1px solid var(--rule);border-radius:4px;width:100%;height:auto;display:block;touch-action:none;user-select:none;-webkit-user-select:none}
+.scene text{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.scene .lig{cursor:grab}
+.scene .lig:focus{outline:none}
+.scene .lig:focus-visible .ring-hit{stroke:var(--accent);stroke-width:2;stroke-dasharray:4 3}
+.scene.dragging .lig{cursor:grabbing}
+canvas.scene{aspect-ratio:520/460}
+.bars{display:grid;grid-template-columns:118px minmax(0,1fr) 58px;gap:6px 8px;align-items:center;font-size:13px;margin:0}
+.bars .nm{color:var(--muted)}
+.bars .track{position:relative;height:14px;background:#fffefb;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.bars .track::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px solid #9aa0a4}
+.bars .fill{position:absolute;top:1px;bottom:1px;border-radius:2px;transition:left .12s,width .12s}
+.bars .fill.neg{background:var(--good)} .bars .fill.pos{background:var(--bad)}
+.bars .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.bars .tot .nm,.bars .tot .val{color:var(--ink);font-weight:700}
+.bars .tot .track{height:18px}
+.bars .row{display:contents}
+.bars .row.tot > *{padding-top:6px;border-top:1px solid var(--rule)}
+.bars .row.tot .track{border-top:1px solid var(--rule)}
+.hbadge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--rule);background:#fffefb}
+.hbadge i{width:9px;height:9px;border-radius:50%;background:#c7c4b8;display:block}
+.hbadge.on{border-color:var(--good);color:var(--good)} .hbadge.on i{background:var(--good)}
+.hbadge.clash{border-color:var(--bad);color:var(--bad)} .hbadge.clash i{background:var(--bad)}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.keys{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+kbd{font-family:var(--sans);font-size:11px;border:1px solid #b9b6aa;border-bottom-width:2px;border-radius:3px;padding:0 4px;background:#fffefb}
+.callout{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;align-items:start;background:var(--warn-bg);border-left:3px solid var(--warn);padding:16px 18px;border-radius:0 6px 6px 0;margin:8px 0 26px;max-width:760px}
+.callout svg{width:72px;height:auto;overflow:visible}
+.callout p{margin:0 0 8px;font-family:var(--serif);font-size:18px;line-height:1.6}
+.callout p:last-child{margin-bottom:0}
+.callout h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--warn)}
+.cands{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.cands li{display:grid;grid-template-columns:auto 22px minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:6px 10px;font-size:13px}
+.cands li.sel{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.cands li button.pick{border:0;background:transparent;padding:0;text-align:left;cursor:pointer;font-size:13px;font-weight:600}
+.cands li .sw{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff}
+.cands li .m{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.cands li input{width:18px;height:18px;accent-color:var(--good)}
+.cands li.na{opacity:.5}
+.tbl-note{font-size:12px;color:var(--muted);margin:6px 0 0}
+td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
+.ans{display:flex;flex-direction:column;gap:6px;margin:6px 0 8px}
+.ans button{text-align:left;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:8px 12px;font-size:14px;line-height:1.45;cursor:pointer}
+.ans button.right{border-color:var(--good);background:var(--good-bg)} .ans button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.ans button:disabled{cursor:default;opacity:.55}
+.twocol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.logbar{position:relative;height:74px;margin:6px 0 4px}
+.status{font-size:13px;color:var(--muted);min-height:1.4em}
+@media (max-width:820px){.twocol{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){.scene text{font-size:17px}.bars{grid-template-columns:96px minmax(0,1fr) 52px;font-size:12px}}
+@media (max-width:480px){.callout{grid-template-columns:48px minmax(0,1fr)}.callout svg{width:48px}.cands li{grid-template-columns:auto 22px minmax(0,1fr);}.cands li .m{grid-column:3}}
+.pipe{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr) 30px minmax(0,1fr);align-items:stretch}
+.pcard{border:1px solid var(--rule);background:#fffefb;border-radius:6px;overflow:hidden}
+.pcard h5{margin:0;padding:11px 14px;color:#faf9f5;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pcard h5 span{font-size:12px;font-weight:400;opacity:.8}
+.pb{padding:12px 14px 14px}
+.pb b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin:2px 0 4px}
+.pb b.y{color:var(--good)} .pb b.n{color:var(--bad)}
+.pb p{margin:0 0 12px;font-size:15px;line-height:1.5}
+.parr{display:grid;place-items:center;font-size:22px;color:var(--ink)}
+.figscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:820px){.pipe{grid-template-columns:minmax(0,1fr)}.parr{transform:rotate(90deg);height:30px}}
+@media (max-width:700px){.figscroll svg,.hero svg{min-width:680px}.hero{overflow-x:auto}}
+/* ---- DK-U ek stiller ---- */
+.facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);margin:0 0 18px}
+.fact{padding:16px 14px 16px 0;border-right:1px solid var(--rule)}
+.fact:not(:first-child){padding-left:14px}
+.fact:last-child{border-right:0}
+.fact b{display:block;font-family:var(--serif);font-weight:normal;font-size:clamp(24px,3vw,34px);line-height:1.05;color:var(--ink);letter-spacing:-.02em}
+.fact span{display:block;font-size:12px;line-height:1.4;color:var(--muted);margin-top:6px}
+.recall{border:1px solid var(--rule);background:#fffefb;border-radius:6px;padding:16px 18px;margin:0 0 50px;display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;align-items:start}
+.recall svg{width:64px;height:auto;overflow:visible}
+.recall h4{margin:0 0 8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.recall ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 22px}
+.recall li{font-size:14px;line-height:1.5;padding-left:14px;position:relative}
+.recall li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.wbars{display:flex;flex-direction:column;gap:12px}
+.wbar label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px}
+.wbar label output{font-variant-numeric:tabular-nums;color:var(--accent)}
+.wbar .sub{font-size:11px;color:var(--muted);font-weight:400}
+.metric{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;border-top:1px solid var(--rule);padding-top:12px;margin-top:4px}
+.metric dt{color:var(--muted)} .metric dd{margin:0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.metric dd.hi{color:var(--good)} .metric dd.lo{color:var(--bad)}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;border-radius:3px;padding:2px 7px}
+.pill.act{background:var(--good-bg);color:var(--good)} .pill.weak{background:var(--warn-bg);color:var(--warn)} .pill.dec{background:#e9ecef;color:#51606b}
+.t2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.molcard{border:1px solid var(--rule);background:#fffefb;border-radius:6px;padding:14px}
+.molcard h4{margin:0 0 4px;font-size:14px}
+.molcard .smi{font-size:11px;color:var(--muted);word-break:break-all;margin:0 0 10px;font-family:var(--sans)}
+.termbars{display:grid;grid-template-columns:96px minmax(0,1fr) 52px;gap:5px 8px;align-items:center;font-size:12px}
+.termbars .nm{color:var(--muted)} .termbars .tk{position:relative;height:13px;background:#faf9f5;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.termbars .tk::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px solid #9aa0a4}
+.termbars .fl{position:absolute;top:1px;bottom:1px;border-radius:2px} .termbars .fl.neg{background:var(--good)} .termbars .fl.pos{background:var(--bad)}
+.termbars .vv{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+@media (max-width:820px){.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.fact:nth-child(3){border-right:0}.fact:nth-child(n+4){border-top:1px solid var(--rule)}.fact:nth-child(4){padding-left:0}.recall ul{grid-template-columns:minmax(0,1fr)}.t2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header class="topline">
+  <div class="brand"><b>MD</b><span>Biyomoleküler sistemlerde Moleküler Dinamik · Docking eki · Uzman düzey</span></div>
+  <div class="progress" aria-live="polite"><span id="progText">Uygulamalar: 0 / 4</span><span class="dots" id="progDots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>
+</header>
+
+<div class="mast">
+  <div>
+    <p class="eyebrow">DK-U · Pilot bölüm · Etkileşimli sürüm</p>
+    <h1>Skor, afinite ve binlerce anahtar</h1>
+    <p class="deck">Pozu bulmayı çözdük. Şimdi asıl soruyu soruyoruz: skor, bir molekülün ne kadar güçlü bağlandığını sıralayabilir mi? Aynı cebe yüzlerce gerçek bileşiği dock edip ölçülmüş afiniteyle karşılaştırıyoruz.</p>
+  </div>
+  <div class="ala-hello" data-ala="selam"></div>
+</div>
+
+<div class="recall">
+  <div data-ala="ipucu"></div>
+  <div>
+    <h4>Alt düzeylerden hatırlatma (DK-T, DK-O)</h4>
+    <ul>
+      <li><b>Poz</b> aramak ile <b>afinite</b> sıralamak farklı iki iştir.</li>
+      <li>3PTB'de redocking 10/10 başarılı; skor yaklaşık −6,1.</li>
+      <li>Vina skoru kcal/mol yazar ama <b>ölçüm değil, tahmindir</b>.</li>
+      <li>Skor fonksiyonunda elektrostatik terim yoktur; beş terim toplanır.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="facts" id="facts" aria-label="Kütüphaneden sayılar"></div>
+<p class="cap" id="factsCap" style="margin:0 0 54px"></p>
+
+<!-- ============ 1 ============ -->
+<section class="unit" id="s1">
+  <div class="prose">
+    <h2><small>1 · Asıl soru</small>Skor, afiniteyi sıralayabilir mi?</h2>
+    <p class="lead">ChEMBL'den tripsin için ölçülmüş bağlanma sabiti (K<sub>i</sub>) olan bileşikleri topladık ve her birini DK-O'daki aynı 3PTB reseptörüne, aynı kutuya dock ettik. Şimdi iki sayıyı karşılaştırabiliriz: docking <b>skoru</b> (düşük = iyi) ve deneysel <b>pK<sub>i</sub></b> (yüksek = güçlü bağlanma).</p>
+    <p>Skor mükemmel bir afinite tahmincisi olsaydı, noktalar aşağı inen dar bir çizgi oluştururdu. Grafiği inceleyin: eksenleri, kalıntı çizgisini ve korelasyon katsayısını okuyun.</p>
+  </div>
+  <div class="lab" id="labA">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 1</span><h3>Skor ve ölçülen afinite</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="scA" viewBox="0 0 640 420" role="img" aria-label="Docking skoruna karşı ölçülen pKi dağılım grafiği"></svg>
+        <div class="vbar" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+          <label class="toggle"><input type="checkbox" id="aFit" checked> En uygun doğru</label>
+          <label class="toggle"><input type="checkbox" id="aAmid"> Amidin/guanidin taşıyanları işaretle</label>
+        </div>
+      </div>
+      <div class="ctrl">
+        <dl class="metric" id="mA"></dl>
+        <div class="molcard" id="pickA" style="margin-top:12px"><h4>Bir noktaya tıklayın</h4><p class="smi">Seçilen bileşiğin skoru, pK<sub>i</sub>'si ve terim katkıları burada görünür.</p></div>
+      </div>
+    </div>
+    <div class="task">
+      <div class="ala-box" data-ala="kanit" id="alaA"></div>
+      <div>
+        <h4>Görev 1</h4>
+        <p>Skor ile pK<sub>i</sub> arasındaki Spearman sıra korelasyonu kaç? (Sağdaki panelde yazıyor; ondalık virgülle, örn. −0,42.) Sonra en iyi skorlu üç bileşiği bulun: en güçlü bağlanan onlar mı?</p>
+        <div class="row"><label class="sr" for="inA">Spearman</label><input type="text" id="inA" inputmode="text" placeholder="Spearman ρ"><button class="btn" id="chkA">Kontrol et</button></div>
+        <p class="feedback" id="fbA" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px" id="proseA"></p></div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="unit" id="s2">
+  <div class="prose">
+    <h2><small>2 · Gizli değişken</small>Skor aslında neyi ölçüyor?</h2>
+    <p class="lead">Zayıf da olsa bir eğilim var: daha iyi skorlu bileşikler ortalamada biraz daha güçlü bağlanıyor. Ama bu eğilimin bir kısmı afiniteden değil, <b>boyuttan</b> gelir. Büyük bir molekül cebe daha çok atom sokar, daha çok temas terimi toplar ve neredeyse otomatik olarak daha iyi (daha düşük) skor alır.</p>
+    <p>Aşağıda aynı noktaları bu kez skora karşı <b>ağır atom sayısıyla</b> çizin. İki eğilimi karşılaştırın: skorun boyutla ilişkisi, afiniteyle ilişkisinden güçlü mü?</p>
+  </div>
+  <div class="lab" id="labB">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 2</span><h3>Boyut karıştırıcısı</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="scB" viewBox="0 0 640 420" role="img" aria-label="Docking skoruna karşı seçilen eksen"></svg>
+        <div class="field" style="margin-top:10px"><span class="lbl">Yatay eksen</span>
+          <div class="chips" id="axB" role="group" aria-label="Yatay eksen"><button class="chip" data-v="ha" aria-pressed="true">Ağır atom sayısı</button><button class="chip" data-v="pki" aria-pressed="false">Ölçülen pK<sub>i</sub></button></div></div>
+      </div>
+      <div class="ctrl">
+        <dl class="metric" id="mB"></dl>
+        <p class="keys" id="keysB" style="margin-top:10px"></p>
+      </div>
+    </div>
+    <div class="task">
+      <div class="ala-box" data-ala="ipucu" id="alaB"></div>
+      <div>
+        <h4>Görev 2</h4>
+        <p>Skoru ağır atom sayısına bölerek kaba bir "atom başına skor" elde edin (panel bunu da hesaplıyor). Bu ölçü pK<sub>i</sub> ile ham skordan daha mı iyi, daha mı kötü ilişkili? Doğru cümleyi seçin.</p>
+        <div class="ans" id="ansB" role="group" aria-label="Görev 2 seçenekleri">
+          <button data-ok="0">Atom başına skor, pK<sub>i</sub>'yi ham skordan çok daha iyi tahmin eder; boyut düzeltmesi sorunu tümüyle çözer.</button>
+          <button data-ok="1">Ham skorun pK<sub>i</sub> ile zayıf ilişkisinin bir kısmı boyuttan gelir; boyutu bölünce ilişki daha da zayıflar. Skor tek başına güvenilir bir afinite sıralaması vermez.</button>
+          <button data-ok="0">Boyutun hiçbir etkisi yoktur; skor yalnızca afiniteyi ölçer.</button>
+        </div>
+        <p class="feedback" id="fbB" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="unit" id="s3">
+  <div class="prose">
+    <h2><small>3 · Zenginleştirme ve tuzak yanlılığı</small>Sıralamanın işe yarayan yanı</h2>
+    <p class="lead">Docking afiniteyi tam sıralayamasa da bir işe yarar: bir kütüphaneyi tarayıp <b>etkin molekülleri listenin başına</b> toplamak. Bunu ölçmek için etkinleri (güçlü bağlananları) bir grup <b>tuzak</b> molekülle karıştırıp skora göre sıralarız ve etkinlerin ne kadar öne geçtiğine bakarız (ROC eğrisi, EAUC ve zenginleştirme faktörü EF).</p>
+    <p>Ama sonuç, tuzakları nasıl seçtiğinize bağlıdır. İki negatif seti karşılaştırın: aynı hedefin <b>zayıf bağlananları</b> ve <b>başka bir hedefin</b> (dopamin D2) bileşikleri. Hangisi daha kolay ayrılıyor?</p>
+  </div>
+  <div class="lab" id="labC">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 3</span><h3>ROC ve zenginleştirme</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="rocC" viewBox="0 0 460 420" role="img" aria-label="ROC eğrisi"></svg>
+      </div>
+      <div class="ctrl">
+        <div class="field"><span class="lbl">Negatif set (tuzaklar)</span>
+          <div class="chips" id="negC" role="group" aria-label="Negatif set"><button class="chip" data-v="vs_weak_trypsin" aria-pressed="true">Zayıf tripsin bağlayıcıları</button><button class="chip" data-v="vs_d2_decoy" aria-pressed="false">Dopamin D2 bileşikleri</button></div></div>
+        <dl class="metric" id="mC"></dl>
+        <p class="keys" id="keysC" style="margin-top:10px"></p>
+      </div>
+    </div>
+    <div class="task">
+      <div class="ala-box" data-ala="dikkat" id="alaC"></div>
+      <div>
+        <h4>Görev 3</h4>
+        <p>İki negatif setin EAUC değerlerini karşılaştırın. Başka bir hedefin bileşiklerini tuzak yapmak zenginleştirmeyi neden yükseltir?</p>
+        <div class="ans" id="ansC" role="group" aria-label="Görev 3 seçenekleri">
+          <button data-ok="1">Başka hedefin bileşikleri bu cebe kimyaca uymaz (çoğu pozitif yük ve amidin taşımaz); docking onları kolayca eler. Bu yüksek EAUC, gerçek zorluk olan "aynı hedefin zayıf bağlayıcılarından ayırma"yı ölçmez.</button>
+          <button data-ok="0">D2 bileşikleri daha büyük olduğu için daha iyi skor alır ve etkinlerle karışır.</button>
+          <button data-ok="0">İki set arasında hiçbir fark yoktur; EAUC aynıdır.</button>
+        </div>
+        <p class="feedback" id="fbC" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px" id="proseC"></p></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="unit" id="s4">
+  <div class="prose">
+    <h2><small>4 · Ağırlıkları uydurmak</small>Kendi skor fonksiyonunuzu ayarlayın</h2>
+    <p class="lead">Skor, beş terimin ağırlıklı toplamıdır. Peki bu ağırlıkları elimizdeki tripsin verisine uydursaydık daha iyi bir afinite tahmincisi elde eder miydik? Aşağıda beş terimin katsayısını kaydırın; sistem her bileşik için pK<sub>i</sub>'yi tahmin eder ve ölçülen değerle karşılaştırır.</p>
+    <p>İki doğrulama sonucu birlikte gösteriliyor: ağırlıkları verinin bir kısmına uydurup <b>rastgele</b> ayrılmış kısımda sınamak, ve aynı şeyi <b>yayına göre gruplayarak</b> yapmak (aynı makalenin bileşikleri hem eğitimde hem sınamada olamaz). Aradaki farka dikkat edin.</p>
+  </div>
+  <div class="lab" id="labD">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 4</span><h3>Ağırlık atölyesi</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="scD" viewBox="0 0 640 420" role="img" aria-label="Tahmin edilen ve ölçülen pKi"></svg>
+      </div>
+      <div class="ctrl">
+        <div class="wbars" id="wD"></div>
+        <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn" id="fitD">Veriye uydur</button><button class="btn ghost" id="vinaD">Vina ağırlıkları</button></div>
+        <dl class="metric" id="mD"></dl>
+      </div>
+    </div>
+    <div class="task">
+      <div class="ala-box" data-ala="kanit" id="alaD"></div>
+      <div>
+        <h4>Görev 4</h4>
+        <p>"Veriye uydur" düğmesine basın. Rastgele bölmede uyum iyi görünüyor. Yayına göre bölmede R² değeri nasıl değişiyor? Hangi cümle doğru?</p>
+        <div class="ans" id="ansD" role="group" aria-label="Görev 4 seçenekleri">
+          <button data-ok="0">Yayına göre bölme rastgeleyle aynı sonucu verir; gruplamanın etkisi yoktur.</button>
+          <button data-ok="1">Yayına göre bölünce R² belirgin düşer: model kısmen "aynı makaledeki benzer bileşikleri" ezberliyordu. Yeni bir kimyasal seriye genellemesi çok daha zayıf.</button>
+          <button data-ok="0">Yayına göre bölme R²'yi yükseltir; gruplamak modeli iyileştirir.</button>
+        </div>
+        <p class="feedback" id="fbD" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px" id="proseD"></p></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="unit" id="s5">
+  <div class="prose">
+    <h2><small>5 · Docking'in ötesi</small>Afiniteyi gerçekten hesaplamak</h2>
+    <p>Docking skorunun afiniteyi güvenilir sıralayamaması yeni bir bulgu değildir; docking bir <b>poz üretici ve hızlı eleyicidir</b>, bir afinite ölçer değil. Daha titiz tahmin için fizik tabanlı, çok daha pahalı yöntemler gerekir. Göreli serbest enerji (RBFE) hesapları, benzer bileşikler arasındaki afinite farklarını yeterli doğrulukla öngörebildiği bildirilen bir ailedir; kaynağını 6. kısımda vereceğiz. Zincir hep aynıdır: docking aday üretir, MD pozun kararlılığını sınar, serbest enerji yöntemleri afiniteyi sıralamaya çalışır.</p>
+    <p>Modern yaklaşımlar skor fonksiyonunu makine öğrenmesiyle de değiştirir (örneğin evrişimli ağlar). Ama 4. laboratuvardaki ders burada da geçerlidir: bu modeller ölçütlerdeki gizli yanlılıkları farkında olmadan öğrenebilir, ve rastgele bölmeyle ölçülen başarı, yeni bir kimyasal seriye genellemeyi abartır.</p>
+  </div>
+  <figure class="fig">
+    <svg viewBox="0 0 960 210" role="img" aria-labelledby="pipeT">
+      <title id="pipeT">Docking, MD ve serbest enerji hesaplarının artan maliyet ve doğrulukla dizilişi</title>
+      <defs><marker id="pArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#243744"/></marker></defs>
+      <g font-family="Segoe UI,system-ui,sans-serif">
+        <rect x="10" y="30" width="290" height="150" rx="6" fill="#fffefb" stroke="#d6d6cd"/>
+        <rect x="10" y="30" width="290" height="40" rx="6" fill="#243744"/><rect x="10" y="58" width="290" height="12" fill="#243744"/>
+        <text x="28" y="56" font-size="15" font-weight="600" fill="#faf9f5">Docking / tarama</text>
+        <text x="28" y="98" font-size="13" fill="#243744">Poz üretir, kütüphaneyi eler.</text>
+        <text x="28" y="122" font-size="13" fill="#a3402f">Afiniteyi güvenilir sıralamaz.</text>
+        <text x="28" y="158" font-size="12" fill="#677078">saniye/molekül · bu bölüm</text>
+        <line x1="306" y1="105" x2="344" y2="105" stroke="#243744" stroke-width="2" marker-end="url(#pArr)"/>
+        <rect x="350" y="30" width="270" height="150" rx="6" fill="#fffefb" stroke="#d6d6cd"/>
+        <rect x="350" y="30" width="270" height="40" rx="6" fill="#2f6f95"/><rect x="350" y="58" width="270" height="12" fill="#2f6f95"/>
+        <text x="368" y="56" font-size="15" font-weight="600" fill="#faf9f5">MD</text>
+        <text x="368" y="98" font-size="13" fill="#243744">Pozun suda, hareketli</text><text x="368" y="116" font-size="13" fill="#243744">reseptörde kararlılığı.</text>
+        <text x="368" y="158" font-size="12" fill="#677078">saat–gün</text>
+        <line x1="626" y1="105" x2="664" y2="105" stroke="#243744" stroke-width="2" marker-end="url(#pArr)"/>
+        <rect x="670" y="30" width="280" height="150" rx="6" fill="#fffefb" stroke="#d6d6cd"/>
+        <rect x="670" y="30" width="280" height="40" rx="6" fill="#934b3c"/><rect x="670" y="58" width="280" height="12" fill="#934b3c"/>
+        <text x="688" y="56" font-size="15" font-weight="600" fill="#faf9f5">Serbest enerji (RBFE)</text>
+        <text x="688" y="98" font-size="13" fill="#243744">Benzer bileşikler arası</text><text x="688" y="116" font-size="13" fill="#243744">afinite farkını hesaplar.</text>
+        <text x="688" y="158" font-size="12" fill="#677078">en pahalı · en titiz</text>
+      </g>
+    </svg>
+    <figcaption><b>Şekil DK.5 · Maliyet arttıkça soru derinleşir.</b> Bu bölümdeki laboratuvarlar en soldaki kutunun sınırını gösterir: hızlı ve kütüphane taramaya uygun, ama afinite ölçmez.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="unit" id="s6">
+  <div class="prose"><h2><small>6 · Kendinizi sınayın</small>Dört yorum</h2></div>
+  <div class="quiz" id="quiz"></div>
+</section>
+
+<div class="bridge"><div data-ala="tebrik"></div><p>Docking sarmalını tamamladınız: temelde pozu ve skoru, orta düzeyde gerçek bir yapıyı ve hazırlığı, uzman düzeyde skorun afiniteye karşı sınırını gördünüz. Buradan doğal devam, tek bir aday poz için serbest enerji hesabına (CH19) ve docking sonrası MD doğrulamasına geçmektir.</p></div>
+
+<p class="about"><b>Bu sayfa hakkında.</b> DK-U için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Bileşikler ve K<sub>i</sub> değerleri ChEMBL'den alındı (tripsin CHEMBL3769; tuzak seti dopamin D2 CHEMBL217); her bileşik 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2025.09.6 ile gerçek olarak dock edildi. Protonasyon açık kurallı basit bir modelle yapıldı; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/screen/</code> altındadır. Bu keşif amaçlı teknik bir denemedir: 3B konformer üretimi tek tohumla yapıldı, tek docking programı kullanıldı, protonasyon ve tautomer incelemesi yapılmadı, sonuçlar bağımsız doğrulanmadı. Bilimsel ve hedef-okur incelemesi yapılmadı.</p>
+</div>
+
+<script>
+var DKU={"meta":{"n_trypsin":144,"n_decoy":54,"n_active":54,"n_weak":28,"n_docs":37,"n_docked":198},"corr_score_pki":{"pearson":-0.363,"pearson_ci":[-0.49,-0.222],"spearman":-0.381,"spearman_ci":[-0.523,-0.219],"n":142},"linear_fit":{"slope":-0.483,"intercept":2.451,"r2":0.132,"rmse_pki":1.269},"corr_score_ha":-0.605,"corr_pki_ha":0.464,"corr_scorePerHA_pki":0.312,"size_check":{"ha_active_median":37.0,"ha_weak_median":30.0,"ha_decoy_median":33.0,"score_active_median":-8.74,"score_weak_median":-7.98,"score_decoy_median":-7.33},"enrichment_vs_weak_trypsin":{"n_active":54,"n_decoy":28,"auc":0.719,"ef1pct":1.52,"ef5pct":1.52,"ef10pct":1.14,"roc":[[0.0,0.0],[0.0,0.019],[0.0,0.037],[0.0,0.056],[0.0,0.074],[0.0,0.093],[0.036,0.093],[0.036,0.111],[0.071,0.111],[0.071,0.13],[0.071,0.148],[0.071,0.167],[0.071,0.185],[0.107,0.185],[0.107,0.204],[0.107,0.222],[0.107,0.241],[0.143,0.241],[0.179,0.241],[0.179,0.259],[0.179,0.278],[0.179,0.296],[0.179,0.315],[0.179,0.333],[0.179,0.352],[0.179,0.37],[0.179,0.389],[0.179,0.407],[0.179,0.426],[0.179,0.444],[0.179,0.463],[0.214,0.463],[0.214,0.481],[0.214,0.5],[0.214,0.519],[0.214,0.537],[0.214,0.556],[0.214,0.574],[0.214,0.593],[0.214,0.611],[0.214,0.63],[0.214,0.648],[0.25,0.648],[0.25,0.667],[0.25,0.685],[0.25,0.704],[0.25,0.722],[0.25,0.741],[0.25,0.759],[0.286,0.759],[0.321,0.759],[0.357,0.759],[0.393,0.759],[0.429,0.759],[0.429,0.778],[0.429,0.796],[0.464,0.796],[0.5,0.796],[0.5,0.815],[0.536,0.815],[0.571,0.815],[0.571,0.833],[0.607,0.833],[0.607,0.852],[0.607,0.87],[0.643,0.87],[0.679,0.87],[0.679,0.889],[0.714,0.889],[0.714,0.907],[0.75,0.907],[0.786,0.907],[0.821,0.907],[0.821,0.926],[0.821,0.944],[0.857,0.944],[0.857,0.963],[0.857,0.981],[0.857,1.0],[0.893,1.0],[0.929,1.0],[0.964,1.0],[1.0,1.0],[1.0,1.0]]},"enrichment_vs_d2_decoy":{"n_active":54,"n_decoy":54,"auc":0.851,"ef1pct":2.0,"ef5pct":2.0,"ef10pct":2.0,"roc":[[0.0,0.0],[0.0,0.019],[0.0,0.037],[0.0,0.056],[0.0,0.074],[0.0,0.093],[0.0,0.111],[0.0,0.13],[0.0,0.148],[0.0,0.167],[0.0,0.185],[0.0,0.204],[0.0,0.222],[0.0,0.241],[0.0,0.259],[0.0,0.278],[0.019,0.278],[0.019,0.296],[0.019,0.315],[0.019,0.333],[0.019,0.352],[0.019,0.37],[0.019,0.389],[0.019,0.407],[0.019,0.426],[0.019,0.444],[0.019,0.463],[0.019,0.481],[0.019,0.5],[0.019,0.519],[0.019,0.537],[0.037,0.537],[0.037,0.556],[0.056,0.556],[0.056,0.574],[0.056,0.593],[0.074,0.593],[0.074,0.611],[0.074,0.63],[0.093,0.63],[0.093,0.648],[0.111,0.648],[0.13,0.648],[0.148,0.648],[0.167,0.648],[0.167,0.667],[0.167,0.685],[0.185,0.685],[0.185,0.704],[0.185,0.722],[0.185,0.741],[0.185,0.759],[0.204,0.759],[0.222,0.759],[0.222,0.778],[0.241,0.778],[0.241,0.796],[0.259,0.796],[0.259,0.815],[0.278,0.815],[0.278,0.833],[0.296,0.833],[0.296,0.852],[0.315,0.852],[0.333,0.852],[0.352,0.852],[0.37,0.852],[0.389,0.852],[0.407,0.852],[0.407,0.87],[0.426,0.87],[0.426,0.889],[0.444,0.889],[0.463,0.889],[0.481,0.889],[0.5,0.889],[0.519,0.889],[0.537,0.889],[0.537,0.907],[0.556,0.907],[0.574,0.907],[0.593,0.907],[0.611,0.907],[0.63,0.907],[0.648,0.907],[0.648,0.926],[0.667,0.926],[0.667,0.944],[0.685,0.944],[0.704,0.944],[0.704,0.963],[0.722,0.963],[0.722,0.981],[0.741,0.981],[0.759,0.981],[0.778,0.981],[0.796,0.981],[0.815,0.981],[0.833,0.981],[0.852,0.981],[0.87,0.981],[0.889,0.981],[0.907,0.981],[0.907,1.0],[0.926,1.0],[0.944,1.0],[0.963,1.0],[0.981,1.0],[1.0,1.0],[1.0,1.0]]},"weight_fit":{"cv_random_r2":0.196,"cv_random_pearson":0.463,"cv_bydoc_r2":0.055,"cv_bydoc_pearson":0.356,"n_docs":36,"coef_full":{"gauss1":-0.002,"gauss2":0.0047,"repulsion":-0.8348,"hydrophobic":-0.0006,"hbond":0.3806,"torsdof":-0.0575,"const":1.0404},"note":"pozitif katsayi: terimi buyudukce pKi artiyor demektir.","baseline_scoreonly_bydoc_r2":0.06},"scatter":[{"id":"CHEMBL1180364","set":"tripsin","score":-8.166,"pki":4.71,"ha":34,"amidine":false,"guan":true,"doc":"CHEMBL1131291","cat_asp":3.6,"censored":false,"torsdof":8,"rawterms":{"gauss1":90.419,"gauss2":1413.693,"repulsion":2.596,"hydrophobic":28.401,"hbond":4.537}},{"id":"CHEMBL7656","set":"tripsin","score":-9.342,"pki":4.79,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1130864","cat_asp":3.34,"censored":false,"torsdof":9,"rawterms":{"gauss1":119.846,"gauss2":1566.33,"repulsion":3.232,"hydrophobic":32.137,"hbond":5.967}},{"id":"CHEMBL40076","set":"tripsin","score":-6.533,"pki":4.92,"ha":33,"amidine":false,"guan":true,"doc":"CHEMBL1126701","cat_asp":3.9,"censored":false,"torsdof":7,"rawterms":{"gauss1":90.362,"gauss2":1362.878,"repulsion":2.411,"hydrophobic":30.91,"hbond":3.098}},{"id":"CHEMBL319122","set":"tripsin","score":-7.41,"pki":4.78,"ha":20,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.49,"censored":false,"torsdof":4,"rawterms":{"gauss1":82.211,"gauss2":1007.37,"repulsion":2.033,"hydrophobic":13.402,"hbond":3.474}},{"id":"CHEMBL7587","set":"tripsin","score":-8.22,"pki":4.523,"ha":35,"amidine":false,"guan":false,"doc":"CHEMBL1132084","cat_asp":null,"censored":true,"torsdof":9,"rawterms":{"gauss1":120.886,"gauss2":1582.622,"repulsion":3.031,"hydrophobic":56.346,"hbond":1.118}},{"id":"CHEMBL20825","set":"tripsin","score":-8.197,"pki":4.9,"ha":29,"amidine":true,"guan":false,"doc":"CHEMBL1135884","cat_asp":3.48,"censored":false,"torsdof":8,"rawterms":{"gauss1":95.45,"gauss2":1334.95,"repulsion":3.234,"hydrophobic":53.78,"hbond":4.402}},{"id":"CHEMBL129656","set":"tripsin","score":-7.935,"pki":4.83,"ha":28,"amidine":false,"guan":true,"doc":"CHEMBL1132849","cat_asp":3.61,"censored":false,"torsdof":9,"rawterms":{"gauss1":97.361,"gauss2":1279.092,"repulsion":2.148,"hydrophobic":43.286,"hbond":3.973}},{"id":"CHEMBL128980","set":"tripsin","score":-8.001,"pki":4.7,"ha":37,"amidine":false,"guan":true,"doc":"CHEMBL1127404","cat_asp":3.63,"censored":false,"torsdof":12,"rawterms":{"gauss1":122.235,"gauss2":1538.79,"repulsion":2.96,"hydrophobic":56.032,"hbond":3.148}},{"id":"CHEMBL82072","set":"tripsin","score":-8.822,"pki":4.96,"ha":36,"amidine":true,"guan":false,"doc":"CHEMBL1132097","cat_asp":4.06,"censored":false,"torsdof":10,"rawterms":{"gauss1":115.63,"gauss2":1531.226,"repulsion":3.625,"hydrophobic":67.895,"hbond":4.053}},{"id":"CHEMBL1193019","set":"tripsin","score":-9.631,"pki":4.48,"ha":38,"amidine":false,"guan":true,"doc":"CHEMBL1127404","cat_asp":3.5,"censored":false,"torsdof":9,"rawterms":{"gauss1":135.67,"gauss2":1685.221,"repulsion":4.72,"hydrophobic":70.518,"hbond":4.552}},{"id":"CHEMBL288573","set":"tripsin","score":-5.601,"pki":4.1,"ha":24,"amidine":false,"guan":false,"doc":"CHEMBL1126701","cat_asp":3.5,"censored":false,"torsdof":6,"rawterms":{"gauss1":76.478,"gauss2":1048.293,"repulsion":2.378,"hydrophobic":16.596,"hbond":3.96}},{"id":"CHEMBL424164","set":"tripsin","score":-8.214,"pki":4.09,"ha":38,"amidine":true,"guan":false,"doc":"CHEMBL1129885","cat_asp":17.48,"censored":false,"torsdof":9,"rawterms":{"gauss1":98.626,"gauss2":1400.504,"repulsion":1.965,"hydrophobic":47.506,"hbond":3.057}},{"id":"CHEMBL26490","set":"tripsin","score":-7.087,"pki":4.54,"ha":12,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.55,"censored":false,"torsdof":1,"rawterms":{"gauss1":63.549,"gauss2":783.553,"repulsion":2.013,"hydrophobic":5.332,"hbond":4.603}},{"id":"CHEMBL179004","set":"tripsin","score":-8.005,"pki":4.92,"ha":39,"amidine":false,"guan":false,"doc":"CHEMBL1142732","cat_asp":11.81,"censored":false,"torsdof":11,"rawterms":{"gauss1":104.893,"gauss2":1601.435,"repulsion":0.916,"hydrophobic":52.468,"hbond":0.158}},{"id":"CHEMBL145343","set":"tripsin","score":-9.137,"pki":4.5,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.69,"censored":false,"torsdof":7,"rawterms":{"gauss1":101.802,"gauss2":1513.189,"repulsion":3.278,"hydrophobic":44.598,"hbond":4.496}},{"id":"CHEMBL143910","set":"tripsin","score":-7.237,"pki":4.58,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.97,"censored":false,"torsdof":10,"rawterms":{"gauss1":99.469,"gauss2":1381.497,"repulsion":2.881,"hydrophobic":37.298,"hbond":3.262}},{"id":"CHEMBL276864","set":"tripsin","score":-4.616,"pki":4.49,"ha":10,"amidine":false,"guan":false,"doc":"CHEMBL1135460","cat_asp":3.64,"censored":false,"torsdof":4,"rawterms":{"gauss1":51.126,"gauss2":592.126,"repulsion":0.81,"hydrophobic":9.382,"hbond":1.774}},{"id":"CHEMBL340424","set":"tripsin","score":-7.128,"pki":4.17,"ha":29,"amidine":false,"guan":true,"doc":"CHEMBL1132849","cat_asp":3.46,"censored":false,"torsdof":10,"rawterms":{"gauss1":91.74,"gauss2":1294.608,"repulsion":3.624,"hydrophobic":14.628,"hbond":6.624}},{"id":"CHEMBL435423","set":"tripsin","score":-8.204,"pki":4.85,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.53,"censored":false,"torsdof":7,"rawterms":{"gauss1":87.439,"gauss2":1314.585,"repulsion":2.653,"hydrophobic":18.734,"hbond":5.526}},{"id":"CHEMBL1192827","set":"tripsin","score":-8.415,"pki":4.51,"ha":38,"amidine":false,"guan":true,"doc":"CHEMBL1127404","cat_asp":3.62,"censored":false,"torsdof":10,"rawterms":{"gauss1":104.921,"gauss2":1557.797,"repulsion":3.311,"hydrophobic":41.29,"hbond":4.938}},{"id":"CHEMBL287807","set":"tripsin","score":-7.19,"pki":4.38,"ha":27,"amidine":false,"guan":true,"doc":"CHEMBL1133126","cat_asp":3.58,"censored":false,"torsdof":9,"rawterms":{"gauss1":93.538,"gauss2":1186.967,"repulsion":2.236,"hydrophobic":28.23,"hbond":4.106}},{"id":"CHEMBL331179","set":"tripsin","score":-7.901,"pki":4.25,"ha":38,"amidine":false,"guan":false,"doc":"CHEMBL1130400","cat_asp":null,"censored":false,"torsdof":12,"rawterms":{"gauss1":103.263,"gauss2":1481.381,"repulsion":2.22,"hydrophobic":36.756,"hbond":4.208}},{"id":"CHEMBL79512","set":"tripsin","score":-4.752,"pki":4.7,"ha":11,"amidine":false,"guan":false,"doc":"CHEMBL1135460","cat_asp":3.57,"censored":false,"torsdof":5,"rawterms":{"gauss1":55.595,"gauss2":629.364,"repulsion":0.849,"hydrophobic":9.667,"hbond":1.963}},{"id":"CHEMBL117266","set":"tripsin","score":-9.196,"pki":4.49,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1134416","cat_asp":3.56,"censored":false,"torsdof":9,"rawterms":{"gauss1":117.963,"gauss2":1431.536,"repulsion":3.038,"hydrophobic":54.521,"hbond":4.818}},{"id":"CHEMBL610","set":"tripsin","score":-4.61,"pki":4.96,"ha":9,"amidine":false,"guan":false,"doc":"CHEMBL1135460","cat_asp":3.52,"censored":false,"torsdof":3,"rawterms":{"gauss1":55.004,"gauss2":597.556,"repulsion":1.546,"hydrophobic":5.361,"hbond":2.312}},{"id":"CHEMBL321960","set":"tripsin","score":-7.406,"pki":4.82,"ha":16,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.34,"censored":false,"torsdof":3,"rawterms":{"gauss1":72.571,"gauss2":944.531,"repulsion":3.265,"hydrophobic":8.098,"hbond":6.319}},{"id":"CHEMBL553108","set":"tripsin","score":-7.786,"pki":4.523,"ha":34,"amidine":false,"guan":false,"doc":"CHEMBL1132084","cat_asp":null,"censored":true,"torsdof":11,"rawterms":{"gauss1":113.944,"gauss2":1490.497,"repulsion":2.348,"hydrophobic":54.122,"hbond":1.929}},{"id":"CHEMBL1195767","set":"tripsin","score":-9.768,"pki":4.92,"ha":38,"amidine":false,"guan":true,"doc":"CHEMBL1127404","cat_asp":3.52,"censored":false,"torsdof":10,"rawterms":{"gauss1":134.742,"gauss2":1670.287,"repulsion":4.19,"hydrophobic":75.537,"hbond":5.024}},{"id":"CHEMBL153334","set":"tripsin","score":-7.955,"pki":4.85,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.61,"censored":false,"torsdof":7,"rawterms":{"gauss1":88.929,"gauss2":1303.53,"repulsion":2.927,"hydrophobic":19.561,"hbond":5.274}},{"id":"CHEMBL143501","set":"tripsin","score":-8.092,"pki":4.34,"ha":26,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.45,"censored":false,"torsdof":7,"rawterms":{"gauss1":93.285,"gauss2":1231.963,"repulsion":3.286,"hydrophobic":19.276,"hbond":6.501}},{"id":"CHEMBL24827","set":"tripsin","score":-9.044,"pki":5.77,"ha":30,"amidine":true,"guan":false,"doc":"CHEMBL1150979","cat_asp":15.34,"censored":false,"torsdof":9,"rawterms":{"gauss1":119.902,"gauss2":1418.348,"repulsion":2.328,"hydrophobic":61.621,"hbond":3.442}},{"id":"CHEMBL82456","set":"tripsin","score":-8.92,"pki":5.96,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.52,"censored":false,"torsdof":8,"rawterms":{"gauss1":104.05,"gauss2":1523.08,"repulsion":4.348,"hydrophobic":16.71,"hbond":6.949}},{"id":"CHEMBL170488","set":"tripsin","score":-7.895,"pki":5.63,"ha":33,"amidine":false,"guan":true,"doc":"CHEMBL1133878","cat_asp":3.72,"censored":false,"torsdof":9,"rawterms":{"gauss1":96.068,"gauss2":1397.401,"repulsion":1.751,"hydrophobic":35.074,"hbond":2.836}},{"id":"CHEMBL419661","set":"tripsin","score":-8.389,"pki":5.54,"ha":30,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.55,"censored":false,"torsdof":7,"rawterms":{"gauss1":96.068,"gauss2":1392.552,"repulsion":2.228,"hydrophobic":12.746,"hbond":4.513}},{"id":"CHEMBL314942","set":"tripsin","score":-8.116,"pki":5.32,"ha":35,"amidine":false,"guan":false,"doc":"CHEMBL1130583","cat_asp":3.65,"censored":false,"torsdof":11,"rawterms":{"gauss1":103.6,"gauss2":1507.564,"repulsion":1.68,"hydrophobic":53.438,"hbond":2.01}},{"id":"CHEMBL359275","set":"tripsin","score":-6.808,"pki":5.82,"ha":30,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":3.42,"censored":false,"torsdof":4,"rawterms":{"gauss1":94.803,"gauss2":1315.361,"repulsion":4.063,"hydrophobic":24.438,"hbond":6.792}},{"id":"CHEMBL355969","set":"tripsin","score":-6.251,"pki":5.66,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":3.56,"censored":false,"torsdof":4,"rawterms":{"gauss1":93.876,"gauss2":1315.555,"repulsion":2.68,"hydrophobic":26.462,"hbond":3.754}},{"id":"CHEMBL175599","set":"tripsin","score":-7.042,"pki":5.89,"ha":22,"amidine":false,"guan":true,"doc":"CHEMBL1142732","cat_asp":3.58,"censored":false,"torsdof":7,"rawterms":{"gauss1":83.926,"gauss2":1055.081,"repulsion":2.525,"hydrophobic":15.626,"hbond":5.226}},{"id":"CHEMBL103649","set":"tripsin","score":-8.612,"pki":5.4,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.59,"censored":false,"torsdof":10,"rawterms":{"gauss1":115.124,"gauss2":1508.728,"repulsion":2.406,"hydrophobic":37.469,"hbond":4.222}},{"id":"CHEMBL311608","set":"tripsin","score":-7.55,"pki":5.37,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1131090","cat_asp":13.98,"censored":false,"torsdof":7,"rawterms":{"gauss1":88.704,"gauss2":1343.289,"repulsion":1.934,"hydrophobic":29.599,"hbond":1.953}},{"id":"CHEMBL48864","set":"tripsin","score":-8.475,"pki":5.68,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1131090","cat_asp":3.52,"censored":false,"torsdof":6,"rawterms":{"gauss1":104.95,"gauss2":1393.716,"repulsion":4.089,"hydrophobic":9.353,"hbond":6.193}},{"id":"CHEMBL102141","set":"tripsin","score":-7.902,"pki":5.28,"ha":23,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.51,"censored":false,"torsdof":4,"rawterms":{"gauss1":88.395,"gauss2":1130.528,"repulsion":2.359,"hydrophobic":15.113,"hbond":3.793}},{"id":"CHEMBL101261","set":"tripsin","score":-9.32,"pki":5.22,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.57,"censored":false,"torsdof":8,"rawterms":{"gauss1":115.911,"gauss2":1474.399,"repulsion":3.215,"hydrophobic":33.277,"hbond":5.931}},{"id":"CHEMBL150434","set":"tripsin","score":-6.644,"pki":5.52,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":3.47,"censored":false,"torsdof":4,"rawterms":{"gauss1":90.137,"gauss2":1436.191,"repulsion":2.37,"hydrophobic":14.457,"hbond":4.375}},{"id":"CHEMBL100569","set":"tripsin","score":-7.492,"pki":5.34,"ha":19,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.37,"censored":false,"torsdof":3,"rawterms":{"gauss1":74.285,"gauss2":1026.377,"repulsion":2.286,"hydrophobic":18.763,"hbond":3.624}},{"id":"CHEMBL48206","set":"tripsin","score":-8.613,"pki":5.92,"ha":29,"amidine":true,"guan":false,"doc":"CHEMBL1132209","cat_asp":3.3,"censored":false,"torsdof":7,"rawterms":{"gauss1":108.547,"gauss2":1425.33,"repulsion":4.284,"hydrophobic":14.685,"hbond":6.821}},{"id":"CHEMBL122601","set":"tripsin","score":-7.169,"pki":5.08,"ha":35,"amidine":false,"guan":false,"doc":"CHEMBL1130400","cat_asp":8.96,"censored":false,"torsdof":10,"rawterms":{"gauss1":95.815,"gauss2":1410.978,"repulsion":3.117,"hydrophobic":21.9,"hbond":3.588}},{"id":"CHEMBL122488","set":"tripsin","score":-8.109,"pki":5.89,"ha":40,"amidine":false,"guan":false,"doc":"CHEMBL1130400","cat_asp":null,"censored":false,"torsdof":12,"rawterms":{"gauss1":115.883,"gauss2":1543.251,"repulsion":2.993,"hydrophobic":50.729,"hbond":3.776}},{"id":"CHEMBL20672","set":"tripsin","score":-8.91,"pki":5.77,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1135884","cat_asp":3.53,"censored":false,"torsdof":6,"rawterms":{"gauss1":90.222,"gauss2":1527.929,"repulsion":2.637,"hydrophobic":20.502,"hbond":4.166}},{"id":"CHEMBL101559","set":"tripsin","score":-7.59,"pki":5.28,"ha":23,"amidine":true,"guan":false,"doc":"CHEMBL1122336","cat_asp":3.54,"censored":false,"torsdof":5,"rawterms":{"gauss1":90.25,"gauss2":1134.019,"repulsion":2.345,"hydrophobic":11.092,"hbond":3.587}},{"id":"CHEMBL127052","set":"tripsin","score":-8.169,"pki":5.54,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1132402","cat_asp":3.47,"censored":false,"torsdof":7,"rawterms":{"gauss1":90.896,"gauss2":1340.186,"repulsion":2.487,"hydrophobic":13.858,"hbond":4.658}},{"id":"CHEMBL315014","set":"tripsin","score":-8.322,"pki":5.85,"ha":32,"amidine":true,"guan":false,"doc":"CHEMBL1131090","cat_asp":3.56,"censored":false,"torsdof":8,"rawterms":{"gauss1":96.939,"gauss2":1328.355,"repulsion":3.141,"hydrophobic":20.788,"hbond":6.101}},{"id":"CHEMBL83798","set":"tripsin","score":-9.216,"pki":5.52,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.42,"censored":false,"torsdof":6,"rawterms":{"gauss1":96.265,"gauss2":1516.486,"repulsion":2.481,"hydrophobic":17.793,"hbond":4.538}},{"id":"CHEMBL72318","set":"tripsin","score":-7.845,"pki":5.96,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1130936","cat_asp":3.47,"censored":false,"torsdof":10,"rawterms":{"gauss1":108.8,"gauss2":1447.634,"repulsion":2.725,"hydrophobic":11.435,"hbond":4.69}},{"id":"CHEMBL1166","set":"tripsin","score":-7.803,"pki":5.54,"ha":35,"amidine":false,"guan":true,"doc":"CHEMBL1129256","cat_asp":3.57,"censored":false,"torsdof":10,"rawterms":{"gauss1":95.028,"gauss2":1429.209,"repulsion":3.279,"hydrophobic":18.506,"hbond":6.334}},{"id":"CHEMBL48595","set":"tripsin","score":-8.931,"pki":5.72,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1132209","cat_asp":3.58,"censored":false,"torsdof":8,"rawterms":{"gauss1":106.973,"gauss2":1461.016,"repulsion":4.587,"hydrophobic":21.672,"hbond":8.28}},{"id":"CHEMBL342764","set":"tripsin","score":-8.51,"pki":5.44,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.61,"censored":false,"torsdof":7,"rawterms":{"gauss1":94.522,"gauss2":1383.825,"repulsion":2.354,"hydrophobic":30.882,"hbond":4.065}},{"id":"CHEMBL420790","set":"tripsin","score":-7.974,"pki":5.01,"ha":33,"amidine":false,"guan":false,"doc":"CHEMBL1130583","cat_asp":17.25,"censored":false,"torsdof":10,"rawterms":{"gauss1":97.529,"gauss2":1415.244,"repulsion":1.5,"hydrophobic":58.798,"hbond":1.425}},{"id":"CHEMBL49786","set":"tripsin","score":-8.783,"pki":5.57,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1131090","cat_asp":3.51,"censored":false,"torsdof":6,"rawterms":{"gauss1":89.66,"gauss2":1302.948,"repulsion":3.41,"hydrophobic":18.506,"hbond":7.097}},{"id":"CHEMBL307989","set":"tripsin","score":-9.101,"pki":5.66,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1130936","cat_asp":3.38,"censored":false,"torsdof":7,"rawterms":{"gauss1":114.14,"gauss2":1586.113,"repulsion":5.466,"hydrophobic":5.475,"hbond":8.035}},{"id":"CHEMBL145206","set":"tripsin","score":-6.555,"pki":6.21,"ha":35,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.54,"censored":false,"torsdof":7,"rawterms":{"gauss1":93.904,"gauss2":1508.34,"repulsion":3.01,"hydrophobic":18.307,"hbond":4.584}},{"id":"CHEMBL309879","set":"tripsin","score":-8.544,"pki":6.24,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.65,"censored":false,"torsdof":8,"rawterms":{"gauss1":107.001,"gauss2":1466.835,"repulsion":2.684,"hydrophobic":25.436,"hbond":3.89}},{"id":"CHEMBL82925","set":"tripsin","score":-8.334,"pki":6.0,"ha":30,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.58,"censored":false,"torsdof":7,"rawterms":{"gauss1":98.766,"gauss2":1380.334,"repulsion":2.202,"hydrophobic":10.551,"hbond":4.002}},{"id":"CHEMBL344552","set":"tripsin","score":-6.797,"pki":6.7,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":15.82,"censored":false,"torsdof":8,"rawterms":{"gauss1":75.691,"gauss2":1224.011,"repulsion":1.516,"hydrophobic":28.629,"hbond":2.113}},{"id":"CHEMBL382064","set":"tripsin","score":-8.2,"pki":6.16,"ha":32,"amidine":true,"guan":false,"doc":"CHEMBL1144375","cat_asp":3.48,"censored":false,"torsdof":8,"rawterms":{"gauss1":92.526,"gauss2":1358.029,"repulsion":2.336,"hydrophobic":38.638,"hbond":3.999}},{"id":"CHEMBL51482","set":"tripsin","score":-8.849,"pki":6.08,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1132209","cat_asp":3.56,"censored":false,"torsdof":7,"rawterms":{"gauss1":101.97,"gauss2":1421.645,"repulsion":4.004,"hydrophobic":15.854,"hbond":7.357}},{"id":"CHEMBL436235","set":"tripsin","score":-9.451,"pki":6.96,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1133078","cat_asp":3.48,"censored":false,"torsdof":7,"rawterms":{"gauss1":98.288,"gauss2":1536.85,"repulsion":3.292,"hydrophobic":21.757,"hbond":6.178}},{"id":"CHEMBL358110","set":"tripsin","score":-8.35,"pki":6.8,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.46,"censored":false,"torsdof":9,"rawterms":{"gauss1":103.713,"gauss2":1576.61,"repulsion":3.63,"hydrophobic":19.989,"hbond":5.58}},{"id":"CHEMBL346607","set":"tripsin","score":-8.908,"pki":6.16,"ha":37,"amidine":false,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.42,"censored":false,"torsdof":11,"rawterms":{"gauss1":122.038,"gauss2":1543.638,"repulsion":2.662,"hydrophobic":53.409,"hbond":3.711}},{"id":"CHEMBL296956","set":"tripsin","score":-8.416,"pki":6.87,"ha":35,"amidine":true,"guan":false,"doc":"CHEMBL1130864","cat_asp":3.46,"censored":false,"torsdof":10,"rawterms":{"gauss1":108.435,"gauss2":1503.491,"repulsion":2.666,"hydrophobic":34.389,"hbond":4.698}},{"id":"CHEMBL312592","set":"tripsin","score":-8.216,"pki":6.14,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.55,"censored":false,"torsdof":7,"rawterms":{"gauss1":98.485,"gauss2":1410.784,"repulsion":3.677,"hydrophobic":20.987,"hbond":5.378}},{"id":"CHEMBL142417","set":"tripsin","score":-8.074,"pki":6.28,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.59,"censored":false,"torsdof":7,"rawterms":{"gauss1":86.877,"gauss2":1364.818,"repulsion":2.935,"hydrophobic":26.263,"hbond":4.756}},{"id":"CHEMBL83106","set":"tripsin","score":-8.953,"pki":6.35,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.38,"censored":false,"torsdof":7,"rawterms":{"gauss1":102.026,"gauss2":1499.806,"repulsion":3.533,"hydrophobic":8.583,"hbond":6.675}},{"id":"CHEMBL314047","set":"tripsin","score":-8.846,"pki":6.12,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1135740","cat_asp":3.48,"censored":false,"torsdof":7,"rawterms":{"gauss1":115.63,"gauss2":1545.19,"repulsion":4.818,"hydrophobic":9.125,"hbond":7.01}},{"id":"CHEMBL197563","set":"tripsin","score":-8.483,"pki":6.42,"ha":36,"amidine":true,"guan":false,"doc":"CHEMBL1144375","cat_asp":3.49,"censored":false,"torsdof":9,"rawterms":{"gauss1":105.793,"gauss2":1476.338,"repulsion":2.571,"hydrophobic":30.055,"hbond":4.557}},{"id":"CHEMBL422147","set":"tripsin","score":-8.28,"pki":6.28,"ha":31,"amidine":true,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.75,"censored":false,"torsdof":7,"rawterms":{"gauss1":93.904,"gauss2":1376.261,"repulsion":2.523,"hydrophobic":37.811,"hbond":3.44}},{"id":"CHEMBL7418","set":"tripsin","score":-8.219,"pki":6.66,"ha":38,"amidine":false,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.61,"censored":false,"torsdof":12,"rawterms":{"gauss1":112.791,"gauss2":1536.268,"repulsion":2.155,"hydrophobic":49.388,"hbond":3.216}},{"id":"CHEMBL49636","set":"tripsin","score":-8.9,"pki":6.09,"ha":29,"amidine":true,"guan":false,"doc":"CHEMBL1131090","cat_asp":3.42,"censored":false,"torsdof":6,"rawterms":{"gauss1":98.288,"gauss2":1370.83,"repulsion":2.633,"hydrophobic":17.223,"hbond":5.218}},{"id":"CHEMBL351830","set":"tripsin","score":-8.106,"pki":6.4,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1133078","cat_asp":5.73,"censored":false,"torsdof":8,"rawterms":{"gauss1":82.296,"gauss2":1401.668,"repulsion":1.476,"hydrophobic":54.321,"hbond":1.432}},{"id":"CHEMBL142447","set":"tripsin","score":-8.679,"pki":6.68,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.49,"censored":false,"torsdof":7,"rawterms":{"gauss1":95.337,"gauss2":1524.05,"repulsion":3.097,"hydrophobic":16.168,"hbond":5.143}},{"id":"CHEMBL151164","set":"tripsin","score":-8.599,"pki":6.37,"ha":30,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":3.41,"censored":false,"torsdof":5,"rawterms":{"gauss1":95.674,"gauss2":1283.553,"repulsion":3.268,"hydrophobic":28.002,"hbond":4.867}},{"id":"CHEMBL151049","set":"tripsin","score":-8.752,"pki":6.58,"ha":27,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":3.49,"censored":false,"torsdof":4,"rawterms":{"gauss1":87.748,"gauss2":1311.482,"repulsion":2.586,"hydrophobic":9.496,"hbond":4.693}},{"id":"CHEMBL348443","set":"tripsin","score":-9.274,"pki":6.2,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.61,"censored":false,"torsdof":7,"rawterms":{"gauss1":107.732,"gauss2":1496.897,"repulsion":2.666,"hydrophobic":42.944,"hbond":3.835}},{"id":"CHEMBL357210","set":"tripsin","score":-8.581,"pki":6.2,"ha":35,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.57,"censored":false,"torsdof":8,"rawterms":{"gauss1":93.96,"gauss2":1599.108,"repulsion":3.074,"hydrophobic":19.02,"hbond":4.974}},{"id":"CHEMBL153732","set":"tripsin","score":-8.861,"pki":6.28,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.57,"censored":false,"torsdof":8,"rawterms":{"gauss1":102.167,"gauss2":1553.336,"repulsion":2.481,"hydrophobic":26.263,"hbond":4.298}},{"id":"CHEMBL48409","set":"tripsin","score":-8.611,"pki":6.12,"ha":30,"amidine":true,"guan":false,"doc":"CHEMBL1132209","cat_asp":3.46,"censored":false,"torsdof":7,"rawterms":{"gauss1":101.802,"gauss2":1376.455,"repulsion":2.992,"hydrophobic":23.725,"hbond":5.282}},{"id":"CHEMBL325022","set":"tripsin","score":-7.37,"pki":6.7,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1131630","cat_asp":3.75,"censored":false,"torsdof":4,"rawterms":{"gauss1":97.979,"gauss2":1282.777,"repulsion":2.58,"hydrophobic":39.465,"hbond":4.038}},{"id":"CHEMBL145655","set":"tripsin","score":-8.655,"pki":6.0,"ha":36,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.61,"censored":false,"torsdof":9,"rawterms":{"gauss1":102.589,"gauss2":1549.457,"repulsion":2.917,"hydrophobic":27.888,"hbond":5.182}},{"id":"CHEMBL358366","set":"tripsin","score":-8.518,"pki":6.58,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.52,"censored":false,"torsdof":8,"rawterms":{"gauss1":95.899,"gauss2":1444.337,"repulsion":2.687,"hydrophobic":27.66,"hbond":4.993}},{"id":"CHEMBL79303","set":"tripsin","score":-8.315,"pki":6.67,"ha":32,"amidine":true,"guan":false,"doc":"CHEMBL1131090","cat_asp":3.61,"censored":false,"torsdof":8,"rawterms":{"gauss1":110.262,"gauss2":1396.043,"repulsion":2.804,"hydrophobic":14.913,"hbond":4.552}},{"id":"CHEMBL48233","set":"tripsin","score":-6.499,"pki":7.015,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1131630","cat_asp":3.42,"censored":false,"torsdof":4,"rawterms":{"gauss1":85.359,"gauss2":1206.943,"repulsion":2.846,"hydrophobic":10.665,"hbond":5.197}},{"id":"CHEMBL143594","set":"tripsin","score":-9.002,"pki":7.7,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":13.53,"censored":false,"torsdof":8,"rawterms":{"gauss1":105.203,"gauss2":1601.435,"repulsion":1.521,"hydrophobic":35.302,"hbond":2.135}},{"id":"CHEMBL176744","set":"tripsin","score":-10.328,"pki":7.8,"ha":36,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.53,"censored":false,"torsdof":6,"rawterms":{"gauss1":118.188,"gauss2":1549.845,"repulsion":2.691,"hydrophobic":29.884,"hbond":5.047}},{"id":"CHEMBL149410","set":"tripsin","score":-8.561,"pki":7.25,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":13.42,"censored":false,"torsdof":5,"rawterms":{"gauss1":79.71,"gauss2":1329.907,"repulsion":0.912,"hydrophobic":41.147,"hbond":1.18}},{"id":"CHEMBL369480","set":"tripsin","score":-9.123,"pki":7.55,"ha":38,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.48,"censored":false,"torsdof":7,"rawterms":{"gauss1":101.633,"gauss2":1525.213,"repulsion":2.435,"hydrophobic":16.453,"hbond":4.846}},{"id":"CHEMBL110419","set":"tripsin","score":-9.222,"pki":7.16,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1145974","cat_asp":3.52,"censored":false,"torsdof":11,"rawterms":{"gauss1":132.944,"gauss2":1554.5,"repulsion":3.26,"hydrophobic":59.169,"hbond":4.777}},{"id":"CHEMBL159418","set":"tripsin","score":-9.227,"pki":7.04,"ha":39,"amidine":true,"guan":false,"doc":"CHEMBL1133078","cat_asp":3.48,"censored":false,"torsdof":9,"rawterms":{"gauss1":119.874,"gauss2":1713.15,"repulsion":6.232,"hydrophobic":51.213,"hbond":7.082}},{"id":"CHEMBL24674","set":"tripsin","score":-8.349,"pki":7.4,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1135303","cat_asp":4.04,"censored":false,"torsdof":10,"rawterms":{"gauss1":120.773,"gauss2":1570.985,"repulsion":2.972,"hydrophobic":28.145,"hbond":3.999}},{"id":"CHEMBL327601","set":"tripsin","score":-7.983,"pki":7.3,"ha":40,"amidine":false,"guan":false,"doc":"CHEMBL1133054","cat_asp":null,"censored":false,"torsdof":11,"rawterms":{"gauss1":104.781,"gauss2":1580.877,"repulsion":2.298,"hydrophobic":43.97,"hbond":2.77}},{"id":"CHEMBL140072","set":"tripsin","score":-8.61,"pki":7.68,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1133078","cat_asp":3.49,"censored":false,"torsdof":7,"rawterms":{"gauss1":100.368,"gauss2":1481.187,"repulsion":3.005,"hydrophobic":18.392,"hbond":4.343}},{"id":"CHEMBL159757","set":"tripsin","score":-8.084,"pki":7.3,"ha":35,"amidine":true,"guan":false,"doc":"CHEMBL1133078","cat_asp":5.67,"censored":false,"torsdof":9,"rawterms":{"gauss1":89.603,"gauss2":1376.649,"repulsion":1.572,"hydrophobic":58.827,"hbond":1.423}},{"id":"CHEMBL352099","set":"tripsin","score":-8.009,"pki":7.12,"ha":36,"amidine":true,"guan":false,"doc":"CHEMBL1133078","cat_asp":6.46,"censored":false,"torsdof":9,"rawterms":{"gauss1":97.22,"gauss2":1296.354,"repulsion":2.455,"hydrophobic":50.301,"hbond":3.651}},{"id":"CHEMBL151661","set":"tripsin","score":-7.836,"pki":7.21,"ha":32,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":3.57,"censored":false,"torsdof":7,"rawterms":{"gauss1":101.914,"gauss2":1330.683,"repulsion":2.974,"hydrophobic":30.739,"hbond":3.364}},{"id":"CHEMBL175286","set":"tripsin","score":-9.786,"pki":7.75,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.61,"censored":false,"torsdof":6,"rawterms":{"gauss1":103.685,"gauss2":1561.482,"repulsion":2.667,"hydrophobic":23.382,"hbond":4.935}},{"id":"CHEMBL3084979","set":"tripsin","score":-8.621,"pki":7.27,"ha":40,"amidine":false,"guan":false,"doc":"CHEMBL1142732","cat_asp":3.66,"censored":false,"torsdof":12,"rawterms":{"gauss1":117.063,"gauss2":1602.793,"repulsion":2.81,"hydrophobic":57.629,"hbond":3.966}},{"id":"CHEMBL55035","set":"tripsin","score":-7.049,"pki":7.5,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1130936","cat_asp":3.5,"censored":false,"torsdof":4,"rawterms":{"gauss1":84.066,"gauss2":1276.571,"repulsion":2.059,"hydrophobic":26.89,"hbond":4.062}},{"id":"CHEMBL94336","set":"tripsin","score":-7.231,"pki":7.54,"ha":28,"amidine":true,"guan":false,"doc":"CHEMBL1131630","cat_asp":3.52,"censored":false,"torsdof":4,"rawterms":{"gauss1":86.315,"gauss2":1305.857,"repulsion":2.441,"hydrophobic":13.088,"hbond":5.524}},{"id":"CHEMBL174829","set":"tripsin","score":-9.521,"pki":7.33,"ha":40,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.54,"censored":false,"torsdof":8,"rawterms":{"gauss1":120.155,"gauss2":1631.109,"repulsion":4.358,"hydrophobic":35.387,"hbond":6.309}},{"id":"CHEMBL25673","set":"tripsin","score":-8.292,"pki":7.1,"ha":29,"amidine":true,"guan":false,"doc":"CHEMBL1135303","cat_asp":3.61,"censored":false,"torsdof":7,"rawterms":{"gauss1":96.349,"gauss2":1342.32,"repulsion":2.014,"hydrophobic":25.464,"hbond":3.636}},{"id":"CHEMBL367476","set":"tripsin","score":-9.429,"pki":7.89,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.52,"censored":false,"torsdof":7,"rawterms":{"gauss1":111.526,"gauss2":1567.882,"repulsion":3.038,"hydrophobic":26.918,"hbond":4.846}},{"id":"CHEMBL422321","set":"tripsin","score":-7.017,"pki":7.52,"ha":29,"amidine":true,"guan":false,"doc":"CHEMBL1132552","cat_asp":3.6,"censored":false,"torsdof":4,"rawterms":{"gauss1":95.225,"gauss2":1333.592,"repulsion":2.129,"hydrophobic":16.738,"hbond":4.2}},{"id":"CHEMBL268824","set":"tripsin","score":-7.365,"pki":7.07,"ha":37,"amidine":false,"guan":false,"doc":"CHEMBL1135262","cat_asp":5.12,"censored":false,"torsdof":12,"rawterms":{"gauss1":93.089,"gauss2":1487.005,"repulsion":2.539,"hydrophobic":34.903,"hbond":3.835}},{"id":"CHEMBL441670","set":"tripsin","score":-10.1,"pki":7.8,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.48,"censored":false,"torsdof":5,"rawterms":{"gauss1":101.099,"gauss2":1501.939,"repulsion":2.727,"hydrophobic":22.641,"hbond":5.464}},{"id":"CHEMBL268833","set":"tripsin","score":-7.438,"pki":7.17,"ha":37,"amidine":false,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.56,"censored":false,"torsdof":12,"rawterms":{"gauss1":90.419,"gauss2":1511.637,"repulsion":3.107,"hydrophobic":34.475,"hbond":4.809}},{"id":"CHEMBL104970","set":"tripsin","score":-9.752,"pki":7.57,"ha":39,"amidine":true,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.68,"censored":false,"torsdof":8,"rawterms":{"gauss1":114.899,"gauss2":1744.569,"repulsion":2.753,"hydrophobic":37.127,"hbond":3.813}},{"id":"CHEMBL7440","set":"tripsin","score":-8.352,"pki":7.92,"ha":39,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.75,"censored":false,"torsdof":12,"rawterms":{"gauss1":125.636,"gauss2":1630.915,"repulsion":3.461,"hydrophobic":33.99,"hbond":4.777}},{"id":"CHEMBL343892","set":"tripsin","score":-8.728,"pki":7.44,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1132189","cat_asp":3.45,"censored":false,"torsdof":9,"rawterms":{"gauss1":107.31,"gauss2":1633.243,"repulsion":3.649,"hydrophobic":28.287,"hbond":5.379}},{"id":"CHEMBL356216","set":"tripsin","score":-10.321,"pki":7.13,"ha":40,"amidine":true,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.72,"censored":false,"torsdof":7,"rawterms":{"gauss1":107.563,"gauss2":1760.473,"repulsion":2.623,"hydrophobic":27.432,"hbond":4.911}},{"id":"CHEMBL431429","set":"tripsin","score":-6.49,"pki":7.96,"ha":40,"amidine":false,"guan":true,"doc":"CHEMBL1128948","cat_asp":3.61,"censored":false,"torsdof":5,"rawterms":{"gauss1":103.179,"gauss2":1583.01,"repulsion":2.603,"hydrophobic":42.345,"hbond":4.366}},{"id":"CHEMBL357079","set":"tripsin","score":-5.724,"pki":7.05,"ha":28,"amidine":false,"guan":false,"doc":"CHEMBL1131451","cat_asp":12.97,"censored":false,"torsdof":8,"rawterms":{"gauss1":75.578,"gauss2":1066.524,"repulsion":1.57,"hydrophobic":56.574,"hbond":1.51}},{"id":"CHEMBL176813","set":"tripsin","score":-8.939,"pki":8.17,"ha":36,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.47,"censored":false,"torsdof":7,"rawterms":{"gauss1":99.019,"gauss2":1506.206,"repulsion":2.585,"hydrophobic":17.195,"hbond":4.892}},{"id":"CHEMBL451242","set":"tripsin","score":-8.299,"pki":8.0,"ha":32,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.47,"censored":false,"torsdof":9,"rawterms":{"gauss1":99.862,"gauss2":1388.285,"repulsion":2.729,"hydrophobic":35.901,"hbond":5.088}},{"id":"CHEMBL282830","set":"tripsin","score":-9.017,"pki":9.19,"ha":39,"amidine":false,"guan":true,"doc":"CHEMBL1132633","cat_asp":3.5,"censored":false,"torsdof":11,"rawterms":{"gauss1":106.495,"gauss2":1722.265,"repulsion":3.67,"hydrophobic":22.898,"hbond":7.082}},{"id":"CHEMBL357067","set":"tripsin","score":-8.264,"pki":8.08,"ha":38,"amidine":true,"guan":false,"doc":"CHEMBL1131451","cat_asp":3.6,"censored":false,"torsdof":10,"rawterms":{"gauss1":97.305,"gauss2":1553.142,"repulsion":2.692,"hydrophobic":30.825,"hbond":4.777}},{"id":"CHEMBL355097","set":"tripsin","score":-9.38,"pki":8.12,"ha":39,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.48,"censored":false,"torsdof":8,"rawterms":{"gauss1":112.454,"gauss2":1663.499,"repulsion":3.419,"hydrophobic":23.354,"hbond":5.529}},{"id":"CHEMBL7860","set":"tripsin","score":-9.02,"pki":8.89,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.5,"censored":false,"torsdof":10,"rawterms":{"gauss1":114.618,"gauss2":1452.483,"repulsion":2.897,"hydrophobic":50.9,"hbond":5.749}},{"id":"CHEMBL1200085","set":"tripsin","score":-8.928,"pki":8.6,"ha":35,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.52,"censored":false,"torsdof":10,"rawterms":{"gauss1":108.631,"gauss2":1491.66,"repulsion":3.4,"hydrophobic":53.922,"hbond":5.616}},{"id":"CHEMBL177225","set":"tripsin","score":-8.998,"pki":8.24,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.61,"censored":false,"torsdof":8,"rawterms":{"gauss1":118.131,"gauss2":1534.717,"repulsion":3.191,"hydrophobic":22.784,"hbond":5.061}},{"id":"CHEMBL175497","set":"tripsin","score":-8.305,"pki":8.43,"ha":30,"amidine":false,"guan":true,"doc":"CHEMBL1142732","cat_asp":3.6,"censored":false,"torsdof":9,"rawterms":{"gauss1":101.633,"gauss2":1417.184,"repulsion":3.331,"hydrophobic":18.25,"hbond":6.663}},{"id":"CHEMBL425132","set":"tripsin","score":-9.617,"pki":8.15,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.47,"censored":false,"torsdof":6,"rawterms":{"gauss1":102.842,"gauss2":1542.475,"repulsion":2.694,"hydrophobic":30.768,"hbond":4.361}},{"id":"CHEMBL331771","set":"tripsin","score":-8.75,"pki":9.52,"ha":39,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.51,"censored":false,"torsdof":12,"rawterms":{"gauss1":113.775,"gauss2":1600.078,"repulsion":3.242,"hydrophobic":48.476,"hbond":5.711}},{"id":"CHEMBL27228","set":"tripsin","score":-8.596,"pki":8.3,"ha":33,"amidine":true,"guan":false,"doc":"CHEMBL1135303","cat_asp":3.36,"censored":false,"torsdof":8,"rawterms":{"gauss1":99.553,"gauss2":1496.703,"repulsion":3.518,"hydrophobic":16.14,"hbond":6.379}},{"id":"CHEMBL268640","set":"tripsin","score":-8.81,"pki":9.1,"ha":35,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.47,"censored":false,"torsdof":10,"rawterms":{"gauss1":112.201,"gauss2":1533.553,"repulsion":3.124,"hydrophobic":38.439,"hbond":5.684}},{"id":"CHEMBL269575","set":"tripsin","score":-8.515,"pki":9.15,"ha":39,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.59,"censored":false,"torsdof":11,"rawterms":{"gauss1":112.285,"gauss2":1595.035,"repulsion":2.982,"hydrophobic":42.203,"hbond":4.755}},{"id":"CHEMBL25034","set":"tripsin","score":-9.255,"pki":8.15,"ha":34,"amidine":true,"guan":false,"doc":"CHEMBL1135303","cat_asp":3.55,"censored":false,"torsdof":7,"rawterms":{"gauss1":110.205,"gauss2":1558.766,"repulsion":3.082,"hydrophobic":26.605,"hbond":4.671}},{"id":"CHEMBL177142","set":"tripsin","score":-9.13,"pki":8.24,"ha":36,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.52,"censored":false,"torsdof":6,"rawterms":{"gauss1":95.309,"gauss2":1471.49,"repulsion":2.368,"hydrophobic":17.166,"hbond":4.671}},{"id":"CHEMBL7865","set":"tripsin","score":-7.903,"pki":8.0,"ha":38,"amidine":false,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.67,"censored":false,"torsdof":12,"rawterms":{"gauss1":105.989,"gauss2":1530.45,"repulsion":2.18,"hydrophobic":48.476,"hbond":2.863}},{"id":"CHEMBL369165","set":"tripsin","score":-8.981,"pki":8.0,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.48,"censored":false,"torsdof":7,"rawterms":{"gauss1":102.055,"gauss2":1484.872,"repulsion":3.074,"hydrophobic":18.734,"hbond":5.607}},{"id":"CHEMBL7895","set":"tripsin","score":-8.434,"pki":9.22,"ha":38,"amidine":true,"guan":false,"doc":"CHEMBL1135262","cat_asp":3.55,"censored":false,"torsdof":11,"rawterms":{"gauss1":109.194,"gauss2":1579.325,"repulsion":3.156,"hydrophobic":51.299,"hbond":4.569}},{"id":"CHEMBL367840","set":"tripsin","score":-9.007,"pki":8.11,"ha":35,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":3.54,"censored":false,"torsdof":6,"rawterms":{"gauss1":101.436,"gauss2":1483.126,"repulsion":2.661,"hydrophobic":20.987,"hbond":4.103}},{"id":"CHEMBL25351","set":"tripsin","score":-9.808,"pki":8.52,"ha":37,"amidine":true,"guan":false,"doc":"CHEMBL1135303","cat_asp":3.5,"censored":false,"torsdof":6,"rawterms":{"gauss1":106.833,"gauss2":1612.878,"repulsion":2.689,"hydrophobic":24.951,"hbond":4.285}},{"id":"CHEMBL179961","set":"tripsin","score":-8.729,"pki":8.59,"ha":37,"amidine":false,"guan":true,"doc":"CHEMBL1142732","cat_asp":3.49,"censored":false,"torsdof":11,"rawterms":{"gauss1":115.742,"gauss2":1628.782,"repulsion":3.329,"hydrophobic":22.527,"hbond":6.525}},{"id":"CHEMBL367725","set":"tripsin","score":-8.971,"pki":8.36,"ha":38,"amidine":true,"guan":false,"doc":"CHEMBL1133358","cat_asp":5.23,"censored":false,"torsdof":8,"rawterms":{"gauss1":116.979,"gauss2":1671.257,"repulsion":1.79,"hydrophobic":21.957,"hbond":1.905}},{"id":"CHEMBL27852","set":"tripsin","score":-9.022,"pki":9.64,"ha":39,"amidine":false,"guan":true,"doc":"CHEMBL1132633","cat_asp":3.57,"censored":false,"torsdof":11,"rawterms":{"gauss1":109.475,"gauss2":1728.666,"repulsion":3.229,"hydrophobic":25.436,"hbond":6.091}},{"id":"CHEMBL293645","set":"d2_decoy","score":-7.213,"pki":null,"ha":28,"amidine":false,"guan":false,"doc":null,"cat_asp":9.49,"censored":false,"torsdof":6,"rawterms":{"gauss1":78.361,"gauss2":1253.685,"repulsion":0.603,"hydrophobic":28.401,"hbond":-0.0}},{"id":"CHEMBL164338","set":"d2_decoy","score":-6.391,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":12.39,"censored":false,"torsdof":8,"rawterms":{"gauss1":88.873,"gauss2":1432.894,"repulsion":1.847,"hydrophobic":20.075,"hbond":1.993}},{"id":"CHEMBL157035","set":"d2_decoy","score":-7.84,"pki":null,"ha":33,"amidine":false,"guan":false,"doc":null,"cat_asp":9.8,"censored":false,"torsdof":9,"rawterms":{"gauss1":101.043,"gauss2":1438.518,"repulsion":1.421,"hydrophobic":22.641,"hbond":1.917}},{"id":"CHEMBL319043","set":"d2_decoy","score":-7.111,"pki":null,"ha":30,"amidine":false,"guan":false,"doc":null,"cat_asp":9.86,"censored":false,"torsdof":7,"rawterms":{"gauss1":81.228,"gauss2":1237.393,"repulsion":0.978,"hydrophobic":30.882,"hbond":0.831}},{"id":"CHEMBL325859","set":"d2_decoy","score":-5.861,"pki":null,"ha":34,"amidine":false,"guan":false,"doc":null,"cat_asp":8.49,"censored":false,"torsdof":8,"rawterms":{"gauss1":89.603,"gauss2":1478.084,"repulsion":1.62,"hydrophobic":13.659,"hbond":1.248}},{"id":"CHEMBL157293","set":"d2_decoy","score":-7.273,"pki":null,"ha":31,"amidine":false,"guan":false,"doc":null,"cat_asp":11.68,"censored":false,"torsdof":9,"rawterms":{"gauss1":87.158,"gauss2":1320.016,"repulsion":1.246,"hydrophobic":45.425,"hbond":0.742}},{"id":"CHEMBL3039867","set":"d2_decoy","score":-5.888,"pki":null,"ha":37,"amidine":false,"guan":false,"doc":null,"cat_asp":14.46,"censored":false,"torsdof":9,"rawterms":{"gauss1":76.646,"gauss2":1320.985,"repulsion":1.805,"hydrophobic":50.13,"hbond":1.581}},{"id":"CHEMBL157036","set":"d2_decoy","score":-7.676,"pki":null,"ha":33,"amidine":false,"guan":false,"doc":null,"cat_asp":12.08,"censored":false,"torsdof":10,"rawterms":{"gauss1":101.83,"gauss2":1457.331,"repulsion":1.313,"hydrophobic":29.998,"hbond":1.449}},{"id":"CHEMBL423198","set":"d2_decoy","score":-6.393,"pki":null,"ha":36,"amidine":false,"guan":false,"doc":null,"cat_asp":12.86,"censored":false,"torsdof":7,"rawterms":{"gauss1":99.637,"gauss2":1432.118,"repulsion":2.88,"hydrophobic":47.079,"hbond":1.861}},{"id":"CHEMBL306830","set":"d2_decoy","score":-8.417,"pki":null,"ha":30,"amidine":false,"guan":false,"doc":null,"cat_asp":13.14,"censored":false,"torsdof":5,"rawterms":{"gauss1":90.137,"gauss2":1418.735,"repulsion":0.664,"hydrophobic":15.142,"hbond":0.232}},{"id":"CHEMBL164744","set":"d2_decoy","score":-6.034,"pki":null,"ha":32,"amidine":false,"guan":false,"doc":null,"cat_asp":12.76,"censored":false,"torsdof":6,"rawterms":{"gauss1":73.33,"gauss2":1256.206,"repulsion":0.946,"hydrophobic":35.273,"hbond":0.061}},{"id":"CHEMBL3040086","set":"d2_decoy","score":-5.545,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":17.74,"censored":false,"torsdof":7,"rawterms":{"gauss1":67.905,"gauss2":1320.791,"repulsion":0.677,"hydrophobic":12.49,"hbond":0.586}},{"id":"CHEMBL345438","set":"d2_decoy","score":-6.591,"pki":null,"ha":29,"amidine":false,"guan":false,"doc":null,"cat_asp":10.75,"censored":false,"torsdof":3,"rawterms":{"gauss1":66.584,"gauss2":1198.798,"repulsion":0.565,"hydrophobic":34.589,"hbond":-0.0}},{"id":"CHEMBL320880","set":"d2_decoy","score":-8.089,"pki":null,"ha":34,"amidine":false,"guan":false,"doc":null,"cat_asp":11.64,"censored":false,"torsdof":4,"rawterms":{"gauss1":90.784,"gauss2":1357.836,"repulsion":2.761,"hydrophobic":11.463,"hbond":2.833}},{"id":"CHEMBL423671","set":"d2_decoy","score":-7.671,"pki":null,"ha":37,"amidine":false,"guan":false,"doc":null,"cat_asp":14.73,"censored":false,"torsdof":10,"rawterms":{"gauss1":86.174,"gauss2":1384.6,"repulsion":1.772,"hydrophobic":51.613,"hbond":2.783}},{"id":"CHEMBL105172","set":"d2_decoy","score":-7.345,"pki":null,"ha":28,"amidine":false,"guan":false,"doc":null,"cat_asp":9.79,"censored":false,"torsdof":5,"rawterms":{"gauss1":76.927,"gauss2":1128.782,"repulsion":0.988,"hydrophobic":37.184,"hbond":0.785}},{"id":"CHEMBL68191","set":"d2_decoy","score":-7.343,"pki":null,"ha":27,"amidine":false,"guan":false,"doc":null,"cat_asp":11.58,"censored":false,"torsdof":4,"rawterms":{"gauss1":79.288,"gauss2":1100.272,"repulsion":1.516,"hydrophobic":52.497,"hbond":-0.0}},{"id":"CHEMBL3040088","set":"d2_decoy","score":-5.679,"pki":null,"ha":37,"amidine":false,"guan":false,"doc":null,"cat_asp":13.34,"censored":false,"torsdof":9,"rawterms":{"gauss1":67.568,"gauss2":1391.389,"repulsion":1.442,"hydrophobic":52.924,"hbond":0.177}},{"id":"CHEMBL104751","set":"d2_decoy","score":-7.316,"pki":null,"ha":29,"amidine":false,"guan":false,"doc":null,"cat_asp":9.32,"censored":false,"torsdof":6,"rawterms":{"gauss1":81.368,"gauss2":1215.477,"repulsion":1.333,"hydrophobic":32.935,"hbond":1.161}},{"id":"CHEMBL323088","set":"d2_decoy","score":-7.972,"pki":null,"ha":33,"amidine":false,"guan":false,"doc":null,"cat_asp":13.6,"censored":false,"torsdof":5,"rawterms":{"gauss1":76.45,"gauss2":1244.957,"repulsion":0.993,"hydrophobic":27.574,"hbond":1.36}},{"id":"CHEMBL352207","set":"d2_decoy","score":-6.23,"pki":null,"ha":28,"amidine":false,"guan":false,"doc":null,"cat_asp":11.12,"censored":false,"torsdof":3,"rawterms":{"gauss1":62.93,"gauss2":1124.709,"repulsion":0.594,"hydrophobic":35.444,"hbond":-0.0}},{"id":"CHEMBL73665","set":"d2_decoy","score":-8.363,"pki":null,"ha":34,"amidine":false,"guan":false,"doc":null,"cat_asp":15.58,"censored":false,"torsdof":10,"rawterms":{"gauss1":106.327,"gauss2":1537.432,"repulsion":1.557,"hydrophobic":29.456,"hbond":2.679}},{"id":"CHEMBL156689","set":"d2_decoy","score":-7.343,"pki":null,"ha":31,"amidine":false,"guan":false,"doc":null,"cat_asp":10.78,"censored":false,"torsdof":8,"rawterms":{"gauss1":88.563,"gauss2":1267.261,"repulsion":1.276,"hydrophobic":32.08,"hbond":1.408}},{"id":"CHEMBL416508","set":"d2_decoy","score":-5.464,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":13.32,"censored":false,"torsdof":10,"rawterms":{"gauss1":60.963,"gauss2":1124.515,"repulsion":0.833,"hydrophobic":39.608,"hbond":-0.0}},{"id":"CHEMBL2219589","set":"d2_decoy","score":-5.453,"pki":null,"ha":36,"amidine":false,"guan":false,"doc":null,"cat_asp":16.2,"censored":false,"torsdof":8,"rawterms":{"gauss1":77.574,"gauss2":1235.066,"repulsion":1.198,"hydrophobic":14.087,"hbond":1.675}},{"id":"CHEMBL68720","set":"d2_decoy","score":-7.153,"pki":null,"ha":36,"amidine":false,"guan":false,"doc":null,"cat_asp":12.76,"censored":false,"torsdof":8,"rawterms":{"gauss1":70.407,"gauss2":1287.432,"repulsion":0.797,"hydrophobic":52.154,"hbond":0.334}},{"id":"CHEMBL99198","set":"d2_decoy","score":-6.499,"pki":null,"ha":34,"amidine":false,"guan":false,"doc":null,"cat_asp":15.39,"censored":false,"torsdof":8,"rawterms":{"gauss1":73.133,"gauss2":1236.618,"repulsion":1.14,"hydrophobic":21.187,"hbond":0.998}},{"id":"CHEMBL2219582","set":"d2_decoy","score":-6.297,"pki":null,"ha":37,"amidine":false,"guan":false,"doc":null,"cat_asp":13.41,"censored":false,"torsdof":9,"rawterms":{"gauss1":86.034,"gauss2":1426.299,"repulsion":0.952,"hydrophobic":46.85,"hbond":0.329}},{"id":"CHEMBL102175","set":"d2_decoy","score":-8.049,"pki":null,"ha":38,"amidine":false,"guan":false,"doc":null,"cat_asp":14.37,"censored":false,"torsdof":8,"rawterms":{"gauss1":89.435,"gauss2":1516.098,"repulsion":1.749,"hydrophobic":36.899,"hbond":1.682}},{"id":"CHEMBL263162","set":"d2_decoy","score":-7.784,"pki":null,"ha":27,"amidine":false,"guan":false,"doc":null,"cat_asp":14.67,"censored":false,"torsdof":5,"rawterms":{"gauss1":80.384,"gauss2":1208.495,"repulsion":1.525,"hydrophobic":35.501,"hbond":1.326}},{"id":"CHEMBL129979","set":"d2_decoy","score":-8.258,"pki":null,"ha":32,"amidine":false,"guan":false,"doc":null,"cat_asp":14.17,"censored":false,"torsdof":7,"rawterms":{"gauss1":93.96,"gauss2":1415.826,"repulsion":1.542,"hydrophobic":29.599,"hbond":2.135}},{"id":"CHEMBL349426","set":"d2_decoy","score":-8.006,"pki":null,"ha":31,"amidine":false,"guan":false,"doc":null,"cat_asp":11.62,"censored":false,"torsdof":6,"rawterms":{"gauss1":91.458,"gauss2":1311.094,"repulsion":0.884,"hydrophobic":44.027,"hbond":-0.0}},{"id":"CHEMBL1180460","set":"d2_decoy","score":-5.974,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":13.86,"censored":false,"torsdof":10,"rawterms":{"gauss1":69.873,"gauss2":1310.512,"repulsion":0.954,"hydrophobic":19.447,"hbond":0.591}},{"id":"CHEMBL2112210","set":"d2_decoy","score":-7.59,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":15.37,"censored":false,"torsdof":8,"rawterms":{"gauss1":92.414,"gauss2":1405.547,"repulsion":1.479,"hydrophobic":20.702,"hbond":1.535}},{"id":"CHEMBL163895","set":"d2_decoy","score":-6.467,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":14.27,"censored":false,"torsdof":7,"rawterms":{"gauss1":85.978,"gauss2":1393.716,"repulsion":1.661,"hydrophobic":36.471,"hbond":0.844}},{"id":"CHEMBL321244","set":"d2_decoy","score":-7.025,"pki":null,"ha":30,"amidine":false,"guan":false,"doc":null,"cat_asp":11.72,"censored":false,"torsdof":9,"rawterms":{"gauss1":97.895,"gauss2":1217.998,"repulsion":2.343,"hydrophobic":50.301,"hbond":1.981}},{"id":"CHEMBL414433","set":"d2_decoy","score":-8.361,"pki":null,"ha":31,"amidine":false,"guan":false,"doc":null,"cat_asp":14.48,"censored":false,"torsdof":7,"rawterms":{"gauss1":99.413,"gauss2":1440.652,"repulsion":1.67,"hydrophobic":29.0,"hbond":2.053}},{"id":"CHEMBL129429","set":"d2_decoy","score":-7.172,"pki":null,"ha":33,"amidine":false,"guan":false,"doc":null,"cat_asp":13.75,"censored":false,"torsdof":10,"rawterms":{"gauss1":111.245,"gauss2":1464.895,"repulsion":2.377,"hydrophobic":41.404,"hbond":0.681}},{"id":"CHEMBL175677","set":"d2_decoy","score":-7.829,"pki":null,"ha":28,"amidine":false,"guan":false,"doc":null,"cat_asp":12.85,"censored":false,"torsdof":6,"rawterms":{"gauss1":91.458,"gauss2":1309.542,"repulsion":1.59,"hydrophobic":33.448,"hbond":1.244}},{"id":"CHEMBL418802","set":"d2_decoy","score":-8.669,"pki":null,"ha":34,"amidine":false,"guan":false,"doc":null,"cat_asp":13.3,"censored":false,"torsdof":6,"rawterms":{"gauss1":92.274,"gauss2":1449.379,"repulsion":0.922,"hydrophobic":32.65,"hbond":0.565}},{"id":"CHEMBL109787","set":"d2_decoy","score":-8.62,"pki":null,"ha":36,"amidine":false,"guan":false,"doc":null,"cat_asp":14.6,"censored":false,"torsdof":10,"rawterms":{"gauss1":112.988,"gauss2":1602.599,"repulsion":4.05,"hydrophobic":33.705,"hbond":5.696}},{"id":"CHEMBL424384","set":"d2_decoy","score":-6.478,"pki":null,"ha":30,"amidine":false,"guan":false,"doc":null,"cat_asp":13.68,"censored":false,"torsdof":6,"rawterms":{"gauss1":83.926,"gauss2":1339.022,"repulsion":2.067,"hydrophobic":13.06,"hbond":2.49}},{"id":"CHEMBL340220","set":"d2_decoy","score":-8.307,"pki":null,"ha":33,"amidine":false,"guan":false,"doc":null,"cat_asp":11.65,"censored":false,"torsdof":7,"rawterms":{"gauss1":103.123,"gauss2":1359.581,"repulsion":2.352,"hydrophobic":55.205,"hbond":1.816}},{"id":"CHEMBL3040340","set":"d2_decoy","score":-5.587,"pki":null,"ha":36,"amidine":false,"guan":false,"doc":null,"cat_asp":16.41,"censored":false,"torsdof":8,"rawterms":{"gauss1":82.942,"gauss2":1357.836,"repulsion":1.515,"hydrophobic":23.411,"hbond":0.572}},{"id":"CHEMBL113523","set":"d2_decoy","score":-7.342,"pki":null,"ha":30,"amidine":false,"guan":false,"doc":null,"cat_asp":9.03,"censored":false,"torsdof":9,"rawterms":{"gauss1":108.828,"gauss2":1369.472,"repulsion":1.795,"hydrophobic":29.143,"hbond":1.284}},{"id":"CHEMBL40650","set":"d2_decoy","score":-8.358,"pki":null,"ha":32,"amidine":false,"guan":false,"doc":null,"cat_asp":12.47,"censored":false,"torsdof":4,"rawterms":{"gauss1":84.853,"gauss2":1393.134,"repulsion":2.521,"hydrophobic":24.78,"hbond":2.307}},{"id":"CHEMBL87478","set":"d2_decoy","score":-7.185,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":17.18,"censored":false,"torsdof":10,"rawterms":{"gauss1":88.732,"gauss2":1397.207,"repulsion":1.103,"hydrophobic":32.336,"hbond":1.392}},{"id":"CHEMBL106283","set":"d2_decoy","score":-9.026,"pki":null,"ha":34,"amidine":false,"guan":false,"doc":null,"cat_asp":12.52,"censored":false,"torsdof":4,"rawterms":{"gauss1":87.861,"gauss2":1355.314,"repulsion":1.503,"hydrophobic":27.603,"hbond":2.239}},{"id":"CHEMBL126834","set":"d2_decoy","score":-6.764,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":14.43,"censored":false,"torsdof":8,"rawterms":{"gauss1":78.867,"gauss2":1215.477,"repulsion":1.339,"hydrophobic":21.187,"hbond":2.104}},{"id":"CHEMBL1184254","set":"d2_decoy","score":-7.188,"pki":null,"ha":31,"amidine":false,"guan":false,"doc":null,"cat_asp":15.29,"censored":false,"torsdof":9,"rawterms":{"gauss1":93.313,"gauss2":1362.878,"repulsion":1.463,"hydrophobic":26.12,"hbond":1.595}},{"id":"CHEMBL1180466","set":"d2_decoy","score":-7.425,"pki":null,"ha":33,"amidine":false,"guan":false,"doc":null,"cat_asp":13.27,"censored":false,"torsdof":9,"rawterms":{"gauss1":104.106,"gauss2":1427.075,"repulsion":1.486,"hydrophobic":30.511,"hbond":0.763}},{"id":"CHEMBL335844","set":"d2_decoy","score":-8.567,"pki":null,"ha":33,"amidine":false,"guan":false,"doc":null,"cat_asp":14.46,"censored":false,"torsdof":7,"rawterms":{"gauss1":102.139,"gauss2":1455.974,"repulsion":1.627,"hydrophobic":31.823,"hbond":2.019}},{"id":"CHEMBL1423","set":"d2_decoy","score":-8.441,"pki":null,"ha":34,"amidine":false,"guan":false,"doc":null,"cat_asp":11.97,"censored":false,"torsdof":7,"rawterms":{"gauss1":93.735,"gauss2":1394.88,"repulsion":2.459,"hydrophobic":54.863,"hbond":2.572}},{"id":"CHEMBL301242","set":"d2_decoy","score":-7.652,"pki":null,"ha":35,"amidine":false,"guan":false,"doc":null,"cat_asp":11.97,"censored":false,"torsdof":7,"rawterms":{"gauss1":93.342,"gauss2":1433.476,"repulsion":2.427,"hydrophobic":45.368,"hbond":0.885}}]};
+</script>
+<script>
+/* Ala maskot çekirdeği v1.1 · HTML ve SVG varlıkları build_assets.js ile üretilir. */
+var ALA = (function(){
+  var TOKENS = {
+    light: {"--ala-c":"#5F7486","--ala-c-hi":"#93A6B5","--ala-n":"#5C8FD6","--ala-n-hi":"#9BBDEB","--ala-o":"#E8746A","--ala-o-hi":"#F5ADA5","--ala-h":"#F8F5EE","--ala-bond":"#A7B6C0","--ala-edge":"rgba(23,38,46,.24)","--ala-face":"#16222A","--ala-cheek":"#F29E97","--ala-ink":"#17262E","--ala-accent":"#1F8A7E","--ala-accent-ink":"#FFFFFF","--ala-sweat":"#9CC8F0","--ala-bulb":"#F4CF5D","--ala-spark":"#F4CF5D"},
+    dark:  {"--ala-c":"#6B8194","--ala-c-hi":"#9DB0BF","--ala-bond":"#7E919D","--ala-edge":"rgba(0,0,0,.5)","--ala-ink":"#DCE6E9","--ala-accent":"#4FC1B2","--ala-accent-ink":"#0E161B"}
+  };
+  var POSES = ["idle","selam","kanit","dikkat","ipucu","tebrik"];
+
+  var CSS = [
+    ".ala .bond{stroke:var(--ala-bond);stroke-width:7;stroke-linecap:round}",
+    ".ala .bond2{stroke:var(--ala-bond);stroke-width:4.2;stroke-linecap:round}",
+    ".ala .atom{stroke:var(--ala-edge);stroke-width:1.2}",
+    ".ala .at-h{fill:var(--ala-h)}",
+    ".ala .hl{fill:#fff;opacity:.33}",
+    ".ala .face{fill:var(--ala-face)}",
+    ".ala .face-line{fill:none;stroke:var(--ala-face);stroke-width:3.2;stroke-linecap:round}",
+    ".ala .cheek{fill:var(--ala-cheek);opacity:.6}",
+    ".ala .sweat{fill:var(--ala-sweat)}",
+    ".ala .bang circle{fill:var(--ala-accent)}",
+    ".ala .bang text{fill:var(--ala-accent-ink);font:800 18px 'Baloo 2',ui-rounded,system-ui,sans-serif}",
+    ".ala .lens{fill:var(--ala-sweat);fill-opacity:.28;stroke:var(--ala-ink);stroke-width:4}",
+    ".ala .handle{stroke:var(--ala-ink);stroke-width:5;stroke-linecap:round}",
+    ".ala .bulb{fill:var(--ala-bulb);stroke:var(--ala-edge);stroke-width:1.2}",
+    ".ala .bulb-base{fill:var(--ala-c)}",
+    ".ala .bulb-glow{fill:var(--ala-bulb);opacity:.35}",
+    ".ala .spark{fill:var(--ala-spark)}",
+    ".ala .whole{transform-origin:100px 150px}",
+    ".ala .tuft{transform-origin:100px 76px}",
+    ".ala .eyes{transform-origin:100px 116px}",
+    ".ala.pose-idle .eyes{animation:ala-blink 6s infinite}",
+    ".ala .arm-l{transform-origin:58px 124px}",
+    ".ala .arm-r{transform-origin:142px 124px}",
+    ".ala.pose-selam .arm-r{transform:rotate(-46deg)}",
+    ".ala.pose-kanit .arm-r{transform:rotate(-42deg)}",
+    ".ala.pose-ipucu .arm-l{transform:rotate(62deg)}",
+    ".ala.pose-tebrik .arm-l{transform:rotate(56deg)}",
+    ".ala.pose-tebrik .arm-r{transform:rotate(-56deg)}",
+    ".ala.is-active.pose-selam .arm-r{animation:ala-wave .7s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-kanit .arm-r{animation:ala-peer 1.8s ease-in-out 1}",
+    ".ala.pose-dikkat .arm-l{transform:rotate(28deg)}",
+    ".ala.pose-dikkat .arm-r{transform:rotate(-28deg)}",
+    ".ala.is-active.pose-dikkat .sweat{animation:ala-drip 1.2s ease-in 1}",
+    ".ala.is-active.pose-dikkat .bang{transform-origin:170px 40px;animation:ala-pop .8s ease-in-out 2}",
+    ".ala.is-active.pose-ipucu .arm-l{animation:ala-point .9s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-ipucu .bulb-glow{transform-origin:160px 30px;animation:ala-glow 1.6s ease-in-out 1}",
+    ".ala.is-active.pose-tebrik .whole{animation:ala-cheer .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .arm-l{animation:ala-armL .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .arm-r{animation:ala-armR .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .spark{transform-box:fill-box;transform-origin:center;animation:ala-twinkle 1s ease-in-out 1}",
+    ".ala.mono .bond,.ala.mono .bond2{stroke:#111}",
+    ".ala.mono .atom{fill:#fff;stroke:#111;stroke-width:2}",
+    ".ala.mono .face{fill:#111}",
+    ".ala.mono .face-line{stroke:#111}",
+    ".ala.mono .cheek,.ala.mono .hl,.ala.mono .bulb-glow{display:none}",
+    ".ala.mono .sweat,.ala.mono .bulb,.ala.mono .spark,.ala.mono .bang circle{fill:#111}",
+    ".ala.mono .bang text{fill:#fff}",
+    ".ala.mono .bulb{stroke:#111}",
+    ".ala.mono .bulb-base{fill:#111}",
+    ".ala.mono .lens{fill:#fff;stroke:#111}",
+    ".ala.mono .handle{stroke:#111}",
+    ".ala.mono *{animation:none!important}",
+    "@keyframes ala-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}",
+    "@keyframes ala-wave{from{transform:rotate(-88deg)}to{transform:rotate(-46deg)}}",
+    "@keyframes ala-peer{0%,100%{transform:rotate(-38deg)}50%{transform:rotate(-47deg)}}",
+    "@keyframes ala-drip{0%{transform:translateY(-3px);opacity:0}25%{opacity:1}100%{transform:translateY(9px);opacity:0}}",
+    "@keyframes ala-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}",
+    "@keyframes ala-point{from{transform:rotate(58deg)}to{transform:rotate(66deg)}}",
+    "@keyframes ala-glow{0%,100%{transform:scale(.85);opacity:.2}50%{transform:scale(1.25);opacity:.45}}",
+    "@keyframes ala-cheer{from{transform:translateY(0)}to{transform:translateY(-9px)}}",
+    "@keyframes ala-armL{from{transform:rotate(48deg)}to{transform:rotate(64deg)}}",
+    "@keyframes ala-armR{from{transform:rotate(-48deg)}to{transform:rotate(-64deg)}}",
+    "@keyframes ala-twinkle{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1);opacity:1}}",
+    "@media (prefers-reduced-motion: reduce){.ala *{animation:none!important}}"
+  ].join("\n");
+
+  var n = 0;
+  function grad(id, hi, base){
+    return '<radialGradient id="'+id+'" cx=".36" cy=".3" r=".8"><stop offset="0" style="stop-color:var('+hi+')"/><stop offset="1" style="stop-color:var('+base+')"/></radialGradient>';
+  }
+  function star(x,y,s,d){
+    return '<path class="spark" style="animation-delay:'+d+'s" d="M'+x+' '+(y-s)+' Q'+(x+s*.18)+' '+(y-s*.18)+' '+(x+s)+' '+y+' Q'+(x+s*.18)+' '+(y+s*.18)+' '+x+' '+(y+s)+' Q'+(x-s*.18)+' '+(y+s*.18)+' '+(x-s)+' '+y+' Q'+(x-s*.18)+' '+(y-s*.18)+' '+x+' '+(y-s)+'Z"/>';
+  }
+
+  function standaloneStyle(){
+    var t = TOKENS.light, d = TOKENS.dark, s = ".ala{", k;
+    for (k in t) s += k + ":" + t[k] + ";";
+    s += "}@media (prefers-color-scheme: dark){.ala{";
+    for (k in d) s += k + ":" + d[k] + ";";
+    return "<style>" + s + "}}" + CSS + "</style>";
+  }
+
+  /* pose: idle | selam | kanit | dikkat | ipucu | tebrik; variant: color | mono */
+  function svg(pose, attrs, standalone, variant){
+    pose = POSES.indexOf(pose) < 0 ? "idle" : pose;
+    var u = "ala" + (n++);
+    var eyeRy = pose === "dikkat" ? 8.6 : 7.4;
+    var px = pose === "kanit" ? 3 : 0, py = pose === "ipucu" ? -3 : 0;
+    var eyes;
+    if (pose === "tebrik") {
+      eyes = '<path class="face-line" d="M79 119 Q85 110 91 119"/><path class="face-line" d="M109 119 Q115 110 121 119"/>';
+    } else {
+      eyes = '<ellipse class="face" cx="'+(85+px)+'" cy="'+(116+py)+'" rx="5.6" ry="'+eyeRy+'"/><ellipse class="face" cx="'+(115+px)+'" cy="'+(116+py)+'" rx="5.6" ry="'+eyeRy+'"/>'+
+             '<circle cx="'+(87+px)+'" cy="'+(113+py)+'" r="2" fill="#fff"/><circle cx="'+(117+px)+'" cy="'+(113+py)+'" r="2" fill="#fff"/>';
+    }
+    var mouth = {
+      idle:   '<path class="face" d="M92 133 Q100 141 108 133 Q100 137 92 133Z"/>',
+      selam:  '<path class="face" d="M89 131 Q100 147 111 131 Q100 136 89 131Z"/>',
+      kanit:  '<path class="face-line" d="M94 136 Q102 139 108 133"/>',
+      dikkat: '<ellipse class="face" cx="100" cy="137" rx="4.5" ry="5.5"/>',
+      ipucu:  '<path class="face" d="M93 134 Q100 141 107 134 Q100 137 93 134Z"/>',
+      tebrik: '<path class="face" d="M87 130 Q100 150 113 130 Q100 136 87 130Z"/><path d="M94 139 Q100 144 106 139 Q100 141 94 139Z" style="fill:var(--ala-cheek)"/>'
+    }[pose];
+    var inArmR = pose === "kanit" ? '<line class="handle" x1="178" y1="146" x2="192" y2="154"/><circle class="lens" cx="203" cy="160" r="13"/>' : '';
+    var top = '';
+    if (pose === "dikkat") top = '<path class="sweat" d="M146 74 C140 84 140 90 146 90 C152 90 152 84 146 74Z"/><g class="bang"><circle cx="170" cy="40" r="14"/><text x="170" y="47" text-anchor="middle">!</text></g>';
+    if (pose === "ipucu") top = '<g class="idea"><circle class="bulb-glow" cx="160" cy="30" r="24"/><circle class="bulb" cx="160" cy="30" r="12"/><rect class="bulb-base" x="154.5" y="41" width="11" height="7" rx="2"/></g>';
+    if (pose === "tebrik") top = star(30,52,9,0) + star(174,46,11,-.4) + star(160,88,6,-.8) + star(40,92,6,-.6);
+
+    var style = standalone ? standaloneStyle() : "";
+    var mono = variant === "mono" ? " mono" : "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" class="ala pose-'+pose+mono+'" viewBox="-20 0 240 230" '+(attrs||'')+'>'+style+
+'<defs>'+grad(u+"c","--ala-c-hi","--ala-c")+grad(u+"n","--ala-n-hi","--ala-n")+grad(u+"o","--ala-o-hi","--ala-o")+'</defs>'+
+'<g class="whole">'+
+ '<g class="legs"><line class="bond" x1="88" y1="160" x2="80" y2="196"/><line class="bond" x1="112" y1="160" x2="120" y2="196"/>'+
+ '<circle class="atom at-h" cx="79" cy="200" r="10"/><circle class="atom at-h" cx="121" cy="200" r="10"/></g>'+
+ '<g class="arm-l"><line class="bond" x1="58" y1="124" x2="26" y2="143"/><line class="bond" x1="22" y1="142" x2="8" y2="130"/>'+
+ '<circle class="atom at-h" cx="7" cy="129" r="6.5"/><circle class="atom" cx="24" cy="145" r="13" fill="url(#'+u+'n)"/><circle class="hl" cx="19" cy="140" r="3.5"/></g>'+
+ '<g class="arm-r"><line class="bond" x1="142" y1="124" x2="177" y2="146"/>'+
+ '<circle class="atom" cx="177" cy="146" r="13" fill="url(#'+u+'o)"/><circle class="hl" cx="172" cy="141" r="3.5"/>'+inArmR+'</g>'+
+ '<g class="tuft"><line class="bond" x1="100" y1="76" x2="100" y2="50"/>'+
+ '<line class="bond" x1="100" y1="44" x2="84" y2="30"/><line class="bond" x1="100" y1="44" x2="100" y2="22"/><line class="bond" x1="100" y1="44" x2="116" y2="30"/>'+
+ '<circle class="atom at-h" cx="83" cy="29" r="6.5"/><circle class="atom at-h" cx="100" cy="20" r="6.5"/><circle class="atom at-h" cx="117" cy="29" r="6.5"/>'+
+ '<circle class="atom" cx="100" cy="45" r="11" fill="url(#'+u+'c)"/></g>'+
+ '<circle class="atom" cx="100" cy="120" r="48" fill="url(#'+u+'c)"/>'+
+ '<ellipse class="hl" cx="80" cy="96" rx="12" ry="8" transform="rotate(-30 80 96)"/>'+
+ '<ellipse class="cheek" cx="73" cy="131" rx="7.5" ry="4.2"/><ellipse class="cheek" cx="127" cy="131" rx="7.5" ry="4.2"/>'+
+ '<g class="eyes">'+eyes+'</g>'+mouth+top+
+'</g></svg>';
+  }
+  /* Small face variant keeps only the most recognizable color cues. */
+  function icon(attrs, standalone, variant){
+    var u = "ala" + (n++), mono = variant === "mono" ? " mono" : "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" class="ala icon'+mono+'" viewBox="22 16 156 140" '+(attrs||'')+'>'+
+      (standalone ? standaloneStyle() : "")+
+      '<defs>'+grad(u+"c","--ala-c-hi","--ala-c")+grad(u+"n","--ala-n-hi","--ala-n")+grad(u+"o","--ala-o-hi","--ala-o")+'</defs>'+
+      '<line class="bond" x1="100" y1="48" x2="100" y2="29"/><circle class="atom" cx="100" cy="27" r="9" fill="url(#'+u+'c)"/>'+
+      '<line class="bond" x1="57" y1="101" x2="37" y2="113"/><circle class="atom" cx="34" cy="115" r="11" fill="url(#'+u+'n)"/>'+
+      '<line class="bond" x1="143" y1="101" x2="163" y2="113"/><circle class="atom" cx="166" cy="115" r="11" fill="url(#'+u+'o)"/>'+
+      '<circle class="atom" cx="100" cy="95" r="48" fill="url(#'+u+'c)"/>'+
+      '<g class="eyes"><ellipse class="face" cx="85" cy="92" rx="5.6" ry="7.4"/><ellipse class="face" cx="115" cy="92" rx="5.6" ry="7.4"/></g>'+
+      '<path class="face" d="M92 112 Q100 120 108 112 Q100 116 92 112Z"/></svg>';
+  }
+  return { svg: svg, icon: icon, CSS: CSS, TOKENS: TOKENS, POSES: POSES, version: "1.1" };
+})();
+if (typeof module !== "undefined") module.exports = ALA;
+
+</script>
+<script>
+(function(){
+'use strict';
+var NS='http://www.w3.org/2000/svg';
+function $(s){return document.querySelector(s);}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
+var nfc={};function nf(d){return nfc[d]||(nfc[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}));}
+function fx(v,d){if(v==null||!isFinite(v))return '–';var s=nf(d).format(Math.abs(v));return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+s;}
+function num(str){if(str==null)return NaN;str=String(str).trim().replace(/\s/g,'').replace('−','-');if(str==='')return NaN;if(/,/.test(str))str=str.replace(/\./g,'').replace(',','.');return Number(str);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+var A=window.DKU; // analysis.json
+var LIB={};(A.library_index||[]).forEach(function(x){LIB[x.id]=x;});
+
+/* Ala + ilerleme */
+var st=document.createElement('style');st.textContent=(window.ALA&&ALA.CSS)||'';document.head.appendChild(st);
+$$('[data-ala]').forEach(function(n){if(window.ALA)n.innerHTML=ALA.svg(n.getAttribute('data-ala'),'aria-hidden="true" focusable="false"');});
+function setAla(id,pose){var n=document.getElementById(id);if(n&&window.ALA)n.innerHTML=ALA.svg(pose,'aria-hidden="true"');}
+var KEY='dku-pilot-done',done={};try{done=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){}
+var LABS={1:['labA','alaA'],2:['labB','alaB'],3:['labC','alaC'],4:['labD','alaD']};
+function paint(){var k=0;for(var t in LABS)if(done[t])k++;$('#progText').textContent='Uygulamalar: '+k+' / 4';
+  $$('#progDots i').forEach(function(d,i){d.classList.toggle('on',!!done[i+1]);});
+  for(var t2 in LABS){document.getElementById(LABS[t2][0]).classList.toggle('is-done',!!done[t2]);if(done[t2])setAla(LABS[t2][1],'tebrik');}}
+function complete(t){if(!done[t]){done[t]=1;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(e){}}paint();}
+function say(id,msg,ok){var n=document.getElementById(id);n.textContent=msg;n.className='feedback '+(ok?'ok':'no');}
+
+var SET={tripsin:{c:'#2f6f95',n:'tripsin'},d2_decoy:{c:'#96661c',n:'D2 tuzak'}};
+var TERMS=[['gauss1','gauss1 (yakın temas)'],['gauss2','gauss2 (uzak temas)'],['repulsion','itme'],['hydrophobic','hidrofobik'],['hbond','H-bağı']];
+var BASE={gauss1:-0.035579,gauss2:-0.005156,repulsion:0.840245,hydrophobic:-0.035069,hbond:-0.587439};
+var S=A.scatter;
+function cls(d){return d.set==='d2_decoy'?'dec':(d.pki==null?'dec':(d.pki>=7?'act':(d.pki<5?'weak':'mid')));}
+
+/* grafik iskeleti */
+var cN=0;
+function chart(svg,o){
+  var vb=svg.viewBox.baseVal,W=vb.width,H=vb.height,L=o.ml||56,R=W-(o.mr||16),T=o.mt||16,B=H-(o.mb||44);
+  function X(v){return L+(v-o.x0)/(o.x1-o.x0)*(R-L);}function Y(v){return B-(v-o.y0)/(o.y1-o.y0)*(B-T);}
+  var h='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#fffefb"/>';
+  (o.yt||[]).forEach(function(t){h+='<line class="grid" x1="'+L+'" x2="'+R+'" y1="'+Y(t).toFixed(1)+'" y2="'+Y(t).toFixed(1)+'"/><text x="'+(L-8)+'" y="'+(Y(t)+4).toFixed(1)+'" text-anchor="end">'+t.toString().replace('.',',')+'</text>';});
+  (o.xt||[]).forEach(function(t){h+='<line class="grid" y1="'+T+'" y2="'+B+'" x1="'+X(t).toFixed(1)+'" x2="'+X(t).toFixed(1)+'"/><text x="'+X(t).toFixed(1)+'" y="'+(B+18)+'" text-anchor="middle">'+t.toString().replace('.',',')+'</text>';});
+  h+='<line class="axis" x1="'+L+'" x2="'+R+'" y1="'+B+'" y2="'+B+'"/><line class="axis" x1="'+L+'" x2="'+L+'" y1="'+T+'" y2="'+B+'"/>';
+  if(o.xl)h+='<text x="'+R+'" y="'+(H-4)+'" text-anchor="end">'+o.xl+'</text>';
+  if(o.yl){var yx=16,yy=(T+B)/2;h+='<text x="'+yx+'" y="'+yy+'" text-anchor="middle" transform="rotate(-90 '+yx+' '+yy+')">'+o.yl+'</text>';}
+  var cid='cl'+(cN++);h+='<clipPath id="'+cid+'"><rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'"/></clipPath><g class="lay" clip-path="url(#'+cid+')"></g><g class="top"></g>';
+  svg.innerHTML=h;return {X:X,Y:Y,L:L,R:R,T:T,B:B,W:W,H:H,lay:svg.querySelector('.lay'),top:svg.querySelector('.top')};
+}
+function ticks(a,b,step){var t=[];for(var v=Math.ceil(a/step)*step;v<=b+1e-9;v+=step)t.push(Math.round(v*100)/100);return t;}
+/* istatistik */
+function pearson(a,b){var n=a.length,ma=0,mb=0;for(var i=0;i<n;i++){ma+=a[i];mb+=b[i];}ma/=n;mb/=n;var sa=0,sb=0,sab=0;for(i=0;i<n;i++){var da=a[i]-ma,db=b[i]-mb;sa+=da*da;sb+=db*db;sab+=da*db;}return sab/Math.sqrt(sa*sb);}
+function rankOf(a){var idx=a.map(function(v,i){return i;}).sort(function(i,j){return a[i]-a[j];}),r=new Array(a.length);
+  for(var k=0;k<idx.length;){var j=k;while(j+1<idx.length&&a[idx[j+1]]===a[idx[k]])j++;var rr=(k+j)/2+1;for(var m=k;m<=j;m++)r[idx[m]]=rr;k=j+1;}return r;}
+function spearman(a,b){return pearson(rankOf(a),rankOf(b));}
+
+/* ================= LAB A ================= */
+(function(){
+  var tr=S.filter(function(d){return d.set==='tripsin'&&d.pki!=null&&!d.censored;});
+  var svg=$('#scA'),sel=null,fitOn=true,amidOn=false;
+  var sc=tr.map(function(d){return d.score;}),pk=tr.map(function(d){return d.pki;});
+  var x0=Math.floor(Math.min.apply(null,sc)),x1=Math.ceil(Math.max.apply(null,sc)),y0=Math.floor(Math.min.apply(null,pk)),y1=Math.ceil(Math.max.apply(null,pk));
+  var co=A.corr_score_pki,lf=A.linear_fit;
+  function draw(){
+    var c=chart(svg,{x0:x0,x1:x1,y0:y0,y1:y1,xt:ticks(x0,x1,2),yt:ticks(y0,y1,1),xl:'docking skoru (düşük = iyi)',yl:'ölçülen pKi (yüksek = güçlü)'});
+    if(fitOn){var xa=x0,xb=x1;var ya=lf.slope*xa+lf.intercept,yb=lf.slope*xb+lf.intercept;
+      el('line',{x1:c.X(xa),y1:c.Y(clamp(ya,y0-5,y1+5)),x2:c.X(xb),y2:c.Y(clamp(yb,y0-5,y1+5)),stroke:'#934b3c','stroke-width':2,'stroke-dasharray':'6 4'},c.lay);}
+    tr.forEach(function(d){var mark=amidOn&&(d.amidine||d.guan);
+      var dot=el('circle',{cx:c.X(d.score).toFixed(1),cy:c.Y(d.pki).toFixed(1),r:d===sel?7:4.2,fill:d===sel?'#243744':(mark?'#c85a48':'#2f6f95'),'fill-opacity':d===sel?1:.62,stroke:d===sel?'#243744':(mark?'#a3402f':'#fff'),'stroke-width':d===sel?2.5:1,style:'cursor:pointer'},c.top);
+      dot.addEventListener('click',function(){sel=d;draw();card();});});
+  }
+  function card(){
+    var d=sel;if(!d){return;}
+    var h='<h4>'+d.id+' <span class="pill '+cls(d)+'">'+(d.pki>=7?'güçlü':d.pki<5?'zayıf':'orta')+'</span></h4>';
+    h+='<p class="smi">skor '+fx(d.score,2)+' · pKi '+fx(d.pki,2)+' · ağır atom '+d.ha+' · dönebilir bağ '+d.torsdof+(d.amidine||d.guan?' · amidin/guanidin':'')+'</p>';
+    h+='<div class="termbars">';
+    TERMS.forEach(function(t){var v=d.rawterms[t[0]]*BASE[t[0]];var w=Math.min(48,Math.abs(v)/8*48);
+      h+='<span class="nm">'+t[1].split(' ')[0]+'</span><span class="tk"><span class="fl '+(v<0?'neg':'pos')+'" style="left:'+(v<0?50-w:50)+'%;width:'+w+'%"></span></span><span class="vv">'+fx(v,2)+'</span>';});
+    h+='</div>';
+    if(d.cat_asp!=null)h+='<p class="smi" style="margin-top:8px">Pozitif azotun Asp189\'a en yakın uzaklığı: '+fx(d.cat_asp,1)+' Å'+(d.cat_asp<4?' (tuz köprüsü)':'')+'.</p>';
+    $('#pickA').innerHTML=h;
+  }
+  function metric(){
+    $('#mA').innerHTML='<dt>Pearson r</dt><dd>'+fx(co.pearson,2)+' <span style="color:var(--muted);font-weight:400">['+fx(co.pearson_ci[0],2)+', '+fx(co.pearson_ci[1],2)+']</span></dd>'
+      +'<dt>Spearman ρ</dt><dd>'+fx(co.spearman,2)+' <span style="color:var(--muted);font-weight:400">['+fx(co.spearman_ci[0],2)+', '+fx(co.spearman_ci[1],2)+']</span></dd>'
+      +'<dt>Doğrusal uyum R²</dt><dd class="lo">'+fx(lf.r2,2)+'</dd><dt>pKi tahmin hatası</dt><dd>±'+fx(lf.rmse_pki,2)+'</dd><dt>Bileşik sayısı</dt><dd>'+co.n+'</dd>';
+  }
+  $('#aFit').addEventListener('change',function(){fitOn=this.checked;draw();});
+  $('#aAmid').addEventListener('change',function(){amidOn=this.checked;draw();});
+  $('#chkA').addEventListener('click',function(){var v=num($('#inA').value);
+    if(isFinite(v)&&Math.abs(v-co.spearman)<0.02){complete(1);say('fbA','Doğru: ρ = '+fx(co.spearman,2)+'. Negatif çünkü düşük skor güçlü bağlanmayla eşleşir. Ama |ρ| küçük ve R² yalnızca '+fx(lf.r2,2)+': skor pKi\'nin çok az bir kısmını açıklıyor. En iyi skorlu bileşikler en güçlü bağlananlar değil; skor bir sıralama verir ama zayıf bir sıralama.',true);}
+    else say('fbA','Sağdaki panelde "Spearman ρ" satırını okuyun; işaretiyle birlikte yazın (örn. −0,42).',false);});
+  metric();draw();
+})();
+
+/* ================= LAB B ================= */
+(function(){
+  var tr=S.filter(function(d){return d.set==='tripsin'&&d.pki!=null&&!d.censored;});
+  var svg=$('#scB'),axis='ha';
+  var pk=tr.map(function(d){return d.pki;}),sc=tr.map(function(d){return d.score;}),ha=tr.map(function(d){return d.ha;});
+  var se=tr.map(function(d){return d.score/d.ha;});
+  var r_pki=pearson(sc,pk),r_ha=pearson(sc,ha),r_se=pearson(se,pk);
+  function draw(){
+    var xs=tr.map(function(d){return axis==='ha'?d.ha:d.pki;});
+    var x0=Math.floor(Math.min.apply(null,xs)),x1=Math.ceil(Math.max.apply(null,xs)),y0=Math.floor(Math.min.apply(null,sc)),y1=Math.ceil(Math.max.apply(null,sc));
+    var c=chart(svg,{x0:x0,x1:x1,y0:y0,y1:y1,xt:ticks(x0,x1,axis==='ha'?5:1),yt:ticks(y0,y1,2),xl:axis==='ha'?'ağır atom sayısı':'ölçülen pKi',yl:'docking skoru'});
+    var a=pearson(xs,sc),ma=xs.reduce(function(s,v){return s+v;},0)/xs.length,ms=sc.reduce(function(s,v){return s+v;},0)/sc.length;
+    var sx=0,sxy=0;xs.forEach(function(v,i){sx+=(v-ma)*(v-ma);sxy+=(v-ma)*(sc[i]-ms);});var sl=sxy/sx,ic=ms-sl*ma;
+    el('line',{x1:c.X(x0),y1:c.Y(clamp(sl*x0+ic,y0-5,y1+5)),x2:c.X(x1),y2:c.Y(clamp(sl*x1+ic,y0-5,y1+5)),stroke:'#934b3c','stroke-width':2,'stroke-dasharray':'6 4'},c.lay);
+    tr.forEach(function(d,i){el('circle',{cx:c.X(xs[i]).toFixed(1),cy:c.Y(d.score).toFixed(1),r:4,fill:'#2f6f95','fill-opacity':.55,stroke:'#fff','stroke-width':1},c.top);});
+  }
+  function metric(){
+    $('#mB').innerHTML='<dt>skor ↔ ağır atom</dt><dd>'+fx(r_ha,2)+'</dd><dt>skor ↔ pKi</dt><dd>'+fx(r_pki,2)+'</dd><dt>atom başına skor ↔ pKi</dt><dd>'+fx(r_se,2)+'</dd>';
+    $('#keysB').textContent='|skor↔atom| ('+fx(Math.abs(r_ha),2)+'), skorun afiniteyle ilişkisinden ('+fx(Math.abs(r_pki),2)+') '+(Math.abs(r_ha)>Math.abs(r_pki)?'daha güçlü':'daha zayıf')+'. Boyuta bölmek ilişkiyi '+(Math.abs(r_se)<Math.abs(r_pki)?'zayıflatıyor':'güçlendiriyor')+'.';
+  }
+  $$('#axB .chip').forEach(function(b){b.addEventListener('click',function(){$$('#axB .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});axis=b.getAttribute('data-v');draw();});});
+  $$('#ansB button').forEach(function(b){b.addEventListener('click',function(){$$('#ansB button').forEach(function(x){x.classList.remove('wrong');});
+    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(2);say('fbB','Doğru. Skorun boyutla ilişkisi ('+fx(r_ha,2)+') afiniteyle ilişkisinden güçlü. Atom başına skor pKi ile '+fx(r_se,2)+': ham skordan bile zayıf. Skorun bir kısmı "kaç atom sığdı"yı ölçüyor, "ne kadar iyi bağlandı"yı değil. Bu yüzden büyük moleküller taramalarda haksız avantaj kazanır.',true);}
+    else{b.classList.add('wrong');say('fbB','Sağdaki üç korelasyona bakın: skorun ağır atom sayısıyla ve pKi ile ilişkisini karşılaştırın.',false);}});});
+  metric();draw();
+})();
+
+/* ================= LAB C ================= */
+(function(){
+  var neg='vs_weak_trypsin',svg=$('#rocC');
+  function E(){return A['enrichment_'+neg];}
+  function draw(){
+    var e=E();
+    var c=chart(svg,{x0:0,x1:1,y0:0,y1:1,ml:52,mb:44,xt:[0,0.25,0.5,0.75,1],yt:[0,0.25,0.5,0.75,1],xl:'yanlış pozitif oranı',yl:'doğru pozitif oranı'});
+    el('line',{x1:c.X(0),y1:c.Y(0),x2:c.X(1),y2:c.Y(1),stroke:'#c7c4b8','stroke-dasharray':'5 5','stroke-width':1.5},c.lay);
+    var d='';e.roc.forEach(function(p,i){d+=(i?'L':'M')+c.X(p[0]).toFixed(1)+' '+c.Y(p[1]).toFixed(1);});
+    el('path',{d:d,fill:'none',stroke:neg==='vs_d2_decoy'?'#96661c':'#2f6f95','stroke-width':2.6},c.lay);
+    var t=el('text',{x:c.X(0.55),y:c.Y(0.28),style:'fill:var(--muted)'},c.top);t.textContent='rastgele';
+  }
+  function metric(){
+    var e=E();
+    $('#mC').innerHTML='<dt>Eğri altı alan (EAUC)</dt><dd class="'+(e.auc>0.7?'hi':'')+'">'+fx(e.auc,2)+'</dd><dt>Zenginleştirme EF %1</dt><dd>'+fx(e.ef1pct,1)+'×</dd><dt>EF %5</dt><dd>'+fx(e.ef5pct,1)+'×</dd><dt>EF %10</dt><dd>'+fx(e.ef10pct,1)+'×</dd><dt>etkin / tuzak</dt><dd>'+e.n_active+' / '+e.n_decoy+'</dd>';
+    var eb=A.enrichment_vs_weak_trypsin,ed=A.enrichment_vs_d2_decoy;
+    $('#keysC').innerHTML='Zayıf tripsin bağlayıcılarına karşı EAUC '+fx(eb.auc,2)+'; D2 tuzaklarına karşı '+fx(ed.auc,2)+'. Fark, tuzak seçiminin ölçtüğünüz "başarı"yı ne kadar belirlediğini gösterir.';
+  }
+  $$('#negC .chip').forEach(function(b){b.addEventListener('click',function(){$$('#negC .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});neg=b.getAttribute('data-v');draw();metric();});});
+  $$('#ansC button').forEach(function(b){b.addEventListener('click',function(){$$('#ansC button').forEach(function(x){x.classList.remove('wrong');});
+    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(3);var eb=A.enrichment_vs_weak_trypsin,ed=A.enrichment_vs_d2_decoy;say('fbC','Doğru. D2 tuzaklarına karşı EAUC '+fx(ed.auc,2)+', zayıf tripsin bağlayıcılarına karşı yalnızca '+fx(eb.auc,2)+'. Kolay ayrılan tuzaklar başarıyı şişirir; DUD-E gibi ölçütler bu yanlılığı azaltmaya çalışsa da bir kısmı kalır ve makine öğrenmesi modelleri bunu farkında olmadan öğrenebilir.',true);}
+    else{b.classList.add('wrong');say('fbC','İki negatif setin EAUC değerlerini karşılaştırın ve D2 bileşiklerinin bu cebe kimyaca uyup uymadığını düşünün.',false);}});});
+  metric();draw();
+})();
+
+/* ================= LAB D: ağırlık atölyesi ================= */
+(function(){
+  var tr=S.filter(function(d){return d.set==='tripsin'&&d.pki!=null&&!d.censored;});
+  var feat=tr.map(function(d){return [d.rawterms.gauss1,d.rawterms.gauss2,d.rawterms.repulsion,d.rawterms.hydrophobic,d.rawterms.hbond,d.torsdof];});
+  var y=tr.map(function(d){return d.pki;});
+  var docs=tr.map(function(d){return d.doc;});
+  // ölçek: rawterm değerleri büyük olabilir; kaydırıcı için normalize et
+  var W={gauss1:BASE.gauss1,gauss2:BASE.gauss2,repulsion:BASE.repulsion,hydrophobic:BASE.hydrophobic,hbond:BASE.hbond};
+  var TT=['gauss1','gauss2','repulsion','hydrophobic','hbond'];
+  var svg=$('#scD');
+  // lineer cebir
+  function solve(Ain,bin){var n=bin.length,M=Ain.map(function(r,i){return r.concat([bin[i]]);});
+    for(var col=0;col<n;col++){var piv=col;for(var r=col+1;r<n;r++)if(Math.abs(M[r][col])>Math.abs(M[piv][col]))piv=r;var tmp=M[col];M[col]=M[piv];M[piv]=tmp;
+      var d=M[col][col];if(Math.abs(d)<1e-12)d=1e-12;for(var c=col;c<=n;c++)M[col][c]/=d;
+      for(r=0;r<n;r++){if(r===col)continue;var f=M[r][col];for(c=col;c<=n;c++)M[r][c]-=f*M[col][c];}}
+    return M.map(function(r){return r[n];});}
+  function ridge(rows,yv,lam){var p=rows[0].length,A=[];for(var i=0;i<p;i++){A.push(new Array(p).fill(0));}var b=new Array(p).fill(0);
+    for(var k=0;k<rows.length;k++){for(i=0;i<p;i++){b[i]+=rows[i]?0:0;}}
+    for(k=0;k<rows.length;k++){var x=rows[k];for(i=0;i<p;i++){b[i]+=x[i]*yv[k];for(var j=0;j<p;j++)A[i][j]+=x[i]*x[j];}}
+    for(i=0;i<p;i++)A[i][i]+=lam;return solve(A,b);}
+  // slider ağırlıklarıyla skor = sum(w_k*rawterm_k); pKi = a*skor + b (a,b en küçük kareyle)
+  function weightedScore(f){return f[0]*W.gauss1+f[1]*W.gauss2+f[2]*W.repulsion+f[3]*W.hydrophobic+f[4]*W.hbond;}
+  function fitAB(idx){var xs=idx.map(function(i){return weightedScore(feat[i]);}),ys=idx.map(function(i){return y[i];});
+    var n=xs.length,mx=xs.reduce(function(s,v){return s+v;},0)/n,my=ys.reduce(function(s,v){return s+v;},0)/n,sxx=0,sxy=0;
+    for(var i=0;i<n;i++){sxx+=(xs[i]-mx)*(xs[i]-mx);sxy+=(xs[i]-mx)*(ys[i]-my);}var a=sxx>1e-9?sxy/sxx:0,b=my-a*mx;return [a,b];}
+  var yMean=y.reduce(function(s,v){return s+v;},0)/y.length,ssTot=y.reduce(function(s,v){return s+(v-yMean)*(v-yMean);},0);
+  function r2(pred){var ss=0;for(var i=0;i<y.length;i++)ss+=(y[i]-pred[i])*(y[i]-pred[i]);return 1-ss/ssTot;}
+  // tam 6 terim + kesim ile gruplu çapraz doğrulama (analysis.py ile aynı model sınıfı)
+  function foldsOf(groups){var uniq=[];groups.forEach(function(g){if(uniq.indexOf(g)<0)uniq.push(g);});
+    var f=[[],[],[],[],[]];uniq.forEach(function(g,i){f[i%5].push(g);});return f;}
+  function fullCV(groups){
+    var folds=foldsOf(groups),pred=new Array(y.length);
+    folds.forEach(function(f){var testG={};f.forEach(function(g){testG[g]=1;});
+      var trIdx=[],teIdx=[];for(var i=0;i<y.length;i++){(testG[groups[i]]?teIdx:trIdx).push(i);}
+      var rows=trIdx.map(function(i){return feat[i].concat([1]);}),yt=trIdx.map(function(i){return y[i];});
+      var w=ridge(rows,yt,1.0);
+      teIdx.forEach(function(i){var s=0,ff=feat[i];for(var j=0;j<6;j++)s+=w[j]*ff[j];pred[i]=s+w[6];});});
+    return r2(pred);}
+  var CV=null; // {rand, doc} bir kez hesaplanır
+  function computeCV(){if(CV)return CV;CV={rand:fullCV(tr.map(function(_,i){return 't'+i;})),doc:fullCV(docs)};return CV;}
+  var fitted=false;
+  function draw(){
+    var ab=fitAB(tr.map(function(_,i){return i;})),pred=feat.map(function(f){return ab[0]*weightedScore(f)+ab[1];});
+    var y0=Math.floor(Math.min.apply(null,y)),y1=Math.ceil(Math.max.apply(null,y));
+    var c=chart(svg,{x0:y0,x1:y1,y0:y0,y1:y1,ml:52,xt:ticks(y0,y1,1),yt:ticks(y0,y1,1),xl:'ölçülen pKi',yl:'tahmin edilen pKi (slider ağırlıkları)'});
+    el('line',{x1:c.X(y0),y1:c.Y(y0),x2:c.X(y1),y2:c.Y(y1),stroke:'#c7c4b8','stroke-dasharray':'5 5','stroke-width':1.5},c.lay);
+    tr.forEach(function(d,i){el('circle',{cx:c.X(y[i]).toFixed(1),cy:c.Y(clamp(pred[i],y0-2,y1+2)).toFixed(1),r:4,fill:'#934b3c','fill-opacity':.5,stroke:'#fff','stroke-width':1},c.top);});
+    var rr=r2(pred);
+    var h='<dt>Uyum R² (slider, aynı veri)</dt><dd class="'+(rr>0.3?'hi':'')+'">'+fx(rr,2)+'</dd>';
+    if(fitted){var cv=computeCV();h+='<dt>Rastgele bölme CV R²</dt><dd>'+fx(cv.rand,2)+'</dd><dt>Yayına göre bölme CV R²</dt><dd class="'+(cv.doc<0.15?'lo':'')+'">'+fx(cv.doc,2)+'</dd><dt>Yalnız ham skor, yayına göre CV</dt><dd>'+fx(A.weight_fit.baseline_scoreonly_bydoc_r2,2)+'</dd>';}
+    else h+='<dt>Çapraz doğrulama</dt><dd style="color:var(--muted);font-weight:400">"Veriye uydur"da açılır</dd>';
+    h+='<dt>Bileşik / yayın</dt><dd>'+tr.length+' / '+A.weight_fit.n_docs+'</dd>';
+    $('#mD').innerHTML=h;
+  }
+  function sliders(){
+    var box=$('#wD');box.innerHTML='';
+    TT.forEach(function(k){var d=document.createElement('div');d.className='wbar';
+      d.innerHTML='<label for="w_'+k+'"><span>'+({gauss1:'gauss1',gauss2:'gauss2',repulsion:'itme',hydrophobic:'hidrofobik',hbond:'H-bağı'}[k])+'</span> <output id="o_'+k+'"></output></label><input type="range" id="w_'+k+'" min="-2" max="2" step="0.01">';
+      box.appendChild(d);
+      var inp=d.querySelector('input');inp.value=W[k]/Math.abs(BASE[k]);d.querySelector('output').textContent=fx(W[k],3);
+      inp.addEventListener('input',function(){W[k]=Number(inp.value)*Math.abs(BASE[k]);document.getElementById('o_'+k).textContent=fx(W[k],3);draw();});});
+  }
+  function setW(src){TT.forEach(function(k){W[k]=src[k];document.getElementById('w_'+k).value=W[k]/Math.abs(BASE[k]);document.getElementById('o_'+k).textContent=fx(W[k],3);});draw();}
+  $('#vinaD').addEventListener('click',function(){setW(BASE);});
+  $('#fitD').addEventListener('click',function(){
+    var rows=feat.map(function(f){return f.concat([1]);});
+    var w=ridge(rows,y,1.0);var fit={gauss1:w[0],gauss2:w[1],repulsion:w[2],hydrophobic:w[3],hbond:w[4]};
+    fitted=true;setW(fit);complete(4);
+    var cv=computeCV();
+    say('fbD','Ağırlıklar veriye uyduruldu; aynı veride uyum arttı. Ama rastgele bölmede CV R² ≈ '+fx(cv.rand,2)+', yayına göre bölmede ≈ '+fx(cv.doc,2)+'. Hatta yalnız ham Vina skorunu kullanmak yayına göre bölmede ('+fx(A.weight_fit.baseline_scoreonly_bydoc_r2,2)+') bu uydurulmuş ağırlıklardan daha iyi genelliyor. Aynı makalenin benzer bileşiklerini ezberlemek, yeni bir kimyasal seriye yardımcı olmuyor.',true);
+  });
+  $$('#ansD button').forEach(function(b){b.addEventListener('click',function(){$$('#ansD button').forEach(function(x){x.classList.remove('wrong');});
+    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(4);say('fbD','Doğru. Rastgele bölme iyimser bir tablo çizer; yayına göre bölme gerçeğe daha yakındır. Bu, docking skorlarına dayalı makine öğrenmesi modellerinin neden dikkatli doğrulama gerektirdiğinin özüdür.',true);}
+    else{b.classList.add('wrong');say('fbD','"Veriye uydur"a basıp iki CV R² değerini karşılaştırın.',false);}});});
+  sliders();draw();
+})();
+
+/* ================= üst kutu + prose sayıları ================= */
+(function(){
+  var m=A.meta;
+  var facts=[[m.n_trypsin,'tripsin bileşiği (Ki)'],[m.n_active,'güçlü (pKi ≥ 7)'],[m.n_weak,'zayıf (pKi < 5)'],[m.n_decoy,'D2 tuzağı'],[m.n_docs,'ayrı yayın']];
+  $('#facts').innerHTML=facts.map(function(f){return '<div class="fact"><b>'+f[0]+'</b><span>'+f[1]+'</span></div>';}).join('');
+  $('#factsCap').innerHTML='Kaynak: ChEMBL tripsin (CHEMBL3769, <i>Bos taurus</i>) K<sub>i</sub> ölçümleri ve dopamin D2 (CHEMBL217) tuzak seti. Her bileşik 3PTB\'ye Vina ile dock edildi; kayıt <code>book/cases/trypsin_3ptb/screen/</code>.';
+  var co=A.corr_score_pki,lf=A.linear_fit;
+  $('#proseA').innerHTML='Skor ile pK<sub>i</sub> arasında zayıf bir ilişki var (Spearman ρ = '+fx(co.spearman,2)+'), ama R² yalnızca '+fx(lf.r2,2)+'. Yani skordaki değişimin çok küçük bir kısmı ölçülen afiniteyi izliyor. Docking bir sıralama verir; güvenilir bir afinite sıralaması değil.';
+  var eb=A.enrichment_vs_weak_trypsin,ed=A.enrichment_vs_d2_decoy;
+  $('#proseC').innerHTML='Aynı skor, iki farklı tuzak setinde çok farklı görünür: D2 tuzaklarına karşı EAUC '+fx(ed.auc,2)+' (kolay), zayıf tripsin bağlayıcılarına karşı '+fx(eb.auc,2)+' (zor). "Docking işe yarıyor mu?" sorusunun cevabı, hangi tuzakları seçtiğinize bağlıdır.';
+  var wf=A.weight_fit;
+  $('#proseD').innerHTML='Ağırlıkları veriye uydurmak, rastgele bölünmüş sınamada iyi görünür (R² '+fx(wf.cv_random_r2,2)+'). Ama aynı makalenin bileşikleri eğitim ve sınamaya ayrıldığında (yayına göre bölme) bu kazanç kaybolur: R² yaklaşık '+fx(wf.cv_bydoc_r2,2)+'. Yalnız ham skorla tek değişkenli baz çizgisi bile yayına göre bölmede aynı düzeydedir (R² '+fx(wf.baseline_scoreonly_bydoc_r2,2)+'): fazladan beş ağırlığı uydurmak, yeni bir kimyasal seride hiçbir şey kazandırmadı. Bir skor fonksiyonunu veriye uydurmak kolay, yeni kimyaya genellemek zordur.';
+})();
+
+/* ================= QUIZ ================= */
+var Q=[
+ {s:'Skor ile pK<sub>i</sub> arasında Spearman ρ ≈ −0,4 çıktı. En doğru yorum?',
+  o:[['Skor afiniteyi güvenilir sıralar; ρ kusursuz olmasa da yeterli.',0],['Zayıf ama sıfır olmayan bir eğilim var; skor kaba bir zenginleştirme sağlar ama tek tek afinite sıralaması için güvenilmez.',1],['Skorun afiniteyle hiçbir ilişkisi yoktur.',0]],
+  w:'|ρ| küçük ve R² düşük olduğunda skor, molekülleri kabaca öne toplayabilir ama iki bileşiğin hangisinin daha güçlü bağlandığını söyleyemez.'},
+ {s:'Büyük moleküller neden neredeyse otomatik olarak daha iyi (daha düşük) skor alır?',
+  o:[['Vina büyük molekülleri kasten ödüllendirir.',0],['Daha çok atom, daha çok temas terimi toplar; skor boyutla ilişkilidir ve bu afinite değildir.',1],['Büyük moleküller her zaman daha güçlü bağlanır.',0]],
+  w:'Bu yüzden ham skor yerine ligand verimi gibi boyuta göre düzeltilmiş ölçüler ya da dikkatli tuzak eşleştirmesi kullanılır.'},
+ {s:'Bir docking yönteminin başka bir hedefin bileşiklerine karşı EAUC değeri 0,9, aynı hedefin zayıf bağlayıcılarına karşı 0,6 çıktı. Bu ne anlatır?',
+  o:[['Yöntem mükemmeldir; 0,9 gerçek başarıdır.',0],['Kolay tuzaklar başarıyı şişirir; gerçek zorluk aynı hedefin zayıf bağlayıcılarından ayırmaktır ve orada başarı çok daha düşüktür.',1],['İki sayı ölçüm hatasıdır, anlamsızdır.',0]],
+  w:'Ölçüt tasarımı (tuzak seçimi) ölçülen başarıyı belirler. Yanlı ölçütler, özellikle makine öğrenmesi modellerinde, yanıltıcı sonuçlar doğurur.'},
+ {s:'Ağırlıkları veriye uydurdunuz: rastgele bölmede R² 0,5, yayına göre bölmede 0,1. Hangi sonuç doğru?',
+  o:[['Model iyidir; rastgele R² gerçek performanstır.',0],['Model kısmen aynı makaledeki benzer bileşikleri ezberledi; yeni bir seriye genellemesi zayıf. Yayına göre bölme daha dürüst bir tahmindir.',1],['Yayına göre bölme yanlıştır; her zaman rastgele bölme kullanılmalı.',0]],
+  w:'Aynı yayının bileşikleri hem eğitimde hem sınamada olduğunda başarı abartılır. Gruplu doğrulama, gerçek genelleme gücünü ölçmenin yoludur.'}
+];
+var qz=$('#quiz');
+Q.forEach(function(q,i){var d=document.createElement('div');d.className='q';
+  d.innerHTML='<p class="stem"><b>'+(i+1)+'.</b> '+q.s+'</p><div class="opts" role="group" aria-label="Soru '+(i+1)+' seçenekleri"></div><p class="why" aria-live="polite"></p>';
+  var box=d.querySelector('.opts');
+  q.o.forEach(function(o){var b=document.createElement('button');b.innerHTML=o[0];b.addEventListener('click',function(){
+    box.querySelectorAll('button').forEach(function(x){x.classList.remove('wrong');});
+    if(o[1]){b.classList.add('right');d.querySelector('.why').innerHTML='<b style="color:var(--good)">Doğru.</b> '+q.w;}
+    else{b.classList.add('wrong');d.querySelector('.why').innerHTML='<b style="color:var(--bad)">Tekrar düşünün.</b> '+q.w;}});box.appendChild(b);});
+  qz.appendChild(d);});
+paint();
+})();
+
+</script>
+</body>
+</html>

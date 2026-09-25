@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Docking: Poz Arama ve Puanlama</title>
+<style>
+:root{
+  --paper:#faf9f5; --ink:#243744; --muted:#5f6a73; --accent:#934b3c; --rule:#d6d6cd;
+  --panel:#f2f0e8; --panel-2:#ebe8de; --num:#2f6f95; --exact:#243744;
+  --good:#2f7254; --good-bg:#e3efe7; --warn:#96661c; --warn-bg:#f5ecd9; --bad:#a3402f; --bad-bg:#f6e3de;
+  --serif:Georgia,"Times New Roman",serif; --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --ala-c:#5F7486; --ala-c-hi:#93A6B5; --ala-n:#5C8FD6; --ala-n-hi:#9BBDEB; --ala-o:#E8746A; --ala-o-hi:#F5ADA5;
+  --ala-h:#F8F5EE; --ala-bond:#A7B6C0; --ala-edge:rgba(23,38,46,.24); --ala-face:#16222A; --ala-cheek:#F29E97;
+  --ala-ink:#17262E; --ala-accent:#1F8A7E; --ala-accent-ink:#FFFFFF; --ala-sweat:#9CC8F0; --ala-bulb:#F4CF5D; --ala-spark:#F4CF5D;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding-inline:20px;padding-block:0 80px}
+a{color:inherit;text-underline-offset:4px}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1060px;margin:0 auto}
+.prose{max-width:680px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 0 18px;border-bottom:1px solid var(--rule);font-size:13px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand b{font-family:var(--serif);font-size:26px;font-weight:normal;letter-spacing:-1px;border-right:1px solid var(--rule);padding-right:12px}
+.progress{display:flex;align-items:center;gap:10px}
+.progress .dots{display:flex;gap:5px}
+.progress .dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--accent);display:block}
+.progress .dots i.on{background:var(--accent)}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:30px;align-items:end;padding:54px 0 34px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 16px}
+h1{font-family:var(--serif);font-weight:normal;font-size:clamp(38px,5.2vw,58px);line-height:1.06;letter-spacing:-.03em;margin:0 0 18px;text-wrap:balance}
+.deck{font-family:var(--serif);font-size:21px;line-height:1.45;color:#4b5760;margin:0;max-width:40ch}
+.mast .ala-hello{width:150px}
+.goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);margin:0 0 56px}
+.goal{padding:16px 18px 18px 0;border-right:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start}
+.goal:last-child{border-right:0}
+.goal:not(:first-child){padding-left:18px}
+.goal span{font-family:var(--serif);font-size:26px;color:var(--accent);line-height:1}
+.goal p{margin:0;font-size:14px;line-height:1.5}
+section.unit{padding:10px 0 58px}
+h2{font-family:var(--serif);font-weight:normal;font-size:clamp(28px,3.4vw,36px);line-height:1.15;letter-spacing:-.02em;margin:0 0 18px;text-wrap:balance}
+h2 small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:600;margin-bottom:10px;text-transform:uppercase}
+.prose p{font-family:var(--serif);font-size:19px;line-height:1.68;margin:0 0 18px}
+.prose p.lead{font-size:21px}
+math{font-size:1.08em}
+.eq{margin:8px 0 22px;padding:14px 18px;background:var(--panel);border-left:3px solid var(--accent);font-size:21px;overflow-x:auto}
+.lab{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:22px 22px 18px;margin:26px 0 8px}
+.lab-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.lab-head h3{font-family:var(--serif);font-weight:normal;font-size:23px;margin:0}
+.lab-tag{font-size:11px;letter-spacing:.14em;font-weight:600;color:var(--accent);text-transform:uppercase}
+.lab-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,1fr);gap:22px;align-items:start}
+.lab-grid.stack{grid-template-columns:minmax(0,1fr)}
+.lab-grid.stack .steps{grid-template-columns:120px minmax(0,1fr) auto;font-size:16px}
+.plot{background:#fffefb;border:1px solid var(--rule);border-radius:4px;width:100%;height:auto;display:block;touch-action:none}
+.plot text{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.plot .axis{stroke:#8b949a;stroke-width:1}
+.plot .grid{stroke:#ebe9e1;stroke-width:1}
+.plot .curve{fill:none;stroke:var(--exact);stroke-width:2.4}
+.plot .num{fill:none;stroke:var(--num);stroke-width:2.2}
+.plot .num-dot{fill:var(--num)}
+.plot .err{fill:none;stroke:var(--accent);stroke-width:2}
+.plot .en{fill:none;stroke:var(--num);stroke-width:2;stroke-dasharray:5 4}
+.plot .tangent{stroke:var(--accent);stroke-width:2;stroke-dasharray:6 4}
+.plot .ball{fill:var(--accent);stroke:#fff;stroke-width:2;cursor:grab}
+.plot .force{stroke:var(--good);stroke-width:4;marker-end:url(#arrowF)}
+.plot .flabel{fill:var(--good);font-weight:600;font-size:13px}
+.plot .hint{fill:var(--muted);font-size:11px}
+.plot .zone-good{fill:var(--good-bg)} .plot .zone-warn{fill:var(--warn-bg)} .plot .zone-bad{fill:var(--bad-bg)}
+.ctrl{display:flex;flex-direction:column;gap:14px}
+.field label,.field .lbl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px}
+.field label output,.field .lbl output{font-family:var(--sans);font-variant-numeric:tabular-nums;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--rule);background:#fffefb;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:4px;padding:8px 14px;font-size:14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.readout{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;border-top:1px solid var(--rule);padding-top:12px;margin:0}
+.readout dt{color:var(--muted)} .readout dd{margin:0;font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.state{font-size:13px;font-weight:600;padding:8px 10px;border-radius:4px}
+.state.good{background:var(--good-bg);color:var(--good)} .state.warn{background:var(--warn-bg);color:var(--warn)} .state.bad{background:var(--bad-bg);color:var(--bad)}
+.task{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;align-items:start;margin-top:18px;padding-top:16px;border-top:1px dashed #c7c4b8}
+.task .ala-box svg{width:64px;height:auto;overflow:visible}
+.task h4{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.task p{margin:0 0 10px;font-size:15px;line-height:1.55}
+.task .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.task input[type=text]{width:120px;padding:7px 9px;border:1px solid #b9b6aa;border-radius:4px;background:#fffefb;font-variant-numeric:tabular-nums}
+.feedback{font-size:14px;margin:8px 0 0;min-height:1.4em;line-height:1.5}
+.feedback.ok{color:var(--good)} .feedback.no{color:var(--bad)}
+.done-badge{display:none;font-size:12px;font-weight:600;color:var(--good);border:1px solid var(--good);border-radius:999px;padding:2px 10px}
+.lab.is-done .done-badge{display:inline-block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0 0}
+.legend i{display:inline-block;width:18px;height:0;border-top:2.4px solid var(--exact);vertical-align:middle;margin-right:6px}
+.legend i.n{border-color:var(--num)} .legend i.e{border-color:var(--accent)} .legend i.d{border-top-style:dashed;border-color:var(--num)}
+.steps{display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;font-size:15px;margin:0 0 12px;align-items:baseline}
+.steps .k{font-size:12px;color:var(--muted)}
+.steps .f{font-family:var(--serif)}
+.steps .v{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.steps .hidden{color:#b0ada3}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--ink)}
+th:first-child,td:first-child{text-align:left}
+td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:right}
+td.ratio{color:var(--accent);font-weight:600}
+.motions{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.motions button{width:100%;display:flex;justify-content:space-between;gap:8px;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:6px 10px;font-size:13px;cursor:pointer;text-align:left}
+.motions button[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.motions button.off{text-decoration:line-through;color:#9a978d}
+.motions span.t{font-variant-numeric:tabular-nums}
+.toggle{display:flex;gap:8px;align-items:center;font-size:14px}
+.toggle input{width:18px;height:18px;accent-color:var(--accent)}
+.quiz{display:flex;flex-direction:column;gap:22px}
+.q{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:18px 20px}
+.q p.stem{font-family:var(--serif);font-size:19px;line-height:1.55;margin:0 0 12px}
+.q .opts{display:flex;flex-direction:column;gap:6px}
+.q .opts button{text-align:left;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:9px 12px;font-size:15px;line-height:1.45;cursor:pointer}
+.q .opts button.right{border-color:var(--good);background:var(--good-bg)}
+.q .opts button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.q .why{font-size:15px;line-height:1.55;margin:10px 0 0}
+.bridge{display:grid;grid-template-columns:90px minmax(0,1fr);gap:18px;align-items:center;border-top:1px solid var(--ink);padding-top:22px}
+.bridge svg{width:90px;height:auto}
+.bridge p{font-family:var(--serif);font-size:18px;line-height:1.6;margin:0}
+.about{font-size:13px;line-height:1.6;color:var(--muted);border-top:1px solid var(--rule);margin-top:40px;padding-top:16px;max-width:760px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:820px){
+  .lab-grid{grid-template-columns:minmax(0,1fr)}
+  .mast{grid-template-columns:minmax(0,1fr) 90px}
+  .mast .ala-hello{width:90px}
+  .goals{grid-template-columns:minmax(0,1fr)}
+  .goal{border-right:0;border-bottom:1px solid var(--rule);padding-left:0!important}
+  .goal:last-child{border-bottom:0}
+}
+@media (max-width:600px){.plot text{font-size:21px}.plot .hint{font-size:17px}.plot .flabel{font-size:22px}}
+@media (max-width:480px){
+  .lab{padding:16px 14px}
+  .prose p{font-size:18px}
+  .task{grid-template-columns:48px minmax(0,1fr)}
+  .task .ala-box svg{width:48px}
+  .bridge{grid-template-columns:60px minmax(0,1fr)}
+  .bridge svg{width:60px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ---- DK-T ek stiller ---- */
+.fig{margin:10px 0 50px}
+.fig svg{width:100%;height:auto;display:block}
+.fig figcaption,.cap{font-size:13px;line-height:1.55;color:var(--muted);margin-top:10px;max-width:760px}
+.fig figcaption b,.cap b{color:var(--ink)}
+.hero{background:#fffefb;border:1px solid var(--rule);border-radius:6px;padding:8px}
+.scene{background:#fffefb;border:1px solid var(--rule);border-radius:4px;width:100%;height:auto;display:block;touch-action:none;user-select:none;-webkit-user-select:none}
+.scene text{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.scene .lig{cursor:grab}
+.scene .lig:focus{outline:none}
+.scene .lig:focus-visible .ring-hit{stroke:var(--accent);stroke-width:2;stroke-dasharray:4 3}
+.scene.dragging .lig{cursor:grabbing}
+canvas.scene{aspect-ratio:520/460}
+.bars{display:grid;grid-template-columns:118px minmax(0,1fr) 58px;gap:6px 8px;align-items:center;font-size:13px;margin:0}
+.bars .nm{color:var(--muted)}
+.bars .track{position:relative;height:14px;background:#fffefb;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.bars .track::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px solid #9aa0a4}
+.bars .fill{position:absolute;top:1px;bottom:1px;border-radius:2px;transition:left .12s,width .12s}
+.bars .fill.neg{background:var(--good)} .bars .fill.pos{background:var(--bad)}
+.bars .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.bars .tot .nm,.bars .tot .val{color:var(--ink);font-weight:700}
+.bars .tot .track{height:18px}
+.bars .row{display:contents}
+.bars .row.tot > *{padding-top:6px;border-top:1px solid var(--rule)}
+.bars .row.tot .track{border-top:1px solid var(--rule)}
+.hbadge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--rule);background:#fffefb}
+.hbadge i{width:9px;height:9px;border-radius:50%;background:#c7c4b8;display:block}
+.hbadge.on{border-color:var(--good);color:var(--good)} .hbadge.on i{background:var(--good)}
+.hbadge.clash{border-color:var(--bad);color:var(--bad)} .hbadge.clash i{background:var(--bad)}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.keys{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+kbd{font-family:var(--sans);font-size:11px;border:1px solid #b9b6aa;border-bottom-width:2px;border-radius:3px;padding:0 4px;background:#fffefb}
+.callout{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;align-items:start;background:var(--warn-bg);border-left:3px solid var(--warn);padding:16px 18px;border-radius:0 6px 6px 0;margin:8px 0 26px;max-width:760px}
+.callout svg{width:72px;height:auto;overflow:visible}
+.callout p{margin:0 0 8px;font-family:var(--serif);font-size:18px;line-height:1.6}
+.callout p:last-child{margin-bottom:0}
+.callout h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--warn)}
+.cands{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.cands li{display:grid;grid-template-columns:auto 22px minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:6px 10px;font-size:13px}
+.cands li.sel{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.cands li button.pick{border:0;background:transparent;padding:0;text-align:left;cursor:pointer;font-size:13px;font-weight:600}
+.cands li .sw{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff}
+.cands li .m{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.cands li input{width:18px;height:18px;accent-color:var(--good)}
+.cands li.na{opacity:.5}
+.tbl-note{font-size:12px;color:var(--muted);margin:6px 0 0}
+td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
+.ans{display:flex;flex-direction:column;gap:6px;margin:6px 0 8px}
+.ans button{text-align:left;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:8px 12px;font-size:14px;line-height:1.45;cursor:pointer}
+.ans button.right{border-color:var(--good);background:var(--good-bg)} .ans button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.ans button:disabled{cursor:default;opacity:.55}
+.twocol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.logbar{position:relative;height:74px;margin:6px 0 4px}
+.status{font-size:13px;color:var(--muted);min-height:1.4em}
+@media (max-width:820px){.twocol{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){.scene text{font-size:17px}.bars{grid-template-columns:96px minmax(0,1fr) 52px;font-size:12px}}
+@media (max-width:480px){.callout{grid-template-columns:48px minmax(0,1fr)}.callout svg{width:48px}.cands li{grid-template-columns:auto 22px minmax(0,1fr);}.cands li .m{grid-column:3}}
+.pipe{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr) 30px minmax(0,1fr);align-items:stretch}
+.pcard{border:1px solid var(--rule);background:#fffefb;border-radius:6px;overflow:hidden}
+.pcard h5{margin:0;padding:11px 14px;color:#faf9f5;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pcard h5 span{font-size:12px;font-weight:400;opacity:.8}
+.pb{padding:12px 14px 14px}
+.pb b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin:2px 0 4px}
+.pb b.y{color:var(--good)} .pb b.n{color:var(--bad)}
+.pb p{margin:0 0 12px;font-size:15px;line-height:1.5}
+.parr{display:grid;place-items:center;font-size:22px;color:var(--ink)}
+.figscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:820px){.pipe{grid-template-columns:minmax(0,1fr)}.parr{transform:rotate(90deg);height:30px}}
+@media (max-width:700px){.figscroll svg,.hero svg{min-width:680px}.hero{overflow-x:auto}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header class="topline">
+  <div class="brand"><b>MD</b><span>Biyomoleküler sistemlerde Moleküler Dinamik · Docking eki · Temel düzey</span></div>
+  <div class="progress" aria-live="polite"><span id="progText">Uygulamalar: 0 / 4</span><span class="dots" id="progDots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>
+</header>
+
+<div class="mast">
+  <div>
+    <p class="eyebrow">DK-T · Pilot bölüm · Etkileşimli sürüm</p>
+    <h1>Docking: bir pozu aramak ve puanlamak</h1>
+    <p class="deck">Bir anahtarı kilide sokmayı bilgisayara nasıl öğretiriz? Bu bölümde ligandı cebe kendi elinizle yerleştirecek, iki arama algoritmasını yarıştıracak ve bir docking sonucunu nasıl sınayacağınızı göreceksiniz.</p>
+  </div>
+  <div class="ala-hello" data-ala="selam"></div>
+</div>
+
+<div class="goals" aria-label="Bu bölümde yapacaklarınız">
+  <div class="goal"><span>1</span><p>Bir pozu <b>kurmak</b> ve skorun hangi terimlerden oluştuğunu canlı olarak <b>görmek</b>.</p></div>
+  <div class="goal"><span>2</span><p>Arama uzayının neden bu kadar büyük olduğunu <b>hesaplamak</b>, iki arama yöntemini <b>yarıştırmak</b>.</p></div>
+  <div class="goal"><span>3</span><p>Redocking ve RMSD ile bir sonucu <b>sınamak</b>; skorun ne söyleyip ne söylemediğini <b>ayırmak</b>.</p></div>
+</div>
+
+<figure class="fig">
+  <div class="hero">
+  <svg viewBox="0 0 1000 440" role="img" aria-labelledby="heroT heroD">
+    <title id="heroT">Tripsinin S1 cebinde benzamidin: şematik çizim</title>
+    <desc id="heroD">Protein yüzeyine oyulmuş dar ve derin bir cep. Cebin içinde benzen halkası dikey duruyor; alttaki pozitif yüklü amidin grubu cebin dibindeki Asp189'un iki oksijeniyle tuz köprüsü kuruyor. Cebin ağzında katalitik Ser195 işaretli.</desc>
+    <defs>
+      <linearGradient id="hgProt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e3d4"/><stop offset="1" stop-color="#d8d0bc"/></linearGradient>
+      <linearGradient id="hgSolv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4f7"/><stop offset="1" stop-color="#fbfbf8"/></linearGradient>
+      <radialGradient id="hgC" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#93A6B5"/><stop offset="1" stop-color="#5F7486"/></radialGradient>
+      <radialGradient id="hgN" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#9BBDEB"/><stop offset="1" stop-color="#5C8FD6"/></radialGradient>
+      <radialGradient id="hgO" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#F5ADA5"/><stop offset="1" stop-color="#E8746A"/></radialGradient>
+      <marker id="hArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#677078"/></marker>
+    </defs>
+    <rect x="0" y="0" width="1000" height="440" fill="url(#hgSolv)"/>
+    <g fill="#9cc8f0" opacity=".55">
+      <circle cx="120" cy="54" r="6"/><circle cx="160" cy="80" r="6"/><circle cx="820" cy="46" r="6"/><circle cx="870" cy="72" r="6"/><circle cx="300" cy="40" r="6"/><circle cx="690" cy="34" r="6"/>
+    </g>
+    <text x="36" y="36" font-family="Segoe UI,system-ui,sans-serif" font-size="13" fill="#677078">çözücü (su)</text>
+    <path d="M0,132 C140,118 280,112 390,128 C425,134 440,152 442,184 L448,318 C452,372 474,398 500,398 C526,398 548,372 552,318 L558,184 C560,152 575,134 610,128 C720,112 860,118 1000,132 L1000,440 L0,440 Z" fill="url(#hgProt)" stroke="#b3a98f" stroke-width="2"/>
+    <g stroke="#c8bfa8" stroke-width="1.2" fill="none" opacity=".8">
+      <path d="M40,220 C120,200 220,240 320,215"/><path d="M60,300 C170,280 260,330 380,300"/><path d="M640,230 C720,205 820,245 950,220"/><path d="M620,320 C740,300 840,340 960,310"/><path d="M200,390 C300,370 380,400 430,385"/><path d="M570,390 C640,372 760,400 880,380"/>
+    </g>
+    <text x="70" y="370" font-family="Georgia,serif" font-size="22" fill="#8a7f68">protein (tripsin)</text>
+    <!-- duvar etiketleri -->
+    <line x1="330" y1="236" x2="436" y2="236" stroke="#677078" stroke-width="1.4" marker-end="url(#hArr)"/>
+    <text x="324" y="231" text-anchor="end" font-family="Segoe UI,system-ui,sans-serif" font-size="13" fill="#4b5760">cep duvarları:</text>
+    <text x="324" y="248" text-anchor="end" font-family="Segoe UI,system-ui,sans-serif" font-size="13" fill="#4b5760">apolar temaslar, halkayı sıkıştırır</text>
+    <!-- Ser195 -->
+    <circle cx="640" cy="124" r="11" fill="url(#hgO)" stroke="#fff" stroke-width="1.5"/>
+    <line x1="640" y1="135" x2="648" y2="160" stroke="#a7b6c0" stroke-width="4"/>
+    <text x="662" y="112" font-family="Segoe UI,system-ui,sans-serif" font-size="13" font-weight="600" fill="#243744">Ser195</text>
+    <text x="662" y="128" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">katalitik serin, cep ağzında</text>
+    <!-- Asp189 -->
+    <g>
+      <line x1="500" y1="378" x2="500" y2="430" stroke="#a7b6c0" stroke-width="6" stroke-linecap="round"/>
+      <line x1="500" y1="378" x2="472" y2="360" stroke="#a7b6c0" stroke-width="6" stroke-linecap="round"/>
+      <line x1="500" y1="378" x2="528" y2="360" stroke="#a7b6c0" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="500" cy="378" r="11" fill="url(#hgC)" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="472" cy="358" r="13" fill="url(#hgO)" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="528" cy="358" r="13" fill="url(#hgO)" stroke="#fff" stroke-width="1.5"/>
+      <text x="560" y="392" font-family="Segoe UI,system-ui,sans-serif" font-size="13" font-weight="600" fill="#243744">Asp189</text>
+      <text x="560" y="408" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">cebin dibinde, −1 yüklü karboksilat</text>
+      <text x="500" y="364" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-size="12" font-weight="700" fill="#a3402f">−</text>
+    </g>
+    <!-- tuz köprüsü -->
+    <line x1="474" y1="312" x2="472" y2="345" stroke="#2f7254" stroke-width="2.4" stroke-dasharray="5 4"/>
+    <line x1="526" y1="312" x2="528" y2="345" stroke="#2f7254" stroke-width="2.4" stroke-dasharray="5 4"/>
+    <line x1="660" y1="330" x2="540" y2="330" stroke="#2f7254" stroke-width="1.4" marker-end="url(#hArr)"/>
+    <text x="668" y="326" font-family="Segoe UI,system-ui,sans-serif" font-size="13" font-weight="600" fill="#2f7254">tuz köprüsü</text>
+    <text x="668" y="342" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">amidinyum (+) ile karboksilat (−)</text>
+    <!-- benzamidin -->
+    <g stroke="#a7b6c0" stroke-width="6" stroke-linecap="round" fill="none">
+      <polygon points="500,190 529,207 529,241 500,258 471,241 471,207" stroke-linejoin="round"/>
+      <line x1="500" y1="258" x2="500" y2="284"/><line x1="500" y1="284" x2="474" y2="300"/><line x1="500" y1="284" x2="526" y2="300"/>
+    </g>
+    <g stroke="#fff" stroke-width="1.5">
+      <circle cx="500" cy="190" r="12" fill="url(#hgC)"/><circle cx="529" cy="207" r="12" fill="url(#hgC)"/><circle cx="529" cy="241" r="12" fill="url(#hgC)"/><circle cx="500" cy="258" r="12" fill="url(#hgC)"/><circle cx="471" cy="241" r="12" fill="url(#hgC)"/><circle cx="471" cy="207" r="12" fill="url(#hgC)"/>
+      <circle cx="500" cy="284" r="12" fill="url(#hgC)"/><circle cx="474" cy="302" r="13" fill="url(#hgN)"/><circle cx="526" cy="302" r="13" fill="url(#hgN)"/>
+    </g>
+    <text x="500" y="287" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">+</text>
+    <line x1="660" y1="222" x2="548" y2="222" stroke="#677078" stroke-width="1.4" marker-end="url(#hArr)"/>
+    <text x="668" y="218" font-family="Segoe UI,system-ui,sans-serif" font-size="13" font-weight="600" fill="#243744">benzamidin</text>
+    <text x="668" y="234" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">C₇H₈N₂; amidin ucu pozitif yüklü</text>
+    <text x="500" y="112" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#243744">S1 cebi</text>
+    <text x="500" y="92" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">dar, derin, dibi negatif yüklü</text>
+  </svg>
+  </div>
+  <figcaption><b>Şekil DK.1 · Kilit ve anahtar.</b> Tripsin bir proteazdır; S1 cebinin dibindeki negatif yüklü Asp189, pozitif yüklü grupları çeker. Benzamidin bu cebe halkası duvarlar arasında, amidin ucu dipte olacak biçimde oturur. Çizim <b>şematiktir ve ölçekli değildir</b>; koordinatlar PDB 3PTB'den alınmadı. Aşağıdaki laboratuvarlar bu düzeni taklit eden iki boyutlu bir oyuncak cep kullanır.</figcaption>
+</figure>
+
+<!-- ============ 1 ============ -->
+<section class="unit" id="s1">
+  <div class="prose">
+    <h2><small>1 · İki farklı soru</small>MD hareketi izler, docking yerleşimleri sıralar</h2>
+    <p class="lead">MD'de atomlar kuvvetlerin etkisiyle zaman içinde hareket eder; soru, sistemin <b>nasıl davrandığıdır</b>. Docking'de zaman yoktur. Reseptör çoğunlukla sabit tutulur, ligand onun içinde bir anahtar gibi denenir ve soru şudur: <b>bu cepte en makul görünen yerleşimler hangileri?</b></p>
+    <p>Aşağıdaki sürgüyle soldaki panelde zamanı ilerletin. Sağdaki panelde sürgünün karşılığı yoktur: docking yalnız farklı pozları üretir ve skora göre sıralar.</p>
+  </div>
+  <figure class="fig" style="margin-bottom:12px">
+    <div class="figscroll"><svg id="figMD" viewBox="0 0 960 380" role="img" aria-label="Solda zamanla hareket eden bir ligand ve konumunun zaman çizgisi; sağda aynı cepte dört docking pozu ve skor sıralaması"></svg></div>
+    <div class="field" style="max-width:420px;margin-top:10px"><label for="tMD">MD zamanı <output id="tMDo">0 ns</output></label><input type="range" id="tMD" min="0" max="1000" value="0"></div>
+    <figcaption><b>Şekil DK.2 · Zaman ekseni ve sıralama.</b> Soldaki hareket şematiktir, gerçek bir MD koşusu değildir. Sağdaki dört poz ve skorları bu sayfanın oyuncak modeliyle hesaplandı; 5. kısımda aynı pozları RMSD ile sınayacağız.</figcaption>
+  </figure>
+  <div class="prose"><p>Bu fark maliyeti de belirler. Bir protein–ligand kompleksi için anlamlı bir MD hesabı saatler ile günler sürebilir; bir docking denemesi çoğu zaman saniyeler ile dakikalar içinde biter. Bu hız sayesinde docking çok sayıda molekülü taramak için kullanılabilir. Bedeli basitleştirmedir: reseptörün hareketi, suyun ayrıntılı rolü ve entropi büyük ölçüde yaklaşık olarak ele alınır ya da hiç ele alınmaz.</p></div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="unit" id="s2">
+  <div class="prose">
+    <h2><small>2 · Poz ve skor</small>Bir yerleşimi birkaç sayıyla tanımlamak</h2>
+    <p class="lead">Ligandın cepteki bir yerleşimine <b>poz</b> denir. Katı bir cismi üç boyutta tanımlamak için altı sayı yeter: üç öteleme ve üç dönme. Ligandın her <b>dönebilir bağı</b> için bir burulma açısı eklenir.</p>
+    <div class="eq"><math display="block"><mtext>poz</mtext><mo>=</mo><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo>,</mo><mi>α</mi><mo>,</mo><mi>β</mi><mo>,</mo><mi>γ</mi><mo>,</mo><msub><mi>τ</mi><mn>1</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>τ</mi><mi>n</mi></msub><mo>)</mo><mspace width="1em"/><mo>⇒</mo><mspace width="1em"/><mn>6</mn><mo>+</mo><mi>n</mi><mspace width=".4em"/><mtext>serbestlik derecesi</mtext></math></div>
+  </div>
+  <figure class="fig" style="margin-bottom:26px">
+    <div class="figscroll"><svg id="figPose" viewBox="0 0 960 300" role="img" aria-label="Oyuncak ligandın anatomisi: kütle merkezi x ve y, dönme açısı theta ve kuyruktaki burulma açısı tau"></svg></div>
+    <figcaption><b>Şekil DK.3 · Oyuncak ligandın anatomisi.</b> Benzamidin benzeri bir baş (halka ve pozitif amidin ucu) ile tek dönebilir bağlı kısa bir kuyruk. Laboratuvarlar iki boyutludur: 6 + <i>n</i> yerine 3 + <i>n</i> sayı yeter (<i>x</i>, <i>y</i>, θ ve τ). Mantık üç boyutta aynıdır.</figcaption>
+  </figure>
+  <div class="prose">
+    <p>Her poz bir <b>skor fonksiyonuna</b> sorulur. Skor, ligand ile reseptör atomları arasındaki uzaklıklardan hesaplanan terimlerin toplamıdır: uygun uzaklıktaki temasları ödüllendiren <b>sterik çekim</b>, atomların fazla yaklaşmasını cezalandıran <b>itme</b>, apolar atomlar arasındaki <b>hidrofobik temas</b> ve <b>hidrojen bağı</b>. AutoDock Vina bunlara dönebilir bağ sayısına bağlı bir düzeltme ekler (<a href="https://doi.org/10.1002/jcc.21334">Trott ve Olson 2010</a>). Daha düşük skor daha iyi pozdur.</p>
+    <p>Laboratuvardaki skor bu terimlerin <b>biçimlerini ve ağırlıklarını</b> Vina'dan alır; ama cep iki boyutlu ve oyuncak olduğu için sayılar gerçek bir Vina çıktısıyla karşılaştırılamaz. Hız için Vina ve AutoDock'un yaptığı gibi, reseptörün katkısı önce 0,25 Å aralıklı bir ızgarada hesaplanır; her poz için yalnız ızgaradan okunur.</p>
+  </div>
+
+  <div class="lab" id="labA">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 1</span><h3>Pozu kendiniz kurun</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="scene" id="sceneA" viewBox="0 0 520 460" role="application" aria-label="Oyuncak cep ve sürüklenebilir ligand. Ligand seçiliyken ok tuşları öteler, Q ve E döndürür, A ve D kuyruğu burar."></svg>
+        <div class="legend"><span><i style="border:0;width:10px;height:10px;border-radius:50%;background:#5F7486"></i>C</span><span><i style="border:0;width:10px;height:10px;border-radius:50%;background:#5C8FD6"></i>N (amidin, +)</span><span><i style="border:0;width:10px;height:10px;border-radius:50%;background:#E8746A"></i>O (polar, Asp benzeri −)</span><span><i style="border-top:2.4px dashed #2f7254"></i>H-bağı / tuz köprüsü</span><span><i style="border:0;width:12px;height:12px;border-radius:50%;box-shadow:0 0 0 3px rgba(163,64,47,.45) inset"></i>çakışma</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="badges"><span class="hbadge" id="bdgSalt"><i></i><span>Tuz köprüsü 0 / 2</span></span><span class="hbadge" id="bdgClash"><i></i><span>Çakışma yok</span></span></div>
+        <div class="field"><label for="thA">Dönme θ <output id="thAo"></output></label><input type="range" id="thA" min="-180" max="180" step="1" value="23"></div>
+        <div class="field"><label for="tauA">Kuyruk burulması τ <output id="tauAo"></output></label><input type="range" id="tauA" min="-120" max="120" step="1" value="34"></div>
+        <div class="bars" id="barsA" aria-live="polite"></div>
+        <p class="keys">Ligandı sürükleyin. Klavye: liganda sekmeyle gelin, <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> öteler, <kbd>Q</kbd>/<kbd>E</kbd> döndürür, <kbd>A</kbd>/<kbd>D</kbd> kuyruğu burar.</p>
+        <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="optA">Yerel iyileştir</button>
+          <button class="btn ghost" id="resetA">Başa al</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="mapA"> Bu yönelim için skor haritası</label>
+        <label class="toggle"><input type="checkbox" id="ghostA"> Kristal pozu göster</label>
+      </div>
+    </div>
+    <p class="cap" id="mapCapA" hidden><b>Harita nasıl okunur?</b> Ligand şu anki θ ve τ ile tutulup merkezi her noktaya taşınsaydı skor ne olurdu? Koyu yeşil daha iyi skor; renksiz alanlar ya temas yok ya da çakışma var demektir. Ligandı döndürünce harita değişir: skor manzarası konuma ve yönelime birlikte bağlıdır.</p>
+    <div class="task">
+      <div class="ala-box" data-ala="ipucu" id="alaA"></div>
+      <div>
+        <h4>Görev 1</h4>
+        <p>Ligandın mavi amidin ucunu cebin dibindeki iki kırmızı oksijene götürün: <b>iki tuz köprüsü</b> kurun ve <b>toplam skoru −2,7'nin altına</b> indirin. Yakına getirdikten sonra <b>Yerel iyileştir</b> düğmesini deneyin: pozu her yönde küçük adımlarla oynatıp yalnız iyileşmeleri tutar. Vina da her rastgele sıçramadan sonra benzer bir yerel iyileştirme yapar (orada BFGS adlı türevli bir yöntemle).</p>
+        <p class="feedback" id="fbA" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px">Kristal pozu açıp kendi en iyi pozunuzla karşılaştırın. Skor fonksiyonunun en düşük noktası kristal pozla tam çakışmaz; bu oyuncakta aralarında yaklaşık 0,9 Å fark var. Gerçek programlarda da böyledir ve başarı ölçütünün tam eşleşme değil bir eşik (2 Å) olmasının bir nedeni budur.</p></div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="unit" id="s3">
+  <div class="prose">
+    <h2><small>3 · Arama uzayı</small>Hepsini tek tek denemek neden olmaz?</h2>
+    <p class="lead">En basit arama, olası bütün pozları bir ızgarada sırayla puanlamaktır. Kaba bir sayım yapalım: bağlanma bölgesi kenarı <i>L</i> olan bir küp, ligand merkezi <i>g</i> aralıklı bir ızgarada, her açı <i>a</i> derecelik adımlarla.</p>
+    <div class="eq"><math display="block"><mi>N</mi><mo>≈</mo><msup><mrow><mo>(</mo><mfrac><mi>L</mi><mi>g</mi></mfrac><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mn>3</mn></msup><mo>×</mo><msup><mrow><mo>(</mo><mfrac><mn>360</mn><mi>a</mi></mfrac><mo>)</mo></mrow><mn>3</mn></msup><mo>×</mo><msup><mrow><mo>(</mo><mfrac><mn>360</mn><mi>a</mi></mfrac><mo>)</mo></mrow><msub><mi>N</mi><mtext>rot</mtext></msub></msup></math></div>
+    <p>Yönelim sayımı bazı yönelimleri iki kez sayar; amaç büyüklük mertebesini görmektir. Varsayılan ayarlar 20 Å'lık kutu, 1 Å ızgara, 30° açı adımı ve üç dönebilir bağdır.</p>
+  </div>
+  <div class="lab" id="labB">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 2</span><h3>Arama uzayı hesaplayıcısı</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="logB" viewBox="0 0 640 250" role="img" aria-label="Taramanın süresi, bir saniyeden evrenin yaşına uzanan logaritmik bir çizgi üzerinde"></svg>
+        <p class="cap">Süre, saniyede bir milyon poz puanlandığı varsayımıyla hesaplanır. Evrenin yaşı yaklaşık 13,8 milyar yıl alındı.</p>
+      </div>
+      <div class="ctrl">
+        <div class="field"><label for="LB">Kutu kenarı L <output id="LBo"></output></label><input type="range" id="LB" min="10" max="30" step="1" value="20"></div>
+        <div class="field"><span class="lbl">Izgara aralığı g</span><div class="chips" id="gB" role="group" aria-label="Izgara aralığı"><button class="chip" data-v="2" aria-pressed="false">2 Å</button><button class="chip" data-v="1" aria-pressed="true">1 Å</button><button class="chip" data-v="0.5" aria-pressed="false">0,5 Å</button><button class="chip" data-v="0.25" aria-pressed="false">0,25 Å</button></div></div>
+        <div class="field"><span class="lbl">Açı adımı a</span><div class="chips" id="aB" role="group" aria-label="Açı adımı"><button class="chip" data-v="60" aria-pressed="false">60°</button><button class="chip" data-v="30" aria-pressed="true">30°</button><button class="chip" data-v="15" aria-pressed="false">15°</button><button class="chip" data-v="10" aria-pressed="false">10°</button></div></div>
+        <div class="field"><label for="nB"><span>Dönebilir bağ sayısı N<sub>rot</sub></span> <output id="nBo"></output></label><input type="range" id="nB" min="0" max="10" step="1" value="3"></div>
+        <dl class="readout"><dt>Konum</dt><dd id="rBpos"></dd><dt>Yönelim</dt><dd id="rBori"></dd><dt>Burulma birleşimi</dt><dd id="rBtor"></dd><dt>Toplam poz</dt><dd id="rBtot"></dd><dt>Süre</dt><dd id="rBtime"></dd></dl>
+      </div>
+    </div>
+    <div class="task">
+      <div class="ala-box" data-ala="kanit" id="alaB"></div>
+      <div>
+        <h4>Görev 2</h4>
+        <p>Açı adımı 30° iken dönebilir bağ sayısını 3'ten 4'e çıkarın. Toplam poz sayısı kaç katına çıkar? Açı adımını 15°'ye indirseydiniz, aynı tek bağ kaç kat getirirdi?</p>
+        <div class="row"><label class="sr" for="inB1">30° için çarpan</label><input type="text" id="inB1" inputmode="numeric" placeholder="30° → ?"><label class="sr" for="inB2">15° için çarpan</label><input type="text" id="inB2" inputmode="numeric" placeholder="15° → ?"><button class="btn" id="chkB">Kontrol et</button></div>
+        <p class="feedback" id="fbB" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px">Her dönebilir bağ sayıyı aynı çarpanla büyütür; büyüme toplama değil çarpmadır. Bu yüzden docking programları uzayı tek tek taramaz. Arama algoritmaları üç aileye ayrılabilir: uzayı düzenli dolaşan ya da ligandı parça parça kuran <b>sistematik</b> yöntemler; rastgele değişiklik yapıp iyi olanı tutan <b>stokastik</b> yöntemler (genetik algoritmalar, Monte Carlo); ve rastgele bir sıçramadan sonra yerel iyileştirme yapan <b>melez</b> yöntemler.</p></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="unit" id="s4">
+  <div class="prose">
+    <h2><small>4 · Arama algoritması</small>Sıçra, iyileştir, kabul et ya da reddet</h2>
+    <p class="lead">Vina'nın araması, her biri bir değişiklik (mutasyon) ve bir yerel optimizasyondan oluşan adımlar atar; her adım Metropolis ölçütüyle kabul edilir ya da reddedilir (<a href="https://doi.org/10.1002/jcc.21334">Trott ve Olson 2010</a>). Pilot-α'daki Metropolis örnekleyicisini hatırlayan okur aynı kabul kuralını tanıyacaktır. Fark şudur: orada amaç bir dağılımı örneklemekti, burada amaç en düşük skorlu pozu bulmak.</p>
+    <div class="eq"><math display="block"><msub><mi>P</mi><mtext>kabul</mtext></msub><mo>=</mo><mo movablelimits="true">min</mo><mo>(</mo><mn>1</mn><mo>,</mo><mspace width=".2em"/><msup><mi>e</mi><mrow><mo>−</mo><mo>(</mo><msub><mi>f</mi><mtext>yeni</mtext></msub><mo>−</mo><msub><mi>f</mi><mtext>şimdiki</mtext></msub><mo>)</mo><mo>/</mo><mi>T</mi></mrow></msup><mo>)</mo></math></div>
+    <p>Aşağıda iki yöntem aynı oyuncak cepte, aynı sayıda skor hesabıyla yarışır. <b>Rastgele arama</b> her seferinde bağımsız bir poz çeker ve en iyisini saklar. <b>Sıçra ve iyileştir</b> (Vina'nın mantığının sadeleştirilmiş hâli) bulunduğu pozdan küçük bir sıçrama yapar, yerel iyileştirme uygular ve sonucu Metropolis kuralıyla kabul eder. Arka plandaki renk, her konumda bütün yönelimler içinde bulunabilecek en iyi skordur.</p>
+  </div>
+  <div class="lab" id="labC">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 3</span><h3>Arama yarışı</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <canvas class="scene" id="cvC" width="1040" height="920" role="img" aria-label="Skor manzarası üzerinde rastgele aramanın denediği noktalar ve sıçra-iyileştir yönteminin izlediği yol"></canvas>
+        <div class="legend"><span><i style="border:0;width:8px;height:8px;border-radius:50%;background:#2f6f95"></i>rastgele arama: denenen merkezler</span><span><i style="border-color:#934b3c;border-top-width:3px"></i>sıçra ve iyileştir: kabul edilen yol</span><span><i style="border-top:2px dashed #243744"></i>kristal poz</span><span><i style="border-top:2px dashed #96661c"></i>arama kutusu</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="field"><span class="lbl">Arama kutusu</span><div class="chips" id="boxC" role="group" aria-label="Arama kutusu"><button class="chip" data-v="pocket" aria-pressed="false">Yalnız cep</button><button class="chip" data-v="whole" aria-pressed="true">Tüm yüzey</button></div></div>
+        <div class="field"><span class="lbl">Skor hesabı bütçesi</span><div class="chips" id="budC" role="group" aria-label="Bütçe"><button class="chip" data-v="4000" aria-pressed="false">4.000</button><button class="chip" data-v="8000" aria-pressed="true">8.000</button></div></div>
+        <div class="field"><span class="lbl">Skor fonksiyonu</span><div class="chips" id="sfC" role="group" aria-label="Skor fonksiyonu"><button class="chip" data-v="full" aria-pressed="true">Tam</button><button class="chip" data-v="nohb" aria-pressed="false">H-bağı terimi kapalı</button></div></div>
+        <div class="field"><label for="seedC">Rastgele tohum <output id="seedCo">1</output></label><input type="range" id="seedC" min="1" max="20" step="1" value="1"></div>
+        <div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="runC">Yarışı başlat</button><button class="btn ghost" id="nextC">Sonraki tohumla</button></div>
+        <dl class="readout"><dt style="color:#2f6f95">Rastgele: en iyi skor</dt><dd id="rCrs">–</dd><dt style="color:#2f6f95">Rastgele: RMSD</dt><dd id="rCrsR">–</dd><dt style="color:#934b3c">Sıçra-iyileştir: en iyi skor</dt><dd id="rCils">–</dd><dt style="color:#934b3c">Sıçra-iyileştir: RMSD</dt><dd id="rCilsR">–</dd></dl>
+        <p class="status" id="stC" aria-live="polite">Skor manzarası hazırlanıyor…</p>
+      </div>
+    </div>
+    <svg class="plot" id="convC" viewBox="0 0 960 230" role="img" aria-label="Harcanan skor hesabına karşı bulunan en iyi skor, iki yöntem için" style="margin-top:16px"></svg>
+    <div class="tbl-wrap" style="margin-top:14px"><table id="tblC"><thead><tr><th>Tohum</th><th>Kutu</th><th>Skor fonk.</th><th>Rastgele: skor</th><th>RMSD</th><th>Sıçra-iyileştir: skor</th><th>RMSD</th></tr></thead><tbody></tbody></table></div>
+    <p class="tbl-note">RMSD kristal poza göre, hizalamasız ve simetri düzeltmeli hesaplanır (5. kısım). 2 Å altı yeşil.</p>
+    <div class="task">
+      <div class="ala-box" data-ala="dikkat" id="alaC"></div>
+      <div>
+        <h4>Görev 3</h4>
+        <p><b>Tüm yüzey</b> kutusu ve <b>tam</b> skor fonksiyonuyla en az üç farklı tohum çalıştırın. Tablodaki sonuçlara bakarak hangi cümle doğrudur?</p>
+        <div class="ans" id="ansC" role="group" aria-label="Görev 3 seçenekleri">
+          <button data-ok="0" disabled>Tek bir koşu yeterlidir; iki yöntem de her tohumda aynı pozu bulur.</button>
+          <button data-ok="1" disabled>Aynı ayarlar farklı tohumlarla farklı pozlar verebilir; bu yüzden birden çok bağımsız koşu yapılır ve en iyi pozların birbirine benzeyip benzemediğine bakılır.</button>
+          <button data-ok="0" disabled>Rastgele arama daha çok noktaya baktığı için her zaman daha iyi pozu bulur.</button>
+        </div>
+        <p class="feedback" id="fbC" aria-live="polite">Seçenekler, üç farklı tohum çalıştırıldığında açılır.</p>
+      </div>
+    </div>
+  </div>
+  <div class="prose">
+    <p style="margin-top:22px">Bu oyuncakta yalnız dört serbestlik derecesi var; bu yüzden rastgele arama da çoğu zaman cebe yaklaşır. Ama yaklaşmakla dibe inmek farklıdır: yerel iyileştirme olmadan skor cilalanmaz. Serbestlik derecesi arttıkça rastgele bir pozun iyi olma şansı, 2. laboratuvardaki çarpımlar gibi hızla düşer.</p>
+    <p>Şimdi H-bağı terimini kapatıp birkaç tohum çalıştırın ve tablodaki skorlara bakın. Ters oturmuş poz (amidin ucu yukarıda, kuyruk dipte) artık kristal benzeri pozla neredeyse aynı, hatta biraz daha iyi puan alır: yaklaşık −2,45’e karşı −2,42. Skor fonksiyonu iki pozu ayıramaz hâle gelir ve çoğu tohum ters pozu “en iyi” diye döndürür. Arama kusursuz olsa bile sonuç yanlış olurdu. Terimlerin ağırlıkları pozun kendisini değiştirebilir; skor fonksiyonu nötr bir ölçüm aracı değil, verilere ayarlanmış bir modeldir. Vina'da <code>exhaustiveness</code> ayarı küresel aramanın kapsamını belirler ve süreyle kabaca orantılıdır; tek bir koşunun tek en iyi pozunu sonuç diye sunmak, tek bir MD koşusunu denge diye sunmaya benzer.</p>
+  </div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="unit" id="s5">
+  <div class="prose">
+    <h2><small>5 · Doğrulama</small>Redocking: bilinen cevaba ne kadar yaklaştık?</h2>
+    <p class="lead">İlk ve en basit sınama <b>yeniden docking</b>'tir (redocking). Deneysel olarak çözülmüş bir kompleksten ligandı çıkarırız, aynı reseptöre yeniden yerleştiririz ve kristal poza uzaklığı RMSD ile ölçeriz. 2 Å altı sıklıkla “doğru poz” ölçütü olarak kullanılır.</p>
+    <div class="eq"><math display="block"><mtext>RMSD</mtext><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msup><mrow><mo>‖</mo><msubsup><mi mathvariant="bold">r</mi><mi>i</mi><mtext>dock</mtext></msubsup><mo>−</mo><msubsup><mi mathvariant="bold">r</mi><mi>i</mi><mtext>kristal</mtext></msubsup><mo>‖</mo></mrow><mn>2</mn></msup></mrow></msqrt></math></div>
+    <p>İki incelik var. Birincisi, reseptör aynı koordinat çerçevesinde durduğu için pozlar <b>hizalanmaz</b>; CH14'teki yapı RMSD'sinden farkı budur. İkincisi <b>simetri</b>: halka 180° döndüğünde kimyasal olarak aynı poz olur, ama atom numaraları yer değiştirdiği için saf RMSD büyük çıkar. İki kutucukla bu iki kararın etkisini görün.</p>
+  </div>
+  <div class="lab" id="labD">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 4</span><h3>Redocking masası</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="scene" id="sceneD" viewBox="0 0 520 460" role="img" aria-label="Kristal poz kesikli çizgiyle; seçilen aday poz renkli olarak üst üste"></svg>
+        <p class="cap" id="capD"></p>
+      </div>
+      <div class="ctrl">
+        <label class="toggle"><input type="checkbox" id="symD" checked> Simetri düzeltmesi</label>
+        <label class="toggle"><input type="checkbox" id="alnD"> Önce hizala, sonra ölç (docking için yanlış)</label>
+        <ul class="cands" id="candsD"></ul>
+        <p class="keys">Adın üstüne tıklayınca poz sahnede görünür. Kutucuk: “bu poz 2 Å altında, başarılı”.</p>
+      </div>
+    </div>
+    <svg class="plot" id="scatD" viewBox="0 0 960 260" role="img" aria-label="Aday pozların skoru ve RMSD değeri; 2 Å çizgisi" style="margin-top:16px"></svg>
+    <div class="task">
+      <div class="ala-box" data-ala="kanit" id="alaD"></div>
+      <div>
+        <h4>Görev 4</h4>
+        <p>Doğru yöntemle (<b>simetri düzeltmesi açık, hizalama kapalı</b>) hangi pozlar başarılı redocking sayılır? Kutucukları işaretleyip kontrol edin. Sonra kutuları bir bir değiştirip hangi yanlışın hangi pozu nasıl gösterdiğine bakın.</p>
+        <div class="row"><button class="btn" id="chkD">Kontrol et</button></div>
+        <p class="feedback" id="fbD" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose">
+    <p style="margin-top:22px">Grafikte iki ders birden var. Ters oturmuş poz, doğru yerdeki ama biraz kaymış pozdan <b>daha iyi skor</b> alıyor: skor sıralaması ile doğruluk sıralaması aynı şey değildir. Hizalama açıkken yüzeydeki poz bile “başarılı” görünüyor: hizalama, ligandın yanlış yerde durduğunu gizler.</p>
+    <p>Redocking kolay bir sınavdır, çünkü reseptör tam da bu ligandı taşırken çözülmüş yapısındadır. Daha gerçekçi sınav <b>çapraz docking</b>'tir: ligandı başka bir ligandla ya da ligandsız çözülmüş aynı proteinin yapısına yerleştirmek. Yan zincirlerin küçük farkları bile başarıyı belirgin biçimde düşürebilir.</p>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="unit" id="s6">
+  <div class="prose">
+    <h2><small>6 · Skorun anlamı</small>kcal/mol yazıyor, ama ölçüm değil</h2>
+  </div>
+  <div class="callout">
+    <div data-ala="dikkat"></div>
+    <div>
+      <h4>Sık yapılan okuma hatası</h4>
+      <p>Bir programın “−8,2 kcal/mol” yazması, bu sayının ölçülmüş bir bağlanma serbest enerjisi olduğu anlamına gelmez. Birim serbest enerji birimidir, ama sayı skor fonksiyonunun bir <b>tahminidir</b>.</p>
+      <p>On docking programını ve 37 skor fonksiyonunu karşılaştıran bir değerlendirme, programların kristal yapıya benzer pozlar üretebildiğini, fakat hiçbirinin bağlanma afinitesini yararlı biçimde öngöremediğini bildirdi (<a href="https://doi.org/10.1021/jm050362n">Warren ve ark. 2006</a>). Poz bulmak ile afinite sıralamak farklı iki iştir.</p>
+    </div>
+  </div>
+  <div class="prose">
+    <h2 style="margin-top:34px"><small>7 · Docking ve MD birlikte</small>Her adım başka bir soruyu yanıtlar</h2>
+  </div>
+  <figure class="fig">
+    <div class="pipe" role="list" aria-label="Docking, MD ve serbest enerji hesaplarının yanıtladığı sorular">
+      <div class="pcard" role="listitem"><h5 style="background:#243744">Docking <span>saniye–dakika</span></h5><div class="pb"><b class="y">Yanıtlar</b><p>Bu cepte hangi pozlar makul görünüyor?</p><b class="n">Yanıtlamaz</b><p>Ne kadar güçlü bağlanır? Poz suda kalıcı mı?</p></div></div>
+      <div class="parr" aria-hidden="true">→</div>
+      <div class="pcard" role="listitem"><h5 style="background:#2f6f95">MD <span>saat–gün</span></h5><div class="pb"><b class="y">Yanıtlar</b><p>Poz, hareketli reseptörde ve suda bu sürede dağılıyor mu?</p><b class="n">Yanıtlamaz</b><p>Kısa koşuda yerinde kalmak afinitenin kanıtı değildir.</p></div></div>
+      <div class="parr" aria-hidden="true">→</div>
+      <div class="pcard" role="listitem"><h5 style="background:#934b3c">Serbest enerji <span>ileri düzey</span></h5><div class="pb"><b class="y">Yaklaşır</b><p>MM/GBSA: daha fiziksel, ama entropi ve su kaba ele alınır.</p><b class="y">Daha titiz</b><p>Alkimyasal yöntemler (CH19).</p></div></div>
+    </div>
+    <figcaption><b>Şekil DK.4 · Üç adım, üç soru.</b> MM/PBSA ve MM/GBSA, docking skorundan daha pahalı ve daha fizikseldir; yine de konformasyon entropisini ve bağlanma bölgesindeki suyun serbest enerjisini ihmal etmek gibi kaba yaklaşımlar içerir (<a href="https://doi.org/10.1517/17460441.2015.1032936">Genheden ve Ryde 2015</a>).</figcaption>
+  </figure>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="unit" id="s8">
+  <div class="prose"><h2><small>8 · Kendinizi sınayın</small>Bir öğrenci raporu</h2><p>“Ligand A'nın Vina skoru −9,1, ligand B'nin −7,4 kcal/mol. A, B'den daha güçlü bağlanır. A'nın en iyi pozunu 50 ns MD'de izledim, RMSD sabit kaldı; bağlanma modu kanıtlandı.” Bu raporu dört soruda inceleyin.</p></div>
+  <div class="quiz" id="quiz"></div>
+</section>
+
+<div class="bridge"><div data-ala="selam"></div><p>Sıradaki adım, orta düzey (DK-O1): aynı fikirleri gerçek bir kompleks üzerinde uygulamak. Önerilen vaka sığır tripsininin benzamidinle kompleksidir (PDB 3PTB, X-ışını, 1,70 Å). Reseptör ve ligand hazırlığında hangi kararların verildiğini CH07'deki karar günlüğü biçimiyle kaydedeceğiz.</p></div>
+
+<p class="about"><b>Bu sayfa hakkında.</b> DK-T taslağı için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Laboratuvarlar iki boyutlu bir oyuncak model kullanır: terim biçimleri ve ağırlıkları Vina makalesinden alınmıştır, ama cep, atomlar ve skorlar öğretim amaçlıdır ve gerçek bir Vina çıktısı değildir. Gerçek bir docking koşusu yapılmadı; 3PTB koordinatları indirilmedi. Şekil DK.1 şematiktir. Bilimsel ve hedef-okur incelemesi yapılmadı.</p>
+</div>
+
+<script>
+/* DK-T oyuncak docking modeli: 2B cep, Vina terim biçimleriyle ızgara haritaları, poz puanlama, arama ve RMSD. */
+var DOCK = (function(){
+  var R = {C:1.9, Cp:1.9, ND:1.8, OA:1.7};
+  var W = {g1:-0.0356, g2:-0.00516, rep:0.840, hyd:-0.0351, hb:-0.587};
+  var NROT = 1, WROT = 0.0585;
+
+  /* ---------- reseptör ---------- */
+  var rec = [];
+  function add(x,y,t,tag){rec.push({x:x,y:y,t:t,tag:tag||''});}
+  (function build(){
+    var ys=[-6.5,-5,-3.5,-2,-0.5,1,2.5];
+    ys.forEach(function(y){
+      add(-5.2,y,(y===-3.5)?'OA':'C',(y===-3.5)?'polar':'wall');
+      add(5.2,y,(y===-2)?'OA':'C',(y===-2)?'polar':'wall');
+      add(-6.7,y,'C','wall2'); add(6.7,y,'C','wall2');
+    });
+    add(-1.14,-7.83,'OA','asp'); add(1.14,-7.83,'OA','asp'); add(0,-8.65,'Cp','aspC');
+    add(-3.2,-7.9,'C','floor'); add(3.2,-7.9,'C','floor');
+    add(-4.6,-8.2,'C','floor'); add(4.6,-8.2,'C','floor');
+    [-3.8,-2.3,2.3,3.8].forEach(function(x){add(x,-9.7,'C','floor');});
+    [-3,-1.5,0,1.5,3].forEach(function(x){add(x,-11.1,'C','floor');});
+    add(-1.6,-9.9,'C','floor'); add(1.6,-9.9,'C','floor');
+    var cols=[8.2,9.7,11.2,12.7];
+    [-1,1].forEach(function(sg){
+      cols.forEach(function(ax){
+        var x=sg*ax;
+        var top = (sg>0 && ax>=8.2 && ax<=11.2) ? 2.0 : 3.5;
+        for(var y=top;y>=-11;y-=1.5){
+          var t='C',tag='body';
+          if(Math.abs(y-top)<1e-9) tag='surface';
+          if(sg>0 && Math.abs(ax-9.7)<1e-9 && Math.abs(y-top)<1e-9){t='OA';tag='groove-polar';}
+          add(x,y,t,tag);
+        }
+      });
+    });
+    [-6.7,6.7].forEach(function(x){for(var y=-2;y>=-11;y-=1.5){ if(y< -6.5) add(x,y,'C','body'); }});
+    [-5.2,5.2].forEach(function(x){for(var y=-8;y>=-11;y-=1.5) add(x,y,'C','body');});
+  })();
+
+  /* ---------- ligand (yerel koordinatlar, Å) ---------- */
+  var ring=[];for(var k=0;k<6;k++)ring.push([1.39*Math.cos(k*Math.PI/3),1.39*Math.sin(k*Math.PI/3)]);
+  var LIG=[
+    {id:'r0',t:'C',p:ring[0]},{id:'r1',t:'C',p:ring[1]},{id:'r2',t:'C',p:ring[2]},
+    {id:'r3',t:'C',p:ring[3]},{id:'r4',t:'C',p:ring[4]},{id:'r5',t:'C',p:ring[5]},
+    {id:'ca',t:'Cp',p:[2.87,0]},
+    {id:'n1',t:'ND',p:[2.87+1.32*Math.cos(Math.PI/3),1.32*Math.sin(Math.PI/3)]},
+    {id:'n2',t:'ND',p:[2.87+1.32*Math.cos(Math.PI/3),-1.32*Math.sin(Math.PI/3)]},
+    {id:'t1',t:'C',p:[-2.9,0]},
+    {id:'t2',t:'C',p:null}
+  ];
+  var BONDS=[['r0','r1'],['r1','r2'],['r2','r3'],['r3','r4'],['r4','r5'],['r5','r0'],['r0','ca'],['ca','n1'],['ca','n2'],['r3','t1'],['t1','t2']];
+  /* simetri: uzun eksen etrafında 180° çevirme (3B), 2B'de eksen üzerinde yansıma */
+  var SYM={r0:'r0',r1:'r5',r2:'r4',r3:'r3',r4:'r2',r5:'r1',ca:'ca',n1:'n2',n2:'n1',t1:'t1',t2:'t2'};
+  var TAU_MAX=120*Math.PI/180;
+
+  function place(pose){
+    var c=Math.cos(pose.th),s=Math.sin(pose.th),out=[],mr=pose.mir?-1:1;
+    for(var i=0;i<LIG.length;i++){
+      var a=LIG[i],p=a.p;
+      if(a.id==='t2')p=[-2.9-1.53*Math.cos(pose.tau),1.53*Math.sin(pose.tau)];
+      p=[p[0],mr*p[1]];
+      out.push({id:a.id,t:a.t,x:pose.x+p[0]*c-p[1]*s,y:pose.y+p[0]*s+p[1]*c});
+    }
+    return out;
+  }
+
+  /* ---------- ızgara haritaları ---------- */
+  var G={x0:-17,y0:-14,h:0.25,nx:137,ny:121};
+  var TERMS=['g1','g2','rep','hyd','hb'],LTYPES=['C','Cp','ND'];
+  var maps={};
+  function pairTerms(lt,rt,d){
+    var s=d-R[lt]-R[rt],o={g1:Math.exp(-(s/0.5)*(s/0.5)),g2:Math.exp(-((s-3)/2)*((s-3)/2)),rep:s<0?s*s:0,hyd:0,hb:0};
+    if(lt==='C'&&rt==='C')o.hyd=s<0.5?1:(s<1.5?1.5-s:0);
+    if(lt==='ND'&&rt==='OA')o.hb=s<-0.7?1:(s<0?-s/0.7:0);
+    return o;
+  }
+  (function buildMaps(){
+    LTYPES.forEach(function(lt){maps[lt]={};TERMS.forEach(function(tm){maps[lt][tm]=new Float32Array(G.nx*G.ny);});});
+    for(var j=0;j<G.ny;j++)for(var i=0;i<G.nx;i++){
+      var x=G.x0+i*G.h,y=G.y0+j*G.h,idx=j*G.nx+i;
+      for(var r=0;r<rec.length;r++){var dx=x-rec[r].x,dy=y-rec[r].y,d2=dx*dx+dy*dy;if(d2>64)continue;var d=Math.sqrt(d2);
+        for(var q=0;q<3;q++){var lt=LTYPES[q],o=pairTerms(lt,rec[r].t,d),m=maps[lt];m.g1[idx]+=o.g1;m.g2[idx]+=o.g2;m.rep[idx]+=o.rep;m.hyd[idx]+=o.hyd;m.hb[idx]+=o.hb;}}
+    }
+  })();
+  function lookup(arr,x,y){
+    var fx=(x-G.x0)/G.h,fy=(y-G.y0)/G.h;
+    if(fx<0||fy<0||fx>=G.nx-1||fy>=G.ny-1)return 0;
+    var i=Math.floor(fx),j=Math.floor(fy),u=fx-i,v=fy-j,k=j*G.nx+i;
+    return arr[k]*(1-u)*(1-v)+arr[k+1]*u*(1-v)+arr[k+G.nx]*(1-u)*v+arr[k+G.nx+1]*u*v;
+  }
+  var evals=0;
+  function score(pose,detail){
+    evals++;
+    var at=place(pose),t={g1:0,g2:0,rep:0,hyd:0,hb:0};
+    for(var i=0;i<at.length;i++){var m=maps[at[i].t];for(var q=0;q<5;q++){var tm=TERMS[q];t[tm]+=lookup(m[tm],at[i].x,at[i].y);}}
+    var c=W.g1*t.g1+W.g2*t.g2+W.rep*t.rep+W.hyd*t.hyd+W.hb*t.hb,f=c/(1+WROT*NROT);
+    if(!detail)return f;
+    return {total:f,inter:c,steric:W.g1*t.g1+W.g2*t.g2,rep:W.rep*t.rep,hyd:W.hyd*t.hyd,hb:W.hb*t.hb,atoms:at};
+  }
+
+  /* ---------- RMSD (hizalamasız) ---------- */
+  function rmsdAt(pa,pb,sym,align){
+    var m={};pb.forEach(function(p){m[p.id]=p;});
+    function r(map){
+      var A=pa,B=pa.map(function(p){return m[map?map[p.id]:p.id];});
+      if(align){ /* 2B Kabsch: merkezle, en iyi dönmeyi bul */
+        var ax=0,ay=0,bx=0,by=0,n=A.length;A.forEach(function(p){ax+=p.x;ay+=p.y;});B.forEach(function(q){bx+=q.x;by+=q.y;});ax/=n;ay/=n;bx/=n;by/=n;
+        var sxx=0,sxy=0;for(var i=0;i<n;i++){var px=A[i].x-ax,py=A[i].y-ay,qx=B[i].x-bx,qy=B[i].y-by;sxx+=px*qx+py*qy;sxy+=px*qy-py*qx;}
+        var th=Math.atan2(sxy,sxx),c=Math.cos(th),s=Math.sin(th),ss=0;
+        for(var j=0;j<n;j++){var ux=A[j].x-ax,uy=A[j].y-ay,rx=c*ux-s*uy,ry=s*ux+c*uy,dx=rx-(B[j].x-bx),dy=ry-(B[j].y-by);ss+=dx*dx+dy*dy;}
+        return Math.sqrt(ss/n);
+      }
+      var s=0;for(var k=0;k<A.length;k++){var d1=A[k].x-B[k].x,d2=A[k].y-B[k].y;s+=d1*d1+d2*d2;}return Math.sqrt(s/A.length);
+    }
+    var direct=r(null);if(!sym)return direct;return Math.min(direct,r(SYM));
+  }
+  function rmsd(a,b,sym,align){return rmsdAt(place(a),place(b),sym,align);}
+  /* her (x,y) için yönelim ve burulma üzerinden en düşük skor */
+  function landscape(x0,x1,y0,y1,h,nth){
+    nth=nth||24;var nx=Math.round((x1-x0)/h)+1,ny=Math.round((y1-y0)/h)+1,out=new Float32Array(nx*ny),taus=[-TAU_MAX*0.75,0,TAU_MAX*0.75];
+    for(var j=0;j<ny;j++)for(var i=0;i<nx;i++){var b=Infinity;for(var t=0;t<nth;t++)for(var u=0;u<3;u++){var f=score({x:x0+i*h,y:y0+j*h,th:-Math.PI+t*2*Math.PI/nth,tau:taus[u]});if(f<b)b=f;}out[j*nx+i]=b;}
+    return {x0:x0,y0:y0,h:h,nx:nx,ny:ny,v:out};
+  }
+
+  /* ---------- rastgele sayı ---------- */
+  function rng(seed){var a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function wrap(a){while(a>Math.PI)a-=2*Math.PI;while(a<-Math.PI)a+=2*Math.PI;return a;}
+  function clampPose(p,box){p.x=Math.max(box.x0,Math.min(box.x1,p.x));p.y=Math.max(box.y0,Math.min(box.y1,p.y));p.th=wrap(p.th);p.tau=Math.max(-TAU_MAX,Math.min(TAU_MAX,p.tau));return p;}
+  function randomPose(r,box){return {x:box.x0+(box.x1-box.x0)*r(),y:box.y0+(box.y1-box.y0)*r(),th:(r()*2-1)*Math.PI,tau:(r()*2-1)*TAU_MAX};}
+  /* yerel iyileştirme: basit desen araması (türev gerektirmez) */
+  function localOpt(p,box,budget,onImp){
+    var cur={x:p.x,y:p.y,th:p.th,tau:p.tau},f=score(cur),steps={x:.4,y:.4,th:.25,tau:.4},used=1;
+    while(used<budget){
+      var improved=false;
+      for(var k in steps){for(var sg=-1;sg<=1;sg+=2){var q={x:cur.x,y:cur.y,th:cur.th,tau:cur.tau};q[k]+=sg*steps[k];clampPose(q,box);var fq=score(q);used++;if(fq<f){cur=q;f=fq;improved=true;if(onImp)onImp(cur,f);}}}
+      if(!improved){var small=true;for(var k2 in steps){steps[k2]*=0.5;if(steps[k2]>0.02)small=false;}if(small)break;}
+    }
+    return {pose:cur,f:f,used:used};
+  }
+  /* rastgele arama: her değerlendirme bağımsız rastgele poz */
+  function randomSearch(seed,box,budget,onStep){
+    var r=rng(seed),best=null,bf=Infinity,trace=[];
+    for(var i=1;i<=budget;i++){var p=randomPose(r,box),f=score(p);if(f<bf){bf=f;best=p;}
+      if(i%50===0)trace.push([i,bf]);if(onStep)onStep(p,f,best,bf,i);}
+    return {best:best,f:bf,trace:trace};
+  }
+  /* yinelemeli yerel arama: sıçra, yerel iyileştir, Metropolis ile kabul et */
+  function ils(seed,box,budget,onStep){
+    var r=rng(seed),start=localOpt(randomPose(r,box),box,120),cur=start.pose,cf=start.f,used=start.used,best=cur,bf=cf,trace=[[used,bf]],path=[cur],T=0.6;
+    while(used<budget){
+      var q={x:cur.x,y:cur.y,th:cur.th,tau:cur.tau},m=Math.floor(r()*3);
+      if(m===0){q.x+=(r()*2-1)*2;q.y+=(r()*2-1)*2;}else if(m===1){q.th+=(r()*2-1)*1.2;}else{q.tau+=(r()*2-1)*1.5;}
+      if(r()<0.08){q=randomPose(r,box);}
+      clampPose(q,box);
+      var lo=localOpt(q,box,120);used+=lo.used;
+      var acc=(lo.f<cf||r()<Math.exp(-(lo.f-cf)/T));
+      if(acc){cur=lo.pose;cf=lo.f;path.push(cur);}
+      if(cf<bf){bf=cf;best=cur;}
+      trace.push([used,bf]);if(onStep)onStep(q,lo.pose,lo.f,acc,best,bf,used);
+    }
+    return {best:best,f:bf,trace:trace,path:path};
+  }
+
+  var CRYSTAL={x:0,y:-1.5,th:-Math.PI/2,tau:0};
+  return {rec:rec,LIG:LIG,BONDS:BONDS,SYM:SYM,place:place,score:score,rmsd:rmsd,rmsdAt:rmsdAt,landscape:landscape,localOpt:localOpt,randomSearch:randomSearch,ils:ils,rng:rng,randomPose:randomPose,CRYSTAL:CRYSTAL,W:W,R:R,G:G,TAU_MAX:TAU_MAX,NROT:NROT,WROT:WROT,resetEvals:function(){evals=0;},evals:function(){return evals;},clampPose:clampPose};
+})();
+if(typeof module!=='undefined')module.exports=DOCK;
+
+</script>
+<script>
+/* Ala maskot çekirdeği v1.1 · HTML ve SVG varlıkları build_assets.js ile üretilir. */
+var ALA = (function(){
+  var TOKENS = {
+    light: {"--ala-c":"#5F7486","--ala-c-hi":"#93A6B5","--ala-n":"#5C8FD6","--ala-n-hi":"#9BBDEB","--ala-o":"#E8746A","--ala-o-hi":"#F5ADA5","--ala-h":"#F8F5EE","--ala-bond":"#A7B6C0","--ala-edge":"rgba(23,38,46,.24)","--ala-face":"#16222A","--ala-cheek":"#F29E97","--ala-ink":"#17262E","--ala-accent":"#1F8A7E","--ala-accent-ink":"#FFFFFF","--ala-sweat":"#9CC8F0","--ala-bulb":"#F4CF5D","--ala-spark":"#F4CF5D"},
+    dark:  {"--ala-c":"#6B8194","--ala-c-hi":"#9DB0BF","--ala-bond":"#7E919D","--ala-edge":"rgba(0,0,0,.5)","--ala-ink":"#DCE6E9","--ala-accent":"#4FC1B2","--ala-accent-ink":"#0E161B"}
+  };
+  var POSES = ["idle","selam","kanit","dikkat","ipucu","tebrik"];
+
+  var CSS = [
+    ".ala .bond{stroke:var(--ala-bond);stroke-width:7;stroke-linecap:round}",
+    ".ala .bond2{stroke:var(--ala-bond);stroke-width:4.2;stroke-linecap:round}",
+    ".ala .atom{stroke:var(--ala-edge);stroke-width:1.2}",
+    ".ala .at-h{fill:var(--ala-h)}",
+    ".ala .hl{fill:#fff;opacity:.33}",
+    ".ala .face{fill:var(--ala-face)}",
+    ".ala .face-line{fill:none;stroke:var(--ala-face);stroke-width:3.2;stroke-linecap:round}",
+    ".ala .cheek{fill:var(--ala-cheek);opacity:.6}",
+    ".ala .sweat{fill:var(--ala-sweat)}",
+    ".ala .bang circle{fill:var(--ala-accent)}",
+    ".ala .bang text{fill:var(--ala-accent-ink);font:800 18px 'Baloo 2',ui-rounded,system-ui,sans-serif}",
+    ".ala .lens{fill:var(--ala-sweat);fill-opacity:.28;stroke:var(--ala-ink);stroke-width:4}",
+    ".ala .handle{stroke:var(--ala-ink);stroke-width:5;stroke-linecap:round}",
+    ".ala .bulb{fill:var(--ala-bulb);stroke:var(--ala-edge);stroke-width:1.2}",
+    ".ala .bulb-base{fill:var(--ala-c)}",
+    ".ala .bulb-glow{fill:var(--ala-bulb);opacity:.35}",
+    ".ala .spark{fill:var(--ala-spark)}",
+    ".ala .whole{transform-origin:100px 150px}",
+    ".ala .tuft{transform-origin:100px 76px}",
+    ".ala .eyes{transform-origin:100px 116px}",
+    ".ala.pose-idle .eyes{animation:ala-blink 6s infinite}",
+    ".ala .arm-l{transform-origin:58px 124px}",
+    ".ala .arm-r{transform-origin:142px 124px}",
+    ".ala.pose-selam .arm-r{transform:rotate(-46deg)}",
+    ".ala.pose-kanit .arm-r{transform:rotate(-42deg)}",
+    ".ala.pose-ipucu .arm-l{transform:rotate(62deg)}",
+    ".ala.pose-tebrik .arm-l{transform:rotate(56deg)}",
+    ".ala.pose-tebrik .arm-r{transform:rotate(-56deg)}",
+    ".ala.is-active.pose-selam .arm-r{animation:ala-wave .7s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-kanit .arm-r{animation:ala-peer 1.8s ease-in-out 1}",
+    ".ala.pose-dikkat .arm-l{transform:rotate(28deg)}",
+    ".ala.pose-dikkat .arm-r{transform:rotate(-28deg)}",
+    ".ala.is-active.pose-dikkat .sweat{animation:ala-drip 1.2s ease-in 1}",
+    ".ala.is-active.pose-dikkat .bang{transform-origin:170px 40px;animation:ala-pop .8s ease-in-out 2}",
+    ".ala.is-active.pose-ipucu .arm-l{animation:ala-point .9s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-ipucu .bulb-glow{transform-origin:160px 30px;animation:ala-glow 1.6s ease-in-out 1}",
+    ".ala.is-active.pose-tebrik .whole{animation:ala-cheer .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .arm-l{animation:ala-armL .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .arm-r{animation:ala-armR .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .spark{transform-box:fill-box;transform-origin:center;animation:ala-twinkle 1s ease-in-out 1}",
+    ".ala.mono .bond,.ala.mono .bond2{stroke:#111}",
+    ".ala.mono .atom{fill:#fff;stroke:#111;stroke-width:2}",
+    ".ala.mono .face{fill:#111}",
+    ".ala.mono .face-line{stroke:#111}",
+    ".ala.mono .cheek,.ala.mono .hl,.ala.mono .bulb-glow{display:none}",
+    ".ala.mono .sweat,.ala.mono .bulb,.ala.mono .spark,.ala.mono .bang circle{fill:#111}",
+    ".ala.mono .bang text{fill:#fff}",
+    ".ala.mono .bulb{stroke:#111}",
+    ".ala.mono .bulb-base{fill:#111}",
+    ".ala.mono .lens{fill:#fff;stroke:#111}",
+    ".ala.mono .handle{stroke:#111}",
+    ".ala.mono *{animation:none!important}",
+    "@keyframes ala-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}",
+    "@keyframes ala-wave{from{transform:rotate(-88deg)}to{transform:rotate(-46deg)}}",
+    "@keyframes ala-peer{0%,100%{transform:rotate(-38deg)}50%{transform:rotate(-47deg)}}",
+    "@keyframes ala-drip{0%{transform:translateY(-3px);opacity:0}25%{opacity:1}100%{transform:translateY(9px);opacity:0}}",
+    "@keyframes ala-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}",
+    "@keyframes ala-point{from{transform:rotate(58deg)}to{transform:rotate(66deg)}}",
+    "@keyframes ala-glow{0%,100%{transform:scale(.85);opacity:.2}50%{transform:scale(1.25);opacity:.45}}",
+    "@keyframes ala-cheer{from{transform:translateY(0)}to{transform:translateY(-9px)}}",
+    "@keyframes ala-armL{from{transform:rotate(48deg)}to{transform:rotate(64deg)}}",
+    "@keyframes ala-armR{from{transform:rotate(-48deg)}to{transform:rotate(-64deg)}}",
+    "@keyframes ala-twinkle{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1);opacity:1}}",
+    "@media (prefers-reduced-motion: reduce){.ala *{animation:none!important}}"
+  ].join("\n");
+
+  var n = 0;
+  function grad(id, hi, base){
+    return '<radialGradient id="'+id+'" cx=".36" cy=".3" r=".8"><stop offset="0" style="stop-color:var('+hi+')"/><stop offset="1" style="stop-color:var('+base+')"/></radialGradient>';
+  }
+  function star(x,y,s,d){
+    return '<path class="spark" style="animation-delay:'+d+'s" d="M'+x+' '+(y-s)+' Q'+(x+s*.18)+' '+(y-s*.18)+' '+(x+s)+' '+y+' Q'+(x+s*.18)+' '+(y+s*.18)+' '+x+' '+(y+s)+' Q'+(x-s*.18)+' '+(y+s*.18)+' '+(x-s)+' '+y+' Q'+(x-s*.18)+' '+(y-s*.18)+' '+x+' '+(y-s)+'Z"/>';
+  }
+
+  function standaloneStyle(){
+    var t = TOKENS.light, d = TOKENS.dark, s = ".ala{", k;
+    for (k in t) s += k + ":" + t[k] + ";";
+    s += "}@media (prefers-color-scheme: dark){.ala{";
+    for (k in d) s += k + ":" + d[k] + ";";
+    return "<style>" + s + "}}" + CSS + "</style>";
+  }
+
+  /* pose: idle | selam | kanit | dikkat | ipucu | tebrik; variant: color | mono */
+  function svg(pose, attrs, standalone, variant){
+    pose = POSES.indexOf(pose) < 0 ? "idle" : pose;
+    var u = "ala" + (n++);
+    var eyeRy = pose === "dikkat" ? 8.6 : 7.4;
+    var px = pose === "kanit" ? 3 : 0, py = pose === "ipucu" ? -3 : 0;
+    var eyes;
+    if (pose === "tebrik") {
+      eyes = '<path class="face-line" d="M79 119 Q85 110 91 119"/><path class="face-line" d="M109 119 Q115 110 121 119"/>';
+    } else {
+      eyes = '<ellipse class="face" cx="'+(85+px)+'" cy="'+(116+py)+'" rx="5.6" ry="'+eyeRy+'"/><ellipse class="face" cx="'+(115+px)+'" cy="'+(116+py)+'" rx="5.6" ry="'+eyeRy+'"/>'+
+             '<circle cx="'+(87+px)+'" cy="'+(113+py)+'" r="2" fill="#fff"/><circle cx="'+(117+px)+'" cy="'+(113+py)+'" r="2" fill="#fff"/>';
+    }
+    var mouth = {
+      idle:   '<path class="face" d="M92 133 Q100 141 108 133 Q100 137 92 133Z"/>',
+      selam:  '<path class="face" d="M89 131 Q100 147 111 131 Q100 136 89 131Z"/>',
+      kanit:  '<path class="face-line" d="M94 136 Q102 139 108 133"/>',
+      dikkat: '<ellipse class="face" cx="100" cy="137" rx="4.5" ry="5.5"/>',
+      ipucu:  '<path class="face" d="M93 134 Q100 141 107 134 Q100 137 93 134Z"/>',
+      tebrik: '<path class="face" d="M87 130 Q100 150 113 130 Q100 136 87 130Z"/><path d="M94 139 Q100 144 106 139 Q100 141 94 139Z" style="fill:var(--ala-cheek)"/>'
+    }[pose];
+    var inArmR = pose === "kanit" ? '<line class="handle" x1="178" y1="146" x2="192" y2="154"/><circle class="lens" cx="203" cy="160" r="13"/>' : '';
+    var top = '';
+    if (pose === "dikkat") top = '<path class="sweat" d="M146 74 C140 84 140 90 146 90 C152 90 152 84 146 74Z"/><g class="bang"><circle cx="170" cy="40" r="14"/><text x="170" y="47" text-anchor="middle">!</text></g>';
+    if (pose === "ipucu") top = '<g class="idea"><circle class="bulb-glow" cx="160" cy="30" r="24"/><circle class="bulb" cx="160" cy="30" r="12"/><rect class="bulb-base" x="154.5" y="41" width="11" height="7" rx="2"/></g>';
+    if (pose === "tebrik") top = star(30,52,9,0) + star(174,46,11,-.4) + star(160,88,6,-.8) + star(40,92,6,-.6);
+
+    var style = standalone ? standaloneStyle() : "";
+    var mono = variant === "mono" ? " mono" : "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" class="ala pose-'+pose+mono+'" viewBox="-20 0 240 230" '+(attrs||'')+'>'+style+
+'<defs>'+grad(u+"c","--ala-c-hi","--ala-c")+grad(u+"n","--ala-n-hi","--ala-n")+grad(u+"o","--ala-o-hi","--ala-o")+'</defs>'+
+'<g class="whole">'+
+ '<g class="legs"><line class="bond" x1="88" y1="160" x2="80" y2="196"/><line class="bond" x1="112" y1="160" x2="120" y2="196"/>'+
+ '<circle class="atom at-h" cx="79" cy="200" r="10"/><circle class="atom at-h" cx="121" cy="200" r="10"/></g>'+
+ '<g class="arm-l"><line class="bond" x1="58" y1="124" x2="26" y2="143"/><line class="bond" x1="22" y1="142" x2="8" y2="130"/>'+
+ '<circle class="atom at-h" cx="7" cy="129" r="6.5"/><circle class="atom" cx="24" cy="145" r="13" fill="url(#'+u+'n)"/><circle class="hl" cx="19" cy="140" r="3.5"/></g>'+
+ '<g class="arm-r"><line class="bond" x1="142" y1="124" x2="177" y2="146"/>'+
+ '<circle class="atom" cx="177" cy="146" r="13" fill="url(#'+u+'o)"/><circle class="hl" cx="172" cy="141" r="3.5"/>'+inArmR+'</g>'+
+ '<g class="tuft"><line class="bond" x1="100" y1="76" x2="100" y2="50"/>'+
+ '<line class="bond" x1="100" y1="44" x2="84" y2="30"/><line class="bond" x1="100" y1="44" x2="100" y2="22"/><line class="bond" x1="100" y1="44" x2="116" y2="30"/>'+
+ '<circle class="atom at-h" cx="83" cy="29" r="6.5"/><circle class="atom at-h" cx="100" cy="20" r="6.5"/><circle class="atom at-h" cx="117" cy="29" r="6.5"/>'+
+ '<circle class="atom" cx="100" cy="45" r="11" fill="url(#'+u+'c)"/></g>'+
+ '<circle class="atom" cx="100" cy="120" r="48" fill="url(#'+u+'c)"/>'+
+ '<ellipse class="hl" cx="80" cy="96" rx="12" ry="8" transform="rotate(-30 80 96)"/>'+
+ '<ellipse class="cheek" cx="73" cy="131" rx="7.5" ry="4.2"/><ellipse class="cheek" cx="127" cy="131" rx="7.5" ry="4.2"/>'+
+ '<g class="eyes">'+eyes+'</g>'+mouth+top+
+'</g></svg>';
+  }
+  /* Small face variant keeps only the most recognizable color cues. */
+  function icon(attrs, standalone, variant){
+    var u = "ala" + (n++), mono = variant === "mono" ? " mono" : "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" class="ala icon'+mono+'" viewBox="22 16 156 140" '+(attrs||'')+'>'+
+      (standalone ? standaloneStyle() : "")+
+      '<defs>'+grad(u+"c","--ala-c-hi","--ala-c")+grad(u+"n","--ala-n-hi","--ala-n")+grad(u+"o","--ala-o-hi","--ala-o")+'</defs>'+
+      '<line class="bond" x1="100" y1="48" x2="100" y2="29"/><circle class="atom" cx="100" cy="27" r="9" fill="url(#'+u+'c)"/>'+
+      '<line class="bond" x1="57" y1="101" x2="37" y2="113"/><circle class="atom" cx="34" cy="115" r="11" fill="url(#'+u+'n)"/>'+
+      '<line class="bond" x1="143" y1="101" x2="163" y2="113"/><circle class="atom" cx="166" cy="115" r="11" fill="url(#'+u+'o)"/>'+
+      '<circle class="atom" cx="100" cy="95" r="48" fill="url(#'+u+'c)"/>'+
+      '<g class="eyes"><ellipse class="face" cx="85" cy="92" rx="5.6" ry="7.4"/><ellipse class="face" cx="115" cy="92" rx="5.6" ry="7.4"/></g>'+
+      '<path class="face" d="M92 112 Q100 120 108 112 Q100 116 92 112Z"/></svg>';
+  }
+  return { svg: svg, icon: icon, CSS: CSS, TOKENS: TOKENS, POSES: POSES, version: "1.1" };
+})();
+if (typeof module !== "undefined") module.exports = ALA;
+
+</script>
+<script>
+(function(){
+'use strict';
+var NS='http://www.w3.org/2000/svg';
+var D=window.DOCK;
+function $(s){return document.querySelector(s);}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
+var nfc={};function nf(d){return nfc[d]||(nfc[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}));}
+function fx(v,d){if(!isFinite(v))return '∞';var s=nf(d).format(Math.abs(v));return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+s;}
+function num(str){if(str==null)return NaN;str=String(str).trim().replace(/\s/g,'').replace('−','-').replace(/[×x]$/i,'');if(/,/.test(str))str=str.replace(/\./g,'').replace(',','.');return Number(str);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+var STY={'font-size':1,'fill':1,'font-weight':1,'font-family':1,'letter-spacing':1};
+function txt(parent,x,y,s,attrs){var a={x:x,y:y},css='';for(var k in attrs){if(STY[k])css+=k+':'+attrs[k]+(k==='font-size'||k==='letter-spacing'?'px':'')+';';else a[k]=attrs[k];}if(css)a.style=css;var t=el('text',a,parent);t.textContent=s;return t;}
+var DEG=Math.PI/180;
+var reduced=false;try{reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+
+/* ---------- Ala ---------- */
+var st=document.createElement('style');st.textContent=(window.ALA&&ALA.CSS)||'';document.head.appendChild(st);
+function setAla(node,pose){if(node&&window.ALA)node.innerHTML=ALA.svg(pose,'aria-hidden="true" focusable="false"');}
+$$('[data-ala]').forEach(function(n){setAla(n,n.getAttribute('data-ala'));});
+
+/* ---------- ilerleme ---------- */
+var KEY='dkt-pilot-done',done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){done={};}
+var LABS={1:['labA','alaA'],2:['labB','alaB'],3:['labC','alaC'],4:['labD','alaD']};
+function paintProgress(){
+  var k=0;for(var t in LABS){if(done[t])k++;}
+  $('#progText').textContent='Uygulamalar: '+k+' / 4';
+  $$('#progDots i').forEach(function(d,i){d.classList.toggle('on',!!done[i+1]);});
+  for(var t2 in LABS){document.getElementById(LABS[t2][0]).classList.toggle('is-done',!!done[t2]);if(done[t2])setAla(document.getElementById(LABS[t2][1]),'tebrik');}
+}
+function complete(t){if(!done[t]){done[t]=1;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(e){}}paintProgress();}
+function say(id,msg,ok){var n=document.getElementById(id);n.textContent=msg;n.className='feedback '+(ok?'ok':'no');}
+
+/* ---------- renkler ---------- */
+var COL={C:'#5F7486',Cp:'#5F7486',ND:'#5C8FD6',OA:'#E8746A',bond:'#A7B6C0',surf:'#e6e0d0',surfEdge:'#bdb49c',recC:'#a59c86',good:'#2f7254',bad:'#a3402f',ink:'#243744',num:'#2f6f95',accent:'#934b3c',warn:'#96661c'};
+
+/* ---------- sahne (SVG) ---------- */
+var sceneN=0;
+function makeScene(svg,o){
+  o=o||{};var id='s'+(sceneN++),sc=o.sc||20,cx=o.cx==null?260:o.cx,cy=o.cy==null?240:o.cy;
+  var S={sc:sc,X:function(x){return cx+sc*x;},Y:function(y){return cy-sc*y;},ix:function(px){return (px-cx)/sc;},iy:function(py){return (cy-py)/sc;},id:id,svg:svg};
+  var defs=el('defs',{},svg);
+  [['C',COL.C,'#93A6B5'],['N','#5C8FD6','#9BBDEB'],['O','#E8746A','#F5ADA5']].forEach(function(g){
+    var rg=el('radialGradient',{id:id+'g'+g[0],cx:'.35',cy:'.3',r:'.8'},defs);el('stop',{offset:'0','stop-color':g[2]},rg);el('stop',{offset:'1','stop-color':g[1]},rg);});
+  if(o.clip){var cp=el('clipPath',{id:id+'clip'},defs);el('rect',{x:o.clip[0],y:o.clip[1],width:o.clip[2],height:o.clip[3],rx:4},cp);}
+  S.root=el('g',o.clip?{'clip-path':'url(#'+id+'clip)'}:{},svg);
+  S.under=el('g',{},S.root);S.rec=el('g',{},S.root);S.mid=el('g',{},S.root);S.top=el('g',{},S.root);
+  return S;
+}
+function drawReceptor(S,o){
+  o=o||{};var g=S.rec,sc=S.sc,lim=o.lim;
+  var list=D.rec.filter(function(r){return !lim||(r.x>lim[0]-2&&r.x<lim[1]+2&&r.y>lim[2]-2&&r.y<lim[3]+2);});
+  var e=el('g',{fill:COL.surfEdge},g),f=el('g',{fill:o.fill||COL.surf},g),a=el('g',{},g);
+  list.forEach(function(r){el('circle',{cx:S.X(r.x),cy:S.Y(r.y),r:D.R[r.t]*sc+Math.max(1.5,sc*0.12)},e);});
+  list.forEach(function(r){el('circle',{cx:S.X(r.x),cy:S.Y(r.y),r:D.R[r.t]*sc},f);});
+  list.forEach(function(r){var polar=r.t==='OA';el('circle',{cx:S.X(r.x),cy:S.Y(r.y),r:polar?sc*0.3:sc*0.2,fill:polar?COL.OA:COL.recC,stroke:polar?'#fff':'none','stroke-width':polar?1.2:0},a);});
+  if(o.labels){
+    txt(g,S.X(0),S.Y(-10.2),'Asp benzeri (−)',{'text-anchor':'middle','font-weight':'600',fill:'#6b5f4a'});
+    txt(g,S.X(0),S.Y(5.2),'cep',{'text-anchor':'middle',fill:'#8a7f68','font-family':'Georgia,serif','font-size':'15'});
+    txt(g,S.X(10),S.Y(-5),'reseptör',{'text-anchor':'middle',fill:'#8a7f68','font-family':'Georgia,serif','font-size':'15'});
+  }
+}
+function drawLigand(S,g,atoms,o){
+  o=o||{};var sc=S.sc,m={};atoms.forEach(function(a){m[a.id]=a;});
+  var wrap=el('g',o.attrs||{},g);
+  if(o.cloud){var c=el('g',{fill:o.cloudCol||'#5C8FD6',opacity:o.cloudOp||0.13},wrap);atoms.forEach(function(a){el('circle',{cx:S.X(a.x),cy:S.Y(a.y),r:D.R[a.t]*sc},c);});}
+  var b=el('g',{stroke:o.bond||COL.bond,'stroke-width':o.bw||Math.max(3,sc*0.3),'stroke-linecap':'round','stroke-dasharray':o.dash||'none',fill:'none'},wrap);
+  D.BONDS.forEach(function(p){var A=m[p[0]],B=m[p[1]];el('line',{x1:S.X(A.x),y1:S.Y(A.y),x2:S.X(B.x),y2:S.Y(B.y)},b);});
+  var ag=el('g',{},wrap);
+  atoms.forEach(function(a){
+    var r=(a.t==='ND'?0.46:0.42)*sc*(o.rs||1);
+    var fill=o.solid?o.solid:(o.ghost?'none':'url(#'+S.id+'g'+(a.t==='ND'?'N':'C')+')');
+    el('circle',{cx:S.X(a.x),cy:S.Y(a.y),r:r,fill:fill,stroke:o.ghost?(o.ghostCol||COL.ink):'#fff','stroke-width':o.ghost?1.6:1.2,'stroke-dasharray':o.ghost?'3 2':'none','data-id':a.id},ag);
+  });
+  return wrap;
+}
+function pairS(a,r){return Math.hypot(a.x-r.x,a.y-r.y)-D.R[a.t]-D.R[r.t];}
+function analyse(atoms){
+  var hb=[],salt={},clash=[];
+  atoms.forEach(function(a){var rep=0;
+    D.rec.forEach(function(r){var s=pairS(a,r);
+      if(a.t==='ND'&&r.t==='OA'&&s<0){hb.push([a,r,s]);if(r.tag==='asp')salt[a.id]=1;}
+      else if(s<-0.3)rep+=s*s;});
+    if(rep>0.09)clash.push(a);});
+  return {hb:hb,salt:Object.keys(salt).length,clash:clash};
+}
+function svgPoint(svg,evt){var vb=svg.viewBox.baseVal,r=svg.getBoundingClientRect();return {x:vb.x+(evt.clientX-r.left)/r.width*vb.width,y:vb.y+(evt.clientY-r.top)/r.height*vb.height};}
+
+/* ================= Şekil DK.3: poz anatomisi ================= */
+(function(){
+  var svg=$('#figPose');if(!svg)return;
+  var S=makeScene(svg,{sc:34,cx:380,cy:158});
+  var pose={x:0,y:0,th:18*DEG,tau:42*DEG},at=D.place(pose),m={};at.forEach(function(a){m[a.id]=a;});
+  el('rect',{x:0,y:0,width:960,height:300,fill:'#fffefb'},S.under);
+  drawLigand(S,S.mid,at,{cloud:true,cloudCol:'#5F7486',cloudOp:0.1});
+  var g=S.top,X=S.X,Y=S.Y;
+  el('line',{x1:X(0),y1:Y(0),x2:X(5.4),y2:Y(0),stroke:'#b9b6aa','stroke-dasharray':'4 4'},g);
+  var ax=5.2;el('line',{x1:X(0),y1:Y(0),x2:X(ax*Math.cos(pose.th)),y2:Y(ax*Math.sin(pose.th)),stroke:COL.accent,'stroke-width':1.6,'stroke-dasharray':'6 4'},g);
+  var r=64;el('path',{d:'M'+(X(0)+r)+' '+Y(0)+' A'+r+' '+r+' 0 0 0 '+(X(0)+r*Math.cos(pose.th))+' '+(Y(0)-r*Math.sin(pose.th)),fill:'none',stroke:COL.accent,'stroke-width':2.2},g);
+  txt(g,X(0)+r+14,Y(0)+26,'θ dönme',{fill:COL.accent,'font-weight':'700','font-size':'15'});
+  el('circle',{cx:X(0),cy:Y(0),r:5,fill:COL.ink},g);
+  el('line',{x1:X(0),y1:Y(0),x2:X(0),y2:Y(0)+54,stroke:COL.ink,'stroke-width':1.4},g);
+  txt(g,X(0)+8,Y(0)+60,'merkez (x, y)',{fill:COL.ink,'font-weight':'700','font-size':'15'});
+  var t1=m.t1,r3=m.r3,t2=m.t2;var ux=t1.x-r3.x,uy=t1.y-r3.y,ul=Math.hypot(ux,uy);ux/=ul;uy/=ul;
+  el('line',{x1:X(t1.x),y1:Y(t1.y),x2:X(t1.x+ux*1.7),y2:Y(t1.y+uy*1.7),stroke:'#b9b6aa','stroke-dasharray':'4 4','stroke-width':1.4},g);
+  var a0=Math.atan2(uy,ux),a1=Math.atan2(t2.y-t1.y,t2.x-t1.x),rr=36;
+  el('path',{d:'M'+(X(t1.x)+rr*Math.cos(a0))+' '+(Y(t1.y)-rr*Math.sin(a0))+' A'+rr+' '+rr+' 0 0 '+(a1<a0?1:0)+' '+(X(t1.x)+rr*Math.cos(a1))+' '+(Y(t1.y)-rr*Math.sin(a1)),fill:'none',stroke:COL.good,'stroke-width':2.2},g);
+  txt(g,X(t1.x)-70,Y(t1.y)+56,'τ burulma',{fill:COL.good,'font-weight':'700','font-size':'15'});
+  txt(g,X(m.n1.x)+18,Y(m.n1.y)-4,'amidin (+)',{fill:'#3b6fb8','font-weight':'600','font-size':'14'});
+  txt(g,X(m.r1.x)-6,Y(m.r1.y)-24,'halka',{fill:COL.ink,'font-size':'14','text-anchor':'middle'});
+  txt(g,X(t2.x)-10,Y(t2.y)-18,'kuyruk',{fill:COL.ink,'font-size':'14','text-anchor':'middle'});
+  var bx=680;
+  txt(g,bx,52,'Üç boyutta',{fill:COL.accent,'font-size':'12','font-weight':'700','letter-spacing':'1.5'});
+  txt(g,bx,78,'3 öteleme + 3 dönme + n burulma',{fill:COL.ink,'font-size':'15'});
+  txt(g,bx,102,'= 6 + n sayı',{fill:COL.ink,'font-size':'15','font-weight':'700'});
+  txt(g,bx,150,'Bu oyuncakta (2B)',{fill:COL.accent,'font-size':'12','font-weight':'700','letter-spacing':'1.5'});
+  txt(g,bx,176,'x, y  ·  θ  ·  τ',{fill:COL.ink,'font-size':'15'});
+  txt(g,bx,200,'= 2 + 1 + 1 = 4 sayı',{fill:COL.ink,'font-size':'15','font-weight':'700'});
+  txt(g,bx,248,'Mavi bulut: atomların van der Waals',{fill:'#677078','font-size':'13'});
+  txt(g,bx,266,'yarıçapı. Bulutlar reseptöre fazla',{fill:'#677078','font-size':'13'});
+  txt(g,bx,284,'girerse itme terimi büyür.',{fill:'#677078','font-size':'13'});
+})();
+
+/* ================= Aday pozlar (sabit, modelden hesaplandı) ================= */
+var CAND=[
+  {k:'A',name:'En iyi skorlu poz',col:'#2f6f95',p:{x:0.03757,y:-1.36217,th:-1.46552,tau:-2.09440}},
+  {k:'B',name:'Biraz yukarıda, halkası çevrilmiş',col:'#1F8A7E',p:{x:0.1,y:-0.3,th:-1.87080,tau:-0.25,mir:true}},
+  {k:'C',name:'Ters oturmuş',col:'#934b3c',p:{x:0.16146,y:-1.60423,th:1.51310,tau:1.66954}},
+  {k:'D',name:'Yüzeyde',col:'#96661c',p:{x:-9.86045,y:8.33825,th:-0.12736,tau:-2.01940}},
+  {k:'E',name:'Cep ağzında',col:'#6b5b95',p:{x:0,y:1.5,th:-1.32080,tau:-1.025}}
+];
+CAND.forEach(function(c){c.f=D.score(c.p);});
+
+/* ================= Şekil DK.2: MD ve docking ================= */
+(function(){
+  var svg=$('#figMD');if(!svg)return;
+  el('rect',{x:0,y:0,width:960,height:380,fill:'#fffefb',stroke:'#d6d6cd'},svg);
+  el('line',{x1:480,y1:20,x2:480,y2:360,stroke:'#d6d6cd'},svg);
+  txt(svg,24,34,'MD: zaman var, hareket izlenir',{'font-family':'Georgia,serif','font-size':'19',fill:COL.ink});
+  txt(svg,504,34,'Docking: zaman yok, pozlar sıralanır',{'font-family':'Georgia,serif','font-size':'19',fill:COL.ink});
+  var lim=[-7.6,7.6,-10.4,7.4];
+  var L=makeScene(svg,{sc:15.5,cx:140,cy:60+7.4*15.5,clip:[20,50,240,300]});
+  drawReceptor(L,{lim:lim});
+  var show=['A','C','B','E'].map(function(k){return CAND.filter(function(c){return c.k===k;})[0];});
+  var ranked=show.slice().sort(function(a,b){return a.f-b.f;});
+  var limS=[-7.2,7.2,-10.2,5.2];
+  ranked.forEach(function(c,i){
+    var col=i%2,row=Math.floor(i/2),x0=500+col*230,y0=52+row*152,sc=8.2;
+    el('rect',{x:x0,y:y0,width:218,height:142,rx:5,fill:'#faf9f5',stroke:'#e2dfd5'},svg);
+    var M=makeScene(svg,{sc:sc,cx:x0+66,cy:y0+8+5.2*sc,clip:[x0+6,y0+6,120,130]});
+    drawReceptor(M,{lim:limS});
+    drawLigand(M,M.mid,D.place(c.p),{solid:c.col,bond:c.col,rs:1.25,bw:2.4});
+    el('circle',{cx:x0+150,cy:y0+30,r:14,fill:c.col},svg);
+    txt(svg,x0+150,y0+35,String(i+1),{'text-anchor':'middle',fill:'#fff','font-size':'14','font-weight':'700'});
+    txt(svg,x0+136,y0+68,'poz '+c.k,{fill:COL.ink,'font-size':'13','font-weight':'600'});
+    txt(svg,x0+136,y0+88,'skor',{fill:'#677078','font-size':'12'});
+    txt(svg,x0+136,y0+110,fx(c.f,2),{fill:COL.ink,'font-size':'20','font-family':'Georgia,serif'});
+  });
+  txt(svg,500,368,'Sıra skora göredir; doğru poz olduğunu garanti etmez (5. kısım).',{fill:'#677078','font-size':'12'});
+  /* zaman çizgisi */
+  var A=CAND[0].p,N=400,trace=[];
+  function poseAt(t){var u=t/10;return {x:A.x+0.32*Math.sin(0.9*u)+0.14*Math.sin(2.7*u+1),y:A.y+0.28*Math.sin(0.6*u+1)+0.12*Math.sin(3.1*u),th:A.th+0.16*Math.sin(1.3*u+.5),tau:A.tau+0.7*Math.sin(0.35*u)};}
+  function depth(p){var at=D.place(p);return at.filter(function(a){return a.id==='ca';})[0].y;}
+  for(var i=0;i<=N;i++){var t=i/N*100;trace.push([t,depth(poseAt(t))]);}
+  var px0=290,px1=462,py0=70,py1=330,dmin=-5.2,dmax=-3.2;
+  function PX(t){return px0+t/100*(px1-px0);}function PY(d){return py1-(d-dmin)/(dmax-dmin)*(py1-py0);}
+  el('rect',{x:px0,y:py0,width:px1-px0,height:py1-py0,fill:'#faf9f5',stroke:'#d6d6cd'},svg);
+  var d='';trace.forEach(function(p,i){d+=(i?'L':'M')+PX(p[0]).toFixed(1)+' '+PY(p[1]).toFixed(1);});
+  el('path',{d:d,fill:'none',stroke:COL.num,'stroke-width':1.8},svg);
+  txt(svg,px0,py1+18,'0',{fill:'#677078','font-size':'12'});txt(svg,px1,py1+18,'100 ns',{fill:'#677078','font-size':'12','text-anchor':'end'});
+  txt(svg,px0+4,py0-8,'amidin C’nin yüksekliği (Å)',{fill:'#677078','font-size':'12'});
+  var cur=el('line',{y1:py0,y2:py1,stroke:COL.accent,'stroke-width':2},svg),dot=el('circle',{r:5,fill:COL.accent},svg);
+  var lig=el('g',{},L.mid);
+  var sl=$('#tMD'),out=$('#tMDo');
+  function draw(){var t=Number(sl.value)/10;lig.innerHTML='';drawLigand(L,lig,D.place(poseAt(t)),{cloud:true});
+    cur.setAttribute('x1',PX(t));cur.setAttribute('x2',PX(t));dot.setAttribute('cx',PX(t));dot.setAttribute('cy',PY(depth(poseAt(t))));
+    out.textContent=fx(t,0)+' ns (şematik)';sl.setAttribute('aria-valuetext',fx(t,0)+' nanosaniye');}
+  sl.addEventListener('input',draw);draw();
+})();
+
+/* ================= LAB A: pozu kur ================= */
+var poseA={x:-6.5,y:8.2,th:23*DEG,tau:34*DEG},startA={x:-6.5,y:8.2,th:23*DEG,tau:34*DEG};
+var userMoved=false,onUserPose=null;
+(function(){
+  var svg=$('#sceneA');
+  var S=makeScene(svg);
+  el('rect',{x:0,y:0,width:520,height:460,fill:'#fffefb'},S.under);
+  var mapImg=el('image',{x:S.X(-13.25),y:S.Y(11.75),width:26.5*20,height:23.5*20,preserveAspectRatio:'none',visibility:'hidden'},S.under);
+  drawReceptor(S,{labels:true});
+  var ghost=el('g',{visibility:'hidden'},S.mid);drawLigand(S,ghost,D.place(D.CRYSTAL),{ghost:true,dash:'4 3',bond:'#7b8790',bw:2});
+  var hbG=el('g',{},S.top),lig=el('g',{class:'lig',tabindex:'0',role:'slider','aria-label':'Ligand; ok tuşlarıyla öteleyin, Q ve E ile döndürün, A ve D ile kuyruğu burun','aria-valuetext':''},S.top);
+  var thS=$('#thA'),tauS=$('#tauA');
+  var bars=$('#barsA'),rows={};
+  [['steric','Sterik çekim'],['rep','İtme'],['hyd','Hidrofobik'],['hb','H-bağı / tuz köp.'],['flex','Esneklik düzeltmesi'],['total','Toplam skor']].forEach(function(r){
+    var row=document.createElement('div');row.className='row'+(r[0]==='total'?' tot':'');
+    row.innerHTML='<span class="nm">'+r[1]+'</span><span class="track"><span class="fill"></span></span><span class="val"></span>';bars.appendChild(row);rows[r[0]]=row;});
+  function setBar(k,v){var row=rows[k],f=row.querySelector('.fill'),w=Math.min(50,Math.abs(v)/3.2*50);
+    f.className='fill '+(v<0?'neg':'pos');f.style.left=(v<0?50-w:50)+'%';f.style.width=w+'%';row.querySelector('.val').textContent=Math.abs(v)>99?(v>0?'>99':'<−99'):fx(v,2);}
+  var mapKey='',mapCv=document.createElement('canvas');
+  function drawMap(){
+    if(!$('#mapA').checked){mapImg.setAttribute('visibility','hidden');return;}
+    var key=Math.round(poseA.th/DEG)+'/'+Math.round(poseA.tau/DEG);if(key===mapKey)return;mapKey=key;
+    var nx=54,ny=48,h=0.5,x0=-13.25+0.25,y0=11.75-0.25;mapCv.width=nx;mapCv.height=ny;var cx=mapCv.getContext('2d'),im=cx.createImageData(nx,ny);
+    for(var j=0;j<ny;j++)for(var i=0;i<nx;i++){var f=D.score({x:x0+i*h,y:y0-j*h,th:poseA.th,tau:poseA.tau}),k=4*(j*nx+i);
+      if(f<-0.05){var u=Math.min(1,Math.pow(-f/3,0.75));im.data[k]=Math.round(250-(250-31)*u);im.data[k+1]=Math.round(249-(249-138)*u);im.data[k+2]=Math.round(245-(245-126)*u);im.data[k+3]=255;}
+      else{im.data[k+3]=0;}}
+    cx.putImageData(im,0,0);mapImg.setAttribute('href',mapCv.toDataURL());mapImg.setAttribute('visibility','visible');
+  }
+  var last=null;
+  function render(){
+    var at=D.place(poseA),sc=D.score(poseA,true),an=analyse(at);last={sc:sc,an:an};
+    lig.innerHTML='';hbG.innerHTML='';
+    drawLigand(S,lig,at,{cloud:true});
+    an.clash.forEach(function(a){el('circle',{cx:S.X(a.x),cy:S.Y(a.y),r:14,fill:'rgba(163,64,47,.18)',stroke:COL.bad,'stroke-width':2},hbG);});
+    an.hb.forEach(function(h){el('line',{x1:S.X(h[0].x),y1:S.Y(h[0].y),x2:S.X(h[1].x),y2:S.Y(h[1].y),stroke:COL.good,'stroke-width':2.6,'stroke-dasharray':'5 4'},hbG);});
+    var c=D.place(poseA).filter(function(a){return a.id==='r0'||a.id==='r3';});
+    el('circle',{class:'ring-hit',cx:S.X(poseA.x),cy:S.Y(poseA.y),r:60,fill:'transparent'},lig);
+    setBar('steric',sc.steric);setBar('rep',sc.rep);setBar('hyd',sc.hyd);setBar('hb',sc.hb);setBar('flex',sc.total-sc.inter);setBar('total',sc.total);
+    var bs=$('#bdgSalt');bs.className='hbadge'+(an.salt===2?' on':'');bs.querySelector('span').textContent='Tuz köprüsü '+an.salt+' / 2';
+    var bc=$('#bdgClash');bc.className='hbadge'+(an.clash.length?' clash':'');bc.querySelector('span').textContent=an.clash.length?('Çakışma: '+an.clash.length+' atom'):'Çakışma yok';
+    var thd=Math.round(((poseA.th/DEG)+540)%360-180),tad=Math.round(poseA.tau/DEG);
+    thS.value=thd;tauS.value=tad;$('#thAo').textContent=thd+'°';$('#tauAo').textContent=tad+'°';
+    lig.setAttribute('aria-valuetext','merkez x '+fx(poseA.x,1)+', y '+fx(poseA.y,1)+' Å; skor '+fx(sc.total,2)+'; tuz köprüsü '+an.salt);
+    drawMap();
+    if(an.salt===2&&sc.total<=-2.7){if(!done[1])say('fbA','Tamam: iki tuz köprüsü kuruldu, skor '+fx(sc.total,2)+'. Çubuklara bakın: en büyük katkı sterik çekimden ve H-bağından geliyor, itme ise küçük ama sıfır değil. Tuz köprüsü bu kadar yakın bir temas ister.',true);complete(1);}
+    else if(!done[1]){
+      if(an.salt===2)say('fbA','İki tuz köprüsü var; skor '+fx(sc.total,2)+'. Şimdi “Yerel iyileştir” ile pozu cilalayın.',false);
+      else if(an.salt===1)say('fbA','Bir N oksijene değiyor. Ligandı biraz döndürüp ikinci N’yi de karşı oksijene getirin.',false);
+      else if(poseA.y<4&&Math.abs(poseA.x)<4)say('fbA','Ligand cepte. Amidin ucunun (mavi) aşağı baktığından emin olun; ters duruyorsa θ sürgüsüyle çevirin.',false);
+      else document.getElementById('fbA').textContent='';
+    }
+    if(onUserPose)onUserPose();
+  }
+  var box={x0:-12.5,x1:12.5,y0:-10.5,y1:11.5};
+  function moved(){userMoved=true;D.clampPose(poseA,box);render();}
+  var drag=null;
+  lig.addEventListener('pointerdown',function(e){var p=svgPoint(svg,e);drag={dx:S.ix(p.x)-poseA.x,dy:S.iy(p.y)-poseA.y};svg.classList.add('dragging');try{lig.setPointerCapture(e.pointerId);}catch(_){}e.preventDefault();lig.focus({preventScroll:true});});
+  lig.addEventListener('pointermove',function(e){if(!drag)return;var p=svgPoint(svg,e);poseA.x=S.ix(p.x)-drag.dx;poseA.y=S.iy(p.y)-drag.dy;moved();});
+  function end(){drag=null;svg.classList.remove('dragging');}
+  lig.addEventListener('pointerup',end);lig.addEventListener('pointercancel',end);
+  lig.addEventListener('keydown',function(e){var k=e.key,h=e.shiftKey?1:0.25,used=true;
+    if(k==='ArrowLeft')poseA.x-=h;else if(k==='ArrowRight')poseA.x+=h;else if(k==='ArrowUp')poseA.y+=h;else if(k==='ArrowDown')poseA.y-=h;
+    else if(k==='q'||k==='Q')poseA.th+=5*DEG;else if(k==='e'||k==='E')poseA.th-=5*DEG;else if(k==='a'||k==='A')poseA.tau=clamp(poseA.tau-5*DEG,-D.TAU_MAX,D.TAU_MAX);else if(k==='d'||k==='D')poseA.tau=clamp(poseA.tau+5*DEG,-D.TAU_MAX,D.TAU_MAX);else used=false;
+    if(used){e.preventDefault();moved();}});
+  thS.addEventListener('input',function(){poseA.th=Number(thS.value)*DEG;moved();});
+  tauS.addEventListener('input',function(){poseA.tau=Number(tauS.value)*DEG;moved();});
+  $('#mapA').addEventListener('change',function(){mapKey='';$('#mapCapA').hidden=!this.checked;drawMap();});
+  $('#ghostA').addEventListener('change',function(){ghost.setAttribute('visibility',this.checked?'visible':'hidden');});
+  var anim=null;
+  $('#optA').addEventListener('click',function(){
+    if(anim)return;var frames=[];var r=D.localOpt(poseA,box,1500,function(p){frames.push({x:p.x,y:p.y,th:p.th,tau:p.tau});});
+    frames.push(r.pose);userMoved=true;
+    if(reduced||frames.length<2){poseA=r.pose;render();return;}
+    var i=0,stepN=Math.max(1,Math.ceil(frames.length/45)),btn=this;btn.disabled=true;
+    anim=setInterval(function(){i=Math.min(frames.length-1,i+stepN);var p=frames[i];poseA={x:p.x,y:p.y,th:p.th,tau:p.tau};render();if(i>=frames.length-1){clearInterval(anim);anim=null;btn.disabled=false;}},30);
+  });
+  $('#resetA').addEventListener('click',function(){poseA={x:startA.x,y:startA.y,th:startA.th,tau:startA.tau};render();});
+  render();
+})();
+
+/* ================= LAB B: arama uzayı ================= */
+(function(){
+  var g=1,a=30,L=20,n=3;
+  var svg=$('#logB');
+  function sup(m,e){return nf(m<10?1:0).format(m)+' × 10<sup>'+e+'</sup>';}
+  function big(v){if(v<1e6)return Math.round(v).toLocaleString('tr-TR');var e=Math.floor(Math.log10(v)),m=v/Math.pow(10,e);if(m>=9.95){m=1;e++;}return sup(m,e);}
+  function bigTxt(v){return big(v).replace(' × 10<sup>',' × 10^').replace('</sup>','');}
+  function tfmt(s){if(s<1)return 'bir saniyeden az';if(s<60)return fx(s,0)+' saniye';if(s<3600)return fx(s/60,1)+' dakika';if(s<86400)return fx(s/3600,1)+' saat';if(s<3.156e7)return fx(s/86400,0)+' gün';var y=s/3.156e7;if(y<1e4)return fx(y,y<10?1:0)+' yıl';return big(y)+' yıl';}
+  var marks=[[0,'1 sn'],[Math.log10(3600),'1 saat'],[Math.log10(86400),'1 gün'],[Math.log10(3.156e7),'1 yıl'],[Math.log10(3.156e10),'1000 yıl'],[Math.log10(13.8e9*3.156e7),'evrenin yaşı']];
+  var lo=-1,hi=21,X0=30,X1=610;function X(l){return X0+(clamp(l,lo,hi)-lo)/(hi-lo)*(X1-X0);}
+  function draw(){
+    var pos=Math.pow(L/g+1,3),ori=Math.pow(360/a,3),tor=Math.pow(360/a,n),tot=pos*ori*tor,sec=tot/1e6;
+    $('#LBo').textContent=L+' Å';$('#nBo').textContent=n;$('#LB').setAttribute('aria-valuetext',L+' angstrom');
+    $('#rBpos').innerHTML=big(pos);$('#rBori').innerHTML=big(ori);$('#rBtor').innerHTML=n?big(tor):'1';$('#rBtot').innerHTML=big(tot);$('#rBtime').innerHTML=tfmt(sec);
+    svg.innerHTML='';
+    el('rect',{x:0,y:0,width:640,height:250,fill:'#fffefb'},svg);
+    txt(svg,30,40,'Toplam poz',{fill:'#677078','font-size':'12','font-weight':'700','letter-spacing':'1'});
+    var e=Math.floor(Math.log10(tot)),m=tot/Math.pow(10,e);if(m>=9.95){m=1;e++;}
+    var T=txt(svg,30,80,'',{'font-family':'Georgia,serif','font-size':'34',fill:COL.ink});
+    if(tot<1e6)T.textContent=Math.round(tot).toLocaleString('tr-TR');else{T.textContent=nf(1).format(m)+' × 10';var ts=el('tspan',{dy:'-14',style:'font-size:21px'},T);ts.textContent=String(e);}
+    txt(svg,330,40,'Tarama süresi',{fill:'#677078','font-size':'12','font-weight':'700','letter-spacing':'1'});
+    var ts2=tfmt(sec),mm=ts2.match(/^(.*) × 10<sup>(\d+)<\/sup>(.*)$/),tt=txt(svg,330,80,mm?mm[1]+' × 10':ts2,{'font-family':'Georgia,serif','font-size':'30',fill:COL.accent});
+    if(mm){var e1=el('tspan',{dy:'-12',style:'font-size:19px'},tt);e1.textContent=mm[2];var e2=el('tspan',{dy:'12'},tt);e2.textContent=mm[3];}
+    var y=170;
+    el('line',{x1:X0,x2:X1,y1:y,y2:y,stroke:'#8b949a','stroke-width':2},svg);
+    marks.forEach(function(mk,i){var x=X(mk[0]);el('line',{x1:x,x2:x,y1:y-6,y2:y+(i%2?30:6),stroke:'#8b949a','stroke-width':1.5},svg);txt(svg,x,y+(i%2?46:24),mk[1],{'text-anchor':'middle',fill:'#677078','font-size':'12'});});
+    var lx=X(Math.log10(Math.max(sec,0.1)));
+    el('rect',{x:X0,y:y-4,width:Math.max(0,lx-X0),height:8,fill:COL.accent,opacity:.85,rx:2},svg);
+    el('path',{d:'M'+lx+' '+(y-10)+' l-8 -14 h16 z',fill:COL.accent},svg);
+    if(sec>13.8e9*3.156e7)txt(svg,X1,y-30,'evrenin yaşından uzun',{'text-anchor':'end',fill:COL.bad,'font-size':'13','font-weight':'700'});
+    txt(svg,X0,244,'logaritmik eksen: her çentik arası çok büyük bir sıçramadır',{fill:'#9a978d','font-size':'11'});
+  }
+  $('#LB').addEventListener('input',function(){L=Number(this.value);draw();});
+  $('#nB').addEventListener('input',function(){n=Number(this.value);draw();});
+  function chips(id,cb){$$('#'+id+' .chip').forEach(function(b){b.addEventListener('click',function(){$$('#'+id+' .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});cb(Number(b.getAttribute('data-v')));draw();});});}
+  chips('gB',function(v){g=v;});chips('aB',function(v){a=v;});
+  $('#chkB').addEventListener('click',function(){var v1=num($('#inB1').value),v2=num($('#inB2').value);var o1=v1===12,o2=v2===24;
+    if(o1&&o2){complete(2);say('fbB','Doğru: her yeni dönebilir bağ, açı adımı 30° iken 360/30 = 12, 15° iken 360/15 = 24 kat getirir. Esnek bir ligandda aramayı zorlaştıran şey bu çarpımdır; çok az dönebilir bağı olan benzamidin bu yüzden kolay bir örnektir.',true);}
+    else if(o1)say('fbB','30° için doğru. 15°’lik adımda bir burulma açısı kaç farklı değer alır?',false);
+    else if(o2)say('fbB','15° için doğru. 30°’de bir burulma kaç değer alır? Sürgüyle 3 ve 4 arasında gidip gelerek görebilirsiniz.',false);
+    else say('fbB','İpucu: bir burulma açısı 360°’yi a derecelik adımlarla dolaşır; yani 360/a farklı değer alır.',false);});
+  draw();
+})();
+
+/* ================= LAB C: arama yarışı ================= */
+(function(){
+  var cv=$('#cvC'),cx=cv.getContext('2d'),W=1040,H=920,SC=40,OX=520,OY=480;
+  function X(x){return OX+SC*x;}function Y(y){return OY-SC*y;}
+  var BOX={pocket:{x0:-4,x1:4,y0:-6,y1:4},whole:{x0:-12,x1:12,y0:-6,y1:10}};
+  var state={box:'whole',bud:8000,sf:'full',seed:1};
+  var LS={},lsBusy=false,run=null,animT=null,results={};
+  function withSF(sf,fn){var keep=D.W.hb;if(sf==='nohb')D.W.hb=0;try{return fn();}finally{D.W.hb=keep;}}
+  var LX0=-13,LX1=13,LY0=-11.5,LY1=11.5,LH=0.5;
+  function computeLS(sf,cb){
+    if(LS[sf]){cb();return;}
+    if(lsBusy){setTimeout(function(){computeLS(sf,cb);},80);return;}
+    lsBusy=true;var nx=Math.round((LX1-LX0)/LH)+1,ny=Math.round((LY1-LY0)/LH)+1,v=new Float32Array(nx*ny),j=0;
+    $('#stC').textContent='Skor manzarası hazırlanıyor…';
+    (function chunk(){var t0=Date.now();
+      withSF(sf,function(){while(j<ny&&Date.now()-t0<30){for(var i=0;i<nx;i++){var r=D.landscape(LX0+i*LH,LX0+i*LH,LY0+j*LH,LY0+j*LH,1,16);v[j*nx+i]=r.v[0];}j++;}});
+      if(j<ny){setTimeout(chunk,0);return;}
+      var c=document.createElement('canvas');c.width=nx;c.height=ny;var g=c.getContext('2d'),im=g.createImageData(nx,ny);
+      for(var jj=0;jj<ny;jj++)for(var ii=0;ii<nx;ii++){var f=v[jj*nx+ii],k=4*((ny-1-jj)*nx+ii),rgb;
+        if(f>0.3)rgb=[230,224,208];else if(f>-0.05)rgb=[250,249,245];else{var u=Math.min(1,Math.pow(-f/3,0.8));rgb=[250-(250-24)*u,249-(249-110)*u,245-(245-100)*u];}
+        im.data[k]=rgb[0];im.data[k+1]=rgb[1];im.data[k+2]=rgb[2];im.data[k+3]=255;}
+      g.putImageData(im,0,0);LS[sf]=c;lsBusy=false;cb();})();
+  }
+  function ligPath(p,col,lw,dash,fill){
+    var at=D.place(p),m={};at.forEach(function(a){m[a.id]=a;});
+    cx.save();cx.strokeStyle=col;cx.lineWidth=lw;cx.lineCap='round';if(dash)cx.setLineDash(dash);
+    cx.beginPath();D.BONDS.forEach(function(b){cx.moveTo(X(m[b[0]].x),Y(m[b[0]].y));cx.lineTo(X(m[b[1]].x),Y(m[b[1]].y));});cx.stroke();
+    cx.setLineDash([]);at.forEach(function(a){cx.beginPath();cx.arc(X(a.x),Y(a.y),a.t==='ND'?8:7,0,2*Math.PI);if(fill){cx.fillStyle=fill;cx.fill();}cx.strokeStyle=dash?col:'#fff';cx.lineWidth=dash?2:1.5;if(dash)cx.setLineDash([4,3]);cx.stroke();cx.setLineDash([]);});
+    cx.restore();
+  }
+  function draw(upto){
+    cx.clearRect(0,0,W,H);cx.fillStyle='#fffefb';cx.fillRect(0,0,W,H);
+    var ls=LS[state.sf];
+    if(ls){cx.imageSmoothingEnabled=true;cx.drawImage(ls,X(LX0-LH/2),Y(LY1+LH/2),(LX1-LX0+LH)*SC,(LY1-LY0+LH)*SC);}
+    D.rec.forEach(function(r){cx.beginPath();cx.arc(X(r.x),Y(r.y),r.t==='OA'?7:4.5,0,2*Math.PI);cx.fillStyle=r.t==='OA'?'#E8746A':'rgba(120,110,90,.55)';cx.fill();});
+    var b=BOX[state.box];cx.save();cx.strokeStyle=COL.warn;cx.lineWidth=2.5;cx.setLineDash([10,7]);cx.strokeRect(X(b.x0),Y(b.y1),(b.x1-b.x0)*SC,(b.y1-b.y0)*SC);cx.restore();
+    ligPath(D.CRYSTAL,COL.ink,2,[5,4],null);
+    if(run){
+      var n=upto==null?Infinity:upto;
+      cx.fillStyle='rgba(47,111,149,.30)';
+      for(var i=0;i<run.rs.pts.length&&i<n;i++){var p=run.rs.pts[i];cx.fillRect(X(p[0])-1.6,Y(p[1])-1.6,3.2,3.2);}
+      cx.save();cx.strokeStyle=COL.accent;cx.lineWidth=3;cx.lineJoin='round';cx.beginPath();var k=0,lastP=null;
+      for(var j=0;j<run.ils.steps.length;j++){var s=run.ils.steps[j];if(s.used>n)break;if(s.acc){if(k===0)cx.moveTo(X(s.p.x),Y(s.p.y));else cx.lineTo(X(s.p.x),Y(s.p.y));k++;lastP=s.p;}}
+      if(run.ils.start&&k===0){lastP=run.ils.start;}
+      cx.stroke();
+      for(var j2=0;j2<run.ils.steps.length;j2++){var s2=run.ils.steps[j2];if(s2.used>n)break;if(s2.acc){cx.beginPath();cx.arc(X(s2.p.x),Y(s2.p.y),5,0,2*Math.PI);cx.fillStyle=COL.accent;cx.fill();}}
+      cx.restore();
+      var fin=upto==null;
+      var rb=fin?run.rs.best:bestUpto(run.rs,n),ib=fin?run.ils.best:ilsBestUpto(n);
+      if(rb)ligPath(rb,COL.num,5,null,COL.num);
+      if(ib)ligPath(ib,COL.accent,5,null,COL.accent);
+    }
+    cx.fillStyle='#677078';cx.font='22px Segoe UI, system-ui, sans-serif';cx.fillText(state.box==='whole'?'arama kutusu: tüm yüzey':'arama kutusu: yalnız cep',X(BOX[state.box].x0)+8,Y(BOX[state.box].y1)-10);
+  }
+  function bestUpto(rs,n){var bi=-1,bf=Infinity;for(var i=0;i<rs.pts.length&&i<n;i++){if(rs.pts[i][2]<bf){bf=rs.pts[i][2];bi=i;}}return bi<0?null:rs.poses[bi];}
+  function ilsBestUpto(n){var b=null,bf=Infinity;run.ils.steps.forEach(function(s){if(s.used<=n&&s.bf<bf){bf=s.bf;b=s.best;}});return b||run.ils.start;}
+  var conv=$('#convC');
+  function drawConv(upto){
+    var W2=960,H2=230,L=64,R=W2-16,T=16,B=H2-40,bud=state.bud,y0=-3.2,y1=0.4;
+    function PX(e){return L+e/bud*(R-L);}function PY(f){return B-(clamp(f,y0,y1)-y0)/(y1-y0)*(B-T);}
+    var h='<rect x="0" y="0" width="960" height="230" fill="#fffefb"/>';
+    [-3,-2,-1,0].forEach(function(t){h+='<line class="grid" x1="'+L+'" x2="'+R+'" y1="'+PY(t)+'" y2="'+PY(t)+'"/><text x="'+(L-8)+'" y="'+(PY(t)+4)+'" text-anchor="end">'+fx(t,0)+'</text>';});
+    [0,0.25,0.5,0.75,1].forEach(function(q){var e=q*bud;h+='<text x="'+PX(e)+'" y="'+(B+18)+'" text-anchor="middle">'+Math.round(e).toLocaleString('tr-TR')+'</text>';});
+    h+='<line class="axis" x1="'+L+'" x2="'+R+'" y1="'+B+'" y2="'+B+'"/><line class="axis" x1="'+L+'" x2="'+L+'" y1="'+T+'" y2="'+B+'"/>';
+    h+='<text x="'+R+'" y="'+(H2-4)+'" text-anchor="end">harcanan skor hesabı</text><text x="'+(L+8)+'" y="'+(T+12)+'">bulunan en iyi skor</text>';
+    if(run){var n=upto==null?Infinity:upto,d1='',d2='';
+      run.rs.trace.forEach(function(p,i){if(p[0]<=n)d1+=(d1?'L':'M')+PX(p[0]).toFixed(1)+' '+PY(p[1]).toFixed(1);});
+      run.ils.trace.forEach(function(p){if(p[0]<=n)d2+=(d2?'L':'M')+PX(p[0]).toFixed(1)+' '+PY(p[1]).toFixed(1);});
+      h+='<path d="'+d1+'" fill="none" stroke="'+COL.num+'" stroke-width="2.4"/><path d="'+d2+'" fill="none" stroke="'+COL.accent+'" stroke-width="2.6"/>';
+      h+='<text x="'+(R-6)+'" y="'+(T+14)+'" text-anchor="end" style="fill:'+COL.num+';font-weight:600">rastgele</text><text x="'+(R-6)+'" y="'+(T+32)+'" text-anchor="end" style="fill:'+COL.accent+';font-weight:600">sıçra ve iyileştir</text>';}
+    conv.innerHTML=h;
+  }
+  function doRun(){
+    var b=BOX[state.box];
+    run=withSF(state.sf,function(){
+      var rs={pts:[],poses:[],trace:null,best:null,f:0},ils={steps:[],trace:null,best:null,f:0,start:null};
+      var r1=D.randomSearch(state.seed,b,state.bud,function(p,f){rs.pts.push([p.x,p.y,f]);rs.poses.push(p);});
+      rs.trace=r1.trace;rs.best=r1.best;rs.f=r1.f;
+      var r2=D.ils(state.seed,b,state.bud,function(q,lp,lf,acc,best,bf,used){ils.steps.push({p:lp,acc:acc,best:best,bf:bf,used:used});});
+      ils.trace=r2.trace;ils.best=r2.best;ils.f=r2.f;ils.start=r2.path[0];
+      rs.rmsd=D.rmsd(rs.best,D.CRYSTAL,true);ils.rmsd=D.rmsd(ils.best,D.CRYSTAL,true);
+      return {rs:rs,ils:ils};});
+  }
+  function finish(){
+    draw(null);drawConv(null);
+    $('#rCrs').textContent=fx(run.rs.f,2);$('#rCrsR').textContent=fx(run.rs.rmsd,1)+' Å';
+    $('#rCils').textContent=fx(run.ils.f,2);$('#rCilsR').textContent=fx(run.ils.rmsd,1)+' Å';
+    var key=state.seed+'|'+state.box+'|'+state.sf+'|'+state.bud;
+    if(!results[key]){results[key]={seed:state.seed,box:state.box,sf:state.sf,bud:state.bud,rs:[run.rs.f,run.rs.rmsd],ils:[run.ils.f,run.ils.rmsd]};
+      var tr=document.createElement('tr');
+      function c(v,r){return '<td>'+fx(v,2)+'</td><td class="'+(r<2?'ok':'no')+'">'+fx(r,1)+' Å</td>';}
+      tr.innerHTML='<td>'+state.seed+'</td><td>'+(state.box==='whole'?'tüm yüzey':'cep')+(state.bud===4000?' · 4.000':'')+'</td><td>'+(state.sf==='full'?'tam':'H-bağı yok')+'</td>'+c(run.rs.f,run.rs.rmsd)+c(run.ils.f,run.ils.rmsd);
+      $('#tblC tbody').insertBefore(tr,$('#tblC tbody').firstChild);}
+    var msg='Bitti. ';
+    var okR=run.rs.rmsd<2,okI=run.ils.rmsd<2;
+    if(state.sf==='nohb')msg+='H-bağı terimi kapalı. Sıçra-iyileştir '+(okI?'kristal benzeri pozu':'kristal pozdan uzak bir pozu')+' buldu (skor '+fx(run.ils.f,2)+'). Bu skorla ters poz yaklaşık −2,45, kristal benzeri poz yaklaşık −2,42 alır: fonksiyon ikisini neredeyse ayıramıyor.';
+    else if(okI&&okR)msg+='İki yöntem de kristal poza 2 Å içinde yaklaştı; sıçra-iyileştir skoru daha çok cilaladı.';
+    else if(okI)msg+='Sıçra-iyileştir kristal poza yaklaştı, rastgele arama başka bir yerde kaldı.';
+    else if(okR)msg+='Rastgele arama yaklaştı; sıçra-iyileştir bu tohumda yanlış bir çukura takıldı.';
+    else msg+='Bu tohumda iki yöntem de kristal pozdan uzak kaldı. Başka tohumu deneyin.';
+    $('#stC').textContent=msg;
+    var seeds={};for(var k in results){var r=results[k];if(r.box==='whole'&&r.sf==='full')seeds[r.seed]=1;}
+    var ns=Object.keys(seeds).length;
+    if(ns>=3){$$('#ansC button').forEach(function(x){x.disabled=false;});if(!done[3]&&!$('#fbC').dataset.opened){$('#fbC').textContent='Şimdi bir seçenek işaretleyin.';$('#fbC').className='feedback';$('#fbC').dataset.opened='1';}}
+    else if(!done[3]){$('#fbC').textContent='Tüm yüzey ve tam skorla çalıştırılan farklı tohum: '+ns+' / 3.';$('#fbC').className='feedback';}
+    $('#runC').disabled=false;$('#nextC').disabled=false;
+  }
+  function start(){
+    if(animT){cancelAnimationFrame(animT);animT=null;}
+    $('#runC').disabled=true;$('#nextC').disabled=true;$('#stC').textContent='Hesaplanıyor…';
+    computeLS(state.sf,function(){
+      doRun();
+      if(reduced){finish();return;}
+      var t0=null,dur=2600;
+      function step(ts){if(t0==null)t0=ts;var q=Math.min(1,(ts-t0)/dur),n=Math.round(q*state.bud);draw(n);drawConv(n);$('#stC').textContent='Skor hesabı: '+n.toLocaleString('tr-TR')+' / '+state.bud.toLocaleString('tr-TR');
+        if(q<1)animT=requestAnimationFrame(step);else{animT=null;finish();}}
+      animT=requestAnimationFrame(step);
+    });
+  }
+  function chips(id,key,conv){$$('#'+id+' .chip').forEach(function(b){b.addEventListener('click',function(){$$('#'+id+' .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});var v=b.getAttribute('data-v');state[key]=conv?Number(v):v;run=null;
+    computeLS(state.sf,function(){draw(null);drawConv(null);$('#stC').textContent='Ayar değişti. “Yarışı başlat” ile çalıştırın.';});});});}
+  chips('boxC','box');chips('budC','bud',true);chips('sfC','sf');
+  var sd=$('#seedC');sd.addEventListener('input',function(){state.seed=Number(sd.value);$('#seedCo').textContent=state.seed;});
+  $('#runC').addEventListener('click',start);
+  $('#nextC').addEventListener('click',function(){state.seed=state.seed%20+1;sd.value=state.seed;$('#seedCo').textContent=state.seed;start();});
+  $$('#ansC button').forEach(function(b){b.addEventListener('click',function(){$$('#ansC button').forEach(function(x){x.classList.remove('wrong');});
+    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(3);say('fbC','Doğru. Tabloda aynı ayarlarla farklı tohumların farklı pozlara vardığını görebilirsiniz. Bir docking raporunda tohum sayısı, en iyi pozların birbirine RMSD’si ve skor dağılımı birlikte verilmelidir.',true);}
+    else{b.classList.add('wrong');say('fbC','Tabloya tekrar bakın: aynı kutu ve aynı skorla farklı tohumlar aynı sonucu verdi mi?',false);}});});
+  computeLS('full',function(){draw(null);drawConv(null);$('#stC').textContent='Hazır. “Yarışı başlat” ile ilk tohumu çalıştırın.';});
+})();
+
+/* ================= LAB D: redocking ================= */
+(function(){
+  var svg=$('#sceneD'),S=makeScene(svg);
+  el('rect',{x:0,y:0,width:520,height:460,fill:'#fffefb'},S.under);
+  drawReceptor(S,{});
+  var ghostG=el('g',{},S.mid),candG=el('g',{},S.mid),linkG=el('g',{},S.top);
+  drawLigand(S,ghostG,D.place(D.CRYSTAL),{ghost:true,dash:'4 3',bond:'#7b8790',bw:2});
+  var list=CAND.slice();list.push({k:'F',name:'Sizin pozunuz (Laboratuvar 1)',col:'#243744',user:true});
+  var sel='B',checked={};
+  var ul=$('#candsD');
+  list.forEach(function(c){var li=document.createElement('li');li.id='cand'+c.k;
+    li.innerHTML='<input type="checkbox" aria-label="'+c.k+' pozu 2 Å altında"><span class="sw" style="background:'+c.col+'">'+c.k+'</span><button class="pick" type="button">'+c.name+'</button><span class="m"></span>';
+    li.querySelector('.pick').addEventListener('click',function(){sel=c.k;render();});
+    li.querySelector('input').addEventListener('change',function(e){checked[c.k]=e.target.checked;});
+    ul.appendChild(li);c.li=li;});
+  function poseOf(c){return c.user?poseA:c.p;}
+  function metr(c){var p=poseOf(c);return {f:D.score(p),r:D.rmsd(p,D.CRYSTAL,$('#symD').checked,$('#alnD').checked),truth:D.rmsd(p,D.CRYSTAL,true,false)};}
+  function aligned(pa,pb){
+    var n=pa.length,ax=0,ay=0,bx=0,by=0;pa.forEach(function(p){ax+=p.x;ay+=p.y;});pb.forEach(function(q){bx+=q.x;by+=q.y;});ax/=n;ay/=n;bx/=n;by/=n;
+    var sxx=0,sxy=0;for(var i=0;i<n;i++){var px=pa[i].x-ax,py=pa[i].y-ay,qx=pb[i].x-bx,qy=pb[i].y-by;sxx+=px*qx+py*qy;sxy+=px*qy-py*qx;}
+    var th=Math.atan2(sxy,sxx),c=Math.cos(th),s=Math.sin(th);
+    return pa.map(function(p){var ux=p.x-ax,uy=p.y-ay;return {id:p.id,t:p.t,x:bx+c*ux-s*uy,y:by+s*ux+c*uy};});
+  }
+  var scat=$('#scatD');
+  function render(){
+    var sym=$('#symD').checked,aln=$('#alnD').checked;
+    var c=list.filter(function(z){return z.k===sel;})[0],p=poseOf(c),at=D.place(p),cr=D.place(D.CRYSTAL),m={};cr.forEach(function(a){m[a.id]=a;});
+    candG.innerHTML='';linkG.innerHTML='';
+    drawLigand(S,candG,at,{solid:c.col,bond:c.col,cloud:true,cloudCol:'#243744',cloudOp:0.07});
+    var direct=D.rmsdAt(at,cr,false,false),viaSym=D.rmsdAt(at,cr,true,false),useSym=sym&&viaSym<direct-1e-9;
+    var map=useSym?D.SYM:null,show=at;
+    if(aln){var tgt=at.map(function(a){return m[map?map[a.id]:a.id];});show=aligned(at,tgt);drawLigand(S,linkG,show,{solid:'rgba(36,55,68,.0)',bond:c.col,dash:'2 3',bw:2,ghost:true,ghostCol:c.col});}
+    show.forEach(function(a){var b=m[map?map[a.id]:a.id];el('line',{x1:S.X(a.x),y1:S.Y(a.y),x2:S.X(b.x),y2:S.Y(b.y),stroke:COL.bad,'stroke-width':1.6,opacity:.8},linkG);});
+    var mm=metr(c);
+    $('#capD').innerHTML='<b>'+c.k+' · '+c.name+'.</b> Kırmızı çizgiler her atomu kristaldeki eşine bağlar; RMSD bu uzunlukların karelerinin ortalamasının köküdür. Skor '+fx(mm.f,2)+', RMSD '+fx(mm.r,2)+' Å'+(aln?' (hizalanmış kopyaya göre; kesikli)':'')+(useSym?'; simetri eşlemesi kullanıldı.':'.');
+    list.forEach(function(z){var q=metr(z);z.li.classList.toggle('sel',z.k===sel);z.li.querySelector('.m').textContent='skor '+fx(q.f,2)+' · '+fx(q.r,2)+' Å';});
+    drawScat();
+  }
+  function drawScat(){
+    var W2=960,H2=260,L=64,R=W2-20,T=18,B=H2-42,x0=0,x1=15,y0=-3.4,y1=0;
+    function PX(r){return L+(clamp(r,x0,x1)-x0)/(x1-x0)*(R-L);}function PY(f){return B-(clamp(f,y0,y1)-y0)/(y1-y0)*(B-T);}
+    var h='<rect x="0" y="0" width="960" height="260" fill="#fffefb"/><rect x="'+L+'" y="'+T+'" width="'+(PX(2)-L)+'" height="'+(B-T)+'" fill="#e3efe7"/>';
+    [-3,-2,-1,0].forEach(function(t){h+='<line class="grid" x1="'+L+'" x2="'+R+'" y1="'+PY(t)+'" y2="'+PY(t)+'"/><text x="'+(L-8)+'" y="'+(PY(t)+4)+'" text-anchor="end">'+fx(t,0)+'</text>';});
+    [0,2,4,6,8,10,12,14].forEach(function(t){h+='<text x="'+PX(t)+'" y="'+(B+18)+'" text-anchor="middle">'+t+'</text>';});
+    h+='<line x1="'+PX(2)+'" x2="'+PX(2)+'" y1="'+T+'" y2="'+B+'" stroke="#2f7254" stroke-width="1.6" stroke-dasharray="5 4"/><text x="'+(PX(2)+6)+'" y="'+(T+14)+'" style="fill:#2f7254;font-weight:600">2 Å eşiği</text>';
+    h+='<line class="axis" x1="'+L+'" x2="'+R+'" y1="'+B+'" y2="'+B+'"/><line class="axis" x1="'+L+'" x2="'+L+'" y1="'+T+'" y2="'+B+'"/>';
+    h+='<text x="'+R+'" y="'+(H2-4)+'" text-anchor="end">RMSD, Å</text><text x="'+(PX(2)+96)+'" y="'+(T+14)+'">skor (aşağısı daha iyi)</text>';
+    list.forEach(function(z){var q=metr(z),x=PX(q.r),y=PY(q.f);h+='<g><circle cx="'+x+'" cy="'+y+'" r="'+(z.k===sel?13:11)+'" fill="'+z.col+'" stroke="#fff" stroke-width="2"/><text x="'+x+'" y="'+(y+4)+'" text-anchor="middle" style="fill:#fff;font-weight:700">'+z.k+'</text></g>';});
+    scat.innerHTML=h;
+  }
+  $('#symD').addEventListener('change',render);$('#alnD').addEventListener('change',render);
+  $('#chkD').addEventListener('click',function(){
+    var wrong=[],missing=[];list.forEach(function(z){var ok=metr(z).truth<2,ch=!!checked[z.k];if(ch&&!ok)wrong.push(z.k);if(!ch&&ok)missing.push(z.k);});
+    var sym=$('#symD').checked,aln=$('#alnD').checked;
+    if(!wrong.length&&!missing.length){complete(4);say('fbD','Doğru. A ve B aynı yerde, B yalnızca biraz kaymış ve halkası çevrilmiş. C cebe girmiş ama ters; D ve E yanlış yerde. Simetri kapalıyken B yanlışlıkla başarısız, hizalama açıkken C, D ve E yanlışlıkla başarılı görünür.'+(list[5]&&metr(list[5]).truth<2?' Kendi pozunuz da başarılı sayılıyor.':''),true);}
+    else{var t='Henüz değil. ';if(wrong.length)t+='Başarılı sayılmaması gereken: '+wrong.join(', ')+'. ';if(missing.length)t+='Eksik kalan: '+missing.join(', ')+'. ';
+      if(!sym||aln)t+='Önce kutuları doğru yönteme getirin: simetri açık, hizalama kapalı.';say('fbD',t,false);}});
+  onUserPose=function(){if(sel==='F')render();else{var q=metr(list[5]);list[5].li.querySelector('.m').textContent='skor '+fx(q.f,2)+' · '+fx(q.r,2)+' Å';}};
+  var pending=false;var prev=onUserPose;onUserPose=function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;prev();drawScat();});};
+  render();
+})();
+
+/* ================= QUIZ ================= */
+var Q=[
+ {s:'Rapordaki “−9,1 kcal/mol” sayısı neyi ifade eder?',
+  o:[['Deneyle ölçülmüş bağlanma serbest enerjisini.',0],['Skor fonksiyonunun o poz için verdiği bir tahmini; birimi serbest enerji birimi olsa da ölçüm değildir.',1],['Ligandın proteine göre ne kadar hızlı bağlandığını.',0]],
+  w:'Skor fonksiyonu pozları sıralamak için kurulmuş ve verilere ayarlanmış bir modeldir. İki ligand arasındaki 1,7 birimlik fark, fonksiyonun tipik hatasıyla karşılaştırılmadan “A daha güçlü bağlanır” sonucuna çevrilemez.'},
+ {s:'Tek bir çalıştırmanın tek en iyi pozunu raporlamanın riski nedir?',
+  o:[['Risk yoktur; program her seferinde aynı sonucu verir.',0],['Yalnızca bilgisayarın hızına bağlı bir risk vardır.',0],['Arama stokastiktir; başka tohumlar başka pozlar bulabilir. Birden çok koşu ve en iyi pozların benzerliği raporlanmalıdır.',1]],
+  w:'Laboratuvar 3’te aynı ayarlarla farklı tohumların farklı çukurlara düştüğünü gördünüz.'},
+ {s:'50 ns MD boyunca RMSD’nin sabit kalması neyi gösterir?',
+  o:[['Pozun bu süre içinde cepten ayrılmadığını; afiniteyi ya da daha iyi bir poz olmadığını göstermez.',1],['Bağlanma modunun kanıtlandığını.',0],['Kuvvet alanının doğru olduğunu.',0]],
+  w:'Kısa bir MD, pozun o sürede dağılmadığını gösterir. Örneklemenin yeterli olup olmadığı ayrı bir sorudur (CH17).'},
+ {s:'Bağlanma modu iddiasını sınamak için yapılması gereken ilk kontrol hangisidir?',
+  o:[['Pozu kristal liganda hizalayıp RMSD hesaplamak.',0],['Ligandlı bir kristal yapı varsa kristal ligandla redocking yapıp 2 Å içinde kalınıp kalınmadığına bakmak; ardından mümkünse çapraz docking.',1],['MD süresini 500 ns’ye çıkarmak.',0]],
+  w:'Redocking, programın ve ayarların bu cepte bilinen cevabı bulup bulamadığını sınar. Hizalama ise ligandın yanlış yerde durduğunu gizler (Laboratuvar 4).'}
+];
+var qz=$('#quiz');
+Q.forEach(function(q,i){var d=document.createElement('div');d.className='q';
+  d.innerHTML='<p class="stem"><b>'+(i+1)+'.</b> '+q.s+'</p><div class="opts" role="group" aria-label="Soru '+(i+1)+' seçenekleri"></div><p class="why" aria-live="polite"></p>';
+  var box=d.querySelector('.opts');
+  q.o.forEach(function(o){var b=document.createElement('button');b.textContent=o[0];b.addEventListener('click',function(){
+    box.querySelectorAll('button').forEach(function(x){x.classList.remove('wrong');});
+    if(o[1]){b.classList.add('right');d.querySelector('.why').innerHTML='<b style="color:var(--good)">Doğru.</b> '+q.w;}
+    else{b.classList.add('wrong');d.querySelector('.why').innerHTML='<b style="color:var(--bad)">Tekrar düşünün.</b> '+q.w;}});box.appendChild(b);});
+  qz.appendChild(d);});
+
+$$('.hero').forEach(function(h){if(h.scrollWidth>h.clientWidth)h.scrollLeft=(h.scrollWidth-h.clientWidth)*0.5;});
+paintProgress();
+})();
+
+</script>
+</body>
+</html>

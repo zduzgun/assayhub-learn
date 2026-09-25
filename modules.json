@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "note": "Modül kimlikleri kalıcıdır (bkz. docs/ARCHITECTURE.md, 3. kısım). Kimlik değişmez; içerik sürümlenir. Kısa adres /l/<KİMLİK> bu dosyadan üretilir.",
+  "apps": [
+    {
+      "id": "docking",
+      "title": "Moleküler Docking",
+      "path": "docking/",
+      "summary": "Bir pozu aramaktan skorun afiniteye karşı sınırına: üç düzeyde, uygulayarak."
+    },
+    {
+      "id": "md",
+      "title": "Moleküler Dinamik",
+      "path": "md/",
+      "summary": "Enerjiden trajektoriye: kuvvet, integrasyon, hazırlık ve yakınsama. Koşular tarayıcıda çalışmaz; önceden hesaplanmış gerçek veriler rehberli olarak yeniden oynatılır."
+    }
+  ],
+  "modules": [
+    {
+      "id": "DK-T",
+      "app": "docking",
+      "level": "temel",
+      "title": "Docking: bir pozu aramak ve puanlamak",
+      "path": "docking/dk-t/",
+      "source": "sources/DK-T.html",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH02 sonrası",
+      "goals": ["Poz ve serbestlik derecesi", "Skor terimleri", "Arama uzayı ve arama algoritması", "Redocking ve RMSD"],
+      "data": ["Oyuncak 2B model (öğretim amaçlı)"],
+      "notice": null
+    },
+    {
+      "id": "DK-O",
+      "app": "docking",
+      "level": "orta",
+      "title": "Gerçek kilit: tripsin ve benzamidin (3PTB)",
+      "path": "docking/dk-o/",
+      "source": "sources/DK-O.html",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH07 ve CH09",
+      "goals": ["Yapı dosyasını okumak", "Hazırlık karar günlüğü", "Gerçek redocking ve üç RMSD", "Kutu ve exhaustiveness"],
+      "data": ["PDB 3PTB (CC0 1.0)", "AutoDock Vina 1.2.7 koşuları"],
+      "notice": null
+    },
+    {
+      "id": "DK-U",
+      "app": "docking",
+      "level": "uzman",
+      "title": "Skor, afinite ve binlerce anahtar",
+      "path": "docking/dk-u/",
+      "source": "sources/DK-U.html",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH18 ve CH19",
+      "goals": ["Skor ve ölçülen afinite", "Boyut karıştırıcısı", "Zenginleştirme ve tuzak yanlılığı", "Ağırlık uydurma ve gruplu doğrulama"],
+      "data": ["ChEMBL tripsin ve D2 Ki verisi (CC BY-SA 3.0)", "PDB 3PTB (CC0 1.0)", "AutoDock Vina 1.2.7 taraması"],
+      "notice": "Bu sayfadaki bileşik verisi ChEMBL'den türetilmiştir ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
+    },
+    {
+      "id": "MD-T",
+      "app": "md",
+      "level": "temel",
+      "title": "Enerji, kuvvetler ve sayısal hareket",
+      "path": "md/md-t/",
+      "source": "sources/MD-T.html",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH02",
+      "goals": ["Kuvvet enerji eğiminden gelir", "Hız-Verlet adımı", "Zaman adımı ve hata", "Neden 2 fs"],
+      "data": ["Boyutsuz öğretim modelleri"],
+      "notice": null
+    },
+    {
+      "id": "MD-O",
+      "app": "md",
+      "level": "orta",
+      "title": "Bir proteini MD'ye hazırlamak (1UBQ)",
+      "path": null,
+      "source": null,
+      "version": null,
+      "status": "planned",
+      "book": "CH07",
+      "goals": ["Yapı ve protonasyon kararları", "Kutu, çözücü, minimizasyon", "Rehberli koşu yeniden oynatma"],
+      "data": ["PDB 1UBQ (CC0 1.0)", "Yerel GROMACS denemesi"],
+      "notice": null
+    },
+    {
+      "id": "MD-U",
+      "app": "md",
+      "level": "uzman",
+      "title": "Yakınsama ve örnekleme (alanin dipeptit)",
+      "path": null,
+      "source": null,
+      "version": null,
+      "status": "planned",
+      "book": "CH17",
+      "goals": ["Blok ortalamaları", "Bağımsız koşular", "Etkin örneklem sayısı"],
+      "data": ["mdshare ALA2 (CC BY 4.0)"],
+      "notice": null
+    }
+  ]
+}
