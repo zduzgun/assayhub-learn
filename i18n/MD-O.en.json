@@ -1,7 +1,7 @@
 {
  "module": "MD-O",
  "lang": "en",
- "source_sha256": "6d988cb00d86d54c72f12026c5464b4fc4f2c8421f8cab61bbbec17f0fcf3a29",
+ "source_sha256": "d89304063249eab796349a150a197daf9d24bc52e6d75aa6115c6fb004fcf72e",
  "reviewed": false,
  "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
  "translator": "Claude (machine translation, needs human review)",
@@ -503,7 +503,7 @@
    "<th>Box · salt</th><th>Atoms</th><th>Water</th>"
   ],
   [
-   "<th>Kısıtlı NVT</th><th>Kısıtsız</th>",
+   "<th>Konum kısıtlı NVT</th><th>Konum kısıtsız</th>",
    "<th>Restrained NVT</th><th>Unrestrained</th>"
   ],
   [
@@ -543,7 +543,7 @@
    "Minimum distance from the protein to its own periodic image"
   ],
   [
-   "Kısıtsız koşularda proteinin periyodik görüntüsüne en kısa mesafesi, iki kutu boyutu için, kesme mesafesi çizgisiyle",
+   "Konum kısıtsız koşularda proteinin periyodik görüntüsüne en kısa mesafesi, iki kutu boyutu için, kesme mesafesi çizgisiyle",
    "Minimum distance from the protein to its periodic image in the unrestrained runs, for two box sizes, with the cut-off distance line"
   ],
   [
@@ -551,7 +551,7 @@
    "cut-off distance (<code>.mdp</code>)"
   ],
   [
-   "0,5 nm'lik kutuda, bu kısıtsız koşu boyunca proteinin kendi görüntüsüne olan mesafesi en az kaç nm oldu (iki ondalık)? Bu mesafe kesme mesafesinin altına indi mi?",
+   "0,5 nm'lik kutuda, bu konum kısıtsız koşu boyunca proteinin kendi görüntüsüne olan mesafesi en az kaç nm oldu (iki ondalık)? Bu mesafe kesme mesafesinin altına indi mi?",
    "In the 0.5 nm box, what was the minimum distance from the protein to its own image during this unrestrained run (in nm, two decimal places)? Did this distance fall below the cut-off distance?"
   ],
   [
@@ -595,7 +595,7 @@
    "'Performance is in ns/day, and all values were measured on the same cloud machine ('"
   ],
   [
-   "'). 1,0 nm ve tuzsuz sistemin satırı, S0 koşularının bu makinedeki tekrarlarıdır (C0: kısıtlı NVT, C1: kısıtsız). S0\\'ın kendi WSL ölçümleri başka bir makineden geldiği için bu tabloya konmadı.'",
+   "'). 1,0 nm ve tuzsuz sistemin satırı, S0 koşularının bu makinedeki tekrarlarıdır (C0: konum kısıtlı NVT, C1: konum kısıtsız). S0\\'ın kendi WSL ölçümleri başka bir makineden geldiği için bu tabloya konmadı.'",
    "'). The row for the 1.0 nm, salt-free system consists of repeats of the S0 runs on this machine (C0: position-restrained NVT, C1: unrestrained). The WSL measurements of S0 itself come from another machine and are therefore not included in this table.'"
   ],
   [
@@ -619,11 +619,11 @@
    "<dt>Water molecules</dt>"
   ],
   [
-   "<dt>Kısıtlı NVT, bulut</dt>",
+   "<dt>Konum kısıtlı NVT, bulut</dt>",
    "<dt>Position-restrained NVT, cloud</dt>"
   ],
   [
-   "<dt>Kısıtsız, bulut</dt>",
+   "<dt>Konum kısıtsız, bulut</dt>",
    "<dt>Unrestrained, cloud</dt>"
   ],
   [
@@ -631,7 +631,7 @@
    "<dt>Atom count relative to salt-free 1.0 nm</dt>"
   ],
   [
-   "' %</dd><dt>Hız (kısıtsız), aynı makinede</dt><dd>'",
+   "' %</dd><dt>Hız (konum kısıtsız), aynı makinede</dt><dd>'",
    "'%</dd><dt>Speed (unrestrained), same machine</dt><dd>'"
   ],
   [
@@ -667,11 +667,11 @@
    "label:'cut-off distance '"
   ],
   [
-   "xl:'zaman, ps (kısıtsız koşu)',yl:'en kısa mesafe, nm'",
+   "xl:'zaman, ps (konum kısıtsız koşu)',yl:'en kısa mesafe, nm'",
    "xl:'time, ps (unrestrained run)',yl:'minimum distance, nm'"
   ],
   [
-   "'gmx mindist -pi ile kısıtsız koşunun her karesinde hesaplandı ('",
+   "'gmx mindist -pi ile konum kısıtsız koşunun her karesinde hesaplandı ('",
    "'Computed with gmx mindist -pi for every frame of the unrestrained run ('"
   ],
   [
@@ -859,8 +859,8 @@
    "' K. In the next step, one bond deviated by about '"
   ],
   [
-   "' katı kadar saptı ve program “Segmentation fault” ile çöktü. Enerji dosyasına yalnız 0. adım yazılabildi. İki koşu da aynı bulut makinesinde yapıldı.</p>'",
-   "' times its reference length, and the program crashed with a “Segmentation fault”. Only step 0 could be written to the energy file. Both runs were performed on the same cloud machine.</p>'"
+   "' milyar katı kadar saptı ve program “Segmentation fault” ile çöktü. Enerji dosyasına yalnız 0. adım yazılabildi. İki koşu da aynı bulut makinesinde yapıldı.</p>'",
+   "' billion times its reference length, and the program crashed with a “Segmentation fault”. Only step 0 could be written to the energy file. Both runs were performed on the same cloud machine.</p>'"
   ],
   [
    "Başlat\\'a basın: koşunun kaydı akacak, sonuç burada görünecek.",
@@ -923,7 +923,7 @@
    "After minimization, the system is first brought to the target temperature at constant volume (NVT; the setting in the <code>.mdp</code> file is <code>ref_t = 300</code> K), and then pressure control is switched on (NPT). In both stages the protein heavy atoms are held in place by position restraints. At the same point one more decision is made: the time step, and which bonds are to have their lengths constrained."
   ],
   [
-   "MD-T'deki kural burada gerçek bir girdiyle karşınıza çıkıyor: en hızlı titreşimin bir periyodu en az 5 adıma bölünmelidir. 4 fs'lik denemeler, 2 fs'lik kısıtlı yolun sonundaki NPT durumundan başlayan 10 ps'lik kısıtsız koşulardır; karşılaştırma için aynı bulut makinesinde 2 fs ile bir kontrol (C1) koşuldu.",
+   "MD-T'deki kural burada gerçek bir girdiyle karşınıza çıkıyor: en hızlı titreşimin bir periyodu en az 5 adıma bölünmelidir. 4 fs'lik denemeler, 2 fs'lik konum kısıtlı yolun sonundaki NPT durumundan başlayan 10 ps'lik konum kısıtsız koşulardır; karşılaştırma için aynı bulut makinesinde 2 fs ile bir kontrol (C1) koşuldu.",
    "Here the rule from MD-T meets you with a real input: one period of the fastest vibration should be divided into at least 5 steps. The 4 fs trials are 10 ps unrestrained runs starting from the NPT state at the end of the 2 fs position-restrained path; for comparison, a control (C1) with 2 fs was run on the same cloud machine."
   ],
   [
@@ -959,11 +959,11 @@
    "The options become active once you have played 4 fs with both constraint options"
   ],
   [
-   "' (kısıtsız olanı henüz oynatmadınız).'",
+   "' (bağ kısıtı olmayanı henüz oynatmadınız).'",
    "' (you have not yet played the unconstrained one).'"
   ],
   [
-   "' (kısıtlı olanı henüz oynatmadınız).'",
+   "' (bağ kısıtlı olanı henüz oynatmadınız).'",
    "' (you have not yet played the constrained one).'"
   ],
   [
@@ -971,23 +971,23 @@
    "xl:'stage time, ps (each stage starts from 0)'"
   ],
   [
-   "'S0 kısıtlı NVT ve NPT: sıcaklık'",
+   "'S0 konum kısıtlı NVT ve NPT: sıcaklık'",
    "'S0 position-restrained NVT and NPT: temperature'"
   ],
   [
-   "'S0 kısıtlı NVT ve NPT: basınç'",
+   "'S0 konum kısıtlı NVT ve NPT: basınç'",
    "'S0 position-restrained NVT and NPT: pressure'"
   ],
   [
-   "'S0 kısıtlı NPT: yoğunluk'",
+   "'S0 konum kısıtlı NPT: yoğunluk'",
    "'S0 position-restrained NPT: density'"
   ],
   [
-   "'4 fs ve 2 fs kısıtsız koşularda sıcaklık, aynı bulut makinesinde'",
+   "'4 fs ve 2 fs konum kısıtsız koşularda sıcaklık, aynı bulut makinesinde'",
    "'Temperature in the 4 fs and 2 fs unrestrained runs, on the same cloud machine'"
   ],
   [
-   "'4 fs ve 2 fs kısıtsız koşularda korunan enerjinin ilk değere göre değişimi'",
+   "'4 fs ve 2 fs konum kısıtsız koşularda korunan enerjinin ilk değere göre değişimi'",
    "'Change in the conserved energy relative to its initial value in the 4 fs and 2 fs unrestrained runs'"
   ],
   [
@@ -995,11 +995,11 @@
    "yl:'conserved energy − initial value, kJ mol⁻¹'"
   ],
   [
-   "C1: 2 fs, kısıtlı (bulut)",
+   "C1: 2 fs, bağ kısıtlı (bulut)",
    "C1: 2 fs, constrained (cloud)"
   ],
   [
-   "S2a: 4 fs, kısıtlı (bulut)",
+   "S2a: 4 fs, bağ kısıtlı (bulut)",
    "S2a: 4 fs, constrained (cloud)"
   ],
   [
@@ -1007,8 +1007,8 @@
    "'# grompp exit code: '"
   ],
   [
-   "'; mdrun başlatılmadı (-maxwarn kullanılmadı).'",
-   "'; mdrun was not started (-maxwarn was not used).'"
+   "' (-maxwarn kullanılmadı). .tpr dosyası oluşmadığı için ardından çağrılan mdrun dinamik koşmadan hata verdi (çıkış kodu '",
+   "' (-maxwarn was not used). Because no .tpr file was produced, the mdrun call that followed failed without running any dynamics (exit code '"
   ],
   [
    "<dt>Adım (her aşama)</dt>",
@@ -1039,32 +1039,32 @@
    "' machine.</p>'"
   ],
   [
-   "<dt>Korunan enerji kayması, uç noktalar: S2a / C1</dt>",
-   "<dt>Conserved-energy drift, end points: S2a / C1</dt>"
-  ],
-  [
-   "<dt>Aynısı, doğrusal uyum eğimi</dt>",
-   "<dt>Same, slope of a linear fit</dt>"
-  ],
-  [
    "<dt>Performans: S2a / C1 (aynı makine)</dt>",
    "<dt>Performance: S2a / C1 (same machine)</dt>"
   ],
   [
-   "4 fs koştu ve iki kat hızlıydı. Ama korunan enerji, uç noktalardan bakınca 2 fs\\'e göre yaklaşık '",
-   "4 fs ran and was twice as fast. But judged from the end points, the conserved energy drifted about '"
+   "<dt>Korunan enerji kayması, doğrusal uyum eğimi: S2a / C1</dt>",
+   "<dt>Conserved-energy drift, slope of a linear fit: S2a / C1</dt>"
   ],
   [
-   "' kat hızlı kaydı; bunun bir kısmı ilk yarım pikosaniyedeki sıçramadan geliyor. Doğrusal uyumla fark küçülüyor ('",
-   "' times faster than with 2 fs; part of this comes from the jump in the first half picosecond. With a linear fit the difference shrinks ('"
+   "<dt>Aynısı, uç noktalardan</dt>",
+   "<dt>Same, from the end points</dt>"
   ],
   [
-   "+' ve '+fx(dc.fit,0)+",
-   "+' and '+fx(dc.fit,0)+"
+   "4 fs koştu ve aynı makinede yaklaşık '",
+   "4 fs ran and was about '"
   ],
   [
-   "'). Tek bir 10 ps\\'lik koşudan kayma hızı güvenilir biçimde çıkmaz; 4 fs\\'in bu sistem için yeterli olduğu sonucu bu veriden çıkmaz. Uygulamada 4 fs genellikle hidrojen kütlesini yeniden dağıtma (HMR) gibi ek önlemlerle kullanılır; burada kullanılmadı.</p>'",
-   "'). A drift rate cannot be obtained reliably from a single 10 ps run; the conclusion that 4 fs is adequate for this system does not follow from these data. In practice, 4 fs is usually used together with additional measures such as hydrogen mass repartitioning (HMR); this was not used here.</p>'"
+   "' kat hızlıydı. Korunan enerjinin kayması için tek bir hız söylenemez: doğrusal uyum eğimi S2a\\'da '",
+   "' times as fast on the same machine. No single drift rate can be given for the conserved energy: the slope of a linear fit is '"
+  ],
+  [
+   "+', C1\\'de '+sgn(dc.fit,0)+' kJ mol⁻¹ ps⁻¹. Uç noktalardan bakınca fark daha büyük görünüyor ('",
+   "+' for S2a and '+sgn(dc.fit,0)+' for C1 (kJ mol⁻¹ ps⁻¹). Judged from the end points the difference looks larger ('"
+  ],
+  [
+   "+' ve '+sgn(dc.end,0)+'), çünkü S2a\\'nın ilk yarım pikosaniyesinde bir sıçrama var. Tek bir 10 ps\\'lik koşudan kayma hızı güvenilir biçimde çıkmaz; 4 fs\\'in bu sistem için yeterli olup olmadığı bu veriden anlaşılmaz. Uygulamada 4 fs genellikle hidrojen kütlesini yeniden dağıtma (HMR) gibi ek önlemlerle kullanılır; burada kullanılmadı.</p>'",
+   "+' and '+sgn(dc.end,0)+'), because S2a shows a jump in its first half picosecond. A single 10 ps run does not give a reliable drift rate; whether 4 fs is adequate for this system cannot be decided from these data. In practice, 4 fs is usually used together with additional measures such as hydrogen mass repartitioning (HMR); none were used here.</p>'"
   ],
   [
    "<dt>Bağ</dt><dd>treonin O–H (OG1–HG1)</dd><dt>Tahmini titreşim periyodu</dt>",
@@ -1099,15 +1099,15 @@
    "Press Start: the result appears here once the log has finished streaming."
   ],
   [
-   "'S0 kısıtlı NVT, sonra kısıtlı NPT · '",
+   "'S0 konum kısıtlı NVT, sonra konum kısıtlı NPT · '",
    "'S0 position-restrained NVT, then position-restrained NPT · '"
   ],
   [
-   "'S2a (4 fs) ve C1 (2 fs) kısıtsız · '",
+   "'S2a (4 fs) ve C1 (2 fs), konum kısıtsız · '",
    "'S2a (4 fs) and C1 (2 fs) unrestrained · '"
   ],
   [
-   "'S2b (4 fs, kısıtsız) · '",
+   "'S2b (4 fs, bağ kısıtı yok) · '",
    "'S2b (4 fs, unconstrained) · '"
   ],
   [
@@ -1119,7 +1119,7 @@
    "'4 fs, bonds involving H constrained: LINCS could not hold the bonds and the run crashed.'"
   ],
   [
-   "'4 fs, kısıtsız: grompp, treonin O–H bağının tahmini periyodunun ('",
+   "'4 fs, bağ kısıtı yok: grompp, treonin O–H bağının tahmini periyodunun ('",
    "'4 fs, unconstrained: grompp reported that the estimated period of the threonine O–H bond ('"
   ],
   [
@@ -1135,15 +1135,15 @@
    "' fs); because -maxwarn was not used, the run never started.'"
   ],
   [
-   "'4 fs, kısıtsız: mdrun başladı ve ilk adımda çöktü.'",
+   "'4 fs, bağ kısıtı yok: mdrun başladı ve ilk adımda çöktü.'",
    "'4 fs, unconstrained: mdrun started and crashed at the first step.'"
   ],
   [
-   "'2 fs, kısıtlı: yoğunluk yakınsamadığı için GROMACS koşuyu durdurdu.'",
+   "'2 fs, bağ kısıtlı: yoğunluk yakınsamadığı için GROMACS koşuyu durdurdu.'",
    "'2 fs, constrained: GROMACS stopped the run because the density did not converge.'"
   ],
   [
-   "'Doğru. Reddeden grompp\\'tur, mdrun değil: sorun daha koşu başlamadan, girdinin kendisinde yakalandı. Kısıtlı 4 fs ise koştu; ama “koştu” ile “doğru örnekledi” aynı şey değildir. Korunan enerjideki kayma aynı makinedeki 2 fs kontrolüyle karşılaştırılmalıdır ve 10 ps bunun için kısadır.'",
+   "'Doğru. Reddeden grompp\\'tur, mdrun değil: sorun daha koşu başlamadan, girdinin kendisinde yakalandı. Bağ kısıtlı 4 fs ise koştu; ama “koştu” ile “doğru örnekledi” aynı şey değildir. Korunan enerjideki kayma aynı makinedeki 2 fs kontrolüyle karşılaştırılmalıdır ve 10 ps bunun için kısadır.'",
    "'Correct. It was grompp that rejected it, not mdrun: the problem was caught in the input itself, before the run even started. The constrained 4 fs run, on the other hand, did run; but “it ran” and “it sampled correctly” are not the same thing. The drift in the conserved energy must be compared with the 2 fs control on the same machine, and 10 ps is too short for that.'"
   ],
   [
@@ -1151,7 +1151,7 @@
    "'Look at the log lines again: in which case did mdrun never start? Which program issued the warning, and on the basis of which rule?'"
   ],
   [
-   "<small>6 · Kısa kısıtsız koşu</small>On pikosaniye neyi gösterir?",
+   "<small>6 · Kısa konum kısıtsız koşu</small>On pikosaniye neyi gösterir?",
    "<small>6 · Short unrestrained run</small>What do ten picoseconds show?"
   ],
   [
@@ -1191,7 +1191,7 @@
    "Backbone RMSD versus time"
   ],
   [
-   "Kısıtsız koşunun kayıt satırları",
+   "Konum kısıtsız koşunun kayıt satırları",
    "Log lines of the unrestrained run"
   ],
   [
@@ -1211,7 +1211,7 @@
    "<h4>Cannot be said</h4>"
   ],
   [
-   "Hazırlık yolu uçtan uca çalıştı; kısıtsız koşu LINCS uyarısı olmadan bitti.",
+   "Hazırlık yolu uçtan uca çalıştı; konum kısıtsız koşu LINCS uyarısı olmadan bitti.",
    "The preparation path worked end to end; the unrestrained run finished without LINCS warnings."
   ],
   [
@@ -1259,11 +1259,11 @@
    "'Pause':'Play'"
   ],
   [
-   "'Kısıtsız koşuda sıcaklık'",
+   "'Konum kısıtsız koşuda sıcaklık'",
    "'Temperature in the unrestrained run'"
   ],
   [
-   "'Kısıtsız koşuda yoğunluk'",
+   "'Konum kısıtsız koşuda yoğunluk'",
    "'Density in the unrestrained run'"
   ],
   [
@@ -1275,7 +1275,7 @@
    "'. It is not compared with the cloud runs.'"
   ],
   [
-   "'S0 kısıtsız 10 ps · '",
+   "'S0 konum kısıtsız 10 ps · '",
    "'S0 unrestrained 10 ps · '"
   ],
   [
@@ -1307,8 +1307,8 @@
    "+' and '+fx(maxOf(s.Density),1)+' kg m⁻³, and the RMSD rose from '"
   ],
   [
-   "' nm\\'den '",
-   "' nm to '"
+   "' nm\\'den en çok '",
+   "' nm to at most '"
   ],
   [
    "' nm\\'ye çıktı. Denge ya da esneklik iddiası için önceden yazılmış bir ölçüt, çok daha uzun ve bağımsız tohumlu koşular gerekir. Bu koşu, yolun çalıştığının kaydıdır.'",
@@ -1411,16 +1411,16 @@
    "'Both runs (S1 and C0) used the same velocity generation and the same thermostat; the only difference was the starting structure. Minimization protects the first steps of the dynamics from these huge forces.'"
   ],
   [
-   "'4 fs, H içeren bağlar kısıtlıyken koşu hatasız bitti ve iki kat hızlıydı. Bu, 4 fs\\'in bu sistem için güvenli olduğunu gösterir mi?'",
-   "'With 4 fs and bonds involving H constrained, the run finished without errors and was twice as fast. Does this show that 4 fs is safe for this system?'"
+   "'4 fs, H içeren bağlar kısıtlıyken koşu hatasız bitti ve yaklaşık iki kat hızlıydı. Bu, 4 fs\\'in bu sistem için güvenli olduğunu gösterir mi?'",
+   "'With 4 fs and bonds involving H constrained, the run finished without errors and was about twice as fast. Does this show that 4 fs is safe for this system?'"
   ],
   [
    "'Evet; LINCS uyarısı olmadığına göre güvenlidir.'",
    "'Yes; since there were no LINCS warnings, it is safe.'"
   ],
   [
-   "'Hayır; korunan enerji aynı makinedeki 2 fs kontrolünden hızlı kaydı ve 10 ps\\'lik tek koşu bu karar için yetersizdir.'",
-   "'No; the conserved energy drifted faster than in the 2 fs control on the same machine, and a single 10 ps run is not enough for this decision.'"
+   "'Hayır; 10 ps\\'lik tek bir koşu bu karar için yetersizdir: korunan enerjinin kayma hızı bu kadar kısa bir koşudan güvenilir biçimde çıkmaz.'",
+   "'No; a single 10 ps run is not enough for this decision: the drift rate of the conserved energy cannot be estimated reliably from such a short run.'"
   ],
   [
    "'Evet; GROMACS uyarı vermediğine göre sorun yoktur.'",
@@ -1475,7 +1475,7 @@
    "<h3>Machines</h3>"
   ],
   [
-   "<b>S0 (ana yol):</b> <span data-b=\"machS0\"></span>. Yapı denetimi, pdb2gmx, kutu, çözücü, minimizasyon, kısıtlı NVT, kısıtlı NPT ve kısıtsız 10 ps.",
+   "<b>S0 (ana yol):</b> <span data-b=\"machS0\"></span>. Yapı denetimi, pdb2gmx, kutu, çözücü, minimizasyon, konum kısıtlı NVT, konum kısıtlı NPT ve konum kısıtsız 10 ps.",
    "<b>S0 (main path):</b> <span data-b=\"machS0\"></span>. Structure audit, pdb2gmx, box, solvent, minimization, position-restrained NVT, position-restrained NPT and 10 ps unrestrained."
   ],
   [
@@ -1599,15 +1599,15 @@
    "\"label\":\"S0 minimization\""
   ],
   [
-   "\"label\":\"S0 kısıtlı NVT\"",
+   "\"label\":\"S0 konum kısıtlı NVT\"",
    "\"label\":\"S0 position-restrained NVT\""
   ],
   [
-   "\"label\":\"S0 kısıtlı NPT\"",
+   "\"label\":\"S0 konum kısıtlı NPT\"",
    "\"label\":\"S0 position-restrained NPT\""
   ],
   [
-   "\"label\":\"S0 kısıtsız\"",
+   "\"label\":\"S0 konum kısıtsız\"",
    "\"label\":\"S0 unrestrained\""
   ],
   [
@@ -1615,7 +1615,7 @@
    "\"label\":\"C0 control: S0 NVT on the cloud machine\""
   ],
   [
-   "\"label\":\"C1 kontrol: S0 kısıtsız (2 fs) bulutta\"",
+   "\"label\":\"C1 kontrol: S0 konum kısıtsız (2 fs) bulutta\"",
    "\"label\":\"C1 control: S0 unrestrained (2 fs) on the cloud machine\""
   ],
   [
@@ -1627,7 +1627,7 @@
    "\"label\":\"S2a 4 fs, bonds involving H constrained\""
   ],
   [
-   "\"label\":\"S2b 4 fs, kısıt yok\"",
+   "\"label\":\"S2b 4 fs, bağ kısıtı yok\"",
    "\"label\":\"S2b 4 fs, no constraints\""
   ],
   [
@@ -1635,15 +1635,15 @@
    "\"label\":\"S3 small box 0.5 nm: minimization\""
   ],
   [
-   "\"label\":\"S3 dar kutu 0,5 nm: kısıtlı NVT\"",
+   "\"label\":\"S3 dar kutu 0,5 nm: konum kısıtlı NVT\"",
    "\"label\":\"S3 small box 0.5 nm: position-restrained NVT\""
   ],
   [
-   "\"label\":\"S3 dar kutu 0,5 nm: kısıtlı NPT\"",
+   "\"label\":\"S3 dar kutu 0,5 nm: konum kısıtlı NPT\"",
    "\"label\":\"S3 small box 0.5 nm: position-restrained NPT\""
   ],
   [
-   "\"label\":\"S3 dar kutu 0,5 nm: kısıtsız\"",
+   "\"label\":\"S3 dar kutu 0,5 nm: konum kısıtsız\"",
    "\"label\":\"S3 small box 0.5 nm: unrestrained\""
   ],
   [
@@ -1651,15 +1651,15 @@
    "\"label\":\"S4 0.15 M NaCl: minimization\""
   ],
   [
-   "\"label\":\"S4 0,15 M NaCl: kısıtlı NVT\"",
+   "\"label\":\"S4 0,15 M NaCl: konum kısıtlı NVT\"",
    "\"label\":\"S4 0.15 M NaCl: position-restrained NVT\""
   ],
   [
-   "\"label\":\"S4 0,15 M NaCl: kısıtlı NPT\"",
+   "\"label\":\"S4 0,15 M NaCl: konum kısıtlı NPT\"",
    "\"label\":\"S4 0.15 M NaCl: position-restrained NPT\""
   ],
   [
-   "\"label\":\"S4 0,15 M NaCl: kısıtsız\"",
+   "\"label\":\"S4 0,15 M NaCl: konum kısıtsız\"",
    "\"label\":\"S4 0.15 M NaCl: unrestrained\""
   ],
   [
@@ -1673,6 +1673,7 @@
  ],
  "keep": [
   "Epot",
+  "S2b/mdrun_free",
   "Steepest Descents converged to Fmax <",
   "Epot, kJ mol⁻¹",
   "Fmax, kJ mol⁻¹ nm⁻¹ (log)",
