@@ -4,6 +4,7 @@
  "source_sha256": "5da375536a64795f3a8b29090d70fca13d76af03fbb102cadd1438e6f630bba7",
  "reviewed": false,
  "translator": "Claude (machine translation, needs human review)",
+ "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
  "pairs": [
   [
    "Gerçek Kilit: 3PTB Docking",
@@ -47,7 +48,7 @@
   ],
   [
    "<b>Redocking</b>: kristal ligandı geri yerleştir; hizalamasız, simetri düzeltmeli RMSD &lt; 2 Å.",
-   "<b>Redocking</b>: put the crystal ligand back; RMSD without alignment, symmetry-corrected, &lt; 2 Å."
+   "<b>Redocking</b>: put the crystal ligand back; symmetry-corrected RMSD without alignment &lt; 2 Å."
   ],
   [
    "3PTB dosyasından sayılar",
@@ -87,11 +88,11 @@
   ],
   [
    "Bir kristal yapı dosyası, ölçülmüş elektron yoğunluğuna oturtulmuş bir <b>modeldir</b>. Her atomun yanında iki sayı daha durur: <b>doluluk</b> (o konumun ne kadarının bu atomla dolu olduğu) ve <b>B faktörü</b> (konumun ne kadar belirsiz ya da hareketli olduğu).",
-   "A crystal structure file is a <b>model</b> fitted to measured electron density. Next to each atom stand two more numbers: <b>occupancy</b> (what fraction of that position is filled by this atom) and the <b>B factor</b> (how uncertain or mobile the position is)."
+   "A crystal structure file is a <b>model</b> fitted to measured electron density. Each atom also carries two more numbers: <b>occupancy</b> (what fraction of that position is filled by this atom) and the <b>B factor</b> (how uncertain or mobile the position is)."
   ],
   [
    "3PTB'de 86 protein atomunun doluluğu 0'dır. Bu atomların koordinatı dosyada vardır ama deneyle desteklenmez: yazarlar onları yerleştirmiş, fakat yoğunlukta görmemiştir. Docking programı bu farkı kendiliğinden bilmez; ona verdiğiniz her atomu gerçekmiş gibi kullanır.",
-   "In 3PTB, 86 protein atoms have occupancy 0. These atoms have coordinates in the file, but the experiment does not support them: the authors placed them but did not see them in the density. A docking program does not know this difference on its own; it uses every atom you give it as if it were real."
+   "In 3PTB, 86 protein atoms have occupancy 0. These atoms have coordinates in the file, but the experiment does not support them: the authors placed them but did not see them in the density. A docking program cannot tell the difference on its own; it treats every atom you give it as real."
   ],
   [
    "Laboratuvar ",
@@ -211,11 +212,11 @@
   ],
   [
    "Suları çıkarılmış reseptörle, kristalden bağımsız bir başlangıç yapısından on ayrı tohumla docking yaptık: kutu kristal ligandın merkezinde, kenarı 20 Å, exhaustiveness 8. Her koşu en çok 20 poz döndürdü; toplam 198 poz.",
-   "With the receptor stripped of its waters, we docked from a starting structure independent of the crystal, with ten separate seeds: box centered on the crystal ligand, edge 20 Å, exhaustiveness 8. Each run returned at most 20 poses; 198 poses in total."
+   "Using the receptor with its waters removed, we docked the ligand from a starting structure independent of the crystal, with ten different seeds: box centered on the crystal ligand, 20 Å edge, exhaustiveness 8. Each run returned at most 20 poses; 198 poses in total."
   ],
   [
    "Her pozun kristale uzaklığını üç yolla ölçtük. Aşağıda ölçüm türünü değiştirin ve 2 Å altında kalan poz sayısının nasıl değiştiğine bakın. Bir noktaya tıklayınca o poz, kristal pozun (gri) üstünde görünür.",
-   "We measured each pose's distance to the crystal in three ways. Below, change the measure and see how the number of poses under 2 Å changes. Click a point and that pose appears over the crystal pose (gray)."
+   "We measured each pose’s distance to the crystal in three ways. Switch the measure below and watch how the number of poses under 2 Å changes. Click a point to show that pose over the crystal pose (gray)."
   ],
   [
    "Redocking masası, gerçek sayılarla",
@@ -311,7 +312,7 @@
   ],
   [
    "On koşunun hepsinde birinci poz kristale 0,37–0,41 Å uzakta ve skorları −6,10 ile −6,12 arasında: bu yapıda, bu ayarlarla sonuç tohuma neredeyse hiç bağlı değil. Bu iyi bir haberdir ama bir yanılgıya da kapı açar. Simetrisiz ölçümde bazı pozlar 1,6 Å çıkar; oysa aynı pozlar düzeltmeyle 0,4 Å'dur: halka 180° dönmüş, atom numaraları yer değiştirmiştir. Hizalama ise tam tersini yapar: cebin dışına düşmüş pozları bile “başarılı” gösterir.",
-   "In all ten runs the top pose is 0.37–0.41 Å from the crystal and the scores lie between −6.10 and −6.12: for this structure and these settings, the result hardly depends on the seed. This is good news, but it also opens the door to a misconception. Without symmetry correction some poses come out at 1.6 Å, whereas the same poses are 0.4 Å with the correction: the ring has flipped by 180° and the atom numbers have swapped. Alignment does the opposite: it makes even poses that fell outside the pocket look “successful”."
+   "In all ten runs the top pose is 0.37–0.41 Å from the crystal and the scores lie between −6.10 and −6.12: for this structure and these settings, the result hardly depends on the seed. This is good news, but it also opens the door to a misconception. Without symmetry correction some poses come out at 1.6 Å, whereas the same poses are 0.4 Å with the correction: the ring is flipped by 180°, so the atom numbers have swapped places. Alignment does the opposite: it makes even poses that fell outside the pocket look “successful”."
   ],
   [
    "<small>4 · Kutu ve arama çabası</small>Başarısızlığın iki farklı kaynağı",
@@ -351,7 +352,7 @@
   ],
   [
    "<b>Tüm protein · exhaustiveness 1</b> ayarını açın. Başarısız koşularda ne oldu?",
-   "Turn on the <b>Whole protein · exhaustiveness 1</b> setting. What happened in the failed runs?"
+   "Select the <b>Whole protein · exhaustiveness 1</b> setting. What happened in the failed runs?"
   ],
   [
    "Görev 4 seçenekleri",
@@ -371,11 +372,11 @@
   ],
   [
    "Seçenekler, bu ayar açıldığında etkinleşir.",
-   "The options become active when this setting is turned on."
+   "The options become available once this setting is selected."
   ],
   [
    "Başarısız yedi koşunun dördünde ligand cebe girmiş ama ters durmuş: halkanın ucu dipte, amidin ucu Asp189'dan yaklaşık 8,5 Å uzakta. Beşincisi cebin ağzında kalmış, ikisi proteinin başka bir yüzüne yerleşmiş. Temel düzeydeki oyuncak cepte gördüğünüz “ters oturmuş poz”un gerçek karşılığı budur. Bu yapıda skor fonksiyonu ters pozu açıkça cezalandırıyor (yaklaşık −4,6'ya karşı −6,1); sorun aramadaydı ve exhaustiveness 8 ile on koşunun onu da doğru pozu buldu. Kutuyu 14 Å kaydırınca ise cep kutunun dışında kaldı: o zaman ne arama ne skor kurtarır.",
-   "In four of the seven failed runs the ligand entered the pocket but sat reversed: the ring end at the bottom, the amidine end about 8.5 Å from Asp189. The fifth stayed at the mouth of the pocket, and two settled on another face of the protein. This is the real counterpart of the “reversed pose” you saw in the toy pocket at the basic level. In this structure the scoring function clearly penalizes the reversed pose (about −4.6 versus −6.1); the problem was in the search, and with exhaustiveness 8 all ten runs found the correct pose. When the box was shifted by 14 Å, however, the pocket lay outside the box: then neither search nor score can rescue the result."
+   "In four of the seven failed runs the ligand entered the pocket but sat inverted: the ring end at the bottom, the amidine end about 8.5 Å from Asp189. The fifth stayed at the mouth of the pocket, and two settled on another face of the protein. This is the real counterpart of the “inverted pose” you saw in the toy pocket at the basic level. In this structure the scoring function clearly penalizes the inverted pose (about −4.6 versus −6.1); the problem was in the search, and with exhaustiveness 8 all ten runs found the correct pose. When the box was shifted by 14 Å, however, the pocket lay outside the box: then neither the search nor the score can rescue the result."
   ],
   [
    "<small>5 · Sınırlar ve rapor</small>Redocking'in söylemediği",
@@ -387,7 +388,7 @@
   ],
   [
    "Buradaki reseptör, tam da benzamidini taşırken çözülmüş yapıdır; yan zincirler bu ligandın etrafına zaten yerleşmiştir. On koşunun onunun da başarılı olması bu yüzden hazırlığın doğru olduğunu kanıtlamaz. Daha gerçekçi sınav, ligandı başka bir ligandla ya da ligandsız çözülmüş bir tripsin yapısına yerleştirmektir. Bunun için ikinci bir yapı gerekir; bu deneme yapılmadı ve sonucu yoktur (<code>NOT_EXECUTED</code>).",
-   "The receptor here is the very structure solved with benzamidine bound; its side chains are already arranged around this ligand. So the success of all ten runs does not prove that the preparation is correct. A more realistic test is to dock the ligand into a trypsin structure solved with another ligand or with no ligand. That requires a second structure; this trial was not done and has no result (<code>NOT_EXECUTED</code>)."
+   "The receptor here is the very structure solved with benzamidine bound; its side chains are already arranged around this ligand. So the success of all ten runs does not prove that the preparation is correct. A more realistic test is to dock the ligand into a trypsin structure solved with another ligand or with no ligand. That requires a second structure; this trial was not performed and has no result (<code>NOT_EXECUTED</code>)."
   ],
   [
    "Bir docking sonucunu başkasının tekrar edebilmesi için gereken en az bilgi aşağıdadır. Kart, bu sayfadaki gerçek denemenin kaydından üretildi.",
@@ -411,7 +412,7 @@
   ],
   [
    "<b>Bu sayfa hakkında.</b> DK-O için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Yapı verileri PDB 3PTB dosyasından alındı (SHA-256 <code>d2744dba…232f</code>). Bütün skorlar ve pozlar 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2026.03.6 ile yapılan gerçek koşulardan gelir; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/</code> altındadır ve temiz bir klasörde yeniden çalıştırıldığında aynı sonuçları verdi. Bu, keşif amaçlı teknik bir denemedir: çapraz docking, protonasyon incelemesi, doluluğu 0 atomlara duyarlılık ve başka skor fonksiyonları koşulmadı. Bilimsel ve hedef-okur incelemesi yapılmadı.",
-   "<b>About this page.</b> This is the interactive pilot chapter for DK-O; the book's source text and local site were not changed. The structure data were taken from the PDB 3PTB file (SHA-256 <code>d2744dba…232f</code>). All scores and poses come from real runs made on 24 September 2026 in a cloud workspace with AutoDock Vina 1.2.7, Meeko 0.8.0 and RDKit 2026.03.6; the commands, scripts and raw outputs are under <code>book/cases/trypsin_3ptb/</code> and gave the same results when rerun in a clean folder. This is an exploratory technical trial: cross-docking, a protonation review, sensitivity to occupancy-0 atoms and other scoring functions were not run. No scientific or target-reader review has been done."
+   "<b>About this page.</b> This is the interactive pilot chapter for DK-O; the book’s source text and local site were not changed. The structure data were taken from the PDB 3PTB file (SHA-256 <code>d2744dba…232f</code>). All scores and poses come from real runs made on 24 September 2026 in a cloud workspace with AutoDock Vina 1.2.7, Meeko 0.8.0 and RDKit 2026.03.6; the commands, scripts and raw outputs are under <code>book/cases/trypsin_3ptb/</code> and gave the same results when rerun in a clean folder. This is an exploratory technical trial: cross-docking, a protonation review, a sensitivity check for occupancy-0 atoms and other scoring functions were not run. No scientific or target-reader review has been carried out."
   ],
   [
    "Intl.NumberFormat('tr-TR',",
@@ -459,11 +460,11 @@
   ],
   [
    "', benzamidine '+fx(a.dBen,1)+' Å. Doluluğu 0, B değeri dosyada 0 olarak yazılmış; aynı kalıntının CG ve CD atomlarında B '",
-   "', '+fx(a.dBen,1)+' Å from benzamidine. Occupancy 0, and its B value is written as 0 in the file; in the CG and CD atoms of the same residue B is '"
+   "', '+fx(a.dBen,1)+' Å from benzamidine. Occupancy 0, and its B value is written as 0 in the file; the CG and CD atoms of the same residue have B = '"
   ],
   [
    "' Å², protein ortalamasının (13,5) iki katı. Bu kalıntının amid ucu deneyle görülmemiş. Bu denemede atom koordinatıyla tutuldu; silmenin etkisi koşulmadı.'",
-   "' Å², twice the protein mean (13.5). The amide end of this residue was not seen in the experiment. In this trial the atom was kept with its coordinates; the effect of deleting it was not run.'"
+   "' Å², twice the protein mean (13.5). The amide end of this residue was not observed in the experiment. In this trial the atom was kept with its coordinates; the effect of deleting it was not tested.'"
   ],
   [
    "'Doğru türde bir atom (doluluk 0), ama benzamidine '",
@@ -591,7 +592,7 @@
   ],
   [
    "Å</dd></dl><p class=\"keys\" style=\"margin-top:10px\">Birimler Vina’nın kcal/mol olarak yazdığı skor birimidir; ölçülmüş bağlanma enerjisi değildir. Koşu:",
-   "Å</dd></dl><p class=\"keys\" style=\"margin-top:10px\">The units are Vina’s score units, which Vina reports as kcal/mol; they are not a measured binding energy. Run:"
+   "Å</dd></dl><p class=\"keys\" style=\"margin-top:10px\">Values are in Vina’s score units, which Vina reports as kcal/mol; they are not a measured binding energy. Run:"
   ],
   [
    "'Doğru: fark '",
@@ -599,7 +600,7 @@
   ],
   [
    ". İki koşuda skorlar ve pozlar birebir aynı çıktı. Vina’nın skor fonksiyonunda elektrostatik terim yoktur; dosyadaki kısmi yükler bu skorda kullanılmaz. Asp189’un yükünü “görmez”; yalnız atom tiplerinden H-bağı vericisi ve alıcısı olarak etkilenir. Tuz köprüsü bu skorda bir H-bağı gibi sayılır. HOH416’yı tutmak ise kristal pozun skorunu",
-   ". The scores and poses in the two runs came out exactly the same. Vina’s scoring function has no electrostatic term; the partial charges in the file are not used in this score. It does not “see” the charge of Asp189; it is affected only through the atom types, as an H-bond donor and acceptor. In this score the salt bridge counts as an H-bond. Keeping HOH416, on the other hand, changed the crystal pose score by"
+   ". The two runs gave exactly the same scores and poses. Vina’s scoring function has no electrostatic term; the partial charges in the file are not used in this score. The scoring function does not “see” the charge of Asp189; it is affected only through the atom types, as H-bond donors and acceptors. In this score the salt bridge counts as an H-bond. Keeping HOH416, on the other hand, changed the crystal-pose score by"
   ],
   [
    "' değiştirdi.'",
@@ -719,11 +720,11 @@
   ],
   [
    "Doğru. Başarısız koşuların döndürdüğü pozların hiçbiri doğru değil ve buldukları en iyi skor −4,9 ile −4,2 arasında; doğru pozu bulan üç koşu −6,0 ile −6,1 arası alıyor. Skor fonksiyonu doğru pozu tercih ederdi, ama arama oraya ulaşamadı. Çare arama çabasını artırmaktır: exhaustiveness 8 ile on koşunun onu da başarılı.",
-   "Correct. None of the poses returned by the failed runs is correct, and the best score they found lies between −4.9 and −4.2; the three runs that found the correct pose get between −6.0 and −6.1. The scoring function would have preferred the correct pose, but the search did not reach it. The remedy is to increase the search effort: with exhaustiveness 8 all ten runs succeed."
+   "Correct. None of the poses returned by the failed runs is correct, and their best scores range from −4.9 to −4.2; the three runs that found the correct pose score between −6.0 and −6.1. The scoring function would have preferred the correct pose, but the search did not reach it. The remedy is to increase the search effort: with exhaustiveness 8 all ten runs succeed."
   ],
   [
    "Tabloya tekrar bakın: başarısız koşularda doğru poz listenin herhangi bir sırasında var mı? Bulunan skorlar doğru pozun skoruyla (yaklaşık −6,1) nasıl karşılaştırılıyor? Kutu bu ayarda bütün proteini kapsıyor.",
-   "Look at the table again: in the failed runs, is the correct pose anywhere in the list? How do the scores found compare with the score of the correct pose (about −6.1)? In this setting the box covers the whole protein."
+   "Look at the table again: in the failed runs, is the correct pose anywhere in the list? How do the scores that were found compare with the score of the correct pose (about −6.1)? In this setting the box covers the whole protein."
   ],
   [
    "['Yapı',",
@@ -739,7 +740,7 @@
   ],
   [
    "Meeko 0.8.0 <code>mk_prepare_receptor.py</code>; bütün kristal suları ve Ca²⁺ çıkarıldı; doluluğu 0 olan atomlar koordinatlarıyla tutuldu; His HIE, Cys disülfit, Asp189 yüklü (otomatik şablon, bağımsız inceleme yapılmadı)",
-   "Meeko 0.8.0 <code>mk_prepare_receptor.py</code>; all crystal waters and Ca²⁺ removed; atoms with occupancy 0 kept with their coordinates; His HIE, Cys disulfide, Asp189 charged (automatic template, no independent review done)"
+   "Meeko 0.8.0 <code>mk_prepare_receptor.py</code>; all crystal waters and Ca²⁺ removed; atoms with occupancy 0 kept with their coordinates; His HIE, Cys disulfide, Asp189 charged (automatic template; not independently reviewed)"
   ],
   [
    "Benzamidinyum (+1), SMILES <code>NC(=[NH2+])c1ccccc1</code>; RDKit 2026.03.6 ETKDG başlangıç yapısı (tohum 20260924), MMFF; 1 dönebilir bağ",
@@ -767,7 +768,7 @@
   ],
   [
    "9 ağır atom; hizalamasız, simetri düzeltmeli RMSD (RDKit CalcRMS); eşik 2 Å",
-   "9 heavy atoms; RMSD without alignment, symmetry-corrected (RDKit CalcRMS); threshold 2 Å"
+   "9 heavy atoms; symmetry-corrected RMSD without alignment (RDKit CalcRMS); threshold 2 Å"
   ],
   [
    "['Sonuç',",
@@ -787,7 +788,7 @@
   ],
   [
    "çapraz docking; His57 ve N ucu protonasyon incelemesi; doluluğu 0 atomların silinmesi; diğer kristal suları; başka skor fonksiyonları; MD ile kararlılık",
-   "cross-docking; His57 and N-terminus protonation review; deletion of occupancy-0 atoms; other crystal waters; other scoring functions; stability by MD"
+   "cross-docking; His57 and N-terminus protonation review; deletion of occupancy-0 atoms; other crystal waters; other scoring functions; stability check with MD"
   ],
   [
    "['Dosyalar',",
@@ -843,7 +844,7 @@
   ],
   [
    "198 pozun hepsi hizalanarak ölçülünce 2 Å altında kalıyor. Bu ne gösterir?",
-   "When measured with alignment, all 198 poses stay under 2 Å. What does this show?"
+   "When measured after alignment, all 198 poses fall under 2 Å. What does this show?"
   ],
   [
    "Hizalama, ligandın cepteki yerini sildiği için docking doğrulamasında yanıltıcıdır.",
@@ -859,7 +860,7 @@
   ],
   [
    "Docking’de soru “ligand cepte nerede ve nasıl duruyor?” sorusudur. Reseptör çerçevesi sabit olduğu için ölçüm hizalamasız yapılır.",
-   "In docking the question is “where and how does the ligand sit in the pocket?”. Because the receptor frame is fixed, the measurement is made without alignment."
+   "In docking, the question is “Where and how does the ligand sit in the pocket?” Because the receptor frame is fixed, the measurement is made without alignment."
   ],
   [
    "On tohumun onunda redocking başarılı. Bu, hazırlığın doğru olduğunu kanıtlar mı?",
@@ -871,7 +872,7 @@
   ],
   [
    "Hayır; reseptör bu ligandla çözülmüş yapıdadır. Daha gerçekçi sınav çapraz docking’dir ve bu sayfada koşulmadı.",
-   "No; the receptor is the structure solved with this ligand. A more realistic test is cross-docking, and it was not run on this page."
+   "No; the receptor is the structure solved with this ligand. A more realistic test is cross-docking, which was not run on this page."
   ],
   [
    "Evet, çünkü kutu merkezi doğru seçildi.",
@@ -879,7 +880,7 @@
   ],
   [
    "Redocking gerekli ama yeterli olmayan bir sınavdır. Kaydedilmeyen ya da koşulmayan her sınav raporda açıkça yazılmalıdır.",
-   "Redocking is a necessary but not sufficient test. Every test that was not recorded or not run should be stated clearly in the report."
+   "Redocking is a necessary but not sufficient test. Any test that was not recorded or not run must be stated explicitly in the report."
   ],
   [
    "aria-label=\"Soru '",
@@ -899,7 +900,7 @@
   ],
   [
    "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
-   "if(/,/.test(str))str=/^-?\\d{1,3}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
+   "if(/,/.test(str))str=/^-?[1-9]\\d{0,2}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
   ]
  ],
  "keep": [
