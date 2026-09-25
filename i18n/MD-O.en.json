@@ -1,0 +1,1686 @@
+{
+ "module": "MD-O",
+ "lang": "en",
+ "source_sha256": "6d988cb00d86d54c72f12026c5464b4fc4f2c8421f8cab61bbbec17f0fcf3a29",
+ "reviewed": false,
+ "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
+ "translator": "Claude (machine translation, needs human review)",
+ "pairs": [
+  [
+   "Ubikitini MD'ye Hazırlamak",
+   "Preparing Ubiquitin for MD"
+  ],
+  [
+   "MD-O etkileşimli pilot bölüm: insan ubikitini (PDB 1UBQ) MD'ye hazırlanırken verilen kararlar ve önceden koşulmuş gerçek GROMACS koşularının sonuçları.",
+   "MD-O interactive pilot chapter: the decisions made while preparing human ubiquitin (PDB 1UBQ) for MD, and the results of real GROMACS runs performed in advance."
+  ],
+  [
+   "Biyomoleküler sistemlerde Moleküler Dinamik · Orta düzey",
+   "Molecular Dynamics in Biomolecular Systems · Intermediate level"
+  ],
+  [
+   "Uygulamalar: ",
+   "Exercises: "
+  ],
+  [
+   "MD-O · Pilot bölüm · Etkileşimli sürüm",
+   "MD-O · Pilot chapter · Interactive edition"
+  ],
+  [
+   "Bir proteini MD'ye hazırlamak: ubikitin",
+   "Preparing a protein for MD: ubiquitin"
+  ],
+  [
+   "Kristal yapıdan çalışan bir simülasyona giden yolda kararları siz vereceksiniz: kristal suları, düşük doluluklu uç, kutu, tuz, minimizasyon ve zaman adımı. Her kararın karşısında, o kararla gerçekten koşulmuş bir GROMACS koşusunun sonucu duruyor.",
+   "On the way from a crystal structure to a working simulation, you make the decisions: crystal waters, the low-occupancy terminus, the box, salt, minimization and the time step. Each decision is paired with the result of a GROMACS run actually performed with that choice."
+  ],
+  [
+   "Bu bir yeniden oynatmadır",
+   "This is a replay"
+  ],
+  [
+   "Bu sayfada hiçbir simülasyon tarayıcıda çalışmaz. <b>Başlat</b> düğmesine bastığınızda, önceden koşulmuş gerçek GROMACS koşularının kayıt satırları ve zaman serileri hızlandırılmış olarak yeniden akar. Gösterilen her sayı bu koşuların dosyalarından çıkarıldı ve sayfaya gömülü veri paketinden okunur.",
+   "No simulation runs in the browser on this page. When you press the <b>Start</b> button, the log lines and time series of real GROMACS runs performed in advance are replayed at accelerated speed. Every number shown was extracted from the files of these runs and is read from the data package embedded in the page."
+  ],
+  [
+   "Koşulmamış bir seçim yaptığınızda sayfa sonuç uydurmaz: yalnızca <b>“Bu senaryo hesaplanmadı”</b> yazar ve hiçbir sayı göstermez.",
+   "When you make a choice that was not run, the page does not invent a result: it only says <b>“This scenario was not computed”</b> and shows no numbers."
+  ],
+  [
+   "Temel düzeyden hatırlatma (MD-T)",
+   "Reminder from the basic level (MD-T)"
+  ],
+  [
+   "<b>Kuvvet</b>: potansiyel enerji eğiminin tersidir; dik bir eğim, büyük bir kuvvet demektir.",
+   "<b>Force</b>: the negative of the potential energy slope; a steep slope means a large force."
+  ],
+  [
+   "<b>Zaman adımı</b>: en hızlı titreşimin bir periyodu en az 5 adıma bölünmelidir.",
+   "<b>Time step</b>: one period of the fastest vibration should be divided into at least 5 steps."
+  ],
+  [
+   "<b>Kısıt</b>: H içeren bağların uzunluğu sabitlenince en hızlı titreşim kalkar; 2 fs bu yüzden rahattır.",
+   "<b>Constraint</b>: once the lengths of bonds involving H are fixed, the fastest vibration disappears; that is why 2 fs is comfortable."
+  ],
+  [
+   "<b>Kare</b>: trajektoriye seyrek yazılır; kare sayısı, bağımsız ölçüm sayısı değildir.",
+   "<b>Frame</b>: frames are written to the trajectory sparsely; the number of frames is not the number of independent measurements."
+  ],
+  [
+   "1UBQ dosyasından ve hazırlık koşularından sayılar",
+   "Numbers from the 1UBQ file and the preparation runs"
+  ],
+  [
+   "protein kalıntısı, tek zincir",
+   "protein residues, single chain"
+  ],
+  [
+   "<span>kristal suyu</span>",
+   "<span>crystal waters</span>"
+  ],
+  [
+   "doluluğu 1 olmayan kalıntılar (C-ucu)",
+   "residues with occupancy other than 1 (C-terminus)"
+  ],
+  [
+   "protein atomu, pdb2gmx sonrası (H dahil)",
+   "protein atoms after pdb2gmx (including H)"
+  ],
+  [
+   "atom, suyla doldurulmuş sistem",
+   "atoms in the water-filled system"
+  ],
+  [
+   "toplam yük (e), pdb2gmx",
+   "total charge (e), pdb2gmx"
+  ],
+  [
+   "Kaynak: <a href=\"https://www.rcsb.org/structure/1UBQ\">PDB 1UBQ</a>, insan ubikitini (Vijay-Kumar, Bugg ve Cook 1987, <i>J Mol Biol</i> 194:531). Sayılar yapı denetiminden (<code>structure-audit.json</code>), <code>pdb2gmx</code> günlüğünden ve çözücü eklenmiş sistemden okunur.",
+   "Source: <a href=\"https://www.rcsb.org/structure/1UBQ\">PDB 1UBQ</a>, human ubiquitin (Vijay-Kumar, Bugg and Cook 1987, <i>J Mol Biol</i> 194:531). The numbers are read from the structure audit (<code>structure-audit.json</code>), the <code>pdb2gmx</code> log and the solvated system."
+  ],
+  [
+   "Laboratuvar ",
+   "Lab "
+  ],
+  [
+   "Görev tamamlandı",
+   "Task completed"
+  ],
+  [
+   "<h4>Görev ",
+   "<h4>Task "
+  ],
+  [
+   "Görev 1 seçenekleri",
+   "Task 1 options"
+  ],
+  [
+   "Görev 2 seçenekleri",
+   "Task 2 options"
+  ],
+  [
+   "Görev 4 seçenekleri",
+   "Task 4 options"
+  ],
+  [
+   "Görev 5 seçenekleri",
+   "Task 5 options"
+  ],
+  [
+   "Görev 6 cümleleri",
+   "Task 6 statements"
+  ],
+  [
+   ">Kontrol et<",
+   ">Check<"
+  ],
+  [
+   ">Başlat<",
+   ">Start<"
+  ],
+  [
+   ">Sonuca atla<",
+   ">Skip to result<"
+  ],
+  [
+   "Zaman adımı",
+   "Time step"
+  ],
+  [
+   "ns/gün",
+   "ns/day"
+  ],
+  [
+   "<dt>Durum</dt>",
+   "<dt>Status</dt>"
+  ],
+  [
+   ">çöktü</dd>",
+   ">crashed</dd>"
+  ],
+  [
+   ">bitti</dd>",
+   ">finished</dd>"
+  ],
+  [
+   ">grompp reddetti</dd>",
+   ">rejected by grompp</dd>"
+  ],
+  [
+   "<dt>Adım</dt>",
+   "<dt>Steps</dt>"
+  ],
+  [
+   "<dt>LINCS uyarısı</dt>",
+   "<dt>LINCS warnings</dt>"
+  ],
+  [
+   "'LINCS uyarısı: '",
+   "'LINCS warnings: '"
+  ],
+  [
+   "' · son adım: '",
+   "' · last step: '"
+  ],
+  [
+   "# sütunlar: ",
+   "# columns: "
+  ],
+  [
+   "'zaman, ps'",
+   "'time, ps'"
+  ],
+  [
+   "'sıcaklık, K'",
+   "'temperature, K'"
+  ],
+  [
+   "'yoğunluk, kg m⁻³'",
+   "'density, kg m⁻³'"
+  ],
+  [
+   "'basınç, bar'",
+   "'pressure, bar'"
+  ],
+  [
+   "'HESAPLANDI':'HESAPLANMADI'",
+   "'COMPUTED':'NOT COMPUTED'"
+  ],
+  [
+   "<dt>Protein ağır atomu</dt>",
+   "<dt>Protein heavy atoms</dt>"
+  ],
+  [
+   "<small>1 · Yapıyı okumak</small>Dosyada olan, dosyada olmayan",
+   "<small>1 · Reading the structure</small>What is in the file, and what is not"
+  ],
+  [
+   "Bir PDB dosyası, ölçülmüş elektron yoğunluğuna oturtulmuş bir <b>modeldir</b>. MD'ye geçmeden önce içinde ne olduğunu sayarız: zincirler, kalıntılar, eksik atomlar, alternatif konumlar, kristal suları ve doluluk.",
+   "A PDB file is a <b>model</b> fitted to measured electron density. Before moving on to MD, we take stock of what it contains: chains, residues, missing atoms, alternate locations, crystal waters and occupancy."
+  ],
+  [
+   "1UBQ temiz bir dosyadır: tek zincir, <span data-b=\"res\"></span> kalıntı; omurga atomu eksik kalıntı ve alternatif konum yok. C-ucu ise farklıdır: <span data-b=\"lowRange\"></span> kalıntılarının atomlarında doluluk 1 değildir. Aşağıdaki şerit her kalıntının en düşük doluluğunu gösteriyor. Sonra iki karar verin: kristal suları ne olacak, düşük doluluklu uç ne olacak?",
+   "1UBQ is a clean file: a single chain, <span data-b=\"res\"></span> residues; no residues with missing backbone atoms and no alternate locations. The C-terminus is different: the atoms of residues <span data-b=\"lowRange\"></span> do not have occupancy 1. The strip below shows the lowest occupancy of each residue. Then make two decisions: what happens to the crystal waters, and what happens to the low-occupancy terminus?"
+  ],
+  [
+   "Yapı denetimi ve iki karar",
+   "Structure audit and two decisions"
+  ],
+  [
+   "1UBQ kalıntılarının en düşük doluluk değerleri; C-ucundaki kalıntılar 1'in altında",
+   "Lowest occupancy values of the 1UBQ residues; the residues at the C-terminus are below 1"
+  ],
+  [
+   "Şeritte en düşük doluluk <b><span data-b=\"occMin\"></span></b>. Bu değer ne anlama gelir?",
+   "The lowest occupancy in the strip is <b><span data-b=\"occMin\"></span></b>. What does this value mean?"
+  ],
+  [
+   "xl:'kalıntı numarası',yl:'en düşük doluluk'",
+   "xl:'residue number',yl:'lowest occupancy'"
+  ],
+  [
+   "<dt>Çözünürlük (kaynak kaydı)</dt>",
+   "<dt>Resolution (source record)</dt>"
+  ],
+  [
+   "<dt>Zincir</dt>",
+   "<dt>Chain</dt>"
+  ],
+  [
+   "<dt>Kalıntı</dt>",
+   "<dt>Residues</dt>"
+  ],
+  [
+   "<dt>Elementler</dt>",
+   "<dt>Elements</dt>"
+  ],
+  [
+   "<dt>Hidrojen atomu (kaynakta)</dt>",
+   "<dt>Hydrogen atoms (in source)</dt>"
+  ],
+  [
+   "<dt>Kristal suyu (HOH)</dt>",
+   "<dt>Crystal waters (HOH)</dt>"
+  ],
+  [
+   "<dt>Omurgası eksik kalıntı</dt>",
+   "<dt>Residues with missing backbone</dt>"
+  ],
+  [
+   "<dt>Alternatif konum</dt>",
+   "<dt>Alternate locations</dt>"
+  ],
+  [
+   "<dt>Doluluğu 1 olmayan atom</dt>",
+   "<dt>Atoms with occupancy other than 1</dt>"
+  ],
+  [
+   "t:'Kristal suları ('",
+   "t:'Crystal waters ('"
+  ],
+  [
+   "['out','Çıkar',1],['keep','Tut',0]",
+   "['out','Remove',1],['keep','Keep',0]"
+  ],
+  [
+   "t:'Düşük doluluklu C-ucu ('",
+   "t:'Low-occupancy C-terminus ('"
+  ],
+  [
+   "['keep','Koordinatlarıyla koru',1],['del','Sil',0]",
+   "['keep','Keep with its coordinates',1],['del','Delete',0]"
+  ],
+  [
+   "Bu senaryo hesaplanmadı. Bu seçimle hazırlanmış bir sistem koşulmadı; sonucunu tahmin edip yazmıyoruz.",
+   "This scenario was not computed. No system prepared with this choice was run; we do not write down a guessed result."
+  ],
+  [
+   "<dt>pdb2gmx girdisi</dt><dd>yalnız ATOM satırları</dd>",
+   "<dt>pdb2gmx input</dt><dd>ATOM records only</dd>"
+  ],
+  [
+   "<dt>Dışarıda bırakılan HOH</dt>",
+   "<dt>HOH left out</dt>"
+  ],
+  [
+   "<dt>C-ucu kalıntıları</dt>",
+   "<dt>C-terminal residues</dt>"
+  ],
+  [
+   "', dosyadaki koordinatlarla</dd>",
+   "', with the coordinates from the file</dd>"
+  ],
+  [
+   "Sular çıkarıldıktan sonra kutu yeni suyla dolduruldu (3. kısım). Bu seçim, kristal sularının önemsiz olduğu ya da C-ucunun bu konumda kesin durduğu anlamına gelmez; yalnızca hesaplanan yolun kaydıdır.",
+   "After the waters were removed, the box was filled with new water (Section 3). This choice does not mean that the crystal waters are unimportant or that the C-terminus definitely sits in this position; it is only the record of the computed path."
+  ],
+  [
+   "'Atom, MD sırasında zamanın dörtte birini bu konumda geçirecektir.'",
+   "'The atom will spend a quarter of the time in this position during MD.'"
+  ],
+  [
+   "'Kristaldeki moleküllerin yalnız yaklaşık dörtte birinde bu konum bu atomla dolu olarak modellenmiştir; dosya geri kalanı için başka bir konum vermez. Koordinat, tek ve kesin bir yapı değildir.'",
+   "'This position is modeled as occupied by this atom in only about a quarter of the molecules in the crystal; the file gives no other position for the rest. The coordinate is not a single, definitive structure.'"
+  ],
+  [
+   "'Atomun konumu ±'",
+   "'The position of the atom is uncertain by ±'"
+  ],
+  [
+   "' Å belirsizdir.'",
+   "' Å.'"
+  ],
+  [
+   "'Bu atomlar dosyada eksiktir; pdb2gmx onları yeniden kurar.'",
+   "'These atoms are missing from the file; pdb2gmx rebuilds them.'"
+  ],
+  [
+   "'Doğru. Doluluk, kristal örgüsündeki moleküllerin ne kadarında o konumun dolu olduğunu bildirir; burada alternatif konum da yazılmamış. Konum belirsizliğini ise B faktörü taşır. Doluluğu MD trajektorisinde geçirilen zamanın payı gibi okumayız. C-ucu araştırma sorusunun parçasıysa, farklı başlangıç konumlarıyla bir duyarlılık denemesi önceden tasarlanmalıdır; bu sayfada yapılmadı.'",
+   "'Correct. Occupancy reports in what fraction of the molecules in the crystal lattice that position is occupied; here no alternate location is given either. Positional uncertainty is carried by the B factor instead. We do not read occupancy as the fraction of time spent in an MD trajectory. If the C-terminus is part of the research question, a sensitivity trial with different starting positions should be designed in advance; this was not done on this page.'"
+  ],
+  [
+   "'Tekrar düşünün: doluluk bir zaman payı ya da bir uzaklık değildir. Kristaldeki çok sayıda molekülün ortalaması olarak neyi sayar? Ayrıca şeritteki atomlar dosyada var mı, yok mu?'",
+   "'Think again: occupancy is neither a fraction of time nor a distance. As an average over many molecules in the crystal, what does it count? Also, are the atoms in the strip present in the file or not?'"
+  ],
+  [
+   "<small>2 · Topoloji ve protonasyon</small>Koordinattan kuvvet alanına",
+   "<small>2 · Topology and protonation</small>From coordinates to a force field"
+  ],
+  [
+   "Koordinat dosyası bağları, yükleri ve hidrojenleri bilmez. <code>pdb2gmx</code> bunları seçilen kuvvet alanından ekler ve bu sırada bazı kararları, çoğu zaman sessizce, sizin yerinize verir.",
+   "A coordinate file knows nothing about bonds, charges or hydrogens. <code>pdb2gmx</code> adds them from the chosen force field and, along the way, makes some decisions for you, often silently."
+  ],
+  [
+   "Aşağıdaki günlük gerçek <code>pdb2gmx</code> çıktısıdır. Vurgulanan satırlar sonraki her adımı belirler: kuvvet alanı ve su modeli, eklenen hidrojenler, HIS68'in protonasyonu, uç gruplar ve toplam yük.",
+   "The log below is real <code>pdb2gmx</code> output. The highlighted lines determine every subsequent step: the force field and water model, the added hydrogens, the protonation of HIS68, the terminal groups and the total charge."
+  ],
+  [
+   "pdb2gmx ne yaptı?",
+   "What did pdb2gmx do?"
+  ],
+  [
+   "pdb2gmx günlüğünün sonu (<code data-b=\"topLog\"></code>) ve iki alıntı",
+   "End of the pdb2gmx log (<code data-b=\"topLog\"></code>) and two excerpts"
+  ],
+  [
+   "aria-label=\"pdb2gmx günlüğü\"",
+   "aria-label=\"pdb2gmx log\""
+  ],
+  [
+   "pdb2gmx'e göre toplam yük <b><span data-b=\"charge\"></span> e</b>. Sistemi nötrleştirmek için iyon eklemek gerekir mi?",
+   "According to pdb2gmx, the total charge is <b><span data-b=\"charge\"></span> e</b>. Do you need to add ions to neutralize the system?"
+  ],
+  [
+   "HISE ataması, pdb2gmx'in hidrojen bağı ağına bakarak verdiği otomatik bir karardır; deneyin kanıtladığı bir protonasyon değildir. Bu sayfadaki bütün koşular bu atamayla yapıldı. <code>solvate</code> adımında kullanılan <code>spc216.gro</code> yalnızca su koordinatları için bir şablondur; topolojideki su modeli TIP3P'dir. Dosya adından su modelini çıkarmayın, topolojiyi okuyun.",
+   "The HISE assignment is an automatic decision that pdb2gmx makes by looking at the hydrogen-bond network; it is not a protonation state proven by experiment. All runs on this page were performed with this assignment. The <code>spc216.gro</code> used in the <code>solvate</code> step is only a template for the water coordinates; the water model in the topology is TIP3P. Do not infer the water model from the file name; read the topology."
+  ],
+  [
+   " (son kısım)</span>",
+   " (final part)</span>"
+  ],
+  [
+   "# aynı günlüğün başından (histidin ataması):</span>\\n<span class=\"hl\">Will use HISE for residue 68</span>",
+   "# from the start of the same log (histidine assignment):</span>\\n<span class=\"hl\">Will use HISE for residue 68</span>"
+  ],
+  [
+   "# gromacs_trial/topol.top, uç kalıntıların başlık satırları:",
+   "# gromacs_trial/topol.top, header lines of the terminal residues:"
+  ],
+  [
+   "<dt>Kuvvet alanı</dt>",
+   "<dt>Force field</dt>"
+  ],
+  [
+   "<dt>Su modeli</dt>",
+   "<dt>Water model</dt>"
+  ],
+  [
+   "<dt>Girdi ağır atomu</dt>",
+   "<dt>Input heavy atoms</dt>"
+  ],
+  [
+   "<dt>pdb2gmx sonrası atom</dt>",
+   "<dt>Atoms after pdb2gmx</dt>"
+  ],
+  [
+   "<dt>Eklenen atom (hidrojenler)</dt>",
+   "<dt>Added atoms (hydrogens)</dt>"
+  ],
+  [
+   "' (otomatik; H, Nε2 üzerinde)':' (otomatik)'",
+   "' (automatic; H on Nε2)':' (automatic)'"
+  ],
+  [
+   "<dt>N-ucu</dt>",
+   "<dt>N-terminus</dt>"
+  ],
+  [
+   "<dt>C-ucu</dt>",
+   "<dt>C-terminus</dt>"
+  ],
+  [
+   "<dt>Toplam yük</dt>",
+   "<dt>Total charge</dt>"
+  ],
+  [
+   "t:'Kuvvet alanı ve su'",
+   "t:'Force field and water'"
+  ],
+  [
+   "'Başka bir kuvvet alanı ya da su modeli'",
+   "'Another force field or water model'"
+  ],
+  [
+   "t:'HIS68 protonasyonu'",
+   "t:'HIS68 protonation'"
+  ],
+  [
+   "'HISE (otomatik)'",
+   "'HISE (automatic)'"
+  ],
+  [
+   "'HISH (yüklü)'",
+   "'HISH (charged)'"
+  ],
+  [
+   "Bu senaryo hesaplanmadı. Bu topolojiyle hiçbir koşu yapılmadı; toplam yükün ya da sonuçların nasıl değişeceğini yazmıyoruz.",
+   "This scenario was not computed. No run was performed with this topology; we do not write down how the total charge or the results would change."
+  ],
+  [
+   "Soldaki sayılar bu topolojiden gelir ve sayfadaki bütün koşularda kullanıldı. Uç yükleri (+1 ve −1) birbirini götürür; iç kalıntıların yük toplamı da '",
+   "The numbers on the left come from this topology and were used in all runs on the page. The terminal charges (+1 and −1) cancel each other; the charges of the internal residues also sum to '"
+  ],
+  [
+   "' e\\'dir.</p>'",
+   "' e.</p>'"
+  ],
+  [
+   "'Evet; PME kullanan her sistem nötrleştirici iyon ister.'",
+   "'Yes; every system that uses PME requires neutralizing ions.'"
+  ],
+  [
+   "'Hayır; net yük zaten sıfır, nötrleştirmek için iyon gerekmez. Tuz derişimi ayrı bir karardır ve araştırma sorusuna göre verilir.'",
+   "'No; the net charge is already zero, so no ions are needed for neutralization. The salt concentration is a separate decision, made according to the research question.'"
+  ],
+  [
+   "'Hayır; yük sıfır olduğu için sistem fizyolojik ortamı zaten temsil eder.'",
+   "'No; since the charge is zero, the system already represents a physiological environment.'"
+  ],
+  [
+   "'Doğru. Ana yolda (S0) hiç iyon yok ve bu, “tuzsuz su” demektir, fizyolojik çözelti değil. Tuzlu senaryoda (S4) genion -neutral -conc 0,15 ile '",
+   "'Correct. On the main path (S0) there are no ions at all, which means “salt-free water”, not a physiological solution. In the salt scenario (S4), genion -neutral -conc 0.15 added '"
+  ],
+  [
+   "' Na⁺ ve '",
+   "' Na⁺ and '"
+  ],
+  [
+   "' Cl⁻ eklendi: sayıların eşit olması, nötrleştirme için ek iyon gerekmediğini gösterir.'",
+   "' Cl⁻: the equal numbers show that no extra ions were needed for neutralization.'"
+  ],
+  [
+   "'Tekrar düşünün: nötrleştirme, net yükü sıfırlamak için yapılır. Tuz ise hangi ortamı temsil etmek istediğinizle ilgili ayrı bir karardır.'",
+   "'Think again: neutralization is done to bring the net charge to zero. Salt, on the other hand, is a separate decision about which environment you want to represent.'"
+  ],
+  [
+   "<small>3 · Kutu, çözücü ve tuz</small>Ne kadar su, ne kadar tuz?",
+   "<small>3 · Box, solvent and salt</small>How much water, how much salt?"
+  ],
+  [
+   "Protein periyodik bir kutuya konur ve kutu suyla doldurulur. Kutu küçüldükçe atom sayısı ve hesap maliyeti düşer, ama protein kendi periyodik görüntüsüne yaklaşır. Kesme mesafesi içinde kendi kopyasını “gören” bir protein, gerçekte olmayan bir etkileşim kurar. Bu koşularda kesme mesafesi <span data-b=\"cut\"></span> nm'dir (<code>.mdp</code> dosyalarındaki <code>rcoulomb = rvdw</code> tanımı, bir ölçüm değil).",
+   "The protein is placed in a periodic box, and the box is filled with water. As the box gets smaller, the number of atoms and the computational cost fall, but the protein comes closer to its own periodic image. A protein that “sees” its own copy within the cut-off distance forms an interaction that does not exist in reality. In these runs the cut-off distance is <span data-b=\"cut\"></span> nm (the <code>rcoulomb = rvdw</code> setting in the <code>.mdp</code> files, not a measurement)."
+  ],
+  [
+   "Kutu boyutunu, <code>editconf -d</code> ile proteinden kutu kenarına bırakılan en az boşluk belirler. Tuz ise ayrı bir karardır: toplam yük sıfır olduğu için nötrleştirmek gerekmez; 0,15 M NaCl eklemek, araştırma sorusunun istediği ortama göre verilen bir tercihtir.",
+   "The box size is set by the minimum margin left between the protein and the box edge with <code>editconf -d</code>. Salt is a separate decision: since the total charge is zero, no neutralization is needed; adding 0.15 M NaCl is a choice made according to the environment the research question calls for."
+  ],
+  [
+   "Kutu ve tuz: atom sayısı, maliyet, görüntü mesafesi",
+   "Box and salt: atom count, cost, image distance"
+  ],
+  [
+   "<th>Kutu · tuz</th><th>Atom</th><th>Su</th>",
+   "<th>Box · salt</th><th>Atoms</th><th>Water</th>"
+  ],
+  [
+   "<th>Kısıtlı NVT</th><th>Kısıtsız</th>",
+   "<th>Restrained NVT</th><th>Unrestrained</th>"
+  ],
+  [
+   "Kutu boşluğu (<code>editconf -d</code>)",
+   "Box margin (<code>editconf -d</code>)"
+  ],
+  [
+   "aria-label=\"Kutu boşluğu\"",
+   "aria-label=\"Box margin\""
+  ],
+  [
+   ">1,0 nm<",
+   ">1.0 nm<"
+  ],
+  [
+   ">0,5 nm<",
+   ">0.5 nm<"
+  ],
+  [
+   "<span class=\"lbl\">Tuz</span>",
+   "<span class=\"lbl\">Salt</span>"
+  ],
+  [
+   "aria-label=\"Tuz\"",
+   "aria-label=\"Salt\""
+  ],
+  [
+   ">Tuz yok<",
+   ">No salt<"
+  ],
+  [
+   ">0,15 M NaCl<",
+   ">0.15 M NaCl<"
+  ],
+  [
+   "Proteinin kendi görüntüsüne en kısa mesafesi",
+   "Minimum distance from the protein to its own periodic image"
+  ],
+  [
+   "Kısıtsız koşularda proteinin periyodik görüntüsüne en kısa mesafesi, iki kutu boyutu için, kesme mesafesi çizgisiyle",
+   "Minimum distance from the protein to its periodic image in the unrestrained runs, for two box sizes, with the cut-off distance line"
+  ],
+  [
+   "kesme mesafesi (<code>.mdp</code>)",
+   "cut-off distance (<code>.mdp</code>)"
+  ],
+  [
+   "0,5 nm'lik kutuda, bu kısıtsız koşu boyunca proteinin kendi görüntüsüne olan mesafesi en az kaç nm oldu (iki ondalık)? Bu mesafe kesme mesafesinin altına indi mi?",
+   "In the 0.5 nm box, what was the minimum distance from the protein to its own image during this unrestrained run (in nm, two decimal places)? Did this distance fall below the cut-off distance?"
+  ],
+  [
+   ">En kısa mesafe (nm)<",
+   ">Minimum distance (nm)<"
+  ],
+  [
+   "placeholder=\"en kısa = ?\"",
+   "placeholder=\"minimum = ?\""
+  ],
+  [
+   "aria-label=\"Kesme mesafesinin altına indi mi?\"",
+   "aria-label=\"Did it fall below the cut-off distance?\""
+  ],
+  [
+   ">Altına indi<",
+   ">Fell below<"
+  ],
+  [
+   ">Altına inmedi<",
+   ">Did not fall below<"
+  ],
+  [
+   "lab:'1,0 nm · tuz yok'",
+   "lab:'1.0 nm · no salt'"
+  ],
+  [
+   "lab:'0,5 nm · tuz yok'",
+   "lab:'0.5 nm · no salt'"
+  ],
+  [
+   "lab:'1,0 nm · 0,15 M NaCl'",
+   "lab:'1.0 nm · 0.15 M NaCl'"
+  ],
+  [
+   "fx(m.CL||0,0):'yok'",
+   "fx(m.CL||0,0):'none'"
+  ],
+  [
+   "'Performans ns/gün cinsindendir ve hepsi aynı bulut makinesinde ölçüldü ('",
+   "'Performance is in ns/day, and all values were measured on the same cloud machine ('"
+  ],
+  [
+   "'). 1,0 nm ve tuzsuz sistemin satırı, S0 koşularının bu makinedeki tekrarlarıdır (C0: kısıtlı NVT, C1: kısıtsız). S0\\'ın kendi WSL ölçümleri başka bir makineden geldiği için bu tabloya konmadı.'",
+   "'). The row for the 1.0 nm, salt-free system consists of repeats of the S0 runs on this machine (C0: position-restrained NVT, C1: unrestrained). The WSL measurements of S0 itself come from another machine and are therefore not included in this table.'"
+  ],
+  [
+   "'Hesaplanan birleşimler: 1,0 nm + tuz yok (S0; bulutta C0 ve C1), 0,5 nm + tuz yok (S3), 1,0 nm + 0,15 M NaCl (S4). Dördüncü birleşim koşulmadı.'",
+   "'Computed combinations: 1.0 nm + no salt (S0; C0 and C1 on the cloud machine), 0.5 nm + no salt (S3), 1.0 nm + 0.15 M NaCl (S4). The fourth combination was not run.'"
+  ],
+  [
+   "Bu senaryo hesaplanmadı. Dar kutu ile tuz birlikte koşulmadı; atom sayısını, maliyeti ya da görüntü mesafesini tahmin edip yazmıyoruz.",
+   "This scenario was not computed. The small box and salt were not run together; we do not write down a guessed atom count, cost or image distance."
+  ],
+  [
+   "<dt>Toplam atom</dt>",
+   "<dt>Total atoms</dt>"
+  ],
+  [
+   "<dt>Protein atomu</dt>",
+   "<dt>Protein atoms</dt>"
+  ],
+  [
+   "<dt>Su molekülü</dt>",
+   "<dt>Water molecules</dt>"
+  ],
+  [
+   "<dt>Kısıtlı NVT, bulut</dt>",
+   "<dt>Position-restrained NVT, cloud</dt>"
+  ],
+  [
+   "<dt>Kısıtsız, bulut</dt>",
+   "<dt>Unrestrained, cloud</dt>"
+  ],
+  [
+   "<dt>Atom sayısı, tuzsuz 1,0 nm\\'ye göre</dt>",
+   "<dt>Atom count relative to salt-free 1.0 nm</dt>"
+  ],
+  [
+   "' %</dd><dt>Hız (kısıtsız), aynı makinede</dt><dd>'",
+   "'%</dd><dt>Speed (unrestrained), same machine</dt><dd>'"
+  ],
+  [
+   "' kat</dd>'",
+   "'×</dd>'"
+  ],
+  [
+   "style=\"margin-top:8px\">genion '",
+   "style=\"margin-top:8px\">genion replaced '"
+  ],
+  [
+   "' su molekülünü iyonla değiştirdi: '",
+   "' water molecules with ions: '"
+  ],
+  [
+   "' × 3 atom çıktı, '",
+   "' × 3 atoms out, '"
+  ],
+  [
+   "' iyon girdi; toplam atom '",
+   "' ions in; the total number of atoms fell by '"
+  ],
+  [
+   "' azaldı. Hız neredeyse aynı kaldı.</p>'",
+   "'. The speed stayed almost the same.</p>'"
+  ],
+  [
+   "Daha az su, daha az atom, daha hızlı koşu. Bedeli aşağıdaki grafikte: protein kendi görüntüsüne yaklaşır.",
+   "Less water, fewer atoms, a faster run. The price is shown in the graph below: the protein comes closer to its own image."
+  ],
+  [
+   "label:'kesme mesafesi '",
+   "label:'cut-off distance '"
+  ],
+  [
+   "xl:'zaman, ps (kısıtsız koşu)',yl:'en kısa mesafe, nm'",
+   "xl:'time, ps (unrestrained run)',yl:'minimum distance, nm'"
+  ],
+  [
+   "'gmx mindist -pi ile kısıtsız koşunun her karesinde hesaplandı ('",
+   "'Computed with gmx mindist -pi for every frame of the unrestrained run ('"
+  ],
+  [
+   "'). 1,0 nm kutuda en kısa mesafe '",
+   "'). Minimum distance in the 1.0 nm box: '"
+  ],
+  [
+   "' nm, 0,5 nm kutuda '",
+   "' nm; in the 0.5 nm box: '"
+  ],
+  [
+   "' nm ('+fx(b.t_ps[ib],0)+'. ps).'",
+   "' nm (at '+fx(b.t_ps[ib],0)+' ps).'"
+  ],
+  [
+   "'Doğru: en kısa mesafe '",
+   "'Correct: the minimum distance, '"
+  ],
+  [
+   "'), kesme mesafesinin ('",
+   "'), stayed above the cut-off distance ('"
+  ],
+  [
+   "' nm) üstünde kaldı. Ama bu yalnız '",
+   "' nm). But this is only a '"
+  ],
+  [
+   "' ps\\'lik bir koşu. Protein kutuda döndükçe uzun eksenini görüntüsüne doğru çevirebilir; daha uzun bir koşuda mesafe inebilir. Dar kutu kararı, üretim süresi boyunca mindist izlenerek sınanmalıdır.'",
+   "' ps run. As the protein rotates in the box, it can turn its long axis towards its image; in a longer run the distance may drop. The small-box decision should be tested by monitoring mindist throughout the production run.'"
+  ],
+  [
+   "'Sayı doğru. Şimdi onu kesme mesafesiyle ('",
+   "'The number is correct. Now compare it with the cut-off distance ('"
+  ],
+  [
+   "' nm, kırmızı kesikli çizgi) karşılaştırıp “indi” ya da “inmedi” seçin.'",
+   "' nm, red dashed line) and choose “Fell below” or “Did not fall below”.'"
+  ],
+  [
+   "'Karşılaştırma doğru; şimdi turuncu eğrinin en düşük noktasını iki ondalıkla yazın (grafik altındaki açıklamada da var).'",
+   "'The comparison is correct; now enter the lowest point of the orange curve to two decimal places (it is also given in the caption below the graph).'"
+  ],
+  [
+   "'Turuncu eğri 0,5 nm kutudur. En düşük noktasını okuyun, sonra kırmızı çizgiyle karşılaştırın.'",
+   "'The orange curve is the 0.5 nm box. Read off its lowest point, then compare it with the red line.'"
+  ],
+  [
+   "<small>4 · Minimizasyon</small>Çakışmaları gidermeden yola çıkmak",
+   "<small>4 · Minimization</small>Setting off without removing the clashes"
+  ],
+  [
+   "Çözücü ekleme, suları proteinin çevresine geometrik bir kuralla yerleştirir; bazı atomlar birbirine fazla yakın düşer. Enerji minimizasyonu (burada steepest descent) atomları enerjinin azaldığı yöne küçük adımlarla iterek bu çakışmaları giderir. Hedef, en büyük kuvvetin (Fmax) önceden seçilen bir eşiğin altına inmesidir.",
+   "Solvation places the waters around the protein by a geometric rule; some atoms end up too close to each other. Energy minimization (here steepest descent) removes these clashes by pushing the atoms in small steps in the direction in which the energy decreases. The goal is for the largest force (Fmax) to fall below a threshold chosen in advance."
+  ],
+  [
+   "Minimizasyonu yapın ya da atlayın, sonra <b>Başlat</b>'a basın.",
+   "Run or skip the minimization, then press <b>Start</b>."
+  ],
+  [
+   "Minimizasyon: yap ya da atla",
+   "Minimization: run it or skip it"
+  ],
+  [
+   "Minimizasyon ya da dinamik koşusunun kayıt satırları",
+   "Log lines of the minimization or dynamics run"
+  ],
+  [
+   "Enerji minimizasyonu",
+   "Energy minimization"
+  ],
+  [
+   ">Yap</button>",
+   ">Run</button>"
+  ],
+  [
+   "Atla, doğrudan NVT'ye geç",
+   "Skip it, go straight to NVT"
+  ],
+  [
+   "Minimizasyonu atlayıp koşuyu oynatın. Sorunu ilk ne haber verdi ve koşu nerede durdu?",
+   "Skip the minimization and play the run. What was the first sign of the problem, and where did the run stop?"
+  ],
+  [
+   "Seçenekler, minimizasyonsuz koşu oynatıldığında etkinleşir.",
+   "The options become active once the run without minimization has been played."
+  ],
+  [
+   "' · mdrun -v satırlarından: adım, Epot (kJ mol⁻¹), Fmax (kJ mol⁻¹ nm⁻¹)'",
+   "' · from the mdrun -v lines: step, Epot (kJ mol⁻¹), Fmax (kJ mol⁻¹ nm⁻¹)'"
+  ],
+  [
+   "'Minimizasyonda potansiyel enerji, adıma karşı'",
+   "'Potential energy during minimization versus step'"
+  ],
+  [
+   "xl:'adım'",
+   "xl:'step'"
+  ],
+  [
+   "'Minimizasyonda en büyük kuvvet Fmax, logaritmik eksende, adıma karşı'",
+   "'Largest force Fmax during minimization, on a logarithmic axis, versus step'"
+  ],
+  [
+   "label:'eşik '",
+   "label:'threshold '"
+  ],
+  [
+   "'0. adımdaki sıcaklık: minimizasyonsuz koşu ve minimizasyonlu kontrol'",
+   "'Temperature at step 0: run without minimization and control with minimization'"
+  ],
+  [
+   "'C0 (minimizasyonlu)'",
+   "'C0 (with minimization)'"
+  ],
+  [
+   "'S1 (minimizasyonsuz)'",
+   "'S1 (without minimization)'"
+  ],
+  [
+   "xl:'0. adımdaki sıcaklık, K'",
+   "xl:'temperature at step 0, K'"
+  ],
+  [
+   "<dt>Fmax eşiği</dt>",
+   "<dt>Fmax threshold</dt>"
+  ],
+  [
+   "<dt>İlk Fmax</dt>",
+   "<dt>Initial Fmax</dt>"
+  ],
+  [
+   "<dt>Son Fmax</dt>",
+   "<dt>Final Fmax</dt>"
+  ],
+  [
+   "<dt>İlk Epot</dt>",
+   "<dt>Initial Epot</dt>"
+  ],
+  [
+   "<dt>Son Epot</dt>",
+   "<dt>Final Epot</dt>"
+  ],
+  [
+   ">Fmax '+fx(EM.em.fmax[0]/EM.final_fmax,0)+' kat küçüldü. Eşiğe inmek fiziksel bir doğrulama değildir; yalnızca dinamiğe güvenle başlanabileceğini gösterir. Sonraki NVT, 0. adımda '",
+   ">Fmax decreased by a factor of '+fx(EM.em.fmax[0]/EM.final_fmax,0)+'. Reaching the threshold is not a physical validation; it only shows that the dynamics can be started safely. The subsequent NVT started at step 0 with '"
+  ],
+  [
+   "' K ile başladı (S0).</p>'",
+   "' K (S0).</p>'"
+  ],
+  [
+   "<dt>0. adımda sıcaklık</dt>",
+   "<dt>Temperature at step 0</dt>"
+  ],
+  [
+   "<dt>0. adımda basınç</dt>",
+   "<dt>Pressure at step 0</dt>"
+  ],
+  [
+   "<dt>Minimizasyonlu kontrol (C0), 0. adım</dt>",
+   "<dt>Control with minimization (C0), step 0</dt>"
+  ],
+  [
+   "' (ilki '+fx(S1.first_warning_step,0)+'. adımda)</dd>",
+   "' (first at step '+fx(S1.first_warning_step,0)+')</dd>"
+  ],
+  [
+   "<dt>En büyük göreli bağ sapması</dt>",
+   "<dt>Largest relative bond deviation</dt>"
+  ],
+  [
+   "<dt>Durduğu yer</dt><dd>'+fx(S1_CRASH[0],0)+'. adım ('",
+   "<dt>Stopped at</dt><dd>step '+fx(S1_CRASH[0],0)+' ('"
+  ],
+  [
+   "<dt>Çıkış kodu</dt>",
+   "<dt>Exit code</dt>"
+  ],
+  [
+   "Hızlar iki koşuda da aynı hedef sıcaklık için üretildi. Çakışan atomlar üzerindeki dev kuvvetler ilk yarım adımda hızları o kadar büyüttü ki kaydedilen sıcaklık '",
+   "In both runs the velocities were generated for the same target temperature. The huge forces on the clashing atoms increased the velocities so much in the first half step that the recorded temperature was '"
+  ],
+  [
+   "' K oldu. Bir sonraki adımda bir bağ, olması gereken uzunluğun yaklaşık '",
+   "' K. In the next step, one bond deviated by about '"
+  ],
+  [
+   "' katı kadar saptı ve program “Segmentation fault” ile çöktü. Enerji dosyasına yalnız 0. adım yazılabildi. İki koşu da aynı bulut makinesinde yapıldı.</p>'",
+   "' times its reference length, and the program crashed with a “Segmentation fault”. Only step 0 could be written to the energy file. Both runs were performed on the same cloud machine.</p>'"
+  ],
+  [
+   "Başlat\\'a basın: koşunun kaydı akacak, sonuç burada görünecek.",
+   "Press Start: the log of the run will stream by, and the result will appear here."
+  ],
+  [
+   "'Minimizasyon (S0) · '",
+   "'Minimization (S0) · '"
+  ],
+  [
+   "'Minimizasyonsuz NVT (S1) · '",
+   "'NVT without minimization (S1) · '"
+  ],
+  [
+   "'Kayıt satırlarına ve sonuç paneline bakıp bir seçenek işaretleyin.'",
+   "'Look at the log lines and the result panel, then select an option.'"
+  ],
+  [
+   "'Koşu 10 ps boyunca sürdü, ama sıcaklık sonuna kadar yüksek kaldı.'",
+   "'The run lasted 10 ps, but the temperature stayed high until the end.'"
+  ],
+  [
+   "'grompp girdiyi reddetti; mdrun hiç başlamadı.'",
+   "'grompp rejected the input; mdrun never started.'"
+  ],
+  [
+   "'0. adımda sıcaklık '",
+   "'At step 0 the temperature was '"
+  ],
+  [
+   "' K çıktı ve bir LINCS uyarısı geldi; '",
+   "' K and a LINCS warning appeared; at step '"
+  ],
+  [
+   "'. adımda bağ sapması milyarlar mertebesine ulaştı ve program çöktü (çıkış kodu '",
+   "' the bond deviation reached the order of billions and the program crashed (exit code '"
+  ],
+  [
+   "'Hiçbir belirti yoktu; koşu sonunda rastgele bir donanım hatasıyla durdu.'",
+   "'There was no warning sign; in the end the run stopped because of a random hardware fault.'"
+  ],
+  [
+   "'Doğru. İlk belirti 0. adımdaki sıcaklık ve LINCS uyarısıdır: kısıtlanan bağlar, çakışan atomların kuvvetiyle çekiştirilince hedef uzunluklarını tutamaz. Minimizasyonlu yolda ('",
+   "'Correct. The first signs are the temperature at step 0 and the LINCS warning: when the constrained bonds are pulled by the forces on the clashing atoms, they cannot keep their target lengths. On the path with minimization ('"
+  ],
+  [
+   "' adım) aynı NVT ayarları sorunsuz koştu. Minimizasyon bir kalite kanıtı değildir, ama atlandığında koşu ilk adımlarda dağılabilir.'",
+   "' steps), the same NVT settings ran without problems. Minimization is not proof of quality, but when it is skipped the run can blow up in the first steps.'"
+  ],
+  [
+   "'Kayıt satırlarına tekrar bakın: uyarı hangi adımda geldi, koşu kaç adım sürdü? grompp aşaması bu koşuda çıkış kodu 0 ile geçti.'",
+   "'Look at the log lines again: at which step did the warning appear, and how many steps did the run last? In this run the grompp stage passed with exit code 0.'"
+  ],
+  [
+   "<small>5 · Dengeleme ve zaman adımı</small>Sıcaklık, basınç ve dört femtosaniye",
+   "<small>5 · Equilibration and time step</small>Temperature, pressure and four femtoseconds"
+  ],
+  [
+   "Minimizasyondan sonra sistem önce sabit hacimde hedef sıcaklığa getirilir (NVT; <code>.mdp</code> dosyasındaki tanım <code>ref_t = 300</code> K), sonra basınç denetimi açılır (NPT). İki aşamada da protein ağır atomları konum kısıtıyla yerinde tutulur. Aynı yerde bir karar daha verilir: zaman adımı ve hangi bağların uzunluğunun sabitleneceği.",
+   "After minimization, the system is first brought to the target temperature at constant volume (NVT; the setting in the <code>.mdp</code> file is <code>ref_t = 300</code> K), and then pressure control is switched on (NPT). In both stages the protein heavy atoms are held in place by position restraints. At the same point one more decision is made: the time step, and which bonds are to have their lengths constrained."
+  ],
+  [
+   "MD-T'deki kural burada gerçek bir girdiyle karşınıza çıkıyor: en hızlı titreşimin bir periyodu en az 5 adıma bölünmelidir. 4 fs'lik denemeler, 2 fs'lik kısıtlı yolun sonundaki NPT durumundan başlayan 10 ps'lik kısıtsız koşulardır; karşılaştırma için aynı bulut makinesinde 2 fs ile bir kontrol (C1) koşuldu.",
+   "Here the rule from MD-T meets you with a real input: one period of the fastest vibration should be divided into at least 5 steps. The 4 fs trials are 10 ps unrestrained runs starting from the NPT state at the end of the 2 fs position-restrained path; for comparison, a control (C1) with 2 fs was run on the same cloud machine."
+  ],
+  [
+   "Zaman adımı ve bağ kısıtı",
+   "Time step and bond constraints"
+  ],
+  [
+   "Koşunun ya da grompp'un kayıt satırları",
+   "Log lines of the run or of grompp"
+  ],
+  [
+   "<span class=\"lbl\">H içeren bağlar</span>",
+   "<span class=\"lbl\">Bonds involving H</span>"
+  ],
+  [
+   "aria-label=\"H içeren bağlar\"",
+   "aria-label=\"Bonds involving H\""
+  ],
+  [
+   ">Kısıtlı (LINCS)<",
+   ">Constrained (LINCS)<"
+  ],
+  [
+   ">Kısıtsız</button>",
+   ">Unconstrained</button>"
+  ],
+  [
+   "Dört seçenekten biri koşmadan reddedildi. Hangisi, neden?",
+   "One of the four options was rejected before it could run. Which one, and why?"
+  ],
+  [
+   "Seçenekler, 4 fs ile iki kısıt seçeneğini de oynattığınızda etkinleşir",
+   "The options become active once you have played 4 fs with both constraint options"
+  ],
+  [
+   "' (kısıtsız olanı henüz oynatmadınız).'",
+   "' (you have not yet played the unconstrained one).'"
+  ],
+  [
+   "' (kısıtlı olanı henüz oynatmadınız).'",
+   "' (you have not yet played the constrained one).'"
+  ],
+  [
+   "xl:'aşama zamanı, ps (her aşama 0\\'dan başlar)'",
+   "xl:'stage time, ps (each stage starts from 0)'"
+  ],
+  [
+   "'S0 kısıtlı NVT ve NPT: sıcaklık'",
+   "'S0 position-restrained NVT and NPT: temperature'"
+  ],
+  [
+   "'S0 kısıtlı NVT ve NPT: basınç'",
+   "'S0 position-restrained NVT and NPT: pressure'"
+  ],
+  [
+   "'S0 kısıtlı NPT: yoğunluk'",
+   "'S0 position-restrained NPT: density'"
+  ],
+  [
+   "'4 fs ve 2 fs kısıtsız koşularda sıcaklık, aynı bulut makinesinde'",
+   "'Temperature in the 4 fs and 2 fs unrestrained runs, on the same cloud machine'"
+  ],
+  [
+   "'4 fs ve 2 fs kısıtsız koşularda korunan enerjinin ilk değere göre değişimi'",
+   "'Change in the conserved energy relative to its initial value in the 4 fs and 2 fs unrestrained runs'"
+  ],
+  [
+   "yl:'korunan enerji − ilk değer, kJ mol⁻¹'",
+   "yl:'conserved energy − initial value, kJ mol⁻¹'"
+  ],
+  [
+   "C1: 2 fs, kısıtlı (bulut)",
+   "C1: 2 fs, constrained (cloud)"
+  ],
+  [
+   "S2a: 4 fs, kısıtlı (bulut)",
+   "S2a: 4 fs, constrained (cloud)"
+  ],
+  [
+   "'# grompp çıkış kodu: '",
+   "'# grompp exit code: '"
+  ],
+  [
+   "'; mdrun başlatılmadı (-maxwarn kullanılmadı).'",
+   "'; mdrun was not started (-maxwarn was not used).'"
+  ],
+  [
+   "<dt>Adım (her aşama)</dt>",
+   "<dt>Steps (each stage)</dt>"
+  ],
+  [
+   "<dt>NVT sıcaklığı: ilk → son</dt>",
+   "<dt>NVT temperature: first → last</dt>"
+  ],
+  [
+   "<dt>NVT sıcaklığı: en düşük</dt>",
+   "<dt>NVT temperature: minimum</dt>"
+  ],
+  [
+   "<dt>NPT sıcaklık ortalaması</dt>",
+   "<dt>NPT mean temperature</dt>"
+  ],
+  [
+   "<dt>NPT yoğunluğu: ilk → son</dt>",
+   "<dt>NPT density: first → last</dt>"
+  ],
+  [
+   "Yoğunluk kg m⁻³ cinsindendir. Bu iki 10 ps\\'lik aşama bir dengeleme <i>kabulü</i> değildir: yoğunluğun ve basıncın yakınsadığını gösterecek bir ölçüt önceden yazılmadı ve uygulanmadı. Basınç bu kadar kısa sürede yüzlerce bar dalgalanır; tek bir değeri anlamlı değildir. Koşular '",
+   "Density is in kg m⁻³. These two 10 ps stages are not an <i>acceptance</i> of equilibration: no criterion that would show convergence of the density and pressure was written in advance or applied. Over such a short time the pressure fluctuates by hundreds of bar; a single value of it is not meaningful. The runs are on the '"
+  ],
+  [
+   "' makinesindedir.</p>'",
+   "' machine.</p>'"
+  ],
+  [
+   "<dt>Korunan enerji kayması, uç noktalar: S2a / C1</dt>",
+   "<dt>Conserved-energy drift, end points: S2a / C1</dt>"
+  ],
+  [
+   "<dt>Aynısı, doğrusal uyum eğimi</dt>",
+   "<dt>Same, slope of a linear fit</dt>"
+  ],
+  [
+   "<dt>Performans: S2a / C1 (aynı makine)</dt>",
+   "<dt>Performance: S2a / C1 (same machine)</dt>"
+  ],
+  [
+   "4 fs koştu ve iki kat hızlıydı. Ama korunan enerji, uç noktalardan bakınca 2 fs\\'e göre yaklaşık '",
+   "4 fs ran and was twice as fast. But judged from the end points, the conserved energy drifted about '"
+  ],
+  [
+   "' kat hızlı kaydı; bunun bir kısmı ilk yarım pikosaniyedeki sıçramadan geliyor. Doğrusal uyumla fark küçülüyor ('",
+   "' times faster than with 2 fs; part of this comes from the jump in the first half picosecond. With a linear fit the difference shrinks ('"
+  ],
+  [
+   "+' ve '+fx(dc.fit,0)+",
+   "+' and '+fx(dc.fit,0)+"
+  ],
+  [
+   "'). Tek bir 10 ps\\'lik koşudan kayma hızı güvenilir biçimde çıkmaz; 4 fs\\'in bu sistem için yeterli olduğu sonucu bu veriden çıkmaz. Uygulamada 4 fs genellikle hidrojen kütlesini yeniden dağıtma (HMR) gibi ek önlemlerle kullanılır; burada kullanılmadı.</p>'",
+   "'). A drift rate cannot be obtained reliably from a single 10 ps run; the conclusion that 4 fs is adequate for this system does not follow from these data. In practice, 4 fs is usually used together with additional measures such as hydrogen mass repartitioning (HMR); this was not used here.</p>'"
+  ],
+  [
+   "<dt>Bağ</dt><dd>treonin O–H (OG1–HG1)</dd><dt>Tahmini titreşim periyodu</dt>",
+   "<dt>Bond</dt><dd>threonine O–H (OG1–HG1)</dd><dt>Estimated vibration period</dt>"
+  ],
+  [
+   "<dt>Gereken en kısa periyot ('",
+   "<dt>Minimum required period ('"
+  ],
+  [
+   "' × adım)</dt>",
+   "' × step)</dt>"
+  ],
+  [
+   "<dt>Periyot başına adım</dt>",
+   "<dt>Steps per period</dt>"
+  ],
+  [
+   "Bu, MD-T\\'deki “periyot başına en az 5 adım” kuralının ta kendisidir; GROMACS onu grompp aşamasında denetler. Kısıt yokken O–H bağı en hızlı titreşimdir ve 4 fs\\'lik adımla bir periyoda '",
+   "This is exactly the “at least 5 steps per period” rule from MD-T; GROMACS checks it at the grompp stage. Without constraints, the O–H bond is the fastest vibration, and with a 4 fs step one period spans only '"
+  ],
+  [
+   "' adım düşer. -maxwarn ile uyarı bastırılabilirdi; bu projede bastırılmadı, çünkü uyarı tam da sorunun kendisidir.</p>'",
+   "' steps. The warning could have been suppressed with -maxwarn; in this project it was not, because the warning is precisely the problem itself.</p>'"
+  ],
+  [
+   "Bu senaryo hesaplanmadı. Bu zaman adımı ile kısıtsız bağlar birlikte koşulmadı; sonucunu tahmin edip yazmıyoruz.",
+   "This scenario was not computed. This time step was not run together with unconstrained bonds; we do not write down a guessed result."
+  ],
+  [
+   "Başlat\\'a basın: kaydın akışı bitince sonuç burada görünür.",
+   "Press Start: the result appears here once the log has finished streaming."
+  ],
+  [
+   "'S0 kısıtlı NVT, sonra kısıtlı NPT · '",
+   "'S0 position-restrained NVT, then position-restrained NPT · '"
+  ],
+  [
+   "'S2a (4 fs) ve C1 (2 fs) kısıtsız · '",
+   "'S2a (4 fs) and C1 (2 fs) unrestrained · '"
+  ],
+  [
+   "'S2b (4 fs, kısıtsız) · '",
+   "'S2b (4 fs, unconstrained) · '"
+  ],
+  [
+   "'İki 4 fs koşusunun sonucunu gördünüz; bir seçenek işaretleyin.'",
+   "'You have seen the results of both 4 fs runs; select an option.'"
+  ],
+  [
+   "'4 fs, H içeren bağlar kısıtlı: LINCS bağları tutamadı ve koşu çöktü.'",
+   "'4 fs, bonds involving H constrained: LINCS could not hold the bonds and the run crashed.'"
+  ],
+  [
+   "'4 fs, kısıtsız: grompp, treonin O–H bağının tahmini periyodunun ('",
+   "'4 fs, unconstrained: grompp reported that the estimated period of the threonine O–H bond ('"
+  ],
+  [
+   "' fs) zaman adımının '",
+   "' fs) is shorter than '"
+  ],
+  [
+   "' katından ('",
+   "' times the time step ('"
+  ],
+  [
+   "' fs) kısa olduğunu bildirdi; -maxwarn kullanılmadığı için koşu hiç başlamadı.'",
+   "' fs); because -maxwarn was not used, the run never started.'"
+  ],
+  [
+   "'4 fs, kısıtsız: mdrun başladı ve ilk adımda çöktü.'",
+   "'4 fs, unconstrained: mdrun started and crashed at the first step.'"
+  ],
+  [
+   "'2 fs, kısıtlı: yoğunluk yakınsamadığı için GROMACS koşuyu durdurdu.'",
+   "'2 fs, constrained: GROMACS stopped the run because the density did not converge.'"
+  ],
+  [
+   "'Doğru. Reddeden grompp\\'tur, mdrun değil: sorun daha koşu başlamadan, girdinin kendisinde yakalandı. Kısıtlı 4 fs ise koştu; ama “koştu” ile “doğru örnekledi” aynı şey değildir. Korunan enerjideki kayma aynı makinedeki 2 fs kontrolüyle karşılaştırılmalıdır ve 10 ps bunun için kısadır.'",
+   "'Correct. It was grompp that rejected it, not mdrun: the problem was caught in the input itself, before the run even started. The constrained 4 fs run, on the other hand, did run; but “it ran” and “it sampled correctly” are not the same thing. The drift in the conserved energy must be compared with the 2 fs control on the same machine, and 10 ps is too short for that.'"
+  ],
+  [
+   "'Kayıt satırlarına tekrar bakın: hangi durumda mdrun hiç başlamadı? Hangi program, hangi kurala dayanarak uyardı?'",
+   "'Look at the log lines again: in which case did mdrun never start? Which program issued the warning, and on the basis of which rule?'"
+  ],
+  [
+   "<small>6 · Kısa kısıtsız koşu</small>On pikosaniye neyi gösterir?",
+   "<small>6 · Short unrestrained run</small>What do ten picoseconds show?"
+  ],
+  [
+   "Konum kısıtları kaldırılır ve protein serbestçe hareket eder. Bu koşu <span data-b=\"freeSteps\"></span> adım × <span data-b=\"freeDt\"></span> fs = <span data-b=\"freeLen\"></span> ps sürdü ve trajektoriye her ps'de bir kare yazıldı. Aşağıda <span data-b=\"nCa\"></span> Cα atomundan oluşan iskeleti <span data-b=\"nFr\"></span> karede izleyin.",
+   "The position restraints are removed and the protein moves freely. This run lasted <span data-b=\"freeSteps\"></span> steps × <span data-b=\"freeDt\"></span> fs = <span data-b=\"freeLen\"></span> ps, and one frame was written to the trajectory every ps. Below, follow the trace formed by <span data-b=\"nCa\"></span> Cα atoms across <span data-b=\"nFr\"></span> frames."
+  ],
+  [
+   "Ubikitin iskeleti, 0'dan <span data-b=\"freeLen\"></span> ps'ye",
+   "Ubiquitin Cα trace, from 0 to <span data-b=\"freeLen\"></span> ps"
+  ],
+  [
+   "Ubikitinin Cα iskeleti; N-ucundan C-ucuna renk geçişi. Sürükleyerek ya da ok tuşlarıyla döndürülür, artı ve eksi tuşlarıyla yakınlaştırılır.",
+   "Cα trace of ubiquitin; color gradient from the N-terminus to the C-terminus. Rotate by dragging or with the arrow keys; zoom with the plus and minus keys."
+  ],
+  [
+   ">Oynat<",
+   ">Play<"
+  ],
+  [
+   "for=\"fr6\">Kare<",
+   "for=\"fr6\">Frame<"
+  ],
+  [
+   "Renk: N-ucu <span class=\"sw6\" aria-hidden=\"true\"></span> C-ucu. Sürükleyin ya da tuvale odaklanıp <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> ile döndürün; <kbd>+</kbd> <kbd>−</kbd> yakınlaştırır.",
+   "Color: N-terminus <span class=\"sw6\" aria-hidden=\"true\"></span> C-terminus. Drag, or focus the canvas and rotate with <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd>; <kbd>+</kbd> <kbd>−</kbd> zoom."
+  ],
+  [
+   "İlk kareyi gölge olarak göster",
+   "Show the first frame as a shadow"
+  ],
+  [
+   "Düşük doluluklu C-ucunu işaretle",
+   "Mark the low-occupancy C-terminus"
+  ],
+  [
+   "Omurga RMSD'si, zamana karşı",
+   "Backbone RMSD versus time"
+  ],
+  [
+   "Kısıtsız koşunun kayıt satırları",
+   "Log lines of the unrestrained run"
+  ],
+  [
+   "Bu koşudan hangi cümleler söylenebilir? Doğru olanların hepsini işaretleyin.",
+   "Which statements can be made from this run? Select all the correct ones."
+  ],
+  [
+   "Yan yana koyalım: bu sayfadaki bütün koşular teknik denemelerdir. Hesabın çalıştığını, dosyaların okunabildiğini ve bazı kararların gözle görülür sonuçlarını gösterirler; dengeyi, yakınsamayı ya da biyolojik bir davranışı göstermezler.",
+   "Let us put it side by side: all runs on this page are technical trials. They show that the calculation works, that the files can be read, and the visible consequences of some decisions; they do not show equilibrium, convergence or any biological behavior."
+  ],
+  [
+   "<h4>Söylenebilir</h4>",
+   "<h4>Can be said</h4>"
+  ],
+  [
+   "<h4>Söylenemez</h4>",
+   "<h4>Cannot be said</h4>"
+  ],
+  [
+   "Hazırlık yolu uçtan uca çalıştı; kısıtsız koşu LINCS uyarısı olmadan bitti.",
+   "The preparation path worked end to end; the unrestrained run finished without LINCS warnings."
+  ],
+  [
+   "Aynı girdiler başka bir makinede de hatasız koştu (C0, C1).",
+   "The same inputs also ran without errors on another machine (C0, C1)."
+  ],
+  [
+   "Minimizasyonu atlamak bu sistemde koşuyu çökertti; 4 fs'i bağ kısıtı olmadan denemek ise koşuyu başlamadan durdurdu (grompp girdiyi reddetti).",
+   "Skipping the minimization crashed the run in this system; trying 4 fs without bond constraints stopped it before it started (grompp rejected the input)."
+  ],
+  [
+   "Protein dengeye ulaştı; yoğunluk ya da RMSD yakınsadı.",
+   "The protein reached equilibrium; the density or the RMSD converged."
+  ],
+  [
+   "C-ucu şu kadar esnek; HIS68'in protonasyonu doğru.",
+   "The C-terminus is this flexible; the protonation of HIS68 is correct."
+  ],
+  [
+   "Bu koşu biyolojik işlevi ya da bir deneyi yeniden üretti.",
+   "This run reproduced the biological function or an experiment."
+  ],
+  [
+   "yl:'omurga RMSD, nm'",
+   "yl:'backbone RMSD, nm'"
+  ],
+  [
+   "'<dt>Kare</dt><dd>'",
+   "'<dt>Frame</dt><dd>'"
+  ],
+  [
+   "<dt>Omurga RMSD (<code>em.gro</code> referansı)</dt>",
+   "<dt>Backbone RMSD (reference <code>em.gro</code>)</dt>"
+  ],
+  [
+   "<dt>Cα kayması, 0. kareye göre: C-ucu '",
+   "<dt>Cα displacement relative to frame 0: C-terminus '"
+  ],
+  [
+   "<dt>Cα kayması, geri kalan kalıntılar</dt>",
+   "<dt>Cα displacement, remaining residues</dt>"
+  ],
+  [
+   "'Duraklat':'Oynat'",
+   "'Pause':'Play'"
+  ],
+  [
+   "'Kısıtsız koşuda sıcaklık'",
+   "'Temperature in the unrestrained run'"
+  ],
+  [
+   "'Kısıtsız koşuda yoğunluk'",
+   "'Density in the unrestrained run'"
+  ],
+  [
+   "'# Performans bu makineye özgüdür: '",
+   "'# Performance is specific to this machine: '"
+  ],
+  [
+   "'. Bulut koşularıyla karşılaştırılmaz.'",
+   "'. It is not compared with the cloud runs.'"
+  ],
+  [
+   "'S0 kısıtsız 10 ps · '",
+   "'S0 unrestrained 10 ps · '"
+  ],
+  [
+   "'Koşu '+fx(last(s.t_ps),0)+' ps boyunca teknik olarak sorunsuz ilerledi: LINCS uyarısı yok, program normal bitti.'",
+   "'Over '+fx(last(s.t_ps),0)+' ps the run proceeded without technical problems: no LINCS warnings, and the program finished normally.'"
+  ],
+  [
+   "'Protein bu sürede dengeye ulaştı.'",
+   "'The protein reached equilibrium within this time.'"
+  ],
+  [
+   "'Yoğunluk yakınsadı; su modeli ve kutu doğrulandı.'",
+   "'The density converged; the water model and the box were validated.'"
+  ],
+  [
+   "'Aynı girdilerle bulutta tekrarlanan koşu (C1) da hatasız bitti; bu, yolun teknik olarak yeniden üretilebildiğini gösterir, bilimsel bir kabul değildir.'",
+   "'The run repeated with the same inputs on the cloud machine (C1) also finished without errors; this shows that the path is technically reproducible, and it is not a scientific acceptance.'"
+  ],
+  [
+   "'C-ucunun Cα\\'ları daha çok kaydığı için C-ucunun biyolojik olarak esnek olduğu bu koşudan söylenebilir.'",
+   "'Because the C-terminal Cα atoms moved more, it can be said from this run that the C-terminus is biologically flexible.'"
+  ],
+  [
+   "'Doğru. '+fx(last(s.t_ps),0)+' ps, bir proteinin yavaş hareketleri için çok kısadır: yoğunluk bu sürede '",
+   "'Correct. '+fx(last(s.t_ps),0)+' ps is very short for the slow motions of a protein: over this time the density fluctuated between '"
+  ],
+  [
+   "+' ile '+fx(maxOf(s.Density),1)+' kg m⁻³ arasında dalgalandı ve RMSD '",
+   "+' and '+fx(maxOf(s.Density),1)+' kg m⁻³, and the RMSD rose from '"
+  ],
+  [
+   "' nm\\'den '",
+   "' nm to '"
+  ],
+  [
+   "' nm\\'ye çıktı. Denge ya da esneklik iddiası için önceden yazılmış bir ölçüt, çok daha uzun ve bağımsız tohumlu koşular gerekir. Bu koşu, yolun çalıştığının kaydıdır.'",
+   "' nm. A claim of equilibrium or flexibility requires a criterion written in advance and much longer runs with independent seeds. This run is a record that the path works.'"
+  ],
+  [
+   "'Henüz değil. Her cümle için sorun: bu, '",
+   "'Not yet. Ask for each statement: is this something that a single '"
+  ],
+  [
+   "' ps\\'lik tek bir koşunun gerçekten gösterebileceği bir şey mi, yoksa bir ölçüt ve çok daha uzun koşular mı ister?'",
+   "' ps run can really show, or does it require a criterion and much longer runs?'"
+  ],
+  [
+   "'En az bir cümle işaretleyin.'",
+   "'Select at least one statement.'"
+  ],
+  [
+   "<small>7 · Kendinizi sınayın</small>Dört karar, dört gerekçe",
+   "<small>7 · Test yourself</small>Four decisions, four reasons"
+  ],
+  [
+   "Her soruda bir seçenek işaretleyin; açıklama hemen altında açılır.",
+   "Select one option in each question; the explanation opens right below it."
+  ],
+  [
+   "Kitabın sonraki bölümleri, bu sayfanın bilerek bıraktığı soruları ele alır: dengelemenin zaman serileriyle ve önceden yazılmış ölçütlerle kabulü, bağımsız tohumlu üretim koşuları, örnekleme ve belirsizlik. Buradaki kısa koşular o işin başlangıç kaydıdır, sonucu değil.",
+   "Later chapters of the book take up the questions this page deliberately leaves open: accepting equilibration using time series and criteria written in advance, production runs with independent seeds, sampling and uncertainty. The short runs here are the starting record of that work, not its result."
+  ],
+  [
+   "'1UBQ\\'da omurga atomu eksik kalıntı yok, ama '",
+   "'In 1UBQ no residue is missing backbone atoms, but residues '"
+  ],
+  [
+   "' kalıntılarının doluluğu 1\\'in altında. Hangisi doğrudur?'",
+   "' have occupancy below 1. Which statement is correct?'"
+  ],
+  [
+   "'Omurga tam olduğuna göre C-ucunun konumu kesindir.'",
+   "'Since the backbone is complete, the position of the C-terminus is certain.'"
+  ],
+  [
+   "'Atomların varlığı ile konumlarının güvenilirliği ayrı bilgilerdir; C-ucu araştırma sorusunun parçasıysa duyarlılık denemesi önceden tasarlanmalıdır.'",
+   "'The presence of the atoms and the reliability of their positions are separate pieces of information; if the C-terminus is part of the research question, a sensitivity trial should be designed in advance.'"
+  ],
+  [
+   "'Düşük doluluklu atomlar MD\\'den önce her zaman silinmelidir.'",
+   "'Low-occupancy atoms must always be deleted before MD.'"
+  ],
+  [
+   "'Bu sayfada C-ucu dosyadaki koordinatlarla korundu; silmek ya da başka bir başlangıç konumu denemek hesaplanmadı. Karar günlüğünde bu açıkça yazılmalıdır.'",
+   "'On this page the C-terminus was kept with the coordinates from the file; deleting it or trying another starting position was not computed. This should be stated explicitly in the decision log.'"
+  ],
+  [
+   "'Tuzlu senaryoda genion '",
+   "'In the salt scenario, genion added '"
+  ],
+  [
+   "' Cl⁻ ekledi. Sayıların eşit olmasının nedeni nedir?'",
+   "' Cl⁻. Why are the numbers equal?'"
+  ],
+  [
+   "'Protein net yükü zaten sıfırdı; -neutral için ek iyon gerekmedi, -conc 0,15 yalnız iyon çiftleri ekledi.'",
+   "'The net charge of the protein was already zero; no extra ions were needed for -neutral, and -conc 0.15 added only ion pairs.'"
+  ],
+  [
+   "'genion her zaman eşit sayıda iyon ekler.'",
+   "'genion always adds equal numbers of ions.'"
+  ],
+  [
+   "'Proteinin yükü iyonlarla sıfırlandı.'",
+   "'The charge of the protein was brought to zero by the ions.'"
+  ],
+  [
+   "'Net yükü sıfır olmayan bir proteinde önce karşı iyonlar eklenir ve iki iyonun sayısı farklı olur. Burada fark sıfırdır, çünkü pdb2gmx toplam yükü '",
+   "'For a protein with a non-zero net charge, counterions are added first, and the numbers of the two ions differ. Here the difference is zero because pdb2gmx found the total charge to be '"
+  ],
+  [
+   "' e buldu.'",
+   "' e.'"
+  ],
+  [
+   "'Minimizasyon atlandığında 0. adımdaki sıcaklık neden hedefin çok üstünde çıktı?'",
+   "'When the minimization was skipped, why was the temperature at step 0 far above the target?'"
+  ],
+  [
+   "'Termostat yanlış ayarlanmıştı.'",
+   "'The thermostat had been set incorrectly.'"
+  ],
+  [
+   "'Hızlar yüksek bir sıcaklık için üretilmişti.'",
+   "'The velocities had been generated for a high temperature.'"
+  ],
+  [
+   "'Çakışan atomlar üzerindeki çok büyük kuvvetler ilk yarım adımda hızları büyüttü; kısıtlı bağlar da uzunluklarını tutamadı.'",
+   "'The very large forces on the clashing atoms increased the velocities in the first half step; the constrained bonds could not keep their lengths either.'"
+  ],
+  [
+   "'İki koşuda (S1 ve C0) aynı hız üretimi ve aynı termostat kullanıldı; fark yalnız başlangıç yapısındaydı. Minimizasyon, dinamiğin ilk adımlarını bu dev kuvvetlerden korur.'",
+   "'Both runs (S1 and C0) used the same velocity generation and the same thermostat; the only difference was the starting structure. Minimization protects the first steps of the dynamics from these huge forces.'"
+  ],
+  [
+   "'4 fs, H içeren bağlar kısıtlıyken koşu hatasız bitti ve iki kat hızlıydı. Bu, 4 fs\\'in bu sistem için güvenli olduğunu gösterir mi?'",
+   "'With 4 fs and bonds involving H constrained, the run finished without errors and was twice as fast. Does this show that 4 fs is safe for this system?'"
+  ],
+  [
+   "'Evet; LINCS uyarısı olmadığına göre güvenlidir.'",
+   "'Yes; since there were no LINCS warnings, it is safe.'"
+  ],
+  [
+   "'Hayır; korunan enerji aynı makinedeki 2 fs kontrolünden hızlı kaydı ve 10 ps\\'lik tek koşu bu karar için yetersizdir.'",
+   "'No; the conserved energy drifted faster than in the 2 fs control on the same machine, and a single 10 ps run is not enough for this decision.'"
+  ],
+  [
+   "'Evet; GROMACS uyarı vermediğine göre sorun yoktur.'",
+   "'Yes; since GROMACS gave no warning, there is no problem.'"
+  ],
+  [
+   "'Performans yalnız aynı makinede karşılaştırıldı (S2a ve C1). Daha büyük bir zaman adımı, genellikle hidrojen kütlesini yeniden dağıtma gibi ek önlemler ve daha uzun sınamalarla birlikte kullanılır.'",
+   "'Performance was compared only on the same machine (S2a and C1). A larger time step is usually used together with additional measures such as hydrogen mass repartitioning, and with longer tests.'"
+  ],
+  [
+   "'Sınav: '+n+' / '+Q.length+' doğru'",
+   "'Quiz: '+n+' / '+Q.length+' correct'"
+  ],
+  [
+   "aria-label=\"Soru '+(i+1)+' seçenekleri\"",
+   "aria-label=\"Question '+(i+1)+' options\""
+  ],
+  [
+   ">Doğru.</b> ",
+   ">Correct.</b> "
+  ],
+  [
+   ">Tekrar düşünün.</b> ",
+   ">Think again.</b> "
+  ],
+  [
+   "r.status==='ok'?'bitti':r.status==='crashed'?'çöktü':r.status==='grompp_refused'?'grompp reddetti'",
+   "r.status==='ok'?'finished':r.status==='crashed'?'crashed':r.status==='grompp_refused'?'rejected by grompp'"
+  ],
+  [
+   "<td>bulut</td><td>bitti</td>",
+   "<td>cloud</td><td>finished</td>"
+  ],
+  [
+   "<td>yapı</td><td style=\"text-align:left\">yapı denetimi, ",
+   "<td>structure</td><td style=\"text-align:left\">structure audit, "
+  ],
+  [
+   "<td>S0 (WSL)</td><td>bitti</td>",
+   "<td>S0 (WSL)</td><td>finished</td>"
+  ],
+  [
+   "<td>topoloji</td>",
+   "<td>topology</td>"
+  ],
+  [
+   "<b>Bu sayfa hakkında.</b> MD-O için etkileşimli pilot bölümdür (kitapta CH07: yapı, eksik bilgi ve protonasyon). Sayfa hiçbir hesabı tarayıcıda yapmaz; gömülü veri paketi <code>learn/md-o_data.json</code>, koşu dosyalarından (<code>.edr</code>, <code>.log</code>, <code>.xtc</code>, <code>.gro</code>) <code>extract.py</code> ile çıkarıldı ve <code>verify.py</code> her sayıyı kaynak dosyadan yeniden hesaplayarak denetler.",
+   "<b>About this page.</b> This is the interactive pilot chapter for MD-O (CH07 in the book: structure, missing information and protonation). The page performs no calculation in the browser; the embedded data package <code>learn/md-o_data.json</code> was extracted from the run files (<code>.edr</code>, <code>.log</code>, <code>.xtc</code>, <code>.gro</code>) with <code>extract.py</code>, and <code>verify.py</code> checks every number by recomputing it from the source file."
+  ],
+  [
+   "<h3>Makineler</h3>",
+   "<h3>Machines</h3>"
+  ],
+  [
+   "<b>S0 (ana yol):</b> <span data-b=\"machS0\"></span>. Yapı denetimi, pdb2gmx, kutu, çözücü, minimizasyon, kısıtlı NVT, kısıtlı NPT ve kısıtsız 10 ps.",
+   "<b>S0 (main path):</b> <span data-b=\"machS0\"></span>. Structure audit, pdb2gmx, box, solvent, minimization, position-restrained NVT, position-restrained NPT and 10 ps unrestrained."
+  ],
+  [
+   "<b>Ek senaryolar:</b> <span data-b=\"machCloud\"></span>. C0 ve C1 (S0 adımlarının bulut makinesinde tekrarı), S1 (minimizasyonsuz), S2a ve S2b (4 fs), S3 (0,5 nm kutu), S4 (0,15 M NaCl) ve iki <code>mindist -pi</code> analizi.",
+   "<b>Additional scenarios:</b> <span data-b=\"machCloud\"></span>. C0 and C1 (repeats of S0 steps on the cloud machine), S1 (without minimization), S2a and S2b (4 fs), S3 (0.5 nm box), S4 (0.15 M NaCl) and two <code>mindist -pi</code> analyses."
+  ],
+  [
+   "İki makinede aynı GROMACS sürümü kullanıldı. Performans (ns/gün) yalnızca aynı makinedeki koşular arasında karşılaştırılır; S0'ın WSL ölçümleri bulut ölçümleriyle yan yana konmaz.",
+   "The same GROMACS version was used on both machines. Performance (ns/day) is compared only between runs on the same machine; the WSL measurements of S0 are not placed side by side with the cloud measurements."
+  ],
+  [
+   "<h3>Protokol</h3>",
+   "<h3>Protocol</h3>"
+  ],
+  [
+   "Ek senaryoların protokolü koşulardan önce yazıldı ve SHA-256 ile donduruldu (<code>scenarios/SCENARIO_PROTOCOL_2026-09-25.md</code>). <code>-maxwarn</code> kullanılmadı; çöken ya da reddedilen koşular yeniden denenmedi. <b>C1 kontrolü, dondurmadan sonra</b>, S2a'nın korunan enerji kaymasını aynı makinede 2 fs ile karşılaştırmak için bilinçli olarak eklendi ve protokolde ayrıca işaretlendi.",
+   "The protocol for the additional scenarios was written before the runs and frozen with SHA-256 (<code>scenarios/SCENARIO_PROTOCOL_2026-09-25.md</code>). <code>-maxwarn</code> was not used; runs that crashed or were rejected were not retried. <b>The C1 control was added after the freeze</b>, deliberately, to compare the conserved-energy drift of S2a with 2 fs on the same machine, and it is flagged separately in the protocol."
+  ],
+  [
+   "Her sayı hangi koşudan?",
+   "Which run does each number come from?"
+  ],
+  [
+   "<th>Koşu</th><th>Ne</th><th>Makine</th><th>Durum</th><th>Kaynak dosyalar</th>",
+   "<th>Run</th><th>What</th><th>Machine</th><th>Status</th><th>Source files</th>"
+  ],
+  [
+   "Yapılmayanlar (<code>NOT_EXECUTED</code>)",
+   "Not done (<code>NOT_EXECUTED</code>)"
+  ],
+  [
+   "HIS68 ve uç grupların pH ve ortam bağlamında bağımsız protonasyon incelemesi;",
+   "an independent protonation review of HIS68 and the terminal groups in the context of pH and environment;"
+  ],
+  [
+   "düşük doluluklu C-ucuna duyarlılık karşılaştırması;",
+   "a sensitivity comparison for the low-occupancy C-terminus;"
+  ],
+  [
+   "hedef iyon ve tuz koşullarının gerekçesi;",
+   "a justification of the target ion and salt conditions;"
+  ],
+  [
+   "kuvvet alanı ve su modeli seçiminin soruya dayalı gerekçesi;",
+   "a question-based justification of the choice of force field and water model;"
+  ],
+  [
+   "son kutu ve geometri denetimi (periyodik görüntü mesafesi yalnız bu 10 ps'lik koşularda ölçüldü);",
+   "a final box and geometry check (the periodic image distance was measured only in these 10 ps runs);"
+  ],
+  [
+   "enerji, sıcaklık, yoğunluk ve basınç zaman serileri üzerinden dengeleme kabulü;",
+   "acceptance of equilibration based on energy, temperature, density and pressure time series;"
+  ],
+  [
+   "bağımsız tohumlu üretim koşuları;",
+   "production runs with independent seeds;"
+  ],
+  [
+   "örnekleme ve belirsizlik analizi, biyolojik gözlemle karşılaştırma.",
+   "sampling and uncertainty analysis, comparison with biological observation."
+  ],
+  [
+   "Bunların hiçbiri, <code>grompp</code> ya da <code>mdrun</code> çıkış kodu 0 olduğu için geçmiş sayılmadı.",
+   "None of these was counted as passed because the <code>grompp</code> or <code>mdrun</code> exit code was 0."
+  ],
+  [
+   "<h3>Lisans ve kaynak</h3>",
+   "<h3>License and source</h3>"
+  ],
+  [
+   "<p>Yapı: <a href=",
+   "<p>Structure: <a href="
+  ],
+  [
+   ". Özgün çalışma: S. Vijay-Kumar, C. E. Bugg, W. J. Cook (1987). Structure of ubiquitin refined at 1.8 Å resolution. <i>Journal of Molecular Biology</i> 194(3):531–544.",
+   ". Original work: S. Vijay-Kumar, C. E. Bugg, W. J. Cook (1987). Structure of ubiquitin refined at 1.8 Å resolution. <i>Journal of Molecular Biology</i> 194(3):531–544."
+  ],
+  [
+   "Yazılım: GROMACS 2023.3, amber99sb-ildn kuvvet alanı, TIP3P su modeli. Bilimsel ve hedef okur incelemesi yapılmadı.",
+   "Software: GROMACS 2023.3, amber99sb-ildn force field, TIP3P water model. No scientific or target-reader review has been carried out."
+  ],
+  [
+   "new Intl.NumberFormat('tr-TR'",
+   "new Intl.NumberFormat('en-US'"
+  ],
+  [
+   "run.machine.indexOf('bulut')===0?'bulut':'S0 (WSL)'",
+   "run.machine.indexOf('cloud')===0?'cloud':'S0 (WSL)'"
+  ],
+  [
+   "\"system\":\"insan ubikitini, PDB 1UBQ (CC0 1.0)\"",
+   "\"system\":\"human ubiquitin, PDB 1UBQ (CC0 1.0)\""
+  ],
+  [
+   "\"note\":\"Kısa teknik denemeler; denge, yakınsama ya da biyolojik çıkarım kanıtı değildir.\"",
+   "\"note\":\"Short technical trials; not evidence of equilibrium, convergence or biological inference.\""
+  ],
+  [
+   "\"S0: WSL Ubuntu 24.04, GROMACS 2023.3, 4 iş parçacığı (24 Eylül 2026)\"",
+   "\"S0: WSL Ubuntu 24.04, GROMACS 2023.3, 4 threads (24 September 2026)\""
+  ],
+  [
+   "\"bulut: Ubuntu 24.04, GROMACS 2023.3, 2 iş parçacığı (Intel(R) Xeon(R) Processor @ 2.10GHz), 25 Eylül 2026\"",
+   "\"cloud: Ubuntu 24.04, GROMACS 2023.3, 2 threads (Intel(R) Xeon(R) Processor @ 2.10GHz), 25 September 2026\""
+  ],
+  [
+   "\"fatal\":\"Segmentation fault (çıkış kodu 139); program çöktü.\"",
+   "\"fatal\":\"Segmentation fault (exit code 139); the program crashed.\""
+  ],
+  [
+   " (terimler: ",
+   " (terms: "
+  ],
+  [
+   " (mdrun -v kullanılmadığı için adım başına Fmax yok)",
+   " (no per-step Fmax because mdrun -v was not used)"
+  ],
+  [
+   "\"label\":\"S0 minimizasyon\"",
+   "\"label\":\"S0 minimization\""
+  ],
+  [
+   "\"label\":\"S0 kısıtlı NVT\"",
+   "\"label\":\"S0 position-restrained NVT\""
+  ],
+  [
+   "\"label\":\"S0 kısıtlı NPT\"",
+   "\"label\":\"S0 position-restrained NPT\""
+  ],
+  [
+   "\"label\":\"S0 kısıtsız\"",
+   "\"label\":\"S0 unrestrained\""
+  ],
+  [
+   "\"label\":\"C0 kontrol: S0 NVT bulutta\"",
+   "\"label\":\"C0 control: S0 NVT on the cloud machine\""
+  ],
+  [
+   "\"label\":\"C1 kontrol: S0 kısıtsız (2 fs) bulutta\"",
+   "\"label\":\"C1 control: S0 unrestrained (2 fs) on the cloud machine\""
+  ],
+  [
+   "\"label\":\"S1 minimizasyonsuz NVT\"",
+   "\"label\":\"S1 NVT without minimization\""
+  ],
+  [
+   "\"label\":\"S2a 4 fs, H içeren bağlar kısıtlı\"",
+   "\"label\":\"S2a 4 fs, bonds involving H constrained\""
+  ],
+  [
+   "\"label\":\"S2b 4 fs, kısıt yok\"",
+   "\"label\":\"S2b 4 fs, no constraints\""
+  ],
+  [
+   "\"label\":\"S3 dar kutu 0,5 nm: minimizasyon\"",
+   "\"label\":\"S3 small box 0.5 nm: minimization\""
+  ],
+  [
+   "\"label\":\"S3 dar kutu 0,5 nm: kısıtlı NVT\"",
+   "\"label\":\"S3 small box 0.5 nm: position-restrained NVT\""
+  ],
+  [
+   "\"label\":\"S3 dar kutu 0,5 nm: kısıtlı NPT\"",
+   "\"label\":\"S3 small box 0.5 nm: position-restrained NPT\""
+  ],
+  [
+   "\"label\":\"S3 dar kutu 0,5 nm: kısıtsız\"",
+   "\"label\":\"S3 small box 0.5 nm: unrestrained\""
+  ],
+  [
+   "\"label\":\"S4 0,15 M NaCl: minimizasyon\"",
+   "\"label\":\"S4 0.15 M NaCl: minimization\""
+  ],
+  [
+   "\"label\":\"S4 0,15 M NaCl: kısıtlı NVT\"",
+   "\"label\":\"S4 0.15 M NaCl: position-restrained NVT\""
+  ],
+  [
+   "\"label\":\"S4 0,15 M NaCl: kısıtlı NPT\"",
+   "\"label\":\"S4 0.15 M NaCl: position-restrained NPT\""
+  ],
+  [
+   "\"label\":\"S4 0,15 M NaCl: kısıtsız\"",
+   "\"label\":\"S4 0.15 M NaCl: unrestrained\""
+  ],
+  [
+   "\"label\":\"S0 kutu 1,0 nm\"",
+   "\"label\":\"S0 box 1.0 nm\""
+  ],
+  [
+   "\"label\":\"S3 kutu 0,5 nm\"",
+   "\"label\":\"S3 box 0.5 nm\""
+  ]
+ ],
+ "keep": [
+  "Epot",
+  "Steepest Descents converged to Fmax <",
+  "Epot, kJ mol⁻¹",
+  "Fmax, kJ mol⁻¹ nm⁻¹ (log)",
+  "Temperature",
+  "Pressure",
+  "Density",
+  "Fatal error:",
+  "px Segoe UI, system-ui, sans-serif",
+  "</code> <code>gromacs_trial/topol.top</code></td>"
+ ]
+}

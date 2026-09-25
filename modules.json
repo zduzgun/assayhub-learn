@@ -174,33 +174,39 @@
       "id": "MD-O",
       "app": "md",
       "level": "orta",
-      "title": "Bir proteini MD'ye hazırlamak (1UBQ)",
-      "path": null,
-      "source": null,
-      "version": null,
-      "status": "planned",
+      "title": "Bir proteini MD'ye hazırlamak: ubikitin (1UBQ)",
+      "path": "md/md-o/",
+      "source": "sources/MD-O.html",
+      "version": "0.1.0",
+      "status": "pilot",
       "book": "CH07",
       "goals": [
-        "Yapı ve protonasyon kararları",
-        "Kutu, çözücü, minimizasyon",
-        "Rehberli koşu yeniden oynatma"
+        "Yapı dosyası ve kristal suları",
+        "Topoloji, protonasyon, uçlar",
+        "Kutu ve tuz",
+        "Minimizasyon",
+        "Dengeleme ve zaman adımı",
+        "Trajektoriyi okumak"
       ],
       "data": [
         "PDB 1UBQ (CC0 1.0)",
-        "Yerel GROMACS denemesi"
+        "GROMACS 2023.3: 24 Eylül yerel deneme ve 25 Eylül ek senaryoları (10 ps teknik denemeler)"
       ],
       "notice": null,
       "en": {
-        "title": "Preparing a protein for MD (1UBQ)",
+        "title": "Preparing a protein for MD: ubiquitin (1UBQ)",
         "book": "CH07",
         "goals": [
-          "Structure and protonation decisions",
-          "Box, solvent, minimization",
-          "Guided replay of a run"
+          "The structure file and crystal waters",
+          "Topology, protonation, termini",
+          "Box and salt",
+          "Minimization",
+          "Equilibration and time step",
+          "Reading the trajectory"
         ],
         "data": [
           "PDB 1UBQ (CC0 1.0)",
-          "Local GROMACS trial"
+          "GROMACS 2023.3: local trial of 24 September and additional scenarios of 25 September (10 ps technical trials)"
         ],
         "notice": null
       }
