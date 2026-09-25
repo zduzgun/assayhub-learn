@@ -287,8 +287,8 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
 <section class="unit" id="s1">
   <div class="prose">
     <h2><small>1 · Asıl soru</small>Skor, afiniteyi sıralayabilir mi?</h2>
-    <p class="lead">ChEMBL'den tripsin için ölçülmüş bağlanma sabiti (K<sub>i</sub>) olan bileşikleri topladık ve her birini DK-O'daki aynı 3PTB reseptörüne, aynı kutuya dock ettik. Şimdi iki sayıyı karşılaştırabiliriz: docking <b>skoru</b> (düşük = iyi) ve deneysel <b>pK<sub>i</sub></b> (yüksek = güçlü bağlanma).</p>
-    <p>Skor mükemmel bir afinite tahmincisi olsaydı, noktalar aşağı inen dar bir çizgi oluştururdu. Grafiği inceleyin: eksenleri, kalıntı çizgisini ve korelasyon katsayısını okuyun.</p>
+    <p class="lead">ChEMBL'den tripsin için ölçülmüş inhibisyon sabiti (K<sub>i</sub>) olan bileşikleri topladık ve her birini DK-O'daki aynı 3PTB reseptörüne, aynı kutuya dock ettik. Şimdi iki sayıyı karşılaştırabiliriz: docking <b>skoru</b> (düşük = iyi) ve deneysel <b>pK<sub>i</sub></b> (yüksek = güçlü bağlanma).</p>
+    <p>Skor mükemmel bir afinite tahmincisi olsaydı, noktalar aşağı inen dar bir çizgi oluştururdu. Grafiği inceleyin: eksenleri, en uygun doğruyu ve korelasyon katsayısını okuyun.</p>
   </div>
   <div class="lab" id="labA">
     <div class="lab-head"><div><span class="lab-tag">Laboratuvar 1</span><h3>Skor ve ölçülen afinite</h3></div><span class="done-badge">Görev tamamlandı</span></div>
@@ -358,7 +358,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
 <section class="unit" id="s3">
   <div class="prose">
     <h2><small>3 · Zenginleştirme ve tuzak yanlılığı</small>Sıralamanın işe yarayan yanı</h2>
-    <p class="lead">Docking afiniteyi tam sıralayamasa da bir işe yarar: bir kütüphaneyi tarayıp <b>etkin molekülleri listenin başına</b> toplamak. Bunu ölçmek için etkinleri (güçlü bağlananları) bir grup <b>tuzak</b> molekülle karıştırıp skora göre sıralarız ve etkinlerin ne kadar öne geçtiğine bakarız (ROC eğrisi, EAUC ve zenginleştirme faktörü EF).</p>
+    <p class="lead">Docking afiniteyi tam sıralayamasa da bir işe yarar: bir kütüphaneyi tarayıp <b>etkin molekülleri listenin başına</b> toplamak. Bunu ölçmek için etkinleri (güçlü bağlananları) bir grup <b>tuzak</b> molekülle karıştırıp skora göre sıralarız ve etkinlerin ne kadar öne geçtiğine bakarız (ROC eğrisi, AUC ve zenginleştirme faktörü EF).</p>
     <p>Ama sonuç, tuzakları nasıl seçtiğinize bağlıdır. İki negatif seti karşılaştırın: aynı hedefin <b>zayıf bağlananları</b> ve <b>başka bir hedefin</b> (dopamin D2) bileşikleri. Hangisi daha kolay ayrılıyor?</p>
   </div>
   <div class="lab" id="labC">
@@ -378,11 +378,11 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
       <div class="ala-box" data-ala="dikkat" id="alaC"></div>
       <div>
         <h4>Görev 3</h4>
-        <p>İki negatif setin EAUC değerlerini karşılaştırın. Başka bir hedefin bileşiklerini tuzak yapmak zenginleştirmeyi neden yükseltir?</p>
+        <p>İki negatif setin AUC değerlerini karşılaştırın. Başka bir hedefin bileşiklerini tuzak yapmak zenginleştirmeyi neden yükseltir?</p>
         <div class="ans" id="ansC" role="group" aria-label="Görev 3 seçenekleri">
-          <button data-ok="1">Başka hedefin bileşikleri bu cebe kimyaca uymaz (çoğu pozitif yük ve amidin taşımaz); docking onları kolayca eler. Bu yüksek EAUC, gerçek zorluk olan "aynı hedefin zayıf bağlayıcılarından ayırma"yı ölçmez.</button>
+          <button data-ok="1">Başka hedefin bileşikleri bu cebe kimyaca uymaz: pozitif yüklü bir azot taşırlar ama amidin/guanidin taşımadıkları için pozitif azotları S1 cebindeki Asp189'a ulaşıp tuz köprüsü kuramaz. Docking onları kolayca eler. Bu yüksek AUC, gerçek zorluk olan "aynı hedefin zayıf bağlayıcılarından ayırma"yı ölçmez.</button>
           <button data-ok="0">D2 bileşikleri daha büyük olduğu için daha iyi skor alır ve etkinlerle karışır.</button>
-          <button data-ok="0">İki set arasında hiçbir fark yoktur; EAUC aynıdır.</button>
+          <button data-ok="0">İki set arasında hiçbir fark yoktur; AUC aynıdır.</button>
         </div>
         <p class="feedback" id="fbC" aria-live="polite"></p>
       </div>
@@ -396,7 +396,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
   <div class="prose">
     <h2><small>4 · Ağırlıkları uydurmak</small>Kendi skor fonksiyonunuzu ayarlayın</h2>
     <p class="lead">Skor, beş terimin ağırlıklı toplamıdır. Peki bu ağırlıkları elimizdeki tripsin verisine uydursaydık daha iyi bir afinite tahmincisi elde eder miydik? Aşağıda beş terimin katsayısını kaydırın; sistem her bileşik için pK<sub>i</sub>'yi tahmin eder ve ölçülen değerle karşılaştırır.</p>
-    <p>İki doğrulama sonucu birlikte gösteriliyor: ağırlıkları verinin bir kısmına uydurup <b>rastgele</b> ayrılmış kısımda sınamak, ve aynı şeyi <b>yayına göre gruplayarak</b> yapmak (aynı makalenin bileşikleri hem eğitimde hem sınamada olamaz). Aradaki farka dikkat edin.</p>
+    <p>İki doğrulama sonucu birlikte gösteriliyor: ağırlıkları verinin bir kısmına uydurup <b>gruplanmamış</b> ayrılmış kısımda sınamak (sabit sıralı 5 katlı bölme; "rastgele" burada gruplama yapılmıyor demektir), ve aynı şeyi <b>yayına göre gruplayarak</b> yapmak (bir makalenin bütün bileşikleri aynı tarafta kalır). Aradaki farka dikkat edin.</p>
   </div>
   <div class="lab" id="labD">
     <div class="lab-head"><div><span class="lab-tag">Laboratuvar 4</span><h3>Ağırlık atölyesi</h3></div><span class="done-badge">Görev tamamlandı</span></div>
@@ -414,7 +414,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
       <div class="ala-box" data-ala="kanit" id="alaD"></div>
       <div>
         <h4>Görev 4</h4>
-        <p>"Veriye uydur" düğmesine basın. Rastgele bölmede uyum iyi görünüyor. Yayına göre bölmede R² değeri nasıl değişiyor? Hangi cümle doğru?</p>
+        <p>"Veriye uydur" düğmesine basın. Rastgele bölmede uyum daha iyi görünüyor. Yayına göre bölmede R² değeri nasıl değişiyor? Hangi cümle doğru?</p>
         <div class="ans" id="ansD" role="group" aria-label="Görev 4 seçenekleri">
           <button data-ok="0">Yayına göre bölme rastgeleyle aynı sonucu verir; gruplamanın etkisi yoktur.</button>
           <button data-ok="1">Yayına göre bölünce R² belirgin düşer: model kısmen "aynı makaledeki benzer bileşikleri" ezberliyordu. Yeni bir kimyasal seriye genellemesi çok daha zayıf.</button>
@@ -431,8 +431,8 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
 <section class="unit" id="s5">
   <div class="prose">
     <h2><small>5 · Docking'in ötesi</small>Afiniteyi gerçekten hesaplamak</h2>
-    <p>Docking skorunun afiniteyi güvenilir sıralayamaması yeni bir bulgu değildir; docking bir <b>poz üretici ve hızlı eleyicidir</b>, bir afinite ölçer değil. Daha titiz tahmin için fizik tabanlı, çok daha pahalı yöntemler gerekir. Göreli serbest enerji (RBFE) hesapları, benzer bileşikler arasındaki afinite farklarını yeterli doğrulukla öngörebildiği bildirilen bir ailedir; kaynağını 6. kısımda vereceğiz. Zincir hep aynıdır: docking aday üretir, MD pozun kararlılığını sınar, serbest enerji yöntemleri afiniteyi sıralamaya çalışır.</p>
-    <p>Modern yaklaşımlar skor fonksiyonunu makine öğrenmesiyle de değiştirir (örneğin evrişimli ağlar). Ama 4. laboratuvardaki ders burada da geçerlidir: bu modeller ölçütlerdeki gizli yanlılıkları farkında olmadan öğrenebilir, ve rastgele bölmeyle ölçülen başarı, yeni bir kimyasal seriye genellemeyi abartır.</p>
+    <p>Docking skorunun afiniteyi güvenilir sıralayamaması yeni bir bulgu değildir; docking bir <b>poz üretici ve hızlı eleyicidir</b>, bir afinite ölçer değil. Daha titiz tahmin için fizik tabanlı, çok daha pahalı yöntemler gerekir. Göreli bağlanma serbest enerjisi (RBFE) hesapları, benzer (konjenerik) bileşikler arasındaki afinite farklarını yeterli doğrulukla öngörebildiği bildirilen bir yöntem ailesidir (Wang ve ark. 2015; Cournia ve ark. 2017; kaynaklar aşağıdaki Kaynaklar bölümünde). Zincir hep aynıdır: docking aday üretir, MD pozun kararlılığını sınar, serbest enerji yöntemleri afiniteyi sıralamaya çalışır.</p>
+    <p>Modern yaklaşımlar skor fonksiyonunu makine öğrenmesiyle de değiştirir (örneğin evrişimli ağlar). Ama 4. laboratuvardaki ders burada da geçerlidir: bu modeller kıyaslama veri setlerindeki gizli yanlılıkları farkında olmadan öğrenebilir, ve rastgele bölmeyle ölçülen başarı, yeni bir kimyasal seriye genellemeyi abartır.</p>
   </div>
   <figure class="fig">
     <svg viewBox="0 0 960 210" role="img" aria-labelledby="pipeT">
@@ -467,6 +467,20 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
 <section class="unit" id="s6">
   <div class="prose"><h2><small>6 · Kendinizi sınayın</small>Dört yorum</h2></div>
   <div class="quiz" id="quiz"></div>
+</section>
+
+<section class="unit" id="refs">
+  <div class="prose">
+    <h2><small>Kaynaklar</small>Bu bölümde anılan çalışmalar</h2>
+    <ol style="font-size:14px;line-height:1.6;color:var(--muted);max-width:760px;padding-left:20px">
+      <li>Wang S, Che T, Levit A, Shoichet BK, Wacker D, Roth BL. Structure of the D2 dopamine receptor bound to the atypical antipsychotic drug risperidone. <i>Nature</i>. 2018;555:269-273. DOI: 10.1038/nature25758. (D2 ortosterik cebinde ligandın protonlu azotu Asp114/Asp3.32 ile tuz köprüsü kurar.)</li>
+      <li>Wang L, Wu Y, Deng Y, ve ark. Accurate and reliable prediction of relative ligand binding potency in prospective drug discovery by way of a modern free-energy calculation protocol and force field. <i>J Am Chem Soc</i>. 2015;137:2695-2703. DOI: 10.1021/ja512751q.</li>
+      <li>Cournia Z, Allen B, Sherman W. Relative binding free energy calculations in drug discovery: recent advances and practical considerations. <i>J Chem Inf Model</i>. 2017;57:2911-2937. DOI: 10.1021/acs.jcim.7b00564.</li>
+      <li>Hopkins AL, Groom CR, Alex A. Ligand efficiency: a useful metric for lead selection. <i>Drug Discov Today</i>. 2004;9:430-431. DOI: 10.1016/S1359-6446(04)03069-7.</li>
+      <li>Truchon JF, Bayly CI. Evaluating virtual screening methods: good and bad metrics for the "early recognition" problem. <i>J Chem Inf Model</i>. 2007;47:488-508. DOI: 10.1021/ci600426e.</li>
+      <li>Mysinger MM, Carchia M, Irwin JJ, Shoichet BK. Directory of useful decoys, enhanced (DUD-E): better ligands and decoys for better benchmarking. <i>J Med Chem</i>. 2012;55:6582-6594. DOI: 10.1021/jm300687e.</li>
+    </ol>
+  </div>
 </section>
 
 <div class="bridge"><div data-ala="tebrik"></div><p>Docking sarmalını tamamladınız: temelde pozu ve skoru, orta düzeyde gerçek bir yapıyı ve hazırlığı, uzman düzeyde skorun afiniteye karşı sınırını gördünüz. Buradan doğal devam, tek bir aday poz için serbest enerji hesabına (CH19) ve docking sonrası MD doğrulamasına geçmektir.</p></div>
@@ -717,7 +731,7 @@ function spearman(a,b){return pearson(rankOf(a),rankOf(b));}
   function metric(){
     $('#mA').innerHTML='<dt>Pearson r</dt><dd>'+fx(co.pearson,2)+' <span style="color:var(--muted);font-weight:400">['+fx(co.pearson_ci[0],2)+', '+fx(co.pearson_ci[1],2)+']</span></dd>'
       +'<dt>Spearman ρ</dt><dd>'+fx(co.spearman,2)+' <span style="color:var(--muted);font-weight:400">['+fx(co.spearman_ci[0],2)+', '+fx(co.spearman_ci[1],2)+']</span></dd>'
-      +'<dt>Doğrusal uyum R²</dt><dd class="lo">'+fx(lf.r2,2)+'</dd><dt>pKi tahmin hatası</dt><dd>±'+fx(lf.rmse_pki,2)+'</dd><dt>Bileşik sayısı</dt><dd>'+co.n+'</dd>';
+      +'<dt>Doğrusal uyum R²</dt><dd class="lo">'+fx(lf.r2,2)+'</dd><dt>pKi tahmin hatası (RMSE)</dt><dd>'+fx(lf.rmse_pki,2)+'</dd><dt>Bileşik sayısı</dt><dd>'+co.n+'</dd>';
   }
   $('#aFit').addEventListener('change',function(){fitOn=this.checked;draw();});
   $('#aAmid').addEventListener('change',function(){amidOn=this.checked;draw();});
@@ -749,7 +763,7 @@ function spearman(a,b){return pearson(rankOf(a),rankOf(b));}
   }
   $$('#axB .chip').forEach(function(b){b.addEventListener('click',function(){$$('#axB .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});axis=b.getAttribute('data-v');draw();});});
   $$('#ansB button').forEach(function(b){b.addEventListener('click',function(){$$('#ansB button').forEach(function(x){x.classList.remove('wrong');});
-    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(2);say('fbB','Doğru. Skorun boyutla ilişkisi ('+fx(r_ha,2)+') afiniteyle ilişkisinden güçlü. Atom başına skor pKi ile '+fx(r_se,2)+': ham skordan bile zayıf. Skorun bir kısmı "kaç atom sığdı"yı ölçüyor, "ne kadar iyi bağlandı"yı değil. Bu yüzden büyük moleküller taramalarda haksız avantaj kazanır.',true);}
+    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(2);say('fbB','Doğru. Skorun boyutla ilişkisi ('+fx(r_ha,2)+') afiniteyle ilişkisinden ('+fx(r_pki,2)+') güçlü. Atom başına skorun pKi ile ilişkisi '+fx(r_se,2)+': büyüklüğü ham skordan zayıf olmakla kalmaz, işareti bile ters döner (ham skorda eksi, atom başına skorda artı), çünkü bu veride büyük bileşikler hem daha güçlü bağlanır hem de atom başına daha verimsizdir. Yani boyuta bölmek sorunu çözmez. Not: ligand verimi ölçülen afiniteden tanımlanır (Hopkins ve ark. 2004); "atom başına skor" bunun yalnızca docking benzeridir.',true);}
     else{b.classList.add('wrong');say('fbB','Sağdaki üç korelasyona bakın: skorun ağır atom sayısıyla ve pKi ile ilişkisini karşılaştırın.',false);}});});
   metric();draw();
 })();
@@ -768,14 +782,14 @@ function spearman(a,b){return pearson(rankOf(a),rankOf(b));}
   }
   function metric(){
     var e=E();
-    $('#mC').innerHTML='<dt>Eğri altı alan (EAUC)</dt><dd class="'+(e.auc>0.7?'hi':'')+'">'+fx(e.auc,2)+'</dd><dt>Zenginleştirme EF %1</dt><dd>'+fx(e.ef1pct,1)+'×</dd><dt>EF %5</dt><dd>'+fx(e.ef5pct,1)+'×</dd><dt>EF %10</dt><dd>'+fx(e.ef10pct,1)+'×</dd><dt>etkin / tuzak</dt><dd>'+e.n_active+' / '+e.n_decoy+'</dd>';
+    $('#mC').innerHTML='<dt>AUC (eğri altındaki alan)</dt><dd class="'+(e.auc>0.7?'hi':'')+'">'+fx(e.auc,2)+'</dd><dt>Zenginleştirme EF %1</dt><dd>'+fx(e.ef1pct,1)+'×</dd><dt>EF %5</dt><dd>'+fx(e.ef5pct,1)+'×</dd><dt>EF %10</dt><dd>'+fx(e.ef10pct,1)+'×</dd><dt>etkin / tuzak</dt><dd>'+e.n_active+' / '+e.n_decoy+'</dd>';
     var eb=A.enrichment_vs_weak_trypsin,ed=A.enrichment_vs_d2_decoy;
-    $('#keysC').innerHTML='Zayıf tripsin bağlayıcılarına karşı EAUC '+fx(eb.auc,2)+'; D2 tuzaklarına karşı '+fx(ed.auc,2)+'. Fark, tuzak seçiminin ölçtüğünüz "başarı"yı ne kadar belirlediğini gösterir.';
+    $('#keysC').innerHTML='Zayıf tripsin bağlayıcılarına karşı AUC '+fx(eb.auc,2)+'; D2 tuzaklarına karşı '+fx(ed.auc,2)+'. Fark, tuzak seçiminin ölçtüğünüz "başarı"yı ne kadar belirlediğini gösterir. EF değerleri burada tavana dayanır: etkinler sıralamanın büyük kısmını oluşturduğu için EF en çok 1/(etkin oranı) olabilir (zayıf sette en çok '+fx((eb.n_active+eb.n_decoy)/eb.n_active,1)+'×, D2 setinde en çok '+fx((ed.n_active+ed.n_decoy)/ed.n_active,1)+'×). Ayrıca 82 bileşikte %1, tek bir bileşikten azdır; bu yüzden EF %1 burada anlamlı değildir. EF yalnızca etkinlerin nadir olduğu (yaklaşık 1:50) DUD-E gibi kıyaslama veri setlerinde ayırt edicidir (Truchon ve Bayly 2007).';
   }
   $$('#negC .chip').forEach(function(b){b.addEventListener('click',function(){$$('#negC .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});neg=b.getAttribute('data-v');draw();metric();});});
   $$('#ansC button').forEach(function(b){b.addEventListener('click',function(){$$('#ansC button').forEach(function(x){x.classList.remove('wrong');});
-    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(3);var eb=A.enrichment_vs_weak_trypsin,ed=A.enrichment_vs_d2_decoy;say('fbC','Doğru. D2 tuzaklarına karşı EAUC '+fx(ed.auc,2)+', zayıf tripsin bağlayıcılarına karşı yalnızca '+fx(eb.auc,2)+'. Kolay ayrılan tuzaklar başarıyı şişirir; DUD-E gibi ölçütler bu yanlılığı azaltmaya çalışsa da bir kısmı kalır ve makine öğrenmesi modelleri bunu farkında olmadan öğrenebilir.',true);}
-    else{b.classList.add('wrong');say('fbC','İki negatif setin EAUC değerlerini karşılaştırın ve D2 bileşiklerinin bu cebe kimyaca uyup uymadığını düşünün.',false);}});});
+    if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(3);var eb=A.enrichment_vs_weak_trypsin,ed=A.enrichment_vs_d2_decoy;say('fbC','Doğru. D2 tuzaklarına karşı AUC '+fx(ed.auc,2)+', zayıf tripsin bağlayıcılarına karşı yalnızca '+fx(eb.auc,2)+'. Kolay ayrılan tuzaklar başarıyı şişirir; DUD-E gibi kıyaslama veri setleri bu yanlılığı azaltmaya çalışsa da bir kısmı kalır ve makine öğrenmesi modelleri bunu farkında olmadan öğrenebilir.',true);}
+    else{b.classList.add('wrong');say('fbC','İki negatif setin AUC değerlerini karşılaştırın ve D2 bileşiklerinin bu cebe kimyaca uyup uymadığını düşünün.',false);}});});
   metric();draw();
 })();
 
@@ -848,7 +862,7 @@ function spearman(a,b){return pearson(rankOf(a),rankOf(b));}
     var w=ridge(rows,y,1.0);var fit={gauss1:w[0],gauss2:w[1],repulsion:w[2],hydrophobic:w[3],hbond:w[4]};
     fitted=true;setW(fit);complete(4);
     var cv=computeCV();
-    say('fbD','Ağırlıklar veriye uyduruldu; aynı veride uyum arttı. Ama rastgele bölmede CV R² ≈ '+fx(cv.rand,2)+', yayına göre bölmede ≈ '+fx(cv.doc,2)+'. Hatta yalnız ham Vina skorunu kullanmak yayına göre bölmede ('+fx(A.weight_fit.baseline_scoreonly_bydoc_r2,2)+') bu uydurulmuş ağırlıklardan daha iyi genelliyor. Aynı makalenin benzer bileşiklerini ezberlemek, yeni bir kimyasal seriye yardımcı olmuyor.',true);
+    say('fbD','Ağırlıklar veriye uyduruldu; aynı veride uyum arttı. Ama rastgele bölmede CV R² ≈ '+fx(cv.rand,2)+', yayına göre bölmede ≈ '+fx(cv.doc,2)+'. Hatta yalnız ham Vina skorunu kullanmak yayına göre bölmede ('+fx(A.weight_fit.baseline_scoreonly_bydoc_r2,2)+') en az bu uydurulmuş ağırlıklar kadar iyi genelliyor. Aynı makalenin benzer bileşiklerini ezberlemek, yeni bir kimyasal seriye yardımcı olmuyor.',true);
   });
   $$('#ansD button').forEach(function(b){b.addEventListener('click',function(){$$('#ansD button').forEach(function(x){x.classList.remove('wrong');});
     if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(4);say('fbD','Doğru. Rastgele bölme iyimser bir tablo çizer; yayına göre bölme gerçeğe daha yakındır. Bu, docking skorlarına dayalı makine öğrenmesi modellerinin neden dikkatli doğrulama gerektirdiğinin özüdür.',true);}
@@ -861,13 +875,13 @@ function spearman(a,b){return pearson(rankOf(a),rankOf(b));}
   var m=A.meta;
   var facts=[[m.n_trypsin,'tripsin bileşiği (Ki)'],[m.n_active,'güçlü (pKi ≥ 7)'],[m.n_weak,'zayıf (pKi < 5)'],[m.n_decoy,'D2 tuzağı'],[m.n_docs,'ayrı yayın']];
   $('#facts').innerHTML=facts.map(function(f){return '<div class="fact"><b>'+f[0]+'</b><span>'+f[1]+'</span></div>';}).join('');
-  $('#factsCap').innerHTML='Kaynak: ChEMBL tripsin (CHEMBL3769, <i>Bos taurus</i>) K<sub>i</sub> ölçümleri ve dopamin D2 (CHEMBL217) tuzak seti. Her bileşik 3PTB\'ye Vina ile dock edildi; kayıt <code>book/cases/trypsin_3ptb/screen/</code>.';
+  $('#factsCap').innerHTML='Kaynak: ChEMBL tripsin (CHEMBL3769, <i>Bos taurus</i>) K<sub>i</sub> ölçümleri ve dopamin D2 (CHEMBL217) tuzak seti. Her bileşik 3PTB\'ye Vina ile dock edildi; kayıt <code>book/cases/trypsin_3ptb/screen/</code>. 37 yayının biri yalnızca sansürlü (üst sınır) K<sub>i</sub> değeri içerdiğinden nicel çözümlemeler 36 yayının 142 bileşiğini kullanır.';
   var co=A.corr_score_pki,lf=A.linear_fit;
   $('#proseA').innerHTML='Skor ile pK<sub>i</sub> arasında zayıf bir ilişki var (Spearman ρ = '+fx(co.spearman,2)+'), ama R² yalnızca '+fx(lf.r2,2)+'. Yani skordaki değişimin çok küçük bir kısmı ölçülen afiniteyi izliyor. Docking bir sıralama verir; güvenilir bir afinite sıralaması değil.';
   var eb=A.enrichment_vs_weak_trypsin,ed=A.enrichment_vs_d2_decoy;
-  $('#proseC').innerHTML='Aynı skor, iki farklı tuzak setinde çok farklı görünür: D2 tuzaklarına karşı EAUC '+fx(ed.auc,2)+' (kolay), zayıf tripsin bağlayıcılarına karşı '+fx(eb.auc,2)+' (zor). "Docking işe yarıyor mu?" sorusunun cevabı, hangi tuzakları seçtiğinize bağlıdır.';
+  $('#proseC').innerHTML='Aynı skor, iki farklı tuzak setinde çok farklı görünür: D2 tuzaklarına karşı AUC '+fx(ed.auc,2)+' (kolay), zayıf tripsin bağlayıcılarına karşı '+fx(eb.auc,2)+' (zor). "Docking işe yarıyor mu?" sorusunun cevabı, hangi tuzakları seçtiğinize bağlıdır.';
   var wf=A.weight_fit;
-  $('#proseD').innerHTML='Ağırlıkları veriye uydurmak, rastgele bölünmüş sınamada iyi görünür (R² '+fx(wf.cv_random_r2,2)+'). Ama aynı makalenin bileşikleri eğitim ve sınamaya ayrıldığında (yayına göre bölme) bu kazanç kaybolur: R² yaklaşık '+fx(wf.cv_bydoc_r2,2)+'. Yalnız ham skorla tek değişkenli baz çizgisi bile yayına göre bölmede aynı düzeydedir (R² '+fx(wf.baseline_scoreonly_bydoc_r2,2)+'): fazladan beş ağırlığı uydurmak, yeni bir kimyasal seride hiçbir şey kazandırmadı. Bir skor fonksiyonunu veriye uydurmak kolay, yeni kimyaya genellemek zordur.';
+  $('#proseD').innerHTML='Ağırlıkları veriye uydurmak, rastgele bölünmüş sınamada iyi görünür (R² '+fx(wf.cv_random_r2,2)+'). Ama bileşikler eğitim ve sınamaya makaleye göre ayrıldığında (bir makalenin bütün bileşikleri aynı tarafta) bu kazanç kaybolur: R² yaklaşık '+fx(wf.cv_bydoc_r2,2)+'. Yalnız ham skorla tek değişkenli baz çizgisi bile yayına göre bölmede aynı düzeydedir (R² '+fx(wf.baseline_scoreonly_bydoc_r2,2)+'): altı terimi (beş Vina terimi ve dönebilir bağ sayısı) ve kesimi ridge (λ = 1) ile uydurmak, yeni bir kimyasal seride hiçbir şey kazandırmadı. Bir skor fonksiyonunu veriye uydurmak kolay, yeni kimyaya genellemek zordur.';
 })();
 
 /* ================= QUIZ ================= */
@@ -877,10 +891,10 @@ var Q=[
   w:'|ρ| küçük ve R² düşük olduğunda skor, molekülleri kabaca öne toplayabilir ama iki bileşiğin hangisinin daha güçlü bağlandığını söyleyemez.'},
  {s:'Büyük moleküller neden neredeyse otomatik olarak daha iyi (daha düşük) skor alır?',
   o:[['Vina büyük molekülleri kasten ödüllendirir.',0],['Daha çok atom, daha çok temas terimi toplar; skor boyutla ilişkilidir ve bu afinite değildir.',1],['Büyük moleküller her zaman daha güçlü bağlanır.',0]],
-  w:'Bu yüzden ham skor yerine ligand verimi gibi boyuta göre düzeltilmiş ölçüler ya da dikkatli tuzak eşleştirmesi kullanılır.'},
- {s:'Bir docking yönteminin başka bir hedefin bileşiklerine karşı EAUC değeri 0,9, aynı hedefin zayıf bağlayıcılarına karşı 0,6 çıktı. Bu ne anlatır?',
+  w:'Büyük moleküllerin haksız avantajını azaltmak için dikkatli tuzak eşleştirmesi kullanılır. Ligand verimi (ölçülen afinitenin ağır atom sayısına bölünmesi; Hopkins ve ark. 2004) bileşikleri verimliliğe göre karşılaştırmak için tanımlanmıştır, afiniteyi tahmin etmek için değil; skoru ağır atoma bölmek ise bunun yalnızca docking benzeridir ve bu veride afiniteyi ham skordan daha iyi sıralamaz.'},
+ {s:'Bir docking yönteminin başka bir hedefin bileşiklerine karşı AUC değeri 0,9, aynı hedefin zayıf bağlayıcılarına karşı 0,6 çıktı. Bu ne anlatır?',
   o:[['Yöntem mükemmeldir; 0,9 gerçek başarıdır.',0],['Kolay tuzaklar başarıyı şişirir; gerçek zorluk aynı hedefin zayıf bağlayıcılarından ayırmaktır ve orada başarı çok daha düşüktür.',1],['İki sayı ölçüm hatasıdır, anlamsızdır.',0]],
-  w:'Ölçüt tasarımı (tuzak seçimi) ölçülen başarıyı belirler. Yanlı ölçütler, özellikle makine öğrenmesi modellerinde, yanıltıcı sonuçlar doğurur.'},
+  w:'Kıyaslama veri seti tasarımı (tuzak seçimi) ölçülen başarıyı belirler. Yanlı kıyaslama veri setleri, özellikle makine öğrenmesi modellerinde, yanıltıcı sonuçlar doğurur.'},
  {s:'Ağırlıkları veriye uydurdunuz: rastgele bölmede R² 0,5, yayına göre bölmede 0,1. Hangi sonuç doğru?',
   o:[['Model iyidir; rastgele R² gerçek performanstır.',0],['Model kısmen aynı makaledeki benzer bileşikleri ezberledi; yeni bir seriye genellemesi zayıf. Yayına göre bölme daha dürüst bir tahmindir.',1],['Yayına göre bölme yanlıştır; her zaman rastgele bölme kullanılmalı.',0]],
   w:'Aynı yayının bileşikleri hem eğitimde hem sınamada olduğunda başarı abartılır. Gruplu doğrulama, gerçek genelleme gücünü ölçmenin yoludur.'}

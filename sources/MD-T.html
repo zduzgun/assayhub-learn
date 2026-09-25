@@ -253,7 +253,7 @@ td.ratio{color:var(--accent);font-weight:600}
   <div class="prose">
     <h2><small>3 · Adım büyüklüğü deneyi</small>Adımı küçültünce ne kazanırız?</h2>
     <p class="lead">Sayısal çözüm, kesin çözümün bir yaklaşığıdır. Adım büyüdükçe sapma büyür; bir sınırdan sonra yörünge tamamen kopar. Sürgüyü oynatın, üç grafiği birlikte izleyin.</p>
-    <p>Alttaki grafik logaritmik ölçektedir: bir çizgi aralığı on kat fark demektir. Konum hatası kesin çözümden uzaklığı, enerji sapması da toplam enerjinin başlangıçtaki 0,5 değerinden ne kadar kaydığını gösterir.</p>
+    <p>Alttaki grafik logaritmik ölçektedir: komşu iki yatay çizgi arasında yüz kat fark vardır. Konum hatası kesin çözümden uzaklığı, enerji sapması da toplam enerjinin başlangıçtaki 0,5 değerinden ne kadar kaydığını gösterir.</p>
   </div>
 
   <div class="lab" id="lab3">
@@ -303,7 +303,7 @@ td.ratio{color:var(--accent);font-weight:600}
   <div class="prose">
     <h2><small>4 · Gerçek moleküle geçiş</small>Proteinlerde neden 2 femtosaniye?</h2>
     <p class="lead">3. kısımdaki kopma noktası rastgele değildi; yayın titreşim periyoduna bağlıydı. Açısal frekans ω için hız-Verlet ancak <math><mi>ω</mi><mi>Δ</mi><mi>t</mi><mo>&lt;</mo><mn>2</mn></math> iken kararlıdır. Bir molekülde en hızlı titreşim, bütün sistemin adımını belirler.</p>
-    <p>Kararlı olmak yetmez; titreşimi doğru izlemek de gerekir. GROMACS kılavuzu, hız-Verlet ailesi için <b>bir titreşim periyodu başına en az 5 adımı</b> yol gösterici kabul eder. Hidrojen içeren bağlar en hızlı titreşenlerdir; bu yüzden çoğu simülasyonda bu bağların uzunluğu sabitlenir (kısıt). Aşağıda deneyin.</p>
+    <p>Kararlı olmak yetmez; titreşimi doğru izlemek de gerekir. GROMACS kılavuzu, Verlet türü (leap-frog) bir integrasyonla harmonik bir titreşimi makul doğrulukla izlemek için <b>bir titreşim periyodu başına en az 5 adımı</b> yol gösterici kabul eder. Sıcaklık ve basınç denetimi yokken ve başlangıç noktaları birbirine karşılık geldiğinde, leap-frog ile burada kullandığımız hız-Verlet aynı yörüngeyi üretir. Hidrojen içeren bağlar en hızlı titreşenlerdir; bu yüzden çoğu simülasyonda bu bağların uzunluğu sabitlenir (kısıt). Aşağıda deneyin.</p>
   </div>
 
   <div class="lab" id="lab4">
@@ -331,7 +331,7 @@ td.ratio{color:var(--accent);font-weight:600}
       </div>
     </div>
   </div>
-  <div class="prose" style="margin-top:22px"><p>Bağ titreşimi periyotları kızılötesi dalga sayılarından yaklaşık olarak hesaplandı (<i>T</i> = 1/<i>c</i>ν̃); hidrojenli açı titreşiminin yaklaşık 13 fs periyodu ve 5 adım kuralı <a href="https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html">GROMACS kılavuzundan</a> alındı. 7. bölümdeki ubikitin denemesi de H bağları kısıtlı 2 fs ile çalıştırıldı.</p></div>
+  <div class="prose" style="margin-top:22px"><p>Bağ titreşimi periyotları kızılötesi dalga sayılarından yaklaşık olarak hesaplandı (<i>T</i> = 1/<i>c</i>ν̃). Hidrojen içeren açı titreşimlerinin 13 fs periyodu (kılavuzda simülasyondan ölçülmüş değer) ve periyot başına 5 adım kuralı <a href="https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html">GROMACS kılavuzundan</a> alındı. Kılavuz 13 fs / 5 = 2,6 fs sonucunu “yaklaşık 3 fs” diye yuvarlar; bu sayfada yuvarlanmamış 2,6 fs kullanılır. 7. bölümdeki ubikitin denemesi de H içeren bağlar kısıtlı 2 fs ile çalıştırıldı.</p></div>
 </section>
 
 <!-- ============ 5 ============ -->
@@ -369,7 +369,7 @@ td.ratio{color:var(--accent);font-weight:600}
   <div class="quiz" id="quiz"></div>
 </section>
 
-<div class="bridge"><div data-ala="selam"></div><p>Sıradaki bölüm 7: gerçek bir protein yapısını (ubikitin, PDB 1UBQ) MD'ye hazırlarken hangi bilgilerin ölçüm, hangilerinin bizim kararımız olduğunu okuyacağız. Buradaki 2 fs ve H bağı kısıtı orada tekrar karşınıza çıkacak.</p></div>
+<div class="bridge"><div data-ala="selam"></div><p>Sıradaki bölüm 7: gerçek bir protein yapısını (ubikitin, PDB 1UBQ) MD'ye hazırlarken hangi bilgilerin ölçüm, hangilerinin bizim kararımız olduğunu okuyacağız. Buradaki 2 fs ve H içeren bağların kısıtı orada tekrar karşınıza çıkacak.</p></div>
 
 <p class="about"><b>Bu sayfa hakkında.</b> CH02 için etkileşimli tasarım prototipidir; kitabın kaynak metni ve yerel sitesi değiştirilmedi. 1 ile 3. kısımlar boyutsuz öğretim modelleridir; hesaplar tarayıcıda, CH02'nin <code>ch02_oscillator.py</code> örneğindeki algoritmayla yapılır. Bağ periyotları yaklaşık ve öğreticidir. Bilimsel ve hedef-okur incelemesi yapılmadı.</p>
 </div>
@@ -541,7 +541,7 @@ function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
 var nf=function(d){return new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});};
 function fx(v,d){if(!isFinite(v))return '∞';var s=nf(d).format(Math.abs(v));return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+s;}
 function sig(v,n){n=n||3;if(!isFinite(v)||Math.abs(v)>1e4)return 'çok büyük (patladı)';if(v===0)return '0';return new Intl.NumberFormat('tr-TR',{maximumSignificantDigits:n}).format(v);}
-function num(str){if(str==null)return NaN;str=String(str).trim().replace(/\s/g,'').replace('−','-');if(/,/.test(str))str=str.replace(/\./g,'').replace(',','.');return Number(str);}
+function num(str,whole){if(str==null)return NaN;str=String(str).trim().replace(/\s/g,'').replace('−','-');if(whole&&/^-?\d{1,3}(\.\d{3})+$/.test(str))str=str.replace(/\./g,'');if(/,/.test(str))str=str.replace(/\./g,'').replace(',','.');return Number(str);}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 
 /* ---------- Ala ---------- */
@@ -591,13 +591,13 @@ function el(tag,attrs){var e=document.createElementNS(NS,tag);for(var k in attrs
 /* ================= LAB 1 ================= */
 var k1=1,pot='spring';
 var POT={
-  spring:{x0:-2,x1:2,y0:-0.3,y1:6.3,b0:-1.95,b1:1.95,Fs:2,xl:'konum x',
+  spring:{x0:-2,x1:2,y0:-0.3,y1:6.3,b0:-1.95,b1:1.95,Fs:2,eq:0,xl:'konum x',
     U:function(x){return .5*k1*x*x;},dU:function(x){return k1*x;},
     xt:[[-2,'−2'],[-1,'−1'],[0,'0'],[1,'1'],[2,'2']],yt:[[0,'0'],[2,'2'],[4,'4'],[6,'6']]},
-  morse:{x0:.6,x1:3.4,y0:-.08,y1:1.25,b0:.7,b1:3.3,Fs:.8,xl:'atomlar arası uzaklık r',
+  morse:{x0:.6,x1:3.4,y0:-.08,y1:1.25,b0:.7,b1:3.3,Fs:.8,eq:1,xl:'atomlar arası uzaklık r',
     U:function(r){var e=Math.exp(-1.5*(r-1));return (1-e)*(1-e);},dU:function(r){var e=Math.exp(-1.5*(r-1));return 3*e*(1-e);},
     xt:[[1,'1'],[2,'2'],[3,'3']],yt:[[0,'0'],[.5,'0,5'],[1,'1']]},
-  lj:{x0:.95,x1:3,y0:-1.2,y1:1.4,b0:.975,b1:2.95,Fs:3,xl:'uzaklık r / σ',
+  lj:{x0:.95,x1:3,y0:-1.2,y1:1.4,b0:.975,b1:2.95,Fs:3,eq:Math.pow(2,1/6),xl:'uzaklık r / σ',
     U:function(r){return 4*(Math.pow(r,-12)-Math.pow(r,-6));},dU:function(r){return 4*(-12*Math.pow(r,-13)+6*Math.pow(r,-7));},
     xt:[[1,'1'],[1.5,'1,5'],[2,'2'],[2.5,'2,5'],[3,'3']],yt:[[-1,'−1'],[0,'0'],[1,'1']]}
 };
@@ -624,9 +624,9 @@ function draw1(){
   $('#pos1o').textContent=(pot==='spring'?'x = ':'r = ')+fx(x,3);
   pos1.setAttribute('aria-valuetext',(pot==='spring'?'x ':'r ')+fx(x,2));
   $('#r1U').textContent=fx(U,3);$('#r1S').textContent=fx(s,3);$('#r1F').textContent=fx(F,3);
-  var dir;if(Math.abs(F)<=0.02)dir='yok (denge)';else if(pot==='spring')dir=F>0?'→ sağa, merkeze doğru':'← sola, merkeze doğru';else dir=F>0?'itme: atomları uzaklaştırır':'çekme: atomları yaklaştırır';
+  var dx=Math.abs(x-P.eq),dir;if(dx<0.05&&(Math.abs(F)<=0.02||dx<=(P.b1-P.b0)/2000))dir='yok (denge)';else if(Math.abs(F)<=0.02)dir='çok zayıf çekme: atomlar uzak';else if(pot==='spring')dir=F>0?'→ sağa, merkeze doğru':'← sola, merkeze doğru';else dir=F>0?'itme: atomları uzaklaştırır':'çekme: atomları yaklaştırır';
   $('#r1D').textContent=dir;
-  if(pot==='lj'&&Math.abs(F)<0.06){complete(1);say('fb1','Buldunuz: r ≈ '+fx(x,2)+' σ. Eğim burada sıfır, yani enerji eğrisinin dibindesiniz. Kuramsal değer r = 2^(1/6) σ ≈ 1,12 σ. Daha yakında atomlar birbirini iter, daha uzakta çeker.',true);}
+  if(pot==='lj'&&Math.abs(x-P.eq)<=0.02){complete(1);say('fb1','Buldunuz: r ≈ '+fx(x,2)+' σ, enerji eğrisinin dibine çok yakınsınız. Eğim, dolayısıyla kuvvet de, tam dipte sıfırdır; kuramsal değer r = 2^(1/6) σ ≈ 1,12 σ. Daha yakında atomlar birbirini iter, daha uzakta çeker.',true);}
   else if(pot==='lj'&&!done[1]){say('fb1',F>0?'Kuvvet şu an itiyor: atomlar çok yakın. Topu biraz sağa, uzağa kaydırın.':'Kuvvet şu an çekiyor: atomlar uzak. Topu sola, yakına kaydırın.',false);}
   else if(!done[1]){say('fb1','',true);}
 }
@@ -675,9 +675,9 @@ $('#reset2').addEventListener('click',reset2);
 $('#chk2').addEventListener('click',function(){var s=hist2[hist2.length-1],want=next2(s).x,got=num($('#in2').value);
   if(!isFinite(got)){say('fb2','Bir sayı yazın; ondalık için virgül ya da nokta kullanabilirsiniz.',false);return;}
   if(revealed2){say('fb2','Bu adımın sonucu zaten açık. “Adımı kaydet ve sonrakine geç” deyip bir sonraki x değerini tahmin edin.',false);return;}
-  if(Math.abs(got-want)<=0.0015){complete(2);revealed2=true;draw2();say('fb2','Doğru: x = '+fx(want,4)+'. Bilgisayar her adımda tam olarak bu dört satırı yapar; bir proteinde yalnız ivme hesabı binlerce atom için tekrarlanır.',true);}
+  if(Math.abs(got-want)<=0.0015){complete(2);revealed2=true;draw2();say('fb2','Doğru: x = '+fx(want,4)+'. Bilgisayar her adımda bu dört satırı her atom için aynen uygular. Bir proteindeki tek fark 1. ve 3. satırdaki ivme hesabıdır: burada a = −x iken, proteinde her atomun ivmesi o atoma bütün etkileşimlerden gelen kuvvetin atomun kütlesine bölünmesiyle bulunur (a = F/m).',true);}
   else say('fb2','Henüz değil. Üç terimi ayrı ayrı yazın: x, vΔt ve ½aΔt². Δt² = 0,04.',false);});
-$('#hint2').addEventListener('click',function(){var s=hist2[hist2.length-1];say('fb2','x'+(s.n+1)+' = '+fx(s.x,4)+' + ('+fx(s.v,4)+' × 0,2) + ½ × ('+fx(-s.x,4)+') × 0,04. İlk adımda hız sıfır olduğu için ortadaki terim düşer.',true);});
+$('#hint2').addEventListener('click',function(){var s=hist2[hist2.length-1];say('fb2','x'+(s.n+1)+' = '+fx(s.x,4)+' + ('+fx(s.v,4)+' × 0,2) + ½ × ('+fx(-s.x,4)+') × 0,04.'+(s.n===0?' İlk adımda hız sıfır olduğu için ortadaki terim düşer.':''),true);});
 reset2();
 
 /* ================= LAB 3 ================= */
@@ -769,7 +769,7 @@ function draw4(){
 $('#dt4').addEventListener('input',function(e){dt4=Number(e.target.value);draw4();});
 $('#con4').addEventListener('change',function(e){con4=e.target.checked;draw4();});
 $('#chk4').addEventListener('click',function(){var g=num($('#in4').value);if(!isFinite(g)){say('fb4','Bir sayı yazın (femtosaniye).',false);return;}
-  if(g>=1.85&&g<=2.1){complete(5);say('fb4','Doğru: yaklaşık 2,0 fs (9,8 fs / 5). Kısıtı açınca en hızlı hareket H içeren açı titreşimi olur (≈13 fs) ve sınır yaklaşık 2,6 fs’e çıkar. Bu yüzden H bağları kısıtlıyken 2 fs rahat bir seçimdir.',true);}
+  if(g>=1.85&&g<=2.1){complete(5);say('fb4','Doğru: yaklaşık 2,0 fs (9,8 fs / 5). Kısıtı açınca en hızlı hareket H içeren açı titreşimi olur (≈13 fs) ve sınır yaklaşık 2,6 fs’e çıkar. Bu yüzden H içeren bağlar kısıtlıyken 2 fs rahat bir seçimdir.',true);}
   else if(g>2.1&&g<=2.4)say('fb4','Bu değer C–H için geçerli olurdu. Listede daha hızlı bir titreşim var mı?',false);
   else say('fb4','En hızlı titreşimin periyodunu 5’e bölün. Listeye bakın; kısıt kapalı olmalı.',false);});
 draw4();
@@ -796,7 +796,7 @@ function draw5(){
 sl5.addEventListener('input',function(){N5=nFromS(Number(sl5.value));draw5();});
 $('#L5').addEventListener('input',function(e){L5=Number(e.target.value);draw5();});
 $$('#lab5 .chip').forEach(function(b){b.addEventListener('click',function(){N5=Number(b.getAttribute('data-n'));sl5.value=sFromN(N5);draw5();});});
-$('#chk5').addEventListener('click',function(){var a=num($('#in5a').value),b=num($('#in5b').value);
+$('#chk5').addEventListener('click',function(){var a=num($('#in5a').value,true),b=num($('#in5b').value,true);
   var okA=a===500,okB=b===250000||b===250001;
   if(okA&&okB){complete(6);say('fb5','Doğru: 1 ps / 2 fs = 500 adım; 250 ns / 1 ps = 250.000 kare (t = 0 karesi sayılırsa 250.001). Kaynak veride koşu başına 250.000 satır var. Ama bu 250.000 bağımsız ölçüm değildir: art arda kareler birbirine bağlıdır. Bunu 17. bölümde ölçeceğiz.',true);}
   else if(okA)say('fb5','Adım sayısı doğru. Kare sayısı için 250 ns kaç tane 1 ps eder?',false);

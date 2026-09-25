@@ -1,7 +1,7 @@
 {
  "module": "DK-T",
  "lang": "en",
- "source_sha256": "bf34db2a177bfd167a6e7e5aff448b873cd9081d4f3b33d54c2bfeab0cb5dab1",
+ "source_sha256": "f39ffe23017605b33ee3973c3139d6691218004508c0ecc2b6c1fe34111a5aa1",
  "reviewed": false,
  "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
  "translator": "Claude (machine translation, needs human review)",
@@ -51,8 +51,8 @@
    "Benzamidine in the S1 pocket of trypsin: schematic drawing"
   ],
   [
-   "Protein yüzeyine oyulmuş dar ve derin bir cep. Cebin içinde benzen halkası dikey duruyor; alttaki pozitif yüklü amidin grubu cebin dibindeki Asp189'un iki oksijeniyle tuz köprüsü kuruyor. Cebin ağzında katalitik Ser195 işaretli.",
-   "A narrow, deep pocket carved into the protein surface. Inside the pocket the benzene ring stands upright; the positively charged amidine group below it forms a salt bridge with the two oxygens of Asp189 at the bottom of the pocket. The catalytic Ser195 is marked at the pocket mouth."
+   "Protein yüzeyine oyulmuş dar ve derin bir cep. Cebin içinde benzen halkası dikey duruyor; alttaki pozitif yüklü amidinyum grubu cebin dibindeki Asp189'un iki oksijeniyle tuz köprüsü kuruyor. Cebin ağzında katalitik Ser195 işaretli.",
+   "A narrow, deep pocket carved into the protein surface. Inside the pocket the benzene ring stands upright; the positively charged amidinium group below it forms a salt bridge with the two oxygens of Asp189 at the bottom of the pocket. The catalytic Ser195 is marked at the pocket mouth."
   ],
   [
    "çözücü (su)",
@@ -91,8 +91,8 @@
    ">benzamidine<"
   ],
   [
-   "C₇H₈N₂; amidin ucu pozitif yüklü",
-   "C₇H₈N₂; positively charged amidine end"
+   "C₇H₉N₂⁺; amidinyum ucu pozitif yüklü",
+   "C₇H₉N₂⁺; positively charged amidinium end"
   ],
   [
    ">S1 cebi<",
@@ -103,8 +103,8 @@
    "narrow and deep, with a negatively charged bottom"
   ],
   [
-   "<b>Şekil DK.1 · Kilit ve anahtar.</b> Tripsin bir proteazdır; S1 cebinin dibindeki negatif yüklü Asp189, pozitif yüklü grupları çeker. Benzamidin bu cebe halkası duvarlar arasında, amidin ucu dipte olacak biçimde oturur. Çizim <b>şematiktir ve ölçekli değildir</b>; koordinatlar PDB 3PTB'den alınmadı. Aşağıdaki laboratuvarlar bu düzeni taklit eden iki boyutlu bir oyuncak cep kullanır.",
-   "<b>Figure DK.1 · Lock and key.</b> Trypsin is a protease; the negatively charged Asp189 at the bottom of the S1 pocket attracts positively charged groups. Benzamidine sits in this pocket with its ring between the walls and its amidine end at the bottom. The drawing is <b>schematic and not to scale</b>; the coordinates were not taken from PDB 3PTB. The labs below use a two-dimensional toy pocket that mimics this arrangement."
+   "<b>Şekil DK.1 · Kilit ve anahtar.</b> Tripsin bir proteazdır; S1 cebinin dibindeki negatif yüklü Asp189, pozitif yüklü grupları çeker. Benzamidin bu cebe halkası duvarlar arasında, amidin ucu dipte olacak biçimde oturur. Benzamidinyumun p<i>K</i><sub>a</sub> değeri yaklaşık 11,6'dır (<a href=\"https://doi.org/10.1021/acs.joc.1c01955\">Yu ve ark. 2021</a>); bu yüzden nötr formülü C₇H₈N₂ olan benzamidin, nötr pH'ta protonlanmış amidinyum katyonu (C₇H₉N₂⁺) hâlindedir ve Asp189 ile tuz köprüsünü bu katyon kurar. Çizim <b>şematiktir ve ölçekli değildir</b>; koordinatlar PDB 3PTB'den alınmadı. Aşağıdaki laboratuvarlar bu düzeni taklit eden iki boyutlu bir oyuncak cep kullanır.",
+   "<b>Figure DK.1 · Lock and key.</b> Trypsin is a protease; the negatively charged Asp189 at the bottom of the S1 pocket attracts positively charged groups. Benzamidine sits in this pocket with its ring between the walls and its amidine end at the bottom. The p<i>K</i><sub>a</sub> of benzamidinium is about 11.6 (<a href=\"https://doi.org/10.1021/acs.joc.1c01955\">Yu et al. 2021</a>), so benzamidine, whose neutral formula is C₇H₈N₂, is present at neutral pH as the protonated amidinium cation (C₇H₉N₂⁺), and it is this cation that forms the salt bridge with Asp189. The drawing is <b>schematic and not to scale</b>; the coordinates were not taken from PDB 3PTB. The labs below use a two-dimensional toy pocket that mimics this arrangement."
   ],
   [
    "<small>1 · İki farklı soru</small>MD hareketi izler, docking yerleşimleri sıralar",
@@ -159,12 +159,12 @@
    "<b>Figure DK.3 · Anatomy of the toy ligand.</b> A benzamidine-like head (a ring and a positive amidine end) with a short tail that has a single rotatable bond. The labs are two-dimensional: 3 + <i>n</i> numbers suffice instead of 6 + <i>n</i> (<i>x</i>, <i>y</i>, θ and τ). The logic is the same in three dimensions."
   ],
   [
-   "Her poz bir <b>skor fonksiyonuna</b> sorulur. Skor, ligand ile reseptör atomları arasındaki uzaklıklardan hesaplanan terimlerin toplamıdır: uygun uzaklıktaki temasları ödüllendiren <b>sterik çekim</b>, atomların fazla yaklaşmasını cezalandıran <b>itme</b>, apolar atomlar arasındaki <b>hidrofobik temas</b> ve <b>hidrojen bağı</b>. AutoDock Vina bunlara dönebilir bağ sayısına bağlı bir düzeltme ekler (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott ve Olson 2010</a>). Daha düşük skor daha iyi pozdur.",
-   "Each pose is evaluated by a <b>scoring function</b>. The score is a sum of terms computed from the distances between ligand and receptor atoms: <b>steric attraction</b>, which rewards contacts at a suitable distance; <b>repulsion</b>, which penalizes atoms that come too close; <b>hydrophobic contact</b> between apolar atoms; and <b>hydrogen bonding</b>. AutoDock Vina adds a correction that depends on the number of rotatable bonds (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott and Olson 2010</a>). A lower score means a better pose."
+   "Her poz bir <b>skor fonksiyonuna</b> sorulur. Skor, ligand ile reseptör atomları arasındaki uzaklıklardan hesaplanan terimlerin toplamıdır: uygun uzaklıktaki temasları ödüllendiren <b>sterik çekim</b>, atomların fazla yaklaşmasını cezalandıran <b>itme</b>, apolar atomlar arasındaki <b>hidrofobik temas</b> ve <b>hidrojen bağı</b>. AutoDock Vina bunlara dönebilir bağ sayısına bağlı bir düzeltme ekler (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott ve Olson 2010</a>). Vina türü bir skor fonksiyonunda açık bir elektrostatik (Coulomb) terimi yoktur: Vina kullanıcının verdiği kısmi yükleri yok sayar ve yüklü gruplar arasındaki çekimi hidrojen bağı ve hidrofobik terimler üzerinden dolaylı olarak hesaba katar (<a href=\"https://vina.scripps.edu/manual/\">Vina kılavuzu</a>). Daha düşük skor daha iyi pozdur.",
+   "Each pose is evaluated by a <b>scoring function</b>. The score is a sum of terms computed from the distances between ligand and receptor atoms: <b>steric attraction</b>, which rewards contacts at a suitable distance; <b>repulsion</b>, which penalizes atoms that come too close; <b>hydrophobic contact</b> between apolar atoms; and <b>hydrogen bonding</b>. AutoDock Vina adds a correction that depends on the number of rotatable bonds (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott and Olson 2010</a>). A Vina-type scoring function has no explicit electrostatic (Coulomb) term: Vina ignores user-supplied partial charges and accounts for the attraction between charged groups only indirectly, through the hydrogen-bonding and hydrophobic terms (<a href=\"https://vina.scripps.edu/manual/\">Vina manual</a>). A lower score means a better pose."
   ],
   [
-   "Laboratuvardaki skor bu terimlerin <b>biçimlerini ve ağırlıklarını</b> Vina'dan alır; ama cep iki boyutlu ve oyuncak olduğu için sayılar gerçek bir Vina çıktısıyla karşılaştırılamaz. Hız için Vina ve AutoDock'un yaptığı gibi, reseptörün katkısı önce 0,25 Å aralıklı bir ızgarada hesaplanır; her poz için yalnız ızgaradan okunur.",
-   "The lab score takes the <b>functional forms and weights</b> of these terms from Vina, but because the pocket is a two-dimensional toy, the numbers cannot be compared with real Vina output. For speed, as in Vina and AutoDock, the receptor’s contribution is precomputed on a grid with 0.25 Å spacing; for each pose it is simply looked up on the grid."
+   "Laboratuvardaki skor bu terimlerin <b>biçimlerini ve ağırlıklarını</b> Vina'dan alır; ama cep iki boyutlu ve oyuncak olduğu için sayılar gerçek bir Vina çıktısıyla karşılaştırılamaz. Elektrostatik terim burada da yoktur: amidinyum ile Asp189 arasındaki tuz köprüsü ayrı bir yük–yük çekimiyle değil, H-bağı ve sterik terimlerle ödüllendirilir. Hız için reseptörün katkısı önce bir ızgarada hesaplanır; her poz için yalnız ızgaradan okunur. Bu sayfadaki oyuncak ızgaranın aralığı 0,25 Å'dur. Gerçek programlar da aynı fikri kullanır, ama ayrıntılar farklıdır: AutoDock 4'te haritalar AutoGrid ile ayrı bir adımda önceden hazırlanır, Vina ise haritaları docking'den önce kendisi hesaplar (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott ve Olson 2010</a>); ikisinde de varsayılan ızgara aralığı 0,375 Å'dur (<a href=\"https://vina.scripps.edu/manual/\">Vina kılavuzu</a>).",
+   "The lab score takes the <b>functional forms and weights</b> of these terms from Vina, but because the pocket is a two-dimensional toy, the numbers cannot be compared with real Vina output. There is no electrostatic term here either: the salt bridge between the amidinium and Asp189 is rewarded by the H-bond and steric terms, not by a separate charge–charge attraction. For speed, the receptor’s contribution is precomputed on a grid; for each pose it is simply looked up on the grid. The toy grid on this page has a spacing of 0.25 Å. Real programs use the same idea, but the details differ: in AutoDock 4 the maps are prepared beforehand in a separate step with AutoGrid, whereas Vina computes the maps itself before docking (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott and Olson 2010</a>); in both, the default grid spacing is 0.375 Å (<a href=\"https://vina.scripps.edu/manual/\">Vina manual</a>)."
   ],
   [
    "<span class=\"lab-tag\">Laboratuvar 1</span>",
@@ -367,8 +367,8 @@
    "<mtext>current</mtext>"
   ],
   [
-   "Aşağıda iki yöntem aynı oyuncak cepte, aynı sayıda skor hesabıyla yarışır. <b>Rastgele arama</b> her seferinde bağımsız bir poz çeker ve en iyisini saklar. <b>Sıçra ve iyileştir</b> (Vina'nın mantığının sadeleştirilmiş hâli) bulunduğu pozdan küçük bir sıçrama yapar, yerel iyileştirme uygular ve sonucu Metropolis kuralıyla kabul eder. Arka plandaki renk, her konumda bütün yönelimler içinde bulunabilecek en iyi skordur.",
-   "Below, two methods race in the same toy pocket with the same number of score evaluations. <b>Random search</b> draws an independent pose each time and keeps the best one. <b>Jump and refine</b> (a simplified version of Vina’s logic) makes a small jump from its current pose, applies a local optimization and accepts the result with the Metropolis rule. The background color is the best score attainable at each position over all orientations."
+   "Aşağıda iki yöntem aynı oyuncak cepte, aynı sayıda skor hesabıyla yarışır. <b>Rastgele arama</b> her seferinde bağımsız bir poz çeker ve en iyisini saklar. <b>Sıçra ve iyileştir</b> (Vina'nın mantığının sadeleştirilmiş hâli) bulunduğu pozdan küçük bir sıçrama yapar, yerel iyileştirme uygular ve sonucu Metropolis kuralıyla kabul eder. Arka plandaki renk, her konumda bütün yönelimler ve burulma açıları içinde bulunabilecek en iyi skordur.",
+   "Below, two methods race in the same toy pocket with the same number of score evaluations. <b>Random search</b> draws an independent pose each time and keeps the best one. <b>Jump and refine</b> (a simplified version of Vina’s logic) makes a small jump from its current pose, applies a local optimization and accepts the result with the Metropolis rule. The background color is the best score attainable at each position over all orientations and torsion angles."
   ],
   [
    "<span class=\"lab-tag\">Laboratuvar 3</span>",
@@ -535,8 +535,8 @@
    "This toy has only four degrees of freedom, so random search also often gets close to the pocket. But getting close is not the same as reaching the bottom: without local optimization the score is not polished. As the number of degrees of freedom grows, the chance that a random pose is good drops rapidly, mirroring the products in Lab 2."
   ],
   [
-   "Şimdi H-bağı terimini kapatıp birkaç tohum çalıştırın ve tablodaki skorlara bakın. Ters oturmuş poz (amidin ucu yukarıda, kuyruk dipte) artık kristal benzeri pozla neredeyse aynı, hatta biraz daha iyi puan alır: yaklaşık −2,45’e karşı −2,42. Skor fonksiyonu iki pozu ayıramaz hâle gelir ve çoğu tohum ters pozu “en iyi” diye döndürür. Arama kusursuz olsa bile sonuç yanlış olurdu. Terimlerin ağırlıkları pozun kendisini değiştirebilir; skor fonksiyonu nötr bir ölçüm aracı değil, verilere ayarlanmış bir modeldir. Vina'da <code>exhaustiveness</code> ayarı küresel aramanın kapsamını belirler ve süreyle kabaca orantılıdır; tek bir koşunun tek en iyi pozunu sonuç diye sunmak, tek bir MD koşusunu denge diye sunmaya benzer.",
-   "Now switch off the H-bond term, run a few seeds and look at the scores in the table. The inverted pose (amidine end up, tail at the bottom) now scores almost the same as the crystal-like pose, even slightly better: about −2.45 versus −2.42. The scoring function can no longer tell the two poses apart, and most seeds return the inverted pose as the “best”. Even with a perfect search, the result would be wrong. The weights of the terms can change the pose itself; a scoring function is not a neutral measuring instrument but a model fitted to data. In Vina, the <code>exhaustiveness</code> setting controls how thorough the global search is, and run time is roughly proportional to it; presenting the single best pose of a single run as the result is like presenting a single MD run as if it represented equilibrium."
+   "Şimdi H-bağı terimini kapatıp birkaç tohum çalıştırın ve tablodaki skorlara bakın. Ters oturmuş poz (amidin ucu yukarıda, kuyruk dipte) artık kristal benzeri pozla neredeyse aynı, hatta biraz daha iyi puan alır: yaklaşık −2,45’e karşı −2,42. Skor fonksiyonu iki pozu ayıramaz hâle gelir ve çoğu tohum ters pozu “en iyi” diye döndürür. Arama kusursuz olsa bile sonuç yanlış olurdu. Terimlerin ağırlıkları pozun kendisini değiştirebilir; skor fonksiyonu nötr bir ölçüm aracı değil, verilere ayarlanmış bir modeldir. Vina'da <code>exhaustiveness</code> ayarı küresel aramanın kapsamını belirler ve süreyle kabaca orantılıdır; tek bir koşunun tek en iyi pozunu sonuç diye sunmak, tek bir kısa MD koşusunu yakınsamış örnekleme diye sunmaya benzer.",
+   "Now switch off the H-bond term, run a few seeds and look at the scores in the table. The inverted pose (amidine end up, tail at the bottom) now scores almost the same as the crystal-like pose, even slightly better: about −2.45 versus −2.42. The scoring function can no longer tell the two poses apart, and most seeds return the inverted pose as the “best”. Even with a perfect search, the result would be wrong. The weights of the terms can change the pose itself; a scoring function is not a neutral measuring instrument but a model fitted to data. In Vina, the <code>exhaustiveness</code> setting controls how thorough the global search is, and run time is roughly proportional to it; presenting the single best pose of a single run as the result is like presenting a single short MD run as if it were converged sampling."
   ],
   [
    "<small>5 · Doğrulama</small>Redocking: bilinen cevaba ne kadar yaklaştık?",
@@ -551,8 +551,8 @@
    "<mtext>crystal</mtext>"
   ],
   [
-   "İki incelik var. Birincisi, reseptör aynı koordinat çerçevesinde durduğu için pozlar <b>hizalanmaz</b>; CH14'teki yapı RMSD'sinden farkı budur. İkincisi <b>simetri</b>: halka 180° döndüğünde kimyasal olarak aynı poz olur, ama atom numaraları yer değiştirdiği için saf RMSD büyük çıkar. İki kutucukla bu iki kararın etkisini görün.",
-   "There are two subtleties. First, because the receptor stays in the same coordinate frame, the poses are <b>not aligned</b>; this is how it differs from the structural RMSD in CH14. Second, <b>symmetry</b>: a ring rotated by 180° is chemically the same pose, but because the atom indices are swapped, the naive RMSD comes out large. Use the two checkboxes to see the effect of these two decisions."
+   "İki incelik var. Birincisi, reseptör aynı koordinat çerçevesinde durduğu için pozlar <b>hizalanmaz</b>; CH14'teki yapı RMSD'sinden farkı budur. İkincisi <b>simetri</b>: halka 180° döndüğünde kimyasal olarak aynı poz olur, ama atom numaraları yer değiştirdiği için saf RMSD büyük çıkar. Simetri ve hizalama ayarlarıyla bu iki kararın etkisini görün.",
+   "There are two subtleties. First, because the receptor stays in the same coordinate frame, the poses are <b>not aligned</b>; this is how it differs from the structural RMSD in CH14. Second, <b>symmetry</b>: a ring rotated by 180° is chemically the same pose, but because the atom indices are swapped, the naive RMSD comes out large. Use the symmetry and alignment settings to see the effect of these two decisions."
   ],
   [
    "<span class=\"lab-tag\">Laboratuvar 4</span>",
@@ -587,8 +587,8 @@
    "Task 4"
   ],
   [
-   "Doğru yöntemle (<b>simetri düzeltmesi açık, hizalama kapalı</b>) hangi pozlar başarılı redocking sayılır? Kutucukları işaretleyip kontrol edin. Sonra kutuları bir bir değiştirip hangi yanlışın hangi pozu nasıl gösterdiğine bakın.",
-   "Using the correct method (<b>symmetry correction on, alignment off</b>), which poses count as successful redocking? Tick the boxes and click Check. Then toggle the two settings one at a time and see how each mistake misrepresents each pose."
+   "Doğru yöntemle (<b>simetri düzeltmesi açık, hizalama kapalı</b>) hangi pozlar başarılı redocking sayılır? Kutucukları işaretleyip kontrol edin. Sonra simetri ve hizalama ayarlarını bir bir değiştirip hangi yanlışın hangi pozu nasıl gösterdiğine bakın.",
+   "Using the correct method (<b>symmetry correction on, alignment off</b>), which poses count as successful redocking? Tick the boxes and click Check. Then toggle the symmetry and alignment settings one at a time and see how each mistake misrepresents each pose."
   ],
   [
    "Grafikte iki ders birden var. Ters oturmuş poz, doğru yerdeki ama biraz kaymış pozdan <b>daha iyi skor</b> alıyor: skor sıralaması ile doğruluk sıralaması aynı şey değildir. Hizalama açıkken yüzeydeki poz bile “başarılı” görünüyor: hizalama, ligandın yanlış yerde durduğunu gizler.",
@@ -815,8 +815,8 @@
    "' ns (schematic)'"
   ],
   [
-   "' nanosaniye'",
-   "' nanoseconds'"
+   "'nanosaniye'",
+   "'nanosecond|nanoseconds'"
   ],
   [
    "'Ligand; ok tuşlarıyla öteleyin, Q ve E ile döndürün, A ve D ile kuyruğu burun'",
@@ -895,24 +895,24 @@
    "'less than a second'"
   ],
   [
-   "' saniye'",
-   "' s'"
+   "'saniye'",
+   "'second|seconds'"
   ],
   [
-   "' dakika'",
-   "' min'"
+   "'dakika'",
+   "'minute|minutes'"
   ],
   [
-   "' saat'",
-   "' h'"
+   "'saat'",
+   "'hour|hours'"
   ],
   [
-   "' gün'",
-   "' d'"
+   "'gün'",
+   "'day|days'"
   ],
   [
-   "' yıl'",
-   "' yr'"
+   "'yıl'",
+   "'year|years'"
   ],
   [
    "'1 sn'",
@@ -1135,8 +1135,8 @@
    "'Missing: '"
   ],
   [
-   "'Önce kutuları doğru yönteme getirin: simetri açık, hizalama kapalı.'",
-   "'First set the checkboxes to the correct method: symmetry on, alignment off.'"
+   "'Önce ayarları doğru yönteme getirin: simetri açık, hizalama kapalı.'",
+   "'First switch the settings to the correct method: symmetry on, alignment off.'"
   ],
   [
    "'Rapordaki “−9,1 kcal/mol” sayısı neyi ifade eder?'",

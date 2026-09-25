@@ -244,7 +244,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
   <div class="hero">
   <svg viewBox="0 0 1000 440" role="img" aria-labelledby="heroT heroD">
     <title id="heroT">Tripsinin S1 cebinde benzamidin: şematik çizim</title>
-    <desc id="heroD">Protein yüzeyine oyulmuş dar ve derin bir cep. Cebin içinde benzen halkası dikey duruyor; alttaki pozitif yüklü amidin grubu cebin dibindeki Asp189'un iki oksijeniyle tuz köprüsü kuruyor. Cebin ağzında katalitik Ser195 işaretli.</desc>
+    <desc id="heroD">Protein yüzeyine oyulmuş dar ve derin bir cep. Cebin içinde benzen halkası dikey duruyor; alttaki pozitif yüklü amidinyum grubu cebin dibindeki Asp189'un iki oksijeniyle tuz köprüsü kuruyor. Cebin ağzında katalitik Ser195 işaretli.</desc>
     <defs>
       <linearGradient id="hgProt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e3d4"/><stop offset="1" stop-color="#d8d0bc"/></linearGradient>
       <linearGradient id="hgSolv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4f7"/><stop offset="1" stop-color="#fbfbf8"/></linearGradient>
@@ -302,12 +302,12 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
     <text x="500" y="287" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">+</text>
     <line x1="660" y1="222" x2="548" y2="222" stroke="#677078" stroke-width="1.4" marker-end="url(#hArr)"/>
     <text x="668" y="218" font-family="Segoe UI,system-ui,sans-serif" font-size="13" font-weight="600" fill="#243744">benzamidin</text>
-    <text x="668" y="234" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">C₇H₈N₂; amidin ucu pozitif yüklü</text>
+    <text x="668" y="234" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">C₇H₉N₂⁺; amidinyum ucu pozitif yüklü</text>
     <text x="500" y="112" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#243744">S1 cebi</text>
     <text x="500" y="92" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-size="12" fill="#677078">dar, derin, dibi negatif yüklü</text>
   </svg>
   </div>
-  <figcaption><b>Şekil DK.1 · Kilit ve anahtar.</b> Tripsin bir proteazdır; S1 cebinin dibindeki negatif yüklü Asp189, pozitif yüklü grupları çeker. Benzamidin bu cebe halkası duvarlar arasında, amidin ucu dipte olacak biçimde oturur. Çizim <b>şematiktir ve ölçekli değildir</b>; koordinatlar PDB 3PTB'den alınmadı. Aşağıdaki laboratuvarlar bu düzeni taklit eden iki boyutlu bir oyuncak cep kullanır.</figcaption>
+  <figcaption><b>Şekil DK.1 · Kilit ve anahtar.</b> Tripsin bir proteazdır; S1 cebinin dibindeki negatif yüklü Asp189, pozitif yüklü grupları çeker. Benzamidin bu cebe halkası duvarlar arasında, amidin ucu dipte olacak biçimde oturur. Benzamidinyumun p<i>K</i><sub>a</sub> değeri yaklaşık 11,6'dır (<a href="https://doi.org/10.1021/acs.joc.1c01955">Yu ve ark. 2021</a>); bu yüzden nötr formülü C₇H₈N₂ olan benzamidin, nötr pH'ta protonlanmış amidinyum katyonu (C₇H₉N₂⁺) hâlindedir ve Asp189 ile tuz köprüsünü bu katyon kurar. Çizim <b>şematiktir ve ölçekli değildir</b>; koordinatlar PDB 3PTB'den alınmadı. Aşağıdaki laboratuvarlar bu düzeni taklit eden iki boyutlu bir oyuncak cep kullanır.</figcaption>
 </figure>
 
 <!-- ============ 1 ============ -->
@@ -337,8 +337,8 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
     <figcaption><b>Şekil DK.3 · Oyuncak ligandın anatomisi.</b> Benzamidin benzeri bir baş (halka ve pozitif amidin ucu) ile tek dönebilir bağlı kısa bir kuyruk. Laboratuvarlar iki boyutludur: 6 + <i>n</i> yerine 3 + <i>n</i> sayı yeter (<i>x</i>, <i>y</i>, θ ve τ). Mantık üç boyutta aynıdır.</figcaption>
   </figure>
   <div class="prose">
-    <p>Her poz bir <b>skor fonksiyonuna</b> sorulur. Skor, ligand ile reseptör atomları arasındaki uzaklıklardan hesaplanan terimlerin toplamıdır: uygun uzaklıktaki temasları ödüllendiren <b>sterik çekim</b>, atomların fazla yaklaşmasını cezalandıran <b>itme</b>, apolar atomlar arasındaki <b>hidrofobik temas</b> ve <b>hidrojen bağı</b>. AutoDock Vina bunlara dönebilir bağ sayısına bağlı bir düzeltme ekler (<a href="https://doi.org/10.1002/jcc.21334">Trott ve Olson 2010</a>). Daha düşük skor daha iyi pozdur.</p>
-    <p>Laboratuvardaki skor bu terimlerin <b>biçimlerini ve ağırlıklarını</b> Vina'dan alır; ama cep iki boyutlu ve oyuncak olduğu için sayılar gerçek bir Vina çıktısıyla karşılaştırılamaz. Hız için Vina ve AutoDock'un yaptığı gibi, reseptörün katkısı önce 0,25 Å aralıklı bir ızgarada hesaplanır; her poz için yalnız ızgaradan okunur.</p>
+    <p>Her poz bir <b>skor fonksiyonuna</b> sorulur. Skor, ligand ile reseptör atomları arasındaki uzaklıklardan hesaplanan terimlerin toplamıdır: uygun uzaklıktaki temasları ödüllendiren <b>sterik çekim</b>, atomların fazla yaklaşmasını cezalandıran <b>itme</b>, apolar atomlar arasındaki <b>hidrofobik temas</b> ve <b>hidrojen bağı</b>. AutoDock Vina bunlara dönebilir bağ sayısına bağlı bir düzeltme ekler (<a href="https://doi.org/10.1002/jcc.21334">Trott ve Olson 2010</a>). Vina türü bir skor fonksiyonunda açık bir elektrostatik (Coulomb) terimi yoktur: Vina kullanıcının verdiği kısmi yükleri yok sayar ve yüklü gruplar arasındaki çekimi hidrojen bağı ve hidrofobik terimler üzerinden dolaylı olarak hesaba katar (<a href="https://vina.scripps.edu/manual/">Vina kılavuzu</a>). Daha düşük skor daha iyi pozdur.</p>
+    <p>Laboratuvardaki skor bu terimlerin <b>biçimlerini ve ağırlıklarını</b> Vina'dan alır; ama cep iki boyutlu ve oyuncak olduğu için sayılar gerçek bir Vina çıktısıyla karşılaştırılamaz. Elektrostatik terim burada da yoktur: amidinyum ile Asp189 arasındaki tuz köprüsü ayrı bir yük–yük çekimiyle değil, H-bağı ve sterik terimlerle ödüllendirilir. Hız için reseptörün katkısı önce bir ızgarada hesaplanır; her poz için yalnız ızgaradan okunur. Bu sayfadaki oyuncak ızgaranın aralığı 0,25 Å'dur. Gerçek programlar da aynı fikri kullanır, ama ayrıntılar farklıdır: AutoDock 4'te haritalar AutoGrid ile ayrı bir adımda önceden hazırlanır, Vina ise haritaları docking'den önce kendisi hesaplar (<a href="https://doi.org/10.1002/jcc.21334">Trott ve Olson 2010</a>); ikisinde de varsayılan ızgara aralığı 0,375 Å'dur (<a href="https://vina.scripps.edu/manual/">Vina kılavuzu</a>).</p>
   </div>
 
   <div class="lab" id="labA">
@@ -417,7 +417,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
     <h2><small>4 · Arama algoritması</small>Sıçra, iyileştir, kabul et ya da reddet</h2>
     <p class="lead">Vina'nın araması, her biri bir değişiklik (mutasyon) ve bir yerel optimizasyondan oluşan adımlar atar; her adım Metropolis ölçütüyle kabul edilir ya da reddedilir (<a href="https://doi.org/10.1002/jcc.21334">Trott ve Olson 2010</a>). Pilot-α'daki Metropolis örnekleyicisini hatırlayan okur aynı kabul kuralını tanıyacaktır. Fark şudur: orada amaç bir dağılımı örneklemekti, burada amaç en düşük skorlu pozu bulmak.</p>
     <div class="eq"><math display="block"><msub><mi>P</mi><mtext>kabul</mtext></msub><mo>=</mo><mo movablelimits="true">min</mo><mo>(</mo><mn>1</mn><mo>,</mo><mspace width=".2em"/><msup><mi>e</mi><mrow><mo>−</mo><mo>(</mo><msub><mi>f</mi><mtext>yeni</mtext></msub><mo>−</mo><msub><mi>f</mi><mtext>şimdiki</mtext></msub><mo>)</mo><mo>/</mo><mi>T</mi></mrow></msup><mo>)</mo></math></div>
-    <p>Aşağıda iki yöntem aynı oyuncak cepte, aynı sayıda skor hesabıyla yarışır. <b>Rastgele arama</b> her seferinde bağımsız bir poz çeker ve en iyisini saklar. <b>Sıçra ve iyileştir</b> (Vina'nın mantığının sadeleştirilmiş hâli) bulunduğu pozdan küçük bir sıçrama yapar, yerel iyileştirme uygular ve sonucu Metropolis kuralıyla kabul eder. Arka plandaki renk, her konumda bütün yönelimler içinde bulunabilecek en iyi skordur.</p>
+    <p>Aşağıda iki yöntem aynı oyuncak cepte, aynı sayıda skor hesabıyla yarışır. <b>Rastgele arama</b> her seferinde bağımsız bir poz çeker ve en iyisini saklar. <b>Sıçra ve iyileştir</b> (Vina'nın mantığının sadeleştirilmiş hâli) bulunduğu pozdan küçük bir sıçrama yapar, yerel iyileştirme uygular ve sonucu Metropolis kuralıyla kabul eder. Arka plandaki renk, her konumda bütün yönelimler ve burulma açıları içinde bulunabilecek en iyi skordur.</p>
   </div>
   <div class="lab" id="labC">
     <div class="lab-head"><div><span class="lab-tag">Laboratuvar 3</span><h3>Arama yarışı</h3></div><span class="done-badge">Görev tamamlandı</span></div>
@@ -455,7 +455,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
   </div>
   <div class="prose">
     <p style="margin-top:22px">Bu oyuncakta yalnız dört serbestlik derecesi var; bu yüzden rastgele arama da çoğu zaman cebe yaklaşır. Ama yaklaşmakla dibe inmek farklıdır: yerel iyileştirme olmadan skor cilalanmaz. Serbestlik derecesi arttıkça rastgele bir pozun iyi olma şansı, 2. laboratuvardaki çarpımlar gibi hızla düşer.</p>
-    <p>Şimdi H-bağı terimini kapatıp birkaç tohum çalıştırın ve tablodaki skorlara bakın. Ters oturmuş poz (amidin ucu yukarıda, kuyruk dipte) artık kristal benzeri pozla neredeyse aynı, hatta biraz daha iyi puan alır: yaklaşık −2,45’e karşı −2,42. Skor fonksiyonu iki pozu ayıramaz hâle gelir ve çoğu tohum ters pozu “en iyi” diye döndürür. Arama kusursuz olsa bile sonuç yanlış olurdu. Terimlerin ağırlıkları pozun kendisini değiştirebilir; skor fonksiyonu nötr bir ölçüm aracı değil, verilere ayarlanmış bir modeldir. Vina'da <code>exhaustiveness</code> ayarı küresel aramanın kapsamını belirler ve süreyle kabaca orantılıdır; tek bir koşunun tek en iyi pozunu sonuç diye sunmak, tek bir MD koşusunu denge diye sunmaya benzer.</p>
+    <p>Şimdi H-bağı terimini kapatıp birkaç tohum çalıştırın ve tablodaki skorlara bakın. Ters oturmuş poz (amidin ucu yukarıda, kuyruk dipte) artık kristal benzeri pozla neredeyse aynı, hatta biraz daha iyi puan alır: yaklaşık −2,45’e karşı −2,42. Skor fonksiyonu iki pozu ayıramaz hâle gelir ve çoğu tohum ters pozu “en iyi” diye döndürür. Arama kusursuz olsa bile sonuç yanlış olurdu. Terimlerin ağırlıkları pozun kendisini değiştirebilir; skor fonksiyonu nötr bir ölçüm aracı değil, verilere ayarlanmış bir modeldir. Vina'da <code>exhaustiveness</code> ayarı küresel aramanın kapsamını belirler ve süreyle kabaca orantılıdır; tek bir koşunun tek en iyi pozunu sonuç diye sunmak, tek bir kısa MD koşusunu yakınsamış örnekleme diye sunmaya benzer.</p>
   </div>
 </section>
 
@@ -465,7 +465,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
     <h2><small>5 · Doğrulama</small>Redocking: bilinen cevaba ne kadar yaklaştık?</h2>
     <p class="lead">İlk ve en basit sınama <b>yeniden docking</b>'tir (redocking). Deneysel olarak çözülmüş bir kompleksten ligandı çıkarırız, aynı reseptöre yeniden yerleştiririz ve kristal poza uzaklığı RMSD ile ölçeriz. 2 Å altı sıklıkla “doğru poz” ölçütü olarak kullanılır.</p>
     <div class="eq"><math display="block"><mtext>RMSD</mtext><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msup><mrow><mo>‖</mo><msubsup><mi mathvariant="bold">r</mi><mi>i</mi><mtext>dock</mtext></msubsup><mo>−</mo><msubsup><mi mathvariant="bold">r</mi><mi>i</mi><mtext>kristal</mtext></msubsup><mo>‖</mo></mrow><mn>2</mn></msup></mrow></msqrt></math></div>
-    <p>İki incelik var. Birincisi, reseptör aynı koordinat çerçevesinde durduğu için pozlar <b>hizalanmaz</b>; CH14'teki yapı RMSD'sinden farkı budur. İkincisi <b>simetri</b>: halka 180° döndüğünde kimyasal olarak aynı poz olur, ama atom numaraları yer değiştirdiği için saf RMSD büyük çıkar. İki kutucukla bu iki kararın etkisini görün.</p>
+    <p>İki incelik var. Birincisi, reseptör aynı koordinat çerçevesinde durduğu için pozlar <b>hizalanmaz</b>; CH14'teki yapı RMSD'sinden farkı budur. İkincisi <b>simetri</b>: halka 180° döndüğünde kimyasal olarak aynı poz olur, ama atom numaraları yer değiştirdiği için saf RMSD büyük çıkar. Simetri ve hizalama ayarlarıyla bu iki kararın etkisini görün.</p>
   </div>
   <div class="lab" id="labD">
     <div class="lab-head"><div><span class="lab-tag">Laboratuvar 4</span><h3>Redocking masası</h3></div><span class="done-badge">Görev tamamlandı</span></div>
@@ -486,7 +486,7 @@ td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
       <div class="ala-box" data-ala="kanit" id="alaD"></div>
       <div>
         <h4>Görev 4</h4>
-        <p>Doğru yöntemle (<b>simetri düzeltmesi açık, hizalama kapalı</b>) hangi pozlar başarılı redocking sayılır? Kutucukları işaretleyip kontrol edin. Sonra kutuları bir bir değiştirip hangi yanlışın hangi pozu nasıl gösterdiğine bakın.</p>
+        <p>Doğru yöntemle (<b>simetri düzeltmesi açık, hizalama kapalı</b>) hangi pozlar başarılı redocking sayılır? Kutucukları işaretleyip kontrol edin. Sonra simetri ve hizalama ayarlarını bir bir değiştirip hangi yanlışın hangi pozu nasıl gösterdiğine bakın.</p>
         <div class="row"><button class="btn" id="chkD">Kontrol et</button></div>
         <p class="feedback" id="fbD" aria-live="polite"></p>
       </div>
@@ -874,6 +874,8 @@ function $(s){return document.querySelector(s);}
 function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
 var nfc={};function nf(d){return nfc[d]||(nfc[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}));}
 function fx(v,d){if(!isFinite(v))return '∞';var s=nf(d).format(Math.abs(v));return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+s;}
+/* sayı + birim; birim 'tekil|çoğul' biçiminde verilebilir (çeviri için), tek biçim verilirse her sayıda o kullanılır */
+function withUnit(v,u){var f=u.split('|');return v+' '+(f.length>1&&v==='1'?f[0]:f[f.length-1]);}
 function num(str){if(str==null)return NaN;str=String(str).trim().replace(/\s/g,'').replace('−','-').replace(/[×x]$/i,'');if(/,/.test(str))str=str.replace(/\./g,'').replace(',','.');return Number(str);}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
@@ -1043,7 +1045,7 @@ CAND.forEach(function(c){c.f=D.score(c.p);});
   var sl=$('#tMD'),out=$('#tMDo');
   function draw(){var t=Number(sl.value)/10;lig.innerHTML='';drawLigand(L,lig,D.place(poseAt(t)),{cloud:true});
     cur.setAttribute('x1',PX(t));cur.setAttribute('x2',PX(t));dot.setAttribute('cx',PX(t));dot.setAttribute('cy',PY(depth(poseAt(t))));
-    out.textContent=fx(t,0)+' ns (şematik)';sl.setAttribute('aria-valuetext',fx(t,0)+' nanosaniye');}
+    out.textContent=fx(t,0)+' ns (şematik)';sl.setAttribute('aria-valuetext',withUnit(fx(t,0),'nanosaniye'));}
   sl.addEventListener('input',draw);draw();
 })();
 
@@ -1134,7 +1136,7 @@ var userMoved=false,onUserPose=null;
   function sup(m,e){return nf(m<10?1:0).format(m)+' × 10<sup>'+e+'</sup>';}
   function big(v){if(v<1e6)return Math.round(v).toLocaleString('tr-TR');var e=Math.floor(Math.log10(v)),m=v/Math.pow(10,e);if(m>=9.95){m=1;e++;}return sup(m,e);}
   function bigTxt(v){return big(v).replace(' × 10<sup>',' × 10^').replace('</sup>','');}
-  function tfmt(s){if(s<1)return 'bir saniyeden az';if(s<60)return fx(s,0)+' saniye';if(s<3600)return fx(s/60,1)+' dakika';if(s<86400)return fx(s/3600,1)+' saat';if(s<3.156e7)return fx(s/86400,0)+' gün';var y=s/3.156e7;if(y<1e4)return fx(y,y<10?1:0)+' yıl';return big(y)+' yıl';}
+  function tfmt(s){if(s<1)return 'bir saniyeden az';if(s<60)return withUnit(fx(s,0),'saniye');if(s<3600)return withUnit(fx(s/60,1),'dakika');if(s<86400)return withUnit(fx(s/3600,1),'saat');if(s<3.156e7)return withUnit(fx(s/86400,0),'gün');var y=s/3.156e7;if(y<1e4)return withUnit(fx(y,y<10?1:0),'yıl');return withUnit(big(y),'yıl');}
   var marks=[[0,'1 sn'],[Math.log10(3600),'1 saat'],[Math.log10(86400),'1 gün'],[Math.log10(3.156e7),'1 yıl'],[Math.log10(3.156e10),'1000 yıl'],[Math.log10(13.8e9*3.156e7),'evrenin yaşı']];
   var lo=-1,hi=21,X0=30,X1=610;function X(l){return X0+(clamp(l,lo,hi)-lo)/(hi-lo)*(X1-X0);}
   function draw(){
@@ -1358,7 +1360,7 @@ var userMoved=false,onUserPose=null;
     var sym=$('#symD').checked,aln=$('#alnD').checked;
     if(!wrong.length&&!missing.length){complete(4);say('fbD','Doğru. A ve B aynı yerde, B yalnızca biraz kaymış ve halkası çevrilmiş. C cebe girmiş ama ters; D ve E yanlış yerde. Simetri kapalıyken B yanlışlıkla başarısız, hizalama açıkken C, D ve E yanlışlıkla başarılı görünür.'+(list[5]&&metr(list[5]).truth<2?' Kendi pozunuz da başarılı sayılıyor.':''),true);}
     else{var t='Henüz değil. ';if(wrong.length)t+='Başarılı sayılmaması gereken: '+wrong.join(', ')+'. ';if(missing.length)t+='Eksik kalan: '+missing.join(', ')+'. ';
-      if(!sym||aln)t+='Önce kutuları doğru yönteme getirin: simetri açık, hizalama kapalı.';say('fbD',t,false);}});
+      if(!sym||aln)t+='Önce ayarları doğru yönteme getirin: simetri açık, hizalama kapalı.';say('fbD',t,false);}});
   onUserPose=function(){if(sel==='F')render();else{var q=metr(list[5]);list[5].li.querySelector('.m').textContent='skor '+fx(q.f,2)+' · '+fx(q.r,2)+' Å';}};
   var pending=false;var prev=onUserPose;onUserPose=function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;prev();drawScat();});};
   render();

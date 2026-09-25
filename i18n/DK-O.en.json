@@ -1,7 +1,7 @@
 {
  "module": "DK-O",
  "lang": "en",
- "source_sha256": "5da375536a64795f3a8b29090d70fca13d76af03fbb102cadd1438e6f630bba7",
+ "source_sha256": "d1571d582c700a667bee7a947d5a598b672dbde387283424c37bac3b8349d9f4",
  "reviewed": false,
  "translator": "Claude (machine translation, needs human review)",
  "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
@@ -181,6 +181,10 @@
   [
    "Aşağıdaki günlük bu sayfa için yapılan gerçek hazırlığın kaydıdır. Yeşil etiketli seçenekler Vina ile koşuldu; sarı etiketliler koşulmadı ve sonuçları yoktur.",
    "The log below is the record of the actual preparation done for this page. Options with a green tag were run with Vina; those with a yellow tag were not run and have no results."
+  ],
+  [
+   "Ile16 satırı ayrıca dikkat ister. Aktif tripsinde zincir başındaki Ile16'nın α-amino grubu protonlanmıştır (NH3⁺) ve Asp194 ile tuz köprüsü kurarak enzimin aktif yapısını tutar; 3PTB'de bu azot Asp194 OD1'e 2,7 Å uzaklıktadır. Kimyasal olarak beklenen durum bu yüzden NH3⁺ biçimidir. Meeko ise bu azota, zincir içindeki bir kalıntının peptit N–H'si gibi tek H ekledi; bu geçerli bir seçenek değil, şablondan kalan bir yapıntıdır. Bu sayfadaki bütün koşular bu tek H ile yapıldı. Azot benzamidinden 8,4 Å uzaktadır; NH3⁺ ile koşu yapılmadı ve etkisi değerlendirilmedi.",
+   "The Ile16 row needs extra attention. In active trypsin the α-amino group of the N-terminal residue Ile16 is protonated (NH3⁺) and forms a salt bridge with Asp194 that holds the enzyme in its active conformation; in 3PTB this nitrogen is 2.7 Å from Asp194 OD1. The chemically expected state is therefore NH3⁺. Meeko instead added a single H to this nitrogen, like the peptide N–H of a residue inside the chain; this is not a valid option but a template artifact. All runs on this page used this single H. The nitrogen is 8.4 Å from benzamidine; no run with NH3⁺ was done, and its effect was not assessed."
   ],
   [
    ">Karar günlüğü<",
@@ -411,8 +415,8 @@
    "Next step, expert level (DK-U): finding the pose is solved, but can the score rank binding strength? You will fit the weights of a scoring function to data yourself, draw an enrichment curve on a synthetic screening library, and see where docking and free energy calculations part ways."
   ],
   [
-   "<b>Bu sayfa hakkında.</b> DK-O için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Yapı verileri PDB 3PTB dosyasından alındı (SHA-256 <code>d2744dba…232f</code>). Bütün skorlar ve pozlar 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2026.03.6 ile yapılan gerçek koşulardan gelir; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/</code> altındadır ve temiz bir klasörde yeniden çalıştırıldığında aynı sonuçları verdi. Bu, keşif amaçlı teknik bir denemedir: çapraz docking, protonasyon incelemesi, doluluğu 0 atomlara duyarlılık ve başka skor fonksiyonları koşulmadı. Bilimsel ve hedef-okur incelemesi yapılmadı.",
-   "<b>About this page.</b> This is the interactive pilot chapter for DK-O; the book’s source text and local site were not changed. The structure data were taken from the PDB 3PTB file (SHA-256 <code>d2744dba…232f</code>). All scores and poses come from real runs made on 24 September 2026 in a cloud workspace with AutoDock Vina 1.2.7, Meeko 0.8.0 and RDKit 2026.03.6; the commands, scripts and raw outputs are under <code>book/cases/trypsin_3ptb/</code> and gave the same results when rerun in a clean folder. This is an exploratory technical trial: cross-docking, a protonation review, a sensitivity check for occupancy-0 atoms and other scoring functions were not run. No scientific or target-reader review has been carried out."
+   "<b>Bu sayfa hakkında.</b> DK-O için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Yapı verileri PDB 3PTB dosyasından alındı (SHA-256 <code>d2744dba…232f</code>). Bütün skorlar ve pozlar 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2026.03.6 ile yapılan gerçek koşulardan gelir; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/</code> altındadır ve temiz bir klasörde yeniden çalıştırıldığında aynı sonuçları verdi. Bu, keşif amaçlı teknik bir denemedir. Şunlar koşulmadı: çapraz docking, His57 ve N ucu protonasyon incelemesi, doluluğu 0 atomların silinmesi, diğer kristal sularının tutulması, Ca²⁺ iyonunun tutulması, başka skor fonksiyonları ve MD ile kararlılık sınaması. Bilimsel ve hedef-okur incelemesi yapılmadı.",
+   "<b>About this page.</b> This is the interactive pilot chapter for DK-O; the book’s source text and local site were not changed. The structure data were taken from the PDB 3PTB file (SHA-256 <code>d2744dba…232f</code>). All scores and poses come from real runs made on 24 September 2026 in a cloud workspace with AutoDock Vina 1.2.7, Meeko 0.8.0 and RDKit 2026.03.6; the commands, scripts and raw outputs are under <code>book/cases/trypsin_3ptb/</code> and gave the same results when rerun in a clean folder. This is an exploratory technical trial. The following were not run: cross-docking, His57 and N-terminus protonation review, deletion of occupancy-0 atoms, keeping the other crystal waters, keeping the Ca²⁺ ion, other scoring functions and a stability check with MD. No scientific or target-reader review has been carried out."
   ],
   [
    "Intl.NumberFormat('tr-TR',",
@@ -551,8 +555,12 @@
    "t:'Ile16 N terminus'"
   ],
   [
-   "'Meeko varsayılanı (tek H)'",
-   "'Meeko default (single H)'"
+   "'Meeko varsayılanı (tek H, şablon yapıntısı)'",
+   "'Meeko default (single H, template artifact)'"
+  ],
+  [
+   "'NH3⁺ (kimyasal olarak beklenen)'",
+   "'NH3⁺ (chemically expected)'"
   ],
   [
    "'KOŞULDU'",
@@ -599,8 +607,8 @@
    "'Correct: difference '"
   ],
   [
-   ". İki koşuda skorlar ve pozlar birebir aynı çıktı. Vina’nın skor fonksiyonunda elektrostatik terim yoktur; dosyadaki kısmi yükler bu skorda kullanılmaz. Asp189’un yükünü “görmez”; yalnız atom tiplerinden H-bağı vericisi ve alıcısı olarak etkilenir. Tuz köprüsü bu skorda bir H-bağı gibi sayılır. HOH416’yı tutmak ise kristal pozun skorunu",
-   ". The two runs gave exactly the same scores and poses. Vina’s scoring function has no electrostatic term; the partial charges in the file are not used in this score. The scoring function does not “see” the charge of Asp189; it is affected only through the atom types, as H-bond donors and acceptors. In this score the salt bridge counts as an H-bond. Keeping HOH416, on the other hand, changed the crystal-pose score by"
+   ". İki koşuda skorlar ve pozlar birebir aynı çıktı. Vina’nın skor fonksiyonunda elektrostatik terim yoktur; dosyadaki kısmi yükler bu skorda kullanılmaz. Asp189’un yükünü “görmez”; yalnız atom tiplerinden H-bağı vericisi ve alıcısı olarak etkilenir. ASH yazılınca değişen tek şey OD2’nin hem verici hem alıcı olmasıdır; OD1 ve OD2 iki durumda da alıcıdır, amidinyum azotları ise yalnız vericidir. Ligandda OD2’nin H’siyle eşleşecek bir alıcı olmadığından sayılan H-bağı çiftleri aynı kalır. Tuz köprüsü bu skorda bir H-bağı gibi sayılır. HOH416’yı tutmak ise kristal pozun skorunu",
+   ". The two runs gave exactly the same scores and poses. Vina’s scoring function has no electrostatic term; the partial charges in the file are not used in this score. The scoring function does not “see” the charge of Asp189; it is affected only through the atom types, as H-bond donors and acceptors. Writing ASH changes only one thing: OD2 becomes both a donor and an acceptor; OD1 and OD2 are acceptors in both states, and the amidinium nitrogens are donors only. The ligand has no acceptor that could pair with the H on OD2, so the counted H-bond pairs stay the same. In this score the salt bridge counts as an H-bond. Keeping HOH416, on the other hand, changed the crystal-pose score by"
   ],
   [
    "' değiştirdi.'",
@@ -631,8 +639,8 @@
    "' poses with the correct criterion, '"
   ],
   [
-   "poz. Hizalama her pozu kristal pozun üstüne taşıyıp yalnız şekil farkını ölçer; ligandın cepte nerede durduğu bilgisini siler. Katı ve küçük bir ligandda şekil hep aynı olduğundan neredeyse her poz “başarılı” görünür.",
-   "poses after alignment. Alignment moves every pose onto the crystal pose and measures only the difference in shape; it erases the information about where the ligand sits in the pocket. For a small, rigid ligand the shape is always the same, so almost every pose looks “successful”."
+   "poz. Hizalama her pozu kristal pozun üstüne taşıyıp yalnız şekil farkını ölçer; ligandın cepte nerede durduğu bilgisini siler. Katı ve küçük bir ligandda şekil pozdan poza neredeyse hiç değişmediği için burada her poz “başarılı” görünür.",
+   "poses after alignment. Alignment moves every pose onto the crystal pose and measures only the difference in shape; it erases the information about where the ligand sits in the pocket. For a small, rigid ligand the shape hardly changes from pose to pose, so here every pose looks “successful”."
   ],
   [
    "Birincisi doğru. İkinci sayı için “Önce hizala” düğmesine basıp sağdaki sayacı okuyun.",
@@ -787,8 +795,8 @@
    "['Not run',"
   ],
   [
-   "çapraz docking; His57 ve N ucu protonasyon incelemesi; doluluğu 0 atomların silinmesi; diğer kristal suları; başka skor fonksiyonları; MD ile kararlılık",
-   "cross-docking; His57 and N-terminus protonation review; deletion of occupancy-0 atoms; other crystal waters; other scoring functions; stability check with MD"
+   "çapraz docking; His57 ve N ucu protonasyon incelemesi; doluluğu 0 atomların silinmesi; diğer kristal sularının tutulması; Ca²⁺ iyonunun tutulması; başka skor fonksiyonları; MD ile kararlılık sınaması",
+   "cross-docking; His57 and N-terminus protonation review; deletion of occupancy-0 atoms; keeping the other crystal waters; keeping the Ca²⁺ ion; other scoring functions; stability check with MD"
   ],
   [
    "['Dosyalar',",
@@ -879,8 +887,8 @@
    "Yes, because the box center was chosen correctly."
   ],
   [
-   "Redocking gerekli ama yeterli olmayan bir sınavdır. Kaydedilmeyen ya da koşulmayan her sınav raporda açıkça yazılmalıdır.",
-   "Redocking is a necessary but not sufficient test. Any test that was not recorded or not run must be stated explicitly in the report."
+   "Redocking gerekli ama yeterli olmayan bir sınavdır. Koşulmayan ya da sonucu kaydedilmeyen her sınav raporda açıkça belirtilmelidir.",
+   "Redocking is a necessary but not sufficient test. Any test that was not run, or whose result was not recorded, must be stated explicitly in the report."
   ],
   [
    "aria-label=\"Soru '",

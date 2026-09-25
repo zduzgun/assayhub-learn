@@ -31,7 +31,7 @@
       "title": "Docking: bir pozu aramak ve puanlamak",
       "path": "docking/dk-t/",
       "source": "sources/DK-T.html",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH02 sonrası",
       "goals": [
@@ -66,7 +66,7 @@
       "title": "Gerçek kilit: tripsin ve benzamidin (3PTB)",
       "path": "docking/dk-o/",
       "source": "sources/DK-O.html",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH07 ve CH09",
       "goals": [
@@ -103,7 +103,7 @@
       "title": "Skor, afinite ve binlerce anahtar",
       "path": "docking/dk-u/",
       "source": "sources/DK-U.html",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH18 ve CH19",
       "goals": [
@@ -142,7 +142,7 @@
       "title": "Enerji, kuvvetler ve sayısal hareket",
       "path": "md/md-t/",
       "source": "sources/MD-T.html",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH02",
       "goals": [

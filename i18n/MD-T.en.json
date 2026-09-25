@@ -1,7 +1,7 @@
 {
  "module": "MD-T",
  "lang": "en",
- "source_sha256": "c1683ff0adf2aef0e0d8f543a43e6845516bed3bac34b97db91c40d3849796f2",
+ "source_sha256": "bcd88e78ca176981cc5fd89011836b4479579fe8e771420aa5b2c567d94210ef",
  "reviewed": false,
  "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
  "translator": "Claude (machine translation, needs human review)",
@@ -191,8 +191,8 @@
    "The numerical solution is an approximation of the exact solution. As the step grows, the deviation grows; beyond a certain limit the trajectory diverges completely. Move the slider and watch the three plots together."
   ],
   [
-   "Alttaki grafik logaritmik ölçektedir: bir çizgi aralığı on kat fark demektir. Konum hatası kesin çözümden uzaklığı, enerji sapması da toplam enerjinin başlangıçtaki 0,5 değerinden ne kadar kaydığını gösterir.",
-   "The lower plot uses a logarithmic scale: one gridline interval means a factor of ten. The position error shows the distance from the exact solution, and the energy deviation shows how far the total energy has moved away from its initial value of 0.5."
+   "Alttaki grafik logaritmik ölçektedir: komşu iki yatay çizgi arasında yüz kat fark vardır. Konum hatası kesin çözümden uzaklığı, enerji sapması da toplam enerjinin başlangıçtaki 0,5 değerinden ne kadar kaydığını gösterir.",
+   "The lower plot uses a logarithmic scale: two adjacent horizontal gridlines differ by a factor of 100. The position error shows the distance from the exact solution, and the energy deviation shows how far the total energy has moved away from its initial value of 0.5."
   ],
   [
    "Zaman adımını değiştir",
@@ -331,8 +331,8 @@
    ". In a molecule, the fastest vibration sets the time step for the whole system."
   ],
   [
-   "Kararlı olmak yetmez; titreşimi doğru izlemek de gerekir. GROMACS kılavuzu, hız-Verlet ailesi için <b>bir titreşim periyodu başına en az 5 adımı</b> yol gösterici kabul eder. Hidrojen içeren bağlar en hızlı titreşenlerdir; bu yüzden çoğu simülasyonda bu bağların uzunluğu sabitlenir (kısıt). Aşağıda deneyin.",
-   "Being stable is not enough; the vibration must also be followed accurately. For the velocity Verlet family, the GROMACS manual takes <b>at least 5 steps per vibrational period</b> as a guideline. Bonds involving hydrogen vibrate fastest; this is why most simulations fix the lengths of these bonds (constraints). Try it below."
+   "Kararlı olmak yetmez; titreşimi doğru izlemek de gerekir. GROMACS kılavuzu, Verlet türü (leap-frog) bir integrasyonla harmonik bir titreşimi makul doğrulukla izlemek için <b>bir titreşim periyodu başına en az 5 adımı</b> yol gösterici kabul eder. Sıcaklık ve basınç denetimi yokken ve başlangıç noktaları birbirine karşılık geldiğinde, leap-frog ile burada kullandığımız hız-Verlet aynı yörüngeyi üretir. Hidrojen içeren bağlar en hızlı titreşenlerdir; bu yüzden çoğu simülasyonda bu bağların uzunluğu sabitlenir (kısıt). Aşağıda deneyin.",
+   "Being stable is not enough; the vibration must also be followed accurately. The GROMACS manual takes <b>at least 5 steps per vibrational period</b> as a guideline for integrating a harmonic oscillation with reasonable accuracy using a Verlet-type (leap-frog) scheme. Without temperature or pressure coupling, and with corresponding starting points, leap-frog and the velocity Verlet method used here produce the same trajectory. Bonds involving hydrogen vibrate fastest; this is why most simulations fix the lengths of these bonds (constraints). Try it below."
   ],
   [
    "En hızlı titreşim, en büyük adım",
@@ -375,8 +375,8 @@
    "Largest step (fs)"
   ],
   [
-   "Bağ titreşimi periyotları kızılötesi dalga sayılarından yaklaşık olarak hesaplandı (<i>T</i> = 1/<i>c</i>ν̃); hidrojenli açı titreşiminin yaklaşık 13 fs periyodu ve 5 adım kuralı <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS kılavuzundan</a> alındı. 7. bölümdeki ubikitin denemesi de H bağları kısıtlı 2 fs ile çalıştırıldı.",
-   "The bond vibration periods were estimated from infrared wavenumbers (<i>T</i> = 1/<i>c</i>ν̃); the period of about 13 fs for angle vibrations involving hydrogen and the 5-step rule were taken from the <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS manual</a>. The ubiquitin run in Chapter 7 also used 2 fs with bonds involving hydrogen constrained."
+   "Bağ titreşimi periyotları kızılötesi dalga sayılarından yaklaşık olarak hesaplandı (<i>T</i> = 1/<i>c</i>ν̃). Hidrojen içeren açı titreşimlerinin 13 fs periyodu (kılavuzda simülasyondan ölçülmüş değer) ve periyot başına 5 adım kuralı <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS kılavuzundan</a> alındı. Kılavuz 13 fs / 5 = 2,6 fs sonucunu “yaklaşık 3 fs” diye yuvarlar; bu sayfada yuvarlanmamış 2,6 fs kullanılır. 7. bölümdeki ubikitin denemesi de H içeren bağlar kısıtlı 2 fs ile çalıştırıldı.",
+   "The bond vibration periods were estimated from infrared wavenumbers (<i>T</i> = 1/<i>c</i>ν̃). The 13 fs period of angle vibrations involving hydrogen (a value the manual reports as measured from a simulation) and the 5-steps-per-period rule were taken from the <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS manual</a>. The manual rounds 13 fs / 5 = 2.6 fs to “about 3 fs”; this page uses the unrounded 2.6 fs. The ubiquitin run in Chapter 7 also used 2 fs with bonds involving hydrogen constrained."
   ],
   [
    "<small>5 · Hesaplanan adım ve kaydedilen kare</small>Program her adımı yazmaz",
@@ -451,7 +451,7 @@
    "Choose one option for each question; the explanation appears right below it."
   ],
   [
-   "Sıradaki bölüm 7: gerçek bir protein yapısını (ubikitin, PDB 1UBQ) MD'ye hazırlarken hangi bilgilerin ölçüm, hangilerinin bizim kararımız olduğunu okuyacağız. Buradaki 2 fs ve H bağı kısıtı orada tekrar karşınıza çıkacak.",
+   "Sıradaki bölüm 7: gerçek bir protein yapısını (ubikitin, PDB 1UBQ) MD'ye hazırlarken hangi bilgilerin ölçüm, hangilerinin bizim kararımız olduğunu okuyacağız. Buradaki 2 fs ve H içeren bağların kısıtı orada tekrar karşınıza çıkacak.",
    "Next is Chapter 7: while preparing a real protein structure (ubiquitin, PDB 1UBQ) for MD, we will work out which pieces of information are measurements and which are our own decisions. The 2 fs step and the constraints on bonds involving hydrogen from this chapter will come up again there."
   ],
   [
@@ -499,6 +499,10 @@
    "'none (equilibrium)'"
   ],
   [
+   "'çok zayıf çekme: atomlar uzak'",
+   "'very weak attraction: the atoms are far apart'"
+  ],
+  [
    "'→ sağa, merkeze doğru'",
    "'→ right, toward the center'"
   ],
@@ -519,8 +523,8 @@
    "'Found it: r ≈ '"
   ],
   [
-   "σ. Eğim burada sıfır, yani enerji eğrisinin dibindesiniz. Kuramsal değer r = 2^(1/6) σ ≈ 1,12 σ. Daha yakında atomlar birbirini iter, daha uzakta çeker.",
-   "σ. The slope is zero here, so you are at the bottom of the energy curve. The theoretical value is r = 2^(1/6) σ ≈ 1.12 σ. Closer in, the atoms repel each other; farther out, they attract."
+   "σ, enerji eğrisinin dibine çok yakınsınız. Eğim, dolayısıyla kuvvet de, tam dipte sıfırdır; kuramsal değer r = 2^(1/6) σ ≈ 1,12 σ. Daha yakında atomlar birbirini iter, daha uzakta çeker.",
+   "σ, very close to the bottom of the energy curve. The slope, and therefore the force, is exactly zero at the bottom; the theoretical value is r = 2^(1/6) σ ≈ 1.12 σ. Closer in, the atoms repel each other; farther out, they attract."
   ],
   [
    "Kuvvet şu an itiyor: atomlar çok yakın. Topu biraz sağa, uzağa kaydırın.",
@@ -595,8 +599,8 @@
    "'Correct: x = '"
   ],
   [
-   "'. Bilgisayar her adımda tam olarak bu dört satırı yapar; bir proteinde yalnız ivme hesabı binlerce atom için tekrarlanır.'",
-   "'. The computer performs exactly these four lines at every step; in a protein, the only difference is that the acceleration is calculated for thousands of atoms.'"
+   "'. Bilgisayar her adımda bu dört satırı her atom için aynen uygular. Bir proteindeki tek fark 1. ve 3. satırdaki ivme hesabıdır: burada a = −x iken, proteinde her atomun ivmesi o atoma bütün etkileşimlerden gelen kuvvetin atomun kütlesine bölünmesiyle bulunur (a = F/m).'",
+   "'. The computer applies exactly these four lines to every atom at every step. The only difference in a protein is the acceleration calculation in lines 1 and 3: here a = −x, whereas in a protein the acceleration of each atom is the force from all of its interactions divided by its mass (a = F/m).'"
   ],
   [
    "Henüz değil. Üç terimi ayrı ayrı yazın: x, vΔt ve ½aΔt². Δt² = 0,04.",
@@ -607,8 +611,12 @@
    "' × 0.2) + ½ × ('"
   ],
   [
-   "') × 0,04. İlk adımda hız sıfır olduğu için ortadaki terim düşer.'",
-   "') × 0.04. In the first step the velocity is zero, so the middle term drops out.'"
+   "') × 0,04.'",
+   "') × 0.04.'"
+  ],
+  [
+   "' İlk adımda hız sıfır olduğu için ortadaki terim düşer.'",
+   "' In the first step the velocity is zero, so the middle term drops out.'"
   ],
   [
    "'0,01'",
@@ -755,7 +763,7 @@
    "Enter a number (femtoseconds)."
   ],
   [
-   "Doğru: yaklaşık 2,0 fs (9,8 fs / 5). Kısıtı açınca en hızlı hareket H içeren açı titreşimi olur (≈13 fs) ve sınır yaklaşık 2,6 fs’e çıkar. Bu yüzden H bağları kısıtlıyken 2 fs rahat bir seçimdir.",
+   "Doğru: yaklaşık 2,0 fs (9,8 fs / 5). Kısıtı açınca en hızlı hareket H içeren açı titreşimi olur (≈13 fs) ve sınır yaklaşık 2,6 fs’e çıkar. Bu yüzden H içeren bağlar kısıtlıyken 2 fs rahat bir seçimdir.",
    "Correct: about 2.0 fs (9.8 fs / 5). With the constraints on, the fastest motion becomes the angle bend involving H (≈13 fs) and the limit rises to about 2.6 fs. That is why 2 fs is a comfortable choice when bonds involving H are constrained."
   ],
   [
@@ -788,11 +796,11 @@
   ],
   [
    "+' adım';sl5",
-   "+' steps';sl5"
+   "+(N5===1?' step':' steps');sl5"
   ],
   [
    "' adımda bir kare'",
-   "' steps per frame'"
+   "(N5===1?' step per frame':' steps per frame')"
   ],
   [
    "' (+ t = 0 karesi)'",
@@ -893,6 +901,10 @@
   [
    "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
    "if(/,/.test(str))str=/^-?[1-9]\\d{0,2}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
+  ],
+  [
+   "if(whole&&/^-?\\d{1,3}(\\.\\d{3})+$/.test(str))str=str.replace(/\\./g,'');",
+   "if(whole&&/^-?\\d{1,3}(,\\d{3})+$/.test(str))str=str.replace(/,/g,'');"
   ]
  ],
  "keep": [

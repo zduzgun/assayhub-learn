@@ -339,6 +339,7 @@ select.atoms{width:100%;padding:7px 8px;border:1px solid #b9b6aa;border-radius:4
     <h2><small>2 · Hazırlık</small>Bir karar günlüğü tutmak</h2>
     <p class="lead">Dosyadan docking girdisine giden yolda bir dizi karar verilir: hangi sular kalacak, hangi atomlar silinecek, hangi kalıntı hangi protonasyonda yazılacak. Programlar bunların çoğunu sessizce, varsayılan değerle verir. CH07'deki gibi, her kararı <b>ne seçildi, neden, test edildi mi</b> diye kaydediyoruz.</p>
     <p>Aşağıdaki günlük bu sayfa için yapılan gerçek hazırlığın kaydıdır. Yeşil etiketli seçenekler Vina ile koşuldu; sarı etiketliler koşulmadı ve sonuçları yoktur.</p>
+    <p>Ile16 satırı ayrıca dikkat ister. Aktif tripsinde zincir başındaki Ile16'nın α-amino grubu protonlanmıştır (NH3⁺) ve Asp194 ile tuz köprüsü kurarak enzimin aktif yapısını tutar; 3PTB'de bu azot Asp194 OD1'e 2,7 Å uzaklıktadır. Kimyasal olarak beklenen durum bu yüzden NH3⁺ biçimidir. Meeko ise bu azota, zincir içindeki bir kalıntının peptit N–H'si gibi tek H ekledi; bu geçerli bir seçenek değil, şablondan kalan bir yapıntıdır. Bu sayfadaki bütün koşular bu tek H ile yapıldı. Azot benzamidinden 8,4 Å uzaktadır; NH3⁺ ile koşu yapılmadı ve etkisi değerlendirilmedi.</p>
   </div>
   <div class="lab" id="labB">
     <div class="lab-head"><div><span class="lab-tag">Laboratuvar 2</span><h3>Karar günlüğü</h3></div><span class="done-badge">Görev tamamlandı</span></div>
@@ -462,7 +463,7 @@ select.atoms{width:100%;padding:7px 8px;border:1px solid #b9b6aa;border-radius:4
 
 <div class="bridge"><div data-ala="selam"></div><p>Sıradaki adım, uzman düzey (DK-U): pozu bulmak çözüldü, ama skor bağlanma gücünü sıralayabilir mi? Skor fonksiyonunun ağırlıklarını verilere kendiniz uyduracak, yapay bir tarama kütüphanesinde zenginleştirme eğrisi çizecek ve docking ile serbest enerji hesaplarının nerede ayrıldığını göreceksiniz.</p></div>
 
-<p class="about"><b>Bu sayfa hakkında.</b> DK-O için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Yapı verileri PDB 3PTB dosyasından alındı (SHA-256 <code>d2744dba…232f</code>). Bütün skorlar ve pozlar 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2026.03.6 ile yapılan gerçek koşulardan gelir; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/</code> altındadır ve temiz bir klasörde yeniden çalıştırıldığında aynı sonuçları verdi. Bu, keşif amaçlı teknik bir denemedir: çapraz docking, protonasyon incelemesi, doluluğu 0 atomlara duyarlılık ve başka skor fonksiyonları koşulmadı. Bilimsel ve hedef-okur incelemesi yapılmadı.</p>
+<p class="about"><b>Bu sayfa hakkında.</b> DK-O için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Yapı verileri PDB 3PTB dosyasından alındı (SHA-256 <code>d2744dba…232f</code>). Bütün skorlar ve pozlar 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2026.03.6 ile yapılan gerçek koşulardan gelir; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/</code> altındadır ve temiz bir klasörde yeniden çalıştırıldığında aynı sonuçları verdi. Bu, keşif amaçlı teknik bir denemedir. Şunlar koşulmadı: çapraz docking, His57 ve N ucu protonasyon incelemesi, doluluğu 0 atomların silinmesi, diğer kristal sularının tutulması, Ca²⁺ iyonunun tutulması, başka skor fonksiyonları ve MD ile kararlılık sınaması. Bilimsel ve hedef-okur incelemesi yapılmadı.</p>
 </div>
 
 <script>
@@ -808,7 +809,7 @@ function addBox(prims,c,z){var h=[z[0]/2,z[1]/2,z[2]/2],V=[];for(var i=0;i<8;i++
     {k:'occ',t:'Doluluğu 0 olan 86 atom',o:[['keep','Koordinatlarıyla tut','run'],['del','Sil','ne']]},
     {k:'ca',t:'Ca²⁺ iyonu',o:[['del','Çıkar','run'],['keep','Tut','ne']]},
     {k:'his',t:'His57 (ve diğer His)',o:[['hie','HIE, otomatik','run'],['other','HID ya da HIP','ne']]},
-    {k:'nt',t:'Ile16 N ucu',o:[['auto','Meeko varsayılanı (tek H)','run'],['nh3','NH3⁺','ne']]}
+    {k:'nt',t:'Ile16 N ucu',o:[['auto','Meeko varsayılanı (tek H, şablon yapıntısı)','run'],['nh3','NH3⁺ (kimyasal olarak beklenen)','ne']]}
   ];
   var ch={wat:'none',asp:'chg',occ:'keep',ca:'del',his:'hie',nt:'auto'};
   var box=$('#decB');
@@ -840,7 +841,7 @@ function addBox(prims,c,z){var h=[z[0]/2,z[1]/2,z[2]/2],V=[];for(var i=0;i<8;i++
     V.req();
   }
   $('#chkB').addEventListener('click',function(){var v=num($('#inB').value),a=D3.crystal.rec_nowat.score_only[0],b=D3.crystal.rec_ash.score_only[0],d=Math.abs(a-b);
-    if(isFinite(v)&&Math.abs(Math.abs(v)-d)<0.0005){complete(2);say('fbB','Doğru: fark '+fx(d,3)+'. İki koşuda skorlar ve pozlar birebir aynı çıktı. Vina’nın skor fonksiyonunda elektrostatik terim yoktur; dosyadaki kısmi yükler bu skorda kullanılmaz. Asp189’un yükünü “görmez”; yalnız atom tiplerinden H-bağı vericisi ve alıcısı olarak etkilenir. Tuz köprüsü bu skorda bir H-bağı gibi sayılır. HOH416’yı tutmak ise kristal pozun skorunu '+fx(D3.crystal.rec_w416.score_only[0]-a,3)+' değiştirdi.',true);}
+    if(isFinite(v)&&Math.abs(Math.abs(v)-d)<0.0005){complete(2);say('fbB','Doğru: fark '+fx(d,3)+'. İki koşuda skorlar ve pozlar birebir aynı çıktı. Vina’nın skor fonksiyonunda elektrostatik terim yoktur; dosyadaki kısmi yükler bu skorda kullanılmaz. Asp189’un yükünü “görmez”; yalnız atom tiplerinden H-bağı vericisi ve alıcısı olarak etkilenir. ASH yazılınca değişen tek şey OD2’nin hem verici hem alıcı olmasıdır; OD1 ve OD2 iki durumda da alıcıdır, amidinyum azotları ise yalnız vericidir. Ligandda OD2’nin H’siyle eşleşecek bir alıcı olmadığından sayılan H-bağı çiftleri aynı kalır. Tuz köprüsü bu skorda bir H-bağı gibi sayılır. HOH416’yı tutmak ise kristal pozun skorunu '+fx(D3.crystal.rec_w416.score_only[0]-a,3)+' değiştirdi.',true);}
     else say('fbB','Karar günlüğünde Asp189 satırını değiştirip “Kristal poz, yalnız puanlama” değerlerini karşılaştırın.',false);});
   render();V.draw();
 })();
@@ -872,7 +873,7 @@ function addBox(prims,c,z){var h=[z[0]/2,z[1]/2,z[2]/2],V=[];for(var i=0;i<8;i++
   $$('#rmC .chip').forEach(function(b){b.addEventListener('click',function(){$$('#rmC .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});mode=Number(b.getAttribute('data-v'));draw();V.req();});});
   var tb=$('#tblC tbody');rs.forEach(function(r){var tr=document.createElement('tr'),t=r.p[0];tr.innerHTML='<td>'+r.s+'</td><td>'+fx(t[0],3)+'</td><td class="'+(t[1]<2?'ok':'no')+'">'+fx(t[1],2)+' Å</td><td>'+r.p.length+'</td><td>'+r.p.filter(function(p){return p[1]<2;}).length+'</td><td>'+fx(r.sec,1)+' s</td>';tb.appendChild(tr);});
   $('#chkC').addEventListener('click',function(){var a=num($('#inC1').value),b=num($('#inC2').value),na=all.filter(function(x){return x.r[0]<2;}).length,nb=all.filter(function(x){return x.r[2]<2;}).length;
-    if(a===na&&b===nb){complete(3);say('fbC','Doğru: doğru ölçütle '+na+' poz, hizalayınca '+nb+' poz. Hizalama her pozu kristal pozun üstüne taşıyıp yalnız şekil farkını ölçer; ligandın cepte nerede durduğu bilgisini siler. Katı ve küçük bir ligandda şekil hep aynı olduğundan neredeyse her poz “başarılı” görünür.',true);}
+    if(a===na&&b===nb){complete(3);say('fbC','Doğru: doğru ölçütle '+na+' poz, hizalayınca '+nb+' poz. Hizalama her pozu kristal pozun üstüne taşıyıp yalnız şekil farkını ölçer; ligandın cepte nerede durduğu bilgisini siler. Katı ve küçük bir ligandda şekil pozdan poza neredeyse hiç değişmediği için burada her poz “başarılı” görünür.',true);}
     else if(a===na)say('fbC','Birincisi doğru. İkinci sayı için “Önce hizala” düğmesine basıp sağdaki sayacı okuyun.',false);
     else if(b===nb)say('fbC','İkincisi doğru. Birinci sayı için “Hizalamasız, simetri düzeltmeli” seçiliyken sayacı okuyun.',false);
     else say('fbC','Ölçüm türünü seçin ve sağdaki “2 Å altındaki poz” sayacını okuyun.',false);});
@@ -921,7 +922,7 @@ function addBox(prims,c,z){var h=[z[0]/2,z[1]/2,z[2]/2],V=[];for(var i=0;i<8;i++
     ['Arama','exhaustiveness 8; en çok 20 poz; tohumlar 1–10'],
     ['Doğrulama','9 ağır atom; hizalamasız, simetri düzeltmeli RMSD (RDKit CalcRMS); eşik 2 Å'],
     ['Sonuç',tops.filter(function(p){return p[1]<2;}).length+'/'+tops.length+' tohumda 1. poz 2 Å altında ('+fx(Math.min.apply(null,rm),2)+'–'+fx(Math.max.apply(null,rm),2)+' Å); 1. poz skoru '+fx(Math.min.apply(null,sc),3)+' … '+fx(Math.max.apply(null,sc),3)],
-    ['Koşulmayanlar','çapraz docking; His57 ve N ucu protonasyon incelemesi; doluluğu 0 atomların silinmesi; diğer kristal suları; başka skor fonksiyonları; MD ile kararlılık'],
+    ['Koşulmayanlar','çapraz docking; His57 ve N ucu protonasyon incelemesi; doluluğu 0 atomların silinmesi; diğer kristal sularının tutulması; Ca²⁺ iyonunun tutulması; başka skor fonksiyonları; MD ile kararlılık sınaması'],
     ['Dosyalar','<code>book/cases/trypsin_3ptb/</code>: <code>TRIAL_PROTOCOL_2026-09-24.md</code>, <code>docking_trial/</code>']
   ];
   $('#repDl').innerHTML=rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('');
@@ -942,7 +943,7 @@ var Q=[
   w:'Docking’de soru “ligand cepte nerede ve nasıl duruyor?” sorusudur. Reseptör çerçevesi sabit olduğu için ölçüm hizalamasız yapılır.'},
  {s:'On tohumun onunda redocking başarılı. Bu, hazırlığın doğru olduğunu kanıtlar mı?',
   o:[['Evet; 10/10 kesin bir sonuçtur.',0],['Hayır; reseptör bu ligandla çözülmüş yapıdadır. Daha gerçekçi sınav çapraz docking’dir ve bu sayfada koşulmadı.',1],['Evet, çünkü kutu merkezi doğru seçildi.',0]],
-  w:'Redocking gerekli ama yeterli olmayan bir sınavdır. Kaydedilmeyen ya da koşulmayan her sınav raporda açıkça yazılmalıdır.'}
+  w:'Redocking gerekli ama yeterli olmayan bir sınavdır. Koşulmayan ya da sonucu kaydedilmeyen her sınav raporda açıkça belirtilmelidir.'}
 ];
 var qz=$('#quiz');
 Q.forEach(function(q,i){var d=document.createElement('div');d.className='q';

@@ -4,7 +4,9 @@ Bu klasördeki HTML dosyaları MD kitabı deposundaki prototiplerin kopyasıdır
 
 | Dosya | Kaynak | SHA-256 |
 |---|---|---|
-| `DK-T.html` | `book/prototypes/DK-T_DOCKING_ETKILESIMLI_PILOT_2026-09-24.html` | `bf34db2a177bfd167a6e7e5aff448b873cd9081d4f3b33d54c2bfeab0cb5dab1` |
-| `DK-O.html` | `book/prototypes/DK-O_DOCKING_3PTB_ETKILESIMLI_PILOT_2026-09-24.html` | `5da375536a64795f3a8b29090d70fca13d76af03fbb102cadd1438e6f630bba7` |
-| `DK-U.html` | `book/prototypes/DK-U_UZMAN_TARAMA_ETKILESIMLI_PILOT_2026-09-24.html` | `d2c4205fca2dde70353b8fc6ec70b450df2c0e3e551df654712e980a3a952b29` |
-| `MD-T.html` | `book/prototypes/CH02_ETKILESIMLI_PROTOTIP_2026-09-24.html` | `c1683ff0adf2aef0e0d8f543a43e6845516bed3bac34b97db91c40d3849796f2` |
+| `DK-T.html` | `book/prototypes/DK-T_DOCKING_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `f39ffe23017605b33ee3973c3139d6691218004508c0ecc2b6c1fe34111a5aa1` |
+| `DK-O.html` | `book/prototypes/DK-O_DOCKING_3PTB_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `d1571d582c700a667bee7a947d5a598b672dbde387283424c37bac3b8349d9f4` |
+| `DK-U.html` | `book/prototypes/DK-U_UZMAN_TARAMA_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `c62e54d81d748fda12efab337a9020aa4e87ffc8631fb149b77e4fa25a28361a` |
+| `MD-T.html` | `book/prototypes/CH02_ETKILESIMLI_PROTOTIP_2026-09-25_v2.html` | `bcd88e78ca176981cc5fd89011836b4479579fe8e771420aa5b2c567d94210ef` |
+
+Sürüm geçmişi: 0.1.0 (24 Eylül 2026, `*_2026-09-24.html`); 0.1.1 (25 Eylül 2026, `*_2026-09-25_v2.html`): editör incelemesinde bulunan içerik ve bilim sorunlarının düzeltilmesi (bkz. `docs/i18n-review/2026-09-25_*.cozum.md`). Eski sürümler kitap klasöründe değiştirilmeden durur.
