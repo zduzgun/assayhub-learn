@@ -2,7 +2,7 @@
 
 Karar (25 Eylül 2026): repo **özel**, yayın **Cloudflare Pages** üzerinden. Kod ve prototipler kitap yayımlanana kadar gizli kalır; site arama motorlarına kapalıdır. Aşağıdaki adımları bir kez kurucu yapar; Claude'un GitHub veya Cloudflare hesabına erişimi yoktur ve parola ya da token girmez.
 
-**Durum (25 Eylül 2026):** kurulum tamamlandı. Repo `zduzgun/assayhub-learn` (özel), Cloudflare Pages projesi `assayhub-learn`, yayın adresi https://assayhub-learn.pages.dev. Cloudflare Pages GitHub uygulamasının erişimi yalnız seçili repolarla sınırlıdır (assayhub-learn, CytoMove, MediCalender).
+**Durum (25 Eylül 2026):** kurulum tamamlandı. Repo `zduzgun/assayhub-learn` (özel), Cloudflare Pages projesi `assayhub-learn`, kalıcı yayın adresi **https://learn.assayhub.app** (alan adı `assayhub.app`, Cloudflare Registrar, 25 Eylül 2026'da alındı, otomatik yenileme açık); önizleme adresi https://assayhub-learn.pages.dev de çalışmaya devam eder. Cloudflare Pages GitHub uygulamasının erişimi yalnız seçili repolarla sınırlıdır (assayhub-learn, CytoMove, MediCalender).
 
 Arayüz adları zamanla değişebilir; adımlar 25 Eylül 2026 itibarıyla genel akışı anlatır.
 
@@ -54,7 +54,7 @@ Site şimdilik arama motorlarına kapalıdır, ama adresi bilen herkes açabilir
 
 ## 6. Kalıcı alan adı ve karekodlar
 
-Karekodlar `pages.dev` adresine değil, sizin denetlediğiniz kalıcı bir alan adına gitmelidir (örneğin `learn.<alan-adınız>`). Pages projesinde **Custom domains** bölümünden eklenir. Kısa adresler (`/l/DK-T` vb.) `modules.json`'dan otomatik üretilir ve bu alan adında çalışır. Alan adı seçilene kadar kitaba karekod basılmamalıdır.
+Karekodlar `pages.dev` adresine değil, denetlediğiniz kalıcı alan adına gitmelidir. **Seçilen adres: `https://learn.assayhub.app/l/<KİMLİK>`** (örneğin `https://learn.assayhub.app/l/DK-T`). Kitaba ayrı, kitaba ait bir kısa alan adı eklenirse o adres de bu kısa adreslere yönlendirilir. Pages projesinde **Custom domains** bölümünden eklenir. Kısa adresler (`/l/DK-T` vb.) `modules.json`'dan otomatik üretilir ve bu alan adında çalışır. Karekodlar kitabın son dizgisinde üretilmeli; bu dosyadaki adres kalıcı kabul edilir ve değiştirilmez.
 
 ## 7. Yeni sürüm yayımlamak
 

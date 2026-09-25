@@ -100,7 +100,7 @@ Bu oturum MD kitabı Claude projesine bağlıdır; AssayHub strateji belgeleri a
 - **R-L2 (bağlantı ölümü):** Basılı karekod kalıcı olmalı. Karar: yönlendirme katmanı + Zenodo DOI.
 - **R-L3 (yol haritası çakışması):** Learn, CytoMove/BlotForge sırasını bozmamalı. Karar: ayrı kategori, ayrı klasör, düşük öncelikli paralel iş.
 - **R-L4 (dürüstlük):** MD simülasyonu yanıltıcı olmamalı. Karar: görünür bilgilendirme + gerçek veri + eşleşmeyen senaryoya "hesaplanmadı".
-- **Açık karar 1:** Kalıcı alan adı ve yönlendirme altyapısı (kendi sunucu mu, bir kısaltma servisi mi).
+- **Karar 1 (25 Eylül 2026, kapandı):** Kalıcı alan adı `assayhub.app`; eğitim modülleri `learn.assayhub.app` alt alanında. Yönlendirme altyapısı Cloudflare Pages `_redirects` dosyası (ayrı sunucu ya da kısaltma servisi yok). Karekod biçimi `https://learn.assayhub.app/l/<KİMLİK>`.
 - **Açık karar 2:** Zenodo hesabı ve sürüm arşivleme akışı.
 - **Açık karar 3:** MD uygulaması için hangi sistemler (yalnız ALA2 ve 1UBQ mi, başka örnek mi).
 - **Açık karar 4:** Learn'in AssayHub menüsünde nasıl görüneceği ve giriş gerektirip gerektirmeyeceği.
