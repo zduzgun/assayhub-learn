@@ -1,0 +1,1242 @@
+{
+ "module": "DK-T",
+ "lang": "en",
+ "source_sha256": "bf34db2a177bfd167a6e7e5aff448b873cd9081d4f3b33d54c2bfeab0cb5dab1",
+ "reviewed": false,
+ "translator": "Claude (machine translation, needs human review)",
+ "pairs": [
+  [
+   "Docking: Poz Arama ve Puanlama",
+   "Docking: Pose Search and Scoring"
+  ],
+  [
+   "<b>MD</b><span>Biyomoleküler sistemlerde Moleküler Dinamik · Docking eki · Temel düzey</span>",
+   "<b>MD</b><span>Molecular Dynamics in Biomolecular Systems · Docking appendix · Basic level</span>"
+  ],
+  [
+   "Uygulamalar: ",
+   "Exercises: "
+  ],
+  [
+   "DK-T · Pilot bölüm · Etkileşimli sürüm",
+   "DK-T · Pilot chapter · Interactive edition"
+  ],
+  [
+   "Docking: bir pozu aramak ve puanlamak",
+   "Docking: searching for a pose and scoring it"
+  ],
+  [
+   "Bir anahtarı kilide sokmayı bilgisayara nasıl öğretiriz? Bu bölümde ligandı cebe kendi elinizle yerleştirecek, iki arama algoritmasını yarıştıracak ve bir docking sonucunu nasıl sınayacağınızı göreceksiniz.",
+   "How do we teach a computer to fit a key into a lock? In this chapter you will place the ligand in the pocket with your own hands, race two search algorithms against each other and see how to test a docking result."
+  ],
+  [
+   "Bu bölümde yapacaklarınız",
+   "What you will do in this chapter"
+  ],
+  [
+   "Bir pozu <b>kurmak</b> ve skorun hangi terimlerden oluştuğunu canlı olarak <b>görmek</b>.",
+   "<b>Build</b> a pose and <b>see</b> live which terms make up the score."
+  ],
+  [
+   "Arama uzayının neden bu kadar büyük olduğunu <b>hesaplamak</b>, iki arama yöntemini <b>yarıştırmak</b>.",
+   "<b>Calculate</b> why the search space is so large, and <b>race</b> two search methods."
+  ],
+  [
+   "Redocking ve RMSD ile bir sonucu <b>sınamak</b>; skorun ne söyleyip ne söylemediğini <b>ayırmak</b>.",
+   "<b>Test</b> a result with redocking and RMSD; <b>separate</b> what the score does and does not tell you."
+  ],
+  [
+   "Tripsinin S1 cebinde benzamidin: şematik çizim",
+   "Benzamidine in the S1 pocket of trypsin: schematic drawing"
+  ],
+  [
+   "Protein yüzeyine oyulmuş dar ve derin bir cep. Cebin içinde benzen halkası dikey duruyor; alttaki pozitif yüklü amidin grubu cebin dibindeki Asp189'un iki oksijeniyle tuz köprüsü kuruyor. Cebin ağzında katalitik Ser195 işaretli.",
+   "A narrow, deep pocket carved into the protein surface. Inside the pocket the benzene ring stands upright; the positively charged amidine group below it forms a salt bridge with the two oxygens of Asp189 at the bottom of the pocket. The catalytic Ser195 is marked at the pocket mouth."
+  ],
+  [
+   "çözücü (su)",
+   "solvent (water)"
+  ],
+  [
+   "protein (tripsin)",
+   "protein (trypsin)"
+  ],
+  [
+   "cep duvarları:",
+   "pocket walls:"
+  ],
+  [
+   "apolar temaslar, halkayı sıkıştırır",
+   "apolar contacts, clamp the ring"
+  ],
+  [
+   "katalitik serin, cep ağzında",
+   "catalytic serine, at the pocket mouth"
+  ],
+  [
+   "cebin dibinde, −1 yüklü karboksilat",
+   "at the pocket bottom, carboxylate with −1 charge"
+  ],
+  [
+   ">tuz köprüsü<",
+   ">salt bridge<"
+  ],
+  [
+   "amidinyum (+) ile karboksilat (−)",
+   "amidinium (+) with carboxylate (−)"
+  ],
+  [
+   ">benzamidin<",
+   ">benzamidine<"
+  ],
+  [
+   "C₇H₈N₂; amidin ucu pozitif yüklü",
+   "C₇H₈N₂; amidine end positively charged"
+  ],
+  [
+   ">S1 cebi<",
+   ">S1 pocket<"
+  ],
+  [
+   "dar, derin, dibi negatif yüklü",
+   "narrow, deep, negatively charged bottom"
+  ],
+  [
+   "<b>Şekil DK.1 · Kilit ve anahtar.</b> Tripsin bir proteazdır; S1 cebinin dibindeki negatif yüklü Asp189, pozitif yüklü grupları çeker. Benzamidin bu cebe halkası duvarlar arasında, amidin ucu dipte olacak biçimde oturur. Çizim <b>şematiktir ve ölçekli değildir</b>; koordinatlar PDB 3PTB'den alınmadı. Aşağıdaki laboratuvarlar bu düzeni taklit eden iki boyutlu bir oyuncak cep kullanır.",
+   "<b>Figure DK.1 · Lock and key.</b> Trypsin is a protease; the negatively charged Asp189 at the bottom of the S1 pocket attracts positively charged groups. Benzamidine sits in this pocket with its ring between the walls and its amidine end at the bottom. The drawing is <b>schematic and not to scale</b>; the coordinates were not taken from PDB 3PTB. The labs below use a two-dimensional toy pocket that mimics this arrangement."
+  ],
+  [
+   "<small>1 · İki farklı soru</small>MD hareketi izler, docking yerleşimleri sıralar",
+   "<small>1 · Two different questions</small>MD follows motion, docking ranks placements"
+  ],
+  [
+   "MD'de atomlar kuvvetlerin etkisiyle zaman içinde hareket eder; soru, sistemin <b>nasıl davrandığıdır</b>. Docking'de zaman yoktur. Reseptör çoğunlukla sabit tutulur, ligand onun içinde bir anahtar gibi denenir ve soru şudur: <b>bu cepte en makul görünen yerleşimler hangileri?</b>",
+   "In MD, atoms move over time under the action of forces; the question is <b>how the system behaves</b>. Docking has no time. The receptor is usually held fixed, the ligand is tried inside it like a key, and the question is: <b>which placements look most plausible in this pocket?</b>"
+  ],
+  [
+   "Aşağıdaki sürgüyle soldaki panelde zamanı ilerletin. Sağdaki panelde sürgünün karşılığı yoktur: docking yalnız farklı pozları üretir ve skora göre sıralar.",
+   "Use the slider below to advance time in the left panel. The slider has no counterpart in the right panel: docking only generates different poses and ranks them by score."
+  ],
+  [
+   "Solda zamanla hareket eden bir ligand ve konumunun zaman çizgisi; sağda aynı cepte dört docking pozu ve skor sıralaması",
+   "On the left, a ligand moving over time and a timeline of its position; on the right, four docking poses in the same pocket and their ranking by score"
+  ],
+  [
+   "MD zamanı",
+   "MD time"
+  ],
+  [
+   "<b>Şekil DK.2 · Zaman ekseni ve sıralama.</b> Soldaki hareket şematiktir, gerçek bir MD koşusu değildir. Sağdaki dört poz ve skorları bu sayfanın oyuncak modeliyle hesaplandı; 5. kısımda aynı pozları RMSD ile sınayacağız.",
+   "<b>Figure DK.2 · Time axis and ranking.</b> The motion on the left is schematic, not a real MD run. The four poses on the right and their scores were computed with this page’s toy model; in Section 5 we will test the same poses with RMSD."
+  ],
+  [
+   "Bu fark maliyeti de belirler. Bir protein–ligand kompleksi için anlamlı bir MD hesabı saatler ile günler sürebilir; bir docking denemesi çoğu zaman saniyeler ile dakikalar içinde biter. Bu hız sayesinde docking çok sayıda molekülü taramak için kullanılabilir. Bedeli basitleştirmedir: reseptörün hareketi, suyun ayrıntılı rolü ve entropi büyük ölçüde yaklaşık olarak ele alınır ya da hiç ele alınmaz.",
+   "This difference also sets the cost. A meaningful MD calculation for a protein–ligand complex can take hours to days; a docking run usually finishes within seconds to minutes. This speed is what makes docking usable for screening large numbers of molecules. The price is simplification: receptor motion, the detailed role of water and entropy are treated largely approximately, or not at all."
+  ],
+  [
+   "<small>2 · Poz ve skor</small>Bir yerleşimi birkaç sayıyla tanımlamak",
+   "<small>2 · Pose and score</small>Describing a placement with a few numbers"
+  ],
+  [
+   "Ligandın cepteki bir yerleşimine <b>poz</b> denir. Katı bir cismi üç boyutta tanımlamak için altı sayı yeter: üç öteleme ve üç dönme. Ligandın her <b>dönebilir bağı</b> için bir burulma açısı eklenir.",
+   "A placement of the ligand in the pocket is called a <b>pose</b>. Six numbers suffice to describe a rigid body in three dimensions: three translations and three rotations. One torsion angle is added for each <b>rotatable bond</b> of the ligand."
+  ],
+  [
+   "<mtext>poz</mtext>",
+   "<mtext>pose</mtext>"
+  ],
+  [
+   "<mtext>serbestlik derecesi</mtext>",
+   "<mtext>degrees of freedom</mtext>"
+  ],
+  [
+   "Oyuncak ligandın anatomisi: kütle merkezi x ve y, dönme açısı theta ve kuyruktaki burulma açısı tau",
+   "Anatomy of the toy ligand: center of mass x and y, rotation angle theta and the torsion angle tau in the tail"
+  ],
+  [
+   "<b>Şekil DK.3 · Oyuncak ligandın anatomisi.</b> Benzamidin benzeri bir baş (halka ve pozitif amidin ucu) ile tek dönebilir bağlı kısa bir kuyruk. Laboratuvarlar iki boyutludur: 6 + <i>n</i> yerine 3 + <i>n</i> sayı yeter (<i>x</i>, <i>y</i>, θ ve τ). Mantık üç boyutta aynıdır.",
+   "<b>Figure DK.3 · Anatomy of the toy ligand.</b> A benzamidine-like head (a ring and a positive amidine end) with a short tail that has a single rotatable bond. The labs are two-dimensional: 3 + <i>n</i> numbers suffice instead of 6 + <i>n</i> (<i>x</i>, <i>y</i>, θ and τ). The logic is the same in three dimensions."
+  ],
+  [
+   "Her poz bir <b>skor fonksiyonuna</b> sorulur. Skor, ligand ile reseptör atomları arasındaki uzaklıklardan hesaplanan terimlerin toplamıdır: uygun uzaklıktaki temasları ödüllendiren <b>sterik çekim</b>, atomların fazla yaklaşmasını cezalandıran <b>itme</b>, apolar atomlar arasındaki <b>hidrofobik temas</b> ve <b>hidrojen bağı</b>. AutoDock Vina bunlara dönebilir bağ sayısına bağlı bir düzeltme ekler (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott ve Olson 2010</a>). Daha düşük skor daha iyi pozdur.",
+   "Each pose is submitted to a <b>scoring function</b>. The score is a sum of terms computed from the distances between ligand and receptor atoms: <b>steric attraction</b>, which rewards contacts at a suitable distance; <b>repulsion</b>, which penalizes atoms that come too close; <b>hydrophobic contact</b> between apolar atoms; and the <b>hydrogen bond</b>. AutoDock Vina adds a correction that depends on the number of rotatable bonds (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott and Olson 2010</a>). A lower score means a better pose."
+  ],
+  [
+   "Laboratuvardaki skor bu terimlerin <b>biçimlerini ve ağırlıklarını</b> Vina'dan alır; ama cep iki boyutlu ve oyuncak olduğu için sayılar gerçek bir Vina çıktısıyla karşılaştırılamaz. Hız için Vina ve AutoDock'un yaptığı gibi, reseptörün katkısı önce 0,25 Å aralıklı bir ızgarada hesaplanır; her poz için yalnız ızgaradan okunur.",
+   "The lab score takes the <b>functional forms and weights</b> of these terms from Vina; but because the pocket is two-dimensional and a toy, the numbers cannot be compared with real Vina output. For speed, as Vina and AutoDock do, the receptor’s contribution is first computed on a grid with 0.25 Å spacing; for each pose it is simply read from the grid."
+  ],
+  [
+   "<span class=\"lab-tag\">Laboratuvar 1</span>",
+   "<span class=\"lab-tag\">Lab 1</span>"
+  ],
+  [
+   "Pozu kendiniz kurun",
+   "Build the pose yourself"
+  ],
+  [
+   "<span class=\"done-badge\">Görev tamamlandı</span>",
+   "<span class=\"done-badge\">Task completed</span>"
+  ],
+  [
+   "Oyuncak cep ve sürüklenebilir ligand. Ligand seçiliyken ok tuşları öteler, Q ve E döndürür, A ve D kuyruğu burar.",
+   "Toy pocket and draggable ligand. When the ligand is selected, the arrow keys translate it, Q and E rotate it, and A and D twist the tail."
+  ],
+  [
+   "N (amidin, +)",
+   "N (amidine, +)"
+  ],
+  [
+   "O (polar, Asp benzeri −)",
+   "O (polar, Asp-like −)"
+  ],
+  [
+   "</i>H-bağı / tuz köprüsü</span>",
+   "</i>H-bond / salt bridge</span>"
+  ],
+  [
+   "</i>çakışma</span>",
+   "</i>clash</span>"
+  ],
+  [
+   "Tuz köprüsü 0 / 2",
+   "Salt bridges 0 / 2"
+  ],
+  [
+   "Çakışma yok",
+   "No clash"
+  ],
+  [
+   "Dönme θ",
+   "Rotation θ"
+  ],
+  [
+   "Kuyruk burulması τ",
+   "Tail torsion τ"
+  ],
+  [
+   "Ligandı sürükleyin. Klavye: liganda sekmeyle gelin, <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> öteler, <kbd>Q</kbd>/<kbd>E</kbd> döndürür, <kbd>A</kbd>/<kbd>D</kbd> kuyruğu burar.",
+   "Drag the ligand. Keyboard: tab to the ligand; <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> translate, <kbd>Q</kbd>/<kbd>E</kbd> rotate, <kbd>A</kbd>/<kbd>D</kbd> twist the tail."
+  ],
+  [
+   ">Yerel iyileştir<",
+   ">Refine locally<"
+  ],
+  [
+   ">Başa al<",
+   ">Back to start<"
+  ],
+  [
+   "Bu yönelim için skor haritası",
+   "Score map for this orientation"
+  ],
+  [
+   "Kristal pozu göster",
+   "Show crystal pose"
+  ],
+  [
+   "<b>Harita nasıl okunur?</b> Ligand şu anki θ ve τ ile tutulup merkezi her noktaya taşınsaydı skor ne olurdu? Koyu yeşil daha iyi skor; renksiz alanlar ya temas yok ya da çakışma var demektir. Ligandı döndürünce harita değişir: skor manzarası konuma ve yönelime birlikte bağlıdır.",
+   "<b>How do you read the map?</b> If the ligand were held at the current θ and τ and its center moved to each point, what would the score be? Darker green means a better score; uncolored areas mean either no contact or a clash. When you rotate the ligand, the map changes: the score landscape depends on position and orientation together."
+  ],
+  [
+   "Görev 1",
+   "Task 1"
+  ],
+  [
+   "Ligandın mavi amidin ucunu cebin dibindeki iki kırmızı oksijene götürün: <b>iki tuz köprüsü</b> kurun ve <b>toplam skoru −2,7'nin altına</b> indirin. Yakına getirdikten sonra <b>Yerel iyileştir</b> düğmesini deneyin: pozu her yönde küçük adımlarla oynatıp yalnız iyileşmeleri tutar. Vina da her rastgele sıçramadan sonra benzer bir yerel iyileştirme yapar (orada BFGS adlı türevli bir yöntemle).",
+   "Bring the ligand’s blue amidine end to the two red oxygens at the bottom of the pocket: form <b>two salt bridges</b> and bring the <b>total score below −2.7</b>. Once it is close, try the <b>Refine locally</b> button: it nudges the pose in small steps in every direction and keeps only the improvements. Vina also performs a similar local optimization after every random jump (there with a gradient-based method called BFGS)."
+  ],
+  [
+   "Kristal pozu açıp kendi en iyi pozunuzla karşılaştırın. Skor fonksiyonunun en düşük noktası kristal pozla tam çakışmaz; bu oyuncakta aralarında yaklaşık 0,9 Å fark var. Gerçek programlarda da böyledir ve başarı ölçütünün tam eşleşme değil bir eşik (2 Å) olmasının bir nedeni budur.",
+   "Turn on the crystal pose and compare it with your own best pose. The lowest point of the scoring function does not coincide exactly with the crystal pose; in this toy they are about 0.9 Å apart. The same holds in real programs, and it is one reason why the success criterion is a threshold (2 Å) rather than an exact match."
+  ],
+  [
+   "<small>3 · Arama uzayı</small>Hepsini tek tek denemek neden olmaz?",
+   "<small>3 · Search space</small>Why not simply try them all one by one?"
+  ],
+  [
+   "En basit arama, olası bütün pozları bir ızgarada sırayla puanlamaktır. Kaba bir sayım yapalım: bağlanma bölgesi kenarı <i>L</i> olan bir küp, ligand merkezi <i>g</i> aralıklı bir ızgarada, her açı <i>a</i> derecelik adımlarla.",
+   "The simplest search is to score every possible pose on a grid, one after another. Let us make a rough count: the binding site is a cube with edge <i>L</i>, the ligand center lies on a grid with spacing <i>g</i>, and each angle moves in steps of <i>a</i> degrees."
+  ],
+  [
+   "Yönelim sayımı bazı yönelimleri iki kez sayar; amaç büyüklük mertebesini görmektir. Varsayılan ayarlar 20 Å'lık kutu, 1 Å ızgara, 30° açı adımı ve üç dönebilir bağdır.",
+   "The orientation count counts some orientations twice; the aim is to see the order of magnitude. The default settings are a 20 Å box, a 1 Å grid, a 30° angle step and three rotatable bonds."
+  ],
+  [
+   "<span class=\"lab-tag\">Laboratuvar 2</span>",
+   "<span class=\"lab-tag\">Lab 2</span>"
+  ],
+  [
+   "Arama uzayı hesaplayıcısı",
+   "Search space calculator"
+  ],
+  [
+   "Taramanın süresi, bir saniyeden evrenin yaşına uzanan logaritmik bir çizgi üzerinde",
+   "Scan time on a logarithmic line stretching from one second to the age of the universe"
+  ],
+  [
+   "Süre, saniyede bir milyon poz puanlandığı varsayımıyla hesaplanır. Evrenin yaşı yaklaşık 13,8 milyar yıl alındı.",
+   "The time is computed assuming that one million poses are scored per second. The age of the universe was taken as about 13.8 billion years."
+  ],
+  [
+   "Kutu kenarı L",
+   "Box edge L"
+  ],
+  [
+   "Izgara aralığı",
+   "Grid spacing"
+  ],
+  [
+   "Açı adımı",
+   "Angle step"
+  ],
+  [
+   ">0,5 Å<",
+   ">0.5 Å<"
+  ],
+  [
+   ">0,25 Å<",
+   ">0.25 Å<"
+  ],
+  [
+   "<span>Dönebilir bağ sayısı N<sub>rot</sub></span>",
+   "<span>Number of rotatable bonds N<sub>rot</sub></span>"
+  ],
+  [
+   "<dt>Konum</dt>",
+   "<dt>Positions</dt>"
+  ],
+  [
+   "<dt>Yönelim</dt>",
+   "<dt>Orientations</dt>"
+  ],
+  [
+   "<dt>Burulma birleşimi</dt>",
+   "<dt>Torsion combinations</dt>"
+  ],
+  [
+   "<dt>Toplam poz</dt>",
+   "<dt>Total poses</dt>"
+  ],
+  [
+   "<dt>Süre</dt>",
+   "<dt>Time</dt>"
+  ],
+  [
+   "Görev 2",
+   "Task 2"
+  ],
+  [
+   "Açı adımı 30° iken dönebilir bağ sayısını 3'ten 4'e çıkarın. Toplam poz sayısı kaç katına çıkar? Açı adımını 15°'ye indirseydiniz, aynı tek bağ kaç kat getirirdi?",
+   "With the angle step at 30°, increase the number of rotatable bonds from 3 to 4. By what factor does the total number of poses grow? Had you lowered the angle step to 15°, by what factor would the same single bond multiply it?"
+  ],
+  [
+   "30° için çarpan",
+   "Factor for 30°"
+  ],
+  [
+   "15° için çarpan",
+   "Factor for 15°"
+  ],
+  [
+   ">Kontrol et<",
+   ">Check<"
+  ],
+  [
+   "Her dönebilir bağ sayıyı aynı çarpanla büyütür; büyüme toplama değil çarpmadır. Bu yüzden docking programları uzayı tek tek taramaz. Arama algoritmaları üç aileye ayrılabilir: uzayı düzenli dolaşan ya da ligandı parça parça kuran <b>sistematik</b> yöntemler; rastgele değişiklik yapıp iyi olanı tutan <b>stokastik</b> yöntemler (genetik algoritmalar, Monte Carlo); ve rastgele bir sıçramadan sonra yerel iyileştirme yapan <b>melez</b> yöntemler.",
+   "Each rotatable bond multiplies the count by the same factor; the growth is multiplicative, not additive. That is why docking programs do not scan the space one pose at a time. Search algorithms can be divided into three families: <b>systematic</b> methods, which traverse the space in a regular way or build the ligand piece by piece; <b>stochastic</b> methods, which make random changes and keep the good ones (genetic algorithms, Monte Carlo); and <b>hybrid</b> methods, which perform a local optimization after a random jump."
+  ],
+  [
+   "<small>4 · Arama algoritması</small>Sıçra, iyileştir, kabul et ya da reddet",
+   "<small>4 · Search algorithm</small>Jump, refine, accept or reject"
+  ],
+  [
+   "Vina'nın araması, her biri bir değişiklik (mutasyon) ve bir yerel optimizasyondan oluşan adımlar atar; her adım Metropolis ölçütüyle kabul edilir ya da reddedilir (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott ve Olson 2010</a>). Pilot-α'daki Metropolis örnekleyicisini hatırlayan okur aynı kabul kuralını tanıyacaktır. Fark şudur: orada amaç bir dağılımı örneklemekti, burada amaç en düşük skorlu pozu bulmak.",
+   "Vina’s search takes steps that each consist of a change (mutation) and a local optimization; each step is accepted or rejected by the Metropolis criterion (<a href=\"https://doi.org/10.1002/jcc.21334\">Trott and Olson 2010</a>). Readers who remember the Metropolis sampler from Pilot-α will recognize the same acceptance rule. The difference is this: there the goal was to sample a distribution; here the goal is to find the lowest-scoring pose."
+  ],
+  [
+   "<mtext>kabul</mtext>",
+   "<mtext>accept</mtext>"
+  ],
+  [
+   "<mtext>yeni</mtext>",
+   "<mtext>new</mtext>"
+  ],
+  [
+   "<mtext>şimdiki</mtext>",
+   "<mtext>current</mtext>"
+  ],
+  [
+   "Aşağıda iki yöntem aynı oyuncak cepte, aynı sayıda skor hesabıyla yarışır. <b>Rastgele arama</b> her seferinde bağımsız bir poz çeker ve en iyisini saklar. <b>Sıçra ve iyileştir</b> (Vina'nın mantığının sadeleştirilmiş hâli) bulunduğu pozdan küçük bir sıçrama yapar, yerel iyileştirme uygular ve sonucu Metropolis kuralıyla kabul eder. Arka plandaki renk, her konumda bütün yönelimler içinde bulunabilecek en iyi skordur.",
+   "Below, two methods race in the same toy pocket with the same number of score evaluations. <b>Random search</b> draws an independent pose each time and keeps the best one. <b>Jump and refine</b> (a simplified version of Vina’s logic) makes a small jump from its current pose, applies a local optimization and accepts the result with the Metropolis rule. The background color is the best score attainable at each position over all orientations."
+  ],
+  [
+   "<span class=\"lab-tag\">Laboratuvar 3</span>",
+   "<span class=\"lab-tag\">Lab 3</span>"
+  ],
+  [
+   "Arama yarışı",
+   "Search race"
+  ],
+  [
+   "Skor manzarası üzerinde rastgele aramanın denediği noktalar ve sıçra-iyileştir yönteminin izlediği yol",
+   "Points tried by random search and the path followed by the jump-refine method on the score landscape"
+  ],
+  [
+   "rastgele arama: denenen merkezler",
+   "random search: centers tried"
+  ],
+  [
+   "sıçra ve iyileştir: kabul edilen yol",
+   "jump and refine: accepted path"
+  ],
+  [
+   "</i>kristal poz</span>",
+   "</i>crystal pose</span>"
+  ],
+  [
+   "</i>arama kutusu</span>",
+   "</i>search box</span>"
+  ],
+  [
+   "Arama kutusu",
+   "Search box"
+  ],
+  [
+   ">Yalnız cep<",
+   ">Pocket only<"
+  ],
+  [
+   ">Tüm yüzey<",
+   ">Whole surface<"
+  ],
+  [
+   "\"Bütçe\"",
+   "\"Budget\""
+  ],
+  [
+   "<span class=\"lbl\">Skor hesabı bütçesi</span>",
+   "<span class=\"lbl\">Score evaluation budget</span>"
+  ],
+  [
+   ">4.000<",
+   ">4,000<"
+  ],
+  [
+   ">8.000<",
+   ">8,000<"
+  ],
+  [
+   ">Skor fonksiyonu<",
+   ">Scoring function<"
+  ],
+  [
+   "\"Skor fonksiyonu\"",
+   "\"Scoring function\""
+  ],
+  [
+   ">Tam<",
+   ">Full<"
+  ],
+  [
+   ">H-bağı terimi kapalı<",
+   ">H-bond term off<"
+  ],
+  [
+   "Rastgele tohum",
+   "Random seed"
+  ],
+  [
+   "Yarışı başlat",
+   "Start race"
+  ],
+  [
+   "Sonraki tohumla",
+   "Next seed"
+  ],
+  [
+   "Rastgele: en iyi skor",
+   "Random: best score"
+  ],
+  [
+   "Rastgele: RMSD",
+   "Random: RMSD"
+  ],
+  [
+   "Sıçra-iyileştir: en iyi skor",
+   "Jump-refine: best score"
+  ],
+  [
+   "Sıçra-iyileştir: RMSD",
+   "Jump-refine: RMSD"
+  ],
+  [
+   "Skor manzarası hazırlanıyor…",
+   "Preparing the score landscape…"
+  ],
+  [
+   "Harcanan skor hesabına karşı bulunan en iyi skor, iki yöntem için",
+   "Best score found versus score evaluations spent, for both methods"
+  ],
+  [
+   "<th>Tohum</th>",
+   "<th>Seed</th>"
+  ],
+  [
+   "<th>Kutu</th>",
+   "<th>Box</th>"
+  ],
+  [
+   "<th>Skor fonk.</th>",
+   "<th>Score fn.</th>"
+  ],
+  [
+   "Rastgele: skor",
+   "Random: score"
+  ],
+  [
+   "Sıçra-iyileştir: skor",
+   "Jump-refine: score"
+  ],
+  [
+   "RMSD kristal poza göre, hizalamasız ve simetri düzeltmeli hesaplanır (5. kısım). 2 Å altı yeşil.",
+   "RMSD is computed relative to the crystal pose, without alignment and with symmetry correction (Section 5). Values below 2 Å are green."
+  ],
+  [
+   "Görev 3",
+   "Task 3"
+  ],
+  [
+   "<b>Tüm yüzey</b> kutusu ve <b>tam</b> skor fonksiyonuyla en az üç farklı tohum çalıştırın. Tablodaki sonuçlara bakarak hangi cümle doğrudur?",
+   "Run at least three different seeds with the <b>Whole surface</b> box and the <b>full</b> scoring function. Based on the results in the table, which statement is true?"
+  ],
+  [
+   "Görev 3 seçenekleri",
+   "Task 3 options"
+  ],
+  [
+   "Tek bir koşu yeterlidir; iki yöntem de her tohumda aynı pozu bulur.",
+   "A single run is enough; both methods find the same pose with every seed."
+  ],
+  [
+   "Aynı ayarlar farklı tohumlarla farklı pozlar verebilir; bu yüzden birden çok bağımsız koşu yapılır ve en iyi pozların birbirine benzeyip benzemediğine bakılır.",
+   "The same settings can give different poses with different seeds; that is why several independent runs are made and one checks whether the best poses resemble each other."
+  ],
+  [
+   "Rastgele arama daha çok noktaya baktığı için her zaman daha iyi pozu bulur.",
+   "Random search always finds the better pose because it looks at more points."
+  ],
+  [
+   "Seçenekler, üç farklı tohum çalıştırıldığında açılır.",
+   "The options unlock once three different seeds have been run."
+  ],
+  [
+   "Bu oyuncakta yalnız dört serbestlik derecesi var; bu yüzden rastgele arama da çoğu zaman cebe yaklaşır. Ama yaklaşmakla dibe inmek farklıdır: yerel iyileştirme olmadan skor cilalanmaz. Serbestlik derecesi arttıkça rastgele bir pozun iyi olma şansı, 2. laboratuvardaki çarpımlar gibi hızla düşer.",
+   "This toy has only four degrees of freedom, so random search also often gets close to the pocket. But getting close is not the same as reaching the bottom: without local optimization the score is not polished. As the number of degrees of freedom grows, the chance that a random pose is good drops rapidly, like the products in Lab 2."
+  ],
+  [
+   "Şimdi H-bağı terimini kapatıp birkaç tohum çalıştırın ve tablodaki skorlara bakın. Ters oturmuş poz (amidin ucu yukarıda, kuyruk dipte) artık kristal benzeri pozla neredeyse aynı, hatta biraz daha iyi puan alır: yaklaşık −2,45’e karşı −2,42. Skor fonksiyonu iki pozu ayıramaz hâle gelir ve çoğu tohum ters pozu “en iyi” diye döndürür. Arama kusursuz olsa bile sonuç yanlış olurdu. Terimlerin ağırlıkları pozun kendisini değiştirebilir; skor fonksiyonu nötr bir ölçüm aracı değil, verilere ayarlanmış bir modeldir. Vina'da <code>exhaustiveness</code> ayarı küresel aramanın kapsamını belirler ve süreyle kabaca orantılıdır; tek bir koşunun tek en iyi pozunu sonuç diye sunmak, tek bir MD koşusunu denge diye sunmaya benzer.",
+   "Now switch off the H-bond term, run a few seeds and look at the scores in the table. The inverted pose (amidine end up, tail at the bottom) now scores almost the same as the crystal-like pose, even slightly better: about −2.45 versus −2.42. The scoring function can no longer tell the two poses apart, and most seeds return the inverted pose as the “best”. Even with a perfect search, the result would be wrong. The weights of the terms can change the pose itself; a scoring function is not a neutral measuring instrument but a model fitted to data. In Vina, the <code>exhaustiveness</code> setting sets the extent of the global search and is roughly proportional to run time; presenting the single best pose of a single run as the result is like presenting a single MD run as equilibrium."
+  ],
+  [
+   "<small>5 · Doğrulama</small>Redocking: bilinen cevaba ne kadar yaklaştık?",
+   "<small>5 · Validation</small>Redocking: how close did we get to the known answer?"
+  ],
+  [
+   "İlk ve en basit sınama <b>yeniden docking</b>'tir (redocking). Deneysel olarak çözülmüş bir kompleksten ligandı çıkarırız, aynı reseptöre yeniden yerleştiririz ve kristal poza uzaklığı RMSD ile ölçeriz. 2 Å altı sıklıkla “doğru poz” ölçütü olarak kullanılır.",
+   "The first and simplest test is <b>redocking</b>. We remove the ligand from an experimentally solved complex, place it back into the same receptor and measure its distance from the crystal pose with RMSD. Below 2 Å is often used as the criterion for a “correct pose”."
+  ],
+  [
+   "<mtext>kristal</mtext>",
+   "<mtext>crystal</mtext>"
+  ],
+  [
+   "İki incelik var. Birincisi, reseptör aynı koordinat çerçevesinde durduğu için pozlar <b>hizalanmaz</b>; CH14'teki yapı RMSD'sinden farkı budur. İkincisi <b>simetri</b>: halka 180° döndüğünde kimyasal olarak aynı poz olur, ama atom numaraları yer değiştirdiği için saf RMSD büyük çıkar. İki kutucukla bu iki kararın etkisini görün.",
+   "There are two subtleties. First, because the receptor stays in the same coordinate frame, the poses are <b>not aligned</b>; this is how it differs from the structural RMSD in CH14. Second, <b>symmetry</b>: a ring rotated by 180° is chemically the same pose, but because the atom numbers swap places, the naive RMSD comes out large. Use the two checkboxes to see the effect of these two decisions."
+  ],
+  [
+   "<span class=\"lab-tag\">Laboratuvar 4</span>",
+   "<span class=\"lab-tag\">Lab 4</span>"
+  ],
+  [
+   "Redocking masası",
+   "Redocking bench"
+  ],
+  [
+   "Kristal poz kesikli çizgiyle; seçilen aday poz renkli olarak üst üste",
+   "The crystal pose as a dashed outline; the selected candidate pose overlaid in color"
+  ],
+  [
+   "Simetri düzeltmesi",
+   "Symmetry correction"
+  ],
+  [
+   "Önce hizala, sonra ölç (docking için yanlış)",
+   "Align first, then measure (wrong for docking)"
+  ],
+  [
+   "Adın üstüne tıklayınca poz sahnede görünür. Kutucuk: “bu poz 2 Å altında, başarılı”.",
+   "Click a name to show the pose in the scene. Checkbox: “this pose is below 2 Å, successful”."
+  ],
+  [
+   "Aday pozların skoru ve RMSD değeri; 2 Å çizgisi",
+   "Score and RMSD of the candidate poses; 2 Å line"
+  ],
+  [
+   "Görev 4",
+   "Task 4"
+  ],
+  [
+   "Doğru yöntemle (<b>simetri düzeltmesi açık, hizalama kapalı</b>) hangi pozlar başarılı redocking sayılır? Kutucukları işaretleyip kontrol edin. Sonra kutuları bir bir değiştirip hangi yanlışın hangi pozu nasıl gösterdiğine bakın.",
+   "Using the correct method (<b>symmetry correction on, alignment off</b>), which poses count as successful redocking? Tick the checkboxes and check. Then change the boxes one at a time and see how each mistake distorts the picture for each pose."
+  ],
+  [
+   "Grafikte iki ders birden var. Ters oturmuş poz, doğru yerdeki ama biraz kaymış pozdan <b>daha iyi skor</b> alıyor: skor sıralaması ile doğruluk sıralaması aynı şey değildir. Hizalama açıkken yüzeydeki poz bile “başarılı” görünüyor: hizalama, ligandın yanlış yerde durduğunu gizler.",
+   "The plot holds two lessons at once. The inverted pose gets a <b>better score</b> than the pose that is in the right place but slightly shifted: the score ranking and the accuracy ranking are not the same thing. With alignment on, even the surface pose looks “successful”: alignment hides the fact that the ligand sits in the wrong place."
+  ],
+  [
+   "Redocking kolay bir sınavdır, çünkü reseptör tam da bu ligandı taşırken çözülmüş yapısındadır. Daha gerçekçi sınav <b>çapraz docking</b>'tir: ligandı başka bir ligandla ya da ligandsız çözülmüş aynı proteinin yapısına yerleştirmek. Yan zincirlerin küçük farkları bile başarıyı belirgin biçimde düşürebilir.",
+   "Redocking is an easy test, because the receptor is in exactly the structure it was solved in while carrying this ligand. A more realistic test is <b>cross-docking</b>: placing the ligand into a structure of the same protein solved with a different ligand or with no ligand. Even small differences in side chains can markedly lower the success rate."
+  ],
+  [
+   "<small>6 · Skorun anlamı</small>kcal/mol yazıyor, ama ölçüm değil",
+   "<small>6 · What the score means</small>It says kcal/mol, but it is not a measurement"
+  ],
+  [
+   "Sık yapılan okuma hatası",
+   "A common misreading"
+  ],
+  [
+   "Bir programın “−8,2 kcal/mol” yazması, bu sayının ölçülmüş bir bağlanma serbest enerjisi olduğu anlamına gelmez. Birim serbest enerji birimidir, ama sayı skor fonksiyonunun bir <b>tahminidir</b>.",
+   "A program printing “−8.2 kcal/mol” does not mean that this number is a measured binding free energy. The unit is a free-energy unit, but the number is an <b>estimate</b> made by the scoring function."
+  ],
+  [
+   "On docking programını ve 37 skor fonksiyonunu karşılaştıran bir değerlendirme, programların kristal yapıya benzer pozlar üretebildiğini, fakat hiçbirinin bağlanma afinitesini yararlı biçimde öngöremediğini bildirdi (<a href=\"https://doi.org/10.1021/jm050362n\">Warren ve ark. 2006</a>). Poz bulmak ile afinite sıralamak farklı iki iştir.",
+   "An evaluation comparing ten docking programs and 37 scoring functions reported that the programs could generate poses similar to the crystal structure, but that none of them could usefully predict binding affinity (<a href=\"https://doi.org/10.1021/jm050362n\">Warren et al. 2006</a>). Finding poses and ranking affinities are two different tasks."
+  ],
+  [
+   "<small>7 · Docking ve MD birlikte</small>Her adım başka bir soruyu yanıtlar",
+   "<small>7 · Docking and MD together</small>Each step answers a different question"
+  ],
+  [
+   "Docking, MD ve serbest enerji hesaplarının yanıtladığı sorular",
+   "The questions answered by docking, MD and free-energy calculations"
+  ],
+  [
+   "Docking <span>saniye–dakika</span>",
+   "Docking <span>seconds–minutes</span>"
+  ],
+  [
+   "<b class=\"y\">Yanıtlar</b>",
+   "<b class=\"y\">Answers</b>"
+  ],
+  [
+   "Bu cepte hangi pozlar makul görünüyor?",
+   "Which poses look plausible in this pocket?"
+  ],
+  [
+   "<b class=\"n\">Yanıtlamaz</b>",
+   "<b class=\"n\">Does not answer</b>"
+  ],
+  [
+   "Ne kadar güçlü bağlanır? Poz suda kalıcı mı?",
+   "How strongly does it bind? Is the pose stable in water?"
+  ],
+  [
+   "MD <span>saat–gün</span>",
+   "MD <span>hours–days</span>"
+  ],
+  [
+   "Poz, hareketli reseptörde ve suda bu sürede dağılıyor mu?",
+   "Does the pose fall apart within this time in a moving receptor and in water?"
+  ],
+  [
+   "Kısa koşuda yerinde kalmak afinitenin kanıtı değildir.",
+   "Staying in place in a short run is not evidence of affinity."
+  ],
+  [
+   "Serbest enerji <span>ileri düzey</span>",
+   "Free energy <span>advanced</span>"
+  ],
+  [
+   "<b class=\"y\">Yaklaşır</b>",
+   "<b class=\"y\">Approximates</b>"
+  ],
+  [
+   "MM/GBSA: daha fiziksel, ama entropi ve su kaba ele alınır.",
+   "MM/GBSA: more physical, but entropy and water are treated crudely."
+  ],
+  [
+   "<b class=\"y\">Daha titiz</b>",
+   "<b class=\"y\">More rigorous</b>"
+  ],
+  [
+   "Alkimyasal yöntemler (CH19).",
+   "Alchemical methods (CH19)."
+  ],
+  [
+   "<b>Şekil DK.4 · Üç adım, üç soru.</b> MM/PBSA ve MM/GBSA, docking skorundan daha pahalı ve daha fizikseldir; yine de konformasyon entropisini ve bağlanma bölgesindeki suyun serbest enerjisini ihmal etmek gibi kaba yaklaşımlar içerir (<a href=\"https://doi.org/10.1517/17460441.2015.1032936\">Genheden ve Ryde 2015</a>).",
+   "<b>Figure DK.4 · Three steps, three questions.</b> MM/PBSA and MM/GBSA are more expensive and more physical than a docking score; still, they contain crude approximations such as neglecting conformational entropy and the free energy of water in the binding site (<a href=\"https://doi.org/10.1517/17460441.2015.1032936\">Genheden and Ryde 2015</a>)."
+  ],
+  [
+   "<small>8 · Kendinizi sınayın</small>Bir öğrenci raporu",
+   "<small>8 · Test yourself</small>A student report"
+  ],
+  [
+   "“Ligand A'nın Vina skoru −9,1, ligand B'nin −7,4 kcal/mol. A, B'den daha güçlü bağlanır. A'nın en iyi pozunu 50 ns MD'de izledim, RMSD sabit kaldı; bağlanma modu kanıtlandı.” Bu raporu dört soruda inceleyin.",
+   "“Ligand A’s Vina score is −9.1, ligand B’s is −7.4 kcal/mol. A binds more strongly than B. I followed A’s best pose in a 50 ns MD run and the RMSD stayed constant; the binding mode is proven.” Examine this report in four questions."
+  ],
+  [
+   "Sıradaki adım, orta düzey (DK-O1): aynı fikirleri gerçek bir kompleks üzerinde uygulamak. Önerilen vaka sığır tripsininin benzamidinle kompleksidir (PDB 3PTB, X-ışını, 1,70 Å). Reseptör ve ligand hazırlığında hangi kararların verildiğini CH07'deki karar günlüğü biçimiyle kaydedeceğiz.",
+   "Next step, intermediate level (DK-O1): applying the same ideas to a real complex. The suggested case is bovine trypsin in complex with benzamidine (PDB 3PTB, X-ray, 1.70 Å). We will record the decisions made in receptor and ligand preparation in the decision-log format of CH07."
+  ],
+  [
+   "<b>Bu sayfa hakkında.</b> DK-T taslağı için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Laboratuvarlar iki boyutlu bir oyuncak model kullanır: terim biçimleri ve ağırlıkları Vina makalesinden alınmıştır, ama cep, atomlar ve skorlar öğretim amaçlıdır ve gerçek bir Vina çıktısı değildir. Gerçek bir docking koşusu yapılmadı; 3PTB koordinatları indirilmedi. Şekil DK.1 şematiktir. Bilimsel ve hedef-okur incelemesi yapılmadı.",
+   "<b>About this page.</b> This is an interactive pilot chapter for the DK-T draft; the book’s source text and local site were not changed. The labs use a two-dimensional toy model: the functional forms and weights of the terms are taken from the Vina paper, but the pocket, the atoms and the scores are for teaching purposes and are not real Vina output. No real docking run was performed; the 3PTB coordinates were not downloaded. Figure DK.1 is schematic. No scientific or target-reader review has been done."
+  ],
+  [
+   "'tr-TR'",
+   "'en-US'"
+  ],
+  [
+   "'Asp benzeri (−)'",
+   "'Asp-like (−)'"
+  ],
+  [
+   "'cep'",
+   "'pocket'"
+  ],
+  [
+   "'reseptör'",
+   "'receptor'"
+  ],
+  [
+   "'θ dönme'",
+   "'θ rotation'"
+  ],
+  [
+   "'merkez (x, y)'",
+   "'center (x, y)'"
+  ],
+  [
+   "'τ burulma'",
+   "'τ torsion'"
+  ],
+  [
+   "'amidin (+)'",
+   "'amidine (+)'"
+  ],
+  [
+   "'halka'",
+   "'ring'"
+  ],
+  [
+   "'kuyruk'",
+   "'tail'"
+  ],
+  [
+   "'Üç boyutta'",
+   "'In three dimensions'"
+  ],
+  [
+   "'3 öteleme + 3 dönme + n burulma'",
+   "'3 transl. + 3 rot. + n torsions'"
+  ],
+  [
+   "'= 6 + n sayı'",
+   "'= 6 + n numbers'"
+  ],
+  [
+   "'Bu oyuncakta (2B)'",
+   "'In this toy (2D)'"
+  ],
+  [
+   "'= 2 + 1 + 1 = 4 sayı'",
+   "'= 2 + 1 + 1 = 4 numbers'"
+  ],
+  [
+   "'Mavi bulut: atomların van der Waals'",
+   "'Blue cloud: van der Waals radii'"
+  ],
+  [
+   "'yarıçapı. Bulutlar reseptöre fazla'",
+   "'of the atoms. If the clouds push too far'"
+  ],
+  [
+   "'girerse itme terimi büyür.'",
+   "'into the receptor, repulsion grows.'"
+  ],
+  [
+   "'En iyi skorlu poz'",
+   "'Best-scoring pose'"
+  ],
+  [
+   "'Biraz yukarıda, halkası çevrilmiş'",
+   "'Slightly higher, ring flipped'"
+  ],
+  [
+   "'Ters oturmuş'",
+   "'Inverted'"
+  ],
+  [
+   "'Yüzeyde'",
+   "'On the surface'"
+  ],
+  [
+   "'Cep ağzında'",
+   "'At the pocket mouth'"
+  ],
+  [
+   "'MD: zaman var, hareket izlenir'",
+   "'MD: time runs, motion is tracked'"
+  ],
+  [
+   "'Docking: zaman yok, pozlar sıralanır'",
+   "'Docking: no time, poses are ranked'"
+  ],
+  [
+   "'poz '",
+   "'pose '"
+  ],
+  [
+   "'skor'",
+   "'score'"
+  ],
+  [
+   "'Sıra skora göredir; doğru poz olduğunu garanti etmez (5. kısım).'",
+   "'Ranking is by score; it does not guarantee a correct pose (Section 5).'"
+  ],
+  [
+   "'amidin C’nin yüksekliği (Å)'",
+   "'height of the amidine C (Å)'"
+  ],
+  [
+   "' ns (şematik)'",
+   "' ns (schematic)'"
+  ],
+  [
+   "' nanosaniye'",
+   "' nanoseconds'"
+  ],
+  [
+   "'Ligand; ok tuşlarıyla öteleyin, Q ve E ile döndürün, A ve D ile kuyruğu burun'",
+   "'Ligand; translate with the arrow keys, rotate with Q and E, twist the tail with A and D'"
+  ],
+  [
+   "'Sterik çekim'",
+   "'Steric attraction'"
+  ],
+  [
+   "'İtme'",
+   "'Repulsion'"
+  ],
+  [
+   "'Hidrofobik'",
+   "'Hydrophobic'"
+  ],
+  [
+   "'H-bağı / tuz köp.'",
+   "'H-bond / salt br.'"
+  ],
+  [
+   "'Esneklik düzeltmesi'",
+   "'Flexibility correction'"
+  ],
+  [
+   "'Toplam skor'",
+   "'Total score'"
+  ],
+  [
+   "'Tuz köprüsü '",
+   "'Salt bridges '"
+  ],
+  [
+   "'Çakışma: '+an.clash.length+' atom'",
+   "'Clashing atoms: '+an.clash.length+''"
+  ],
+  [
+   "'merkez x '",
+   "'center x '"
+  ],
+  [
+   "' Å; skor '",
+   "' Å; score '"
+  ],
+  [
+   "'; tuz köprüsü '",
+   "'; salt bridges '"
+  ],
+  [
+   "'Tamam: iki tuz köprüsü kuruldu, skor '",
+   "'Done: two salt bridges formed, score '"
+  ],
+  [
+   "'. Çubuklara bakın: en büyük katkı sterik çekimden ve H-bağından geliyor, itme ise küçük ama sıfır değil. Tuz köprüsü bu kadar yakın bir temas ister.'",
+   "'. Look at the bars: the largest contributions come from steric attraction and the H-bond, while repulsion is small but not zero. A salt bridge requires a contact this close.'"
+  ],
+  [
+   "'İki tuz köprüsü var; skor '",
+   "'Two salt bridges are in place; score '"
+  ],
+  [
+   "'. Şimdi “Yerel iyileştir” ile pozu cilalayın.'",
+   "'. Now polish the pose with “Refine locally”.'"
+  ],
+  [
+   "'Bir N oksijene değiyor. Ligandı biraz döndürüp ikinci N’yi de karşı oksijene getirin.'",
+   "'One N is touching an oxygen. Rotate the ligand slightly and bring the second N to the opposite oxygen as well.'"
+  ],
+  [
+   "'Ligand cepte. Amidin ucunun (mavi) aşağı baktığından emin olun; ters duruyorsa θ sürgüsüyle çevirin.'",
+   "'The ligand is in the pocket. Make sure the amidine end (blue) points down; if it is upside down, turn it with the θ slider.'"
+  ],
+  [
+   "'bir saniyeden az'",
+   "'less than a second'"
+  ],
+  [
+   "' saniye'",
+   "' seconds'"
+  ],
+  [
+   "' dakika'",
+   "' minutes'"
+  ],
+  [
+   "' saat'",
+   "' hours'"
+  ],
+  [
+   "' gün'",
+   "' days'"
+  ],
+  [
+   "' yıl'",
+   "' years'"
+  ],
+  [
+   "'1 sn'",
+   "'1 s'"
+  ],
+  [
+   "'1 saat'",
+   "'1 hour'"
+  ],
+  [
+   "'1 gün'",
+   "'1 day'"
+  ],
+  [
+   "'1 yıl'",
+   "'1 year'"
+  ],
+  [
+   "'1000 yıl'",
+   "'1000 years'"
+  ],
+  [
+   "'evrenin yaşı'",
+   "'age of the universe'"
+  ],
+  [
+   "'Toplam poz'",
+   "'Total poses'"
+  ],
+  [
+   "'Tarama süresi'",
+   "'Scan time'"
+  ],
+  [
+   "'evrenin yaşından uzun'",
+   "'longer than the age of the universe'"
+  ],
+  [
+   "'logaritmik eksen: her çentik arası çok büyük bir sıçramadır'",
+   "'logarithmic axis: each gap between ticks is a huge jump'"
+  ],
+  [
+   "'Doğru: her yeni dönebilir bağ, açı adımı 30° iken 360/30 = 12, 15° iken 360/15 = 24 kat getirir. Esnek bir ligandda aramayı zorlaştıran şey bu çarpımdır; çok az dönebilir bağı olan benzamidin bu yüzden kolay bir örnektir.'",
+   "'Correct: each new rotatable bond multiplies the count by 360/30 = 12 with a 30° angle step and by 360/15 = 24 with a 15° step. This multiplication is what makes searching for a flexible ligand hard; that is why benzamidine, with very few rotatable bonds, is an easy example.'"
+  ],
+  [
+   "'30° için doğru. 15°’lik adımda bir burulma açısı kaç farklı değer alır?'",
+   "'Correct for 30°. With a 15° step, how many different values can a torsion angle take?'"
+  ],
+  [
+   "'15° için doğru. 30°’de bir burulma kaç değer alır? Sürgüyle 3 ve 4 arasında gidip gelerek görebilirsiniz.'",
+   "'Correct for 15°. How many values does a torsion take at 30°? You can see it by moving the slider back and forth between 3 and 4.'"
+  ],
+  [
+   "'İpucu: bir burulma açısı 360°’yi a derecelik adımlarla dolaşır; yani 360/a farklı değer alır.'",
+   "'Hint: a torsion angle sweeps 360° in steps of a degrees, so it takes 360/a different values.'"
+  ],
+  [
+   "'arama kutusu: tüm yüzey'",
+   "'search box: whole surface'"
+  ],
+  [
+   "'arama kutusu: yalnız cep'",
+   "'search box: pocket only'"
+  ],
+  [
+   ">harcanan skor hesabı<",
+   ">score evaluations spent<"
+  ],
+  [
+   ">bulunan en iyi skor<",
+   ">best score found<"
+  ],
+  [
+   ">rastgele</text>",
+   ">random</text>"
+  ],
+  [
+   ">sıçra ve iyileştir</text>",
+   ">jump and refine</text>"
+  ],
+  [
+   "'tüm yüzey'",
+   "'whole surface'"
+  ],
+  [
+   "' · 4.000'",
+   "' · 4,000'"
+  ],
+  [
+   "'tam'",
+   "'full'"
+  ],
+  [
+   "'H-bağı yok'",
+   "'no H-bond'"
+  ],
+  [
+   "'Bitti. '",
+   "'Done. '"
+  ],
+  [
+   "'H-bağı terimi kapalı. Sıçra-iyileştir '",
+   "'H-bond term off. Jump-refine found '"
+  ],
+  [
+   "'kristal benzeri pozu'",
+   "'a crystal-like pose'"
+  ],
+  [
+   "'kristal pozdan uzak bir pozu'",
+   "'a pose far from the crystal pose'"
+  ],
+  [
+   "' buldu (skor '",
+   "' (score '"
+  ],
+  [
+   "'). Bu skorla ters poz yaklaşık −2,45, kristal benzeri poz yaklaşık −2,42 alır: fonksiyon ikisini neredeyse ayıramıyor.'",
+   "'). With this scoring function the inverted pose gets about −2.45 and the crystal-like pose about −2.42: the function can hardly tell them apart.'"
+  ],
+  [
+   "'İki yöntem de kristal poza 2 Å içinde yaklaştı; sıçra-iyileştir skoru daha çok cilaladı.'",
+   "'Both methods came within 2 Å of the crystal pose; jump-refine polished the score further.'"
+  ],
+  [
+   "'Sıçra-iyileştir kristal poza yaklaştı, rastgele arama başka bir yerde kaldı.'",
+   "'Jump-refine got close to the crystal pose; random search ended up somewhere else.'"
+  ],
+  [
+   "'Rastgele arama yaklaştı; sıçra-iyileştir bu tohumda yanlış bir çukura takıldı.'",
+   "'Random search got close; with this seed, jump-refine got stuck in a wrong well.'"
+  ],
+  [
+   "'Bu tohumda iki yöntem de kristal pozdan uzak kaldı. Başka tohumu deneyin.'",
+   "'With this seed, both methods stayed far from the crystal pose. Try another seed.'"
+  ],
+  [
+   "'Şimdi bir seçenek işaretleyin.'",
+   "'Now choose an option.'"
+  ],
+  [
+   "'Tüm yüzey ve tam skorla çalıştırılan farklı tohum: '",
+   "'Different seeds run with whole surface and full scoring: '"
+  ],
+  [
+   "'Hesaplanıyor…'",
+   "'Computing…'"
+  ],
+  [
+   "'Skor hesabı: '",
+   "'Score evaluations: '"
+  ],
+  [
+   "'Ayar değişti. “Yarışı başlat” ile çalıştırın.'",
+   "'Settings changed. Run them with “Start race”.'"
+  ],
+  [
+   "'Doğru. Tabloda aynı ayarlarla farklı tohumların farklı pozlara vardığını görebilirsiniz. Bir docking raporunda tohum sayısı, en iyi pozların birbirine RMSD’si ve skor dağılımı birlikte verilmelidir.'",
+   "'Correct. The table shows that, with the same settings, different seeds arrive at different poses. A docking report should give the number of seeds, the RMSD of the best poses to one another and the score distribution together.'"
+  ],
+  [
+   "'Tabloya tekrar bakın: aynı kutu ve aynı skorla farklı tohumlar aynı sonucu verdi mi?'",
+   "'Look at the table again: did different seeds give the same result with the same box and the same scoring function?'"
+  ],
+  [
+   "'Hazır. “Yarışı başlat” ile ilk tohumu çalıştırın.'",
+   "'Ready. Run the first seed with “Start race”.'"
+  ],
+  [
+   "'Sizin pozunuz (Laboratuvar 1)'",
+   "'Your pose (Lab 1)'"
+  ],
+  [
+   "aria-label=\"'+c.k+' pozu 2 Å altında\">",
+   "aria-label=\"Pose '+c.k+' below 2 Å\">"
+  ],
+  [
+   "'.</b> Kırmızı çizgiler her atomu kristaldeki eşine bağlar; RMSD bu uzunlukların karelerinin ortalamasının köküdür. Skor '",
+   "'.</b> The red lines connect each atom to its counterpart in the crystal; RMSD is the square root of the mean of the squares of these lengths. Score '"
+  ],
+  [
+   "' (hizalanmış kopyaya göre; kesikli)'",
+   "' (relative to the aligned copy; dashed)'"
+  ],
+  [
+   "'; simetri eşlemesi kullanıldı.'",
+   "'; symmetry mapping used.'"
+  ],
+  [
+   "'skor '",
+   "'score '"
+  ],
+  [
+   ">2 Å eşiği<",
+   ">2 Å threshold<"
+  ],
+  [
+   ">skor (aşağısı daha iyi)<",
+   ">score (lower is better)<"
+  ],
+  [
+   "'Doğru. A ve B aynı yerde, B yalnızca biraz kaymış ve halkası çevrilmiş. C cebe girmiş ama ters; D ve E yanlış yerde. Simetri kapalıyken B yanlışlıkla başarısız, hizalama açıkken C, D ve E yanlışlıkla başarılı görünür.'",
+   "'Correct. A and B are in the same place; B is only slightly shifted and its ring is flipped. C has entered the pocket but is inverted; D and E are in the wrong place. With symmetry off, B wrongly appears to fail; with alignment on, C, D and E wrongly appear successful.'"
+  ],
+  [
+   "' Kendi pozunuz da başarılı sayılıyor.'",
+   "' Your own pose also counts as successful.'"
+  ],
+  [
+   "'Henüz değil. '",
+   "'Not yet. '"
+  ],
+  [
+   "'Başarılı sayılmaması gereken: '",
+   "'Should not count as successful: '"
+  ],
+  [
+   "'Eksik kalan: '",
+   "'Missing: '"
+  ],
+  [
+   "'Önce kutuları doğru yönteme getirin: simetri açık, hizalama kapalı.'",
+   "'First set the checkboxes to the correct method: symmetry on, alignment off.'"
+  ],
+  [
+   "'Rapordaki “−9,1 kcal/mol” sayısı neyi ifade eder?'",
+   "'What does the “−9.1 kcal/mol” in the report express?'"
+  ],
+  [
+   "'Deneyle ölçülmüş bağlanma serbest enerjisini.'",
+   "'The experimentally measured binding free energy.'"
+  ],
+  [
+   "'Skor fonksiyonunun o poz için verdiği bir tahmini; birimi serbest enerji birimi olsa da ölçüm değildir.'",
+   "'An estimate given by the scoring function for that pose; although its unit is a free-energy unit, it is not a measurement.'"
+  ],
+  [
+   "'Ligandın proteine göre ne kadar hızlı bağlandığını.'",
+   "'How fast the ligand binds to the protein.'"
+  ],
+  [
+   "'Skor fonksiyonu pozları sıralamak için kurulmuş ve verilere ayarlanmış bir modeldir. İki ligand arasındaki 1,7 birimlik fark, fonksiyonun tipik hatasıyla karşılaştırılmadan “A daha güçlü bağlanır” sonucuna çevrilemez.'",
+   "'A scoring function is a model built to rank poses and fitted to data. The 1.7-unit difference between the two ligands cannot be turned into the conclusion “A binds more strongly” without comparing it with the function’s typical error.'"
+  ],
+  [
+   "'Tek bir çalıştırmanın tek en iyi pozunu raporlamanın riski nedir?'",
+   "'What is the risk of reporting the single best pose of a single run?'"
+  ],
+  [
+   "'Risk yoktur; program her seferinde aynı sonucu verir.'",
+   "'There is no risk; the program gives the same result every time.'"
+  ],
+  [
+   "'Yalnızca bilgisayarın hızına bağlı bir risk vardır.'",
+   "'The only risk depends on the speed of the computer.'"
+  ],
+  [
+   "'Arama stokastiktir; başka tohumlar başka pozlar bulabilir. Birden çok koşu ve en iyi pozların benzerliği raporlanmalıdır.'",
+   "'The search is stochastic; other seeds can find other poses. Several runs and the similarity of the best poses should be reported.'"
+  ],
+  [
+   "'Laboratuvar 3’te aynı ayarlarla farklı tohumların farklı çukurlara düştüğünü gördünüz.'",
+   "'In Lab 3 you saw different seeds with the same settings fall into different wells.'"
+  ],
+  [
+   "'50 ns MD boyunca RMSD’nin sabit kalması neyi gösterir?'",
+   "'What does a constant RMSD over 50 ns of MD show?'"
+  ],
+  [
+   "'Pozun bu süre içinde cepten ayrılmadığını; afiniteyi ya da daha iyi bir poz olmadığını göstermez.'",
+   "'That the pose did not leave the pocket during this time; it shows neither the affinity nor that no better pose exists.'"
+  ],
+  [
+   "'Bağlanma modunun kanıtlandığını.'",
+   "'That the binding mode is proven.'"
+  ],
+  [
+   "'Kuvvet alanının doğru olduğunu.'",
+   "'That the force field is correct.'"
+  ],
+  [
+   "'Kısa bir MD, pozun o sürede dağılmadığını gösterir. Örneklemenin yeterli olup olmadığı ayrı bir sorudur (CH17).'",
+   "'A short MD run shows that the pose did not fall apart in that time. Whether the sampling is sufficient is a separate question (CH17).'"
+  ],
+  [
+   "'Bağlanma modu iddiasını sınamak için yapılması gereken ilk kontrol hangisidir?'",
+   "'Which check should be done first to test the binding-mode claim?'"
+  ],
+  [
+   "'Pozu kristal liganda hizalayıp RMSD hesaplamak.'",
+   "'Align the pose to the crystal ligand and compute the RMSD.'"
+  ],
+  [
+   "'Ligandlı bir kristal yapı varsa kristal ligandla redocking yapıp 2 Å içinde kalınıp kalınmadığına bakmak; ardından mümkünse çapraz docking.'",
+   "'If a crystal structure with a bound ligand exists, redock the crystal ligand and check whether the result stays within 2 Å; then, if possible, cross-docking.'"
+  ],
+  [
+   "'MD süresini 500 ns’ye çıkarmak.'",
+   "'Extend the MD run to 500 ns.'"
+  ],
+  [
+   "'Redocking, programın ve ayarların bu cepte bilinen cevabı bulup bulamadığını sınar. Hizalama ise ligandın yanlış yerde durduğunu gizler (Laboratuvar 4).'",
+   "'Redocking tests whether the program and settings can find the known answer in this pocket. Alignment, by contrast, hides the fact that the ligand sits in the wrong place (Lab 4).'"
+  ],
+  [
+   "aria-label=\"Soru '+(i+1)+' seçenekleri\"",
+   "aria-label=\"Question '+(i+1)+' options\""
+  ],
+  [
+   "<b style=\"color:var(--good)\">Doğru.</b>",
+   "<b style=\"color:var(--good)\">Correct.</b>"
+  ],
+  [
+   "<b style=\"color:var(--bad)\">Tekrar düşünün.</b>",
+   "<b style=\"color:var(--bad)\">Think again.</b>"
+  ],
+  [
+   "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
+   "if(/,/.test(str))str=/^-?\\d{1,3}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
+  ]
+ ],
+ "keep": [
+  "rot",
+  "dock",
+  "min"
+ ]
+}

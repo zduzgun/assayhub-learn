@@ -1,0 +1,904 @@
+{
+ "module": "MD-T",
+ "lang": "en",
+ "source_sha256": "c1683ff0adf2aef0e0d8f543a43e6845516bed3bac34b97db91c40d3849796f2",
+ "reviewed": false,
+ "translator": "Claude (machine translation, needs human review)",
+ "pairs": [
+  [
+   "Enerji, Kuvvetler ve Sayısal Hareket",
+   "Energy, Forces and Numerical Motion"
+  ],
+  [
+   "Biyomoleküler sistemlerde Moleküler Dinamik · Temel düzey",
+   "Molecular Dynamics in Biomolecular Systems · Basic level"
+  ],
+  [
+   "Uygulamalar: ",
+   "Exercises: "
+  ],
+  [
+   "Bölüm 02 · Etkileşimli sürüm",
+   "Chapter 02 · Interactive edition"
+  ],
+  [
+   "Enerji, kuvvetler ve sayısal hareket",
+   "Energy, forces and numerical motion"
+  ],
+  [
+   "Bir MD programının her adımda yaptığı iki işi kendi elinizle yapacaksınız: kuvveti enerjiden bulmak ve atomu küçük bir zaman adımı kadar ilerletmek.",
+   "You will do by hand the two jobs an MD program performs at every step: finding the force from the energy and advancing the atom by one small time step."
+  ],
+  [
+   "Bu bölümde yapacaklarınız",
+   "What you will do in this chapter"
+  ],
+  [
+   "Bir enerji eğrisinde topu sürükleyip kuvvetin nereye ittiğini <b>görmek</b>.",
+   "Drag a ball along an energy curve and <b>see</b> where the force pushes it."
+  ],
+  [
+   "Bir hız-Verlet adımını <b>elle hesaplamak</b>, sonra adımı büyütüp küçültüp hatayı <b>ölçmek</b>.",
+   "<b>Compute</b> one velocity Verlet step <b>by hand</b>, then make the step larger and smaller and <b>measure</b> the error."
+  ],
+  [
+   "Proteinlerde neden 2 fs kullanıldığını ve kare ile adımın farkını <b>bulmak</b>.",
+   "<b>Find out</b> why 2 fs is used for proteins and how a frame differs from a step."
+  ],
+  [
+   "<small>1 · Enerji eğimi kuvveti verir</small>Top, yokuş aşağı itilir",
+   "<small>1 · The energy slope gives the force</small>The ball is pushed downhill"
+  ],
+  [
+   "Bir atomun potansiyel enerjisi <i>U</i>, onun konumuna bağlıdır. Kuvvet, bu enerji eğrisinin <b>eğiminin tersidir</b>: eğim yukarı doğruysa kuvvet geriye, eğim aşağı doğruysa ileriye iter.",
+   "The potential energy <i>U</i> of an atom depends on its position. The force is the <b>negative of the slope</b> of this energy curve: where the slope rises, the force pushes back; where the slope falls, it pushes forward."
+  ],
+  [
+   "Aşağıda üç enerji biçimi var. İlki basit bir yay. İkincisi iki atom arasındaki bir kimyasal bağa benzer (Morse biçimi). Üçüncüsü bağlı olmayan iki atomun birbirini uzaktan çekip yakından itmesidir (Lennard-Jones). Topu sürükleyin; kesikli çizgi o noktadaki eğimi, yeşil ok kuvveti gösterir.",
+   "Below are three energy forms. The first is a simple spring. The second resembles a chemical bond between two atoms (Morse form). The third describes two non-bonded atoms that attract each other at a distance and repel each other up close (Lennard-Jones). Drag the ball; the dashed line shows the slope at that point, and the green arrow shows the force."
+  ],
+  [
+   "Laboratuvar ",
+   "Lab "
+  ],
+  [
+   ">Kuvvet oku<",
+   ">Force arrow<"
+  ],
+  [
+   "Görev tamamlandı",
+   "Task completed"
+  ],
+  [
+   "Seçilen potansiyel enerji eğrisi, üzerinde sürüklenebilir top, eğim çizgisi ve kuvvet oku",
+   "Selected potential energy curve with a draggable ball, slope line and force arrow"
+  ],
+  [
+   "<span><i></i>enerji U</span><span><i class=\"e\" style=\"border-top-style:dashed\"></i>eğim</span><span><i style=\"border-color:var(--good);border-top-width:4px\"></i>kuvvet F</span>",
+   "<span><i></i>energy U</span><span><i class=\"e\" style=\"border-top-style:dashed\"></i>slope</span><span><i style=\"border-color:var(--good);border-top-width:4px\"></i>force F</span>"
+  ],
+  [
+   "Enerji biçimi",
+   "Energy form"
+  ],
+  [
+   ">Yay<",
+   ">Spring<"
+  ],
+  [
+   "Bağ (Morse)",
+   "Bond (Morse)"
+  ],
+  [
+   ">Konum <",
+   ">Position <"
+  ],
+  [
+   "Yay sertliği k",
+   "Spring stiffness k"
+  ],
+  [
+   ">1,0<",
+   ">1.0<"
+  ],
+  [
+   ">Enerji U<",
+   ">Energy U<"
+  ],
+  [
+   "Eğim dU/dx",
+   "Slope dU/dx"
+  ],
+  [
+   ">Kuvvet F<",
+   ">Force F<"
+  ],
+  [
+   "Kuvvetin yönü",
+   "Direction of force"
+  ],
+  [
+   "<h4>Görev ",
+   "<h4>Task "
+  ],
+  [
+   "<b>Lennard-Jones</b> eğrisini seçin ve topu kuvvetin sıfır olduğu noktaya getirin. İki atom bu uzaklıkta ne birbirini çeker ne iter.",
+   "Select the <b>Lennard-Jones</b> curve and move the ball to the point where the force is zero. At this distance the two atoms neither attract nor repel each other."
+  ],
+  [
+   "Gerçek bir proteinde <i>U</i> binlerce böyle terimin toplamıdır: bağlar, açılar, burulmalar ve bağlı olmayan etkileşimler. Program her atom için bu toplamın eğimini hesaplar. Mantık, sürüklediğiniz topla aynıdır.",
+   "In a real protein, <i>U</i> is the sum of thousands of such terms: bonds, angles, torsions and non-bonded interactions. The program computes the slope of this sum for every atom. The logic is the same as with the ball you are dragging."
+  ],
+  [
+   "<small>2 · Bir adımı elle atmak</small>Bilgisayar hareketi nasıl ilerletir?",
+   "<small>2 · Taking a step by hand</small>How does the computer advance the motion?"
+  ],
+  [
+   "Kuvveti bilince ivmeyi (<i>a</i> = <i>F</i>/<i>m</i>) biliriz. Hız-Verlet yöntemi konumu ve hızı küçük bir Δ<i>t</i> adımı kadar şöyle ilerletir:",
+   "Once we know the force, we know the acceleration (<i>a</i> = <i>F</i>/<i>m</i>). The velocity Verlet method advances the position and the velocity by a small step Δ<i>t</i> as follows:"
+  ],
+  [
+   "Deneyimizde kütle ve yay sertliği 1, top <i>x</i> = 1'den durgun bırakılıyor. Bu yüzden ivme <i>a</i> = −<i>x</i> olur ve kesin çözümü biliyoruz: <i>x</i>(<i>t</i>) = cos <i>t</i>. Birimler boyutsuzdur; önce mantığı öğreniyoruz, femtosaniyelere 4. kısımda geçeceğiz.",
+   "In our experiment the mass and the spring stiffness are both 1, and the ball is released from rest at <i>x</i> = 1. So the acceleration is <i>a</i> = −<i>x</i>, and we know the exact solution: <i>x</i>(<i>t</i>) = cos <i>t</i>. The units are dimensionless; we learn the logic first and move to femtoseconds in Section 4."
+  ],
+  [
+   "Adım adım hız-Verlet · Δt = 0,2",
+   "Velocity Verlet step by step · Δt = 0.2"
+  ],
+  [
+   "Kesin çözüm cos t ve elle atılan hız-Verlet adımları",
+   "Exact solution cos t and velocity Verlet steps taken by hand"
+  ],
+  [
+   "<span><i></i>kesin çözüm cos t</span><span><i class=\"n\" style=\"border-top-width:6px;width:10px;border-radius:50%\"></i>hesaplanan adımlar</span>",
+   "<span><i></i>exact solution cos t</span><span><i class=\"n\" style=\"border-top-width:6px;width:10px;border-radius:50%\"></i>computed steps</span>"
+  ],
+  [
+   "Sonraki adımı hesapla",
+   "Compute the next step"
+  ],
+  [
+   ">10 adım<",
+   ">10 steps<"
+  ],
+  [
+   "Baştan",
+   "Start over"
+  ],
+  [
+   "İlk adımı butona basmadan siz hesaplayın. <i>x</i><sub>0</sub> = 1, <i>v</i><sub>0</sub> = 0, <i>a</i><sub>0</sub> = −1 ve Δ<i>t</i> = 0,2 iken <i>x</i><sub>1</sub> kaçtır?",
+   "Compute the first step yourself before pressing the button. With <i>x</i><sub>0</sub> = 1, <i>v</i><sub>0</sub> = 0, <i>a</i><sub>0</sub> = −1 and Δ<i>t</i> = 0.2, what is <i>x</i><sub>1</sub>?"
+  ],
+  [
+   ">x1 tahmini<",
+   ">Your estimate of x1<"
+  ],
+  [
+   ">Kontrol et<",
+   ">Check<"
+  ],
+  [
+   "İpucu",
+   "Hint"
+  ],
+  [
+   "<small>3 · Adım büyüklüğü deneyi</small>Adımı küçültünce ne kazanırız?",
+   "<small>3 · Step size experiment</small>What do we gain by shrinking the step?"
+  ],
+  [
+   "Sayısal çözüm, kesin çözümün bir yaklaşığıdır. Adım büyüdükçe sapma büyür; bir sınırdan sonra yörünge tamamen kopar. Sürgüyü oynatın, üç grafiği birlikte izleyin.",
+   "The numerical solution is an approximation of the exact solution. As the step grows, the deviation grows; beyond a limit the trajectory breaks away completely. Move the slider and watch the three plots together."
+  ],
+  [
+   "Alttaki grafik logaritmik ölçektedir: bir çizgi aralığı on kat fark demektir. Konum hatası kesin çözümden uzaklığı, enerji sapması da toplam enerjinin başlangıçtaki 0,5 değerinden ne kadar kaydığını gösterir.",
+   "The lower plot uses a logarithmic scale: one gridline interval means a factor of ten. The position error shows the distance from the exact solution, and the energy drift shows how far the total energy has shifted from its initial value of 0.5."
+  ],
+  [
+   "Zaman adımını değiştir",
+   "Change the time step"
+  ],
+  [
+   "İki görev tamamlandı",
+   "Both tasks completed"
+  ],
+  [
+   "Kesin çözüm ve seçilen adımla hesaplanan yörünge",
+   "Exact solution and the trajectory computed with the selected step"
+  ],
+  [
+   "<span><i></i>kesin çözüm</span><span><i class=\"n\"></i>hız-Verlet</span>",
+   "<span><i></i>exact solution</span><span><i class=\"n\"></i>velocity Verlet</span>"
+  ],
+  [
+   "Konum hatası ve bağıl enerji sapması, logaritmik ölçek",
+   "Position error and relative energy drift, logarithmic scale"
+  ],
+  [
+   "<span><i class=\"e\"></i>konum hatası |xₙ − cos tₙ|</span><span><i class=\"d\"></i>bağıl enerji sapması</span>",
+   "<span><i class=\"e\"></i>position error |xₙ − cos tₙ|</span><span><i class=\"d\"></i>relative energy drift</span>"
+  ],
+  [
+   "Zaman adımı Δt",
+   "Time step Δt"
+  ],
+  [
+   "Hazır adımlar",
+   "Preset steps"
+  ],
+  [
+   ">0,2<",
+   ">0.2<"
+  ],
+  [
+   ">0,1<",
+   ">0.1<"
+  ],
+  [
+   ">0,05<",
+   ">0.05<"
+  ],
+  [
+   ">0,025<",
+   ">0.025<"
+  ],
+  [
+   ">1,9<",
+   ">1.9<"
+  ],
+  [
+   ">2,05<",
+   ">2.05<"
+  ],
+  [
+   "Δt'yi yarıla",
+   "Halve Δt"
+  ],
+  [
+   "İkiye katla",
+   "Double"
+  ],
+  [
+   "Adım sayısı (t ≤ 10)",
+   "Number of steps (t ≤ 10)"
+  ],
+  [
+   "t ≈ 10'da konum hatası",
+   "Position error at t ≈ 10"
+  ],
+  [
+   "En büyük bağıl enerji sapması",
+   "Largest relative energy drift"
+  ],
+  [
+   "Bu ölçümü tabloya ekle",
+   "Add this measurement to the table"
+  ],
+  [
+   "<th>Adım</th>",
+   "<th>Steps</th>"
+  ],
+  [
+   "t≈10 konum hatası",
+   "Position error at t≈10"
+  ],
+  [
+   "Önceki satıra oran",
+   "Ratio to previous row"
+  ],
+  [
+   "<th>Enerji sapması</th>",
+   "<th>Energy drift</th>"
+  ],
+  [
+   "Henüz ölçüm yok. Bir adım seçip “tabloya ekle”ye basın.",
+   "No measurements yet. Choose a step and press “Add this measurement to the table”."
+  ],
+  [
+   "Hatanın düzeni",
+   "How the error scales"
+  ],
+  [
+   "Bir ölçüm alın, Δt'yi yarılayıp bir ölçüm daha alın. Tablo, hatanın kaç kat küçüldüğünü hesaplar. Yarılamada yaklaşık 4 kat küçülme, yöntemin <b>ikinci mertebe</b> olduğunu gösterir.",
+   "Take a measurement, halve Δt and take another one. The table computes by what factor the error shrank. A reduction by a factor of about 4 on halving shows that the method is <b>second order</b>."
+  ],
+  [
+   "Kopma noktası",
+   "Breaking point"
+  ],
+  [
+   "Adımı büyütün. Bu yay için yörüngenin patlamaya başladığı adım değeri kaçtır? Grafiklerden bulun ve yazın.",
+   "Increase the step. For this spring, at what step value does the trajectory start to blow up? Find it from the plots and enter it."
+  ],
+  [
+   "Kararlılık sınırı",
+   "Stability limit"
+  ],
+  [
+   "Bu deneyin öğrettiği şey şudur: küçük adım <b>sayısal hatayı</b> küçültür. Enerji modelinin, yani kuvvet alanının, doğru olup olmadığını ise hiçbir adım boyu söylemez. Yanlış bir yayla ne kadar küçük adım atarsanız atın, yanlış yayın hareketini hesaplarsınız.",
+   "This is what the experiment teaches: a small step reduces the <b>numerical error</b>. Whether the energy model, that is, the force field, is correct is something no step size can tell you. However small the steps you take with a wrong spring, you are computing the motion of the wrong spring."
+  ],
+  [
+   "<small>4 · Gerçek moleküle geçiş</small>Proteinlerde neden 2 femtosaniye?",
+   "<small>4 · Moving to a real molecule</small>Why 2 femtoseconds for proteins?"
+  ],
+  [
+   "3. kısımdaki kopma noktası rastgele değildi; yayın titreşim periyoduna bağlıydı. Açısal frekans ω için hız-Verlet ancak",
+   "The breaking point in Section 3 was not arbitrary; it depended on the vibrational period of the spring. For an angular frequency ω, velocity Verlet is stable only if"
+  ],
+  [
+   " iken kararlıdır. Bir molekülde en hızlı titreşim, bütün sistemin adımını belirler.",
+   ". In a molecule, the fastest vibration sets the step for the whole system."
+  ],
+  [
+   "Kararlı olmak yetmez; titreşimi doğru izlemek de gerekir. GROMACS kılavuzu, hız-Verlet ailesi için <b>bir titreşim periyodu başına en az 5 adımı</b> yol gösterici kabul eder. Hidrojen içeren bağlar en hızlı titreşenlerdir; bu yüzden çoğu simülasyonda bu bağların uzunluğu sabitlenir (kısıt). Aşağıda deneyin.",
+   "Being stable is not enough; the vibration must also be followed accurately. For the velocity Verlet family, the GROMACS manual takes <b>at least 5 steps per vibrational period</b> as a guideline. Bonds involving hydrogen vibrate fastest; this is why most simulations fix the lengths of these bonds (constraints). Try it below."
+  ],
+  [
+   "En hızlı titreşim, en büyük adım",
+   "Fastest vibration, largest step"
+  ],
+  [
+   "Seçilen titreşimin sürekli hareketi ve zaman adımında alınan örnekler",
+   "Continuous motion of the selected vibration and the samples taken at each time step"
+  ],
+  [
+   "Zaman adımı ekseni: iyi, kaba ve kararsız bölgeler",
+   "Time step axis: good, coarse and unstable regions"
+  ],
+  [
+   "Hidrojenli bağları kısıtla (protein: LINCS, su: SETTLE)",
+   "Constrain bonds to hydrogen (protein: LINCS, water: SETTLE)"
+  ],
+  [
+   "Titreşimler (yaklaşık periyot)",
+   "Vibrations (approximate period)"
+  ],
+  [
+   "Belirleyici titreşim",
+   "Limiting vibration"
+  ],
+  [
+   "Periyot başına adım",
+   "Steps per period"
+  ],
+  [
+   "ωΔt (sınır 2)",
+   "ωΔt (limit 2)"
+  ],
+  [
+   "Kısıt <b>yokken</b>, periyot başına 5 adım kuralını karşılayan en büyük zaman adımı yaklaşık kaç femtosaniyedir? Sonra kısıtı açın ve 2 fs'in neden rahatladığını görün.",
+   "<b>Without</b> constraints, what is the largest time step, in femtoseconds, that satisfies the 5-steps-per-period rule? Then switch the constraints on and see why 2 fs becomes comfortable."
+  ],
+  [
+   "En büyük adım (fs)",
+   "Largest step (fs)"
+  ],
+  [
+   "Bağ titreşimi periyotları kızılötesi dalga sayılarından yaklaşık olarak hesaplandı (<i>T</i> = 1/<i>c</i>ν̃); hidrojenli açı titreşiminin yaklaşık 13 fs periyodu ve 5 adım kuralı <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS kılavuzundan</a> alındı. 7. bölümdeki ubikitin denemesi de H bağları kısıtlı 2 fs ile çalıştırıldı.",
+   "The bond vibration periods were estimated from infrared wavenumbers (<i>T</i> = 1/<i>c</i>ν̃); the period of about 13 fs for the hydrogen angle vibration and the 5-step rule were taken from the <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS manual</a>. The ubiquitin run in Chapter 7 was also carried out at 2 fs with bonds to H constrained."
+  ],
+  [
+   "<small>5 · Hesaplanan adım ve kaydedilen kare</small>Program her adımı yazmaz",
+   "<small>5 · Computed step and saved frame</small>The program does not write every step"
+  ],
+  [
+   "Kuvvet her Δ<i>t</i>'de hesaplanır, ama dosyaya genellikle çok daha seyrek yazılır. Trajektorideki iki kare arasında yüzlerce adım olabilir. Kare sayısı, ne çözümün hassasiyetini ne de bağımsız ölçüm sayısını verir.",
+   "The force is computed at every Δ<i>t</i>, but usually written to file much less often. There can be hundreds of steps between two frames of a trajectory. The number of frames tells you neither the accuracy of the solution nor the number of independent measurements."
+  ],
+  [
+   "Kayıt aralığı",
+   "Output interval"
+  ],
+  [
+   "Hesaplanan adımlar ve kaydedilen kareler zaman çizelgesi",
+   "Timeline of computed steps and saved frames"
+  ],
+  [
+   "Kaç adımda bir kare yazılsın?",
+   "Write one frame every"
+  ],
+  [
+   "Hazır kayıt aralıkları",
+   "Preset output intervals"
+  ],
+  [
+   "Simülasyon süresi",
+   "Simulation length"
+  ],
+  [
+   "Adım (sabit)",
+   "Step (fixed)"
+  ],
+  [
+   "İki kare arası süre",
+   "Time between two frames"
+  ],
+  [
+   "Toplam hesaplanan adım",
+   "Total computed steps"
+  ],
+  [
+   "Yazılan kare",
+   "Frames written"
+  ],
+  [
+   "1. bölümdeki alanin dipeptit verisinin kaynağı 2 fs adım ve 1 ps kayıt aralığı bildiriyor. İki kare arasında kaç entegrasyon adımı var? 250 ns'lik bir koşu kaç kare verir?",
+   "The source of the alanine dipeptide data in Chapter 1 reports a 2 fs step and a 1 ps output interval. How many integration steps are there between two frames? How many frames does a 250 ns run give?"
+  ],
+  [
+   ">Adım sayısı<",
+   ">Number of steps<"
+  ],
+  [
+   ">Kare sayısı<",
+   ">Number of frames<"
+  ],
+  [
+   "placeholder=\"adım = ?\"",
+   "placeholder=\"steps = ?\""
+  ],
+  [
+   "placeholder=\"kare = ?\"",
+   "placeholder=\"frames = ?\""
+  ],
+  [
+   "<small>6 · Kendinizi sınayın</small>Üç cümle, üç karar",
+   "<small>6 · Test yourself</small>Three statements, three decisions"
+  ],
+  [
+   "Her soruda bir seçenek işaretleyin; açıklama hemen altında açılır.",
+   "Choose one option for each question; the explanation opens right below it."
+  ],
+  [
+   "Sıradaki bölüm 7: gerçek bir protein yapısını (ubikitin, PDB 1UBQ) MD'ye hazırlarken hangi bilgilerin ölçüm, hangilerinin bizim kararımız olduğunu okuyacağız. Buradaki 2 fs ve H bağı kısıtı orada tekrar karşınıza çıkacak.",
+   "Next is Chapter 7: while preparing a real protein structure (ubiquitin, PDB 1UBQ) for MD, we will read which pieces of information are measurements and which are our own decisions. The 2 fs step and the constraint on bonds to H from this chapter will come up again there."
+  ],
+  [
+   "<b>Bu sayfa hakkında.</b> CH02 için etkileşimli tasarım prototipidir; kitabın kaynak metni ve yerel sitesi değiştirilmedi. 1 ile 3. kısımlar boyutsuz öğretim modelleridir; hesaplar tarayıcıda, CH02'nin <code>ch02_oscillator.py</code> örneğindeki algoritmayla yapılır. Bağ periyotları yaklaşık ve öğreticidir. Bilimsel ve hedef-okur incelemesi yapılmadı.",
+   "<b>About this page.</b> This is an interactive design prototype for CH02; the book's source text and local site were not changed. Sections 1 to 3 are dimensionless teaching models; the calculations run in the browser with the algorithm of the <code>ch02_oscillator.py</code> example in CH02. The bond periods are approximate and for teaching purposes. No scientific or target-reader review has been carried out."
+  ],
+  [
+   "NumberFormat('tr-TR'",
+   "NumberFormat('en-US'"
+  ],
+  [
+   "toLocaleString('tr-TR')",
+   "toLocaleString('en-US')"
+  ],
+  [
+   "'çok büyük (patladı)'",
+   "'very large (blew up)'"
+  ],
+  [
+   "'konum x'",
+   "'position x'"
+  ],
+  [
+   "'atomlar arası uzaklık r'",
+   "'interatomic distance r'"
+  ],
+  [
+   "'uzaklık r / σ'",
+   "'distance r / σ'"
+  ],
+  [
+   "'0,5'",
+   "'0.5'"
+  ],
+  [
+   "'1,5'",
+   "'1.5'"
+  ],
+  [
+   "'2,5'",
+   "'2.5'"
+  ],
+  [
+   "'yok (denge)'",
+   "'none (equilibrium)'"
+  ],
+  [
+   "'→ sağa, merkeze doğru'",
+   "'→ right, toward the center'"
+  ],
+  [
+   "'← sola, merkeze doğru'",
+   "'← left, toward the center'"
+  ],
+  [
+   "'itme: atomları uzaklaştırır'",
+   "'repulsion: pushes the atoms apart'"
+  ],
+  [
+   "'çekme: atomları yaklaştırır'",
+   "'attraction: pulls the atoms together'"
+  ],
+  [
+   "'Buldunuz: r ≈ '",
+   "'Found it: r ≈ '"
+  ],
+  [
+   "σ. Eğim burada sıfır, yani enerji eğrisinin dibindesiniz. Kuramsal değer r = 2^(1/6) σ ≈ 1,12 σ. Daha yakında atomlar birbirini iter, daha uzakta çeker.",
+   "σ. The slope is zero here, so you are at the bottom of the energy curve. The theoretical value is r = 2^(1/6) σ ≈ 1.12 σ. Closer in, the atoms repel each other; farther out, they attract."
+  ],
+  [
+   "Kuvvet şu an itiyor: atomlar çok yakın. Topu biraz sağa, uzağa kaydırın.",
+   "The force is repulsive right now: the atoms are too close. Move the ball a little to the right, farther away."
+  ],
+  [
+   "Kuvvet şu an çekiyor: atomlar uzak. Topu sola, yakına kaydırın.",
+   "The force is attractive right now: the atoms are far apart. Move the ball to the left, closer in."
+  ],
+  [
+   "'zaman t'",
+   "'time t'"
+  ],
+  [
+   ">Başlangıç<",
+   ">Start<"
+  ],
+  [
+   "'1. İvme'",
+   "'1. Acceleration'"
+  ],
+  [
+   "'2. Yeni konum'",
+   "'2. New position'"
+  ],
+  [
+   "'3. Yeni ivme'",
+   "'3. New acceleration'"
+  ],
+  [
+   "'4. Yeni hız'",
+   "'4. New velocity'"
+  ],
+  [
+   "'Kesin çözüm'",
+   "'Exact solution'"
+  ],
+  [
+   "' (fark '",
+   "' (difference '"
+  ],
+  [
+   "'Adımı kaydet ve sonrakine geç'",
+   "'Save the step and go to the next'"
+  ],
+  [
+   "'Bu adımı hesapla'",
+   "'Compute this step'"
+  ],
+  [
+   "'Bu adımı butona basmadan siz hesaplayın. x<sub>'",
+   "'Compute this step yourself before pressing the button. With x<sub>'"
+  ],
+  [
+   "' ve Δt = 0,2 iken <b>x<sub>'",
+   "' and Δt = 0.2, what is <b>x<sub>'"
+  ],
+  [
+   "'</sub></b> kaçtır?'",
+   "'</sub></b>?'"
+  ],
+  [
+   "Bir sayı yazın; ondalık için virgül ya da nokta kullanabilirsiniz.",
+   "Enter a number; you can use a comma or a point as the decimal separator."
+  ],
+  [
+   "Bu adımın sonucu zaten açık. “Adımı kaydet ve sonrakine geç” deyip bir sonraki x değerini tahmin edin.",
+   "The result of this step is already shown. Press “Save the step and go to the next” and estimate the next x value."
+  ],
+  [
+   "'Doğru: x = '",
+   "'Correct: x = '"
+  ],
+  [
+   "'. Bilgisayar her adımda tam olarak bu dört satırı yapar; bir proteinde yalnız ivme hesabı binlerce atom için tekrarlanır.'",
+   "'. The computer performs exactly these four lines at every step; in a protein, only the acceleration calculation is repeated for thousands of atoms.'"
+  ],
+  [
+   "Henüz değil. Üç terimi ayrı ayrı yazın: x, vΔt ve ½aΔt². Δt² = 0,04.",
+   "Not yet. Write out the three terms separately: x, vΔt and ½aΔt². Δt² = 0.04."
+  ],
+  [
+   "' × 0,2) + ½ × ('",
+   "' × 0.2) + ½ × ('"
+  ],
+  [
+   "') × 0,04. İlk adımda hız sıfır olduğu için ortadaki terim düşer.'",
+   "') × 0.04. In the first step the velocity is zero, so the middle term drops out.'"
+  ],
+  [
+   "'0,01'",
+   "'0.01'"
+  ],
+  [
+   "'hata'",
+   "'error'"
+  ],
+  [
+   "Kararsız: her adımda sapma büyüyor, yörünge koptu.",
+   "Unstable: the deviation grows at every step; the trajectory has broken away."
+  ],
+  [
+   "Kararlı ama kaba: yörünge sınırlı kalıyor, fakat kesin çözümden belirgin sapıyor.",
+   "Stable but coarse: the trajectory stays bounded but deviates noticeably from the exact solution."
+  ],
+  [
+   "Kararlı: sayısal çözüm kesin çözümü yakından izliyor.",
+   "Stable: the numerical solution closely follows the exact solution."
+  ],
+  [
+   "' kat küçüldü'",
+   "'× smaller'"
+  ],
+  [
+   "' kat büyüdü'",
+   "'× larger'"
+  ],
+  [
+   "'Δt yarılanmadı'",
+   "'Δt not halved'"
+  ],
+  [
+   "'Hata '",
+   "'The error shrank by a factor of '"
+  ],
+  [
+   "' kat küçüldü. Adım yarıya inince hata yaklaşık dörde bölünüyor: hata Δt² ile orantılı, yöntem ikinci mertebe.'",
+   "'. Halving the step divides the error by about four: the error is proportional to Δt², so the method is second order.'"
+  ],
+  [
+   "'Oran '",
+   "'Ratio '"
+  ],
+  [
+   "'. Bu adımlar hata düzenini göremeyecek kadar büyük olabilir; 0,2 ve 0,1 gibi daha küçük adımlarla deneyin.'",
+   "'. These steps may be too large to reveal the error pattern; try smaller steps such as 0.2 and 0.1.'"
+  ],
+  [
+   "Son iki ölçümde Δt yarılanmadı. “Δt’yi yarıla” düğmesiyle ikinci ölçümü alın.",
+   "Δt was not halved between the last two measurements. Take the second measurement with the “Halve Δt” button."
+  ],
+  [
+   "Bir ölçüm kaydedildi. Şimdi Δt’yi yarılayın ve tekrar ekleyin.",
+   "One measurement recorded. Now halve Δt and add another one."
+  ],
+  [
+   "'Bir sayı yazın.'",
+   "'Enter a number.'"
+  ],
+  [
+   "Doğru: Δt = 2. Bu yayda açısal frekans ω = 1, hız-Verlet ancak ωΔt < 2 iken kararlı. Daha hızlı titreşen bir sistem daha küçük bir sınır demektir; 4. kısımda bunu gerçek bağlara taşıyacağız.",
+   "Correct: Δt = 2. For this spring the angular frequency is ω = 1, and velocity Verlet is stable only when ωΔt < 2. A system that vibrates faster has a smaller limit; in Section 4 we will carry this over to real bonds."
+  ],
+  [
+   "Bu değerde yörünge hâlâ sınırlı kalıyor; sapma büyük olsa da enerji patlamıyor. Adımı biraz daha büyütüp grafiklere bakın.",
+   "At this value the trajectory still stays bounded; the deviation is large, but the energy does not blow up. Increase the step a little more and look at the plots."
+  ],
+  [
+   "Bu değerde yörünge çoktan patlıyor. Sınırı daha aşağıda arayın.",
+   "At this value the trajectory has long since blown up. Look for the limit lower down."
+  ],
+  [
+   "'O–H gerilmesi (su)'",
+   "'O–H stretch (water)'"
+  ],
+  [
+   "'N–H gerilmesi'",
+   "'N–H stretch'"
+  ],
+  [
+   "'C–H gerilmesi'",
+   "'C–H stretch'"
+  ],
+  [
+   "'H içeren açı titreşimi'",
+   "'H-containing angle vibration'"
+  ],
+  [
+   "'C=O gerilmesi'",
+   "'C=O stretch'"
+  ],
+  [
+   "' · en hızlı'",
+   "' · fastest'"
+  ],
+  [
+   "'zaman (fs) · '",
+   "'time (fs) · '"
+  ],
+  [
+   "'uzanım'",
+   "'displacement'"
+  ],
+  [
+   "'mavi: adım başına alınan değerler · '",
+   "'blue: values sampled at each step · '"
+  ],
+  [
+   "' adım/periyot'",
+   "' steps/period'"
+  ],
+  [
+   "'≥ 5 adım/periyot'",
+   "'≥ 5 steps/period'"
+  ],
+  [
+   "'kaba'",
+   "'coarse'"
+  ],
+  [
+   "'kararsız'",
+   "'unstable'"
+  ],
+  [
+   "' femtosaniye'",
+   "' femtoseconds'"
+  ],
+  [
+   "Kararsız: en hızlı titreşim bu adımla patlar.",
+   "Unstable: the fastest vibration blows up with this step."
+  ],
+  [
+   "Kararlı ama kaba: periyot başına 5 adımın altında; bu titreşim doğru izlenmez.",
+   "Stable but coarse: fewer than 5 steps per period; this vibration is not followed accurately."
+  ],
+  [
+   "Kılavuzu karşılıyor: en hızlı titreşimde periyot başına en az 5 adım.",
+   "Meets the guideline: at least 5 steps per period for the fastest vibration."
+  ],
+  [
+   "Bir sayı yazın (femtosaniye).",
+   "Enter a number (femtoseconds)."
+  ],
+  [
+   "Doğru: yaklaşık 2,0 fs (9,8 fs / 5). Kısıtı açınca en hızlı hareket H içeren açı titreşimi olur (≈13 fs) ve sınır yaklaşık 2,6 fs’e çıkar. Bu yüzden H bağları kısıtlıyken 2 fs rahat bir seçimdir.",
+   "Correct: about 2.0 fs (9.8 fs / 5). With the constraints on, the fastest motion becomes the H-containing angle vibration (≈13 fs) and the limit rises to about 2.6 fs. That is why 2 fs is a comfortable choice when bonds to H are constrained."
+  ],
+  [
+   "Bu değer C–H için geçerli olurdu. Listede daha hızlı bir titreşim var mı?",
+   "That value would hold for C–H. Is there a faster vibration in the list?"
+  ],
+  [
+   "En hızlı titreşimin periyodunu 5’e bölün. Listeye bakın; kısıt kapalı olmalı.",
+   "Divide the period of the fastest vibration by 5. Check the list; the constraints must be off."
+  ],
+  [
+   "'kaydedilen kare · zaman'",
+   "'saved frame · time'"
+  ],
+  [
+   "'hesaplanan adımlar (her biri 2 fs)'",
+   "'computed steps (2 fs each)'"
+  ],
+  [
+   "'çizilemeyecek kadar sık: her karede '",
+   "'too dense to draw: '"
+  ],
+  [
+   "+' adım';c.top",
+   "+' steps per frame';c.top"
+  ],
+  [
+   "'dosyaya yazılan kareler'",
+   "'frames written to file'"
+  ],
+  [
+   "+' adım';sl5",
+   "+' steps';sl5"
+  ],
+  [
+   "' adımda bir kare'",
+   "' steps per frame'"
+  ],
+  [
+   "' (+ t = 0 karesi)'",
+   "' (+ the t = 0 frame)'"
+  ],
+  [
+   "Doğru: 1 ps / 2 fs = 500 adım; 250 ns / 1 ps = 250.000 kare (t = 0 karesi sayılırsa 250.001). Kaynak veride koşu başına 250.000 satır var. Ama bu 250.000 bağımsız ölçüm değildir: art arda kareler birbirine bağlıdır. Bunu 17. bölümde ölçeceğiz.",
+   "Correct: 1 ps / 2 fs = 500 steps; 250 ns / 1 ps = 250,000 frames (250,001 if the t = 0 frame is counted). The source data have 250,000 rows per run. But these are not 250,000 independent measurements: consecutive frames are correlated. We will measure this in Chapter 17."
+  ],
+  [
+   "Adım sayısı doğru. Kare sayısı için 250 ns kaç tane 1 ps eder?",
+   "The number of steps is correct. For the number of frames: how many 1 ps intervals fit into 250 ns?"
+  ],
+  [
+   "Kare sayısı doğru. İki kare arasındaki adım: 1 ps kaç tane 2 fs eder? (1 ps = 1000 fs)",
+   "The number of frames is correct. For the steps between two frames: how many 2 fs steps fit into 1 ps? (1 ps = 1000 fs)"
+  ],
+  [
+   "Önce birimleri eşitleyin: 1 ps = 1000 fs, 1 ns = 1000 ps. Yukarıdaki sürgüyle 500 adım seçip kontrol edebilirsiniz.",
+   "First bring the units into line: 1 ps = 1000 fs, 1 ns = 1000 ps. You can check by selecting 500 steps with the slider above."
+  ],
+  [
+   "Bir öğrenci: “Δt’yi 0,2’den 0,1’e indirdim, enerji sapması yaklaşık dörtte birine düştü. Demek ki seçtiğim protein kuvvet alanı doğru.”",
+   "A student says: “I reduced Δt from 0.2 to 0.1 and the energy drift fell to about a quarter. So the protein force field I chose is correct.”"
+  ],
+  [
+   "Haklı: enerji korunuyorsa model doğrudur.",
+   "Right: if the energy is conserved, the model is correct."
+  ],
+  [
+   "Sayısal hata beklendiği gibi azaldı; bu, kuvvet alanının kimyasal doğruluğu hakkında bir şey söylemez.",
+   "The numerical error decreased as expected; this says nothing about the chemical accuracy of the force field."
+  ],
+  [
+   "Haklı değil, çünkü enerji sapması hiç azalmamalıydı.",
+   "Wrong, because the energy drift should not have decreased at all."
+  ],
+  [
+   "Adım küçültmek yalnız denklemi daha iyi çözer. Kuvvet alanının doğru olup olmadığı, deneysel veya güvenilir başka hesaplarla karşılaştırarak sınanır. Yanlış yay, küçük adımla da yanlış yaydır.",
+   "Shrinking the step only solves the equation better. Whether the force field is correct is tested by comparison with experiments or other reliable calculations. A wrong spring is still a wrong spring with a small step."
+  ],
+  [
+   "Bir koşuda 250.000 kare kaydedildi. Bu, 250.000 bağımsız ölçüm demek midir?",
+   "A run saved 250,000 frames. Does this mean 250,000 independent measurements?"
+  ],
+  [
+   "Hayır; art arda kareler aynı hareketin parçasıdır ve birbirine bağlıdır. Bağımsız bilgi daha azdır.",
+   "No; consecutive frames are parts of the same motion and are correlated with each other. There is less independent information."
+  ],
+  [
+   "Evet, her kare ayrı bir ölçümdür.",
+   "Yes, each frame is a separate measurement."
+  ],
+  [
+   "Yalnız termostat kullanıldıysa evet.",
+   "Yes, but only if a thermostat was used."
+  ],
+  [
+   "Kareler seyrek yazılsa da aynı yörüngenin ardışık anlarıdır. Kaç bağımsız bilgi içerdikleri, ölçülen niceliğin ne kadar hızlı “unuttuğuna” bağlıdır (17. bölüm).",
+   "Even when frames are written sparsely, they are successive moments of the same trajectory. How much independent information they contain depends on how quickly the measured quantity “forgets” (Chapter 17)."
+  ],
+  [
+   "Hidrojenli bağları kısıtlamak 2 fs adımı neden rahatlatır?",
+   "Why does constraining bonds to hydrogen make a 2 fs step comfortable?"
+  ],
+  [
+   "Kuvvet alanını daha doğru yapar.",
+   "It makes the force field more accurate."
+  ],
+  [
+   "Toplam enerjiyi sabit tutar.",
+   "It keeps the total energy constant."
+  ],
+  [
+   "En hızlı titreşimleri (≈10 fs) kaldırır; geriye kalan en hızlı hareketin periyodu ≈13 fs olur ve 5 adım kuralı ≈2,6 fs’e izin verir.",
+   "It removes the fastest vibrations (≈10 fs); the fastest remaining motion has a period of ≈13 fs, and the 5-step rule allows ≈2.6 fs."
+  ],
+  [
+   "Kısıt, bu bağların uzunluğunu sabitler; bağ titreşimi artık integratörün izlemesi gereken bir hareket değildir. En kısa kalan periyot adımı belirler.",
+   "The constraint fixes the lengths of these bonds; the bond vibration is no longer a motion the integrator has to follow. The shortest remaining period sets the step."
+  ],
+  [
+   "aria-label=\"Soru '",
+   "aria-label=\"Question '"
+  ],
+  [
+   "' seçenekleri\"",
+   "' options\""
+  ],
+  [
+   ">Doğru.<",
+   ">Correct.<"
+  ],
+  [
+   ">Tekrar düşünün.<",
+   ">Think again.<"
+  ],
+  [
+   "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
+   "if(/,/.test(str))str=/^-?\\d{1,3}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
+  ]
+ ],
+ "keep": [
+  "Lennard-Jones",
+  "state bad",
+  "state warn",
+  "state good",
+  "</sub> = x + vΔt + ½aΔt²"
+ ]
+}

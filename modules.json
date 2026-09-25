@@ -1,18 +1,26 @@
 {
   "schema": 1,
-  "note": "Modül kimlikleri kalıcıdır (bkz. docs/ARCHITECTURE.md, 3. kısım). Kimlik değişmez; içerik sürümlenir. Kısa adres /l/<KİMLİK> bu dosyadan üretilir.",
+  "note": "Modül kimlikleri kalıcıdır (bkz. docs/ARCHITECTURE.md, 3. kısım). Kimlik değişmez; içerik sürümlenir. Kısa adresler /tr/l/<KİMLİK> ve /en/l/<KİMLİK> bu dosyadan üretilir. 'en' alanları İngilizce sayfalar içindir; modül sayfalarının İngilizcesi i18n/<KİMLİK>.en.json tablosundan üretilir.",
   "apps": [
     {
       "id": "docking",
       "title": "Moleküler Docking",
       "path": "docking/",
-      "summary": "Bir pozu aramaktan skorun afiniteye karşı sınırına: üç düzeyde, uygulayarak."
+      "summary": "Bir pozu aramaktan skorun afiniteye karşı sınırına: üç düzeyde, uygulayarak.",
+      "en": {
+        "title": "Molecular Docking",
+        "summary": "From searching for a pose to the limits of the score as an affinity estimate: three levels, learned by doing."
+      }
     },
     {
       "id": "md",
       "title": "Moleküler Dinamik",
       "path": "md/",
-      "summary": "Enerjiden trajektoriye: kuvvet, integrasyon, hazırlık ve yakınsama. Koşular tarayıcıda çalışmaz; önceden hesaplanmış gerçek veriler rehberli olarak yeniden oynatılır."
+      "summary": "Enerjiden trajektoriye: kuvvet, integrasyon, hazırlık ve yakınsama. Koşular tarayıcıda çalışmaz; önceden hesaplanmış gerçek veriler rehberli olarak yeniden oynatılır.",
+      "en": {
+        "title": "Molecular Dynamics",
+        "summary": "From energy to trajectory: force, integration, preparation and convergence. Runs do not execute in the browser; precomputed real data are replayed step by step as a guided run."
+      }
     }
   ],
   "modules": [
@@ -26,9 +34,30 @@
       "version": "0.1.0",
       "status": "pilot",
       "book": "CH02 sonrası",
-      "goals": ["Poz ve serbestlik derecesi", "Skor terimleri", "Arama uzayı ve arama algoritması", "Redocking ve RMSD"],
-      "data": ["Oyuncak 2B model (öğretim amaçlı)"],
-      "notice": null
+      "goals": [
+        "Poz ve serbestlik derecesi",
+        "Skor terimleri",
+        "Arama uzayı ve arama algoritması",
+        "Redocking ve RMSD"
+      ],
+      "data": [
+        "Oyuncak 2B model (öğretim amaçlı)"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Docking: searching for a pose and scoring it",
+        "book": "after CH02",
+        "goals": [
+          "Pose and degrees of freedom",
+          "Score terms",
+          "Search space and search algorithm",
+          "Redocking and RMSD"
+        ],
+        "data": [
+          "Toy 2D model (for teaching)"
+        ],
+        "notice": null
+      }
     },
     {
       "id": "DK-O",
@@ -40,9 +69,32 @@
       "version": "0.1.0",
       "status": "pilot",
       "book": "CH07 ve CH09",
-      "goals": ["Yapı dosyasını okumak", "Hazırlık karar günlüğü", "Gerçek redocking ve üç RMSD", "Kutu ve exhaustiveness"],
-      "data": ["PDB 3PTB (CC0 1.0)", "AutoDock Vina 1.2.7 koşuları"],
-      "notice": null
+      "goals": [
+        "Yapı dosyasını okumak",
+        "Hazırlık karar günlüğü",
+        "Gerçek redocking ve üç RMSD",
+        "Kutu ve exhaustiveness"
+      ],
+      "data": [
+        "PDB 3PTB (CC0 1.0)",
+        "AutoDock Vina 1.2.7 koşuları"
+      ],
+      "notice": null,
+      "en": {
+        "title": "The real lock: trypsin and benzamidine (3PTB)",
+        "book": "CH07 and CH09",
+        "goals": [
+          "Reading the structure file",
+          "Preparation decision log",
+          "Real redocking and three RMSDs",
+          "Box and exhaustiveness"
+        ],
+        "data": [
+          "PDB 3PTB (CC0 1.0)",
+          "AutoDock Vina 1.2.7 runs"
+        ],
+        "notice": null
+      }
     },
     {
       "id": "DK-U",
@@ -54,9 +106,34 @@
       "version": "0.1.0",
       "status": "pilot",
       "book": "CH18 ve CH19",
-      "goals": ["Skor ve ölçülen afinite", "Boyut karıştırıcısı", "Zenginleştirme ve tuzak yanlılığı", "Ağırlık uydurma ve gruplu doğrulama"],
-      "data": ["ChEMBL tripsin ve D2 Ki verisi (CC BY-SA 3.0)", "PDB 3PTB (CC0 1.0)", "AutoDock Vina 1.2.7 taraması"],
-      "notice": "Bu sayfadaki bileşik verisi ChEMBL'den türetilmiştir ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
+      "goals": [
+        "Skor ve ölçülen afinite",
+        "Boyut karıştırıcısı",
+        "Zenginleştirme ve tuzak yanlılığı",
+        "Ağırlık uydurma ve gruplu doğrulama"
+      ],
+      "data": [
+        "ChEMBL tripsin ve D2 Ki verisi (CC BY-SA 3.0)",
+        "PDB 3PTB (CC0 1.0)",
+        "AutoDock Vina 1.2.7 taraması"
+      ],
+      "notice": "Bu sayfadaki bileşik verisi ChEMBL'den türetilmiştir ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.",
+      "en": {
+        "title": "Score, affinity and thousands of keys",
+        "book": "CH18 and CH19",
+        "goals": [
+          "Score and measured affinity",
+          "The size confounder",
+          "Enrichment and decoy bias",
+          "Weight fitting and grouped validation"
+        ],
+        "data": [
+          "ChEMBL trypsin and D2 Ki data (CC BY-SA 3.0)",
+          "PDB 3PTB (CC0 1.0)",
+          "AutoDock Vina 1.2.7 screen"
+        ],
+        "notice": "The compound data on this page are derived from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
+      }
     },
     {
       "id": "MD-T",
@@ -68,9 +145,30 @@
       "version": "0.1.0",
       "status": "pilot",
       "book": "CH02",
-      "goals": ["Kuvvet enerji eğiminden gelir", "Hız-Verlet adımı", "Zaman adımı ve hata", "Neden 2 fs"],
-      "data": ["Boyutsuz öğretim modelleri"],
-      "notice": null
+      "goals": [
+        "Kuvvet enerji eğiminden gelir",
+        "Hız-Verlet adımı",
+        "Zaman adımı ve hata",
+        "Neden 2 fs"
+      ],
+      "data": [
+        "Boyutsuz öğretim modelleri"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Energy, forces and numerical motion",
+        "book": "CH02",
+        "goals": [
+          "Force comes from the slope of the energy",
+          "The velocity Verlet step",
+          "Time step and error",
+          "Why 2 fs"
+        ],
+        "data": [
+          "Dimensionless teaching models"
+        ],
+        "notice": null
+      }
     },
     {
       "id": "MD-O",
@@ -82,9 +180,30 @@
       "version": null,
       "status": "planned",
       "book": "CH07",
-      "goals": ["Yapı ve protonasyon kararları", "Kutu, çözücü, minimizasyon", "Rehberli koşu yeniden oynatma"],
-      "data": ["PDB 1UBQ (CC0 1.0)", "Yerel GROMACS denemesi"],
-      "notice": null
+      "goals": [
+        "Yapı ve protonasyon kararları",
+        "Kutu, çözücü, minimizasyon",
+        "Rehberli koşu yeniden oynatma"
+      ],
+      "data": [
+        "PDB 1UBQ (CC0 1.0)",
+        "Yerel GROMACS denemesi"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Preparing a protein for MD (1UBQ)",
+        "book": "CH07",
+        "goals": [
+          "Structure and protonation decisions",
+          "Box, solvent, minimization",
+          "Guided replay of a run"
+        ],
+        "data": [
+          "PDB 1UBQ (CC0 1.0)",
+          "Local GROMACS trial"
+        ],
+        "notice": null
+      }
     },
     {
       "id": "MD-U",
@@ -96,9 +215,28 @@
       "version": null,
       "status": "planned",
       "book": "CH17",
-      "goals": ["Blok ortalamaları", "Bağımsız koşular", "Etkin örneklem sayısı"],
-      "data": ["mdshare ALA2 (CC BY 4.0)"],
-      "notice": null
+      "goals": [
+        "Blok ortalamaları",
+        "Bağımsız koşular",
+        "Etkin örneklem sayısı"
+      ],
+      "data": [
+        "mdshare ALA2 (CC BY 4.0)"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Convergence and sampling (alanine dipeptide)",
+        "book": "CH17",
+        "goals": [
+          "Block averages",
+          "Independent runs",
+          "Effective sample size"
+        ],
+        "data": [
+          "mdshare ALA2 (CC BY 4.0)"
+        ],
+        "notice": null
+      }
     }
   ]
 }

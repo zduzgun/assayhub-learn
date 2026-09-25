@@ -1,0 +1,796 @@
+{
+ "module": "DK-U",
+ "lang": "en",
+ "source_sha256": "d2c4205fca2dde70353b8fc6ec70b450df2c0e3e551df654712e980a3a952b29",
+ "reviewed": false,
+ "translator": "Claude (machine translation, needs human review)",
+ "pairs": [
+  [
+   "Uzman: Skor, Afinite ve Tarama",
+   "Expert: Score, Affinity and Screening"
+  ],
+  [
+   "Biyomoleküler sistemlerde Moleküler Dinamik · Docking eki · Uzman düzey",
+   "Molecular Dynamics in Biomolecular Systems · Docking appendix · Expert level"
+  ],
+  [
+   "Uygulamalar:",
+   "Exercises:"
+  ],
+  [
+   "DK-U · Pilot bölüm · Etkileşimli sürüm",
+   "DK-U · Pilot chapter · Interactive edition"
+  ],
+  [
+   "Skor, afinite ve binlerce anahtar",
+   "Score, affinity and thousands of keys"
+  ],
+  [
+   "Pozu bulmayı çözdük. Şimdi asıl soruyu soruyoruz: skor, bir molekülün ne kadar güçlü bağlandığını sıralayabilir mi? Aynı cebe yüzlerce gerçek bileşiği dock edip ölçülmüş afiniteyle karşılaştırıyoruz.",
+   "We have solved finding the pose. Now we ask the real question: can the score rank how strongly a molecule binds? We dock hundreds of real compounds into the same pocket and compare the results with measured affinity."
+  ],
+  [
+   "Alt düzeylerden hatırlatma (DK-T, DK-O)",
+   "Reminder from the lower levels (DK-T, DK-O)"
+  ],
+  [
+   "<b>Poz</b> aramak ile <b>afinite</b> sıralamak farklı iki iştir.",
+   "Searching for a <b>pose</b> and ranking <b>affinity</b> are two different jobs."
+  ],
+  [
+   "3PTB'de redocking 10/10 başarılı; skor yaklaşık −6,1.",
+   "Redocking in 3PTB succeeded 10/10; score about −6.1."
+  ],
+  [
+   "Vina skoru kcal/mol yazar ama <b>ölçüm değil, tahmindir</b>.",
+   "The Vina score is reported in kcal/mol, but it is <b>a prediction, not a measurement</b>."
+  ],
+  [
+   "Skor fonksiyonunda elektrostatik terim yoktur; beş terim toplanır.",
+   "The scoring function has no electrostatic term; five terms are summed."
+  ],
+  [
+   "Kütüphaneden sayılar",
+   "Numbers from the library"
+  ],
+  [
+   "<small>1 · Asıl soru</small>Skor, afiniteyi sıralayabilir mi?",
+   "<small>1 · The real question</small>Can the score rank affinity?"
+  ],
+  [
+   "ChEMBL'den tripsin için ölçülmüş bağlanma sabiti (K<sub>i</sub>) olan bileşikleri topladık ve her birini DK-O'daki aynı 3PTB reseptörüne, aynı kutuya dock ettik. Şimdi iki sayıyı karşılaştırabiliriz: docking <b>skoru</b> (düşük = iyi) ve deneysel <b>pK<sub>i</sub></b> (yüksek = güçlü bağlanma).",
+   "We collected compounds from ChEMBL with a measured binding constant (K<sub>i</sub>) for trypsin and docked each of them into the same 3PTB receptor and the same box as in DK-O. Now we can compare two numbers: the docking <b>score</b> (lower = better) and the experimental <b>pK<sub>i</sub></b> (higher = stronger binding)."
+  ],
+  [
+   "Skor mükemmel bir afinite tahmincisi olsaydı, noktalar aşağı inen dar bir çizgi oluştururdu. Grafiği inceleyin: eksenleri, kalıntı çizgisini ve korelasyon katsayısını okuyun.",
+   "If the score were a perfect affinity predictor, the points would form a narrow descending line. Examine the plot: read the axes, the residual line and the correlation coefficient."
+  ],
+  [
+   "\"lab-tag\">Laboratuvar",
+   "\"lab-tag\">Lab"
+  ],
+  [
+   "Skor ve ölçülen afinite",
+   "Score and measured affinity"
+  ],
+  [
+   "Görev tamamlandı",
+   "Task completed"
+  ],
+  [
+   "Docking skoruna karşı ölçülen pKi dağılım grafiği",
+   "Scatter plot of measured pKi against docking score"
+  ],
+  [
+   "En uygun doğru",
+   "Best-fit line"
+  ],
+  [
+   "Amidin/guanidin taşıyanları işaretle",
+   "Highlight compounds carrying amidine/guanidine"
+  ],
+  [
+   "Bir noktaya tıklayın",
+   "Click a point"
+  ],
+  [
+   "Seçilen bileşiğin skoru, pK<sub>i</sub>'si ve terim katkıları burada görünür.",
+   "The selected compound's score, pK<sub>i</sub> and term contributions appear here."
+  ],
+  [
+   "<h4>Görev",
+   "<h4>Task"
+  ],
+  [
+   "Skor ile pK<sub>i</sub> arasındaki Spearman sıra korelasyonu kaç? (Sağdaki panelde yazıyor; ondalık virgülle, örn. −0,42.) Sonra en iyi skorlu üç bileşiği bulun: en güçlü bağlanan onlar mı?",
+   "What is the Spearman rank correlation between score and pK<sub>i</sub>? (It is shown in the panel on the right; use a decimal point, e.g. −0.42.) Then find the three best-scoring compounds: are they the strongest binders?"
+  ],
+  [
+   ">Kontrol et<",
+   ">Check<"
+  ],
+  [
+   "<small>2 · Gizli değişken</small>Skor aslında neyi ölçüyor?",
+   "<small>2 · The hidden variable</small>What does the score actually measure?"
+  ],
+  [
+   "Zayıf da olsa bir eğilim var: daha iyi skorlu bileşikler ortalamada biraz daha güçlü bağlanıyor. Ama bu eğilimin bir kısmı afiniteden değil, <b>boyuttan</b> gelir. Büyük bir molekül cebe daha çok atom sokar, daha çok temas terimi toplar ve neredeyse otomatik olarak daha iyi (daha düşük) skor alır.",
+   "There is a trend, even if weak: compounds with better scores bind slightly more strongly on average. But part of this trend comes not from affinity but from <b>size</b>. A large molecule puts more atoms into the pocket, collects more contact terms and almost automatically gets a better (lower) score."
+  ],
+  [
+   "Aşağıda aynı noktaları bu kez skora karşı <b>ağır atom sayısıyla</b> çizin. İki eğilimi karşılaştırın: skorun boyutla ilişkisi, afiniteyle ilişkisinden güçlü mü?",
+   "Below, plot the same points against score, this time with the <b>heavy atom count</b>. Compare the two trends: is the relationship of the score with size stronger than its relationship with affinity?"
+  ],
+  [
+   "Boyut karıştırıcısı",
+   "The size confounder"
+  ],
+  [
+   "Docking skoruna karşı seçilen eksen",
+   "Docking score against the selected axis"
+  ],
+  [
+   ">Yatay eksen<",
+   ">Horizontal axis<"
+  ],
+  [
+   "\"Yatay eksen\"",
+   "\"Horizontal axis\""
+  ],
+  [
+   "Ağır atom sayısı",
+   "Heavy atom count"
+  ],
+  [
+   "Ölçülen pK<sub>i</sub>",
+   "Measured pK<sub>i</sub>"
+  ],
+  [
+   "Skoru ağır atom sayısına bölerek kaba bir \"atom başına skor\" elde edin (panel bunu da hesaplıyor). Bu ölçü pK<sub>i</sub> ile ham skordan daha mı iyi, daha mı kötü ilişkili? Doğru cümleyi seçin.",
+   "Divide the score by the heavy atom count to get a crude \"score per atom\" (the panel computes this too). Is this measure better or worse correlated with pK<sub>i</sub> than the raw score? Choose the correct statement."
+  ],
+  [
+   "Görev 2 seçenekleri",
+   "Task 2 options"
+  ],
+  [
+   "Atom başına skor, pK<sub>i</sub>'yi ham skordan çok daha iyi tahmin eder; boyut düzeltmesi sorunu tümüyle çözer.",
+   "Score per atom predicts pK<sub>i</sub> much better than the raw score; size correction solves the problem completely."
+  ],
+  [
+   "Ham skorun pK<sub>i</sub> ile zayıf ilişkisinin bir kısmı boyuttan gelir; boyutu bölünce ilişki daha da zayıflar. Skor tek başına güvenilir bir afinite sıralaması vermez.",
+   "Part of the raw score's weak relationship with pK<sub>i</sub> comes from size; dividing out size makes the relationship even weaker. The score alone does not give a reliable affinity ranking."
+  ],
+  [
+   "Boyutun hiçbir etkisi yoktur; skor yalnızca afiniteyi ölçer.",
+   "Size has no effect at all; the score measures only affinity."
+  ],
+  [
+   "<small>3 · Zenginleştirme ve tuzak yanlılığı</small>Sıralamanın işe yarayan yanı",
+   "<small>3 · Enrichment and decoy bias</small>The useful side of ranking"
+  ],
+  [
+   "Docking afiniteyi tam sıralayamasa da bir işe yarar: bir kütüphaneyi tarayıp <b>etkin molekülleri listenin başına</b> toplamak. Bunu ölçmek için etkinleri (güçlü bağlananları) bir grup <b>tuzak</b> molekülle karıştırıp skora göre sıralarız ve etkinlerin ne kadar öne geçtiğine bakarız (ROC eğrisi, EAUC ve zenginleştirme faktörü EF).",
+   "Although docking cannot fully rank affinity, it is useful for one thing: screening a library and gathering the <b>active molecules at the top of the list</b>. To measure this, we mix the actives (strong binders) with a group of <b>decoy</b> molecules, rank them by score and look at how far ahead the actives get (ROC curve, AUC and enrichment factor EF)."
+  ],
+  [
+   "Ama sonuç, tuzakları nasıl seçtiğinize bağlıdır. İki negatif seti karşılaştırın: aynı hedefin <b>zayıf bağlananları</b> ve <b>başka bir hedefin</b> (dopamin D2) bileşikleri. Hangisi daha kolay ayrılıyor?",
+   "But the result depends on how you choose the decoys. Compare two negative sets: <b>weak binders</b> of the same target and compounds of <b>another target</b> (dopamine D2). Which one is separated more easily?"
+  ],
+  [
+   "ROC ve zenginleştirme",
+   "ROC and enrichment"
+  ],
+  [
+   "ROC eğrisi",
+   "ROC curve"
+  ],
+  [
+   "\"Negatif set\"",
+   "\"Negative set\""
+  ],
+  [
+   "Negatif set (tuzaklar)",
+   "Negative set (decoys)"
+  ],
+  [
+   "Zayıf tripsin bağlayıcıları",
+   "Weak trypsin binders"
+  ],
+  [
+   "Dopamin D2 bileşikleri",
+   "Dopamine D2 compounds"
+  ],
+  [
+   "İki negatif setin EAUC değerlerini karşılaştırın. Başka bir hedefin bileşiklerini tuzak yapmak zenginleştirmeyi neden yükseltir?",
+   "Compare the AUC values of the two negative sets. Why does using compounds of another target as decoys raise enrichment?"
+  ],
+  [
+   "Görev 3 seçenekleri",
+   "Task 3 options"
+  ],
+  [
+   "Başka hedefin bileşikleri bu cebe kimyaca uymaz (çoğu pozitif yük ve amidin taşımaz); docking onları kolayca eler. Bu yüksek EAUC, gerçek zorluk olan \"aynı hedefin zayıf bağlayıcılarından ayırma\"yı ölçmez.",
+   "Compounds of another target do not fit this pocket chemically (most carry no positive charge and no amidine); docking eliminates them easily. This high AUC does not measure the real challenge, \"separation from weak binders of the same target\"."
+  ],
+  [
+   "D2 bileşikleri daha büyük olduğu için daha iyi skor alır ve etkinlerle karışır.",
+   "D2 compounds get better scores because they are larger, and they mix with the actives."
+  ],
+  [
+   "İki set arasında hiçbir fark yoktur; EAUC aynıdır.",
+   "There is no difference between the two sets; the AUC is the same."
+  ],
+  [
+   "<small>4 · Ağırlıkları uydurmak</small>Kendi skor fonksiyonunuzu ayarlayın",
+   "<small>4 · Fitting the weights</small>Tune your own scoring function"
+  ],
+  [
+   "Skor, beş terimin ağırlıklı toplamıdır. Peki bu ağırlıkları elimizdeki tripsin verisine uydursaydık daha iyi bir afinite tahmincisi elde eder miydik? Aşağıda beş terimin katsayısını kaydırın; sistem her bileşik için pK<sub>i</sub>'yi tahmin eder ve ölçülen değerle karşılaştırır.",
+   "The score is a weighted sum of five terms. So if we fitted these weights to the trypsin data we have, would we get a better affinity predictor? Below, slide the coefficients of the five terms; the system predicts pK<sub>i</sub> for each compound and compares it with the measured value."
+  ],
+  [
+   "İki doğrulama sonucu birlikte gösteriliyor: ağırlıkları verinin bir kısmına uydurup <b>rastgele</b> ayrılmış kısımda sınamak, ve aynı şeyi <b>yayına göre gruplayarak</b> yapmak (aynı makalenin bileşikleri hem eğitimde hem sınamada olamaz). Aradaki farka dikkat edin.",
+   "Two validation results are shown together: fitting the weights to one part of the data and testing on a <b>randomly</b> held-out part, and doing the same while <b>grouping by publication</b> (compounds from the same paper cannot be in both training and testing). Note the difference."
+  ],
+  [
+   "Ağırlık atölyesi",
+   "Weight workshop"
+  ],
+  [
+   "Tahmin edilen ve ölçülen pKi",
+   "Predicted and measured pKi"
+  ],
+  [
+   ">Veriye uydur</button>",
+   ">Fit to data</button>"
+  ],
+  [
+   "Vina ağırlıkları",
+   "Vina weights"
+  ],
+  [
+   "\"Veriye uydur\" düğmesine basın. Rastgele bölmede uyum iyi görünüyor. Yayına göre bölmede R² değeri nasıl değişiyor? Hangi cümle doğru?",
+   "Press the \"Fit to data\" button. In the random split the fit looks good. How does the R² value change in the split by publication? Which statement is correct?"
+  ],
+  [
+   "Görev 4 seçenekleri",
+   "Task 4 options"
+  ],
+  [
+   "Yayına göre bölme rastgeleyle aynı sonucu verir; gruplamanın etkisi yoktur.",
+   "Splitting by publication gives the same result as the random split; grouping has no effect."
+  ],
+  [
+   "Yayına göre bölünce R² belirgin düşer: model kısmen \"aynı makaledeki benzer bileşikleri\" ezberliyordu. Yeni bir kimyasal seriye genellemesi çok daha zayıf.",
+   "When split by publication, R² drops markedly: the model was partly memorizing \"similar compounds from the same paper\". Its generalization to a new chemical series is much weaker."
+  ],
+  [
+   "Yayına göre bölme R²'yi yükseltir; gruplamak modeli iyileştirir.",
+   "Splitting by publication raises R²; grouping improves the model."
+  ],
+  [
+   "<small>5 · Docking'in ötesi</small>Afiniteyi gerçekten hesaplamak",
+   "<small>5 · Beyond docking</small>Actually computing affinity"
+  ],
+  [
+   "Docking skorunun afiniteyi güvenilir sıralayamaması yeni bir bulgu değildir; docking bir <b>poz üretici ve hızlı eleyicidir</b>, bir afinite ölçer değil. Daha titiz tahmin için fizik tabanlı, çok daha pahalı yöntemler gerekir. Göreli serbest enerji (RBFE) hesapları, benzer bileşikler arasındaki afinite farklarını yeterli doğrulukla öngörebildiği bildirilen bir ailedir; kaynağını 6. kısımda vereceğiz. Zincir hep aynıdır: docking aday üretir, MD pozun kararlılığını sınar, serbest enerji yöntemleri afiniteyi sıralamaya çalışır.",
+   "That docking scores cannot reliably rank affinity is not a new finding; docking is a <b>pose generator and fast filter</b>, not an affinity meter. More rigorous prediction requires physics-based, much more expensive methods. Relative free energy (RBFE) calculations are a family reported to predict affinity differences between similar compounds with adequate accuracy; we will give the reference in section 6. The chain is always the same: docking generates candidates, MD tests the stability of the pose, and free energy methods try to rank affinity."
+  ],
+  [
+   "Modern yaklaşımlar skor fonksiyonunu makine öğrenmesiyle de değiştirir (örneğin evrişimli ağlar). Ama 4. laboratuvardaki ders burada da geçerlidir: bu modeller ölçütlerdeki gizli yanlılıkları farkında olmadan öğrenebilir, ve rastgele bölmeyle ölçülen başarı, yeni bir kimyasal seriye genellemeyi abartır.",
+   "Modern approaches also replace the scoring function with machine learning (for example, convolutional networks). But the lesson of Lab 4 applies here too: these models can unknowingly learn hidden biases in benchmarks, and success measured with a random split overstates generalization to a new chemical series."
+  ],
+  [
+   "Docking, MD ve serbest enerji hesaplarının artan maliyet ve doğrulukla dizilişi",
+   "Docking, MD and free energy calculations arranged by increasing cost and accuracy"
+  ],
+  [
+   "Docking / tarama",
+   "Docking / screening"
+  ],
+  [
+   "Poz üretir, kütüphaneyi eler.",
+   "Generates poses, filters the library."
+  ],
+  [
+   "Afiniteyi güvenilir sıralamaz.",
+   "Does not rank affinity reliably."
+  ],
+  [
+   "saniye/molekül · bu bölüm",
+   "seconds/molecule · this chapter"
+  ],
+  [
+   "Pozun suda, hareketli",
+   "Stability of the pose in water,"
+  ],
+  [
+   "reseptörde kararlılığı.",
+   "in a flexible receptor."
+  ],
+  [
+   "saat–gün",
+   "hours–days"
+  ],
+  [
+   "Serbest enerji (RBFE)",
+   "Free energy (RBFE)"
+  ],
+  [
+   "Benzer bileşikler arası",
+   "Computes affinity differences"
+  ],
+  [
+   "afinite farkını hesaplar.",
+   "between similar compounds."
+  ],
+  [
+   "en pahalı · en titiz",
+   "most expensive · most rigorous"
+  ],
+  [
+   "<b>Şekil DK.5 · Maliyet arttıkça soru derinleşir.</b> Bu bölümdeki laboratuvarlar en soldaki kutunun sınırını gösterir: hızlı ve kütüphane taramaya uygun, ama afinite ölçmez.",
+   "<b>Figure DK.5 · As cost rises, the question deepens.</b> The labs in this chapter show the limit of the leftmost box: fast and suitable for library screening, but it does not measure affinity."
+  ],
+  [
+   "<small>6 · Kendinizi sınayın</small>Dört yorum",
+   "<small>6 · Test yourself</small>Four interpretations"
+  ],
+  [
+   "Docking sarmalını tamamladınız: temelde pozu ve skoru, orta düzeyde gerçek bir yapıyı ve hazırlığı, uzman düzeyde skorun afiniteye karşı sınırını gördünüz. Buradan doğal devam, tek bir aday poz için serbest enerji hesabına (CH19) ve docking sonrası MD doğrulamasına geçmektir.",
+   "You have completed the docking spiral: at the basic level you saw the pose and the score, at the intermediate level a real structure and its preparation, and at the expert level the limit of the score against affinity. The natural next step from here is a free energy calculation for a single candidate pose (CH19) and MD validation after docking."
+  ],
+  [
+   "<b>Bu sayfa hakkında.</b> DK-U için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Bileşikler ve K<sub>i</sub> değerleri ChEMBL'den alındı (tripsin CHEMBL3769; tuzak seti dopamin D2 CHEMBL217); her bileşik 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2025.09.6 ile gerçek olarak dock edildi. Protonasyon açık kurallı basit bir modelle yapıldı; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/screen/</code> altındadır. Bu keşif amaçlı teknik bir denemedir: 3B konformer üretimi tek tohumla yapıldı, tek docking programı kullanıldı, protonasyon ve tautomer incelemesi yapılmadı, sonuçlar bağımsız doğrulanmadı. Bilimsel ve hedef-okur incelemesi yapılmadı.",
+   "<b>About this page.</b> This is the interactive pilot chapter for DK-U; the book's source text and local site were not changed. Compounds and K<sub>i</sub> values were taken from ChEMBL (trypsin CHEMBL3769; decoy set dopamine D2 CHEMBL217); each compound was actually docked on 24 September 2026 in a cloud workspace with AutoDock Vina 1.2.7, Meeko 0.8.0 and RDKit 2025.09.6. Protonation was done with a simple model with explicit rules; commands, scripts and raw outputs are under <code>book/cases/trypsin_3ptb/screen/</code>. This is an exploratory technical trial: 3D conformer generation used a single seed, a single docking program was used, protonation and tautomers were not reviewed, and the results were not independently validated. No scientific or target-reader review has been done."
+  ],
+  [
+   "pozitif katsayi: terimi buyudukce pKi artiyor demektir.",
+   "positive coefficient: pKi increases as the term grows."
+  ],
+  [
+   "Intl.NumberFormat('tr-TR'",
+   "Intl.NumberFormat('en-US'"
+  ],
+  [
+   "t.toString().replace('.',',')",
+   "t.toString()"
+  ],
+  [
+   "'D2 tuzak'",
+   "'D2 decoy'"
+  ],
+  [
+   "gauss1 (yakın temas)",
+   "gauss1 (close contact)"
+  ],
+  [
+   "gauss2 (uzak temas)",
+   "gauss2 (distant contact)"
+  ],
+  [
+   "'itme'",
+   "'repulsion'"
+  ],
+  [
+   "'hidrofobik'",
+   "'hydrophobic'"
+  ],
+  [
+   "'H-bağı'",
+   "'H-bond'"
+  ],
+  [
+   "docking skoru (düşük = iyi)",
+   "docking score (lower = better)"
+  ],
+  [
+   "ölçülen pKi (yüksek = güçlü)",
+   "measured pKi (higher = stronger)"
+  ],
+  [
+   "?'güçlü':d.pki<5?'zayıf':'orta'",
+   "?'strong':d.pki<5?'weak':'moderate'"
+  ],
+  [
+   "<p class=\"smi\">skor",
+   "<p class=\"smi\">score"
+  ],
+  [
+   "· ağır atom",
+   "· heavy atoms"
+  ],
+  [
+   "· dönebilir bağ",
+   "· rotatable bonds"
+  ],
+  [
+   "· amidin/guanidin",
+   "· amidine/guanidine"
+  ],
+  [
+   "Pozitif azotun Asp189\\'a en yakın uzaklığı:",
+   "Closest distance from the positive nitrogen to Asp189:"
+  ],
+  [
+   "(tuz köprüsü)",
+   "(salt bridge)"
+  ],
+  [
+   "<dt>Doğrusal uyum R²</dt>",
+   "<dt>Linear fit R²</dt>"
+  ],
+  [
+   "<dt>pKi tahmin hatası</dt>",
+   "<dt>pKi prediction error</dt>"
+  ],
+  [
+   "<dt>Bileşik sayısı</dt>",
+   "<dt>Number of compounds</dt>"
+  ],
+  [
+   "'Doğru: ρ = '",
+   "'Correct: ρ = '"
+  ],
+  [
+   ". Negatif çünkü düşük skor güçlü bağlanmayla eşleşir. Ama |ρ| küçük ve R² yalnızca",
+   ". It is negative because a low score goes with strong binding. But |ρ| is small and R² is only"
+  ],
+  [
+   ": skor pKi\\'nin çok az bir kısmını açıklıyor. En iyi skorlu bileşikler en güçlü bağlananlar değil; skor bir sıralama verir ama zayıf bir sıralama.",
+   ": the score explains only a very small part of pKi. The best-scoring compounds are not the strongest binders; the score gives a ranking, but a weak one."
+  ],
+  [
+   "Sağdaki panelde \"Spearman ρ\" satırını okuyun; işaretiyle birlikte yazın (örn. −0,42).",
+   "Read the \"Spearman ρ\" row in the panel on the right and type it with its sign (e.g. −0.42)."
+  ],
+  [
+   "'ağır atom sayısı'",
+   "'heavy atom count'"
+  ],
+  [
+   "'ölçülen pKi'",
+   "'measured pKi'"
+  ],
+  [
+   "'docking skoru'",
+   "'docking score'"
+  ],
+  [
+   "<dt>skor ↔ ağır atom</dt>",
+   "<dt>score ↔ heavy atoms</dt>"
+  ],
+  [
+   "<dt>skor ↔ pKi</dt>",
+   "<dt>score ↔ pKi</dt>"
+  ],
+  [
+   "<dt>atom başına skor ↔ pKi</dt>",
+   "<dt>score per atom ↔ pKi</dt>"
+  ],
+  [
+   "'|skor↔atom| ('",
+   "'|score↔atoms| ('"
+  ],
+  [
+   "'), skorun afiniteyle ilişkisinden ('",
+   "'), compared with the relationship between score and affinity ('"
+  ],
+  [
+   "+') '+(Math.abs(r_ha)>",
+   "+'), '+(Math.abs(r_ha)>"
+  ],
+  [
+   "'daha güçlü':'daha zayıf'",
+   "'is stronger':'is weaker'"
+  ],
+  [
+   "'. Boyuta bölmek ilişkiyi '",
+   "'. Dividing by size '"
+  ],
+  [
+   "'zayıflatıyor':'güçlendiriyor')+'.'",
+   "'weakens':'strengthens')+' the relationship.'"
+  ],
+  [
+   "'Doğru. Skorun boyutla ilişkisi ('",
+   "'Correct. The relationship between score and size ('"
+  ],
+  [
+   "') afiniteyle ilişkisinden güçlü. Atom başına skor pKi ile '",
+   "') is stronger than its relationship with affinity. Score per atom versus pKi: '"
+  ],
+  [
+   ": ham skordan bile zayıf. Skorun bir kısmı \"kaç atom sığdı\"yı ölçüyor, \"ne kadar iyi bağlandı\"yı değil. Bu yüzden büyük moleküller taramalarda haksız avantaj kazanır.",
+   ", even weaker than the raw score. Part of the score measures \"how many atoms fit\", not \"how well it binds\". This is why large molecules gain an unfair advantage in screens."
+  ],
+  [
+   "Sağdaki üç korelasyona bakın: skorun ağır atom sayısıyla ve pKi ile ilişkisini karşılaştırın.",
+   "Look at the three correlations on the right: compare the relationship of the score with heavy atom count and with pKi."
+  ],
+  [
+   "yanlış pozitif oranı",
+   "false positive rate"
+  ],
+  [
+   "doğru pozitif oranı",
+   "true positive rate"
+  ],
+  [
+   "textContent='rastgele'",
+   "textContent='random'"
+  ],
+  [
+   "<dt>Eğri altı alan (EAUC)</dt>",
+   "<dt>Area under the curve (AUC)</dt>"
+  ],
+  [
+   "<dt>Zenginleştirme EF %1</dt>",
+   "<dt>Enrichment EF 1%</dt>"
+  ],
+  [
+   "<dt>EF %5</dt>",
+   "<dt>EF 5%</dt>"
+  ],
+  [
+   "<dt>EF %10</dt>",
+   "<dt>EF 10%</dt>"
+  ],
+  [
+   "<dt>etkin / tuzak</dt>",
+   "<dt>active / decoy</dt>"
+  ],
+  [
+   "'Zayıf tripsin bağlayıcılarına karşı EAUC '",
+   "'AUC against weak trypsin binders: '"
+  ],
+  [
+   "'; D2 tuzaklarına karşı '",
+   "'; against D2 decoys: '"
+  ],
+  [
+   ". Fark, tuzak seçiminin ölçtüğünüz \"başarı\"yı ne kadar belirlediğini gösterir.",
+   ". The difference shows how much the choice of decoys determines the \"success\" you measure."
+  ],
+  [
+   "'Doğru. D2 tuzaklarına karşı EAUC '",
+   "'Correct. AUC against D2 decoys is '"
+  ],
+  [
+   "', zayıf tripsin bağlayıcılarına karşı yalnızca '",
+   "', against weak trypsin binders only '"
+  ],
+  [
+   ". Kolay ayrılan tuzaklar başarıyı şişirir; DUD-E gibi ölçütler bu yanlılığı azaltmaya çalışsa da bir kısmı kalır ve makine öğrenmesi modelleri bunu farkında olmadan öğrenebilir.",
+   ". Easily separated decoys inflate success; benchmarks such as DUD-E try to reduce this bias, but part of it remains, and machine learning models can learn it unknowingly."
+  ],
+  [
+   "İki negatif setin EAUC değerlerini karşılaştırın ve D2 bileşiklerinin bu cebe kimyaca uyup uymadığını düşünün.",
+   "Compare the AUC values of the two negative sets and consider whether the D2 compounds fit this pocket chemically."
+  ],
+  [
+   "tahmin edilen pKi (slider ağırlıkları)",
+   "predicted pKi (slider weights)"
+  ],
+  [
+   "<dt>Uyum R² (slider, aynı veri)</dt>",
+   "<dt>Fit R² (slider, same data)</dt>"
+  ],
+  [
+   "<dt>Rastgele bölme CV R²</dt>",
+   "<dt>Random split CV R²</dt>"
+  ],
+  [
+   "<dt>Yayına göre bölme CV R²</dt>",
+   "<dt>Split by publication CV R²</dt>"
+  ],
+  [
+   "<dt>Yalnız ham skor, yayına göre CV</dt>",
+   "<dt>Raw score only, CV by publication</dt>"
+  ],
+  [
+   "<dt>Çapraz doğrulama</dt><dd style=\"color:var(--muted);font-weight:400\">\"Veriye uydur\"da açılır</dd>",
+   "<dt>Cross-validation</dt><dd style=\"color:var(--muted);font-weight:400\">Shown after \"Fit to data\"</dd>"
+  ],
+  [
+   "<dt>Bileşik / yayın</dt>",
+   "<dt>Compounds / publications</dt>"
+  ],
+  [
+   "Ağırlıklar veriye uyduruldu; aynı veride uyum arttı. Ama rastgele bölmede CV R² ≈",
+   "The weights were fitted to the data; the fit on the same data improved. But in the random split CV R² ≈"
+  ],
+  [
+   "', yayına göre bölmede ≈ '",
+   "', in the split by publication ≈ '"
+  ],
+  [
+   ". Hatta yalnız ham Vina skorunu kullanmak yayına göre bölmede (",
+   ". In fact, using only the raw Vina score in the split by publication ("
+  ],
+  [
+   ") bu uydurulmuş ağırlıklardan daha iyi genelliyor. Aynı makalenin benzer bileşiklerini ezberlemek, yeni bir kimyasal seriye yardımcı olmuyor.",
+   ") generalizes better than these fitted weights. Memorizing similar compounds from the same paper does not help with a new chemical series."
+  ],
+  [
+   "Doğru. Rastgele bölme iyimser bir tablo çizer; yayına göre bölme gerçeğe daha yakındır. Bu, docking skorlarına dayalı makine öğrenmesi modellerinin neden dikkatli doğrulama gerektirdiğinin özüdür.",
+   "Correct. A random split paints an optimistic picture; the split by publication is closer to reality. This is the core of why machine learning models built on docking scores need careful validation."
+  ],
+  [
+   "\"Veriye uydur\"a basıp iki CV R² değerini karşılaştırın.",
+   "Press \"Fit to data\" and compare the two CV R² values."
+  ],
+  [
+   "'tripsin bileşiği (Ki)'",
+   "'trypsin compounds (Ki)'"
+  ],
+  [
+   "'güçlü (pKi ≥ 7)'",
+   "'strong (pKi ≥ 7)'"
+  ],
+  [
+   "'zayıf (pKi < 5)'",
+   "'weak (pKi < 5)'"
+  ],
+  [
+   "'D2 tuzağı'",
+   "'D2 decoys'"
+  ],
+  [
+   "'ayrı yayın'",
+   "'separate publications'"
+  ],
+  [
+   "Kaynak: ChEMBL tripsin (CHEMBL3769, <i>Bos taurus</i>) K<sub>i</sub> ölçümleri ve dopamin D2 (CHEMBL217) tuzak seti. Her bileşik 3PTB\\'ye Vina ile dock edildi; kayıt <code>book/cases/trypsin_3ptb/screen/</code>.",
+   "Source: ChEMBL trypsin (CHEMBL3769, <i>Bos taurus</i>) K<sub>i</sub> measurements and the dopamine D2 (CHEMBL217) decoy set. Each compound was docked into 3PTB with Vina; records in <code>book/cases/trypsin_3ptb/screen/</code>."
+  ],
+  [
+   "Skor ile pK<sub>i</sub> arasında zayıf bir ilişki var (Spearman ρ =",
+   "There is a weak relationship between score and pK<sub>i</sub> (Spearman ρ ="
+  ],
+  [
+   "'), ama R² yalnızca '",
+   "'), but R² is only '"
+  ],
+  [
+   ". Yani skordaki değişimin çok küçük bir kısmı ölçülen afiniteyi izliyor. Docking bir sıralama verir; güvenilir bir afinite sıralaması değil.",
+   ". So only a very small part of the variation in the score tracks the measured affinity. Docking gives a ranking, not a reliable affinity ranking."
+  ],
+  [
+   "Aynı skor, iki farklı tuzak setinde çok farklı görünür: D2 tuzaklarına karşı EAUC",
+   "The same score looks very different on two different decoy sets: AUC against D2 decoys"
+  ],
+  [
+   "(kolay), zayıf tripsin bağlayıcılarına karşı",
+   "(easy), against weak trypsin binders"
+  ],
+  [
+   "(zor). \"Docking işe yarıyor mu?\" sorusunun cevabı, hangi tuzakları seçtiğinize bağlıdır.",
+   "(hard). The answer to the question \"Does docking work?\" depends on which decoys you choose."
+  ],
+  [
+   "Ağırlıkları veriye uydurmak, rastgele bölünmüş sınamada iyi görünür (R²",
+   "Fitting the weights to the data looks good in a randomly split test (R²"
+  ],
+  [
+   "). Ama aynı makalenin bileşikleri eğitim ve sınamaya ayrıldığında (yayına göre bölme) bu kazanç kaybolur: R² yaklaşık",
+   "). But when compounds are divided between training and testing by paper (split by publication), this gain disappears: R² is about"
+  ],
+  [
+   ". Yalnız ham skorla tek değişkenli baz çizgisi bile yayına göre bölmede aynı düzeydedir (R²",
+   ". Even the single-variable baseline using only the raw score is at the same level in the split by publication (R²"
+  ],
+  [
+   "): fazladan beş ağırlığı uydurmak, yeni bir kimyasal seride hiçbir şey kazandırmadı. Bir skor fonksiyonunu veriye uydurmak kolay, yeni kimyaya genellemek zordur.",
+   "): fitting five extra weights gained nothing on a new chemical series. Fitting a scoring function to data is easy; generalizing to new chemistry is hard."
+  ],
+  [
+   "Skor ile pK<sub>i</sub> arasında Spearman ρ ≈ −0,4 çıktı. En doğru yorum?",
+   "Spearman ρ between score and pK<sub>i</sub> came out as ≈ −0.4. What is the most accurate interpretation?"
+  ],
+  [
+   "Skor afiniteyi güvenilir sıralar; ρ kusursuz olmasa da yeterli.",
+   "The score ranks affinity reliably; ρ is not perfect, but it is good enough."
+  ],
+  [
+   "Zayıf ama sıfır olmayan bir eğilim var; skor kaba bir zenginleştirme sağlar ama tek tek afinite sıralaması için güvenilmez.",
+   "There is a weak but non-zero trend; the score provides rough enrichment but is unreliable for ranking individual affinities."
+  ],
+  [
+   "Skorun afiniteyle hiçbir ilişkisi yoktur.",
+   "The score has no relationship at all with affinity."
+  ],
+  [
+   "|ρ| küçük ve R² düşük olduğunda skor, molekülleri kabaca öne toplayabilir ama iki bileşiğin hangisinin daha güçlü bağlandığını söyleyemez.",
+   "When |ρ| is small and R² is low, the score can roughly gather molecules at the top, but it cannot tell which of two compounds binds more strongly."
+  ],
+  [
+   "Büyük moleküller neden neredeyse otomatik olarak daha iyi (daha düşük) skor alır?",
+   "Why do large molecules almost automatically get a better (lower) score?"
+  ],
+  [
+   "Vina büyük molekülleri kasten ödüllendirir.",
+   "Vina deliberately rewards large molecules."
+  ],
+  [
+   "Daha çok atom, daha çok temas terimi toplar; skor boyutla ilişkilidir ve bu afinite değildir.",
+   "More atoms collect more contact terms; the score is related to size, and that is not affinity."
+  ],
+  [
+   "Büyük moleküller her zaman daha güçlü bağlanır.",
+   "Large molecules always bind more strongly."
+  ],
+  [
+   "Bu yüzden ham skor yerine ligand verimi gibi boyuta göre düzeltilmiş ölçüler ya da dikkatli tuzak eşleştirmesi kullanılır.",
+   "This is why size-corrected measures such as ligand efficiency, or careful decoy matching, are used instead of the raw score."
+  ],
+  [
+   "Bir docking yönteminin başka bir hedefin bileşiklerine karşı EAUC değeri 0,9, aynı hedefin zayıf bağlayıcılarına karşı 0,6 çıktı. Bu ne anlatır?",
+   "A docking method gives an AUC of 0.9 against compounds of another target and 0.6 against weak binders of the same target. What does this tell you?"
+  ],
+  [
+   "Yöntem mükemmeldir; 0,9 gerçek başarıdır.",
+   "The method is excellent; 0.9 is real success."
+  ],
+  [
+   "Kolay tuzaklar başarıyı şişirir; gerçek zorluk aynı hedefin zayıf bağlayıcılarından ayırmaktır ve orada başarı çok daha düşüktür.",
+   "Easy decoys inflate success; the real challenge is separation from weak binders of the same target, and success there is much lower."
+  ],
+  [
+   "İki sayı ölçüm hatasıdır, anlamsızdır.",
+   "Both numbers are measurement error and meaningless."
+  ],
+  [
+   "Ölçüt tasarımı (tuzak seçimi) ölçülen başarıyı belirler. Yanlı ölçütler, özellikle makine öğrenmesi modellerinde, yanıltıcı sonuçlar doğurur.",
+   "Benchmark design (the choice of decoys) determines the measured success. Biased benchmarks lead to misleading results, especially in machine learning models."
+  ],
+  [
+   "Ağırlıkları veriye uydurdunuz: rastgele bölmede R² 0,5, yayına göre bölmede 0,1. Hangi sonuç doğru?",
+   "You fitted the weights to the data: R² is 0.5 with the random split and 0.1 with the split by publication. Which conclusion is correct?"
+  ],
+  [
+   "Model iyidir; rastgele R² gerçek performanstır.",
+   "The model is good; the random R² is the real performance."
+  ],
+  [
+   "Model kısmen aynı makaledeki benzer bileşikleri ezberledi; yeni bir seriye genellemesi zayıf. Yayına göre bölme daha dürüst bir tahmindir.",
+   "The model partly memorized similar compounds from the same paper; its generalization to a new series is weak. The split by publication is a more honest estimate."
+  ],
+  [
+   "Yayına göre bölme yanlıştır; her zaman rastgele bölme kullanılmalı.",
+   "The split by publication is wrong; a random split should always be used."
+  ],
+  [
+   "Aynı yayının bileşikleri hem eğitimde hem sınamada olduğunda başarı abartılır. Gruplu doğrulama, gerçek genelleme gücünü ölçmenin yoludur.",
+   "When compounds from the same publication are in both training and testing, success is overstated. Grouped validation is the way to measure real generalization ability."
+  ],
+  [
+   ">Doğru.</b>",
+   ">Correct.</b>"
+  ],
+  [
+   ">Tekrar düşünün.</b>",
+   ">Think again.</b>"
+  ],
+  [
+   "aria-label=\"Soru '",
+   "aria-label=\"Question '"
+  ],
+  [
+   "' seçenekleri\">",
+   "' options\">"
+  ],
+  [
+   "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
+   "if(/,/.test(str))str=/^-?\\d{1,3}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
+  ]
+ ],
+ "keep": [
+  "Spearman",
+  "Spearman ρ",
+  "<dt>Pearson r</dt><dd>",
+  "<dt>Spearman ρ</dt><dd>",
+  "fill:var(--muted)"
+ ]
+}

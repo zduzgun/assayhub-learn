@@ -54,7 +54,7 @@ Site şimdilik arama motorlarına kapalıdır, ama adresi bilen herkes açabilir
 
 ## 6. Kalıcı alan adı ve karekodlar
 
-Karekodlar `pages.dev` adresine değil, denetlediğiniz kalıcı alan adına gitmelidir. **Seçilen adres: `https://learn.assayhub.app/l/<KİMLİK>`** (örneğin `https://learn.assayhub.app/l/DK-T`). Kitaba ayrı, kitaba ait bir kısa alan adı eklenirse o adres de bu kısa adreslere yönlendirilir. Pages projesinde **Custom domains** bölümünden eklenir. Kısa adresler (`/l/DK-T` vb.) `modules.json`'dan otomatik üretilir ve bu alan adında çalışır. Karekodlar kitabın son dizgisinde üretilmeli; bu dosyadaki adres kalıcı kabul edilir ve değiştirilmez.
+Karekodlar `pages.dev` adresine değil, denetlediğiniz kalıcı alan adına gitmelidir. **Seçilen biçim (0.2.0, baskıya göre sabit dil):** Türkçe baskı `https://learn.assayhub.app/tr/l/<KİMLİK>`, İngilizce baskı `https://learn.assayhub.app/en/l/<KİMLİK>` (örneğin `/tr/l/DK-T`). Dil öneksiz `/l/<KİMLİK>` de çalışır ve ziyaretçinin diline yönlenir, ama kitaba dilli biçim basılır. Kitaba ayrı, kitaba ait bir kısa alan adı eklenirse o adres de bu kısa adreslere yönlendirilir. Pages projesinde **Custom domains** bölümünden eklenir. Kısa adresler (`/tr/l/DK-T`, `/en/l/DK-T` vb.) `modules.json`'dan otomatik üretilir ve bu alan adında çalışır. Karekodlar kitabın son dizgisinde üretilmeli; bu dosyadaki adres kalıcı kabul edilir ve değiştirilmez.
 
 ## 7. Yeni sürüm yayımlamak
 
