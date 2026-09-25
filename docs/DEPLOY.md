@@ -2,6 +2,8 @@
 
 Karar (25 Eylül 2026): repo **özel**, yayın **Cloudflare Pages** üzerinden. Kod ve prototipler kitap yayımlanana kadar gizli kalır; site arama motorlarına kapalıdır. Aşağıdaki adımları bir kez kurucu yapar; Claude'un GitHub veya Cloudflare hesabına erişimi yoktur ve parola ya da token girmez.
 
+**Durum (25 Eylül 2026):** kurulum tamamlandı. Repo `zduzgun/assayhub-learn` (özel), Cloudflare Pages projesi `assayhub-learn`, yayın adresi https://assayhub-learn.pages.dev. Cloudflare Pages GitHub uygulamasının erişimi yalnız seçili repolarla sınırlıdır (assayhub-learn, CytoMove, MediCalender).
+
 Arayüz adları zamanla değişebilir; adımlar 25 Eylül 2026 itibarıyla genel akışı anlatır.
 
 ## 1. GitHub'da boş özel repo
