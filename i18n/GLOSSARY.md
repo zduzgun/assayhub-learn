@@ -127,3 +127,11 @@ Sayılar: ondalık virgül → nokta (1,70 Å → 1.70 Å; −0,38 → −0.38).
 | motor (mdmini) | engine |
 | SS (standart sapma) | SD (standard deviation) |
 | Durdur / Sürdür (animasyon); Baştan | Pause / Resume; Reset |
+| ısıl de Broglie dalga boyu | thermal de Broglie wavelength |
+| taban düzey; sıfır nokta enerjisi | ground state; zero-point energy |
+| ısı banyosu (Langevin) | heat bath (Langevin) |
+| stroboskop; katlanma (örnekleme) | stroboscope; aliasing (sampling) |
+| kalma süresi | residence time |
+| kayıt aralığı (nstxout-compressed) | saving interval (nstxout-compressed) |
+| atölye; tezgâh; keşif defteri; keşif kartı (Açık / Keşfedildi) | workshop; bench; discovery notebook; discovery card (Open / Discovered) |
+| Keşifler: k / 9 | Discoveries: k / 9 |

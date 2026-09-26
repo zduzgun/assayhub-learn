@@ -142,30 +142,30 @@
       "title": "Enerji, kuvvetler ve sayısal hareket",
       "path": "md/md-t/",
       "source": "sources/MD-T.html",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH02",
       "goals": [
-        "Kuvvet enerji eğiminden gelir",
-        "Hız-Verlet adımı",
-        "Zaman adımı ve hata",
-        "Neden 2 fs"
+        "Atomlar neden top gibi: F = ma ve Schrödinger",
+        "Zaman adımı ve IR bantları",
+        "Kayıt aralığı: ne görülür, ne kaybolur"
       ],
       "data": [
-        "Boyutsuz öğretim modelleri"
+        "Öğretim modelleri (tarayıcıda hesaplanır)",
+        "GROMACS 2026.3 alanin dipeptit pilotu, 1. koşu (Laboratuvar 3)"
       ],
       "notice": null,
       "en": {
         "title": "Energy, forces and numerical motion",
         "book": "CH02",
         "goals": [
-          "Force comes from the slope of the energy",
-          "The velocity Verlet step",
-          "Time step and error",
-          "Why 2 fs"
+          "Why atoms behave like balls: F = ma and Schrödinger",
+          "Time step and IR bands",
+          "Saving interval: what is seen, what is lost"
         ],
         "data": [
-          "Dimensionless teaching models"
+          "Teaching models (computed in the browser)",
+          "GROMACS 2026.3 alanine dipeptide pilot, run 1 (Lab 3)"
         ],
         "notice": null
       }

@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.5.0 (26 Eylül 2026) · MD-T keşif laboratuvarları
+
+- MD-T (temel düzey, kitap CH02) 0.2.0: beş laboratuvar yerine temel keşif kalıbıyla üç laboratuvar (tasarım: `docs/superpowers/specs/2026-09-26-temel-kesif-kalibi-design.md`). Her laboratuvar deneysel bir köprüyle başlar; okur kontrolleri kurcalar, keşif kartları okurun kendi denemesiyle ve kendi sayılarıyla açılır; defter kuralı okurun verisinden çıkarır; laboratuvar proteine dönüş tablosu ve altı soruluk sınavla biter. İlerleme dokuz keşfi sayar.
+- Laboratuvar 1 "Neden F = ma": ısıl de Broglie dalga boyu (elektron, H, ağır atomlar, sıcaklık), titreşimlerde ħω/kT (donmuş sert bağlar, klasik yavaş hareketler, 300 K'de yaklaşık 209 cm⁻¹ sınırı), çift kuyulu yüzeyde hız-Verlet ve 300 K ısı banyosu (Langevin), sürüklenebilir top ve adım dökümü, 1 ns'lik koşularla okurun kendi Arrhenius eğimi, Born-Oppenheimer ve maliyet ölçeklenmesi (kuvvet alanı hızı pilotta ölçülen değerden doğrusal tahmin olarak etiketli).
+- Laboratuvar 2 "Atomun saati": bağ atölyesi (atomlar, yay sertliği, hazır bağlar, şematik IR bandı; izotop √μ, sertlik √k, HMR keşifleri), zaman adımı tezgâhı ve defteri (Δt² ölçeklenmesi, T/π çöküş sınırı, periyot başına hesap).
+- Laboratuvar 3 "Kayıt aralığı" (yeni): stroboskop atölyesi (T/2 sınırı, duruyor gibi görünen ve sahte yavaş titreşim) ve bu projenin alanin dipeptit pilotunun 1. koşusuyla gerçek veri tezgâhı: 1 ile 1000 ps arası alt örneklemede αR payı, sayılan durum değişimi ve dosya boyutu (ölçülen md.xtc'den orantı). Veri `mdt_kayit.json` (φ/ψ, 0,01°), bağımsız referansla sınanır.
+- Yüzde işareti dile göre (`MDT.pc`: Türkçe %21,9, İngilizce 21.9%). İngilizce tablo `i18n/MD-T.en.json` yeniden kuruldu (550 çift, makine çevirisi, `reviewed: false`).
+
 ## 0.4.0 (26 Eylül 2026) · MD-U, ortak motor ve MD-PBC
 
 - Yeni modül MD-U (uzman düzey, kitap CH17): "Örnekleme ve kararlılık yanılsaması: alanin dipeptidi". Veri bu proje için GROMACS 2026.3 ile üretildi: AMBER99SB-ILDN + TIP3P, 5 bağımsız koşu × 10 ns (pilot; koşular arasındaki tek fark hız ve termostat tohumları). Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu. Altı laboratuvar: sakin RMSD ve gezen açılar, önceden tanımlanmış durumlar ve duyarlılık sınırları, eşit pencereler ve TVD, otokorelasyon/blok ortalaması/g/N_eff, koşular arası hata, pilot ve üretim. Üretim aşaması (TRUBA ya da GPU) gelene kadar üretim seçimleri "Bu senaryo hesaplanmadı" gösterir. Az ziyaret edilen durumlar (αL, koşu başına 1-4 ziyaret) için pay, g ve N_eff anlamsız diye işaretlenir.

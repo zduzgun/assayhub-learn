@@ -1,22 +1,117 @@
 {
  "module": "MD-T",
  "lang": "en",
- "source_sha256": "bcd88e78ca176981cc5fd89011836b4479579fe8e771420aa5b2c567d94210ef",
+ "source_sha256": "1d619cb6836c6c49bbade589128e14c863719448b7359979fe44634de09e8c89",
  "reviewed": false,
- "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
- "translator": "Claude (machine translation, needs human review)",
+ "translator": "Claude (AI), MD-T 0.2.0 keşif sürümü; insan gözden geçirmesi bekliyor",
  "pairs": [
+  [
+   "body='Sıcaklık aynı, yalnız kütle değişti: kütle '+sig(Math.max(mr,1/mr))+' kat '+(mr>1?'arttı':'azaldı')+', λ ise '+sig(Math.max(a/b,b/a))+' kat '+(b<a?'küçüldü':'büyüdü')+' (√'+sig(Math.max(mr,1/mr))+' = '+sig(Math.sqrt(Math.max(mr,1/mr)))+'). λ ∝ 1/√m.';",
+   "body='Same temperature, only the mass changed: the mass '+(mr>1?'increased':'decreased')+' by a factor of '+sig(Math.max(mr,1/mr))+', while λ '+(b<a?'shrank':'grew')+' by a factor of '+sig(Math.max(a/b,b/a))+' (√'+sig(Math.max(mr,1/mr))+' = '+sig(Math.sqrt(Math.max(mr,1/mr)))+'). λ ∝ 1/√m.';"
+  ],
+  [
+   "$('mw2').innerHTML='Sizin denemeniz, '+fx(P1.T,0)+' K: H için λ = <b>'+sig(lh)+' Å</b>, '+other.l+' için <b>'+sig(lo)+' Å</b>. Kütle '+sig(other.m/1.008)+' kat ama λ yalnız '+sig(lh/lo)+' kat farklı. Bu sıcaklıkta kaba yargı: H '+judge(lh/3).t+', '+other.l+' '+judge(lo/3).t+'. '+(P1.T>=250&&P1.T<=350?'Ağır atomlar komşu uzaklığının küçük bir kesri kadar bulanık, klasik top resmi onlar için iyi. Hidrojen sınırda: tünelleme ve sıfır nokta enerjisi gibi kuantum etkileri gerçektir ve klasik MD bunları içermez.':'Oda sıcaklığında (300 K) ağır atomlar klasik yaklaşım için yeterince keskin, hidrojen ise sınırdadır; soğudukça ikisi de kuantum bölgesine yaklaşır.'); }",
+   "$('mw2').innerHTML='Your trial at '+fx(P1.T,0)+' K: λ = <b>'+sig(lh)+' Å</b> for H, <b>'+sig(lo)+' Å</b> for '+other.l+'. The mass differs by a factor of '+sig(other.m/1.008)+', but λ only by a factor of '+sig(lh/lo)+'. Rough verdict at this temperature: H '+judge(lh/3).t+', '+other.l+' '+judge(lo/3).t+'. '+(P1.T>=250&&P1.T<=350?'Heavy atoms are blurred by only a small fraction of the neighbor distance; the classical ball picture is good for them. Hydrogen is borderline: quantum effects such as tunneling and zero-point energy are real, and classical MD does not include them.':'At room temperature (300 K) heavy atoms are sharp enough for the classical approximation, while hydrogen is borderline; as it gets colder, both move towards the quantum region.'); }"
+  ],
+  [
+   "body='Parçacık aynı, yalnız sıcaklık değişti: sıcaklık '+sig(Math.max(tr,1/tr))+' kat '+(tr>1?'arttı':'azaldı')+', λ '+sig(Math.max(a/b,b/a))+' kat '+(b<a?'küçüldü':'büyüdü')+'. λ ∝ 1/√T: soğudukça parçacık daha \"dalga gibi\" olur.';",
+   "body='Same particle, only the temperature changed: the temperature '+(tr>1?'increased':'decreased')+' by a factor of '+sig(Math.max(tr,1/tr))+', and λ '+(b<a?'shrank':'grew')+' by a factor of '+sig(Math.max(a/b,b/a))+'. λ ∝ 1/√T: the colder, the more \"wave-like\" the particle becomes.';"
+  ],
+  [
+   "$('mw3').innerHTML='Sizin denemeniz: '+P1.p.l+' için '+fx(prev1.T,0)+' K → '+fx(P1.T,0)+' K, λ '+sig(a)+' → '+sig(b)+' Å. Aynı parçacık 100 K\\'de '+sig(l100)+' Å, 300 K\\'de '+sig(l300)+' Å. Kuantum etkiler soğukta büyür; oda sıcaklığı ve üstü klasik yaklaşım için elverişlidir.'; }",
+   "$('mw3').innerHTML='Your trial: for '+P1.p.l+', '+fx(prev1.T,0)+' K → '+fx(P1.T,0)+' K, λ '+sig(a)+' → '+sig(b)+' Å. The same particle has '+sig(l100)+' Å at 100 K and '+sig(l300)+' Å at 300 K. Quantum effects grow in the cold; room temperature and above favor the classical approximation.'; }"
+  ],
+  [
+   "$('mw1').innerHTML='Elektronun λ\\'sı '+fx(P1.T,0)+' K\\'de <b>'+sig(le)+' Å</b>: komşu uzaklığının '+sig(le/3)+' katı, küçük bir molekülden büyük. Elektronlar top gibi davranamaz; ancak kuantum mekaniğiyle anlatılırlar. MD elektronları ayrı ayrı hesaplamaz, etkilerini kuvvet alanına gömer (bölüm 5).'; }",
+   "$('mw1').innerHTML='The electron\\'s λ at '+fx(P1.T,0)+' K is <b>'+sig(le)+' Å</b>: '+sig(le/3)+' times the neighbor distance, larger than a small molecule. Electrons cannot behave like balls; they can only be described with quantum mechanics. MD does not compute the electrons one by one; it builds their effect into the force field (section 5).'; }"
+  ],
+  [
+   "var kind=x>=5?'Basamak kT\\'nin '+sig(x)+' katı: titreşim neredeyse tamamen taban düzeyde donmuş. Enerjisinin çoğu, ısıyla alınıp verilemeyen sıfır nokta enerjisidir ('+sig(s.zpe)+' kT).':x<=0.5?'Basamak kT\\'nin yalnız '+sig(x)+' katı: basamaklar fark edilmez, ortalama enerji klasik değere çok yakın ('+fx(s.eq,2)+' kT).':'Ara bölge: kuantum etkiler var ama titreşim donmuş da değil.';",
+   "var kind=x>=5?'The step is '+sig(x)+' times kT: the vibration is almost completely frozen in the ground state. Most of its energy is zero-point energy, which cannot be exchanged as heat ('+sig(s.zpe)+' kT).':x<=0.5?'The step is only '+sig(x)+' times kT: the steps are not noticeable, and the mean energy is very close to the classical value ('+fx(s.eq,2)+' kT).':'Intermediate region: there are quantum effects, but the vibration is not frozen either.';"
+  ],
+  [
+   "$('mv3').innerHTML='Sizin denemeniz: '+fx(V.T,0)+' K\\'de '+tick(Math.round(V.nu))+' cm⁻¹ için ħω/kT = '+fx(x,2)+'; tam eşitlik <b>'+tick(Math.round(V.T/C2))+' cm⁻¹</b>\\'de. Sınır sıcaklıkla orantılıdır: ν̃ ≈ '+fx(1/C2,3)+' × T cm⁻¹. 300 K\\'de '+tick(Math.round(300/C2))+' cm⁻¹, 100 K\\'de '+tick(Math.round(100/C2))+' cm⁻¹. Bunun üstündeki titreşimler (IR\\'de gördüğünüz bağ titreşimlerinin neredeyse hepsi) oda sıcaklığında kuantum davranır.'; }",
+   "$('mv3').innerHTML='Your trial: at '+fx(V.T,0)+' K, '+tick(Math.round(V.nu))+' cm⁻¹ gives ħω/kT = '+fx(x,2)+'; exact equality at <b>'+tick(Math.round(V.T/C2))+' cm⁻¹</b>. The boundary is proportional to temperature: ν̃ ≈ '+fx(1/C2,3)+' × T cm⁻¹, that is '+tick(Math.round(300/C2))+' cm⁻¹ at 300 K and '+tick(Math.round(100/C2))+' cm⁻¹ at 100 K. Vibrations above it (almost all of the bond vibrations you see in the IR) behave quantum mechanically at room temperature.'; }"
+  ],
+  [
+   "g.fillText('son '+(win<1000?fx(win,0)+' fs':fx(win/1000,1)+' ps')+' içinde konum',L,Hh-8);",
+   "g.fillText('position over the last '+(win<1000?fx(win,0)+' fs':fx(win/1000,1)+' ps'),L,Hh-8);"
+  ],
+  [
+   "$('mf5').innerHTML='İki eğim: '+a.m.l+' için '+fx(pa,2)+', '+b.m.l+' için '+fx(pb,2)+' kJ/mol başına e kat (kT = '+fx(KT300,2)+'). '+(near(pa,a.m.id)&&near(pb,b.m.id)?'İkisi de bu sayfanın modelinde beklenen değere yakın ('+a.m.l+' '+fx(EXPECT[a.m.id],2)+', '+b.m.l+' '+fx(EXPECT[b.m.id],2)+'): üstel kuralı kütle değil sıcaklık ve bariyer belirler.':'Biri bu sayfanın modelinde beklenen değerden ('+a.m.l+' '+fx(EXPECT[a.m.id],2)+', '+b.m.l+' '+fx(EXPECT[b.m.id],2)+') belirgin sapıyor. Geçiş sayıları rastgeledir (n geçişin belirsizliği yaklaşık √n); aynı ayarlarla birkaç ns daha hesaplayıp noktaları sıkılaştırın.')+' Kütle, çizgiyi yukarı aşağı kaydırır: 10 kJ/mol\\'de ns başına yaklaşık '+fx(ra,0)+' ve '+fx(rb,0)+' geçiş. Ağır olan bariyere daha seyrek \"çarpar\".';",
+   "$('mf5').innerHTML='Two slopes: '+fx(pa,2)+' for '+a.m.l+' and '+fx(pb,2)+' for '+b.m.l+', in kJ/mol per factor of e (kT = '+fx(KT300,2)+'). '+(near(pa,a.m.id)&&near(pb,b.m.id)?'Both are close to the values expected in this page\\'s model ('+a.m.l+' '+fx(EXPECT[a.m.id],2)+', '+b.m.l+' '+fx(EXPECT[b.m.id],2)+'): the exponential rule is set not by the mass but by the temperature and the barrier.':'One deviates clearly from the value expected in this page\\'s model ('+a.m.l+' '+fx(EXPECT[a.m.id],2)+', '+b.m.l+' '+fx(EXPECT[b.m.id],2)+'). Crossing counts are random (the uncertainty of n crossings is about √n); compute a few more ns with the same settings to tighten the points.')+' The mass shifts the line up or down: at 10 kJ/mol, about '+fx(ra,0)+' and '+fx(rb,0)+' crossings per ns. The heavier one \"hits\" the barrier less often.';"
+  ],
+  [
+   "body='Yay aynı, yalnız kütle değişti. Bant '+fx(r,3)+' kat '+(r>1?'aşağı':'yukarı')+' kaydı; indirgenmiş kütle oranının karekökü √('+fx(cB.mu,3)+'/'+fx(prev.mu,3)+') = '+fx(s,3)+'. Kütle büyüdükçe titreşim yavaşlar.';",
+   "body='Same spring, only the mass changed. The band moved '+(r>1?'down':'up')+' by a factor of '+fx(r,3)+'; the square root of the reduced-mass ratio is √('+fx(cB.mu,3)+'/'+fx(prev.mu,3)+') = '+fx(s,3)+'. The larger the mass, the slower the vibration.';"
+  ],
+  [
+   "body='Atomlar aynı, yalnız yay sertliği değişti. Bant '+fx(1/r,3)+' kat '+(r<1?'yukarı':'aşağı')+' kaydı; yay sabiti oranının karekökü √('+tick(cB.k)+'/'+tick(prev.k)+') = '+fx(s2,3)+'. Sert bağ hızlı titreşir.';",
+   "body='Same atoms, only the spring stiffness changed. The band moved '+(r<1?'up':'down')+' by a factor of '+fx(1/r,3)+'; the square root of the spring-constant ratio is √('+tick(cB.k)+'/'+tick(prev.k)+') = '+fx(s2,3)+'. A stiff bond vibrates fast.';"
+  ],
+  [
+   "$('m1').innerHTML=best?'Sizin '+best.n+' denemenize göre ('+best.nm+') eğim <b>'+fx(best.s,2)+'</b>: Δt iki katına çıkınca hata yaklaşık <b>'+fx(Math.pow(2,best.s),1)+' katına</b> çıkıyor. Hız-Verlet\\'te hata Δt²\\'yle büyür: adımı yarıya indirmek hatayı dörtte birine indirir, ama aynı süreyi hesaplamak iki kat adım ister.':'Bir bağda en az 4 kararlı deneme ve en küçük ile en büyük Δt arasında en az 4 kat fark gerekli.';",
+   "$('m1').innerHTML=best?'From your '+best.n+' trials ('+best.nm+'), the slope is <b>'+fx(best.s,2)+'</b>: when Δt doubles, the error grows by a factor of about <b>'+fx(Math.pow(2,best.s),1)+'</b>. In velocity Verlet the error grows as Δt²: halving the step cuts the error to a quarter, but computing the same time takes twice as many steps.':'You need at least 4 stable trials on one bond, with at least a factor of 4 between the smallest and largest Δt.';"
+  ],
+  [
+   "$('m2').innerHTML=br.w<1.1?br.nm+' için hesap yaklaşık Δt = <b>'+sig(mid)+' fs</b>\\'de çöküyor: periyodun yaklaşık <b>1/'+fx(br.T/mid,1)+'</b>\\'i. Kuram bu integratör için sınırı T/π = '+fx(br.T/Math.PI,2)+' fs olarak verir. Sınırın biraz altında hesap çökmez ama hata çok büyüktür: kararlı olmak doğru olmak demek değildir.':br.nm+' için sınır Δt = '+sig(br.lo)+' ile '+sig(br.hi)+' fs arasında. Aralığı daraltın (iki sınırın oranı 1,1\\'in altına inmeli; şu an '+fx(br.w,2)+').'; }",
+   "$('m2').innerHTML=br.w<1.1?'For '+br.nm+' the calculation blows up at about Δt = <b>'+sig(mid)+' fs</b>: about <b>1/'+fx(br.T/mid,1)+'</b> of the period. Theory gives the limit for this integrator as T/π = '+fx(br.T/Math.PI,2)+' fs. Just below the limit the calculation does not blow up, but the error is very large: being stable does not mean being correct.':'For '+br.nm+' the limit lies between Δt = '+sig(br.lo)+' and '+sig(br.hi)+' fs. Narrow the range (the ratio of the two limits must fall below 1.1; now '+fx(br.w,2)+').'; }"
+  ],
+  [
+   "$('m3').innerHTML=done[3]?'Periyot başına hesap ekseninde bağların noktaları üst üste biniyor. Sizin verinize göre %10 hata için '+rows.map(function(r){return r.nm+' yaklaşık <b>'+fx(r.n10,0)+'</b>';}).join(', ')+'; %1 hata için '+rows.map(function(r){return r.nm+' '+fx(r.n1,0);}).join(', ')+' hesap istiyor. Belirleyici olan bağın kendisi değil, periyodudur: hızlı titreşen bağ, kısa Δt ister.':'Uyum için noktalar yetmedi; farklı Δt\\'lerle birkaç kararlı deneme daha yapın.';",
+   "$('m3').innerHTML=done[3]?'On the calculations-per-period axis the points of the bonds fall on top of each other. According to your data, a 10% error needs about '+rows.map(function(r){return '<b>'+fx(r.n10,0)+'</b> for '+r.nm;}).join(', ')+' calculations per period, and a 1% error '+rows.map(function(r){return fx(r.n1,0)+' for '+r.nm;}).join(', ')+'. What matters is not the bond itself but its period: a fast-vibrating bond needs a short Δt.':'Not enough points for a fit; make a few more stable trials with different Δt values.';"
+  ],
+  [
+   "$('mk1').innerHTML='Sizin '+book.length+' denemeniz: αR payı 1 ps\\'te '+MDT.pc(fx(R1.pop*100,1))+'. En büyük sapma '+fx(dev*100,1)+' puan ('+tick(w.s)+' ps\\'te '+MDT.pc(fx(w.pop*100,1))+', '+tick(w.n)+' kare). '+(dev<0.05?'Pay neredeyse değişmedi: bir denge ortalaması için seyrek kayıt çoğunlukla yeter; belirleyici olan kare sayısı değil, koşunun toplam süresidir.':'Sapma büyüdü, çünkü o aralıkta yalnız '+tick(w.n)+' kare kaldı: sistemin payı değişmedi, onu ölçen örnek azaldı.'); }",
+   "$('mk1').innerHTML='Your '+book.length+' trials: the αR fraction at 1 ps is '+MDT.pc(fx(R1.pop*100,1))+'. The largest deviation is '+fx(dev*100,1)+' percentage points ('+MDT.pc(fx(w.pop*100,1))+' at '+tick(w.s)+' ps, '+tick(w.n)+' frames). '+(dev<0.05?'The fraction hardly changed: for an equilibrium average sparse saving is usually enough; what matters is not the number of frames but the total length of the run.':'The deviation grew because only '+tick(w.n)+' frames were left at that interval: the fraction of the system did not change, the sample measuring it shrank.'); }"
+  ],
+  [
+   "$('mk2').innerHTML='1 ps\\'te <b>'+tick(R1.trans)+'</b> durum değişimi sayıldı; '+tick(mid.s)+' ps\\'te '+tick(mid.trans)+', '+tick(top.s)+' ps\\'te <b>'+tick(top.trans)+'</b>. Bir durumda ortalama kalma süresi 1 ps verisinden yaklaşık '+fx(dwell,0)+' ps. İki kare arasında gidip gelen her geçiş görünmez olur; bu yüzden geçiş hızı, kalma süresi gibi kinetik nicelikler kayıt aralığına çok duyarlıdır. 1 ps\\'nin kendisi de bir alt sınırdır: ondan kısa süren gidip gelmeleri göremez.'; }",
+   "$('mk2').innerHTML='At 1 ps, <b>'+tick(R1.trans)+'</b> state changes were counted; '+tick(mid.trans)+' at '+tick(mid.s)+' ps, <b>'+tick(top.trans)+'</b> at '+tick(top.s)+' ps. From the 1 ps data, the mean residence time in a state is about '+fx(dwell,0)+' ps. Every transition that goes there and back between two frames becomes invisible; kinetic quantities such as transition rates and residence times are therefore very sensitive to the saving interval. 1 ps is itself a lower limit: it cannot see back-and-forth changes shorter than that.'; }"
+  ],
+  [
+   "$('mk3').innerHTML='1 ps: '+tick(b1.n+1)+' kare, '+size(b1.bytes)+'; '+tick(bs.s)+' ps: '+tick(bs.n+1)+' kare, '+size(bs.bytes)+' (t = 0 karesi dahil). Dosya boyutu kare sayısıyla orantılıdır, kare sayısı da kayıt aralığıyla ters orantılı: aralığı '+tick(bs.s)+' katına çıkarmak dosyayı yaklaşık '+tick(bs.s)+'\\'de birine indirir. Burada yalnız 22 atomluk dipeptit kaydedildi; su dahil bütün sistemde aynı oran çok daha büyük sayılara uygulanır.'; }",
+   "$('mk3').innerHTML='1 ps: '+tick(b1.n+1)+' frames, '+size(b1.bytes)+'; '+tick(bs.s)+' ps: '+tick(bs.n+1)+' frames, '+size(bs.bytes)+' (including the t = 0 frame). The file size is proportional to the number of frames, and the number of frames is inversely proportional to the saving interval: multiplying the interval by '+tick(bs.s)+' shrinks the file to about 1/'+tick(bs.s)+'. Only the 22-atom dipeptide was saved here; with the whole system including water, the same ratio applies to much larger numbers.'; }"
+  ],
+  [
+   "{s:'Pilot veride kayıt aralığını 1 ps\\'ten 100 ps\\'e çıkarınca ne oldu?',\n   o:[['αR payı yarıya indi, durum değişimi sayısı aynı kaldı',0],['İkisi de değişmedi',0],['αR payı sıfıra indi',0],['αR payı '+MDT.pc(fx(R1.pop*100,1))+' → '+MDT.pc(fx(r100.pop*100,1))+' (az kare kaldığı için biraz dalgalandı); durum değişimi '+tick(R1.trans)+' → '+tick(r100.trans),1]],",
+   "{s:'In the pilot data, what happened when the saving interval was raised from 1 ps to 100 ps?',\n   o:[['The αR fraction halved and the number of state changes stayed the same',0],['Neither changed',0],['The αR fraction dropped to zero',0],['The αR fraction went '+MDT.pc(fx(R1.pop*100,1))+' → '+MDT.pc(fx(r100.pop*100,1))+' (fluctuating a little because few frames were left); state changes '+tick(R1.trans)+' → '+tick(r100.trans),1]],"
+  ],
+  [
+   "$('whole').textContent='Tahmin: su dahil bütün sistem ('+tick(nAll)+' atom) kaydedilseydi, atom başına aynı sıkıştırma varsayımıyla dosya yaklaşık '+fx(nAll/nSol,0)+' kat, yani 10 ns için yaklaşık '+fx(est/1e6,0)+' MB olurdu.';",
+   "$('whole').textContent='Estimate: had the whole system including water ('+tick(nAll)+' atoms) been saved, with the same compression per atom the file would be about '+fx(nAll/nSol,0)+' times larger, that is about '+fx(est/1e6,0)+' MB for 10 ns.';"
+  ],
+  [
+   "$('src').textContent='Kaynak: bu kitabın alanin dipeptit pilotu ('+SRC.run+', GROMACS '+SRC.gromacs+'); açılar gmx angle ile hesaplandı. Dosya boyutu, ölçülen md.xtc dosyasından ('+tick(SRC.xtc_bytes)+' bayt, '+tick(SRC.xtc_frames)+' kare) orantıyla hesaplanır. Başlangıç yapısı mdshare, CC BY 4.0.';",
+   "$('src').textContent='Source: this book\\'s alanine dipeptide pilot ('+SRC.run+', GROMACS '+SRC.gromacs+'); angles computed with gmx angle. The file size is computed proportionally from the measured md.xtc file ('+tick(SRC.xtc_bytes)+' bytes, '+tick(SRC.xtc_frames)+' frames). Starting structure from mdshare, CC BY 4.0.';"
+  ],
+  [
+   "$('mf3').innerHTML='Sizin denemeniz: bariyer '+fx(S.Eb,1)+' kJ/mol ('+fx(S.Eb/KT300,1)+' kT), başlangıç enerjisi '+fx(S.KE,1)+' kJ/mol, ilk geçiş '+(S.t<1000?fx(S.t,0)+' fs':fx(S.t/1000,1)+' ps')+' sonra. Yalıtılmış sistemde geçemeyecek olan parçacık, çevreyle rastgele enerji alışverişi sayesinde arada bir bariyeri aşar. Geçişin ne zaman olacağı rastgeledir. Bu seyrek olayları yeterince görebilmek, MD\\'deki örnekleme sorununun özüdür (MD-U).'; marks3(); }",
+   "$('mf3').innerHTML='Your trial: barrier '+fx(S.Eb,1)+' kJ/mol ('+fx(S.Eb/KT300,1)+' kT), initial energy '+fx(S.KE,1)+' kJ/mol, first crossing after '+(S.t<1000?fx(S.t,0)+' fs':fx(S.t/1000,1)+' ps')+'. A particle that could not get across in the isolated system occasionally crosses the barrier thanks to random energy exchange with the surroundings. When a crossing happens is random. Seeing enough of these rare events is the essence of the sampling problem in MD (MD-U).'; marks3(); }"
+  ],
+  [
+   "$('ms1').innerHTML='Sizin denemeleriniz, '+B.n+': Δ/T = '+fx(rb.lo.r,2)+' iken karelerden görünen periyot '+fx(B.T,1)+' fs, yani gerçek periyot. Δ/T = '+fx(rb.hi.r,2)+' iken <b>'+taTxt(rb.hi.ta)+'</b>: kareler artık yanlış bir titreşim gösteriyor. Sınır Δ = T/2\\'dir: bir titreşimi doğru görmek için periyot başına en az iki kare gerekir (örnekleme kuramındaki Nyquist sınırı).'; }",
+   "$('ms1').innerHTML='Your trials on '+B.n+': at Δ/T = '+fx(rb.lo.r,2)+' the period seen in the frames is '+fx(B.T,1)+' fs, the real period. At Δ/T = '+fx(rb.hi.r,2)+' it is <b>'+taTxt(rb.hi.ta)+'</b>: the frames now show a wrong vibration. The limit is Δ = T/2: to see a vibration correctly you need at least two frames per period (the Nyquist limit of sampling theory).'; }"
+  ],
+  [
+   "$('ms2').innerHTML='Sizin denemeniz: '+B.n+' (T = '+fx(B.T,1)+' fs) '+fx(dt,1)+' fs aralıkla kaydedildi, Δ/T = '+fx(r,2)+'. Her kare titreşimin aynı evresine düşüyor; bağ trajektoride hiç titreşmiyor gibi görünür. Filmdeki duran tekerleğin aynısı.'; }",
+   "$('ms2').innerHTML='Your trial: '+B.n+' (T = '+fx(B.T,1)+' fs) was saved every '+fx(dt,1)+' fs, Δ/T = '+fx(r,2)+'. Every frame falls on the same phase of the vibration; in the trajectory the bond looks as if it does not vibrate at all. Exactly like the wheel standing still in a film.'; }"
+  ],
+  [
+   "$('mf4').innerHTML='Sizin verinize göre ('+fits[0].m.l+', '+f.n+' nokta): geçiş sayısı bariyerle üstel azalıyor. Sayıyı e kat (2,72 kat) azaltan bariyer artışı <b>'+fx(per,2)+' kJ/mol</b>; 300 K\\'de kT = '+fx(KT300,2)+' kJ/mol. Yani bariyeri kT kadar yükseltmek geçişleri yaklaşık <b>'+fx(fac,1)+' kat</b> seyrekleştiriyor. Bu Arrhenius (Boltzmann) kuralıdır: sıklık ∝ e^(−E_b/kT). Bu yüzeyde beklenen değer kT\\'den biraz büyüktür (bu sayfanın modeliyle 8-17 kJ/mol arasında, bariyer başına 40 ns\\'lik koşulardan kütleye göre '+fx(EXPECT.H,2)+' ile '+fx(EXPECT.C,2)+' kJ/mol): bariyeri yükseltmek kuyuları da dikleştirir, parçacık bariyere daha sık \"çarpar\". Sizin değerinizle aradaki farkın bir kısmı rastlantıdır; n geçişin belirsizliği yaklaşık √n. Birkaç kJ/mol\\'lük bir bariyer farkı, bir MD koşusunun kaç ns sürmesi gerektiğini katlarca değiştirir.';",
+   "$('mf4').innerHTML='According to your data ('+fits[0].m.l+', '+f.n+' points): the number of crossings falls exponentially with the barrier. The barrier increase that reduces the count by a factor of e (2.72) is <b>'+fx(per,2)+' kJ/mol</b>; at 300 K, kT = '+fx(KT300,2)+' kJ/mol. So raising the barrier by kT makes crossings about <b>'+fx(fac,1)+' times</b> rarer. This is the Arrhenius (Boltzmann) rule: rate ∝ e^(−E_b/kT). On this surface the expected value is somewhat larger than kT (with this page\\'s model between 8 and 17 kJ/mol, from 40 ns runs per barrier, '+fx(EXPECT.H,2)+' to '+fx(EXPECT.C,2)+' kJ/mol depending on the mass): raising the barrier also steepens the wells, so the particle \"hits\" the barrier more often. Part of the difference from your value is chance; the uncertainty of n crossings is about √n. A barrier difference of a few kJ/mol changes by several times how many ns an MD run must last.';"
+  ],
   [
    "Enerji, Kuvvetler ve Sayısal Hareket",
    "Energy, Forces and Numerical Motion"
   ],
   [
-   "Biyomoleküler sistemlerde Moleküler Dinamik · Temel düzey",
-   "Molecular Dynamics in Biomolecular Systems · Basic level"
+   "<b>MD</b><span>Biyomoleküler sistemlerde Moleküler Dinamik · Temel düzey</span>",
+   "<b>MD</b><span>Molecular Dynamics in Biomolecular Systems · Basic level</span>"
   ],
   [
-   "Uygulamalar: ",
-   "Exercises: "
+   "<span id=\"progText\">Keşifler: 0 / 9</span><span class=\"dots\" id=\"progDots\" aria-hidden=\"true\"><i data-card=\"l1-w1\"></i><i data-card=\"l1-v1\"></i><i data-card=\"l1-f2\"></i><i data-card=\"l2-d1\"></i><i data-card=\"l2-d2\"></i><i data-card=\"l2-q2\"></i><i data-card=\"l3-s1\"></i><i data-card=\"l3-s2\"></i><i data-card=\"l3-k2\"></i></span>",
+   "<span id=\"progText\">Discoveries: 0 / 9</span><span class=\"dots\" id=\"progDots\" aria-hidden=\"true\"><i data-card=\"l1-w1\"></i><i data-card=\"l1-v1\"></i><i data-card=\"l1-f2\"></i><i data-card=\"l2-d1\"></i><i data-card=\"l2-d2\"></i><i data-card=\"l2-q2\"></i><i data-card=\"l3-s1\"></i><i data-card=\"l3-s2\"></i><i data-card=\"l3-k2\"></i></span>"
   ],
   [
    "Bölüm 02 · Etkileşimli sürüm",
@@ -27,891 +122,2086 @@
    "Energy, forces and numerical motion"
   ],
   [
-   "Bir MD programının her adımda yaptığı iki işi kendi elinizle yapacaksınız: kuvveti enerjiden bulmak ve atomu küçük bir zaman adımı kadar ilerletmek.",
-   "You will carry out by hand the two things an MD program does at every step: finding the force from the energy and advancing the atom by one small time step."
+   "Bir MD programının her adımda yaptığı işi kurcalayarak keşfedeceksiniz: atomları neden top gibi ele alabildiğimizi, onları ne sıklıkla hesaplamamız ve ne sıklıkla kaydetmemiz gerektiğini.",
+   "By tinkering, you will discover what an MD program does at every step: why we can treat atoms as balls, how often we need to compute them and how often we need to save them."
   ],
   [
    "Bu bölümde yapacaklarınız",
    "What you will do in this chapter"
   ],
   [
-   "Bir enerji eğrisinde topu sürükleyip kuvvetin nereye ittiğini <b>görmek</b>.",
-   "Drag a ball along an energy curve and <b>see</b> where the force pushes it."
+   "Atomların neden klasik toplar gibi ele alınabildiğini ve F = ma'nın bir yörüngeyi nasıl ürettiğini <b>kendi denemelerinizle bulmak</b>.",
+   "<b>Find out with your own trials</b> why atoms can be treated as classical balls and how F = ma produces a trajectory."
   ],
   [
-   "Bir hız-Verlet adımını <b>elle hesaplamak</b>, sonra adımı büyütüp küçültüp hatayı <b>ölçmek</b>.",
-   "<b>Compute</b> one velocity Verlet step <b>by hand</b>, then make the step larger and smaller and <b>measure</b> the error."
+   "IR spektrumundaki bantlardan yola çıkıp bir MD programının zaman adımını <b>seçmek</b>.",
+   "Starting from the bands of an IR spectrum, <b>choose</b> the time step of an MD program."
   ],
   [
-   "Proteinlerde neden 2 fs kullanıldığını ve kare ile adımın farkını <b>bulmak</b>.",
-   "<b>Find out</b> why 2 fs is used for proteins and how a frame differs from a step."
+   "Kayıt aralığının neyi görebileceğinizi nasıl değiştirdiğini gerçek bir simülasyonun verisiyle <b>ölçmek</b>.",
+   "<b>Measure</b>, with data from a real simulation, how the saving interval changes what you can see."
   ],
   [
-   "<small>1 · Enerji eğimi kuvveti verir</small>Top, yokuş aşağı itilir",
-   "<small>1 · The energy slope gives the force</small>The ball is pushed downhill"
+   "<small>Laboratuvar 1 · Klasik yaklaşım</small>Atomlar top gibi mi davranır? MD neden Schrödinger yerine F = ma kullanır",
+   "<small>Lab 1 · The classical approximation</small>Do atoms behave like balls? Why MD uses F = ma instead of Schrödinger"
   ],
   [
-   "Bir atomun potansiyel enerjisi <i>U</i>, onun konumuna bağlıdır. Kuvvet, bu enerji eğrisinin <b>eğiminin tersidir</b>: eğim yukarı doğruysa kuvvet geriye, eğim aşağı doğruysa ileriye iter.",
-   "The potential energy <i>U</i> of an atom depends on its position. The force is the <b>negative of the slope</b> of this energy curve: where the slope rises, the force pushes back; where the slope falls, it pushes forward."
+   "Atomların dünyasını doğru anlatan kuram kuantum mekaniğidir. Buna karşın bir MD programı atomları Newton'un yasasıyla, F = ma ile hareket ettirir. Bu laboratuvarda bunun neden çoğu zaman yettiğini, nerede yetmediğini ve Schrödinger denkleminin neden bütün bir proteine uygulanamadığını kendi denemelerinizle bulacaksınız.",
+   "The theory that correctly describes the world of atoms is quantum mechanics. Even so, an MD program moves atoms with Newton's law, F = ma. In this lab you will find out with your own trials why this is usually enough, where it is not, and why the Schrödinger equation cannot be applied to a whole protein."
   ],
   [
-   "Aşağıda üç enerji biçimi var. İlki basit bir yay. İkincisi iki atom arasındaki bir kimyasal bağa benzer (Morse biçimi). Üçüncüsü bağlı olmayan iki atomun birbirini uzaktan çekip yakından itmesidir (Lennard-Jones). Topu sürükleyin; kesikli çizgi o noktadaki eğimi, yeşil ok kuvveti gösterir.",
-   "Below are three energy functions. The first is a simple spring. The second resembles a chemical bond between two atoms (Morse form). The third describes two non-bonded atoms that attract each other at a distance and repel each other up close (Lennard-Jones). Drag the ball; the dashed line shows the slope at that point, and the green arrow shows the force."
+   "<span class=\"lab-tag\">1 · Parçacık atölyesi</span>",
+   "<span class=\"lab-tag\">1 · Particle workshop</span>"
   ],
   [
-   "Laboratuvar ",
-   "Lab "
+   "Dalga mı, top mu? Parçacığı ve sıcaklığı seçin",
+   "Wave or ball? Choose the particle and the temperature"
   ],
   [
-   ">Kuvvet oku<",
-   ">Force arrow<"
+   "Deneyden bir ipucu: kristal yapılarda atomları belirli konumlarda görür, bir yapıyı koordinat listesi olarak yazarız. Bu, atomları yeri belli toplar gibi düşünmenin çoğu zaman işe yaradığını gösterir. Bir parçacığın ne kadar \"dalga gibi\" olduğunu ise ısıl de Broglie dalga boyu λ = h/√(2π·m·k·T) söyler: λ, parçacığın yerinin kuantum mekaniğine göre ne kadar bulanık olduğunun ölçüsüdür. λ komşu atomlara olan uzaklığa (yaklaşık 3 Å) yaklaşırsa \"top\" resmi bozulur.",
+   "A hint from experiment: in crystal structures we see atoms at definite positions and write a structure as a list of coordinates. This shows that thinking of atoms as balls with a definite position usually works. How \"wave-like\" a particle is, however, is given by the thermal de Broglie wavelength λ = h/√(2π·m·k·T): λ is a measure of how blurred the particle's position is according to quantum mechanics. If λ approaches the distance to neighboring atoms (about 3 Å), the \"ball\" picture breaks down."
   ],
   [
-   "Görev tamamlandı",
-   "Task completed"
+   "Seçtiğiniz parçacığın dalga boyu, komşu atomlarla aynı ölçekte",
+   "The wavelength of the chosen particle, on the same scale as its neighboring atoms"
   ],
   [
-   "Seçilen potansiyel enerji eğrisi, üzerinde sürüklenebilir top, eğim çizgisi ve kuvvet oku",
-   "Selected potential energy curve with a draggable ball, slope line and force arrow"
+   "Parçacık",
+   "Particle"
   ],
   [
-   "<span><i></i>enerji U</span><span><i class=\"e\" style=\"border-top-style:dashed\"></i>eğim</span><span><i style=\"border-color:var(--good);border-top-width:4px\"></i>kuvvet F</span>",
-   "<span><i></i>energy U</span><span><i class=\"e\" style=\"border-top-style:dashed\"></i>slope</span><span><i style=\"border-color:var(--good);border-top-width:4px\"></i>force F</span>"
+   "Sıcaklık",
+   "Temperature"
   ],
   [
-   "Enerji biçimi",
-   "Energy function"
+   "77 K sıvı azot · 100 K kriyo-kristalografi · 300 K oda · 310 K vücut",
+   "77 K liquid nitrogen · 100 K cryo-crystallography · 300 K room · 310 K body"
   ],
   [
-   ">Yay<",
-   ">Spring<"
+   "<span>Kütle</span><b id=\"l1-pM\"></b>",
+   "<span>Mass</span><b id=\"l1-pM\"></b>"
   ],
   [
-   "Bağ (Morse)",
-   "Bond (Morse)"
+   "<span>λ / 3 Å (komşu uzaklığı)</span><b id=\"l1-pR\"></b>",
+   "<span>λ / 3 Å (neighbor distance)</span><b id=\"l1-pR\"></b>"
   ],
   [
-   ">Konum <",
-   ">Position <"
+   "<span>Kaba yargı</span><b id=\"l1-pV\" class=\"verdict\"></b>",
+   "<span>Rough verdict</span><b id=\"l1-pV\" class=\"verdict\"></b>"
   ],
   [
-   "Yay sertliği k",
-   "Spring stiffness k"
+   "<span class=\"t\">Bir şeyi değiştirin</span><span>Parçacığı ya da sıcaklığı değiştirdiğinizde burada öncekiyle karşılaştırma görünür. Bir seferde yalnız birini değiştirmek etkileri ayırır.</span>",
+   "<span class=\"t\">Change something</span><span>When you change the particle or the temperature, a comparison with the previous setting appears here. Changing only one at a time separates the effects.</span>"
   ],
   [
-   ">1,0<",
-   ">1.0<"
+   "<span class=\"k\">Açık</span>",
+   "<span class=\"k\">Open</span>"
   ],
   [
-   ">Enerji U<",
-   ">Energy U<"
+   "Elektronu seçin",
+   "Choose the electron"
   ],
   [
-   "Eğim dU/dx",
-   "Slope dU/dx"
+   "Kimyasal bağı kuran parçacık elektrondur. Onun dalga boyu bir molekülün boyutuyla karşılaştırıldığında ne kadar?",
+   "The particle that forms chemical bonds is the electron. How large is its wavelength compared with the size of a molecule?"
   ],
   [
-   ">Kuvvet F<",
-   ">Force F<"
+   "Parçacık olarak elektronu seçin.",
+   "Choose the electron as the particle."
   ],
   [
-   "Kuvvetin yönü",
-   "Direction of force"
+   "Hidrojeni ağır bir atomla karşılaştırın",
+   "Compare hydrogen with a heavy atom"
   ],
   [
-   "<h4>Görev ",
-   "<h4>Task "
+   "Aynı sıcaklıkta H'den C ya da O'ya (ya da tersine) geçin. Kütle 12-16 kat artar; λ kaç kat küçülür?",
+   "At the same temperature, switch from H to C or O (or the other way round). The mass grows 12-16 times; by what factor does λ shrink?"
   ],
   [
-   "<b>Lennard-Jones</b> eğrisini seçin ve topu kuvvetin sıfır olduğu noktaya getirin. İki atom bu uzaklıkta ne birbirini çeker ne iter.",
-   "Select the <b>Lennard-Jones</b> curve and move the ball to the point where the force is zero. At this distance the two atoms neither attract nor repel each other."
+   "Aynı sıcaklıkta H ile C ya da O arasında geçiş yapın.",
+   "At the same temperature, switch between H and C or O."
   ],
   [
-   "Gerçek bir proteinde <i>U</i> binlerce böyle terimin toplamıdır: bağlar, açılar, burulmalar ve bağlı olmayan etkileşimler. Program her atom için bu toplamın eğimini hesaplar. Mantık, sürüklediğiniz topla aynıdır.",
-   "In a real protein, <i>U</i> is the sum of thousands of such terms: bonds, angles, torsions and non-bonded interactions. The program computes the slope of this sum for every atom. The logic is the same as with the ball you are dragging."
+   "Soğutun ya da ısıtın",
+   "Cool it down or heat it up"
   ],
   [
-   "<small>2 · Bir adımı elle atmak</small>Bilgisayar hareketi nasıl ilerletir?",
-   "<small>2 · Taking a step by hand</small>How does the computer advance the motion?"
+   "Aynı parçacıkta sıcaklığı en az iki kat değiştirin. Kuantum bulanıklığı nasıl değişir?",
+   "Change the temperature of the same particle by at least a factor of two. How does the quantum blur change?"
   ],
   [
-   "Kuvveti bilince ivmeyi (<i>a</i> = <i>F</i>/<i>m</i>) biliriz. Hız-Verlet yöntemi konumu ve hızı küçük bir Δ<i>t</i> adımı kadar şöyle ilerletir:",
-   "Once we know the force, we know the acceleration (<i>a</i> = <i>F</i>/<i>m</i>). The velocity Verlet method advances the position and the velocity by a small step Δ<i>t</i> as follows:"
+   "Parçacığı sabit tutup sıcaklığı en az 2 kat değiştirin.",
+   "Keep the particle fixed and change the temperature by at least a factor of 2."
   ],
   [
-   "Deneyimizde kütle ve yay sertliği 1, top <i>x</i> = 1'den durgun bırakılıyor. Bu yüzden ivme <i>a</i> = −<i>x</i> olur ve kesin çözümü biliyoruz: <i>x</i>(<i>t</i>) = cos <i>t</i>. Birimler boyutsuzdur; önce mantığı öğreniyoruz, femtosaniyelere 4. kısımda geçeceğiz.",
-   "In our experiment the mass and the spring stiffness are both 1, and the ball is released from rest at <i>x</i> = 1. So the acceleration is <i>a</i> = −<i>x</i>, and we know the exact solution: <i>x</i>(<i>t</i>) = cos <i>t</i>. We use dimensionless units; we learn the logic first and move to femtoseconds in Section 4."
+   "<span class=\"lab-tag\">2 · Titreşim atölyesi</span>",
+   "<span class=\"lab-tag\">2 · Vibration workshop</span>"
   ],
   [
-   "Adım adım hız-Verlet · Δt = 0,2",
-   "Velocity Verlet step by step · Δt = 0.2"
+   "Bir titreşim ısıyla uyanık mı, yoksa donmuş mu?",
+   "Is a vibration awakened by heat, or frozen?"
   ],
   [
-   "Kesin çözüm cos t ve elle atılan hız-Verlet adımları",
-   "Exact solution cos t and velocity Verlet steps taken by hand"
+   "Kuantum mekaniğinde bir titreşim her enerjiyi alamaz: enerji ħω büyüklüğünde basamaklarla artar (ħω = h·c·ν̃, ν̃ IR'deki dalga sayısıdır). Çevreden gelen ısıl enerjinin ölçüsü kT'dir. Basamak kT'den çok büyükse titreşim en alt basamakta donar; çok küçükse basamaklar fark edilmez ve klasik mekanik doğru sonucu verir. Klasik MD ise her titreşime, ne kadar hızlı olursa olsun, ortalama kT kadar enerji verir.",
+   "In quantum mechanics a vibration cannot take any energy: its energy rises in steps of size ħω (ħω = h·c·ν̃, where ν̃ is the wavenumber in the IR). The measure of the thermal energy coming from the surroundings is kT. If the step is much larger than kT, the vibration freezes on the lowest step; if it is much smaller, the steps are not noticeable and classical mechanics gives the right result. Classical MD, however, gives every vibration an average energy of kT, no matter how fast it is."
   ],
   [
-   "<span><i></i>kesin çözüm cos t</span><span><i class=\"n\" style=\"border-top-width:6px;width:10px;border-radius:50%\"></i>hesaplanan adımlar</span>",
-   "<span><i></i>exact solution cos t</span><span><i class=\"n\" style=\"border-top-width:6px;width:10px;border-radius:50%\"></i>computed steps</span>"
+   "Titreşimin enerji basamakları ve ısıl enerji kT",
+   "Energy steps of the vibration and the thermal energy kT"
   ],
   [
-   "Sonraki adımı hesapla",
-   "Compute the next step"
+   "Parabol titreşimin potansiyel enerjisidir; yatay çizgiler izinli enerji basamaklarıdır. Çizgilerin koyuluğu, o basamakta bulunma olasılığıdır (Boltzmann). Renkli şerit ısıl enerji kT'dir; dikey eksen kT birimindedir.",
+   "The parabola is the potential energy of the vibration; the horizontal lines are the allowed energy steps. The darkness of a line is the probability of being on that step (Boltzmann). The colored band is the thermal energy kT; the vertical axis is in units of kT."
   ],
   [
-   ">10 adım<",
-   ">10 steps<"
+   "Titreşimler",
+   "Vibrations"
+  ],
+  [
+   "Dalga sayısı ν̃",
+   "Wavenumber ν̃"
+  ],
+  [
+   "5 ile 4000 cm⁻¹ arası (logaritmik)",
+   "5 to 4000 cm⁻¹ (logarithmic)"
+  ],
+  [
+   "Sert bir bağı oda sıcaklığında inceleyin",
+   "Examine a stiff bond at room temperature"
+  ],
+  [
+   "O–H ya da C–H gerilmesini 250-350 K arasında seçin. Titreşim ne durumda?",
+   "Choose the O–H or C–H stretch between 250 and 350 K. What state is the vibration in?"
+  ],
+  [
+   "ħω/kT en az 5 olan bir titreşimi 250-350 K arasında inceleyin.",
+   "Examine a vibration with ħω/kT of at least 5 between 250 and 350 K."
+  ],
+  [
+   "Yavaş bir hareketi inceleyin",
+   "Examine a slow motion"
+  ],
+  [
+   "Proteinlerin büyük, yavaş hareketleri IR'nin çok altında, onlarca cm⁻¹ düzeyindedir. Klasik mekanik burada ne kadar doğru?",
+   "The large, slow motions of proteins lie far below the IR, at tens of cm⁻¹. How accurate is classical mechanics here?"
+  ],
+  [
+   "ħω/kT'yi 0,5'in altına indirin.",
+   "Bring ħω/kT below 0.5."
+  ],
+  [
+   "Sınırı bulun",
+   "Find the boundary"
+  ],
+  [
+   "ħω'nin kT'ye tam eşit olduğu dalga sayısını bulun. Bu sınır sıcaklığa bağlı mı?",
+   "Find the wavenumber at which ħω is exactly equal to kT. Does this boundary depend on temperature?"
+  ],
+  [
+   "ħω/kT'yi 0,97 ile 1,03 arasına getirin.",
+   "Bring ħω/kT between 0.97 and 1.03."
+  ],
+  [
+   "Kuvvetten yörüngeye: F = ma'yı kendiniz işletin",
+   "From force to trajectory: run F = ma yourself"
+  ],
+  [
+   "Klasik resmi kabul ettik: çekirdekler top, elektronların bütün etkisi bir enerji yüzeyi U(x). MD'nin geri kalanı tek bir kuraldır: kuvvet enerjinin eğimidir (F = −dU/dx) ve ivme kuvvetin kütleye bölümüdür (a = F/m). Buradaki yüzeyde iki kararlı konum ve aralarında bir bariyer var; bir yan zincirin iki konformasyonu gibi düşünebilirsiniz. Hesap, MD programlarının kullandığı hız-Verlet integratörüyle 0,5 fs adımlarla yapılır. Duraklatılmışken topu fareyle ya da parmağınızla yüzeyde istediğiniz yere koyabilirsiniz; kuvvet oku o noktadaki itişi gösterir.",
+   "We have accepted the classical picture: the nuclei are balls, and the whole effect of the electrons is an energy surface U(x). The rest of MD is a single rule: the force is the slope of the energy (F = −dU/dx) and the acceleration is the force divided by the mass (a = F/m). The surface here has two stable positions with a barrier between them; you can think of it as two conformations of a side chain. The calculation uses the velocity Verlet integrator used by MD programs, in steps of 0.5 fs. While paused, you can place the ball anywhere on the surface with the mouse or your finger; the force arrow shows the push at that point."
+  ],
+  [
+   "Enerji yüzeyi, parçacık ve ona etkiyen kuvvet",
+   "Energy surface, the particle and the force acting on it"
+  ],
+  [
+   "Konumun zamanla değişimi",
+   "Position over time"
+  ],
+  [
+   "Kütle",
+   "Mass"
+  ],
+  [
+   "Bariyer yüksekliği",
+   "Barrier height"
+  ],
+  [
+   "Başlangıç kinetik enerjisi",
+   "Initial kinetic energy"
+  ],
+  [
+   "Çevre",
+   "Surroundings"
+  ],
+  [
+   "<span class=\"lbl\">Çevre</span>",
+   "<span class=\"lbl\">Surroundings</span>"
+  ],
+  [
+   "Yalıtılmış",
+   "Isolated"
+  ],
+  [
+   "Isı banyosu 300 K",
+   "Heat bath 300 K"
+  ],
+  [
+   "Hız",
+   "Speed"
+  ],
+  [
+   "<span class=\"lbl\">Hız</span>",
+   "<span class=\"lbl\">Speed</span>"
+  ],
+  [
+   "Bir adım",
+   "One step"
   ],
   [
    "Baştan",
    "Reset"
   ],
   [
-   "İlk adımı butona basmadan siz hesaplayın. <i>x</i><sub>0</sub> = 1, <i>v</i><sub>0</sub> = 0, <i>a</i><sub>0</sub> = −1 ve Δ<i>t</i> = 0,2 iken <i>x</i><sub>1</sub> kaçtır?",
-   "Compute the first step yourself before pressing the button. With <i>x</i><sub>0</sub> = 1, <i>v</i><sub>0</sub> = 0, <i>a</i><sub>0</sub> = −1 and Δ<i>t</i> = 0.2, what is <i>x</i><sub>1</sub>?"
+   "Kuyu dibinde titreşim periyodu",
+   "Vibration period at the bottom of a well"
   ],
   [
-   ">x1 tahmini<",
-   ">Your estimate of x1<"
+   "Geçen süre",
+   "Elapsed time"
   ],
   [
-   ">Kontrol et<",
-   ">Check<"
+   "Kuyudan kuyuya geçiş",
+   "Well-to-well crossings"
   ],
   [
-   "İpucu",
-   "Hint"
+   "Kütleyi değiştirin",
+   "Change the mass"
   ],
   [
-   "<small>3 · Adım büyüklüğü deneyi</small>Adımı küçültünce ne kazanırız?",
-   "<small>3 · Step size experiment</small>What do we gain by shrinking the step?"
+   "Aynı yüzeyde iki farklı kütleyi en az birer titreşim boyunca oynatın. Hareket nasıl değişir?",
+   "On the same surface, play two different masses for at least one vibration each. How does the motion change?"
   ],
   [
-   "Sayısal çözüm, kesin çözümün bir yaklaşığıdır. Adım büyüdükçe sapma büyür; bir sınırdan sonra yörünge tamamen kopar. Sürgüyü oynatın, üç grafiği birlikte izleyin.",
-   "The numerical solution is an approximation of the exact solution. As the step grows, the deviation grows; beyond a certain limit the trajectory diverges completely. Move the slider and watch the three plots together."
+   "Aynı bariyerle iki kütleyi birer periyot oynatın.",
+   "Play two masses for one period each with the same barrier."
   ],
   [
-   "Alttaki grafik logaritmik ölçektedir: komşu iki yatay çizgi arasında yüz kat fark vardır. Konum hatası kesin çözümden uzaklığı, enerji sapması da toplam enerjinin başlangıçtaki 0,5 değerinden ne kadar kaydığını gösterir.",
-   "The lower plot uses a logarithmic scale: two adjacent horizontal gridlines differ by a factor of 100. The position error shows the distance from the exact solution, and the energy deviation shows how far the total energy has moved away from its initial value of 0.5."
+   "Bariyeri aşabilecek mi?",
+   "Will it get over the barrier?"
   ],
   [
-   "Zaman adımını değiştir",
-   "Change the time step"
+   "Yalıtılmış sistemde bir kez bariyerin altında, bir kez üstünde bir başlangıç enerjisi deneyin.",
+   "In the isolated system, try an initial energy once below and once above the barrier."
   ],
   [
-   "İki görev tamamlandı",
-   "Both tasks completed"
+   "İki durumu da en az üç periyot oynatın.",
+   "Play both cases for at least three periods."
   ],
   [
-   "Kesin çözüm ve seçilen adımla hesaplanan yörünge",
-   "Exact solution and the trajectory computed with the selected step"
+   "Isı banyosunu açın",
+   "Turn on the heat bath"
   ],
   [
-   "<span><i></i>kesin çözüm</span><span><i class=\"n\"></i>hız-Verlet</span>",
-   "<span><i></i>exact solution</span><span><i class=\"n\"></i>velocity Verlet</span>"
+   "Enerjiyi bariyerin altında tutun ama çevreyi \"ısı banyosu\" yapın ve hızı artırın. Ne olur?",
+   "Keep the energy below the barrier, but make the surroundings a \"heat bath\" and increase the speed. What happens?"
   ],
   [
-   "Konum hatası ve bağıl enerji sapması, logaritmik ölçek",
-   "Position error and relative energy deviation, logarithmic scale"
+   "Isı banyosunda, bariyer kT'nin en az 2 katıyken bir geçiş görün.",
+   "In the heat bath, see one crossing while the barrier is at least 2 kT."
   ],
   [
-   "<span><i class=\"e\"></i>konum hatası |xₙ − cos tₙ|</span><span><i class=\"d\"></i>bağıl enerji sapması</span>",
-   "<span><i class=\"e\"></i>position error |xₙ − cos tₙ|</span><span><i class=\"d\"></i>relative energy deviation</span>"
+   "<span class=\"lab-tag\">4 · Keşif defteri</span>",
+   "<span class=\"lab-tag\">4 · Discovery notebook</span>"
+  ],
+  [
+   "Bariyer yükseldikçe geçişler ne kadar seyrekleşir?",
+   "How much rarer do crossings become as the barrier rises?"
+  ],
+  [
+   "Bu ayarla 1 ns hesapla",
+   "Compute 1 ns with these settings"
+  ],
+  [
+   "Düğme, tezgâhtaki kütle ve bariyerle, 300 K ısı banyosunda 1 ns'lik (2 milyon adım) bir koşu hesaplar ve geçişleri sayar. Aynı ayarla tekrar basarsanız süre birikir. Farklı bariyerler deneyin.",
+   "The button computes a 1 ns run (2 million steps) in a 300 K heat bath with the mass and barrier of the bench and counts the crossings. If you press it again with the same settings, the time adds up. Try different barriers."
+  ],
+  [
+   "Denemeleriniz: nanosaniye başına geçiş sayısı, bariyer yüksekliğine karşı (dikey eksen logaritmik)",
+   "Your trials: crossings per nanosecond versus barrier height (logarithmic vertical axis)"
+  ],
+  [
+   "Aynı kütleyle, en az 3 kT (7,5 kJ/mol) olan en az üç farklı bariyerde, her birinde en az 3 geçiş sayın. En düşük ve en yüksek bariyer arasında en az 5 kJ/mol olsun.",
+   "With the same mass, count at least 3 crossings at each of at least three different barriers of at least 3 kT (7.5 kJ/mol). Keep at least 5 kJ/mol between the lowest and the highest barrier."
+  ],
+  [
+   "Kütle kuralı değiştirir mi?",
+   "Does the mass change the rule?"
+  ],
+  [
+   "Aynısını ikinci bir kütleyle de yapın ve iki eğimi karşılaştırın.",
+   "Do the same with a second mass and compare the two slopes."
+  ],
+  [
+   "<span class=\"lab-tag\">5 · Neden Schrödinger değil?</span>",
+   "<span class=\"lab-tag\">5 · Why not Schrödinger?</span>"
+  ],
+  [
+   "Elektronları hesaplamadan kuvveti nereden biliyoruz?",
+   "How do we know the force without computing the electrons?"
+  ],
+  [
+   "Atölyede elektronun kesinlikle kuantum bir parçacık olduğunu gördünüz. Kimyasal bağı elektronlar kurar; öyleyse kuvvetler de onlardan gelir. Buradaki kilit fikir <b>Born-Oppenheimer yaklaşımıdır</b>: elektron, en hafif çekirdek olan protondan bile 1836 kat hafiftir. Çekirdekler bir adım kıpırdayana kadar elektronlar yeni düzene çoktan uyum sağlamıştır. Böylece çekirdekler, elektronların oluşturduğu bir enerji yüzeyi U(R) üzerinde hareket eder gibi düşünülebilir.",
+   "In the workshop you saw that the electron is definitely a quantum particle. Electrons form chemical bonds, so the forces come from them too. The key idea here is the <b>Born-Oppenheimer approximation</b>: the electron is 1836 times lighter than even the lightest nucleus, the proton. By the time the nuclei have moved one step, the electrons have long since adjusted to the new arrangement. The nuclei can therefore be thought of as moving on an energy surface U(R) created by the electrons."
+  ],
+  [
+   "Bir MD adımının zinciri",
+   "The chain of one MD step"
+  ],
+  [
+   "<span class=\"n\">İlke olarak</span><b>Schrödinger denklemi</b>",
+   "<span class=\"n\">In principle</span><b>Schrödinger equation</b>"
+  ],
+  [
+   "Elektronların her çekirdek dizilişi için çözülür ve U(R)'yi verir. Pahalıdır; MD bunu yapmaz.",
+   "Solved for the electrons at every arrangement of the nuclei; gives U(R). Expensive; MD does not do this."
+  ],
+  [
+   "<span class=\"n\">1</span><b>Kuvvet alanı</b>",
+   "<span class=\"n\">1</span><b>Force field</b>"
+  ],
+  [
+   "U(R)'yi yaylar (bağlar, açılar), burulmalar, van der Waals ve yükler ile yaklaşık yazar. Parametreler deneyden ve kuantum hesaplardan gelir.",
+   "Writes U(R) approximately with springs (bonds, angles), torsions, van der Waals terms and charges. The parameters come from experiment and from quantum calculations."
+  ],
+  [
+   "Her atoma etkiyen kuvvet, enerjinin o atomun konumuna göre eğimidir.",
+   "The force on each atom is the slope of the energy with respect to that atom's position."
+  ],
+  [
+   "Newton: ivme kuvvetin kütleye bölümü. Tezgâhta yaptığınız budur.",
+   "Newton: the acceleration is the force divided by the mass. This is what you did on the bench."
+  ],
+  [
+   "<span class=\"n\">4</span><b>Yeni konumlar</b>",
+   "<span class=\"n\">4</span><b>New positions</b>"
+  ],
+  [
+   "İntegratör Δt kadar ilerler; sonra 1. adıma dönülür. 1 µs için 500 milyon tur (Δt = 2 fs).",
+   "The integrator advances by Δt; then it returns to step 1. 500 million rounds for 1 µs (Δt = 2 fs)."
+  ],
+  [
+   "Peki neden elektronları her adımda kuantum mekaniğiyle hesaplamıyoruz? Çünkü maliyet atom sayısıyla çok hızlı büyür. Aşağıda sistemi büyütün: çubuklar, 22 atomlu alanin dipeptitten (suyu olmadan) sizin seçtiğiniz boyuta çıkınca her yöntemin bir kuvvet hesabının kaç kat pahalılaştığını gösterir.",
+   "So why don't we compute the electrons with quantum mechanics at every step? Because the cost grows very quickly with the number of atoms. Enlarge the system below: the bars show how many times more expensive one force calculation of each method becomes when you go from the 22-atom alanine dipeptide (without water) to the size you choose."
+  ],
+  [
+   "Atom sayısı",
+   "Number of atoms"
+  ],
+  [
+   "22 ile 1 milyon arası (logaritmik)",
+   "22 to 1 million (logarithmic)"
+  ],
+  [
+   "Kuvvet alanıyla tahmini hız",
+   "Estimated speed with a force field"
+  ],
+  [
+   "Ölçeklenmeler biçimseldir: kuvvet alanı kesme yarıçapı ve komşu listeleriyle yaklaşık N (PME ile N log N), yaygın DFT yöntemleri N³, altın standart sayılan CCSD(T) N⁷ ile büyür. Doğrusal ölçeklenen kuantum yöntemleri ve kuvvet alanıyla kuantumu birleştiren QM/MM de vardır; ab initio MD genellikle yüzlerce atom ve pikosaniyeler ölçeğinde kalır. Kuvvet alanı hızı, bu kitabın alanin dipeptit pilotunda ölçülen değerden doğrusal olarak ölçeklenmiş kaba bir tahmindir.",
+   "The scalings are formal: a force field grows roughly as N with a cut-off radius and neighbor lists (N log N with PME), common DFT methods as N³, and CCSD(T), regarded as the gold standard, as N⁷. There are also linear-scaling quantum methods and QM/MM, which combines a force field with quantum mechanics; ab initio MD usually stays at the scale of hundreds of atoms and picoseconds. The force-field speed is a rough estimate scaled linearly from the value measured in this book's alanine dipeptide pilot."
+  ],
+  [
+   "<span class=\"lab-tag\">6 · Proteine dönüş</span>",
+   "<span class=\"lab-tag\">6 · Back to the protein</span>"
+  ],
+  [
+   "Bir protein simülasyonunda ne klasik, ne kayıp?",
+   "In a protein simulation, what is classical and what is lost?"
+  ],
+  [
+   "Bileşen",
+   "Component"
+  ],
+  [
+   "300 K'de ölçüt",
+   "Criterion at 300 K"
+  ],
+  [
+   "Ne kaybolur, nasıl telafi edilir",
+   "What is lost, how it is compensated"
+  ],
+  [
+   "Ölçütler sayfadaki formüllerle şu anda hesaplanmıştır. Sınır değerler (λ/3 Å için 0,15 ve 0,5) bu sayfanın kaba ölçütüdür, keskin bir fiziksel eşik değildir.",
+   "The criteria have just been computed with the formulas on this page. The boundary values (0.15 and 0.5 for λ/3 Å) are this page's rough criterion, not a sharp physical threshold."
+  ],
+  [
+   "<span class=\"lab-tag\">7 · Kendinizi sınayın</span>",
+   "<span class=\"lab-tag\">7 · Test yourself</span>"
+  ],
+  [
+   "Altı soru",
+   "Six questions"
+  ],
+  [
+   "Modeller: ısıl de Broglie dalga boyu λ = h/√(2π·m·k·T); kuantum harmonik titreşici (Boltzmann dağılımı, sıfır nokta enerjisi dahil ortalama enerji, Einstein ısı kapasitesi); tezgâhta U(x) = E_b·((x/0,5 Å)² − 1)², hız-Verlet (Δt = 0,5 fs), ısı banyosunda Langevin dinamiği (BAOAB, sürtünme 10 ps⁻¹, 300 K). Defteriniz yalnız bu tarayıcıda saklanır.",
+   "Models: thermal de Broglie wavelength λ = h/√(2π·m·k·T); quantum harmonic oscillator (Boltzmann distribution, mean energy including zero-point energy, Einstein heat capacity); on the bench U(x) = E_b·((x/0.5 Å)² − 1)², velocity Verlet (Δt = 0.5 fs), Langevin dynamics in the heat bath (BAOAB, friction 10 ps⁻¹, 300 K). Your notebook is stored only in this browser."
+  ],
+  [
+   "<small>Laboratuvar 2 · Zaman adımı</small>Atomun saati: bir MD programı ne sıklıkla bakmalı?",
+   "<small>Lab 2 · Time step</small>The atom's clock: how often should an MD program look?"
+  ],
+  [
+   "Bir MD programı atomların yerini sürekli izlemez; belirli aralıklarla, zaman adımı Δt kadar ileri sararak hesaplar. Aralık fazla büyükse hızlı bir hareketi kaçırır. En hızlı hareketleri ise deneyden zaten biliyorsunuz: IR spektrumundaki bantlar, bağların titreşimidir.",
+   "An MD program does not follow the positions of the atoms continuously; it computes them at intervals, moving forward by a time step Δt. If the interval is too large, it misses a fast motion. You already know the fastest motions from experiment: the bands in an IR spectrum are bond vibrations."
+  ],
+  [
+   "<span class=\"lab-tag\">1 · Bağ atölyesi</span>",
+   "<span class=\"lab-tag\">1 · Bond workshop</span>"
+  ],
+  [
+   "Bir bağ kurun, bandının nereye düştüğünü görün",
+   "Build a bond and see where its band falls"
+  ],
+  [
+   "Bir bağı iki kütle ve aralarındaki bir yay gibi düşünün: kütleler atomlardır, yayın sertliği (kuvvet sabiti k) bağın gücüdür. Atomları ve sertliği değiştirin; bağın titreşimi ve IR spektrumundaki yeri anında değişir. Spektrum şematiktir: renkli şeritler bantların tipik bölgeleridir.",
+   "Think of a bond as two masses with a spring between them: the masses are the atoms, and the stiffness of the spring (the force constant k) is the strength of the bond. Change the atoms and the stiffness; the vibration of the bond and its position in the IR spectrum change instantly. The spectrum is schematic: the colored strips are the typical regions of the bands."
+  ],
+  [
+   "Şematik IR spektrumu ve kurduğunuz bağın bandı",
+   "Schematic IR spectrum and the band of your bond"
+  ],
+  [
+   "Kurduğunuz bağın yavaşlatılmış titreşimi",
+   "Slowed-down vibration of your bond"
+  ],
+  [
+   "Titreşim 3 × 10¹³ kez yavaşlatılmıştır: ekranda 1 saniye, bağ için yaklaşık 33 fs'dir. Böylece farklı bağların hızlarını gözünüzle karşılaştırabilirsiniz. Genlik görünür olsun diye büyütülmüştür.",
+   "The vibration is slowed down 3 × 10¹³ times: 1 second on screen is about 33 fs for the bond. This way you can compare the speeds of different bonds by eye. The amplitude is enlarged so that it is visible."
+  ],
+  [
+   "Hazır bağlar",
+   "Preset bonds"
+  ],
+  [
+   "Bağ sertliği k",
+   "Bond stiffness k"
+  ],
+  [
+   "tek bağ ≈ 450-500 N/m · çift ≈ 1000-1200 · üçlü ≈ 1900",
+   "single bond ≈ 450-500 N/m · double ≈ 1000-1200 · triple ≈ 1900"
+  ],
+  [
+   "<span>İndirgenmiş kütle μ</span><b id=\"l2-fMu\"></b>",
+   "<span>Reduced mass μ</span><b id=\"l2-fMu\"></b>"
+  ],
+  [
+   "<span>Titreşim periyodu T</span><b id=\"l2-fT\"></b>",
+   "<span>Vibration period T</span><b id=\"l2-fT\"></b>"
+  ],
+  [
+   "<span>Önerilen Δt ≈ T/10</span><b id=\"l2-fDt\"></b>",
+   "<span>Suggested Δt ≈ T/10</span><b id=\"l2-fDt\"></b>"
+  ],
+  [
+   "<span class=\"t\">Bir şeyi değiştirin</span><span>Atomu, yayı ya da hazır bir bağı değiştirdiğinizde burada öncekiyle karşılaştırma görünür.</span>",
+   "<span class=\"t\">Change something</span><span>When you change an atom, the spring or a preset bond, a comparison with the previous setting appears here.</span>"
+  ],
+  [
+   "Hidrojeni döteryumla değiştirin",
+   "Replace hydrogen with deuterium"
+  ],
+  [
+   "Deneysel izotop değişiminin aynısı: aynı bağ, yalnız kütle değişir. Bant nereye kayar?",
+   "Exactly like an experimental isotope exchange: the same bond, only the mass changes. Where does the band shift?"
+  ],
+  [
+   "O–H'den O–D'ye (ya da C–H'den C–D'ye) geçin.",
+   "Switch from O–H to O–D (or from C–H to C–D)."
+  ],
+  [
+   "Bağı sertleştirin",
+   "Stiffen the bond"
+  ],
+  [
+   "Atomları sabit tutup yalnız k'yi değiştirin, örneğin C–O'dan C=O'ya.",
+   "Keep the atoms fixed and change only k, for example from C–O to C=O."
+  ],
+  [
+   "Aynı atomlarla k'yi en az 1,5 kat değiştirin.",
+   "Change k by at least a factor of 1.5 with the same atoms."
+  ],
+  [
+   "Hidrojene sahte kütle verin",
+   "Give hydrogen a fake mass"
+  ],
+  [
+   "MD'de kullanılan bir hile: hidrojenin kütlesini 3 u yapmak. Titreşim ve önerilen Δt ne olur?",
+   "A trick used in MD: make the mass of hydrogen 3 u. What happens to the vibration and the suggested Δt?"
+  ],
+  [
+   "2. atomu \"H (3 u)\" yapın.",
+   "Set atom 2 to \"H (3 u)\"."
+  ],
+  [
+   "Bu titreşimi hangi aralıkla hesaplamalı?",
+   "At what interval should this vibration be computed?"
+  ],
+  [
+   "Atölyede kurduğunuz bağ burada hız-Verlet integratörüyle, yani MD programlarının kullandığı yöntemle hesaplanır (harmonik yaklaşım). Δt'yi kaydırın; kaydırıcıyı bıraktığınız her yer aşağıdaki deftere bir deneme olarak eklenir.",
+   "Here the bond you built in the workshop is computed with the velocity Verlet integrator, the method used by MD programs (harmonic approximation). Slide Δt; every place where you release the slider is added to the notebook below as a trial."
+  ],
+  [
+   "Hesaplanan titreşim",
+   "Computed vibration"
+  ],
+  [
+   "Toplam enerjinin göreli hatası, zamana karşı (fs)",
+   "Relative error of the total energy versus time (fs)"
+  ],
+  [
+   "Üstte: integratörün hesapladığı konumlar, her Δt'de bir nokta. Altta: toplam enerjinin başlangıca göre göreli sapması, 20 titreşim boyunca. Gerçek molekülde bu enerji değişmez; sapmanın tamamı hesaplama aralığından gelen sayısal hatadır.",
+   "Top: the positions computed by the integrator, one dot per Δt. Bottom: the relative deviation of the total energy from its initial value over 20 vibrations. In a real molecule this energy does not change; the whole deviation is numerical error coming from the calculation interval."
   ],
   [
    "Zaman adımı Δt",
    "Time step Δt"
   ],
   [
-   "Hazır adımlar",
-   "Preset time steps"
+   "0,05 fs ile 20 fs arası (logaritmik)",
+   "0.05 fs to 20 fs (logarithmic)"
   ],
   [
-   ">0,2<",
-   ">0.2<"
+   "Titreşim periyodu",
+   "Vibration period"
   ],
   [
-   ">0,1<",
-   ">0.1<"
+   "Periyot başına hesap",
+   "Calculations per period"
   ],
   [
-   ">0,05<",
-   ">0.05<"
+   "En büyük enerji hatası",
+   "Largest energy error"
   ],
   [
-   ">0,025<",
-   ">0.025<"
+   "1 ns için adım sayısı",
+   "Steps for 1 ns"
   ],
   [
-   ">1,9<",
-   ">1.9<"
+   "<span class=\"lab-tag\">3 · Keşif defteri</span>",
+   "<span class=\"lab-tag\">3 · Discovery notebook</span>"
   ],
   [
-   ">2,05<",
-   ">2.05<"
+   "Denemeleriniz: enerji hatası, iki eksen de logaritmik",
+   "Your trials: energy error, both axes logarithmic"
   ],
   [
-   "Δt'yi yarıla",
-   "Halve Δt"
+   "Δt iki katına çıkınca hata ne olur?",
+   "What happens to the error when Δt doubles?"
   ],
   [
-   "İkiye katla",
-   "Double"
+   "Bir bağda, birbirinden epey farklı en az dört Δt deneyin.",
+   "On one bond, try at least four Δt values that differ considerably from each other."
   ],
   [
-   "Adım sayısı (t ≤ 10)",
-   "Number of steps (t ≤ 10)"
+   "Hesap nerede çöküyor?",
+   "Where does the calculation blow up?"
   ],
   [
-   "t ≈ 10'da konum hatası",
-   "Position error at t ≈ 10"
+   "Δt'yi hesap çökene kadar büyütün, sonra sınırı iki yandan sıkıştırın.",
+   "Increase Δt until the calculation blows up, then narrow the limit from both sides."
   ],
   [
-   "En büyük bağıl enerji sapması",
-   "Largest relative energy deviation"
+   "Her bağ aynı Δt'ye mi razı?",
+   "Is every bond happy with the same Δt?"
   ],
   [
-   "Bu ölçümü tabloya ekle",
-   "Add this measurement to the table"
+   "İki farklı bağda deneme yapın, sonra yatay ekseni \"periyot başına hesap\"a çevirin.",
+   "Make trials on two different bonds, then switch the horizontal axis to \"calculations per period\"."
   ],
   [
-   "<th>Adım</th>",
-   "<th>Steps</th>"
+   "<span class=\"lab-tag\">4 · Proteine dönüş</span>",
+   "<span class=\"lab-tag\">4 · Back to the protein</span>"
   ],
   [
-   "t≈10 konum hatası",
-   "Position error at t≈10"
+   "Bir proteinde bütün bu bağlar aynı anda vardır ve zaman adımını <b>en hızlı</b> titreşim belirler. Uygulamada kaba kural, en hızlı titreşimin periyodunun yaklaşık onda biridir. Tezgâhta bunun karşılığını görebilirsiniz: Δt = T/10 iken enerji hatası yaklaşık %10'dur.",
+   "In a protein all these bonds are present at once, and the time step is set by the <b>fastest</b> vibration. In practice the rough rule is about one tenth of the period of the fastest vibration. You can see the counterpart of this on the bench: at Δt = T/10 the energy error is about 10%."
   ],
   [
-   "Önceki satıra oran",
-   "Ratio to previous row"
+   "Çöküş sınırı ≈ T/π (fs)",
+   "Blow-up limit ≈ T/π (fs)"
   ],
   [
-   "<th>Enerji sapması</th>",
-   "<th>Energy deviation</th>"
+   "2 fs'de enerji hatası",
+   "Energy error at 2 fs"
   ],
   [
-   "Henüz ölçüm yok. Bir adım seçip “tabloya ekle”ye basın.",
-   "No measurements yet. Choose a step and press “Add this measurement to the table”."
+   "H içeren bağlar (O–H, N–H, C–H) en hızlısıdır, çünkü hidrojen çok hafiftir. Onlarla birlikte hesaplanan bir protein için Δt ≈ 0,5 ile 1 fs gerekir. MD programları iki yol kullanır:",
+   "Bonds involving H (O–H, N–H, C–H) are the fastest, because hydrogen is very light. A protein computed with them needs Δt ≈ 0.5 to 1 fs. MD programs use two routes:"
   ],
   [
-   "Hatanın düzeni",
-   "How the error scales"
+   "<b>Kısıt:</b> Bu bağların uzunluğu sabitlenir (SHAKE, LINCS, SETTLE). Titreşim hesaptan çıkınca en hızlı kalan titreşimler C=O gibi yaklaşık 20 fs'lik titreşimlerdir ve Δt = 2 fs kullanılabilir.",
+   "<b>Constraints:</b> The lengths of these bonds are fixed (SHAKE, LINCS, SETTLE). Once their vibration is removed from the calculation, the fastest remaining vibrations are those of about 20 fs, such as C=O, and Δt = 2 fs can be used."
   ],
   [
-   "Bir ölçüm alın, Δt'yi yarılayıp bir ölçüm daha alın. Tablo, hatanın kaç kat küçüldüğünü hesaplar. Yarılamada yaklaşık 4 kat küçülme, yöntemin <b>ikinci mertebe</b> olduğunu gösterir.",
-   "Take a measurement, halve Δt and take another one. The table shows by what factor the error has shrunk. If halving Δt shrinks the error by a factor of about 4, the method is <b>second order</b>."
+   "<b>Hidrojen kütlesini yeniden dağıtmak (HMR):</b> Atölyede denediğiniz hile. Bağlı ağır atomdan kütle alınıp hidrojene verilir (toplam kütle değişmez). Titreşimler yavaşlar; kısıtlarla birlikte 4 fs'ye kadar çıkılabilir. Kütleler yapaydır, bu yüzden dinamiğin hızına dair sonuçlar (difüzyon gibi) dikkatle yorumlanmalıdır.",
+   "<b>Hydrogen mass repartitioning (HMR):</b> The trick you tried in the workshop. Mass is taken from the bonded heavy atom and given to the hydrogen (the total mass does not change). The vibrations slow down; together with constraints, up to 4 fs becomes possible. The masses are artificial, so conclusions about the speed of the dynamics (such as diffusion) must be interpreted with care."
   ],
   [
-   "Kopma noktası",
-   "Breaking point"
+   "Tablodaki son sütun, sayfadaki harmonik modelle şu anda hesaplanmıştır. Gerçek bağlar anharmoniktir ve bir proteinde titreşimler birbirine bağlıdır; bu yüzden sayılar kural niteliğindedir, bir proteinin enerji hatasının kendisi değildir.",
+   "The last column of the table has just been computed with the harmonic model on this page. Real bonds are anharmonic and vibrations in a protein are coupled to each other; the numbers are therefore rules of thumb, not the energy error of a protein itself."
   ],
   [
-   "Adımı büyütün. Bu yay için yörüngenin patlamaya başladığı adım değeri kaçtır? Grafiklerden bulun ve yazın.",
-   "Increase the step. For this spring, at what time step does the trajectory start to blow up? Read it off the plots and enter it."
+   "<span class=\"lab-tag\">5 · Kendinizi sınayın</span>",
+   "<span class=\"lab-tag\">5 · Test yourself</span>"
   ],
   [
-   "Kararlılık sınırı",
-   "Stability limit"
+   "Model: iki atomlu harmonik titreşici. ν̃ = (1/2πc)·√(k/μ), T = 1/(c·ν̃); hız-Verlet. Kuvvet sabitleri yaklaşık ders kitabı değerleridir; hesaplanan bant yerleri tipik ölçümlerle aynı bölgeye düşer ama bir molekülün spektrumunun yerine geçmez. Defteriniz yalnız bu tarayıcıda saklanır.",
+   "Model: diatomic harmonic oscillator. ν̃ = (1/2πc)·√(k/μ), T = 1/(c·ν̃); velocity Verlet. The force constants are approximate textbook values; the computed band positions fall in the same region as typical measurements but do not replace the spectrum of a molecule. Your notebook is stored only in this browser."
   ],
   [
-   "Bu deneyin öğrettiği şey şudur: küçük adım <b>sayısal hatayı</b> küçültür. Enerji modelinin, yani kuvvet alanının, doğru olup olmadığını ise hiçbir adım boyu söylemez. Yanlış bir yayla ne kadar küçük adım atarsanız atın, yanlış yayın hareketini hesaplarsınız.",
-   "This is what the experiment teaches: a small step reduces the <b>numerical error</b>. Whether the energy model, that is, the force field, is correct is something no step size can tell you. No matter how small a step you take with the wrong spring, you are still computing the motion of the wrong spring."
+   "<small>Laboratuvar 3 · Kayıt aralığı</small>Program her adımı yazmaz",
+   "<small>Lab 3 · Saving interval</small>The program does not write every step"
   ],
   [
-   "<small>4 · Gerçek moleküle geçiş</small>Proteinlerde neden 2 femtosaniye?",
-   "<small>4 · Moving to a real molecule</small>Why 2 femtoseconds for proteins?"
+   "Bir MD programı kuvvetleri her zaman adımında hesaplar, ama trajektori dosyasına yalnız belirli aralıklarla bir kare yazar. Kayıt aralığı hesabın doğruluğunu değiştirmez; sonradan neyi görebileceğinizi değiştirir. Bu laboratuvarda önce bir titreşimi, sonra bu kitabın gerçek bir simülasyonunu seyrek kaydedip ne kaybolduğunu ölçeceksiniz.",
+   "An MD program computes the forces at every time step, but writes a frame to the trajectory file only at certain intervals. The saving interval does not change the accuracy of the calculation; it changes what you can see afterwards. In this lab you will first save a vibration, then a real simulation from this book sparsely, and measure what is lost."
   ],
   [
-   "3. kısımdaki kopma noktası rastgele değildi; yayın titreşim periyoduna bağlıydı. Açısal frekans ω için hız-Verlet ancak",
-   "The breaking point in Section 3 was not arbitrary; it depended on the vibrational period of the spring. For an angular frequency ω, velocity Verlet is stable only if"
+   "<span class=\"lab-tag\">1 · Stroboskop atölyesi</span>",
+   "<span class=\"lab-tag\">1 · Stroboscope workshop</span>"
   ],
   [
-   " iken kararlıdır. Bir molekülde en hızlı titreşim, bütün sistemin adımını belirler.",
-   ". In a molecule, the fastest vibration sets the time step for the whole system."
+   "Kare aralığı titreşimi nasıl gösterir?",
+   "How does the frame interval show a vibration?"
   ],
   [
-   "Kararlı olmak yetmez; titreşimi doğru izlemek de gerekir. GROMACS kılavuzu, Verlet türü (leap-frog) bir integrasyonla harmonik bir titreşimi makul doğrulukla izlemek için <b>bir titreşim periyodu başına en az 5 adımı</b> yol gösterici kabul eder. Sıcaklık ve basınç denetimi yokken ve başlangıç noktaları birbirine karşılık geldiğinde, leap-frog ile burada kullandığımız hız-Verlet aynı yörüngeyi üretir. Hidrojen içeren bağlar en hızlı titreşenlerdir; bu yüzden çoğu simülasyonda bu bağların uzunluğu sabitlenir (kısıt). Aşağıda deneyin.",
-   "Being stable is not enough; the vibration must also be followed accurately. The GROMACS manual takes <b>at least 5 steps per vibrational period</b> as a guideline for integrating a harmonic oscillation with reasonable accuracy using a Verlet-type (leap-frog) scheme. Without temperature or pressure coupling, and with corresponding starting points, leap-frog and the velocity Verlet method used here produce the same trajectory. Bonds involving hydrogen vibrate fastest; this is why most simulations fix the lengths of these bonds (constraints). Try it below."
+   "Deneyden bir ipucu: filmlerde hızla dönen bir araba tekerleği bazen yavaşlamış, durmuş ya da geriye dönüyormuş gibi görünür. Kamera saniyede belirli sayıda kare çeker; tekerlek iki kare arasında neredeyse tam bir tur atarsa karelerde yerinde duruyor gibi görünür. Bir MD trajektorisi de böyledir: program hareketi her adımda hesaplar ama dosyaya yalnız belirli aralıklarla bir kare yazar. Bir bağ seçin ve kayıt aralığını kaydırın.",
+   "A hint from experience: in films, a fast-spinning car wheel sometimes seems to slow down, stop or even turn backwards. The camera takes a fixed number of frames per second; if the wheel makes almost a full turn between two frames, it appears to stand still in the frames. An MD trajectory is the same: the program computes the motion at every step but writes a frame to the file only at certain intervals. Choose a bond and slide the saving interval."
   ],
   [
-   "En hızlı titreşim, en büyük adım",
-   "Fastest vibration, largest step"
+   "Gerçek titreşim, kaydedilen kareler ve karelerden görünen hareket",
+   "The real vibration, the saved frames and the motion seen in the frames"
   ],
   [
-   "Seçilen titreşimin sürekli hareketi ve zaman adımında alınan örnekler",
-   "Continuous motion of the selected vibration and the samples taken at each time step"
+   "<span><i style=\"background:var(--muted)\"></i>gerçek titreşim</span><span><i style=\"background:var(--accent)\"></i>kaydedilen kareler</span><span><i style=\"background:var(--c3)\"></i>karelerden görünen hareket</span>",
+   "<span><i style=\"background:var(--muted)\"></i>real vibration</span><span><i style=\"background:var(--accent)\"></i>saved frames</span><span><i style=\"background:var(--c3)\"></i>motion seen in the frames</span>"
   ],
   [
-   "Zaman adımı ekseni: iyi, kaba ve kararsız bölgeler",
-   "Time step axis: good, coarse and unstable regions"
+   "Kayıt aralığı Δ",
+   "Saving interval Δ"
   ],
   [
-   "Hidrojenli bağları kısıtla (protein: LINCS, su: SETTLE)",
-   "Constrain bonds involving hydrogen (protein: LINCS, water: SETTLE)"
+   "0,5 ile 40 fs arası; hesap adımı ayrıca 0,5 fs'dir",
+   "0.5 to 40 fs; the calculation step is 0.5 fs"
   ],
   [
-   "Titreşimler (yaklaşık periyot)",
-   "Vibrations (approximate period)"
+   "<span>Titreşim periyodu T</span><b id=\"l3-sT\"></b>",
+   "<span>Vibration period T</span><b id=\"l3-sT\"></b>"
   ],
   [
-   "Belirleyici titreşim",
-   "Step-limiting vibration"
+   "<span>Kayıt aralığı Δ</span><b id=\"l3-sD\"></b>",
+   "<span>Saving interval Δ</span><b id=\"l3-sD\"></b>"
   ],
   [
-   "Periyot başına adım",
-   "Steps per period"
+   "<span>Karelerden görünen periyot</span><b id=\"l3-sA\"></b>",
+   "<span>Period seen in the frames</span><b id=\"l3-sA\"></b>"
   ],
   [
-   "ωΔt (sınır 2)",
-   "ωΔt (limit 2)"
+   "<span class=\"t\">Bir şeyi değiştirin</span><span>Kayıt aralığını değiştirdiğinizde, karelerin gösterdiği hareketle gerçek hareket burada karşılaştırılır.</span>",
+   "<span class=\"t\">Change something</span><span>When you change the saving interval, the motion shown by the frames is compared here with the real motion.</span>"
   ],
   [
-   "Kısıt <b>yokken</b>, periyot başına 5 adım kuralını karşılayan en büyük zaman adımı yaklaşık kaç femtosaniyedir? Sonra kısıtı açın ve 2 fs'in neden rahatladığını görün.",
-   "<b>Without</b> constraints, what is the largest time step, in femtoseconds, that satisfies the 5-steps-per-period rule? Then switch the constraints on and see why 2 fs becomes a comfortable choice."
+   "Aynı bağda kayıt aralığını periyodun yarısının biraz altına ve biraz üstüne getirin. Görünen periyot ne zaman yanlış olmaya başlıyor?",
+   "On the same bond, bring the saving interval slightly below and slightly above half the period. When does the apparent period start to be wrong?"
   ],
   [
-   "En büyük adım (fs)",
-   "Largest step (fs)"
+   "Δ/T'yi bir kez 0,40 ile 0,50 arasına, bir kez 0,50 ile 0,65 arasına getirin.",
+   "Bring Δ/T once between 0.40 and 0.50 and once between 0.50 and 0.65."
   ],
   [
-   "Bağ titreşimi periyotları kızılötesi dalga sayılarından yaklaşık olarak hesaplandı (<i>T</i> = 1/<i>c</i>ν̃). Hidrojen içeren açı titreşimlerinin 13 fs periyodu (kılavuzda simülasyondan ölçülmüş değer) ve periyot başına 5 adım kuralı <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS kılavuzundan</a> alındı. Kılavuz 13 fs / 5 = 2,6 fs sonucunu “yaklaşık 3 fs” diye yuvarlar; bu sayfada yuvarlanmamış 2,6 fs kullanılır. 7. bölümdeki ubikitin denemesi de H içeren bağlar kısıtlı 2 fs ile çalıştırıldı.",
-   "The bond vibration periods were estimated from infrared wavenumbers (<i>T</i> = 1/<i>c</i>ν̃). The 13 fs period of angle vibrations involving hydrogen (a value the manual reports as measured from a simulation) and the 5-steps-per-period rule were taken from the <a href=\"https://manual.gromacs.org/current/reference-manual/special/remove-fast-dgf.html\">GROMACS manual</a>. The manual rounds 13 fs / 5 = 2.6 fs to “about 3 fs”; this page uses the unrounded 2.6 fs. The ubiquitin run in Chapter 7 also used 2 fs with bonds involving hydrogen constrained."
+   "Titreşimi durdurun",
+   "Stop the vibration"
   ],
   [
-   "<small>5 · Hesaplanan adım ve kaydedilen kare</small>Program her adımı yazmaz",
-   "<small>5 · Computed step and saved frame</small>The program does not write every step"
+   "Filmdeki duran tekerleğin aynısı: kayıt aralığını periyoda eşitleyin.",
+   "Exactly like the wheel standing still in a film: make the saving interval equal to the period."
   ],
   [
-   "Kuvvet her Δ<i>t</i>'de hesaplanır, ama dosyaya genellikle çok daha seyrek yazılır. Trajektorideki iki kare arasında yüzlerce adım olabilir. Kare sayısı, ne çözümün hassasiyetini ne de bağımsız ölçüm sayısını verir.",
-   "The force is computed at every Δ<i>t</i>, but usually written to file much less often. There can be hundreds of steps between two frames of a trajectory. The number of frames tells you neither the accuracy of the solution nor the number of independent measurements."
+   "Δ/T'yi 0,98 ile 1,02 arasına getirin.",
+   "Bring Δ/T between 0.98 and 1.02."
+  ],
+  [
+   "Sahte bir yavaş titreşim",
+   "A fake slow vibration"
+  ],
+  [
+   "Kayıt aralığını periyottan biraz uzun yapın. Karelerde ne görüyorsunuz?",
+   "Make the saving interval slightly longer than the period. What do you see in the frames?"
+  ],
+  [
+   "Δ/T'yi 1,02 ile 1,25 arasına getirin.",
+   "Bring Δ/T between 1.02 and 1.25."
+  ],
+  [
+   "Gerçek bir simülasyonun kaydını seyreltin",
+   "Thin out the saving of a real simulation"
+  ],
+  [
+   "Bu kitabın alanin dipeptit pilotunun 1. koşusu: GROMACS 2026.3, 2 fs hesap adımı, 10 ns. Program her 500 adımda bir, yani her 1 ps'de bir kare yazdı (<code>nstxout-compressed = 500</code>) ve yalnız dipeptidi kaydetti. Aşağıda dipeptidin φ açısı ve her karedeki konformasyonu var (αR, β, αL; tanımlar MD-U'daki gibi). Daha seyrek kaydetseydik ne görürdük? Bir kayıt aralığı seçin; sayfa aynı veriyi o aralıkla alt örnekler.",
+   "Run 1 of this book's alanine dipeptide pilot: GROMACS 2026.3, 2 fs calculation step, 10 ns. The program wrote a frame every 500 steps, that is every 1 ps (<code>nstxout-compressed = 500</code>), and saved only the dipeptide. Below are the dipeptide's φ angle and its conformation in every frame (αR, β, αL; definitions as in MD-U). What would we have seen if we had saved more sparsely? Choose a saving interval; the page subsamples the same data at that interval."
+  ],
+  [
+   "φ açısının zamanla değişimi ve her karedeki konformasyon",
+   "The φ angle over time and the conformation in each frame"
   ],
   [
    "Kayıt aralığı",
-   "Output interval"
+   ">Saving interval<"
   ],
   [
-   "Hesaplanan adımlar ve kaydedilen kareler zaman çizelgesi",
-   "Timeline of computed steps and saved frames"
+   "Hesap her seçimde 2 fs adımla yapılmış aynı koşudur; değişen yalnız dosyaya yazılan karelerdir.",
+   "Whatever you choose, the calculation is the same run with a 2 fs step; only the frames written to the file change."
   ],
   [
-   "Kaç adımda bir kare yazılsın?",
-   "Write one frame every"
+   "Kare sayısı",
+   "Number of frames"
   ],
   [
-   "Hazır kayıt aralıkları",
-   "Preset output intervals"
+   "αR payı",
+   "αR fraction"
   ],
   [
-   "Simülasyon süresi",
-   "Simulation length"
+   "Sayılan durum değişimi",
+   "State changes counted"
   ],
   [
-   "Adım (sabit)",
-   "Time step (fixed)"
+   "Ortalama kalma süresi (1 ps verisinden)",
+   "Mean residence time (from the 1 ps data)"
   ],
   [
-   "İki kare arası süre",
-   "Time between two frames"
+   "Seyrek kayıt neyi değiştirir, neyi değiştirmez?",
+   "What does sparse saving change, and what not?"
   ],
   [
-   "Toplam hesaplanan adım",
-   "Total computed steps"
+   "Tezgâhta seçtiğiniz her aralık buraya bir deneme olarak eklenir. İki nicelik 1 ps'teki değerlerine oranlanmıştır: 1, kaydı seyreltmenin hiçbir şeyi değiştirmediği anlamına gelir.",
+   "Every interval you choose on the bench is added here as a trial. Both quantities are divided by their values at 1 ps: 1 means that thinning out the saving changed nothing."
   ],
   [
-   "Yazılan kare",
-   "Frames written"
+   "Denemeleriniz: kayıt aralığına karşı αR payı ve sayılan durum değişimi, 1 ps değerine oranla (iki eksen de logaritmik)",
+   "Your trials: αR fraction and state changes counted versus saving interval, relative to the 1 ps value (both axes logarithmic)"
   ],
   [
-   "1. bölümdeki alanin dipeptit verisinin kaynağı 2 fs adım ve 1 ps kayıt aralığı bildiriyor. İki kare arasında kaç entegrasyon adımı var? 250 ns'lik bir koşu kaç kare verir?",
-   "The source of the alanine dipeptide data in Chapter 1 reports a 2 fs step and a 1 ps output interval. How many integration steps are there between two frames? How many frames does a 250 ns run produce?"
+   "Denge payı",
+   "Equilibrium fraction"
   ],
   [
-   ">Adım sayısı<",
-   ">Number of steps<"
+   "En az üç aralık deneyin, biri 100 ps ya da daha seyrek olsun. αR payı ne kadar değişti?",
+   "Try at least three intervals, one of them 100 ps or sparser. How much did the αR fraction change?"
   ],
   [
-   ">Kare sayısı<",
-   ">Number of frames<"
+   "En az üç aralık, biri ≥ 100 ps.",
+   "At least three intervals, one ≥ 100 ps."
   ],
   [
-   "placeholder=\"adım = ?\"",
-   "placeholder=\"steps = ?\""
+   "Geçişler",
+   "Transitions"
   ],
   [
-   "placeholder=\"kare = ?\"",
-   "placeholder=\"frames = ?\""
+   "Aynı denemelerde sayılan durum değişimi ne oldu?",
+   "What happened to the number of state changes counted in the same trials?"
   ],
   [
-   "<small>6 · Kendinizi sınayın</small>Üç cümle, üç karar",
-   "<small>6 · Test yourself</small>Three statements, three decisions"
+   "En az üç aralık deneyin.",
+   "Try at least three intervals."
   ],
   [
-   "Her soruda bir seçenek işaretleyin; açıklama hemen altında açılır.",
-   "Choose one option for each question; the explanation appears right below it."
+   "1 ps ile seyrek bir aralığın dosya boyutlarını karşılaştırın.",
+   "Compare the file sizes of 1 ps and a sparse interval."
   ],
   [
-   "Sıradaki bölüm 7: gerçek bir protein yapısını (ubikitin, PDB 1UBQ) MD'ye hazırlarken hangi bilgilerin ölçüm, hangilerinin bizim kararımız olduğunu okuyacağız. Buradaki 2 fs ve H içeren bağların kısıtı orada tekrar karşınıza çıkacak.",
-   "Next is Chapter 7: while preparing a real protein structure (ubiquitin, PDB 1UBQ) for MD, we will work out which pieces of information are measurements and which are our own decisions. The 2 fs step and the constraints on bonds involving hydrogen from this chapter will come up again there."
+   "1 ps'i ve 100 ps ya da daha seyrek bir aralığı deneyin.",
+   "Try 1 ps and an interval of 100 ps or sparser."
   ],
   [
-   "<b>Bu sayfa hakkında.</b> CH02 için etkileşimli tasarım prototipidir; kitabın kaynak metni ve yerel sitesi değiştirilmedi. 1 ile 3. kısımlar boyutsuz öğretim modelleridir; hesaplar tarayıcıda, CH02'nin <code>ch02_oscillator.py</code> örneğindeki algoritmayla yapılır. Bağ periyotları yaklaşık ve öğreticidir. Bilimsel ve hedef-okur incelemesi yapılmadı.",
-   "<b>About this page.</b> This is an interactive design prototype for CH02; the book's source text and local site were not changed. Sections 1 to 3 are dimensionless teaching models; the calculations run in the browser with the algorithm of the <code>ch02_oscillator.py</code> example in CH02. The bond periods are approximate and for teaching purposes. No scientific or target-reader review has been carried out."
+   "Hangi soru hangi kayıt aralığını ister?",
+   "Which question needs which saving interval?"
   ],
   [
-   "NumberFormat('tr-TR'",
-   "NumberFormat('en-US'"
+   "Kayıt aralığı için kural",
+   "Rule for the saving interval"
   ],
   [
-   "toLocaleString('tr-TR')",
-   "toLocaleString('en-US')"
+   "Kayıt aralığı hesabın doğruluğunu değiştirmez: kuvvetler her 2 fs'de hesaplanır, kareler yalnız saklanır. Ama sonradan hangi soruyu sorabileceğinizi belirler; yazılmamış bir kare geri getirilemez. GROMACS'ta ilgili ayarlar <code>nstxout-compressed</code> (kaç adımda bir konum yazılacağı), <code>compressed-x-grps</code> (hangi atomların yazılacağı) ve <code>nstenergy</code> (enerji terimlerinin aralığı) ayarlarıdır. Pilotta konumlar ve enerjiler 500 adımda bir (1 ps) yazıldı; konumlar yalnız dipeptit için.",
+   "The saving interval does not change the accuracy of the calculation: the forces are computed every 2 fs, and the frames are only stored. But it determines which questions you can ask afterwards; a frame that was not written cannot be recovered. In GROMACS the relevant settings are <code>nstxout-compressed</code> (every how many steps positions are written), <code>compressed-x-grps</code> (which atoms are written) and <code>nstenergy</code> (the interval for the energy terms). In the pilot, positions and energies were written every 500 steps (1 ps); positions only for the dipeptide."
   ],
   [
-   "'çok büyük (patladı)'",
-   "'very large (blew up)'"
+   "Model ve veri: stroboskopta titreşim kosinüs, periyotlar Laboratuvar 2'nin formülüyle; görünen periyot örnekleme kuramından (katlanma) hesaplanır ve periyodun 50 katını aşarsa \"duruyor gibi\" yazılır. Tezgâhtaki veri bu kitabın alanin dipeptit pilotundandır; durum tanımları MD-U'daki gibidir (αL: φ ≥ 0; αR: φ &lt; 0 ve −120° ≤ ψ &lt; 50°; β: diğer). Defteriniz yalnız bu tarayıcıda saklanır.",
+   "Model and data: in the stroboscope the vibration is a cosine, with periods from the formula of Lab 2; the apparent period is computed from sampling theory (aliasing) and is shown as \"seems to stand still\" if it exceeds 50 times the period. The data on the bench come from this book's alanine dipeptide pilot; the state definitions are as in MD-U (αL: φ ≥ 0; αR: φ &lt; 0 and −120° ≤ ψ &lt; 50°; β: the rest). Your notebook is stored only in this browser."
   ],
   [
-   "'konum x'",
-   "'position x'"
+   "Sıradaki modül MD-PBC: bu sayfadaki tek bir parçacık yerine binlerce atomu küçük bir kutuya koyduğumuzda kutunun kenarında ne olacağına karar vereceğiz.",
+   "Next module, MD-PBC: instead of a single particle as on this page, we will put thousands of atoms into a small box and decide what happens at the edge of the box."
   ],
   [
-   "'atomlar arası uzaklık r'",
-   "'interatomic distance r'"
+   "<b>Bu sayfa hakkında.</b> CH02 için etkileşimli sürüm. Bu sayfadaki sayılar tarayıcınızda şu anda hesaplanıyor; 3. laboratuvarın verisi bu projenin alanin dipeptit pilotundan (GROMACS 2026.3) gelir. Laboratuvar 1 ve 2'deki modeller öğretim modelleridir; ayrıntıları her laboratuvarın altında yazar. Bilimsel ve hedef okur incelemesi yapılmadı.",
+   "<b>About this page.</b> Interactive edition for CH02. The numbers on this page are being computed in your browser right now; the data of Lab 3 come from this project's alanine dipeptide pilot (GROMACS 2026.3). The models in Labs 1 and 2 are teaching models; their details are given below each lab. No scientific or target-reader review has been carried out."
   ],
   [
-   "'uzaklık r / σ'",
-   "'distance r / σ'"
+   "Keşifler:",
+   "Discoveries:"
   ],
   [
-   "'0,5'",
-   "'0.5'"
+   "Keşfedildi",
+   "Discovered"
   ],
   [
-   "'1,5'",
-   "'1.5'"
+   "Açık",
+   "Open"
   ],
   [
-   "'2,5'",
-   "'2.5'"
+   "<b>Doğru.</b>",
+   "<b>Correct.</b>"
   ],
   [
-   "'yok (denge)'",
-   "'none (equilibrium)'"
+   "<b>Tam değil.</b>",
+   "<b>Not quite.</b>"
   ],
   [
-   "'çok zayıf çekme: atomlar uzak'",
-   "'very weak attraction: the atoms are far apart'"
+   "· doğru:",
+   "· correct:"
   ],
   [
-   "'→ sağa, merkeze doğru'",
-   "'→ right, toward the center'"
+   "sınırda",
+   "borderline"
   ],
   [
-   "'← sola, merkeze doğru'",
-   "'← left, toward the center'"
+   "su molekülü",
+   "water molecule"
   ],
   [
-   "'itme: atomları uzaklaştırır'",
-   "'repulsion: pushes the atoms apart'"
+   "amino asit kalıntısı (ort. 110 u)",
+   "amino acid residue (avg. 110 u)"
   ],
   [
-   "'çekme: atomları yaklaştırır'",
-   "'attraction: pulls the atoms together'"
+   "gri: komşu atomlar, 3 Å arayla",
+   "grey: neighboring atoms, 3 Å apart"
   ],
   [
-   "'Buldunuz: r ≈ '",
-   "'Found it: r ≈ '"
+   "(bulut ekrandan büyük)",
+   "(cloud larger than the screen)"
   ],
   [
-   "σ, enerji eğrisinin dibine çok yakınsınız. Eğim, dolayısıyla kuvvet de, tam dipte sıfırdır; kuramsal değer r = 2^(1/6) σ ≈ 1,12 σ. Daha yakında atomlar birbirini iter, daha uzakta çeker.",
-   "σ, very close to the bottom of the energy curve. The slope, and therefore the force, is exactly zero at the bottom; the theoretical value is r = 2^(1/6) σ ≈ 1.12 σ. Closer in, the atoms repel each other; farther out, they attract."
+   "Önceki:",
+   "Before:"
   ],
   [
-   "Kuvvet şu an itiyor: atomlar çok yakın. Topu biraz sağa, uzağa kaydırın.",
-   "The force is repulsive right now: the atoms are too close. Move the ball a little to the right, farther away."
+   "Å · Şimdi:",
+   "Å · Now:"
   ],
   [
-   "Kuvvet şu an çekiyor: atomlar uzak. Topu sola, yakına kaydırın.",
-   "The force is attractive right now: the atoms are far apart. Move the ball to the left, closer in."
+   "Hem parçacık hem sıcaklık değişti; etkileri ayırmak için bir seferde yalnız birini değiştirin.",
+   "Both the particle and the temperature changed; to separate the effects, change only one at a time."
   ],
   [
-   "'zaman t'",
-   "'time t'"
+   "bükülme (örnek)",
+   "bending (example)"
   ],
   [
-   ">Başlangıç<",
-   ">Start<"
+   "burulma (örnek)",
+   "torsion (example)"
   ],
   [
-   "'1. İvme'",
-   "'1. Acceleration'"
+   "toplu hareket (örnek)",
+   "collective motion (example)"
   ],
   [
-   "'2. Yeni konum'",
-   "'2. New position'"
+   "En alt basamakta (taban düzeyde) bulunma olasılığı",
+   "Probability of being on the lowest step (ground state)"
   ],
   [
-   "'3. Yeni ivme'",
-   "'3. New acceleration'"
+   "Klasik mekanikte basamak yoktur; bu kavramın karşılığı yok.",
+   "Classical mechanics has no steps; this concept has no counterpart."
   ],
   [
-   "'4. Yeni hız'",
-   "'4. New velocity'"
+   "Ortalama titreşim enerjisi / kT (kuantum, sıfır nokta dahil)",
+   "Mean vibrational energy / kT (quantum, including zero point)"
   ],
   [
-   "'Kesin çözüm'",
-   "'Exact solution'"
+   "Koyu çizgi klasik değerdir: her titreşim için 1 kT. Klasik MD bu değeri kullanır.",
+   "The dark line is the classical value: 1 kT for every vibration. Classical MD uses this value."
   ],
   [
-   "' (fark '",
-   "' (difference '"
+   "Isı alışverişine katılım (ısı kapasitesi / klasik değer)",
+   "Participation in heat exchange (heat capacity / classical value)"
   ],
   [
-   "'Adımı kaydet ve sonrakine geç'",
-   "'Save and go to the next step'"
+   "Donmuş bir titreşim ısıtılınca enerji almaz; klasik titreşim her zaman alır.",
+   "A frozen vibration takes up no energy when heated; a classical vibration always does."
   ],
   [
-   "'Bu adımı hesapla'",
-   "'Compute this step'"
+   "</b>. Taban düzeyde bulunma olasılığı",
+   "</b>. Probability of the ground state:"
   ],
   [
-   "'Bu adımı butona basmadan siz hesaplayın. x<sub>'",
-   "'Compute this step yourself before pressing the button. With x<sub>'"
+   ". Klasik MD bu bağa ortalama 1 kT titreşim enerjisi verir, gerçekte ise bağ ısıl olarak neredeyse hiç uyarılmaz. Sert bağları kısıtlamak (SHAKE, LINCS) bu yüzden yalnız zaman adımı için değil, fizik açısından da savunulabilir bir seçimdir.",
+   ". Classical MD gives this bond an average vibrational energy of 1 kT, whereas in reality the bond is hardly excited thermally at all. Constraining stiff bonds (SHAKE, LINCS) is therefore a defensible choice not only for the time step but also physically."
   ],
   [
-   "' ve Δt = 0,2 iken <b>x<sub>'",
-   "' and Δt = 0.2, what is <b>x<sub>'"
+   "kT, klasik değer 1 kT: fark",
+   "kT, classical value 1 kT: difference"
   ],
   [
-   "'</sub></b> kaçtır?'",
-   "'</sub></b>?'"
+   ". Proteinlerin işlevine ilişkin büyük, yavaş hareketler bu bölgededir. MD\\'nin asıl hedefi olan hareketler için klasik mekanik iyi bir yaklaşımdır.",
+   ". The large, slow motions related to protein function lie in this region. For the motions that are the real target of MD, classical mechanics is a good approximation."
   ],
   [
-   "Bir sayı yazın; ondalık için virgül ya da nokta kullanabilirsiniz.",
-   "Enter a number; you can use a comma or a point as the decimal separator."
+   "basamaklar birbirine çok yakın: neredeyse sürekli, klasik",
+   "the steps are very close together: almost continuous, classical"
   ],
   [
-   "Bu adımın sonucu zaten açık. “Adımı kaydet ve sonrakine geç” deyip bir sonraki x değerini tahmin edin.",
-   "The result of this step is already shown. Press “Save and go to the next step” and estimate the next x value."
+   "basamak aralığı ħω =",
+   "step spacing ħω ="
   ],
   [
-   "'Doğru: x = '",
-   "'Correct: x = '"
+   "kalıntı (110 u)",
+   "residue (110 u)"
   ],
   [
-   "'. Bilgisayar her adımda bu dört satırı her atom için aynen uygular. Bir proteindeki tek fark 1. ve 3. satırdaki ivme hesabıdır: burada a = −x iken, proteinde her atomun ivmesi o atoma bütün etkileşimlerden gelen kuvvetin atomun kütlesine bölünmesiyle bulunur (a = F/m).'",
-   "'. The computer applies exactly these four lines to every atom at every step. The only difference in a protein is the acceleration calculation in lines 1 and 3: here a = −x, whereas in a protein the acceleration of each atom is the force from all of its interactions divided by its mass (a = F/m).'"
+   "(dalgalanır)",
+   "(fluctuates)"
   ],
   [
-   "Henüz değil. Üç terimi ayrı ayrı yazın: x, vΔt ve ½aΔt². Δt² = 0,04.",
-   "Not yet. Write out the three terms separately: x, vΔt and ½aΔt². Δt² = 0.04."
+   "<span>Bir adım için \"Bir adım\" düğmesine basın. Şu an: x =",
+   "<span>Press \"One step\" for a single step. Now: x ="
   ],
   [
-   "' × 0,2) + ½ × ('",
-   "' × 0.2) + ½ × ('"
+   "<span>2) İvme: a = F/m =",
+   "<span>2) Acceleration: a = F/m ="
   ],
   [
-   "') × 0,04.'",
-   "') × 0.04.'"
+   "<span>3) Hız ve konum",
+   "<span>3) Velocity and position advanced by"
   ],
   [
-   "' İlk adımda hız sıfır olduğu için ortadaki terim düşer.'",
-   "' In the first step the velocity is zero, so the middle term drops out.'"
+   "(banyo rastgele itme ve sürtünme ekler)",
+   "(the bath adds random kicks and friction)"
   ],
   [
-   "'0,01'",
-   "'0.01'"
+   "</span><span>&nbsp;&nbsp;&nbsp;hız v:",
+   "</span><span>&nbsp;&nbsp;&nbsp;velocity v:"
   ],
   [
-   "'hata'",
-   "'error'"
+   "sağ kuyu",
+   "right well"
   ],
   [
-   "Kararsız: her adımda sapma büyüyor, yörünge koptu.",
-   "Unstable: the deviation grows at every step; the trajectory has diverged."
+   ", kütle oranının karekökü √",
+   ", square root of the mass ratio √"
   ],
   [
-   "Kararlı ama kaba: yörünge sınırlı kalıyor, fakat kesin çözümden belirgin sapıyor.",
-   "Stable but coarse: the trajectory stays bounded but deviates noticeably from the exact solution."
+   ". Aynı kuvvet ağır cismi daha az hızlandırır (a = F/m): yol aynı, yalnız daha yavaş gidilir. Atomun saatindeki bağ titreşimleriyle aynı kural.",
+   ". The same force accelerates a heavy body less (a = F/m): the path is the same, it is only travelled more slowly. The same rule as for the bond vibrations in the atom\\'s clock."
   ],
   [
-   "Kararlı: sayısal çözüm kesin çözümü yakından izliyor.",
-   "Stable: the numerical solution closely follows the exact solution."
+   "kJ/mol ile bariyer (",
+   "kJ/mol the barrier ("
   ],
   [
-   "' kat küçüldü'",
-   "'× smaller'"
+   ") aşılmadı, parçacık hep aynı kuyuda gidip geldi.",
+   ") was not crossed; the particle kept moving back and forth in the same well. With"
   ],
   [
-   "' kat büyüdü'",
-   "'× larger'"
+   "kJ/mol ile (",
+   "kJ/mol ("
   ],
   [
-   "'Δt yarılanmadı'",
-   "'Δt not halved'"
+   "kJ/mol bariyer) geçti. Yalıtılmış sistemde toplam enerji korunur (mavi kesikli çizgi): parçacık yalnız o çizginin altındaki yerlere gidebilir. Newton\\'un yasası yörüngeyi tamamen belirler; rastlantı yoktur.",
+   "kJ/mol barrier) it crossed. In an isolated system the total energy is conserved (blue dashed line): the particle can only go to places below that line. Newton\\'s law determines the trajectory completely; there is no chance."
   ],
   [
-   "'Hata '",
-   "'The error shrank by a factor of '"
+   "Hesaplanıyor…",
+   "Computing…"
   ],
   [
-   "' kat küçüldü. Adım yarıya inince hata yaklaşık dörde bölünüyor: hata Δt² ile orantılı, yöntem ikinci mertebe.'",
-   "'. Halving the step divides the error by about four: the error is proportional to Δt², so the method is second order.'"
+   "ns başına geçiş",
+   "crossings per ns"
   ],
   [
-   "'Oran '",
-   "'Ratio '"
+   "0 geçiş",
+   "0 crossings"
   ],
   [
-   "'. Bu adımlar hata düzenini göremeyecek kadar büyük olabilir; 0,2 ve 0,1 gibi daha küçük adımlarla deneyin.'",
-   "'. These steps may be too large to reveal the error pattern; try smaller steps such as 0.2 and 0.1.'"
+   "<span>▼ hiç geçiş yok</span><span>nokta büyüdükçe süre uzun</span><span>toplam",
+   "<span>▼ no crossing</span><span>larger dots mean longer time</span><span>total"
   ],
   [
-   "Son iki ölçümde Δt yarılanmadı. “Δt’yi yarıla” düğmesiyle ikinci ölçümü alın.",
-   "Δt was not halved between the last two measurements. Take the second measurement with the “Halve Δt” button."
+   "Henüz yeterli nokta yok: aynı kütleyle 7,5 kJ/mol ve üstünde en az 3 farklı bariyer, her birinde en az 3 geçiş.",
+   "Not enough points yet: with the same mass, at least 3 different barriers of 7.5 kJ/mol or more, with at least 3 crossings each."
   ],
   [
-   "Bir ölçüm kaydedildi. Şimdi Δt’yi yarılayın ve tekrar ekleyin.",
-   "One measurement recorded. Now halve Δt and add another one."
+   "Şimdi aynısını ikinci bir kütleyle yapın.",
+   "Now do the same with a second mass."
   ],
   [
-   "'Bir sayı yazın.'",
-   "'Enter a number.'"
+   "Önce ilk kütleyle kuralı bulun.",
+   "First find the rule with the first mass."
   ],
   [
-   "Doğru: Δt = 2. Bu yayda açısal frekans ω = 1, hız-Verlet ancak ωΔt < 2 iken kararlı. Daha hızlı titreşen bir sistem daha küçük bir sınır demektir; 4. kısımda bunu gerçek bağlara taşıyacağız.",
-   "Correct: Δt = 2. For this spring the angular frequency is ω = 1, and velocity Verlet is stable only when ωΔt < 2. A system that vibrates faster has a smaller limit; in Section 4 we will apply this to real bonds."
+   "alanin dipeptit, su yok",
+   "alanine dipeptide, no water"
   ],
   [
-   "Bu değerde yörünge hâlâ sınırlı kalıyor; sapma büyük olsa da enerji patlamıyor. Adımı biraz daha büyütüp grafiklere bakın.",
-   "At this value the trajectory still stays bounded; the deviation is large, but the energy does not blow up. Increase the step a little more and look at the plots."
+   "ubikitin + su (örnek)",
+   "ubiquitin + water (example)"
   ],
   [
-   "Bu değerde yörünge çoktan patlıyor. Sınırı daha aşağıda arayın.",
-   "At this value the trajectory has already blown up. Look for the limit at a smaller value."
+   "zar proteini + zar + su (örnek)",
+   "membrane protein + membrane + water (example)"
   ],
   [
-   "'O–H gerilmesi (su)'",
-   "'O–H stretch (water)'"
+   "Kuvvet alanı (≈ N)",
+   "Force field (≈ N)"
   ],
   [
-   "'N–H gerilmesi'",
-   "'N–H stretch'"
+   "<p class=\"small\">Çubuklar logaritmik ölçektedir: çubuğun tamamı 10",
+   "<p class=\"small\">The bars are on a logarithmic scale: the whole bar corresponds to a factor of 10"
+  ],
+  [
+   "ns/gün",
+   "ns/day"
+  ],
+  [
+   "ps/gün",
+   "ps/day"
+  ],
+  [
+   "Pilotta ölçülen: 1.546 atom, 2 iş parçacığında günde 245-265 ns (5 koşu). Bu satır, maliyetin atom sayısıyla doğrusal arttığını varsayan kaba bir tahmindir; büyük sistemler gerçekte GPU ve çok sayıda çekirdekle çalıştırılır.",
+   "Measured in the pilot: 1,546 atoms, 245-265 ns per day on 2 threads (5 runs). This line is a rough estimate that assumes the cost grows linearly with the number of atoms; large systems are in practice run on GPUs and many cores."
+  ],
+  [
+   "Ağır atom çekirdekleri (C, N, O)",
+   "Heavy-atom nuclei (C, N, O)"
+  ],
+  [
+   "Top: F = ma ile hareket eder",
+   "A ball: moves with F = ma"
+  ],
+  [
+   "Neredeyse hiçbir şey; klasik yaklaşım iyidir.",
+   "Almost nothing; the classical approximation is good."
+  ],
+  [
+   "Hidrojen çekirdekleri",
+   "Hydrogen nuclei"
+  ],
+  [
+   "Top olarak ele alınır",
+   "Treated as a ball"
+  ],
+  [
+   "Tünelleme ve sıfır nokta enerjisi yok. H içeren bağlar çoğunlukla kısıtlanır; su modelleri gibi parametreler deneysel özellikleri tutturacak biçimde ayarlanarak bu eksik dolaylı olarak telafi edilir.",
+   "No tunneling and no zero-point energy. Bonds involving H are usually constrained; parameters such as water models are tuned to reproduce experimental properties, which compensates for this indirectly."
+  ],
+  [
+   "Sert bağ titreşimleri (O–H gibi)",
+   "Stiff bond vibrations (such as O–H)"
+  ],
+  [
+   "Kısıtlanır ya da klasik titreşir",
+   "Constrained, or vibrate classically"
+  ],
+  [
+   "Kuantumda donmuş olan bir titreşim klasik MD\\'de kT enerji taşır. Kısıt, bunu hesaptan çıkarır.",
+   "A vibration that is frozen in quantum mechanics carries kT of energy in classical MD. A constraint removes it from the calculation."
+  ],
+  [
+   "Hiç yoktur; etkileri kuvvet alanına gömülüdür",
+   "Absent; their effect is built into the force field"
+  ],
+  [
+   "Bağ kırılıp kurulamaz, yük dağılımı ortama göre değişemez (standart, sabit yüklü kuvvet alanlarında). Tepkimeler için QM/MM ya da tepkimeli kuvvet alanları kullanılır.",
+   "Bonds cannot break or form, and the charge distribution cannot adapt to the environment (in standard force fields with fixed charges). QM/MM or reactive force fields are used for reactions."
+  ],
+  [
+   "Yavaş, büyük hareketler (ör. 20 cm⁻¹)",
+   "Slow, large motions (e.g. 20 cm⁻¹)"
+  ],
+  [
+   "Kuantum düzeltmesi küçüktür. MD\\'nin asıl hedefi bu hareketlerdir; burada sorun doğruluk değil, yeterli örneklemedir (MD-U).",
+   "The quantum correction is small. These motions are the real target of MD; here the problem is not accuracy but sufficient sampling (MD-U)."
+  ],
+  [
+   "Oda sıcaklığında (300 K) bir karbon atomunun ısıl de Broglie dalga boyu yaklaşık ne kadardır ve bu MD için ne anlama gelir?",
+   "At room temperature (300 K), about how large is the thermal de Broglie wavelength of a carbon atom, and what does it mean for MD?"
+  ],
+  [
+   "Yaklaşık 43 Å; karbon kuantum mekaniğiyle hesaplanmalıdır",
+   "About 43 Å; carbon must be computed with quantum mechanics"
+  ],
+  [
+   "Yaklaşık 3 Å; komşu atomlarla aynı ölçekte olduğu için sınırdadır",
+   "About 3 Å; borderline because it is on the same scale as neighboring atoms"
+  ],
+  [
+   "Yaklaşık",
+   "About"
+  ],
+  [
+   "Å; komşu uzaklığının küçük bir kesri olduğu için klasik \"top\" yaklaşımı iyi çalışır",
+   "Å; the classical \"ball\" approximation works well because this is a small fraction of the neighbor distance"
+  ],
+  [
+   "Dalga boyu yalnız elektronlar için tanımlıdır",
+   "A wavelength is defined only for electrons"
+  ],
+  [
+   "Å. Bu, yaklaşık 3 Å\\'lük komşu uzaklığının onda biri kadardır. 43 Å elektronun değeridir.",
+   "Å. This is about one tenth of the neighbor distance of about 3 Å. 43 Å is the value for the electron."
+  ],
+  [
+   "MD programları elektronları neden ayrı parçacıklar olarak hesaplamaz?",
+   "Why do MD programs not compute electrons as separate particles?"
+  ],
+  [
+   "Elektronlar çekirdeklerden çok hafif olduğu için çekirdeklerin her dizilişine anında uyum sağlar; etkileri bir enerji yüzeyi olarak kuvvet alanına gömülür (Born-Oppenheimer)",
+   "Because electrons are much lighter than nuclei, they adjust instantly to every arrangement of the nuclei; their effect is built into the force field as an energy surface (Born-Oppenheimer)"
+  ],
+  [
+   "Elektronlar hareket etmediği için",
+   "Because electrons do not move"
+  ],
+  [
+   "Elektronların kütlesi sıfır olduğu için",
+   "Because electrons have zero mass"
+  ],
+  [
+   "Elektronların kuvvet üzerinde bir etkisi olmadığı için",
+   "Because electrons have no effect on the forces"
+  ],
+  [
+   "Elektron protondan 1836 kat hafiftir. Kuvvet alanı, elektronların oluşturduğu enerji yüzeyini yaylar, burulmalar, van der Waals ve yüklerle yaklaşık olarak yazar.",
+   "The electron is 1836 times lighter than the proton. The force field writes the energy surface created by the electrons approximately with springs, torsions, van der Waals terms and charges."
+  ],
+  [
+   "300 K\\'de O–H gerilmesi (3640 cm⁻¹) için ħω/kT ≈",
+   "At 300 K, ħω/kT for the O–H stretch (3640 cm⁻¹) is ≈"
+  ],
+  [
+   "Titreşim çok sıcaktır ve bağ kopmak üzeredir",
+   "The vibration is very hot and the bond is about to break"
+  ],
+  [
+   "Klasik MD bu titreşimi tam doğru anlatır",
+   "Classical MD describes this vibration exactly"
+  ],
+  [
+   "Titreşim yavaştır, zaman adımını etkilemez",
+   "The vibration is slow and does not affect the time step"
+  ],
+  [
+   "Titreşim neredeyse tamamen taban düzeyde donmuştur; klasik MD ona yanlış olarak kT kadar enerji verir. Bağı kısıtlamak bu yüzden fiziksel olarak da savunulabilir",
+   "The vibration is almost completely frozen in the ground state; classical MD wrongly gives it kT of energy. Constraining the bond is therefore defensible physically as well"
+  ],
+  [
+   "katıdır; üst basamaklara ısıl olarak neredeyse hiç çıkılamaz. Bu titreşimin enerjisi, ısıyla alınıp verilemeyen sıfır nokta enerjisidir.",
+   "times kT; the upper steps can hardly be reached thermally. The energy of this vibration is zero-point energy, which cannot be exchanged as heat."
+  ],
+  [
+   "Tezgâhta ısı banyosu (300 K) açıkken bariyeri 10\\'dan 15 kJ/mol\\'e yükseltirseniz geçişler yaklaşık ne olur?",
+   "On the bench, with the heat bath (300 K) on, what roughly happens to the crossings if you raise the barrier from 10 to 15 kJ/mol?"
+  ],
+  [
+   "Hiç değişmez",
+   "Nothing changes"
+  ],
+  [
+   "Yaklaşık 6-7 kat seyrekleşir",
+   "They become about 6-7 times rarer"
+  ],
+  [
+   "Yarıya iner",
+   "They halve"
+  ],
+  [
+   "Sıklık ∝ e^(−E_b/kT). 5 kJ/mol yaklaşık 2 kT eder: e^(5/2,49) ≈",
+   "Rate ∝ e^(−E_b/kT). 5 kJ/mol is about 2 kT: e^(5/2.49) ≈"
+  ],
+  [
+   ". Tezgâhın yüzeyinde kuyular da dikleştiği için ölçülen oran biraz daha küçüktür (yaklaşık 6). Defterinizde bunu kendi verinizle görebilirsiniz.",
+   ". On the bench\\'s surface the wells also steepen, so the measured ratio is somewhat smaller (about 6). You can see this with your own data in the notebook."
+  ],
+  [
+   "Bir sistemin atom sayısını 10 katına çıkarırsanız, bir kuvvet hesabının maliyeti biçimsel olarak yaklaşık nasıl değişir?",
+   "If you increase the number of atoms of a system tenfold, how does the cost of one force calculation change formally?"
+  ],
+  [
+   "Kuvvet alanında da DFT\\'de de 10 kat",
+   "10 times for both the force field and DFT"
+  ],
+  [
+   "Kuvvet alanında 1000 kat, DFT\\'de 10 kat",
+   "1000 times for the force field, 10 times for DFT"
+  ],
+  [
+   "Kuvvet alanında yaklaşık 10 kat, DFT\\'de yaklaşık 1000 kat",
+   "About 10 times for the force field, about 1000 times for DFT"
+  ],
+  [
+   "İkisinde de değişmez",
+   "It changes for neither"
+  ],
+  [
+   "Kuvvet alanı kesme yarıçapıyla yaklaşık N, yaygın DFT yöntemleri N³ ile büyür: 10³ = 1000.",
+   "A force field with a cut-off radius grows roughly as N, common DFT methods as N³: 10³ = 1000."
+  ],
+  [
+   "Standart (sabit yüklü) bir kuvvet alanıyla yapılan klasik MD aşağıdakilerden hangisini ilke olarak anlatamaz?",
+   "Which of the following can classical MD with a standard (fixed-charge) force field in principle not describe?"
+  ],
+  [
+   "Bir proteinin yan zincirlerinin konformasyon değiştirmesini",
+   "Side chains of a protein changing conformation"
+  ],
+  [
+   "Suyun difüzyonunu",
+   "The diffusion of water"
+  ],
+  [
+   "Bir ligandın bağlanma cebine girip çıkmasını",
+   "A ligand entering and leaving its binding pocket"
+  ],
+  [
+   "Bir enzim tepkimesinde kovalent bir bağın kırılmasını",
+   "The breaking of a covalent bond in an enzyme reaction"
+  ],
+  [
+   "Kuvvet alanında bağlar yaylardır ve kopamaz; elektronların yeniden düzenlenmesi yoktur. Bu tür sorular için QM/MM ya da tepkimeli kuvvet alanları kullanılır. Diğer üçü klasik MD\\'nin tipik konularıdır.",
+   "In a force field bonds are springs and cannot break; there is no rearrangement of electrons. QM/MM or reactive force fields are used for such questions. The other three are typical subjects of classical MD."
+  ],
+  [
+   "Su ve alkollerde O–H gerilmesi; sıvı suda 3200 ile 3600 cm⁻¹ arasında geniş bir bant.",
+   "O–H stretch in water and alcohols; a broad band between 3200 and 3600 cm⁻¹ in liquid water."
+  ],
+  [
+   "Proteinlerin omurgasındaki N–H gerilmesi (amid A bölgesi).",
+   "N–H stretch of the protein backbone (amide A region)."
+  ],
+  [
+   "Alkil zincirlerinde ve yan zincirlerde C–H gerilmesi.",
+   "C–H stretch in alkyl chains and side chains."
+  ],
+  [
+   "Karbon monoksitte üçlü bağ; gaz fazında yaklaşık 2143 cm⁻¹ ölçülür.",
+   "Triple bond in carbon monoxide; about 2143 cm⁻¹ is measured in the gas phase."
+  ],
+  [
+   "Peptit bağının amid I bandı; büyük kısmı C=O gerilmesidir.",
+   "The amide I band of the peptide bond; mostly C=O stretching."
+  ],
+  [
+   "Alkollerde ve eterlerde C–O tek bağı.",
+   "C–O single bond in alcohols and ethers."
+  ],
+  [
+   "C–C tek bağı. IR\\'de zayıftır, Raman spektrumunda belirgindir.",
+   "C–C single bond. Weak in the IR, prominent in the Raman spectrum."
+  ],
+  [
+   "üçlü bağlar",
+   "triple bonds"
+  ],
+  [
+   "parmak izi bölgesi",
+   "fingerprint region"
+  ],
+  [
+   "dalga sayısı ν̃ (cm⁻¹)",
+   "wavenumber ν̃ (cm⁻¹)"
+  ],
+  [
+   "önceki",
+   "previous"
+  ],
+  [
+   "cm⁻¹ · Şimdi:",
+   "cm⁻¹ · Now:"
+  ],
+  [
+   "</b>. Kütle neredeyse iki katına çıktı ama bant yalnız √2\\'ye yakın bir oranla kaydı: ν̃ ∝ 1/√μ. Döteryum değişimi deneylerinde O–H bandının 2500-2700 cm⁻¹ bölgesine inmesinin nedeni budur.",
+   "</b>. The mass almost doubled, but the band shifted only by a ratio close to √2: ν̃ ∝ 1/√μ. This is why the O–H band drops to the 2500-2700 cm⁻¹ region in deuterium exchange experiments."
+  ],
+  [
+   "fs oldu; önerilen Δt",
+   "fs; the suggested Δt"
+  ],
+  [
+   "fs</b>. Bu, MD\\'de hidrojen kütlesini yeniden dağıtma (HMR) hilesidir; tezgâhta deneyin.",
+   "fs</b>. This is the hydrogen mass repartitioning (HMR) trick used in MD; try it on the bench."
+  ],
+  [
+   "</b> ≈ √(k oranı). ν̃ ∝ √k: tek, çift ve üçlü C–O bağlarının bantlarının sırayla yükselmesi bundandır.",
+   "</b> ≈ √(k ratio). ν̃ ∝ √k: this is why the bands of single, double and triple C–O bonds rise in turn."
+  ],
+  [
+   "Hem atomlar hem sertlik değişti; etkileri ayırmak için bir seferde yalnız birini değiştirin.",
+   "Both the atoms and the stiffness changed; to separate the effects, change only one at a time."
+  ],
+  [
+   "hesap çöktü: atomlar sayısal olarak birbirinden koptu",
+   "the calculation blew up: the atoms flew apart numerically"
+  ],
+  [
+   "çöktü (",
+   "blew up (step "
+  ],
+  [
+   ". adım)",
+   ")"
+  ],
+  [
+   "kararlı",
+   "stable"
+  ],
+  [
+   "çöktü",
+   "blew up"
+  ],
+  [
+   "· ilk 3 titreşim: gerçek hareket (çizgi) ve integratörün her Δt\\'deki hesabı (nokta)",
+   "· first 3 vibrations: the real motion (line) and the integrator\\'s calculation at every Δt (dots)"
+  ],
+  [
+   "periyot başına hesap",
+   "calculations per period"
+  ],
+  [
+   "en büyük enerji hatası",
+   "largest energy error"
+  ],
+  [
+   "<span>× hesap çöktü</span><span>",
+   "<span>× calculation blew up</span><span>"
+  ],
+  [
+   "çöker",
+   "blows up"
+  ],
+  [
+   "IR spektrumunda 1650 cm⁻¹\\'de bir bant görüyorsunuz. Bu titreşimin periyodu yaklaşık ne kadardır?",
+   "You see a band at 1650 cm⁻¹ in an IR spectrum. About how long is the period of this vibration?"
+  ],
+  [
+   "Yaklaşık 2 fs",
+   "About 2 fs"
+  ],
+  [
+   "Yaklaşık 200 fs",
+   "About 200 fs"
+  ],
+  [
+   "Yaklaşık 2 ps",
+   "About 2 ps"
+  ],
+  [
+   "fs. Bu, proteinlerin amid I bandıdır ve büyük ölçüde C=O gerilmesidir.",
+   "fs. This is the amide I band of proteins, mostly C=O stretching."
+  ],
+  [
+   "Bir örnekte O–H grupları döteryumla değiştirildi. O–H bandı (",
+   "In a sample, the O–H groups were exchanged with deuterium. Where does the O–H band ("
+  ],
+  [
+   "cm⁻¹) nereye kayar ve bu bağ için MD\\'de izin verilen Δt ne olur?",
+   "cm⁻¹) shift, and what happens to the Δt allowed for this bond in MD?"
+  ],
+  [
+   "Bant iki katına çıkar, Δt küçülmeli",
+   "The band doubles; Δt must become smaller"
+  ],
+  [
+   "Bant hiç değişmez, çünkü bağ aynıdır",
+   "The band does not change at all, because the bond is the same"
+  ],
+  [
+   "Bant yaklaşık",
+   "The band drops to about"
+  ],
+  [
+   "cm⁻¹\\'e iner; titreşim yavaşladığı için Δt yaklaşık",
+   "cm⁻¹; because the vibration slows down, Δt can grow by a factor of about"
+  ],
+  [
+   "kat büyüyebilir",
+   ""
+  ],
+  [
+   "Bant yarıya iner, Δt iki katına çıkabilir",
+   "The band halves; Δt can double"
+  ],
+  [
+   "Yay aynıdır, yalnız kütle değişir: ν̃ ∝ 1/√μ. İndirgenmiş kütle neredeyse iki katına çıkar ama bant yalnız",
+   "The spring is the same, only the mass changes: ν̃ ∝ 1/√μ. The reduced mass almost doubles, but the band drops only by a factor of"
+  ],
+  [
+   "kat iner. Atölyede bunu kendiniz denediniz.",
+   ". You tried this yourself in the workshop."
+  ],
+  [
+   "Bir MD koşusunda zaman adımını yarıya indirirseniz enerji hatası ve hesap süresi nasıl değişir?",
+   "If you halve the time step in an MD run, how do the energy error and the computing time change?"
+  ],
+  [
+   "Hata yarıya iner, süre değişmez",
+   "The error halves, the time stays the same"
+  ],
+  [
+   "Hata değişmez, süre yarıya iner",
+   "The error stays the same, the time halves"
+  ],
+  [
+   "Hata iki katına çıkar",
+   "The error doubles"
+  ],
+  [
+   "Hata dörtte birine iner, aynı simülasyon süresi için iki kat adım gerekir",
+   "The error drops to a quarter; twice as many steps are needed for the same simulated time"
+  ],
+  [
+   "Hız-Verlet\\'te hata Δt²\\'yle büyür; defterinizdeki eğim bunu gösterir. Ama aynı fiziksel süreyi hesaplamak için adım sayısı iki katına çıkar.",
+   "In velocity Verlet the error grows as Δt²; the slope in your notebook shows this. But computing the same physical time takes twice as many steps."
+  ],
+  [
+   "O–H bağları serbest bırakılmış (kısıtlanmamış) bir sistemde Δt = 2 fs ile ne olur?",
+   "What happens with Δt = 2 fs in a system where the O–H bonds are left free (not constrained)?"
+  ],
+  [
+   "Hesap çökmez ama O–H titreşimi çok kaba izlenir: bu modelde enerji hatası yaklaşık",
+   "The calculation does not blow up, but the O–H vibration is followed very coarsely: in this model the energy error is about"
+  ],
+  [
+   "Hesap hemen çöker",
+   "The calculation blows up at once"
+  ],
+  [
+   "Hiçbir sorun olmaz",
+   "There is no problem at all"
+  ],
+  [
+   "Yalnız C–C bağları etkilenir",
+   "Only C–C bonds are affected"
+  ],
+  [
+   "O–H periyodu yaklaşık",
+   "The O–H period is about"
+  ],
+  [
+   "fs; 2 fs periyot başına yalnız",
+   "fs; 2 fs means only"
+  ],
+  [
+   "hesap demektir. Çöküş sınırı T/π ≈",
+   "calculations per period. Since the blow-up limit is T/π ≈"
+  ],
+  [
+   "fs olduğundan hesap sürer, ama kararlı olmak doğru olmak demek değildir.",
+   "fs, the calculation continues, but being stable does not mean being correct."
+  ],
+  [
+   "Protein simülasyonlarında 2 fs neden yaygın olarak kullanılabiliyor?",
+   "Why can 2 fs be used so widely in protein simulations?"
+  ],
+  [
+   "Proteinler yavaş hareket ettiği için",
+   "Because proteins move slowly"
+  ],
+  [
+   "Su molekülleri hareketsiz tutulduğu için",
+   "Because water molecules are held still"
+  ],
+  [
+   "H içeren bağların uzunluğu sabitlendiği (kısıtlandığı) için; en hızlı kalan titreşimler yaklaşık 20 fs\\'liktir",
+   "Because the lengths of bonds involving H are fixed (constrained); the fastest remaining vibrations are about 20 fs"
+  ],
+  [
+   "GROMACS enerji hatasını düzelttiği için",
+   "Because GROMACS corrects the energy error"
+  ],
+  [
+   "SHAKE, LINCS ve SETTLE bu bağları sabitler. Geriye kalan en hızlı titreşimler (C=O gibi) yaklaşık 20 fs periyotludur; 2 fs, periyodun onda biridir. HMR ile hidrojen ağırlaştırılırsa 4 fs\\'ye kadar çıkılabilir.",
+   "SHAKE, LINCS and SETTLE fix these bonds. The fastest remaining vibrations (such as C=O) have periods of about 20 fs; 2 fs is one tenth of the period. With HMR, where hydrogen is made heavier, up to 4 fs is possible."
+  ],
+  [
+   "Tezgâhtaki \"enerji hatası\" gerçek bir MD koşusunda neye benzer?",
+   "What does the \"energy error\" on the bench correspond to in a real MD run?"
+  ],
+  [
+   "Molekülün gerçekten ısınmasına",
+   "The molecule really heating up"
+  ],
+  [
+   "Fiziksel olmayan, tamamen sayısal bir enerji dalgalanmasına; büyük sistemlerde sistemin yapay olarak ısınması ya da soğuması olarak da görülebilir",
+   "An unphysical, purely numerical energy fluctuation; in large systems it can also appear as artificial heating or cooling of the system"
+  ],
+  [
+   "Deneysel ölçüm hatasına",
+   "An experimental measurement error"
+  ],
+  [
+   "Kuvvet alanındaki parametre hatasına",
+   "A parameter error in the force field"
+  ],
+  [
+   "Yalıtılmış bir sistemde toplam enerji korunur. Sapmanın kaynağı hesaplama aralığıdır; bu yüzden enerji korunumu, zaman adımını denetlemenin en temel yoludur.",
+   "In an isolated system the total energy is conserved. The deviation comes from the calculation interval; this is why energy conservation is the most basic way to check the time step."
+  ],
+  [
+   "duruyor gibi",
+   "seems to stand still"
+  ],
+  [
+   "fs · kareler her",
+   "fs · a frame every"
+  ],
+  [
+   "fs, görünen",
+   "fs, apparent"
+  ],
+  [
+   "· Şimdi:",
+   "· Now:"
+  ],
+  [
+   "Periyot başına",
+   "At"
+  ],
+  [
+   "kare: kareler titreşimi doğru gösteriyor.",
+   "frames per period the frames show the vibration correctly."
+  ],
+  [
+   "Kareler hep aynı evreye düşüyor: titreşim duruyor gibi.",
+   "The frames always fall on the same phase: the vibration seems to stand still."
+  ],
+  [
+   "kare: kareler gerçekte olmayan,",
+   "frames per period the frames show a vibration that does not exist in reality,"
+  ],
+  [
+   "kat yavaş bir titreşim gösteriyor.",
+   "times slower."
+  ],
+  [
+   "</b> periyotlu, gerçeğinden",
+   "</b>, a vibration"
+  ],
+  [
+   "kat yavaş bir titreşim gösteriyor. Bu hareket fiziksel değildir; kayıt aralığının ürünüdür. 1 ps aralıkla kaydedilmiş bir trajektoride bağ titreşimleri hiç görülemez, görünen küçük kıpırtılar bu tür izlerdir.",
+   "times slower than the real one. This motion is not physical; it is a product of the saving interval. In a trajectory saved every 1 ps, bond vibrations cannot be seen at all; the small jiggles you see are traces of this kind."
+  ],
+  [
+   "φ açısı",
+   "φ angle"
+  ],
+  [
+   "ps\\'de bir kare",
+   "ps"
+  ],
+  [
+   "1 ps değerine oran",
+   "ratio to the 1 ps value"
+  ],
+  [
+   "kayıt aralığı",
+   "saving interval"
+  ],
+  [
+   "<span><i style=\"background:var(--c3);border-radius:2px\"></i>αR payı</span><span><i style=\"background:var(--accent)\"></i>sayılan durum değişimi</span><span>",
+   "<span><i style=\"background:var(--c3);border-radius:2px\"></i>αR fraction</span><span><i style=\"background:var(--accent)\"></i>state changes counted</span><span>"
+  ],
+  [
+   "Denge payı, RMSD dağılımı gibi ortalamalar",
+   "Equilibrium fractions and averages such as the RMSD distribution"
+  ],
+  [
+   "Seyrek kayıt çoğunlukla yeter; belirleyici olan koşunun toplam süresi ve bağımsız örnek sayısıdır.",
+   "Sparse saving is usually enough; what matters is the total length of the run and the number of independent samples."
+  ],
+  [
+   "αR payı 1 ps\\'te",
+   "αR fraction at 1 ps"
+  ],
+  [
+   "Geçiş hızları ve kalma süreleri",
+   "Transition rates and residence times"
+  ],
+  [
+   "Kayıt aralığı kalma süresinden çok kısa olmalı; yoksa geçişler kaçar ve süreç yavaş görünür.",
+   "The saving interval must be much shorter than the residence time; otherwise transitions are missed and the process looks slow."
+  ],
+  [
+   "Durum değişimi 1 ps\\'te",
+   "State changes at 1 ps:"
+  ],
+  [
+   "; ortalama kalma süresi yaklaşık",
+   "; mean residence time about"
+  ],
+  [
+   "Titreşim spektrumu (hızların özilişkisi)",
+   "Vibrational spectrum (autocorrelation of velocities)"
+  ],
+  [
+   "Kayıt aralığı en hızlı titreşimin yarım periyodundan kısa olmalı; bu, femtosaniye düzeyinde kayıt demektir.",
+   "The saving interval must be shorter than half the period of the fastest vibration; that means saving at the femtosecond level."
+  ],
+  [
+   "1 ps kayıtla O–H titreşimi (",
+   "With 1 ps saving the O–H vibration ("
+  ],
+  [
+   "fs) görülemez",
+   "fs) cannot be seen"
+  ],
+  [
+   "O–H gerilmesinin periyodu yaklaşık",
+   "The period of the O–H stretch is about"
+  ],
+  [
+   "fs. Bu titreşimi tam",
+   "fs. If you save this vibration at an interval of exactly"
+  ],
+  [
+   "fs aralıkla kaydederseniz trajektoride ne görürsünüz?",
+   "fs, what do you see in the trajectory?"
+  ],
+  [
+   "Titreşimi doğru görürsünüz",
+   "You see the vibration correctly"
+  ],
+  [
+   "Bağ hiç titreşmiyor gibi görünür",
+   "The bond looks as if it does not vibrate at all"
+  ],
+  [
+   "Titreşim iki kat hızlı görünür",
+   "The vibration looks twice as fast"
+  ],
+  [
+   "Kayıt aralığı hesabı bozar ve simülasyon çöker",
+   "The saving interval spoils the calculation and the simulation blows up"
+  ],
+  [
+   "Her kare titreşimin aynı evresine düşer; filmdeki duran tekerlekle aynı olay. Hesabın kendisi etkilenmez.",
+   "Every frame falls on the same phase of the vibration; the same effect as the wheel standing still in a film. The calculation itself is not affected."
+  ],
+  [
+   "Bir titreşimin kaydedilmiş karelerde doğru periyotla görünmesi için kayıt aralığı en fazla ne olmalıdır?",
+   "At most how long may the saving interval be for a vibration to appear with the correct period in the saved frames?"
+  ],
+  [
+   "Periyot kadar",
+   "As long as the period"
+  ],
+  [
+   "Periyodun iki katı",
+   "Twice the period"
+  ],
+  [
+   "Periyodun yarısından kısa",
+   "Shorter than half the period"
+  ],
+  [
+   "Kayıt aralığı fark etmez",
+   "The saving interval does not matter"
+  ],
+  [
+   "Periyot başına en az iki kare gerekir (Δ < T/2). Stroboskop atölyesinde bu sınırın hemen üstünde görünen periyodun bozulduğunu gördünüz.",
+   "At least two frames per period are needed (Δ < T/2). In the stroboscope workshop you saw that the apparent period breaks down just above this limit."
+  ],
+  [
+   "Ortalamalar seyrek kayda dayanıklıdır, geçiş sayısı değildir. Seyrek kayıtta iki kare arasındaki gidip gelmeler görünmez olur.",
+   "Averages are robust to sparse saving; the number of transitions is not. With sparse saving, back-and-forth changes between two frames become invisible."
+  ],
+  [
+   "Kayıt aralığını 10 katına çıkarırsanız dosya boyutu yaklaşık ne olur?",
+   "If you make the saving interval 10 times longer, about how large does the file become?"
+  ],
+  [
+   "Yaklaşık 10\\'da birine iner",
+   "About one tenth"
+  ],
+  [
+   "Değişmez",
+   "It does not change"
+  ],
+  [
+   "10 kat büyür",
+   "It becomes 10 times larger"
+  ],
+  [
+   "Kare sayısı 10\\'da birine iner; her kare aynı yeri tuttuğu için dosya da yaklaşık 10\\'da birine iner.",
+   "The number of frames drops to one tenth; since every frame takes the same space, the file also drops to about one tenth."
+  ],
+  [
+   "Kayıt aralığını büyütmek simülasyonun doğruluğunu nasıl etkiler?",
+   "How does a longer saving interval affect the accuracy of the simulation?"
+  ],
+  [
+   "Hata büyür, çünkü hesap seyrekleşir",
+   "The error grows because the calculation becomes sparser"
+  ],
+  [
+   "Hata küçülür",
+   "The error shrinks"
+  ],
+  [
+   "Etkilemez: kuvvetler yine her 2 fs\\'de hesaplanır; yalnız dosyaya yazılan kareler seyrekleşir",
+   "It does not: the forces are still computed every 2 fs; only the frames written to the file become sparser"
+  ],
+  [
+   "Zaman adımı (Laboratuvar 2) doğruluğu belirler; kayıt aralığı yalnız sonradan neyi görebileceğinizi belirler.",
+   "The time step (Lab 2) determines the accuracy; the saving interval only determines what you can see afterwards."
+  ],
+  [
+   "Bir ligandın bağlanma cebinde ne kadar kaldığını ölçmek istiyorsunuz; tipik kalma süresinin onlarca pikosaniye olduğunu biliyorsunuz. Hangi kayıt aralığı uygundur?",
+   "You want to measure how long a ligand stays in its binding pocket; you know that the typical residence time is tens of picoseconds. Which saving interval is suitable?"
+  ],
+  [
+   "Kalma süresinden çok kısa, örneğin 1 ps",
+   "Much shorter than the residence time, for example 1 ps"
+  ],
+  [
+   "Kayıt aralığı kalma süresine yaklaşırsa kısa ziyaretler kaçar ve kalma süreleri yanlış ölçülür. Tezgâhta 1 ps\\'ten seyreldikçe sayılan geçişlerin hızla azaldığını gördünüz.",
+   "If the saving interval approaches the residence time, short visits are missed and residence times are measured wrongly. On the bench you saw that the transitions counted fall quickly as the saving becomes sparser than 1 ps."
+  ],
+  [
+   "<dt>Bağ</dt>",
+   "<dt>Bond</dt>"
+  ],
+  [
+   "'Eğim henüz çözülmedi: bu noktalarla geçiş sayısının bariyerle azaldığı görülemiyor. En düşük ve en yüksek bariyer arasında en az 5 kJ/mol olsun, gerekirse her bariyerde birkaç ns daha hesaplayın; geçiş sayıları rastgeledir.'",
+   "'The slope is not resolved yet: with these points, the decrease of the crossings with the barrier cannot be seen. Keep at least 5 kJ/mol between the lowest and the highest barrier and, if needed, compute a few more ns at each barrier; crossing counts are random.'"
+  ],
+  [
+   "</b>. Kuantum ortalama enerji '",
+   "</b>. Quantum mean energy '"
+  ],
+  [
+   "title=\"klasik değer\"",
+   "title=\"classical value\""
+  ],
+  [
+   "'enerji (kT)'",
+   "'energy (kT)'"
+  ],
+  [
+   "Å/ps · konum x: '",
+   "Å/ps · position x: '"
+  ],
+  [
+   "'konum x (Å)'",
+   "'position x (Å)'"
+  ],
+  [
+   "fs</b>. Oran '",
+   "fs</b>. Ratio '"
+  ],
+  [
+   "' · periyot '",
+   "' · period '"
+  ],
+  [
+   "' milyon'",
+   "' million'"
+  ],
+  [
+   "'Cevaplanan: '",
+   "'Answered: '"
+  ],
+  [
+   "' deneme</span>'",
+   "' trials</span>'"
+  ],
+  [
+   "'bariyer '",
+   "'barrier '"
+  ],
+  [
+   "' fs ilerletildi'",
+   "' fs'"
+  ],
+  [
+   "'H (1,008 u)'",
+   "'H (1.008 u)'"
+  ],
+  [
+   "'C (12,011 u)'",
+   "'C (12.011 u)'"
+  ],
+  [
+   "' kata karşılık gelir.</p>'",
+   "'.</p>'"
+  ],
+  [
+   "<th>Bağ</th>",
+   "<th>Bond</th>"
+  ],
+  [
+   "<h4>Kural ne?</h4>",
+   "<h4>What is the rule?</h4>"
+  ],
+  [
+   "'zaman · her '",
+   "'time · a frame every '"
+  ],
+  [
+   "/* ---------- keşif laboratuvarları (temel keşif kalıbı) ---------- */",
+   "/* ---------- discovery labs (basic discovery pattern) ---------- */"
+  ],
+  [
+   "<span>1) Kuvvet: F = −dU/dx(x =",
+   "<span>1) Force: F = −dU/dx(x ="
+  ],
+  [
+   "'Henüz çöken bir deneme yok.'",
+   "'No trial has blown up yet.'"
+  ],
+  [
+   "'İki bağda deneme var. Şimdi yatay ekseni \"periyot başına hesap\"a çevirin.'",
+   "'There are trials on two bonds. Now switch the horizontal axis to \"calculations per period\".'"
+  ],
+  [
+   "'En az iki bağda, her birinde en az 2 kararlı deneme gerekli (atölyeden bağ değiştirip tezgâhta deneyin).'",
+   "'You need at least 2 stable trials on each of at least two bonds (change the bond in the workshop and try it on the bench).'"
+  ],
+  [
+   "'1 ps\\'i ve 100 ps ya da daha seyrek bir aralığı deneyin.'",
+   "'Try 1 ps and an interval of 100 ps or sparser.'"
+  ],
+  [
+   "<div class=\"lbl\">Bağ</div>",
+   "<div class=\"lbl\">Bond</div>"
+  ],
+  [
+   "new Intl.NumberFormat('tr-TR'",
+   "new Intl.NumberFormat('en-US'"
+  ],
+  [
+   "var pc=function(s){return '%'+s;}; // yüzde işareti dile göre (Türkçede önde)",
+   "var pc=function(s){return s+'%';}; // percent sign after the number in English"
+  ],
+  [
+   "DT.toString().replace('.',',')",
+   "DT.toString()"
+  ],
+  [
+   "<span>Dalga boyu λ</span>",
+   "<span>Wavelength λ</span>"
+  ],
+  [
+   "<span class=\"lab-tag\">3 · Tezgâh</span>",
+   "<span class=\"lab-tag\">3 · Bench</span>"
+  ],
+  [
+   "<span class=\"lab-tag\">2 · Tezgâh</span>",
+   "<span class=\"lab-tag\">2 · Bench</span>"
+  ],
+  [
+   "300 K'de kT = 2,49 kJ/mol",
+   "kT = 2.49 kJ/mol at 300 K"
+  ],
+  [
+   ">Oynat<",
+   ">Play<"
+  ],
+  [
+   "'Oynat'",
+   "'Play'"
+  ],
+  [
+   "'Durdur'",
+   "'Pause'"
+  ],
+  [
+   "<dt>Toplam enerji</dt>",
+   "<dt>Total energy</dt>"
+  ],
+  [
+   ">Defteri temizle<",
+   ">Clear notebook<"
+  ],
+  [
+   "<th>Klasik MD'de</th>",
+   "<th>In classical MD</th>"
+  ],
+  [
+   ">1. atom<",
+   ">Atom 1<"
+  ],
+  [
+   ">2. atom<",
+   ">Atom 2<"
+  ],
+  [
+   "<span>Bant yeri ν̃</span>",
+   "<span>Band position ν̃</span>"
+  ],
+  [
+   "<dt>Durum</dt>",
+   "<dt>Status</dt>"
+  ],
+  [
+   ">Sizin denemeleriniz<",
+   ">Your trials<"
+  ],
+  [
+   "aria-label=\"Yatay eksen\"",
+   "aria-label=\"Horizontal axis\""
+  ],
+  [
+   "<span class=\"lbl\">Yatay eksen</span>",
+   "<span class=\"lbl\">Horizontal axis</span>"
+  ],
+  [
+   ">2 fs nereden geliyor?<",
+   ">Where does 2 fs come from?<"
+  ],
+  [
+   "<th>Periyot T (fs)</th>",
+   "<th>Period T (fs)</th>"
+  ],
+  [
+   "<dt>Dosya boyutu</dt>",
+   "<dt>File size</dt>"
+  ],
+  [
+   "<th>Soru</th>",
+   "<th>Question</th>"
+  ],
+  [
+   "<th>Pilot veride</th>",
+   "<th>In the pilot data</th>"
+  ],
+  [
+   "'klasik yeter'",
+   "'classical is enough'"
+  ],
+  [
+   "'kuantum'",
+   "'quantum'"
+  ],
+  [
+   "'Sizin denemeniz: '",
+   "'Your trial: '"
+  ],
+  [
+   "'O–H gerilmesi'",
+   "'O–H stretch'"
   ],
   [
    "'C–H gerilmesi'",
    "'C–H stretch'"
   ],
   [
-   "'H içeren açı titreşimi'",
-   "'Angle bend involving H'"
+   "'C–C gerilmesi'",
+   "'C–C stretch'"
   ],
   [
-   "'C=O gerilmesi'",
-   "'C=O stretch'"
+   "'CH₃ grubu (15,035 u)'",
+   "'CH₃ group (15.035 u)'"
   ],
   [
-   "' · en hızlı'",
-   "' · fastest'"
+   "'toplam enerji'",
+   "'total energy'"
   ],
   [
-   "'zaman (fs) · '",
-   "'time (fs) · '"
+   "'sol kuyu'",
+   "'left well'"
   ],
   [
-   "'uzanım'",
-   "'displacement'"
+   "'Sizin denemeniz, bariyer '",
+   "'Your trial, barrier '"
   ],
   [
-   "'mavi: adım başına alınan değerler · '",
-   "'blue: values sampled at each step · '"
+   "'Sizin denemeleriniz: '",
+   "'Your trials: with '"
   ],
   [
-   "' adım/periyot'",
-   "' steps/period'"
+   "'bariyer (kJ/mol)'",
+   "'barrier (kJ/mol)'"
   ],
   [
-   "'≥ 5 adım/periyot'",
-   "'≥ 5 steps/period'"
+   "'alanin dipeptit + su (pilot)'",
+   "'alanine dipeptide + water (pilot)'"
   ],
   [
-   "'kaba'",
-   "'coarse'"
+   "['Elektronlar',",
+   "['Electrons',"
   ],
   [
-   "'kararsız'",
-   "'unstable'"
+   "'Klasik',",
+   "'Classical',"
   ],
   [
-   "' femtosaniye'",
-   "' femtoseconds'"
+   "['Tamamen durur',0]",
+   "['They stop completely',0]"
   ],
   [
-   "Kararsız: en hızlı titreşim bu adımla patlar.",
-   "Unstable: the fastest vibration blows up with this step."
+   "' cm⁻¹, oran <b>'",
+   "' cm⁻¹, ratio <b>'"
   ],
   [
-   "Kararlı ama kaba: periyot başına 5 adımın altında; bu titreşim doğru izlenmez.",
-   "Stable but coarse: fewer than 5 steps per period; this vibration is not followed accurately."
+   "'Hidrojene 3 u verince '",
+   "'Giving hydrogen 3 u changed the period of '"
   ],
   [
-   "Kılavuzu karşılıyor: en hızlı titreşimde periyot başına en az 5 adım.",
-   "Meets the guideline: at least 5 steps per period for the fastest vibration."
+   "'Sizin denemeniz: k '",
+   "'Your trial: k '"
   ],
   [
-   "Bir sayı yazın (femtosaniye).",
-   "Enter a number (femtoseconds)."
+   "' N/m, bant '",
+   "' N/m, band '"
   ],
   [
-   "Doğru: yaklaşık 2,0 fs (9,8 fs / 5). Kısıtı açınca en hızlı hareket H içeren açı titreşimi olur (≈13 fs) ve sınır yaklaşık 2,6 fs’e çıkar. Bu yüzden H içeren bağlar kısıtlıyken 2 fs rahat bir seçimdir.",
-   "Correct: about 2.0 fs (9.8 fs / 5). With the constraints on, the fastest motion becomes the angle bend involving H (≈13 fs) and the limit rises to about 2.6 fs. That is why 2 fs is a comfortable choice when bonds involving H are constrained."
+   "'Sizin denemeniz: Δ/T = '",
+   "'Your trial: Δ/T = '"
   ],
   [
-   "Bu değer C–H için geçerli olurdu. Listede daha hızlı bir titreşim var mı?",
-   "That value would hold for C–H. Is there a faster vibration in the list?"
+   "['Enerji korunumu bozulur',0]",
+   "['Energy conservation breaks down',0]"
   ],
   [
-   "En hızlı titreşimin periyodunu 5’e bölün. Listeye bakın; kısıt kapalı olmalı.",
-   "Divide the period of the fastest vibration by 5. Check the list; the constraints must be off."
+   "', 10 ps\\'te '",
+   "', at 10 ps '"
   ],
   [
-   "'kaydedilen kare · zaman'",
-   "'saved frame · time'"
+   "' periyodu <b>'",
+   "' period <b>'"
   ],
   [
-   "'hesaplanan adımlar (her biri 2 fs)'",
-   "'computed steps (2 fs each)'"
+   "' periyodu '",
+   "' from '"
   ],
   [
-   "'çizilemeyecek kadar sık: her karede '",
-   "'too dense to draw: '"
+   "'1 kat'",
+   "'1×'"
   ],
   [
-   "+' adım';c.top",
-   "+' steps per frame';c.top"
+   "+' kat')",
+   "+'×')"
   ],
   [
-   "'dosyaya yazılan kareler'",
-   "'frames written to file'"
-  ],
-  [
-   "+' adım';sl5",
-   "+(N5===1?' step':' steps');sl5"
-  ],
-  [
-   "' adımda bir kare'",
-   "(N5===1?' step per frame':' steps per frame')"
-  ],
-  [
-   "' (+ t = 0 karesi)'",
-   "' (plus the t = 0 frame)'"
-  ],
-  [
-   "Doğru: 1 ps / 2 fs = 500 adım; 250 ns / 1 ps = 250.000 kare (t = 0 karesi sayılırsa 250.001). Kaynak veride koşu başına 250.000 satır var. Ama bu 250.000 bağımsız ölçüm değildir: art arda kareler birbirine bağlıdır. Bunu 17. bölümde ölçeceğiz.",
-   "Correct: 1 ps / 2 fs = 500 steps; 250 ns / 1 ps = 250,000 frames (250,001 if the t = 0 frame is counted). The source data have 250,000 rows per run. But these are not 250,000 independent measurements: consecutive frames are correlated. We will measure this in Chapter 17."
-  ],
-  [
-   "Adım sayısı doğru. Kare sayısı için 250 ns kaç tane 1 ps eder?",
-   "The number of steps is correct. For the number of frames: how many 1 ps intervals fit into 250 ns?"
-  ],
-  [
-   "Kare sayısı doğru. İki kare arasındaki adım: 1 ps kaç tane 2 fs eder? (1 ps = 1000 fs)",
-   "The number of frames is correct. For the steps between two frames: how many 2 fs steps fit into 1 ps? (1 ps = 1000 fs)"
-  ],
-  [
-   "Önce birimleri eşitleyin: 1 ps = 1000 fs, 1 ns = 1000 ps. Yukarıdaki sürgüyle 500 adım seçip kontrol edebilirsiniz.",
-   "First convert everything to the same units: 1 ps = 1000 fs, 1 ns = 1000 ps. You can check by selecting 500 steps with the slider above."
-  ],
-  [
-   "Bir öğrenci: “Δt’yi 0,2’den 0,1’e indirdim, enerji sapması yaklaşık dörtte birine düştü. Demek ki seçtiğim protein kuvvet alanı doğru.”",
-   "A student says: “I reduced Δt from 0.2 to 0.1 and the energy deviation fell to about a quarter. So the protein force field I chose is correct.”"
-  ],
-  [
-   "Haklı: enerji korunuyorsa model doğrudur.",
-   "The student is right: if the energy is conserved, the model is correct."
-  ],
-  [
-   "Sayısal hata beklendiği gibi azaldı; bu, kuvvet alanının kimyasal doğruluğu hakkında bir şey söylemez.",
-   "The numerical error decreased as expected; this says nothing about the chemical accuracy of the force field."
-  ],
-  [
-   "Haklı değil, çünkü enerji sapması hiç azalmamalıydı.",
-   "The student is wrong, because the energy deviation should not have decreased at all."
-  ],
-  [
-   "Adım küçültmek yalnız denklemi daha iyi çözer. Kuvvet alanının doğru olup olmadığı, deneysel veya güvenilir başka hesaplarla karşılaştırarak sınanır. Yanlış yay, küçük adımla da yanlış yaydır.",
-   "Shrinking the step only solves the equation better. Whether the force field is correct is tested by comparison with experimental data or other reliable calculations. A wrong spring is still a wrong spring with a small step."
-  ],
-  [
-   "Bir koşuda 250.000 kare kaydedildi. Bu, 250.000 bağımsız ölçüm demek midir?",
-   "A run saved 250,000 frames. Does this mean 250,000 independent measurements?"
-  ],
-  [
-   "Hayır; art arda kareler aynı hareketin parçasıdır ve birbirine bağlıdır. Bağımsız bilgi daha azdır.",
-   "No; consecutive frames are parts of the same motion and are correlated with each other. There is less independent information."
-  ],
-  [
-   "Evet, her kare ayrı bir ölçümdür.",
-   "Yes, each frame is a separate measurement."
-  ],
-  [
-   "Yalnız termostat kullanıldıysa evet.",
-   "Yes, but only if a thermostat was used."
-  ],
-  [
-   "Kareler seyrek yazılsa da aynı yörüngenin ardışık anlarıdır. Kaç bağımsız bilgi içerdikleri, ölçülen niceliğin ne kadar hızlı “unuttuğuna” bağlıdır (17. bölüm).",
-   "Even when frames are written sparsely, they are successive moments of the same trajectory. How much independent information they contain depends on how quickly the measured quantity “forgets” (Chapter 17)."
-  ],
-  [
-   "Hidrojenli bağları kısıtlamak 2 fs adımı neden rahatlatır?",
-   "Why does constraining bonds involving hydrogen make a 2 fs step comfortable?"
-  ],
-  [
-   "Kuvvet alanını daha doğru yapar.",
-   "It makes the force field more accurate."
-  ],
-  [
-   "Toplam enerjiyi sabit tutar.",
-   "It keeps the total energy constant."
-  ],
-  [
-   "En hızlı titreşimleri (≈10 fs) kaldırır; geriye kalan en hızlı hareketin periyodu ≈13 fs olur ve 5 adım kuralı ≈2,6 fs’e izin verir.",
-   "It removes the fastest vibrations (≈10 fs); the fastest remaining motion has a period of ≈13 fs, and the 5-step rule allows ≈2.6 fs."
-  ],
-  [
-   "Kısıt, bu bağların uzunluğunu sabitler; bağ titreşimi artık integratörün izlemesi gereken bir hareket değildir. En kısa kalan periyot adımı belirler.",
-   "The constraint fixes the lengths of these bonds; the bond vibration is no longer a motion the integrator has to follow. The shortest remaining period sets the step."
-  ],
-  [
-   "aria-label=\"Soru '",
-   "aria-label=\"Question '"
-  ],
-  [
-   "' seçenekleri\"",
-   "' options\""
-  ],
-  [
-   ">Doğru.<",
-   ">Correct.<"
-  ],
-  [
-   ">Tekrar düşünün.<",
-   ">Think again.<"
-  ],
-  [
-   "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
-   "if(/,/.test(str))str=/^-?[1-9]\\d{0,2}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
-  ],
-  [
-   "if(whole&&/^-?\\d{1,3}(\\.\\d{3})+$/.test(str))str=str.replace(/\\./g,'');",
-   "if(whole&&/^-?\\d{1,3}(,\\d{3})+$/.test(str))str=str.replace(/,/g,'');"
+   "; kareler <b>'",
+   "; the frames show a period of <b>'"
   ]
  ],
  "keep": [
-  "Lennard-Jones",
-  "state bad",
-  "state warn",
-  "state good",
-  "</sub> = x + vΔt + ½aΔt²"
+  "state boom",
+  "Schrödinger equation",
+  "instead of Schrödinger",
+  "not Schrödinger?",
+  "Disk",
+  "U (kJ/mol)",
+  "<small>kJ/mol ·",
+  "<small>kJ/mol</small>"
  ]
 }
