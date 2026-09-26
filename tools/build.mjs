@@ -34,6 +34,7 @@ const UI = {
     foot: (b) => `Önizleme yayınıdır ve arama motorlarına kapalıdır. Modüller tarayıcıda çalışır; sunucuda hesap yapılmaz. MD modüllerinde koşular gerçek zamanlı çalıştırılmaz; önceden hesaplanmış gerçek veriler rehberli olarak yeniden oynatılır ve bu, ilgili sayfada açıkça belirtilir. Veri lisansları: PDB yapıları CC0 1.0; ChEMBL'den türetilen veri CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Yapı: ${b}.`,
     short: 'Kısa adres', version: 'sürüm', statusW: 'durum',
     preview: 'Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı.', all: 'Bütün modüller',
+    seqNav: 'Modüller arası geçiş', prev: 'Önceki modül', next: 'Sonraki modül', allOf: (t) => `Bütün ${t} modülleri`,
     mt: '',
     nfTitle: 'Sayfa bulunamadı', nfH: 'Bu adreste bir modül yok',
     nfP: 'Kitaptaki karekoddan geldiyseniz kısa kodu kontrol edin (örneğin <code>/tr/l/DK-T</code>). Bütün modüller <a href="/tr/">ana sayfada</a> listelenir.',
@@ -52,6 +53,7 @@ const UI = {
     foot: (b) => `This is a preview and is closed to search engines. Modules run in your browser; nothing is computed on the server. In the MD modules runs are not executed live; precomputed real data are replayed as a guided run, and the page says so explicitly. Data licences: PDB structures CC0 1.0; data derived from ChEMBL CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Build: ${b}.`,
     short: 'Short address', version: 'version', statusW: 'status',
     preview: 'Preview release; no scientific or target-reader review has been done yet.', all: 'All modules',
+    seqNav: 'Move between modules', prev: 'Previous module', next: 'Next module', allOf: (t) => `All ${t} modules`,
     mt: 'The English text is a machine translation of the Turkish original and has not yet been reviewed by a person.',
     nfTitle: 'Page not found', nfH: 'There is no module at this address',
     nfP: 'If you came from a QR code in the book, check the short code (for example <code>/en/l/DK-T</code>). All modules are listed on the <a href="/en/">home page</a>.',
@@ -90,6 +92,15 @@ const BAR_CSS = `<style id="ahl-bar-css">
 .ahl-bar .ahl-r{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.ahl-bar .ahl-meta{opacity:.8}
 .ahl-lang{display:inline-flex;align-items:center;gap:6px;font-weight:600;letter-spacing:.04em}
 .ahl-lang .on{background:#faf9f5;color:#243744;border-radius:3px;padding:1px 6px}.ahl-lang a{padding:1px 4px}.ahl-lang .sep{opacity:.45}
+.ahl-seq{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;max-width:1060px;margin:48px auto 0;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch}
+.ahl-seq a{display:block;text-decoration:none;color:#23394a;border:1px solid #d6d6cd;border-radius:10px;padding:12px 14px;background:#fffefb;line-height:1.35}
+.ahl-seq a:hover,.ahl-seq a:focus-visible{border-color:#23394a;box-shadow:0 1px 0 #23394a}
+.ahl-seq .ahl-k{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#934b3c;font-weight:600;margin-bottom:3px}
+.ahl-seq .ahl-t{display:block;font-size:14.5px;font-weight:600}
+.ahl-seq .ahl-next{text-align:right}
+.ahl-seq .ahl-hub{align-self:center;font-size:13px;padding:10px 12px;border-style:dashed;text-align:center}
+.ahl-seq .ahl-gap{visibility:hidden}
+@media (max-width:640px){.ahl-seq{grid-template-columns:1fr;margin-top:36px}.ahl-seq .ahl-next{text-align:left}.ahl-seq .ahl-gap{display:none}.ahl-seq .ahl-hub{order:3}}
 .ahl-foot{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;max-width:1060px;margin:40px auto 0;border-top:1px solid #d6d6cd;padding-top:14px;font-size:12.5px;line-height:1.6;color:#5f6a73}
 .ahl-notice{background:#f5ecd9;color:#6b4a12;border-left:3px solid #96661c;padding:10px 14px;border-radius:0 4px 4px 0;margin:0 0 10px}
 </style>`;
@@ -127,10 +138,14 @@ for (const m of M.modules) {
     const notice = T(L, m, 'notice');
     const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(U.mt)}` : '';
     const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${esc(U.preview)}${reviewedNote} <a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
+    const seq = M.modules.filter((x) => x.app === m.app && x.path);
+    const si = seq.findIndex((x) => x.id === m.id), sp = seq[si - 1], sn = seq[si + 1];
+    const card = (x, cls, rel, k) => `<a class="${cls}" rel="${rel}" href="/${L}/${x.path}"><span class="ahl-k">${esc(k)}</span><span class="ahl-t">${esc(x.id)} · ${esc(T(L, x, 'title'))}</span></a>`;
+    const seqNav = `<nav class="ahl-seq" aria-label="${esc(U.seqNav)}">${sp ? card(sp, 'ahl-prev', 'prev', '← ' + U.prev) : '<span class="ahl-gap"></span>'}<a class="ahl-hub" href="/${L}/${app.path}">${esc(U.allOf(T(L, app, 'title')))}</a>${sn ? card(sn, 'ahl-next', 'next', U.next + ' →') : '<span class="ahl-gap"></span>'}</nav>`;
     const bOpen = html.indexOf('<body>');
     const bClose = html.lastIndexOf('</body>');
     if (bOpen < 0 || bClose < 0) throw new Error(`${m.id}: <body> etiketi bulunamadı`);
-    html = html.slice(0, bOpen + 6) + '\n' + bar + '\n' + html.slice(bOpen + 6, bClose) + foot + '\n' + LANG_JS + '\n' + html.slice(bClose);
+    html = html.slice(0, bOpen + 6) + '\n' + bar + '\n' + html.slice(bOpen + 6, bClose) + seqNav + '\n' + foot + '\n' + LANG_JS + '\n' + html.slice(bClose);
     if (!/<html[^>]*\slang="tr"/.test(html)) throw new Error(`${m.id}: kaynakta <html lang="tr"> bekleniyordu`);
     html = html.replace(/(<html[^>]*\s)lang="tr"/, `$1lang="${L}"`);
     html = html.replace('</head>', alternates(m.path) + '\n' + ICON + '\n' + BAR_CSS + '\n</head>');

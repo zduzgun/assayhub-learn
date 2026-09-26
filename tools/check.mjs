@@ -95,6 +95,24 @@ for (const m of M.modules) {
   }
 }
 
+// 7) modül geçiş şeridi: yayındaki her modülün sayfasında, aynı uygulamadaki önceki/sonraki yayındaki modüle bağlantı
+for (const app of (M.apps || [])) {
+  const seq = M.modules.filter((m) => m.app === app.id && m.path);
+  seq.forEach((m, i) => {
+    for (const L of LANGS) {
+      const h = readFileSync(join(DIST, L, m.path, 'index.html'), 'utf8');
+      const nav = (h.match(/<nav class="ahl-seq"[\s\S]*?<\/nav>/) || [null])[0];
+      if (!nav) { fail(`${m.id} (${L}): modül geçiş şeridi yok`); continue; }
+      const prev = seq[i - 1], next = seq[i + 1];
+      if (prev && !nav.includes(`href="/${L}/${prev.path}"`)) fail(`${m.id} (${L}): önceki modül bağlantısı ${prev.id} değil`);
+      if (next && !nav.includes(`href="/${L}/${next.path}"`)) fail(`${m.id} (${L}): sonraki modül bağlantısı ${next.id} değil`);
+      if (!nav.includes(`href="/${L}/${app.path}"`)) fail(`${m.id} (${L}): geçiş şeridinde uygulama sayfası bağlantısı yok`);
+      if (!prev && /rel="prev"/.test(nav)) fail(`${m.id} (${L}): ilk modülde önceki bağlantısı olmamalı`);
+      if (!next && /rel="next"/.test(nav)) fail(`${m.id} (${L}): son modülde sonraki bağlantısı olmamalı`);
+    }
+  });
+}
+
 // 6) ortak motor bölgesi, assets-src/mdmini.js ile aynı olmalı
 { const e = checkSources(); e.bad.forEach((f) => fail(`${f}: mdmini bölgesi güncel değil (node tools/sync-engine.mjs)`)); if (e.used.length) notes.push(`mdmini kullanan sayfalar: ${e.used.join(', ')}`); }
 
