@@ -1,0 +1,1351 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simülasyon Kutusu Evren Değildir</title>
+<meta name="description" content="MD-PBC etkileşimli pilot bölüm: periyodik sınır koşulu, minimum görüntü, kesme mesafesi, komşu listesi, uzun erimli elektrostatik ve sonlu kutu. Sayılar tarayıcıda iki boyutlu bir Lennard-Jones oyuncak modeliyle canlı hesaplanır.">
+<style>
+:root{
+  --paper:#faf9f5; --ink:#243744; --muted:#5f6a73; --accent:#934b3c; --rule:#d6d6cd;
+  --panel:#f2f0e8; --panel-2:#ebe8de; --num:#2f6f95; --exact:#243744;
+  --good:#2f7254; --good-bg:#e3efe7; --warn:#96661c; --warn-bg:#f5ecd9; --bad:#a3402f; --bad-bg:#f6e3de;
+  --serif:Georgia,"Times New Roman",serif; --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --ala-c:#5F7486; --ala-c-hi:#93A6B5; --ala-n:#5C8FD6; --ala-n-hi:#9BBDEB; --ala-o:#E8746A; --ala-o-hi:#F5ADA5;
+  --ala-h:#F8F5EE; --ala-bond:#A7B6C0; --ala-edge:rgba(23,38,46,.24); --ala-face:#16222A; --ala-cheek:#F29E97;
+  --ala-ink:#17262E; --ala-accent:#1F8A7E; --ala-accent-ink:#FFFFFF; --ala-sweat:#9CC8F0; --ala-bulb:#F4CF5D; --ala-spark:#F4CF5D;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding-inline:20px;padding-block:0 80px}
+a{color:inherit;text-underline-offset:4px}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1060px;margin:0 auto}
+.prose{max-width:680px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 0 18px;border-bottom:1px solid var(--rule);font-size:13px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand b{font-family:var(--serif);font-size:26px;font-weight:normal;letter-spacing:-1px;border-right:1px solid var(--rule);padding-right:12px}
+.progress{display:flex;align-items:center;gap:10px}
+.progress .dots{display:flex;gap:5px}
+.progress .dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--accent);display:block}
+.progress .dots i.on{background:var(--accent)}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:30px;align-items:end;padding:54px 0 34px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 16px}
+h1{font-family:var(--serif);font-weight:normal;font-size:clamp(38px,5.2vw,58px);line-height:1.06;letter-spacing:-.03em;margin:0 0 18px;text-wrap:balance}
+.deck{font-family:var(--serif);font-size:21px;line-height:1.45;color:#4b5760;margin:0;max-width:40ch}
+.mast .ala-hello{width:150px}
+.goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);margin:0 0 56px}
+.goal{padding:16px 18px 18px 0;border-right:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start}
+.goal:last-child{border-right:0}
+.goal:not(:first-child){padding-left:18px}
+.goal span{font-family:var(--serif);font-size:26px;color:var(--accent);line-height:1}
+.goal p{margin:0;font-size:14px;line-height:1.5}
+section.unit{padding:10px 0 58px}
+h2{font-family:var(--serif);font-weight:normal;font-size:clamp(28px,3.4vw,36px);line-height:1.15;letter-spacing:-.02em;margin:0 0 18px;text-wrap:balance}
+h2 small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:600;margin-bottom:10px;text-transform:uppercase}
+.prose p{font-family:var(--serif);font-size:19px;line-height:1.68;margin:0 0 18px}
+.prose p.lead{font-size:21px}
+math{font-size:1.08em}
+.eq{margin:8px 0 22px;padding:14px 18px;background:var(--panel);border-left:3px solid var(--accent);font-size:21px;overflow-x:auto}
+.lab{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:22px 22px 18px;margin:26px 0 8px}
+.lab-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.lab-head h3{font-family:var(--serif);font-weight:normal;font-size:23px;margin:0}
+.lab-tag{font-size:11px;letter-spacing:.14em;font-weight:600;color:var(--accent);text-transform:uppercase}
+.lab-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,1fr);gap:22px;align-items:start}
+.sub{font-family:var(--serif);font-weight:normal;font-size:20px;margin:24px 0 8px}
+.plot{background:#fffefb;border:1px solid var(--rule);border-radius:4px;width:100%;height:auto;display:block;touch-action:none}
+.plot text{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.plot .axis{stroke:#8b949a;stroke-width:1}
+.plot .grid{stroke:#ebe9e1;stroke-width:1}
+.plot .curve{fill:none;stroke:var(--exact);stroke-width:2.4}
+.plot .num{fill:none;stroke:var(--num);stroke-width:2.2}
+.plot .num-dot{fill:var(--num)}
+.plot .err{fill:none;stroke:var(--accent);stroke-width:2.2}
+.plot .ghost{fill:none;stroke:#b9b6aa;stroke-width:1.6;stroke-dasharray:4 4}
+.plot .cut{stroke:var(--bad);stroke-width:1.6;stroke-dasharray:7 5}
+.plot .cutl{fill:var(--bad);font-weight:600}
+.plot .hint{fill:var(--muted);font-size:11px}
+.plot .lbl{fill:var(--ink);font-weight:600;font-size:13px}
+.ctrl{display:flex;flex-direction:column;gap:14px}
+.field label,.field .lbl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px}
+.field label output,.field .lbl output{font-family:var(--sans);font-variant-numeric:tabular-nums;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--rule);background:#fffefb;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip:disabled{opacity:.45;cursor:default}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:4px;padding:8px 14px;font-size:14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.readout{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;border-top:1px solid var(--rule);padding-top:12px;margin:0}
+.readout dt{color:var(--muted)} .readout dd{margin:0;font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.readout dt.h{grid-column:1 / -1;color:var(--accent);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-top:6px}
+.state{font-size:13px;font-weight:600;padding:8px 10px;border-radius:4px;line-height:1.5}
+.state:empty{display:none}
+.state.good{background:var(--good-bg);color:var(--good)} .state.warn{background:var(--warn-bg);color:var(--warn)} .state.bad{background:var(--bad-bg);color:var(--bad)}
+.state.info{background:#fffefb;color:var(--ink);border:1px solid var(--rule);font-weight:400}
+.task{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;align-items:start;margin-top:18px;padding-top:16px;border-top:1px dashed #c7c4b8}
+.task .ala-box svg{width:64px;height:auto;overflow:visible}
+.task h4{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.task p{margin:0 0 10px;font-size:15px;line-height:1.55}
+.task .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.task input[type=text]{width:120px;padding:7px 9px;border:1px solid #b9b6aa;border-radius:4px;background:#fffefb;font-variant-numeric:tabular-nums}
+.pair{font-variant-numeric:tabular-nums;background:#fffefb;border:1px solid var(--rule);border-radius:4px;padding:8px 10px;font-size:15px;line-height:1.6;margin:0 0 10px}
+.feedback{font-size:14px;margin:8px 0 0;min-height:1.4em;line-height:1.5}
+.feedback.ok{color:var(--good)} .feedback.no{color:var(--bad)}
+.done-badge{display:none;font-size:12px;font-weight:600;color:var(--good);border:1px solid var(--good);border-radius:999px;padding:2px 10px}
+.lab.is-done .done-badge{display:inline-block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0 0}
+.legend i{display:inline-block;width:18px;height:0;border-top:2.4px solid var(--exact);vertical-align:middle;margin-right:6px}
+.legend i.n{border-color:var(--num)} .legend i.e{border-color:var(--accent)} .legend i.g{border-color:#b9b6aa;border-top-style:dashed} .legend i.c{border-color:var(--bad);border-top-style:dashed}
+.legend b.dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--ink);vertical-align:bottom}
+th:first-child,td:first-child{text-align:left}
+td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:right}
+td.ok{color:var(--good);font-weight:600} td.no{color:var(--bad);font-weight:600}
+td.empty{text-align:left;color:var(--muted)}
+.ans{display:flex;flex-direction:column;gap:6px;margin:6px 0 8px}
+.ans button{text-align:left;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:8px 12px;font-size:14px;line-height:1.45;cursor:pointer}
+.ans button.right{border-color:var(--good);background:var(--good-bg)} .ans button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.ans button:disabled{cursor:default;opacity:.55}
+.yn{display:flex;gap:6px;flex-wrap:wrap}
+.quiz{display:flex;flex-direction:column;gap:22px}
+.q{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:18px 20px}
+.q p.stem{font-family:var(--serif);font-size:19px;line-height:1.55;margin:0 0 12px}
+.q .opts{display:flex;flex-direction:column;gap:6px}
+.q .opts button{text-align:left;border:1px solid var(--rule);background:#fffefb;border-radius:4px;padding:9px 12px;font-size:15px;line-height:1.45;cursor:pointer}
+.q .opts button.right{border-color:var(--good);background:var(--good-bg)}
+.q .opts button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.q .why{font-size:15px;line-height:1.55;margin:10px 0 0}
+.qscore{font-size:14px;font-weight:600;color:var(--muted);margin:14px 0 0}
+.bridge{display:grid;grid-template-columns:90px minmax(0,1fr);gap:18px;align-items:center;border-top:1px solid var(--ink);padding-top:22px}
+.bridge svg{width:90px;height:auto}
+.bridge p{font-family:var(--serif);font-size:18px;line-height:1.6;margin:0}
+.about{font-size:13px;line-height:1.6;color:var(--muted);border-top:1px solid var(--rule);margin-top:40px;padding-top:16px;max-width:760px}
+.about h3{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:18px 0 6px}
+.about p{margin:0 0 10px}
+.about ul{margin:0 0 10px;padding-left:18px}
+.nt{text-transform:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.live{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;align-items:start;background:#fffefb;border:1px solid var(--ink);border-left:4px solid var(--accent);padding:16px 18px;border-radius:0 6px 6px 0;margin:0 0 26px;max-width:860px}
+.live svg{width:72px;height:auto;overflow:visible}
+.live h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.live p{margin:0 0 8px;font-family:var(--serif);font-size:18px;line-height:1.6}
+.live p:last-child{margin-bottom:0}
+.live .seedrow{font-family:var(--sans);font-size:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.live .seedrow .btn{padding:5px 10px;font-size:13px}
+.recall{border:1px solid var(--rule);background:#fffefb;border-radius:6px;padding:16px 18px;margin:0 0 50px;display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;align-items:start}
+.recall svg{width:64px;height:auto;overflow:visible}
+.recall h4{margin:0 0 8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.recall ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 22px}
+.recall li{font-size:14px;line-height:1.5;padding-left:14px;position:relative}
+.recall li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.twocol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.simcap{font-size:13px;font-weight:600;margin:0 0 6px;display:flex;justify-content:space-between;gap:8px}
+.simcap span{font-weight:400;color:var(--muted);font-variant-numeric:tabular-nums}
+canvas.sim{width:100%;aspect-ratio:1/1;height:auto;display:block;background:#fffefb;border:1px solid var(--rule);border-radius:4px}
+select.pick{padding:6px 8px;border:1px solid #b9b6aa;border-radius:4px;background:#fffefb;font-size:13px}
+.picks{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px}
+.note{font-size:13px;line-height:1.55;color:var(--muted);margin:8px 0 0}
+svg.scene{background:#fffefb;border:1px solid var(--rule);border-radius:4px;width:100%;height:auto;display:block;touch-action:none;user-select:none;-webkit-user-select:none}
+svg.scene text{font-family:var(--sans);font-size:14px;fill:var(--ink)}
+svg.scene .pt{cursor:grab}
+@media (max-width:820px){
+  .lab-grid{grid-template-columns:minmax(0,1fr)}
+  .mast{grid-template-columns:minmax(0,1fr) 90px}
+  .mast .ala-hello{width:90px}
+  .goals{grid-template-columns:minmax(0,1fr)}
+  .goal{border-right:0;border-bottom:1px solid var(--rule);padding-left:0!important}
+  .goal:last-child{border-bottom:0}
+  .recall ul{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:600px){.plot text{font-size:21px}.plot .hint{font-size:17px}.plot .lbl{font-size:19px}svg.scene text{font-size:20px}}
+@media (max-width:480px){
+  .lab{padding:16px 14px}
+  .prose p{font-size:18px}
+  .task{grid-template-columns:48px minmax(0,1fr)}
+  .task .ala-box svg{width:48px}
+  .bridge{grid-template-columns:60px minmax(0,1fr)}
+  .bridge svg{width:60px}
+  .live,.recall{grid-template-columns:48px minmax(0,1fr)}
+  .live svg,.recall svg{width:48px}
+  .live p{font-size:17px}
+  .twocol{gap:8px}
+  table{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="topline">
+  <div class="brand"><b>MD</b><span>Biyomoleküler sistemlerde Moleküler Dinamik · Temel düzey</span></div>
+  <div class="progress" aria-live="polite"><span id="progText">Uygulamalar: 0 / 6</span><span class="dots" id="progDots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+</header>
+
+<div class="mast">
+  <div>
+    <p class="eyebrow">MD-PBC · Pilot bölüm · Etkileşimli sürüm</p>
+    <h1>Simülasyon kutusu evren değildir: periyodik sınır ve kesme</h1>
+    <p class="deck">Bir simülasyon birkaç bin ya da birkaç yüz bin atomu küçük bir kutuya koyar. Kutunun kenarında ne olacağına ve her atomun hangi komşularını hesaba katacağına bu sayfada siz karar vereceksiniz.</p>
+  </div>
+  <div class="ala-hello" data-ala="selam"></div>
+</div>
+
+<div class="live" role="note" aria-labelledby="liveH">
+  <div data-ala="kanit"></div>
+  <div>
+    <h4 id="liveH">Canlı hesap, oyuncak model</h4>
+    <p>Bu sayfadaki sayılar tarayıcınızda şu anda hesaplanıyor: iki boyutlu, indirgenmiş birimli bir Lennard-Jones oyuncak modeli; atomistik bir protein simülasyonu değildir.</p>
+    <p>Uzunluklar σ (parçacık çapı ölçeği), enerjiler ε (çekim kuyusunun derinliği) cinsindendir. Buradaki sayılar gerçek bir proteinin ya da suyun özelliği değildir; yöntemin davranışını gösterir. Sonuçlar rastgele sayı üretecinin tohumuna bağlıdır. Bu yüzden görevler sabit bir yanıtla değil, sayfanın o anda hesapladığı değerlerle denetlenir.</p>
+    <p class="seedrow"><span>Tohum: <b id="seedShow">7</b></span><button class="btn ghost" id="seedNext">Yeni tohumla yeniden başlat</button></p>
+  </div>
+</div>
+
+<div class="recall">
+  <div data-ala="ipucu"></div>
+  <div>
+    <h4>MD-T'den hatırlatma</h4>
+    <ul>
+      <li><b>Lennard-Jones</b>: iki parçacık yakında birbirini iter, uzakta zayıfça çeker; enerjinin en düşük olduğu uzaklık r ≈ 1,12 σ'dur.</li>
+      <li><b>Kuvvet</b>: enerji eğiminin tersidir, F = −dU/dr.</li>
+      <li><b>Hız-Verlet</b>: her adımda kuvveti hesaplar, konumu ve hızı küçük bir Δt kadar ilerletir.</li>
+      <li><b>Enerji denetimi</b>: dış etki yokken (NVE) toplam enerji yalnız küçük dalgalanmalar göstermelidir; kayma ya da sıçrama sayısal bir sorunun işaretidir.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="goals" aria-label="Bu bölümde yapacaklarınız">
+  <div class="goal"><span>1</span><p>Küçük bir sistemde duvarın ne kadar yer kapladığını <b>ölçmek</b> ve periyodik kutunun bunu nasıl çözdüğünü <b>görmek</b>.</p></div>
+  <div class="goal"><span>2</span><p>Minimum görüntü kuralını elle <b>uygulamak</b>; kesme mesafesinin ve komşu listesinin enerjiyi ve maliyeti nasıl etkilediğini <b>ölçmek</b>.</p></div>
+  <div class="goal"><span>3</span><p>Coulomb etkileşiminin neden düz kesmeyle yetinmediğini ve kutunun neden molekülden yeterince büyük olması gerektiğini <b>anlamak</b>.</p></div>
+</div>
+
+<!-- ============ 1 ============ -->
+<section class="unit" id="s1">
+  <div class="prose">
+    <h2><small>1 · Duvar mı, periyodik kutu mu</small>Küçük bir kutuda her şey kenara yakındır</h2>
+    <p class="lead">Bir bardak suyun ortasındaki bir molekül, bardağın duvarını hissetmez. Simülasyondaki molekül ise birkaç nanometre ötedeki kutu kenarını hisseder, çünkü kutu küçüktür. Sistem küçüldükçe parçacıkların daha büyük bir kısmı kenara yakın düşer.</p>
+    <p>Aşağıda aynı Lennard-Jones akışkanı iki kutuda koşuyor. Solda kutunun sert duvarları var: duvara ulaşan parçacık geri seker. Sağda periyodik sınır koşulu (PBC) var: sağ kenardan çıkan parçacık aynı anda sol kenardan girer. Soluk noktalar, kutunun komşu kopyalarındaki görüntülerdir. Periyodik kutuda duvar yoktur; bunun bedeli, her parçacığın sonsuz sayıda kopyasının olmasıdır.</p>
+  </div>
+  <div class="lab" id="lab1">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 1</span><h3>Duvarlı kutu ve periyodik kutu</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <div class="twocol" id="sims1">
+          <div><p class="simcap">Duvarlı kutu <span id="r1stepW">adım 0</span></p><canvas class="sim" id="cv1w" role="img" aria-label="Duvarlı kutuda 64 parçacık; duvara 1 σ'dan yakın olanlar kırmızı"></canvas></div>
+          <div><p class="simcap">Periyodik kutu <span id="r1stepP">adım 0</span></p><canvas class="sim" id="cv1p" role="img" aria-label="Periyodik kutuda 64 parçacık ve kutu dışındaki soluk görüntüleri"></canvas></div>
+        </div>
+        <div class="legend"><span><b class="dot" style="background:#934b3c"></b>duvara 1 σ'dan yakın</span><span><b class="dot" style="background:#2f6f95"></b>içerideki parçacık</span><span><b class="dot" style="background:#2f6f95;opacity:.3"></b>periyodik görüntü</span></div>
+      </div>
+      <div class="ctrl">
+        <dl class="readout">
+          <dt>Parçacık sayısı</dt><dd>64 + 64</dd>
+          <dt>Kutu kenarı L</dt><dd id="r1L"></dd>
+          <dt>Duvara 1 σ'dan yakın (duvarlı)</dt><dd id="r1frac"></dd>
+          <dt>Duvardan sekme (duvarlı)</dt><dd id="r1hits"></dd>
+        </dl>
+        <div class="btnrow"><button class="btn" id="play1">Durdur</button><button class="btn ghost" id="reset1">Baştan</button></div>
+        <p class="note">Animasyon yalnız bu laboratuvar ekrandayken çalışır.</p>
+      </div>
+    </div>
+    <h4 class="sub">Yüzey payı ölçümü: N = 36, 100, 400</h4>
+    <p class="note" style="margin:0 0 10px">Her boyut için duvarlı bir kutu kurulur (yoğunluk aynı, ρ = 0,6), 200 adım koşulur, sonra 200 adım boyunca 20 kez duvara 1 σ'dan yakın parçacıkların payı ölçülüp ortalaması alınır. 400 parçacık animasyonsuz hesaplanır.</p>
+    <div class="btnrow"><button class="btn" id="calc1">Payları hesapla</button><span class="note" id="calc1s" aria-live="polite" style="margin:0"></span></div>
+    <div class="tbl-wrap" style="margin-top:10px"><table id="tbl1"><thead><tr><th>N</th><th>Kutu kenarı L (<span class="nt">σ</span>)</th><th>Duvara 1 <span class="nt">σ</span>'dan yakın (duvarlı kutu)</th><th>Periyodik kutuda</th></tr></thead><tbody><tr><td class="empty" colspan="4">Henüz ölçüm yok. “Payları hesapla” düğmesine basın.</td></tr></tbody></table></div>
+    <div class="task">
+      <div class="ala-box" data-ala="kanit" id="ala1"></div>
+      <div>
+        <h4>Görev 1</h4>
+        <p>Tabloyu doldurun. Bu ölçümlere göre hangi cümle doğrudur?</p>
+        <div class="ans" id="ans1" role="group" aria-label="Görev 1 seçenekleri"></div>
+        <p class="feedback" id="fb1" aria-live="polite">Seçenekler, üç boyut da hesaplandığında açılır.</p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px">İki boyutta duvara yakın parçacıkların payı kabaca 1/√N ile azalır; üç boyutta ise yüzeyin hacme oranı gibi, 1/∛N ile, yani daha da yavaş. Bir proteinin çevresinde birkaç bin su molekülü olsa bile, duvarlı bir kutuda suların hatırı sayılır bir kısmı duvarın yanında olurdu. PBC bu yüzden biyomoleküler MD'de standarttır. Ama kutuyu ortadan kaldırmaz: sistem artık kendi kopyalarıyla çevrilidir. Bu kopyaların ne kadar yakın olduğu 6. kısmın konusu.</p></div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="unit" id="s2">
+  <div class="prose">
+    <h2><small>2 · Minimum görüntü</small>Hangi kopya en yakın?</h2>
+    <p class="lead">Periyodik kutuda her parçacığın sonsuz sayıda görüntüsü vardır. İki parçacık arasındaki etkileşimi hesaplarken program bunlardan yalnız en yakın olanını alır. Buna minimum görüntü kuralı denir.</p>
+    <div class="eq"><math display="block"><mi>Δ</mi><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><mi>Δ</mi><mi>x</mi><mo>−</mo><mi>L</mi><mo>·</mo><mtext>yuvarla</mtext><mo>(</mo><mi>Δ</mi><mi>x</mi><mo>/</mo><mi>L</mi><mo>)</mo></math></div>
+    <p>Aynı kural <i>y</i> için de uygulanır; “yuvarla” en yakın tamsayı demektir. Yani bir yöndeki fark kutunun yarısından büyükse, komşu kutudaki görüntü daha yakındır. Aşağıda merkezdeki kutu ve çevresindeki sekiz kopyası var. Bir parçacığa dokunarak seçin ya da sürükleyin; seçim kutularını da kullanabilirsiniz.</p>
+  </div>
+  <div class="lab" id="lab2">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 2</span><h3>Dokuz kutu, bir mesafe · L = 6 σ</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="scene" id="sv2" viewBox="0 0 540 540" role="img" aria-label="Merkez kutu, sekiz görüntü kutusu, seçilen iki parçacık arasındaki düz fark ve minimum görüntü farkı"></svg>
+        <div class="legend"><span><i class="g"></i>kutu içindeki düz fark</span><span><i class="e"></i>minimum görüntüye giden fark</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="picks"><label for="selA">A</label><select class="pick" id="selA"></select><label for="selB">B</label><select class="pick" id="selB"></select></div>
+        <dl class="readout" id="rd2">
+          <dt>A konumu</dt><dd id="r2A"></dd>
+          <dt>B konumu</dt><dd id="r2B"></dd>
+          <dt class="h">Kutu içinde, düz</dt>
+          <dt>Δx, Δy</dt><dd id="r2d"></dd>
+          <dt>Mesafe</dt><dd id="r2n"></dd>
+          <dt class="h">Minimum görüntü</dt>
+          <dt>Δx′, Δy′</dt><dd id="r2dm"></dd>
+          <dt>Mesafe</dt><dd id="r2m"></dd>
+          <dt>En yakın B</dt><dd id="r2w"></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="task">
+      <div class="ala-box" data-ala="ipucu" id="ala2"></div>
+      <div>
+        <h4>Görev 2</h4>
+        <p>Aşağıdaki kutu ve iki parçacık için minimum görüntü mesafesini hesaplayın (iki ondalık yeterli). Çift, sayfanın tohumundan üretildi.</p>
+        <p class="pair" id="pair2" aria-live="polite"></p>
+        <div class="row"><label class="sr" for="in2">Minimum görüntü mesafesi</label><input type="text" id="in2" inputmode="decimal" placeholder="mesafe = ?"><button class="btn" id="chk2">Kontrol et</button><button class="btn ghost" id="hint2">İpucu</button><button class="btn ghost" id="new2">Yeni çift</button></div>
+        <p class="feedback" id="fb2" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="unit" id="s3">
+  <div class="prose">
+    <h2><small>3 · Kesme mesafesi</small>Uzaktaki komşuyu yok saymanın bedeli</h2>
+    <p class="lead">Her parçacığı diğer her parçacıkla etkileştirmek, parçacık sayısının karesiyle büyüyen bir iştir. Lennard-Jones çekimi uzaklıkla hızla (r⁻⁶ gibi) söndüğü için, belli bir kesme mesafesi r<sub>c</sub> ötesindeki çiftler hesaba katılmaz.</p>
+    <p>Düz kesmede potansiyel r<sub>c</sub>'de birden sıfıra atlar. Tümleyicinin kullandığı kuvvet ise bu sıçramayı içermez: kuvvet yalnız r<sub>c</sub> içindeki çiftlerden gelir ve bir çift sınırı geçerken o sıçramaya karşılık gelen bir itme ya da çekme hesaplanmaz. Bu yüzden bir çift sınırı her geçtiğinde izlenen toplam enerjiye bir basamak eklenir. Bu enerji, dinamiğin koruduğu bir nicelik değildir; sorun hareketin kendisinde değil, enerji ve kuvvet tanımlarının birbirini tutmamasındadır. Kaydırılmış potansiyelde eğrinin tamamı r<sub>c</sub>'de sıfıra değecek kadar yukarı kaydırılır:</p>
+    <div class="eq"><math display="block"><msub><mi>U</mi><mtext>kay</mtext></msub><mo>(</mo><mi>r</mi><mo>)</mo><mo>=</mo><mi>U</mi><mo>(</mo><mi>r</mi><mo>)</mo><mo>−</mo><mi>U</mi><mo>(</mo><msub><mi>r</mi><mi>c</mi></msub><mo>)</mo><mspace width="1em"/><mtext>(</mtext><mi>r</mi><mo>&lt;</mo><msub><mi>r</mi><mi>c</mi></msub><mtext>)</mtext></math></div>
+    <p>Kaydırma sabit bir sayı olduğu için kuvveti, dolayısıyla yörüngeyi değiştirmez. Değişen yalnız enerjinin hesabıdır: kaydırılmış potansiyel r<sub>c</sub>'de süreklidir ve kuvvetle tutarlıdır, bu yüzden toplam enerjinin korunumu anlamlı bir denetim olur. Kalan kusur, kuvvetin r<sub>c</sub>'de hâlâ birden sıfıra düşmesidir; bu da küçük bir enerji hatası bırakır. MD programları bunun için düzelticiler sunar: GROMACS'ta Verlet şemasıyla van der Waals için varsayılan düzeltme bir potansiyel kaydırmadır; kuvvet kaydırma ve geçiş fonksiyonları (GROMACS'ta örneğin <code>Force-switch</code>) kuvveti de yumuşakça sıfıra indirir. Bu sayfadaki oyuncak motor yalnız düz kesmeyi ve potansiyel kaydırmayı bilir.</p>
+    <p>Aşağıda aynı başlangıçtan iki NVE koşusu yan yana ilerliyor: birinde enerji düz kesmeyle, ötekinde kaydırılmış potansiyelle hesaplanıyor. Sayfa her ölçümde iki koşunun konumlarını da karşılaştırır. Ölçüt, toplam enerjinin standart sapmasının kinetik enerjininkine oranıdır: kinetik ve potansiyel enerji sürekli birbirine dönüşür, tutarlı tanımlanmış bir toplam ise sabit kalmalıdır.</p>
+  </div>
+  <div class="lab" id="lab3">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 3</span><h3>Aynı yörünge, iki enerji tanımı</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="p3a" viewBox="0 0 640 250" role="img" aria-label="Lennard-Jones potansiyeli: kesilmemiş, düz kesilmiş ve kaydırılmış biçimler"></svg>
+        <div class="legend"><span><i class="g"></i>kesilmemiş</span><span><i></i>düz kesme</span><span><i class="n"></i>kaydırılmış</span><span><i class="c"></i>r<sub>c</sub></span></div>
+        <svg class="plot" id="p3b" viewBox="0 0 640 250" role="img" aria-label="İki NVE koşusunda parçacık başına toplam enerjinin başlangıca göre değişimi" style="margin-top:10px"></svg>
+        <div class="legend"><span><i class="e"></i>düz kesmeyle hesaplanan enerji</span><span><i class="n"></i>kaydırılmış potansiyelle hesaplanan enerji</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="field"><span class="lbl"><span>Kesme mesafesi r<sub>c</sub></span></span>
+          <div class="chips" id="rc3" role="group" aria-label="Kesme mesafesi"><button class="chip" data-v="1.5" aria-pressed="true">1,5 σ</button><button class="chip" data-v="2.5" aria-pressed="false">2,5 σ</button></div></div>
+        <div class="btnrow"><button class="btn" id="run3">İki koşuyu başlat</button></div>
+        <dl class="readout">
+          <dt>Adım</dt><dd id="r3step">0</dd>
+          <dt>İki koşunun en büyük konum farkı <span style="white-space:nowrap">|x<sub>kay</sub> − x<sub>düz</sub>|</span></dt><dd id="r3dx"></dd>
+          <dt class="h">Kaydırılmış</dt>
+          <dt>SS(toplam enerji)</dt><dd id="r3Es"></dd>
+          <dt>SS(kinetik enerji)</dt><dd id="r3Ks"></dd>
+          <dt class="h">Düz kesme</dt>
+          <dt>SS(toplam enerji)</dt><dd id="r3Ep"></dd>
+          <dt>SS(kinetik enerji)</dt><dd id="r3Kp"></dd>
+        </dl>
+        <div class="state" id="st3" aria-live="polite"></div>
+        <p class="note" style="margin:0">N = 100, ρ = 0,6, T<sub>0</sub> = 1, Δt = 0,004; ilk 200 adım ölçülmedi (düzgün başlangıç düzeninden uzaklaşma), sonra 2.000 adım boyunca 20 adımda bir ölçüm. SS: standart sapma, ε cinsinden.</p>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="margin-top:14px"><table id="tbl3"><thead><tr><th><span class="nt">r<sub>c</sub></span></th><th>Potansiyel</th><th>SS(toplam)</th><th>SS(kinetik)</th><th>Oran</th></tr></thead><tbody><tr><td class="empty" colspan="5">Henüz koşu yok.</td></tr></tbody></table></div>
+    <h4 class="sub">Kural: r<sub>c</sub> kutunun yarısından küçük olmalı</h4>
+    <p class="note" style="margin:0 0 10px">Küçük bir kutu deneyin: 9 parçacık, kutu kenarı L = 4 σ, yani L/2 = 2 σ.</p>
+    <div class="btnrow"><button class="btn ghost" id="try3a">r<sub>c</sub> = 2,5 σ ile kur</button><button class="btn ghost" id="try3b">r<sub>c</sub> = 1,5 σ ile kur</button></div>
+    <div class="state" id="err3" aria-live="polite" style="margin-top:10px"></div>
+    <div class="task">
+      <div class="ala-box" data-ala="dikkat" id="ala3"></div>
+      <div>
+        <h4>Görev 3</h4>
+        <p>r<sub>c</sub> = 1,5 σ ile iki koşuyu tamamlayın. Konum farkına ve iki enerji eğrisine bakın. Hangi cümle doğrudur?</p>
+        <div class="ans" id="ans3" role="group" aria-label="Görev 3 seçenekleri">
+          <button data-v="b">Kaydırılmış koşu daha doğru bir dinamik üretir; parçacıklar farklı ve daha gerçekçi yollar izler.</button>
+          <button data-v="a">Kaydırma yörüngeyi değiştirmez; iki koşuda konumlar aynıdır. Kaydırma enerjinin tanımını kuvvetle tutarlı kılar, böylece enerjinin korunumu anlamlı bir denetim olur.</button>
+          <button data-v="c">Düz kesme enerjiyi daha iyi korur, çünkü potansiyele hiçbir sabit eklemez.</button>
+          <button data-v="d">İki koşu aynı yolu izlediğine göre, düz kesmedeki enerji sıçramaları gerçek bir fiziksel olaydır.</button>
+        </div>
+        <p class="feedback" id="fb3" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="unit" id="s4">
+  <div class="prose">
+    <h2><small>4 · Komşu listesi</small>Kimin yakında olduğunu her adımda sormamak</h2>
+    <p class="lead">Kesme mesafesi hesabı azaltır, ama hangi çiftin r<sub>c</sub> içinde olduğunu bulmak için yine her çifte bakmak gerekir. Verlet komşu listesi bu taramayı seyrekleştirir: her nstlist adımda bir, r<sub>c</sub> + deri uzaklığı içindeki çiftler listeye yazılır; aradaki adımlarda yalnız listedeki çiftler hesaplanır.</p>
+    <p>Deri (İngilizcede <i>skin</i>), liste yenilenene kadar parçacıkların birbirine yaklaşabilmesi için bırakılan paydır. Deri sıfırsa ya da liste çok seyrek yenilenirse, listede olmayan iki parçacık r<sub>c</sub> içine girer ve etkileşimleri hiç hesaplanmaz: kaçan etkileşim. Buradaki sayaç, her adımda bütün çiftleri ayrıca tarayarak kaçanları sayar; bu yalnız öğretim içindir. GROMACS bu dengeyi kendisi kurar: liste yenileme sıklığına göre tamponu, kabul edilen enerji hatası sınırından (<code>verlet-buffer-tolerance</code>) otomatik hesaplar.</p>
+  </div>
+  <div class="lab" id="lab4">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 4</span><h3>Kaba kuvvet ve Verlet listesi</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <canvas class="sim" id="cv4" role="img" aria-label="Periyodik kutuda 144 parçacık; işaretli parçacığın kesme ve liste çemberleri, listedeki ve kaçan komşuları"></canvas>
+        <div class="legend"><span><b class="dot" style="background:#243744"></b>işaretli parçacık</span><span><i class="c"></i>r<sub>c</sub></span><span><i class="g"></i>r<sub>c</sub> + deri</span><span><b class="dot" style="background:#2f6f95"></b>r<sub>c</sub> içinde, listede</span><span><b class="dot" style="background:#a3402f"></b>r<sub>c</sub> içinde, listede yok (kaçan)</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="field"><span class="lbl"><span>Deri (σ)</span></span>
+          <div class="chips" id="skin4" role="group" aria-label="Deri"><button class="chip" data-v="0" aria-pressed="false">0</button><button class="chip" data-v="0.3" aria-pressed="true">0,3</button><button class="chip" data-v="0.5" aria-pressed="false">0,5</button></div></div>
+        <div class="field"><span class="lbl">Liste yenileme aralığı nstlist (adım)</span>
+          <div class="chips" id="nst4" role="group" aria-label="nstlist"><button class="chip" data-v="5" aria-pressed="false">5</button><button class="chip" data-v="10" aria-pressed="true">10</button><button class="chip" data-v="20" aria-pressed="false">20</button></div></div>
+        <div class="btnrow"><button class="btn" id="run4">Koşuyu başlat (400 adım)</button></div>
+        <dl class="readout">
+          <dt>Adım</dt><dd id="r4step">0</dd>
+          <dt class="h">Kaba kuvvet (her adımda bütün çiftler)</dt>
+          <dt>Çift / adım</dt><dd id="r4pb"></dd>
+          <dt>Süre / adım</dt><dd id="r4tb"></dd>
+          <dt class="h">Verlet listesi</dt>
+          <dt>Kuvvet döngüsünde çift / adım</dt><dd id="r4pl"></dd>
+          <dt>Liste kurulumu dahil çift / adım</dt><dd id="r4pt"></dd>
+          <dt>Süre / adım</dt><dd id="r4tl"></dd>
+          <dt>Liste kurulumu</dt><dd id="r4rb"></dd>
+          <dt>Kaçan etkileşim (çift × adım, toplam)</dt><dd id="r4ms"></dd>
+        </dl>
+        <div class="state" id="st4" aria-live="polite"></div>
+      </div>
+    </div>
+    <p class="note">N = 144, ρ = 0,7, T<sub>0</sub> = 1,5, r<sub>c</sub> = 2,5 σ. Her liste kurulumu bütün çiftleri bir kez tarar; “liste kurulumu dahil” satırı bu maliyeti de adım başına ekler. Süreler bu cihazda, şu anda ölçülür ve gürültülüdür; kaçan etkileşimleri sayan tarama süreye katılmaz.</p>
+    <div class="tbl-wrap" style="margin-top:10px"><table id="tbl4"><thead><tr><th>Deri</th><th>nstlist</th><th>Kaçan, bu tohum (çift × adım)</th><th>5 tohumda kaçan</th><th>Çift / adım (kurulum dahil)</th><th>Kaba kuvvet çift / adım</th><th>Süre / adım, liste</th><th>Süre / adım, kaba</th></tr></thead><tbody><tr><td class="empty" colspan="8">Henüz koşu yok.</td></tr></tbody></table></div>
+    <div class="task">
+      <div class="ala-box" data-ala="ipucu" id="ala4"></div>
+      <div>
+        <h4>Görev 4</h4>
+        <p>Güvenli bir deri ve nstlist birleşimi bulun: kaçan etkileşim sıfır olmalı ve liste kurulumu dahil kaba kuvvetten daha az çift hesaplanmalı. Tek bir koşu şans eseri temiz çıkabilir; bu yüzden koşu bitince sayfa aynı ayarı dört tohumla daha (her biri 400 adım) sınar ve beş tohumun hepsinde sıfır kaçan etkileşim ister. Burada sıfırdan büyük her deri kaba kuvvetten çok daha ucuzdur; asıl ölçüt güvenliktir.</p>
+        <p class="feedback" id="fb4" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px">Takas açıktır: kalın deri, listeye r<sub>c</sub> dışındaki birçok çifti de yazar ve her adımda bunlar boşuna denetlenir; ince deri ise listeyi sık yenilemeyi gerektirir. Sıfır deri, liste her adımda yenilenmedikçe güvenli değildir. Kaçan etkileşim hata iletisi üretmez: koşu sessizce devam eder, yalnız kuvvetler eksik hesaplanır.</p></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="unit" id="s5">
+  <div class="prose">
+    <h2><small>5 · Uzun erimli elektrostatik</small>Coulomb etkileşimi kesmeye gelmez</h2>
+    <p class="lead">Lennard-Jones çekimi r⁻⁶ ile söner; iki yükün etkileşimi ise yalnız 1/r ile. Birkaç σ ötede Lennard-Jones neredeyse sıfırken Coulomb hâlâ büyüktür. Üstelik uzaklaştıkça komşu sayısı artar (üç boyutta r² ile) ve pozitif ile negatif yükler birbirini ancak kısmen götürür.</p>
+    <p>Bu laboratuvar bir simülasyon koşmaz ve bir PME hesabı yapmaz; yalnız fonksiyonları ve basit bir toplamı çizer. Yukarıdaki Lennard-Jones koşularında yük yoktur.</p>
+  </div>
+  <div class="lab" id="lab5">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 5</span><h3>Yavaş sönüm, yavaş toplam, iki parçaya bölme</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <h4 class="sub" style="margin-top:0">a) 1/r ve r⁻⁶ ne kadar hızlı söner?</h4>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="p5a" viewBox="0 0 640 250" role="img" aria-label="1/r ve r üzeri eksi 6 fonksiyonları, logaritmik ölçek"></svg>
+        <div class="legend"><span><i></i>1/r (Coulomb biçimi)</span><span><i class="n"></i>r⁻⁶ (Lennard-Jones çekimi biçimi)</span></div>
+      </div>
+      <div class="ctrl">
+        <dl class="readout" id="rd5a"></dl>
+        <p class="note" style="margin:0">İki eğri de r = 1'de 1'e eşitlendi; dikey eksen logaritmiktir, komşu iki çizgi arasında 100 kat fark vardır.</p>
+      </div>
+    </div>
+    <h4 class="sub">b) Tek boyutlu iyon zinciri</h4>
+    <p class="note" style="margin:0 0 10px">Aralığı 1 olan, + ve − yüklerin sırayla dizildiği sonsuz bir zincirde bir iyonun bütün diğerleriyle etkileşim toplamı (Madelung toplamı) 2(1 − 1/2 + 1/3 − 1/4 + …) = 2 ln 2 ≈ 1,386'dır. Terimleri yakından uzağa doğru ekledikçe toplam bu değerin bir üstüne bir altına salınır ve çok yavaş yaklaşır: n terimden sonra hata kabaca 1/n kadardır.</p>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="p5b" viewBox="0 0 640 250" role="img" aria-label="İyon zinciri kısmi toplamları ve kesin değer 2 ln 2"></svg>
+        <div class="legend"><span><i class="n"></i>ilk n komşu çiftine kadar toplam</span><span><i class="c"></i>kesin değer 2 ln 2</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="field"><label for="n5">Toplanan komşu sayısı (her yönde) n <output id="n5o"></output></label><input type="range" id="n5" min="1" max="200" step="1" value="10"></div>
+        <dl class="readout" id="rd5b"></dl>
+      </div>
+    </div>
+    <p class="note">Bu tek boyutlu seri koşullu yakınsaktır: terimlerin sırası değiştirilirse (örneğin her negatif terimden önce iki pozitif terim alınırsa) başka bir değere yakınsar; doğal sırayla toplandığında da çok yavaş yaklaşır. Üç boyutta, kutunun kopyalarını büyüyen küreler, küpler ya da katmanlar biçiminde eklemek gibi doğal görünen toplama sıraları bile farklı sonuçlar verir; fark, toplanan bölgenin yüzeyinden gelen bir yüzey (dipol) teriminden kaynaklanır. Bu yüzden örgü toplamları, sınır koşulu açıkça belirtilerek Ewald türü yöntemlerle hesaplanır. Düz bir kesme de örtük bir toplama bölgesi seçmek demektir; Coulomb için güvenilir değildir.</p>
+    <h4 class="sub">c) Ewald ayrıştırması: 1/r = erfc(βr)/r + erf(βr)/r</h4>
+    <div class="lab-grid">
+      <div>
+        <svg class="plot" id="p5c" viewBox="0 0 640 250" role="img" aria-label="1/r, kısa erimli erfc(βr)/r ve uzun erimli erf(βr)/r parçaları, kesme mesafesi çizgisiyle"></svg>
+        <div class="legend"><span><i></i>1/r</span><span><i class="e"></i>erfc(βr)/r: kısa erimli, doğrudan toplanır</span><span><i class="n"></i>erf(βr)/r: yumuşak, ters uzayda</span><span><i class="c"></i>r<sub>c</sub> = 2,5</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="field"><label for="b5">Ayırma parametresi β <output id="b5o"></output></label><input type="range" id="b5" min="0.3" max="2.5" step="0.05" value="0.8"></div>
+        <dl class="readout" id="rd5c"></dl>
+      </div>
+    </div>
+    <p class="note">Kısa erimli parça kesme içinde neredeyse sıfıra iner ve komşu listesiyle doğrudan hesaplanır. Uzun erimli parça r = 0'da bile sonludur ve yumuşaktır; bu yüzden Fourier (ters) uzayında az sayıda terimle toplanabilir. PME bu ters uzay kısmını, yükleri bir ızgaraya dağıtıp hızlı Fourier dönüşümüyle hesaplar. GROMACS β'yı, kısa erimli parçanın r<sub>c</sub>'deki bağıl büyüklüğü <code>ewald-rtol</code> (varsayılan 10⁻⁵) olacak biçimde kendisi seçer.</p>
+    <div class="task">
+      <div class="ala-box" data-ala="kanit" id="ala5"></div>
+      <div>
+        <h4>Görev 5</h4>
+        <p>β kaydırıcısını oynatın ve iki parçayı izleyin. β büyüdükçe ne olur?</p>
+        <div class="ans" id="ans5" role="group" aria-label="Görev 5 seçenekleri">
+          <button data-ok="0">Toplam etkileşim değişir; β, yüklerin gerçek bir fiziksel özelliğidir.</button>
+          <button data-ok="1">Kısa erimli parça kesme içinde daha çabuk söner; buna karşılık uzun erimli parça keskinleşir ve ters uzayda daha çok terim (PME'de daha ince bir ızgara) gerekir.</button>
+          <button data-ok="0">Uzun erimli parça kaybolur; β yeterince büyükse ters uzay hesabına gerek kalmaz.</button>
+        </div>
+        <p class="feedback" id="fb5" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="unit" id="s6">
+  <div class="prose">
+    <h2><small>6 · Sonlu kutu</small>Molekül kendi görüntüsünü görmemeli</h2>
+    <p class="lead">Periyodik kutuda molekülün de görüntüleri vardır. Kutu molekülden yeterince büyük değilse, molekülün bir ucu komşu kutudaki kendi kopyasının öbür ucuyla kesme mesafesi içinde kalır ve gerçekte var olmayan bir etkileşim kurar: molekül kendisiyle etkileşir.</p>
+    <p>Kural basittir: molekül ile görüntüsü arasındaki en kısa mesafe kesme mesafesinden büyük olmalıdır. Katı bir cisim için, bir kutu kenarı doğrultusunda bu mesafe L − d'dir (d: cismin o doğrultudaki uzunluğu). Molekül simülasyon boyunca döner; bu yüzden en kötü durum, en uzun boyutunun bir kutu kenarına paralel geldiği andır.</p>
+    <p>Bu laboratuvar nanometre cinsinden yalnız geometri hesaplar; simülasyon koşmaz. Çubuk biçimli katı bir cisim kullanılır, genişliği 1 nm'dir. Gerçek bir protein esnektir ve biçimi de değişir. Orta düzey modül MD-O'da (<a href="../md-o/#s3">3. kısım: kutu, çözücü ve tuz</a>) aynı soru gerçek bir GROMACS koşusunda, ubikitin ve dar bir kutuyla ölçülür.</p>
+  </div>
+  <div class="lab" id="lab6">
+    <div class="lab-head"><div><span class="lab-tag">Laboratuvar 6</span><h3>Kutu, molekül ve görüntüsü</h3></div><span class="done-badge">Görev tamamlandı</span></div>
+    <div class="lab-grid">
+      <div>
+        <svg class="scene" id="sv6" viewBox="0 0 540 540" role="img" aria-label="Kutudaki çubuk biçimli molekül, komşu kutulardaki görüntüleri ve en kısa görüntü mesafesi"></svg>
+        <div class="legend"><span><i class="e"></i>molekül ile en yakın görüntüsü arasındaki en kısa mesafe</span></div>
+      </div>
+      <div class="ctrl">
+        <div class="field"><label for="L6">Kutu kenarı L <output id="L6o"></output></label><input type="range" id="L6" min="3" max="9" step="0.1" value="6"></div>
+        <div class="field"><label for="d6">Molekülün en uzun boyutu d <output id="d6o"></output></label><input type="range" id="d6" min="2" max="6" step="0.1" value="4"></div>
+        <div class="field"><label for="a6">Yönelim <output id="a6o"></output></label><input type="range" id="a6" min="0" max="180" step="1" value="30"></div>
+        <div class="field"><span class="lbl"><span>Kesme mesafesi r<sub>c</sub></span></span>
+          <div class="chips" id="rc6" role="group" aria-label="Kesme mesafesi"><button class="chip" data-v="1" aria-pressed="true">1,0 nm</button><button class="chip" data-v="1.2" aria-pressed="false">1,2 nm</button></div></div>
+        <dl class="readout">
+          <dt>Bu yönelimde en kısa görüntü mesafesi</dt><dd id="r6now"></dd>
+          <dt>En kötü yönelimde (L − d)</dt><dd id="r6worst"></dd>
+          <dt>Kenara bırakılan boşluk (L − d)/2</dt><dd id="r6pad"></dd>
+        </dl>
+        <div class="state" id="st6" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="task">
+      <div class="ala-box" data-ala="dikkat" id="ala6"></div>
+      <div>
+        <h4>Görev 6</h4>
+        <p>Kaydırıcıları istediğiniz gibi ayarlayın. <span id="q6"></span> Molekül en kötü yönelimde kendi görüntüsüne kaç nm yaklaşır (iki ondalık)? Kural bu kesme mesafesiyle her yönelimde sağlanıyor mu?</p>
+        <div class="row"><label class="sr" for="in6">En kötü yönelimde görüntü mesafesi (nm)</label><input type="text" id="in6" inputmode="decimal" placeholder="nm = ?">
+          <span class="yn" role="group" aria-label="Kural sağlanıyor mu?"><button class="chip" id="yn6y" aria-pressed="false">Sağlanıyor</button><button class="chip" id="yn6n" aria-pressed="false">Sağlanmıyor</button></span>
+          <button class="btn" id="chk6">Kontrol et</button></div>
+        <p class="feedback" id="fb6" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p style="margin-top:22px">GROMACS'ta kutu çoğu zaman <code>editconf -d</code> ile kurulur: molekülden kutu kenarına bırakılan en az boşluk. Boşluk her iki yanda bırakıldığı için görüntü mesafesi bu değerin iki katıdır; ama yalnız kutu kurulduğu andaki yönelim için. Molekül dönerse ya da açılırsa mesafe kısalabilir. Bu yüzden görüntü mesafesi koşu boyunca izlenir (örneğin <code>gmx mindist -pi</code> ile).</p></div>
+</section>
+
+<!-- ============ quiz ============ -->
+<section class="unit" id="s7">
+  <div class="prose"><h2><small>Kendinizi sınayın</small>Beş karar, beş gerekçe</h2><p>Her soruda bir seçenek işaretleyin; açıklama hemen altında açılır.</p></div>
+  <div class="quiz" id="quiz"></div>
+  <p class="qscore" id="qscore" aria-live="polite"></p>
+</section>
+
+<div class="bridge"><div data-ala="selam"></div><p>Sıradaki adım orta düzey <a href="../md-o/">MD-O</a>: gerçek bir protein (ubikitin) periyodik bir su kutusuna konur. Kutu boyutu ve kesme mesafesi kararlarını orada önceden koşulmuş gerçek GROMACS koşularıyla sınayacaksınız.</p></div>
+
+<div class="about" id="about">
+  <p><b>Bu sayfa hakkında.</b> MD-PBC için etkileşimli pilot bölümdür; kitapta karşılığı CH04, “Simülasyon kutusu evren değildir”. Önceki MD modüllerinden farklı olarak bu sayfa önceden koşulmuş veriyi yeniden oynatmaz: 1, 3 ve 4. laboratuvarlardaki sayılar tarayıcınızda, sayfaya gömülü küçük bir motorla şu anda hesaplanır.</p>
+  <h3>Motor</h3>
+  <p><b>mdmini.js</b>, sürüm <b id="engVer"></b>: AssayHub Learn'in ortak mini-MD motoru. Sayfaya gömülüdür, ağdan hiçbir şey indirilmez.</p>
+  <h3>Model ve birimler</h3>
+  <ul>
+    <li>İki boyutlu Lennard-Jones akışkanı; indirgenmiş birimler: σ = ε = m = k<sub>B</sub> = 1. Zaman adımı Δt = 0,004, tümleyici hız-Verlet; termostat ve barostat yok (NVE).</li>
+    <li>Başlangıç konumları kare bir örgüdür; hızlar tohumlu bir Gauss dağılımından çekilir, toplam momentum sıfırlanır ve hızlar başlangıç sıcaklığına ölçeklenir.</li>
+    <li>Duvarlı kutuda duvar bir potansiyel değildir: parçacık merkezi kenara ulaşınca hızı yansıtılır.</li>
+    <li>Laboratuvar 1: N = 64, ρ = 0,6, T<sub>0</sub> = 1, r<sub>c</sub> = 2,5 σ. Laboratuvar 3: N = 100, ρ = 0,6, T<sub>0</sub> = 1, deri 0,4 σ, nstlist 10. Laboratuvar 4: N = 144, ρ = 0,7, T<sub>0</sub> = 1,5, r<sub>c</sub> = 2,5 σ.</li>
+    <li>Komşu listesi bu oyuncak motorda bütün çiftler taranarak kurulur, yani kurulum maliyeti N² ile büyür; gerçek MD programları listeyi hücre listeleriyle (<i>cell lists</i>) çok daha ucuza kurar.</li>
+    <li>Laboratuvar 2 ve 6 motoru kullanmaz; minimum görüntü (<code>MDMini.minImage</code>) ve geometri hesaplarıdır. Laboratuvar 5 motorun <code>erf</code>, <code>ewaldSplit</code> ve <code>chainDirectSum</code> işlevlerini çizer; <code>erf</code> yaklaşımının mutlak hatası 1,5 × 10⁻⁷'den küçüktür.</li>
+  </ul>
+  <h3>Tohum</h3>
+  <p>Bütün canlı koşular tohum <b id="seedAbout"></b> ile başlar; 2. görevdeki çiftler de bu tohumdan türetilir. 4. görevde seçilen ayar bu tohumla ve sonraki dört tohumla ayrıca sınanır. Tohum değişince sayılar da değişir; bu beklenen bir durumdur ve görevler her zaman sayfanın o anda hesapladığı değerlerle denetlenir.</p>
+  <h3>Modellenmeyenler</h3>
+  <ul>
+    <li>Üç boyut, su, moleküler yapı ve bağlı etkileşimler;</li>
+    <li>Lennard-Jones koşularında elektrostatik: parçacıkların yükü yoktur;</li>
+    <li>Ewald ya da PME simülasyonu: 5. kısım yalnız fonksiyonları çizer;</li>
+    <li>sıcaklık ve basınç denetimi;</li>
+    <li>6. kısımdaki molekül katı bir çubuktur, nanometre değerleri örnek geometridir.</li>
+  </ul>
+  <p>Bilimsel ve hedef okur incelemesi yapılmadı.</p>
+</div>
+</div>
+
+<script>
+/* Ala maskot çekirdeği v1.1 · HTML ve SVG varlıkları build_assets.js ile üretilir. */
+var ALA = (function(){
+  var TOKENS = {
+    light: {"--ala-c":"#5F7486","--ala-c-hi":"#93A6B5","--ala-n":"#5C8FD6","--ala-n-hi":"#9BBDEB","--ala-o":"#E8746A","--ala-o-hi":"#F5ADA5","--ala-h":"#F8F5EE","--ala-bond":"#A7B6C0","--ala-edge":"rgba(23,38,46,.24)","--ala-face":"#16222A","--ala-cheek":"#F29E97","--ala-ink":"#17262E","--ala-accent":"#1F8A7E","--ala-accent-ink":"#FFFFFF","--ala-sweat":"#9CC8F0","--ala-bulb":"#F4CF5D","--ala-spark":"#F4CF5D"},
+    dark:  {"--ala-c":"#6B8194","--ala-c-hi":"#9DB0BF","--ala-bond":"#7E919D","--ala-edge":"rgba(0,0,0,.5)","--ala-ink":"#DCE6E9","--ala-accent":"#4FC1B2","--ala-accent-ink":"#0E161B"}
+  };
+  var POSES = ["idle","selam","kanit","dikkat","ipucu","tebrik"];
+
+  var CSS = [
+    ".ala .bond{stroke:var(--ala-bond);stroke-width:7;stroke-linecap:round}",
+    ".ala .bond2{stroke:var(--ala-bond);stroke-width:4.2;stroke-linecap:round}",
+    ".ala .atom{stroke:var(--ala-edge);stroke-width:1.2}",
+    ".ala .at-h{fill:var(--ala-h)}",
+    ".ala .hl{fill:#fff;opacity:.33}",
+    ".ala .face{fill:var(--ala-face)}",
+    ".ala .face-line{fill:none;stroke:var(--ala-face);stroke-width:3.2;stroke-linecap:round}",
+    ".ala .cheek{fill:var(--ala-cheek);opacity:.6}",
+    ".ala .sweat{fill:var(--ala-sweat)}",
+    ".ala .bang circle{fill:var(--ala-accent)}",
+    ".ala .bang text{fill:var(--ala-accent-ink);font:800 18px 'Baloo 2',ui-rounded,system-ui,sans-serif}",
+    ".ala .lens{fill:var(--ala-sweat);fill-opacity:.28;stroke:var(--ala-ink);stroke-width:4}",
+    ".ala .handle{stroke:var(--ala-ink);stroke-width:5;stroke-linecap:round}",
+    ".ala .bulb{fill:var(--ala-bulb);stroke:var(--ala-edge);stroke-width:1.2}",
+    ".ala .bulb-base{fill:var(--ala-c)}",
+    ".ala .bulb-glow{fill:var(--ala-bulb);opacity:.35}",
+    ".ala .spark{fill:var(--ala-spark)}",
+    ".ala .whole{transform-origin:100px 150px}",
+    ".ala .tuft{transform-origin:100px 76px}",
+    ".ala .eyes{transform-origin:100px 116px}",
+    ".ala.pose-idle .eyes{animation:ala-blink 6s infinite}",
+    ".ala .arm-l{transform-origin:58px 124px}",
+    ".ala .arm-r{transform-origin:142px 124px}",
+    ".ala.pose-selam .arm-r{transform:rotate(-46deg)}",
+    ".ala.pose-kanit .arm-r{transform:rotate(-42deg)}",
+    ".ala.pose-ipucu .arm-l{transform:rotate(62deg)}",
+    ".ala.pose-tebrik .arm-l{transform:rotate(56deg)}",
+    ".ala.pose-tebrik .arm-r{transform:rotate(-56deg)}",
+    ".ala.is-active.pose-selam .arm-r{animation:ala-wave .7s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-kanit .arm-r{animation:ala-peer 1.8s ease-in-out 1}",
+    ".ala.pose-dikkat .arm-l{transform:rotate(28deg)}",
+    ".ala.pose-dikkat .arm-r{transform:rotate(-28deg)}",
+    ".ala.is-active.pose-dikkat .sweat{animation:ala-drip 1.2s ease-in 1}",
+    ".ala.is-active.pose-dikkat .bang{transform-origin:170px 40px;animation:ala-pop .8s ease-in-out 2}",
+    ".ala.is-active.pose-ipucu .arm-l{animation:ala-point .9s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-ipucu .bulb-glow{transform-origin:160px 30px;animation:ala-glow 1.6s ease-in-out 1}",
+    ".ala.is-active.pose-tebrik .whole{animation:ala-cheer .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .arm-l{animation:ala-armL .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .arm-r{animation:ala-armR .45s ease-in-out 2 alternate}",
+    ".ala.is-active.pose-tebrik .spark{transform-box:fill-box;transform-origin:center;animation:ala-twinkle 1s ease-in-out 1}",
+    ".ala.mono .bond,.ala.mono .bond2{stroke:#111}",
+    ".ala.mono .atom{fill:#fff;stroke:#111;stroke-width:2}",
+    ".ala.mono .face{fill:#111}",
+    ".ala.mono .face-line{stroke:#111}",
+    ".ala.mono .cheek,.ala.mono .hl,.ala.mono .bulb-glow{display:none}",
+    ".ala.mono .sweat,.ala.mono .bulb,.ala.mono .spark,.ala.mono .bang circle{fill:#111}",
+    ".ala.mono .bang text{fill:#fff}",
+    ".ala.mono .bulb{stroke:#111}",
+    ".ala.mono .bulb-base{fill:#111}",
+    ".ala.mono .lens{fill:#fff;stroke:#111}",
+    ".ala.mono .handle{stroke:#111}",
+    ".ala.mono *{animation:none!important}",
+    "@keyframes ala-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}",
+    "@keyframes ala-wave{from{transform:rotate(-88deg)}to{transform:rotate(-46deg)}}",
+    "@keyframes ala-peer{0%,100%{transform:rotate(-38deg)}50%{transform:rotate(-47deg)}}",
+    "@keyframes ala-drip{0%{transform:translateY(-3px);opacity:0}25%{opacity:1}100%{transform:translateY(9px);opacity:0}}",
+    "@keyframes ala-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}",
+    "@keyframes ala-point{from{transform:rotate(58deg)}to{transform:rotate(66deg)}}",
+    "@keyframes ala-glow{0%,100%{transform:scale(.85);opacity:.2}50%{transform:scale(1.25);opacity:.45}}",
+    "@keyframes ala-cheer{from{transform:translateY(0)}to{transform:translateY(-9px)}}",
+    "@keyframes ala-armL{from{transform:rotate(48deg)}to{transform:rotate(64deg)}}",
+    "@keyframes ala-armR{from{transform:rotate(-48deg)}to{transform:rotate(-64deg)}}",
+    "@keyframes ala-twinkle{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1);opacity:1}}",
+    "@media (prefers-reduced-motion: reduce){.ala *{animation:none!important}}"
+  ].join("\n");
+
+  var n = 0;
+  function grad(id, hi, base){
+    return '<radialGradient id="'+id+'" cx=".36" cy=".3" r=".8"><stop offset="0" style="stop-color:var('+hi+')"/><stop offset="1" style="stop-color:var('+base+')"/></radialGradient>';
+  }
+  function star(x,y,s,d){
+    return '<path class="spark" style="animation-delay:'+d+'s" d="M'+x+' '+(y-s)+' Q'+(x+s*.18)+' '+(y-s*.18)+' '+(x+s)+' '+y+' Q'+(x+s*.18)+' '+(y+s*.18)+' '+x+' '+(y+s)+' Q'+(x-s*.18)+' '+(y+s*.18)+' '+(x-s)+' '+y+' Q'+(x-s*.18)+' '+(y-s*.18)+' '+x+' '+(y-s)+'Z"/>';
+  }
+
+  function standaloneStyle(){
+    var t = TOKENS.light, d = TOKENS.dark, s = ".ala{", k;
+    for (k in t) s += k + ":" + t[k] + ";";
+    s += "}@media (prefers-color-scheme: dark){.ala{";
+    for (k in d) s += k + ":" + d[k] + ";";
+    return "<style>" + s + "}}" + CSS + "</style>";
+  }
+
+  /* pose: idle | selam | kanit | dikkat | ipucu | tebrik; variant: color | mono */
+  function svg(pose, attrs, standalone, variant){
+    pose = POSES.indexOf(pose) < 0 ? "idle" : pose;
+    var u = "ala" + (n++);
+    var eyeRy = pose === "dikkat" ? 8.6 : 7.4;
+    var px = pose === "kanit" ? 3 : 0, py = pose === "ipucu" ? -3 : 0;
+    var eyes;
+    if (pose === "tebrik") {
+      eyes = '<path class="face-line" d="M79 119 Q85 110 91 119"/><path class="face-line" d="M109 119 Q115 110 121 119"/>';
+    } else {
+      eyes = '<ellipse class="face" cx="'+(85+px)+'" cy="'+(116+py)+'" rx="5.6" ry="'+eyeRy+'"/><ellipse class="face" cx="'+(115+px)+'" cy="'+(116+py)+'" rx="5.6" ry="'+eyeRy+'"/>'+
+             '<circle cx="'+(87+px)+'" cy="'+(113+py)+'" r="2" fill="#fff"/><circle cx="'+(117+px)+'" cy="'+(113+py)+'" r="2" fill="#fff"/>';
+    }
+    var mouth = {
+      idle:   '<path class="face" d="M92 133 Q100 141 108 133 Q100 137 92 133Z"/>',
+      selam:  '<path class="face" d="M89 131 Q100 147 111 131 Q100 136 89 131Z"/>',
+      kanit:  '<path class="face-line" d="M94 136 Q102 139 108 133"/>',
+      dikkat: '<ellipse class="face" cx="100" cy="137" rx="4.5" ry="5.5"/>',
+      ipucu:  '<path class="face" d="M93 134 Q100 141 107 134 Q100 137 93 134Z"/>',
+      tebrik: '<path class="face" d="M87 130 Q100 150 113 130 Q100 136 87 130Z"/><path d="M94 139 Q100 144 106 139 Q100 141 94 139Z" style="fill:var(--ala-cheek)"/>'
+    }[pose];
+    var inArmR = pose === "kanit" ? '<line class="handle" x1="178" y1="146" x2="192" y2="154"/><circle class="lens" cx="203" cy="160" r="13"/>' : '';
+    var top = '';
+    if (pose === "dikkat") top = '<path class="sweat" d="M146 74 C140 84 140 90 146 90 C152 90 152 84 146 74Z"/><g class="bang"><circle cx="170" cy="40" r="14"/><text x="170" y="47" text-anchor="middle">!</text></g>';
+    if (pose === "ipucu") top = '<g class="idea"><circle class="bulb-glow" cx="160" cy="30" r="24"/><circle class="bulb" cx="160" cy="30" r="12"/><rect class="bulb-base" x="154.5" y="41" width="11" height="7" rx="2"/></g>';
+    if (pose === "tebrik") top = star(30,52,9,0) + star(174,46,11,-.4) + star(160,88,6,-.8) + star(40,92,6,-.6);
+
+    var style = standalone ? standaloneStyle() : "";
+    var mono = variant === "mono" ? " mono" : "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" class="ala pose-'+pose+mono+'" viewBox="-20 0 240 230" '+(attrs||'')+'>'+style+
+'<defs>'+grad(u+"c","--ala-c-hi","--ala-c")+grad(u+"n","--ala-n-hi","--ala-n")+grad(u+"o","--ala-o-hi","--ala-o")+'</defs>'+
+'<g class="whole">'+
+ '<g class="legs"><line class="bond" x1="88" y1="160" x2="80" y2="196"/><line class="bond" x1="112" y1="160" x2="120" y2="196"/>'+
+ '<circle class="atom at-h" cx="79" cy="200" r="10"/><circle class="atom at-h" cx="121" cy="200" r="10"/></g>'+
+ '<g class="arm-l"><line class="bond" x1="58" y1="124" x2="26" y2="143"/><line class="bond" x1="22" y1="142" x2="8" y2="130"/>'+
+ '<circle class="atom at-h" cx="7" cy="129" r="6.5"/><circle class="atom" cx="24" cy="145" r="13" fill="url(#'+u+'n)"/><circle class="hl" cx="19" cy="140" r="3.5"/></g>'+
+ '<g class="arm-r"><line class="bond" x1="142" y1="124" x2="177" y2="146"/>'+
+ '<circle class="atom" cx="177" cy="146" r="13" fill="url(#'+u+'o)"/><circle class="hl" cx="172" cy="141" r="3.5"/>'+inArmR+'</g>'+
+ '<g class="tuft"><line class="bond" x1="100" y1="76" x2="100" y2="50"/>'+
+ '<line class="bond" x1="100" y1="44" x2="84" y2="30"/><line class="bond" x1="100" y1="44" x2="100" y2="22"/><line class="bond" x1="100" y1="44" x2="116" y2="30"/>'+
+ '<circle class="atom at-h" cx="83" cy="29" r="6.5"/><circle class="atom at-h" cx="100" cy="20" r="6.5"/><circle class="atom at-h" cx="117" cy="29" r="6.5"/>'+
+ '<circle class="atom" cx="100" cy="45" r="11" fill="url(#'+u+'c)"/></g>'+
+ '<circle class="atom" cx="100" cy="120" r="48" fill="url(#'+u+'c)"/>'+
+ '<ellipse class="hl" cx="80" cy="96" rx="12" ry="8" transform="rotate(-30 80 96)"/>'+
+ '<ellipse class="cheek" cx="73" cy="131" rx="7.5" ry="4.2"/><ellipse class="cheek" cx="127" cy="131" rx="7.5" ry="4.2"/>'+
+ '<g class="eyes">'+eyes+'</g>'+mouth+top+
+'</g></svg>';
+  }
+  /* Small face variant keeps only the most recognizable color cues. */
+  function icon(attrs, standalone, variant){
+    var u = "ala" + (n++), mono = variant === "mono" ? " mono" : "";
+    return '<svg xmlns="http://www.w3.org/2000/svg" class="ala icon'+mono+'" viewBox="22 16 156 140" '+(attrs||'')+'>'+
+      (standalone ? standaloneStyle() : "")+
+      '<defs>'+grad(u+"c","--ala-c-hi","--ala-c")+grad(u+"n","--ala-n-hi","--ala-n")+grad(u+"o","--ala-o-hi","--ala-o")+'</defs>'+
+      '<line class="bond" x1="100" y1="48" x2="100" y2="29"/><circle class="atom" cx="100" cy="27" r="9" fill="url(#'+u+'c)"/>'+
+      '<line class="bond" x1="57" y1="101" x2="37" y2="113"/><circle class="atom" cx="34" cy="115" r="11" fill="url(#'+u+'n)"/>'+
+      '<line class="bond" x1="143" y1="101" x2="163" y2="113"/><circle class="atom" cx="166" cy="115" r="11" fill="url(#'+u+'o)"/>'+
+      '<circle class="atom" cx="100" cy="95" r="48" fill="url(#'+u+'c)"/>'+
+      '<g class="eyes"><ellipse class="face" cx="85" cy="92" rx="5.6" ry="7.4"/><ellipse class="face" cx="115" cy="92" rx="5.6" ry="7.4"/></g>'+
+      '<path class="face" d="M92 112 Q100 120 108 112 Q100 116 92 112Z"/></svg>';
+  }
+  return { svg: svg, icon: icon, CSS: CSS, TOKENS: TOKENS, POSES: POSES, version: "1.1" };
+})();
+if (typeof module !== "undefined") module.exports = ALA;
+
+</script>
+<script>/* mdmini:begin */
+/* mdmini.js 0.1.1 · AssayHub Learn ortak mini-MD motoru (2B Lennard-Jones, indirgenmiş birimler: sigma = epsilon = m = kB = 1).
+   Tarayıcıda ve Node'da çalışır. Testler: tests/mdmini.test.mjs. Lisans: sitenin içerik lisansıyla aynı. */
+(function (root) {
+  'use strict';
+  var VERSION = '0.1.1';
+
+  function createRng(seed) {
+    // mulberry32: küçük, hızlı, tohumlu; kriptografik değildir
+    var a = ((seed >>> 0) ^ 0x9E3779B9) >>> 0, spare = null; // 0 tohumu da ayrı bir dizi verir
+    function next() {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+    function normal() {
+      if (spare !== null) { var s = spare; spare = null; return s; }
+      var u, v, q;
+      do { u = 2 * next() - 1; v = 2 * next() - 1; q = u * u + v * v; } while (q >= 1 || q === 0);
+      var m = Math.sqrt(-2 * Math.log(q) / q);
+      spare = v * m;
+      return u * m;
+    }
+    return { next: next, normal: normal };
+  }
+
+  function minImage(dx, dy, L) {
+    dx -= L * Math.round(dx / L);
+    dy -= L * Math.round(dy / L);
+    return [dx, dy];
+  }
+
+  function erf(x) {
+    // Abramowitz ve Stegun 7.1.26 (mutlak hata < 1.5e-7)
+    var s = x < 0 ? -1 : 1; x = Math.abs(x);
+    var t = 1 / (1 + 0.3275911 * x);
+    var y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+    return s * y;
+  }
+
+  function ewaldSplit(r, beta) {
+    var e = erf(beta * r);
+    return { real: (1 - e) / r, recip: e / r };
+  }
+
+  function chainDirectSum(n) {
+    // Tek boyutlu, aralığı 1 olan +/− iyon zincirinde bir iyonun Madelung toplamı (iki yön): sum 2(−1)^(k+1)/k, k = 1..n
+    var s = 0;
+    for (var k = 1; k <= n; k++) s += 2 * (k % 2 ? 1 : -1) / k;
+    return s;
+  }
+
+  function createSystem(o) {
+    o = o || {};
+    var N = o.N || 100, rho = o.rho || 0.6, T0 = o.T0 != null ? o.T0 : 1.0, seed = o.seed != null ? o.seed : 1;
+    var rc = o.rc || 2.5, shift = o.shift !== false, pbc = o.pbc !== false, skin = o.skin != null ? o.skin : 0.3;
+    var nstlist = o.nstlist || 10, dt = o.dt || 0.004, useList = o.useList !== false, diagnose = !!o.diagnose;
+    var L = o.L || Math.sqrt(N / rho);
+    if (pbc && rc > L / 2) throw new Error('kesme mesafesi kutunun yarısından büyük olamaz');
+    var rng = createRng(seed);
+    var x = new Float64Array(2 * N), v = new Float64Array(2 * N), f = new Float64Array(2 * N);
+    var n1 = Math.ceil(Math.sqrt(N)), a = L / n1;
+    for (var i = 0; i < N; i++) { x[2 * i] = (i % n1 + 0.5) * a; x[2 * i + 1] = (Math.floor(i / n1) + 0.5) * a; }
+    var px = 0, py = 0;
+    for (i = 0; i < 2 * N; i++) v[i] = rng.normal();
+    for (i = 0; i < N; i++) { px += v[2 * i]; py += v[2 * i + 1]; }
+    for (i = 0; i < N; i++) { v[2 * i] -= px / N; v[2 * i + 1] -= py / N; }
+    var dof = pbc ? 2 * N - 2 : 2 * N;
+    var ke0 = 0; for (i = 0; i < 2 * N; i++) ke0 += 0.5 * v[i] * v[i];
+    var sc = Math.sqrt(T0 * dof / 2 / ke0); for (i = 0; i < 2 * N; i++) v[i] *= sc;
+    var rc2 = rc * rc, ir6c = 1 / (rc2 * rc2 * rc2), ushift = shift ? 4 * (ir6c * ir6c - ir6c) : 0;
+    var list = [], pe = 0, stepCount = 0;
+    var stats = { pairEvals: 0, rebuilds: 0, missed: 0, wallHits: 0 };
+
+    function dxy(i, j) {
+      var dx = x[2 * j] - x[2 * i], dy = x[2 * j + 1] - x[2 * i + 1];
+      if (pbc) { dx -= L * Math.round(dx / L); dy -= L * Math.round(dy / L); }
+      return [dx, dy];
+    }
+    function buildList() {
+      var rl = rc + skin, rl2 = rl * rl, out = [];
+      for (var i = 0; i < N - 1; i++) for (var j = i + 1; j < N; j++) {
+        var d = dxy(i, j); if (d[0] * d[0] + d[1] * d[1] < rl2) out.push(i, j);
+      }
+      list = out; stats.rebuilds++;
+    }
+    function forces() {
+      f.fill(0); pe = 0;
+      var inList = diagnose ? new Set() : null, cnt = 0;
+      function pair(i, j) {
+        var d = dxy(i, j), r2 = d[0] * d[0] + d[1] * d[1];
+        cnt++;
+        if (r2 >= rc2) return;
+        if (inList) inList.add(i * N + j);
+        var ir2 = 1 / r2, ir6 = ir2 * ir2 * ir2, ff = 24 * ir2 * ir6 * (2 * ir6 - 1);
+        pe += 4 * ir6 * (ir6 - 1) - ushift;
+        f[2 * i] -= ff * d[0]; f[2 * i + 1] -= ff * d[1]; f[2 * j] += ff * d[0]; f[2 * j + 1] += ff * d[1];
+      }
+      if (useList) { for (var k = 0; k < list.length; k += 2) pair(list[k], list[k + 1]); }
+      else { for (var i = 0; i < N - 1; i++) for (var j = i + 1; j < N; j++) pair(i, j); }
+      stats.pairEvals += cnt;
+      if (diagnose && useList) {
+        for (var p = 0; p < N - 1; p++) for (var q = p + 1; q < N; q++) {
+          var d = dxy(p, q); if (d[0] * d[0] + d[1] * d[1] < rc2 && !inList.has(p * N + q)) stats.missed++;
+        }
+      }
+    }
+    function walls() {
+      if (pbc) return;
+      for (var k = 0; k < 2 * N; k++) {
+        if (x[k] < 0) { x[k] = -x[k]; v[k] = -v[k]; stats.wallHits++; }
+        else if (x[k] > L) { x[k] = 2 * L - x[k]; v[k] = -v[k]; stats.wallHits++; }
+      }
+    }
+    function wrap() { if (pbc) for (var k = 0; k < 2 * N; k++) x[k] -= L * Math.floor(x[k] / L); }
+
+    if (useList) buildList();
+    forces();
+
+    function step(n) {
+      n = n || 1;
+      for (var s = 0; s < n; s++) {
+        for (var k = 0; k < 2 * N; k++) { v[k] += 0.5 * dt * f[k]; x[k] += dt * v[k]; }
+        walls(); wrap();
+        stepCount++;
+        if (useList && stepCount % nstlist === 0) buildList();
+        forces();
+        for (k = 0; k < 2 * N; k++) v[k] += 0.5 * dt * f[k];
+      }
+    }
+    function energies() {
+      var ke = 0; for (var k = 0; k < 2 * N; k++) ke += 0.5 * v[k] * v[k];
+      return { ke: ke, pe: pe, total: ke + pe, T: 2 * ke / dof };
+    }
+    function momentum() { var a = 0, b = 0; for (var i = 0; i < N; i++) { a += v[2 * i]; b += v[2 * i + 1]; } return [a, b]; }
+    function brutePairs() {
+      var s = new Set();
+      for (var i = 0; i < N - 1; i++) for (var j = i + 1; j < N; j++) { var d = dxy(i, j); if (d[0] * d[0] + d[1] * d[1] < rc2) s.add(i + '-' + j); }
+      return s;
+    }
+    function listPairsWithin() {
+      var s = new Set();
+      for (var k = 0; k < list.length; k += 2) { var d = dxy(list[k], list[k + 1]); if (d[0] * d[0] + d[1] * d[1] < rc2) s.add(list[k] + '-' + list[k + 1]); }
+      return s;
+    }
+    function surfaceFraction(width) {
+      // duvara 'width' mesafeden yakın parçacıkların payı (duvarlı kutuda yüzey etkisinin ölçüsü)
+      var c = 0;
+      for (var i = 0; i < N; i++) { var X = x[2 * i], Y = x[2 * i + 1]; if (Math.min(X, Y, L - X, L - Y) < width) c++; }
+      return c / N;
+    }
+    return {
+      N: N, L: L, rc: rc, dt: dt, x: x, v: v, f: f, stats: stats, pbc: pbc, shift: shift, skin: skin, nstlist: nstlist, seed: seed, dof: dof,
+      step: step, energies: energies, momentum: momentum, brutePairs: brutePairs, listPairsWithin: listPairsWithin,
+      surfaceFraction: surfaceFraction, get steps() { return stepCount; }, get listLength() { return list.length / 2; }
+    };
+  }
+
+  var api = { VERSION: VERSION, createRng: createRng, createSystem: createSystem, minImage: minImage, erf: erf, ewaldSplit: ewaldSplit, chainDirectSum: chainDirectSum };
+  root.MDMini = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* mdmini:end */</script>
+<script>
+(function(){
+'use strict';
+var NS='http://www.w3.org/2000/svg';
+var M=window.MDMini;
+function $(s){return document.querySelector(s);}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
+var NFC={};
+function nf(d){return NFC[d]||(NFC[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}));}
+function fx(v,d){if(!isFinite(v))return '∞';var s=nf(d).format(Math.abs(v));return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+s;}
+var PCT=new Intl.NumberFormat('tr-TR',{style:'percent',maximumFractionDigits:0});
+function pct(v){return PCT.format(v);}
+var INT=new Intl.NumberFormat('tr-TR',{maximumFractionDigits:0});
+function int(v){return INT.format(Math.round(v));}
+function sig(v,n){if(!isFinite(v))return '∞';if(v===0)return '0';var s=new Intl.NumberFormat('tr-TR',{maximumSignificantDigits:n||3}).format(Math.abs(v));return (v<0?'−':'')+s;}
+function num(str){if(str==null)return NaN;str=String(str).trim().replace(/\s/g,'').replace('−','-');if(str==='')return NaN;if(/,/.test(str))str=str.replace(/\./g,'').replace(',','.');return Number(str);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function now(){return (window.performance&&performance.now)?performance.now():Date.now();}
+function sd(a){if(!a.length)return NaN;var m=0,i;for(i=0;i<a.length;i++)m+=a[i];m/=a.length;var s=0;for(i=0;i<a.length;i++)s+=(a[i]-m)*(a[i]-m);return Math.sqrt(s/a.length);}
+function el(tag,attrs){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);return e;}
+function txt(parent,x,y,s,attrs){var t=el('text',Object.assign({x:x,y:y},attrs||{}));t.textContent=s;parent.appendChild(t);return t;}
+
+/* ---------- Ala ---------- */
+var st=document.createElement('style');st.textContent=(window.ALA&&ALA.CSS)||'';document.head.appendChild(st);
+function setAla(node,pose){if(node&&window.ALA)node.innerHTML=ALA.svg(pose,'aria-hidden="true" focusable="false"');}
+$$('[data-ala]').forEach(function(n){setAla(n,n.getAttribute('data-ala'));});
+
+/* ---------- ilerleme ---------- */
+var KEY='md-pbc-proto-done',done={},NT=6;
+try{done=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){done={};}
+function paintProgress(){var k=0;for(var t=1;t<=NT;t++){if(done[t])k++;}
+  $('#progText').textContent='Uygulamalar: '+k+' / '+NT;
+  $$('#progDots i').forEach(function(d,i){d.classList.toggle('on',!!done[i+1]);});
+  for(var t2=1;t2<=NT;t2++){document.getElementById('lab'+t2).classList.toggle('is-done',!!done[t2]);if(done[t2])setAla(document.getElementById('ala'+t2),'tebrik');}}
+function complete(t){if(!done[t]){done[t]=1;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(e){}}paintProgress();}
+function say(id,msg,ok){var n=document.getElementById(id);n.textContent=msg;n.className='feedback '+(ok?'ok':'no');}
+function setState(id,cls,msg){var n=document.getElementById(id);n.className='state '+cls;n.textContent=msg;}
+
+/* ---------- tohum ve test arayüzü ---------- */
+var SEED=7,TRUTH={},LABS={};
+window.MDPBC={engine:M.VERSION,get seed(){return SEED;},truth:TRUTH,labs:LABS};
+function paintSeed(){$('#seedShow').textContent=SEED;$('#seedAbout').textContent=SEED;$('#engVer').textContent=M.VERSION;}
+
+/* ---------- animasyon zamanlayıcısı: tek rAF döngüsü, yalnız görünür ve çalışan işler ---------- */
+var ANIMS=[],rafId=0,hasIO=typeof window.IntersectionObserver==='function';
+var io=hasIO?new IntersectionObserver(function(es){es.forEach(function(e){ANIMS.forEach(function(a){if(a.el===e.target)a.visible=e.isIntersecting;});});kick();},{threshold:0}):null;
+function addAnim(a){a.visible=!hasIO;ANIMS.push(a);if(io)io.observe(a.el);return a;}
+function kick(){if(!rafId&&!document.hidden&&ANIMS.some(function(a){return a.running&&a.visible;}))rafId=requestAnimationFrame(loop);}
+function loop(ts){rafId=0;if(document.hidden)return;ANIMS.forEach(function(a){if(a.running&&a.visible)a.tick(ts);});kick();}
+document.addEventListener('visibilitychange',kick);
+
+/* ---------- tuval yardımcıları ---------- */
+function fit(c){var dpr=Math.min(window.devicePixelRatio||1,2),w=Math.max(60,Math.round(c.clientWidth||300)),h=w;
+  var W=Math.round(w*dpr),H=Math.round(h*dpr);if(c.width!==W||c.height!==H){c.width=W;c.height=H;}
+  var g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);return {g:g,w:w,h:h};}
+function dot(g,x,y,r,col,alpha){g.globalAlpha=alpha==null?1:alpha;g.fillStyle=col;g.beginPath();g.arc(x,y,r,0,6.2832);g.fill();g.globalAlpha=1;}
+
+/* ---------- grafik iskeleti (MD-T ile aynı) ---------- */
+var chartN=0;
+function makeChart(svg,o){
+  var vb=svg.viewBox.baseVal,W=vb.width,H=vb.height;
+  var L=o.ml||56,R=W-(o.mr||14),T=o.mt||14,B=H-(o.mb||36);
+  var lg=function(v){return o.log?Math.log10(Math.max(v,1e-300)):v;};
+  var X=function(v){return L+(v-o.x0)/(o.x1-o.x0)*(R-L);};
+  var Y=function(v){return B-(lg(v)-lg(o.y0))/(lg(o.y1)-lg(o.y0))*(B-T);};
+  var id='clip'+(chartN++),h='';
+  h+='<defs><clipPath id="'+id+'"><rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'"/></clipPath></defs>';
+  (o.yt||[]).forEach(function(t){var y=Y(t[0]);h+='<line class="grid" x1="'+L+'" x2="'+R+'" y1="'+y+'" y2="'+y+'"/><text x="'+(L-8)+'" y="'+(y+4)+'" text-anchor="end">'+t[1]+'</text>';});
+  (o.xt||[]).forEach(function(t){var x=X(t[0]);h+='<line class="grid" y1="'+T+'" y2="'+B+'" x1="'+x+'" x2="'+x+'"/><text x="'+x+'" y="'+(B+17)+'" text-anchor="middle">'+t[1]+'</text>';});
+  h+='<line class="axis" x1="'+L+'" x2="'+R+'" y1="'+B+'" y2="'+B+'"/><line class="axis" x1="'+L+'" x2="'+L+'" y1="'+T+'" y2="'+B+'"/>';
+  if(o.xl)h+='<text x="'+R+'" y="'+(H-3)+'" text-anchor="end">'+o.xl+'</text>';
+  if(o.yl)h+='<text x="'+(L+6)+'" y="'+(T+12)+'">'+o.yl+'</text>';
+  h+='<g class="layer" clip-path="url(#'+id+')"></g><g class="top"></g>';
+  svg.innerHTML=h;
+  return {X:X,Y:Y,L:L,R:R,T:T,B:B,W:W,H:H,layer:svg.querySelector('.layer'),top:svg.querySelector('.top'),o:o};
+}
+function pathOf(c,pts){var d='',pen=false;for(var i=0;i<pts.length;i++){var p=pts[i];if(!isFinite(p[1])){pen=false;continue;}var x=c.X(p[0]),y=clamp(c.Y(p[1]),-5000,5000);d+=(pen?'L':'M')+x.toFixed(2)+' '+y.toFixed(2);pen=true;}return d;}
+function ticks(a,b,step,d){var out=[];for(var v=Math.ceil(a/step-1e-9)*step;v<=b+1e-9;v+=step)out.push([v,fx(v,d)]);return out;}
+
+/* ================= LAB 1 ================= */
+var L1={sysW:null,sysP:null,SPF:6,F:null,calcTok:0};
+var cvW=$('#cv1w'),cvP=$('#cv1p');
+function init1(){L1.sysW=M.createSystem({N:64,rho:0.6,T0:1.0,seed:SEED,pbc:false});L1.sysP=M.createSystem({N:64,rho:0.6,T0:1.0,seed:SEED,pbc:true});draw1();}
+function drawWalled(){var s=L1.sysW,F=fit(cvW),g=F.g,w=F.w,pad=8,sc=(w-2*pad)/s.L,b=sc;
+  g.fillStyle='#f5ecd9';g.fillRect(pad,pad,w-2*pad,w-2*pad);g.fillStyle='#fffefb';g.fillRect(pad+b,pad+b,w-2*pad-2*b,w-2*pad-2*b);
+  g.strokeStyle='#243744';g.lineWidth=3;g.strokeRect(pad,pad,w-2*pad,w-2*pad);
+  var r=Math.max(1.6,0.45*sc);
+  for(var i=0;i<s.N;i++){var X=s.x[2*i],Y=s.x[2*i+1],near=Math.min(X,Y,s.L-X,s.L-Y)<1;dot(g,pad+X*sc,pad+(s.L-Y)*sc,r,near?'#934b3c':'#2f6f95');}}
+function drawPeriodic(){var s=L1.sysP,F=fit(cvP),g=F.g,w=F.w,pad=8,m=1.3,sc=(w-2*pad)/(s.L+2*m),L=s.L;
+  var r=Math.max(1.6,0.45*sc);
+  g.save();g.beginPath();g.rect(pad,pad,w-2*pad,w-2*pad);g.clip();
+  for(var ox=-1;ox<=1;ox++)for(var oy=-1;oy<=1;oy++){var img=ox||oy;
+    for(var i=0;i<s.N;i++){var X=s.x[2*i]+ox*L,Y=s.x[2*i+1]+oy*L;if(X<-m-1||X>L+m+1||Y<-m-1||Y>L+m+1)continue;
+      dot(g,pad+(X+m)*sc,pad+(L+m-Y)*sc,r,'#2f6f95',img?0.28:1);}}
+  g.restore();
+  g.setLineDash([6,5]);g.strokeStyle='#243744';g.lineWidth=1.5;g.strokeRect(pad+m*sc,pad+m*sc,L*sc,L*sc);g.setLineDash([]);}
+function draw1(){drawWalled();drawPeriodic();var s=L1.sysW;
+  $('#r1stepW').textContent='adım '+int(s.steps);$('#r1stepP').textContent='adım '+int(L1.sysP.steps);
+  $('#r1L').textContent=fx(s.L,2)+' σ';$('#r1frac').textContent=pct(s.surfaceFraction(1));$('#r1hits').textContent=int(s.stats.wallHits);}
+var A1=addAnim({el:$('#sims1'),running:!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches),tick:function(){L1.sysW.step(L1.SPF);L1.sysP.step(L1.SPF);draw1();}});
+function paintPlay1(){$('#play1').textContent=A1.running?'Durdur':'Sürdür';}
+$('#play1').addEventListener('click',function(){A1.running=!A1.running;paintPlay1();kick();});
+$('#reset1').addEventListener('click',function(){init1();kick();});
+LABS.lab1={get steps(){return L1.sysP.steps;},get stepsWalled(){return L1.sysW.steps;},get running(){return A1.running;},get visible(){return A1.visible;},get fractions(){return L1.F;}};
+
+var SIZES1=[36,100,400];
+function table1(){var tb=$('#tbl1 tbody');tb.innerHTML='';SIZES1.forEach(function(N){var r=L1.F&&L1.F[N];var tr=document.createElement('tr');
+  tr.innerHTML='<td>'+N+'</td><td>'+fx(Math.sqrt(N/0.6),2)+'</td><td>'+(r!=null?pct(r):'…')+'</td><td>duvar yok</td>';tb.appendChild(tr);});}
+function calc1(){var tok=++L1.calcTok,res={},idx=0,sys=null,phase=0,samples=[];
+  $('#calc1').disabled=true;L1.F={};table1();
+  function nextSize(){if(idx>=SIZES1.length){finish();return;}var N=SIZES1[idx];sys=M.createSystem({N:N,rho:0.6,T0:1.0,seed:SEED,pbc:false});samples=[];
+    $('#calc1s').textContent='Hesaplanıyor: N = '+N;setTimeout(chunk,0);}
+  function chunk(){if(tok!==L1.calcTok)return;var N=SIZES1[idx],t0=now();
+    while(now()-t0<12){if(sys.steps<200){sys.step(10);}else if(samples.length<20){sys.step(10);samples.push(sys.surfaceFraction(1));}else break;}
+    if(samples.length>=20){var m=0;samples.forEach(function(v){m+=v;});L1.F[N]=m/samples.length;table1();idx++;nextSize();}
+    else setTimeout(chunk,0);}
+  function finish(){$('#calc1').disabled=false;$('#calc1s').textContent='Bitti: tohum '+SEED;build1task();}
+  nextSize();}
+$('#calc1').addEventListener('click',calc1);
+function build1task(){var F=L1.F,box=$('#ans1');box.innerHTML='';
+  if(!F||F[36]==null||F[100]==null||F[400]==null){TRUTH.t1=null;if(!done[1])say('fb1','Seçenekler, üç boyut da hesaplandığında açılır.',false);return;}
+  var dec=F[36]>F[400]+0.02;
+  var opts=[
+    ['a','Duvara yakın parçacıkların payı N büyüdükçe azalıyor ('+pct(F[36])+', '+pct(F[100])+', '+pct(F[400])+'), ama 400 parçacıkta bile küçük sayılmaz. Küçük sistemlerde yüzey baskındır.',dec],
+    ['b','Pay N\'den bağımsızdır; duvarın etkisi sistemin büyüklüğüyle değişmez.',!dec],
+    ['c','Periyodik kutuda da aynı pay duvardan etkilenir; PBC yalnız görüntüyü değiştirir.',false]];
+  TRUTH.t1=dec?'a':'b';
+  opts.forEach(function(o){var b=document.createElement('button');b.textContent=o[1];b.setAttribute('data-v',o[0]);
+    b.addEventListener('click',function(){box.querySelectorAll('button').forEach(function(x){x.classList.remove('wrong');});
+      if(o[2]){b.classList.add('right');complete(1);say('fb1','Doğru. Bu tohumla duvara 1 σ\'dan yakın parçacıkların payı N = 36\'da '+pct(F[36])+', N = 400\'de '+pct(F[400])+' oldu. Duvarın yanındaki bir parçacığın bir yanı boştur; komşuları, dolayısıyla enerjisi ve hareketi, içerideki bir parçacığınkinden farklıdır. Periyodik kutuda duvar yoktur, bu yüzden o sütun boş.',true);}
+      else{b.classList.add('wrong');say('fb1',o[0]==='c'?'Periyodik kutuda duvar yoktur: sağdan çıkan parçacık soldan girer. Duvara yakınlık orada tanımsızdır; tablodaki son sütuna bakın.':'Tablodaki üç değeri karşılaştırın: aynı mı kalıyor, azalıyor mu?',false);}});
+    box.appendChild(b);});
+  if(!done[1])say('fb1','',true);}
+
+/* ================= LAB 2 ================= */
+var L2={L:6,P:[],sel:[0,1],pairK:0,pair:null};
+var sv2=$('#sv2'),S2=520/(3*6);
+function px2(X){return 10+(X+L2.L)*S2;} function py2(Y){return 10+(2*L2.L-Y)*S2;}
+function init2(){var r=M.createRng(SEED*101+2);L2.P=[];for(var i=0;i<8;i++)L2.P.push([0.3+r.next()*(L2.L-0.6),0.3+r.next()*(L2.L-0.6)]);
+  var best=-1;for(var a=0;a<8;a++)for(var b=a+1;b<8;b++){var dx=L2.P[b][0]-L2.P[a][0],dy=L2.P[b][1]-L2.P[a][1],mi=M.minImage(dx,dy,L2.L),g=Math.hypot(dx,dy)-Math.hypot(mi[0],mi[1]);if(g>best){best=g;L2.sel=[a,b];}}
+  var opts='';for(var k=0;k<8;k++)opts+='<option value="'+k+'">'+(k+1)+'</option>';$('#selA').innerHTML=opts;$('#selB').innerHTML=opts;draw2();}
+function wrap2(v){return v-L2.L*Math.floor(v/L2.L);}
+function draw2(){var L=L2.L,P=L2.P,a=L2.sel[0],b=L2.sel[1],h='';
+  for(var i=-1;i<=1;i++)for(var j=-1;j<=1;j++){var c=!i&&!j;h+='<rect x="'+px2(i*L)+'" y="'+py2((j+1)*L)+'" width="'+(L*S2)+'" height="'+(L*S2)+'" fill="'+(c?'#fffefb':'#f7f5ef')+'" stroke="'+(c?'#243744':'#c7c4b8')+'" stroke-width="'+(c?2:1)+'"'+(c?'':' stroke-dasharray="5 4"')+'/>';}
+  var A=P[a],B=P[b],dx=B[0]-A[0],dy=B[1]-A[1],mi=M.minImage(dx,dy,L),ix=Math.round((mi[0]-dx)/L),iy=Math.round((mi[1]-dy)/L);
+  h+='<line x1="'+px2(A[0])+'" y1="'+py2(A[1])+'" x2="'+px2(B[0])+'" y2="'+py2(B[1])+'" stroke="#8b949a" stroke-width="2" stroke-dasharray="6 5"/>';
+  h+='<line x1="'+px2(A[0])+'" y1="'+py2(A[1])+'" x2="'+px2(A[0]+mi[0])+'" y2="'+py2(A[1]+mi[1])+'" stroke="#934b3c" stroke-width="3"/>';
+  h+='<circle cx="'+px2(B[0]+ix*L)+'" cy="'+py2(B[1]+iy*L)+'" r="13" fill="none" stroke="#934b3c" stroke-width="2.5"/>';
+  for(i=-1;i<=1;i++)for(j=-1;j<=1;j++){var cen=!i&&!j;for(var k=0;k<P.length;k++){var isA=k===a,isB=k===b,col=isA?'#243744':(isB?'#934b3c':'#2f6f95');
+    h+='<circle class="pt" data-k="'+k+'" data-i="'+i+'" data-j="'+j+'" cx="'+px2(P[k][0]+i*L)+'" cy="'+py2(P[k][1]+j*L)+'" r="'+((isA||isB)?8:6.5)+'" fill="'+col+'" opacity="'+(cen?1:0.3)+'"/>';
+    if((isA||isB)&&(cen||(isB&&i===ix&&j===iy)))h+='<text x="'+(px2(P[k][0]+i*L)+10)+'" y="'+(py2(P[k][1]+j*L)-10)+'" style="font-weight:600;pointer-events:none">'+(isA?'A':(cen?'B':'B′'))+'</text>';}}
+  sv2.innerHTML=h;
+  var dn=Math.hypot(dx,dy),dm=Math.hypot(mi[0],mi[1]);
+  $('#r2A').textContent='('+fx(A[0],2)+'; '+fx(A[1],2)+')';$('#r2B').textContent='('+fx(B[0],2)+'; '+fx(B[1],2)+')';
+  $('#r2d').textContent=fx(dx,2)+'; '+fx(dy,2);$('#r2n').textContent=fx(dn,2)+' σ';
+  $('#r2dm').textContent=fx(mi[0],2)+'; '+fx(mi[1],2);$('#r2m').textContent=fx(dm,2)+' σ';
+  var where={'0,0':'merkez kutuda','1,0':'sağdaki kutuda','-1,0':'soldaki kutuda','0,1':'üstteki kutuda','0,-1':'alttaki kutuda','1,1':'sağ üst kutuda','-1,1':'sol üst kutuda','1,-1':'sağ alt kutuda','-1,-1':'sol alt kutuda'}[ix+','+iy];
+  $('#r2w').textContent=where;
+  $('#selA').value=String(a);$('#selB').value=String(b);}
+function setSel(k){if(L2.sel.indexOf(k)>=0)return;L2.sel=[L2.sel[1],k];}
+$('#selA').addEventListener('change',function(e){var k=Number(e.target.value);if(k===L2.sel[1])L2.sel=[k,L2.sel[0]];else L2.sel[0]=k;draw2();});
+$('#selB').addEventListener('change',function(e){var k=Number(e.target.value);if(k===L2.sel[0])L2.sel=[L2.sel[1],k];else L2.sel[1]=k;draw2();});
+(function(){var drag=null;
+  function world(ev){var pt=sv2.createSVGPoint();pt.x=ev.clientX;pt.y=ev.clientY;var p=pt.matrixTransform(sv2.getScreenCTM().inverse());return [(p.x-10)/S2-L2.L,2*L2.L-(p.y-10)/S2];}
+  sv2.addEventListener('pointerdown',function(e){var t=e.target;if(!t.classList||!t.classList.contains('pt'))return;var k=Number(t.getAttribute('data-k')),i=Number(t.getAttribute('data-i')),j=Number(t.getAttribute('data-j'));
+    setSel(k);var w=world(e);drag={k:k,ox:i*L2.L,oy:j*L2.L,gx:w[0]-(L2.P[k][0]+i*L2.L),gy:w[1]-(L2.P[k][1]+j*L2.L),id:e.pointerId};try{sv2.setPointerCapture(e.pointerId);}catch(er){}draw2();e.preventDefault();});
+  sv2.addEventListener('pointermove',function(e){if(!drag)return;var w=world(e);L2.P[drag.k]=[wrap2(w[0]-drag.gx-drag.ox),wrap2(w[1]-drag.gy-drag.oy)];draw2();});
+  function end(){drag=null;}sv2.addEventListener('pointerup',end);sv2.addEventListener('pointercancel',end);
+})();
+function genPair(){var r=M.createRng(SEED*7919+L2.pairK*31+5),Ls=[5,6,7.5,8,10],L=Ls[Math.floor(r.next()*Ls.length)];
+  function c(){return Math.round(r.next()*L*100)/100%L;}
+  var A,B,g=0;do{A=[c(),c()];B=[c(),c()];g++;}while(!(Math.abs(B[0]-A[0])>L/2+0.2||Math.abs(B[1]-A[1])>L/2+0.2)&&g<200);
+  var mi=M.minImage(B[0]-A[0],B[1]-A[1],L);
+  L2.pair={L:L,A:A,B:B,d:Math.hypot(mi[0],mi[1]),mi:mi};TRUTH.t2=L2.pair.d;
+  $('#pair2').innerHTML='Kutu kenarı <b>L = '+fx(L,L%1?1:0)+' σ</b> · A = ('+fx(A[0],2)+'; '+fx(A[1],2)+') · B = ('+fx(B[0],2)+'; '+fx(B[1],2)+')';
+  $('#in2').value='';if(!done[2])say('fb2','',true);}
+$('#new2').addEventListener('click',function(){L2.pairK++;genPair();});
+$('#chk2').addEventListener('click',function(){var p=L2.pair,g=num($('#in2').value);
+  if(!isFinite(g)){say('fb2','Bir sayı yazın; ondalık için virgül ya da nokta kullanabilirsiniz.',false);return;}
+  var naive=Math.hypot(p.B[0]-p.A[0],p.B[1]-p.A[1]);
+  if(Math.abs(g-p.d)<=0.01){complete(2);say('fb2','Doğru: '+fx(p.d,3)+' σ. Minimum görüntü farkları Δx′ = '+fx(p.mi[0],2)+', Δy′ = '+fx(p.mi[1],2)+'. Kutu içindeki düz mesafe '+fx(naive,2)+' σ olurdu; program bunu değil, en yakın görüntüyü kullanır.',true);}
+  else if(Math.abs(g-naive)<=0.01)say('fb2','Bu, kutu içindeki düz mesafe. Farklardan biri kutunun yarısından (L/2 = '+fx(p.L/2,2)+') büyük; o yönde L kadar kaydırın.',false);
+  else say('fb2','Henüz değil. Önce Δx ve Δy\'yi bulun; hangisi L/2\'den büyükse ondan L çıkarın (ya da L ekleyin). Sonra √(Δx′² + Δy′²).',false);});
+$('#hint2').addEventListener('click',function(){var p=L2.pair,dx=p.B[0]-p.A[0],dy=p.B[1]-p.A[1];
+  say('fb2','Δx = '+fx(dx,2)+', Δy = '+fx(dy,2)+', L/2 = '+fx(p.L/2,2)+'. Mutlak değeri L/2\'den büyük olan farka L ekleyin ya da ondan L çıkarın; sonuç −L/2 ile L/2 arasında kalmalı.',true);});
+LABS.lab2={get pair(){return L2.pair;}};
+
+/* ================= LAB 3 ================= */
+var L3={rc:1.5,run:null,R:{}};
+function U(r){var i6=Math.pow(r,-6);return 4*(i6*i6-i6);}
+function drawPot3(){var rc=L3.rc,Uc=U(rc);
+  var c=makeChart($('#p3a'),{x0:0.9,x1:3.2,y0:-1.1,y1:0.5,xt:[[1,'1'],[1.5,'1,5'],[2,'2'],[2.5,'2,5'],[3,'3']],yt:[[-1,'−1'],[-0.5,'−0,5'],[0,'0']],xl:'uzaklık r / σ',yl:'U / ε'});
+  var full=[],plain=[],shift=[];for(var i=0;i<=460;i++){var r=0.9+2.3*i/460,u=U(r);full.push([r,u]);plain.push([r,r<rc?u:0]);shift.push([r,r<rc?u-Uc:0]);}
+  var y0=c.Y(0);c.layer.appendChild(el('line',{x1:c.L,x2:c.R,y1:y0,y2:y0,stroke:'#b9b6aa','stroke-dasharray':'2 4'}));
+  c.layer.appendChild(el('path',{class:'ghost',d:pathOf(c,full)}));
+  var pl=[],pr=[];plain.forEach(function(p){(p[0]<rc?pl:pr).push(p);});
+  c.layer.appendChild(el('path',{class:'curve',d:pathOf(c,pl)}));c.layer.appendChild(el('path',{class:'curve',d:pathOf(c,pr)}));
+  c.layer.appendChild(el('line',{x1:c.X(rc),x2:c.X(rc),y1:c.Y(Uc),y2:c.Y(0),stroke:'#243744','stroke-width':1.5,'stroke-dasharray':'2 3'}));
+  c.layer.appendChild(el('path',{class:'num',d:pathOf(c,shift)}));
+  c.top.appendChild(el('line',{class:'cut',x1:c.X(rc),x2:c.X(rc),y1:c.T,y2:c.B}));
+  txt(c.top,c.X(rc)+6,c.T+14,'rc = '+fx(rc,1),{class:'cutl'});
+  txt(c.top,c.R-4,c.B-10,'rc\'deki basamak: '+fx(Math.abs(Uc),3)+' ε',{class:'hint','text-anchor':'end'});}
+function drawE3(){var R=L3.run,c;
+  var sS=R?R.S.E:[],sP=R?R.P.E:[],N=100,all=[],i;
+  for(i=0;i<sS.length;i++)all.push((sS[i]-sS[0])/N);for(i=0;i<sP.length;i++)all.push((sP[i]-sP[0])/N);
+  var m=1e-4;all.forEach(function(v){m=Math.max(m,Math.abs(v));});m*=1.15;
+  var base=Math.pow(10,Math.floor(Math.log10(m/4))),st=base*10;[1,2,5].forEach(function(x){if(st===base*10&&m/(x*base)<=4)st=x*base;});
+  var yt=[];for(var v=Math.ceil(-m/st)*st;v<=m+1e-12;v+=st){var vv=Math.round(v/st)*st;yt.push([vv,Math.abs(vv)<st*1e-6?'0':sig(vv,2)]);}
+  c=makeChart($('#p3b'),{x0:0,x1:8,y0:-m,y1:m,xt:ticks(0,8,2,0),yt:yt,xl:'zaman (indirgenmiş birim)',yl:'ΔE / N (ε)',ml:66});
+  function pts(arr){var o=[];for(var k=0;k<arr.length;k++)o.push([k*20*0.004,(arr[k]-arr[0])/N]);return o;}
+  if(R){c.layer.appendChild(el('path',{class:'err',d:pathOf(c,pts(sP))}));c.layer.appendChild(el('path',{class:'num',d:pathOf(c,pts(sS))}));}
+  else txt(c.top,(c.L+c.R)/2,(c.T+c.B)/2,'Koşuyu başlatın',{class:'hint','text-anchor':'middle'});}
+function mk3(shift){return {sys:M.createSystem({N:100,rho:0.6,T0:1.0,seed:SEED,rc:L3.rc,shift:shift,skin:0.4,nstlist:10,dt:0.004}),E:[],K:[]};}
+function dx3(R){var a=R.S.sys.x,b=R.P.sys.x,m=0;for(var i=0;i<a.length;i++){var d=Math.abs(a[i]-b[i]);if(d>m)m=d;}if(m>R.dx)R.dx=m;}
+function fdx(v){return v===0?'0 (aynı)':sig(v,2)+' σ';}
+function readout3(){var R=L3.run;
+  function f(a){return a&&a.length>2?sig(sd(a),2):'–';}
+  $('#r3step').textContent=R?int(R.S.sys.steps):'0';
+  $('#r3dx').textContent=R?fdx(R.dx):'';
+  $('#r3Es').textContent=R?f(R.S.E):'';$('#r3Ks').textContent=R?f(R.S.K):'';$('#r3Ep').textContent=R?f(R.P.E):'';$('#r3Kp').textContent=R?f(R.P.K):'';}
+function chips3(dis){$$('#rc3 .chip').forEach(function(b){b.disabled=dis;});$('#run3').disabled=dis;}
+$$('#rc3 .chip').forEach(function(b){b.addEventListener('click',function(){L3.rc=Number(b.getAttribute('data-v'));$$('#rc3 .chip').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});drawPot3();});});
+var A3=addAnim({el:$('#lab3'),running:false,tick:function(){var R=L3.run;if(!R){A3.running=false;return;}
+  if(R.S.sys.steps<200){R.S.sys.step(40);R.P.sys.step(40);dx3(R);}
+  else{for(var k=0;k<1&&R.S.E.length<101;k++){R.S.sys.step(20);R.P.sys.step(20);dx3(R);var a=R.S.sys.energies(),b=R.P.sys.energies();R.S.E.push(a.total);R.S.K.push(a.ke);R.P.E.push(b.total);R.P.K.push(b.ke);}}
+  drawE3();readout3();
+  if(R.S.E.length>=101)finish3();}});
+function run3(){L3.run={rc:L3.rc,S:mk3(true),P:mk3(false),dx:0};chips3(true);setState('st3','info','Koşu sürüyor…');A3.running=true;drawE3();readout3();kick();}
+function finish3(){var R=L3.run;A3.running=false;chips3(false);
+  var r={rc:R.rc,Es:sd(R.S.E),Ks:sd(R.S.K),Ep:sd(R.P.E),Kp:sd(R.P.K),dx:R.dx};r.qs=r.Es/r.Ks;r.qp=r.Ep/r.Kp;r.same=r.dx===0;r.answer=r.same?'a':null;R.done=true;
+  L3.R[String(R.rc)]=r;TRUTH.t3=TRUTH.t3||{};TRUTH.t3[String(R.rc)]=r.answer;
+  var tb=$('#tbl3 tbody');if(tb.querySelector('.empty'))tb.innerHTML='';
+  [['kaydırılmış',r.Es,r.Ks,r.qs],['düz kesme',r.Ep,r.Kp,r.qp]].forEach(function(x){var tr=document.createElement('tr');tr.innerHTML='<td>'+fx(r.rc,1)+' σ</td><td style="text-align:left">'+x[0]+'</td><td>'+sig(x[1],2)+'</td><td>'+sig(x[2],2)+'</td><td>'+sig(x[3],2)+'</td>';tb.appendChild(tr);});
+  var f=r.qp/r.qs;
+  if(r.same)setState('st3','good','İki koşunun konumları her ölçümde birebir aynıydı (en büyük fark 0): kaydırma dinamiği değiştirmedi. Aynı hareketten hesaplanan toplam enerjinin dalgalanması, kinetik enerjininkine göre kaydırılmış tanımla '+sig(r.qs,2)+', düz kesmeyle '+sig(r.qp,2)+' (yaklaşık '+fx(f,0)+' kat büyük). Fark yalnız enerjinin nasıl tanımlandığından geliyor.');
+  else setState('st3','warn','İki koşunun konumları arasında '+sig(r.dx,2)+' σ\'luk bir fark ölçüldü. Bu motorda beklenmeyen bir durum; sayfayı yeniden yükleyip tekrarlayın.');
+  if(!done[3]&&R.rc===1.5)say('fb3','Koşu bitti. Şimdi bir seçenek işaretleyin.',true);}
+$('#run3').addEventListener('click',run3);
+$$('#ans3 button').forEach(function(b){b.addEventListener('click',function(){var r=L3.R['1.5'];
+  if(!r){say('fb3','Önce rc = 1,5 σ ile iki koşuyu tamamlayın.',false);return;}
+  $$('#ans3 button').forEach(function(x){x.classList.remove('wrong');});var v=b.getAttribute('data-v');
+  if(r.answer&&v===r.answer){b.classList.add('right');complete(3);say('fb3','Doğru. Bu koşuda iki yörüngenin en büyük konum farkı '+fdx(r.dx)+': hareket aynı. Buna karşın toplam enerjinin standart sapması, kinetik enerjininkinin kaydırılmış tanımla '+sig(r.qs,2)+' katı, düz kesmeyle '+sig(r.qp,2)+' katı. Düz kesmede bir çift rc\'yi her geçtiğinde enerjiye '+fx(Math.abs(U(1.5)),2)+' ε\'luk bir basamak eklenir, ama kuvvet bu basamağı içermez; izlenen enerji dinamiğin koruduğu nicelik olmaz. Kaydırma tanımları uzlaştırır; kuvvetin rc\'deki süreksizliği ise küçük bir hata olarak kalır. Kısa bir kesme ayrıca etkileşimin bir kısmını atar: bu, enerjinin tanımını değil, modelin kendisini değiştirir.',true);}
+  else if(!r.answer){say('fb3','Bu koşuda iki yörünge aynı çıkmadı ('+fdx(r.dx)+'); sayfayı yeniden yükleyip koşuyu tekrarlayın.',false);}
+  else{b.classList.add('wrong');say('fb3',v==='b'?'Konum farkı satırına bakın: '+fdx(r.dx)+'. İki koşu aynı yolu izledi; kaydırma dinamiği değiştirmedi.':(v==='c'?'Tablodaki oranlara bakın: düz kesmede '+sig(r.qp,2)+', kaydırılmışta '+sig(r.qs,2)+'. Aynı hareketten hesaplandıkları hâlde düz kesmeyle tanımlanan enerji daha çok dalgalanıyor.':'Hareket aynı olduğuna göre sıçramalar harekette değil, enerjinin hesabındadır: düz kesmede potansiyel rc\'de sıçrar, kuvvet sıçramaz.'),false);}});});
+function tryBox(rc){try{var s=M.createSystem({N:9,L:4,rc:rc,seed:SEED});
+    setState('err3','good','Kuruldu: kutu kenarı L = 4 σ, yarısı 2 σ, rc = '+fx(rc,1)+' σ bundan küçük. Her parçacık, bir komşunun en fazla bir görüntüsünü rc içinde görebilir; minimum görüntü kuralı eksiksiz çalışır.');return s;}
+  catch(e){setState('err3','bad','Motor bu sistemi kurmayı reddetti ve bir hata fırlattı; sayfa hatayı yakaladı. Kutu kenarı L = 4 σ, yarısı 2 σ; rc = '+fx(rc,1)+' σ bundan büyük. Böyle bir kutuda bir parçacık, aynı komşunun iki ayrı görüntüsünü birden rc içinde görebilir. Minimum görüntü kuralı yalnız en yakın görüntüyü saydığı için etkileşim eksik ve kutunun boyutuna bağlı olurdu. Çözüm: kutuyu büyütmek ya da rc\'yi küçültmek. GROMACS da böyle bir girdiyle koşuyu başlatmaz, hazırlık (grompp) aşamasında hata verir.');return null;}}
+$('#try3a').addEventListener('click',function(){tryBox(2.5);});$('#try3b').addEventListener('click',function(){tryBox(1.5);});
+LABS.lab3={get running(){return A3.running;},get steps(){return L3.run?L3.run.S.sys.steps:0;},done:function(rc){return !!L3.R[String(rc)];},get results(){return L3.R;}};
+
+/* ================= LAB 4 ================= */
+var L4={skin:0.3,nst:10,run:null,prev:null,tag:0,rows:[],vtok:0,verifying:false};
+var cv4=$('#cv4'),N4=144,BRUTE4=N4*(N4-1)/2;
+function mk4(o){return M.createSystem(Object.assign({N:N4,rho:0.7,T0:1.5,seed:SEED,rc:2.5},o));}
+function preview4(){L4.prev=mk4({skin:L4.skin,nstlist:L4.nst,diagnose:true});var s=L4.prev,best=1e9;
+  for(var i=0;i<N4;i++){var d=Math.hypot(s.x[2*i]-s.L/2,s.x[2*i+1]-s.L/2);if(d<best){best=d;L4.tag=i;}}draw4();}
+function draw4(){var R=L4.run,s=R?R.D:L4.prev,skin=R?R.skin:L4.skin,F=fit(cv4),g=F.g,w=F.w,pad=8,L=s.L,sc=(w-2*pad)/L;
+  g.fillStyle='#fffefb';g.fillRect(pad,pad,w-2*pad,w-2*pad);
+  var t=L4.tag,tx=s.x[2*t],ty=s.x[2*t+1];
+  var inList=s.listPairsWithin(),r=Math.max(1.6,0.42*sc);
+  g.save();g.beginPath();g.rect(pad,pad,w-2*pad,w-2*pad);g.clip();
+  for(var ox=-1;ox<=1;ox++)for(var oy=-1;oy<=1;oy++){var cx=pad+(tx+ox*L)*sc,cy=pad+(L-ty-oy*L)*sc;
+    g.lineWidth=1.5;g.setLineDash([6,5]);g.strokeStyle='#a3402f';g.beginPath();g.arc(cx,cy,2.5*sc,0,6.2832);g.stroke();
+    if(skin>0){g.strokeStyle='#b9b6aa';g.setLineDash([3,4]);g.beginPath();g.arc(cx,cy,(2.5+skin)*sc,0,6.2832);g.stroke();}
+    g.setLineDash([]);}
+  var missNow=0;
+  for(var j=0;j<N4;j++){var X=s.x[2*j],Y=s.x[2*j+1],col='#9aa6ae',al=0.55;
+    if(j===t){col='#243744';al=1;}
+    else{var d=M.minImage(X-tx,Y-ty,L),dd=Math.hypot(d[0],d[1]);if(dd<2.5){var key=t<j?t+'-'+j:j+'-'+t;if(inList.has(key)){col='#2f6f95';al=1;}else{col='#a3402f';al=1;missNow++;}}}
+    dot(g,pad+X*sc,pad+(L-Y)*sc,j===t?r*1.3:r,col,al);}
+  g.restore();g.strokeStyle='#243744';g.lineWidth=1.5;g.setLineDash([6,5]);g.strokeRect(pad,pad,w-2*pad,w-2*pad);g.setLineDash([]);
+  return missNow;}
+function readout4(){var R=L4.run;
+  if(!R){['#r4pb','#r4tb','#r4pl','#r4pt','#r4tl','#r4rb','#r4ms'].forEach(function(id){$(id).textContent='';});$('#r4step').textContent='0';return;}
+  var n=Math.max(1,R.D.steps),st=R.D.stats;
+  $('#r4step').textContent=int(R.D.steps);
+  $('#r4pb').textContent=int(R.B.stats.pairEvals/Math.max(1,R.B.steps));
+  $('#r4tb').textContent=R.B.steps?fx(R.tB/R.B.steps,3)+' ms':'';
+  $('#r4pl').textContent=int(st.pairEvals/n);
+  $('#r4pt').textContent=int((st.pairEvals+st.rebuilds*BRUTE4)/n);
+  $('#r4tl').textContent=R.T.steps?fx(R.tT/R.T.steps,3)+' ms':'';
+  $('#r4rb').textContent=int(st.rebuilds)+' kez';
+  $('#r4ms').textContent=int(st.missed);}
+function chips4(dis){$$('#skin4 .chip,#nst4 .chip').forEach(function(b){b.disabled=dis;});$('#run4').disabled=dis;}
+function bindChips4(sel,key){$$(sel+' .chip').forEach(function(b){b.addEventListener('click',function(){L4[key]=Number(b.getAttribute('data-v'));$$(sel+' .chip').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});L4.run=null;readout4();setState('st4','','');preview4();});});}
+bindChips4('#skin4','skin');bindChips4('#nst4','nst');
+var A4=addAnim({el:$('#lab4'),running:false,tick:function(){var R=L4.run;if(!R){A4.running=false;return;}
+  var k=5,t0=now();R.T.step(k);R.tT+=now()-t0;t0=now();R.B.step(k);R.tB+=now()-t0;R.D.step(k);
+  draw4();readout4();if(R.D.steps>=400)finish4();}});
+function run4(){L4.vtok++;L4.run={skin:L4.skin,nst:L4.nst,D:mk4({skin:L4.skin,nstlist:L4.nst,diagnose:true}),T:mk4({skin:L4.skin,nstlist:L4.nst}),B:mk4({useList:false}),tT:0,tB:0};
+  chips4(true);setState('st4','info','Koşu sürüyor…');A4.running=true;draw4();readout4();kick();}
+function finish4(){var R=L4.run;A4.running=false;R.done=true;var st=R.D.stats,n=R.D.steps;
+  var res={skin:R.skin,nst:R.nst,seed:SEED,missed:st.missed,pairsTotal:(st.pairEvals+st.rebuilds*BRUTE4)/n,pairsLoop:st.pairEvals/n,brute:R.B.stats.pairEvals/R.B.steps,msList:R.tT/R.T.steps,msBrute:R.tB/R.B.steps,rebuilds:st.rebuilds,seeds:[SEED],seedMissed:[st.missed],ok:false,verified:false};
+  TRUTH.t4=res;L4.rows.push(res);R.res=res;
+  var tb=$('#tbl4 tbody');if(tb.querySelector('.empty'))tb.innerHTML='';
+  var tr=document.createElement('tr');tr.innerHTML='<td>'+fx(res.skin,1)+'</td><td>'+res.nst+'</td><td class="'+(res.missed?'no':'ok')+'">'+int(res.missed)+'</td><td class="v5">…</td><td>'+int(res.pairsTotal)+'</td><td>'+int(res.brute)+'</td><td>'+fx(res.msList,3)+' ms</td><td>'+fx(res.msBrute,3)+' ms</td>';tb.appendChild(tr);R.row=tr;
+  setState('st4','info','Bu tohumda '+int(res.missed)+' kaçan etkileşim. Aynı ayar dört tohumla daha sınanıyor…');
+  verify4(R);}
+function verify4(R){var tok=++L4.vtok,res=R.res,k=1,sys=null;L4.verifying=true;
+  function next(){if(tok!==L4.vtok)return;if(k>4){done4(R);return;}
+    sys=M.createSystem({N:N4,rho:0.7,T0:1.5,seed:SEED+k,rc:2.5,skin:res.skin,nstlist:res.nst,diagnose:true});setTimeout(chunk,0);}
+  function chunk(){if(tok!==L4.vtok)return;var t0=now();while(sys.steps<400&&now()-t0<12)sys.step(5);
+    if(sys.steps>=400){res.seeds.push(SEED+k);res.seedMissed.push(sys.stats.missed);R.row.querySelector('.v5').textContent=res.seedMissed.map(int).join(', ')+' …';k++;next();}
+    else setTimeout(chunk,0);}
+  next();}
+function done4(R){var res=R.res;L4.verifying=false;chips4(false);
+  var all0=res.seedMissed.every(function(m){return m===0;}),bad=res.seedMissed.filter(function(m){return m>0;}).length;
+  res.verified=true;res.allZero=all0;res.ok=all0&&res.pairsTotal<res.brute;
+  var list=res.seedMissed.map(int).join(', ');
+  var cell=R.row.querySelector('.v5');cell.textContent=list;cell.className=all0?'ok':'no';
+  var line='5 tohumda kaçan etkileşim: '+list+' (tohumlar '+res.seeds.join(', ')+').';
+  if(!all0)setState('st4','bad',line+' '+bad+' tohumda etkileşim kaçtı. Koşu hata vermeden biter; kuvvetler yine de eksik hesaplanır.');
+  else if(res.pairsTotal<res.brute)setState('st4','good',line+' Hiçbirinde etkileşim kaçmadı. Liste kurulumu dahil adım başına '+int(res.pairsTotal)+' çift, kaba kuvvette '+int(res.brute)+' çift (yaklaşık '+fx(res.brute/res.pairsTotal,1)+' kat az).');
+  else setState('st4','warn',line+' Kaçan etkileşim yok, ama liste kurulumu dahil kaba kuvvetten az çift hesaplanmadı.');
+  if(res.ok){complete(4);say('fb4','Doğru: deri '+fx(res.skin,1)+' σ ve nstlist '+res.nst+' ile beş tohumun hiçbirinde etkileşim kaçmadı ('+list+'). Maliyet de düşük: adım başına '+int(res.pairsTotal)+' çift (kaba kuvvet: '+int(res.brute)+'). Deri, liste yenilenene kadar parçacıkların rc sınırını aşabileceği yolu karşılar; ne kadar deri gerektiği, iki yenileme arasında parçacıkların ne kadar yol aldığına bağlıdır. Beş tohum da bir kanıt değil, bir sınamadır; GROMACS tamponu bu yüzden bir hata sınırından hesaplar.',true);}
+  else if(!done[4]){say('fb4',!all0?(res.missed===0?'Bu tohumda temiz çıktı, ama '+bad+' başka tohumda etkileşim kaçtı: tek bir koşu güvenliği göstermez. Deriyi kalınlaştırın ya da listeyi daha sık yenileyin.':'Bu birleşimde etkileşim kaçtı. Deriyi kalınlaştırın ya da listeyi daha sık yenileyin.'):'Kaçan yok, ama maliyet kaba kuvvetten düşük değil. Başka bir birleşim deneyin.',false);}}
+$('#run4').addEventListener('click',run4);
+window.addEventListener('resize',function(){if(!A1.running||!A1.visible)draw1();if(!A4.running)draw4();});
+LABS.lab4={get running(){return A4.running;},get verifying(){return L4.verifying;},get steps(){return L4.run?L4.run.D.steps:0;},get done(){return !!(L4.run&&L4.run.res&&L4.run.res.verified);},get rows(){return L4.rows;}};
+
+/* ================= LAB 5 ================= */
+(function(){
+  var c=makeChart($('#p5a'),{x0:1,x1:10,y0:1e-6,y1:1.5,log:true,xt:ticks(1,10,1,0),yt:[[1,'1'],[1e-2,'0,01'],[1e-4,'10⁻⁴'],[1e-6,'10⁻⁶']],xl:'uzaklık r',yl:'büyüklük'});
+  var a=[],b=[];for(var i=0;i<=300;i++){var r=1+9*i/300;a.push([r,1/r]);b.push([r,Math.pow(r,-6)]);}
+  c.layer.appendChild(el('path',{class:'curve',d:pathOf(c,a)}));c.layer.appendChild(el('path',{class:'num',d:pathOf(c,b)}));
+  c.top.appendChild(el('line',{class:'cut',x1:c.X(2.5),x2:c.X(2.5),y1:c.T,y2:c.B}));txt(c.top,c.X(2.5)+6,c.B-8,'r = 2,5',{class:'cutl'});
+  var h='';[2.5,5,10].forEach(function(r){h+='<dt class="h"><span class="nt">r = '+fx(r,1)+'</span></dt><dt>1/r</dt><dd>'+sig(1/r,3)+'</dd><dt>r⁻⁶</dt><dd>'+sig(Math.pow(r,-6),2)+'</dd>';});
+  $('#rd5a').innerHTML=h;
+})();
+var EX=2*Math.log(2),PS=[0];for(var k=1;k<=200;k++)PS.push(M.chainDirectSum(k));
+var need01=0;for(k=1;k<=200;k++){var ok=true;for(var q=k;q<=200;q++){if(Math.abs(PS[q]-EX)>=0.01){ok=false;break;}}if(ok){need01=k;break;}}
+function draw5b(){var n=Number($('#n5').value);
+  var c=makeChart($('#p5b'),{x0:0,x1:200,y0:0.9,y1:2.1,xt:ticks(0,200,50,0),yt:[[1,'1'],[1.5,'1,5'],[2,'2']],xl:'n (her yönde toplanan komşu)',yl:'toplam'});
+  var y=c.Y(EX);c.layer.appendChild(el('line',{class:'cut',x1:c.L,x2:c.R,y1:y,y2:y}));
+  var pts=[];for(var i=1;i<=n;i++)pts.push([i,PS[i]]);c.layer.appendChild(el('path',{class:'num',d:pathOf(c,pts)}));
+  c.top.appendChild(el('circle',{class:'num-dot',cx:c.X(n),cy:c.Y(PS[n]),r:5}));
+  $('#n5o').textContent=n;
+  $('#rd5b').innerHTML='<dt>İlk n komşuyla toplam</dt><dd>'+fx(PS[n],4)+'</dd><dt>Kesin değer 2 ln 2</dt><dd>'+fx(EX,4)+'</dd><dt>Fark</dt><dd>'+fx(PS[n]-EX,4)+'</dd><dt>1/n</dt><dd>'+fx(1/n,4)+'</dd><dt>Farkın 0,01 altında kalması için gereken n</dt><dd>'+(need01?int(need01):'200\'den fazla')+'</dd>';}
+$('#n5').addEventListener('input',draw5b);
+var RC5=2.5;
+function betaFor(tol){var lo=0.01,hi=5;for(var i=0;i<60;i++){var m=(lo+hi)/2;if(1-M.erf(m*RC5)>tol)lo=m;else hi=m;}return (lo+hi)/2;}
+var B5REF=betaFor(1e-5);
+function draw5c(){var b=Number($('#b5').value);
+  var c=makeChart($('#p5c'),{x0:0,x1:4,y0:0,y1:3,xt:ticks(0,4,1,0),yt:[[0,'0'],[1,'1'],[2,'2'],[3,'3']],xl:'uzaklık r',yl:'büyüklük'});
+  var t=[],re=[],rp=[];for(var i=1;i<=400;i++){var r=4*i/400,s=M.ewaldSplit(r,b);t.push([r,1/r]);re.push([r,s.real]);rp.push([r,s.recip]);}
+  c.layer.appendChild(el('path',{class:'curve',d:pathOf(c,t)}));c.layer.appendChild(el('path',{class:'err',d:pathOf(c,re)}));c.layer.appendChild(el('path',{class:'num',d:pathOf(c,rp)}));
+  c.top.appendChild(el('line',{class:'cut',x1:c.X(RC5),x2:c.X(RC5),y1:c.T,y2:c.B}));txt(c.top,c.X(RC5)+6,c.T+14,'rc',{class:'cutl'});
+  var sc=M.ewaldSplit(RC5,b),rel=sc.real*RC5;
+  $('#b5o').textContent=fx(b,2);
+  $('#rd5c').innerHTML='<dt>rc\'de kısa erimli parça erfc(β·rc)/rc</dt><dd>'+(rel<1e-6?'10⁻⁶\'dan küçük':sig(sc.real,2))+'</dd><dt>rc\'de 1/r\'ye oranı erfc(β·rc)</dt><dd>'+(rel<1e-6?'10⁻⁶\'dan küçük':sig(rel,2))+'</dd><dt>r = 0\'da uzun erimli parça 2β/√π</dt><dd>'+fx(2*b/Math.sqrt(Math.PI),2)+'</dd><dt>Oranı 10⁻⁵ yapan β (rc = 2,5)</dt><dd>'+fx(B5REF,2)+'</dd>';}
+$('#b5').addEventListener('input',draw5c);
+$$('#ans5 button').forEach(function(b){b.addEventListener('click',function(){$$('#ans5 button').forEach(function(x){x.classList.remove('wrong');});
+  if(b.getAttribute('data-ok')==='1'){b.classList.add('right');complete(5);say('fb5','Doğru. β bir hesap ayarıdır, fiziksel bir özellik değildir: iki parçanın toplamı her β için tam olarak 1/r\'dir. β büyüyünce kısa erimli parça kesme içinde söner ama uzun erimli parça r = 0 yakınında dikleşir (orada 2β/√π\'ye ulaşır); keskin bir fonksiyonu Fourier uzayında temsil etmek daha çok terim ister. PME\'de ızgara aralığı ve kesme mesafesi bu yüzden birlikte seçilir.',true);}
+  else{b.classList.add('wrong');say('fb5',b===$$('#ans5 button')[0]?'Siyah eğriye bakın: β ne olursa olsun iki parçanın toplamı aynı 1/r eğrisidir.':'Mavi eğriye bakın: β büyüyünce uzun erimli parça kaybolmuyor, uzakta hâlâ 1/r gibi davranıyor.',false);}});});
+LABS.lab5={beta1e5:B5REF,need01:need01};
+
+/* ================= LAB 6 ================= */
+var L6={L:6,d:4,a:30,rc:1,W:1.0,yn:null};
+var sv6=$('#sv6');
+function segDist(p1,q1,p2,q2){ // iki doğru parçası arasındaki en kısa uzaklık
+  function dps(p,a,b){var abx=b[0]-a[0],aby=b[1]-a[1],t=((p[0]-a[0])*abx+(p[1]-a[1])*aby)/(abx*abx+aby*aby||1);t=clamp(t,0,1);return Math.hypot(p[0]-a[0]-t*abx,p[1]-a[1]-t*aby);}
+  function cr(a,b,c){return (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);}
+  var d1=cr(p1,q1,p2),d2=cr(p1,q1,q2),d3=cr(p2,q2,p1),d4=cr(p2,q2,q1);
+  if(((d1>0&&d2<0)||(d1<0&&d2>0))&&((d3>0&&d4<0)||(d3<0&&d4>0)))return 0;
+  return Math.min(dps(p1,p2,q2),dps(q1,p2,q2),dps(p2,p1,q1),dps(q2,p1,q1));}
+function geo6(){var L=L6.L,d=L6.d,W=L6.W,h=(d-W)/2,th=L6.a*Math.PI/180,ux=Math.cos(th),uy=Math.sin(th),c=[L/2,L/2];
+  var p=[c[0]-h*ux,c[1]-h*uy],q=[c[0]+h*ux,c[1]+h*uy],best=1e9,bi=null;
+  for(var i=-1;i<=1;i++)for(var j=-1;j<=1;j++){if(!i&&!j)continue;var p2=[p[0]+i*L,p[1]+j*L],q2=[q[0]+i*L,q[1]+j*L],dd=segDist(p,q,p2,q2)-W;if(dd<best){best=dd;bi=[i,j];}}
+  return {p:p,q:q,now:best,img:bi,worst:Math.round((L-d)*100)/100};}
+function closest(p1,q1,p2,q2){ // en yakın nokta çifti (çizim için, örnekleyerek)
+  var best=1e9,bp=null;for(var a=0;a<=40;a++){var s=a/40,A=[p1[0]+s*(q1[0]-p1[0]),p1[1]+s*(q1[1]-p1[1])];for(var b=0;b<=40;b++){var t=b/40,B=[p2[0]+t*(q2[0]-p2[0]),p2[1]+t*(q2[1]-p2[1])],dd=Math.hypot(A[0]-B[0],A[1]-B[1]);if(dd<best){best=dd;bp=[A,B];}}}return bp;}
+function draw6(){var L=L6.L,G=geo6(),span=2.2*L,s=520/span,o=-0.6*L;
+  function X(v){return 10+(v-o)*s;} function Y(v){return 10+(o+span-v)*s;}
+  var h='';
+  for(var i=-1;i<=1;i++)for(var j=-1;j<=1;j++){var c=!i&&!j;h+='<rect x="'+X(i*L)+'" y="'+Y((j+1)*L)+'" width="'+(L*s)+'" height="'+(L*s)+'" fill="'+(c?'#fffefb':'#f7f5ef')+'" stroke="'+(c?'#243744':'#c7c4b8')+'" stroke-width="'+(c?2:1)+'"'+(c?'':' stroke-dasharray="5 4"')+'/>';}
+  var bad=G.now<=L6.rc;
+  for(i=-1;i<=1;i++)for(j=-1;j<=1;j++){var cen=!i&&!j;
+    h+='<line x1="'+X(G.p[0]+i*L)+'" y1="'+Y(G.p[1]+j*L)+'" x2="'+X(G.q[0]+i*L)+'" y2="'+Y(G.q[1]+j*L)+'" stroke="'+(cen?'#2f6f95':'#9bb3c4')+'" stroke-width="'+(L6.W*s)+'" stroke-linecap="round" opacity="'+(cen?0.95:0.6)+'"/>';}
+  if(G.img&&G.now>-L6.W){var i2=G.img[0],j2=G.img[1],bp=closest(G.p,G.q,[G.p[0]+i2*L,G.p[1]+j2*L],[G.q[0]+i2*L,G.q[1]+j2*L]);
+    if(bp){var dx=bp[1][0]-bp[0][0],dy=bp[1][1]-bp[0][1],dl=Math.hypot(dx,dy)||1,ex=dx/dl*L6.W/2,ey=dy/dl*L6.W/2;
+      var A=[bp[0][0]+ex,bp[0][1]+ey],B=[bp[1][0]-ex,bp[1][1]-ey];
+      h+='<line x1="'+X(A[0])+'" y1="'+Y(A[1])+'" x2="'+X(B[0])+'" y2="'+Y(B[1])+'" stroke="'+(bad?'#a3402f':'#934b3c')+'" stroke-width="3"/>';
+      h+='<circle cx="'+X(A[0])+'" cy="'+Y(A[1])+'" r="4" fill="#934b3c"/><circle cx="'+X(B[0])+'" cy="'+Y(B[1])+'" r="4" fill="#934b3c"/>';}}
+  var bx=X(o)+14,by=Y(o)-16;h+='<line x1="'+bx+'" y1="'+by+'" x2="'+(bx+L6.rc*s)+'" y2="'+by+'" stroke="#a3402f" stroke-width="4"/><text x="'+(bx+L6.rc*s+8)+'" y="'+(by+5)+'">rc = '+fx(L6.rc,1)+' nm</text>';
+  sv6.innerHTML=h;
+  $('#L6o').textContent=fx(L,1)+' nm';$('#d6o').textContent=fx(L6.d,1)+' nm';$('#a6o').textContent=L6.a+'°';
+  $('#r6now').textContent=G.now<0?'çakışıyor':fx(G.now,2)+' nm';
+  $('#r6worst').textContent=G.worst<0?'çakışıyor':fx(G.worst,2)+' nm';
+  $('#r6pad').textContent=G.worst<0?'yok':fx(G.worst/2,2)+' nm';
+  if(G.worst<0)setState('st6','bad','Molekül kutudan uzun: en kötü yönelimde kendi görüntüsüyle üst üste biner.');
+  else if(G.worst>L6.rc)setState('st6','good','Her yönelimde görüntü mesafesi rc\'den büyük: molekül kendi görüntüsünü kesme içinde görmez.');
+  else if(G.now>L6.rc)setState('st6','warn','Bu yönelimde sorun yok, ama molekül dönüp en uzun boyutunu bir kutu kenarına paralel getirirse görüntü mesafesi rc\'nin altına iner.');
+  else setState('st6','bad','Şu anda molekül kendi görüntüsünü kesme mesafesi içinde görüyor: gerçekte olmayan bir etkileşim.');
+  TRUTH.t6={worst:G.worst,ok:G.worst>L6.rc+1e-9,rc:L6.rc,L:L,d:L6.d};
+  $('#q6').textContent='Şu anki değerler: L = '+fx(L,1)+' nm, d = '+fx(L6.d,1)+' nm, rc = '+fx(L6.rc,1)+' nm.';}
+$('#L6').addEventListener('input',function(e){L6.L=Number(e.target.value);draw6();});
+$('#d6').addEventListener('input',function(e){L6.d=Number(e.target.value);draw6();});
+$('#a6').addEventListener('input',function(e){L6.a=Number(e.target.value);draw6();});
+$$('#rc6 .chip').forEach(function(b){b.addEventListener('click',function(){L6.rc=Number(b.getAttribute('data-v'));$$('#rc6 .chip').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});draw6();});});
+function yn6(v){L6.yn=v;$('#yn6y').setAttribute('aria-pressed',String(v===true));$('#yn6n').setAttribute('aria-pressed',String(v===false));}
+$('#yn6y').addEventListener('click',function(){yn6(true);});$('#yn6n').addEventListener('click',function(){yn6(false);});
+$('#chk6').addEventListener('click',function(){var T=TRUTH.t6,g=num($('#in6').value);
+  if(!isFinite(g)){say('fb6','Bir sayı yazın (nm).',false);return;}
+  if(L6.yn===null){say('fb6','Kuralın sağlanıp sağlanmadığını da seçin.',false);return;}
+  var okV=Math.abs(g-T.worst)<=0.01,okY=L6.yn===T.ok;
+  if(okV&&okY){complete(6);say('fb6','Doğru: en kötü yönelimde L − d = '+fx(T.L,1)+' − '+fx(T.d,1)+' = '+fx(T.worst,2)+' nm; bu, rc = '+fx(T.rc,1)+' nm\'den '+(T.ok?'büyük, kural her yönelimde sağlanıyor.':'büyük değil, kural bozuluyor: molekül dönünce kendi görüntüsünü kesme içinde görür.')+' Gerçek bir proteinde en uzun boyut koşu boyunca da değişebilir; bu yüzden mesafe koşu sırasında izlenir.',true);}
+  else if(!okV)say('fb6','Bu değer en kötü durumdaki mesafe değil. En kötü yönelim, en uzun boyutun bir kutu kenarına paralel olduğu andır; o zaman mesafe L − d olur. Yönelimi 0° ya da 90° yapıp kontrol edebilirsiniz.',false);
+  else say('fb6','Mesafe doğru, karar değil: bu değeri rc ile karşılaştırın.',false);});
+LABS.lab6={get truth(){return TRUTH.t6;}};
+
+/* ================= SINAV ================= */
+(function(){
+var Q=[
+ {s:'Periyodik sınır koşulunun asıl amacı nedir?',
+  o:[['Hesabı hızlandırmak için atom sayısını azaltmak.',0],['Küçük bir sistemde duvarların ve yüzeylerin baskın etkisini kaldırıp sistemi büyük bir hacmin iç kısmı gibi davrandırmak.',1],['Molekülün kendi görüntüsüyle etkileşmesini sağlamak.',0]],
+  w:'Periyodik kutuda duvar yoktur; her parçacık her yönde komşularla çevrilidir. Bunun bedeli yapay bir periyodikliktir: kutu, molekülün kendi görüntüsünü görmeyeceği kadar büyük seçilmelidir.'},
+ {s:'Kenarı L = 10 σ olan periyodik bir kutuda iki parçacığın x farkı 8 σ. Minimum görüntü kuralıyla etkileşimde kullanılan x farkı nedir?',
+  o:[['8 σ',0],['18 σ',0],['−2 σ: komşu kutudaki görüntü daha yakındır.',1]],
+  w:'8 σ, L/2 = 5 σ\'dan büyüktür; bu yüzden L çıkarılır: 8 − 10 = −2 σ. Her yöndeki fark −L/2 ile L/2 arasına getirilir.'},
+ {s:'Lennard-Jones etkileşimini rc\'de kaydırmak (potansiyel kaydırma) neyi düzeltir?',
+  o:[['Çiftler rc\'yi geçerken toplam enerjide oluşan basamakları; kuvvet değişmez.',1],['Kuvveti rc\'de yumuşakça sıfıra indirir.',0],['rc ötesindeki etkileşimleri tam olarak hesaba katar.',0]],
+  w:'Kaydırma sabit bir sayıdır, türevi sıfırdır; bu yüzden kuvvet aynı kalır ve rc\'de hâlâ birden düşer. Kuvveti de yumuşatan ayrı yöntemler vardır (kuvvet kaydırma, geçiş fonksiyonları).'},
+ {s:'Verlet komşu listesinde deri (skin) neden gerekir?',
+  o:[['Enerjiyi daha doğru hesaplamak için kesme mesafesini büyütür.',0],['Liste yenilenene kadar rc dışından içeri giren çiftlerin kaçmaması için.',1],['Listeyi her adımda yenilemek zorunda kalmamak için deri sıfır olmalıdır.',0]],
+  w:'Listedeki rc dışı çiftler kuvvet hesabında yine kesilir; deri enerjiyi değiştirmez. Yalnız, iki yenileme arasında rc sınırını geçebilecek çiftleri önceden listeye alır.'},
+ {s:'Proteinli bir su kutusunda Coulomb etkileşimleri neden PME gibi bir Ewald yöntemiyle hesaplanır?',
+  o:[['Coulomb etkileşimi Lennard-Jones\'tan hızlı söndüğü için.',0],['PME kesme mesafesini gereksiz kılar; gerçek uzayda hiç kesme kullanılmaz.',0],['1/r yavaş söner ve periyodik yük toplamları koşullu yakınsaktır; düz kesme yapay etkiler yaratır. Ewald kısa erimli parçayı kesme içinde, yumuşak uzun erimli parçayı ters uzayda hesaplar.',1]],
+  w:'PME\'de de bir gerçek uzay kesmesi vardır; ama kesilen parça erfc(βr)/r olduğu için kesmede ihmal edilecek kadar küçüktür. Geri kalan uzun erimli kısım ızgarada, hızlı Fourier dönüşümüyle hesaplanır.'}
+];
+var qz=$('#quiz'),right={};
+function score(){var n=Object.keys(right).length;$('#qscore').textContent=n?'Sınav: '+n+' / '+Q.length+' doğru':'';}
+Q.forEach(function(q,i){var d=document.createElement('div');d.className='q';
+  d.innerHTML='<p class="stem"><b>'+(i+1)+'.</b> </p><div class="opts" role="group" aria-label="Soru '+(i+1)+' seçenekleri"></div><p class="why" aria-live="polite"></p>';
+  d.querySelector('.stem').appendChild(document.createTextNode(q.s));
+  var box=d.querySelector('.opts');
+  q.o.forEach(function(o){var b=document.createElement('button');b.textContent=o[0];b.setAttribute('data-ok',o[1]?'1':'0');b.addEventListener('click',function(){
+    box.querySelectorAll('button').forEach(function(x){x.classList.remove('wrong');});
+    var why=d.querySelector('.why');why.innerHTML='';var lead=document.createElement('b');
+    if(o[1]){b.classList.add('right');right[i]=1;lead.style.color='var(--good)';lead.textContent='Doğru.';}
+    else{b.classList.add('wrong');lead.style.color='var(--bad)';lead.textContent='Tekrar düşünün.';}
+    why.appendChild(lead);why.appendChild(document.createTextNode(' '+q.w));score();});box.appendChild(b);});
+  qz.appendChild(d);});
+})();
+
+/* ================= başlangıç ve tohum değişimi ================= */
+function resetAll(){
+  paintSeed();paintPlay1();init1();L1.F=null;L1.calcTok++;$('#calc1').disabled=false;$('#calc1s').textContent='';
+  $('#tbl1 tbody').innerHTML='<tr><td class="empty" colspan="4">Henüz ölçüm yok. “Payları hesapla” düğmesine basın.</td></tr>';build1task();
+  init2();L2.pairK=0;genPair();
+  L3.run=null;L3.R={};TRUTH.t3={};A3.running=false;chips3(false);drawPot3();drawE3();readout3();setState('st3','','');setState('err3','','');
+  $('#tbl3 tbody').innerHTML='<tr><td class="empty" colspan="5">Henüz koşu yok.</td></tr>';$$('#ans3 button').forEach(function(x){x.classList.remove('wrong','right');});if(!done[3])say('fb3','',true);
+  L4.vtok++;L4.verifying=false;L4.run=null;L4.rows=[];TRUTH.t4=null;A4.running=false;chips4(false);preview4();readout4();setState('st4','','');
+  $('#tbl4 tbody').innerHTML='<tr><td class="empty" colspan="8">Henüz koşu yok.</td></tr>';if(!done[4])say('fb4','',true);
+  kick();}
+$('#seedNext').addEventListener('click',function(){SEED=SEED+1;resetAll();});
+draw5b();draw5c();draw6();
+resetAll();
+paintProgress();
+})();
+</script>
+
+</body>
+</html>

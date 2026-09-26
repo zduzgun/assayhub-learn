@@ -171,6 +171,45 @@
       }
     },
     {
+      "id": "MD-PBC",
+      "app": "md",
+      "level": "temel",
+      "title": "Simülasyon kutusu evren değildir: periyodik sınır ve kesme",
+      "path": "md/md-pbc/",
+      "source": "sources/MD-PBC.html",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH04",
+      "goals": [
+        "Duvar ve periyodik kutu",
+        "Minimum görüntü",
+        "Kesme mesafesi",
+        "Komşu listesi",
+        "Uzun erimli elektrostatik",
+        "Sonlu kutu"
+      ],
+      "data": [
+        "Tarayıcıda hesaplanan 2B Lennard-Jones oyuncak modeli (mdmini 0.1.0)"
+      ],
+      "notice": null,
+      "en": {
+        "title": "The simulation box is not the universe: periodic boundaries and cut-offs",
+        "book": "CH04",
+        "goals": [
+          "Walls and the periodic box",
+          "Minimum image",
+          "Cut-off distance",
+          "Neighbor list",
+          "Long-range electrostatics",
+          "Finite box"
+        ],
+        "data": [
+          "2D Lennard-Jones toy model computed in the browser (mdmini 0.1.0)"
+        ],
+        "notice": null
+      }
+    },
+    {
       "id": "MD-O",
       "app": "md",
       "level": "orta",
@@ -215,31 +254,39 @@
       "id": "MD-U",
       "app": "md",
       "level": "uzman",
-      "title": "Yakınsama ve örnekleme (alanin dipeptit)",
-      "path": null,
-      "source": null,
-      "version": null,
-      "status": "planned",
+      "title": "Örnekleme ve kararlılık yanılsaması: alanin dipeptidi",
+      "path": "md/md-u/",
+      "source": "sources/MD-U.html",
+      "version": "0.1.0",
+      "status": "pilot",
       "book": "CH17",
       "goals": [
-        "Blok ortalamaları",
-        "Bağımsız koşular",
-        "Etkin örneklem sayısı"
+        "Sakin eğri ve gezen açılar",
+        "Durumları önceden tanımlamak",
+        "Eşit pencereler",
+        "Etkin örnek sayısı",
+        "Bağımsız koşular ve hata",
+        "Pilot ve üretim"
       ],
       "data": [
-        "mdshare ALA2 (CC BY 4.0)"
+        "GROMACS 2026.3: 5 bağımsız koşu × 10 ns (pilot, 26 Eylül 2026)",
+        "Başlangıç yapısı: mdshare ALA2 (CC BY 4.0)"
       ],
       "notice": null,
       "en": {
-        "title": "Convergence and sampling (alanine dipeptide)",
+        "title": "Sampling and the illusion of stability: alanine dipeptide",
         "book": "CH17",
         "goals": [
-          "Block averages",
-          "Independent runs",
-          "Effective sample size"
+          "Calm curve, wandering angles",
+          "Defining states in advance",
+          "Equal windows",
+          "Effective sample size",
+          "Independent runs and error",
+          "Pilot and production"
         ],
         "data": [
-          "mdshare ALA2 (CC BY 4.0)"
+          "GROMACS 2026.3: 5 independent runs × 10 ns (pilot, 26 September 2026)",
+          "Starting structure: mdshare ALA2 (CC BY 4.0)"
         ],
         "notice": null
       }

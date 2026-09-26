@@ -9,7 +9,11 @@ Bu klasördeki HTML dosyaları MD kitabı deposundaki prototiplerin kopyasıdır
 | `DK-U.html` | `book/prototypes/DK-U_UZMAN_TARAMA_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `c62e54d81d748fda12efab337a9020aa4e87ffc8631fb149b77e4fa25a28361a` |
 | `MD-T.html` | `book/prototypes/CH02_ETKILESIMLI_PROTOTIP_2026-09-25_v2.html` | `bcd88e78ca176981cc5fd89011836b4479579fe8e771420aa5b2c567d94210ef` |
 | `MD-O.html` | `book/prototypes/MD-O_UBIKITIN_HAZIRLIK_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `d89304063249eab796349a150a197daf9d24bc52e6d75aa6115c6fb004fcf72e` |
+| `MD-U.html` | `book/prototypes/MD-U_ALANIN_DIPEPTIT_ORNEKLEME_ETKILESIMLI_PILOT_2026-09-26.html` | `79488b335c0ba45352f4f8b11330d3a7b58bc6cb95c3ae785135e07644cc4143` |
+| `MD-PBC.html` | `book/prototypes/MD-PBC_PERIYODIK_SINIR_ETKILESIMLI_PILOT_2026-09-26.html` | `949d658292480b038aed73c6ce74c68200f771f921a68265465104f0b6a9afa0` |
 
 Sürüm geçmişi: 0.1.0 (24 Eylül 2026, `*_2026-09-24.html`); 0.1.1 (25 Eylül 2026, `*_2026-09-25_v2.html`): editör incelemesinde bulunan içerik ve bilim sorunlarının düzeltilmesi (bkz. `docs/i18n-review/2026-09-25_*.cozum.md`). Eski sürümler kitap klasöründe değiştirilmeden durur.
 
 MD-O 0.1.0 (25 Eylül 2026): ilk sürüm (yayımlanan ilk kopya `..._2026-09-25.html`, bağımsız gözden geçirmeden sonra `_v2`: 4 fs kayma anlatımı doğrusal uyumla başlar, S2b'de mdrun çağrısının çıkış kodu doğru anlatılır, konum kısıtı ve bağ kısıtı Türkçede ayrı adlandırılır). Gömülü veri paketi `book/cases/ubiquitin_1ubq/learn/md-o_data.json` dosyasından (çıkarım `extract.py`, doğrulama `verify.py`); koşu dosyaları `book/cases/ubiquitin_1ubq/scenarios/` ve `gromacs_trial/`.
+
+MD-U 0.1.0 (26 Eylül 2026): gömülü veri paketi `book/cases/alanine_dipeptide/learn/md-u_data.json` (çıkarım `extract.py`, doğrulama `verify.py`); koşular `book/cases/alanine_dipeptide/pilot/`. MD-PBC 0.1.0 (26 Eylül 2026): veri paketi yok; sayılar tarayıcıda ortak motorla (`assets-src/mdmini.js`, sayfaya `tools/sync-engine.mjs` ile kopyalanır) hesaplanır.

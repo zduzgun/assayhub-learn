@@ -4,6 +4,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runLangTests } from './test-lang.mjs';
+import { checkSources } from './sync-engine.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -21,7 +22,7 @@ lt.fails.forEach((f) => fail(`dil testi: ${f}`));
 // 1) kimlikler tekil ve biçimli; yayındaki modülün iki dilde de sayfası var
 const ids = new Set();
 for (const m of M.modules) {
-  if (!/^(DK|MD)-(T|O|U)$/.test(m.id)) fail(`Kimlik biçimi: ${m.id}`);
+  if (!/^(DK|MD)-(T|O|U|[A-Z]{3,4})$/.test(m.id)) fail(`Kimlik biçimi: ${m.id}`);
   if (ids.has(m.id)) fail(`Yinelenen kimlik: ${m.id}`);
   ids.add(m.id);
   if (m.status !== 'planned' && !m.path) fail(`${m.id}: yayındaki modülün path alanı yok`);
@@ -93,6 +94,9 @@ for (const m of M.modules) {
     if (!/CC BY-SA 3\.0/.test(h)) fail(`${m.id} (${L}): ChEMBL verisi var ama CC BY-SA 3.0 notu yok`);
   }
 }
+
+// 6) ortak motor bölgesi, assets-src/mdmini.js ile aynı olmalı
+{ const e = checkSources(); e.bad.forEach((f) => fail(`${f}: mdmini bölgesi güncel değil (node tools/sync-engine.mjs)`)); if (e.used.length) notes.push(`mdmini kullanan sayfalar: ${e.used.join(', ')}`); }
 
 notes.forEach((n) => console.log('not:', n));
 if (errs.length) { errs.forEach((e) => console.error('HATA:', e)); console.error(`${errs.length} hata`); process.exit(1); }

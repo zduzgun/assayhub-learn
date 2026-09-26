@@ -84,3 +84,46 @@ Sayılar: ondalık virgül → nokta (1,70 Å → 1.70 Å; −0,38 → −0.38).
 | ns/gün | ns/day |
 | önceden yazılmış ölçüt | criterion written in advance |
 | bağımsız tohumlu üretim koşuları | production runs with independent seeds |
+| istatistiksel verimsizlik (g) | statistical inefficiency (g) |
+| etkin örnek sayısı (N_eff) | effective sample size (N_eff) |
+| bütünleşik otokorelasyon zamanı (τ_int); Sokal'ın kendini ayarlayan penceresi | integrated autocorrelation time (τ_int); Sokal's self-consistent window |
+| otokorelasyon fonksiyonu; gecikme | autocorrelation function; lag |
+| blok ortalaması; blok platosu; "plato yok" / plato var | block averaging; block plateau; "no plateau" / plateau present |
+| gösterge dizisi; durum göstergesi (αR göstergesi) | indicator series; state indicator (αR indicator) |
+| toplam varyasyon (değişim) uzaklığı (TVD) | total variation distance (TVD) |
+| pencere; pencere boyu; ilk ↔ geç / geç ↔ geç (pencere) | window; window length; first ↔ late / late ↔ late |
+| durum; durum tanımı; bölüntü; durum değişimi | state; state definition; partition; state change |
+| durum payı (p); popülasyon | state fraction (p); population |
+| ana sınır / duyarlılık sınırı (ψ sınırı) | main boundary / sensitivity boundary (ψ boundary) |
+| önceden yazılan / önceden sabitlenen (protokolde) | written in advance / fixed in advance (in the protocol) |
+| saf hata; otokorelasyon düzeltmeli hata; düzeltilmiş hata; koşular arası hata / saçılma | naive error; autocorrelation-corrected error; corrected error; between-run error / scatter |
+| bağımsız koşu; hız üretimi ve termostat tohumları | independent run; seeds for velocity generation and the thermostat |
+| atma kuralı; belirsizlik yöntemi | discard rule; uncertainty method |
+| pilot / üretim (aşaması); hat (uçtan uca) | pilot / production (stage); pipeline (end to end) |
+| okuma paneli; durum şeridi | readout panel; state strip |
+| Protein ölçeği / Veriye sığdır (eksen) | Protein scale / Fit to data |
+| hesaplanamaz; HESAPLANMADI (etiket) | cannot be computed; NOT COMPUTED |
+| Ç1–Ç3 (çeyrekler) | Q1–Q3 |
+| Koşu 1 (dar ekranda K1) | Run 1 (R1 on narrow screens) |
+| periyodik sınır koşulu (PBC) | periodic boundary conditions (PBC) |
+| duvarlı kutu / periyodik kutu | walled box / periodic box |
+| minimum görüntü; minimum görüntü kuralı | minimum image; minimum image convention |
+| düz fark / düz mesafe (kutu içinde) | direct difference / direct distance (within the box) |
+| görüntü mesafesi; en kötü yönelim | image distance; worst orientation |
+| düz kesme | plain (truncated) cut-off |
+| kaydırılmış potansiyel; potansiyel kaydırma; kuvvet kaydırma; geçiş fonksiyonu | shifted potential; potential shift; force shifting; switching function |
+| (Verlet) komşu listesi; liste kurulumu | (Verlet) neighbor list; list build |
+| deri (skin) | skin (buffer) |
+| liste yenileme / güncelleme aralığı (nstlist) | list update interval (nstlist) |
+| kaçan / kaçırılan etkileşim | missed interaction |
+| kaba kuvvet | brute force |
+| uzun erimli / kısa erimli | long-range / short-range |
+| Ewald ayrıştırması / ayrışımı; ayırma parametresi β | Ewald splitting; splitting parameter β |
+| ters (karşılıklı) uzay; gerçek uzay | reciprocal space; real space |
+| koşullu yakınsak | conditionally convergent |
+| akışkan | fluid |
+| oyuncak model; canlı hesap | toy model; live calculation |
+| indirgenmiş birimler | reduced units |
+| motor (mdmini) | engine |
+| SS (standart sapma) | SD (standard deviation) |
+| Durdur / Sürdür (animasyon); Baştan | Pause / Resume; Reset |
