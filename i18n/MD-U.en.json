@@ -1,7 +1,7 @@
 {
  "module": "MD-U",
  "lang": "en",
- "source_sha256": "79488b335c0ba45352f4f8b11330d3a7b58bc6cb95c3ae785135e07644cc4143",
+ "source_sha256": "d60fcbe7616aa200e9c7e4acd64632a3705f49b74952faf0737eea76e679f949",
  "reviewed": false,
  "editorial_pass": "Claude scientific-editor pass, 2026-09-26",
  "translator": "Claude (machine translation, needs human review)",
@@ -1355,10 +1355,6 @@
    "+' visits per run).')"
   ],
   [
-   "'Sık ziyaret edilen durumların göstergeleri için g 1\\'den çok büyük: g (Sokal) '",
-   "'For the indicators of frequently visited states, g is much greater than 1: g (Sokal) is '"
-  ],
-  [
    "'Sık ziyaret edilen durumların göstergeleri için g (Sokal): '",
    "'For the indicators of frequently visited states, g (Sokal) is '"
   ],
@@ -1389,6 +1385,190 @@
   [
    "'” diye işaretlenir.'",
    "'”.'"
+  ],
+  [
+   "Alanin dipeptidinin üç boyutlu top ve çubuk modeli; sürükleyerek ya da ok tuşlarıyla döndürülür",
+   "Three-dimensional ball-and-stick model of alanine dipeptide; rotate it by dragging or with the arrow keys"
+  ],
+  [
+   ">Görünümü sıfırla<",
+   ">Reset view<"
+  ],
+  [
+   "> Hidrojenler</label>",
+   "> Hydrogens</label>"
+  ],
+  [
+   "Renk, her atomun minimize yapıdan uzaklığıdır (kareler ağır atomlarla hizalandıktan sonra). Bu küçük molekülde en büyük yer değiştirmeler dönen uç metil gruplarından (ACE ve NME) gelir; kırmızı “önemli” demek değildir. Durum bilgisini φ ve ψ vurgusu taşır: renkli iki bağ ve onları tanımlayan dört atom.",
+   "Color shows each atom's distance from the minimized structure (after the frames were aligned on the heavy atoms). In this small molecule, the largest displacements come from the rotating terminal methyl groups (ACE and NME); red does not mean “important”. The state information is carried by the φ and ψ highlight: the two colored bonds and the four atoms that define them."
+  ],
+  [
+   "<span>Zaman imleci</span>",
+   "<span>Time cursor</span>"
+  ],
+  [
+   "' nm ve üstü'",
+   "' nm and above'"
+  ],
+  [
+   "'Görüntü, zaman imlecindeki ya da ondan önceki son 3B karedir; kare aralığı '",
+   "'The view shows the last 3D frame at or before the time cursor; frame interval '"
+  ],
+  [
+   "' ps, ara kare üretilmez.'",
+   "' ps; no frames are interpolated.'"
+  ],
+  [
+   "('3B kare '",
+   "('3D frame '"
+  ],
+  [
+   "'Minimize yapı (başlangıç); ilk 3B kare t = '",
+   "'Minimized structure (start); first 3D frame at t = '"
+  ],
+  [
+   "$('#seed1').textContent='Bu '",
+   "$('#seed1').textContent='These '"
+  ],
+  [
+   "' koşu, aynı sistemin '",
+   "' runs are '"
+  ],
+  [
+   "' bağımsız örneklemesidir: hepsi aynı minimize yapıdan başladı; yalnız hızlar ve termostat için kullanılan rastgele tohumlar farklıdır.'",
+   "' independent samplings of the same system: all of them started from the same minimized structure; only the random seeds used for the velocities and the thermostat differ.'"
+  ],
+  [
+   "<h3 class=\"subh\">Kısa bakış ve beş koşu</h3>",
+   "<h3 class=\"subh\">A short look and five runs</h3>"
+  ],
+  [
+   "<h4>Kötü okuma</h4>",
+   "<h4>Bad reading</h4>"
+  ],
+  [
+   "<h4>Daha iyi okuma</h4>",
+   "<h4>Better reading</h4>"
+  ],
+  [
+   ">Seçili koşunun yalnız başı<",
+   ">Only the beginning of the selected run<"
+  ],
+  [
+   "aria-label=\"Kısa bakış süresi\"",
+   "aria-label=\"Length of the short look\""
+  ],
+  [
+   "<th>Koşu</th><th>αR</th><th>β</th><th>αL</th><th>Ziyaret αR / β / αL</th>",
+   "<th>Run</th><th>αR</th><th>β</th><th>αL</th><th>Visits αR / β / αL</th>"
+  ],
+  [
+   "var LOC={aR:'αR\\'de',b:'β\\'da',aL:'αL\\'de'};",
+   "var LOC={aR:'in αR',b:'in β',aL:'in αL'};"
+  ],
+  [
+   "label:'İlk '+fx(Number(k),1)+' ns'",
+   "label:'First '+fx(Number(k),1)+' ns'"
+  ],
+  [
+   "'Soldaki kısa bakış (koşunun ilk '",
+   "'The short look on the left (the first '"
+  ],
+  [
+   ".join(' ya da ')",
+   ".join(' or ')"
+  ],
+  [
+   "' ns\\'si) bir öğretim gösterimidir; önceden kaydedilmiş analiz planının parçası değildir. Hiçbir koşu “kötü” değildir: '",
+   "' ns of the run) is a teaching display, not part of the analysis plan fixed in advance. No run is “bad”: all '"
+  ],
+  [
+   "' koşunun hepsi aynı sistemin eşit geçerlikte örnekleridir; fark okumadadır.'",
+   "' runs are equally valid samples of the same system; the difference lies in the reading.'"
+  ],
+  [
+   "'Tam koşularda αR payı '",
+   "'In the full runs, the αR fraction ranges over '"
+  ],
+  [
+   "' arasında değişiyor. '",
+   "'. '"
+  ],
+  [
+   "'αL sütunu üstü çizili: αL\\'ye her koşuda yalnız '",
+   "'The αL column is struck through: αL was entered only '"
+  ],
+  [
+   "' kez girildi; bu pay '",
+   "' time(s) in each run; this fraction is '"
+  ],
+  [
+   "'Birbirinden farklı tam koşu değerleri, tek bir koşunun (hele başının) popülasyon için neden yetmediğini gösterir.'",
+   "'The differing full-run values show why a single run (let alone its beginning) is not enough for a population.'"
+  ],
+  [
+   "'“İlk '+fx(w,1)+' ns\\'ye baktım: RMSD sakin, molekül hep '",
+   "'“I looked at the first '+fx(w,1)+' ns: the RMSD is calm, and the molecule stays '"
+  ],
+  [
+   "' kalıyor. Sistem dengede; molekül bu durumdadır.”'",
+   "' the whole time. The system is at equilibrium; the molecule is in this state.”'"
+  ],
+  [
+   "'“İlk '+fx(w,1)+' ns\\'ye baktım: RMSD sakin, molekül çoğunlukla '",
+   "'“I looked at the first '+fx(w,1)+' ns: the RMSD is calm, and the molecule is mostly '"
+  ],
+  [
+   "+' (pay '+fx(P[d],3)",
+   "+' (fraction '+fx(P[d],3)"
+  ],
+  [
+   "'). Sistem dengede; popülasyon budur.”'",
+   "'). The system is at equilibrium; this is the population.”'"
+  ],
+  [
+   "<dt>Pay, αR / β / αL</dt>",
+   "<dt>Fraction, αR / β / αL</dt>"
+  ],
+  [
+   "<dt>Ziyaret, αR / β / αL</dt>",
+   "<dt>Visits, αR / β / αL</dt>"
+  ],
+  [
+   "<dt>RMSD medyanı</dt><dd id=\"e1r\">",
+   "<dt>RMSD median</dt><dd id=\"e1r\">"
+  ],
+  [
+   "'<dt>Aynı koşu, bütün '",
+   "'<dt>Same run, all '"
+  ],
+  [
+   "<b>Yanlış çıkarım örneği</b>",
+   "<b>Example of a wrong inference</b>"
+  ],
+  [
+   "', ilk '+fx(Number(k),1)",
+   "', first '+fx(Number(k),1)"
+  ],
+  [
+   "+' ns: β payı '+",
+   "+' ns: β fraction '+"
+  ],
+  [
+   "+' ve '+fx(e.transitions,0)",
+   "+' and '+fx(e.transitions,0)"
+  ],
+  [
+   "' durum değişimi; bu kısa bakış tek başına molekülün dengede olduğunu ve β popülasyonunu gösterir.'",
+   "' state changes; this short look alone shows that the molecule is at equilibrium, and gives the β population.'"
+  ],
+  [
+   "'Sık ziyaret edilen durumların göstergeleri için g, kare aralığına göre büyük: g (Sokal) '",
+   "'For the indicators of frequently visited states, g is large relative to the frame interval: g (Sokal) is '"
+  ],
+  [
+   "\"note\":\"Kareler minimize yapıya ağır atomlarla kütle ağırlıklı hizalandı; koordinatlar 0,001 nm biriminde tamsayı.\"",
+   "\"note\":\"Frames were aligned to the minimized structure on the heavy atoms with mass weighting; coordinates are integers in units of 0.001 nm.\""
   ],
   [
    "new Intl.NumberFormat('tr-TR'",
@@ -1444,6 +1624,7 @@
   ]
  ],
  "keep": [
+  "px system-ui,sans-serif",
   "fill:var(--accent)",
   "var(--good)",
   "N_eff (Sokal), αR",

@@ -9,7 +9,7 @@ Bu klasördeki HTML dosyaları MD kitabı deposundaki prototiplerin kopyasıdır
 | `DK-U.html` | `book/prototypes/DK-U_UZMAN_TARAMA_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `c62e54d81d748fda12efab337a9020aa4e87ffc8631fb149b77e4fa25a28361a` |
 | `MD-T.html` | `book/prototypes/CH02_ETKILESIMLI_PROTOTIP_2026-09-25_v2.html` | `bcd88e78ca176981cc5fd89011836b4479579fe8e771420aa5b2c567d94210ef` |
 | `MD-O.html` | `book/prototypes/MD-O_UBIKITIN_HAZIRLIK_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `d89304063249eab796349a150a197daf9d24bc52e6d75aa6115c6fb004fcf72e` |
-| `MD-U.html` | `book/prototypes/MD-U_ALANIN_DIPEPTIT_ORNEKLEME_ETKILESIMLI_PILOT_2026-09-26.html` | `79488b335c0ba45352f4f8b11330d3a7b58bc6cb95c3ae785135e07644cc4143` |
+| `MD-U.html` | `book/prototypes/MD-U_ALANIN_DIPEPTIT_ORNEKLEME_ETKILESIMLI_PILOT_2026-09-26_v2.html` | `d60fcbe7616aa200e9c7e4acd64632a3705f49b74952faf0737eea76e679f949` |
 | `MD-PBC.html` | `book/prototypes/MD-PBC_PERIYODIK_SINIR_ETKILESIMLI_PILOT_2026-09-26.html` | `949d658292480b038aed73c6ce74c68200f771f921a68265465104f0b6a9afa0` |
 
 Sürüm geçmişi: 0.1.0 (24 Eylül 2026, `*_2026-09-24.html`); 0.1.1 (25 Eylül 2026, `*_2026-09-25_v2.html`): editör incelemesinde bulunan içerik ve bilim sorunlarının düzeltilmesi (bkz. `docs/i18n-review/2026-09-25_*.cozum.md`). Eski sürümler kitap klasöründe değiştirilmeden durur.
