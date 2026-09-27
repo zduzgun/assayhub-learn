@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.5.1 (27 Eylül 2026) · Eski MD modülleri yayından çekildi
+
+- MD-PBC, MD-O ve MD-U yayından çekildi (`status: planned`, `path` ve `source` kaldırıldı). Sayfaları artık üretilmiyor (404); MD sayfasında soluk, kesik çizgili ve tıklanamayan "planlandı" kartı olarak kalıyorlar. Kalıcı kimlikler değişmedi: kitaptaki kısa adresler (`/tr/l/MD-PBC` gibi) MD sayfasındaki karta yönleniyor. Modüller temel keşif kalıbıyla sırayla yeniden yazılacak; ilk sıradaki MD-PBC.
+- Kaynak dosyalar (`sources/MD-PBC.html`, `MD-O.html`, `MD-U.html`) ve çeviri tabloları başvuru için depoda duruyor; yayına girmiyorlar.
+- Docking modülleri (DK-T, DK-O, DK-U) yenisi hazır olana kadar yayında.
+
 ## 0.5.0 (26 Eylül 2026) · MD-T keşif laboratuvarları
 
 - MD-T (temel düzey, kitap CH02) 0.2.0: beş laboratuvar yerine temel keşif kalıbıyla üç laboratuvar (tasarım: `docs/superpowers/specs/2026-09-26-temel-kesif-kalibi-design.md`). Her laboratuvar deneysel bir köprüyle başlar; okur kontrolleri kurcalar, keşif kartları okurun kendi denemesiyle ve kendi sayılarıyla açılır; defter kuralı okurun verisinden çıkarır; laboratuvar proteine dönüş tablosu ve altı soruluk sınavla biter. İlerleme dokuz keşfi sayar.
