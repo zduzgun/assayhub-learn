@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.6.1 (27 Eylül 2026) · MD-PBC İngilizce
+
+- MD-PBC 0.2.0 İngilizce sayfası: `i18n/MD-PBC.en.json` (204 çift, makine çevirisi, `reviewed: false`); sayı biçimi İngilizceye göre (ondalık nokta, sayıdan sonra yüzde). Tablo, `i18n/_work/build_MD-PBC_en.py` ile Türkçe kaynağa sıralı değiştirmeler uygulanıp değişen satırlardan üretildi.
+- Dar ekranda (560 px altı) tuval etiketleri kısa hâlleriyle çizilir; "uygulamadaki ayar" etiketi grafiğin altına iner (iki dilde).
+
 ## 0.6.0 (27 Eylül 2026) · MD-PBC keşif laboratuvarı 1
 
 - MD-PBC (temel düzey, kitap CH04) 0.2.0 yeniden yayında: temel keşif kalıbıyla Laboratuvar 1 "Kenarsız kutu". Deneysel köprü (96 kuyucuklu plakanın kenar etkisi, kristalin birim hücresi); atölye: bir su molekülünü duvarlı kutuda, boşlukta ve periyodik kutuda fırlatma (çarpma, kaçış, sınırdan geçiş; kutu çerçevesini kaydırma); tezgâh: 100 moleküllük iki boyutlu Lennard-Jones sıvısı, moleküller potansiyel enerjilerine göre renkli (damla, duvar, periyodik; ısıtma ve itme, uzun zaman grafiği); defter: damla ve periyodik kutuda 25-400 molekülle molekül başına enerji, aynı ölçekte son hâl resimleri, 1/√N ekseninde sonsuz damlaya uzatma; proteine dönüş: ubikitin kutusu kesiti (editconf -d gibi, küp ya da onikiyüzlü), 1 nm su kabukları, RTX 5080 için süre tahmini; altı soru. Altı keşif kartı yalnız okurun kendi denemesiyle açılır.

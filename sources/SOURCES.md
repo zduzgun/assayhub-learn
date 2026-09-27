@@ -10,7 +10,7 @@ Bu klasördeki HTML dosyaları MD kitabı deposundaki prototiplerin kopyasıdır
 | `MD-T.html` | `book/prototypes/MD-T_ENERJI_KUVVET_KESIF_2026-09-26.html` | `1d619cb6836c6c49bbade589128e14c863719448b7359979fe44634de09e8c89` |
 | `MD-O.html` | `book/prototypes/MD-O_UBIKITIN_HAZIRLIK_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `d89304063249eab796349a150a197daf9d24bc52e6d75aa6115c6fb004fcf72e` |
 | `MD-U.html` | `book/prototypes/MD-U_ALANIN_DIPEPTIT_ORNEKLEME_ETKILESIMLI_PILOT_2026-09-26_v2.html` | `d60fcbe7616aa200e9c7e4acd64632a3705f49b74952faf0737eea76e679f949` |
-| `MD-PBC.html` | `book/prototypes/MD-PBC_KENARSIZ_KUTU_2026-09-27.html` | `c35dd8ba0650edd380e646f319bb557ae4fe5079d839619e1b58756d8849d66e` |
+| `MD-PBC.html` | `book/prototypes/MD-PBC_KENARSIZ_KUTU_2026-09-27b.html` | `fe9ed278c3f98496dbdf593b3aca2d45bcc3d840312155850e54b2902074689a` |
 
 Sürüm geçmişi: 0.1.0 (24 Eylül 2026, `*_2026-09-24.html`); 0.1.1 (25 Eylül 2026, `*_2026-09-25_v2.html`): editör incelemesinde bulunan içerik ve bilim sorunlarının düzeltilmesi (bkz. `docs/i18n-review/2026-09-25_*.cozum.md`). Eski sürümler kitap klasöründe değiştirilmeden durur.
 

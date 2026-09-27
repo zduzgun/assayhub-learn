@@ -746,10 +746,10 @@ function nDraw(){
   for(var v=Math.ceil(lo*5)/5; v<=hi+1e-9; v+=0.2){ var y=Y(v); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); if(Math.round(v*10)%4===0){ g.fillStyle=muted; g.textAlign='right'; g.fillText(fx(v,1),L-8,y+4); } }
   g.fillStyle=muted; g.textAlign='center';
   if(inv){ [0,0.05,0.1,0.15,0.2].forEach(function(t){ var xx=Xv(t); g.strokeStyle=line; g.beginPath(); g.moveTo(xx,H-Bm); g.lineTo(xx,H-Bm+5); g.stroke(); g.fillText(fx(t,2),xx,H-Bm+19); });
-    g.fillText('1/√N  (sağda küçük damla, solda sonsuz büyük damla)',(L+W-R)/2,H-8);
+    g.fillText(W>=560?'1/√N  (sağda küçük damla, solda sonsuz büyük damla)':'1/√N',(L+W-R)/2,H-8);
     g.textAlign='left'; g.fillText('sonsuz',Xv(0)+4,H-Bm-6); }
   else { NS.forEach(function(N){ g.fillText(String(N),X(N),H-Bm+19); }); g.fillText('molekül sayısı',(L+W-R)/2,H-8); }
-  g.textAlign='left'; g.fillStyle=muted; g.fillText('molekül başına potansiyel enerji (ε) · aşağısı daha sıkı bağlı',L,16);
+  g.textAlign='left'; g.fillStyle=muted; g.fillText(W>=560?'molekül başına potansiyel enerji (ε) · aşağısı daha sıkı bağlı':'molekül başına potansiyel enerji (ε)',L,16);
   if(P.length){ var pm=P.reduce(function(a,p){return a+p.u;},0)/P.length, yp=Y(pm); g.strokeStyle=pcol; g.setLineDash([6,5]); g.lineWidth=1.6; g.beginPath(); g.moveTo(L,yp); g.lineTo(W-R,yp); g.stroke(); g.setLineDash([]);
     g.fillStyle=pcol; if(inv){ g.textAlign='right'; g.fillText('periyodik kutu ortalaması '+fx(pm,2)+' ε',W-R,yp+17); } else { g.textAlign='left'; g.fillText('periyodik kutu ortalaması '+fx(pm,2)+' ε',L+8,yp+34); } g.textAlign='left'; }
   if(fitL){ var xs=V.map(function(p){return 1/Math.sqrt(p.N);}), x1=Math.max.apply(null,xs), x0=Math.min.apply(null,xs);
@@ -859,10 +859,10 @@ function aPlot(){
   g.strokeStyle=line; g.lineWidth=1; g.fillStyle=muted;
   [0,0.2,0.4,0.6].forEach(function(f){ var y=Yf(f); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.textAlign='right'; g.fillText(pc(100*f,0),L-6,y+4); });
   [0,top/2,top].forEach(function(h){ g.textAlign='left'; g.fillText(fx(h,h<10&&h%1?1:0)+' sa',W-R+6,Yh(h)+4); });
-  g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(d){ g.fillText(fx(d,1),X(d),H-B+18); }); g.fillText('proteinden kutu kenarına uzaklık d (nm)',(L+W-R)/2,H-6);
+  g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(d){ g.fillText(fx(d,1),X(d),H-B+18); }); g.fillText(W>=560?'proteinden kutu kenarına uzaklık d (nm)':'d (nm)',(L+W-R)/2,H-6);
   function curve(fn,Yfn,col){ g.strokeStyle=col; g.lineWidth=2.4; g.beginPath(); for(var k=0;k<=120;k++){ var d=d0+(d1-d0)*k/120, y=Yfn(fn(d)); if(k) g.lineTo(X(d),y); else g.moveTo(X(d),y); } g.stroke(); }
   curve(function(d){return sys4(d,'cube').f;},Yf,css('--warm')); curve(function(d){return sys4(d,P4.shape).h100;},Yh,css('--navy'));
-  var x1=X(1); g.strokeStyle=css('--good'); g.setLineDash([3,3]); g.lineWidth=1.3; g.beginPath(); g.moveTo(x1,T); g.lineTo(x1,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.textAlign='left'; g.fillText('uygulamadaki ayar',x1+4,T+14);
+  var x1=X(1); g.strokeStyle=css('--good'); g.setLineDash([3,3]); g.lineWidth=1.3; g.beginPath(); g.moveTo(x1,T); g.lineTo(x1,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.textAlign='left'; g.fillText('uygulamadaki ayar',x1+4,W>=560?T+14:H-B-8);
   var xa=X(P4.d), S=sys4(P4.d,P4.shape); g.strokeStyle=css('--accent'); g.setLineDash([4,4]); g.lineWidth=1.5; g.beginPath(); g.moveTo(xa,T); g.lineTo(xa,H-B); g.stroke(); g.setLineDash([]);
   [[Yf(sys4(P4.d,'cube').f),css('--warm')],[Yh(S.h100),css('--navy')]].forEach(function(p){ g.fillStyle=p[1]; g.beginPath(); g.arc(xa,p[0],5,0,6.2832); g.fill(); });
   g.textAlign='left';

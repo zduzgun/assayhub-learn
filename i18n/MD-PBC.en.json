@@ -1,0 +1,834 @@
+{
+ "module": "MD-PBC",
+ "lang": "en",
+ "source_sha256": "fe9ed278c3f98496dbdf593b3aca2d45bcc3d840312155850e54b2902074689a",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-PBC 0.2.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>Kenarsız Kutu: Periyodik Sınır</title>",
+   "<title>The Box Without Edges: Periodic Boundaries</title>"
+  ],
+  [
+   "<div class=\"proto\">Bu sürümde modülün 1. laboratuvarı yayında. Kesme ve komşu listesi, uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>",
+   "<div class=\"proto\">In this version the first lab of the module is published. The labs on cut-offs and neighbor lists, long-range electrostatics and box size are in preparation. Every number is computed in your browser right now.</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-PBC · Laboratuvar 1 · Periyodik sınır</span>",
+   "<span class=\"eyebrow\">MD-PBC · Lab 1 · Periodic boundaries</span>"
+  ],
+  [
+   "<h1>Kenarsız kutu: birkaç bin molekül nasıl bir okyanus gibi davranır?</h1>",
+   "<h1>The box without edges: how do a few thousand molecules behave like an ocean?</h1>"
+  ],
+  [
+   "<p class=\"lead\">Bir MD simülasyonu, bir proteini ve çevresindeki birkaç bin su molekülünü küçük bir kutuya koyar. Gerçek bir örnekteyse protein, kenarlardan çok uzakta, sayısız su molekülünün ortasındadır. Küçük kutuya bir de kenar eklersek ne değişir? Kenarı nasıl ortadan kaldırırız ve bunun enerji açısından önemi ne?</p>",
+   "<p class=\"lead\">An MD simulation puts a protein and a few thousand surrounding water molecules into a small box. In a real sample the protein sits far from any edge, in the middle of countless water molecules. What changes if the small box also has an edge? How do we remove the edge, and why does it matter for the energy?</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"progN\">0 / 6</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"progN\">0 / 6</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"h0\">Kenarlar farklı davranır; bunu laboratuvardan zaten biliyorsunuz</h2>",
+   "<h2 id=\"h0\">Edges behave differently; you already know this from the lab</h2>"
+  ],
+  [
+   "<svg id=\"plateSvg\" viewBox=\"0 0 360 250\" role=\"img\" aria-label=\"96 kuyucuklu plaka: dış halkadaki 36 kuyucuk vurgulanmış\"></svg>",
+   "<svg id=\"plateSvg\" viewBox=\"0 0 360 250\" role=\"img\" aria-label=\"96-well plate: the 36 wells of the outer ring highlighted\"></svg>"
+  ],
+  [
+   "<p><b>Kenar kuyucuk etkisi.</b> 96 kuyucuklu bir plakada dış halkadaki kuyucuklar daha çok buharlaşır ve sıcaklık değişimini daha çabuk hisseder. Bu yüzden çoğu deneyde dış kuyucuklara örnek konmaz. Kenardaki 36 kuyucuk, plakanın %37,5'idir.</p>",
+   "<p><b>The edge-well effect.</b> On a 96-well plate the wells of the outer ring evaporate more and feel temperature changes sooner. This is why many experiments leave the outer wells empty. The 36 edge wells are 37.5% of the plate.</p>"
+  ],
+  [
+   "<svg id=\"cellSvg\" viewBox=\"0 0 360 250\" role=\"img\" aria-label=\"Kristal: bir birim hücrenin her yöne ötelenerek tekrarı\"></svg>",
+   "<svg id=\"cellSvg\" viewBox=\"0 0 360 250\" role=\"img\" aria-label=\"Crystal: a unit cell repeated by translation in every direction\"></svg>"
+  ],
+  [
+   "<p><b>Birim hücre.</b> Kristalografide kristalin tamamı, bir birim hücrenin her yöne ötelenerek tekrarlanmasıdır. Tek bir hücreyi çözmek, bütün kristali çözmek demektir. MD'deki periyodik kutu aynı fikirdir; farkı, hücrenin içinde sıvı olması ve moleküllerin hücre sınırından geçebilmesidir.</p>",
+   "<p><b>The unit cell.</b> In crystallography the whole crystal is one unit cell repeated by translation in every direction. Solving one cell means solving the whole crystal. The periodic box in MD is the same idea; the difference is that the cell holds a liquid and molecules can cross the cell boundary.</p>"
+  ],
+  [
+   "<p class=\"small\">Bir simülasyon kutusu birkaç nanometredir. Böyle küçük bir kutunun kenarı olsaydı, moleküllerin önemli bir kısmı plakanın dış kuyucukları gibi \"kenarda\" kalırdı. Aşağıda önce tek bir molekülle, sonra kalabalık bir sıvıyla bunu deneyeceksiniz.</p>",
+   "<p class=\"small\">A simulation box is a few nanometers across. If such a small box had an edge, a large share of the molecules would sit \"at the edge\", like the outer wells of the plate. Below you will try this first with a single molecule, then with a crowded liquid.</p>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
+  ],
+  [
+   "<h2 id=\"h1s\">Bir molekülü fırlatın, nereye gittiğini izleyin</h2>",
+   "<h2 id=\"h1s\">Launch a molecule and follow where it goes</h2>"
+  ],
+  [
+   "<p class=\"small\">Kutu 3 nm genişliğinde; içindeki top tek bir su molekülüdür (18 g/mol). Topu tutup geriye doğru sürükleyin: ok, bırakınca alacağı yönü ve hızı gösterir. Oda sıcaklığında bir su molekülünün tipik hızı saniyede birkaç yüz metredir. Üç sınır türünü sırayla deneyin.</p>",
+   "<p class=\"small\">The box is 3 nm wide; the ball inside is a single water molecule (18 g/mol). Grab the ball and drag it backwards: the arrow shows the direction and speed it will take when you let go. At room temperature a typical water molecule moves a few hundred meters per second. Try the three kinds of boundary one after the other.</p>"
+  ],
+  [
+   "<canvas id=\"ball\" class=\"stage\" aria-label=\"Fırlatma atölyesi: 3 nm'lik kutu ve bir su molekülü\"></canvas>",
+   "<canvas id=\"ball\" class=\"stage\" aria-label=\"Launch workshop: a 3 nm box and one water molecule\"></canvas>"
+  ],
+  [
+   "<div class=\"hint\" id=\"ballHint\">Topu tutup sürükleyin, bırakın.</div>",
+   "<div class=\"hint\" id=\"ballHint\">Grab the ball, drag it and let go.</div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kutunun sınırı</div>",
+   "<div><div class=\"lbl\">Boundary of the box</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Kutunun sınırı\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Boundary of the box\">"
+  ],
+  [
+   "<button type=\"button\" id=\"bWall\" aria-pressed=\"true\">Duvar</button>",
+   "<button type=\"button\" id=\"bWall\" aria-pressed=\"true\">Wall</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"bVac\" aria-pressed=\"false\">Boşluk</button>",
+   "<button type=\"button\" id=\"bVac\" aria-pressed=\"false\">Vacuum</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"bPbc\" aria-pressed=\"false\">Periyodik</button>",
+   "<button type=\"button\" id=\"bPbc\" aria-pressed=\"false\">Periodic</button>"
+  ],
+  [
+   "<dt>Hız</dt><dd id=\"rV\">0 m/s</dd>",
+   "<dt>Speed</dt><dd id=\"rV\">0 m/s</dd>"
+  ],
+  [
+   "<dt>Kinetik enerji</dt><dd id=\"rKE\">0 kJ/mol</dd>",
+   "<dt>Kinetic energy</dt><dd id=\"rKE\">0 kJ/mol</dd>"
+  ],
+  [
+   "<dt>300 K'de kT'ye oranı</dt><dd id=\"rKT\">0</dd>",
+   "<dt>Ratio to kT at 300 K</dt><dd id=\"rKT\">0</dd>"
+  ],
+  [
+   "<dt id=\"rCntL\">Duvara çarpma</dt><dd id=\"rCnt\">0</dd>",
+   "<dt id=\"rCntL\">Wall hits</dt><dd id=\"rCnt\">0</dd>"
+  ],
+  [
+   "<dt>Kutudaki enerji</dt><dd id=\"rBoxE\">0 kJ/mol</dd>",
+   "<dt>Energy in the box</dt><dd id=\"rBoxE\">0 kJ/mol</dd>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"bReset\">Topu ortaya al</button>",
+   "<button type=\"button\" class=\"btn\" id=\"bReset\">Put the ball in the middle</button>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"bPause\">Durdur</button>",
+   "<button type=\"button\" class=\"btn\" id=\"bPause\">Pause</button>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"bUnwrap\"> Molekülün gerçek yolunu göster (sarılmamış)</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"bUnwrap\"> Show the molecule's real path (unwrapped)</label>"
+  ],
+  [
+   "<div class=\"change\" id=\"bChg\"><span class=\"t\">Topu fırlatın</span><span>Çarpma, sınırdan geçiş ya da kaçış olduğunda burada ne değiştiği yazılır.</span></div>",
+   "<div class=\"change\" id=\"bChg\"><span class=\"t\">Launch the ball</span><span>When the ball hits a wall, crosses the boundary or escapes, what changed is written here.</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"w1\"><span class=\"k\">Açık</span><h3>Duvar ne yapıyor?</h3><p>Duvarlı kutuda topu fırlatın ve en az iki kez çarpmasını izleyin. Hangi hız bileşeni değişiyor, enerji değişiyor mu?</p><div class=\"mine\" id=\"mw1\">Duvar modunda fırlatın; iki çarpma yeterli.</div></article>",
+   "<article class=\"q\" id=\"w1\"><span class=\"k\">Open</span><h3>What does the wall do?</h3><p>Launch the ball in the walled box and watch it hit at least twice. Which velocity component changes, and does the energy change?</p><div class=\"mine\" id=\"mw1\">Launch in wall mode; two hits are enough.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"w2\"><span class=\"k\">Açık</span><h3>Duvar yoksa ne olur?</h3><p>Boşluk modunda topu fırlatın. Kutudaki enerjiye ne oluyor?</p><div class=\"mine\" id=\"mw2\">Boşluk modunda topu kutunun dışına gönderin.</div></article>",
+   "<article class=\"q\" id=\"w2\"><span class=\"k\">Open</span><h3>What happens without a wall?</h3><p>Launch the ball in vacuum mode. What happens to the energy in the box?</p><div class=\"mine\" id=\"mw2\">In vacuum mode, send the ball out of the box.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"w3\"><span class=\"k\">Açık</span><h3>Periyodik kutuda top nereye gidiyor?</h3><p>Periyodik modda fırlatın, sınırdan en az üç kez geçmesini izleyin.</p><div class=\"mine\" id=\"mw3\">Periyodik modda fırlatın; üç geçiş yeterli.</div></article>",
+   "<article class=\"q\" id=\"w3\"><span class=\"k\">Open</span><h3>Where does the ball go in the periodic box?</h3><p>Launch in periodic mode and watch it cross the boundary at least three times.</p><div class=\"mine\" id=\"mw3\">Launch in periodic mode; three crossings are enough.</div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
+  ],
+  [
+   "<h2 id=\"h2s\">Kalabalıkta: kenardaki molekülün enerjisi neden farklı?</h2>",
+   "<h2 id=\"h2s\">In a crowd: why is the energy of a molecule at the edge different?</h2>"
+  ],
+  [
+   "<p class=\"small\">Şimdi kutuda 100 molekülden oluşan bir sıvı var (Lennard-Jones sıvısı, argon benzeri; iki boyutlu oyuncak model). Her molekülün rengi kendi potansiyel enerjisidir: koyu mavi, çevresindeki komşulardan güçlü çekim alan, yani enerjisi düşük molekül; açık renk, komşusu az, enerjisi yüksek molekül. Bir moleküle dokunursanız komşularını ve enerjisini görürsünüz; tutup sürüklerseniz ona hız verirsiniz. Enerji birimi ε'dur; argon için ε yaklaşık 1 kJ/mol.</p>",
+   "<p class=\"small\">Now the box holds a liquid of 100 molecules (a Lennard-Jones liquid, argon-like; a two-dimensional toy model). The color of each molecule is its own potential energy: dark blue is a molecule strongly attracted by the neighbors around it, so its energy is low; a light color is a molecule with few neighbors and high energy. Tap a molecule to see its neighbors and its energy; grab and drag it to give it speed. The energy unit is ε; for argon ε is about 1 kJ/mol.</p>"
+  ],
+  [
+   "<canvas id=\"liq\" class=\"stage\" aria-label=\"Lennard-Jones sıvısı, moleküller potansiyel enerjilerine göre renkli\"></canvas>",
+   "<canvas id=\"liq\" class=\"stage\" aria-label=\"Lennard-Jones liquid, molecules colored by their potential energy\"></canvas>"
+  ],
+  [
+   "<div class=\"hint\" id=\"liqHint\">Bir moleküle dokunun ya da tutup sürükleyin.</div>",
+   "<div class=\"hint\" id=\"liqHint\">Tap a molecule, or grab and drag it.</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Sıvının sınırı\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Boundary of the liquid\">"
+  ],
+  [
+   "<button type=\"button\" id=\"lWall\" aria-pressed=\"false\">Duvar</button>",
+   "<button type=\"button\" id=\"lWall\" aria-pressed=\"false\">Wall</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"lVac\" aria-pressed=\"true\">Boşluk (damla)</button>",
+   "<button type=\"button\" id=\"lVac\" aria-pressed=\"true\">Vacuum (droplet)</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"lPbc\" aria-pressed=\"false\">Periyodik</button>",
+   "<button type=\"button\" id=\"lPbc\" aria-pressed=\"false\">Periodic</button>"
+  ],
+  [
+   "<div class=\"scale\"><span>düşük enerji</span><span class=\"bar\" id=\"scaleBar\"></span><span>yüksek</span></div>",
+   "<div class=\"scale\"><span>low energy</span><span class=\"bar\" id=\"scaleBar\"></span><span>high</span></div>"
+  ],
+  [
+   "<dt>3 ya da daha az komşusu olan</dt><dd id=\"lSurf\"></dd>",
+   "<dt>With 3 or fewer neighbors</dt><dd id=\"lSurf\"></dd>"
+  ],
+  [
+   "<dt>Molekül başına potansiyel enerji</dt><dd id=\"lU\"></dd>",
+   "<dt>Potential energy per molecule</dt><dd id=\"lU\"></dd>"
+  ],
+  [
+   "<dt>Sıcaklık (başlangıç = 100)</dt><dd id=\"lT\"></dd>",
+   "<dt>Temperature (start = 100)</dt><dd id=\"lT\"></dd>"
+  ],
+  [
+   "<dt>Buharlaşan molekül</dt><dd id=\"lEv\"></dd>",
+   "<dt>Evaporated molecules</dt><dd id=\"lEv\"></dd>"
+  ],
+  [
+   "<dt>Seçili molekül</dt><dd id=\"lSel\">yok</dd>",
+   "<dt>Selected molecule</dt><dd id=\"lSel\">none</dd>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"lReset\">Baştan başlat</button>",
+   "<button type=\"button\" class=\"btn\" id=\"lReset\">Start over</button>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"lHeat\">Isıt (+%25 kinetik enerji)</button>",
+   "<button type=\"button\" class=\"btn\" id=\"lHeat\">Heat (+25% kinetic energy)</button>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"lPause\">Durdur</button>",
+   "<button type=\"button\" class=\"btn\" id=\"lPause\">Pause</button>"
+  ],
+  [
+   "<canvas id=\"lPlot\" class=\"plot\" aria-label=\"Zamana karşı molekül başına potansiyel enerji ve sıcaklık\"></canvas>",
+   "<canvas id=\"lPlot\" class=\"plot\" aria-label=\"Potential energy per molecule and temperature against time\"></canvas>"
+  ],
+  [
+   "<div class=\"change\" id=\"lChg\"><span class=\"t\">Deneyin</span><span>Boşluk modunda kare biçimli sıvının zamanla yuvarlaklaştığını izleyin; sonra duvar ve periyodik modlara geçin.</span></div>",
+   "<div class=\"change\" id=\"lChg\"><span class=\"t\">Try it</span><span>In vacuum mode watch the square-shaped liquid round off over time; then switch to the wall and periodic modes.</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"b1\"><span class=\"k\">Açık</span><h3>Kenardaki ile ortadaki molekül</h3><p>Duvar ya da boşluk modunda önce kenardaki açık renkli bir moleküle, sonra ortadaki koyu bir moleküle dokunun.</p><div class=\"mine\" id=\"mb1\">Komşusu en çok 3 olan bir moleküle ve en az 5 olan bir moleküle dokunun.</div></article>",
+   "<article class=\"q\" id=\"b1\"><span class=\"k\">Open</span><h3>A molecule at the edge and one in the middle</h3><p>In wall or vacuum mode, tap a light-colored molecule at the edge first, then a dark one in the middle.</p><div class=\"mine\" id=\"mb1\">Tap a molecule with at most 3 neighbors and one with at least 5.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"b2\"><span class=\"k\">Açık</span><h3>Verdiğiniz enerji nereye gitti?</h3><p>Periyodik modda bir molekülü tutup hızla fırlatın ve biraz bekleyin.</p><div class=\"mine\" id=\"mb2\">Periyodik modda bir moleküle güçlü bir itme verin.</div></article>",
+   "<article class=\"q\" id=\"b2\"><span class=\"k\">Open</span><h3>Where did the energy you gave go?</h3><p>In periodic mode, grab a molecule, fling it fast and wait a little.</p><div class=\"mine\" id=\"mb2\">In periodic mode, give a molecule a strong push.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"b3\"><span class=\"k\">Açık</span><h3>Küçük damla, büyük damla, periyodik kutu</h3><p>Aşağıdaki defterde farklı molekül sayılarıyla ölçüm yapın.</p><div class=\"mine\" id=\"mb3\">Her iki düzende en az üç farklı molekül sayısı ölçün.</div></article>",
+   "<article class=\"q\" id=\"b3\"><span class=\"k\">Open</span><h3>Small droplet, large droplet, periodic box</h3><p>Measure with different numbers of molecules in the notebook below.</p><div class=\"mine\" id=\"mb3\">Measure at least three different molecule numbers in both setups.</div></article>"
+  ],
+  [
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Keşif defteri</span><h2 id=\"h3s\">Örneğin boyutu sonucu değiştiriyor mu?</h2></div>",
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Discovery notebook</span><h2 id=\"h3s\">Does the size of the sample change the result?</h2></div>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"nClr\">Defteri temizle</button>",
+   "<button type=\"button\" class=\"btn\" id=\"nClr\">Clear notebook</button>"
+  ],
+  [
+   "<p>Bir tuzun molar çözünme ısısını 1 mL'de de ölçseniz 1 L'de de ölçseniz aynı sonucu beklersiniz; örneğin boyutuna bağlı olmayan bu tür özelliklere yoğun özellik denir. Molekül başına enerji de böyledir: sınırsız bir sıvıda molekül sayısına bağlı olmamalıdır.</p>",
+   "<p>Whether you measure the molar heat of solution of a salt in 1 mL or in 1 L, you expect the same result; properties that do not depend on the size of the sample are called intensive properties. The energy per molecule is one of them: in an unbounded liquid it should not depend on the number of molecules.</p>"
+  ],
+  [
+   "<p>Burada iki tür \"örnek\" hazırlıyorsunuz: boşlukta serbest bir damla ve periyodik bir kutu. Her ölçümde sıvı sabit sıcaklıkta dengelenir, sonra molekül başına potansiyel enerjinin ortalaması alınır. Enerji negatiftir; ne kadar negatifse moleküller o kadar sıkı bağlıdır.</p>",
+   "<p>Here you prepare two kinds of \"sample\": a free droplet in vacuum and a periodic box. In each measurement the liquid is equilibrated at constant temperature, then the potential energy per molecule is averaged. The energy is negative; the more negative, the more tightly the molecules are bound.</p>"
+  ],
+  [
+   "<div><div class=\"lbl\">Örnek</div><div class=\"chips\" id=\"nMode\"><button type=\"button\" class=\"chip\" data-m=\"vac\" aria-pressed=\"true\">Damla (boşluk)</button><button type=\"button\" class=\"chip\" data-m=\"pbc\" aria-pressed=\"false\">Periyodik kutu</button></div></div>",
+   "<div><div class=\"lbl\">Sample</div><div class=\"chips\" id=\"nMode\"><button type=\"button\" class=\"chip\" data-m=\"vac\" aria-pressed=\"true\">Droplet (vacuum)</button><button type=\"button\" class=\"chip\" data-m=\"pbc\" aria-pressed=\"false\">Periodic box</button></div></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Molekül sayısı</div><div class=\"chips\" id=\"nN\"></div></div>",
+   "<div><div class=\"lbl\">Number of molecules</div><div class=\"chips\" id=\"nN\"></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"nRun\">Ölç</button><button type=\"button\" class=\"btn\" id=\"nAll\">Bu örnekte tüm seriyi ölç</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"nRun\">Measure</button><button type=\"button\" class=\"btn\" id=\"nAll\">Measure the whole series for this sample</button></div>"
+  ],
+  [
+   "<p class=\"busy\" id=\"nBusy\" aria-live=\"polite\">Ölçüm yok. Önce birkaç damla, sonra birkaç periyodik kutu ölçün.</p>",
+   "<p class=\"busy\" id=\"nBusy\" aria-live=\"polite\">No measurements yet. Measure a few droplets first, then a few periodic boxes.</p>"
+  ],
+  [
+   "<p class=\"small\">Resimler ölçümün son anıdır ve hepsi aynı ölçekte çizilmiştir; renkler tezgâhtaki gibi molekülün enerjisidir. Damla büyüdükçe açık renkli kenar halkası, toplamın içinde küçülür.</p>",
+   "<p class=\"small\">The pictures are the last moment of each measurement, all drawn to the same scale; as on the bench, the colors are the energy of each molecule. As the droplet grows, the light-colored edge ring becomes a smaller part of the whole.</p>"
+  ],
+  [
+   "<span class=\"lbl\">Yatay eksen</span>",
+   "<span class=\"lbl\">Horizontal axis</span>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Yatay eksen\"><button type=\"button\" id=\"axN\" aria-pressed=\"true\">Molekül sayısı</button><button type=\"button\" id=\"axI\" aria-pressed=\"false\">Kenar ölçüsü 1/√N</button></div>",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Horizontal axis\"><button type=\"button\" id=\"axN\" aria-pressed=\"true\">Number of molecules</button><button type=\"button\" id=\"axI\" aria-pressed=\"false\">Edge measure 1/√N</button></div>"
+  ],
+  [
+   "<canvas id=\"book\" class=\"plot\" aria-label=\"Ölçümleriniz: molekül başına potansiyel enerji\"></canvas>",
+   "<canvas id=\"book\" class=\"plot\" aria-label=\"Your measurements: potential energy per molecule\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--ball)\"></i>Damla</span><span><i style=\"background:var(--mid)\"></i>Periyodik kutu</span><span id=\"nCount\"></span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--ball)\"></i>Droplet</span><span><i style=\"background:var(--mid)\"></i>Periodic box</span><span id=\"nCount\"></span></div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Örnek</th><th>Molekül</th><th>Molekül başına enerji (ε)</th><th>Kenardaki molekül payı</th><th>1/√N</th></tr></thead><tbody id=\"nTab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Sample</th><th>Molecules</th><th>Energy per molecule (ε)</th><th>Share of molecules at the edge</th><th>1/√N</th></tr></thead><tbody id=\"nTab\"></tbody></table></div>"
+  ],
+  [
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to the protein</span>"
+  ],
+  [
+   "<h2 id=\"h4s\">Bir proteinin kutusu: kenar mı, kopya mı, ne kadar su?</h2>",
+   "<h2 id=\"h4s\">A protein's box: edge or copies, and how much water?</h2>"
+  ],
+  [
+   "<p>Bir protein simülasyonunda amaç, proteinin sulu çözeltideki davranışını ölçmektir: katlanmış hâlin kararlılığı, bir ligandın bağlanma enerjisi, bir ilmeğin hareketi. Bunların hepsi enerji farklarıdır ve defterde gördüğünüz gibi kenar, enerjiye kutu boyuna bağlı bir terim ekler.</p>",
+   "<p>The goal of a protein simulation is to measure how the protein behaves in aqueous solution: the stability of the folded state, the binding energy of a ligand, the motion of a loop. All of these are energy differences, and as you saw in the notebook, an edge adds a term that depends on the box size.</p>"
+  ],
+  [
+   "<p>Aşağıda ubikitinin (1UBQ) su kutusundan bir kesit var; her nokta ölçekli bir su molekülüdür. Kutu, GROMACS'taki <code>gmx editconf -d</code> gibi kurulur: proteinin en büyük boyuna (4,49 nm) her yanda d kadar su eklenir. Uygulamada en sık kullanılan değer d = 1 nm'dir.</p>",
+   "<p>Below is a cross-section of the water box of ubiquitin (1UBQ); each dot is a water molecule drawn to scale. The box is built like <code>gmx editconf -d</code> in GROMACS: d of water is added on every side of the largest dimension of the protein (4.49 nm). The value used most often in practice is d = 1 nm.</p>"
+  ],
+  [
+   "<canvas id=\"prot\" class=\"stage\" aria-label=\"Ubikitin ve su kutusunun kesiti\"></canvas>",
+   "<canvas id=\"prot\" class=\"stage\" aria-label=\"Cross-section of ubiquitin and its water box\"></canvas>"
+  ],
+  [
+   "<p class=\"small\" style=\"margin-top:6px\">Noktalı daire: proteinin en büyük boyu (4,49 nm), editconf kutuyu buna göre kurar. Kesikli daire: çevresindeki 1 nm'lik su kabuğu. Proteinin üzerindeki açık renkli işaret, kopyaların aynı anda döndüğünü gösterir.</p>",
+   "<p class=\"small\" style=\"margin-top:6px\">Dotted circle: the largest dimension of the protein (4.49 nm); editconf builds the box from it. Dashed circle: the 1 nm water shell around it. The light mark on the protein shows that the copies rotate at the same moment.</p>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Protein kutusunun sınırı\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Boundary of the protein box\">"
+  ],
+  [
+   "<button type=\"button\" id=\"pWall\" aria-pressed=\"false\">Duvar</button>",
+   "<button type=\"button\" id=\"pWall\" aria-pressed=\"false\">Wall</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"pPbc\" aria-pressed=\"true\">Periyodik</button>",
+   "<button type=\"button\" id=\"pPbc\" aria-pressed=\"true\">Periodic</button>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"dBox\">Proteinden kutu kenarına uzaklık d</label>",
+   "<div><label class=\"lbl\" for=\"dBox\">Distance d from the protein to the box edge</label>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kutu biçimi</div>",
+   "<div><div class=\"lbl\">Box shape</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Kutu biçimi\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Box shape\">"
+  ],
+  [
+   "<button type=\"button\" id=\"bxC\" aria-pressed=\"false\">Küp</button>",
+   "<button type=\"button\" id=\"bxC\" aria-pressed=\"false\">Cube</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"bxD\" aria-pressed=\"true\">Onikiyüzlü</button>",
+   "<button type=\"button\" id=\"bxD\" aria-pressed=\"true\">Dodecahedron</button>"
+  ],
+  [
+   "<div class=\"fact\"><span>Kutu kenarı</span><b id=\"fA\"></b></div>",
+   "<div class=\"fact\"><span>Box edge</span><b id=\"fA\"></b></div>"
+  ],
+  [
+   "<div class=\"fact\"><span>Su molekülü</span><b id=\"fW\"></b></div>",
+   "<div class=\"fact\"><span>Water molecules</span><b id=\"fW\"></b></div>"
+  ],
+  [
+   "<div class=\"fact\"><span>Toplam atom</span><b id=\"fN\"></b></div>",
+   "<div class=\"fact\"><span>Total atoms</span><b id=\"fN\"></b></div>"
+  ],
+  [
+   "<div class=\"fact\"><span id=\"fFL\">Duvar dibindeki su</span><b id=\"fF\"></b></div>",
+   "<div class=\"fact\"><span id=\"fFL\">Water next to the wall</span><b id=\"fF\"></b></div>"
+  ],
+  [
+   "<div class=\"fact hi\"><span>RTX 5080'de hız (2 fs)</span><b id=\"fS\"></b></div>",
+   "<div class=\"fact hi\"><span>Speed on an RTX 5080 (2 fs)</span><b id=\"fS\"></b></div>"
+  ],
+  [
+   "<div class=\"fact hi\"><span>100 ns için</span><b id=\"fT1\"></b></div>",
+   "<div class=\"fact hi\"><span>For 100 ns</span><b id=\"fT1\"></b></div>"
+  ],
+  [
+   "<div class=\"fact hi\"><span>1 µs için</span><b id=\"fT2\"></b></div>",
+   "<div class=\"fact hi\"><span>For 1 µs</span><b id=\"fT2\"></b></div>"
+  ],
+  [
+   "<div class=\"fact\"><span>d = 1 nm'ye göre maliyet</span><b id=\"fR\"></b></div>",
+   "<div class=\"fact\"><span>Cost relative to d = 1 nm</span><b id=\"fR\"></b></div>"
+  ],
+  [
+   "<canvas id=\"aPlot\" class=\"plot\" aria-label=\"d'ye karşı duvar dibindeki su payı ve RTX 5080'de 100 ns süresi\"></canvas>",
+   "<canvas id=\"aPlot\" class=\"plot\" aria-label=\"Share of water next to the wall and time for 100 ns on an RTX 5080 against d\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Duvarlı küp kutuda duvar dibindeki su payı (sol eksen)</span><span><i style=\"background:var(--navy)\"></i>RTX 5080'de 100 ns için süre, seçili kutu biçimiyle (sağ eksen)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Share of water next to the wall in a walled cubic box (left axis)</span><span><i style=\"background:var(--navy)\"></i>Time for 100 ns on an RTX 5080 with the selected box shape (right axis)</span></div>"
+  ],
+  [
+   "<p><b>Ne görüyorsunuz?</b> Duvarlı kutuyu büyütmek kenar sorununu çözmüyor, yalnız hafifletiyor ve hesabı pahalılaştırıyor. Periyodik kutuda duvar dibi yok; geriye tek soru kalıyor: protein kendi kopyasından ne kadar uzak olmalı? d = 1 nm'de iki kopya arasında en az 2 nm su olur ve proteinin çevresindeki 1 nm'lik su kabukları birbirine değmez. Bu yüzden bu ayarla küçük, küresele yakın proteinlerde genellikle sorun çıkmaz; kutuyu daha da büyütmek sonucu pek değiştirmez ama maliyeti hızla artırır. Uzun, esnek ya da açılıp kapanan proteinlerde d'yi büyütmek ve koşu boyunca kopyalar arası en kısa uzaklığı (<code>gmx mindist -pi</code>) izlemek gerekir.</p>",
+   "<p><b>What do you see?</b> Enlarging a walled box does not solve the edge problem; it only eases it and makes the calculation more expensive. The periodic box has no water next to a wall; one question remains: how far should the protein be from its own copy? At d = 1 nm there are at least 2 nm of water between two copies, and the 1 nm water shells around the protein do not touch. This is why this setting usually causes no problems for small, nearly globular proteins; making the box even larger hardly changes the result but raises the cost quickly. For elongated, flexible or opening and closing proteins, d should be larger and the shortest distance between copies (<code>gmx mindist -pi</code>) should be monitored during the run.</p>"
+  ],
+  [
+   "<p><b>Kutu biçimi.</b> Eşkenar dörtgen onikiyüzlü kutuda kopyalar küpteki kadar uzaktadır ama hacim yaklaşık %29 küçüktür; aynı d için daha az su, daha hızlı hesap. Bu projenin ubikitin hazırlığı da böyle kuruldu (<code>editconf -d 1.0 -bt dodecahedron</code>: 5.902 su, 18.937 atom); paneldeki hesap bu sayılarla ayarlandı. Kesit, kolay okunsun diye kare çizilmiştir.</p>",
+   "<p><b>Box shape.</b> In a rhombic dodecahedron the copies are as far apart as in a cube, but the volume is about 29% smaller; for the same d there is less water and the calculation is faster. This project's ubiquitin preparation was built this way (<code>editconf -d 1.0 -bt dodecahedron</code>: 5,902 waters, 18,937 atoms); the calculation in the panel is calibrated with these numbers. The cross-section is drawn as a square so it is easy to read.</p>"
+  ],
+  [
+   "<p><b>Bedeli.</b> Periyodik kutuda kopyalar tam olarak aynı hareketi yapar; protein dönerken kopyalarının da aynı anda döndüğünü görüyorsunuz. Kristaldeki paketleme temaslarının bir ilmeği yapay bir konuma itebildiğini biliyorsunuz; kutu fazla küçükse protein de kendi kopyasını hisseder. Kopyalar arasındaki etkileşimin nerede kesileceğini ve uzun erimli elektrostatiği sonraki laboratuvarlarda deneyeceksiniz.</p>",
+   "<p><b>The price.</b> In a periodic box the copies make exactly the same motion; as the protein rotates you see its copies rotate at the same moment. You know that crystal packing contacts can push a loop into an artificial position; if the box is too small, the protein also feels its own copy. You will try where to cut off the interaction between copies, and long-range electrostatics, in the next labs.</p>"
+  ],
+  [
+   "<p class=\"small\">Hız tahmini: Exxact'in RTX 5080 ile AMBER 26 ölçümlerinden (JAC 23.558 atom, 1.468,55 ns/gün, 4 fs; FactorIX 90.906 atom, 365,36 ns/gün, 2 fs; Cellulose 408.609 atom, 99,07 ns/gün, 2 fs; STMV 1.067.095 atom, 63,17 ns/gün, 4 fs) saniyedeki adım sayısı atom sayısına göre ara değerlenmiş, 2 fs zaman adımına çevrilmiştir. 23.558 atomun altında GPU tam dolmaz; bu yüzden küçük sistemlerde gösterilen hız bir alt sınırdır (\"en az\"). GROMACS aynı kartta benzer büyüklükte hız verir, ama sürüm, kesme mesafesi, PME ayarları ve CPU'ya göre değişir; kendi sisteminiz için kısa bir koşunun günlüğündeki \"Performance\" satırı en doğru ölçüdür. Hidrojen kütlesini yeniden dağıtıp (HMR) 4 fs kullanırsanız süreler yaklaşık yarıya iner. Hesap: su = 33,4 nm⁻³ × (kutu hacmi − 16,7 nm³), atom = 1.231 + 3 × su (TIP3P, iyonsuz).</p>",
+   "<p class=\"small\">Speed estimate: from Exxact's AMBER 26 measurements on an RTX 5080 (JAC 23,558 atoms, 1,468.55 ns/day, 4 fs; FactorIX 90,906 atoms, 365.36 ns/day, 2 fs; Cellulose 408,609 atoms, 99.07 ns/day, 2 fs; STMV 1,067,095 atoms, 63.17 ns/day, 4 fs), steps per second are interpolated by atom count and converted to a 2 fs time step. Below 23,558 atoms the GPU is not fully loaded, so the speed shown for small systems is a lower bound (\"at least\"). GROMACS gives speeds of similar size on the same card, but they depend on the version, cut-off distance, PME settings and CPU; for your own system, the \"Performance\" line in the log of a short run is the most accurate measure. With hydrogen mass repartitioning (HMR) and 4 fs, the times roughly halve. Calculation: water = 33.4 nm⁻³ × (box volume − 16.7 nm³), atoms = 1,231 + 3 × water (TIP3P, no ions).</p>"
+  ],
+  [
+   "<span class=\"step\">5 · Kendinizi sınayın</span>",
+   "<span class=\"step\">5 · Test yourself</span>"
+  ],
+  [
+   "<h2 id=\"h5s\">Altı soru</h2>",
+   "<h2 id=\"h5s\">Six questions</h2>"
+  ],
+  [
+   "<p class=\"small\">Model: atölyede sürtünmesiz tek parçacık (su molekülü kütlesi, 3 nm kutu). Tezgâh ve defterde iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), kesme 2,5 σ, hız-Verlet, Δt = 0,005; yoğunluk ρ = 0,82 (periyodik ve duvarlı kutu); defter ölçümlerinde sıcaklık Langevin ısı banyosuyla sabit tutulur (T = 0,40 ε). İki boyutlu model gerçek suyun sayılarını vermez; yüzey etkisinin yönünü ve büyüklük sırasını gösterir. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Model: in the workshop, a single frictionless particle (mass of a water molecule, 3 nm box). On the bench and in the notebook, a two-dimensional Lennard-Jones liquid in reduced units (σ, ε, m), cut-off 2.5 σ, velocity Verlet, Δt = 0.005; density ρ = 0.82 (periodic and walled box); in the notebook measurements the temperature is held constant with a Langevin heat bath (T = 0.40 ε). A two-dimensional model does not give the numbers of real water; it shows the direction and order of magnitude of the surface effect. Your notebook is stored only in this browser.</p>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function pc(v,d){ return '%'+fx(v,d); }",
+   "function pc(v,d){ return fx(v,d)+'%'; }"
+  ],
+  [
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=Object.keys(FOUND).length+' / 6'; }",
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=Object.keys(FOUND).length+' / 6'; }"
+  ],
+  [
+   "cs+='<text x=\"'+(ox+a*2+6)+'\" y=\"'+(oy+a-6)+'\" font-size=\"12\" fill=\"var(--accent)\" font-family=\"Segoe UI, system-ui, sans-serif\">birim hücre</text>';",
+   "cs+='<text x=\"'+(ox+a*2+6)+'\" y=\"'+(oy+a-6)+'\" font-size=\"12\" fill=\"var(--accent)\" font-family=\"Segoe UI, system-ui, sans-serif\">unit cell</text>';"
+  ],
+  [
+   "$('modeNote').textContent = m==='wall'?'Kutunun sert duvarları var; duvara ulaşan molekül geri seker.':",
+   "$('modeNote').textContent = m==='wall'?'The box has hard walls; a molecule that reaches a wall bounces back.':"
+  ],
+  [
+   "m==='vac'?'Duvar yok, kopya yok: kutunun dışı sonsuz boşluktur.':",
+   "m==='vac'?'No walls, no copies: outside the box is endless vacuum.':"
+  ],
+  [
+   "'Kutu her yönde kendi kopyalarıyla çevrili. Soluk toplar, aynı molekülün komşu kopyalardaki görüntüleridir. Boş bir yeri sürükleyerek kutu çerçevesini kaydırabilirsiniz.';",
+   "'The box is surrounded by copies of itself in every direction. The faded balls are images of the same molecule in the neighboring copies. Drag an empty spot to shift the box frame.';"
+  ],
+  [
+   "$('rCntL').textContent = m==='wall'?'Duvara çarpma':m==='vac'?'Kutunun dışında mı?':'Sınırdan geçiş';",
+   "$('rCntL').textContent = m==='wall'?'Wall hits':m==='vac'?'Outside the box?':'Boundary crossings';"
+  ],
+  [
+   "chg('Top kutunun ortasında', B.mode==='pbc'?'Fırlatın ve sınıra geldiğinde ne olduğuna bakın.':'Tutup sürükleyerek fırlatın.');",
+   "chg('The ball is in the middle of the box', B.mode==='pbc'?'Launch it and watch what happens when it reaches the boundary.':'Grab and drag to launch it.');"
+  ],
+  [
+   "chg('Fırlattınız: '+fx(B.v0,0)+' m/s', 'Kinetik enerji '+fx(KE(B.v0),2)+' kJ/mol, yani 300 K\\'deki kT\\'nin '+fx(KE(B.v0)/KT,2)+' katı.');",
+   "chg('You launched it: '+fx(B.v0,0)+' m/s', 'Kinetic energy '+fx(KE(B.v0),2)+' kJ/mol, that is '+fx(KE(B.v0)/KT,2)+' times kT at 300 K.');"
+  ],
+  [
+   "if(B.x<lo){ B.x=2*lo-B.x; hit=['x',B.vx,'sol']; B.vx=-B.vx; } else if(B.x>hi){ B.x=2*hi-B.x; hit=['x',B.vx,'sağ']; B.vx=-B.vx; }",
+   "if(B.x<lo){ B.x=2*lo-B.x; hit=['x',B.vx,'left']; B.vx=-B.vx; } else if(B.x>hi){ B.x=2*hi-B.x; hit=['x',B.vx,'right']; B.vx=-B.vx; }"
+  ],
+  [
+   "if(B.y<lo){ B.y=2*lo-B.y; hit=['y',B.vy,'üst']; B.vy=-B.vy; } else if(B.y>hi){ B.y=2*hi-B.y; hit=['y',B.vy,'alt']; B.vy=-B.vy; }",
+   "if(B.y<lo){ B.y=2*lo-B.y; hit=['y',B.vy,'top']; B.vy=-B.vy; } else if(B.y>hi){ B.y=2*hi-B.y; hit=['y',B.vy,'bottom']; B.vy=-B.vy; }"
+  ],
+  [
+   "chg('Top '+hit[2]+' duvara çarptı', 'v'+hit[0]+' '+fx(hit[1],0)+' → '+fx(-hit[1],0)+' m/s: duvara dik bileşen işaret değiştirdi. Hız ('+fx(speed(),0)+' m/s) ve kinetik enerji ('+fx(KE(speed()),2)+' kJ/mol) aynı kaldı.'); }",
+   "chg('The ball hit the '+hit[2]+' wall', 'v'+hit[0]+' '+fx(hit[1],0)+' → '+fx(-hit[1],0)+' m/s: the component perpendicular to the wall changed sign. The speed ('+fx(speed(),0)+' m/s) and the kinetic energy ('+fx(KE(speed()),2)+' kJ/mol) stayed the same.'); }"
+  ],
+  [
+   "if(B.x-B.ox>=B.L){ B.x-=B.L; side=['sağ','sol']; } else if(B.x-B.ox<0){ B.x+=B.L; side=['sol','sağ']; }",
+   "if(B.x-B.ox>=B.L){ B.x-=B.L; side=['right','left']; } else if(B.x-B.ox<0){ B.x+=B.L; side=['left','right']; }"
+  ],
+  [
+   "if(B.y-B.oy>=B.L){ B.y-=B.L; side=['alt','üst']; } else if(B.y-B.oy<0){ B.y+=B.L; side=['üst','alt']; }",
+   "if(B.y-B.oy>=B.L){ B.y-=B.L; side=['bottom','top']; } else if(B.y-B.oy<0){ B.y+=B.L; side=['top','bottom']; }"
+  ],
+  [
+   "if(side){ if(B.user) B.cross++; chg('Top '+side[0]+' kenardan çıktı, aynı anda '+side[1]+' kenardan girdi', 'vx '+fx(B.vx,0)+', vy '+fx(B.vy,0)+' m/s ve kinetik enerji '+fx(KE(speed()),2)+' kJ/mol değişmedi. Giren top, komşu kopyadaki görüntüdür.'); }",
+   "if(side){ if(B.user) B.cross++; chg('The ball left through the '+side[0]+' edge and at the same moment entered through the '+side[1]+' edge', 'vx '+fx(B.vx,0)+', vy '+fx(B.vy,0)+' m/s and the kinetic energy '+fx(KE(speed()),2)+' kJ/mol did not change. The ball that enters is the image from the neighboring copy.'); }"
+  ],
+  [
+   "if(out && !B.left){ B.left=true; chg('Top kutudan çıktı', 'Duvar da kopya da yok; geri dönmeyecek. Kutudaki enerji '+fx(KE(speed()),2)+' kJ/mol\\'den 0\\'a indi. Yeniden denemek için \"Topu ortaya al\"a basın.'); }",
+   "if(out && !B.left){ B.left=true; chg('The ball left the box', 'There is no wall and no copy; it will not come back. The energy in the box dropped from '+fx(KE(speed()),2)+' kJ/mol to 0. To try again, press \"Put the ball in the middle\".'); }"
+  ],
+  [
+   "card('w1',true,'Sizin denemeniz: top '+B.bounces+' kez çarptı. İlk çarpmada v'+f[0]+' '+fx(f[1],0)+' → '+fx(-f[1],0)+' m/s oldu; hız '+fx(B.v0,0)+' m/s ve enerji '+fx(KE(B.v0),2)+' kJ/mol hiç değişmedi. Duvar molekülün momentumunu tersine çevirdi, yani onu itti. Bir gazın basıncı, moleküllerin duvara verdiği bu itmedir. Ama çözeltide böyle bir duvar yok: duvarlı kutuda moleküller var olmayan bir yüzeye çarpar.'); }",
+   "card('w1',true,'Your trial: the ball hit a wall '+B.bounces+' times. At the first hit v'+f[0]+' went '+fx(f[1],0)+' → '+fx(-f[1],0)+' m/s; the speed '+fx(B.v0,0)+' m/s and the energy '+fx(KE(B.v0),2)+' kJ/mol did not change at all. The wall reversed the momentum of the molecule, in other words it pushed it. The pressure of a gas is this push that molecules give to the wall. But a solution has no such wall: in a walled box, molecules hit a surface that does not exist.'); }"
+  ],
+  [
+   "card('w2',true,'Sizin denemeniz: top kutudan '+fx(B.v0,0)+' m/s ile çıktı ve '+fx(KE(B.v0),2)+' kJ/mol enerjiyi de götürdü; kutudaki enerji 0\\'a indi. Kalabalık bir sıvıda kenardaki hızlı moleküller de böyle kaçar ve kalan sıvı soğur. Terlemenin serinletmesi aynı olaydır: buharlaşan molekül enerjiyi alıp gider.'); }",
+   "card('w2',true,'Your trial: the ball left the box at '+fx(B.v0,0)+' m/s and took its '+fx(KE(B.v0),2)+' kJ/mol of energy with it; the energy in the box dropped to 0. In a crowded liquid, fast molecules at the edge escape in the same way and the remaining liquid cools. The cooling effect of sweating is the same event: the evaporating molecule carries the energy away.'); }"
+  ],
+  [
+   "card('w3',true,'Sizin denemeniz: top sınırı '+B.cross+' kez geçti. Her seferinde çıktığı kenarın karşısından aynı hız ('+fx(B.v0,0)+' m/s) ve aynı yönle girdi; enerji '+fx(KE(B.v0),2)+' kJ/mol\\'de sabit kaldı. Top ışınlanmadı: karşıdan giren, komşu kopyadaki görüntüsüdür. Kutunun kenarı yok, kaybolan molekül ve enerji yok.'); }",
+   "card('w3',true,'Your trial: the ball crossed the boundary '+B.cross+' times. Each time it entered from the edge opposite the one it left, with the same speed ('+fx(B.v0,0)+' m/s) and the same direction; the energy stayed at '+fx(KE(B.v0),2)+' kJ/mol. The ball was not teleported: what enters from the other side is its image from the neighboring copy. The box has no edge, and no molecule or energy is lost.'); }"
+  ],
+  [
+   "pill(g,'asıl kutu',V.X(B.ox+L/2),V.Y(B.oy)+16,paper,navy);",
+   "pill(g,'main box',V.X(B.ox+L/2),V.Y(B.oy)+16,paper,navy);"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12.5px '+css('--sans'); g.fillText('başlangıç bölgesi (duvar yok)',V.X(0)+6,V.Y(0)-8);",
+   "g.fillStyle=muted; g.font='12.5px '+css('--sans'); g.fillText('starting region (no wall)',V.X(0)+6,V.Y(0)-8);"
+  ],
+  [
+   "var dist=Math.hypot(B.x-L/2,B.y-L/2); pill(g,'kaçtı · kutudan '+fx(dist,0)+' nm uzakta',Math.max(110,Math.min(W-110,cx-Math.cos(ang)*70)),Math.max(22,Math.min(H-22,cy-Math.sin(ang)*44)),paper,acc);",
+   "var dist=Math.hypot(B.x-L/2,B.y-L/2); pill(g,'escaped · '+fx(dist,0)+' nm from the box',Math.max(110,Math.min(W-110,cx-Math.cos(ang)*70)),Math.max(22,Math.min(H-22,cy-Math.sin(ang)*44)),paper,acc);"
+  ],
+  [
+   "$('rCnt').textContent=B.mode==='wall'?String(B.bounces):B.mode==='pbc'?String(B.cross):(B.left?'evet, kaçtı':'hayır');",
+   "$('rCnt').textContent=B.mode==='wall'?String(B.bounces):B.mode==='pbc'?String(B.cross):(B.left?'yes, it escaped':'no');"
+  ],
+  [
+   "if(B.dragFrame){ B.dragFrame=null; chg('Kutu çerçevesini kaydırdınız','Top aynı hız ve yönle yoluna devam ediyor; yalnız \"asıl kutu\" dediğimiz pencere değişti. Periyodik kutunun sınırı keyfîdir: her kopya aynı bilgiyi taşır.'); } }",
+   "if(B.dragFrame){ B.dragFrame=null; chg('You shifted the box frame','The ball continues with the same speed and direction; only the window we call the \"main box\" changed. The boundary of a periodic box is arbitrary: every copy carries the same information.'); } }"
+  ],
+  [
+   "$('bPause').onclick=function(){ B.paused=!B.paused; $('bPause').textContent=B.paused?'Sürdür':'Durdur'; kickLoop(); };",
+   "$('bPause').onclick=function(){ B.paused=!B.paused; $('bPause').textContent=B.paused?'Resume':'Pause'; kickLoop(); };"
+  ],
+  [
+   "lChg(m==='vac'?'Boşlukta damla':m==='wall'?'Duvarlı kutu':'Periyodik kutu', m==='vac'?'Kare biçimli sıvı zamanla yuvarlaklaşır: yüzeydeki moleküllerin sayısı azalır, çünkü yüzey enerji demektir.':m==='wall'?'Duvar dibindeki moleküllerin rengine bakın; bir yanları boş.':'Soluk moleküller komşu kopyalardır. Kutunun kenarındaki bir molekülün komşuları karşı kenardadır; rengi ortadakilerden farklı değil.'); }",
+   "lChg(m==='vac'?'Droplet in vacuum':m==='wall'?'Walled box':'Periodic box', m==='vac'?'The square-shaped liquid rounds off over time: the number of molecules at the surface goes down, because surface means energy.':m==='wall'?'Look at the color of the molecules next to the walls; one side of them is empty.':'The faded molecules are neighboring copies. The neighbors of a molecule at the edge of the box are at the opposite edge; its color is no different from the ones in the middle.'); }"
+  ],
+  [
+   "card('b2',true,'Sizin denemeniz: moleküle '+fx(Q.kick.dE,1)+' ε enerji verdiniz; kinetik enerjisi '+fx(Q.kick.kAfter,1)+' ε\\'a çıktı. '+fx(s.t-Q.kick.t,0)+' zaman birimi sonra kendi kinetik enerjisi '+fx(kNow,2)+' ε; enerjisi çarpışmalarla komşularına dağıldı. Sıvının sıcaklığı (son birkaç zaman biriminin ortalaması) '+fx(100*Q.kick.Tbefore/Q.Tref,0)+'\\'den '+fx(100*meanT()/Q.Tref,0)+'\\'e çıktı ve toplam enerji yerinde duruyor (başlangıca göre fark '+fx(Math.abs(Etot-Q.kick.Eafter)/N,3)+' ε/molekül). Periyodik kutuda enerji kaçacak bir kenar bulamaz; boşlukta aynı itme bir molekülü buharlaştırıp enerjiyi dışarı taşıyabilirdi.'); }",
+   "card('b2',true,'Your trial: you gave the molecule '+fx(Q.kick.dE,1)+' ε of energy; its kinetic energy rose to '+fx(Q.kick.kAfter,1)+' ε. '+fx(s.t-Q.kick.t,0)+' time units later its own kinetic energy is '+fx(kNow,2)+' ε; the energy spread to its neighbors through collisions. The temperature of the liquid (average over the last few time units) rose from '+fx(100*Q.kick.Tbefore/Q.Tref,0)+' to '+fx(100*meanT()/Q.Tref,0)+' and the total energy stays put (difference from the start '+fx(Math.abs(Etot-Q.kick.Eafter)/N,3)+' ε per molecule). In a periodic box the energy finds no edge to escape through; in vacuum the same push could evaporate a molecule and carry the energy away.'); }"
+  ],
+  [
+   "g.globalAlpha=Math.min(1,2*(1-pt)); pill(g,'+%25 kinetik enerji',cxp,V.Y(0)-14+(1-pt)*6,css('--paper'),css('--accent')); g.globalAlpha=1; } }",
+   "g.globalAlpha=Math.min(1,2*(1-pt)); pill(g,'+25% kinetic energy',cxp,V.Y(0)-14+(1-pt)*6,css('--paper'),css('--accent')); g.globalAlpha=1; } }"
+  ],
+  [
+   "panel(top,1,-2.6,-1.0,'molekül başına potansiyel enerji (ε)',function(v){return fx(v,1);},css('--mid'));",
+   "panel(top,1,-2.6,-1.0,'potential energy per molecule (ε)',function(v){return fx(v,1);},css('--mid'));"
+  ],
+  [
+   "panel(top+ph+gap,2,60,tmax,'sıcaklık (başlangıç = 100)',function(v){return fx(v,0);},css('--ball'));",
+   "panel(top+ph+gap,2,60,tmax,'temperature (start = 100)',function(v){return fx(v,0);},css('--ball'));"
+  ],
+  [
+   "g.textAlign='right'; g.fillText('zaman (ps, argon ölçeğinde)',W-R,H-2); g.textAlign='left';",
+   "g.textAlign='right'; g.fillText('time (ps, on the argon scale)',W-R,H-2); g.textAlign='left';"
+  ],
+  [
+   "$('lEv').textContent=Q.mode==='vac'?String(Q.evap):'yok (kaçacak yer yok)';",
+   "$('lEv').textContent=Q.mode==='vac'?String(Q.evap):'none (nowhere to escape)';"
+  ],
+  [
+   "function lReadSel(){ if(Q.sel<0||!Q.s){ $('lSel').textContent='yok'; return; } var i=Q.sel; $('lSel').textContent=Q.s.nb[i]+' komşu · '+fx(Q.s.u[i],2)+' ε'; }",
+   "function lReadSel(){ if(Q.sel<0||!Q.s){ $('lSel').textContent='none'; return; } var i=Q.sel; $('lSel').textContent=Q.s.nb[i]+' neighbors · '+fx(Q.s.u[i],2)+' ε'; }"
+  ],
+  [
+   "lChg('Seçili molekül: '+nb+' komşu, enerjisi '+fx(u,2)+' ε', nb<=3?'Komşusu az: çekimin bir kısmından yoksun, enerjisi yüksek.':nb>=5?'Her yanı komşularla çevrili: çekimden tam pay alıyor, enerjisi düşük.':'Ortalama bir molekül.');",
+   "lChg('Selected molecule: '+nb+' neighbors, energy '+fx(u,2)+' ε', nb<=3?'Few neighbors: it misses part of the attraction, so its energy is high.':nb>=5?'Surrounded by neighbors on every side: it gets its full share of attraction, so its energy is low.':'An average molecule.');"
+  ],
+  [
+   "var P=Q.picks; if(P.surf&&P.bulk) card('b1',true,'Sizin seçtikleriniz: kenardaki molekül '+P.surf.nb+' komşu, '+fx(P.surf.u,2)+' ε; ortadaki '+P.bulk.nb+' komşu, '+fx(P.bulk.u,2)+' ε. Fark '+fx(P.surf.u-P.bulk.u,2)+' ε. Kenardaki molekül komşularının bir kısmından yoksun olduğu için çekimden daha az pay alır ve enerjisi yüksektir. Bu fazladan enerji yüzey gerilimidir: damlanın küre biçimini alması ve menisküs bundandır. Küçük bir kutuda kenar varsa, bu yüzey enerjisi ölçtüğünüz her enerjiye karışır.');",
+   "var P=Q.picks; if(P.surf&&P.bulk) card('b1',true,'Your picks: the molecule at the edge has '+P.surf.nb+' neighbors and '+fx(P.surf.u,2)+' ε; the one in the middle has '+P.bulk.nb+' neighbors and '+fx(P.bulk.u,2)+' ε. The difference is '+fx(P.surf.u-P.bulk.u,2)+' ε. Because the molecule at the edge misses some of its neighbors, it gets a smaller share of the attraction and its energy is higher. This extra energy is surface tension: it is why a droplet takes a spherical shape and why a meniscus forms. If a small box has an edge, this surface energy mixes into every energy you measure.');"
+  ],
+  [
+   "Q.events.push({t:S.t,label:'itme'});",
+   "Q.events.push({t:S.t,label:'push'});"
+  ],
+  [
+   "if(Q.mode==='pbc' && A.dE<1.5) lChg('Daha güçlü bir itme deneyin','Verdiğiniz enerji '+fx(A.dE,1)+' ε; etkisini görmek için en az 1,5 ε verin.');",
+   "if(Q.mode==='pbc' && A.dE<1.5) lChg('Try a stronger push','You gave '+fx(A.dE,1)+' ε; give at least 1.5 ε to see the effect.');"
+  ],
+  [
+   "else lChg('Moleküle '+fx(A.dE,1)+' ε enerji verdiniz', Q.mode==='pbc'?'Rengine ve komşularına bakın, birkaç saniye izleyin: enerji nereye gidiyor?':Q.mode==='vac'?'Yeterince hızlıysa damladan kopup gider ve enerjisini de götürür.':'Duvara çarpıp geri döner; enerji kutuda kalır ama molekül yine bir duvara çarpar.');",
+   "else lChg('You gave the molecule '+fx(A.dE,1)+' ε of energy', Q.mode==='pbc'?'Look at its color and its neighbors and watch for a few seconds: where does the energy go?':Q.mode==='vac'?'If it is fast enough, it breaks away from the droplet and takes its energy with it.':'It hits a wall and comes back; the energy stays in the box, but the molecule still hits a wall.');"
+  ],
+  [
+   "Q.heats=(Q.heats||0)+1; Q.events.push({t:S.t,label:'ısıtıldı'}); Q.pulse={t0:performance.now()};",
+   "Q.heats=(Q.heats||0)+1; Q.events.push({t:S.t,label:'heated'}); Q.pulse={t0:performance.now()};"
+  ],
+  [
+   "var b=$('lHeat'); b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); b.textContent='Isıtıldı · +%25';",
+   "var b=$('lHeat'); b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); b.textContent='Heated · +25%';"
+  ],
+  [
+   "clearTimeout(Q.heatT); Q.heatT=setTimeout(function(){ b.textContent='Isıt (+%25 kinetik enerji)'; b.classList.remove('flash'); },1300);",
+   "clearTimeout(Q.heatT); Q.heatT=setTimeout(function(){ b.textContent='Heat (+25% kinetic energy)'; b.classList.remove('flash'); },1300);"
+  ],
+  [
+   "lChg('Kinetik enerjiyi %25 artırdınız ('+Q.heats+'. ısıtma)', Q.mode==='vac'?'Damlanın kenarındaki hızlı moleküller kopmaya başlar; buharlaşan her molekül enerji götürür. Alttaki grafikte sıcaklığın önce sıçradığını, sonra yavaşça düştüğünü izleyin.':'Enerji kutuda kalır. Alttaki grafikte sıcaklık sıçrar, sonra enerjinin bir kısmı potansiyel enerjiye geçerken biraz geri iner ve yeni düzeyinde kalır.'); kickLoop(); };",
+   "lChg('You raised the kinetic energy by 25% (heating no. '+Q.heats+')', Q.mode==='vac'?'Fast molecules at the edge of the droplet start to break away; every evaporating molecule carries energy away. In the graph below, watch the temperature jump first, then fall slowly.':'The energy stays in the box. In the graph below the temperature jumps, then drops back a little as part of the energy turns into potential energy, and stays at its new level.'); kickLoop(); };"
+  ],
+  [
+   "$('lPause').onclick=function(){ Q.paused=!Q.paused; $('lPause').textContent=Q.paused?'Sürdür':'Durdur'; kickLoop(); };",
+   "$('lPause').onclick=function(){ Q.paused=!Q.paused; $('lPause').textContent=Q.paused?'Resume':'Pause'; kickLoop(); };"
+  ],
+  [
+   "$('nBusy').textContent=(m==='vac'?'Damla':'Periyodik kutu')+', '+N+' molekül ölçülüyor: '+pc(100*k/(EQ+SA),0)+(queue.length?' · sırada '+queue.length+' ölçüm daha':'');",
+   "$('nBusy').textContent=(m==='vac'?'Droplet':'Periodic box')+', measuring '+N+' molecules: '+pc(100*k/(EQ+SA),0)+(queue.length?' · '+queue.length+' more in the queue':'');"
+  ],
+  [
+   "$('nBusy').textContent=(m==='vac'?'Damla':'Periyodik kutu')+', '+N+' molekül: '+fx(p.u,2)+' ε, kenardaki molekül payı '+pc(100*p.sf,0)+'.';",
+   "$('nBusy').textContent=(m==='vac'?'Droplet':'Periodic box')+', '+N+' molecules: '+fx(p.u,2)+' ε, share of molecules at the edge '+pc(100*p.sf,0)+'.';"
+  ],
+  [
+   "if(!queue.length){ $('nBusy').textContent='Bu örnekte bütün molekül sayıları zaten ölçüldü.'; return; } runQueue(); };",
+   "if(!queue.length){ $('nBusy').textContent='All molecule numbers are already measured for this sample.'; return; } runQueue(); };"
+  ],
+  [
+   "$('nClr').onclick=function(){ if(busy) return; book=[]; save(); nAll_render(); $('nBusy').textContent='Defter temizlendi.'; };",
+   "$('nClr').onclick=function(){ if(busy) return; book=[]; save(); nAll_render(); $('nBusy').textContent='Notebook cleared.'; };"
+  ],
+  [
+   "var g=$('gal'), html='<span></span>'+NS.map(function(N){return '<span class=\"hd\">'+N+' molekül</span>';}).join('');",
+   "var g=$('gal'), html='<span></span>'+NS.map(function(N){return '<span class=\"hd\">'+N+' molecules</span>';}).join('');"
+  ],
+  [
+   "[['vac','Damla'],['pbc','Periyodik']].forEach(function(r){ html+='<span class=\"rl\">'+r[1]+'</span>'+NS.map(function(N){ var p=book.filter(function(q){return q.m===r[0]&&q.N===N;})[0];",
+   "[['vac','Droplet'],['pbc','Periodic']].forEach(function(r){ html+='<span class=\"rl\">'+r[1]+'</span>'+NS.map(function(N){ var p=book.filter(function(q){return q.m===r[0]&&q.N===N;})[0];"
+  ],
+  [
+   "return '<div class=\"th\"><canvas data-m=\"'+r[0]+'\" data-n=\"'+N+'\" aria-label=\"'+r[1]+', '+N+' molekül\"></canvas><span class=\"cap\">'+(p?fx(p.u,2)+' ε<br>kenar '+pc(100*p.sf,0):'ölçülmedi')+'</span></div>'; }).join(''); });",
+   "return '<div class=\"th\"><canvas data-m=\"'+r[0]+'\" data-n=\"'+N+'\" aria-label=\"'+r[1]+', '+N+' molecules\"></canvas><span class=\"cap\">'+(p?fx(p.u,2)+' ε<br>edge '+pc(100*p.sf,0):'not measured')+'</span></div>'; }).join(''); });"
+  ],
+  [
+   "g.fillText(W>=560?'1/√N  (sağda küçük damla, solda sonsuz büyük damla)':'1/√N',(L+W-R)/2,H-8);",
+   "g.fillText(W>=560?'1/√N  (small droplet on the right, infinitely large droplet on the left)':'1/√N',(L+W-R)/2,H-8);"
+  ],
+  [
+   "g.textAlign='left'; g.fillText('sonsuz',Xv(0)+4,H-Bm-6); }",
+   "g.textAlign='left'; g.fillText('infinite',Xv(0)+4,H-Bm-6); }"
+  ],
+  [
+   "else { NS.forEach(function(N){ g.fillText(String(N),X(N),H-Bm+19); }); g.fillText('molekül sayısı',(L+W-R)/2,H-8); }",
+   "else { NS.forEach(function(N){ g.fillText(String(N),X(N),H-Bm+19); }); g.fillText('number of molecules',(L+W-R)/2,H-8); }"
+  ],
+  [
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText(W>=560?'molekül başına potansiyel enerji (ε) · aşağısı daha sıkı bağlı':'molekül başına potansiyel enerji (ε)',L,16);",
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText(W>=560?'potential energy per molecule (ε) · lower means more tightly bound':'potential energy per molecule (ε)',L,16);"
+  ],
+  [
+   "g.fillStyle=pcol; if(inv){ g.textAlign='right'; g.fillText('periyodik kutu ortalaması '+fx(pm,2)+' ε',W-R,yp+17); } else { g.textAlign='left'; g.fillText('periyodik kutu ortalaması '+fx(pm,2)+' ε',L+8,yp+34); } g.textAlign='left'; }",
+   "g.fillStyle=pcol; if(inv){ g.textAlign='right'; g.fillText('periodic box average '+fx(pm,2)+' ε',W-R,yp+17); } else { g.textAlign='left'; g.fillText('periodic box average '+fx(pm,2)+' ε',L+8,yp+34); } g.textAlign='left'; }"
+  ],
+  [
+   "pill(g,'uzatma: '+fx(fitL.a,2)+' ε',Xv(0)+72,Y(fitL.a)-20,css('--paper'),vcol); }",
+   "pill(g,'extrapolation: '+fx(fitL.a,2)+' ε',Xv(0)+72,Y(fitL.a)-20,css('--paper'),vcol); }"
+  ],
+  [
+   "if(!book.length){ g.fillStyle=muted; g.textAlign='center'; g.font='14px '+css('--sans'); g.fillText('Henüz ölçüm yok',(L+W-R)/2,(T+H-Bm)/2); g.textAlign='left'; }",
+   "if(!book.length){ g.fillStyle=muted; g.textAlign='center'; g.font='14px '+css('--sans'); g.fillText('No measurements yet',(L+W-R)/2,(T+H-Bm)/2); g.textAlign='left'; }"
+  ],
+  [
+   "$('nCount').textContent=book.length+' ölçüm';",
+   "$('nCount').textContent=book.length+' measurements';"
+  ],
+  [
+   "$('nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='vac'?'Damla':'Periyodik kutu')+'</td><td class=\"n\">'+p.N+'</td><td class=\"n\">'+fx(p.u,2)+'</td><td class=\"n\">'+pc(100*p.sf,0)+'</td><td class=\"n\">'+fx(1/Math.sqrt(p.N),3)+'</td></tr>';}).join(''):'<tr><td colspan=\"5\" class=\"small\">Henüz ölçüm yok.</td></tr>';",
+   "$('nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='vac'?'Droplet':'Periodic box')+'</td><td class=\"n\">'+p.N+'</td><td class=\"n\">'+fx(p.u,2)+'</td><td class=\"n\">'+pc(100*p.sf,0)+'</td><td class=\"n\">'+fx(1/Math.sqrt(p.N),3)+'</td></tr>';}).join(''):'<tr><td colspan=\"5\" class=\"small\">No measurements yet.</td></tr>';"
+  ],
+  [
+   "$('axNote').innerHTML=inv?'<span class=\"t\">Kenar ölçüsü ekseni</span><span>Düz bir damlada kenardaki molekül sayısı çevreyle, yani yaklaşık √N ile artar; kenardakilerin payı bu yüzden 1/√N gibi azalır. Sağ uçta küçük damlalar, sol uçta (1/√N = 0) kenarı olmayan, sonsuz büyük bir damla var. Damla noktalarınız bir doğruya diziliyorsa, kesikli uzatma sonsuz büyük damlanın molekül başına enerjisini tahmin eder. Deneyde standart eğriyi sıfıra uzatmak gibi.</span>'",
+   "$('axNote').innerHTML=inv?'<span class=\"t\">Edge-measure axis</span><span>In a flat droplet the number of molecules at the edge grows with the perimeter, that is roughly with √N; so the share at the edge falls like 1/√N. Small droplets are at the right end; at the left end (1/√N = 0) is an infinitely large droplet with no edge. If your droplet points fall on a straight line, the dashed extrapolation estimates the energy per molecule of an infinitely large droplet. It is like extending a standard curve to zero in an experiment.</span>'"
+  ],
+  [
+   ":'<span class=\"t\">Molekül sayısı ekseni</span><span>Damla büyüdükçe noktalar periyodik kutu çizgisine yaklaşıyor mu? Yaklaşıyorsa ne hızla? Kenardaki moleküllerin payı molekül sayısıyla doğrusal azalmaz; bunu görmek için yatay ekseni \"Kenar ölçüsü 1/√N\"e çevirin.</span>';",
+   ":'<span class=\"t\">Molecule-number axis</span><span>As the droplet grows, do the points approach the periodic box line? If so, how fast? The share of molecules at the edge does not fall linearly with the number of molecules; to see this, switch the horizontal axis to \"Edge measure 1/√N\".</span>';"
+  ],
+  [
+   "card('b3',true,'Sizin ölçümleriniz: damlada molekül başına enerji '+v0.N+' molekülde '+fx(v0.u,2)+' ε, '+v1.N+' molekülde '+fx(v1.u,2)+' ε; en büyük damlanız bile periyodik kutunun ortalamasına ('+fx(pm,2)+' ε) '+pc(100*Math.abs(v1.u-pm)/Math.abs(pm),0)+' uzak. Kenar ölçüsü ekseninde damla noktalarınızı sonsuz büyük damlaya uzattığınızda '+fx(f.a,2)+' ε buluyorsunuz; periyodik kutuyla fark '+pc(100*Math.abs(f.a-pm)/Math.abs(pm),0)+'. Periyodik kutudaki değerler ise '+P[0].N+' ile '+P[P.length-1].N+' molekül arasında yalnız '+fx(Math.max.apply(null,pu)-Math.min.apply(null,pu),2)+' ε oynadı. Yani periyodik kutu, birkaç düzine molekülle sonsuz büyük bir sıvının içini veriyor; damlanın enerjisine ise kenarın enerjisi karışıyor. Enerji açısından periyodik sınırın kritik olmasının nedeni budur.');",
+   "card('b3',true,'Your measurements: in the droplet the energy per molecule is '+fx(v0.u,2)+' ε with '+v0.N+' molecules and '+fx(v1.u,2)+' ε with '+v1.N+' molecules; even your largest droplet is '+pc(100*Math.abs(v1.u-pm)/Math.abs(pm),0)+' away from the periodic box average ('+fx(pm,2)+' ε). When you extrapolate your droplet points to an infinitely large droplet on the edge-measure axis, you find '+fx(f.a,2)+' ε; the difference from the periodic box is '+pc(100*Math.abs(f.a-pm)/Math.abs(pm),0)+'. The periodic box values, on the other hand, moved by only '+fx(Math.max.apply(null,pu)-Math.min.apply(null,pu),2)+' ε between '+P[0].N+' and '+P[P.length-1].N+' molecules. So the periodic box gives the inside of an infinitely large liquid with a few dozen molecules, while the energy of the droplet is mixed with the energy of its edge. This is why the periodic boundary is critical for the energy.');"
+  ],
+  [
+   "var need=[]; if(!okV) need.push('en az üç damla (en küçük ile en büyük arasında en az 4 kat molekül farkı)'); if(!okP) need.push('en az iki periyodik kutu'); if(!seenInv) need.push('yatay ekseni bir kez \"Kenar ölçüsü 1/√N\"e çevirmek');",
+   "var need=[]; if(!okV) need.push('at least three droplets (at least a 4-fold difference in molecule number between the smallest and the largest)'); if(!okP) need.push('at least two periodic boxes'); if(!seenInv) need.push('switching the horizontal axis to \"Edge measure 1/√N\" once');"
+  ],
+  [
+   "card('b3',false,'Gerekenler: '+need.join('; ')+'.');",
+   "card('b3',false,'Still needed: '+need.join('; ')+'.');"
+  ],
+  [
+   "function dur(h){ if(h<1) return fx(h*60,0)+' dk'; if(h<48) return fx(h,h<10?1:0)+' saat'; return fx(h/24,1)+' gün'; }",
+   "function dur(h){ if(h<1) return fx(h*60,0)+' min'; if(h<48) return fx(h,h<10?1:0)+' h'; return fx(h/24,1)+' days'; }"
+  ],
+  [
+   "var NFI=new Intl.NumberFormat('tr-TR');",
+   "var NFI=new Intl.NumberFormat('en-US');"
+  ],
+  [
+   "$('fFL').textContent=pbc?'Duvar dibindeki su':'Duvar dibindeki su (küp)'; $('fF').textContent=pbc?'%0':pc(100*S.f,0);",
+   "$('fFL').textContent=pbc?'Water next to the wall':'Water next to the wall (cube)'; $('fF').textContent=pbc?'0%':pc(100*S.f,0);"
+  ],
+  [
+   "$('fS').textContent=(S.lb?'en az ':'')+NFI.format(Math.round(S.nsd))+' ns/gün'; $('fT1').textContent=(S.lb?'en çok ':'')+dur(S.h100); $('fT2').textContent=(S.lb?'en çok ':'')+dur(S.d1us*24);",
+   "$('fS').textContent=(S.lb?'at least ':'')+NFI.format(Math.round(S.nsd))+' ns/day'; $('fT1').textContent=(S.lb?'at most ':'')+dur(S.h100); $('fT2').textContent=(S.lb?'at most ':'')+dur(S.d1us*24);"
+  ],
+  [
+   "$('fR').textContent=S.lb?'aynı ya da daha az (GPU dolmuyor)':fx(S.h100/R.h100,2)+' kat';",
+   "$('fR').textContent=S.lb?'the same or less (GPU not fully loaded)':fx(S.h100/R.h100,2)+'×';"
+  ],
+  [
+   "if(pbc){ st= d>=1 ? ['Kopyalar arasında en az '+fx(2*d,1)+' nm su', (d<1.05?'Uygulamadaki ayar. ':'')+'1 nm\\'lik su kabukları birbirine değmiyor; küçük, küresele yakın bir proteinde bu ayarla genellikle sorun çıkmaz.'+(d>=1.5?' Daha büyük kutu sonucu pek değiştirmez, maliyeti d = 1 nm\\'ye göre '+fx(S.h100/R.h100,1)+' katına çıkarır.':''),'good']",
+   "if(pbc){ st= d>=1 ? ['At least '+fx(2*d,1)+' nm of water between the copies', (d<1.05?'The setting used in practice. ':'')+'The 1 nm water shells do not touch; for a small, nearly globular protein this setting usually causes no problems.'+(d>=1.5?' A larger box hardly changes the result but multiplies the cost by '+fx(S.h100/R.h100,1)+' relative to d = 1 nm.':''),'good']"
+  ],
+  [
+   ": d>=0.5 ? ['Sınırda: kopyalar arasında en az '+fx(2*d,1)+' nm su','Kabuklar birbirine giriyor (kırmızı bölge). Protein döndüğünde kendi kopyasının çevresindeki suyu etkileyebilir; koşu boyunca gmx mindist -pi ile izlemek gerekir.','gold']",
+   ": d>=0.5 ? ['Borderline: at least '+fx(2*d,1)+' nm of water between the copies','The shells overlap (red region). When the protein rotates it can affect the water around its own copy; it should be monitored with gmx mindist -pi during the run.','gold']"
+  ],
+  [
+   ": ['Kopyalar çok yakın: en az '+fx(2*d,1)+' nm','Aradaki su birkaç molekül kalınlığında. Protein kendi kopyasını doğrudan hisseder; bu, yapay bir kristaldir.','bad']; }",
+   ": ['Copies too close: at least '+fx(2*d,1)+' nm','The water in between is only a few molecules thick. The protein feels its own copy directly; this is an artificial crystal.','bad']; }"
+  ],
+  [
+   "else st=['Duvar dibinde suyun '+pc(100*S.f,0)+'\\'i','Turuncu su molekülleri duvarın hemen dibinde, bir yanları boş. Protein duvara en az '+fx(d,1)+' nm uzakta. d\\'yi büyütün: pay ne kadar düşüyor, süre ne kadar artıyor?','gold'];",
+   "else st=[pc(100*S.f,0)+' of the water is next to the wall','The orange water molecules sit right next to the wall, with one side empty. The protein is at least '+fx(d,1)+' nm from the wall. Increase d: how much does the share fall, and how much does the time grow?','gold'];"
+  ],
+  [
+   "pill(g,pbc?'en az 2d = '+fx(2*P4.d,1)+' nm':'en az d = '+fx(P4.d,1)+' nm',Math.max(80,Math.min(W-80,(xa+xb)/2)),ym+18,paper,css('--accent'));",
+   "pill(g,pbc?'at least 2d = '+fx(2*P4.d,1)+' nm':'at least d = '+fx(P4.d,1)+' nm',Math.max(80,Math.min(W-80,(xa+xb)/2)),ym+18,paper,css('--accent'));"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--bad'); g.fillText('kopyalar çok yakın',X(d0)+4,T+14);",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--bad'); g.fillText('copies too close',X(d0)+4,T+14);"
+  ],
+  [
+   "[0,top/2,top].forEach(function(h){ g.textAlign='left'; g.fillText(fx(h,h<10&&h%1?1:0)+' sa',W-R+6,Yh(h)+4); });",
+   "[0,top/2,top].forEach(function(h){ g.textAlign='left'; g.fillText(fx(h,h<10&&h%1?1:0)+' h',W-R+6,Yh(h)+4); });"
+  ],
+  [
+   "g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(d){ g.fillText(fx(d,1),X(d),H-B+18); }); g.fillText(W>=560?'proteinden kutu kenarına uzaklık d (nm)':'d (nm)',(L+W-R)/2,H-6);",
+   "g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(d){ g.fillText(fx(d,1),X(d),H-B+18); }); g.fillText(W>=560?'distance d from the protein to the box edge (nm)':'d (nm)',(L+W-R)/2,H-6);"
+  ],
+  [
+   "var x1=X(1); g.strokeStyle=css('--good'); g.setLineDash([3,3]); g.lineWidth=1.3; g.beginPath(); g.moveTo(x1,T); g.lineTo(x1,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.textAlign='left'; g.fillText('uygulamadaki ayar',x1+4,W>=560?T+14:H-B-8);",
+   "var x1=X(1); g.strokeStyle=css('--good'); g.setLineDash([3,3]); g.lineWidth=1.3; g.beginPath(); g.moveTo(x1,T); g.lineTo(x1,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.textAlign='left'; g.fillText('setting used in practice',x1+4,W>=560?T+14:H-B-8);"
+  ],
+  [
+   "{s:'Periyodik bir kutuda sağ kenardan çıkan bir molekül için ne doğrudur?',",
+   "{s:'What is true for a molecule that leaves a periodic box through the right edge?',"
+  ],
+  [
+   "o:[['Sistemden çıkar ve enerjisini götürür',0],['Kenara çarpıp geri seker',0],['Aynı anda sol kenardan aynı hız ve yönle girer; giren, onun komşu kopyadaki görüntüsüdür',1],['Kutunun ortasına geri konur',0]],",
+   "o:[['It leaves the system and takes its energy with it',0],['It hits the edge and bounces back',0],['At the same moment it enters through the left edge with the same speed and direction; what enters is its image from the neighboring copy',1],['It is put back in the middle of the box',0]],"
+  ],
+  [
+   "w:'Periyodik kutuda molekül ve görüntüleri birlikte hareket eder. Atölyede gördüğünüz gibi hız, yön ve kinetik enerji sınırda hiç değişmez.'},",
+   "w:'In a periodic box a molecule and its images move together. As you saw in the workshop, the speed, direction and kinetic energy do not change at all at the boundary.'},"
+  ],
+  [
+   "{s:'3 nm\\'lik duvarlı bir su kutusunda yapılan bir ölçümün temel sorunu nedir?',",
+   "{s:'What is the main problem with a measurement in a 3 nm walled water box?',"
+  ],
+  [
+   "o:[['Su moleküllerinin çok hızlı hareket etmesi',0],['Moleküllerin önemli bir kısmının, 96 kuyucuklu plakanın dış kuyucukları gibi duvar dibinde kalması; sonucun kutu boyuna bağlı olması',1],['Duvarların enerjiyi yok etmesi',0],['Hiçbir sorun yoktur',0]],",
+   "o:[['The water molecules move too fast',0],['A large share of the molecules sit next to the wall, like the outer wells of a 96-well plate, so the result depends on the box size',1],['The walls destroy energy',0],['There is no problem',0]],"
+  ],
+  [
+   "w:'Duvar dibindeki moleküllerin bir yanı boştur. Proteine dönüş bölümünde gördüğünüz gibi küçük bir protein kutusunda duvar dibindeki tabaka suyun önemli bir kısmıdır ve kutuyu büyütmek bunu yalnız yavaşça azaltır.'},",
+   "w:'Molecules next to a wall have one empty side. As you saw in the back-to-the-protein section, in a small protein box the layer next to the wall is a large share of the water, and enlarging the box reduces it only slowly.'},"
+  ],
+  [
+   "{s:'Bir damlanın yüzeyindeki molekülün potansiyel enerjisi neden içerideki molekülünkinden yüksektir?',",
+   "{s:'Why is the potential energy of a molecule at the surface of a droplet higher than that of a molecule inside?',"
+  ],
+  [
+   "o:[['Daha hızlı hareket ettiği için',0],['Komşularının bir kısmından yoksun olduğu için çekimden daha az pay aldığından',1],['Yüzeyde yerçekimi daha güçlü olduğu için',0],['Yüzeydeki moleküller daha ağır olduğu için',0]],",
+   "o:[['Because it moves faster',0],['Because it misses some of its neighbors and gets a smaller share of the attraction',1],['Because gravity is stronger at the surface',0],['Because molecules at the surface are heavier',0]],"
+  ],
+  [
+   "w:'Tezgâhta dokunduğunuz moleküllerde bunu kendi sayılarınızla gördünüz. Bu fazladan enerji yüzey gerilimidir.'},",
+   "w:'You saw this with your own numbers in the molecules you tapped on the bench. This extra energy is surface tension.'},"
+  ],
+  [
+   "{s:'Duvarsız ve periyodik sınırsız bir damla simülasyonunu uzun süre koşturursanız ne olur?',",
+   "{s:'What happens if you run a droplet simulation without walls and without periodic boundaries for a long time?',"
+  ],
+  [
+   "o:[['Hiçbir şey değişmez',0],['Damla kristalleşir',0],['Kenardaki hızlı moleküller buharlaşır, enerjiyi götürür; kalan damla soğur ve küçülür',1],['Moleküller kutunun ortasına toplanır',0]],",
+   "o:[['Nothing changes',0],['The droplet crystallizes',0],['Fast molecules at the edge evaporate and carry energy away; the remaining droplet cools and shrinks',1],['The molecules gather in the middle of the box',0]],"
+  ],
+  [
+   "w:'Buharlaşan molekül enerji taşır; terlemenin serinletmesi de bu yüzdendir. Tezgâhta ısıtınca bunu izleyebilirsiniz.'},",
+   "w:'An evaporating molecule carries energy; this is also why sweating cools you. You can watch this when you heat the liquid on the bench.'},"
+  ],
+  [
+   "{s:'Periyodik sınır enerji açısından neden kritiktir?',",
+   "{s:'Why is the periodic boundary critical for the energy?',"
+  ],
+  [
+   "o:[['Hesabı hızlandırdığı için',0],['Az sayıda molekülle, yüzey terimi olmadan, sınırsız bir sıvının molekül başına enerjisini verdiği için',1],['Enerjiyi her adımda sıfırladığı için',0],['Sıcaklığı sabit tuttuğu için',0]],",
+   "o:[['Because it speeds up the calculation',0],['Because with few molecules and without a surface term it gives the energy per molecule of an unbounded liquid',1],['Because it resets the energy at every step',0],['Because it keeps the temperature constant',0]],"
+  ],
+  [
+   "w:'Defterde damlanın enerjisi molekül sayısına bağlıydı, periyodik kutununki değildi. Bağlanma ya da katlanma enerjisi gibi farklar ancak böyle, kutu boyundan bağımsız ölçülebilir.'},",
+   "w:'In the notebook the energy of the droplet depended on the number of molecules, while that of the periodic box did not. Differences such as binding or folding energies can only be measured independently of the box size in this way.'},"
+  ],
+  [
+   "{s:'Periyodik kutu ile bir kristalin birim hücresi arasındaki önemli fark nedir?',",
+   "{s:'What is the important difference between a periodic box and the unit cell of a crystal?',"
+  ],
+  [
+   "o:[['Hiçbir fark yoktur',0],['Periyodik kutunun içi sıvıdır ve moleküller sınırdan geçebilir; ama kopyalar tam aynı hareketi yaptığı için kutu küçükse yapay bir düzen oluşur',1],['Birim hücre her zaman daha büyüktür',0],['Periyodik kutuda moleküllerin kopyası yoktur',0]],",
+   "o:[['There is no difference',0],['The periodic box holds a liquid and molecules can cross its boundary; but because the copies make exactly the same motion, an artificial order forms if the box is small',1],['The unit cell is always larger',0],['In a periodic box the molecules have no copies',0]],"
+  ],
+  [
+   "w:'Kopyaların aynı hareketi yapması, periyodik kutunun bedelidir. Kutu fazla küçükse protein kendi görüntüsüne yaklaşır; bu, sonraki laboratuvarların konusu.'}",
+   "w:'That the copies make the same motion is the price of the periodic box. If the box is too small, the protein comes close to its own image; this is the topic of the next labs.'}"
+  ],
+  [
+   "b.classList.add(ok?'right':'wrong'); var w=$('why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(ok?'right':'wrong'); var w=$('why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r;",
+   "$('score').textContent='Answered: '+n+' / '+QZ.length+' · correct at the first try: '+r;"
+  ],
+  [
+   "drawBridge(); setMode('wall'); B.vx=420; B.vy=-250; B.user=false; chg('Örnek hareket','Top kendiliğinden hareket ediyor; kendi denemeniz için tutup sürükleyin.');",
+   "drawBridge(); setMode('wall'); B.vx=420; B.vy=-250; B.user=false; chg('Sample motion','The ball is moving on its own; for your own trial, grab and drag it.');"
+  ],
+  [
+   "['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Açık'; });",
+   "['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Open'; });"
+  ]
+ ],
+ "keep": [
+  "0 kJ/mol",
+  "var(--warm)",
+  "var(--pale)",
+  "var(--gold)",
+  "var(--mid)",
+  "gmx editconf -c -d",
+  "linear-gradient(90deg,"
+ ]
+}
