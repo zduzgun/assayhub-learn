@@ -128,20 +128,22 @@ for (const m of M.modules) {
   for (const L of LANGS) {
     const U = UI[L];
     let html = L === 'tr' ? trHtml : enHtml;
+    const seq = M.modules.filter((x) => x.app === m.app && x.path);
+    const si = seq.findIndex((x) => x.id === m.id), sp = seq[si - 1], sn = seq[si + 1];
+    const card = (x, cls, rel, k) => `<a class="${cls}" rel="${rel}" href="/${L}/${x.path}"><span class="ahl-k">${esc(k)}</span><span class="ahl-t">${esc(x.id)} · ${esc(T(L, x, 'title'))}</span></a>`;
+    const seqNav = `<nav class="ahl-seq" aria-label="${esc(U.seqNav)}">${sp ? card(sp, 'ahl-prev', 'prev', '← ' + U.prev) : '<span class="ahl-gap"></span>'}<a class="ahl-hub" href="/${L}/${app.path}">${esc(U.allOf(T(L, app, 'title')))}</a>${sn ? card(sn, 'ahl-next', 'next', U.next + ' →') : '<span class="ahl-gap"></span>'}</nav>`;
     if (html === null) {
       // çevirisi olmayan modül: bilgilendirme sayfası
       write(join(L, m.path, 'index.html'), page(L, m.path, `${T(L, m, 'title')} · AssayHub Learn`, crumbs(L, app, m.id), `
-<div class="mast"><p class="eyebrow">${esc(m.id)}</p><h1>${esc(T(L, m, 'title'))}</h1><p class="deck"><b>${esc(U.prepH)}.</b> ${U.prepP(`/${other(L)}/${m.path}`)}</p></div>`));
+<div class="mast"><p class="eyebrow">${esc(m.id)}</p><h1>${esc(T(L, m, 'title'))}</h1><p class="deck"><b>${esc(U.prepH)}.</b> ${U.prepP(`/${other(L)}/${m.path}`)}</p></div>
+${BAR_CSS}
+${seqNav}`));
       continue;
     }
     const bar = `<nav class="ahl-bar" aria-label="${esc(U.nav)}"><span><a href="/${L}/">AssayHub Learn</a> › <a href="/${L}/${app.path}">${esc(T(L, app, 'title'))}</a> › ${esc(m.id)}</span><span class="ahl-r"><span class="ahl-meta">${esc(U.short)}: /${L}/l/${esc(m.id)} · ${esc(U.version)} ${esc(m.version)}</span>${langSwitch(L, m.path, 'ahl-lang')}</span></nav>`;
     const notice = T(L, m, 'notice');
     const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(U.mt)}` : '';
     const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${esc(U.preview)}${reviewedNote} <a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
-    const seq = M.modules.filter((x) => x.app === m.app && x.path);
-    const si = seq.findIndex((x) => x.id === m.id), sp = seq[si - 1], sn = seq[si + 1];
-    const card = (x, cls, rel, k) => `<a class="${cls}" rel="${rel}" href="/${L}/${x.path}"><span class="ahl-k">${esc(k)}</span><span class="ahl-t">${esc(x.id)} · ${esc(T(L, x, 'title'))}</span></a>`;
-    const seqNav = `<nav class="ahl-seq" aria-label="${esc(U.seqNav)}">${sp ? card(sp, 'ahl-prev', 'prev', '← ' + U.prev) : '<span class="ahl-gap"></span>'}<a class="ahl-hub" href="/${L}/${app.path}">${esc(U.allOf(T(L, app, 'title')))}</a>${sn ? card(sn, 'ahl-next', 'next', U.next + ' →') : '<span class="ahl-gap"></span>'}</nav>`;
     const bOpen = html.indexOf('<body>');
     const bClose = html.lastIndexOf('</body>');
     if (bOpen < 0 || bClose < 0) throw new Error(`${m.id}: <body> etiketi bulunamadı`);

@@ -174,37 +174,39 @@
       "id": "MD-PBC",
       "app": "md",
       "level": "temel",
-      "title": "Simülasyon kutusu evren değildir: periyodik sınır ve kesme",
-      "version": "0.1.0",
-      "status": "planned",
+      "title": "Kenarsız kutu: periyodik sınır",
+      "path": "md/md-pbc/",
+      "source": "sources/MD-PBC.html",
+      "version": "0.2.0",
+      "status": "pilot",
       "book": "CH04",
       "goals": [
-        "Duvar ve periyodik kutu",
-        "Minimum görüntü",
-        "Kesme mesafesi",
-        "Komşu listesi",
-        "Uzun erimli elektrostatik",
-        "Sonlu kutu"
+        "Duvar, boşluk ve periyodik kutu",
+        "Kenardaki molekülün enerjisi",
+        "Örnek boyutu ve sonsuz sıvıya uzatma",
+        "Protein kutusu: d, kutu biçimi ve maliyet"
       ],
       "data": [
-        "Tarayıcıda hesaplanan 2B Lennard-Jones oyuncak modeli (mdmini 0.1.0)"
+        "Tarayıcıda hesaplanan iki boyutlu Lennard-Jones sıvısı (öğretim amaçlı)",
+        "Bu projenin 1UBQ hazırlığı (editconf -d 1.0, dodecahedron)",
+        "RTX 5080 hız tahmini: Exxact, AMBER 26 ölçümleri"
       ],
-      "notice": null,
+      "notice": "Bu sürümde 1. laboratuvar yayında; kesme ve komşu listesi, uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor.",
       "en": {
-        "title": "The simulation box is not the universe: periodic boundaries and cut-offs",
+        "title": "The box without edges: periodic boundaries",
         "book": "CH04",
         "goals": [
-          "Walls and the periodic box",
-          "Minimum image",
-          "Cut-off distance",
-          "Neighbor list",
-          "Long-range electrostatics",
-          "Finite box"
+          "Walls, vacuum and the periodic box",
+          "The energy of a molecule at the edge",
+          "Sample size and extrapolation to the infinite liquid",
+          "The protein box: d, box shape and cost"
         ],
         "data": [
-          "2D Lennard-Jones toy model computed in the browser (mdmini 0.1.0)"
+          "Two-dimensional Lennard-Jones liquid computed in the browser (for teaching)",
+          "This project's 1UBQ preparation (editconf -d 1.0, dodecahedron)",
+          "RTX 5080 speed estimate: Exxact, AMBER 26 measurements"
         ],
-        "notice": null
+        "notice": "In this version Lab 1 is published; the labs on cut-offs and neighbor lists, long-range electrostatics and box size are in preparation."
       }
     },
     {
