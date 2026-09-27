@@ -16,10 +16,10 @@
       "id": "md",
       "title": "Moleküler Dinamik",
       "path": "md/",
-      "summary": "Enerjiden trajektoriye: kuvvet, integrasyon, hazırlık ve yakınsama. Koşular tarayıcıda çalışmaz; önceden hesaplanmış gerçek veriler rehberli olarak yeniden oynatılır.",
+      "summary": "Enerjiden trajektoriye: kuvvet, integrasyon, hazırlık ve yakınsama. Laboratuvarlardaki küçük simülasyonlar tarayıcınızda o anda hesaplanır; protein ve koşu verileri bu kitabın gerçek simülasyonlarından gelir.",
       "en": {
         "title": "Molecular Dynamics",
-        "summary": "From energy to trajectory: force, integration, preparation and convergence. Runs do not execute in the browser; precomputed real data are replayed step by step as a guided run."
+        "summary": "From energy to trajectory: force, integration, preparation and convergence. The small simulations in the labs are computed in your browser as you use them; protein and run data come from this book's real simulations."
       }
     }
   ],

@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.7.1 (27 Eylül 2026) · MD tanıtım metni
+
+- MD sayfasının özeti, "Hesaplar nasıl yapılır?" kutusu ve bütün sayfaların alt notu güncellendi (TR ve EN): eski metin tarayıcıda hiç hesap yapılmadığını ve verilerin yalnız yeniden oynatıldığını söylüyordu; MD-T ve MD-PBC keşif laboratuvarlarında küçük öğretim simülasyonları tarayıcıda canlı hesaplanır, proje verisi önceden koşturulmuş gerçek simülasyonlardan gelir.
+- `docs/ARCHITECTURE.md` 5. kısma keşif laboratuvarları notu eklendi.
+
 ## 0.7.0 (27 Eylül 2026) · MD-PBC laboratuvar 2
 
 - MD-PBC 0.3.0: Laboratuvar 2 "En yakın kopya ve kesme" aynı sayfaya eklendi; ilerleme iki laboratuvarı birlikte sayar (9 kart). Deneysel köprü (FRET cetveli ve r⁻⁶), atölye (birbirini çeken iki molekül, en yakın kopya ile kutu içi kuralın karşılaştırılması, toplam enerji şeridi), tezgâh (64 moleküllük sıvıda kesme çemberi, giriş ve çıkış halkaları, aynı hareketten düz ve kaydırılmış iki enerji, kesmenin yakınını büyüten pencere), defter (kesme mesafesine karşı enerji oynaması ve çift sayısı), proteine dönüş (gerçek ölçekte kesme ve komşu listesi simülasyonu, bu projenin rlist ve nstlist ayarları), altı soru.
