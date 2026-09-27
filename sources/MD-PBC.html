@@ -23,7 +23,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15p
 .proto{font-size:12.5px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:8px 12px;background:var(--paper)}
 header{display:grid;gap:8px}
 .eyebrow{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
-h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0;text-wrap:balance}
+h1,.h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0;text-wrap:balance}
 .lead{font-family:var(--serif);font-size:19px;line-height:1.5;margin:0;max-width:66ch}
 .small{font-size:13px;color:var(--muted);max-width:78ch;margin:0}
 h2{font-family:var(--serif);font-weight:400;font-size:24px;margin:0;text-wrap:balance}
@@ -116,16 +116,25 @@ code{font-family:var(--mono);font-size:.92em}
 .gal .cap{font-size:12px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums;min-height:2.6em}
 
 @media (max-width:820px){ .two,.minis,.bridge{grid-template-columns:1fr} canvas.plot{aspect-ratio:16/10} #book{aspect-ratio:4/3} }
+/* Laboratuvar 2 */
+.read dd{white-space:nowrap}
+#k2miPlot{aspect-ratio:16/8}
+ol.steps{margin:6px 0 14px;padding-left:22px;display:grid;gap:4px}
+header.lab2{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+.labnav{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px}
+.labnav a{color:var(--accent)}
+@media (max-width:820px){ #k2scene{aspect-ratio:4/3 !important} #k2miPlot{aspect-ratio:16/14} }
 </style>
 
 <div class="wrap">
-  <div class="proto">Bu sürümde modülün 1. laboratuvarı yayında. Kesme ve komşu listesi, uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>
+  <div class="proto">Bu sürümde modülün 1. ve 2. laboratuvarları yayında. Uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>
 
   <header>
     <span class="eyebrow">MD-PBC · Laboratuvar 1 · Periyodik sınır</span>
     <h1>Kenarsız kutu: birkaç bin molekül nasıl bir okyanus gibi davranır?</h1>
     <p class="lead">Bir MD simülasyonu, bir proteini ve çevresindeki birkaç bin su molekülünü küçük bir kutuya koyar. Gerçek bir örnekteyse protein, kenarlardan çok uzakta, sayısız su molekülünün ortasındadır. Küçük kutuya bir de kenar eklersek ne değişir? Kenarı nasıl ortadan kaldırırız ve bunun enerji açısından önemi ne?</p>
-    <div class="prog" aria-live="polite">Keşifler: <b id="progN">0 / 6</b></div>
+    <div class="prog" aria-live="polite">Keşifler: <b id="progN">0 / 9</b></div>
+    <nav class="labnav" aria-label="Bu sayfadaki laboratuvarlar"><a href="#h0">Laboratuvar 1 · Kenarsız kutu</a><a href="#lab2">Laboratuvar 2 · En yakın kopya ve kesme</a></nav>
   </header>
 
   <section class="card" aria-labelledby="h0">
@@ -311,6 +320,177 @@ code{font-family:var(--mono);font-size:.92em}
   </section>
 
   <p class="small">Model: atölyede sürtünmesiz tek parçacık (su molekülü kütlesi, 3 nm kutu). Tezgâh ve defterde iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), kesme 2,5 σ, hız-Verlet, Δt = 0,005; yoğunluk ρ = 0,82 (periyodik ve duvarlı kutu); defter ölçümlerinde sıcaklık Langevin ısı banyosuyla sabit tutulur (T = 0,40 ε). İki boyutlu model gerçek suyun sayılarını vermez; yüzey etkisinin yönünü ve büyüklük sırasını gösterir. Defteriniz yalnız bu tarayıcıda saklanır.</p>
+
+  <header class="lab2" id="lab2">
+    <span class="eyebrow">MD-PBC · Laboratuvar 2 · En yakın kopya ve kesme</span>
+    <h2 class="h1">Etkileşimi nerede bırakmalı? En yakın kopya ve kesme mesafesi</h2>
+    <p class="lead">Periyodik kutuda her molekülün sonsuz sayıda kopyası var. Bir molekül, bu kopyaların hepsiyle mi etkileşir? Hayır: MD programı her komşuyu yalnız en yakın kopyasıyla sayar ve belirli bir uzaklıktan sonra etkileşimi hiç hesaplamaz. Bu uzaklığa kesme mesafesi denir. Nerede kesmeli, kesince ne kaybederiz?</p>
+  </header>
+
+  <section class="card" aria-labelledby="k2h0">
+    <span class="step">Deneysel köprü</span>
+    <h2 id="k2h0">FRET cetveli: altıncı kuvvet ne kadar hızlı söner?</h2>
+    <div class="prose">
+      <p>FRET (Förster rezonans enerji aktarımı) deneyinde bir molekülün iki noktasına iki boya takılır. Donör boya mavi ışıkla uyarılır. Alıcı yakındaysa donör enerjisinin bir kısmını ışık yaymadan alıcıya aktarır ve alıcı kırmızı ışır; alıcı uzaksa donör kendi yeşil ışığını yayar. Kırmızı ile yeşilin oranından iki boya arasındaki uzaklık okunur. Bu yüzden FRET'e "moleküler cetvel" denir.</p>
+      <p>Aşağıda iki boya arasındaki uzaklığı değiştirin. R₀, aktarımın yüzde 50 olduğu uzaklıktır (Förster uzaklığı); yaygın boya çiftlerinde birkaç nanometredir.</p>
+    </div>
+    <div class="two">
+      <div class="stagebox"><canvas id="k2scene" class="plot" style="aspect-ratio:16/9;background:var(--stage)" aria-label="Donör ve alıcı boya, uyarma, aktarım ve ışıma"></canvas></div>
+      <div class="ctl">
+        <div><label class="lbl" for="k2r">Boyalar arası uzaklık r</label><div class="big" id="k2rVal"></div><input type="range" id="k2r" min="20" max="110" step="1" value="55"></div>
+        <div><label class="lbl" for="k2R0">Förster uzaklığı R₀</label><div class="big" id="k2R0Val" style="font-size:20px"></div><input type="range" id="k2R0" min="40" max="70" step="1" value="55"></div>
+        <dl class="read">
+          <dt>Aktarım verimi E</dt><dd id="k2E"></dd>
+          <dt>Yeşil ışık (donör)</dt><dd id="k2G"></dd>
+          <dt>Kırmızı ışık (alıcı)</dt><dd id="k2Rr"></dd>
+          <dt>Aktarım hızı, R₀'dakine göre</dt><dd id="k2U"></dd>
+        </dl>
+        <p class="small">Işık payları, iki boyanın ışıma veriminin eşit olduğu varsayılarak hesaplanır.</p>
+      </div>
+    </div>
+    <canvas id="k2fret" class="plot" aria-label="Uzaklığa karşı FRET verimi ve r⁻⁶ ile azalan aktarım hızı"></canvas>
+    <div class="legend"><span><i style="background:var(--mid)"></i>Aktarım verimi E = 1 / (1 + (r/R₀)⁶)</span><span><i style="background:var(--ball)"></i>Aktarım hızı (R₀/r)⁶: r⁻⁶ ile azalır (R₀'da 1)</span></div>
+    <div class="prose">
+      <p><b>Neden altıncı kuvvet?</b> Uyarılmış donörün elektron bulutu hızla titreşen küçük bir dipol gibi davranır. Bir dipolün elektrik alanı uzaklığın küpüyle, yani 1/r³ ile azalır. Alıcı bu alanla eşleşir ve aktarımın hızı alanın karesiyle orantılıdır: (1/r³)² = 1/r⁶. Verim eğrisinin R₀ civarında bu kadar dik olması bundandır.</p>
+      <p><b>Van der Waals çekimiyle bağlantısı.</b> Yüksüz iki atom arasındaki çekim de aynı eşleşmeden doğar. Bir atomun elektron bulutundaki anlık bir dipol, komşu atomda da bir dipol oluşturur ve ikisi birbirini çeker (London kuvveti). Yine bir dipolün alanı (1/r³) ve onun oluşturduğu dipolün yanıtı (1/r³): çekim enerjisi 1/r⁶ ile azalır. MD'deki Lennard-Jones potansiyeli bu çekimi −4ε(σ/r)⁶ terimiyle yazar; çok yakında itmeyi +4ε(σ/r)¹² terimi verir.</p>
+    </div>
+    <div class="tw"><table><thead><tr><th>Uzaklık</th><th>FRET aktarım hızı</th><th>Van der Waals çekimi</th></tr></thead><tbody id="k2ratio"></tbody></table></div>
+    <p class="small">İki sütun aynıdır, çünkü ikisi de r⁻⁶ ile azalır. Uzaklığı iki katına çıkarmak aktarım hızını da çekimi de 64 kat düşürür; üç katına çıkarmak 729 kat. Kuvvet bu kadar hızlı söndüğü için birkaç molekül çapından uzaktaki komşuların katkısı küçüktür; kesme mesafesi fikri buradan gelir.</p>
+  </section>
+
+  <section class="card" aria-labelledby="k2h1">
+    <span class="step">1 · Atölye</span>
+    <h2 id="k2h1">En yakın kopya: uzaklık hangi yoldan ölçülür?</h2>
+    <p class="small">Periyodik kutuda iki molekül var: A (mavi) ve B (turuncu); soluk olanlar kopyalarıdır. İkisi birbirini çeker (van der Waals çekimi ya da bir hidrojen bağı gibi düşünün): en rahat uzaklık 1,9 σ, daha yakında iterler, 3,9 σ'dan ötede birbirlerini hissetmezler. Bu menzil kutunun yarısından (4 σ) kısa; neden önemli olduğunu 2. tezgâhta göreceksiniz. Hareket gerçekten hesaplanıyor; A'dan çıkan ok, A'ya o anda etkiyen kuvvettir. Gri kesikli çizgi B'ye kutunun içinden ölçülen uzaklık, kırmızı çizgi A'ya en yakın B kopyasına olan uzaklıktır.</p>
+    <ol class="small steps"><li><b>Fırlat:</b> kutunun üstünde herhangi bir yere basın, sapan gibi geriye çekin ve bırakın; B okun yönünde fırlar. Ya da "Çifti fırlat" düğmesine basın.</li><li><b>İzleyin:</b> moleküllerden biri kenardan çıkıp karşı kenardan girerken gri çizgi sıçrar, kırmızı çizgi ve enerji şeridi sakin kalır.</li><li><b>Karşılaştırın:</b> kuralı "Kutunun içinden (hatalı)" yapın ve bir geçişte enerjiye ne olduğuna bakın.</li></ol>
+    <div class="two">
+      <div class="stagebox"><canvas id="k2mi" class="stage" aria-label="Birbirini çeken iki molekül ve kopyaları: kutu içi uzaklık, en yakın kopya uzaklığı, A'ya etkiyen kuvvet"></canvas><div class="hint" id="k2miHint">Kutunun üstünde bir yere basın, geriye çekin, bırakın: B ok yönünde fırlar.</div></div>
+      <div class="ctl">
+        <div><div class="lbl">Fare ile ne yapılsın?</div>
+          <div class="seg" role="group" aria-label="Fare ile ne yapılsın?">
+            <button type="button" id="k2mLaunch" aria-pressed="true">B'yi fırlat</button>
+            <button type="button" id="k2mPlace" aria-pressed="false">Yerleştir</button>
+          </div></div>
+        <div><div class="lbl">Kuvvet hangi uzaklıkla hesaplansın?</div>
+          <div class="seg" role="group" aria-label="Kuvvet hangi uzaklıkla hesaplansın?">
+            <button type="button" id="k2rMi" aria-pressed="true">En yakın kopya (MD)</button>
+            <button type="button" id="k2rBox" aria-pressed="false">Kutunun içinden (hatalı)</button>
+          </div></div>
+        <label class="chk"><input type="checkbox" id="k2cell" checked> A'nın merkezde olduğu kutuyu göster</label>
+        <dl class="read">
+          <dt>Kutunun içinden A–B</dt><dd id="k2dIn"></dd>
+          <dt>A'ya en yakın B kopyası</dt><dd id="k2dMin"></dd>
+          <dt>Kutu kenarının yarısı (L/2)</dt><dd id="k2half"></dd>
+          <dt>Toplam enerji değişimi</dt><dd id="k2dE"></dd>
+          <dt>Sınır geçişi (A ve B)</dt><dd id="k2cross">0</dd>
+        </dl>
+        <div class="btns"><button type="button" class="btn primary" id="k2miRand">Çifti fırlat</button><button type="button" class="btn" id="k2miPause">Durdur</button><button type="button" class="btn" id="k2miReset">Baştan</button></div>
+      </div>
+    </div>
+    <canvas id="k2miPlot" class="plot" aria-label="Zamana karşı kutu içi uzaklık, en yakın kopya uzaklığı ve toplam enerji değişimi"></canvas>
+    <div class="legend"><span><i style="background:var(--muted)"></i>Kutunun içinden A–B</span><span><i style="background:var(--accent)"></i>En yakın kopyaya uzaklık</span><span><i style="background:var(--navy)"></i>Toplam enerji değişimi</span></div>
+    <div class="change" id="k2miChg"><span class="t">İki molekül birbirini tutarak ilerliyor</span><span>Kendi denemeniz için kutunun üstünde bir yere basıp geriye çekin ve bırakın ya da "Çifti fırlat" düğmesine basın.</span></div>
+  </section>
+
+  <section class="card" aria-labelledby="k2h2">
+    <span class="step">2 · Tezgâh</span>
+    <h2 id="k2h2">Kesme çemberi: kim sayılır, kim sayılmaz?</h2>
+    <p class="small">Şimdi kutuda 64 molekülden oluşan bir sıvı var (iki boyutlu Lennard-Jones, periyodik kutu); hareket canlı hesaplanıyor. Sarı molekül seçili molekül, çevresindeki çember kesme mesafesi r<sub>c</sub>. Program seçili molekülün yalnız çemberin içindeki komşularıyla etkileşimini hesaplar: onlar koyu mavi, ötekiler soluk. Seçili molekülden çıkan çizgiler hesaba katılan çiftlerdir; çizgi ne kadar koyuysa çekim o kadar güçlüdür. Başka bir moleküle dokunarak seçimi değiştirebilirsiniz.</p>
+    <ol class="small steps"><li><b>İzleyin:</b> bir komşu çembere girince yeşil, çıkınca kırmızı halka yanar. Takip etmek zorsa "Yavaş çekim" düğmesine basın.</li><li><b>Enerjiye bakın:</b> alttaki grafikte iki çizgi aynı hareketten hesaplanıyor. Turuncu (düz kesme) her giriş ve çıkışta basamak yapar; mavi (kaydırılmış) sakin kalır.</li><li><b>Kesmeyi değiştirin:</b> r<sub>c</sub>'yi 1,5 σ'ya indirin, basamaklar büyüsün; sonra kutu kenarının yarısının (L/2) üstüne çıkarın ve kırmızı halkalı kopyalara bakın.</li></ol>
+    <div class="two">
+      <div class="stagebox"><canvas id="k2liq" class="stage" aria-label="Sıvı, seçili molekül, kesme çemberi ve hesaba katılan çiftler"></canvas><div class="hint" id="k2liqHint">Bir moleküle dokunarak onu seçin.</div></div>
+      <div class="ctl">
+        <div><label class="lbl" for="k2rc">Kesme mesafesi r<sub>c</sub></label><div class="big" id="k2rcVal"></div><input type="range" id="k2rc" min="120" max="560" step="5" value="250"></div>
+        <div><div class="lbl">Kesmede enerji</div>
+          <div class="seg" role="group" aria-label="Kesmede enerji">
+            <button type="button" id="k2plain" aria-pressed="true">Düz kesme</button>
+            <button type="button" id="k2shift" aria-pressed="false">Kaydırılmış</button>
+          </div></div>
+        <dl class="read">
+          <dt>Çemberdeki komşu</dt><dd id="k2nIn"></dd>
+          <dt>Çembere giren / çıkan</dt><dd id="k2ev">0 / 0</dd>
+          <dt>Bir geçişte sıçrama (düz kesme)</dt><dd id="k2tail"></dd>
+          <dt>Tüm kutuda kesme içindeki çift</dt><dd id="k2pairs"></dd>
+          <dt>Çemberde iki kopyası birden olan</dt><dd id="k2nDbl"></dd>
+          <dt>Kutu kenarının yarısı (L/2)</dt><dd id="k2L2"></dd>
+        </dl>
+        <div class="btns"><button type="button" class="btn" id="k2qPause">Durdur</button><button type="button" class="btn" id="k2qSlow" aria-pressed="false">Yavaş çekim</button></div>
+      </div>
+    </div>
+    <canvas id="k2pot" class="plot" aria-label="Bir çiftin Lennard-Jones etkileşimi, kesme ve kesmenin yakınının büyütülmüş hâli"></canvas>
+    <canvas id="k2eplot" class="plot" aria-label="Aynı hareketten hesaplanan iki toplam enerjinin zamanla değişimi"></canvas>
+    <div class="legend"><span><i style="background:var(--ball)"></i>Düz kesme</span><span><i style="background:var(--deep)"></i>Kaydırılmış</span><span>Moleküller iki yöntemde de aynı yoldan gider; fark yalnız enerjinin sayılışındadır.</span></div>
+    <div class="change" id="k2liqChg"><span class="t">Sıvı hareket ediyor</span><span>Bir komşunun çembere girişini ya da çıkışını bekleyin; ne olduğu burada yazılacak.</span></div>
+    <div class="minis">
+      <article class="q" id="k2c1"><span class="k">Açık</span><h3>Sınırda ne sıçrar, ne sürekli kalır?</h3><p>Atölyede molekülleri fırlatın ve kutu sınırından en az iki kez geçmelerini izleyin.</p><div class="mine" id="mk2c1">B'yi fırlatın ya da "Çifti fırlat" düğmesine basın; en yakın kopya kuralında iki sınır geçişi yeterli.</div></article>
+      <article class="q" id="k2c2"><span class="k">Açık</span><h3>Düz kesme mi, kaydırılmış mı?</h3><p>Aşağıdaki defterde iki yöntemi farklı kesme mesafeleriyle ölçün.</p><div class="mine" id="mk2c2">Her iki yöntemde en az iki kesme mesafesi ölçün; birinde kesme 2,5 σ ya da daha kısa olsun.</div></article>
+      <article class="q" id="k2c3"><span class="k">Açık</span><h3>Kesme kutudan büyük olursa?</h3><p>Kesme mesafesini kutu kenarının yarısından büyük yapın ve çembere bakın.</p><div class="mine" id="mk2c3">r<sub>c</sub>'yi L/2'nin üstüne çıkarın.</div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="k2h3">
+    <div class="row">
+      <div style="display:grid;gap:4px"><span class="step">3 · Keşif defteri</span><h2 id="k2h3">Kesme mesafesi: doğruluk ve maliyet</h2></div>
+      <button type="button" class="btn" id="k2nClr">Defteri temizle</button>
+    </div>
+    <p class="small">Her ölçümde 100 moleküllük sıvı önce sabit sıcaklıkta dengelenir, sonra dış etki olmadan (enerji korunmalı) 3000 adım koşturulur. İki şey kaydedilir: toplam enerjinin başlangıca göre oynaması (küçük olmalı) ve her adımda molekül başına hesaplanan çift sayısı (hesabın maliyeti).</p>
+    <div class="row" style="justify-content:flex-start;align-items:end">
+      <div><div class="lbl">Yöntem</div><div class="chips" id="k2nMode"><button type="button" class="chip" data-m="plain" aria-pressed="true">Düz kesme</button><button type="button" class="chip" data-m="shift" aria-pressed="false">Kaydırılmış</button></div></div>
+      <div><div class="lbl">Kesme mesafesi (σ)</div><div class="chips" id="k2nR"></div></div>
+      <div class="btns"><button type="button" class="btn primary" id="k2nRun">Ölç</button><button type="button" class="btn" id="k2nAll">Bu yöntemde tüm seriyi ölç</button></div>
+    </div>
+    <p class="busy" id="k2nBusy" aria-live="polite">Ölçüm yok.</p>
+    <canvas id="k2book" class="plot" aria-label="Kesme mesafesine karşı enerji oynaması ve çift sayısı"></canvas>
+    <div class="legend"><span><i style="background:var(--ball)"></i>Düz kesme</span><span><i style="background:var(--mid)"></i>Kaydırılmış</span><span><i style="background:var(--muted)"></i>Molekül başına çift sayısı (sağ eksen)</span><span id="k2nCount"></span></div>
+    <div class="tw"><table><thead><tr><th>Yöntem</th><th>r<sub>c</sub> (σ)</th><th>Enerji oynaması (ε/molekül)</th><th>Molekül başına çift</th></tr></thead><tbody id="k2nTab"></tbody></table></div>
+  </section>
+
+  <section class="card" aria-labelledby="k2h4">
+    <span class="step">4 · Proteine dönüş</span>
+    <h2 id="k2h4">Proteinin yanında: kesme çemberi ve komşu listesi, gerçek ölçekte</h2>
+    <p class="small">Tezgâhtaki çember şimdi gerçek bir koşuda. Ortada ubikitin yüzeyindeki bir atom (sarı) var; solda protein (yeşil), sağda su molekülleri (mavi). Ölçek gerçek: sağ alttaki çizgi 1 nm, bir su molekülünün çapı yaklaşık 0,3 nm. Kırmızı kesikli çember bu projenin kesme mesafesi (1,0 nm): sarı atom yalnız bunun içindekilerle etkileşir. Su molekülleri 300 K'de gerçek hızlarıyla titreşiyor; her kare 2 fs'lik bir MD adımıdır.</p>
+    <ol class="small steps"><li><b>Neden ikinci bir çember var?</b> Program her adımda bütün uzaklıkları ölçmez. Kesmeden biraz geniş bir <b>liste çemberinin</b> (sarı kesikli) içindekileri bir listeye yazar ve yalnız onlara bakar. Liste 50 adımda bir yenilenir; sarı halka o anda parlar. İki çember arasındaki sarı kuşak <b>tampondur</b>.</li><li><b>İzleyin:</b> sarı halkalı su molekülleri listede ama henüz kesmenin dışında. Liste yenilenene kadar bir su molekülü dışarıdan kesme çemberine girerse, listede olmadığı için hesaba katılmaz: kırmızı halka yanar.</li><li><b>Deneyin:</b> "Tampon yok" ve "Liste seyrek" düğmelerine basın; kaçan etkileşimlere ve iki yenileme arasında ölçülen yola bakın. "Hızlı" düğmesi zamanı on kat hızlı akıtır.</li></ol>
+    <div class="two">
+      <div class="stagebox"><canvas id="k4box" class="stage" aria-label="Protein yüzeyindeki bir atom, su molekülleri, kesme çemberi ve liste çemberi, nm ölçeğinde"></canvas></div>
+      <div class="ctl">
+        <div class="btns"><button type="button" class="btn primary" id="k4pProj">Bu projenin ayarı</button><button type="button" class="btn" id="k4pNone">Tampon yok</button><button type="button" class="btn" id="k4pRare">Liste seyrek</button></div>
+        <div><label class="lbl" for="k4rc">Kesme mesafesi (rvdw, rcoulomb)</label><div class="big" id="k4rcV"></div><input type="range" id="k4rc" min="80" max="160" step="2" value="100"></div>
+        <div><label class="lbl" for="k4buf">Tampon (rlist − r<sub>c</sub>)</label><div class="big" id="k4bufV"></div><input type="range" id="k4buf" min="0" max="200" step="2" value="104"></div>
+        <div><label class="lbl" for="k4nst">Liste yenileme aralığı (nstlist)</label><div class="big" id="k4nstV"></div><input type="range" id="k4nst" min="10" max="400" step="10" value="50"></div>
+        <dl class="read">
+          <dt>Kesme içindeki atom (3B tahmin)</dt><dd id="k4nC"></dd>
+          <dt>Listedeki atom (3B tahmin)</dt><dd id="k4nL"></dd>
+          <dt>Bir aralıkta suyun yolu (ort. / en çok)</dt><dd id="k4disp"></dd>
+          <dt>Kaçan etkileşim (listede olmadığı için)</dt><dd id="k4miss">0</dd>
+          <dt>Geçen süre</dt><dd id="k4t"></dd>
+        </dl>
+        <div class="btns"><button type="button" class="btn" id="k4pause">Durdur</button><button type="button" class="btn" id="k4fast" aria-pressed="false">Hızlı (10 adım/kare)</button></div>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:var(--warm)"></i>Seçili protein atomu</span><span><i style="background:var(--mid)"></i>Kesme içindeki su</span><span><i style="background:var(--gold)"></i>Listede, kesmenin dışında (tampon)</span><span><i style="background:var(--bad)"></i>Kaçan etkileşim</span></div>
+    <div class="change" id="k4chg"><span class="t">Liste 50 adımda bir yenileniyor</span><span>İlk yenilemeden sonra su moleküllerinin aldığı yol burada yazılacak.</span></div>
+    <p class="small">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı Laboratuvar 3'ün konusudur.</p>
+<div class="tw"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>
+      <tr><td><code>rvdw</code>, <code>rcoulomb</code></td><td class="n">1,0 nm</td><td>kesme mesafesi</td></tr>
+      <tr><td><code>vdw-modifier</code></td><td class="n">Potential-shift-Verlet</td><td>kesmede kaydırılmış potansiyel</td></tr>
+      <tr><td><code>DispCorr</code></td><td class="n">EnerPres</td><td>kesmenin dışındaki çekimin ortalama katkısı enerji ve basınca eklenir</td></tr>
+      <tr><td><code>coulombtype</code></td><td class="n">PME</td><td>elektrostatiğin uzak kısmı ızgarada (Laboratuvar 3)</td></tr>
+      <tr><td><code>nstlist</code>, <code>rlist</code></td><td class="n">10 → 50; 1,0 → 1,104 nm</td><td>komşu listesi; mdrun listeyi 50 adımda bir yenileyecek biçimde uzattı</td></tr>
+    </tbody></table></div>
+    <div class="prose">
+      <p><b>Tablodaki 1,104 nm.</b> Koşu dosyasında nstlist 10 ve rlist 1,0 nm yazıyordu. mdrun hızlanmak için listeyi 50 adımda bir yenilemeye karar verdi ve tamponu, izin verilen enerji hatasına göre 0,104 nm'ye çıkardı. Yukarıdaki "Bu projenin ayarı" düğmesi bu değerlerdir.</p>
+      <p><b>Kutu sınırı.</b> Kesme mesafesi kutu kenarının yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez. Bu projenin 1UBQ kutusunun en kısa kenarı 6,49 nm'dir; yarısı 3,25 nm, kesmenin üç katından fazla.</p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="k2h5">
+    <span class="step">5 · Kendinizi sınayın</span>
+    <h2 id="k2h5">Altı soru</h2>
+    <div class="quiz" id="k2quiz"></div>
+    <p class="score" id="k2score"></p>
+  </section>
+
+  <p class="small">Model: iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), periyodik kutu, en yakın kopya kuralı, hız-Verlet, Δt = 0,005; tezgâhta 64 molekül, defterde 100 molekül, ρ = 0,82, dengeleme T = 0,70 ε (Langevin), ölçüm sırasında ısı banyosu yok. İki kesme yönteminde kuvvetler aynıdır; fark, toplam enerjinin kesmede sıçrayıp sıçramamasıdır. Defteriniz yalnız bu tarayıcıda saklanır.</p>
 </div>
 
 <script>
@@ -403,7 +583,7 @@ function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.meas
 
 /* ---------- keşif kartları ---------- */
 var FOUND={};
-var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=Object.keys(FOUND).length+' / 6'; }
+var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }
 
 /* ---------- köprü çizimleri ---------- */
 function drawBridge(){
@@ -899,9 +1079,9 @@ var QZ=[
 function renderQuiz(){
   $('quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'">'+o[0]+'</button>';}).join('')+'</div><p class="why" id="why'+i+'" hidden></p></div>'; }).join('');
   var got={};
-  document.querySelectorAll('.opt').forEach(function(b){ b.addEventListener('click',function(){
+  document.querySelectorAll('#quiz .opt').forEach(function(b){ b.addEventListener('click',function(){
     var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], ok=q.o[j][1]===1;
-    document.querySelectorAll('.opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); });
+    document.querySelectorAll('#quiz .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); });
     b.classList.add(ok?'right':'wrong'); var w=$('why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;
     if(!(i in got)) got[i]=ok;
     var n=Object.keys(got).length, r=Object.keys(got).filter(function(k){return got[k];}).length;
@@ -935,6 +1115,534 @@ lSetMode('vac'); for(var w=0;w<30;w++) lPhys(); nChips(); nGal(); nDraw(); nEval
 ['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Açık'; });
 bDraw(); bRead(); lDraw(); lPlot(); lRead();
 if(!reduce) kickLoop();
+})();
+</script>
+<script>
+/* MD-PBC Lab 2 motoru: 2B Lennard-Jones, periyodik kutu, ayarlanabilir kesme; düz ya da kaydırılmış potansiyel */
+var LJ2=(function(){
+  function rng(seed){ var a=seed>>>0; return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function gauss(r){ var u=0,v=0; while(u===0) u=r(); v=r(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+  function ulj(r2){ var s6=1/(r2*r2*r2); return 4*s6*(s6-1); }
+  function make(N,rho,T0,seed,rc,shift){
+    var L=Math.sqrt(N/rho), n=Math.ceil(Math.sqrt(N)), a=L/n, r=rng(seed||7);
+    var s={N:N,L:L,t:0,r:r,rc:rc,shift:!!shift,x:new Float64Array(N),y:new Float64Array(N),vx:new Float64Array(N),vy:new Float64Array(N),fx:new Float64Array(N),fy:new Float64Array(N),pe:0,pairs:0};
+    for(var i=0;i<N;i++){ s.x[i]=(i%n+0.5)*a+(r()-0.5)*0.05; s.y[i]=(Math.floor(i/n)+0.5)*a+(r()-0.5)*0.05; s.vx[i]=gauss(r); s.vy[i]=gauss(r); }
+    zero(s); setT(s,T0); setCut(s,rc,shift); return s; }
+  function setCut(s,rc,shift){ s.rc=rc; s.rc2=rc*rc; s.shift=!!shift; s.ush=shift?ulj(rc*rc):0; forces(s); }
+  function zero(s){ var px=0,py=0,i; for(i=0;i<s.N;i++){px+=s.vx[i];py+=s.vy[i];} px/=s.N; py/=s.N; for(i=0;i<s.N;i++){s.vx[i]-=px;s.vy[i]-=py;} }
+  function ke(s){ var k=0; for(var i=0;i<s.N;i++) k+=0.5*(s.vx[i]*s.vx[i]+s.vy[i]*s.vy[i]); return k; }
+  function setT(s,T){ var k=ke(s); if(k>0){ var f=Math.sqrt(s.N*T/k); for(var i=0;i<s.N;i++){s.vx[i]*=f;s.vy[i]*=f;} } }
+  function forces(s){ var N=s.N,x=s.x,y=s.y,fx=s.fx,fy=s.fy,L=s.L,rc2=s.rc2,ush=s.ush,pe=0,np=0,i,j; fx.fill(0); fy.fill(0);
+    for(i=0;i<N-1;i++){ var xi=x[i],yi=y[i],ax=0,ay=0; for(j=i+1;j<N;j++){ var dx=x[j]-xi, dy=y[j]-yi; dx-=L*Math.round(dx/L); dy-=L*Math.round(dy/L); var r2=dx*dx+dy*dy;
+      if(r2<rc2){ if(r2<0.36) r2=0.36; var inv=1/r2, s6=inv*inv*inv, ff=24*s6*(2*s6-1)*inv; ax-=ff*dx; ay-=ff*dy; fx[j]+=ff*dx; fy[j]+=ff*dy; pe+=4*s6*(s6-1)-ush; np++; } }
+      fx[i]+=ax; fy[i]+=ay; }
+    s.pe=pe; s.pairs=np; }
+  function step(s,dt,gamma,T){ var N=s.N,L=s.L,i,h=0.5*dt; for(i=0;i<N;i++){ s.vx[i]+=h*s.fx[i]; s.vy[i]+=h*s.fy[i]; s.x[i]+=dt*s.vx[i]; s.y[i]+=dt*s.vy[i]; s.x[i]-=L*Math.floor(s.x[i]/L); s.y[i]-=L*Math.floor(s.y[i]/L); }
+    forces(s); for(i=0;i<N;i++){ s.vx[i]+=h*s.fx[i]; s.vy[i]+=h*s.fy[i]; }
+    if(gamma){ var c=Math.exp(-gamma*dt), q=Math.sqrt((1-c*c)*T); for(i=0;i<N;i++){ s.vx[i]=c*s.vx[i]+q*gauss(s.r); s.vy[i]=c*s.vy[i]+q*gauss(s.r); } } s.t+=dt; }
+  return {make:make,setCut:setCut,step:step,ke:ke,setT:setT,ulj:ulj};
+})();
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }
+function pc(v,d){ return '%'+fx(v,d); }
+function sci(v){ if(!(v>0)) return fx(0,0); var e=Math.floor(Math.log10(v)), m=v/Math.pow(10,e); var SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}; return fx(m,1)+' × 10'+String(e).split('').map(function(c){return SUP[c];}).join(''); }
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fit(c){ var r=c.getBoundingClientRect(), d=Math.min(2,window.devicePixelRatio||1), w=Math.max(1,Math.round(r.width*d)), h=Math.max(1,Math.round(r.height*d)); if(c.width!==w||c.height!==h){c.width=w;c.height=h;} var g=c.getContext('2d'); g.setTransform(d,0,0,d,0,0); return {g:g,W:r.width,H:r.height}; }
+function rgb(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
+function mixA(a,b,t){ return a.map(function(v,i){return Math.round(v+(b[i]-v)*t);}); }
+function str(a,al){ return al==null?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')'; }
+function sprite(hex,rPx){ var d=Math.min(2,window.devicePixelRatio||1), pad=Math.ceil(rPx*0.6), S=Math.ceil((2*rPx+2*pad)*d); var c=document.createElement('canvas'); c.width=c.height=S; var g=c.getContext('2d'); g.scale(d,d);
+  var m=S/d/2, base=rgb(hex), hi=mixA(base,[255,255,255],0.55), lo=mixA(base,[0,0,0],0.38);
+  g.fillStyle='rgba(40,40,30,0.18)'; g.beginPath(); g.ellipse(m+rPx*0.16,m+rPx*0.3,rPx*0.98,rPx*0.82,0,0,Math.PI*2); g.fill();
+  var gr=g.createRadialGradient(m-rPx*0.38,m-rPx*0.42,rPx*0.06,m,m,rPx); gr.addColorStop(0,str(hi)); gr.addColorStop(0.5,str(base)); gr.addColorStop(1,str(lo));
+  g.fillStyle=gr; g.beginPath(); g.arc(m,m,rPx,0,Math.PI*2); g.fill(); g.strokeStyle=str(lo,0.55); g.lineWidth=0.8; g.stroke(); return {c:c,s:S/d}; }
+function blit(g,sp,x,y,al){ if(al!=null) g.globalAlpha=al; g.drawImage(sp.c,x-sp.s/2,y-sp.s/2,sp.s,sp.s); if(al!=null) g.globalAlpha=1; }
+function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.measureText(txt).width+14; g.fillStyle=bg; g.beginPath(); if(g.roundRect) g.roundRect(x-w/2,y-11,w,22,11); else g.rect(x-w/2,y-11,w,22); g.fill(); g.fillStyle=fg; g.textAlign='center'; g.textBaseline='middle'; g.fillText(txt,x,y+0.5); g.textAlign='left'; g.textBaseline='alphabetic'; }
+function tiles(g,X,Y,L,x0,x1,y0,y1,paper,navy,line){ for(var j=Math.floor(y0/L)-1;j<=Math.ceil(y1/L);j++) for(var i=Math.floor(x0/L)-1;i<=Math.ceil(x1/L);i++){ var c=(i===0&&j===0), a=X(i*L), b=Y(j*L), w=X((i+1)*L)-a; g.fillStyle=c?paper:str(rgb(paper),0.45); g.fillRect(a,b,w,w); g.strokeStyle=c?navy:line; g.lineWidth=c?2:1; g.setLineDash(c?[7,5]:[4,5]); g.strokeRect(a,b,w,w); g.setLineDash([]); } }
+
+/* keşif kartları */
+var FOUND={}, CH={};
+function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }
+
+/* ---------------- deneysel köprü: FRET ---------------- */
+var GREEN='#3d9a57', RED='#c9483a', BLUE='#3f6fc9', FS={spD:null,spA:null,r:0};
+function fretState(){ var r=+$('k2r').value/10, R0=+$('k2R0').value/10, x=r/R0, E=1/(1+Math.pow(x,6)), K=Math.pow(R0/r,6); return {r:r,R0:R0,E:E,K:K}; }
+function wave(g,x0,y0,x1,y1,col,al,w,amp,n){ var dx=x1-x0, dy=y1-y0, L=Math.hypot(dx,dy), ux=dx/L, uy=dy/L, nx=-uy, ny=ux, steps=80; g.strokeStyle=str(rgb(col),al); g.lineWidth=w; g.beginPath();
+  for(var k=0;k<=steps;k++){ var t=k/steps, fade=Math.min(1,t*6,(1-t)*6), o=Math.sin(t*n*2*Math.PI)*amp*fade, px=x0+dx*t*0.9+nx*o, py=y0+dy*t*0.9+ny*o; if(k) g.lineTo(px,py); else g.moveTo(px,py); } g.stroke();
+  var hx=x0+dx*0.92, hy=y0+dy*0.92, h=9; g.fillStyle=str(rgb(col),al); g.beginPath(); g.moveTo(x1,y1); g.lineTo(hx+nx*h*0.55,hy+ny*h*0.55); g.lineTo(hx-nx*h*0.55,hy-ny*h*0.55); g.closePath(); g.fill(); }
+function glow(g,x,y,R,col,al){ var gr=g.createRadialGradient(x,y,R*0.2,x,y,R); gr.addColorStop(0,str(rgb(col),0.55*al)); gr.addColorStop(1,str(rgb(col),0)); g.fillStyle=gr; g.beginPath(); g.arc(x,y,R,0,6.283); g.fill(); }
+function sceneDraw(){
+  var F=fit($('k2scene')), g=F.g, W=F.W, H=F.H, st=fretState(), muted=css('--muted'), paper=css('--paper');
+  var sc=(W*0.62)/11, xd=W*0.22, y=H*0.6, xa=xd+st.r*sc, rPx=Math.max(10,W*0.028);
+  if(!FS.spD||Math.abs(FS.r-rPx)>0.5){ FS.spD=sprite(GREEN,rPx); FS.spA=sprite(RED,rPx); FS.r=rPx; }
+  g.clearRect(0,0,W,H);
+  /* molekül omurgası */
+  g.strokeStyle=str(rgb(muted),0.35); g.lineWidth=Math.max(5,rPx*0.55); g.lineCap='round'; g.beginPath(); g.moveTo(xd,y); g.bezierCurveTo(xd+(xa-xd)*0.3,y+rPx*1.6,xd+(xa-xd)*0.7,y+rPx*1.6,xa,y); g.stroke();
+  g.strokeStyle=str(rgb(muted),0.18); g.lineWidth=2; for(var k=1;k<12;k++){ var t=k/12, bx=(1-t)*(1-t)*(1-t)*xd+3*(1-t)*(1-t)*t*(xd+(xa-xd)*0.3)+3*(1-t)*t*t*(xd+(xa-xd)*0.7)+t*t*t*xa, by=(1-t)*(1-t)*(1-t)*y+3*(1-t)*(1-t)*t*(y+rPx*1.6)+3*(1-t)*t*t*(y+rPx*1.6)+t*t*t*y; g.beginPath(); g.moveTo(bx,by-rPx*0.5); g.lineTo(bx,by+rPx*0.5); g.stroke(); }
+  /* ışıltılar */
+  glow(g,xd,y,rPx*(2.2+2.8*(1-st.E)),GREEN,1-st.E); glow(g,xa,y,rPx*(2.2+2.8*st.E),RED,st.E);
+  /* uyarma */
+  wave(g,6,y,xd-rPx-3,y,BLUE,0.95,2.4,5,Math.max(2,Math.round((xd-rPx)/28)));
+  g.fillStyle=BLUE; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('mavi ışık',6,y-rPx-18); g.fillText('(uyarma)',6,y-rPx-4);
+  /* aktarım */
+  var mx=(xd+xa)/2, top=y-rPx*2.4-Math.min(60,(xa-xd)*0.25), a0=0.25+0.75*st.E;
+  g.strokeStyle=str(rgb(css('--accent')),a0); g.lineWidth=1.2+7*st.E; g.beginPath(); g.moveTo(xd+rPx*0.6,y-rPx*0.9); g.quadraticCurveTo(mx,top,xa-rPx*0.9,y-rPx*0.9); g.stroke();
+  var ang=Math.atan2((y-rPx*0.9)-top,(xa-rPx*0.9)-mx), hx=xa-rPx*0.9, hy=y-rPx*0.9, hs=9+5*st.E; g.fillStyle=str(rgb(css('--accent')),a0); g.beginPath(); g.moveTo(hx,hy); g.lineTo(hx-Math.cos(ang-0.45)*hs,hy-Math.sin(ang-0.45)*hs); g.lineTo(hx-Math.cos(ang+0.45)*hs,hy-Math.sin(ang+0.45)*hs); g.closePath(); g.fill();
+  pill(g,'aktarım '+pc(100*st.E,0),mx,top-4,paper,css('--accent'));
+  /* ışıma */
+  wave(g,xd+rPx*0.3,y-rPx*1.1,xd+rPx*0.2+W*0.02,y-H*0.5,GREEN,0.15+0.85*(1-st.E),2.2,4,3);
+  wave(g,xa+rPx*0.3,y-rPx*1.1,xa+rPx*0.2+W*0.02,y-H*0.5,RED,0.15+0.85*st.E,2.2,4,3);
+  g.font='600 12px '+css('--sans'); g.fillStyle=GREEN; g.textAlign='center'; g.fillText('yeşil '+pc(100*(1-st.E),0),xd+W*0.02,y-H*0.52-4); g.fillStyle=RED; g.fillText('kırmızı '+pc(100*st.E,0),Math.min(W-40,xa+W*0.02),y-H*0.52-4);
+  blit(g,FS.spD,xd,y); blit(g,FS.spA,xa,y);
+  g.fillStyle='#fffefb'; g.font='700 11px '+css('--sans'); g.fillText('D',xd,y+4); g.fillText('A',xa,y+4);
+  /* cetvel */
+  var ry=H-22; g.strokeStyle=muted; g.lineWidth=1.3; g.beginPath(); g.moveTo(xd,ry); g.lineTo(xd+11*sc,ry); g.stroke(); g.fillStyle=muted; g.font='11px '+css('--sans');
+  for(k=0;k<=11;k++){ var tx=xd+k*sc; g.beginPath(); g.moveTo(tx,ry-(k%5===0?6:3)); g.lineTo(tx,ry); g.stroke(); if(k%2===0) g.fillText(String(k),tx,ry+13); }
+  g.fillText('nm',xd+11*sc+14,ry+13);
+  var xr0=xd+st.R0*sc; g.fillStyle=css('--mid'); g.beginPath(); g.moveTo(xr0,ry-2); g.lineTo(xr0-5,ry-11); g.lineTo(xr0+5,ry-11); g.closePath(); g.fill(); g.fillText('R₀',xr0,ry-14);
+  g.strokeStyle=css('--accent'); g.lineWidth=2; g.beginPath(); g.moveTo(xd,ry-24); g.lineTo(xa,ry-24); g.moveTo(xd,ry-29); g.lineTo(xd,ry-19); g.moveTo(xa,ry-29); g.lineTo(xa,ry-19); g.stroke();
+  pill(g,'r = '+fx(st.r,1)+' nm',(xd+xa)/2,ry-38,paper,css('--accent')); g.textAlign='left';
+}
+function fretDraw(){
+  var F=fit($('k2fret')), g=F.g, W=F.W, H=F.H, L=46, R=16, T=16, B=36, x0=1, x1=11, st=fretState(), muted=css('--muted'), line=css('--line');
+  var X=function(x){return L+(x-x0)/(x1-x0)*(W-L-R);}, Y=function(v){return T+(1-Math.min(1.25,v)/1.25)*(H-T-B);};
+  g.clearRect(0,0,W,H); g.font='12px '+css('--sans'); g.strokeStyle=line; g.fillStyle=muted; g.lineWidth=1;
+  [0,0.5,1].forEach(function(v){ var y=Y(v); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.textAlign='right'; g.fillText(fx(v,1),L-6,y+4); });
+  g.textAlign='center'; for(var k=1;k<=11;k++) if(k%2===1) g.fillText(String(k),X(k),H-B+16); g.fillText('boyalar arası uzaklık r (nm)',(L+W-R)/2,H-4);
+  function curve(fn,col,dash){ g.strokeStyle=col; g.lineWidth=2.4; g.setLineDash(dash||[]); g.beginPath(); var on=false; for(var k=0;k<=300;k++){ var x=x0+(x1-x0)*k/300, v=fn(x); if(v>1.25){ on=false; continue; } var y=Y(v); if(on) g.lineTo(X(x),y); else { g.moveTo(X(x),y); on=true; } } g.stroke(); g.setLineDash([]); }
+  curve(function(x){return 1/(1+Math.pow(x/st.R0,6));},css('--mid')); curve(function(x){return Math.pow(st.R0/x,6);},css('--ball'),[6,4]);
+  var xr=X(st.R0); g.strokeStyle=str(rgb(css('--mid')),0.6); g.setLineDash([2,4]); g.beginPath(); g.moveTo(xr,T); g.lineTo(xr,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=css('--mid'); g.textAlign='left'; g.fillText('R₀',xr+4,T+12);
+  var xx=X(st.r); g.strokeStyle=css('--accent'); g.setLineDash([3,3]); g.lineWidth=1.4; g.beginPath(); g.moveTo(xx,T); g.lineTo(xx,H-B); g.stroke(); g.setLineDash([]);
+  g.fillStyle=css('--mid'); g.beginPath(); g.arc(xx,Y(st.E),5,0,6.283); g.fill(); if(st.K<=1.25){ g.fillStyle=css('--ball'); g.beginPath(); g.arc(xx,Y(st.K),5,0,6.283); g.fill(); }
+}
+function ratioTable(){ $('k2ratio').innerHTML=[1,1.5,2,3].map(function(m){ var v=Math.pow(m,6), t=m===1?'1':'1/'+fx(v,v<20?1:0); return '<tr><td>'+(m===1?'başlangıç':fx(m,1)+' katı')+'</td><td class="n">'+t+'</td><td class="n">'+t+'</td></tr>'; }).join(''); }
+function fretUpd(){ var st=fretState();
+  $('k2rVal').innerHTML=fx(st.r,1)+' <small>nm</small>'; $('k2R0Val').innerHTML=fx(st.R0,1)+' <small>nm</small>';
+  $('k2E').textContent=pc(100*st.E,st.E<0.1||st.E>0.9?1:0); $('k2G').textContent=pc(100*(1-st.E),0); $('k2Rr').textContent=pc(100*st.E,0);
+  $('k2U').textContent=st.K>=1?fx(st.K,st.K<10?1:0)+' kat':'1/'+fx(1/st.K,1/st.K<10?1:0); sceneDraw(); fretDraw(); }
+$('k2r').addEventListener('input',fretUpd); $('k2R0').addEventListener('input',fretUpd);
+
+/* ---------------- 1 · atölye: en yakın kopya ---------------- */
+var MI0={a:[2.6,3.4], b:[5.0,4.4], va:[0.75,0.45], vb:[1.05,0.55]};
+var M={L:8, S0:1.6, D:3, RC:3.9, a:MI0.a.slice(), b:MI0.b.slice(), va:MI0.va.slice(), vb:MI0.vb.slice(), mode:'launch', rule:'mi', drag:null, aim:null, paused:false, user:false,
+  cross:0, crossMi:0, t:0, hist:[], trailA:[], trailB:[], E0:0, maxJumpIn:0, maxStepMin:0, maxMin:0, lastJump:null, maxDEmi:0, boxJump:null, spA:null, spB:null, spR:0};
+function miView(W){ var s=W/(2*M.L); return {s:s,X:function(x){return (x+M.L/2)*s;},Y:function(y){return (y+M.L/2)*s;},inv:function(px,py){return [px/s-M.L/2,py/s-M.L/2];}}; }
+function nearest(a,b,L){ var best=null; for(var j=-1;j<=1;j++) for(var i=-1;i<=1;i++){ var dx=b[0]+i*L-a[0], dy=b[1]+j*L-a[1], d=Math.hypot(dx,dy); if(!best||d<best.d) best={d:d,i:i,j:j}; } return best; }
+function wrapv(v){ return v-M.L*Math.floor(v/M.L); }
+function arrowTo(g,x0,y0,x1,y1,col,w,dash){ var a=Math.atan2(y1-y0,x1-x0), h=Math.max(9,w*3.2); g.strokeStyle=col; g.fillStyle=col; g.lineWidth=w; g.setLineDash(dash||[]); g.beginPath(); g.moveTo(x0,y0); g.lineTo(x1-Math.cos(a)*h*0.7,y1-Math.sin(a)*h*0.7); g.stroke(); g.setLineDash([]);
+  g.beginPath(); g.moveTo(x1,y1); g.lineTo(x1-Math.cos(a-0.42)*h,y1-Math.sin(a-0.42)*h); g.lineTo(x1-Math.cos(a+0.42)*h,y1-Math.sin(a+0.42)*h); g.closePath(); g.fill(); }
+/* A ile B arasında kısa menzilli çekim ve yakında itme: U = (1,6/r)⁸ − 3(1 − (r/3,9)²)², r < 3,9 σ; ötesinde 0. Menzil kutunun yarısından (4 σ) kısa, bu yüzden en yakın kopya kuralında enerji korunur. */
+function miForce(){ var dx, dy;
+  if(M.rule==='mi'){ var n=nearest(M.a,M.b,M.L); dx=M.b[0]+n.i*M.L-M.a[0]; dy=M.b[1]+n.j*M.L-M.a[1]; } else { dx=M.b[0]-M.a[0]; dy=M.b[1]-M.a[1]; }
+  var r=Math.max(0.5,Math.hypot(dx,dy)), rp=Math.pow(M.S0/r,8), U=rp, dUdr=-8*rp/r; if(r<M.RC){ var q=1-(r/M.RC)*(r/M.RC); U-=M.D*q*q; dUdr+=M.D*4*q*r/(M.RC*M.RC); } var f=dUdr/r; return {fx:f*dx, fy:f*dy, U:U, r:r, dx:dx, dy:dy}; }
+function miEnergy(){ return 0.5*(M.va[0]*M.va[0]+M.va[1]*M.va[1]+M.vb[0]*M.vb[0]+M.vb[1]*M.vb[1])+miForce().U; }
+function miMeasure(){ return {n:nearest(M.a,M.b,M.L), dIn:Math.hypot(M.b[0]-M.a[0],M.b[1]-M.a[1])}; }
+function miReset(user){ M.user=user; M.cross=0; M.crossMi=0; M.maxJumpIn=0; M.maxStepMin=0; M.maxMin=0; M.lastJump=null; M.maxDEmi=0; M.boxJump=null; M.hist=[]; M.trailA=[]; M.trailB=[]; M.E0=miEnergy(); $('k2cross').textContent='0'; }
+function clampV(v){ var s=Math.hypot(v[0],v[1]); if(s>9){ v[0]*=9/s; v[1]*=9/s; } }
+function miStep(dt){
+  if(M.paused||M.aim||M.drag) return;
+  var sub=16, h=dt/sub, F=miForce();
+  for(var q=0;q<sub;q++){
+    var prev=miMeasure(), Ub=F.U;
+    M.va[0]+=0.5*h*F.fx; M.va[1]+=0.5*h*F.fy; M.vb[0]-=0.5*h*F.fx; M.vb[1]-=0.5*h*F.fy;
+    var na=[M.a[0]+M.va[0]*h, M.a[1]+M.va[1]*h], nb=[M.b[0]+M.vb[0]*h, M.b[1]+M.vb[1]*h];
+    var sides=[]; [['A',na],['B',nb]].forEach(function(e){ var p=e[1], s=null; if(p[0]>=M.L) s=['sağ','sol']; else if(p[0]<0) s=['sol','sağ']; else if(p[1]>=M.L) s=['alt','üst']; else if(p[1]<0) s=['üst','alt']; if(s) sides.push([e[0]].concat(s)); });
+    M.a=[wrapv(na[0]),wrapv(na[1])]; M.b=[wrapv(nb[0]),wrapv(nb[1])];
+    var U0=miForce().U; /* aynı konumda, geçişten hemen sonra ölçülen potansiyel */
+    F=miForce(); M.va[0]+=0.5*h*F.fx; M.va[1]+=0.5*h*F.fy; M.vb[0]-=0.5*h*F.fx; M.vb[1]-=0.5*h*F.fy;
+    clampV(M.va); clampV(M.vb);
+    M.t+=h; var cur=miMeasure();
+    if(M.user){ var jMin=Math.abs(cur.n.d-prev.n.d); M.maxStepMin=Math.max(M.maxStepMin,jMin); M.maxMin=Math.max(M.maxMin,cur.n.d);
+      if(M.rule==='mi') M.maxDEmi=Math.max(M.maxDEmi,Math.abs(miEnergy()-M.E0)); }
+    if(sides.length){ var sd=sides[0], jIn=Math.abs(cur.dIn-prev.dIn), dU=U0-Ub;
+      if(M.user){ M.cross++; if(M.rule==='mi'){ M.crossMi++; if(jIn>M.maxJumpIn){ M.maxJumpIn=jIn; M.lastJump={from:prev.dIn,to:cur.dIn,min:cur.n.d}; } } else if(!M.boxJump||Math.abs(dU)>Math.abs(M.boxJump.dU)) M.boxJump={dU:dU,from:prev.dIn,to:cur.dIn}; }
+      M.hist.push({t:M.t,x:true,from:prev.dIn,to:cur.dIn});
+      $('k2miChg').innerHTML=M.rule==='mi'
+        ?'<span class="t">'+sd[0]+' '+sd[1]+' kenardan çıktı, '+sd[2]+' kenardan girdi</span><span>Kutunun içinden ölçülen uzaklık bir anda '+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ oldu. Programın kullandığı en yakın kopya uzaklığı ise '+fx(prev.n.d,2)+' → '+fx(cur.n.d,2)+' σ: sıçramadı. Kuvvet de toplam enerji de sürekli kaldı; iki molekül birbirini çekmeyi sürdürüyor.</span>'
+        :(jIn<0.3?'<span class="t">'+sd[0]+' '+sd[1]+' kenardan çıktı: kutu içi uzaklık bu kez neredeyse aynı kaldı ('+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ)</span><span>B yaklaşık yarım kutu ötedeydi; bu yüzden uzunluk değişmedi ama çekimin yönü bir anda tersine döndü. A şimdi öbür yandaki B\'ye doğru çekiliyor.</span>'
+        :'<span class="t">'+sd[0]+' '+sd[1]+' kenardan çıktı: kutu içi uzaklık bir anda '+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ oldu</span><span>Uzaklık kutunun içinden ölçüldüğü için moleküller yerinden kıpırdamadan potansiyel enerji '+(dU>=0?'+':'')+fx(dU,2)+' ε değişti'+(cur.dIn>=M.RC&&prev.dIn<M.RC?'; kutunun içinden bakınca B çekimin menzilinin (3,9 σ) dışında kaldı ve çekim bir anda kesildi':'')+'. Gerçek bir sistemde enerji kendiliğinden böyle sıçramaz.</span>');
+    }
+  }
+  M.hist.push({t:M.t,dIn:miMeasure().dIn,dMin:miMeasure().n.d,dE:miEnergy()-M.E0}); while(M.hist.length&&M.hist[0].t<M.t-14) M.hist.shift();
+  M.trailA.push([M.a[0],M.a[1]]); M.trailB.push([M.b[0],M.b[1]]); if(M.trailB.length>110){ M.trailA.shift(); M.trailB.shift(); }
+  $('k2cross').textContent=String(M.cross); miCard();
+}
+function miTrail(g,V,tr,col){ var L=M.L; for(var k=1;k<tr.length;k++){ var p0=tr[k-1], p1=tr[k]; if(Math.abs(p1[0]-p0[0])>L/2||Math.abs(p1[1]-p0[1])>L/2) continue;
+    for(var j=-1;j<=1;j++) for(var i=-1;i<=1;i++){ g.strokeStyle=str(rgb(col),(i===0&&j===0?0.7:0.22)*k/tr.length); g.lineWidth=2.2; g.beginPath(); g.moveTo(V.X(p0[0]+i*L),V.Y(p0[1]+j*L)); g.lineTo(V.X(p1[0]+i*L),V.Y(p1[1]+j*L)); g.stroke(); } } }
+function miDraw(){
+  var F=fit($('k2mi')), g=F.g, W=F.W, H=F.H, V=miView(W), s=V.s, L=M.L, i, j;
+  var rPx=Math.max(9,0.42*s); if(!M.spA||Math.abs(M.spR-rPx)>0.5){ M.spA=sprite(css('--mid'),rPx); M.spB=sprite(css('--ball'),rPx); M.spR=rPx; }
+  var paper=css('--paper'), navy=css('--navy'), line=css('--line'), acc=css('--accent'), muted=css('--muted'), mid=css('--mid');
+  g.clearRect(0,0,W,H); tiles(g,V.X,V.Y,L,-L/2,1.5*L,-L/2,1.5*L,paper,navy,line);
+  if($('k2cell').checked){ var cx0=V.X(M.a[0]-L/2), cy0=V.Y(M.a[1]-L/2); g.fillStyle=str(rgb(mid),0.1); g.fillRect(cx0,cy0,L*s,L*s); g.strokeStyle=str(rgb(mid),0.85); g.lineWidth=2; g.setLineDash([3,4]); g.strokeRect(cx0,cy0,L*s,L*s); g.setLineDash([]);
+    g.fillStyle=mid; g.font='600 12px '+css('--sans'); g.fillText(W<420?'A\'nın kutusu':'A\'nın gördüğü kutu',Math.max(6,cx0+6),Math.max(14,cy0+16)); }
+  miTrail(g,V,M.trailA,mid); miTrail(g,V,M.trailB,css('--ball'));
+  for(j=-1;j<=1;j++) for(i=-1;i<=1;i++){ if(i===0&&j===0) continue; blit(g,M.spA,V.X(M.a[0]+i*L),V.Y(M.a[1]+j*L),0.3); blit(g,M.spB,V.X(M.b[0]+i*L),V.Y(M.b[1]+j*L),0.4); }
+  var r=miMeasure(), n=r.n, bx=M.b[0]+n.i*L, by=M.b[1]+n.j*L, ax=V.X(M.a[0]), ay=V.Y(M.a[1]), mi=M.rule==='mi';
+  /* uzaklık çizgileri */
+  g.strokeStyle=str(rgb(muted),0.9); g.setLineDash([6,5]); g.lineWidth=mi?1.8:3; g.beginPath(); g.moveTo(ax,ay); g.lineTo(V.X(M.b[0]),V.Y(M.b[1])); g.stroke(); g.setLineDash([]);
+  g.strokeStyle=mi?acc:str(rgb(acc),0.45); g.lineWidth=mi?3:1.8; g.beginPath(); g.moveTo(ax,ay); g.lineTo(V.X(bx),V.Y(by)); g.stroke();
+  if(n.i||n.j){ g.strokeStyle=acc; g.lineWidth=2; g.beginPath(); g.arc(V.X(bx),V.Y(by),rPx+5,0,6.283); g.stroke(); }
+  pill(g,fx(n.d,2)+' σ',(ax+V.X(bx))/2,Math.min(ay,V.Y(by))-rPx-14,paper,acc);
+  if(n.i||n.j||!mi) pill(g,fx(r.dIn,2)+' σ',(ax+V.X(M.b[0]))/2,Math.max(ay,V.Y(M.b[1]))+rPx+16,paper,muted);
+  /* A'ya etkiyen gerçek kuvvet: yönü ve büyüklüğü */
+  var f=miForce(), fm=Math.hypot(f.fx,f.fy);
+  if(fm>0.02){ var La=Math.min(2.6,0.5+0.55*fm)*s, ua=Math.atan2(f.fy,f.fx); arrowTo(g,ax,ay,ax+Math.cos(ua)*La,ay+Math.sin(ua)*La,mi?acc:str(rgb(muted),0.95),3.2,mi?null:[5,3]); }
+  blit(g,M.spA,ax,ay); blit(g,M.spB,V.X(M.b[0]),V.Y(M.b[1]));
+  g.fillStyle='#fffefb'; g.font='700 13px '+css('--sans'); g.textAlign='center'; g.fillText('A',ax,ay+4.5); g.fillText('B',V.X(M.b[0]),V.Y(M.b[1])+4.5); g.textAlign='left';
+  if(M.aim){ var sp=Math.hypot(M.aim.vx,M.aim.vy), px=V.X(M.b[0]), py=V.Y(M.b[1]);
+    g.strokeStyle=str(rgb(muted),0.8); g.lineWidth=1.5; g.setLineDash([3,4]); g.beginPath(); g.moveTo(M.aim.p0[0],M.aim.p0[1]); g.lineTo(M.aim.p[0],M.aim.p[1]); g.stroke(); g.setLineDash([]);
+    if(sp>0.1){ var kk=s*0.35, ex=px+M.aim.vx*kk, ey=py+M.aim.vy*kk; arrowTo(g,px,py,ex,ey,acc,3.2); pill(g,fx(sp,1)+' σ/s',ex,ey-20,paper,acc); } }
+  if(M.paused){ pill(g,'Durduruldu',W/2,20,paper,navy); }
+  $('k2mi').dataset.b=Math.round(V.X(M.b[0]))+','+Math.round(V.Y(M.b[1]));
+  $('k2dIn').textContent=fx(r.dIn,2)+' σ'; $('k2dMin').textContent=fx(n.d,2)+' σ'; $('k2half').textContent=fx(L/2,2)+' σ';
+  var dE=miEnergy()-M.E0; $('k2dE').textContent=(dE>=0.005?'+':'')+fx(dE,Math.abs(dE)<0.1?3:2)+' ε';
+  return r;
+}
+function miPlot(){
+  var F=fit($('k2miPlot')), g=F.g, W=F.W, H=F.H, L=46, R=14, T=16, B=24, h=M.hist, muted=css('--muted'), line=css('--line'), acc=css('--accent'), navy=css('--navy'), top=12;
+  var H1=Math.round((H-6)*0.6), T2=H1+18, B2=H-8;
+  g.clearRect(0,0,W,H); var t1=M.t, t0=t1-14, X=function(t){return L+(t-t0)/14*(W-L-R);}, Y=function(d){return T+(1-d/top)*(H1-T-B+10);};
+  g.font='12px '+css('--sans'); g.lineWidth=1; g.fillStyle=muted;
+  [0,4,8,12].forEach(function(d){ var y=Y(d); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.textAlign='right'; g.fillText(String(d),L-6,y+4); });
+  [[M.L/2,'L/2']].forEach(function(q){ var y=Y(q[0]); g.strokeStyle=str(rgb(muted),0.8); g.setLineDash([4,4]); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.setLineDash([]); g.textAlign='left'; g.fillStyle=muted; g.fillText(q[1],W-R-28,y-4); });
+  g.textAlign='left'; g.fillStyle=muted; g.fillText('uzaklık (σ)',L+4,T-4);
+  h.forEach(function(p){ if(p.x){ var x=X(p.t); g.strokeStyle=str(rgb(acc),0.18); g.lineWidth=2; g.beginPath(); g.moveTo(x,T); g.lineTo(x,B2); g.stroke(); } });
+  function trace(key,col,w,YY){ g.strokeStyle=col; g.lineWidth=w; g.beginPath(); var on=false;
+    h.forEach(function(p){ if(p.x){ if(key==='dIn') on=false; return; } var x=X(p.t), y=YY(p[key]); if(on) g.lineTo(x,y); else { g.moveTo(x,y); on=true; } }); g.stroke(); }
+  trace('dIn',str(rgb(muted),0.95),2.4,Y); trace('dMin',acc,2.6,Y);
+  h.forEach(function(p){ if(!p.x||p.from==null) return; var x=X(p.t), y0=Y(Math.min(top,p.from)), y1=Y(Math.min(top,p.to)); g.strokeStyle=str(rgb(muted),0.95); g.lineWidth=1.6; g.setLineDash([2,3]); g.beginPath(); g.moveTo(x,y0); g.lineTo(x,y1); g.stroke(); g.setLineDash([]);
+    g.fillStyle=css('--paper'); g.strokeStyle=muted; g.lineWidth=1.6; [y0,y1].forEach(function(y){ g.beginPath(); g.arc(x,y,3.2,0,6.283); g.fill(); g.stroke(); }); });
+  /* toplam enerji şeridi */
+  var em=0.5; h.forEach(function(p){ if(!p.x) em=Math.max(em,Math.abs(p.dE)*1.15); });
+  var YE=function(e){ return (T2+B2)/2-(e/em)*(B2-T2)/2; };
+  g.strokeStyle=line; g.lineWidth=1; g.beginPath(); g.moveTo(L,YE(0)); g.lineTo(W-R,YE(0)); g.stroke();
+  g.fillStyle=muted; g.textAlign='right'; g.fillText('0',L-6,YE(0)+4); g.fillText('+'+fx(em,em<1?1:0),L-6,T2+8); g.fillText('−'+fx(em,em<1?1:0),L-6,B2);
+  g.textAlign='left'; g.fillText('toplam enerji değişimi (ε)',L+4,T2-4);
+  trace('dE',navy,2.4,YE);
+  var lastX=null; for(var q=h.length-1;q>=0;q--){ if(h[q].x&&h[q].from!=null){ lastX=h[q]; break; } }
+  if(lastX&&Math.abs(lastX.from-lastX.to)>0.5) pill(g,'kutu içi uzaklık sıçradı',Math.max(L+80,Math.min(W-R-80,X(lastX.t))),Y(Math.min(top,Math.max(lastX.from,lastX.to)))-16,css('--paper'),muted);
+}
+(function(){ var c=$('k2mi');
+  function pos(e){ var r=c.getBoundingClientRect(); return [e.clientX-r.left,e.clientY-r.top]; }
+  c.addEventListener('pointerdown',function(e){ var p=pos(e), V=miView(c.getBoundingClientRect().width), w=V.inv(p[0],p[1]);
+    try{ c.setPointerCapture(e.pointerId); }catch(_){} $('k2miHint').hidden=true; e.preventDefault();
+    if(M.mode==='launch'){ M.aim={p0:p,p:p,vx:0,vy:0}; c.classList.add('aiming'); miDraw(); return; }
+    var best=null; ['a','b'].forEach(function(k){ for(var j=-1;j<=1;j++) for(var i=-1;i<=1;i++){ var d=Math.hypot(M[k][0]+i*M.L-w[0],M[k][1]+j*M.L-w[1]); if(d<1.4&&(!best||d<best.d)) best={k:k,d:d,i:i,j:j}; } });
+    if(best){ M.drag=best; M.va=[0,0]; M.vb=[0,0]; } });
+  c.addEventListener('pointermove',function(e){ var p=pos(e), V=miView(c.getBoundingClientRect().width);
+    if(M.aim){ var vx=(M.aim.p0[0]-p[0])/(V.s*0.35), vy=(M.aim.p0[1]-p[1])/(V.s*0.35), sp=Math.hypot(vx,vy); if(sp>6){ vx*=6/sp; vy*=6/sp; } M.aim.vx=vx; M.aim.vy=vy; M.aim.p=p; miDraw(); return; }
+    if(!M.drag) return; var w=V.inv(p[0],p[1]); M[M.drag.k]=[wrapv(w[0]-M.drag.i*M.L),wrapv(w[1]-M.drag.j*M.L)]; M.trailA=[]; M.trailB=[]; var r=miDraw(); miMsg(r); });
+  function up(){ c.classList.remove('aiming');
+    if(M.aim){ var sp=Math.hypot(M.aim.vx,M.aim.vy); if(sp>0.1){ M.vb=[M.aim.vx,M.aim.vy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';
+      $('k2miChg').innerHTML='<span class="t">B\'yi '+fx(sp,1)+' σ/s ile fırlattınız</span><span>Yavaş fırlatırsanız B, A\'yı da peşinden sürükler; çok hızlı fırlatırsanız çekimden kurtulur. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; } M.aim=null; miDraw(); kick(); }
+    if(M.drag){ M.drag=null; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur'; miMsg(miDraw()); kick(); } }
+  c.addEventListener('pointerup',up); c.addEventListener('pointercancel',up); })();
+function miMsg(r){ $('k2miChg').innerHTML=(r.n.i||r.n.j)?'<span class="t">En yakın B artık kutunun dışındaki bir kopya: '+fx(r.n.d,2)+' σ</span><span>Kutunun içinden ölçseydiniz '+fx(r.dIn,2)+' σ bulurdunuz. Bıraktığınızda çekim en yakın kopyaya göre hesaplanacak.</span>'
+    :'<span class="t">En yakın B, kutunun içindeki B: '+fx(r.n.d,2)+' σ</span><span>Bıraktığınızda iki molekül birbirini çekip salınacak. B\'yi A\'nın gördüğü kutunun dışına taşırsanız en yakın kopya değişir.</span>'; }
+function miCard(){ if(M.user && M.crossMi>=2 && M.lastJump) card('k2c1',true,'Sizin denemeniz: moleküller sınırı '+M.crossMi+' kez geçti. En büyük geçişte kutunun içinden ölçülen uzaklık bir anda '+fx(M.lastJump.from,2)+' → '+fx(M.lastJump.to,2)+' σ sıçradı; en yakın kopyaya uzaklık ise bir adımda en çok '+fx(M.maxStepMin,3)+' σ değişti ve toplam enerji en çok '+fx(M.maxDEmi,3)+' ε oynadı. Gerçek bir molekül ışınlanmaz; uzaklık, kuvvet ve enerji sürekli değişmelidir. En yakın kopya kuralı bunu sağlar: her molekül kendisini merkeze alan bir kutu görür ve her komşuyu o kutunun içindeki kopyasıyla sayar.'+(M.boxJump?' Kutunun içinden ölçen kuralla ise bir geçişte enerji '+(M.boxJump.dU>=0?'+':'')+fx(M.boxJump.dU,2)+' ε sıçradı.':'')); else card('k2c1',false,null); }
+function miSetRule(r){ M.rule=r; $('k2rMi').setAttribute('aria-pressed',r==='mi'?'true':'false'); $('k2rBox').setAttribute('aria-pressed',r==='box'?'true':'false'); M.E0=miEnergy()-(M.hist.length?M.hist[M.hist.length-1].dE||0:0);
+  $('k2miChg').innerHTML=r==='mi'?'<span class="t">Kural: en yakın kopya (MD programlarının kuralı)</span><span>Kuvvet her zaman A\'ya en yakın B kopyasına göre hesaplanıyor.</span>'
+    :'<span class="t">Kural: kutunun içinden ölç (hatalı)</span><span>Kuvvet B\'nin kutunun içindeki konumuna göre hesaplanıyor. Bir molekül sınırdan geçtiğinde enerji şeridine bakın.</span>'; miDraw(); kick(); }
+$('k2mLaunch').onclick=function(){ M.mode='launch'; $('k2mLaunch').setAttribute('aria-pressed','true'); $('k2mPlace').setAttribute('aria-pressed','false'); $('k2miHint').hidden=false; $('k2miHint').textContent='Kutunun üstünde bir yere basın, geriye çekin, bırakın: B ok yönünde fırlar.'; };
+$('k2mPlace').onclick=function(){ M.mode='place'; $('k2mPlace').setAttribute('aria-pressed','true'); $('k2mLaunch').setAttribute('aria-pressed','false'); $('k2miHint').hidden=false; $('k2miHint').textContent='A\'yı ya da B\'yi tutup taşıyın, bırakın.'; };
+$('k2rMi').onclick=function(){ miSetRule('mi'); };
+$('k2rBox').onclick=function(){ miSetRule('box'); };
+$('k2cell').onchange=function(){ miDraw(); };
+$('k2miPause').onclick=function(){ M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Sürdür':'Durdur'; miDraw(); kick(); };
+$('k2miRand').onclick=function(){ var th=Math.random()*2*Math.PI, sp=1.8+Math.random()*1.2, cx=(M.va[0]+M.vb[0])/2, cy=(M.va[1]+M.vb[1])/2, ux=sp*Math.cos(th)-cx, uy=sp*Math.sin(th)-cy; M.va=[M.va[0]+ux,M.va[1]+uy]; M.vb=[M.vb[0]+ux,M.vb[1]+uy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';
+  $('k2miChg').innerHTML='<span class="t">Çifti '+fx(sp,1)+' σ/s ile rastgele bir yöne fırlattınız</span><span>İki molekül birbirini tutarak birlikte ilerleyecek. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; kick(); };
+$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Durdur'; miSetRule('mi'); };
+
+/* ---------------- 2 · tezgâh: kesme çemberi ---------------- */
+/* Tek bir hareket hesaplanır; kuvvetler iki yöntemde aynı olduğu için iki enerji aynı yörüngeden sayılır:
+   düz kesme  E = KE + Σ u(r)          (r < r_c)
+   kaydırılmış E = KE + Σ [u(r) − u(r_c)] (r < r_c) */
+var Q={s:null, sel:0, hist:[], E0p:0, E0s:0, spN:null, spS:null, spR:0, prevIn:null, ev:[], slow:false, paused:false, clock:0, lastMsg:-9, nEnter:0, nLeave:0, seenCross:false};
+function qShift(){ return $('k2shift').getAttribute('aria-pressed')==='true'; }
+function qPE(){ var S=Q.s, uc=LJ2.ulj(S.rc2), plain=S.pe+(S.shift?S.pairs*S.ush:0); return {plain:plain, shift:plain-S.pairs*uc}; }
+function qNew(){ var rc=+$('k2rc').value/100, shift=qShift();
+  if(!Q.s){ Q.s=LJ2.make(64,0.82,0.7,5,rc,shift); for(var i=0;i<800;i++) LJ2.step(Q.s,0.005,1,0.7); var L=Q.s.L, bd=1e9; for(i=0;i<64;i++){ var d=Math.hypot(Q.s.x[i]-L/2,Q.s.y[i]-L/2); if(d<bd){bd=d;Q.sel=i;} } }
+  else LJ2.setCut(Q.s,rc,shift);
+  var k=LJ2.ke(Q.s), P=qPE(); Q.E0p=k+P.plain; Q.E0s=k+P.shift; Q.hist=[]; Q.prevIn=null; Q.ev=[]; Q.nEnter=0; Q.nLeave=0; }
+function counts(){ var S=Q.s, L=S.L, rc=S.rc, i=Q.sel, nin=0, dbl=0, list=[], keys={};
+  for(var j=0;j<S.N;j++){ if(j===i) continue; var imgs=[]; for(var b=-1;b<=1;b++) for(var a=-1;a<=1;a++){ var dx=S.x[j]+a*L-S.x[i], dy=S.y[j]+b*L-S.y[i], d=Math.hypot(dx,dy); if(d<rc) imgs.push([a,b,d]); }
+    if(imgs.length){ nin++; if(imgs.length>1) dbl++; list.push({j:j,imgs:imgs}); imgs.forEach(function(m){ keys[j+':'+m[0]+':'+m[1]]=m[2]; }); } }
+  return {nin:nin,dbl:dbl,list:list,keys:keys}; }
+/* seçili molekülün çemberine giren ve çıkan komşular */
+function qEvents(C){ var S=Q.s, uc=Math.abs(LJ2.ulj(S.rc2)), now=Q.clock, prev=Q.prevIn, k;
+  if(prev){ for(k in C.keys) if(!(k in prev)){ Q.ev.push({k:k,t:now,type:'in'}); Q.nEnter++; }
+    for(k in prev) if(!(k in C.keys)){ Q.ev.push({k:k,t:now,type:'out'}); Q.nLeave++; } }
+  var fresh=Q.ev.length&&Q.ev[Q.ev.length-1].t===now&&prev;
+  Q.prevIn=C.keys; Q.ev=Q.ev.filter(function(e){ return now-e.t<0.9; });
+  if(fresh&&now-Q.lastMsg>1.6){ var e=Q.ev[Q.ev.length-1], sh=qShift(); Q.lastMsg=now; Q.seenCross=true;
+    $('k2liqChg').innerHTML='<span class="t">Bir komşu '+(e.type==='in'?'çembere girdi':'çemberden çıktı')+' (r = '+fx(S.rc,2)+' σ)</span><span>'+(sh
+      ?'Kaydırılmış potansiyelde bu çiftin enerjisi kesmede zaten sıfır: toplam enerji hiç sıçramadı (mavi çizgi).'
+      :'Düz kesmede bu çiftin enerjisi bir anda '+(e.type==='in'?'0 → −'+fx(uc,3):'−'+fx(uc,3)+' → 0')+' ε oldu, oysa moleküller yerinden kıpırdamadı. Turuncu çizgideki basamaklar bu anlardır; kutudaki bütün çiftler için aynı şey olur.')+'</span>'; }
+}
+function qDraw(){
+  var F=fit($('k2liq')), g=F.g, W=F.W, H=F.H, S=Q.s, L=S.L, rc=S.rc, half=6.4, s=W/(2*half), cx=S.x[Q.sel], cy=S.y[Q.sel], sh=S.shift, uc=LJ2.ulj(S.rc2);
+  var X=function(x){return W/2+(x-cx)*s;}, Y=function(y){return H/2+(y-cy)*s;}, rPx=Math.max(4,0.46*s);
+  if(!Q.spN||Math.abs(Q.spR-rPx)>0.4){ Q.spN=sprite(css('--mid'),rPx); Q.spS=sprite(css('--warm'),rPx); Q.spR=rPx; }
+  var paper=css('--paper'), navy=css('--navy'), line=css('--line'), acc=css('--accent'), bad=css('--bad'), good=css('--good'), i, a, b;
+  g.clearRect(0,0,W,H); tiles(g,X,Y,L,cx-half,cx+half,cy-half,cy+half,paper,navy,line);
+  var C=counts(), dblSet={};
+  C.list.forEach(function(o){ if(o.imgs.length>1) o.imgs.forEach(function(m){ dblSet[o.j+':'+m[0]+':'+m[1]]=1; }); });
+  /* çember */
+  g.fillStyle=str(rgb(css('--warm')),0.12); g.beginPath(); g.arc(X(cx),Y(cy),rc*s,0,6.283); g.fill();
+  g.strokeStyle=acc; g.lineWidth=2.2; g.setLineDash([6,4]); g.stroke(); g.setLineDash([]);
+  /* etkileşim çizgileri: koyuluk = çekimin gücü (kesmede düz kesmede ani biter, kaydırılmışta sıfıra söner) */
+  for(var key in C.keys){ var p=key.split(':'), j=+p[0], ia=+p[1], ib=+p[2], d=C.keys[key], u=LJ2.ulj(d*d)-(sh?uc:0), al=Math.min(0.95,1.7*Math.sqrt(Math.abs(u)));
+    if(al<0.02) continue; g.strokeStyle=str(rgb(u<0?css('--deep'):bad),al); g.lineWidth=2.2; g.beginPath(); g.moveTo(X(cx),Y(cy)); g.lineTo(X(S.x[j]+ia*L),Y(S.y[j]+ib*L)); g.stroke(); }
+  for(b=-1;b<=1;b++) for(a=-1;a<=1;a++) for(i=0;i<S.N;i++){ var px=S.x[i]+a*L, py=S.y[i]+b*L; if(Math.abs(px-cx)>half+0.6||Math.abs(py-cy)>half+0.6) continue;
+    var main=(a===0&&b===0), k2=i+':'+a+':'+b, inside=(k2 in C.keys); if(i===Q.sel&&main) continue;
+    blit(g,Q.spN,X(px),Y(py),inside?1:(main?0.5:0.25));
+    if(dblSet[k2]){ g.strokeStyle=bad; g.lineWidth=2.6; g.beginPath(); g.arc(X(px),Y(py),rPx+4,0,6.283); g.stroke(); } }
+  for(b=-1;b<=1;b++) for(a=-1;a<=1;a++){ if(a===0&&b===0) continue; var ix=S.x[Q.sel]+a*L, iy=S.y[Q.sel]+b*L; if(Math.abs(ix-cx)<=half+0.6&&Math.abs(iy-cy)<=half+0.6) blit(g,Q.spS,X(ix),Y(iy),0.4); }
+  /* giriş ve çıkış halkaları */
+  Q.ev.forEach(function(e){ var p=e.k.split(':'), j=+p[0], ia=+p[1], ib=+p[2], ex=X(S.x[j]+ia*L), ey=Y(S.y[j]+ib*L), f=(Q.clock-e.t)/0.9, col=e.type==='in'?good:bad;
+    g.strokeStyle=str(rgb(col),1-f); g.lineWidth=3; g.beginPath(); g.arc(ex,ey,rPx+4+f*rPx*1.6,0,6.283); g.stroke();
+    if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,e.type==='in'?'girdi':'çıktı',ex,ey-rPx-14,paper,col); g.globalAlpha=1; } });
+  blit(g,Q.spS,X(cx),Y(cy));
+  pill(g,'r_c = '+fx(rc,2)+' σ',X(cx),Math.max(14,Y(cy)-rc*s+14),paper,acc);
+  if(rc>L/2) pill(g,'r_c > L/2',X(cx),Math.min(H-14,Y(cy)+rc*s-14),paper,bad);
+  if(Q.paused) pill(g,'Durduruldu',W/2,20,paper,navy);
+  $('k2nIn').textContent=String(C.nin); $('k2nDbl').textContent=String(C.dbl); $('k2pairs').textContent=String(S.pairs);
+  $('k2ev').textContent=Q.nEnter+' / '+Q.nLeave;
+  return C;
+}
+function potDraw(){
+  var F=fit($('k2pot')), g=F.g, W=F.W, H=F.H, L=52, R=16, T=18, B=34, rc=Q.s.rc, shift=Q.s.shift, r0=0.95, r1=5.8, lo=-1.1, hi=0.5, muted=css('--muted'), line=css('--line'), acc=css('--accent'), cP=css('--ball'), cS=css('--deep');
+  var X=function(r){return L+(r-r0)/(r1-r0)*(W-L-R);}, Y=function(u){return T+(hi-Math.max(lo,Math.min(hi,u)))/(hi-lo)*(H-T-B);}, uc=LJ2.ulj(rc*rc);
+  g.clearRect(0,0,W,H); g.font='12px '+css('--sans'); g.strokeStyle=line; g.fillStyle=muted; g.lineWidth=1;
+  [-1,-0.5,0].forEach(function(u){ var y=Y(u); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.textAlign='right'; g.fillText(fx(u,1),L-6,y+4); });
+  g.textAlign='center'; [1,2,3,4,5].forEach(function(r){ g.fillText(String(r),X(r),H-B+16); }); g.fillText('uzaklık r (σ)',(L+W-R)/2,H-3); g.textAlign='left'; g.fillText('bir çiftin etkileşim enerjisi (ε)',L+4,T-4);
+  g.strokeStyle=str(rgb(muted),0.45); g.lineWidth=1.6; g.setLineDash([4,4]); g.beginPath(); for(var k=0;k<=300;k++){ var r=r0+(r1-r0)*k/300, y=Y(LJ2.ulj(r*r)); if(k) g.lineTo(X(r),y); else g.moveTo(X(r),y); } g.stroke(); g.setLineDash([]);
+  var col=shift?cS:cP; g.strokeStyle=col; g.lineWidth=2.6; g.beginPath(); for(k=0;k<=300;k++){ var r2=r0+(rc-r0)*k/300, y2=Y(LJ2.ulj(r2*r2)-(shift?uc:0)); if(k) g.lineTo(X(r2),y2); else g.moveTo(X(r2),y2); } g.stroke();
+  g.beginPath(); g.moveTo(X(rc),Y(0)); g.lineTo(X(r1),Y(0)); g.stroke();
+  if(!shift){ g.strokeStyle=cP; g.lineWidth=2.6; g.beginPath(); g.moveTo(X(rc),Y(uc)); g.lineTo(X(rc),Y(0)); g.stroke(); }
+  g.strokeStyle=acc; g.setLineDash([6,4]); g.lineWidth=1.4; g.beginPath(); g.moveTo(X(rc),T); g.lineTo(X(rc),H-B); g.stroke(); g.setLineDash([]); g.fillStyle=acc; g.fillText('r_c',X(rc)+4,H-B-6);
+  var L2=Q.s.L/2; if(L2<r1){ g.strokeStyle=css('--bad'); g.setLineDash([3,4]); g.lineWidth=1.2; g.beginPath(); g.moveTo(X(L2),T); g.lineTo(X(L2),H-B); g.stroke(); g.setLineDash([]); g.fillStyle=css('--bad'); g.fillText('L/2',X(L2)+4,T+12); }
+  /* büyüteç: kesmenin yakını (dar ekranda yalnız etiket) */
+  if(W<520){ if(!shift) pill(g,'sıçrama '+fx(Math.abs(uc),3)+' ε',Math.min(W-62,X(rc)+58),Y(0)+22,css('--paper'),cP); else pill(g,'sıçrama yok',Math.min(W-50,X(rc)+46),Y(0)+22,css('--paper'),cS); return; }
+  var iw=Math.min(260,(W-L-R)*0.44), iy=Y(-0.2), ih=Math.max(120,H-B-6-iy), ix=W-R-iw-6, a0=rc-0.45, a1=rc+0.45, m=Math.max(0.004,Math.abs(uc)*1.6);
+  var pt=iy+62, pb=iy+ih-8, XI=function(r){return ix+10+(r-a0)/(a1-a0)*(iw-20);}, YI=function(u){ return pt+(0.35*m-u)/(1.35*m)*(pb-pt); };
+  g.fillStyle=css('--paper'); g.strokeStyle=line; g.lineWidth=1; g.beginPath(); if(g.roundRect) g.roundRect(ix,iy,iw,ih,8); else g.rect(ix,iy,iw,ih); g.fill(); g.stroke();
+  g.font='600 11.5px '+css('--sans'); g.fillStyle=muted; g.textAlign='left'; g.fillText('kesmenin yakını, büyütülmüş',ix+10,iy+15);
+  g.fillStyle=cP; g.fillText('━ düz: '+fx(Math.abs(uc),3)+' ε sıçrar',ix+10,iy+32); g.fillStyle=cS; g.fillText('━ kaydırılmış: sıçramaz',ix+10,iy+48);
+  g.save(); g.beginPath(); g.rect(ix+2,pt-4,iw-4,pb-pt+6); g.clip();
+  g.strokeStyle=line; g.beginPath(); g.moveTo(ix,YI(0)); g.lineTo(ix+iw,YI(0)); g.stroke();
+  g.strokeStyle=acc; g.setLineDash([4,3]); g.beginPath(); g.moveTo(XI(rc),pt-4); g.lineTo(XI(rc),pb); g.stroke(); g.setLineDash([]);
+  function curve(c,sh,w,al){ g.strokeStyle=str(rgb(c),al); g.lineWidth=w; g.beginPath(); for(var k=0;k<=120;k++){ var r=a0+(rc-a0)*k/120, y=YI(LJ2.ulj(r*r)-(sh?uc:0)); if(k) g.lineTo(XI(r),y); else g.moveTo(XI(r),y); } g.lineTo(XI(rc),YI(0)); g.lineTo(ix+iw,YI(0)); g.stroke(); }
+  curve(cS,true,shift?2.8:1.8,shift?1:0.55); curve(cP,false,shift?1.8:2.8,shift?0.55:1);
+  g.fillStyle=cP; g.beginPath(); g.arc(XI(rc),YI(uc),3.5,0,6.283); g.fill();
+  g.restore();
+}
+function ePlot(){
+  var F=fit($('k2eplot')), g=F.g, W=F.W, H=F.H, h=Q.hist, L=74, R=14, T=18, B=18, muted=css('--muted'), line=css('--line'), cP=css('--ball'), cS=css('--deep'), sh=Q.s.shift;
+  g.clearRect(0,0,W,H); if(h.length<2) return;
+  var amp=1e-3; h.forEach(function(p){ amp=Math.max(amp,Math.abs(p[0])*1.15,Math.abs(p[1])*1.15); });
+  var X=function(k){return L+k/(Math.max(600,h.length)-1)*(W-L-R);}, Y=function(v){return T+(1-(v+amp)/(2*amp))*(H-T-B);};
+  g.font='12px '+css('--sans'); g.strokeStyle=line; g.fillStyle=muted; g.lineWidth=1;
+  [-amp,0,amp].forEach(function(v){ var y=Y(v); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.textAlign='right'; g.fillText((v>0?'+':v<0?'−':'')+fx(Math.abs(v),Math.abs(v)<0.01?4:3),L-6,y+4); });
+  g.textAlign='left'; g.fillText('toplam enerji − başlangıç (ε/molekül) · aynı hareket, iki sayım',L+4,T-5);
+  [[0,cP,!sh],[1,cS,sh]].forEach(function(q){ g.strokeStyle=str(rgb(q[1]),q[2]?1:0.55); g.lineWidth=q[2]?2.4:1.6; g.beginPath(); h.forEach(function(p,k){ if(k) g.lineTo(X(k),Y(p[q[0]])); else g.moveTo(X(k),Y(p[q[0]])); }); g.stroke(); });
+  var last=h[h.length-1], lx=Math.min(W-R-80,X(h.length-1)+6), yP=Y(last[0]), yS=Y(last[1]); if(Math.abs(yP-yS)<16){ if(yP<yS) yP=yS-16; else yP=yS+16; } g.font='600 12px '+css('--sans'); g.textAlign='left';
+  g.fillStyle=cP; g.fillText('düz',lx,Math.max(T+12,Math.min(H-B-4,yP+4))); g.fillStyle=cS; g.fillText('kaydırılmış',lx,Math.max(T+12,Math.min(H-B-4,yS+4)));
+}
+function qTick(n,dt){ var S=Q.s; for(var k=0;k<n;k++) LJ2.step(S,0.005,0,0); Q.clock+=dt;
+  var kk=LJ2.ke(S), P=qPE(); Q.hist.push([(kk+P.plain-Q.E0p)/S.N,(kk+P.shift-Q.E0s)/S.N]); if(Q.hist.length>600) Q.hist.shift(); }
+function qRead(){ var S=Q.s, uc=Math.abs(LJ2.ulj(S.rc*S.rc)); $('k2rcVal').innerHTML=fx(S.rc,2)+' <small>σ</small>'; $('k2tail').textContent=fx(uc,3)+' ε'; $('k2L2').textContent=fx(S.L/2,2)+' σ'; }
+function qCard(C){ var S=Q.s; if(S.rc>S.L/2 && C.dbl>=1) card('k2c3',true,'Sizin denemeniz: r<sub>c</sub> = '+fx(S.rc,2)+' σ, kutu kenarının yarısı '+fx(S.L/2,2)+' σ. Seçili molekülün '+C.dbl+' komşusunun iki kopyası birden çemberin içinde (kırmızı halkalar). En yakın kopya kuralıyla çalışan bir program her komşuyu yalnız bir kez sayar; çemberin içindeki öbür kopya kaçar ve kesme mesafesi artık her yönde aynı değildir. GROMACS bu yüzden kesmenin kutu kenarının yarısını aşmasına izin vermez.'); }
+function qSet(msg){ qNew(); qRead(); potDraw(); var C=qDraw(); qEvents(C); qCard(C); ePlot(); if(msg){ $('k2liqChg').innerHTML=msg; Q.lastMsg=Q.clock; } }
+$('k2rc').addEventListener('input',function(){ var rc=+$('k2rc').value/100, sh=qShift(), uc=Math.abs(LJ2.ulj(rc*rc)); qSet('<span class="t">Kesme '+fx(rc,2)+' σ</span><span>'+(rc>Q.s.L/2?'Kesme kutu kenarının yarısını aştı: çemberin içinde aynı komşunun iki kopyası olabilir (kırmızı halkalar).':'Bir çift bu çemberden her geçtiğinde düz kesmede enerji '+fx(uc,3)+' ε sıçrar. '+(rc<2.1?'Kısa kesmede sıçrama büyük: turuncu çizgiye bakın.':'Kesme uzadıkça sıçrama küçülür ama çemberdeki komşu, yani hesap yükü artar.'))+'</span>'); });
+function setShift(on){ $('k2plain').setAttribute('aria-pressed',String(!on)); $('k2shift').setAttribute('aria-pressed',String(on)); LJ2.setCut(Q.s,Q.s.rc,on); qRead(); potDraw(); var C=qDraw(); ePlot();
+  $('k2liqChg').innerHTML='<span class="t">'+(on?'Kaydırılmış potansiyel':'Düz kesme')+'</span><span>'+(on?'Her çiftin enerjisinden u(r_c) çıkarılır; eğri kesmede tam sıfıra iner. Sıvıdaki çizgiler kesmeye yaklaşırken söner. Kuvvetler değişmez, moleküller aynı yoldan gider.':'Etkileşim kesmede aniden sıfıra atlar: sıvıdaki çizgiler çemberin kenarında soluk ama görünürken bir anda kaybolur.')+'</span>'; Q.lastMsg=Q.clock; }
+$('k2plain').onclick=function(){setShift(false);}; $('k2shift').onclick=function(){setShift(true);};
+$('k2qPause').onclick=function(){ Q.paused=!Q.paused; $('k2qPause').textContent=Q.paused?'Sürdür':'Durdur'; qDraw(); kick(); };
+$('k2qSlow').onclick=function(){ Q.slow=!Q.slow; $('k2qSlow').setAttribute('aria-pressed',String(Q.slow)); $('k2qSlow').textContent=Q.slow?'Normal hız':'Yavaş çekim'; kick(); };
+(function(){ var c=$('k2liq'); c.addEventListener('pointerdown',function(e){ var r=c.getBoundingClientRect(), W=r.width, half=6.4, s=W/(2*half), S=Q.s, L=S.L, wx=S.x[Q.sel]+(e.clientX-r.left-W/2)/s, wy=S.y[Q.sel]+(e.clientY-r.top-r.height/2)/s, best=-1, bd=0.7;
+  for(var i=0;i<S.N;i++){ var dx=S.x[i]-wx, dy=S.y[i]-wy; dx-=L*Math.round(dx/L); dy-=L*Math.round(dy/L); var d=Math.hypot(dx,dy); if(d<bd){bd=d;best=i;} }
+  if(best>=0){ Q.sel=best; Q.prevIn=null; Q.ev=[]; $('k2liqHint').hidden=true; qCard(qDraw()); } }); })();
+
+/* ---------------- 3 · defter ---------------- */
+var RS=[1.5,2,2.5,3,4,5], nMode='plain', nR=2.5, KEY='ahl-mdpbc-lab2-v1', book=[], busy=false, queue=[];
+try{ var raw=localStorage.getItem(KEY); if(raw){ var bb=JSON.parse(raw); if(Array.isArray(bb)) book=bb.filter(function(p){return p&&(p.m==='plain'||p.m==='shift')&&RS.indexOf(p.r)>=0&&isFinite(p.e)&&isFinite(p.np);}); } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(book)); }catch(e){} }
+function nChips(){ $('k2nR').innerHTML=RS.map(function(r){return '<button type="button" class="chip" data-r="'+r+'" aria-pressed="'+(r===nR)+'">'+fx(r,1)+'</button>';}).join('');
+  document.querySelectorAll('#k2nR .chip').forEach(function(b){ b.onclick=function(){ nR=+b.getAttribute('data-r'); nChips(); }; });
+  document.querySelectorAll('#k2nMode .chip').forEach(function(b){ b.setAttribute('aria-pressed',String(b.getAttribute('data-m')===nMode)); b.onclick=function(){ nMode=b.getAttribute('data-m'); nChips(); }; }); }
+function measureOne(m,r,done){
+  busy=true; $('k2nRun').disabled=true; $('k2nAll').disabled=true;
+  var s=LJ2.make(100,0.82,0.7,300+Math.round(r*10),r,m==='shift'), k=0, EQ=1500, SA=3000, E0=0, sq=0, n=0, np=0;
+  function chunk(){ var end=Math.min(EQ+SA,k+150);
+    for(;k<end;k++){ if(k<EQ) LJ2.step(s,0.005,1,0.7); else { if(k===EQ) E0=LJ2.ke(s)+s.pe; LJ2.step(s,0.005,0,0); var d=(LJ2.ke(s)+s.pe-E0)/100; sq+=d*d; n++; np+=2*s.pairs/100; } }
+    $('k2nBusy').textContent=(m==='plain'?'Düz kesme':'Kaydırılmış')+', r_c = '+fx(r,1)+' σ ölçülüyor: '+pc(100*k/(EQ+SA),0)+(queue.length?' · sırada '+queue.length+' ölçüm daha':'');
+    if(k<EQ+SA){ setTimeout(chunk,0); return; }
+    var p={m:m,r:r,e:Math.sqrt(sq/n),np:np/n}; book=book.filter(function(q){return !(q.m===m&&q.r===r);}); book.push(p); save();
+    $('k2nBusy').textContent=(m==='plain'?'Düz kesme':'Kaydırılmış')+', r_c = '+fx(r,1)+' σ: enerji oynaması '+sci(p.e)+' ε/molekül, molekül başına '+fx(p.np,1)+' çift.';
+    nDraw(); nEval(); done(); }
+  chunk(); }
+function runQueue(){ if(!queue.length){ busy=false; $('k2nRun').disabled=false; $('k2nAll').disabled=false; return; } var q=queue.shift(); measureOne(q[0],q[1],runQueue); }
+$('k2nRun').onclick=function(){ if(busy) return; queue=[[nMode,nR]]; runQueue(); };
+$('k2nAll').onclick=function(){ if(busy) return; queue=RS.filter(function(r){ return !book.some(function(p){return p.m===nMode&&p.r===r;}); }).map(function(r){return [nMode,r];}); if(!queue.length){ $('k2nBusy').textContent='Bu yöntemde bütün kesme mesafeleri zaten ölçüldü.'; return; } runQueue(); };
+$('k2nClr').onclick=function(){ if(busy) return; book=[]; save(); nDraw(); nEval(); $('k2nBusy').textContent='Defter temizlendi.'; };
+function nDraw(){
+  var F=fit($('k2book')), g=F.g, W=F.W, H=F.H, L=78, R=48, T=24, B=40, muted=css('--muted'), line=css('--line');
+  g.clearRect(0,0,W,H);
+  var es=book.map(function(p){return p.e;}), lmin=es.length?Math.floor(Math.log10(Math.min.apply(null,es)))-0:-5, lmax=es.length?Math.ceil(Math.log10(Math.max.apply(null,es))):-1; if(lmax-lmin<2){ lmin=lmax-2; }
+  var npMax=70, X=function(r){return L+(r-1.25)/(5.25-1.25)*(W-L-R);}, Y=function(e){return T+(lmax-Math.log10(Math.max(e,Math.pow(10,lmin))))/(lmax-lmin)*(H-T-B);}, Yn=function(v){return T+(1-v/npMax)*(H-T-B);};
+  g.font='12px '+css('--sans'); g.lineWidth=1;
+  for(var k=lmin;k<=lmax;k++){ var y=Y(Math.pow(10,k)); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=muted; g.textAlign='right'; g.fillText(sci(Math.pow(10,k)).replace('1,0 × ',''),L-6,y+4); }
+  [0,35,70].forEach(function(v){ g.fillStyle=muted; g.textAlign='left'; g.fillText(String(v),W-R+6,Yn(v)+4); });
+  g.textAlign='center'; RS.forEach(function(r){ g.fillStyle=muted; g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('kesme mesafesi r_c (σ)',(L+W-R)/2,H-4);
+  g.textAlign='left'; g.fillText(W>=560?'toplam enerjinin oynaması (ε/molekül, logaritmik) · sağda molekül başına çift':'enerji oynaması (ε/molekül)',L,14);
+  var npBy={}; book.forEach(function(p){ npBy[p.r]=p.np; }); Object.keys(npBy).forEach(function(r){ var x=X(+r), y=Yn(npBy[r]); g.fillStyle=str(rgb(muted),0.22); g.fillRect(x-9,y,18,Yn(0)-y); });
+  [['plain',css('--ball')],['shift',css('--mid')]].forEach(function(Mm){ var pts=book.filter(function(p){return p.m===Mm[0];}).sort(function(a,b){return a.r-b.r;}); if(!pts.length) return;
+    g.strokeStyle=Mm[1]; g.lineWidth=2.2; g.beginPath(); pts.forEach(function(p,k){ if(k) g.lineTo(X(p.r),Y(p.e)); else g.moveTo(X(p.r),Y(p.e)); }); g.stroke();
+    pts.forEach(function(p){ g.fillStyle=Mm[1]; g.beginPath(); g.arc(X(p.r),Y(p.e),6,0,6.283); g.fill(); }); });
+  if(!book.length){ g.fillStyle=muted; g.textAlign='center'; g.font='14px '+css('--sans'); g.fillText('Henüz ölçüm yok',(L+W-R)/2,(T+H-B)/2); g.textAlign='left'; }
+  $('k2nCount').textContent=book.length+' ölçüm';
+  var rows=book.slice().sort(function(a,b){return a.m===b.m?a.r-b.r:(a.m==='plain'?-1:1);});
+  $('k2nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='plain'?'Düz kesme':'Kaydırılmış')+'</td><td class="n">'+fx(p.r,1)+'</td><td class="n">'+sci(p.e)+'</td><td class="n">'+fx(p.np,1)+'</td></tr>';}).join(''):'<tr><td colspan="4" class="small">Henüz ölçüm yok.</td></tr>';
+}
+function nEval(){
+  var P=book.filter(function(p){return p.m==='plain';}), S=book.filter(function(p){return p.m==='shift';});
+  var common=P.map(function(p){return p.r;}).filter(function(r){ return S.some(function(q){return q.r===r;}); }).sort(function(a,b){return a-b;});
+  var okShort=P.some(function(p){return p.r<=2.5;});
+  if(common.length>=2 && okShort && S.length>=2){
+    var r0=common[0], r1=common[common.length-1], g=function(arr,r){ return arr.filter(function(p){return p.r===r;})[0]; }, p0=g(P,r0), p1=g(P,r1), s0=g(S,r0), s1=g(S,r1);
+    card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi korur; GROMACS da etkileşimi böyle bırakır.');
+  } else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('düz kesmede 2,5 σ ya da daha kısa bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }
+}
+
+/* ---------------- 4 · proteine dönüş: kesme ve komşu listesi, gerçek birimlerle ---------------- */
+/* Protein yüzeyindeki bir atom ve çevresindeki su (ince bir dilim, nm). Su molekülleri Langevin hareketiyle
+   ilerler: kT/m = 0,1384 nm²/ps² (300 K, 18 g/mol), sürtünme 60 ps⁻¹ (D ≈ 0,0023 nm²/ps, suyun ölçülen
+   difüzyonu), zaman adımı 2 fs. Komşu listesi nstlist adımda bir, r_list = r_c + tampon ile kurulur. */
+var P4={H:2.3, KT:0.1384, G:60, DT:0.002, rc:1.0, buf:0.104, nst:50, spf:1, run:true, w:null, prot:null, list:null, missed:null, ref:null, k:0, step:0, miss:0, missCyc:0, ev:[], clock:0, lastDisp:null, sp:{}, rng:null};
+function p4Surf(y){ return -0.28+0.22*Math.sin(1.6*y+0.4)+0.08*Math.sin(3.1*y); }
+function p4Init(){ var r=(function(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; })(11), H=P4.H, i;
+  P4.rng=r; P4.prot=[]; var d=0.3;
+  for(var row=0;row*d*0.866<2*H+0.3;row++){ var y=-H-0.15+row*d*0.866; for(var x=-H-0.15+(row%2?d/2:0);x<0.4;x+=d){ if(x<p4Surf(y)-0.02) P4.prot.push([x+(r()-0.5)*0.04,y+(r()-0.5)*0.04]); } }
+  var best=null; P4.prot.forEach(function(p,j){ var dd=Math.abs(p[1])+Math.abs(p[0]-p4Surf(p[1])); if(!best||dd<best.d) best={d:dd,j:j}; }); P4.c=P4.prot.splice(best.j,1)[0];
+  P4.w=[]; for(var tries=0;tries<250000&&P4.w.length<400;tries++){ var wx=-H+2*H*r(), wy=-H+2*H*r(); if(wx<p4Surf(wy)+0.2) continue; var okk=true; for(i=0;i<P4.w.length;i++){ var dx=P4.w[i].x-wx, dy=P4.w[i].y-wy; if(dx*dx+dy*dy<0.0729){okk=false;break;} } if(okk) P4.w.push({x:wx,y:wy,vx:0,vy:0}); }
+  var sd=Math.sqrt(P4.KT); P4.w.forEach(function(w){ w.vx=sd*p4g(); w.vy=sd*p4g(); });
+  p4Refresh(true); }
+function p4g(){ var u=0,v=0; while(u===0) u=P4.rng(); v=P4.rng(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function p4d(w){ return Math.hypot(w.x-P4.c[0],w.y-P4.c[1]); }
+function p4Refresh(first){ var rl=P4.rc+P4.buf;
+  if(!first&&P4.ref){ var s2=0, mx=0; P4.w.forEach(function(w,i){ var dx=w.x-P4.ref[i][0], dy=w.y-P4.ref[i][1], d2=dx*dx+dy*dy; s2+=d2; if(d2>mx) mx=d2; }); P4.lastDisp={rms:Math.sqrt(s2/P4.w.length), max:Math.sqrt(mx)}; }
+  P4.list=P4.w.map(function(w){ return p4d(w)<rl; }); P4.missed=P4.w.map(function(){ return false; }); P4.ref=P4.w.map(function(w){ return [w.x,w.y]; }); var mc=P4.missCyc; P4.k=0; P4.missCyc=0; P4.flash=P4.clock; if(!first) p4Msg(mc); }
+function p4Step(){ var c=Math.exp(-P4.G*P4.DT), q=Math.sqrt((1-c*c)*P4.KT), H=P4.H, dt=P4.DT;
+  P4.w.forEach(function(w,i){ w.vx=c*w.vx+q*p4g(); w.vy=c*w.vy+q*p4g(); w.x+=w.vx*dt; w.y+=w.vy*dt;
+    if(w.y>H){ w.y-=2*H; P4.ref[i][1]-=2*H; } else if(w.y<-H){ w.y+=2*H; P4.ref[i][1]+=2*H; }
+    if(w.x>H){ w.x=2*H-w.x; w.vx=-Math.abs(w.vx); } var sx=p4Surf(w.y)+0.17; if(w.x<sx){ w.x=2*sx-w.x; w.vx=Math.abs(w.vx); } });
+  var ww=P4.w, n=ww.length, dm=0.27, dm2=dm*dm, H2=2*H; for(var i=0;i<n-1;i++){ var a=ww[i]; for(var j=i+1;j<n;j++){ var bb=ww[j], dx=bb.x-a.x, dy=bb.y-a.y; if(dy>H) dy-=H2; else if(dy<-H) dy+=H2; if(dx>dm||dx<-dm||dy>dm||dy<-dm) continue; var d2=dx*dx+dy*dy; if(d2<dm2&&d2>1e-9){ var d=Math.sqrt(d2), f=0.5*(dm-d)/d; a.x-=f*dx; a.y-=f*dy; bb.x+=f*dx; bb.y+=f*dy; } } }
+  P4.step++; P4.k++;
+  P4.w.forEach(function(w,i){ if(!P4.list[i]&&!P4.missed[i]&&p4d(w)<P4.rc){ P4.missed[i]=true; P4.miss++; P4.missCyc++; P4.ev.push({i:i,t:P4.clock}); } });
+  if(P4.k>=P4.nst) p4Refresh(false); }
+function p4Draw(){
+  var F=fit($('k4box')), g=F.g, W=F.W, H=F.H, V=2.05, s=W/(2*V), cx=P4.c[0], cy=P4.c[1], X=function(x){return W/2+(x-cx)*s;}, Y=function(y){return H/2+(y-cy)*s;};
+  var rw=Math.max(3,0.115*s), key=Math.round(rw*10); if(P4.sp.k!==key){ P4.sp={k:key, w:sprite(css('--mid'),rw), p:sprite(css('--prot'),rw*1.1), c:sprite(css('--warm'),rw*1.25)}; }
+  var paper=css('--paper'), acc=css('--accent'), gold=css('--gold'), bad=css('--bad'), muted=css('--muted'), rl=P4.rc+P4.buf, i;
+  g.clearRect(0,0,W,H); g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  /* protein yüzeyi */
+  g.fillStyle=str(rgb(css('--prot')),0.16); g.beginPath(); g.moveTo(0,0); for(var yy=-V-0.3;yy<=V+0.3;yy+=0.05) g.lineTo(X(p4Surf(yy+cy)+0.08),Y(yy+cy)); g.lineTo(0,H); g.closePath(); g.fill();
+  /* liste çemberi ve tampon kabuğu */
+  var fl=Math.max(0,1-(P4.clock-(P4.flash||-9))/0.5);
+  g.fillStyle=str(rgb(gold),0.1+0.18*fl); g.beginPath(); g.arc(X(cx),Y(cy),rl*s,0,6.283); g.arc(X(cx),Y(cy),P4.rc*s,0,6.283,true); g.fill();
+  g.strokeStyle=str(rgb(gold),0.7+0.3*fl); g.lineWidth=1.6+2*fl; g.setLineDash([3,4]); g.beginPath(); g.arc(X(cx),Y(cy),rl*s,0,6.283); g.stroke(); g.setLineDash([]);
+  g.fillStyle=str(rgb(css('--warm')),0.1); g.beginPath(); g.arc(X(cx),Y(cy),P4.rc*s,0,6.283); g.fill();
+  g.strokeStyle=acc; g.lineWidth=2.2; g.setLineDash([6,4]); g.beginPath(); g.arc(X(cx),Y(cy),P4.rc*s,0,6.283); g.stroke(); g.setLineDash([]);
+  P4.prot.forEach(function(p){ var d=Math.hypot(p[0]-cx,p[1]-cy); blit(g,P4.sp.p,X(p[0]),Y(p[1]),d<P4.rc?0.95:0.45); });
+  P4.w.forEach(function(w,j){ var d=p4d(w), inC=d<P4.rc, inL=P4.list[j]; blit(g,P4.sp.w,X(w.x),Y(w.y),inC?1:(inL?0.7:0.28));
+    if(!inC&&inL){ g.strokeStyle=gold; g.lineWidth=1.6; g.beginPath(); g.arc(X(w.x),Y(w.y),rw+2,0,6.283); g.stroke(); }
+    if(P4.missed[j]){ g.strokeStyle=bad; g.lineWidth=2.4; g.beginPath(); g.arc(X(w.x),Y(w.y),rw+3,0,6.283); g.stroke(); } });
+  P4.ev=P4.ev.filter(function(e){ return P4.clock-e.t<1.2; });
+  P4.ev.forEach(function(e){ var w=P4.w[e.i], f=(P4.clock-e.t)/1.2; g.strokeStyle=str(rgb(bad),1-f); g.lineWidth=3; g.beginPath(); g.arc(X(w.x),Y(w.y),rw+4+f*rw*2.5,0,6.283); g.stroke(); if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,'listede yoktu',X(w.x),Y(w.y)-rw-14,paper,bad); g.globalAlpha=1; } });
+  blit(g,P4.sp.c,X(cx),Y(cy));
+  /* etiketler */
+  pill(g,'r_c = '+fx(P4.rc,2)+' nm',X(cx)+P4.rc*s*0.72,Y(cy)-P4.rc*s*0.72,paper,acc);
+  if(P4.buf>0.005) pill(g,'r_list = '+fx(rl,3)+' nm',X(cx)+rl*s*0.72,Y(cy)+rl*s*0.72,paper,gold);
+  g.fillStyle=css('--prot'); g.font='600 12px '+css('--sans'); g.fillText('protein',10,20);
+  var bx=W-12-s, by=H-16; g.strokeStyle=css('--ink'); g.lineWidth=2.4; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+s,by); g.moveTo(bx,by-5); g.lineTo(bx,by+5); g.moveTo(bx+s,by-5); g.lineTo(bx+s,by+5); g.stroke(); g.fillStyle=css('--ink'); g.textAlign='center'; g.fillText('1 nm',bx+s/2,by-8); g.textAlign='left';
+  /* liste sayacı */
+  var pw=Math.min(W-20,210), px=10, py=H-40; g.fillStyle=str(rgb(paper),0.92); g.beginPath(); if(g.roundRect) g.roundRect(px,py,pw,30,8); else g.rect(px,py,pw,30); g.fill();
+  g.fillStyle=str(rgb(gold),0.85); g.fillRect(px+8,py+19,(pw-16)*P4.k/P4.nst,5); g.strokeStyle=str(rgb(muted),0.6); g.lineWidth=1; g.strokeRect(px+8,py+19,pw-16,5);
+  g.fillStyle=css('--ink'); g.font='600 11.5px '+css('--sans'); g.fillText('liste yenilemesine: '+(P4.nst-P4.k)+' adım',px+8,py+14);
+  if(P4.paused) pill(g,'Durduruldu',W/2,20,paper,css('--navy'));
+  p4Read();
+}
+function p4Read(){ var rl=P4.rc+P4.buf, rho=100, nC=4/3*Math.PI*Math.pow(P4.rc,3)*rho, nL=4/3*Math.PI*Math.pow(rl,3)*rho;
+  $('k4rcV').innerHTML=fx(P4.rc,2)+' <small>nm</small>'; $('k4bufV').innerHTML=fx(P4.buf,3)+' <small>nm</small>'; $('k4nstV').innerHTML=P4.nst+' <small>adım · '+fx(P4.nst*2/1000,P4.nst<50?2:1)+' ps</small>';
+  $('k4nC').textContent='≈ '+fx(nC,0); $('k4nL').textContent='≈ '+fx(nL,0)+' (+'+pc(100*(nL/nC-1),0)+')';
+  $('k4disp').textContent=P4.lastDisp?fx(P4.lastDisp.rms,3)+' / '+fx(P4.lastDisp.max,3)+' nm':'ölçülüyor';
+  $('k4miss').textContent=String(P4.miss); $('k4t').textContent=fx(P4.step*0.002,2)+' ps'; }
+function p4Msg(mc){ var d=P4.lastDisp, t='', m=(mc==null?0:mc);
+  if(P4.buf<0.005) t='Tampon yok: liste tam kesme çemberiyle kuruluyor. Liste yenilenene kadar çembere dışarıdan giren her su molekülü kaçıyor (kırmızı halka)'+(mc!=null?'; son aralıkta '+m+' tane':'')+'.';
+  else if(d&&d.max>P4.buf) t='Son aralıkta bir su molekülü '+fx(d.max,3)+' nm yol aldı; bu, tampondan ('+fx(P4.buf,3)+' nm) uzun. '+(m>0?'Bu aralıkta '+m+' su molekülü listede olmadan kesme çemberine girdi.':'Bu kez tampon kuşağından kesmeye sızan olmadı, ama artık güvence yok: sızmak için yol yetiyor. Üç boyutta çember başına yüzlerce atom olduğu için böyle bir sızıntı sık olur; GROMACS tamponu bu yüzden izin verilen hataya göre seçer.');
+  else if(d) t='Son aralıkta bir su molekülü en çok '+fx(d.max,3)+' nm yol aldı; tampon '+fx(P4.buf,3)+' nm. Liste yenilenene kadar hiçbir su molekülü tamponu aşıp kesme çemberine sızamıyor.';
+  if(t) $('k4chg').innerHTML='<span class="t">Liste '+P4.nst+' adımda bir yenileniyor, tampon '+fx(P4.buf,3)+' nm</span><span>'+t+'</span>'; }
+function p4Set(rc,buf,nst){ P4.rc=rc; P4.buf=buf; P4.nst=nst; $('k4rc').value=Math.round(rc*100); $('k4buf').value=Math.round(buf*1000); $('k4nst').value=nst; P4.miss=0; P4.lastDisp=null; P4.ev=[]; p4Refresh(true); p4Draw(); p4Msg(); kick(); }
+$('k4rc').addEventListener('input',function(){ P4.rc=+$('k4rc').value/100; P4.miss=0; p4Refresh(true); p4Draw(); });
+$('k4buf').addEventListener('input',function(){ P4.buf=+$('k4buf').value/1000; P4.miss=0; P4.lastDisp=null; p4Refresh(true); p4Draw(); p4Msg(); });
+$('k4nst').addEventListener('input',function(){ P4.nst=+$('k4nst').value; P4.miss=0; P4.lastDisp=null; p4Refresh(true); p4Draw(); p4Msg(); });
+$('k4pProj').onclick=function(){ p4Set(1.0,0.104,50); };
+$('k4pNone').onclick=function(){ p4Set(1.0,0,50); };
+$('k4pRare').onclick=function(){ p4Set(1.0,0.104,400); };
+$('k4pause').onclick=function(){ P4.paused=!P4.paused; $('k4pause').textContent=P4.paused?'Sürdür':'Durdur'; p4Draw(); kick(); };
+$('k4fast').onclick=function(){ P4.spf=P4.spf===1?10:1; $('k4fast').setAttribute('aria-pressed',String(P4.spf===10)); $('k4fast').textContent=P4.spf===10?'Yavaş (1 adım/kare)':'Hızlı (10 adım/kare)'; kick(); };
+
+/* ---------------- 5 · sınav ---------------- */
+var QZ=[
+  {s:'İki molekül arasındaki uzaklık 0,5 nm\'den 1,0 nm\'ye çıkarsa van der Waals çekimi nasıl değişir?',
+   o:[['Yarıya iner',0],['Dörtte birine iner',0],['Yaklaşık 64 kat zayıflar',1],['Değişmez',0]],
+   w:'Çekim r⁻⁶ ile azalır: 2⁶ = 64. FRET veriminin R₀ civarında bu kadar keskin değişmesi de aynı altıncı kuvvettendir.'},
+  {s:'Periyodik kutuda bir komşuya olan uzaklık nasıl ölçülür?',
+   o:[['Kutunun içindeki kopyasına',0],['Komşunun bütün kopyaları arasından en yakın olanına',1],['Bütün kopyalarının ortalamasına',0],['Kutunun merkezine göre',0]],
+   w:'En yakın kopya kuralı: her komşu yalnız bir kez, en yakın kopyasıyla sayılır. Atölyede bu kopyanın kutunun dışında olabildiğini gördünüz.'},
+  {s:'Düz kesmede toplam enerjinin sıçramasının nedeni nedir?',
+   o:[['Kuvvetlerin yanlış hesaplanması',0],['Bir çift kesme çemberinden geçtiğinde etkileşim enerjisinin aniden sıfıra atlaması',1],['Zaman adımının büyük olması',0],['Kutunun küçük olması',0]],
+   w:'Kuvvetler iki yöntemde aynıdır. Düz kesmede enerji kesmede |u(r_c)| kadar süreksizdir; kaydırılmış potansiyelde bu süreksizlik yoktur.'},
+  {s:'Üç boyutta kesme mesafesini 1,0 nm\'den 1,2 nm\'ye çıkarmak hesaplanan çift sayısını yaklaşık ne kadar artırır?',
+   o:[['1,2 kat',0],['1,44 kat',0],['Yaklaşık '+fx(Math.pow(1.2,3),2)+' kat',1],['2 kat',0]],
+   w:'Çemberin (üç boyutta kürenin) içindeki komşu sayısı hacimle, yani r_c³ ile artar: 1,2³ ≈ '+fx(Math.pow(1.2,3),2)+'. Defterde iki boyutta bunun r_c² ile arttığını ölçtünüz.'},
+  {s:'Kesme mesafesi kutu kenarının yarısından büyükse ne olur?',
+   o:[['Hiçbir şey olmaz',0],['Hesap daha doğru olur',0],['Aynı komşunun iki kopyası çembere girer; program yalnız birini sayar ve GROMACS böyle bir kutuya izin vermez',1],['Moleküller kutudan kaçar',0]],
+   w:'Tezgâhta kesmeyi L/2\'nin üstüne çıkardığınızda kırmızı halkalı kopyaları gördünüz. Bu yüzden kutu, kesmenin en az iki katı genişlikte olmalıdır.'},
+  {s:'GROMACS komşu listesini kesmeden biraz uzun bir uzaklıkla (rlist > r_c) kurar. Neden?',
+   o:[['Liste yenilenene kadar dışarıdan kesme çemberine girebilecek molekülleri kaçırmamak için',1],['Enerjiyi artırmak için',0],['Kutuyu büyütmek için',0],['Elektrostatiği hesaplamak için',0]],
+   w:'Liste birkaç adımda bir yenilenir; aradaki tampon (bu projenin koşusunda 0,104 nm) o sürede çembere girebilecek molekülleri içerir.'}
+];
+function renderQuiz(){
+  $('k2quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'">'+o[0]+'</button>';}).join('')+'</div><p class="why" id="k2why'+i+'" hidden></p></div>'; }).join('');
+  var got={};
+  document.querySelectorAll('#k2quiz .opt').forEach(function(b){ b.addEventListener('click',function(){
+    var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], ok=q.o[j][1]===1;
+    document.querySelectorAll('#k2quiz .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); });
+    b.classList.add(ok?'right':'wrong'); var w=$('k2why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;
+    if(!(i in got)) got[i]=ok; var n=Object.keys(got).length, r=Object.keys(got).filter(function(k){return got[k];}).length;
+    $('k2score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });
+}
+
+/* ---------------- döngü ---------------- */
+var visL=true, visM=true, visP4=true, raf=null, last=null;
+function frame(ts){ raf=null; var dt=last===null?0.016:Math.min(0.05,(ts-last)/1000); last=ts; var go=false;
+  if(visM&&(!reduce||M.user)){ miStep(dt); miDraw(); miPlot(); go=go||(!M.paused); }
+  if(visL&&Q.s){ if(!Q.paused) qTick(Q.slow?1:4,dt); else Q.clock+=dt; var C=qDraw(); qEvents(C); qCard(C); if(!Q.paused&&Q.hist.length%2===0) ePlot(); if(!Q.paused||Q.ev.length) go=true; }
+  if(visP4&&P4.w){ P4.clock+=dt; if(!P4.paused) for(var q4=0;q4<P4.spf;q4++) p4Step(); p4Draw(); if(!P4.paused||P4.ev.length) go=true; }
+  if(go) raf=requestAnimationFrame(frame); else last=null; }
+function kick(){ if(!raf) raf=requestAnimationFrame(frame); }
+if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ visL=es[0].isIntersecting; if(visL) kick(); }).observe($('k2liq').closest('section')); new IntersectionObserver(function(es){ visM=es[0].isIntersecting; if(visM) kick(); }).observe($('k2mi')); new IntersectionObserver(function(es){ visP4=es[0].isIntersecting; if(visP4) kick(); }).observe($('k4box').closest('section')); }
+var rT=null; window.addEventListener('resize',function(){ clearTimeout(rT); rT=setTimeout(function(){ M.spA=null; Q.spN=null; FS.spD=null; sceneDraw(); fretDraw(); miDraw(); miPlot(); qDraw(); potDraw(); ePlot(); nDraw(); P4.sp={}; p4Draw(); },80); });
+
+/* başlangıç */
+['k2c1','k2c2','k2c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });
+ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Sürdür'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();
 })();
 </script>
 </body>

@@ -1,17 +1,17 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "fe9ed278c3f98496dbdf593b3aca2d45bcc3d840312155850e54b2902074689a",
+ "source_sha256": "1bfb64e04d44bdaebdff631c19e3b3fd7f49cd5045c87dba0690cea0459b55c5",
  "reviewed": false,
- "translator": "Claude (AI), MD-PBC 0.2.0; insan gözden geçirmesi bekliyor",
+ "translator": "Claude (AI), MD-PBC 0.3.0; insan gözden geçirmesi bekliyor",
  "pairs": [
   [
    "<title>Kenarsız Kutu: Periyodik Sınır</title>",
    "<title>The Box Without Edges: Periodic Boundaries</title>"
   ],
   [
-   "<div class=\"proto\">Bu sürümde modülün 1. laboratuvarı yayında. Kesme ve komşu listesi, uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>",
-   "<div class=\"proto\">In this version the first lab of the module is published. The labs on cut-offs and neighbor lists, long-range electrostatics and box size are in preparation. Every number is computed in your browser right now.</div>"
+   "<div class=\"proto\">Bu sürümde modülün 1. ve 2. laboratuvarları yayında. Uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>",
+   "<div class=\"proto\">In this version Labs 1 and 2 of the module are published. The labs on long-range electrostatics and box size are in preparation. Every number is computed in your browser right now.</div>"
   ],
   [
    "<span class=\"eyebrow\">MD-PBC · Laboratuvar 1 · Periyodik sınır</span>",
@@ -26,8 +26,12 @@
    "<p class=\"lead\">An MD simulation puts a protein and a few thousand surrounding water molecules into a small box. In a real sample the protein sits far from any edge, in the middle of countless water molecules. What changes if the small box also has an edge? How do we remove the edge, and why does it matter for the energy?</p>"
   ],
   [
-   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"progN\">0 / 6</b></div>",
-   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"progN\">0 / 6</b></div>"
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"progN\">0 / 9</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"progN\">0 / 9</b></div>"
+  ],
+  [
+   "<nav class=\"labnav\" aria-label=\"Bu sayfadaki laboratuvarlar\"><a href=\"#h0\">Laboratuvar 1 · Kenarsız kutu</a><a href=\"#lab2\">Laboratuvar 2 · En yakın kopya ve kesme</a></nav>",
+   "<nav class=\"labnav\" aria-label=\"Labs on this page\"><a href=\"#h0\">Lab 1 · The box without edges</a><a href=\"#lab2\">Lab 2 · Nearest image and cut-off</a></nav>"
   ],
   [
    "<span class=\"step\">Deneysel köprü</span>",
@@ -418,6 +422,414 @@
    "<p class=\"small\">Model: in the workshop, a single frictionless particle (mass of a water molecule, 3 nm box). On the bench and in the notebook, a two-dimensional Lennard-Jones liquid in reduced units (σ, ε, m), cut-off 2.5 σ, velocity Verlet, Δt = 0.005; density ρ = 0.82 (periodic and walled box); in the notebook measurements the temperature is held constant with a Langevin heat bath (T = 0.40 ε). A two-dimensional model does not give the numbers of real water; it shows the direction and order of magnitude of the surface effect. Your notebook is stored only in this browser.</p>"
   ],
   [
+   "<span class=\"eyebrow\">MD-PBC · Laboratuvar 2 · En yakın kopya ve kesme</span>",
+   "<span class=\"eyebrow\">MD-PBC · Lab 2 · Nearest image and cut-off</span>"
+  ],
+  [
+   "<h2 class=\"h1\">Etkileşimi nerede bırakmalı? En yakın kopya ve kesme mesafesi</h2>",
+   "<h2 class=\"h1\">Where should an interaction stop? The nearest image and the cut-off distance</h2>"
+  ],
+  [
+   "<p class=\"lead\">Periyodik kutuda her molekülün sonsuz sayıda kopyası var. Bir molekül, bu kopyaların hepsiyle mi etkileşir? Hayır: MD programı her komşuyu yalnız en yakın kopyasıyla sayar ve belirli bir uzaklıktan sonra etkileşimi hiç hesaplamaz. Bu uzaklığa kesme mesafesi denir. Nerede kesmeli, kesince ne kaybederiz?</p>",
+   "<p class=\"lead\">In a periodic box every molecule has infinitely many copies. Does a molecule interact with all of them? No: an MD program counts each neighbor only once, through its nearest image, and beyond a certain distance it does not compute the interaction at all. This distance is called the cut-off. Where should we cut, and what do we lose by cutting?</p>"
+  ],
+  [
+   "<h2 id=\"k2h0\">FRET cetveli: altıncı kuvvet ne kadar hızlı söner?</h2>",
+   "<h2 id=\"k2h0\">The FRET ruler: how fast does a sixth power fade?</h2>"
+  ],
+  [
+   "<p>FRET (Förster rezonans enerji aktarımı) deneyinde bir molekülün iki noktasına iki boya takılır. Donör boya mavi ışıkla uyarılır. Alıcı yakındaysa donör enerjisinin bir kısmını ışık yaymadan alıcıya aktarır ve alıcı kırmızı ışır; alıcı uzaksa donör kendi yeşil ışığını yayar. Kırmızı ile yeşilin oranından iki boya arasındaki uzaklık okunur. Bu yüzden FRET'e \"moleküler cetvel\" denir.</p>",
+   "<p>In a FRET (Förster resonance energy transfer) experiment two dyes are attached to two points of a molecule. The donor dye is excited with blue light. If the acceptor is close, the donor passes part of its energy to the acceptor without emitting light, and the acceptor glows red; if the acceptor is far, the donor emits its own green light. The distance between the two dyes is read from the ratio of red to green. This is why FRET is called a \"molecular ruler\".</p>"
+  ],
+  [
+   "<p>Aşağıda iki boya arasındaki uzaklığı değiştirin. R₀, aktarımın yüzde 50 olduğu uzaklıktır (Förster uzaklığı); yaygın boya çiftlerinde birkaç nanometredir.</p>",
+   "<p>Change the distance between the two dyes below. R₀ is the distance at which the transfer is 50 percent (the Förster distance); for common dye pairs it is a few nanometers.</p>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k2scene\" class=\"plot\" style=\"aspect-ratio:16/9;background:var(--stage)\" aria-label=\"Donör ve alıcı boya, uyarma, aktarım ve ışıma\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k2scene\" class=\"plot\" style=\"aspect-ratio:16/9;background:var(--stage)\" aria-label=\"Donor and acceptor dyes, excitation, transfer and emission\"></canvas></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k2r\">Boyalar arası uzaklık r</label><div class=\"big\" id=\"k2rVal\"></div><input type=\"range\" id=\"k2r\" min=\"20\" max=\"110\" step=\"1\" value=\"55\"></div>",
+   "<div><label class=\"lbl\" for=\"k2r\">Distance between the dyes r</label><div class=\"big\" id=\"k2rVal\"></div><input type=\"range\" id=\"k2r\" min=\"20\" max=\"110\" step=\"1\" value=\"55\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k2R0\">Förster uzaklığı R₀</label><div class=\"big\" id=\"k2R0Val\" style=\"font-size:20px\"></div><input type=\"range\" id=\"k2R0\" min=\"40\" max=\"70\" step=\"1\" value=\"55\"></div>",
+   "<div><label class=\"lbl\" for=\"k2R0\">Förster distance R₀</label><div class=\"big\" id=\"k2R0Val\" style=\"font-size:20px\"></div><input type=\"range\" id=\"k2R0\" min=\"40\" max=\"70\" step=\"1\" value=\"55\"></div>"
+  ],
+  [
+   "<dt>Aktarım verimi E</dt><dd id=\"k2E\"></dd>",
+   "<dt>Transfer efficiency E</dt><dd id=\"k2E\"></dd>"
+  ],
+  [
+   "<dt>Yeşil ışık (donör)</dt><dd id=\"k2G\"></dd>",
+   "<dt>Green light (donor)</dt><dd id=\"k2G\"></dd>"
+  ],
+  [
+   "<dt>Kırmızı ışık (alıcı)</dt><dd id=\"k2Rr\"></dd>",
+   "<dt>Red light (acceptor)</dt><dd id=\"k2Rr\"></dd>"
+  ],
+  [
+   "<dt>Aktarım hızı, R₀'dakine göre</dt><dd id=\"k2U\"></dd>",
+   "<dt>Transfer rate, relative to R₀</dt><dd id=\"k2U\"></dd>"
+  ],
+  [
+   "<p class=\"small\">Işık payları, iki boyanın ışıma veriminin eşit olduğu varsayılarak hesaplanır.</p>",
+   "<p class=\"small\">The light shares are computed assuming that both dyes have the same emission efficiency.</p>"
+  ],
+  [
+   "<canvas id=\"k2fret\" class=\"plot\" aria-label=\"Uzaklığa karşı FRET verimi ve r⁻⁶ ile azalan aktarım hızı\"></canvas>",
+   "<canvas id=\"k2fret\" class=\"plot\" aria-label=\"FRET efficiency against distance and the transfer rate falling as r⁻⁶\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--mid)\"></i>Aktarım verimi E = 1 / (1 + (r/R₀)⁶)</span><span><i style=\"background:var(--ball)\"></i>Aktarım hızı (R₀/r)⁶: r⁻⁶ ile azalır (R₀'da 1)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--mid)\"></i>Transfer efficiency E = 1 / (1 + (r/R₀)⁶)</span><span><i style=\"background:var(--ball)\"></i>Transfer rate (R₀/r)⁶: falls as r⁻⁶ (1 at R₀)</span></div>"
+  ],
+  [
+   "<p><b>Neden altıncı kuvvet?</b> Uyarılmış donörün elektron bulutu hızla titreşen küçük bir dipol gibi davranır. Bir dipolün elektrik alanı uzaklığın küpüyle, yani 1/r³ ile azalır. Alıcı bu alanla eşleşir ve aktarımın hızı alanın karesiyle orantılıdır: (1/r³)² = 1/r⁶. Verim eğrisinin R₀ civarında bu kadar dik olması bundandır.</p>",
+   "<p><b>Why a sixth power?</b> The electron cloud of the excited donor behaves like a small, rapidly oscillating dipole. The electric field of a dipole falls with the cube of the distance, as 1/r³. The acceptor couples to this field, and the transfer rate is proportional to the square of the field: (1/r³)² = 1/r⁶. This is why the efficiency curve is so steep around R₀.</p>"
+  ],
+  [
+   "<p><b>Van der Waals çekimiyle bağlantısı.</b> Yüksüz iki atom arasındaki çekim de aynı eşleşmeden doğar. Bir atomun elektron bulutundaki anlık bir dipol, komşu atomda da bir dipol oluşturur ve ikisi birbirini çeker (London kuvveti). Yine bir dipolün alanı (1/r³) ve onun oluşturduğu dipolün yanıtı (1/r³): çekim enerjisi 1/r⁶ ile azalır. MD'deki Lennard-Jones potansiyeli bu çekimi −4ε(σ/r)⁶ terimiyle yazar; çok yakında itmeyi +4ε(σ/r)¹² terimi verir.</p>",
+   "<p><b>The link to the van der Waals attraction.</b> The attraction between two uncharged atoms comes from the same coupling. A momentary dipole in the electron cloud of one atom induces a dipole in the neighboring atom, and the two attract each other (the London force). Again the field of a dipole (1/r³) and the response of the dipole it induces (1/r³): the attraction energy falls as 1/r⁶. The Lennard-Jones potential of MD writes this attraction with the term −4ε(σ/r)⁶; the repulsion at very short range comes from the term +4ε(σ/r)¹².</p>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Uzaklık</th><th>FRET aktarım hızı</th><th>Van der Waals çekimi</th></tr></thead><tbody id=\"k2ratio\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Distance</th><th>FRET transfer rate</th><th>Van der Waals attraction</th></tr></thead><tbody id=\"k2ratio\"></tbody></table></div>"
+  ],
+  [
+   "<p class=\"small\">İki sütun aynıdır, çünkü ikisi de r⁻⁶ ile azalır. Uzaklığı iki katına çıkarmak aktarım hızını da çekimi de 64 kat düşürür; üç katına çıkarmak 729 kat. Kuvvet bu kadar hızlı söndüğü için birkaç molekül çapından uzaktaki komşuların katkısı küçüktür; kesme mesafesi fikri buradan gelir.</p>",
+   "<p class=\"small\">The two columns are identical because both fall as r⁻⁶. Doubling the distance lowers both the transfer rate and the attraction 64 times; tripling it, 729 times. Because the interaction fades this fast, neighbors more than a few molecular diameters away contribute little; this is where the idea of a cut-off comes from.</p>"
+  ],
+  [
+   "<h2 id=\"k2h1\">En yakın kopya: uzaklık hangi yoldan ölçülür?</h2>",
+   "<h2 id=\"k2h1\">The nearest image: along which path is a distance measured?</h2>"
+  ],
+  [
+   "<p class=\"small\">Periyodik kutuda iki molekül var: A (mavi) ve B (turuncu); soluk olanlar kopyalarıdır. İkisi birbirini çeker (van der Waals çekimi ya da bir hidrojen bağı gibi düşünün): en rahat uzaklık 1,9 σ, daha yakında iterler, 3,9 σ'dan ötede birbirlerini hissetmezler. Bu menzil kutunun yarısından (4 σ) kısa; neden önemli olduğunu 2. tezgâhta göreceksiniz. Hareket gerçekten hesaplanıyor; A'dan çıkan ok, A'ya o anda etkiyen kuvvettir. Gri kesikli çizgi B'ye kutunun içinden ölçülen uzaklık, kırmızı çizgi A'ya en yakın B kopyasına olan uzaklıktır.</p>",
+   "<p class=\"small\">There are two molecules in a periodic box: A (blue) and B (orange); the faded ones are their copies. The two attract each other (think of a van der Waals attraction or a hydrogen bond): the most comfortable distance is 1.9 σ, closer than that they repel, and beyond 3.9 σ they do not feel each other. This range is shorter than half the box (4 σ); you will see why this matters at bench 2. The motion is really computed; the arrow on A is the force acting on A at that moment. The gray dashed line is the distance to B measured inside the box, the red line is the distance from A to the nearest copy of B.</p>"
+  ],
+  [
+   "<ol class=\"small steps\"><li><b>Fırlat:</b> kutunun üstünde herhangi bir yere basın, sapan gibi geriye çekin ve bırakın; B okun yönünde fırlar. Ya da \"Çifti fırlat\" düğmesine basın.</li><li><b>İzleyin:</b> moleküllerden biri kenardan çıkıp karşı kenardan girerken gri çizgi sıçrar, kırmızı çizgi ve enerji şeridi sakin kalır.</li><li><b>Karşılaştırın:</b> kuralı \"Kutunun içinden (hatalı)\" yapın ve bir geçişte enerjiye ne olduğuna bakın.</li></ol>",
+   "<ol class=\"small steps\"><li><b>Launch:</b> press anywhere on the box, pull back like a slingshot and let go; B flies in the direction of the arrow. Or press \"Launch the pair\".</li><li><b>Watch:</b> as one of the molecules leaves through one edge and enters through the opposite one, the gray line jumps while the red line and the energy strip stay calm.</li><li><b>Compare:</b> set the rule to \"Inside the box (wrong)\" and see what happens to the energy at a crossing.</li></ol>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k2mi\" class=\"stage\" aria-label=\"Birbirini çeken iki molekül ve kopyaları: kutu içi uzaklık, en yakın kopya uzaklığı, A'ya etkiyen kuvvet\"></canvas><div class=\"hint\" id=\"k2miHint\">Kutunun üstünde bir yere basın, geriye çekin, bırakın: B ok yönünde fırlar.</div></div>",
+   "<div class=\"stagebox\"><canvas id=\"k2mi\" class=\"stage\" aria-label=\"Two attracting molecules and their copies: distance inside the box, nearest-image distance, force on A\"></canvas><div class=\"hint\" id=\"k2miHint\">Press on the box, pull back, let go: B flies along the arrow.</div></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Fare ile ne yapılsın?</div>",
+   "<div><div class=\"lbl\">What should the pointer do?</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Fare ile ne yapılsın?\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"What should the pointer do?\">"
+  ],
+  [
+   "<button type=\"button\" id=\"k2mLaunch\" aria-pressed=\"true\">B'yi fırlat</button>",
+   "<button type=\"button\" id=\"k2mLaunch\" aria-pressed=\"true\">Launch B</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"k2mPlace\" aria-pressed=\"false\">Yerleştir</button>",
+   "<button type=\"button\" id=\"k2mPlace\" aria-pressed=\"false\">Place</button>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kuvvet hangi uzaklıkla hesaplansın?</div>",
+   "<div><div class=\"lbl\">Which distance should the force use?</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Kuvvet hangi uzaklıkla hesaplansın?\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Which distance should the force use?\">"
+  ],
+  [
+   "<button type=\"button\" id=\"k2rMi\" aria-pressed=\"true\">En yakın kopya (MD)</button>",
+   "<button type=\"button\" id=\"k2rMi\" aria-pressed=\"true\">Nearest image (MD)</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"k2rBox\" aria-pressed=\"false\">Kutunun içinden (hatalı)</button>",
+   "<button type=\"button\" id=\"k2rBox\" aria-pressed=\"false\">Inside the box (wrong)</button>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"k2cell\" checked> A'nın merkezde olduğu kutuyu göster</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"k2cell\" checked> Show the box centered on A</label>"
+  ],
+  [
+   "<dt>Kutunun içinden A–B</dt><dd id=\"k2dIn\"></dd>",
+   "<dt>A–B inside the box</dt><dd id=\"k2dIn\"></dd>"
+  ],
+  [
+   "<dt>A'ya en yakın B kopyası</dt><dd id=\"k2dMin\"></dd>",
+   "<dt>Nearest copy of B to A</dt><dd id=\"k2dMin\"></dd>"
+  ],
+  [
+   "<dt>Kutu kenarının yarısı (L/2)</dt><dd id=\"k2half\"></dd>",
+   "<dt>Half the box edge (L/2)</dt><dd id=\"k2half\"></dd>"
+  ],
+  [
+   "<dt>Toplam enerji değişimi</dt><dd id=\"k2dE\"></dd>",
+   "<dt>Change of total energy</dt><dd id=\"k2dE\"></dd>"
+  ],
+  [
+   "<dt>Sınır geçişi (A ve B)</dt><dd id=\"k2cross\">0</dd>",
+   "<dt>Boundary crossings (A and B)</dt><dd id=\"k2cross\">0</dd>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k2miRand\">Çifti fırlat</button><button type=\"button\" class=\"btn\" id=\"k2miPause\">Durdur</button><button type=\"button\" class=\"btn\" id=\"k2miReset\">Baştan</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k2miRand\">Launch the pair</button><button type=\"button\" class=\"btn\" id=\"k2miPause\">Pause</button><button type=\"button\" class=\"btn\" id=\"k2miReset\">Start over</button></div>"
+  ],
+  [
+   "<canvas id=\"k2miPlot\" class=\"plot\" aria-label=\"Zamana karşı kutu içi uzaklık, en yakın kopya uzaklığı ve toplam enerji değişimi\"></canvas>",
+   "<canvas id=\"k2miPlot\" class=\"plot\" aria-label=\"Distance inside the box, nearest-image distance and change of total energy against time\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--muted)\"></i>Kutunun içinden A–B</span><span><i style=\"background:var(--accent)\"></i>En yakın kopyaya uzaklık</span><span><i style=\"background:var(--navy)\"></i>Toplam enerji değişimi</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--muted)\"></i>A–B inside the box</span><span><i style=\"background:var(--accent)\"></i>Distance to the nearest copy</span><span><i style=\"background:var(--navy)\"></i>Change of total energy</span></div>"
+  ],
+  [
+   "<div class=\"change\" id=\"k2miChg\"><span class=\"t\">İki molekül birbirini tutarak ilerliyor</span><span>Kendi denemeniz için kutunun üstünde bir yere basıp geriye çekin ve bırakın ya da \"Çifti fırlat\" düğmesine basın.</span></div>",
+   "<div class=\"change\" id=\"k2miChg\"><span class=\"t\">The two molecules move on, holding on to each other</span><span>For your own trial, press on the box, pull back and let go, or press \"Launch the pair\".</span></div>"
+  ],
+  [
+   "<h2 id=\"k2h2\">Kesme çemberi: kim sayılır, kim sayılmaz?</h2>",
+   "<h2 id=\"k2h2\">The cut-off circle: who is counted, who is not?</h2>"
+  ],
+  [
+   "<p class=\"small\">Şimdi kutuda 64 molekülden oluşan bir sıvı var (iki boyutlu Lennard-Jones, periyodik kutu); hareket canlı hesaplanıyor. Sarı molekül seçili molekül, çevresindeki çember kesme mesafesi r<sub>c</sub>. Program seçili molekülün yalnız çemberin içindeki komşularıyla etkileşimini hesaplar: onlar koyu mavi, ötekiler soluk. Seçili molekülden çıkan çizgiler hesaba katılan çiftlerdir; çizgi ne kadar koyuysa çekim o kadar güçlüdür. Başka bir moleküle dokunarak seçimi değiştirebilirsiniz.</p>",
+   "<p class=\"small\">Now the box holds a liquid of 64 molecules (two-dimensional Lennard-Jones, periodic box); the motion is computed live. The yellow molecule is the selected one, and the circle around it is the cut-off distance r<sub>c</sub>. The program computes the interactions of the selected molecule only with the neighbors inside the circle: those are dark blue, the others faded. The lines from the selected molecule are the pairs that are counted; the darker the line, the stronger the attraction. Tap another molecule to change the selection.</p>"
+  ],
+  [
+   "<ol class=\"small steps\"><li><b>İzleyin:</b> bir komşu çembere girince yeşil, çıkınca kırmızı halka yanar. Takip etmek zorsa \"Yavaş çekim\" düğmesine basın.</li><li><b>Enerjiye bakın:</b> alttaki grafikte iki çizgi aynı hareketten hesaplanıyor. Turuncu (düz kesme) her giriş ve çıkışta basamak yapar; mavi (kaydırılmış) sakin kalır.</li><li><b>Kesmeyi değiştirin:</b> r<sub>c</sub>'yi 1,5 σ'ya indirin, basamaklar büyüsün; sonra kutu kenarının yarısının (L/2) üstüne çıkarın ve kırmızı halkalı kopyalara bakın.</li></ol>",
+   "<ol class=\"small steps\"><li><b>Watch:</b> when a neighbor enters the circle a green ring lights up, when it leaves a red one. If it is hard to follow, press \"Slow motion\".</li><li><b>Look at the energy:</b> the two lines in the lower graph are computed from the same motion. Orange (plain cut-off) makes a step at every entry and exit; blue (shifted) stays calm.</li><li><b>Change the cut-off:</b> lower r<sub>c</sub> to 1.5 σ so that the steps grow; then raise it above half the box edge (L/2) and look at the copies with red rings.</li></ol>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k2liq\" class=\"stage\" aria-label=\"Sıvı, seçili molekül, kesme çemberi ve hesaba katılan çiftler\"></canvas><div class=\"hint\" id=\"k2liqHint\">Bir moleküle dokunarak onu seçin.</div></div>",
+   "<div class=\"stagebox\"><canvas id=\"k2liq\" class=\"stage\" aria-label=\"Liquid, selected molecule, cut-off circle and counted pairs\"></canvas><div class=\"hint\" id=\"k2liqHint\">Tap a molecule to select it.</div></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k2rc\">Kesme mesafesi r<sub>c</sub></label><div class=\"big\" id=\"k2rcVal\"></div><input type=\"range\" id=\"k2rc\" min=\"120\" max=\"560\" step=\"5\" value=\"250\"></div>",
+   "<div><label class=\"lbl\" for=\"k2rc\">Cut-off distance r<sub>c</sub></label><div class=\"big\" id=\"k2rcVal\"></div><input type=\"range\" id=\"k2rc\" min=\"120\" max=\"560\" step=\"5\" value=\"250\"></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kesmede enerji</div>",
+   "<div><div class=\"lbl\">Energy at the cut-off</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Kesmede enerji\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Energy at the cut-off\">"
+  ],
+  [
+   "<button type=\"button\" id=\"k2plain\" aria-pressed=\"true\">Düz kesme</button>",
+   "<button type=\"button\" id=\"k2plain\" aria-pressed=\"true\">Plain cut-off</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"k2shift\" aria-pressed=\"false\">Kaydırılmış</button>",
+   "<button type=\"button\" id=\"k2shift\" aria-pressed=\"false\">Shifted</button>"
+  ],
+  [
+   "<dt>Çemberdeki komşu</dt><dd id=\"k2nIn\"></dd>",
+   "<dt>Neighbors in the circle</dt><dd id=\"k2nIn\"></dd>"
+  ],
+  [
+   "<dt>Çembere giren / çıkan</dt><dd id=\"k2ev\">0 / 0</dd>",
+   "<dt>Entering / leaving the circle</dt><dd id=\"k2ev\">0 / 0</dd>"
+  ],
+  [
+   "<dt>Bir geçişte sıçrama (düz kesme)</dt><dd id=\"k2tail\"></dd>",
+   "<dt>Jump at one crossing (plain cut-off)</dt><dd id=\"k2tail\"></dd>"
+  ],
+  [
+   "<dt>Tüm kutuda kesme içindeki çift</dt><dd id=\"k2pairs\"></dd>",
+   "<dt>Pairs within the cut-off, whole box</dt><dd id=\"k2pairs\"></dd>"
+  ],
+  [
+   "<dt>Çemberde iki kopyası birden olan</dt><dd id=\"k2nDbl\"></dd>",
+   "<dt>Neighbors with two copies in the circle</dt><dd id=\"k2nDbl\"></dd>"
+  ],
+  [
+   "<dt>Kutu kenarının yarısı (L/2)</dt><dd id=\"k2L2\"></dd>",
+   "<dt>Half the box edge (L/2)</dt><dd id=\"k2L2\"></dd>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k2qPause\">Durdur</button><button type=\"button\" class=\"btn\" id=\"k2qSlow\" aria-pressed=\"false\">Yavaş çekim</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k2qPause\">Pause</button><button type=\"button\" class=\"btn\" id=\"k2qSlow\" aria-pressed=\"false\">Slow motion</button></div>"
+  ],
+  [
+   "<canvas id=\"k2pot\" class=\"plot\" aria-label=\"Bir çiftin Lennard-Jones etkileşimi, kesme ve kesmenin yakınının büyütülmüş hâli\"></canvas>",
+   "<canvas id=\"k2pot\" class=\"plot\" aria-label=\"Lennard-Jones interaction of one pair, the cut-off and a magnified view near the cut-off\"></canvas>"
+  ],
+  [
+   "<canvas id=\"k2eplot\" class=\"plot\" aria-label=\"Aynı hareketten hesaplanan iki toplam enerjinin zamanla değişimi\"></canvas>",
+   "<canvas id=\"k2eplot\" class=\"plot\" aria-label=\"Two total energies computed from the same motion, against time\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--ball)\"></i>Düz kesme</span><span><i style=\"background:var(--deep)\"></i>Kaydırılmış</span><span>Moleküller iki yöntemde de aynı yoldan gider; fark yalnız enerjinin sayılışındadır.</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--ball)\"></i>Plain cut-off</span><span><i style=\"background:var(--deep)\"></i>Shifted</span><span>The molecules follow the same path in both methods; only the way the energy is counted differs.</span></div>"
+  ],
+  [
+   "<div class=\"change\" id=\"k2liqChg\"><span class=\"t\">Sıvı hareket ediyor</span><span>Bir komşunun çembere girişini ya da çıkışını bekleyin; ne olduğu burada yazılacak.</span></div>",
+   "<div class=\"change\" id=\"k2liqChg\"><span class=\"t\">The liquid is moving</span><span>Wait for a neighbor to enter or leave the circle; what happens will be written here.</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"k2c1\"><span class=\"k\">Açık</span><h3>Sınırda ne sıçrar, ne sürekli kalır?</h3><p>Atölyede molekülleri fırlatın ve kutu sınırından en az iki kez geçmelerini izleyin.</p><div class=\"mine\" id=\"mk2c1\">B'yi fırlatın ya da \"Çifti fırlat\" düğmesine basın; en yakın kopya kuralında iki sınır geçişi yeterli.</div></article>",
+   "<article class=\"q\" id=\"k2c1\"><span class=\"k\">Open</span><h3>What jumps at the boundary, what stays continuous?</h3><p>In the workshop, launch the molecules and watch them cross the box boundary at least twice.</p><div class=\"mine\" id=\"mk2c1\">Launch B or press \"Launch the pair\"; two boundary crossings under the nearest-image rule are enough.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"k2c2\"><span class=\"k\">Açık</span><h3>Düz kesme mi, kaydırılmış mı?</h3><p>Aşağıdaki defterde iki yöntemi farklı kesme mesafeleriyle ölçün.</p><div class=\"mine\" id=\"mk2c2\">Her iki yöntemde en az iki kesme mesafesi ölçün; birinde kesme 2,5 σ ya da daha kısa olsun.</div></article>",
+   "<article class=\"q\" id=\"k2c2\"><span class=\"k\">Open</span><h3>Plain cut-off or shifted?</h3><p>In the notebook below, measure both methods at different cut-off distances.</p><div class=\"mine\" id=\"mk2c2\">Measure at least two cut-off distances in both methods; in one of them the cut-off should be 2.5 σ or shorter.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"k2c3\"><span class=\"k\">Açık</span><h3>Kesme kutudan büyük olursa?</h3><p>Kesme mesafesini kutu kenarının yarısından büyük yapın ve çembere bakın.</p><div class=\"mine\" id=\"mk2c3\">r<sub>c</sub>'yi L/2'nin üstüne çıkarın.</div></article>",
+   "<article class=\"q\" id=\"k2c3\"><span class=\"k\">Open</span><h3>What if the cut-off is larger than the box?</h3><p>Make the cut-off larger than half the box edge and look at the circle.</p><div class=\"mine\" id=\"mk2c3\">Raise r<sub>c</sub> above L/2.</div></article>"
+  ],
+  [
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Keşif defteri</span><h2 id=\"k2h3\">Kesme mesafesi: doğruluk ve maliyet</h2></div>",
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Discovery notebook</span><h2 id=\"k2h3\">The cut-off distance: accuracy and cost</h2></div>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"k2nClr\">Defteri temizle</button>",
+   "<button type=\"button\" class=\"btn\" id=\"k2nClr\">Clear the notebook</button>"
+  ],
+  [
+   "<p class=\"small\">Her ölçümde 100 moleküllük sıvı önce sabit sıcaklıkta dengelenir, sonra dış etki olmadan (enerji korunmalı) 3000 adım koşturulur. İki şey kaydedilir: toplam enerjinin başlangıca göre oynaması (küçük olmalı) ve her adımda molekül başına hesaplanan çift sayısı (hesabın maliyeti).</p>",
+   "<p class=\"small\">In each measurement a liquid of 100 molecules is first equilibrated at constant temperature, then run for 3000 steps without outside influence (energy should be conserved). Two things are recorded: the fluctuation of the total energy relative to the start (it should be small) and the number of pairs computed per molecule at each step (the cost of the calculation).</p>"
+  ],
+  [
+   "<div><div class=\"lbl\">Yöntem</div><div class=\"chips\" id=\"k2nMode\"><button type=\"button\" class=\"chip\" data-m=\"plain\" aria-pressed=\"true\">Düz kesme</button><button type=\"button\" class=\"chip\" data-m=\"shift\" aria-pressed=\"false\">Kaydırılmış</button></div></div>",
+   "<div><div class=\"lbl\">Method</div><div class=\"chips\" id=\"k2nMode\"><button type=\"button\" class=\"chip\" data-m=\"plain\" aria-pressed=\"true\">Plain cut-off</button><button type=\"button\" class=\"chip\" data-m=\"shift\" aria-pressed=\"false\">Shifted</button></div></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kesme mesafesi (σ)</div><div class=\"chips\" id=\"k2nR\"></div></div>",
+   "<div><div class=\"lbl\">Cut-off distance (σ)</div><div class=\"chips\" id=\"k2nR\"></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k2nRun\">Ölç</button><button type=\"button\" class=\"btn\" id=\"k2nAll\">Bu yöntemde tüm seriyi ölç</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k2nRun\">Measure</button><button type=\"button\" class=\"btn\" id=\"k2nAll\">Measure the whole series in this method</button></div>"
+  ],
+  [
+   "<p class=\"busy\" id=\"k2nBusy\" aria-live=\"polite\">Ölçüm yok.</p>",
+   "<p class=\"busy\" id=\"k2nBusy\" aria-live=\"polite\">No measurement.</p>"
+  ],
+  [
+   "<canvas id=\"k2book\" class=\"plot\" aria-label=\"Kesme mesafesine karşı enerji oynaması ve çift sayısı\"></canvas>",
+   "<canvas id=\"k2book\" class=\"plot\" aria-label=\"Energy fluctuation and pair count against cut-off distance\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--ball)\"></i>Düz kesme</span><span><i style=\"background:var(--mid)\"></i>Kaydırılmış</span><span><i style=\"background:var(--muted)\"></i>Molekül başına çift sayısı (sağ eksen)</span><span id=\"k2nCount\"></span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--ball)\"></i>Plain cut-off</span><span><i style=\"background:var(--mid)\"></i>Shifted</span><span><i style=\"background:var(--muted)\"></i>Pairs per molecule (right axis)</span><span id=\"k2nCount\"></span></div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Yöntem</th><th>r<sub>c</sub> (σ)</th><th>Enerji oynaması (ε/molekül)</th><th>Molekül başına çift</th></tr></thead><tbody id=\"k2nTab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Method</th><th>r<sub>c</sub> (σ)</th><th>Energy fluctuation (ε/molecule)</th><th>Pairs per molecule</th></tr></thead><tbody id=\"k2nTab\"></tbody></table></div>"
+  ],
+  [
+   "<h2 id=\"k2h4\">Proteinin yanında: kesme çemberi ve komşu listesi, gerçek ölçekte</h2>",
+   "<h2 id=\"k2h4\">Next to the protein: the cut-off circle and the neighbor list at real scale</h2>"
+  ],
+  [
+   "<p class=\"small\">Tezgâhtaki çember şimdi gerçek bir koşuda. Ortada ubikitin yüzeyindeki bir atom (sarı) var; solda protein (yeşil), sağda su molekülleri (mavi). Ölçek gerçek: sağ alttaki çizgi 1 nm, bir su molekülünün çapı yaklaşık 0,3 nm. Kırmızı kesikli çember bu projenin kesme mesafesi (1,0 nm): sarı atom yalnız bunun içindekilerle etkileşir. Su molekülleri 300 K'de gerçek hızlarıyla titreşiyor; her kare 2 fs'lik bir MD adımıdır.</p>",
+   "<p class=\"small\">The circle from the bench is now in a real run. In the middle is an atom on the surface of ubiquitin (yellow); on the left the protein (green), on the right water molecules (blue). The scale is real: the bar at the lower right is 1 nm, and a water molecule is about 0.3 nm across. The red dashed circle is this project's cut-off distance (1.0 nm): the yellow atom interacts only with what is inside it. The water molecules jiggle with their real speeds at 300 K; each frame is one 2 fs MD step.</p>"
+  ],
+  [
+   "<ol class=\"small steps\"><li><b>Neden ikinci bir çember var?</b> Program her adımda bütün uzaklıkları ölçmez. Kesmeden biraz geniş bir <b>liste çemberinin</b> (sarı kesikli) içindekileri bir listeye yazar ve yalnız onlara bakar. Liste 50 adımda bir yenilenir; sarı halka o anda parlar. İki çember arasındaki sarı kuşak <b>tampondur</b>.</li><li><b>İzleyin:</b> sarı halkalı su molekülleri listede ama henüz kesmenin dışında. Liste yenilenene kadar bir su molekülü dışarıdan kesme çemberine girerse, listede olmadığı için hesaba katılmaz: kırmızı halka yanar.</li><li><b>Deneyin:</b> \"Tampon yok\" ve \"Liste seyrek\" düğmelerine basın; kaçan etkileşimlere ve iki yenileme arasında ölçülen yola bakın. \"Hızlı\" düğmesi zamanı on kat hızlı akıtır.</li></ol>",
+   "<ol class=\"small steps\"><li><b>Why is there a second circle?</b> The program does not measure every distance at every step. It writes everything inside a <b>list circle</b> (yellow dashed), slightly larger than the cut-off, into a list and looks only at those. The list is renewed every 50 steps; the yellow ring flashes at that moment. The yellow band between the two circles is the <b>buffer</b>.</li><li><b>Watch:</b> water molecules with a yellow ring are on the list but still outside the cut-off. If a water molecule enters the cut-off circle from outside before the list is renewed, it is not counted because it is not on the list: a red ring lights up.</li><li><b>Try:</b> press \"No buffer\" and \"Sparse list\"; look at the missed interactions and at the path measured between two renewals. The \"Fast\" button makes time run ten times faster.</li></ol>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k4box\" class=\"stage\" aria-label=\"Protein yüzeyindeki bir atom, su molekülleri, kesme çemberi ve liste çemberi, nm ölçeğinde\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k4box\" class=\"stage\" aria-label=\"An atom on the protein surface, water molecules, the cut-off circle and the list circle, at nm scale\"></canvas></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k4pProj\">Bu projenin ayarı</button><button type=\"button\" class=\"btn\" id=\"k4pNone\">Tampon yok</button><button type=\"button\" class=\"btn\" id=\"k4pRare\">Liste seyrek</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k4pProj\">This project's setting</button><button type=\"button\" class=\"btn\" id=\"k4pNone\">No buffer</button><button type=\"button\" class=\"btn\" id=\"k4pRare\">Sparse list</button></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k4rc\">Kesme mesafesi (rvdw, rcoulomb)</label><div class=\"big\" id=\"k4rcV\"></div><input type=\"range\" id=\"k4rc\" min=\"80\" max=\"160\" step=\"2\" value=\"100\"></div>",
+   "<div><label class=\"lbl\" for=\"k4rc\">Cut-off distance (rvdw, rcoulomb)</label><div class=\"big\" id=\"k4rcV\"></div><input type=\"range\" id=\"k4rc\" min=\"80\" max=\"160\" step=\"2\" value=\"100\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k4buf\">Tampon (rlist − r<sub>c</sub>)</label><div class=\"big\" id=\"k4bufV\"></div><input type=\"range\" id=\"k4buf\" min=\"0\" max=\"200\" step=\"2\" value=\"104\"></div>",
+   "<div><label class=\"lbl\" for=\"k4buf\">Buffer (rlist − r<sub>c</sub>)</label><div class=\"big\" id=\"k4bufV\"></div><input type=\"range\" id=\"k4buf\" min=\"0\" max=\"200\" step=\"2\" value=\"104\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k4nst\">Liste yenileme aralığı (nstlist)</label><div class=\"big\" id=\"k4nstV\"></div><input type=\"range\" id=\"k4nst\" min=\"10\" max=\"400\" step=\"10\" value=\"50\"></div>",
+   "<div><label class=\"lbl\" for=\"k4nst\">List update interval (nstlist)</label><div class=\"big\" id=\"k4nstV\"></div><input type=\"range\" id=\"k4nst\" min=\"10\" max=\"400\" step=\"10\" value=\"50\"></div>"
+  ],
+  [
+   "<dt>Kesme içindeki atom (3B tahmin)</dt><dd id=\"k4nC\"></dd>",
+   "<dt>Atoms within the cut-off (3D estimate)</dt><dd id=\"k4nC\"></dd>"
+  ],
+  [
+   "<dt>Listedeki atom (3B tahmin)</dt><dd id=\"k4nL\"></dd>",
+   "<dt>Atoms on the list (3D estimate)</dt><dd id=\"k4nL\"></dd>"
+  ],
+  [
+   "<dt>Bir aralıkta suyun yolu (ort. / en çok)</dt><dd id=\"k4disp\"></dd>",
+   "<dt>Path of water in one interval (mean / max)</dt><dd id=\"k4disp\"></dd>"
+  ],
+  [
+   "<dt>Kaçan etkileşim (listede olmadığı için)</dt><dd id=\"k4miss\">0</dd>",
+   "<dt>Missed interactions (not on the list)</dt><dd id=\"k4miss\">0</dd>"
+  ],
+  [
+   "<dt>Geçen süre</dt><dd id=\"k4t\"></dd>",
+   "<dt>Elapsed time</dt><dd id=\"k4t\"></dd>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k4pause\">Durdur</button><button type=\"button\" class=\"btn\" id=\"k4fast\" aria-pressed=\"false\">Hızlı (10 adım/kare)</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k4pause\">Pause</button><button type=\"button\" class=\"btn\" id=\"k4fast\" aria-pressed=\"false\">Fast (10 steps/frame)</button></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Seçili protein atomu</span><span><i style=\"background:var(--mid)\"></i>Kesme içindeki su</span><span><i style=\"background:var(--gold)\"></i>Listede, kesmenin dışında (tampon)</span><span><i style=\"background:var(--bad)\"></i>Kaçan etkileşim</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Selected protein atom</span><span><i style=\"background:var(--mid)\"></i>Water within the cut-off</span><span><i style=\"background:var(--gold)\"></i>On the list, outside the cut-off (buffer)</span><span><i style=\"background:var(--bad)\"></i>Missed interaction</span></div>"
+  ],
+  [
+   "<div class=\"change\" id=\"k4chg\"><span class=\"t\">Liste 50 adımda bir yenileniyor</span><span>İlk yenilemeden sonra su moleküllerinin aldığı yol burada yazılacak.</span></div>",
+   "<div class=\"change\" id=\"k4chg\"><span class=\"t\">The list is renewed every 50 steps</span><span>After the first renewal, the path taken by the water molecules will be written here.</span></div>"
+  ],
+  [
+   "<p class=\"small\">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı Laboratuvar 3'ün konusudur.</p>",
+   "<p class=\"small\">The atom counts are estimates for three dimensions (about 100 atoms/nm³ in water); the canvas shows a two-dimensional slice. The water motion is computed with the Langevin method, matched to the measured diffusion coefficient of water (0.0023 nm²/ps); the protein atoms are held fixed. The van der Waals attraction beyond the cut-off is not thrown away: GROMACS adds its average contribution separately (DispCorr); the long-range part of electrostatics is the topic of Lab 3.</p>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>",
+   "<div class=\"tw\"><table><thead><tr><th>Setting (mdout.mdp and log)</th><th>Value</th><th>Meaning</th></tr></thead><tbody>"
+  ],
+  [
+   "<tr><td><code>rvdw</code>, <code>rcoulomb</code></td><td class=\"n\">1,0 nm</td><td>kesme mesafesi</td></tr>",
+   "<tr><td><code>rvdw</code>, <code>rcoulomb</code></td><td class=\"n\">1.0 nm</td><td>cut-off distance</td></tr>"
+  ],
+  [
+   "<tr><td><code>vdw-modifier</code></td><td class=\"n\">Potential-shift-Verlet</td><td>kesmede kaydırılmış potansiyel</td></tr>",
+   "<tr><td><code>vdw-modifier</code></td><td class=\"n\">Potential-shift-Verlet</td><td>shifted potential at the cut-off</td></tr>"
+  ],
+  [
+   "<tr><td><code>DispCorr</code></td><td class=\"n\">EnerPres</td><td>kesmenin dışındaki çekimin ortalama katkısı enerji ve basınca eklenir</td></tr>",
+   "<tr><td><code>DispCorr</code></td><td class=\"n\">EnerPres</td><td>the average contribution of the attraction beyond the cut-off is added to energy and pressure</td></tr>"
+  ],
+  [
+   "<tr><td><code>coulombtype</code></td><td class=\"n\">PME</td><td>elektrostatiğin uzak kısmı ızgarada (Laboratuvar 3)</td></tr>",
+   "<tr><td><code>coulombtype</code></td><td class=\"n\">PME</td><td>long-range part of electrostatics on a grid (Lab 3)</td></tr>"
+  ],
+  [
+   "<tr><td><code>nstlist</code>, <code>rlist</code></td><td class=\"n\">10 → 50; 1,0 → 1,104 nm</td><td>komşu listesi; mdrun listeyi 50 adımda bir yenileyecek biçimde uzattı</td></tr>",
+   "<tr><td><code>nstlist</code>, <code>rlist</code></td><td class=\"n\">10 → 50; 1.0 → 1.104 nm</td><td>neighbor list; mdrun extended the list so that it is renewed every 50 steps</td></tr>"
+  ],
+  [
+   "<p><b>Tablodaki 1,104 nm.</b> Koşu dosyasında nstlist 10 ve rlist 1,0 nm yazıyordu. mdrun hızlanmak için listeyi 50 adımda bir yenilemeye karar verdi ve tamponu, izin verilen enerji hatasına göre 0,104 nm'ye çıkardı. Yukarıdaki \"Bu projenin ayarı\" düğmesi bu değerlerdir.</p>",
+   "<p><b>The 1.104 nm in the table.</b> The run file said nstlist 10 and rlist 1.0 nm. To run faster, mdrun decided to renew the list every 50 steps and widened the buffer to 0.104 nm according to the allowed energy error. The \"This project's setting\" button above uses these values.</p>"
+  ],
+  [
+   "<p><b>Kutu sınırı.</b> Kesme mesafesi kutu kenarının yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez. Bu projenin 1UBQ kutusunun en kısa kenarı 6,49 nm'dir; yarısı 3,25 nm, kesmenin üç katından fazla.</p>",
+   "<p><b>The box limit.</b> If the cut-off exceeds half the box edge, two copies of the same neighbor fall inside the circle, but the program can count only one. This is why GROMACS refuses to run with such a box. The shortest edge of this project's 1UBQ box is 6.49 nm; half of it is 3.25 nm, more than three times the cut-off.</p>"
+  ],
+  [
+   "<h2 id=\"k2h5\">Altı soru</h2>",
+   "<h2 id=\"k2h5\">Six questions</h2>"
+  ],
+  [
+   "<p class=\"small\">Model: iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), periyodik kutu, en yakın kopya kuralı, hız-Verlet, Δt = 0,005; tezgâhta 64 molekül, defterde 100 molekül, ρ = 0,82, dengeleme T = 0,70 ε (Langevin), ölçüm sırasında ısı banyosu yok. İki kesme yönteminde kuvvetler aynıdır; fark, toplam enerjinin kesmede sıçrayıp sıçramamasıdır. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Model: two-dimensional Lennard-Jones liquid, reduced units (σ, ε, m), periodic box, nearest-image rule, velocity Verlet, Δt = 0.005; 64 molecules at the bench, 100 molecules in the notebook, ρ = 0.82, equilibration at T = 0.70 ε (Langevin), no heat bath during the measurement. The forces are the same in both cut-off methods; the difference is whether the total energy jumps at the cut-off. Your notebook is kept only in this browser.</p>"
+  ],
+  [
    "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
    "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
   ],
@@ -426,8 +838,8 @@
    "function pc(v,d){ return fx(v,d)+'%'; }"
   ],
   [
-   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=Object.keys(FOUND).length+' / 6'; }",
-   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=Object.keys(FOUND).length+' / 6'; }"
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }",
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }"
   ],
   [
    "cs+='<text x=\"'+(ox+a*2+6)+'\" y=\"'+(oy+a-6)+'\" font-size=\"12\" fill=\"var(--accent)\" font-family=\"Segoe UI, system-ui, sans-serif\">birim hücre</text>';",
@@ -820,6 +1232,362 @@
   [
    "['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Açık'; });",
    "['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }"
+  ],
+  [
+   "g.fillStyle=BLUE; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('mavi ışık',6,y-rPx-18); g.fillText('(uyarma)',6,y-rPx-4);",
+   "g.fillStyle=BLUE; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('blue light',6,y-rPx-18); g.fillText('(excitation)',6,y-rPx-4);"
+  ],
+  [
+   "pill(g,'aktarım '+pc(100*st.E,0),mx,top-4,paper,css('--accent'));",
+   "pill(g,'transfer '+pc(100*st.E,0),mx,top-4,paper,css('--accent'));"
+  ],
+  [
+   "g.font='600 12px '+css('--sans'); g.fillStyle=GREEN; g.textAlign='center'; g.fillText('yeşil '+pc(100*(1-st.E),0),xd+W*0.02,y-H*0.52-4); g.fillStyle=RED; g.fillText('kırmızı '+pc(100*st.E,0),Math.min(W-40,xa+W*0.02),y-H*0.52-4);",
+   "g.font='600 12px '+css('--sans'); g.fillStyle=GREEN; g.textAlign='center'; g.fillText('green '+pc(100*(1-st.E),0),xd+W*0.02,y-H*0.52-4); g.fillStyle=RED; g.fillText('red '+pc(100*st.E,0),Math.min(W-40,xa+W*0.02),y-H*0.52-4);"
+  ],
+  [
+   "g.textAlign='center'; for(var k=1;k<=11;k++) if(k%2===1) g.fillText(String(k),X(k),H-B+16); g.fillText('boyalar arası uzaklık r (nm)',(L+W-R)/2,H-4);",
+   "g.textAlign='center'; for(var k=1;k<=11;k++) if(k%2===1) g.fillText(String(k),X(k),H-B+16); g.fillText('distance between the dyes r (nm)',(L+W-R)/2,H-4);"
+  ],
+  [
+   "function ratioTable(){ $('k2ratio').innerHTML=[1,1.5,2,3].map(function(m){ var v=Math.pow(m,6), t=m===1?'1':'1/'+fx(v,v<20?1:0); return '<tr><td>'+(m===1?'başlangıç':fx(m,1)+' katı')+'</td><td class=\"n\">'+t+'</td><td class=\"n\">'+t+'</td></tr>'; }).join(''); }",
+   "function ratioTable(){ $('k2ratio').innerHTML=[1,1.5,2,3].map(function(m){ var v=Math.pow(m,6), t=m===1?'1':'1/'+fx(v,v<20?1:0); return '<tr><td>'+(m===1?'start':fx(m,1)+' times')+'</td><td class=\"n\">'+t+'</td><td class=\"n\">'+t+'</td></tr>'; }).join(''); }"
+  ],
+  [
+   "var sides=[]; [['A',na],['B',nb]].forEach(function(e){ var p=e[1], s=null; if(p[0]>=M.L) s=['sağ','sol']; else if(p[0]<0) s=['sol','sağ']; else if(p[1]>=M.L) s=['alt','üst']; else if(p[1]<0) s=['üst','alt']; if(s) sides.push([e[0]].concat(s)); });",
+   "var sides=[]; [['A',na],['B',nb]].forEach(function(e){ var p=e[1], s=null; if(p[0]>=M.L) s=['right','left']; else if(p[0]<0) s=['left','right']; else if(p[1]>=M.L) s=['bottom','top']; else if(p[1]<0) s=['top','bottom']; if(s) sides.push([e[0]].concat(s)); });"
+  ],
+  [
+   "?'<span class=\"t\">'+sd[0]+' '+sd[1]+' kenardan çıktı, '+sd[2]+' kenardan girdi</span><span>Kutunun içinden ölçülen uzaklık bir anda '+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ oldu. Programın kullandığı en yakın kopya uzaklığı ise '+fx(prev.n.d,2)+' → '+fx(cur.n.d,2)+' σ: sıçramadı. Kuvvet de toplam enerji de sürekli kaldı; iki molekül birbirini çekmeyi sürdürüyor.</span>'",
+   "?'<span class=\"t\">'+sd[0]+' left through the '+sd[1]+' edge and came in through the '+sd[2]+' edge</span><span>The distance measured inside the box became '+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ in an instant. The nearest-image distance the program uses went '+fx(prev.n.d,2)+' → '+fx(cur.n.d,2)+' σ: no jump. Both the force and the total energy stayed continuous; the two molecules keep attracting each other.</span>'"
+  ],
+  [
+   ":(jIn<0.3?'<span class=\"t\">'+sd[0]+' '+sd[1]+' kenardan çıktı: kutu içi uzaklık bu kez neredeyse aynı kaldı ('+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ)</span><span>B yaklaşık yarım kutu ötedeydi; bu yüzden uzunluk değişmedi ama çekimin yönü bir anda tersine döndü. A şimdi öbür yandaki B\\'ye doğru çekiliyor.</span>'",
+   ":(jIn<0.3?'<span class=\"t\">'+sd[0]+' left through the '+sd[1]+' edge: this time the distance inside the box stayed almost the same ('+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ)</span><span>B was about half a box away, so the length did not change, but the direction of the pull flipped in an instant. A is now pulled toward B on the other side.</span>'"
+  ],
+  [
+   ":'<span class=\"t\">'+sd[0]+' '+sd[1]+' kenardan çıktı: kutu içi uzaklık bir anda '+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ oldu</span><span>Uzaklık kutunun içinden ölçüldüğü için moleküller yerinden kıpırdamadan potansiyel enerji '+(dU>=0?'+':'')+fx(dU,2)+' ε değişti'+(cur.dIn>=M.RC&&prev.dIn<M.RC?'; kutunun içinden bakınca B çekimin menzilinin (3,9 σ) dışında kaldı ve çekim bir anda kesildi':'')+'. Gerçek bir sistemde enerji kendiliğinden böyle sıçramaz.</span>');",
+   ":'<span class=\"t\">'+sd[0]+' left through the '+sd[1]+' edge: the distance inside the box became '+fx(prev.dIn,2)+' → '+fx(cur.dIn,2)+' σ in an instant</span><span>Because the distance is measured inside the box, the potential energy changed by '+(dU>=0?'+':'')+fx(dU,2)+' ε while the molecules did not move'+(cur.dIn>=M.RC&&prev.dIn<M.RC?'; seen from inside the box, B fell outside the range of the attraction (3.9 σ) and the pull stopped at once':'')+'. In a real system the energy does not jump like this on its own.</span>');"
+  ],
+  [
+   "g.fillStyle=mid; g.font='600 12px '+css('--sans'); g.fillText(W<420?'A\\'nın kutusu':'A\\'nın gördüğü kutu',Math.max(6,cx0+6),Math.max(14,cy0+16)); }",
+   "g.fillStyle=mid; g.font='600 12px '+css('--sans'); g.fillText(W<420?'A\\'s box':'the box A sees',Math.max(6,cx0+6),Math.max(14,cy0+16)); }"
+  ],
+  [
+   "if(M.paused){ pill(g,'Durduruldu',W/2,20,paper,navy); }",
+   "if(M.paused){ pill(g,'Paused',W/2,20,paper,navy); }"
+  ],
+  [
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText('uzaklık (σ)',L+4,T-4);",
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText('distance (σ)',L+4,T-4);"
+  ],
+  [
+   "g.textAlign='left'; g.fillText('toplam enerji değişimi (ε)',L+4,T2-4);",
+   "g.textAlign='left'; g.fillText('change of total energy (ε)',L+4,T2-4);"
+  ],
+  [
+   "if(lastX&&Math.abs(lastX.from-lastX.to)>0.5) pill(g,'kutu içi uzaklık sıçradı',Math.max(L+80,Math.min(W-R-80,X(lastX.t))),Y(Math.min(top,Math.max(lastX.from,lastX.to)))-16,css('--paper'),muted);",
+   "if(lastX&&Math.abs(lastX.from-lastX.to)>0.5) pill(g,'distance inside the box jumped',Math.max(L+80,Math.min(W-R-80,X(lastX.t))),Y(Math.min(top,Math.max(lastX.from,lastX.to)))-16,css('--paper'),muted);"
+  ],
+  [
+   "if(M.aim){ var sp=Math.hypot(M.aim.vx,M.aim.vy); if(sp>0.1){ M.vb=[M.aim.vx,M.aim.vy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';",
+   "if(M.aim){ var sp=Math.hypot(M.aim.vx,M.aim.vy); if(sp>0.1){ M.vb=[M.aim.vx,M.aim.vy]; miReset(true); M.paused=false; $('k2miPause').textContent='Pause';"
+  ],
+  [
+   "$('k2miChg').innerHTML='<span class=\"t\">B\\'yi '+fx(sp,1)+' σ/s ile fırlattınız</span><span>Yavaş fırlatırsanız B, A\\'yı da peşinden sürükler; çok hızlı fırlatırsanız çekimden kurtulur. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; } M.aim=null; miDraw(); kick(); }",
+   "$('k2miChg').innerHTML='<span class=\"t\">You launched B at '+fx(sp,1)+' σ/s</span><span>Launched slowly, B drags A along; launched very fast, it escapes the attraction. When one of them crosses the boundary, watch the two lines and the energy strip below.</span>'; } M.aim=null; miDraw(); kick(); }"
+  ],
+  [
+   "if(M.drag){ M.drag=null; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur'; miMsg(miDraw()); kick(); } }",
+   "if(M.drag){ M.drag=null; miReset(true); M.paused=false; $('k2miPause').textContent='Pause'; miMsg(miDraw()); kick(); } }"
+  ],
+  [
+   "function miMsg(r){ $('k2miChg').innerHTML=(r.n.i||r.n.j)?'<span class=\"t\">En yakın B artık kutunun dışındaki bir kopya: '+fx(r.n.d,2)+' σ</span><span>Kutunun içinden ölçseydiniz '+fx(r.dIn,2)+' σ bulurdunuz. Bıraktığınızda çekim en yakın kopyaya göre hesaplanacak.</span>'",
+   "function miMsg(r){ $('k2miChg').innerHTML=(r.n.i||r.n.j)?'<span class=\"t\">The nearest B is now a copy outside the box: '+fx(r.n.d,2)+' σ</span><span>Measured inside the box you would get '+fx(r.dIn,2)+' σ. When you let go, the attraction will be computed from the nearest copy.</span>'"
+  ],
+  [
+   ":'<span class=\"t\">En yakın B, kutunun içindeki B: '+fx(r.n.d,2)+' σ</span><span>Bıraktığınızda iki molekül birbirini çekip salınacak. B\\'yi A\\'nın gördüğü kutunun dışına taşırsanız en yakın kopya değişir.</span>'; }",
+   ":'<span class=\"t\">The nearest B is the B inside the box: '+fx(r.n.d,2)+' σ</span><span>When you let go, the two molecules will attract and oscillate. If you move B outside the box A sees, the nearest copy changes.</span>'; }"
+  ],
+  [
+   "function miCard(){ if(M.user && M.crossMi>=2 && M.lastJump) card('k2c1',true,'Sizin denemeniz: moleküller sınırı '+M.crossMi+' kez geçti. En büyük geçişte kutunun içinden ölçülen uzaklık bir anda '+fx(M.lastJump.from,2)+' → '+fx(M.lastJump.to,2)+' σ sıçradı; en yakın kopyaya uzaklık ise bir adımda en çok '+fx(M.maxStepMin,3)+' σ değişti ve toplam enerji en çok '+fx(M.maxDEmi,3)+' ε oynadı. Gerçek bir molekül ışınlanmaz; uzaklık, kuvvet ve enerji sürekli değişmelidir. En yakın kopya kuralı bunu sağlar: her molekül kendisini merkeze alan bir kutu görür ve her komşuyu o kutunun içindeki kopyasıyla sayar.'+(M.boxJump?' Kutunun içinden ölçen kuralla ise bir geçişte enerji '+(M.boxJump.dU>=0?'+':'')+fx(M.boxJump.dU,2)+' ε sıçradı.':'')); else card('k2c1',false,null); }",
+   "function miCard(){ if(M.user && M.crossMi>=2 && M.lastJump) card('k2c1',true,'Your trial: the molecules crossed the boundary '+M.crossMi+' times. At the largest crossing the distance measured inside the box jumped '+fx(M.lastJump.from,2)+' → '+fx(M.lastJump.to,2)+' σ in an instant, while the distance to the nearest copy changed by at most '+fx(M.maxStepMin,3)+' σ in one step and the total energy varied by at most '+fx(M.maxDEmi,3)+' ε. A real molecule does not teleport; distance, force and energy must change continuously. The nearest-image rule guarantees this: every molecule sees a box centered on itself and counts every neighbor through its copy inside that box.'+(M.boxJump?' With the inside-the-box rule, the energy jumped by '+(M.boxJump.dU>=0?'+':'')+fx(M.boxJump.dU,2)+' ε at one crossing.':'')); else card('k2c1',false,null); }"
+  ],
+  [
+   "$('k2miChg').innerHTML=r==='mi'?'<span class=\"t\">Kural: en yakın kopya (MD programlarının kuralı)</span><span>Kuvvet her zaman A\\'ya en yakın B kopyasına göre hesaplanıyor.</span>'",
+   "$('k2miChg').innerHTML=r==='mi'?'<span class=\"t\">Rule: nearest image (the rule of MD programs)</span><span>The force is always computed from the copy of B nearest to A.</span>'"
+  ],
+  [
+   ":'<span class=\"t\">Kural: kutunun içinden ölç (hatalı)</span><span>Kuvvet B\\'nin kutunun içindeki konumuna göre hesaplanıyor. Bir molekül sınırdan geçtiğinde enerji şeridine bakın.</span>'; miDraw(); kick(); }",
+   ":'<span class=\"t\">Rule: measure inside the box (wrong)</span><span>The force is computed from the position of B inside the box. When a molecule crosses the boundary, look at the energy strip.</span>'; miDraw(); kick(); }"
+  ],
+  [
+   "$('k2mLaunch').onclick=function(){ M.mode='launch'; $('k2mLaunch').setAttribute('aria-pressed','true'); $('k2mPlace').setAttribute('aria-pressed','false'); $('k2miHint').hidden=false; $('k2miHint').textContent='Kutunun üstünde bir yere basın, geriye çekin, bırakın: B ok yönünde fırlar.'; };",
+   "$('k2mLaunch').onclick=function(){ M.mode='launch'; $('k2mLaunch').setAttribute('aria-pressed','true'); $('k2mPlace').setAttribute('aria-pressed','false'); $('k2miHint').hidden=false; $('k2miHint').textContent='Press on the box, pull back, let go: B flies along the arrow.'; };"
+  ],
+  [
+   "$('k2mPlace').onclick=function(){ M.mode='place'; $('k2mPlace').setAttribute('aria-pressed','true'); $('k2mLaunch').setAttribute('aria-pressed','false'); $('k2miHint').hidden=false; $('k2miHint').textContent='A\\'yı ya da B\\'yi tutup taşıyın, bırakın.'; };",
+   "$('k2mPlace').onclick=function(){ M.mode='place'; $('k2mPlace').setAttribute('aria-pressed','true'); $('k2mLaunch').setAttribute('aria-pressed','false'); $('k2miHint').hidden=false; $('k2miHint').textContent='Grab A or B, move it, let go.'; };"
+  ],
+  [
+   "$('k2miPause').onclick=function(){ M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Sürdür':'Durdur'; miDraw(); kick(); };",
+   "$('k2miPause').onclick=function(){ M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Resume':'Pause'; miDraw(); kick(); };"
+  ],
+  [
+   "$('k2miRand').onclick=function(){ var th=Math.random()*2*Math.PI, sp=1.8+Math.random()*1.2, cx=(M.va[0]+M.vb[0])/2, cy=(M.va[1]+M.vb[1])/2, ux=sp*Math.cos(th)-cx, uy=sp*Math.sin(th)-cy; M.va=[M.va[0]+ux,M.va[1]+uy]; M.vb=[M.vb[0]+ux,M.vb[1]+uy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';",
+   "$('k2miRand').onclick=function(){ var th=Math.random()*2*Math.PI, sp=1.8+Math.random()*1.2, cx=(M.va[0]+M.vb[0])/2, cy=(M.va[1]+M.vb[1])/2, ux=sp*Math.cos(th)-cx, uy=sp*Math.sin(th)-cy; M.va=[M.va[0]+ux,M.va[1]+uy]; M.vb=[M.vb[0]+ux,M.vb[1]+uy]; miReset(true); M.paused=false; $('k2miPause').textContent='Pause';"
+  ],
+  [
+   "$('k2miChg').innerHTML='<span class=\"t\">Çifti '+fx(sp,1)+' σ/s ile rastgele bir yöne fırlattınız</span><span>İki molekül birbirini tutarak birlikte ilerleyecek. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; kick(); };",
+   "$('k2miChg').innerHTML='<span class=\"t\">You launched the pair at '+fx(sp,1)+' σ/s in a random direction</span><span>The two molecules will move on together, holding on to each other. When one of them crosses the boundary, watch the two lines and the energy strip below.</span>'; kick(); };"
+  ],
+  [
+   "$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Durdur'; miSetRule('mi'); };",
+   "$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Pause'; miSetRule('mi'); };"
+  ],
+  [
+   "$('k2liqChg').innerHTML='<span class=\"t\">Bir komşu '+(e.type==='in'?'çembere girdi':'çemberden çıktı')+' (r = '+fx(S.rc,2)+' σ)</span><span>'+(sh",
+   "$('k2liqChg').innerHTML='<span class=\"t\">A neighbor '+(e.type==='in'?'entered the circle':'left the circle')+' (r = '+fx(S.rc,2)+' σ)</span><span>'+(sh"
+  ],
+  [
+   "?'Kaydırılmış potansiyelde bu çiftin enerjisi kesmede zaten sıfır: toplam enerji hiç sıçramadı (mavi çizgi).'",
+   "?'With the shifted potential the energy of this pair is already zero at the cut-off: the total energy did not jump at all (blue line).'"
+  ],
+  [
+   ":'Düz kesmede bu çiftin enerjisi bir anda '+(e.type==='in'?'0 → −'+fx(uc,3):'−'+fx(uc,3)+' → 0')+' ε oldu, oysa moleküller yerinden kıpırdamadı. Turuncu çizgideki basamaklar bu anlardır; kutudaki bütün çiftler için aynı şey olur.')+'</span>'; }",
+   ":'With the plain cut-off the energy of this pair went '+(e.type==='in'?'0 → −'+fx(uc,3):'−'+fx(uc,3)+' → 0')+' ε in an instant, yet the molecules did not move. The steps in the orange line are these moments; the same happens for every pair in the box.')+'</span>'; }"
+  ],
+  [
+   "if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,e.type==='in'?'girdi':'çıktı',ex,ey-rPx-14,paper,col); g.globalAlpha=1; } });",
+   "if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,e.type==='in'?'in':'out',ex,ey-rPx-14,paper,col); g.globalAlpha=1; } });"
+  ],
+  [
+   "if(Q.paused) pill(g,'Durduruldu',W/2,20,paper,navy);",
+   "if(Q.paused) pill(g,'Paused',W/2,20,paper,navy);"
+  ],
+  [
+   "g.textAlign='center'; [1,2,3,4,5].forEach(function(r){ g.fillText(String(r),X(r),H-B+16); }); g.fillText('uzaklık r (σ)',(L+W-R)/2,H-3); g.textAlign='left'; g.fillText('bir çiftin etkileşim enerjisi (ε)',L+4,T-4);",
+   "g.textAlign='center'; [1,2,3,4,5].forEach(function(r){ g.fillText(String(r),X(r),H-B+16); }); g.fillText('distance r (σ)',(L+W-R)/2,H-3); g.textAlign='left'; g.fillText('interaction energy of one pair (ε)',L+4,T-4);"
+  ],
+  [
+   "if(W<520){ if(!shift) pill(g,'sıçrama '+fx(Math.abs(uc),3)+' ε',Math.min(W-62,X(rc)+58),Y(0)+22,css('--paper'),cP); else pill(g,'sıçrama yok',Math.min(W-50,X(rc)+46),Y(0)+22,css('--paper'),cS); return; }",
+   "if(W<520){ if(!shift) pill(g,'jump '+fx(Math.abs(uc),3)+' ε',Math.min(W-62,X(rc)+58),Y(0)+22,css('--paper'),cP); else pill(g,'no jump',Math.min(W-50,X(rc)+46),Y(0)+22,css('--paper'),cS); return; }"
+  ],
+  [
+   "g.font='600 11.5px '+css('--sans'); g.fillStyle=muted; g.textAlign='left'; g.fillText('kesmenin yakını, büyütülmüş',ix+10,iy+15);",
+   "g.font='600 11.5px '+css('--sans'); g.fillStyle=muted; g.textAlign='left'; g.fillText('near the cut-off, magnified',ix+10,iy+15);"
+  ],
+  [
+   "g.fillStyle=cP; g.fillText('━ düz: '+fx(Math.abs(uc),3)+' ε sıçrar',ix+10,iy+32); g.fillStyle=cS; g.fillText('━ kaydırılmış: sıçramaz',ix+10,iy+48);",
+   "g.fillStyle=cP; g.fillText('━ plain: jumps '+fx(Math.abs(uc),3)+' ε',ix+10,iy+32); g.fillStyle=cS; g.fillText('━ shifted: no jump',ix+10,iy+48);"
+  ],
+  [
+   "g.textAlign='left'; g.fillText('toplam enerji − başlangıç (ε/molekül) · aynı hareket, iki sayım',L+4,T-5);",
+   "g.textAlign='left'; g.fillText('total energy − start (ε/molecule) · same motion, two ways of counting',L+4,T-5);"
+  ],
+  [
+   "g.fillStyle=cP; g.fillText('düz',lx,Math.max(T+12,Math.min(H-B-4,yP+4))); g.fillStyle=cS; g.fillText('kaydırılmış',lx,Math.max(T+12,Math.min(H-B-4,yS+4)));",
+   "g.fillStyle=cP; g.fillText('plain',lx,Math.max(T+12,Math.min(H-B-4,yP+4))); g.fillStyle=cS; g.fillText('shifted',lx,Math.max(T+12,Math.min(H-B-4,yS+4)));"
+  ],
+  [
+   "function qCard(C){ var S=Q.s; if(S.rc>S.L/2 && C.dbl>=1) card('k2c3',true,'Sizin denemeniz: r<sub>c</sub> = '+fx(S.rc,2)+' σ, kutu kenarının yarısı '+fx(S.L/2,2)+' σ. Seçili molekülün '+C.dbl+' komşusunun iki kopyası birden çemberin içinde (kırmızı halkalar). En yakın kopya kuralıyla çalışan bir program her komşuyu yalnız bir kez sayar; çemberin içindeki öbür kopya kaçar ve kesme mesafesi artık her yönde aynı değildir. GROMACS bu yüzden kesmenin kutu kenarının yarısını aşmasına izin vermez.'); }",
+   "function qCard(C){ var S=Q.s; if(S.rc>S.L/2 && C.dbl>=1) card('k2c3',true,'Your trial: r<sub>c</sub> = '+fx(S.rc,2)+' σ, half the box edge '+fx(S.L/2,2)+' σ. For '+C.dbl+' neighbors of the selected molecule, two copies are inside the circle at once (red rings). A program working with the nearest-image rule counts every neighbor only once; the other copy inside the circle is missed, and the cut-off is no longer the same in every direction. This is why GROMACS does not allow the cut-off to exceed half the box edge.'); }"
+  ],
+  [
+   "$('k2rc').addEventListener('input',function(){ var rc=+$('k2rc').value/100, sh=qShift(), uc=Math.abs(LJ2.ulj(rc*rc)); qSet('<span class=\"t\">Kesme '+fx(rc,2)+' σ</span><span>'+(rc>Q.s.L/2?'Kesme kutu kenarının yarısını aştı: çemberin içinde aynı komşunun iki kopyası olabilir (kırmızı halkalar).':'Bir çift bu çemberden her geçtiğinde düz kesmede enerji '+fx(uc,3)+' ε sıçrar. '+(rc<2.1?'Kısa kesmede sıçrama büyük: turuncu çizgiye bakın.':'Kesme uzadıkça sıçrama küçülür ama çemberdeki komşu, yani hesap yükü artar.'))+'</span>'); });",
+   "$('k2rc').addEventListener('input',function(){ var rc=+$('k2rc').value/100, sh=qShift(), uc=Math.abs(LJ2.ulj(rc*rc)); qSet('<span class=\"t\">Cut-off '+fx(rc,2)+' σ</span><span>'+(rc>Q.s.L/2?'The cut-off exceeds half the box edge: two copies of the same neighbor can be inside the circle (red rings).':'Every time a pair crosses this circle, the plain cut-off makes the energy jump by '+fx(uc,3)+' ε. '+(rc<2.1?'With a short cut-off the jump is large: look at the orange line.':'The longer the cut-off, the smaller the jump, but the number of neighbors in the circle, and so the computational load, grows.'))+'</span>'); });"
+  ],
+  [
+   "$('k2liqChg').innerHTML='<span class=\"t\">'+(on?'Kaydırılmış potansiyel':'Düz kesme')+'</span><span>'+(on?'Her çiftin enerjisinden u(r_c) çıkarılır; eğri kesmede tam sıfıra iner. Sıvıdaki çizgiler kesmeye yaklaşırken söner. Kuvvetler değişmez, moleküller aynı yoldan gider.':'Etkileşim kesmede aniden sıfıra atlar: sıvıdaki çizgiler çemberin kenarında soluk ama görünürken bir anda kaybolur.')+'</span>'; Q.lastMsg=Q.clock; }",
+   "$('k2liqChg').innerHTML='<span class=\"t\">'+(on?'Shifted potential':'Plain cut-off')+'</span><span>'+(on?'u(r_c) is subtracted from the energy of every pair; the curve reaches exactly zero at the cut-off. The lines in the liquid fade as they approach the cut-off. The forces do not change, and the molecules follow the same path.':'The interaction drops to zero abruptly at the cut-off: the lines in the liquid are faint but visible at the edge of the circle, then vanish at once.')+'</span>'; Q.lastMsg=Q.clock; }"
+  ],
+  [
+   "$('k2qPause').onclick=function(){ Q.paused=!Q.paused; $('k2qPause').textContent=Q.paused?'Sürdür':'Durdur'; qDraw(); kick(); };",
+   "$('k2qPause').onclick=function(){ Q.paused=!Q.paused; $('k2qPause').textContent=Q.paused?'Resume':'Pause'; qDraw(); kick(); };"
+  ],
+  [
+   "$('k2qSlow').onclick=function(){ Q.slow=!Q.slow; $('k2qSlow').setAttribute('aria-pressed',String(Q.slow)); $('k2qSlow').textContent=Q.slow?'Normal hız':'Yavaş çekim'; kick(); };",
+   "$('k2qSlow').onclick=function(){ Q.slow=!Q.slow; $('k2qSlow').setAttribute('aria-pressed',String(Q.slow)); $('k2qSlow').textContent=Q.slow?'Normal speed':'Slow motion'; kick(); };"
+  ],
+  [
+   "$('k2nBusy').textContent=(m==='plain'?'Düz kesme':'Kaydırılmış')+', r_c = '+fx(r,1)+' σ ölçülüyor: '+pc(100*k/(EQ+SA),0)+(queue.length?' · sırada '+queue.length+' ölçüm daha':'');",
+   "$('k2nBusy').textContent=(m==='plain'?'Plain cut-off':'Shifted')+', r_c = '+fx(r,1)+' σ being measured: '+pc(100*k/(EQ+SA),0)+(queue.length?' · '+queue.length+' more measurements queued':'');"
+  ],
+  [
+   "$('k2nBusy').textContent=(m==='plain'?'Düz kesme':'Kaydırılmış')+', r_c = '+fx(r,1)+' σ: enerji oynaması '+sci(p.e)+' ε/molekül, molekül başına '+fx(p.np,1)+' çift.';",
+   "$('k2nBusy').textContent=(m==='plain'?'Plain cut-off':'Shifted')+', r_c = '+fx(r,1)+' σ: energy fluctuation '+sci(p.e)+' ε/molecule, '+fx(p.np,1)+' pairs per molecule.';"
+  ],
+  [
+   "$('k2nAll').onclick=function(){ if(busy) return; queue=RS.filter(function(r){ return !book.some(function(p){return p.m===nMode&&p.r===r;}); }).map(function(r){return [nMode,r];}); if(!queue.length){ $('k2nBusy').textContent='Bu yöntemde bütün kesme mesafeleri zaten ölçüldü.'; return; } runQueue(); };",
+   "$('k2nAll').onclick=function(){ if(busy) return; queue=RS.filter(function(r){ return !book.some(function(p){return p.m===nMode&&p.r===r;}); }).map(function(r){return [nMode,r];}); if(!queue.length){ $('k2nBusy').textContent='All cut-off distances have already been measured in this method.'; return; } runQueue(); };"
+  ],
+  [
+   "$('k2nClr').onclick=function(){ if(busy) return; book=[]; save(); nDraw(); nEval(); $('k2nBusy').textContent='Defter temizlendi.'; };",
+   "$('k2nClr').onclick=function(){ if(busy) return; book=[]; save(); nDraw(); nEval(); $('k2nBusy').textContent='Notebook cleared.'; };"
+  ],
+  [
+   "g.textAlign='center'; RS.forEach(function(r){ g.fillStyle=muted; g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('kesme mesafesi r_c (σ)',(L+W-R)/2,H-4);",
+   "g.textAlign='center'; RS.forEach(function(r){ g.fillStyle=muted; g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('cut-off distance r_c (σ)',(L+W-R)/2,H-4);"
+  ],
+  [
+   "g.textAlign='left'; g.fillText(W>=560?'toplam enerjinin oynaması (ε/molekül, logaritmik) · sağda molekül başına çift':'enerji oynaması (ε/molekül)',L,14);",
+   "g.textAlign='left'; g.fillText(W>=560?'fluctuation of total energy (ε/molecule, logarithmic) · right: pairs per molecule':'energy fluctuation (ε/molecule)',L,14);"
+  ],
+  [
+   "if(!book.length){ g.fillStyle=muted; g.textAlign='center'; g.font='14px '+css('--sans'); g.fillText('Henüz ölçüm yok',(L+W-R)/2,(T+H-B)/2); g.textAlign='left'; }",
+   "if(!book.length){ g.fillStyle=muted; g.textAlign='center'; g.font='14px '+css('--sans'); g.fillText('No measurements yet',(L+W-R)/2,(T+H-B)/2); g.textAlign='left'; }"
+  ],
+  [
+   "$('k2nCount').textContent=book.length+' ölçüm';",
+   "$('k2nCount').textContent=book.length+' measurements';"
+  ],
+  [
+   "$('k2nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='plain'?'Düz kesme':'Kaydırılmış')+'</td><td class=\"n\">'+fx(p.r,1)+'</td><td class=\"n\">'+sci(p.e)+'</td><td class=\"n\">'+fx(p.np,1)+'</td></tr>';}).join(''):'<tr><td colspan=\"4\" class=\"small\">Henüz ölçüm yok.</td></tr>';",
+   "$('k2nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='plain'?'Plain cut-off':'Shifted')+'</td><td class=\"n\">'+fx(p.r,1)+'</td><td class=\"n\">'+sci(p.e)+'</td><td class=\"n\">'+fx(p.np,1)+'</td></tr>';}).join(''):'<tr><td colspan=\"4\" class=\"small\">No measurements yet.</td></tr>';"
+  ],
+  [
+   "card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi korur; GROMACS da etkileşimi böyle bırakır.');",
+   "card('k2c2',true,'Your measurements: with the plain cut-off the total energy fluctuated by '+sci(p0.e)+' at r<sub>c</sub> = '+fx(r0,1)+' σ and by '+sci(p1.e)+' ε/molecule at '+fx(r1,1)+' σ; with the shifted potential, at the same distances, by '+sci(s0.e)+' and '+sci(s1.e)+'. At the short cut-off the plain cut-off fluctuates '+fx(p0.e/s0.e,0)+' times more. The forces and the trajectory are the same in both methods; the difference is that with the plain cut-off the energy jumps by |u(r<sub>c</sub>)| every time a pair crosses the circle. On the other hand the number of pairs per molecule is '+fx(p0.np,1)+' at '+fx(r0,1)+' σ and '+fx(p1.np,1)+' at '+fx(r1,1)+' σ: a longer cut-off makes the calculation more expensive. The shifted potential conserves energy even with a short cut-off; GROMACS also lets the interaction go this way.');"
+  ],
+  [
+   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('düz kesmede 2,5 σ ya da daha kısa bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }",
+   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('at least two identical cut-off distances in both methods'); if(!okShort) need.push('a plain cut-off measurement at 2.5 σ or shorter'); card('k2c2',false,'Needed: '+need.join('; ')+'.'); }"
+  ],
+  [
+   "P4.ev.forEach(function(e){ var w=P4.w[e.i], f=(P4.clock-e.t)/1.2; g.strokeStyle=str(rgb(bad),1-f); g.lineWidth=3; g.beginPath(); g.arc(X(w.x),Y(w.y),rw+4+f*rw*2.5,0,6.283); g.stroke(); if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,'listede yoktu',X(w.x),Y(w.y)-rw-14,paper,bad); g.globalAlpha=1; } });",
+   "P4.ev.forEach(function(e){ var w=P4.w[e.i], f=(P4.clock-e.t)/1.2; g.strokeStyle=str(rgb(bad),1-f); g.lineWidth=3; g.beginPath(); g.arc(X(w.x),Y(w.y),rw+4+f*rw*2.5,0,6.283); g.stroke(); if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,'not on the list',X(w.x),Y(w.y)-rw-14,paper,bad); g.globalAlpha=1; } });"
+  ],
+  [
+   "g.fillStyle=css('--ink'); g.font='600 11.5px '+css('--sans'); g.fillText('liste yenilemesine: '+(P4.nst-P4.k)+' adım',px+8,py+14);",
+   "g.fillStyle=css('--ink'); g.font='600 11.5px '+css('--sans'); g.fillText('next list update in: '+(P4.nst-P4.k)+' steps',px+8,py+14);"
+  ],
+  [
+   "if(P4.paused) pill(g,'Durduruldu',W/2,20,paper,css('--navy'));",
+   "if(P4.paused) pill(g,'Paused',W/2,20,paper,css('--navy'));"
+  ],
+  [
+   "$('k4rcV').innerHTML=fx(P4.rc,2)+' <small>nm</small>'; $('k4bufV').innerHTML=fx(P4.buf,3)+' <small>nm</small>'; $('k4nstV').innerHTML=P4.nst+' <small>adım · '+fx(P4.nst*2/1000,P4.nst<50?2:1)+' ps</small>';",
+   "$('k4rcV').innerHTML=fx(P4.rc,2)+' <small>nm</small>'; $('k4bufV').innerHTML=fx(P4.buf,3)+' <small>nm</small>'; $('k4nstV').innerHTML=P4.nst+' <small>steps · '+fx(P4.nst*2/1000,P4.nst<50?2:1)+' ps</small>';"
+  ],
+  [
+   "$('k4disp').textContent=P4.lastDisp?fx(P4.lastDisp.rms,3)+' / '+fx(P4.lastDisp.max,3)+' nm':'ölçülüyor';",
+   "$('k4disp').textContent=P4.lastDisp?fx(P4.lastDisp.rms,3)+' / '+fx(P4.lastDisp.max,3)+' nm':'measuring';"
+  ],
+  [
+   "if(P4.buf<0.005) t='Tampon yok: liste tam kesme çemberiyle kuruluyor. Liste yenilenene kadar çembere dışarıdan giren her su molekülü kaçıyor (kırmızı halka)'+(mc!=null?'; son aralıkta '+m+' tane':'')+'.';",
+   "if(P4.buf<0.005) t='No buffer: the list is built exactly at the cut-off circle. Every water molecule that enters the circle from outside before the list is renewed is missed (red ring)'+(mc!=null?'; '+m+' in the last interval':'')+'.';"
+  ],
+  [
+   "else if(d&&d.max>P4.buf) t='Son aralıkta bir su molekülü '+fx(d.max,3)+' nm yol aldı; bu, tampondan ('+fx(P4.buf,3)+' nm) uzun. '+(m>0?'Bu aralıkta '+m+' su molekülü listede olmadan kesme çemberine girdi.':'Bu kez tampon kuşağından kesmeye sızan olmadı, ama artık güvence yok: sızmak için yol yetiyor. Üç boyutta çember başına yüzlerce atom olduğu için böyle bir sızıntı sık olur; GROMACS tamponu bu yüzden izin verilen hataya göre seçer.');",
+   "else if(d&&d.max>P4.buf) t='In the last interval a water molecule traveled '+fx(d.max,3)+' nm; this is longer than the buffer ('+fx(P4.buf,3)+' nm). '+(m>0?'In this interval '+m+' water molecules entered the cut-off circle without being on the list.':'This time nothing slipped from the buffer band into the cut-off, but there is no guarantee any more: the path is long enough to slip in. In three dimensions, with hundreds of atoms per sphere, such leaks are frequent; this is why GROMACS chooses the buffer from the allowed error.');"
+  ],
+  [
+   "else if(d) t='Son aralıkta bir su molekülü en çok '+fx(d.max,3)+' nm yol aldı; tampon '+fx(P4.buf,3)+' nm. Liste yenilenene kadar hiçbir su molekülü tamponu aşıp kesme çemberine sızamıyor.';",
+   "else if(d) t='In the last interval a water molecule traveled at most '+fx(d.max,3)+' nm; the buffer is '+fx(P4.buf,3)+' nm. Until the list is renewed, no water molecule can cross the buffer and slip into the cut-off circle.';"
+  ],
+  [
+   "if(t) $('k4chg').innerHTML='<span class=\"t\">Liste '+P4.nst+' adımda bir yenileniyor, tampon '+fx(P4.buf,3)+' nm</span><span>'+t+'</span>'; }",
+   "if(t) $('k4chg').innerHTML='<span class=\"t\">The list is renewed every '+P4.nst+' steps, buffer '+fx(P4.buf,3)+' nm</span><span>'+t+'</span>'; }"
+  ],
+  [
+   "$('k4pause').onclick=function(){ P4.paused=!P4.paused; $('k4pause').textContent=P4.paused?'Sürdür':'Durdur'; p4Draw(); kick(); };",
+   "$('k4pause').onclick=function(){ P4.paused=!P4.paused; $('k4pause').textContent=P4.paused?'Resume':'Pause'; p4Draw(); kick(); };"
+  ],
+  [
+   "$('k4fast').onclick=function(){ P4.spf=P4.spf===1?10:1; $('k4fast').setAttribute('aria-pressed',String(P4.spf===10)); $('k4fast').textContent=P4.spf===10?'Yavaş (1 adım/kare)':'Hızlı (10 adım/kare)'; kick(); };",
+   "$('k4fast').onclick=function(){ P4.spf=P4.spf===1?10:1; $('k4fast').setAttribute('aria-pressed',String(P4.spf===10)); $('k4fast').textContent=P4.spf===10?'Slow (1 step/frame)':'Fast (10 steps/frame)'; kick(); };"
+  ],
+  [
+   "{s:'İki molekül arasındaki uzaklık 0,5 nm\\'den 1,0 nm\\'ye çıkarsa van der Waals çekimi nasıl değişir?',",
+   "{s:'If the distance between two molecules grows from 0.5 nm to 1.0 nm, how does the van der Waals attraction change?',"
+  ],
+  [
+   "o:[['Yarıya iner',0],['Dörtte birine iner',0],['Yaklaşık 64 kat zayıflar',1],['Değişmez',0]],",
+   "o:[['It halves',0],['It falls to a quarter',0],['It becomes about 64 times weaker',1],['It does not change',0]],"
+  ],
+  [
+   "w:'Çekim r⁻⁶ ile azalır: 2⁶ = 64. FRET veriminin R₀ civarında bu kadar keskin değişmesi de aynı altıncı kuvvettendir.'},",
+   "w:'The attraction falls as r⁻⁶: 2⁶ = 64. The sharp change of the FRET efficiency around R₀ comes from the same sixth power.'},"
+  ],
+  [
+   "{s:'Periyodik kutuda bir komşuya olan uzaklık nasıl ölçülür?',",
+   "{s:'In a periodic box, how is the distance to a neighbor measured?',"
+  ],
+  [
+   "o:[['Kutunun içindeki kopyasına',0],['Komşunun bütün kopyaları arasından en yakın olanına',1],['Bütün kopyalarının ortalamasına',0],['Kutunun merkezine göre',0]],",
+   "o:[['To its copy inside the box',0],['To the nearest of all copies of the neighbor',1],['To the average of all its copies',0],['Relative to the center of the box',0]],"
+  ],
+  [
+   "w:'En yakın kopya kuralı: her komşu yalnız bir kez, en yakın kopyasıyla sayılır. Atölyede bu kopyanın kutunun dışında olabildiğini gördünüz.'},",
+   "w:'The nearest-image rule: every neighbor is counted only once, through its nearest copy. In the workshop you saw that this copy can lie outside the box.'},"
+  ],
+  [
+   "{s:'Düz kesmede toplam enerjinin sıçramasının nedeni nedir?',",
+   "{s:'Why does the total energy jump with a plain cut-off?',"
+  ],
+  [
+   "o:[['Kuvvetlerin yanlış hesaplanması',0],['Bir çift kesme çemberinden geçtiğinde etkileşim enerjisinin aniden sıfıra atlaması',1],['Zaman adımının büyük olması',0],['Kutunun küçük olması',0]],",
+   "o:[['The forces are computed wrongly',0],['When a pair crosses the cut-off circle, its interaction energy drops to zero abruptly',1],['The time step is too large',0],['The box is too small',0]],"
+  ],
+  [
+   "w:'Kuvvetler iki yöntemde aynıdır. Düz kesmede enerji kesmede |u(r_c)| kadar süreksizdir; kaydırılmış potansiyelde bu süreksizlik yoktur.'},",
+   "w:'The forces are the same in both methods. With the plain cut-off the energy is discontinuous by |u(r_c)| at the cut-off; the shifted potential has no such discontinuity.'},"
+  ],
+  [
+   "{s:'Üç boyutta kesme mesafesini 1,0 nm\\'den 1,2 nm\\'ye çıkarmak hesaplanan çift sayısını yaklaşık ne kadar artırır?',",
+   "{s:'In three dimensions, roughly how much does raising the cut-off from 1.0 nm to 1.2 nm increase the number of computed pairs?',"
+  ],
+  [
+   "o:[['1,2 kat',0],['1,44 kat',0],['Yaklaşık '+fx(Math.pow(1.2,3),2)+' kat',1],['2 kat',0]],",
+   "o:[['1.2 times',0],['1.44 times',0],['About '+fx(Math.pow(1.2,3),2)+' times',1],['2 times',0]],"
+  ],
+  [
+   "w:'Çemberin (üç boyutta kürenin) içindeki komşu sayısı hacimle, yani r_c³ ile artar: 1,2³ ≈ '+fx(Math.pow(1.2,3),2)+'. Defterde iki boyutta bunun r_c² ile arttığını ölçtünüz.'},",
+   "w:'The number of neighbors inside the circle (a sphere in three dimensions) grows with the volume, as r_c³: 1.2³ ≈ '+fx(Math.pow(1.2,3),2)+'. In the notebook you measured that in two dimensions it grows as r_c².'},"
+  ],
+  [
+   "{s:'Kesme mesafesi kutu kenarının yarısından büyükse ne olur?',",
+   "{s:'What happens if the cut-off is larger than half the box edge?',"
+  ],
+  [
+   "o:[['Hiçbir şey olmaz',0],['Hesap daha doğru olur',0],['Aynı komşunun iki kopyası çembere girer; program yalnız birini sayar ve GROMACS böyle bir kutuya izin vermez',1],['Moleküller kutudan kaçar',0]],",
+   "o:[['Nothing happens',0],['The calculation becomes more accurate',0],['Two copies of the same neighbor enter the circle; the program counts only one, and GROMACS does not allow such a box',1],['The molecules escape from the box',0]],"
+  ],
+  [
+   "w:'Tezgâhta kesmeyi L/2\\'nin üstüne çıkardığınızda kırmızı halkalı kopyaları gördünüz. Bu yüzden kutu, kesmenin en az iki katı genişlikte olmalıdır.'},",
+   "w:'When you raised the cut-off above L/2 at the bench you saw the copies with red rings. This is why the box must be at least twice as wide as the cut-off.'},"
+  ],
+  [
+   "{s:'GROMACS komşu listesini kesmeden biraz uzun bir uzaklıkla (rlist > r_c) kurar. Neden?',",
+   "{s:'GROMACS builds the neighbor list with a distance slightly longer than the cut-off (rlist > r_c). Why?',"
+  ],
+  [
+   "o:[['Liste yenilenene kadar dışarıdan kesme çemberine girebilecek molekülleri kaçırmamak için',1],['Enerjiyi artırmak için',0],['Kutuyu büyütmek için',0],['Elektrostatiği hesaplamak için',0]],",
+   "o:[['So as not to miss molecules that could enter the cut-off circle from outside before the list is renewed',1],['To increase the energy',0],['To enlarge the box',0],['To compute electrostatics',0]],"
+  ],
+  [
+   "w:'Liste birkaç adımda bir yenilenir; aradaki tampon (bu projenin koşusunda 0,104 nm) o sürede çembere girebilecek molekülleri içerir.'}",
+   "w:'The list is renewed every few steps; the buffer in between (0.104 nm in this project\\'s run) contains the molecules that could enter the circle during that time.'}"
+  ],
+  [
+   "b.classList.add(ok?'right':'wrong'); var w=$('k2why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(ok?'right':'wrong'); var w=$('k2why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('k2score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });",
+   "$('k2score').textContent='Answered: '+n+' / '+QZ.length+' · correct at the first try: '+r; }); });"
+  ],
+  [
+   "['k2c1','k2c2','k2c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['k2c1','k2c2','k2c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Sürdür'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();",
+   "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Resume'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Resume'; } p4Draw(); p4Msg(); renderQuiz(); kick();"
   ]
  ],
  "keep": [
@@ -829,6 +1597,15 @@
   "var(--gold)",
   "var(--mid)",
   "gmx editconf -c -d",
-  "linear-gradient(90deg,"
+  "linear-gradient(90deg,",
+  "Förster resonance energy transfer",
+  "Förster distance",
+  "<code>rvdw</code>, <code>rcoulomb</code>",
+  "<code>vdw-modifier</code>",
+  "Potential-shift-Verlet",
+  "<code>DispCorr</code>",
+  "EnerPres",
+  "<code>coulombtype</code>",
+  "<code>nstlist</code>, <code>rlist</code>"
  ]
 }

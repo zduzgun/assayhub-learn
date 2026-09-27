@@ -143,3 +143,43 @@ Yayından önce bağımsız bir inceleme yapılır, ardından yayın ve canlıda
 - MD-PBC, DK-T, MD-ENS ve MD-CON bu belgede tanımlanmaz; her biri sırası gelince buraya bir bölüm olarak eklenir.
 - Karanlık tema: site şu an yalnız açık tema kullanıyor; bu iş onu değiştirmez.
 - İngilizce metnin insan tarafından gözden geçirilmesi ayrı bir iştir.
+
+## 8. MD-PBC (27 Eylül 2026)
+
+MD-PBC (CH04) dört laboratuvardan oluşur. Proje sahibinin yönlendirmesi: uygulayıcı deneyselcidir; periyodik sınır fiziksel ve laboratuvardan bilinen örneklerle anlatılır; görsel simülasyon panelleri yüksek kalitededir (yüksek çözünürlüklü tuval, gölgeli küreler, akıcı hareket); okur bir topa yön ve hız verir; periyodik sınırın enerji açısından neden kritik olduğu okurun kendi ölçümünden çıkar; her modül İngilizce çevirisiyle birlikte yayınlanır (ayrıca sorulmaz).
+
+Karar (27 Eylül): MD-PBC sayfası, sitenin maskotlu kabuğu yerine onaylanan prototipin görsel dilini taşır (açık tema, site şeridi ve geçiş şeridi build tarafından eklenir). Gerekçe: proje sahibi prototipin panellerini onayladı; bedeli, MD-T ile görsel farktır.
+
+Ortak kurallar: sayılar tarayıcıda hesaplanır ya da bu projenin gerçek koşularından gelir; hesaplanmamış durum gösterilmez. Her lab üç keşif kartı taşır (atölye ve tezgâh ya da defter); kart yalnız okurun kendi denemesiyle ve kendi sayılarıyla açılır. İlerleme sayacı yayındaki kartları sayar (Lab 1 ile 6; bütün lablar yayında 4 × 3'ten fazla olabilir, sayfadaki kartların toplamı). Dar ekranda (560 px altı) tuval etiketleri kısa hâlleriyle çizilir.
+
+### 8.1 Lab 1 · Kenarsız kutu (yayında, 0.2.0)
+
+Deneysel köprü: 96 kuyucuklu plakanın kenar etkisi ve kristalin birim hücresi. Atölye: bir su molekülünü duvarlı kutuda, boşlukta ve periyodik kutuda fırlatma; kutu çerçevesi kaydırılabilir. Tezgâh: 100 moleküllük 2B Lennard-Jones sıvısı (T = 0,40 ε, ρ = 0,82), enerjiye göre renk, ısıtma ve itme. Defter: damla ve periyodik kutuda 25-400 molekül; 1/√N ekseninde sonsuz damlaya uzatma. Proteine dönüş: ubikitin kutusu (editconf -d; küp ya da onikiyüzlü; 1UBQ hazırlığıyla ayarlı), RTX 5080 süre tahmini (Exxact AMBER 26 ölçümlerinden ara değerleme).
+
+### 8.2 Lab 2 · En yakın komşu ve kesme (yayında, 0.3.0)
+
+- Deneysel köprü: FRET verimi uzaklığın altıncı kuvvetiyle düşer (E = 1/(1 + (r/R₀)⁶)); van der Waals çekimi de r⁻⁶ ile azalır: iki kat uzakta 64 kat zayıf. Okur bildiği bir ölçümden kuvvetin ne kadar kısa erimli olduğunu çıkarır.
+- Atölye A (minimum görüntü): periyodik kutuda iki molekül sürüklenir; doğrudan uzaklık ve en yakın kopyaya uzaklık çizgileriyle gösterilir. Kart: okurun denemesinde ölçülen uzaklık hiçbir zaman L/2'yi (köşegende L/√2) aşmaz.
+- Atölye B (kesme): LJ eğrisi ve kesme kaydırıcısı; kesmenin dışında kalan çekim payı (kuyruk) sayı olarak; düz ve kaydırılmış potansiyel. Canlı NVE sıvısında toplam enerjinin zaman grafiği. Kartlar: düz kesmede enerji kayar, kaydırılmışta kaymaz (okurun kayma sayılarıyla); kesme L/2'yi aşınca aynı komşu iki kopyasıyla birden sayılır (sayfa bunu çizer).
+- Defter: kesme mesafesine karşı enerji kayması (düz ve kaydırılmış) ve molekül başına hesaplanan çift sayısı (maliyet, yaklaşık r_c²). Kural okurun verisinden: doğruluk ile maliyet arasındaki denge.
+- Proteine dönüş: bu projenin koşu ayarları (mdout: rvdw = rcoulomb = 1,0 nm, nstlist = 10, verlet-buffer-tolerance = 0,005, dt = 0,002); σ ölçeğinde 1,0 nm'nin karşılığı; komşu listesi ve Verlet tamponu kısa not olarak (ayrı lab yok).
+
+- Uygulamada değişenler (proje sahibinin geri bildirimleriyle, 27 Eylül): Atölye A gerçek hareket hesabına geçti. İki molekül kısa menzilli çekimle etkileşir (U = (1,6/r)⁸ − 3(1 − (r/3,9)²)², menzil 3,9 σ < L/2 = 4 σ); okur "en yakın kopya (MD)" ile "kutunun içinden (hatalı)" kuralını karşılaştırır, grafikte toplam enerji şeridi vardır. Kart k2c1: en yakın kopya kuralında en az iki sınır geçişi; kutu içi uzaklığın sıçraması, en yakın kopya uzaklığının ve enerjinin sürekliliği okurun sayılarıyla. Atölye B tezgâha dönüştü: seçili molekülden hesaba katılan komşulara çizgiler, çembere giriş ve çıkış halkaları, aynı hareketten iki enerji (düz ve kaydırılmış) birlikte çizilir. Proteine dönüş kısa not yerine gerçek ölçekte simülasyon oldu: ubikitin yüzeyindeki atom, su (Langevin, D ≈ 0,0023 nm²/ps), kesme ve liste çemberi, tampon, nstlist, kaçan etkileşim sayacı; hazır ayar bu projenin koşusu (1,0 nm, 0,104 nm, 50 adım).
+
+### 8.3 Lab 3 · Tuz ve Ewald
+
+- Deneysel köprü: NaCl'nin Born-Haber döngüsüyle ölçülen örgü enerjisi (yaklaşık 787 kJ/mol; kaynakla doğrulanacak) ve tamponda iyonik şiddetle gelen perdeleme (1:1 tuz, 25 °C: Debye uzunluğu ≈ 0,304/√I nm; 150 mM'de ≈ 0,79 nm).
+- Atölye: 2B iyon örgüsünde kabuk kabuk Coulomb toplamı; okur kabuk ekler, toplamın salındığını ve toplama biçimine (kare kabuk, daire kabuk) bağlı olduğunu görür; Madelung sabiti (NaCl 3B: 1,7476) ile karşılaştırma yalnız 3B hesap sayfada yapılabiliyorsa gösterilir.
+- Tezgâh: 1/r⁶ ile 1/r'nin kesmede kaybettiği pay (okurun seçtiği kesmeyle); Ewald ayrışımı: nokta yük = perdelenmiş yakın kısım (erfc, kesilir) + düzgün uzak kısım (ızgarada, PME). Kaydırıcı α ile iki kısmın payı değişir, toplam değişmez (sayfada hesaplanır).
+- Proteine dönüş: coulombtype = PME, fourierspacing = 0,12 (bu projenin ayarı); net yük ve karşı iyon (genion) gereği; Ewald'da net yük düzgün arka planla dengelenir.
+
+### 8.4 Lab 4 · Kutu ne kadar büyük olmalı?
+
+- Deneysel köprü: "Kutunuzdaki proteinin derişimi kaç?" 1UBQ onikiyüzlü kutusu (193,42 nm³) tek proteinle yaklaşık 8,6 mM demektir (1/(N_A · V)); NMR örneklerinden bile derişik.
+- Atölye: d ya da kutu hacmi kaydırıcısı → derişim (mM), kopyalar arası uzaklık, su sayısı; deneysel derişimlerle (µM ile mM) karşılaştırma.
+- Gerçek veri: bu projenin kısa koşularında kopyalar arası en kısa uzaklık (gmx mindist -pi, 10 ps, 11 kare): d = 1,0 nm (S0) en az 2,253 nm; d = 0,5 nm (S3) en az 1,263 nm (5. ps), yani 1,0 nm kesmenin hemen üstünde. Koşuların 10 ps olduğu açıkça yazılır.
+- Defter ya da tezgâh: periyodik kutuda difüzyonun kutu boyuna bağlılığı (Yeh-Hummer düzeltmesi: D_PBC = D_∞ − k_BTξ/(6πηL), kübik kutuda ξ = 2,837297; formül ve viskozite değerleri kaynakla doğrulanacak). Deneysel köprü: FRAP ve DLS ile ölçülen difüzyon katsayıları.
+
+### 8.5 Yayın ve test
+
+Her lab önce claude.ai prototipi olarak onaylanır, sonra sayfaya eklenir ve aynı yayında İngilizce tablo güncellenir (i18n/_work/build_MD-PBC_en.py; değişen satırlardan tablo). tools/mdpbc2_test.mjs her lab için kart açılışlarını (okurun denemesiyle), İngilizce sayfayı, 390 px taşmayı, saklama kapalı ve azaltılmış hareket durumlarını sınar. Kitap kopyası her yayında yeni sürümlü bir dosyadır.

@@ -177,21 +177,25 @@
       "title": "Kenarsız kutu: periyodik sınır",
       "path": "md/md-pbc/",
       "source": "sources/MD-PBC.html",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "status": "pilot",
       "book": "CH04",
       "goals": [
         "Duvar, boşluk ve periyodik kutu",
         "Kenardaki molekülün enerjisi",
         "Örnek boyutu ve sonsuz sıvıya uzatma",
-        "Protein kutusu: d, kutu biçimi ve maliyet"
+        "Protein kutusu: d, kutu biçimi ve maliyet",
+        "En yakın kopya kuralı",
+        "Kesme mesafesi: düz ve kaydırılmış potansiyel",
+        "Komşu listesi ve tampon (rlist, nstlist)"
       ],
       "data": [
         "Tarayıcıda hesaplanan iki boyutlu Lennard-Jones sıvısı (öğretim amaçlı)",
         "Bu projenin 1UBQ hazırlığı (editconf -d 1.0, dodecahedron)",
-        "RTX 5080 hız tahmini: Exxact, AMBER 26 ölçümleri"
+        "RTX 5080 hız tahmini: Exxact, AMBER 26 ölçümleri",
+        "Bu projenin ubikitin koşusunun kesme ve komşu listesi ayarları (rvdw, rcoulomb, rlist, nstlist)"
       ],
-      "notice": "Bu sürümde 1. laboratuvar yayında; kesme ve komşu listesi, uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor.",
+      "notice": "Bu sürümde 1. ve 2. laboratuvarlar yayında; uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor.",
       "en": {
         "title": "The box without edges: periodic boundaries",
         "book": "CH04",
@@ -199,14 +203,18 @@
           "Walls, vacuum and the periodic box",
           "The energy of a molecule at the edge",
           "Sample size and extrapolation to the infinite liquid",
-          "The protein box: d, box shape and cost"
+          "The protein box: d, box shape and cost",
+          "The nearest-image rule",
+          "The cut-off distance: plain and shifted potential",
+          "The neighbor list and its buffer (rlist, nstlist)"
         ],
         "data": [
           "Two-dimensional Lennard-Jones liquid computed in the browser (for teaching)",
           "This project's 1UBQ preparation (editconf -d 1.0, dodecahedron)",
-          "RTX 5080 speed estimate: Exxact, AMBER 26 measurements"
+          "RTX 5080 speed estimate: Exxact, AMBER 26 measurements",
+          "Cut-off and neighbor-list settings of this project's ubiquitin run (rvdw, rcoulomb, rlist, nstlist)"
         ],
-        "notice": "In this version Lab 1 is published; the labs on cut-offs and neighbor lists, long-range electrostatics and box size are in preparation."
+        "notice": "In this version Labs 1 and 2 are published; the labs on long-range electrostatics and box size are in preparation."
       }
     },
     {

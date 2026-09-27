@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.7.0 (27 Eylül 2026) · MD-PBC laboratuvar 2
+
+- MD-PBC 0.3.0: Laboratuvar 2 "En yakın kopya ve kesme" aynı sayfaya eklendi; ilerleme iki laboratuvarı birlikte sayar (9 kart). Deneysel köprü (FRET cetveli ve r⁻⁶), atölye (birbirini çeken iki molekül, en yakın kopya ile kutu içi kuralın karşılaştırılması, toplam enerji şeridi), tezgâh (64 moleküllük sıvıda kesme çemberi, giriş ve çıkış halkaları, aynı hareketten düz ve kaydırılmış iki enerji, kesmenin yakınını büyüten pencere), defter (kesme mesafesine karşı enerji oynaması ve çift sayısı), proteine dönüş (gerçek ölçekte kesme ve komşu listesi simülasyonu, bu projenin rlist ve nstlist ayarları), altı soru.
+- İngilizce tablo 396 çifte çıktı (`i18n/_work/mdpbc_en_c.py` HTML, `mdpbc_en_d.py` betik); "Förster" özel adı keep listesinde.
+- Lab 1 sınavındaki seçenek tıklaması yalnız kendi sınavını etkiler (`#quiz .opt`); önceki genel seçici Lab 2 sınavını da etkileyebilirdi.
+
 ## 0.6.1 (27 Eylül 2026) · MD-PBC İngilizce
 
 - MD-PBC 0.2.0 İngilizce sayfası: `i18n/MD-PBC.en.json` (204 çift, makine çevirisi, `reviewed: false`); sayı biçimi İngilizceye göre (ondalık nokta, sayıdan sonra yüzde). Tablo, `i18n/_work/build_MD-PBC_en.py` ile Türkçe kaynağa sıralı değiştirmeler uygulanıp değişen satırlardan üretildi.
