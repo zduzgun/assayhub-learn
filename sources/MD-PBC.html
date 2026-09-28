@@ -120,21 +120,25 @@ code{font-family:var(--mono);font-size:.92em}
 .read dd{white-space:nowrap}
 #k2miPlot{aspect-ratio:16/8}
 ol.steps{margin:6px 0 14px;padding-left:22px;display:grid;gap:4px}
-header.lab2{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+header.lab2,header.lab3{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
 .labnav{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px}
 .labnav a{color:var(--accent)}
 @media (max-width:820px){ #k2scene{aspect-ratio:4/3 !important} #k2miPlot{aspect-ratio:16/14} }
+/* Laboratuvar 3 */
+#k3s6Plot{aspect-ratio:16/4}
+h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px}
+@media (max-width:820px){ #k3s6Plot{aspect-ratio:16/7} }
 </style>
 
 <div class="wrap">
-  <div class="proto">Bu sürümde modülün 1. ve 2. laboratuvarları yayında. Uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>
+  <div class="proto">Bu sürümde modülün 1., 2. ve 3. laboratuvarları yayında. Kutu boyu laboratuvarı hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>
 
   <header>
     <span class="eyebrow">MD-PBC · Laboratuvar 1 · Periyodik sınır</span>
     <h1>Kenarsız kutu: birkaç bin molekül nasıl bir okyanus gibi davranır?</h1>
     <p class="lead">Bir MD simülasyonu, bir proteini ve çevresindeki birkaç bin su molekülünü küçük bir kutuya koyar. Gerçek bir örnekteyse protein, kenarlardan çok uzakta, sayısız su molekülünün ortasındadır. Küçük kutuya bir de kenar eklersek ne değişir? Kenarı nasıl ortadan kaldırırız ve bunun enerji açısından önemi ne?</p>
-    <div class="prog" aria-live="polite">Keşifler: <b id="progN">0 / 9</b></div>
-    <nav class="labnav" aria-label="Bu sayfadaki laboratuvarlar"><a href="#h0">Laboratuvar 1 · Kenarsız kutu</a><a href="#lab2">Laboratuvar 2 · En yakın kopya ve kesme</a></nav>
+    <div class="prog" aria-live="polite">Keşifler: <b id="progN">0 / 12</b></div>
+    <nav class="labnav" aria-label="Bu sayfadaki laboratuvarlar"><a href="#h0">Laboratuvar 1 · Kenarsız kutu</a><a href="#lab2">Laboratuvar 2 · En yakın kopya ve kesme</a><a href="#lab3">Laboratuvar 3 · Tuz ve Ewald</a></nav>
   </header>
 
   <section class="card" aria-labelledby="h0">
@@ -491,6 +495,237 @@ header.lab2{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
   </section>
 
   <p class="small">Model: iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), periyodik kutu, en yakın kopya kuralı, hız-Verlet, Δt = 0,005; tezgâhta 64 molekül, defterde 100 molekül, ρ = 0,82, dengeleme T = 0,70 ε (Langevin), ölçüm sırasında ısı banyosu yok. İki kesme yönteminde kuvvetler aynıdır; fark, toplam enerjinin kesmede sıçrayıp sıçramamasıdır. Defteriniz yalnız bu tarayıcıda saklanır.</p>
+
+  <header class="lab3" id="lab3">
+    <span class="eyebrow">MD-PBC · Laboratuvar 3 · Uzun erimli elektrostatik</span>
+    <h2 class="h1">Yük uzağı da görür: tuz, perdeleme ve Ewald toplamı</h2>
+    <p class="lead">Van der Waals çekimi birkaç molekül çapında söner; bu yüzden kesme mesafesi onun için işe yarar. İki yük arasındaki etkileşim ise yalnız 1/r ile azalır. Periyodik kutuda sonsuz sayıda yük kopyası olduğunda bu toplam nasıl hesaplanır? Kesmek yetmez mi? Bu laboratuvarda önce tuzlu suda, sonra tuz kristalinde, en son bu projenin protein kutusunda buna bakacaksınız.</p>
+  </header>
+
+  <section class="card" aria-labelledby="k3h0">
+    <span class="step">Deneysel köprü</span>
+    <h2 id="k3h0">Tamponun tuzu yükleri perdeler: iyon bulutu, DNA ve protein</h2>
+    <div class="prose">
+      <p>Tampon hazırlarken eklediğiniz tuz, çözeltideki yüklerin birbirini ne kadar uzaktan hissettiğini değiştirir. Bir yükün çevresine zıt işaretli iyonlar biraz daha sık, aynı işaretliler biraz daha seyrek dizilir. Bu iyon bulutu yükün etkisini uzakta söndürür. Söndürmenin ölçeği <b>Debye uzunluğudur</b>. Aşağıda önce bu bulutu, sonra bildiğiniz iki deneyi göreceksiniz: DNA'nın erime sıcaklığının tuzla yükselmesi ve bir proteinin tuzla çözünüp fazla tuzla çökmesi.</p>
+      <h3 class="sub">A · İyon bulutu ve Debye uzunluğu</h3><p>İyonik şiddeti değiştirin (çizim 25 °C içindir). Eğri, merkezdeki tek bir yükün oluşturduğu potansiyeli kT biriminde gösterir: gri kesikli çizgi perdelemesiz suda, kırmızı çizgi tuzlu suda.</p>
+    </div>
+    <div class="two">
+      <div class="stagebox"><canvas id="k3deb" class="stage" aria-label="Merkezdeki yük, çevresindeki iyon bulutu ve Debye uzunluğu çemberi"></canvas></div>
+      <div class="ctl">
+        <div><label class="lbl" for="k3I">İyonik şiddet (1:1 tuz, örneğin NaCl)</label><div class="big" id="k3Ival"></div><input type="range" id="k3I" min="-4" max="0" step="0.01" value="-0.8239"></div>
+        <dl class="read">
+          <dt>Debye uzunluğu λ<sub>D</sub></dt><dd id="k3lam"></dd>
+          <dt>Suyun dielektrik sabiti ε<sub>r</sub></dt><dd id="k3eps"></dd>
+          <dt>1,0 nm'de kalan etki (perdelemesize göre)</dt><dd id="k3at1"></dd>
+          <dt>Saf suda (10⁻⁷ M) λ<sub>D</sub></dt><dd id="k3pure"></dd>
+        </dl>
+        <div><div class="lbl">Sıcaklık bu tuzda ne değiştirir?</div>
+          <dl class="read">
+            <dt>4 °C (soğuk oda)</dt><dd id="k3T4"></dd>
+            <dt>25 °C</dt><dd id="k3T25"></dd>
+            <dt>37 °C (vücut)</dt><dd id="k3T37"></dd>
+          </dl>
+          <p class="small" id="k3Tnote" style="margin:6px 0 0"></p></div>
+        <div class="btns" id="k3Ipre"><button type="button" class="btn" data-preset="0.15">150 mM</button><button type="button" class="btn" data-preset="0.01">10 mM</button><button type="button" class="btn" data-preset="1">1 M</button></div>
+      </div>
+    </div>
+    <canvas id="k3debPlot" class="plot" aria-label="Uzaklığa karşı merkezdeki yükün potansiyeli: perdelemesiz ve tuzlu suda"></canvas>
+    <div class="legend"><span><i style="background:var(--muted)"></i>Perdelemesiz su: 1/r</span><span><i style="background:var(--accent)"></i>Tuzlu su: e<sup>−r/λ</sup>/r</span><span>Kesikli dikey çizgi: MD'deki kesme (1,0 nm)</span></div>
+    <div class="prose"><h3 class="sub">B · DNA çift sarmalı tuzda neden daha kararlı?</h3>
+      <p>DNA'nın iki zincirinin omurgasında her nükleotit başına bir eksi yüklü fosfat vardır; iki zincir birbirini iter. Tampondaki Na⁺ iyonları omurganın çevresinde toplanıp bu itmeyi perdeler, bu yüzden çift sarmal tuzda daha yüksek sıcaklığa kadar dayanır. UV erime deneyinde (260 nm'de absorbansın artması) ölçtüğünüz erime sıcaklığı T<sub>m</sub> tuzla yükselir. Aşağıdaki sarmalda her baz çifti sıcaklığa göre açılıp kapanır; erime sıcaklığı ampirik bağıntıdan hesaplanır.</p>
+    </div>
+    <div class="two">
+      <div class="stagebox"><canvas id="k3dna" class="stage" style="aspect-ratio:16/10" aria-label="DNA çift sarmalı: baz çiftleri, eksi yüklü omurga ve çevresindeki Na+ iyonları"></canvas></div>
+      <div class="ctl">
+        <div><label class="lbl" for="k3dSalt">Na⁺ derişimi</label><div class="big" id="k3dSaltV"></div><input type="range" id="k3dSalt" min="0" max="2.301" step="0.01" value="2.176"></div>
+        <div><label class="lbl" for="k3dT">Sıcaklık</label><div class="big" id="k3dTV"></div><input type="range" id="k3dT" min="40" max="100" step="0.5" value="80"></div>
+        <div><div class="lbl">GC oranı</div>
+          <div class="seg" role="group" aria-label="GC oranı">
+            <button type="button" data-gc="30" aria-pressed="false">%30</button>
+            <button type="button" data-gc="50" aria-pressed="true">%50</button>
+            <button type="button" data-gc="70" aria-pressed="false">%70</button>
+          </div></div>
+        <dl class="read">
+          <dt>Erime sıcaklığı T<sub>m</sub> (bağıntı)</dt><dd id="k3dTm"></dd>
+          <dt>Açık baz çifti (sarmalda, anlık)</dt><dd id="k3dOpen"></dd>
+          <dt>Debye uzunluğu</dt><dd id="k3dLam"></dd>
+        </dl>
+      </div>
+    </div>
+    <canvas id="k3dnaPlot" class="plot" aria-label="Sıcaklığa karşı açık baz çifti oranı: seçilen tuz, 10 mM ve 150 mM"></canvas>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Seçilen Na⁺</span><span><i style="background:var(--muted)"></i>10 mM ve 150 mM (karşılaştırma)</span><span>Nokta: sarmalın anlık hâli</span></div>
+    <p class="small">T<sub>m</sub> = 81,5 + 0,41 · (%GC) + 16,6 · log₁₀[Na⁺] (uzun DNA; Schildkraut ve Lifson 1965 tuz terimiyle, Primer3'ün kullandığı biçim, uzunluk terimi −600/N atlandı). Kısa oligolarda ve yüksek tuzda T<sub>m</sub> ile log[Na⁺] arasındaki ilişki doğrusal değildir (Owczarzy ve ark. 2004). Açılma, komşu baz çiftleri birlikte açılmayı yeğleyecek biçimde (işbirlikli) canlı hesaplanır; eğrinin genişliği temsilidir.</p>
+
+    <div class="prose"><h3 class="sub">C · Protein tuzla çözünür, fazla tuzla çöker</h3>
+      <p>Bazı proteinler (klasik tanımıyla globulinler) saf suda az çözünür, seyreltik tuzda çözünür: bu <b>tuzla çözme</b>dir. Az tuz, protein yüzeyindeki zıt yüklü bölgelerin birbirini çekmesini perdeler. Çok tuz ise suyu iyonlara bağlar ve proteinlerin yağsı yüzeylerinin birbirine yapışmasını kolaylaştırır: <b>tuzla çöktürme</b>. Laboratuvardaki amonyum sülfat çöktürmesi bu ikinci etkidir; sülfat, klorürden çok daha etkili çöktürür. Aşağıdaki kutuda 36 protein molekülü periyodik bir kutuda hareket ediyor ve birbirine yapışabiliyor.</p>
+    </div>
+    <div class="two">
+      <div class="stagebox"><canvas id="k3prot" class="stage" style="aspect-ratio:4/3" aria-label="Periyodik kutuda protein molekülleri, kümeler ve tuz iyonları"></canvas></div>
+      <div class="ctl">
+        <div><div class="lbl">Tuz</div>
+          <div class="seg" role="group" aria-label="Tuz">
+            <button type="button" data-salt="nacl" aria-pressed="true">NaCl</button>
+            <button type="button" data-salt="as" aria-pressed="false">Amonyum sülfat</button>
+          </div></div>
+        <div><label class="lbl" for="k3pc">Tuz derişimi</label><div class="big" id="k3pcV"></div><input type="range" id="k3pc" min="-4" max="0.477" step="0.01" value="-3"></div>
+        <dl class="read">
+          <dt>İyonik şiddet</dt><dd id="k3pI"></dd>
+          <dt>Yüzey yüklerinin çekimi (perdelenmiş)</dt><dd id="k3pEl"></dd>
+          <dt>Tuzun yapıştırıcı etkisi</dt><dd id="k3pSo"></dd>
+          <dt>Temas enerjisi (toplam)</dt><dd id="k3pE"></dd>
+          <dt>Çözünen molekül (ölçülen)</dt><dd id="k3pSol"></dd>
+        </dl>
+        <div class="btns"><button type="button" class="btn" data-pp="-4">Saf suya yakın</button><button type="button" class="btn" data-pp="-0.824">150 mM</button><button type="button" class="btn" data-pp="0.301">2 M</button></div>
+      </div>
+    </div>
+    <canvas id="k3protPlot" class="plot" aria-label="İyonik şiddete karşı temas enerjisinin iki parçası ve toplamı"></canvas>
+    <div class="legend"><span><i style="background:var(--mid)"></i>Yüzey yüklerinin çekimi</span><span><i style="background:var(--gold)"></i>Tuzun yapıştırıcı etkisi</span><span><i style="background:var(--accent)"></i>Toplam</span><span>Kesikli çizgi: bu modelde kümeleşmenin başladığı yer (yaklaşık 2,2 kT)</span></div>
+    <div class="change" id="k3pChg"><span class="t">Saf suya yakın</span><span>Moleküller zıt yüklü yüzeyleriyle birbirine yapışıyor.</span></div>
+    <p class="small">Şematik model: iki etki birer temas enerjisiyle yazılır. Yüzey yüklerinin çekimi 3,4 kT · e<sup>−0,5 nm/λ<sub>D</sub></sup> ile tuzla söner; tuzun yapıştırıcı etkisi iyonik şiddetle artar (NaCl için 0,25, amonyum sülfat için 0,8 kT/M). Katsayılar temsilidir, belirli bir proteinin ölçümü değildir; yalnız iki etkinin yönü ve sülfatın klorürden güçlü çöktürmesi ölçümlerle uyumludur. "Çözünen" en çok üç moleküllük kümelerdeki moleküllerdir; oran canlı hesaplanır. Amonyum sülfatın iyonik şiddeti derişimin üç katıdır.</p>
+
+    <div class="prose">
+      <p><b>Tuz kristalinde durum farklı.</b> Katı NaCl'de iyonlar arasında perdeleyecek su yoktur ve her iyon bütün kristali hisseder. Born-Haber döngüsüyle ölçülen örgü enerjisi yaklaşık 786 kJ/mol'dür. Yalnız en yakın altı komşuyu sayarsanız bu sayıya ulaşamazsınız; uzaktaki bütün iyonların katkısı gerekir. Bu katkının toplamı, en yakın komşu etkileşiminin <b>Madelung sabiti</b> kadar katıdır (NaCl için 1,7476). Atölyede bu toplamı iki boyutlu bir örgüde kendiniz yapacaksınız.</p>
+      <p><b>MD'ye bağlantısı.</b> Bir MD kutusundaki perdeleme de kutudaki iyonların kendisinden doğar; program bunu önceden bilemez. Yüklerin etkileşimini doğru hesaplamak için uzaktaki bütün yükler, kopyalarıyla birlikte, sayılmalıdır. Saf suda perdeleme hiç yoktur.</p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="k3h1">
+    <span class="step">1 · Atölye</span>
+    <h2 id="k3h1">Kristalde kabuk kabuk toplam: toplam neden bir türlü oturmuyor?</h2>
+    <p class="small">İki boyutlu bir tuz kristali: kırmızılar artı, maviler eksi yüklü iyonlar, en yakın komşu uzaklığı 1. Ortadaki artı iyonun bütün öbür iyonlarla Coulomb etkileşimini topluyoruz; toplam, en yakın komşu etkileşimi biriminde verilir (sonsuz örgüde 1,6155; iki boyutun Madelung sabiti). Toplama bölgesini büyüttükçe ne olduğuna bakın.</p>
+    <ol class="small steps"><li><b>Daire:</b> merkezden belirli bir yarıçapa kadar bütün iyonları sayar. "Kabuk ekle" düğmesine basın ya da kaydırıcıyı sürükleyin; toplamın ve bölgenin net yükünün nasıl zıpladığına bakın.</li><li><b>Kare:</b> kare kabuklar ekler. Daha sakin, ama çok yavaş yaklaşıyor.</li><li><b>Kare, sınır yarım:</b> sınırdaki iyonları yarım (köşedekileri çeyrek) yükle sayar; bölge her adımda yüksüz kalır. Alttaki ikinci grafikte aynı kabuklarla r⁻⁶ (van der Waals) toplamına da bakın.</li></ol>
+    <div class="two">
+      <div class="stagebox"><canvas id="k3lat" class="stage" aria-label="İki boyutlu iyon örgüsü, merkez iyon ve toplama bölgesi"></canvas></div>
+      <div class="ctl">
+        <div><div class="lbl">Toplama bölgesinin biçimi</div>
+          <div class="seg" role="group" aria-label="Toplama bölgesinin biçimi">
+            <button type="button" id="k3mC" aria-pressed="true">Daire</button>
+            <button type="button" id="k3mS" aria-pressed="false">Kare</button>
+            <button type="button" id="k3mE" aria-pressed="false">Kare, sınır yarım</button>
+          </div></div>
+        <div><label class="lbl" for="k3n">Bölgenin boyu n (yarıçap ya da kabuk)</label><div class="big" id="k3nVal"></div><input type="range" id="k3n" min="1" max="40" step="1" value="3"></div>
+        <dl class="read">
+          <dt>Sayılan iyon</dt><dd id="k3cnt"></dd>
+          <dt>Bölgenin net yükü (merkez dahil)</dt><dd id="k3q"></dd>
+          <dt>Coulomb toplamı</dt><dd id="k3M"></dd>
+          <dt>Sonsuz örgüde (2B Madelung)</dt><dd>1,6155</dd>
+          <dt>r⁻⁶ toplamı, sonsuz örgüye göre</dt><dd id="k3s6"></dd>
+        </dl>
+        <div class="btns"><button type="button" class="btn primary" id="k3play">Kabuk ekle</button><button type="button" class="btn" id="k3reset">Baştan</button></div>
+      </div>
+    </div>
+    <canvas id="k3latPlot" class="plot" aria-label="Bölge boyuna karşı Coulomb toplamı: daire, kare ve sınır yarım kare"></canvas>
+    <canvas id="k3s6Plot" class="plot" aria-label="Bölge boyuna karşı r⁻⁶ toplamının sonsuz örgüye oranı"></canvas>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Daire</span><span><i style="background:var(--gold)"></i>Kare</span><span><i style="background:var(--deep)"></i>Kare, sınır yarım</span><span>Kesikli çizgi: 1,6155</span></div>
+    <div class="change" id="k3latChg"><span class="t">Bölge küçük</span><span>"Kabuk ekle" ile bölgeyi büyütün ve toplamı izleyin.</span></div>
+  </section>
+
+  <section class="card" aria-labelledby="k3h2">
+    <span class="step">2 · Tezgâh</span>
+    <h2 id="k3h2">Ewald'ın hilesi: bir toplamı ikiye bölmek</h2>
+    <p class="small">Uzaktaki yükleri toplamak zordur, çünkü 1/r yavaş söner. Ewald'ın fikri, her yüke zıt işaretli bir <b>kılıf</b> giydirip sonra bu kılıfları geri almaktır. Aşağıda bir tuz kristalinden alınmış bir iyon sırasıyla altı adımda izleyin; her adımda "İleri"ye basın ya da "Baştan oynat" ile hepsini sırayla görün. β kaydırıcısı kılıfların genişliğini değiştirir.</p>
+    <div class="two">
+      <div class="stagebox"><canvas id="k3ew" class="stage" style="aspect-ratio:4/3" aria-label="Ewald ayrışımı adım adım: nokta yükler, kılıflı yükler (yakın kısım) ve yumuşak bulutlar (uzak kısım)"></canvas></div>
+      <div class="ctl">
+        <div class="btns"><button type="button" class="btn" id="k3sPrev">‹ Geri</button><button type="button" class="btn primary" id="k3sNext">İleri ›</button><button type="button" class="btn" id="k3sPlay">Baştan oynat</button></div>
+        <div><label class="lbl" for="k3b">Kılıf darlığı β (1/r₀)</label><div class="big" id="k3bVal"></div><input type="range" id="k3b" min="40" max="300" step="5" value="150"></div>
+        <div><label class="lbl" for="k3rc">Yakın kısmın kesmesi r<sub>c</sub> (r₀)</label><div class="big" id="k3rcVal"></div><input type="range" id="k3rc" min="150" max="600" step="10" value="400"></div>
+        <dl class="read">
+          <dt>Yakın kısım (gerçek uzay)</dt><dd id="k3re"></dd>
+          <dt>Uzak kısım (ters uzay)</dt><dd id="k3rk"></dd>
+          <dt>Öz terim</dt><dd id="k3rs"></dd>
+          <dt>Toplam (NaCl kristali)</dt><dd id="k3rt"></dd>
+          <dt>Kesmede kalan pay erfc(β·r<sub>c</sub>)</dt><dd id="k3tail"></dd>
+          <dt>Gerçek uzayda çift / ters uzayda dalga</dt><dd id="k3nn"></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="change" id="k3bChg"><span class="t">1 · Nokta yükler</span><span></span></div>
+    <p class="small">Sağdaki sayılar üç boyutlu NaCl kristali için sayfada hesaplanır (kübik birim hücre, gerçek uzayda erfc ile kesilmiş toplam, ters uzayda dalga toplamı, öz terim). Soldaki çizim aynı fikri bir boyutlu bir iyon sırasında gösterir; bulutların dalgalarla çizimi o sıranın tam Fourier serisidir.</p>
+    <canvas id="k3inv" class="plot" aria-label="β'ya karşı yakın kısım, uzak kısım, öz terim ve toplam"></canvas>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Yakın kısım</span><span><i style="background:var(--deep)"></i>Uzak kısım</span><span><i style="background:var(--gold)"></i>Öz terim</span><span><i style="background:var(--good)"></i>Toplam</span></div>
+    <div class="minis">
+      <article class="q" id="k3c1"><span class="k">Açık</span><h3>Coulomb toplamı nereye oturuyor?</h3><p>Atölyede toplamı daire ve sınır yarım kare bölgeyle büyütün.</p><div class="mine" id="mk3c1">Daire ve sınır yarım kare modunda n'yi en az 20'ye çıkarın.</div></article>
+      <article class="q" id="k3c2"><span class="k">Açık</span><h3>Bölmek toplamı değiştirir mi?</h3><p>Tezgâhta β'yı en az üç farklı değere getirin.</p><div class="mine" id="mk3c2">En az üç β değeri deneyin; en büyüğü en küçüğünün en az iki katı olsun ve kesmede kalan pay küçük kalsın.</div></article>
+      <article class="q" id="k3c3"><span class="k">Açık</span><h3>Düz kesme mi, Ewald mı?</h3><p>Aşağıdaki defterde üç yöntemi farklı kesme mesafeleriyle ölçün.</p><div class="mine" id="mk3c3">Coulomb düz kesmede en az üç, Ewald'da ve r⁻⁶ düz kesmede en az ikişer kesme mesafesi ölçün.</div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="k3h3">
+    <div class="row">
+      <div style="display:grid;gap:4px"><span class="step">3 · Keşif defteri</span><h2 id="k3h3">Kesme mesafesi uzarken hata küçülüyor mu?</h2></div>
+      <button type="button" class="btn" id="k3nClr">Defteri temizle</button>
+    </div>
+    <p class="small">Her ölçüm üç boyutlu NaCl kristalinde bir iyonun bütün kristalle etkileşimini seçtiğiniz yöntemle hesaplar ve kesin değerle karşılaştırır. Coulomb için kesin değer Madelung sabitidir (1,747565); r⁻⁶ için sonsuz kristalin toplamı. Tabloda kesme küresinin net yükü de yazar.</p>
+    <div class="row" style="justify-content:flex-start;align-items:end">
+      <div><div class="lbl">Yöntem</div><div class="chips" id="k3nMode"><button type="button" class="chip" data-m="cut" aria-pressed="true">Coulomb, düz kesme</button><button type="button" class="chip" data-m="ewald" aria-pressed="false">Coulomb, Ewald</button><button type="button" class="chip" data-m="r6" aria-pressed="false">r⁻⁶, düz kesme</button></div></div>
+      <div><div class="lbl">Kesme mesafesi (r₀)</div><div class="chips" id="k3nR"></div></div>
+      <div class="btns"><button type="button" class="btn primary" id="k3nRun">Ölç</button><button type="button" class="btn" id="k3nAll">Bu yöntemde tüm seriyi ölç</button></div>
+    </div>
+    <p class="busy" id="k3nBusy" aria-live="polite">Ölçüm yok.</p>
+    <canvas id="k3book" class="plot" aria-label="Kesme mesafesine karşı bağıl hata: Coulomb düz kesme, Ewald ve r⁻⁶ düz kesme"></canvas>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Coulomb, düz kesme</span><span><i style="background:var(--deep)"></i>Coulomb, Ewald (hata payı 10⁻⁵)</span><span><i style="background:var(--gold)"></i>r⁻⁶, düz kesme</span><span id="k3nCount"></span></div>
+    <div class="tw"><table><thead><tr><th>Yöntem</th><th>r<sub>c</sub> (r₀)</th><th>Hesaplanan</th><th>Bağıl hata</th><th>Kürenin net yükü</th></tr></thead><tbody id="k3nTab"></tbody></table></div>
+  </section>
+
+  <section class="card" aria-labelledby="k3h4">
+    <span class="step">4 · Proteine dönüş</span>
+    <h2 id="k3h4">Bu projenin koşusunda PME: 1,0 nm, 0,32 nm ve 56 ızgara noktası</h2>
+    <p class="small">GROMACS'ta Ewald'ın hızlı biçimi PME'dir (parçacık-ağ Ewald): uzak kısım yumuşak bulutlar bir ızgaraya dağıtılarak hızlı Fourier dönüşümüyle hesaplanır. Bu projenin ubikitin koşusu üç sayıyla ayarlandı: gerçek uzay kesmesi <code>rcoulomb</code> = 1,0 nm, kesmede kalan pay <code>ewald-rtol</code> = 10⁻⁵, ızgara aralığı en çok <code>fourierspacing</code> = 0,12 nm. Aşağıdaki kutu kesiti bu ayarları gerçek ölçekte gösterir: ortada bir lizin yan zincirinin azotu (+1), çevresinde bulut genişliği ve kesme, arkada PME ızgarası.</p>
+    <div class="two">
+      <div class="stagebox"><canvas id="k5box" class="stage" aria-label="Protein yüzeyinde yüklü bir atom, kesme çemberi, Ewald bulutu ve PME ızgarası, nm ölçeğinde"></canvas></div>
+      <div class="ctl">
+        <div class="btns"><button type="button" class="btn primary" id="k5proj">Bu projenin ayarı</button></div>
+        <div><label class="lbl" for="k5rc">Gerçek uzay kesmesi (rcoulomb)</label><div class="big" id="k5rcV"></div><input type="range" id="k5rc" min="80" max="140" step="2" value="100"></div>
+        <div><div class="lbl">Kesmede kalan pay (ewald-rtol)</div>
+          <div class="seg" role="group" aria-label="Kesmede kalan pay">
+            <button type="button" data-tol="1e-3" aria-pressed="false">10⁻³</button>
+            <button type="button" data-tol="1e-4" aria-pressed="false">10⁻⁴</button>
+            <button type="button" data-tol="1e-5" aria-pressed="true">10⁻⁵</button>
+            <button type="button" data-tol="1e-6" aria-pressed="false">10⁻⁶</button>
+          </div></div>
+        <div><label class="lbl" for="k5fs">Izgara aralığı en çok (fourierspacing)</label><div class="big" id="k5fsV"></div><input type="range" id="k5fs" min="8" max="20" step="1" value="12"></div>
+        <dl class="read">
+          <dt>Bulut genişliği 1/β (hesaplanan)</dt><dd id="k5beta"></dd>
+          <dt>Bu koşunun günlüğünde</dt><dd>0,320163 nm</dd>
+          <dt>6,491 nm kutu vektöründe en az ızgara noktası</dt><dd id="k5grid"></dd>
+          <dt>Bu koşuda mdrun'ın seçtiği ızgara</dt><dd>56 × 56 × 56</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="change" id="k5chg"><span class="t">Bu projenin ayarı</span><span>erfc(β · 1,0 nm) = 10⁻⁵ koşulundan 1/β = 0,3202 nm çıkar; koşunun günlüğü de 0,320163 nm yazıyor.</span></div>
+    <canvas id="k5bar" class="plot" aria-label="Bu projenin 10 ps'lik deneme koşusunda enerji terimlerinin ortalaması"></canvas>
+    <div class="prose">
+      <p><b>Grafikteki sayılar gerçektir.</b> Bu projenin 10 ps'lik kısıtsız deneme koşusunun (5.001 adım, 51 kare) ortalamalarıdır: <code>Coulomb (SR)</code> yakın kısım, <code>Coul. recip.</code> uzak kısım. Bu bölünme, koşunun β değerine göredir; β değişseydi iki terimin payı değişir, toplam elektrostatik enerji değişmezdi. Tezgâhta bunu kristalde gördünüz.</p>
+      <p><b>Net yük.</b> Ewald toplamı yalnız toplam yük sıfırken tam anlamlıdır; net yük varsa yöntem kutuya yayılmış düzgün bir karşı yük varsayar. Bu yüzden hazırlıkta <code>gmx genion -neutral</code> ile karşı iyon eklenir. Bu projenin ubikitin topolojisinin toplam yükü 0,000 e (pdb2gmx) ve deneme koşusunda iyon eklenmedi; kutu saf sudur.</p>
+    </div>
+    <div class="two">
+      <div style="display:grid;gap:8px"><label class="lbl" for="k5c">Eklenecek tuz (genion -conc)</label><div class="big" id="k5cV"></div><input type="range" id="k5c" min="0" max="300" step="5" value="150"></div>
+      <dl class="read" style="align-content:start">
+        <dt>193,42 nm³ kutuda Na⁺/Cl⁻ çifti</dt><dd id="k5pairs"></dd>
+        <dt>Bu derişimde Debye uzunluğu (25 °C)</dt><dd id="k5lam"></dd>
+        <dt>Karşı iyon (net yük 0)</dt><dd>0</dd>
+      </dl>
+    </div>
+    <p class="small">Çift sayısı, genion'un tanımına göre kutu hacminden hesaplanır (derişim × hacim × Avogadro sayısı). Bu projede tuzlu bir koşu yapılmadı: <b>bu senaryo hesaplanmadı</b>.</p>
+    <div class="tw"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>
+      <tr><td><code>coulombtype</code></td><td class="n">PME</td><td>uzak kısım ızgarada, hızlı Fourier dönüşümüyle</td></tr>
+      <tr><td><code>rcoulomb</code></td><td class="n">1,0 nm</td><td>gerçek uzay kesmesi</td></tr>
+      <tr><td><code>ewald-rtol</code></td><td class="n">1e-05</td><td>yakın kısmın kesmede kalan bağıl payı</td></tr>
+      <tr><td><code>fourierspacing</code></td><td class="n">0,12 nm</td><td>ızgara aralığı üst sınırı</td></tr>
+      <tr><td><code>pme-order</code></td><td class="n">4</td><td>her yük her boyutta 4 ızgara noktasına dağıtılır (üç boyutta 4 × 4 × 4; kübik aradeğerleme)</td></tr>
+      <tr><td>günlük</td><td class="n">1/β = 0,320163 nm; 56 × 56 × 56</td><td>Ewald bulut genişliği ve PME ızgarası</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section class="card" aria-labelledby="k3h5">
+    <span class="step">5 · Kendinizi sınayın</span>
+    <h2 id="k3h5">Altı soru</h2>
+    <div class="quiz" id="k3quiz"></div>
+    <p class="score" id="k3score"></p>
+  </section>
+
+  <p class="small">Model: Debye uzunluğu Debye-Hückel kuramından, suyun dielektrik sabiti Malmberg ve Maryott (1956) bağıntısından; iyon bulutundaki noktalar temsilidir. Atölyede iki boyutlu kare iyon örgüsü, tezgâh ve defterde üç boyutlu NaCl (kaya tuzu) örgüsü; birim en yakın komşu uzaklığı r₀ ve ±1 yük. Ewald toplamı sayfada hesaplanır (kübik birim hücre, gerçek uzay erfc, ters uzay dalga toplamı, öz terim). NaCl örgü enerjisi: Born-Haber döngüsü, yaklaşık 786 kJ/mol; örgü sabiti 0,5640 nm. Proteine dönüşteki ayarlar ve enerjiler bu projenin ubikitin deneme koşusundan (gromacs_trial: mdout.mdp, free_smoke.log). Defteriniz yalnız bu tarayıcıda saklanır.</p>
 </div>
 
 <script>
@@ -583,7 +818,7 @@ function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.meas
 
 /* ---------- keşif kartları ---------- */
 var FOUND={};
-var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }
+var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 12'; }
 
 /* ---------- köprü çizimleri ---------- */
 function drawBridge(){
@@ -1165,7 +1400,7 @@ function tiles(g,X,Y,L,x0,x1,y0,y1,paper,navy,line){ for(var j=Math.floor(y0/L)-
 
 /* keşif kartları */
 var FOUND={}, CH={};
-function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }
+function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 12'; }
 
 /* ---------------- deneysel köprü: FRET ---------------- */
 var GREEN='#3d9a57', RED='#c9483a', BLUE='#3f6fc9', FS={spD:null,spA:null,r:0};
@@ -1643,6 +1878,501 @@ var rT=null; window.addEventListener('resize',function(){ clearTimeout(rT); rT=s
 /* başlangıç */
 ['k2c1','k2c2','k2c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });
 ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Sürdür'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();
+})();
+</script>
+<script>
+/* MD-PBC Lab 3 motoru: iyon örgüsünde Coulomb toplamları ve Ewald (indirgenmiş birim: en yakın komşu uzaklığı r0 = 1, yük ±1) */
+var EW=(function(){
+  var SQPI=Math.sqrt(Math.PI);
+  function erfc(x){ /* Numerical Recipes erfcc, bağıl hata < 1,2e-7 */ var z=Math.abs(x), t=1/(1+0.5*z), r=t*Math.exp(-z*z-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277))))))))); return x>=0?r:2-r; }
+  function erf(x){ return 1-erfc(x); }
+  /* 2B kare örgü (satranç tahtası), merkezde + iyon. mode: 'circle' | 'square' | 'evjen' */
+  function sum2D(n,mode){ var M=0, S6=0, q=0, cnt=0;
+    for(var j=-n;j<=n;j++) for(var i=-n;i<=n;i++){ if(!i&&!j) continue; var r=Math.hypot(i,j), w=1;
+      if(mode==='circle'){ if(r>n+1e-9) continue; }
+      else if(mode==='evjen'){ var ai=Math.abs(i)===n, aj=Math.abs(j)===n; w=(ai&&aj)?0.25:((ai||aj)?0.5:1); }
+      var s=((i+j)&1)?-1:1; M+=-s*w/r; S6+=w/Math.pow(r,6); q+=s*w; cnt++; }
+    return {M:M, S6:S6, q:q+1, n:cnt}; }
+  /* 3B kaya tuzu: potansiyel merkez iyonda; Madelung M = −φ */
+  function cut3D(rc){ var n=Math.ceil(rc), phi=0, s6=0, q=1;
+    for(var k=-n;k<=n;k++) for(var j=-n;j<=n;j++) for(var i=-n;i<=n;i++){ if(!i&&!j&&!k) continue; var r2=i*i+j*j+k*k; if(r2>rc*rc) continue; var r=Math.sqrt(r2), s=((i+j+k)&1)?-1:1; phi+=s/r; s6+=1/(r2*r2*r2); q+=s; }
+    return {M:-phi, S6:s6, q:q}; }
+  function S6inf(){ return cut3D(40).S6; }
+  /* Ewald: kübik hücre a = 2 (8 iyon), V = 8, k = π·(n1,n2,n3) */
+  function ewald3D(beta,rc,kmax){ var n=Math.ceil(rc), real=0, np=0;
+    for(var k=-n;k<=n;k++) for(var j=-n;j<=n;j++) for(var i=-n;i<=n;i++){ if(!i&&!j&&!k) continue; var r2=i*i+j*j+k*k; if(r2>rc*rc) continue; var r=Math.sqrt(r2), s=((i+j+k)&1)?-1:1; real+=s*erfc(beta*r)/r; np++; }
+    var rec=0, nk=0, V=8, K=kmax;
+    for(var c=-K;c<=K;c++) for(var b=-K;b<=K;b++) for(var a=-K;a<=K;a++){ if(!a&&!b&&!c) continue; var kx=Math.PI*a, ky=Math.PI*b, kz=Math.PI*c, k2=kx*kx+ky*ky+kz*kz, f=Math.exp(-k2/(4*beta*beta))/k2;
+      if(f<1e-16) continue;
+      /* yapı faktörü: hücredeki 8 iyon (0/1 koordinatlar), merkez iyon başlangıçta */
+      var S=0; for(var z=0;z<2;z++) for(var y=0;y<2;y++) for(var x=0;x<2;x++){ var s=((x+y+z)&1)?-1:1; S+=s*Math.cos(kx*x+ky*y+kz*z); }
+      rec+=f*S; nk++; }
+    rec*=4*Math.PI/V; var self=-2*beta/SQPI;
+    return {real:-real, rec:-rec, self:-self, M:-(real+rec+self), np:np, nk:nk}; }
+  function betaFor(rc,tol){ var lo=0.01, hi=20; for(var it=0;it<80;it++){ var m=0.5*(lo+hi); if(erfc(m*rc)>tol) lo=m; else hi=m; } return 0.5*(lo+hi); }
+  function kmaxFor(beta,tol){ /* exp(-k²/4β²) < tol·1e-2 */ var k=2*beta*Math.sqrt(-Math.log(tol*1e-2)); return Math.max(2,Math.ceil(k/Math.PI)); }
+  return {erfc:erfc, erf:erf, sum2D:sum2D, cut3D:cut3D, S6inf:S6inf, ewald3D:ewald3D, betaFor:betaFor, kmaxFor:kmaxFor};
+})();
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }
+function pc(v,d){ return '%'+fx(v,d); }
+function sci(v){ if(!(v>0)) return fx(0,0); var e=Math.floor(Math.log10(v)), m=v/Math.pow(10,e); var SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}; return fx(m,1)+' × 10'+String(e).split('').map(function(c){return SUP[c];}).join(''); }
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fit(c){ var r=c.getBoundingClientRect(), d=Math.min(2,window.devicePixelRatio||1), w=Math.max(1,Math.round(r.width*d)), h=Math.max(1,Math.round(r.height*d)); if(c.width!==w||c.height!==h){c.width=w;c.height=h;} var g=c.getContext('2d'); g.setTransform(d,0,0,d,0,0); return {g:g,W:r.width,H:r.height}; }
+function rgb(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
+function mixA(a,b,t){ return a.map(function(v,i){return Math.round(v+(b[i]-v)*t);}); }
+function str(a,al){ return al==null?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')'; }
+function sprite(hex,rPx){ var d=Math.min(2,window.devicePixelRatio||1), pad=Math.ceil(rPx*0.6), S=Math.ceil((2*rPx+2*pad)*d); var c=document.createElement('canvas'); c.width=c.height=S; var g=c.getContext('2d'); g.scale(d,d);
+  var m=S/d/2, base=rgb(hex), hi=mixA(base,[255,255,255],0.55), lo=mixA(base,[0,0,0],0.38);
+  g.fillStyle='rgba(40,40,30,0.18)'; g.beginPath(); g.ellipse(m+rPx*0.16,m+rPx*0.3,rPx*0.98,rPx*0.82,0,0,Math.PI*2); g.fill();
+  var gr=g.createRadialGradient(m-rPx*0.38,m-rPx*0.42,rPx*0.06,m,m,rPx); gr.addColorStop(0,str(hi)); gr.addColorStop(0.5,str(base)); gr.addColorStop(1,str(lo));
+  g.fillStyle=gr; g.beginPath(); g.arc(m,m,rPx,0,Math.PI*2); g.fill(); g.strokeStyle=str(lo,0.55); g.lineWidth=0.8; g.stroke(); return {c:c,s:S/d}; }
+function blit(g,sp,x,y,al){ if(al!=null) g.globalAlpha=al; g.drawImage(sp.c,x-sp.s/2,y-sp.s/2,sp.s,sp.s); if(al!=null) g.globalAlpha=1; }
+function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.measureText(txt).width+14; g.fillStyle=bg; g.beginPath(); if(g.roundRect) g.roundRect(x-w/2,y-11,w,22,11); else g.rect(x-w/2,y-11,w,22); g.fill(); g.fillStyle=fg; g.textAlign='center'; g.textBaseline='middle'; g.fillText(txt,x,y+0.5); g.textAlign='left'; g.textBaseline='alphabetic'; }
+function tiles(g,X,Y,L,x0,x1,y0,y1,paper,navy,line){ for(var j=Math.floor(y0/L)-1;j<=Math.ceil(y1/L);j++) for(var i=Math.floor(x0/L)-1;i<=Math.ceil(x1/L);i++){ var c=(i===0&&j===0), a=X(i*L), b=Y(j*L), w=X((i+1)*L)-a; g.fillStyle=c?paper:str(rgb(paper),0.45); g.fillRect(a,b,w,w); g.strokeStyle=c?navy:line; g.lineWidth=c?2:1; g.setLineDash(c?[7,5]:[4,5]); g.strokeRect(a,b,w,w); g.setLineDash([]); } }
+
+
+/* keşif kartları */
+var FOUND={}, CH={};
+function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 12'; }
+function axisY(g,L,R,T,H,B,W,vals,Y,fmt,line,muted){ g.font='12px '+css('--sans'); g.lineWidth=1; vals.forEach(function(v){ var y=Y(v); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=muted; g.textAlign='right'; g.fillText(fmt(v),L-6,y+4); }); g.textAlign='left'; }
+
+/* ---------------- deneysel köprü: Debye perdelemesi ---------------- */
+var KB=1.380649e-23, EC=1.602176634e-19, E0=8.8541878128e-12, NA=6.02214076e23;
+function epsr(t){ return 87.740-0.40008*t+9.398e-4*t*t-1.410e-6*t*t*t; } /* Malmberg ve Maryott (1956) */
+function lamD(I,t){ var T=t+273.15; return Math.sqrt(epsr(t)*E0*KB*T/(2*NA*EC*EC*I*1000))*1e9; }
+function lBj(t){ var T=t+273.15; return EC*EC/(4*Math.PI*E0*epsr(t)*KB*T)*1e9; }
+var D={I:0.15, t:25, dots:[], V:3.0, rng:null};
+function dRng(){ var a=12345; return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function dPsi(r){ var lam=lamD(D.I,D.t), lb=lBj(D.t); return Math.min(4,lb*Math.exp(-r/lam)/Math.max(r,0.3)); }
+function dInit(){ D.rng=dRng(); D.dots=[]; for(var k=0;k<90;k++){ D.dots.push({x:(D.rng()*2-1)*D.V,y:(D.rng()*2-1)*D.V,q:k%2?1:-1}); } for(var s=0;s<400;s++) dMove(); }
+function dMove(){ var V=D.V; D.dots.forEach(function(p){ var nx=p.x+(D.rng()-0.5)*0.22, ny=p.y+(D.rng()-0.5)*0.22; if(nx>V) nx-=2*V; if(nx<-V) nx+=2*V; if(ny>V) ny-=2*V; if(ny<-V) ny+=2*V;
+  var r0=Math.hypot(p.x,p.y), r1=Math.hypot(nx,ny); if(r1<0.32) return; var dE=p.q*(dPsi(r1)-dPsi(r0)); if(dE<=0||D.rng()<Math.exp(-dE)){ p.x=nx; p.y=ny; } }); }
+function dDraw(){
+  var F=fit($('k3deb')), g=F.g, W=F.W, H=F.H, s=W/(2*D.V), X=function(x){return W/2+x*s;}, Y=function(y){return H/2+y*s;}, lam=lamD(D.I,D.t);
+  var acc=css('--accent'), mid=css('--mid'), paper=css('--paper'), muted=css('--muted'), ink=css('--ink');
+  g.clearRect(0,0,W,H); g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  /* net iyon bulutu: zıt işaretli iyonların fazlası ∝ sinh(ψ) */
+  var gr=g.createRadialGradient(X(0),Y(0),0.3*s,X(0),Y(0),Math.min(3*lam,4)*s), cm=rgb(mid);
+  for(var k=0;k<=10;k++){ var r=0.3+k/10*(Math.min(3*lam,4)-0.3), a=Math.min(0.55,0.28*Math.sinh(dPsi(r))); gr.addColorStop(k/10,str(cm,a)); }
+  g.fillStyle=gr; g.beginPath(); g.arc(X(0),Y(0),Math.min(3*lam,4)*s,0,6.283); g.fill();
+  var rp=Math.max(3,0.1*s), rc=Math.max(5,0.16*s);
+  D.dots.forEach(function(p){ g.fillStyle=p.q>0?str(rgb(acc),0.8):str(cm,0.85); g.beginPath(); g.arc(X(p.x),Y(p.y),rp,0,6.283); g.fill(); });
+  if(lam<2*D.V){ g.strokeStyle=acc; g.lineWidth=2; g.setLineDash([6,4]); g.beginPath(); g.arc(X(0),Y(0),lam*s,0,6.283); g.stroke(); g.setLineDash([]); pill(g,'λ_D = '+fx(lam,2)+' nm',X(0),Y(-lam)-2,paper,acc); }
+  g.strokeStyle=str(rgb(muted),0.8); g.lineWidth=1.4; g.setLineDash([2,4]); g.beginPath(); g.arc(X(0),Y(0),1.0*s,0,6.283); g.stroke(); g.setLineDash([]);
+  g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.textAlign='center'; g.fillText('1,0 nm',X(0),Y(1.0)+16);
+  g.fillStyle=acc; g.beginPath(); g.arc(X(0),Y(0),rc,0,6.283); g.fill(); g.fillStyle='#fffefb'; g.font='700 14px '+css('--sans'); g.fillText('+',X(0),Y(0)+5);
+  g.textAlign='left'; g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'noktalar temsili':'noktalar temsili: kırmızı artı, mavi eksi iyon',10,H-12);
+  var bx=W-12-s, by=H-18; g.strokeStyle=ink; g.lineWidth=2.2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+s,by); g.stroke(); g.fillStyle=ink; g.textAlign='center'; g.fillText('1 nm',bx+s/2,by-7); g.textAlign='left';
+}
+function dPlot(){
+  var F=fit($('k3debPlot')), g=F.g, W=F.W, H=F.H, L=48, R=14, T=18, B=32, r0=0.3, r1=3, top=2.5, lam=lamD(D.I,D.t), lb=lBj(D.t), muted=css('--muted'), line=css('--line'), acc=css('--accent');
+  var X=function(r){return L+(r-r0)/(r1-r0)*(W-L-R);}, Y=function(v){return T+(1-Math.min(top,v)/top)*(H-T-B);};
+  g.clearRect(0,0,W,H); axisY(g,L,R,T,H,B,W,[0,0.5,1,1.5,2,2.5],Y,function(v){return fx(v,1);},line,muted);
+  g.fillStyle=muted; g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(r){ g.fillText(fx(r,1),X(r),H-B+16); }); g.fillText('uzaklık r (nm)',(L+W-R)/2,H-3); g.textAlign='left'; g.fillText('merkezdeki yükün potansiyeli (kT)',L+4,T-5);
+  g.strokeStyle=str(rgb(muted),0.85); g.lineWidth=2; g.setLineDash([5,4]); g.beginPath(); for(var k=0;k<=200;k++){ var r=r0+(r1-r0)*k/200, y=Y(lb/r); if(k) g.lineTo(X(r),y); else g.moveTo(X(r),y); } g.stroke(); g.setLineDash([]);
+  g.strokeStyle=acc; g.lineWidth=2.8; g.beginPath(); for(k=0;k<=200;k++){ var r2=r0+(r1-r0)*k/200, y2=Y(lb*Math.exp(-r2/lam)/r2); if(k) g.lineTo(X(r2),y2); else g.moveTo(X(r2),y2); } g.stroke();
+  g.strokeStyle=css('--navy'); g.lineWidth=1.2; g.setLineDash([3,4]); g.beginPath(); g.moveTo(X(1),T); g.lineTo(X(1),H-B); g.stroke(); g.setLineDash([]);
+  g.fillStyle=css('--navy'); g.fillText('MD kesmesi',X(1)+5,T+12);
+  var kT=Math.exp(-1/lam); pill(g,'1,0 nm\'de '+pc(100*kT,0)+' kalıyor',Math.min(W-90,X(1)+80),Y(lb*kT)-14,css('--paper'),acc);
+}
+function dRead(){ var lam=lamD(D.I,D.t); $('k3Ival').innerHTML=(D.I>=0.1?fx(D.I*1000,0):D.I>=0.001?fx(D.I*1000,D.I<0.01?1:0):fx(D.I*1000,2))+' <small>mM</small>';
+  $('k3lam').textContent=fx(lam,lam<1?3:2)+' nm'; $('k3eps').textContent=fx(epsr(D.t),1); $('k3at1').textContent=pc(100*Math.exp(-1/lam),lam<0.3?1:0); $('k3pure').textContent=fx(lamD(1e-7,D.t),0)+' nm';
+  $('k3T4').textContent=fx(lamD(D.I,4),3)+' nm'; $('k3T25').textContent=fx(lamD(D.I,25),3)+' nm'; $('k3T37').textContent=fx(lamD(D.I,37),3)+' nm';
+  var th=100*(Math.sqrt(310.15/298.15)-1), di=100*(1-Math.sqrt(epsr(37)/epsr(25))), net=100*(1-lamD(D.I,37)/lamD(D.I,25)), all=100*(lamD(D.I,4)/lamD(D.I,37)-1);
+  $('k3Tnote').innerHTML='Neredeyse hiçbir şey. 25 °C\'den 37 °C\'ye çıkınca iyonlar daha hızlı titreşir ve bulut gevşer (λ<sub>D</sub> '+pc(th,1)+' büyür); ama sıcak suyun dielektrik sabiti de düşer, yükler birbirini daha güçlü hisseder (λ<sub>D</sub> '+pc(di,1)+' küçülür). İki etki birbirini neredeyse götürür: net '+pc(net,1)+' küçülme; 4 °C ile 37 °C arasındaki fark '+pc(all,1)+'. Perdelemeyi tampondaki tuz belirler, sıcaklık değil. Sıcaklığın asıl etkisini B\'de, DNA\'nın erimesinde göreceksiniz.'; }
+function dSet(){ dRead(); for(var s=0;s<(reduce?400:60);s++) dMove(); dDraw(); dPlot(); }
+$('k3I').addEventListener('input',function(){ D.I=Math.pow(10,+$('k3I').value); dSet(); });
+document.querySelectorAll('#k3Ipre [data-preset]').forEach(function(b){ b.onclick=function(){ D.I=+b.getAttribute('data-preset'); $('k3I').value=String(Math.log10(D.I)); dSet(); }; });
+
+/* ---------------- köprü B: DNA erimesi ve tuz ---------------- */
+var DN={na:0.15, T:80, gc:50, N:28, s:[], J:1.5, w0:30, avg:[], rng:null};
+function dTm(){ return 81.5+0.41*DN.gc+16.6*Math.log10(DN.na); } /* Schildkraut ve Lifson (1965) tuz terimi; Primer3 biçimi, uzun DNA */
+function dFrac(T,na){ var tm=81.5+0.41*DN.gc+16.6*Math.log10(na), h=(T-tm)/DN.w0, sh=Math.sinh(h); return 0.5*(1+sh/Math.sqrt(sh*sh+Math.exp(-4*DN.J))); }
+function dnInit(){ DN.rng=dRng(); DN.s=[]; for(var i=0;i<DN.N;i++) DN.s.push(-1); for(var k=0;k<200;k++) dnStep(); }
+function dnStep(){ var N=DN.N, h=(DN.T-dTm())/DN.w0, s=DN.s;
+  for(var k=0;k<N*4;k++){ var i=Math.floor(DN.rng()*N), nb=(i>0?s[i-1]:0)+(i<N-1?s[i+1]:0), p=1/(1+Math.exp(-2*(DN.J*nb+h))); s[i]=DN.rng()<p?1:-1; }
+  var o=0; for(var j=0;j<N;j++) if(s[j]>0) o++; DN.avg.push(o/N); if(DN.avg.length>150) DN.avg.shift(); }
+function dnDraw(){
+  var i, F=fit($('k3dna')), g=F.g, W=F.W, H=F.H, N=DN.N, x0=W*0.06, x1=W*0.94, dx=(x1-x0)/(N-1), cy=H*0.5, gap=Math.min(H*0.16,dx*2.4), lam=lamD(DN.na,25);
+  var acc=css('--accent'), mid=css('--mid'), muted=css('--muted'), paper=css('--paper'), ink=css('--ink'), ca=rgb(acc), cm=rgb(mid);
+  g.clearRect(0,0,W,H); g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  /* açık baz çiftlerinde zincirleri ayır (komşularla yumuşatılmış kabarcık) */
+  var d=DN.s.map(function(v){return v>0?1:0;}), sm=d.map(function(v,i){ var a=d[Math.max(0,i-1)], b=d[Math.min(N-1,i+1)]; return 0.5*v+0.25*(a+b); });
+  var yT=sm.map(function(v){return cy-gap/2-v*gap*0.9;}), yB=sm.map(function(v){return cy+gap/2+v*gap*0.9;});
+  /* Na+ bulutu: kalınlık λ_D ile (en çok 1,5 nm çizilir) */
+  var band=Math.min(1.5,lam)/0.34*dx*0.55;
+  [yT,yB].forEach(function(yy,k){ g.fillStyle=str(ca,0.1); g.beginPath(); for(var i=0;i<N;i++){ var y=yy[i]+(k?1:-1)*band; if(i) g.lineTo(x0+i*dx,y); else g.moveTo(x0+i*dx,y); } for(i=N-1;i>=0;i--) g.lineTo(x0+i*dx,yy[i]); g.closePath(); g.fill(); });
+  for(var q=0;q<N*2;q++){ var i2=q%N, top=q<N, jit=((q*7919)%97)/97, ph=(Date.now()/700+q)%6.283; var yb=(top?yT:yB)[i2]+(top?-1:1)*(4+jit*band)+Math.sin(ph)*2; g.fillStyle=str(ca,0.8); g.beginPath(); g.arc(x0+i2*dx+Math.cos(ph)*3,yb,Math.max(2,dx*0.12),0,6.283); g.fill(); }
+  /* zincirler arası itme */
+  var rep=Math.exp(-2/lam); if(rep>0.15){ for(var a=2;a<N-1;a+=6){ var xa=x0+a*dx; g.strokeStyle=str(rgb(css('--bad')),Math.min(0.9,rep)); g.lineWidth=2; g.beginPath(); g.moveTo(xa,cy-4); g.lineTo(xa,cy-gap*0.35); g.moveTo(xa,cy+4); g.lineTo(xa,cy+gap*0.35); g.stroke(); } }
+  /* baz çiftleri */
+  for(i=0;i<N;i++){ var x=x0+i*dx, gcb=(i*37%100)<DN.gc, col=gcb?css('--deep'):css('--gold');
+    g.strokeStyle=col; g.lineWidth=Math.max(2,dx*0.28); g.lineCap='round';
+    if(d[i]){ g.beginPath(); g.moveTo(x,yT[i]); g.lineTo(x,yT[i]+gap*0.28); g.moveTo(x,yB[i]); g.lineTo(x,yB[i]-gap*0.28); g.stroke(); }
+    else { g.beginPath(); g.moveTo(x,yT[i]); g.lineTo(x,yB[i]); g.stroke(); } }
+  g.lineCap='butt';
+  /* omurga ve fosfatlar */
+  [yT,yB].forEach(function(yy){ g.strokeStyle=ink; g.lineWidth=2.4; g.beginPath(); for(var i=0;i<N;i++){ if(i) g.lineTo(x0+i*dx,yy[i]); else g.moveTo(x0+i*dx,yy[i]); } g.stroke();
+    for(i=0;i<N;i++){ g.fillStyle=str(cm,1); g.beginPath(); g.arc(x0+i*dx,yy[i],Math.max(2.5,dx*0.16),0,6.283); g.fill(); } });
+  var o=d.reduce(function(a,b){return a+b;},0);
+  pill(g,'Na⁺ '+fx(DN.na*1000,DN.na<0.01?1:0)+' mM · '+fx(DN.T,1)+' °C · açık '+o+' / '+N,W/2,18,paper,css('--navy'));
+  if(rep>0.15) pill(g,'zincirler arası itme perdelenmemiş',W/2,H-16,paper,css('--bad')); else pill(g,'itme Na⁺ bulutuyla perdelendi',W/2,H-16,paper,css('--good'));
+}
+function dnPlot(){
+  var F=fit($('k3dnaPlot')), g=F.g, W=F.W, H=F.H, L=48, R=14, T=18, B=30, t0=40, t1=100, muted=css('--muted'), line=css('--line'), acc=css('--accent');
+  var X=function(t){return L+(t-t0)/(t1-t0)*(W-L-R);}, Y=function(f){return T+(1-f)*(H-T-B);};
+  g.clearRect(0,0,W,H); axisY(g,L,R,T,H,B,W,[0,0.5,1],Y,function(v){return pc(100*v,0);},line,muted);
+  g.fillStyle=muted; g.textAlign='center'; [40,50,60,70,80,90,100].forEach(function(t){ g.fillText(t+' °C',X(t),H-B+15); }); g.textAlign='left'; g.fillText('açık baz çifti oranı (UV erime eğrisi gibi)',L+4,T-5);
+  function cur(na,col,w,dash){ g.strokeStyle=col; g.lineWidth=w; g.setLineDash(dash||[]); g.beginPath(); for(var k=0;k<=240;k++){ var t=t0+(t1-t0)*k/240, y=Y(dFrac(t,na)); if(k) g.lineTo(X(t),y); else g.moveTo(X(t),y); } g.stroke(); g.setLineDash([]); }
+  cur(0.01,str(rgb(muted),0.8),1.6,[5,4]); cur(0.15,str(rgb(muted),0.8),1.6,[5,4]);
+  g.fillStyle=muted; g.font='12px '+css('--sans'); var tA=81.5+0.41*DN.gc+16.6*Math.log10(0.01), tB=81.5+0.41*DN.gc+16.6*Math.log10(0.15);
+  if(tA>t0&&tA<t1-8) g.fillText('10 mM',X(tA)+4,Y(0.5)-4); if(tB>t0&&tB<t1-8) g.fillText('150 mM',X(tB)+4,Y(0.5)+14);
+  cur(DN.na,acc,2.8); var tm=dTm(); if(tm>t0&&tm<t1){ g.strokeStyle=acc; g.lineWidth=1.2; g.setLineDash([3,4]); g.beginPath(); g.moveTo(X(tm),T); g.lineTo(X(tm),H-B); g.stroke(); g.setLineDash([]); pill(g,'T_m '+fx(tm,1)+' °C',Math.min(W-60,Math.max(L+50,X(tm))),T+10,css('--paper'),acc); }
+  var av=DN.avg.length?DN.avg.reduce(function(a,b){return a+b;},0)/DN.avg.length:0; g.fillStyle=css('--navy'); g.beginPath(); g.arc(X(DN.T),Y(av),5.5,0,6.283); g.fill();
+}
+function dnRead(){ var tm=dTm(), o=DN.s.filter(function(v){return v>0;}).length; $('k3dSaltV').innerHTML=fx(DN.na*1000,DN.na<0.01?1:0)+' <small>mM</small>'; $('k3dTV').innerHTML=fx(DN.T,1)+' <small>°C</small>'; $('k3dTm').textContent=fx(tm,1)+' °C'; $('k3dOpen').textContent=o+' / '+DN.N; $('k3dLam').textContent=fx(lamD(DN.na,25),2)+' nm'; }
+function dnSet(){ DN.avg=[]; for(var k=0;k<(reduce?300:20);k++) dnStep(); dnRead(); dnDraw(); dnPlot(); }
+$('k3dSalt').addEventListener('input',function(){ DN.na=Math.pow(10,+$('k3dSalt').value)/1000; dnSet(); });
+$('k3dT').addEventListener('input',function(){ DN.T=+$('k3dT').value; dnSet(); });
+document.querySelectorAll('[data-gc]').forEach(function(b){ b.onclick=function(){ DN.gc=+b.getAttribute('data-gc'); document.querySelectorAll('[data-gc]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); dnSet(); }; });
+
+/* ---------------- köprü C: protein çözünürlüğü ---------------- */
+var PR={salt:'nacl', c:0.001, N:36, LX:10, LY:7.5, s:0.6, rc:0.7, x:[], y:[], a:[], sol:[], lab:null, sz:null, rng:null, fr:0};
+function pI(){ return PR.salt==='as'?3*PR.c:PR.c; }
+function pEl(){ return 3.4*Math.exp(-0.5/lamD(pI(),25)); }
+function pSo(){ return (PR.salt==='as'?0.8:0.25)*pI(); }
+function pE(){ return pEl()+pSo(); }
+function prInit(){ PR.rng=(function(){ var a=4242; return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; })();
+  PR.x=[]; PR.y=[]; PR.a=[]; while(PR.x.length<PR.N){ var px=PR.rng()*PR.LX, py=PR.rng()*PR.LY, ok=true; for(var i=0;i<PR.x.length;i++){ var d=pd2(PR.x[i],PR.y[i],px,py); if(d<PR.s*PR.s*1.2){ok=false;break;} } if(ok){ PR.x.push(px); PR.y.push(py); PR.a.push(PR.rng()*6.283); } } }
+function pd2(ax,ay,bx,by){ var dx=bx-ax, dy=by-ay; dx-=PR.LX*Math.round(dx/PR.LX); dy-=PR.LY*Math.round(dy/PR.LY); return dx*dx+dy*dy; }
+function pEn(i,px,py,E){ var e=0, s2=PR.s*PR.s, r2=PR.rc*PR.rc; for(var j=0;j<PR.N;j++){ if(j===i) continue; var d=pd2(PR.x[j],PR.y[j],px,py); if(d<s2) return Infinity; if(d<r2) e-=E; } return e; }
+function prStep(sweeps){ var E=pE(), N=PR.N;
+  for(var k=0;k<N*sweeps;k++){ var i=Math.floor(PR.rng()*N), nx=(PR.x[i]+(PR.rng()-0.5)*0.3+PR.LX)%PR.LX, ny=(PR.y[i]+(PR.rng()-0.5)*0.3+PR.LY)%PR.LY, dE=pEn(i,nx,ny,E)-pEn(i,PR.x[i],PR.y[i],E); if(dE<=0||PR.rng()<Math.exp(-dE)){ PR.x[i]=nx; PR.y[i]=ny; PR.a[i]+=(PR.rng()-0.5)*0.2; } }
+  PR.fr++; if(PR.fr%6===0) prClusters(); }
+function prClusters(){ var N=PR.N, lab=new Array(N).fill(-1), sz=[], c=0, r2=PR.rc*PR.rc; for(var i=0;i<N;i++){ if(lab[i]>=0) continue; var st=[i], n=0; lab[i]=c; while(st.length){ var k=st.pop(); n++; for(var j=0;j<N;j++) if(lab[j]<0&&pd2(PR.x[k],PR.y[k],PR.x[j],PR.y[j])<r2){ lab[j]=c; st.push(j); } } sz.push(n); c++; }
+  PR.lab=lab; PR.sz=sz; var f=0; for(i=0;i<N;i++) if(sz[lab[i]]<=3) f++; PR.sol.push(f/N); if(PR.sol.length>80) PR.sol.shift(); }
+function prDraw(){
+  var F=fit($('k3prot')), g=F.g, W=F.W, H=F.H, s=Math.min(W/PR.LX,H/PR.LY), ox=(W-PR.LX*s)/2, oy=(H-PR.LY*s)/2, X=function(x){return ox+x*s;}, Y=function(y){return oy+y*s;};
+  var paper=css('--paper'), ca=rgb(css('--accent')), cm=rgb(css('--mid')), prot=css('--prot'), line=css('--line'), muted=css('--muted');
+  g.clearRect(0,0,W,H); g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  g.strokeStyle=css('--navy'); g.lineWidth=1.4; g.setLineDash([6,4]); g.strokeRect(X(0),Y(0),PR.LX*s,PR.LY*s); g.setLineDash([]);
+  /* tuz iyonları: temsili, sayısı derişimin logaritmasıyla */
+  var ni=Math.max(0,Math.round(22*(Math.log10(PR.c)+4))), t=Date.now()/900;
+  for(var k=0;k<ni;k++){ var hx=((k*7919)%1000)/1000*PR.LX, hy=((k*104729)%997)/997*PR.LY; g.fillStyle=str(k%2?ca:cm,0.35); g.beginPath(); g.arc(X((hx+0.1*Math.sin(t+k))%PR.LX),Y((hy+0.1*Math.cos(t+k*1.3))%PR.LY),Math.max(1.3,0.035*s),0,6.283); g.fill(); }
+  var rP=PR.s*0.5*s;
+  for(var i=0;i<PR.N;i++){ var big=PR.sz&&PR.sz[PR.lab[i]]>3;
+    for(var ix=-1;ix<=1;ix++) for(var iy=-1;iy<=1;iy++){ var px=X(PR.x[i]+ix*PR.LX), py=Y(PR.y[i]+iy*PR.LY); if(px<ox-rP||px>ox+PR.LX*s+rP||py<oy-rP||py>oy+PR.LY*s+rP) continue; var ghost=ix||iy;
+      if(big){ g.fillStyle=str(ca,ghost?0.08:0.18); g.beginPath(); g.arc(px,py,rP*1.35,0,6.283); g.fill(); }
+      g.fillStyle=str(rgb(prot),ghost?0.35:0.95); g.beginPath(); g.arc(px,py,rP,0,6.283); g.fill();
+      var ang=PR.a[i]; g.fillStyle=str(ca,ghost?0.35:1); g.beginPath(); g.arc(px+Math.cos(ang)*rP*0.55,py+Math.sin(ang)*rP*0.55,rP*0.28,0,6.283); g.fill();
+      g.fillStyle=str(cm,ghost?0.35:1); g.beginPath(); g.arc(px-Math.cos(ang)*rP*0.55,py-Math.sin(ang)*rP*0.55,rP*0.28,0,6.283); g.fill(); } }
+  var sol=PR.sol.length?PR.sol.reduce(function(a,b){return a+b;},0)/PR.sol.length:1;
+  pill(g,'çözünen '+pc(100*sol,0),W/2,18,paper,sol>0.6?css('--good'):css('--accent'));
+  g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'periyodik kutu':'periyodik kutu · noktalar: tuz iyonları (temsili)',8,H-8);
+}
+function prPlot(){
+  var F=fit($('k3protPlot')), g=F.g, W=F.W, H=F.H, L=48, R=14, T=18, B=30, l0=-4, l1=1, top=5, muted=css('--muted'), line=css('--line'), sv=PR.salt, c0=PR.c;
+  var X=function(l){return L+(l-l0)/(l1-l0)*(W-L-R);}, Y=function(e){return T+(1-Math.min(top,e)/top)*(H-T-B);};
+  g.clearRect(0,0,W,H); axisY(g,L,R,T,H,B,W,[0,1,2,3,4,5],Y,function(v){return fx(v,0)+' kT';},line,muted);
+  g.fillStyle=muted; g.textAlign='center'; [[-4,'0,1 mM'],[-3,'1 mM'],[-2,'10 mM'],[-1,'0,1 M'],[0,'1 M'],[1,'10 M']].forEach(function(q){ g.fillText(q[1],X(q[0]),H-B+15); }); g.fillText('iyonik şiddet',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText('iki protein molekülünün temas enerjisi ('+(sv==='as'?'amonyum sülfat':'NaCl')+')',L+4,T-5);
+  g.strokeStyle=css('--ink'); g.lineWidth=1; g.setLineDash([5,4]); g.beginPath(); g.moveTo(L,Y(2.2)); g.lineTo(W-R,Y(2.2)); g.stroke(); g.setLineDash([]);
+  function cur(f,col,w){ g.strokeStyle=col; g.lineWidth=w; g.beginPath(); for(var k=0;k<=200;k++){ var l=l0+(l1-l0)*k/200, I=Math.pow(10,l), e=f(I); if(k) g.lineTo(X(l),Y(e)); else g.moveTo(X(l),Y(e)); } g.stroke(); }
+  var kso=sv==='as'?0.8:0.25, Imax=sv==='as'?3*3:3;
+  cur(function(I){return 3.4*Math.exp(-0.5/lamD(I,25));},css('--mid'),2.2); cur(function(I){return kso*I;},css('--gold'),2.2); cur(function(I){return 3.4*Math.exp(-0.5/lamD(I,25))+kso*I;},css('--accent'),2.8);
+  g.fillStyle=str(rgb(css('--stage')),0.7); g.fillRect(X(Math.log10(Imax)),T,W-R-X(Math.log10(Imax)),H-T-B); g.fillStyle=muted; g.fillText('bu derişim',X(Math.log10(Imax))+4,Y(4.6)); g.fillText('seçilmez',X(Math.log10(Imax))+4,Y(4.6)+14);
+  var I=pI(); g.fillStyle=css('--navy'); g.beginPath(); g.arc(X(Math.log10(I)),Y(pE()),5.5,0,6.283); g.fill();
+  g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.fillText('tuzla çözme →',X(-3.4),Y(0.4)); if(sv==='as') { g.textAlign='right'; g.fillText('← tuzla çöktürme',X(Math.log10(Imax))-6,Y(0.4)); g.textAlign='left'; }
+}
+function prRead(){ var sol=PR.sol.length?PR.sol.reduce(function(a,b){return a+b;},0)/PR.sol.length:null, c=PR.c;
+  $('k3pcV').innerHTML=(c>=1?fx(c,2)+' <small>M</small>':c>=0.001?fx(c*1000,c<0.01?1:0)+' <small>mM</small>':fx(c*1000,2)+' <small>mM</small>');
+  $('k3pI').textContent=(pI()>=1?fx(pI(),2)+' M':fx(pI()*1000,pI()<0.01?1:0)+' mM'); $('k3pEl').textContent=fx(pEl(),2)+' kT'; $('k3pSo').textContent=fx(pSo(),2)+' kT'; $('k3pE').textContent=fx(pE(),2)+' kT'; $('k3pSol').textContent=sol===null?'ölçülüyor':pc(100*sol,0); }
+function prMsg(){ var E=pE(), el=pEl(), so=pSo(), h;
+  if(E>2.5) h=el>so?'<span class="t">Moleküller kümeleniyor: zıt yüklü yüzeyler birbirini çekiyor</span><span>Tuz az, Debye uzunluğu '+fx(lamD(pI(),25),1)+' nm; yüzeydeki artı ve eksi bölgeler birbirini perdelenmeden hissediyor. Biraz tuz ekleyin: tuzla çözme.</span>'
+    :'<span class="t">Moleküller çöküyor: tuzun yapıştırıcı etkisi baskın</span><span>'+(PR.salt==='as'?'Amonyum sülfat çöktürmesi budur: iyonlar suyu bağlar, proteinlerin yağsı yüzeyleri birbirine yapışır.':'NaCl ile bu kadar güçlü çöktürme için çok yüksek derişim gerekir.')+'</span>';
+  else if(E<1.9) h='<span class="t">Moleküller çözünüyor</span><span>Yüzey yüklerinin çekimi tuzla perdelendi, tuzun yapıştırıcı etkisi henüz küçük. Temas enerjisi '+fx(E,2)+' kT.</span>';
+  else h='<span class="t">Sınırda: küçük kümeler oluşup dağılıyor</span><span>Temas enerjisi '+fx(E,2)+' kT; bu modelde kümeleşme yaklaşık 2,2 kT\'de başlıyor.</span>';
+  $('k3pChg').innerHTML=h; }
+function prSet(){ PR.sol=[]; if(reduce){ prStep(300); for(var k=0;k<20;k++){ prStep(5); prClusters(); } } prRead(); prDraw(); prPlot(); prMsg(); }
+$('k3pc').addEventListener('input',function(){ PR.c=Math.pow(10,+$('k3pc').value); prSet(); });
+document.querySelectorAll('[data-salt]').forEach(function(b){ b.onclick=function(){ PR.salt=b.getAttribute('data-salt'); document.querySelectorAll('[data-salt]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); prSet(); }; });
+document.querySelectorAll('[data-pp]').forEach(function(b){ b.onclick=function(){ PR.c=Math.pow(10,+b.getAttribute('data-pp')); $('k3pc').value=b.getAttribute('data-pp'); prSet(); }; });
+
+/* ---------------- 1 · atölye: kabuk kabuk Coulomb toplamı ---------------- */
+var NMAX=40, W2={mode:'circle', n:3, maxN:{circle:0,square:0,evjen:0}, play:false, acc:0, tab:{}};
+(function(){ var s6inf=EW.sum2D(150,'square').S6; ['circle','square','evjen'].forEach(function(m){ var t=[]; for(var n=1;n<=NMAX;n++){ var r=EW.sum2D(n,m); t[n]={M:r.M,q:r.q,cnt:r.n,s6:r.S6/s6inf}; } W2.tab[m]=t; }); })();
+var MLAB={circle:'Daire', square:'Kare', evjen:'Kare, sınır yarım'};
+function wDraw(){
+  var F=fit($('k3lat')), g=F.g, W=F.W, H=F.H, n=W2.n, m=W2.mode, Rv=Math.max(4.6,n+1.6), s=W/(2*Rv), X=function(i){return W/2+i*s;}, Y=function(j){return H/2+j*s;};
+  var acc=css('--accent'), mid=css('--mid'), gold=css('--gold'), paper=css('--paper'), ca=rgb(acc), cm=rgb(mid), K=Math.ceil(Rv);
+  g.clearRect(0,0,W,H); g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  g.fillStyle=str(rgb(css('--warm')),0.16); g.strokeStyle=gold; g.lineWidth=2; g.setLineDash([6,4]);
+  if(m==='circle'){ g.beginPath(); g.arc(X(0),Y(0),(n+0.5)*s,0,6.283); g.fill(); g.beginPath(); g.arc(X(0),Y(0),n*s,0,6.283); g.stroke(); }
+  else { g.fillRect(X(-n-0.5),Y(-n-0.5),(2*n+1)*s,(2*n+1)*s); g.strokeRect(X(-n),Y(-n),2*n*s,2*n*s); }
+  g.setLineDash([]);
+  var rr=Math.max(1.4,Math.min(0.36*s,13));
+  for(var j=-K;j<=K;j++) for(var i=-K;i<=K;i++){ var inside, w=1, r=Math.hypot(i,j), sg=((i+j)&1)?-1:1;
+    if(m==='circle') inside=r<=n+1e-9; else { inside=Math.abs(i)<=n&&Math.abs(j)<=n; if(m==='evjen'&&inside){ var ai=Math.abs(i)===n, aj=Math.abs(j)===n; w=(ai&&aj)?0.25:((ai||aj)?0.5:1); } }
+    var col=sg>0?ca:cm; g.fillStyle=str(col,inside?(w<1?0.5:0.95):0.18); g.beginPath(); g.arc(X(i),Y(j),rr,0,6.283); g.fill();
+    if(inside&&w<1&&rr>5){ g.strokeStyle=str(col,0.95); g.lineWidth=1.4; g.beginPath(); g.arc(X(i),Y(j),rr,0,6.283); g.stroke(); } }
+  g.strokeStyle=gold; g.lineWidth=3; g.beginPath(); g.arc(X(0),Y(0),rr+3,0,6.283); g.stroke();
+  var t=W2.tab[m][n]; pill(g,MLAB[m]+' · n = '+n,W/2,20,paper,css('--navy')); pill(g,'net yük '+(t.q>0.001?'+':'')+fx(t.q,Math.abs(t.q-Math.round(t.q))>0.01?2:0),W/2,H-18,paper,Math.abs(t.q)>0.01?acc:css('--good'));
+}
+function wPlot(){
+  var F=fit($('k3latPlot')), g=F.g, W=F.W, H=F.H, L=48, R=14, T=18, B=28, lo=0.8, hi=3.2, muted=css('--muted'), line=css('--line');
+  var X=function(n){return L+(n-1)/(NMAX-1)*(W-L-R);}, Y=function(v){return T+(hi-Math.max(lo,Math.min(hi,v)))/(hi-lo)*(H-T-B);};
+  g.clearRect(0,0,W,H); axisY(g,L,R,T,H,B,W,[1,1.5,2,2.5,3],Y,function(v){return fx(v,1);},line,muted);
+  g.fillStyle=muted; g.textAlign='center'; [1,10,20,30,40].forEach(function(n){ g.fillText(String(n),X(n),H-B+15); }); g.textAlign='left'; g.fillText('Coulomb toplamı · yalnız sizin eklediğiniz kabuklar çizilir',L+4,T-5);
+  g.strokeStyle=css('--ink'); g.lineWidth=1.2; g.setLineDash([5,4]); g.beginPath(); g.moveTo(L,Y(1.6155)); g.lineTo(W-R,Y(1.6155)); g.stroke(); g.setLineDash([]);
+  [['circle','--accent'],['square','--gold'],['evjen','--deep']].forEach(function(q){ var mx=W2.maxN[q[0]]; if(mx<1) return; var t=W2.tab[q[0]], cur=q[0]===W2.mode; g.strokeStyle=css(q[1]); g.lineWidth=cur?2.6:1.5; g.globalAlpha=cur?1:0.6; g.beginPath(); for(var n=1;n<=mx;n++){ var y=Y(t[n].M); if(n>1) g.lineTo(X(n),y); else g.moveTo(X(n),y); } g.stroke(); g.globalAlpha=1; });
+  var c=W2.tab[W2.mode][W2.n]; g.fillStyle=css('--navy'); g.beginPath(); g.arc(X(W2.n),Y(c.M),4.5,0,6.283); g.fill();
+}
+function s6Plot(){
+  var F=fit($('k3s6Plot')), g=F.g, W=F.W, H=F.H, L=48, R=14, T=18, B=24, lo=0.8, hi=1.0, muted=css('--muted'), line=css('--line');
+  var X=function(n){return L+(n-1)/(NMAX-1)*(W-L-R);}, Y=function(v){return T+(hi-Math.max(lo,Math.min(hi,v)))/(hi-lo)*(H-T-B);};
+  g.clearRect(0,0,W,H); axisY(g,L,R,T,H,B,W,[0.8,0.9,1],Y,function(v){return pc(100*v,0);},line,muted);
+  g.fillStyle=muted; g.textAlign='left'; g.fillText('aynı kabuklarda r⁻⁶ toplamı, sonsuz örgüye göre',L+4,T-5);
+  [['circle','--accent'],['square','--gold'],['evjen','--deep']].forEach(function(q){ var mx=W2.maxN[q[0]]; if(mx<1) return; var t=W2.tab[q[0]]; g.strokeStyle=css(q[1]); g.lineWidth=q[0]===W2.mode?2.6:1.5; g.beginPath(); for(var n=1;n<=mx;n++){ var y=Y(t[n].s6); if(n>1) g.lineTo(X(n),y); else g.moveTo(X(n),y); } g.stroke(); });
+}
+function wRead(){ var t=W2.tab[W2.mode][W2.n]; $('k3nVal').textContent=String(W2.n); $('k3cnt').textContent=String(t.cnt); $('k3q').textContent=(t.q>0.001?'+':'')+fx(t.q,Math.abs(t.q-Math.round(t.q))>0.01?2:0); $('k3M').textContent=fx(t.M,4); $('k3s6').textContent=pc(100*t.s6,2); }
+function wMsg(){ var m=W2.mode, n=W2.n, t=W2.tab[m][n], nx=n<NMAX?W2.tab[m][n+1]:null, h;
+  if(m==='circle') h='<span class="t">Daire, n = '+n+': toplam '+fx(t.M,3)+', bölgenin net yükü '+(t.q>0?'+':'')+fx(t.q,0)+'</span><span>'+(nx?'Bir kabuk daha eklenince (n = '+(n+1)+') net yük '+(nx.q>0?'+':'')+fx(nx.q,0)+' olur ve toplam '+fx(nx.M,3)+' olur. ':'')+'Dairenin sınırına her seferinde başka sayıda artı ve eksi iyon girer; bölge yüklü kaldıkça toplam zıplar.</span>';
+  else if(m==='square') h='<span class="t">Kare, n = '+n+': toplam '+fx(t.M,4)+', net yük +1</span><span>Kare kabukların kendisi yüksüz ama merkezdeki iyonun yükü hiç dengelenmiyor. Toplam zıplamıyor, ama 1,6155\'e çok yavaş yaklaşıyor.</span>';
+  else h='<span class="t">Kare, sınır yarım, n = '+n+': toplam '+fx(t.M,4)+', net yük 0</span><span>Sınırdaki iyonlar yarım, köşedekiler çeyrek sayılınca bölge her adımda yüksüz kalır ve toplam birkaç kabukta 1,6155\'e oturur.</span>';
+  $('k3latChg').innerHTML=h; }
+function wSet(n){ W2.n=Math.max(1,Math.min(NMAX,n)); $('k3n').value=String(W2.n); if(W2.n>W2.maxN[W2.mode]) W2.maxN[W2.mode]=W2.n; wRead(); wDraw(); wPlot(); s6Plot(); wMsg(); wCard(); }
+function wCard(){ var mc=W2.maxN.circle, me=W2.maxN.evjen; if(mc<20||me<20) return; var tc=W2.tab.circle, a=Math.max(1,mc-4), mn=1e9, mxv=-1e9, qmn=1e9, qmx=-1e9;
+  for(var n=a;n<=mc;n++){ mn=Math.min(mn,tc[n].M); mxv=Math.max(mxv,tc[n].M); qmn=Math.min(qmn,tc[n].q); qmx=Math.max(qmx,tc[n].q); }
+  var e=W2.tab.evjen[20], s3=W2.tab.square[3].s6;
+  card('k3c1',true,'Sizin denemeniz: daire bölgede n = '+a+' ile '+mc+' arasında toplam '+fx(mn,3)+' ile '+fx(mxv,3)+' arasında zıpladı; bölgenin net yükü '+(qmn>0?'+':'')+fx(qmn,0)+' ile '+(qmx>0?'+':'')+fx(qmx,0)+' arasında değişti. Sınırı yarım sayılan kare bölgede toplam n = 20\'de '+fx(e.M,4)+', net yük 0. Aynı kabuklarda r⁻⁶ toplamı n = 3\'te bile sonsuz örgüdekinin '+pc(100*s3,1)+' kadarıydı. Coulomb toplamı sayma biçimine bağlıdır ve yalnız yüksüz bölgelerle düzgün yakınsar; bir kesme mesafesiyle kesilemez. Van der Waals toplamı ise kısa mesafede tamamlanır.'); }
+$('k3n').addEventListener('input',function(){ wSet(+$('k3n').value); });
+function wMode(m){ W2.mode=m; $('k3mC').setAttribute('aria-pressed',String(m==='circle')); $('k3mS').setAttribute('aria-pressed',String(m==='square')); $('k3mE').setAttribute('aria-pressed',String(m==='evjen')); if(W2.n>W2.maxN[m]) W2.maxN[m]=W2.n; wSet(W2.n); }
+$('k3mC').onclick=function(){ wMode('circle'); }; $('k3mS').onclick=function(){ wMode('square'); }; $('k3mE').onclick=function(){ wMode('evjen'); };
+$('k3play').onclick=function(){ if(W2.n>=NMAX) wSet(1); W2.play=!W2.play; $('k3play').textContent=W2.play?'Durdur':'Kabuk ekle'; if(W2.play&&reduce){ W2.play=false; $('k3play').textContent='Kabuk ekle'; wSet(W2.n+1); return; } kick(); };
+$('k3reset').onclick=function(){ W2.play=false; $('k3play').textContent='Kabuk ekle'; wSet(1); };
+
+/* ---------------- 2 · tezgâh: Ewald ayrışımı ---------------- */
+var MAD=1.747565, BZ={beta:1.5, rc:4.0, curve:null, curveRc:null, tried:[]};
+function bCalc(beta,rc){ return EW.ewald3D(beta,rc,EW.kmaxFor(beta,1e-8)); }
+function bCurve(){ if(BZ.curveRc===BZ.rc) return; var c=[]; for(var b=0.4;b<=3.0001;b+=0.1){ var r=bCalc(b,BZ.rc); c.push({b:b,re:r.real,rk:r.rec,rs:r.self,M:r.M}); } BZ.curve=c; BZ.curveRc=BZ.rc; }
+/* ---------------- 2 · tezgâh: Ewald, adım adım (bir boyutlu iyon sırası) ---------------- */
+/* İyon sırası: x = j (r₀ birimi), yük (−1)^j. Kılıf: normlu Gauss, genişlik 1/β.
+   Yumuşak bulutların toplamı tam olarak Fourier serisidir: ρ(x) = 2 Σ_{n tek} e^{−n²π²/(4β²)} cos(nπx). */
+var ES={step:1, tw:1, waves:0, wt:0, play:false, pt:0};
+var ESTEP=['Nokta yükler','Kılıf giydir','Yakın kısmı kes','Bulutları geri koy','Dalgalarla topla','Topla'];
+function esGauss(x){ var b=BZ.beta; return b/Math.sqrt(Math.PI)*Math.exp(-b*b*x*x); }
+function esSmooth(x){ var s=0; for(var j=-9;j<=9;j++) s+=((j&1)?-1:1)*esGauss(x-j); return s; }
+function esFourier(x,K){ var s=0, b=BZ.beta; for(var k=0;k<K;k++){ var n=2*k+1; s+=2*Math.exp(-n*n*Math.PI*Math.PI/(4*b*b))*Math.cos(n*Math.PI*x); } return s; }
+function esNeed(tol){ var b=BZ.beta; for(var k=0;k<60;k++){ var n=2*k+1; if(2*Math.exp(-n*n*Math.PI*Math.PI/(4*b*b))<tol) return k; } return 60; }
+function esErr(K){ var m=0; for(var i=0;i<=200;i++){ var x=-1+i/100; m=Math.max(m,Math.abs(esFourier(x,K)-esSmooth(x))); } var ref=0; for(i=0;i<=200;i++){ ref=Math.max(ref,Math.abs(esSmooth(-1+i/100))); } return ref>0?m/ref:0; }
+function esDraw(){
+  var F=fit($('k3ew')), g=F.g, W=F.W, H=F.H, st=ES.step, tw=ES.tw, narrow=W<560, L=narrow?30:92, R=12, top=40, hS=(H-top-30)/3, V=narrow?4.5:5.5;
+  var X=function(x){return L+(x+V)/(2*V)*(W-L-R);}, sx=(W-L-R)/(2*V);
+  var paper=css('--paper'), muted=css('--muted'), line=css('--line'), ink=css('--ink'), ca=rgb(css('--accent')), cm=rgb(css('--mid')), navy=css('--navy');
+  g.clearRect(0,0,W,H); g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  /* adım göstergesi */
+  var dw=Math.min(26,(W-20)/12); for(var k=1;k<=6;k++){ var cx=W/2+(k-3.5)*dw*1.6; g.fillStyle=k<=st?navy:line; g.beginPath(); g.arc(cx,16,k===st?7:5,0,6.283); g.fill(); }
+  if(!narrow){ g.fillStyle=ink; g.font='600 12.5px '+css('--sans'); g.textAlign='left'; g.fillText(st+' · '+ESTEP[st-1],10,20); }
+  var peakN=0.42*hS; /* nokta yük oku yüksekliği */
+  var gs=peakN/(3/Math.sqrt(Math.PI)); /* Gauss ölçeği: β = 3'te tepe = ok boyu (alan korunur) */
+  function row(i){ return top+i*hS+hS/2; }
+  function labelRow(i,txt,sym){ g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.textAlign='left'; if(!narrow){ var ws=txt.split('|'); ws.forEach(function(w,k){ g.fillText(w,8,row(i)-8+k*15); }); } if(sym){ g.fillStyle=ink; g.font='700 20px '+css('--sans'); g.textAlign='center'; g.fillText(sym,narrow?14:L-14,row(i)-hS/2+6); } g.textAlign='left'; }
+  function axisLine(i){ g.strokeStyle=line; g.lineWidth=1; g.beginPath(); g.moveTo(L,row(i)); g.lineTo(W-R,row(i)); g.stroke(); }
+  function spikes(i,al){ for(var j=-Math.ceil(V);j<=Math.ceil(V);j++){ if(Math.abs(j)>V) continue; var q=(j&1)?-1:1, x=X(j), y0=row(i), y1=y0-q*peakN; g.strokeStyle=str(q>0?ca:cm,al); g.fillStyle=str(q>0?ca:cm,al); g.lineWidth=3; g.beginPath(); g.moveTo(x,y0); g.lineTo(x,y1+q*6); g.stroke(); g.beginPath(); g.moveTo(x,y1); g.lineTo(x-5,y1+q*9); g.lineTo(x+5,y1+q*9); g.closePath(); g.fill(); } }
+  function fillCurve(i,f,colPos,colNeg,al){ var y0=row(i); [1,-1].forEach(function(sg){ g.fillStyle=str(sg>0?colPos:colNeg,al); g.beginPath(); g.moveTo(X(-V),y0); for(var p=0;p<=400;p++){ var x=-V+2*V*p/400, v=f(x); v=sg>0?Math.max(0,v):Math.min(0,v); g.lineTo(X(x),y0-Math.max(-hS*0.48,Math.min(hS*0.48,v*gs))); } g.lineTo(X(V),y0); g.closePath(); g.fill(); }); }
+  function curve(i,f,col,w,dash,scale){ var y0=row(i); g.strokeStyle=col; g.lineWidth=w; g.setLineDash(dash||[]); g.beginPath(); for(var p=0;p<=400;p++){ var x=-V+2*V*p/400, v=f(x)*(scale||gs); v=Math.max(-hS*0.48,Math.min(hS*0.48,v)); if(p) g.lineTo(X(x),y0-v); else g.moveTo(X(x),y0-v); } g.stroke(); g.setLineDash([]); }
+  /* A: nokta yükler */
+  axisLine(0); labelRow(0,'nokta|yükler',null); spikes(0,1);
+  /* B: yakın kısım = yük + zıt kılıf */
+  if(st>=2){ var a2=st===2?tw:1; axisLine(1); labelRow(1,'yakın kısım|yük + kılıf','=');
+    for(var j=-Math.ceil(V)-1;j<=Math.ceil(V)+1;j++){ (function(j){ var q=(j&1)?-1:1; fillCurve(1,function(x){ return -q*esGauss(x-j)*a2; },cm,ca,0.4); })(j); } spikes(1,1);
+    if(st>=3){ var rc=BZ.rc, a3=st===3?tw:1, y=row(1);
+      curve(1,function(x){ var r=Math.max(0.05,Math.abs(x)); return 1/r; },str(rgb(muted),0.7*a3),1.6,[4,4],hS*0.16);
+      curve(1,function(x){ var r=Math.max(0.05,Math.abs(x)); return EW.erfc(BZ.beta*r)/r; },str(rgb(css('--bad')),a3),2.6,null,hS*0.16);
+      g.strokeStyle=str(rgb(navy),a3); g.lineWidth=1.3; g.setLineDash([3,4]); [-rc,rc].forEach(function(xr){ if(Math.abs(xr)<=V){ g.beginPath(); g.moveTo(X(xr),y-hS*0.46); g.lineTo(X(xr),y+hS*0.46); g.stroke(); } }); g.setLineDash([]);
+      if(a3>0.5){ var tail=EW.erfc(BZ.beta*rc); pill(g,narrow?'r_c':'r_c: kesmede kalan '+sci(tail),Math.min(W-R-(narrow?20:105),Math.max(L+(narrow?20:105),X(Math.min(rc,V-0.4)))),y-hS*0.4,paper,navy); g.fillStyle=css('--bad'); g.font='600 11.5px '+css('--sans'); g.textAlign='right'; if(!narrow) g.fillText('kırmızı: kılıflı yükün etkisi · gri: kılıfsız',W-R-4,y+hS*0.46); g.textAlign='left'; } } }
+  /* C: uzak kısım = aynı işaretli yumuşak bulutlar; dalgalarla */
+  if(st>=4){ var a4=st===4?tw:1; axisLine(2); labelRow(2,'uzak kısım|bulutlar','+');
+    for(var jj=-Math.ceil(V)-1;jj<=Math.ceil(V)+1;jj++){ (function(j){ var q=(j&1)?-1:1; fillCurve(2,function(x){ return q*esGauss(x-j)*a4; },ca,cm,0.16); })(jj); }
+    curve(2,function(x){ return esSmooth(x)*a4; },css('--ink'),2.2);
+    if(st>=5){ var K=ES.waves; if(K>0){ curve(2,function(x){ return esFourier(x,K); },navy,2.6,[6,4]); }
+      var need=esNeed(1e-3); pill(g,narrow?K+' dalga':K+' dalga · fark '+pc(100*esErr(K),K>0&&esErr(K)<0.01?2:0),Math.min(W-R-(narrow?40:90),X(V-1.6)),row(2)-hS*0.42,paper,navy); } }
+  /* 6: toplam */
+  if(st>=6){ var r=BZ.cur; pill(g,narrow?'toplam '+fx(r.M,5):'NaCl: yakın '+fx(r.real,3)+' + uzak '+fx(r.rec,3)+' + öz '+fx(r.self,3)+' = '+fx(r.M,5),W/2,H-14,paper,css('--good')); }
+}
+function esMsg(){ var st=ES.step, r=BZ.cur, tail=EW.erfc(BZ.beta*BZ.rc), dev=Math.abs(r.M-MAD), K=ES.waves, need=esNeed(1e-3), h;
+  var T=['<span class="t">1 · Nokta yükler</span><span>Bir tuz kristalinden alınmış bir iyon sırası: artı ve eksi yükler art arda. Her iyonun etkisi 1/r ile yavaş söner; atölyede gördüğünüz gibi uzaktakiler de sayılmalı ve toplam, sayma biçimine bağlı. "İleri" ile devam edin.</span>',
+    '<span class="t">2 · Her yüke zıt işaretli bir kılıf giydirin</span><span>Kılıf, genişliği 1/β = '+fx(1/BZ.beta,2)+' r₀ olan yumuşak bir bulut; toplam yükü yükün kendisine eşit ve zıt. Kılıflı bir yük uzaktan yüksüz görünür.</span>',
+    '<span class="t">3 · Kılıflı yükün etkisi kısa mesafede söner</span><span>Kırmızı eğri, kılıflı ortadaki iyonun etkisi (erfc(βr)/r); gri kesikli eğri kılıfsız hâli (1/r). Kılıflı etki birkaç r₀\'da söndüğü için r_c\'de kesmek güvenli: kesmede kalan pay '+sci(tail)+'. Bu yakın kısım gerçek uzayda, komşu listesiyle hesaplanır.</span>',
+    '<span class="t">4 · Kılıfları geri alın: aynı yere aynı işaretli bulutlar</span><span>Kılıfları hesaba biz ekledik; sonucu değiştirmemek için her yükün üstüne aynı işaretli bir bulut koyuyoruz. Bu bulutlar yumuşak ve komşularıyla büyük ölçüde birbirini götürür.</span>',
+    '<span class="t">5 · Yumuşak bir şekli birkaç dalga anlatır</span><span>Bir sinyal ne kadar yumuşaksa, onu anlatmak için o kadar az frekans gerekir; keskin bir tepe çok sayıda frekans ister. Bu bulutlar '+need+' dalgayla binde bir hassasiyetle çizilir (şu an '+K+' dalga). Nokta yükleri dalgalarla çizmek hiç bitmezdi. Bu uzak kısım ters uzayda, bir ızgara ve Fourier dönüşümüyle hesaplanır.</span>',
+    '<span class="t">6 · Üç parçayı toplayın</span><span>NaCl kristali için sayfanın hesapladığı: yakın kısım '+fx(r.real,4)+' + uzak kısım '+fx(r.rec,4)+' + öz terim '+fx(r.self,4)+' = '+fx(r.M,5)+'. Öz terim, her yükün kendi bulutuyla etkileşimini düzeltir. β\'yı değiştirin: parçalar değişir, toplam 1,74756 kalır.</span>'];
+  h=T[st-1]; if(dev>1e-3) h=h.replace('</span><span>','</span><span><b>Dikkat:</b> kesmede kalan pay büyük ('+sci(tail)+'); yakın kısım r_c\'de sönmüyor ve toplam kesin değerden '+fx(dev,4)+' sapıyor. Kesmeyi uzatın ya da β\'yı büyütün. ');
+  $('k3bChg').innerHTML=h; $('k3sPrev').disabled=st<=1; $('k3sNext').disabled=st>=6; }
+function esGo(s){ ES.step=Math.max(1,Math.min(6,s)); ES.tw=reduce?1:0; if(ES.step===5){ ES.waves=0; ES.wt=0; if(reduce) ES.waves=Math.max(1,esNeed(1e-3)); } else if(ES.step<5) ES.waves=0; else ES.waves=Math.max(1,esNeed(1e-3)); esDraw(); esMsg(); kick(); }
+function esTick(dt){ var busy=false; if(ES.tw<1){ ES.tw=Math.min(1,ES.tw+dt/0.9); busy=true; }
+  if(ES.step===5){ var need=Math.max(1,esNeed(1e-3)); if(ES.waves<need){ ES.wt+=dt; if(ES.wt>0.7){ ES.wt=0; ES.waves++; esMsg(); } busy=true; } }
+  if(ES.play&&!busy){ ES.pt+=dt; if(ES.pt>2.2){ ES.pt=0; if(ES.step<6) esGo(ES.step+1); else { ES.play=false; $('k3sPlay').textContent='Baştan oynat'; } } busy=true; }
+  if(busy) esDraw(); return busy||ES.play; }
+$('k3sPrev').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; esGo(ES.step-1); };
+$('k3sNext').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; esGo(ES.step+1); };
+$('k3sPlay').onclick=function(){ if(ES.play){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; return; } ES.play=!reduce; ES.pt=0; $('k3sPlay').textContent=reduce?'Baştan oynat':'Durdur'; esGo(1); };
+function bInv(){
+  bCurve(); var F=fit($('k3inv')), g=F.g, W=F.W, H=F.H, L=48, R=14, T=18, B=30, lo=-2, hi=3.6, muted=css('--muted'), line=css('--line'), c=BZ.curve;
+  var X=function(b){return L+(b-0.4)/2.6*(W-L-R);}, Y=function(v){return T+(hi-Math.max(lo,Math.min(hi,v)))/(hi-lo)*(H-T-B);};
+  g.clearRect(0,0,W,H); axisY(g,L,R,T,H,B,W,[-2,-1,0,1,2,3],Y,function(v){return fx(v,0);},line,muted);
+  g.fillStyle=muted; g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(b){ g.fillText(fx(b,1),X(b),H-B+15); }); g.fillText('β (1/r₀) · her nokta sayfada ayrı hesaplandı',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText('Madelung toplamının parçaları',L+4,T-5);
+  g.strokeStyle=css('--ink'); g.lineWidth=1; g.setLineDash([5,4]); g.beginPath(); g.moveTo(L,Y(MAD)); g.lineTo(W-R,Y(MAD)); g.stroke(); g.setLineDash([]);
+  [['re','--accent'],['rk','--deep'],['rs','--gold'],['M','--good']].forEach(function(q){ g.strokeStyle=css(q[1]); g.lineWidth=q[0]==='M'?2.8:2.2; g.beginPath(); c.forEach(function(p,k){ var y=Y(p[q[0]]); if(k) g.lineTo(X(p.b),y); else g.moveTo(X(p.b),y); }); g.stroke(); });
+  var r=BZ.cur; [['real','--accent'],['rec','--deep'],['self','--gold'],['M','--good']].forEach(function(q){ g.fillStyle=css(q[1]); g.beginPath(); g.arc(X(BZ.beta),Y(r[q[0]]),5,0,6.283); g.fill(); });
+  g.strokeStyle=css('--navy'); g.setLineDash([2,3]); g.beginPath(); g.moveTo(X(BZ.beta),T); g.lineTo(X(BZ.beta),H-B); g.stroke(); g.setLineDash([]);
+}
+function bRead(){ var r=BZ.cur, tail=EW.erfc(BZ.beta*BZ.rc); $('k3bVal').textContent=fx(BZ.beta,2); $('k3rcVal').innerHTML=fx(BZ.rc,1)+' <small>r₀</small>';
+  $('k3re').textContent=fx(r.real,4); $('k3rk').textContent=fx(r.rec,4); $('k3rs').textContent=fx(r.self,4); $('k3rt').textContent=fx(r.M,6); $('k3tail').textContent=sci(tail); $('k3nn').textContent=r.np+' / '+r.nk; }
+function bSet(record){ BZ.beta=+$('k3b').value/100; BZ.rc=+$('k3rc').value/100; BZ.cur=bCalc(BZ.beta,BZ.rc); bRead(); esDraw(); bInv(); esMsg(); if(record) bRecord(); }
+function bRecord(){ var r=BZ.cur, ok=Math.abs(r.M-MAD)<1e-3; if(!ok) return; if(!BZ.tried.some(function(p){return Math.abs(p.b-BZ.beta)<0.05;})) BZ.tried.push({b:BZ.beta,re:r.real,rk:r.rec,M:r.M,nk:r.nk});
+  if(BZ.tried.length>=3){ var s=BZ.tried.slice().sort(function(a,b){return a.b-b.b;}), a=s[0], z=s[s.length-1]; if(z.b/a.b>=2) card('k3c2',true,'Sizin denemeniz: β = '+fx(a.b,2)+' iken yakın kısım '+fx(a.re,3)+', uzak kısım '+fx(a.rk,3)+'; β = '+fx(z.b,2)+' iken yakın kısım '+fx(z.re,3)+', uzak kısım '+fx(z.rk,3)+'. Toplam her seferinde '+fx(a.M,5)+' ve '+fx(z.M,5)+' çıktı; NaCl\'nin Madelung sabiti 1,74756. Ewald\'ın ayrışımı toplamı değiştirmez, işi iki hesap arasında paylaştırır. β büyüdükçe yakın kısım erken söner ve kısa bir kesme yeter, ama uzak kısım için daha çok dalga gerekir (β = '+fx(a.b,2)+' iken '+a.nk+', β = '+fx(z.b,2)+' iken '+z.nk+').'); } }
+$('k3b').addEventListener('input',function(){ bSet(false); }); $('k3b').addEventListener('change',function(){ bSet(true); });
+$('k3rc').addEventListener('input',function(){ bSet(false); }); $('k3rc').addEventListener('change',function(){ bSet(true); });
+
+/* ---------------- 3 · defter ---------------- */
+var RS3=[1.5,2,3,4,6,8], nM='cut', nR3=3, KEY3='ahl-mdpbc-lab3-v1', book3=[], S6I=null;
+try{ var raw3=localStorage.getItem(KEY3); if(raw3){ var bb3=JSON.parse(raw3); if(Array.isArray(bb3)) book3=bb3.filter(function(p){return p&&(p.m==='cut'||p.m==='ewald'||p.m==='r6')&&RS3.indexOf(p.r)>=0&&isFinite(p.v)&&isFinite(p.e);}); } }catch(e){}
+function save3(){ try{ localStorage.setItem(KEY3,JSON.stringify(book3)); }catch(e){} }
+var NML={cut:'Coulomb, düz kesme', ewald:'Coulomb, Ewald', r6:'r⁻⁶, düz kesme'};
+function n3Chips(){ $('k3nR').innerHTML=RS3.map(function(r){return '<button type="button" class="chip" data-r="'+r+'" aria-pressed="'+(r===nR3)+'">'+fx(r,1)+'</button>';}).join('');
+  document.querySelectorAll('#k3nR .chip').forEach(function(b){ b.onclick=function(){ nR3=+b.getAttribute('data-r'); n3Chips(); }; });
+  document.querySelectorAll('#k3nMode .chip').forEach(function(b){ b.setAttribute('aria-pressed',String(b.getAttribute('data-m')===nM)); b.onclick=function(){ nM=b.getAttribute('data-m'); n3Chips(); }; }); }
+function n3Measure(m,r){ var v, q=null, ref;
+  if(m==='cut'){ var c=EW.cut3D(r); v=c.M; q=c.q; ref=MAD; }
+  else if(m==='r6'){ if(S6I===null) S6I=EW.S6inf(); var c2=EW.cut3D(r); v=c2.S6/S6I; q=null; ref=1; }
+  else { var b=EW.betaFor(r,1e-5), e=EW.ewald3D(b,r,EW.kmaxFor(b,1e-5)); v=e.M; ref=MAD; q=0; }
+  var p={m:m,r:r,v:v,e:Math.abs(v-ref)/ref,q:q}; book3=book3.filter(function(o){return !(o.m===m&&o.r===r);}); book3.push(p); save3();
+  $('k3nBusy').textContent=NML[m]+', r_c = '+fx(r,1)+' r₀: '+(m==='r6'?'sonsuz kristalin '+pc(100*v,2):'hesaplanan '+fx(v,5))+', bağıl hata '+sci(p.e)+'.'; }
+$('k3nRun').onclick=function(){ n3Measure(nM,nR3); n3Draw(); n3Eval(); };
+$('k3nAll').onclick=function(){ RS3.forEach(function(r){ n3Measure(nM,r); }); $('k3nBusy').textContent=NML[nM]+': altı kesme mesafesi ölçüldü.'; n3Draw(); n3Eval(); };
+$('k3nClr').onclick=function(){ book3=[]; save3(); n3Draw(); n3Eval(); $('k3nBusy').textContent='Defter temizlendi.'; };
+function p10(l){ var SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}; return '10'+String(l).split('').map(function(c){return SUP[c];}).join(''); }
+function n3Draw(){
+  var F=fit($('k3book')), g=F.g, W=F.W, H=F.H, L=46, R=14, T=20, B=32, lo=-7, hi=1, muted=css('--muted'), line=css('--line');
+  var X=function(r){return L+(r-1)/(8.5-1)*(W-L-R);}, Y=function(e){ var l=Math.log10(Math.max(e,1e-7)); return T+(hi-Math.min(hi,l))/(hi-lo)*(H-T-B); };
+  g.clearRect(0,0,W,H); g.font='12px '+css('--sans');
+  [1,-1,-3,-5,-7].forEach(function(l){ var y=T+(hi-l)/(hi-lo)*(H-T-B); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=muted; g.textAlign='right'; g.fillText(p10(l),L-6,y+4); });
+  g.textAlign='center'; RS3.forEach(function(r){ if(W<520&&r===2) return; g.fillText(fx(r,1),X(r),H-B+15); }); g.fillText('kesme mesafesi (r₀)',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText(W>=560?'bağıl hata (logaritmik) · aşağısı daha doğru':'bağıl hata (log)',L+4,T-6);
+  [['cut','--accent'],['ewald','--deep'],['r6','--gold']].forEach(function(q){ var pts=book3.filter(function(p){return p.m===q[0];}).sort(function(a,b){return a.r-b.r;}); if(!pts.length) return; g.strokeStyle=css(q[1]); g.fillStyle=css(q[1]); g.lineWidth=2.2; g.beginPath(); pts.forEach(function(p,k){ if(k) g.lineTo(X(p.r),Y(p.e)); else g.moveTo(X(p.r),Y(p.e)); }); g.stroke(); pts.forEach(function(p){ g.beginPath(); g.arc(X(p.r),Y(p.e),4.5,0,6.283); g.fill(); }); });
+  $('k3nCount').textContent=book3.length+' ölçüm';
+  var rows=book3.slice().sort(function(a,b){ return a.m===b.m?a.r-b.r:(a.m<b.m?-1:1); });
+  $('k3nTab').innerHTML=rows.length?rows.map(function(p){ return '<tr><td>'+NML[p.m]+'</td><td class="n">'+fx(p.r,1)+'</td><td class="n">'+(p.m==='r6'?pc(100*p.v,2):fx(p.v,5))+'</td><td class="n">'+sci(p.e)+'</td><td class="n">'+(p.m==='cut'?(p.q>0?'+':'')+fx(p.q,0):p.m==='ewald'?'yöntem gereği 0':'')+'</td></tr>'; }).join(''):'<tr><td colspan="5" class="small">Henüz ölçüm yok.</td></tr>';
+}
+function n3Eval(){ var C=book3.filter(function(p){return p.m==='cut';}).sort(function(a,b){return a.r-b.r;}), E=book3.filter(function(p){return p.m==='ewald';}).sort(function(a,b){return a.r-b.r;}), R6=book3.filter(function(p){return p.m==='r6';}).sort(function(a,b){return a.r-b.r;});
+  if(C.length>=3&&E.length>=2&&R6.length>=2){ var r6a=R6[0], r6b=R6[R6.length-1], emax=Math.max.apply(null,E.map(function(p){return p.e;}));
+    card('k3c3',true,'Sizin ölçümleriniz: Coulomb düz kesmede bağıl hata '+C.map(function(p){return 'r_c = '+fx(p.r,1)+' için '+pc(100*p.e,0);}).join(', ')+'; kesme uzadıkça düzenli küçülmedi, çünkü kesme küresinin net yükü her seferinde başka ('+C.map(function(p){return (p.q>0?'+':'')+fx(p.q,0);}).join(', ')+'). r⁻⁶ düz kesmede hata r_c = '+fx(r6a.r,1)+' için '+pc(100*r6a.e,2)+', r_c = '+fx(r6b.r,1)+' için '+pc(100*r6b.e,2)+': kesme uzadıkça düzenli küçülüyor. Ewald\'da aynı mesafelerle hata en çok '+sci(emax)+'. MD\'de van der Waals etkileşimi bu yüzden kesilir, elektrostatik ise Ewald (GROMACS\'ta PME) ile hesaplanır.'); }
+  else { var need=[]; if(C.length<3) need.push('Coulomb düz kesmede '+(3-C.length)+' ölçüm daha'); if(E.length<2) need.push('Ewald\'da '+(2-E.length)+' ölçüm daha'); if(R6.length<2) need.push('r⁻⁶ düz kesmede '+(2-R6.length)+' ölçüm daha'); card('k3c3',false,'Gerekenler: '+need.join('; ')+'.'); } }
+
+/* ---------------- 4 · proteine dönüş: PME ayarları ---------------- */
+var P5={rc:1.0, tol:1e-5, fs:0.12, c:0.15, w:null, prot:null};
+function p5Surf(y){ return -0.30+0.22*Math.sin(1.5*y+0.5)+0.07*Math.sin(3.3*y); }
+function p5Init(){ var a=77, r=function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }, V=2.3, d=0.3;
+  P5.prot=[]; for(var row=0;row*d*0.866<2*V+0.3;row++){ var y=-V-0.15+row*d*0.866; for(var x=-V-0.15+(row%2?d/2:0);x<0.4;x+=d){ if(x<p5Surf(y)-0.05&&Math.hypot(x+0.05,y)>0.22) P5.prot.push([x+(r()-0.5)*0.04,y+(r()-0.5)*0.04]); } }
+  P5.w=[]; for(var t=0;t<200000&&P5.w.length<400;t++){ var wx=-V+2*V*r(), wy=-V+2*V*r(); if(wx<p5Surf(wy)+0.2||Math.hypot(wx,wy)<0.3) continue; var ok=true; for(var i=0;i<P5.w.length;i++){ var dx=P5.w[i][0]-wx, dy=P5.w[i][1]-wy; if(dx*dx+dy*dy<0.0729){ok=false;break;} } if(ok) P5.w.push([wx,wy]); } }
+function p5Beta(){ return EW.betaFor(P5.rc,P5.tol); }
+function p5Draw(){
+  var F=fit($('k5box')), g=F.g, W=F.W, H=F.H, V=2.05, s=W/(2*V), X=function(x){return W/2+x*s;}, Y=function(y){return H/2+y*s;}, beta=p5Beta(), sig=1/beta, N=Math.ceil(6.491/P5.fs), h=6.491/N;
+  var paper=css('--paper'), acc=css('--accent'), gold=css('--gold'), line=css('--line'), ink=css('--ink'), cm=rgb(css('--mid'));
+  g.clearRect(0,0,W,H); g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  g.fillStyle=str(rgb(css('--prot')),0.14); g.beginPath(); g.moveTo(0,0); for(var yy=-V-0.3;yy<=V+0.3;yy+=0.05) g.lineTo(X(p5Surf(yy)+0.1),Y(yy)); g.lineTo(0,H); g.closePath(); g.fill();
+  /* PME ızgarası */
+  g.strokeStyle=str(rgb(line),0.95); g.lineWidth=0.7; var k0=Math.floor(-V/h)-1, k1=Math.ceil(V/h)+1;
+  for(var k=k0;k<=k1;k++){ var p=k*h; g.beginPath(); g.moveTo(X(p),0); g.lineTo(X(p),H); g.stroke(); g.beginPath(); g.moveTo(0,Y(p)); g.lineTo(W,Y(p)); g.stroke(); }
+  var rp=Math.max(2.5,0.1*s);
+  P5.prot.forEach(function(q){ g.fillStyle=str(rgb(css('--prot')),0.55); g.beginPath(); g.arc(X(q[0]),Y(q[1]),rp*1.2,0,6.283); g.fill(); });
+  P5.w.forEach(function(q){ var d=Math.hypot(q[0],q[1]); g.fillStyle=str(cm,d<P5.rc?0.75:0.3); g.beginPath(); g.arc(X(q[0]),Y(q[1]),rp,0,6.283); g.fill(); });
+  /* Ewald bulutu (zıt işaretli, genişlik 1/β) */
+  var gr=g.createRadialGradient(X(0),Y(0),0,X(0),Y(0),2.2*sig*s); gr.addColorStop(0,str(cm,0.6)); gr.addColorStop(0.45,str(cm,0.28)); gr.addColorStop(1,str(cm,0)); g.fillStyle=gr; g.beginPath(); g.arc(X(0),Y(0),2.2*sig*s,0,6.283); g.fill();
+  /* yükün dağıtıldığı 4 × 4 ızgara noktası (pme-order = 4) */
+  var ix=Math.floor(0/h), jy=Math.floor(0/h); g.fillStyle=gold; for(var a=ix-1;a<=ix+2;a++) for(var b=jy-1;b<=jy+2;b++){ g.beginPath(); g.arc(X(a*h),Y(b*h),Math.max(2.2,0.035*s),0,6.283); g.fill(); }
+  g.strokeStyle=acc; g.lineWidth=2.2; g.setLineDash([6,4]); g.beginPath(); g.arc(X(0),Y(0),P5.rc*s,0,6.283); g.stroke(); g.setLineDash([]);
+  g.fillStyle=css('--warm'); g.beginPath(); g.arc(X(0),Y(0),Math.max(6,0.14*s),0,6.283); g.fill(); g.fillStyle=ink; g.font='700 13px '+css('--sans'); g.textAlign='center'; g.fillText('+',X(0),Y(0)+4.5);
+  pill(g,'rcoulomb = '+fx(P5.rc,2)+' nm',X(0)+P5.rc*s*0.7,Y(0)-P5.rc*s*0.72,paper,acc);
+  pill(g,'1/β = '+fx(sig,3)+' nm',X(0),Y(0)+2.2*sig*s+14,paper,css('--deep'));
+  g.textAlign='left'; pill(g,'protein · Lys NZ (+1)',82,18,paper,css('--prot'));
+  g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText(W<520?'ızgara '+fx(h,3)+' nm':'ızgara aralığı '+fx(h,3)+' nm · sarı: yükün dağıtıldığı 4 × 4 nokta',10,H-12);
+  var bx=W-12-s, by=H-30; g.strokeStyle=ink; g.lineWidth=2.2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+s,by); g.stroke(); g.fillStyle=ink; g.textAlign='center'; g.fillText('1 nm',bx+s/2,by-7); g.textAlign='left';
+}
+function p5Bar(){
+  var F=fit($('k5bar')), g=F.g, W=F.W, H=F.H, L=W<560?112:150, R=90, T=26, B=10, data=[['Coulomb (SR)',-301673,'--accent'],['Coul. recip.',1725.79,'--deep'],['LJ (SR)',34871.2,'--gold'],['Disper. corr.',-2395.47,'--mid']], lo=-320000, hi=60000, muted=css('--muted'), line=css('--line');
+  var X=function(v){return L+(v-lo)/(hi-lo)*(W-L-R);}, bh=(H-T-B)/data.length;
+  g.clearRect(0,0,W,H); g.font='12px '+css('--sans'); g.fillStyle=muted; g.fillText('10 ps deneme koşusunun ortalamaları (kJ/mol)',8,15);
+  g.strokeStyle=line; g.beginPath(); g.moveTo(X(0),T-4); g.lineTo(X(0),H-B); g.stroke();
+  data.forEach(function(d,i){ var y=T+i*bh+bh*0.18, h=bh*0.64, x0=X(Math.min(0,d[1])), x1=X(Math.max(0,d[1])); g.fillStyle=css(d[2]); g.fillRect(x0,y,Math.max(2,x1-x0),h);
+    g.fillStyle=css('--ink'); g.textAlign='right'; g.fillText(d[0],L-8,y+h/2+4); g.textAlign='left'; g.fillText((d[1]>0?'+':'')+fx(d[1],0),Math.max(x1,X(0))+6,y+h/2+4); });
+}
+function p5Read(){ var beta=p5Beta(), N=Math.ceil(6.491/P5.fs); $('k5rcV').innerHTML=fx(P5.rc,2)+' <small>nm</small>'; $('k5fsV').innerHTML=fx(P5.fs,2)+' <small>nm</small>';
+  $('k5beta').textContent=fx(1/beta,4)+' nm'; $('k5grid').textContent=String(N);
+  var pairs=P5.c*193.42e-24*NA; $('k5cV').innerHTML=fx(P5.c*1000,0)+' <small>mM</small>'; $('k5pairs').textContent=P5.c>0?'≈ '+fx(pairs,1):'0'; $('k5lam').textContent=P5.c>0?fx(lamD(P5.c,25),2)+' nm':'perdeleme yok'; }
+function p5Msg(){ var beta=p5Beta(), proj=Math.abs(P5.rc-1)<1e-9&&P5.tol===1e-5, t;
+  if(proj) t='<span class="t">Bu projenin ayarı</span><span>erfc(β · 1,0 nm) = 10⁻⁵ koşulundan 1/β = '+fx(1/beta,4)+' nm çıkar; koşunun günlüğü de 0,320163 nm yazıyor. Izgara aralığı 0,12 nm\'yi aşmamalı: 6,491 nm\'lik kutu vektörü için en az '+Math.ceil(6.491/0.12)+' nokta; mdrun hızlı Fourier dönüşümüne uygun olan 56\'yı seçti.</span>';
+  else t='<span class="t">rcoulomb = '+fx(P5.rc,2)+' nm, ewald-rtol = '+sci(P5.tol)+': 1/β = '+fx(1/beta,3)+' nm</span><span>'+(P5.rc>1?'Kesme uzayınca aynı kesmede kalan pay için bulut genişler; uzak kısım yumuşar ve daha seyrek bir ızgara yeter. gmx tune_pme de kesmeyi büyütürken ızgara aralığını aynı oranda büyütür.':P5.tol<1e-5?'Kesmede kalan payı küçültmek bulutu daraltır: yakın kısım daha doğru olur, ama uzak kısım için daha sık ızgara gerekir.':'Kesmede kalan pay büyüdükçe bulut genişler, yakın kısım daha kaba kesilir.')+'</span>';
+  $('k5chg').innerHTML=t; }
+function p5Set(){ p5Read(); p5Draw(); p5Msg(); }
+$('k5rc').addEventListener('input',function(){ P5.rc=+$('k5rc').value/100; p5Set(); });
+$('k5fs').addEventListener('input',function(){ P5.fs=+$('k5fs').value/100; p5Set(); });
+$('k5c').addEventListener('input',function(){ P5.c=+$('k5c').value/1000; p5Read(); });
+document.querySelectorAll('#k3h4 ~ .two .seg button').forEach(function(b){ b.onclick=function(){ P5.tol=+b.getAttribute('data-tol'); document.querySelectorAll('#k3h4 ~ .two .seg button').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); p5Set(); }; });
+$('k5proj').onclick=function(){ P5.rc=1.0; P5.tol=1e-5; P5.fs=0.12; $('k5rc').value='100'; $('k5fs').value='12'; document.querySelectorAll('#k3h4 ~ .two .seg button').forEach(function(x){ x.setAttribute('aria-pressed',String(x.getAttribute('data-tol')==='1e-5')); }); p5Set(); };
+
+/* ---------------- 5 · sınav ---------------- */
+var QZ=[
+  {s:'25 °C\'de 150 mM NaCl çözeltisinde Debye uzunluğu yaklaşık ne kadardır?',
+   o:[['0,08 nm',0],['0,8 nm',1],['8 nm',0],['80 nm',0]],
+   w:'λ_D ≈ 0,304 nm / √I: 0,304 / √0,15 ≈ 0,79 nm. Köprüde tuzu artırdıkça bulutun daraldığını gördünüz.'},
+  {s:'Elektrostatik etkileşim neden van der Waals gibi bir kesme mesafesiyle hesaplanamaz?',
+   o:[['1/r çok yavaş söner; kesme küresinin net yükü mesafeyle değiştikçe toplam zıplar',1],['Elektrostatik kuvvetler çok zayıftır',0],['Kesme yalnız proteinde işe yarar',0],['Su yükleri tamamen perdeler',0]],
+   w:'Atölyede daire bölgenin net yükü değiştikçe toplamın zıpladığını, defterde düz kesmenin hatasının kesme uzadıkça küçülmediğini gördünüz.'},
+  {s:'Ewald yönteminde β büyütülürse ne olur?',
+   o:[['Toplam büyür',0],['Yakın kısım daha erken söner, uzak kısım daha çok dalga ister; toplam değişmez',1],['Uzak kısım gereksiz hâle gelir',0],['Toplam küçülür',0]],
+   w:'Tezgâhta üç parçanın payı β ile değişti; toplam her seferinde 1,74756 kaldı.'},
+  {s:'NaCl\'nin Madelung sabiti (1,7476) neyi anlatır?',
+   o:[['Kristaldeki iyon sayısını',0],['Bir iyonun bütün kristalle Coulomb etkileşiminin, en yakın komşuyla etkileşimine oranını',1],['Örgü sabitini nanometre cinsinden',0],['İyonların yükünü',0]],
+   w:'Tek bir en yakın komşu etkileşimi 1 sayılırsa bütün kristalin katkısı 1,7476 eder. Coulomb katkısı yaklaşık 861 kJ/mol; ölçülen örgü enerjisi yaklaşık 786 kJ/mol, çünkü yakın mesafede itme de vardır.'},
+  {s:'Bu projenin koşusunda günlükte yazan 1/β = 0,320 nm nereden gelir?',
+   o:[['Kutu boyundan',0],['rcoulomb = 1,0 nm ve ewald-rtol = 10⁻⁵ koşulundan: erfc(β · 1,0 nm) = 10⁻⁵',1],['fourierspacing = 0,12 nm\'den',0],['Sıcaklıktan',0]],
+   w:'Proteine dönüşte bu koşulu sayfa çözdü ve günlükteki 0,320163 nm\'yi buldu.'},
+  {s:'Net yükü olan bir protein kutusunda Ewald (PME) kullanılırken ne yapılır?',
+   o:[['Hiçbir şey; yük önemsizdir',0],['Kesme mesafesi büyütülür',0],['Karşı iyon eklenir (genion -neutral); Ewald net yükü kutuya yayılmış düzgün bir karşı yükle dengelenmiş sayar',1],['Su çıkarılır',0]],
+   w:'Bu projenin ubikitin topolojisinin yükü 0,000 e olduğu için karşı iyon gerekmedi.'}
+];
+function renderQuiz(){
+  $('k3quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'">'+o[0]+'</button>';}).join('')+'</div><p class="why" id="k3why'+i+'" hidden></p></div>'; }).join('');
+  var got={};
+  document.querySelectorAll('#k3quiz .opt').forEach(function(b){ b.addEventListener('click',function(){
+    var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], ok=q.o[j][1]===1;
+    document.querySelectorAll('#k3quiz .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); });
+    b.classList.add(ok?'right':'wrong'); var w=$('k3why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;
+    if(!(i in got)) got[i]=ok; var n=Object.keys(got).length, r=Object.keys(got).filter(function(k){return got[k];}).length;
+    $('k3score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });
+}
+
+/* ---------------- döngü ---------------- */
+var visD=true, visW=true, visDN=true, visPR=true, visE=true, raf=null, last=null, fcnt=0;
+function frame(ts){ raf=null; var dt=last===null?0.016:Math.min(0.05,(ts-last)/1000); last=ts; var go=false;
+  fcnt++;
+  if(visD&&!reduce){ dMove(); dDraw(); go=true; }
+  if(visDN&&!reduce){ dnStep(); dnDraw(); if(fcnt%8===0){ dnPlot(); dnRead(); } go=true; }
+  if(visPR&&!reduce){ prStep(6); prDraw(); if(fcnt%10===0){ prRead(); if(fcnt%30===0) prPlot(); } go=true; }
+  if(visE&&esTick(dt)) go=true;
+  if(visW&&W2.play){ W2.acc+=dt; if(W2.acc>0.28){ W2.acc=0; if(W2.n<NMAX) wSet(W2.n+1); else { W2.play=false; $('k3play').textContent='Kabuk ekle'; } } go=go||W2.play; }
+  if(go) raf=requestAnimationFrame(frame); else last=null; }
+function kick(){ if(!raf) raf=requestAnimationFrame(frame); }
+if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ visD=es[0].isIntersecting; if(visD) kick(); }).observe($('k3deb')); new IntersectionObserver(function(es){ visDN=es[0].isIntersecting; if(visDN) kick(); }).observe($('k3dna')); new IntersectionObserver(function(es){ visPR=es[0].isIntersecting; if(visPR) kick(); }).observe($('k3prot')); new IntersectionObserver(function(es){ visE=es[0].isIntersecting; if(visE) kick(); }).observe($('k3ew')); new IntersectionObserver(function(es){ visW=es[0].isIntersecting; if(visW) kick(); }).observe($('k3lat').closest('section')); }
+var rT=null; window.addEventListener('resize',function(){ clearTimeout(rT); rT=setTimeout(function(){ dDraw(); dPlot(); dnDraw(); dnPlot(); prDraw(); prPlot(); wDraw(); wPlot(); s6Plot(); esDraw(); bInv(); n3Draw(); p5Draw(); p5Bar(); },80); });
+
+/* başlangıç */
+['k3c1','k3c2','k3c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });
+dInit(); dSet(); dnInit(); dnSet(); prInit(); prSet(); W2.maxN.circle=0; wSet(3); bSet(false); n3Chips(); n3Draw(); n3Eval(); p5Init(); p5Set(); p5Bar(); renderQuiz(); kick();
 })();
 </script>
 </body>

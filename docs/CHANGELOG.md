@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.8.0 (28 Eylül 2026) · MD-PBC laboratuvar 3
+
+- MD-PBC 0.4.0: Laboratuvar 3 "Tuz ve Ewald" aynı sayfaya eklendi; ilerleme üç laboratuvarı birlikte sayar (12 kart). Deneysel köprü üç bölüm: iyon bulutu ve Debye uzunluğu (iyonik şiddet kaydırıcısı, çizim 25 °C için; sıcaklık karşılaştırması 4, 25 ve 37 °C'de aynı tuzun Debye uzunluğunu gösterir), DNA çift sarmalının tuzla kararlılığı (canlı açılıp kapanan baz çiftleri, T_m bağıntısı), proteinin tuzla çözünmesi ve fazla tuzla çökmesi (36 molekülün periyodik kutuda kümelenmesi; NaCl ve amonyum sülfat). Atölye: iki boyutlu iyon örgüsünde kabuk kabuk Coulomb toplamı (kare ve daire kabuk, Madelung sabitiyle karşılaştırma). Tezgâh: Ewald toplamının altı adımlı animasyonu ve β kaydırıcısı (yakın kısım, uzak kısım, öz etkileşim; toplam değişmez). Defter: kesme mesafesine karşı hata (Coulomb düz kesme, Ewald, r⁻⁶ düz kesme). Proteine dönüş: bu projenin PME ayarları ve enerji terimleri. Altı soru.
+- İngilizce tablo 610 çifte çıktı (`i18n/_work/mdpbc_en_e.py` HTML, `mdpbc_en_f.py` betik); "Debye-Hückel" özel adı ve GROMACS terimleri keep listesinde.
+
 ## 0.7.1 (27 Eylül 2026) · MD tanıtım metni
 
 - MD sayfasının özeti, "Hesaplar nasıl yapılır?" kutusu ve bütün sayfaların alt notu güncellendi (TR ve EN): eski metin tarayıcıda hiç hesap yapılmadığını ve verilerin yalnız yeniden oynatıldığını söylüyordu; MD-T ve MD-PBC keşif laboratuvarlarında küçük öğretim simülasyonları tarayıcıda canlı hesaplanır, proje verisi önceden koşturulmuş gerçek simülasyonlardan gelir.

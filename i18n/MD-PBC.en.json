@@ -1,17 +1,17 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "1bfb64e04d44bdaebdff631c19e3b3fd7f49cd5045c87dba0690cea0459b55c5",
+ "source_sha256": "a177d576c48c451f1aabd14d1cd756f476142de70f237992ff590bf61b4e6483",
  "reviewed": false,
- "translator": "Claude (AI), MD-PBC 0.3.0; insan gözden geçirmesi bekliyor",
+ "translator": "Claude (AI), MD-PBC 0.4.0; insan gözden geçirmesi bekliyor",
  "pairs": [
   [
    "<title>Kenarsız Kutu: Periyodik Sınır</title>",
    "<title>The Box Without Edges: Periodic Boundaries</title>"
   ],
   [
-   "<div class=\"proto\">Bu sürümde modülün 1. ve 2. laboratuvarları yayında. Uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>",
-   "<div class=\"proto\">In this version Labs 1 and 2 of the module are published. The labs on long-range electrostatics and box size are in preparation. Every number is computed in your browser right now.</div>"
+   "<div class=\"proto\">Bu sürümde modülün 1., 2. ve 3. laboratuvarları yayında. Kutu boyu laboratuvarı hazırlanıyor. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>",
+   "<div class=\"proto\">In this version Labs 1, 2 and 3 of the module are published. The lab on box size is in preparation. Every number is computed in your browser right now.</div>"
   ],
   [
    "<span class=\"eyebrow\">MD-PBC · Laboratuvar 1 · Periyodik sınır</span>",
@@ -26,12 +26,12 @@
    "<p class=\"lead\">An MD simulation puts a protein and a few thousand surrounding water molecules into a small box. In a real sample the protein sits far from any edge, in the middle of countless water molecules. What changes if the small box also has an edge? How do we remove the edge, and why does it matter for the energy?</p>"
   ],
   [
-   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"progN\">0 / 9</b></div>",
-   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"progN\">0 / 9</b></div>"
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"progN\">0 / 12</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"progN\">0 / 12</b></div>"
   ],
   [
-   "<nav class=\"labnav\" aria-label=\"Bu sayfadaki laboratuvarlar\"><a href=\"#h0\">Laboratuvar 1 · Kenarsız kutu</a><a href=\"#lab2\">Laboratuvar 2 · En yakın kopya ve kesme</a></nav>",
-   "<nav class=\"labnav\" aria-label=\"Labs on this page\"><a href=\"#h0\">Lab 1 · The box without edges</a><a href=\"#lab2\">Lab 2 · Nearest image and cut-off</a></nav>"
+   "<nav class=\"labnav\" aria-label=\"Bu sayfadaki laboratuvarlar\"><a href=\"#h0\">Laboratuvar 1 · Kenarsız kutu</a><a href=\"#lab2\">Laboratuvar 2 · En yakın kopya ve kesme</a><a href=\"#lab3\">Laboratuvar 3 · Tuz ve Ewald</a></nav>",
+   "<nav class=\"labnav\" aria-label=\"Labs on this page\"><a href=\"#h0\">Lab 1 · The box without edges</a><a href=\"#lab2\">Lab 2 · Nearest image and cut-off</a><a href=\"#lab3\">Lab 3 · Salt and Ewald</a></nav>"
   ],
   [
    "<span class=\"step\">Deneysel köprü</span>",
@@ -830,6 +830,526 @@
    "<p class=\"small\">Model: two-dimensional Lennard-Jones liquid, reduced units (σ, ε, m), periodic box, nearest-image rule, velocity Verlet, Δt = 0.005; 64 molecules at the bench, 100 molecules in the notebook, ρ = 0.82, equilibration at T = 0.70 ε (Langevin), no heat bath during the measurement. The forces are the same in both cut-off methods; the difference is whether the total energy jumps at the cut-off. Your notebook is kept only in this browser.</p>"
   ],
   [
+   "<span class=\"eyebrow\">MD-PBC · Laboratuvar 3 · Uzun erimli elektrostatik</span>",
+   "<span class=\"eyebrow\">MD-PBC · Lab 3 · Long-range electrostatics</span>"
+  ],
+  [
+   "<h2 class=\"h1\">Yük uzağı da görür: tuz, perdeleme ve Ewald toplamı</h2>",
+   "<h2 class=\"h1\">A charge sees far: salt, screening and the Ewald sum</h2>"
+  ],
+  [
+   "<p class=\"lead\">Van der Waals çekimi birkaç molekül çapında söner; bu yüzden kesme mesafesi onun için işe yarar. İki yük arasındaki etkileşim ise yalnız 1/r ile azalır. Periyodik kutuda sonsuz sayıda yük kopyası olduğunda bu toplam nasıl hesaplanır? Kesmek yetmez mi? Bu laboratuvarda önce tuzlu suda, sonra tuz kristalinde, en son bu projenin protein kutusunda buna bakacaksınız.</p>",
+   "<p class=\"lead\">The van der Waals attraction fades within a few molecular diameters; this is why a cut-off works for it. The interaction between two charges, however, falls only as 1/r. How is this sum computed when a periodic box holds infinitely many copies of the charges? Is cutting not enough? In this lab you will look at this first in salt water, then in a salt crystal, and finally in this project's protein box.</p>"
+  ],
+  [
+   "<h2 id=\"k3h0\">Tamponun tuzu yükleri perdeler: iyon bulutu, DNA ve protein</h2>",
+   "<h2 id=\"k3h0\">The salt in your buffer screens charges: ion cloud, DNA and protein</h2>"
+  ],
+  [
+   "<p>Tampon hazırlarken eklediğiniz tuz, çözeltideki yüklerin birbirini ne kadar uzaktan hissettiğini değiştirir. Bir yükün çevresine zıt işaretli iyonlar biraz daha sık, aynı işaretliler biraz daha seyrek dizilir. Bu iyon bulutu yükün etkisini uzakta söndürür. Söndürmenin ölçeği <b>Debye uzunluğudur</b>. Aşağıda önce bu bulutu, sonra bildiğiniz iki deneyi göreceksiniz: DNA'nın erime sıcaklığının tuzla yükselmesi ve bir proteinin tuzla çözünüp fazla tuzla çökmesi.</p>",
+   "<p>The salt you add when you make a buffer changes how far the charges in the solution feel each other. Around a charge, ions of the opposite sign gather slightly more densely and ions of the same sign slightly more sparsely. This ion cloud extinguishes the effect of the charge at a distance. The scale of this fading is the <b>Debye length</b>. Below you will first see this cloud, then two experiments you know: the melting temperature of DNA rising with salt, and a protein dissolving with salt and precipitating with too much salt.</p>"
+  ],
+  [
+   "<h3 class=\"sub\">A · İyon bulutu ve Debye uzunluğu</h3><p>İyonik şiddeti değiştirin (çizim 25 °C içindir). Eğri, merkezdeki tek bir yükün oluşturduğu potansiyeli kT biriminde gösterir: gri kesikli çizgi perdelemesiz suda, kırmızı çizgi tuzlu suda.</p>",
+   "<h3 class=\"sub\">A · The ion cloud and the Debye length</h3><p>Change the ionic strength (the drawing is for 25 °C). The curve shows the potential of a single central charge in units of kT: the gray dashed line in unscreened water, the red line in salt water.</p>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k3deb\" class=\"stage\" aria-label=\"Merkezdeki yük, çevresindeki iyon bulutu ve Debye uzunluğu çemberi\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k3deb\" class=\"stage\" aria-label=\"Central charge, the surrounding ion cloud and the Debye length circle\"></canvas></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k3I\">İyonik şiddet (1:1 tuz, örneğin NaCl)</label><div class=\"big\" id=\"k3Ival\"></div><input type=\"range\" id=\"k3I\" min=\"-4\" max=\"0\" step=\"0.01\" value=\"-0.8239\"></div>",
+   "<div><label class=\"lbl\" for=\"k3I\">Ionic strength (1:1 salt, for example NaCl)</label><div class=\"big\" id=\"k3Ival\"></div><input type=\"range\" id=\"k3I\" min=\"-4\" max=\"0\" step=\"0.01\" value=\"-0.8239\"></div>"
+  ],
+  [
+   "<dt>Debye uzunluğu λ<sub>D</sub></dt><dd id=\"k3lam\"></dd>",
+   "<dt>Debye length λ<sub>D</sub></dt><dd id=\"k3lam\"></dd>"
+  ],
+  [
+   "<dt>Suyun dielektrik sabiti ε<sub>r</sub></dt><dd id=\"k3eps\"></dd>",
+   "<dt>Dielectric constant of water ε<sub>r</sub></dt><dd id=\"k3eps\"></dd>"
+  ],
+  [
+   "<dt>1,0 nm'de kalan etki (perdelemesize göre)</dt><dd id=\"k3at1\"></dd>",
+   "<dt>Effect left at 1.0 nm (relative to unscreened)</dt><dd id=\"k3at1\"></dd>"
+  ],
+  [
+   "<dt>Saf suda (10⁻⁷ M) λ<sub>D</sub></dt><dd id=\"k3pure\"></dd>",
+   "<dt>λ<sub>D</sub> in pure water (10⁻⁷ M)</dt><dd id=\"k3pure\"></dd>"
+  ],
+  [
+   "<div><div class=\"lbl\">Sıcaklık bu tuzda ne değiştirir?</div>",
+   "<div><div class=\"lbl\">What does temperature change at this salt?</div>"
+  ],
+  [
+   "<dt>4 °C (soğuk oda)</dt><dd id=\"k3T4\"></dd>",
+   "<dt>4 °C (cold room)</dt><dd id=\"k3T4\"></dd>"
+  ],
+  [
+   "<dt>37 °C (vücut)</dt><dd id=\"k3T37\"></dd>",
+   "<dt>37 °C (body)</dt><dd id=\"k3T37\"></dd>"
+  ],
+  [
+   "<canvas id=\"k3debPlot\" class=\"plot\" aria-label=\"Uzaklığa karşı merkezdeki yükün potansiyeli: perdelemesiz ve tuzlu suda\"></canvas>",
+   "<canvas id=\"k3debPlot\" class=\"plot\" aria-label=\"Potential of the central charge against distance: unscreened and in salt water\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--muted)\"></i>Perdelemesiz su: 1/r</span><span><i style=\"background:var(--accent)\"></i>Tuzlu su: e<sup>−r/λ</sup>/r</span><span>Kesikli dikey çizgi: MD'deki kesme (1,0 nm)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--muted)\"></i>Unscreened water: 1/r</span><span><i style=\"background:var(--accent)\"></i>Salt water: e<sup>−r/λ</sup>/r</span><span>Dashed vertical line: the MD cut-off (1.0 nm)</span></div>"
+  ],
+  [
+   "<div class=\"prose\"><h3 class=\"sub\">B · DNA çift sarmalı tuzda neden daha kararlı?</h3>",
+   "<div class=\"prose\"><h3 class=\"sub\">B · Why is the DNA double helix more stable in salt?</h3>"
+  ],
+  [
+   "<p>DNA'nın iki zincirinin omurgasında her nükleotit başına bir eksi yüklü fosfat vardır; iki zincir birbirini iter. Tampondaki Na⁺ iyonları omurganın çevresinde toplanıp bu itmeyi perdeler, bu yüzden çift sarmal tuzda daha yüksek sıcaklığa kadar dayanır. UV erime deneyinde (260 nm'de absorbansın artması) ölçtüğünüz erime sıcaklığı T<sub>m</sub> tuzla yükselir. Aşağıdaki sarmalda her baz çifti sıcaklığa göre açılıp kapanır; erime sıcaklığı ampirik bağıntıdan hesaplanır.</p>",
+   "<p>The backbone of each of the two DNA strands carries one negatively charged phosphate per nucleotide; the two strands repel each other. Na⁺ ions in the buffer gather around the backbone and screen this repulsion, so the double helix survives to a higher temperature in salt. The melting temperature T<sub>m</sub> you measure in a UV melting experiment (the rise in absorbance at 260 nm) increases with salt. In the helix below every base pair opens and closes depending on temperature; the melting temperature is computed from an empirical relation.</p>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k3dna\" class=\"stage\" style=\"aspect-ratio:16/10\" aria-label=\"DNA çift sarmalı: baz çiftleri, eksi yüklü omurga ve çevresindeki Na+ iyonları\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k3dna\" class=\"stage\" style=\"aspect-ratio:16/10\" aria-label=\"DNA double helix: base pairs, negatively charged backbone and the surrounding Na+ ions\"></canvas></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k3dSalt\">Na⁺ derişimi</label><div class=\"big\" id=\"k3dSaltV\"></div><input type=\"range\" id=\"k3dSalt\" min=\"0\" max=\"2.301\" step=\"0.01\" value=\"2.176\"></div>",
+   "<div><label class=\"lbl\" for=\"k3dSalt\">Na⁺ concentration</label><div class=\"big\" id=\"k3dSaltV\"></div><input type=\"range\" id=\"k3dSalt\" min=\"0\" max=\"2.301\" step=\"0.01\" value=\"2.176\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k3dT\">Sıcaklık</label><div class=\"big\" id=\"k3dTV\"></div><input type=\"range\" id=\"k3dT\" min=\"40\" max=\"100\" step=\"0.5\" value=\"80\"></div>",
+   "<div><label class=\"lbl\" for=\"k3dT\">Temperature</label><div class=\"big\" id=\"k3dTV\"></div><input type=\"range\" id=\"k3dT\" min=\"40\" max=\"100\" step=\"0.5\" value=\"80\"></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">GC oranı</div>",
+   "<div><div class=\"lbl\">GC content</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"GC oranı\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"GC content\">"
+  ],
+  [
+   "<button type=\"button\" data-gc=\"30\" aria-pressed=\"false\">%30</button>",
+   "<button type=\"button\" data-gc=\"30\" aria-pressed=\"false\">30%</button>"
+  ],
+  [
+   "<button type=\"button\" data-gc=\"50\" aria-pressed=\"true\">%50</button>",
+   "<button type=\"button\" data-gc=\"50\" aria-pressed=\"true\">50%</button>"
+  ],
+  [
+   "<button type=\"button\" data-gc=\"70\" aria-pressed=\"false\">%70</button>",
+   "<button type=\"button\" data-gc=\"70\" aria-pressed=\"false\">70%</button>"
+  ],
+  [
+   "<dt>Erime sıcaklığı T<sub>m</sub> (bağıntı)</dt><dd id=\"k3dTm\"></dd>",
+   "<dt>Melting temperature T<sub>m</sub> (relation)</dt><dd id=\"k3dTm\"></dd>"
+  ],
+  [
+   "<dt>Açık baz çifti (sarmalda, anlık)</dt><dd id=\"k3dOpen\"></dd>",
+   "<dt>Open base pairs (in the helix, now)</dt><dd id=\"k3dOpen\"></dd>"
+  ],
+  [
+   "<dt>Debye uzunluğu</dt><dd id=\"k3dLam\"></dd>",
+   "<dt>Debye length</dt><dd id=\"k3dLam\"></dd>"
+  ],
+  [
+   "<canvas id=\"k3dnaPlot\" class=\"plot\" aria-label=\"Sıcaklığa karşı açık baz çifti oranı: seçilen tuz, 10 mM ve 150 mM\"></canvas>",
+   "<canvas id=\"k3dnaPlot\" class=\"plot\" aria-label=\"Fraction of open base pairs against temperature: selected salt, 10 mM and 150 mM\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Seçilen Na⁺</span><span><i style=\"background:var(--muted)\"></i>10 mM ve 150 mM (karşılaştırma)</span><span>Nokta: sarmalın anlık hâli</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Selected Na⁺</span><span><i style=\"background:var(--muted)\"></i>10 mM and 150 mM (comparison)</span><span>Dot: the helix right now</span></div>"
+  ],
+  [
+   "<p class=\"small\">T<sub>m</sub> = 81,5 + 0,41 · (%GC) + 16,6 · log₁₀[Na⁺] (uzun DNA; Schildkraut ve Lifson 1965 tuz terimiyle, Primer3'ün kullandığı biçim, uzunluk terimi −600/N atlandı). Kısa oligolarda ve yüksek tuzda T<sub>m</sub> ile log[Na⁺] arasındaki ilişki doğrusal değildir (Owczarzy ve ark. 2004). Açılma, komşu baz çiftleri birlikte açılmayı yeğleyecek biçimde (işbirlikli) canlı hesaplanır; eğrinin genişliği temsilidir.</p>",
+   "<p class=\"small\">T<sub>m</sub> = 81.5 + 0.41 · (%GC) + 16.6 · log₁₀[Na⁺] (long DNA; with the salt term of Schildkraut and Lifson 1965, the form used by Primer3, the length term −600/N omitted). For short oligos and at high salt the relation between T<sub>m</sub> and log[Na⁺] is not linear (Owczarzy et al. 2004). Opening is computed live so that neighboring base pairs prefer to open together (cooperatively); the width of the curve is representative.</p>"
+  ],
+  [
+   "<div class=\"prose\"><h3 class=\"sub\">C · Protein tuzla çözünür, fazla tuzla çöker</h3>",
+   "<div class=\"prose\"><h3 class=\"sub\">C · A protein dissolves with salt and precipitates with too much salt</h3>"
+  ],
+  [
+   "<p>Bazı proteinler (klasik tanımıyla globulinler) saf suda az çözünür, seyreltik tuzda çözünür: bu <b>tuzla çözme</b>dir. Az tuz, protein yüzeyindeki zıt yüklü bölgelerin birbirini çekmesini perdeler. Çok tuz ise suyu iyonlara bağlar ve proteinlerin yağsı yüzeylerinin birbirine yapışmasını kolaylaştırır: <b>tuzla çöktürme</b>. Laboratuvardaki amonyum sülfat çöktürmesi bu ikinci etkidir; sülfat, klorürden çok daha etkili çöktürür. Aşağıdaki kutuda 36 protein molekülü periyodik bir kutuda hareket ediyor ve birbirine yapışabiliyor.</p>",
+   "<p>Some proteins (globulins, in the classical definition) dissolve poorly in pure water and well in dilute salt: this is <b>salting in</b>. A little salt screens the attraction between oppositely charged patches on the protein surface. A lot of salt, however, ties up the water around the ions and makes it easier for the oily surfaces of proteins to stick to each other: <b>salting out</b>. Ammonium sulfate precipitation in the lab is this second effect; sulfate precipitates much more effectively than chloride. In the box below, 36 protein molecules move in a periodic box and can stick to each other.</p>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k3prot\" class=\"stage\" style=\"aspect-ratio:4/3\" aria-label=\"Periyodik kutuda protein molekülleri, kümeler ve tuz iyonları\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k3prot\" class=\"stage\" style=\"aspect-ratio:4/3\" aria-label=\"Protein molecules, clusters and salt ions in a periodic box\"></canvas></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Tuz</div>",
+   "<div><div class=\"lbl\">Salt</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Tuz\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Salt\">"
+  ],
+  [
+   "<button type=\"button\" data-salt=\"as\" aria-pressed=\"false\">Amonyum sülfat</button>",
+   "<button type=\"button\" data-salt=\"as\" aria-pressed=\"false\">Ammonium sulfate</button>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k3pc\">Tuz derişimi</label><div class=\"big\" id=\"k3pcV\"></div><input type=\"range\" id=\"k3pc\" min=\"-4\" max=\"0.477\" step=\"0.01\" value=\"-3\"></div>",
+   "<div><label class=\"lbl\" for=\"k3pc\">Salt concentration</label><div class=\"big\" id=\"k3pcV\"></div><input type=\"range\" id=\"k3pc\" min=\"-4\" max=\"0.477\" step=\"0.01\" value=\"-3\"></div>"
+  ],
+  [
+   "<dt>İyonik şiddet</dt><dd id=\"k3pI\"></dd>",
+   "<dt>Ionic strength</dt><dd id=\"k3pI\"></dd>"
+  ],
+  [
+   "<dt>Yüzey yüklerinin çekimi (perdelenmiş)</dt><dd id=\"k3pEl\"></dd>",
+   "<dt>Attraction of surface charges (screened)</dt><dd id=\"k3pEl\"></dd>"
+  ],
+  [
+   "<dt>Tuzun yapıştırıcı etkisi</dt><dd id=\"k3pSo\"></dd>",
+   "<dt>Sticking effect of the salt</dt><dd id=\"k3pSo\"></dd>"
+  ],
+  [
+   "<dt>Temas enerjisi (toplam)</dt><dd id=\"k3pE\"></dd>",
+   "<dt>Contact energy (total)</dt><dd id=\"k3pE\"></dd>"
+  ],
+  [
+   "<dt>Çözünen molekül (ölçülen)</dt><dd id=\"k3pSol\"></dd>",
+   "<dt>Dissolved molecules (measured)</dt><dd id=\"k3pSol\"></dd>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" data-pp=\"-4\">Saf suya yakın</button><button type=\"button\" class=\"btn\" data-pp=\"-0.824\">150 mM</button><button type=\"button\" class=\"btn\" data-pp=\"0.301\">2 M</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" data-pp=\"-4\">Close to pure water</button><button type=\"button\" class=\"btn\" data-pp=\"-0.824\">150 mM</button><button type=\"button\" class=\"btn\" data-pp=\"0.301\">2 M</button></div>"
+  ],
+  [
+   "<canvas id=\"k3protPlot\" class=\"plot\" aria-label=\"İyonik şiddete karşı temas enerjisinin iki parçası ve toplamı\"></canvas>",
+   "<canvas id=\"k3protPlot\" class=\"plot\" aria-label=\"The two parts of the contact energy and their total against ionic strength\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--mid)\"></i>Yüzey yüklerinin çekimi</span><span><i style=\"background:var(--gold)\"></i>Tuzun yapıştırıcı etkisi</span><span><i style=\"background:var(--accent)\"></i>Toplam</span><span>Kesikli çizgi: bu modelde kümeleşmenin başladığı yer (yaklaşık 2,2 kT)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--mid)\"></i>Attraction of surface charges</span><span><i style=\"background:var(--gold)\"></i>Sticking effect of the salt</span><span><i style=\"background:var(--accent)\"></i>Total</span><span>Dashed line: where clustering starts in this model (about 2.2 kT)</span></div>"
+  ],
+  [
+   "<div class=\"change\" id=\"k3pChg\"><span class=\"t\">Saf suya yakın</span><span>Moleküller zıt yüklü yüzeyleriyle birbirine yapışıyor.</span></div>",
+   "<div class=\"change\" id=\"k3pChg\"><span class=\"t\">Close to pure water</span><span>The molecules stick together through their oppositely charged surfaces.</span></div>"
+  ],
+  [
+   "<p class=\"small\">Şematik model: iki etki birer temas enerjisiyle yazılır. Yüzey yüklerinin çekimi 3,4 kT · e<sup>−0,5 nm/λ<sub>D</sub></sup> ile tuzla söner; tuzun yapıştırıcı etkisi iyonik şiddetle artar (NaCl için 0,25, amonyum sülfat için 0,8 kT/M). Katsayılar temsilidir, belirli bir proteinin ölçümü değildir; yalnız iki etkinin yönü ve sülfatın klorürden güçlü çöktürmesi ölçümlerle uyumludur. \"Çözünen\" en çok üç moleküllük kümelerdeki moleküllerdir; oran canlı hesaplanır. Amonyum sülfatın iyonik şiddeti derişimin üç katıdır.</p>",
+   "<p class=\"small\">Schematic model: each of the two effects is written as a contact energy. The attraction of surface charges fades with salt as 3.4 kT · e<sup>−0.5 nm/λ<sub>D</sub></sup>; the sticking effect of the salt grows with ionic strength (0.25 kT/M for NaCl, 0.8 kT/M for ammonium sulfate). The coefficients are representative, not a measurement of a particular protein; only the direction of the two effects and the stronger precipitation by sulfate than by chloride agree with measurements. \"Dissolved\" means molecules in clusters of at most three; the fraction is computed live. The ionic strength of ammonium sulfate is three times its concentration.</p>"
+  ],
+  [
+   "<p><b>Tuz kristalinde durum farklı.</b> Katı NaCl'de iyonlar arasında perdeleyecek su yoktur ve her iyon bütün kristali hisseder. Born-Haber döngüsüyle ölçülen örgü enerjisi yaklaşık 786 kJ/mol'dür. Yalnız en yakın altı komşuyu sayarsanız bu sayıya ulaşamazsınız; uzaktaki bütün iyonların katkısı gerekir. Bu katkının toplamı, en yakın komşu etkileşiminin <b>Madelung sabiti</b> kadar katıdır (NaCl için 1,7476). Atölyede bu toplamı iki boyutlu bir örgüde kendiniz yapacaksınız.</p>",
+   "<p><b>In a salt crystal the situation is different.</b> In solid NaCl there is no water between the ions to screen them, and every ion feels the whole crystal. The lattice energy measured with the Born-Haber cycle is about 786 kJ/mol. Counting only the six nearest neighbors does not reach this number; the contribution of all the distant ions is needed. The sum of these contributions is the <b>Madelung constant</b> times the nearest-neighbor interaction (1.7476 for NaCl). In the workshop you will do this sum yourself on a two-dimensional lattice.</p>"
+  ],
+  [
+   "<p><b>MD'ye bağlantısı.</b> Bir MD kutusundaki perdeleme de kutudaki iyonların kendisinden doğar; program bunu önceden bilemez. Yüklerin etkileşimini doğru hesaplamak için uzaktaki bütün yükler, kopyalarıyla birlikte, sayılmalıdır. Saf suda perdeleme hiç yoktur.</p>",
+   "<p><b>The link to MD.</b> Screening in an MD box also comes from the ions in the box themselves; the program cannot know it in advance. To compute the interaction of charges correctly, all distant charges, together with their copies, must be counted. In pure water there is no screening at all.</p>"
+  ],
+  [
+   "<h2 id=\"k3h1\">Kristalde kabuk kabuk toplam: toplam neden bir türlü oturmuyor?</h2>",
+   "<h2 id=\"k3h1\">Summing a crystal shell by shell: why does the sum refuse to settle?</h2>"
+  ],
+  [
+   "<p class=\"small\">İki boyutlu bir tuz kristali: kırmızılar artı, maviler eksi yüklü iyonlar, en yakın komşu uzaklığı 1. Ortadaki artı iyonun bütün öbür iyonlarla Coulomb etkileşimini topluyoruz; toplam, en yakın komşu etkileşimi biriminde verilir (sonsuz örgüde 1,6155; iki boyutun Madelung sabiti). Toplama bölgesini büyüttükçe ne olduğuna bakın.</p>",
+   "<p class=\"small\">A two-dimensional salt crystal: red are positive, blue negative ions, nearest-neighbor distance 1. We sum the Coulomb interaction of the central positive ion with all other ions; the sum is given in units of the nearest-neighbor interaction (1.6155 for the infinite lattice; the two-dimensional Madelung constant). See what happens as you enlarge the summation region.</p>"
+  ],
+  [
+   "<ol class=\"small steps\"><li><b>Daire:</b> merkezden belirli bir yarıçapa kadar bütün iyonları sayar. \"Kabuk ekle\" düğmesine basın ya da kaydırıcıyı sürükleyin; toplamın ve bölgenin net yükünün nasıl zıpladığına bakın.</li><li><b>Kare:</b> kare kabuklar ekler. Daha sakin, ama çok yavaş yaklaşıyor.</li><li><b>Kare, sınır yarım:</b> sınırdaki iyonları yarım (köşedekileri çeyrek) yükle sayar; bölge her adımda yüksüz kalır. Alttaki ikinci grafikte aynı kabuklarla r⁻⁶ (van der Waals) toplamına da bakın.</li></ol>",
+   "<ol class=\"small steps\"><li><b>Circle:</b> counts all ions up to a radius from the center. Press \"Add a shell\" or drag the slider; watch how the sum and the net charge of the region jump.</li><li><b>Square:</b> adds square shells. Calmer, but it approaches very slowly.</li><li><b>Square, half boundary:</b> counts the ions on the boundary with half charge (the corners with a quarter); the region stays neutral at every step. In the second graph below, also look at the r⁻⁶ (van der Waals) sum over the same shells.</li></ol>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k3lat\" class=\"stage\" aria-label=\"İki boyutlu iyon örgüsü, merkez iyon ve toplama bölgesi\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k3lat\" class=\"stage\" aria-label=\"Two-dimensional ion lattice, central ion and summation region\"></canvas></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Toplama bölgesinin biçimi</div>",
+   "<div><div class=\"lbl\">Shape of the summation region</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Toplama bölgesinin biçimi\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Shape of the summation region\">"
+  ],
+  [
+   "<button type=\"button\" id=\"k3mC\" aria-pressed=\"true\">Daire</button>",
+   "<button type=\"button\" id=\"k3mC\" aria-pressed=\"true\">Circle</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"k3mS\" aria-pressed=\"false\">Kare</button>",
+   "<button type=\"button\" id=\"k3mS\" aria-pressed=\"false\">Square</button>"
+  ],
+  [
+   "<button type=\"button\" id=\"k3mE\" aria-pressed=\"false\">Kare, sınır yarım</button>",
+   "<button type=\"button\" id=\"k3mE\" aria-pressed=\"false\">Square, half boundary</button>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k3n\">Bölgenin boyu n (yarıçap ya da kabuk)</label><div class=\"big\" id=\"k3nVal\"></div><input type=\"range\" id=\"k3n\" min=\"1\" max=\"40\" step=\"1\" value=\"3\"></div>",
+   "<div><label class=\"lbl\" for=\"k3n\">Size of the region n (radius or shell)</label><div class=\"big\" id=\"k3nVal\"></div><input type=\"range\" id=\"k3n\" min=\"1\" max=\"40\" step=\"1\" value=\"3\"></div>"
+  ],
+  [
+   "<dt>Sayılan iyon</dt><dd id=\"k3cnt\"></dd>",
+   "<dt>Ions counted</dt><dd id=\"k3cnt\"></dd>"
+  ],
+  [
+   "<dt>Bölgenin net yükü (merkez dahil)</dt><dd id=\"k3q\"></dd>",
+   "<dt>Net charge of the region (center included)</dt><dd id=\"k3q\"></dd>"
+  ],
+  [
+   "<dt>Coulomb toplamı</dt><dd id=\"k3M\"></dd>",
+   "<dt>Coulomb sum</dt><dd id=\"k3M\"></dd>"
+  ],
+  [
+   "<dt>Sonsuz örgüde (2B Madelung)</dt><dd>1,6155</dd>",
+   "<dt>Infinite lattice (2D Madelung)</dt><dd>1.6155</dd>"
+  ],
+  [
+   "<dt>r⁻⁶ toplamı, sonsuz örgüye göre</dt><dd id=\"k3s6\"></dd>",
+   "<dt>r⁻⁶ sum, relative to the infinite lattice</dt><dd id=\"k3s6\"></dd>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k3play\">Kabuk ekle</button><button type=\"button\" class=\"btn\" id=\"k3reset\">Baştan</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k3play\">Add a shell</button><button type=\"button\" class=\"btn\" id=\"k3reset\">Start over</button></div>"
+  ],
+  [
+   "<canvas id=\"k3latPlot\" class=\"plot\" aria-label=\"Bölge boyuna karşı Coulomb toplamı: daire, kare ve sınır yarım kare\"></canvas>",
+   "<canvas id=\"k3latPlot\" class=\"plot\" aria-label=\"Coulomb sum against region size: circle, square and square with half boundary\"></canvas>"
+  ],
+  [
+   "<canvas id=\"k3s6Plot\" class=\"plot\" aria-label=\"Bölge boyuna karşı r⁻⁶ toplamının sonsuz örgüye oranı\"></canvas>",
+   "<canvas id=\"k3s6Plot\" class=\"plot\" aria-label=\"Ratio of the r⁻⁶ sum to the infinite lattice against region size\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Daire</span><span><i style=\"background:var(--gold)\"></i>Kare</span><span><i style=\"background:var(--deep)\"></i>Kare, sınır yarım</span><span>Kesikli çizgi: 1,6155</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Circle</span><span><i style=\"background:var(--gold)\"></i>Square</span><span><i style=\"background:var(--deep)\"></i>Square, half boundary</span><span>Dashed line: 1.6155</span></div>"
+  ],
+  [
+   "<div class=\"change\" id=\"k3latChg\"><span class=\"t\">Bölge küçük</span><span>\"Kabuk ekle\" ile bölgeyi büyütün ve toplamı izleyin.</span></div>",
+   "<div class=\"change\" id=\"k3latChg\"><span class=\"t\">The region is small</span><span>Enlarge the region with \"Add a shell\" and watch the sum.</span></div>"
+  ],
+  [
+   "<h2 id=\"k3h2\">Ewald'ın hilesi: bir toplamı ikiye bölmek</h2>",
+   "<h2 id=\"k3h2\">Ewald's trick: splitting one sum into two</h2>"
+  ],
+  [
+   "<p class=\"small\">Uzaktaki yükleri toplamak zordur, çünkü 1/r yavaş söner. Ewald'ın fikri, her yüke zıt işaretli bir <b>kılıf</b> giydirip sonra bu kılıfları geri almaktır. Aşağıda bir tuz kristalinden alınmış bir iyon sırasıyla altı adımda izleyin; her adımda \"İleri\"ye basın ya da \"Baştan oynat\" ile hepsini sırayla görün. β kaydırıcısı kılıfların genişliğini değiştirir.</p>",
+   "<p class=\"small\">Summing distant charges is hard because 1/r fades slowly. Ewald's idea is to dress every charge in a <b>sleeve</b> of opposite sign and then take the sleeves back. Follow it below in six steps with a row of ions taken from a salt crystal; press \"Next\" at each step, or see them all in order with \"Play from the start\". The β slider changes the width of the sleeves.</p>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k3ew\" class=\"stage\" style=\"aspect-ratio:4/3\" aria-label=\"Ewald ayrışımı adım adım: nokta yükler, kılıflı yükler (yakın kısım) ve yumuşak bulutlar (uzak kısım)\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k3ew\" class=\"stage\" style=\"aspect-ratio:4/3\" aria-label=\"Ewald splitting step by step: point charges, sleeved charges (near part) and soft clouds (far part)\"></canvas></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k3sPrev\">‹ Geri</button><button type=\"button\" class=\"btn primary\" id=\"k3sNext\">İleri ›</button><button type=\"button\" class=\"btn\" id=\"k3sPlay\">Baştan oynat</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k3sPrev\">‹ Back</button><button type=\"button\" class=\"btn primary\" id=\"k3sNext\">Next ›</button><button type=\"button\" class=\"btn\" id=\"k3sPlay\">Play from the start</button></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k3b\">Kılıf darlığı β (1/r₀)</label><div class=\"big\" id=\"k3bVal\"></div><input type=\"range\" id=\"k3b\" min=\"40\" max=\"300\" step=\"5\" value=\"150\"></div>",
+   "<div><label class=\"lbl\" for=\"k3b\">Sleeve narrowness β (1/r₀)</label><div class=\"big\" id=\"k3bVal\"></div><input type=\"range\" id=\"k3b\" min=\"40\" max=\"300\" step=\"5\" value=\"150\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k3rc\">Yakın kısmın kesmesi r<sub>c</sub> (r₀)</label><div class=\"big\" id=\"k3rcVal\"></div><input type=\"range\" id=\"k3rc\" min=\"150\" max=\"600\" step=\"10\" value=\"400\"></div>",
+   "<div><label class=\"lbl\" for=\"k3rc\">Cut-off of the near part r<sub>c</sub> (r₀)</label><div class=\"big\" id=\"k3rcVal\"></div><input type=\"range\" id=\"k3rc\" min=\"150\" max=\"600\" step=\"10\" value=\"400\"></div>"
+  ],
+  [
+   "<dt>Yakın kısım (gerçek uzay)</dt><dd id=\"k3re\"></dd>",
+   "<dt>Near part (real space)</dt><dd id=\"k3re\"></dd>"
+  ],
+  [
+   "<dt>Uzak kısım (ters uzay)</dt><dd id=\"k3rk\"></dd>",
+   "<dt>Far part (reciprocal space)</dt><dd id=\"k3rk\"></dd>"
+  ],
+  [
+   "<dt>Öz terim</dt><dd id=\"k3rs\"></dd>",
+   "<dt>Self term</dt><dd id=\"k3rs\"></dd>"
+  ],
+  [
+   "<dt>Toplam (NaCl kristali)</dt><dd id=\"k3rt\"></dd>",
+   "<dt>Total (NaCl crystal)</dt><dd id=\"k3rt\"></dd>"
+  ],
+  [
+   "<dt>Kesmede kalan pay erfc(β·r<sub>c</sub>)</dt><dd id=\"k3tail\"></dd>",
+   "<dt>Share left at the cut-off erfc(β·r<sub>c</sub>)</dt><dd id=\"k3tail\"></dd>"
+  ],
+  [
+   "<dt>Gerçek uzayda çift / ters uzayda dalga</dt><dd id=\"k3nn\"></dd>",
+   "<dt>Pairs in real space / waves in reciprocal space</dt><dd id=\"k3nn\"></dd>"
+  ],
+  [
+   "<div class=\"change\" id=\"k3bChg\"><span class=\"t\">1 · Nokta yükler</span><span></span></div>",
+   "<div class=\"change\" id=\"k3bChg\"><span class=\"t\">1 · Point charges</span><span></span></div>"
+  ],
+  [
+   "<p class=\"small\">Sağdaki sayılar üç boyutlu NaCl kristali için sayfada hesaplanır (kübik birim hücre, gerçek uzayda erfc ile kesilmiş toplam, ters uzayda dalga toplamı, öz terim). Soldaki çizim aynı fikri bir boyutlu bir iyon sırasında gösterir; bulutların dalgalarla çizimi o sıranın tam Fourier serisidir.</p>",
+   "<p class=\"small\">The numbers on the right are computed on this page for the three-dimensional NaCl crystal (cubic unit cell, a real-space sum cut with erfc, a reciprocal-space sum over waves, a self term). The drawing on the left shows the same idea for a one-dimensional row of ions; drawing the clouds with waves is the exact Fourier series of that row.</p>"
+  ],
+  [
+   "<canvas id=\"k3inv\" class=\"plot\" aria-label=\"β'ya karşı yakın kısım, uzak kısım, öz terim ve toplam\"></canvas>",
+   "<canvas id=\"k3inv\" class=\"plot\" aria-label=\"Near part, far part, self term and total against β\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Yakın kısım</span><span><i style=\"background:var(--deep)\"></i>Uzak kısım</span><span><i style=\"background:var(--gold)\"></i>Öz terim</span><span><i style=\"background:var(--good)\"></i>Toplam</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Near part</span><span><i style=\"background:var(--deep)\"></i>Far part</span><span><i style=\"background:var(--gold)\"></i>Self term</span><span><i style=\"background:var(--good)\"></i>Total</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"k3c1\"><span class=\"k\">Açık</span><h3>Coulomb toplamı nereye oturuyor?</h3><p>Atölyede toplamı daire ve sınır yarım kare bölgeyle büyütün.</p><div class=\"mine\" id=\"mk3c1\">Daire ve sınır yarım kare modunda n'yi en az 20'ye çıkarın.</div></article>",
+   "<article class=\"q\" id=\"k3c1\"><span class=\"k\">Open</span><h3>Where does the Coulomb sum settle?</h3><p>In the workshop, grow the sum with the circle and with the half-boundary square.</p><div class=\"mine\" id=\"mk3c1\">Raise n to at least 20 in the circle and in the half-boundary square mode.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"k3c2\"><span class=\"k\">Açık</span><h3>Bölmek toplamı değiştirir mi?</h3><p>Tezgâhta β'yı en az üç farklı değere getirin.</p><div class=\"mine\" id=\"mk3c2\">En az üç β değeri deneyin; en büyüğü en küçüğünün en az iki katı olsun ve kesmede kalan pay küçük kalsın.</div></article>",
+   "<article class=\"q\" id=\"k3c2\"><span class=\"k\">Open</span><h3>Does splitting change the sum?</h3><p>At the bench, set β to at least three different values.</p><div class=\"mine\" id=\"mk3c2\">Try at least three β values; the largest should be at least twice the smallest, and the share left at the cut-off should stay small.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"k3c3\"><span class=\"k\">Açık</span><h3>Düz kesme mi, Ewald mı?</h3><p>Aşağıdaki defterde üç yöntemi farklı kesme mesafeleriyle ölçün.</p><div class=\"mine\" id=\"mk3c3\">Coulomb düz kesmede en az üç, Ewald'da ve r⁻⁶ düz kesmede en az ikişer kesme mesafesi ölçün.</div></article>",
+   "<article class=\"q\" id=\"k3c3\"><span class=\"k\">Open</span><h3>Plain cut-off or Ewald?</h3><p>In the notebook below, measure the three methods at different cut-off distances.</p><div class=\"mine\" id=\"mk3c3\">Measure at least three cut-off distances with the plain Coulomb cut-off, and at least two each with Ewald and the plain r⁻⁶ cut-off.</div></article>"
+  ],
+  [
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Keşif defteri</span><h2 id=\"k3h3\">Kesme mesafesi uzarken hata küçülüyor mu?</h2></div>",
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Discovery notebook</span><h2 id=\"k3h3\">Does the error shrink as the cut-off grows?</h2></div>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"k3nClr\">Defteri temizle</button>",
+   "<button type=\"button\" class=\"btn\" id=\"k3nClr\">Clear the notebook</button>"
+  ],
+  [
+   "<p class=\"small\">Her ölçüm üç boyutlu NaCl kristalinde bir iyonun bütün kristalle etkileşimini seçtiğiniz yöntemle hesaplar ve kesin değerle karşılaştırır. Coulomb için kesin değer Madelung sabitidir (1,747565); r⁻⁶ için sonsuz kristalin toplamı. Tabloda kesme küresinin net yükü de yazar.</p>",
+   "<p class=\"small\">Each measurement computes the interaction of one ion with the whole three-dimensional NaCl crystal using the method you choose and compares it with the exact value. For Coulomb the exact value is the Madelung constant (1.747565); for r⁻⁶ it is the sum over the infinite crystal. The table also gives the net charge of the cut-off sphere.</p>"
+  ],
+  [
+   "<div><div class=\"lbl\">Yöntem</div><div class=\"chips\" id=\"k3nMode\"><button type=\"button\" class=\"chip\" data-m=\"cut\" aria-pressed=\"true\">Coulomb, düz kesme</button><button type=\"button\" class=\"chip\" data-m=\"ewald\" aria-pressed=\"false\">Coulomb, Ewald</button><button type=\"button\" class=\"chip\" data-m=\"r6\" aria-pressed=\"false\">r⁻⁶, düz kesme</button></div></div>",
+   "<div><div class=\"lbl\">Method</div><div class=\"chips\" id=\"k3nMode\"><button type=\"button\" class=\"chip\" data-m=\"cut\" aria-pressed=\"true\">Coulomb, plain cut-off</button><button type=\"button\" class=\"chip\" data-m=\"ewald\" aria-pressed=\"false\">Coulomb, Ewald</button><button type=\"button\" class=\"chip\" data-m=\"r6\" aria-pressed=\"false\">r⁻⁶, plain cut-off</button></div></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kesme mesafesi (r₀)</div><div class=\"chips\" id=\"k3nR\"></div></div>",
+   "<div><div class=\"lbl\">Cut-off distance (r₀)</div><div class=\"chips\" id=\"k3nR\"></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k3nRun\">Ölç</button><button type=\"button\" class=\"btn\" id=\"k3nAll\">Bu yöntemde tüm seriyi ölç</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k3nRun\">Measure</button><button type=\"button\" class=\"btn\" id=\"k3nAll\">Measure the whole series in this method</button></div>"
+  ],
+  [
+   "<p class=\"busy\" id=\"k3nBusy\" aria-live=\"polite\">Ölçüm yok.</p>",
+   "<p class=\"busy\" id=\"k3nBusy\" aria-live=\"polite\">No measurement.</p>"
+  ],
+  [
+   "<canvas id=\"k3book\" class=\"plot\" aria-label=\"Kesme mesafesine karşı bağıl hata: Coulomb düz kesme, Ewald ve r⁻⁶ düz kesme\"></canvas>",
+   "<canvas id=\"k3book\" class=\"plot\" aria-label=\"Relative error against cut-off distance: plain Coulomb cut-off, Ewald and plain r⁻⁶ cut-off\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Coulomb, düz kesme</span><span><i style=\"background:var(--deep)\"></i>Coulomb, Ewald (hata payı 10⁻⁵)</span><span><i style=\"background:var(--gold)\"></i>r⁻⁶, düz kesme</span><span id=\"k3nCount\"></span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Coulomb, plain cut-off</span><span><i style=\"background:var(--deep)\"></i>Coulomb, Ewald (tolerance 10⁻⁵)</span><span><i style=\"background:var(--gold)\"></i>r⁻⁶, plain cut-off</span><span id=\"k3nCount\"></span></div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Yöntem</th><th>r<sub>c</sub> (r₀)</th><th>Hesaplanan</th><th>Bağıl hata</th><th>Kürenin net yükü</th></tr></thead><tbody id=\"k3nTab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Method</th><th>r<sub>c</sub> (r₀)</th><th>Computed</th><th>Relative error</th><th>Net charge of the sphere</th></tr></thead><tbody id=\"k3nTab\"></tbody></table></div>"
+  ],
+  [
+   "<h2 id=\"k3h4\">Bu projenin koşusunda PME: 1,0 nm, 0,32 nm ve 56 ızgara noktası</h2>",
+   "<h2 id=\"k3h4\">PME in this project's run: 1.0 nm, 0.32 nm and 56 grid points</h2>"
+  ],
+  [
+   "<p class=\"small\">GROMACS'ta Ewald'ın hızlı biçimi PME'dir (parçacık-ağ Ewald): uzak kısım yumuşak bulutlar bir ızgaraya dağıtılarak hızlı Fourier dönüşümüyle hesaplanır. Bu projenin ubikitin koşusu üç sayıyla ayarlandı: gerçek uzay kesmesi <code>rcoulomb</code> = 1,0 nm, kesmede kalan pay <code>ewald-rtol</code> = 10⁻⁵, ızgara aralığı en çok <code>fourierspacing</code> = 0,12 nm. Aşağıdaki kutu kesiti bu ayarları gerçek ölçekte gösterir: ortada bir lizin yan zincirinin azotu (+1), çevresinde bulut genişliği ve kesme, arkada PME ızgarası.</p>",
+   "<p class=\"small\">In GROMACS the fast form of Ewald is PME (particle-mesh Ewald): the far part is computed by spreading the soft clouds onto a grid and using fast Fourier transforms. This project's ubiquitin run was set up with three numbers: the real-space cut-off <code>rcoulomb</code> = 1.0 nm, the share left at the cut-off <code>ewald-rtol</code> = 10⁻⁵, and a grid spacing of at most <code>fourierspacing</code> = 0.12 nm. The box slice below shows these settings at real scale: in the middle the nitrogen of a lysine side chain (+1), around it the cloud width and the cut-off, behind it the PME grid.</p>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k5box\" class=\"stage\" aria-label=\"Protein yüzeyinde yüklü bir atom, kesme çemberi, Ewald bulutu ve PME ızgarası, nm ölçeğinde\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k5box\" class=\"stage\" aria-label=\"A charged atom on the protein surface, the cut-off circle, the Ewald cloud and the PME grid, at nm scale\"></canvas></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k5proj\">Bu projenin ayarı</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k5proj\">This project's setting</button></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k5rc\">Gerçek uzay kesmesi (rcoulomb)</label><div class=\"big\" id=\"k5rcV\"></div><input type=\"range\" id=\"k5rc\" min=\"80\" max=\"140\" step=\"2\" value=\"100\"></div>",
+   "<div><label class=\"lbl\" for=\"k5rc\">Real-space cut-off (rcoulomb)</label><div class=\"big\" id=\"k5rcV\"></div><input type=\"range\" id=\"k5rc\" min=\"80\" max=\"140\" step=\"2\" value=\"100\"></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kesmede kalan pay (ewald-rtol)</div>",
+   "<div><div class=\"lbl\">Share left at the cut-off (ewald-rtol)</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Kesmede kalan pay\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Share left at the cut-off\">"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k5fs\">Izgara aralığı en çok (fourierspacing)</label><div class=\"big\" id=\"k5fsV\"></div><input type=\"range\" id=\"k5fs\" min=\"8\" max=\"20\" step=\"1\" value=\"12\"></div>",
+   "<div><label class=\"lbl\" for=\"k5fs\">Maximum grid spacing (fourierspacing)</label><div class=\"big\" id=\"k5fsV\"></div><input type=\"range\" id=\"k5fs\" min=\"8\" max=\"20\" step=\"1\" value=\"12\"></div>"
+  ],
+  [
+   "<dt>Bulut genişliği 1/β (hesaplanan)</dt><dd id=\"k5beta\"></dd>",
+   "<dt>Cloud width 1/β (computed)</dt><dd id=\"k5beta\"></dd>"
+  ],
+  [
+   "<dt>Bu koşunun günlüğünde</dt><dd>0,320163 nm</dd>",
+   "<dt>In this run's log</dt><dd>0.320163 nm</dd>"
+  ],
+  [
+   "<dt>6,491 nm kutu vektöründe en az ızgara noktası</dt><dd id=\"k5grid\"></dd>",
+   "<dt>Minimum grid points along the 6.491 nm box vector</dt><dd id=\"k5grid\"></dd>"
+  ],
+  [
+   "<dt>Bu koşuda mdrun'ın seçtiği ızgara</dt><dd>56 × 56 × 56</dd>",
+   "<dt>Grid chosen by mdrun in this run</dt><dd>56 × 56 × 56</dd>"
+  ],
+  [
+   "<div class=\"change\" id=\"k5chg\"><span class=\"t\">Bu projenin ayarı</span><span>erfc(β · 1,0 nm) = 10⁻⁵ koşulundan 1/β = 0,3202 nm çıkar; koşunun günlüğü de 0,320163 nm yazıyor.</span></div>",
+   "<div class=\"change\" id=\"k5chg\"><span class=\"t\">This project's setting</span><span>The condition erfc(β · 1.0 nm) = 10⁻⁵ gives 1/β = 0.3202 nm; the run's log also says 0.320163 nm.</span></div>"
+  ],
+  [
+   "<canvas id=\"k5bar\" class=\"plot\" aria-label=\"Bu projenin 10 ps'lik deneme koşusunda enerji terimlerinin ortalaması\"></canvas>",
+   "<canvas id=\"k5bar\" class=\"plot\" aria-label=\"Average energy terms of this project's 10 ps trial run\"></canvas>"
+  ],
+  [
+   "<p><b>Grafikteki sayılar gerçektir.</b> Bu projenin 10 ps'lik kısıtsız deneme koşusunun (5.001 adım, 51 kare) ortalamalarıdır: <code>Coulomb (SR)</code> yakın kısım, <code>Coul. recip.</code> uzak kısım. Bu bölünme, koşunun β değerine göredir; β değişseydi iki terimin payı değişir, toplam elektrostatik enerji değişmezdi. Tezgâhta bunu kristalde gördünüz.</p>",
+   "<p><b>The numbers in the graph are real.</b> They are the averages of this project's 10 ps unrestrained trial run (5,001 steps, 51 frames): <code>Coulomb (SR)</code> is the near part, <code>Coul. recip.</code> the far part. This split follows the run's β; had β been different, the shares of the two terms would change, but not the total electrostatic energy. You saw this for the crystal at the bench.</p>"
+  ],
+  [
+   "<p><b>Net yük.</b> Ewald toplamı yalnız toplam yük sıfırken tam anlamlıdır; net yük varsa yöntem kutuya yayılmış düzgün bir karşı yük varsayar. Bu yüzden hazırlıkta <code>gmx genion -neutral</code> ile karşı iyon eklenir. Bu projenin ubikitin topolojisinin toplam yükü 0,000 e (pdb2gmx) ve deneme koşusunda iyon eklenmedi; kutu saf sudur.</p>",
+   "<p><b>Net charge.</b> The Ewald sum is fully meaningful only when the total charge is zero; if there is a net charge, the method assumes a uniform compensating charge spread over the box. This is why counterions are added during preparation with <code>gmx genion -neutral</code>. The total charge of this project's ubiquitin topology is 0.000 e (pdb2gmx) and no ions were added in the trial run; the box is pure water.</p>"
+  ],
+  [
+   "<div style=\"display:grid;gap:8px\"><label class=\"lbl\" for=\"k5c\">Eklenecek tuz (genion -conc)</label><div class=\"big\" id=\"k5cV\"></div><input type=\"range\" id=\"k5c\" min=\"0\" max=\"300\" step=\"5\" value=\"150\"></div>",
+   "<div style=\"display:grid;gap:8px\"><label class=\"lbl\" for=\"k5c\">Salt to add (genion -conc)</label><div class=\"big\" id=\"k5cV\"></div><input type=\"range\" id=\"k5c\" min=\"0\" max=\"300\" step=\"5\" value=\"150\"></div>"
+  ],
+  [
+   "<dt>193,42 nm³ kutuda Na⁺/Cl⁻ çifti</dt><dd id=\"k5pairs\"></dd>",
+   "<dt>Na⁺/Cl⁻ pairs in the 193.42 nm³ box</dt><dd id=\"k5pairs\"></dd>"
+  ],
+  [
+   "<dt>Bu derişimde Debye uzunluğu (25 °C)</dt><dd id=\"k5lam\"></dd>",
+   "<dt>Debye length at this concentration (25 °C)</dt><dd id=\"k5lam\"></dd>"
+  ],
+  [
+   "<dt>Karşı iyon (net yük 0)</dt><dd>0</dd>",
+   "<dt>Counterions (net charge 0)</dt><dd>0</dd>"
+  ],
+  [
+   "<p class=\"small\">Çift sayısı, genion'un tanımına göre kutu hacminden hesaplanır (derişim × hacim × Avogadro sayısı). Bu projede tuzlu bir koşu yapılmadı: <b>bu senaryo hesaplanmadı</b>.</p>",
+   "<p class=\"small\">Following genion's definition, the number of pairs is computed from the box volume (concentration × volume × Avogadro's number). No run with salt was made in this project: <b>this scenario was not computed</b>.</p>"
+  ],
+  [
+   "<tr><td><code>coulombtype</code></td><td class=\"n\">PME</td><td>uzak kısım ızgarada, hızlı Fourier dönüşümüyle</td></tr>",
+   "<tr><td><code>coulombtype</code></td><td class=\"n\">PME</td><td>far part on a grid, with fast Fourier transforms</td></tr>"
+  ],
+  [
+   "<tr><td><code>rcoulomb</code></td><td class=\"n\">1,0 nm</td><td>gerçek uzay kesmesi</td></tr>",
+   "<tr><td><code>rcoulomb</code></td><td class=\"n\">1.0 nm</td><td>real-space cut-off</td></tr>"
+  ],
+  [
+   "<tr><td><code>ewald-rtol</code></td><td class=\"n\">1e-05</td><td>yakın kısmın kesmede kalan bağıl payı</td></tr>",
+   "<tr><td><code>ewald-rtol</code></td><td class=\"n\">1e-05</td><td>relative share of the near part left at the cut-off</td></tr>"
+  ],
+  [
+   "<tr><td><code>fourierspacing</code></td><td class=\"n\">0,12 nm</td><td>ızgara aralığı üst sınırı</td></tr>",
+   "<tr><td><code>fourierspacing</code></td><td class=\"n\">0.12 nm</td><td>upper limit of the grid spacing</td></tr>"
+  ],
+  [
+   "<tr><td><code>pme-order</code></td><td class=\"n\">4</td><td>her yük her boyutta 4 ızgara noktasına dağıtılır (üç boyutta 4 × 4 × 4; kübik aradeğerleme)</td></tr>",
+   "<tr><td><code>pme-order</code></td><td class=\"n\">4</td><td>each charge is spread to 4 grid points along each dimension (4 × 4 × 4 in three dimensions; cubic interpolation)</td></tr>"
+  ],
+  [
+   "<tr><td>günlük</td><td class=\"n\">1/β = 0,320163 nm; 56 × 56 × 56</td><td>Ewald bulut genişliği ve PME ızgarası</td></tr>",
+   "<tr><td>log</td><td class=\"n\">1/β = 0.320163 nm; 56 × 56 × 56</td><td>Ewald cloud width and PME grid</td></tr>"
+  ],
+  [
+   "<h2 id=\"k3h5\">Altı soru</h2>",
+   "<h2 id=\"k3h5\">Six questions</h2>"
+  ],
+  [
+   "<p class=\"small\">Model: Debye uzunluğu Debye-Hückel kuramından, suyun dielektrik sabiti Malmberg ve Maryott (1956) bağıntısından; iyon bulutundaki noktalar temsilidir. Atölyede iki boyutlu kare iyon örgüsü, tezgâh ve defterde üç boyutlu NaCl (kaya tuzu) örgüsü; birim en yakın komşu uzaklığı r₀ ve ±1 yük. Ewald toplamı sayfada hesaplanır (kübik birim hücre, gerçek uzay erfc, ters uzay dalga toplamı, öz terim). NaCl örgü enerjisi: Born-Haber döngüsü, yaklaşık 786 kJ/mol; örgü sabiti 0,5640 nm. Proteine dönüşteki ayarlar ve enerjiler bu projenin ubikitin deneme koşusundan (gromacs_trial: mdout.mdp, free_smoke.log). Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Model: the Debye length from Debye-Hückel theory, the dielectric constant of water from the relation of Malmberg and Maryott (1956); the dots in the ion cloud are representative. The workshop uses a two-dimensional square ion lattice, the bench and the notebook a three-dimensional NaCl (rock salt) lattice; the unit is the nearest-neighbor distance r₀ and charges of ±1. The Ewald sum is computed on the page (cubic unit cell, real-space erfc, reciprocal-space wave sum, self term). NaCl lattice energy: Born-Haber cycle, about 786 kJ/mol; lattice constant 0.5640 nm. The settings and energies in \"Back to the protein\" come from this project's ubiquitin trial run (gromacs_trial: mdout.mdp, free_smoke.log). Your notebook is kept only in this browser.</p>"
+  ],
+  [
    "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
    "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
   ],
@@ -838,8 +1358,8 @@
    "function pc(v,d){ return fx(v,d)+'%'; }"
   ],
   [
-   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }",
-   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }"
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 12'; }",
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 12'; }"
   ],
   [
    "cs+='<text x=\"'+(ox+a*2+6)+'\" y=\"'+(oy+a-6)+'\" font-size=\"12\" fill=\"var(--accent)\" font-family=\"Segoe UI, system-ui, sans-serif\">birim hücre</text>';",
@@ -1234,8 +1754,8 @@
    "['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Open'; });"
   ],
   [
-   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }",
-   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }"
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 12'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 12'; }"
   ],
   [
    "g.fillStyle=BLUE; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('mavi ışık',6,y-rPx-18); g.fillText('(uyarma)',6,y-rPx-4);",
@@ -1430,6 +1950,10 @@
    "$('k2nClr').onclick=function(){ if(busy) return; book=[]; save(); nDraw(); nEval(); $('k2nBusy').textContent='Notebook cleared.'; };"
   ],
   [
+   "for(var k=lmin;k<=lmax;k++){ var y=Y(Math.pow(10,k)); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=muted; g.textAlign='right'; g.fillText(sci(Math.pow(10,k)).replace('1,0 × ',''),L-6,y+4); }",
+   "for(var k=lmin;k<=lmax;k++){ var y=Y(Math.pow(10,k)); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=muted; g.textAlign='right'; g.fillText(sci(Math.pow(10,k)).replace('1.0 × ',''),L-6,y+4); }"
+  ],
+  [
    "g.textAlign='center'; RS.forEach(function(r){ g.fillStyle=muted; g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('kesme mesafesi r_c (σ)',(L+W-R)/2,H-4);",
    "g.textAlign='center'; RS.forEach(function(r){ g.fillStyle=muted; g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('cut-off distance r_c (σ)',(L+W-R)/2,H-4);"
   ],
@@ -1588,6 +2112,346 @@
   [
    "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Sürdür'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();",
    "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Resume'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Resume'; } p4Draw(); p4Msg(); renderQuiz(); kick();"
+  ],
+  [
+   "g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.textAlign='center'; g.fillText('1,0 nm',X(0),Y(1.0)+16);",
+   "g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.textAlign='center'; g.fillText('1.0 nm',X(0),Y(1.0)+16);"
+  ],
+  [
+   "g.textAlign='left'; g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'noktalar temsili':'noktalar temsili: kırmızı artı, mavi eksi iyon',10,H-12);",
+   "g.textAlign='left'; g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'dots are representative':'dots are representative: red positive, blue negative ions',10,H-12);"
+  ],
+  [
+   "g.fillStyle=muted; g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(r){ g.fillText(fx(r,1),X(r),H-B+16); }); g.fillText('uzaklık r (nm)',(L+W-R)/2,H-3); g.textAlign='left'; g.fillText('merkezdeki yükün potansiyeli (kT)',L+4,T-5);",
+   "g.fillStyle=muted; g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(r){ g.fillText(fx(r,1),X(r),H-B+16); }); g.fillText('distance r (nm)',(L+W-R)/2,H-3); g.textAlign='left'; g.fillText('potential of the central charge (kT)',L+4,T-5);"
+  ],
+  [
+   "g.fillStyle=css('--navy'); g.fillText('MD kesmesi',X(1)+5,T+12);",
+   "g.fillStyle=css('--navy'); g.fillText('MD cut-off',X(1)+5,T+12);"
+  ],
+  [
+   "var kT=Math.exp(-1/lam); pill(g,'1,0 nm\\'de '+pc(100*kT,0)+' kalıyor',Math.min(W-90,X(1)+80),Y(lb*kT)-14,css('--paper'),acc);",
+   "var kT=Math.exp(-1/lam); pill(g,pc(100*kT,0)+' left at 1.0 nm',Math.min(W-90,X(1)+80),Y(lb*kT)-14,css('--paper'),acc);"
+  ],
+  [
+   "$('k3Tnote').innerHTML='Neredeyse hiçbir şey. 25 °C\\'den 37 °C\\'ye çıkınca iyonlar daha hızlı titreşir ve bulut gevşer (λ<sub>D</sub> '+pc(th,1)+' büyür); ama sıcak suyun dielektrik sabiti de düşer, yükler birbirini daha güçlü hisseder (λ<sub>D</sub> '+pc(di,1)+' küçülür). İki etki birbirini neredeyse götürür: net '+pc(net,1)+' küçülme; 4 °C ile 37 °C arasındaki fark '+pc(all,1)+'. Perdelemeyi tampondaki tuz belirler, sıcaklık değil. Sıcaklığın asıl etkisini B\\'de, DNA\\'nın erimesinde göreceksiniz.'; }",
+   "$('k3Tnote').innerHTML='Almost nothing. Going from 25 °C to 37 °C, the ions jiggle faster and the cloud loosens (λ<sub>D</sub> grows by '+pc(th,1)+'); but the dielectric constant of warm water also drops and the charges feel each other more strongly (λ<sub>D</sub> shrinks by '+pc(di,1)+'). The two effects nearly cancel: a net decrease of '+pc(net,1)+'; the difference between 4 °C and 37 °C is '+pc(all,1)+'. Screening is set by the salt in the buffer, not by temperature. You will see the real effect of temperature in B, in the melting of DNA.'; }"
+  ],
+  [
+   "pill(g,'Na⁺ '+fx(DN.na*1000,DN.na<0.01?1:0)+' mM · '+fx(DN.T,1)+' °C · açık '+o+' / '+N,W/2,18,paper,css('--navy'));",
+   "pill(g,'Na⁺ '+fx(DN.na*1000,DN.na<0.01?1:0)+' mM · '+fx(DN.T,1)+' °C · open '+o+' / '+N,W/2,18,paper,css('--navy'));"
+  ],
+  [
+   "if(rep>0.15) pill(g,'zincirler arası itme perdelenmemiş',W/2,H-16,paper,css('--bad')); else pill(g,'itme Na⁺ bulutuyla perdelendi',W/2,H-16,paper,css('--good'));",
+   "if(rep>0.15) pill(g,'repulsion between strands not screened',W/2,H-16,paper,css('--bad')); else pill(g,'repulsion screened by the Na⁺ cloud',W/2,H-16,paper,css('--good'));"
+  ],
+  [
+   "g.fillStyle=muted; g.textAlign='center'; [40,50,60,70,80,90,100].forEach(function(t){ g.fillText(t+' °C',X(t),H-B+15); }); g.textAlign='left'; g.fillText('açık baz çifti oranı (UV erime eğrisi gibi)',L+4,T-5);",
+   "g.fillStyle=muted; g.textAlign='center'; [40,50,60,70,80,90,100].forEach(function(t){ g.fillText(t+' °C',X(t),H-B+15); }); g.textAlign='left'; g.fillText('fraction of open base pairs (like a UV melting curve)',L+4,T-5);"
+  ],
+  [
+   "pill(g,'çözünen '+pc(100*sol,0),W/2,18,paper,sol>0.6?css('--good'):css('--accent'));",
+   "pill(g,'dissolved '+pc(100*sol,0),W/2,18,paper,sol>0.6?css('--good'):css('--accent'));"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'periyodik kutu':'periyodik kutu · noktalar: tuz iyonları (temsili)',8,H-8);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'periodic box':'periodic box · dots: salt ions (representative)',8,H-8);"
+  ],
+  [
+   "g.fillStyle=muted; g.textAlign='center'; [[-4,'0,1 mM'],[-3,'1 mM'],[-2,'10 mM'],[-1,'0,1 M'],[0,'1 M'],[1,'10 M']].forEach(function(q){ g.fillText(q[1],X(q[0]),H-B+15); }); g.fillText('iyonik şiddet',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText('iki protein molekülünün temas enerjisi ('+(sv==='as'?'amonyum sülfat':'NaCl')+')',L+4,T-5);",
+   "g.fillStyle=muted; g.textAlign='center'; [[-4,'0.1 mM'],[-3,'1 mM'],[-2,'10 mM'],[-1,'0.1 M'],[0,'1 M'],[1,'10 M']].forEach(function(q){ g.fillText(q[1],X(q[0]),H-B+15); }); g.fillText('ionic strength',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText('contact energy of two protein molecules ('+(sv==='as'?'ammonium sulfate':'NaCl')+')',L+4,T-5);"
+  ],
+  [
+   "g.fillStyle=str(rgb(css('--stage')),0.7); g.fillRect(X(Math.log10(Imax)),T,W-R-X(Math.log10(Imax)),H-T-B); g.fillStyle=muted; g.fillText('bu derişim',X(Math.log10(Imax))+4,Y(4.6)); g.fillText('seçilmez',X(Math.log10(Imax))+4,Y(4.6)+14);",
+   "g.fillStyle=str(rgb(css('--stage')),0.7); g.fillRect(X(Math.log10(Imax)),T,W-R-X(Math.log10(Imax)),H-T-B); g.fillStyle=muted; g.fillText('outside the',X(Math.log10(Imax))+4,Y(4.6)); g.fillText('slider range',X(Math.log10(Imax))+4,Y(4.6)+14);"
+  ],
+  [
+   "g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.fillText('tuzla çözme →',X(-3.4),Y(0.4)); if(sv==='as') { g.textAlign='right'; g.fillText('← tuzla çöktürme',X(Math.log10(Imax))-6,Y(0.4)); g.textAlign='left'; }",
+   "g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.fillText('salting in →',X(-3.4),Y(0.4)); if(sv==='as') { g.textAlign='right'; g.fillText('← salting out',X(Math.log10(Imax))-6,Y(0.4)); g.textAlign='left'; }"
+  ],
+  [
+   "$('k3pI').textContent=(pI()>=1?fx(pI(),2)+' M':fx(pI()*1000,pI()<0.01?1:0)+' mM'); $('k3pEl').textContent=fx(pEl(),2)+' kT'; $('k3pSo').textContent=fx(pSo(),2)+' kT'; $('k3pE').textContent=fx(pE(),2)+' kT'; $('k3pSol').textContent=sol===null?'ölçülüyor':pc(100*sol,0); }",
+   "$('k3pI').textContent=(pI()>=1?fx(pI(),2)+' M':fx(pI()*1000,pI()<0.01?1:0)+' mM'); $('k3pEl').textContent=fx(pEl(),2)+' kT'; $('k3pSo').textContent=fx(pSo(),2)+' kT'; $('k3pE').textContent=fx(pE(),2)+' kT'; $('k3pSol').textContent=sol===null?'measuring':pc(100*sol,0); }"
+  ],
+  [
+   "if(E>2.5) h=el>so?'<span class=\"t\">Moleküller kümeleniyor: zıt yüklü yüzeyler birbirini çekiyor</span><span>Tuz az, Debye uzunluğu '+fx(lamD(pI(),25),1)+' nm; yüzeydeki artı ve eksi bölgeler birbirini perdelenmeden hissediyor. Biraz tuz ekleyin: tuzla çözme.</span>'",
+   "if(E>2.5) h=el>so?'<span class=\"t\">The molecules are clustering: oppositely charged surfaces attract each other</span><span>Little salt, Debye length '+fx(lamD(pI(),25),1)+' nm; the positive and negative patches on the surface feel each other unscreened. Add a little salt: salting in.</span>'"
+  ],
+  [
+   ":'<span class=\"t\">Moleküller çöküyor: tuzun yapıştırıcı etkisi baskın</span><span>'+(PR.salt==='as'?'Amonyum sülfat çöktürmesi budur: iyonlar suyu bağlar, proteinlerin yağsı yüzeyleri birbirine yapışır.':'NaCl ile bu kadar güçlü çöktürme için çok yüksek derişim gerekir.')+'</span>';",
+   ":'<span class=\"t\">The molecules are precipitating: the sticking effect of the salt dominates</span><span>'+(PR.salt==='as'?'This is ammonium sulfate precipitation: the ions tie up the water, and the oily surfaces of the proteins stick together.':'Precipitating this strongly with NaCl takes a very high concentration.')+'</span>';"
+  ],
+  [
+   "else if(E<1.9) h='<span class=\"t\">Moleküller çözünüyor</span><span>Yüzey yüklerinin çekimi tuzla perdelendi, tuzun yapıştırıcı etkisi henüz küçük. Temas enerjisi '+fx(E,2)+' kT.</span>';",
+   "else if(E<1.9) h='<span class=\"t\">The molecules are dissolving</span><span>The attraction of the surface charges is screened by the salt, and the sticking effect of the salt is still small. Contact energy '+fx(E,2)+' kT.</span>';"
+  ],
+  [
+   "else h='<span class=\"t\">Sınırda: küçük kümeler oluşup dağılıyor</span><span>Temas enerjisi '+fx(E,2)+' kT; bu modelde kümeleşme yaklaşık 2,2 kT\\'de başlıyor.</span>';",
+   "else h='<span class=\"t\">At the border: small clusters form and fall apart</span><span>Contact energy '+fx(E,2)+' kT; in this model clustering starts at about 2.2 kT.</span>';"
+  ],
+  [
+   "var MLAB={circle:'Daire', square:'Kare', evjen:'Kare, sınır yarım'};",
+   "var MLAB={circle:'Circle', square:'Square', evjen:'Square, half boundary'};"
+  ],
+  [
+   "var t=W2.tab[m][n]; pill(g,MLAB[m]+' · n = '+n,W/2,20,paper,css('--navy')); pill(g,'net yük '+(t.q>0.001?'+':'')+fx(t.q,Math.abs(t.q-Math.round(t.q))>0.01?2:0),W/2,H-18,paper,Math.abs(t.q)>0.01?acc:css('--good'));",
+   "var t=W2.tab[m][n]; pill(g,MLAB[m]+' · n = '+n,W/2,20,paper,css('--navy')); pill(g,'net charge '+(t.q>0.001?'+':'')+fx(t.q,Math.abs(t.q-Math.round(t.q))>0.01?2:0),W/2,H-18,paper,Math.abs(t.q)>0.01?acc:css('--good'));"
+  ],
+  [
+   "g.fillStyle=muted; g.textAlign='center'; [1,10,20,30,40].forEach(function(n){ g.fillText(String(n),X(n),H-B+15); }); g.textAlign='left'; g.fillText('Coulomb toplamı · yalnız sizin eklediğiniz kabuklar çizilir',L+4,T-5);",
+   "g.fillStyle=muted; g.textAlign='center'; [1,10,20,30,40].forEach(function(n){ g.fillText(String(n),X(n),H-B+15); }); g.textAlign='left'; g.fillText('Coulomb sum · only the shells you added are drawn',L+4,T-5);"
+  ],
+  [
+   "g.fillStyle=muted; g.textAlign='left'; g.fillText('aynı kabuklarda r⁻⁶ toplamı, sonsuz örgüye göre',L+4,T-5);",
+   "g.fillStyle=muted; g.textAlign='left'; g.fillText('r⁻⁶ sum over the same shells, relative to the infinite lattice',L+4,T-5);"
+  ],
+  [
+   "if(m==='circle') h='<span class=\"t\">Daire, n = '+n+': toplam '+fx(t.M,3)+', bölgenin net yükü '+(t.q>0?'+':'')+fx(t.q,0)+'</span><span>'+(nx?'Bir kabuk daha eklenince (n = '+(n+1)+') net yük '+(nx.q>0?'+':'')+fx(nx.q,0)+' olur ve toplam '+fx(nx.M,3)+' olur. ':'')+'Dairenin sınırına her seferinde başka sayıda artı ve eksi iyon girer; bölge yüklü kaldıkça toplam zıplar.</span>';",
+   "if(m==='circle') h='<span class=\"t\">Circle, n = '+n+': sum '+fx(t.M,3)+', net charge of the region '+(t.q>0?'+':'')+fx(t.q,0)+'</span><span>'+(nx?'With one more shell (n = '+(n+1)+') the net charge becomes '+(nx.q>0?'+':'')+fx(nx.q,0)+' and the sum becomes '+fx(nx.M,3)+'. ':'')+'Each time a different number of positive and negative ions falls on the boundary of the circle; as long as the region stays charged, the sum jumps.</span>';"
+  ],
+  [
+   "else if(m==='square') h='<span class=\"t\">Kare, n = '+n+': toplam '+fx(t.M,4)+', net yük +1</span><span>Kare kabukların kendisi yüksüz ama merkezdeki iyonun yükü hiç dengelenmiyor. Toplam zıplamıyor, ama 1,6155\\'e çok yavaş yaklaşıyor.</span>';",
+   "else if(m==='square') h='<span class=\"t\">Square, n = '+n+': sum '+fx(t.M,4)+', net charge +1</span><span>The square shells themselves are neutral, but the charge of the central ion is never balanced. The sum does not jump, but it approaches 1.6155 very slowly.</span>';"
+  ],
+  [
+   "else h='<span class=\"t\">Kare, sınır yarım, n = '+n+': toplam '+fx(t.M,4)+', net yük 0</span><span>Sınırdaki iyonlar yarım, köşedekiler çeyrek sayılınca bölge her adımda yüksüz kalır ve toplam birkaç kabukta 1,6155\\'e oturur.</span>';",
+   "else h='<span class=\"t\">Square, half boundary, n = '+n+': sum '+fx(t.M,4)+', net charge 0</span><span>When the ions on the boundary count as half and those at the corners as a quarter, the region stays neutral at every step and the sum settles at 1.6155 within a few shells.</span>';"
+  ],
+  [
+   "card('k3c1',true,'Sizin denemeniz: daire bölgede n = '+a+' ile '+mc+' arasında toplam '+fx(mn,3)+' ile '+fx(mxv,3)+' arasında zıpladı; bölgenin net yükü '+(qmn>0?'+':'')+fx(qmn,0)+' ile '+(qmx>0?'+':'')+fx(qmx,0)+' arasında değişti. Sınırı yarım sayılan kare bölgede toplam n = 20\\'de '+fx(e.M,4)+', net yük 0. Aynı kabuklarda r⁻⁶ toplamı n = 3\\'te bile sonsuz örgüdekinin '+pc(100*s3,1)+' kadarıydı. Coulomb toplamı sayma biçimine bağlıdır ve yalnız yüksüz bölgelerle düzgün yakınsar; bir kesme mesafesiyle kesilemez. Van der Waals toplamı ise kısa mesafede tamamlanır.'); }",
+   "card('k3c1',true,'Your trial: in the circle region between n = '+a+' and '+mc+' the sum jumped between '+fx(mn,3)+' and '+fx(mxv,3)+'; the net charge of the region varied between '+(qmn>0?'+':'')+fx(qmn,0)+' and '+(qmx>0?'+':'')+fx(qmx,0)+'. In the square region with a half-counted boundary the sum at n = 20 is '+fx(e.M,4)+', net charge 0. Over the same shells the r⁻⁶ sum already reached '+pc(100*s3,1)+' of the infinite lattice at n = 3. The Coulomb sum depends on how it is counted and converges properly only over neutral regions; it cannot be cut with a cut-off distance. The van der Waals sum, in contrast, is complete at short range.'); }"
+  ],
+  [
+   "$('k3play').onclick=function(){ if(W2.n>=NMAX) wSet(1); W2.play=!W2.play; $('k3play').textContent=W2.play?'Durdur':'Kabuk ekle'; if(W2.play&&reduce){ W2.play=false; $('k3play').textContent='Kabuk ekle'; wSet(W2.n+1); return; } kick(); };",
+   "$('k3play').onclick=function(){ if(W2.n>=NMAX) wSet(1); W2.play=!W2.play; $('k3play').textContent=W2.play?'Pause':'Add a shell'; if(W2.play&&reduce){ W2.play=false; $('k3play').textContent='Add a shell'; wSet(W2.n+1); return; } kick(); };"
+  ],
+  [
+   "$('k3reset').onclick=function(){ W2.play=false; $('k3play').textContent='Kabuk ekle'; wSet(1); };",
+   "$('k3reset').onclick=function(){ W2.play=false; $('k3play').textContent='Add a shell'; wSet(1); };"
+  ],
+  [
+   "var ESTEP=['Nokta yükler','Kılıf giydir','Yakın kısmı kes','Bulutları geri koy','Dalgalarla topla','Topla'];",
+   "var ESTEP=['Point charges','Dress in sleeves','Cut the near part','Put the clouds back','Sum with waves','Add up'];"
+  ],
+  [
+   "axisLine(0); labelRow(0,'nokta|yükler',null); spikes(0,1);",
+   "axisLine(0); labelRow(0,'point|charges',null); spikes(0,1);"
+  ],
+  [
+   "if(st>=2){ var a2=st===2?tw:1; axisLine(1); labelRow(1,'yakın kısım|yük + kılıf','=');",
+   "if(st>=2){ var a2=st===2?tw:1; axisLine(1); labelRow(1,'near part|charge + sleeve','=');"
+  ],
+  [
+   "if(a3>0.5){ var tail=EW.erfc(BZ.beta*rc); pill(g,narrow?'r_c':'r_c: kesmede kalan '+sci(tail),Math.min(W-R-(narrow?20:105),Math.max(L+(narrow?20:105),X(Math.min(rc,V-0.4)))),y-hS*0.4,paper,navy); g.fillStyle=css('--bad'); g.font='600 11.5px '+css('--sans'); g.textAlign='right'; if(!narrow) g.fillText('kırmızı: kılıflı yükün etkisi · gri: kılıfsız',W-R-4,y+hS*0.46); g.textAlign='left'; } } }",
+   "if(a3>0.5){ var tail=EW.erfc(BZ.beta*rc); pill(g,narrow?'r_c':'r_c: left at the cut-off '+sci(tail),Math.min(W-R-(narrow?20:105),Math.max(L+(narrow?20:105),X(Math.min(rc,V-0.4)))),y-hS*0.4,paper,navy); g.fillStyle=css('--bad'); g.font='600 11.5px '+css('--sans'); g.textAlign='right'; if(!narrow) g.fillText('red: effect of the sleeved charge · gray: without sleeve',W-R-4,y+hS*0.46); g.textAlign='left'; } } }"
+  ],
+  [
+   "if(st>=4){ var a4=st===4?tw:1; axisLine(2); labelRow(2,'uzak kısım|bulutlar','+');",
+   "if(st>=4){ var a4=st===4?tw:1; axisLine(2); labelRow(2,'far part|clouds','+');"
+  ],
+  [
+   "var need=esNeed(1e-3); pill(g,narrow?K+' dalga':K+' dalga · fark '+pc(100*esErr(K),K>0&&esErr(K)<0.01?2:0),Math.min(W-R-(narrow?40:90),X(V-1.6)),row(2)-hS*0.42,paper,navy); } }",
+   "var need=esNeed(1e-3); pill(g,narrow?K+' waves':K+' waves · difference '+pc(100*esErr(K),K>0&&esErr(K)<0.01?2:0),Math.min(W-R-(narrow?40:90),X(V-1.6)),row(2)-hS*0.42,paper,navy); } }"
+  ],
+  [
+   "if(st>=6){ var r=BZ.cur; pill(g,narrow?'toplam '+fx(r.M,5):'NaCl: yakın '+fx(r.real,3)+' + uzak '+fx(r.rec,3)+' + öz '+fx(r.self,3)+' = '+fx(r.M,5),W/2,H-14,paper,css('--good')); }",
+   "if(st>=6){ var r=BZ.cur; pill(g,narrow?'total '+fx(r.M,5):'NaCl: near '+fx(r.real,3)+' + far '+fx(r.rec,3)+' + self '+fx(r.self,3)+' = '+fx(r.M,5),W/2,H-14,paper,css('--good')); }"
+  ],
+  [
+   "var T=['<span class=\"t\">1 · Nokta yükler</span><span>Bir tuz kristalinden alınmış bir iyon sırası: artı ve eksi yükler art arda. Her iyonun etkisi 1/r ile yavaş söner; atölyede gördüğünüz gibi uzaktakiler de sayılmalı ve toplam, sayma biçimine bağlı. \"İleri\" ile devam edin.</span>',",
+   "var T=['<span class=\"t\">1 · Point charges</span><span>A row of ions taken from a salt crystal: positive and negative charges in turn. The effect of each ion fades slowly as 1/r; as you saw in the workshop, the distant ones must be counted too, and the sum depends on how it is counted. Continue with \"Next\".</span>',"
+  ],
+  [
+   "'<span class=\"t\">2 · Her yüke zıt işaretli bir kılıf giydirin</span><span>Kılıf, genişliği 1/β = '+fx(1/BZ.beta,2)+' r₀ olan yumuşak bir bulut; toplam yükü yükün kendisine eşit ve zıt. Kılıflı bir yük uzaktan yüksüz görünür.</span>',",
+   "'<span class=\"t\">2 · Dress every charge in a sleeve of opposite sign</span><span>The sleeve is a soft cloud of width 1/β = '+fx(1/BZ.beta,2)+' r₀; its total charge is equal and opposite to that of the charge. A sleeved charge looks neutral from afar.</span>',"
+  ],
+  [
+   "'<span class=\"t\">3 · Kılıflı yükün etkisi kısa mesafede söner</span><span>Kırmızı eğri, kılıflı ortadaki iyonun etkisi (erfc(βr)/r); gri kesikli eğri kılıfsız hâli (1/r). Kılıflı etki birkaç r₀\\'da söndüğü için r_c\\'de kesmek güvenli: kesmede kalan pay '+sci(tail)+'. Bu yakın kısım gerçek uzayda, komşu listesiyle hesaplanır.</span>',",
+   "'<span class=\"t\">3 · The effect of a sleeved charge fades at short range</span><span>The red curve is the effect of the sleeved central ion (erfc(βr)/r); the gray dashed curve is the same without the sleeve (1/r). Because the sleeved effect fades within a few r₀, cutting at r_c is safe: the share left at the cut-off is '+sci(tail)+'. This near part is computed in real space, with a neighbor list.</span>',"
+  ],
+  [
+   "'<span class=\"t\">4 · Kılıfları geri alın: aynı yere aynı işaretli bulutlar</span><span>Kılıfları hesaba biz ekledik; sonucu değiştirmemek için her yükün üstüne aynı işaretli bir bulut koyuyoruz. Bu bulutlar yumuşak ve komşularıyla büyük ölçüde birbirini götürür.</span>',",
+   "'<span class=\"t\">4 · Take the sleeves back: same-sign clouds at the same places</span><span>We added the sleeves ourselves; so as not to change the result, we put a cloud of the same sign on top of every charge. These clouds are soft and largely cancel with their neighbors.</span>',"
+  ],
+  [
+   "'<span class=\"t\">5 · Yumuşak bir şekli birkaç dalga anlatır</span><span>Bir sinyal ne kadar yumuşaksa, onu anlatmak için o kadar az frekans gerekir; keskin bir tepe çok sayıda frekans ister. Bu bulutlar '+need+' dalgayla binde bir hassasiyetle çizilir (şu an '+K+' dalga). Nokta yükleri dalgalarla çizmek hiç bitmezdi. Bu uzak kısım ters uzayda, bir ızgara ve Fourier dönüşümüyle hesaplanır.</span>',",
+   "'<span class=\"t\">5 · A few waves describe a soft shape</span><span>The smoother a signal, the fewer frequencies it takes to describe it; a sharp peak needs many. These clouds are drawn with '+need+' waves to one part in a thousand (now '+K+' waves). Drawing the point charges with waves would never end. This far part is computed in reciprocal space, with a grid and a Fourier transform.</span>',"
+  ],
+  [
+   "'<span class=\"t\">6 · Üç parçayı toplayın</span><span>NaCl kristali için sayfanın hesapladığı: yakın kısım '+fx(r.real,4)+' + uzak kısım '+fx(r.rec,4)+' + öz terim '+fx(r.self,4)+' = '+fx(r.M,5)+'. Öz terim, her yükün kendi bulutuyla etkileşimini düzeltir. β\\'yı değiştirin: parçalar değişir, toplam 1,74756 kalır.</span>'];",
+   "'<span class=\"t\">6 · Add up the three parts</span><span>What the page computes for the NaCl crystal: near part '+fx(r.real,4)+' + far part '+fx(r.rec,4)+' + self term '+fx(r.self,4)+' = '+fx(r.M,5)+'. The self term corrects for each charge interacting with its own cloud. Change β: the parts change, the total stays 1.74756.</span>'];"
+  ],
+  [
+   "h=T[st-1]; if(dev>1e-3) h=h.replace('</span><span>','</span><span><b>Dikkat:</b> kesmede kalan pay büyük ('+sci(tail)+'); yakın kısım r_c\\'de sönmüyor ve toplam kesin değerden '+fx(dev,4)+' sapıyor. Kesmeyi uzatın ya da β\\'yı büyütün. ');",
+   "h=T[st-1]; if(dev>1e-3) h=h.replace('</span><span>','</span><span><b>Note:</b> the share left at the cut-off is large ('+sci(tail)+'); the near part does not fade by r_c and the total is off the exact value by '+fx(dev,4)+'. Lengthen the cut-off or increase β. ');"
+  ],
+  [
+   "if(ES.play&&!busy){ ES.pt+=dt; if(ES.pt>2.2){ ES.pt=0; if(ES.step<6) esGo(ES.step+1); else { ES.play=false; $('k3sPlay').textContent='Baştan oynat'; } } busy=true; }",
+   "if(ES.play&&!busy){ ES.pt+=dt; if(ES.pt>2.2){ ES.pt=0; if(ES.step<6) esGo(ES.step+1); else { ES.play=false; $('k3sPlay').textContent='Play from the start'; } } busy=true; }"
+  ],
+  [
+   "$('k3sPrev').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; esGo(ES.step-1); };",
+   "$('k3sPrev').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Play from the start'; esGo(ES.step-1); };"
+  ],
+  [
+   "$('k3sNext').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; esGo(ES.step+1); };",
+   "$('k3sNext').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Play from the start'; esGo(ES.step+1); };"
+  ],
+  [
+   "$('k3sPlay').onclick=function(){ if(ES.play){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; return; } ES.play=!reduce; ES.pt=0; $('k3sPlay').textContent=reduce?'Baştan oynat':'Durdur'; esGo(1); };",
+   "$('k3sPlay').onclick=function(){ if(ES.play){ ES.play=false; $('k3sPlay').textContent='Play from the start'; return; } ES.play=!reduce; ES.pt=0; $('k3sPlay').textContent=reduce?'Play from the start':'Pause'; esGo(1); };"
+  ],
+  [
+   "g.fillStyle=muted; g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(b){ g.fillText(fx(b,1),X(b),H-B+15); }); g.fillText('β (1/r₀) · her nokta sayfada ayrı hesaplandı',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText('Madelung toplamının parçaları',L+4,T-5);",
+   "g.fillStyle=muted; g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(b){ g.fillText(fx(b,1),X(b),H-B+15); }); g.fillText('β (1/r₀) · each point computed separately on the page',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText('parts of the Madelung sum',L+4,T-5);"
+  ],
+  [
+   "if(BZ.tried.length>=3){ var s=BZ.tried.slice().sort(function(a,b){return a.b-b.b;}), a=s[0], z=s[s.length-1]; if(z.b/a.b>=2) card('k3c2',true,'Sizin denemeniz: β = '+fx(a.b,2)+' iken yakın kısım '+fx(a.re,3)+', uzak kısım '+fx(a.rk,3)+'; β = '+fx(z.b,2)+' iken yakın kısım '+fx(z.re,3)+', uzak kısım '+fx(z.rk,3)+'. Toplam her seferinde '+fx(a.M,5)+' ve '+fx(z.M,5)+' çıktı; NaCl\\'nin Madelung sabiti 1,74756. Ewald\\'ın ayrışımı toplamı değiştirmez, işi iki hesap arasında paylaştırır. β büyüdükçe yakın kısım erken söner ve kısa bir kesme yeter, ama uzak kısım için daha çok dalga gerekir (β = '+fx(a.b,2)+' iken '+a.nk+', β = '+fx(z.b,2)+' iken '+z.nk+').'); } }",
+   "if(BZ.tried.length>=3){ var s=BZ.tried.slice().sort(function(a,b){return a.b-b.b;}), a=s[0], z=s[s.length-1]; if(z.b/a.b>=2) card('k3c2',true,'Your trial: at β = '+fx(a.b,2)+' the near part was '+fx(a.re,3)+' and the far part '+fx(a.rk,3)+'; at β = '+fx(z.b,2)+' the near part was '+fx(z.re,3)+' and the far part '+fx(z.rk,3)+'. The total came out as '+fx(a.M,5)+' and '+fx(z.M,5)+'; the Madelung constant of NaCl is 1.74756. The Ewald splitting does not change the total; it shares the work between two calculations. As β grows the near part fades earlier and a short cut-off suffices, but the far part needs more waves ('+a.nk+' at β = '+fx(a.b,2)+', '+z.nk+' at β = '+fx(z.b,2)+').'); } }"
+  ],
+  [
+   "var NML={cut:'Coulomb, düz kesme', ewald:'Coulomb, Ewald', r6:'r⁻⁶, düz kesme'};",
+   "var NML={cut:'Coulomb, plain cut-off', ewald:'Coulomb, Ewald', r6:'r⁻⁶, plain cut-off'};"
+  ],
+  [
+   "$('k3nBusy').textContent=NML[m]+', r_c = '+fx(r,1)+' r₀: '+(m==='r6'?'sonsuz kristalin '+pc(100*v,2):'hesaplanan '+fx(v,5))+', bağıl hata '+sci(p.e)+'.'; }",
+   "$('k3nBusy').textContent=NML[m]+', r_c = '+fx(r,1)+' r₀: '+(m==='r6'?pc(100*v,2)+' of the infinite crystal':'computed '+fx(v,5))+', relative error '+sci(p.e)+'.'; }"
+  ],
+  [
+   "$('k3nAll').onclick=function(){ RS3.forEach(function(r){ n3Measure(nM,r); }); $('k3nBusy').textContent=NML[nM]+': altı kesme mesafesi ölçüldü.'; n3Draw(); n3Eval(); };",
+   "$('k3nAll').onclick=function(){ RS3.forEach(function(r){ n3Measure(nM,r); }); $('k3nBusy').textContent=NML[nM]+': six cut-off distances measured.'; n3Draw(); n3Eval(); };"
+  ],
+  [
+   "$('k3nClr').onclick=function(){ book3=[]; save3(); n3Draw(); n3Eval(); $('k3nBusy').textContent='Defter temizlendi.'; };",
+   "$('k3nClr').onclick=function(){ book3=[]; save3(); n3Draw(); n3Eval(); $('k3nBusy').textContent='Notebook cleared.'; };"
+  ],
+  [
+   "g.textAlign='center'; RS3.forEach(function(r){ if(W<520&&r===2) return; g.fillText(fx(r,1),X(r),H-B+15); }); g.fillText('kesme mesafesi (r₀)',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText(W>=560?'bağıl hata (logaritmik) · aşağısı daha doğru':'bağıl hata (log)',L+4,T-6);",
+   "g.textAlign='center'; RS3.forEach(function(r){ if(W<520&&r===2) return; g.fillText(fx(r,1),X(r),H-B+15); }); g.fillText('cut-off distance (r₀)',(L+W-R)/2,H-2); g.textAlign='left'; g.fillText(W>=560?'relative error (logarithmic) · lower is more accurate':'relative error (log)',L+4,T-6);"
+  ],
+  [
+   "$('k3nCount').textContent=book3.length+' ölçüm';",
+   "$('k3nCount').textContent=book3.length+' measurements';"
+  ],
+  [
+   "$('k3nTab').innerHTML=rows.length?rows.map(function(p){ return '<tr><td>'+NML[p.m]+'</td><td class=\"n\">'+fx(p.r,1)+'</td><td class=\"n\">'+(p.m==='r6'?pc(100*p.v,2):fx(p.v,5))+'</td><td class=\"n\">'+sci(p.e)+'</td><td class=\"n\">'+(p.m==='cut'?(p.q>0?'+':'')+fx(p.q,0):p.m==='ewald'?'yöntem gereği 0':'')+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">Henüz ölçüm yok.</td></tr>';",
+   "$('k3nTab').innerHTML=rows.length?rows.map(function(p){ return '<tr><td>'+NML[p.m]+'</td><td class=\"n\">'+fx(p.r,1)+'</td><td class=\"n\">'+(p.m==='r6'?pc(100*p.v,2):fx(p.v,5))+'</td><td class=\"n\">'+sci(p.e)+'</td><td class=\"n\">'+(p.m==='cut'?(p.q>0?'+':'')+fx(p.q,0):p.m==='ewald'?'0 by construction':'')+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">No measurements yet.</td></tr>';"
+  ],
+  [
+   "card('k3c3',true,'Sizin ölçümleriniz: Coulomb düz kesmede bağıl hata '+C.map(function(p){return 'r_c = '+fx(p.r,1)+' için '+pc(100*p.e,0);}).join(', ')+'; kesme uzadıkça düzenli küçülmedi, çünkü kesme küresinin net yükü her seferinde başka ('+C.map(function(p){return (p.q>0?'+':'')+fx(p.q,0);}).join(', ')+'). r⁻⁶ düz kesmede hata r_c = '+fx(r6a.r,1)+' için '+pc(100*r6a.e,2)+', r_c = '+fx(r6b.r,1)+' için '+pc(100*r6b.e,2)+': kesme uzadıkça düzenli küçülüyor. Ewald\\'da aynı mesafelerle hata en çok '+sci(emax)+'. MD\\'de van der Waals etkileşimi bu yüzden kesilir, elektrostatik ise Ewald (GROMACS\\'ta PME) ile hesaplanır.'); }",
+   "card('k3c3',true,'Your measurements: with the plain Coulomb cut-off the relative error was '+C.map(function(p){return pc(100*p.e,0)+' at r_c = '+fx(p.r,1);}).join(', ')+'; it did not shrink steadily as the cut-off grew, because the net charge of the cut-off sphere is different every time ('+C.map(function(p){return (p.q>0?'+':'')+fx(p.q,0);}).join(', ')+'). With the plain r⁻⁶ cut-off the error was '+pc(100*r6a.e,2)+' at r_c = '+fx(r6a.r,1)+' and '+pc(100*r6b.e,2)+' at r_c = '+fx(r6b.r,1)+': it shrinks steadily as the cut-off grows. With Ewald the error at the same distances was at most '+sci(emax)+'. This is why in MD the van der Waals interaction is cut, while electrostatics is computed with Ewald (PME in GROMACS).'); }"
+  ],
+  [
+   "else { var need=[]; if(C.length<3) need.push('Coulomb düz kesmede '+(3-C.length)+' ölçüm daha'); if(E.length<2) need.push('Ewald\\'da '+(2-E.length)+' ölçüm daha'); if(R6.length<2) need.push('r⁻⁶ düz kesmede '+(2-R6.length)+' ölçüm daha'); card('k3c3',false,'Gerekenler: '+need.join('; ')+'.'); } }",
+   "else { var need=[]; if(C.length<3) need.push((3-C.length)+' more with the plain Coulomb cut-off'); if(E.length<2) need.push((2-E.length)+' more with Ewald'); if(R6.length<2) need.push((2-R6.length)+' more with the plain r⁻⁶ cut-off'); card('k3c3',false,'Needed: '+need.join('; ')+'.'); } }"
+  ],
+  [
+   "g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText(W<520?'ızgara '+fx(h,3)+' nm':'ızgara aralığı '+fx(h,3)+' nm · sarı: yükün dağıtıldığı 4 × 4 nokta',10,H-12);",
+   "g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText(W<520?'grid '+fx(h,3)+' nm':'grid spacing '+fx(h,3)+' nm · yellow: the 4 × 4 points the charge is spread to',10,H-12);"
+  ],
+  [
+   "g.clearRect(0,0,W,H); g.font='12px '+css('--sans'); g.fillStyle=muted; g.fillText('10 ps deneme koşusunun ortalamaları (kJ/mol)',8,15);",
+   "g.clearRect(0,0,W,H); g.font='12px '+css('--sans'); g.fillStyle=muted; g.fillText('averages of the 10 ps trial run (kJ/mol)',8,15);"
+  ],
+  [
+   "var pairs=P5.c*193.42e-24*NA; $('k5cV').innerHTML=fx(P5.c*1000,0)+' <small>mM</small>'; $('k5pairs').textContent=P5.c>0?'≈ '+fx(pairs,1):'0'; $('k5lam').textContent=P5.c>0?fx(lamD(P5.c,25),2)+' nm':'perdeleme yok'; }",
+   "var pairs=P5.c*193.42e-24*NA; $('k5cV').innerHTML=fx(P5.c*1000,0)+' <small>mM</small>'; $('k5pairs').textContent=P5.c>0?'≈ '+fx(pairs,1):'0'; $('k5lam').textContent=P5.c>0?fx(lamD(P5.c,25),2)+' nm':'no screening'; }"
+  ],
+  [
+   "if(proj) t='<span class=\"t\">Bu projenin ayarı</span><span>erfc(β · 1,0 nm) = 10⁻⁵ koşulundan 1/β = '+fx(1/beta,4)+' nm çıkar; koşunun günlüğü de 0,320163 nm yazıyor. Izgara aralığı 0,12 nm\\'yi aşmamalı: 6,491 nm\\'lik kutu vektörü için en az '+Math.ceil(6.491/0.12)+' nokta; mdrun hızlı Fourier dönüşümüne uygun olan 56\\'yı seçti.</span>';",
+   "if(proj) t='<span class=\"t\">This project\\'s setting</span><span>The condition erfc(β · 1.0 nm) = 10⁻⁵ gives 1/β = '+fx(1/beta,4)+' nm; the run\\'s log also says 0.320163 nm. The grid spacing must not exceed 0.12 nm: at least '+Math.ceil(6.491/0.12)+' points for the 6.491 nm box vector; mdrun chose 56, a size suited to the fast Fourier transform.</span>';"
+  ],
+  [
+   "else t='<span class=\"t\">rcoulomb = '+fx(P5.rc,2)+' nm, ewald-rtol = '+sci(P5.tol)+': 1/β = '+fx(1/beta,3)+' nm</span><span>'+(P5.rc>1?'Kesme uzayınca aynı kesmede kalan pay için bulut genişler; uzak kısım yumuşar ve daha seyrek bir ızgara yeter. gmx tune_pme de kesmeyi büyütürken ızgara aralığını aynı oranda büyütür.':P5.tol<1e-5?'Kesmede kalan payı küçültmek bulutu daraltır: yakın kısım daha doğru olur, ama uzak kısım için daha sık ızgara gerekir.':'Kesmede kalan pay büyüdükçe bulut genişler, yakın kısım daha kaba kesilir.')+'</span>';",
+   "else t='<span class=\"t\">rcoulomb = '+fx(P5.rc,2)+' nm, ewald-rtol = '+sci(P5.tol)+': 1/β = '+fx(1/beta,3)+' nm</span><span>'+(P5.rc>1?'With a longer cut-off, the cloud widens for the same share left at the cut-off; the far part becomes smoother and a coarser grid suffices. gmx tune_pme also enlarges the grid spacing in the same proportion when it enlarges the cut-off.':P5.tol<1e-5?'Lowering the share left at the cut-off narrows the cloud: the near part becomes more accurate, but the far part needs a finer grid.':'As the share left at the cut-off grows, the cloud widens and the near part is cut more coarsely.')+'</span>';"
+  ],
+  [
+   "{s:'25 °C\\'de 150 mM NaCl çözeltisinde Debye uzunluğu yaklaşık ne kadardır?',",
+   "{s:'What is the Debye length in a 150 mM NaCl solution at 25 °C, approximately?',"
+  ],
+  [
+   "o:[['0,08 nm',0],['0,8 nm',1],['8 nm',0],['80 nm',0]],",
+   "o:[['0.08 nm',0],['0.8 nm',1],['8 nm',0],['80 nm',0]],"
+  ],
+  [
+   "w:'λ_D ≈ 0,304 nm / √I: 0,304 / √0,15 ≈ 0,79 nm. Köprüde tuzu artırdıkça bulutun daraldığını gördünüz.'},",
+   "w:'λ_D ≈ 0.304 nm / √I: 0.304 / √0.15 ≈ 0.79 nm. In the bridge you saw the cloud shrink as you added salt.'},"
+  ],
+  [
+   "{s:'Elektrostatik etkileşim neden van der Waals gibi bir kesme mesafesiyle hesaplanamaz?',",
+   "{s:'Why can electrostatics not be computed with a cut-off distance like van der Waals?',"
+  ],
+  [
+   "o:[['1/r çok yavaş söner; kesme küresinin net yükü mesafeyle değiştikçe toplam zıplar',1],['Elektrostatik kuvvetler çok zayıftır',0],['Kesme yalnız proteinde işe yarar',0],['Su yükleri tamamen perdeler',0]],",
+   "o:[['1/r fades very slowly; as the net charge of the cut-off sphere changes with distance, the sum jumps',1],['Electrostatic forces are very weak',0],['Cut-offs only work for proteins',0],['Water screens the charges completely',0]],"
+  ],
+  [
+   "w:'Atölyede daire bölgenin net yükü değiştikçe toplamın zıpladığını, defterde düz kesmenin hatasının kesme uzadıkça küçülmediğini gördünüz.'},",
+   "w:'In the workshop you saw the sum jump as the net charge of the circle changed, and in the notebook that the error of the plain cut-off did not shrink as the cut-off grew.'},"
+  ],
+  [
+   "{s:'Ewald yönteminde β büyütülürse ne olur?',",
+   "{s:'What happens when β is increased in the Ewald method?',"
+  ],
+  [
+   "o:[['Toplam büyür',0],['Yakın kısım daha erken söner, uzak kısım daha çok dalga ister; toplam değişmez',1],['Uzak kısım gereksiz hâle gelir',0],['Toplam küçülür',0]],",
+   "o:[['The total grows',0],['The near part fades earlier, the far part needs more waves; the total does not change',1],['The far part becomes unnecessary',0],['The total shrinks',0]],"
+  ],
+  [
+   "w:'Tezgâhta üç parçanın payı β ile değişti; toplam her seferinde 1,74756 kaldı.'},",
+   "w:'At the bench the shares of the three parts changed with β; the total stayed 1.74756 every time.'},"
+  ],
+  [
+   "{s:'NaCl\\'nin Madelung sabiti (1,7476) neyi anlatır?',",
+   "{s:'What does the Madelung constant of NaCl (1.7476) express?',"
+  ],
+  [
+   "o:[['Kristaldeki iyon sayısını',0],['Bir iyonun bütün kristalle Coulomb etkileşiminin, en yakın komşuyla etkileşimine oranını',1],['Örgü sabitini nanometre cinsinden',0],['İyonların yükünü',0]],",
+   "o:[['The number of ions in the crystal',0],['The ratio of the Coulomb interaction of one ion with the whole crystal to its interaction with a nearest neighbor',1],['The lattice constant in nanometers',0],['The charge of the ions',0]],"
+  ],
+  [
+   "w:'Tek bir en yakın komşu etkileşimi 1 sayılırsa bütün kristalin katkısı 1,7476 eder. Coulomb katkısı yaklaşık 861 kJ/mol; ölçülen örgü enerjisi yaklaşık 786 kJ/mol, çünkü yakın mesafede itme de vardır.'},",
+   "w:'If one nearest-neighbor interaction counts as 1, the whole crystal contributes 1.7476. The Coulomb contribution is about 861 kJ/mol; the measured lattice energy is about 786 kJ/mol, because there is also repulsion at short range.'},"
+  ],
+  [
+   "{s:'Bu projenin koşusunda günlükte yazan 1/β = 0,320 nm nereden gelir?',",
+   "{s:'Where does the 1/β = 0.320 nm in this project\\'s run log come from?',"
+  ],
+  [
+   "o:[['Kutu boyundan',0],['rcoulomb = 1,0 nm ve ewald-rtol = 10⁻⁵ koşulundan: erfc(β · 1,0 nm) = 10⁻⁵',1],['fourierspacing = 0,12 nm\\'den',0],['Sıcaklıktan',0]],",
+   "o:[['From the box size',0],['From rcoulomb = 1.0 nm and ewald-rtol = 10⁻⁵: erfc(β · 1.0 nm) = 10⁻⁵',1],['From fourierspacing = 0.12 nm',0],['From the temperature',0]],"
+  ],
+  [
+   "w:'Proteine dönüşte bu koşulu sayfa çözdü ve günlükteki 0,320163 nm\\'yi buldu.'},",
+   "w:'In \"Back to the protein\" the page solved this condition and found the 0.320163 nm from the log.'},"
+  ],
+  [
+   "{s:'Net yükü olan bir protein kutusunda Ewald (PME) kullanılırken ne yapılır?',",
+   "{s:'What is done when Ewald (PME) is used for a protein box with a net charge?',"
+  ],
+  [
+   "o:[['Hiçbir şey; yük önemsizdir',0],['Kesme mesafesi büyütülür',0],['Karşı iyon eklenir (genion -neutral); Ewald net yükü kutuya yayılmış düzgün bir karşı yükle dengelenmiş sayar',1],['Su çıkarılır',0]],",
+   "o:[['Nothing; the charge does not matter',0],['The cut-off distance is increased',0],['Counterions are added (genion -neutral); Ewald treats a net charge as balanced by a uniform compensating charge spread over the box',1],['The water is removed',0]],"
+  ],
+  [
+   "w:'Bu projenin ubikitin topolojisinin yükü 0,000 e olduğu için karşı iyon gerekmedi.'}",
+   "w:'Because the charge of this project\\'s ubiquitin topology is 0.000 e, no counterions were needed.'}"
+  ],
+  [
+   "b.classList.add(ok?'right':'wrong'); var w=$('k3why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(ok?'right':'wrong'); var w=$('k3why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('k3score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });",
+   "$('k3score').textContent='Answered: '+n+' / '+QZ.length+' · correct at the first try: '+r; }); });"
+  ],
+  [
+   "if(visW&&W2.play){ W2.acc+=dt; if(W2.acc>0.28){ W2.acc=0; if(W2.n<NMAX) wSet(W2.n+1); else { W2.play=false; $('k3play').textContent='Kabuk ekle'; } } go=go||W2.play; }",
+   "if(visW&&W2.play){ W2.acc+=dt; if(W2.acc>0.28){ W2.acc=0; if(W2.n<NMAX) wSet(W2.n+1); else { W2.play=false; $('k3play').textContent='Add a shell'; } } go=go||W2.play; }"
+  ],
+  [
+   "['k3c1','k3c2','k3c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['k3c1','k3c2','k3c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
   ]
  ],
  "keep": [
@@ -1600,6 +2464,19 @@
   "linear-gradient(90deg,",
   "Förster resonance energy transfer",
   "Förster distance",
+  "Debye-Hückel",
+  "NaCl",
+  "Coulomb, Ewald",
+  "<code>rcoulomb</code>",
+  "<code>ewald-rtol</code>",
+  "<code>fourierspacing</code>",
+  "<code>pme-order</code>",
+  "protein · Lys NZ (+1)",
+  "Coulomb (SR)",
+  "Coul. recip.",
+  "Disper. corr.",
+  "<span class=\"t\">rcoulomb =",
+  "nm, ewald-rtol =",
   "<code>rvdw</code>, <code>rcoulomb</code>",
   "<code>vdw-modifier</code>",
   "Potential-shift-Verlet",

@@ -177,7 +177,7 @@
       "title": "Kenarsız kutu: periyodik sınır",
       "path": "md/md-pbc/",
       "source": "sources/MD-PBC.html",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -187,15 +187,21 @@
         "Protein kutusu: d, kutu biçimi ve maliyet",
         "En yakın kopya kuralı",
         "Kesme mesafesi: düz ve kaydırılmış potansiyel",
-        "Komşu listesi ve tampon (rlist, nstlist)"
+        "Komşu listesi ve tampon (rlist, nstlist)",
+        "Tuz ve perdeleme: Debye uzunluğu, DNA erimesi, proteinin tuzla çözünmesi",
+        "Kristalde kabuk kabuk Coulomb toplamı ve Madelung sabiti",
+        "Ewald toplamı: yakın kısım, uzak kısım ve PME ayarları"
       ],
       "data": [
         "Tarayıcıda hesaplanan iki boyutlu Lennard-Jones sıvısı (öğretim amaçlı)",
         "Bu projenin 1UBQ hazırlığı (editconf -d 1.0, dodecahedron)",
         "RTX 5080 hız tahmini: Exxact, AMBER 26 ölçümleri",
-        "Bu projenin ubikitin koşusunun kesme ve komşu listesi ayarları (rvdw, rcoulomb, rlist, nstlist)"
+        "Bu projenin ubikitin koşusunun kesme ve komşu listesi ayarları (rvdw, rcoulomb, rlist, nstlist)",
+        "Tarayıcıda hesaplanan iki boyutlu iyon örgüsü ve Ewald toplamı (öğretim amaçlı)",
+        "NaCl örgü enerjisi ve Madelung sabiti; Debye-Hückel ve Malmberg-Maryott bağıntıları; DNA erime sıcaklığı için Schildkraut-Lifson bağıntısı",
+        "Bu projenin ubikitin koşusunun PME ayarları ve Coulomb enerji terimleri (md.log, 10 ps ortalaması)"
       ],
-      "notice": "Bu sürümde 1. ve 2. laboratuvarlar yayında; uzun erimli elektrostatik ve kutu boyu laboratuvarları hazırlanıyor.",
+      "notice": "Bu sürümde 1., 2. ve 3. laboratuvarlar yayında; kutu boyu laboratuvarı hazırlanıyor.",
       "en": {
         "title": "The box without edges: periodic boundaries",
         "book": "CH04",
@@ -206,15 +212,21 @@
           "The protein box: d, box shape and cost",
           "The nearest-image rule",
           "The cut-off distance: plain and shifted potential",
-          "The neighbor list and its buffer (rlist, nstlist)"
+          "The neighbor list and its buffer (rlist, nstlist)",
+          "Salt and screening: Debye length, DNA melting, salting a protein in and out",
+          "The shell-by-shell Coulomb sum in a crystal and the Madelung constant",
+          "The Ewald sum: the near part, the far part and the PME settings"
         ],
         "data": [
           "Two-dimensional Lennard-Jones liquid computed in the browser (for teaching)",
           "This project's 1UBQ preparation (editconf -d 1.0, dodecahedron)",
           "RTX 5080 speed estimate: Exxact, AMBER 26 measurements",
-          "Cut-off and neighbor-list settings of this project's ubiquitin run (rvdw, rcoulomb, rlist, nstlist)"
+          "Cut-off and neighbor-list settings of this project's ubiquitin run (rvdw, rcoulomb, rlist, nstlist)",
+          "Two-dimensional ion lattice and Ewald sum computed in the browser (for teaching)",
+          "NaCl lattice energy and Madelung constant; Debye-Hückel and Malmberg-Maryott relations; Schildkraut-Lifson relation for the DNA melting temperature",
+          "PME settings and Coulomb energy terms of this project's ubiquitin run (md.log, 10 ps average)"
         ],
-        "notice": "In this version Labs 1 and 2 are published; the labs on long-range electrostatics and box size are in preparation."
+        "notice": "In this version Labs 1, 2 and 3 are published; the lab on box size is in preparation."
       }
     },
     {
