@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.9.0 (28 Eylül 2026) · MD-PBC üç modüle bölündü
+
+- MD-PBC sayfası çok uzadığı için (üç laboratuvar, 12 kart, 30'dan çok tuval) üç modüle ayrıldı; hepsi temel düzey, kitapta CH04. MD-PBC 0.5.0: Laboratuvar 1 "Kenarsız kutu" (6 kart; kutu boyu laboratuvarı buraya eklenecek). Yeni MD-CUT 0.1.0: "En yakın kopya ve kesme" (eski Laboratuvar 2, 3 kart). Yeni MD-ELEC 0.1.0: "Tuz, perdeleme ve Ewald" (eski Laboratuvar 3, 3 kart). İçerik ve sayılar değişmedi.
+- Kısa adresler: `/tr/l/MD-CUT`, `/tr/l/MD-ELEC` (ve `/en/l/...`); `/tr/l/MD-PBC` aynı kaldı. Üç sayfada ortak dizi gezinmesi ve sayfa sonunda sıradaki modül bağlantısı var. Eski çapalar `md-pbc/#lab2` ve `md-pbc/#lab3` yeni sayfalara yönlenir. Defterler tarayıcıda aynı anahtarlarla saklandığı için okurun eski ölçümleri kaybolmaz.
+- İngilizce tablolar modül başına: `i18n/MD-PBC.en.json` (206 çift), `MD-CUT.en.json` (204), `MD-ELEC.en.json` (228); üretim `i18n/_work/build_split_en.py`.
+
 ## 0.8.0 (28 Eylül 2026) · MD-PBC laboratuvar 3
 
 - MD-PBC 0.4.0: Laboratuvar 3 "Tuz ve Ewald" aynı sayfaya eklendi; ilerleme üç laboratuvarı birlikte sayar (12 kart). Deneysel köprü üç bölüm: iyon bulutu ve Debye uzunluğu (iyonik şiddet kaydırıcısı, çizim 25 °C için; sıcaklık karşılaştırması 4, 25 ve 37 °C'de aynı tuzun Debye uzunluğunu gösterir), DNA çift sarmalının tuzla kararlılığı (canlı açılıp kapanan baz çiftleri, T_m bağıntısı), proteinin tuzla çözünmesi ve fazla tuzla çökmesi (36 molekülün periyodik kutuda kümelenmesi; NaCl ve amonyum sülfat). Atölye: iki boyutlu iyon örgüsünde kabuk kabuk Coulomb toplamı (kare ve daire kabuk, Madelung sabitiyle karşılaştırma). Tezgâh: Ewald toplamının altı adımlı animasyonu ve β kaydırıcısı (yakın kısım, uzak kısım, öz etkileşim; toplam değişmez). Defter: kesme mesafesine karşı hata (Coulomb düz kesme, Ewald, r⁻⁶ düz kesme). Proteine dönüş: bu projenin PME ayarları ve enerji terimleri. Altı soru.

@@ -152,6 +152,8 @@ Karar (27 Eylül): MD-PBC sayfası, sitenin maskotlu kabuğu yerine onaylanan pr
 
 Ortak kurallar: sayılar tarayıcıda hesaplanır ya da bu projenin gerçek koşularından gelir; hesaplanmamış durum gösterilmez. Her lab üç keşif kartı taşır (atölye ve tezgâh ya da defter); kart yalnız okurun kendi denemesiyle ve kendi sayılarıyla açılır. İlerleme sayacı yayındaki kartları sayar (Lab 1 ile 6; bütün lablar yayında 4 × 3'ten fazla olabilir, sayfadaki kartların toplamı). Dar ekranda (560 px altı) tuval etiketleri kısa hâlleriyle çizilir.
 
+Karar (28 Eylül, proje sahibi): MD-PBC tek sayfada fazla şiştiği için üç modüle bölündü; hepsi CH04, temel düzey. MD-PBC: Lab 1 (kenarsız kutu) ve ileride Lab 4 (kutu boyu). MD-CUT: Lab 2 (en yakın kopya ve kesme). MD-ELEC: Lab 3 (tuz ve Ewald). Kalıcı kimlikler proje sahibi tarafından seçildi (MD-CUT, MD-ELEC). Üç sayfa ortak bir dizi gezinmesi taşır; ilerleme her modülde kendi kartlarını sayar (6, 3, 3). Aşağıdaki "Lab n" adları tasarım sırasını gösterir.
+
 ### 8.1 Lab 1 · Kenarsız kutu (yayında, 0.2.0)
 
 Deneysel köprü: 96 kuyucuklu plakanın kenar etkisi ve kristalin birim hücresi. Atölye: bir su molekülünü duvarlı kutuda, boşlukta ve periyodik kutuda fırlatma; kutu çerçevesi kaydırılabilir. Tezgâh: 100 moleküllük 2B Lennard-Jones sıvısı (T = 0,40 ε, ρ = 0,82), enerjiye göre renk, ısıtma ve itme. Defter: damla ve periyodik kutuda 25-400 molekül; 1/√N ekseninde sonsuz damlaya uzatma. Proteine dönüş: ubikitin kutusu (editconf -d; küp ya da onikiyüzlü; 1UBQ hazırlığıyla ayarlı), RTX 5080 süre tahmini (Exxact AMBER 26 ölçümlerinden ara değerleme).
