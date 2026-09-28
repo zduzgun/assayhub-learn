@@ -1,17 +1,17 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "1a54ba9585058eb113140c272b409994a056328f461d1f1274fba1b4190e2e01",
+ "source_sha256": "344c66e0cbfd4261d4188dba525b94f1b9f10a0cb88933264e993a948d81eb5f",
  "reviewed": false,
- "translator": "Claude (AI), MD-PBC 0.5.0; insan gözden geçirmesi bekliyor",
+ "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor",
  "pairs": [
   [
    "<title>Kenarsız Kutu: Periyodik Sınır</title>",
    "<title>The Box Without Edges: Periodic Boundaries</title>"
   ],
   [
-   "<div class=\"proto\">Bu sürümde modülün 1. laboratuvarı yayında; kutu boyu laboratuvarı hazırlanıyor. Kesme mesafesi MD-CUT, tuz ve Ewald MD-ELEC modülünde. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>",
-   "<div class=\"proto\">In this version Lab 1 of the module is published; the lab on box size is in preparation. The cut-off distance is in MD-CUT, salt and Ewald in MD-ELEC. Every number is computed in your browser right now.</div>"
+   "<div class=\"proto\">Bu sürümde modülün 1. ve 2. laboratuvarları yayında. Kesme mesafesi MD-CUT, tuz ve Ewald MD-ELEC modülünde. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>",
+   "<div class=\"proto\">In this version Labs 1 and 2 of the module are published. The cut-off distance is in MD-CUT, salt and Ewald in MD-ELEC. Every number is computed in your browser right now.</div>"
   ],
   [
    "<span class=\"eyebrow\">MD-PBC · Laboratuvar 1 · Periyodik sınır</span>",
@@ -26,8 +26,8 @@
    "<p class=\"lead\">An MD simulation puts a protein and a few thousand surrounding water molecules into a small box. In a real sample the protein sits far from any edge, in the middle of countless water molecules. What changes if the small box also has an edge? How do we remove the edge, and why does it matter for the energy?</p>"
   ],
   [
-   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"progN\">0 / 6</b></div>",
-   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"progN\">0 / 6</b></div>"
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"progN\">0 / 9</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"progN\">0 / 9</b></div>"
   ],
   [
    "<nav class=\"labnav\" aria-label=\"Periyodik sınır dizisi\"><a aria-current=\"page\">MD-PBC · Kenarsız kutu</a><a href=\"../md-cut/\">MD-CUT · En yakın kopya ve kesme</a><a href=\"../md-elec/\">MD-ELEC · Tuz ve Ewald</a></nav>",
@@ -422,6 +422,258 @@
    "<p class=\"small\">Model: in the workshop, a single frictionless particle (mass of a water molecule, 3 nm box). On the bench and in the notebook, a two-dimensional Lennard-Jones liquid in reduced units (σ, ε, m), cut-off 2.5 σ, velocity Verlet, Δt = 0.005; density ρ = 0.82 (periodic and walled box); in the notebook measurements the temperature is held constant with a Langevin heat bath (T = 0.40 ε). A two-dimensional model does not give the numbers of real water; it shows the direction and order of magnitude of the surface effect. Your notebook is stored only in this browser.</p>"
   ],
   [
+   "<span class=\"eyebrow\">MD-PBC · Laboratuvar 2 · Kutu boyu</span>",
+   "<span class=\"eyebrow\">MD-PBC · Lab 2 · Box size</span>"
+  ],
+  [
+   "<h2 class=\"h1\">Kutu ne kadar büyük olmalı? Derişim, kopyalar ve suyun akışı</h2>",
+   "<h2 class=\"h1\">How large should the box be? Concentration, images and the flow of water</h2>"
+  ],
+  [
+   "<p class=\"lead\">Periyodik kutuda protein hiçbir kenara değmez, ama kendi kopyalarından da kaçamaz. Kutu küçükse protein kopyasını kesme mesafesi içinde görür ve itilen su dönüp proteinin kendisine çarpar. Kutu büyükse her adım pahalanır. Bu laboratuvarda kutuyu siz kuracaksınız: önce derişime, sonra kopyalar arasındaki boşluğa, en son da suyun akışına ve difüzyona bakacaksınız.</p>",
+   "<p class=\"lead\">In a periodic box the protein touches no edge, but it cannot escape its own images either. If the box is small, the protein sees its image within the cut-off distance, and the water it pushes comes back and hits the protein itself. If the box is large, every step becomes more expensive. In this lab you build the box yourself: first you look at the concentration, then at the gap between images, and finally at the flow of water and diffusion.</p>"
+  ],
+  [
+   "<h2 id=\"k6h0\">Kutunuzdaki proteinin derişimi kaç?</h2>",
+   "<h2 id=\"k6h0\">What is the concentration of the protein in your box?</h2>"
+  ],
+  [
+   "<p>Bir NMR örneği hazırlarken derişimi seçersiniz: örneğin ubikitinin difüzyonunu ölçen bir PFG-NMR deneyinde örnek 0,5 mM idi. MD kutusunda da bir derişim vardır, ama onu kimse seçmez: kutuda tek bir protein molekülü varsa derişim yalnız kutunun hacmine bağlıdır, c = 1/(N<sub>A</sub> · V). Bu projenin ubikitin kutusu (onikiyüzlü, 193,42 nm³) tek proteinle yaklaşık 8,6 mM demektir: NMR örneğinden on yedi kat derişik.</p>",
+   "<p>When you prepare an NMR sample you choose the concentration: in a PFG-NMR experiment that measured the diffusion of ubiquitin, for example, the sample was 0.5 mM. An MD box also has a concentration, but nobody chooses it: with a single protein molecule in the box the concentration depends only on the box volume, c = 1/(N<sub>A</sub> · V). This project's ubiquitin box (dodecahedron, 193.42 nm³) with one protein means about 8.6 mM: seventeen times more concentrated than the NMR sample.</p>"
+  ],
+  [
+   "<p>Aşağıdaki cetvel derişimi gram/litre olarak gösterir. Atölyedeki kaydırıcıyı oynattıkça \"sizin kutunuz\" işareti de yer değiştirir.</p>",
+   "<p>The ruler below shows the concentration in grams per litre. As you move the slider in the workshop, the \"your box\" mark moves too.</p>"
+  ],
+  [
+   "<canvas id=\"k6ruler\" class=\"plot\" aria-label=\"Protein derişimi cetveli, gram/litre, logaritmik: NMR örneği, bu projenin iki kutusu, sizin kutunuz ve E. coli sitoplazması\"></canvas>",
+   "<canvas id=\"k6ruler\" class=\"plot\" aria-label=\"Protein concentration ruler, grams per litre, logarithmic: NMR sample, this project's two boxes, your box and the E. coli cytoplasm\"></canvas>"
+  ],
+  [
+   "<p>Deneyde bir proteinin ne kadar hızlı yayıldığını da ölçersiniz: FRAP'ta ağartılan bölgenin geri dolma hızından, DLS'de saçılan ışığın dalgalanmasından, PFG-NMR'de gradyanla sinyalin sönmesinden. Suda GFP'nin difüzyon katsayısı yaklaşık 87 µm²/s, E. coli sitoplazmasında 7,7 µm²/s ölçülmüştür. Aynı ölçüm ubikitin için 1,539 nm hidrodinamik yarıçap vermiştir; bu, 25 °C'de suda yaklaşık 158 µm²/s demektir (Stokes-Einstein). MD bu sayıyı verebilir mi? Tezgâhta göreceğiniz gibi, cevap kutunun boyuna bağlıdır.</p>",
+   "<p>In the lab you also measure how fast a protein spreads: in FRAP from how quickly the bleached area refills, in DLS from the fluctuations of scattered light, in PFG-NMR from how the signal decays with the gradient. The diffusion coefficient of GFP has been measured as about 87 µm²/s in water and 7.7 µm²/s in the E. coli cytoplasm. The PFG-NMR measurement gave ubiquitin a hydrodynamic radius of 1.539 nm; this means about 158 µm²/s in water at 25 °C (Stokes-Einstein). Can MD give this number? As you will see on the bench, the answer depends on the size of the box.</p>"
+  ],
+  [
+   "<p class=\"small\">Kaynaklar: ubikitin, 0,5 mM, R<sub>h</sub> = 15,39 Å (288 K, PFG-NMR; Ramanujam ve ark. 2020, J Magn Reson 312:106701). E. coli sitoplazmasında makromolekül derişimi 0,3-0,4 g/ml (Zimmerman ve Trach 1991, J Mol Biol 222:599). GFP difüzyonu suda 87 µm²/s, E. coli'de 7,7 µm²/s (Elowitz ve ark. 1999, J Bacteriol 181:197). Ubikitinin molekül kütlesi 8.565 Da (76 amino asit dizisinden). 158 µm²/s, D = kT/(6πηR<sub>h</sub>) ile 298 K ve η = 0,896 mPa·s alınarak hesaplandı (R<sub>h</sub>'nin 288 K ile 298 K arasında değişmediği varsayıldı).</p>",
+   "<p class=\"small\">Sources: ubiquitin, 0.5 mM, R<sub>h</sub> = 15.39 Å (288 K, PFG-NMR; Ramanujam et al. 2020, J Magn Reson 312:106701). Macromolecule concentration in the E. coli cytoplasm 0.3-0.4 g/ml (Zimmerman and Trach 1991, J Mol Biol 222:599). GFP diffusion 87 µm²/s in water, 7.7 µm²/s in E. coli (Elowitz et al. 1999, J Bacteriol 181:197). Molecular mass of ubiquitin 8,565 Da (from the 76 amino acid sequence). 158 µm²/s was computed from D = kT/(6πηR<sub>h</sub>) with 298 K and η = 0.896 mPa·s (R<sub>h</sub> was assumed not to change between 288 K and 298 K).</p>"
+  ],
+  [
+   "<h2 id=\"k6h1\">Kutuyu kurun: d, derişim ve kopyalar arasındaki boşluk</h2>",
+   "<h2 id=\"k6h1\">Build the box: d, concentration and the gap between images</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p><code>gmx editconf -d</code> proteinin en uzak iki atomu arasındaki uzaklığa (ubikitinde 4,49 nm) her iki yandan d ekler; kutu vektörü L = 4,49 + 2d olur. Kesit, merkez kutuyu ve dört komşu kopyayı gösterir. Protein yavaşça döner; kopyalar da tam aynı biçimde döner. Kesikli çizgi proteinin çevresindeki 1,0 nm'lik kesme kuşağıdır: bir kopya bu kuşağa girerse protein kendi kopyasıyla etkileşir.</p></div>",
+   "<div class=\"prose\"><p><code>gmx editconf -d</code> adds d on both sides to the distance between the two most distant atoms of the protein (4.49 nm for ubiquitin); the box vector becomes L = 4.49 + 2d. The section shows the central box and four neighbouring images. The protein turns slowly, and its images turn in exactly the same way. The dashed line is the 1.0 nm cut-off belt around the protein: if an image enters this belt, the protein interacts with its own image.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k6box\" class=\"stage\" aria-label=\"Periyodik kutu kesiti: ubikitin, dört kopyası, kesme kuşağı ve en kısa boşluk\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k6box\" class=\"stage\" aria-label=\"Section of the periodic box: ubiquitin, four of its images, the cut-off belt and the shortest gap\"></canvas></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k6d\">Kenara eklenen uzaklık d (editconf -d)</label><div class=\"big\" id=\"k6dV\"></div><input type=\"range\" id=\"k6d\" min=\"0.3\" max=\"2\" step=\"0.05\" value=\"1\"></div>",
+   "<div><label class=\"lbl\" for=\"k6d\">Distance added at the edge, d (editconf -d)</label><div class=\"big\" id=\"k6dV\"></div><input type=\"range\" id=\"k6d\" min=\"0.3\" max=\"2\" step=\"0.05\" value=\"1\"></div>"
+  ],
+  [
+   "<button type=\"button\" data-bt=\"dod\" aria-pressed=\"true\">Onikiyüzlü</button>",
+   "<button type=\"button\" data-bt=\"dod\" aria-pressed=\"true\">Dodecahedron</button>"
+  ],
+  [
+   "<button type=\"button\" data-bt=\"cub\" aria-pressed=\"false\">Küp</button>",
+   "<button type=\"button\" data-bt=\"cub\" aria-pressed=\"false\">Cube</button>"
+  ],
+  [
+   "<dt>Kutu vektörü L</dt><dd id=\"k6L\"></dd>",
+   "<dt>Box vector L</dt><dd id=\"k6L\"></dd>"
+  ],
+  [
+   "<dt>Hacim</dt><dd id=\"k6Vol\"></dd>",
+   "<dt>Volume</dt><dd id=\"k6Vol\"></dd>"
+  ],
+  [
+   "<dt>Derişim (tek protein)</dt><dd id=\"k6c\"></dd>",
+   "<dt>Concentration (one protein)</dt><dd id=\"k6c\"></dd>"
+  ],
+  [
+   "<dt>Aynı derişim, g/L</dt><dd id=\"k6gl\"></dd>",
+   "<dt>Same concentration, g/L</dt><dd id=\"k6gl\"></dd>"
+  ],
+  [
+   "<dt>Su molekülü (tahmin)</dt><dd id=\"k6w\"></dd>",
+   "<dt>Water molecules (estimate)</dt><dd id=\"k6w\"></dd>"
+  ],
+  [
+   "<dt>Atom sayısı (tahmin)</dt><dd id=\"k6at\"></dd>",
+   "<dt>Number of atoms (estimate)</dt><dd id=\"k6at\"></dd>"
+  ],
+  [
+   "<dt>Her adımın maliyeti (d = 1,0 nm'ye göre)</dt><dd id=\"k6cost\"></dd>",
+   "<dt>Cost of each step (relative to d = 1.0 nm)</dt><dd id=\"k6cost\"></dd>"
+  ],
+  [
+   "<dt>Kopyalar arası boşluk, şu an</dt><dd id=\"k6gap\"></dd>",
+   "<dt>Gap between images, now</dt><dd id=\"k6gap\"></dd>"
+  ],
+  [
+   "<dt>Aynı boşluk, en az (tam tur)</dt><dd id=\"k6gapMin\"></dd>",
+   "<dt>Same gap, smallest (full turn)</dt><dd id=\"k6gapMin\"></dd>"
+  ],
+  [
+   "<div class=\"btns\" id=\"k6pre\"><button type=\"button\" class=\"btn\" data-d=\"0.5\">S3: 0,5 nm</button><button type=\"button\" class=\"btn\" data-d=\"1\">S0: 1,0 nm</button><button type=\"button\" class=\"btn\" data-d=\"1.5\">1,5 nm</button></div>",
+   "<div class=\"btns\" id=\"k6pre\"><button type=\"button\" class=\"btn\" data-d=\"0.5\">S3: 0.5 nm</button><button type=\"button\" class=\"btn\" data-d=\"1\">S0: 1.0 nm</button><button type=\"button\" class=\"btn\" data-d=\"1.5\">1.5 nm</button></div>"
+  ],
+  [
+   "<p class=\"small\">Su ve atom sayısı bu projenin iki gerçek hazırlığından ayarlandı: d = 1,0 nm'de 193,42 nm³ ve 5.902 su, d = 0,5 nm'de 117,10 nm³ ve 3.378 su (onikiyüzlü). Buradan su için nm³ başına 33,07 molekül ve proteinin kapladığı yaklaşık 14,96 nm³ çıkar. Maliyet atom sayısıyla orantılı alındı (PME ile yaklaşık doğrusal). Kesit iki boyutludur ve protein şematiktir; boşluk, iki taslağın en yakın noktaları arasındadır. \"En az\" satırı proteinin bir tam turundaki en kötü durumdur; gerçek protein 10 ps'de bu kadar dönmez: bu projenin dar kutusunda (S3) ölçülen en kısa uzaklık 1,26 nm idi (aşağıda, proteine dönüş).</p>",
+   "<p class=\"small\">The numbers of water molecules and atoms were calibrated from this project's two real preparations: at d = 1.0 nm 193.42 nm³ and 5,902 waters, at d = 0.5 nm 117.10 nm³ and 3,378 waters (dodecahedron). This gives 33.07 water molecules per nm³ and about 14.96 nm³ taken up by the protein. The cost was taken as proportional to the number of atoms (roughly linear with PME). The section is two-dimensional and the protein is schematic; the gap is measured between the closest points of the two outlines. The \"smallest\" row is the worst case over one full turn of the protein; the real protein does not turn this far in 10 ps: the shortest distance measured in this project's narrow box (S3) was 1.26 nm (below, back to the protein).</p>"
+  ],
+  [
+   "<h2 id=\"k6h2\">Protein kendi akışına çarpar: periyodik kutuda su</h2>",
+   "<h2 id=\"k6h2\">The protein runs into its own flow: water in a periodic box</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Protein suyun içinde ilerlerken önündeki suyu iter. Sonsuz bir sıvıda bu akış uzakta söner. Periyodik kutuda ise itilen su kutunun öbür yüzünden geri gelir ve kopyaların akışıyla birleşir; kutu hareketsiz kalsın diye bir yerde geriye akmak zorundadır. Aşağıda proteine sabit bir kuvvet uygulanıyor; noktalar suyun nereye gittiğini gösterir. Turuncu çizgiler proteinle aynı yöne, mavi çizgiler geriye akan suyu gösterir. Çizim suyun o anki hızını gösterir; protein yerinde çizildi, kopyaları soluk.</p></div>",
+   "<div class=\"prose\"><p>As the protein moves through water it pushes the water in front of it. In an infinite liquid this flow dies away with distance. In a periodic box, however, the pushed water comes back through the opposite face of the box and joins the flow of the images; for the box as a whole to stay at rest, the water has to flow backwards somewhere. Below, a constant force is applied to the protein; the tracers show where the water goes. Orange streaks show water moving in the same direction as the protein, blue streaks water flowing backwards. The drawing shows the instantaneous velocity of the water; the protein is drawn in place, its images faded.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"k6flow\" class=\"stage\" aria-label=\"Kuvvetle itilen proteinin çevresinde suyun akışı: periyodik kutu ya da sonsuz sıvı\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"k6flow\" class=\"stage\" aria-label=\"Flow of water around a protein pushed by a force: periodic box or infinite liquid\"></canvas></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Sıvı</div>",
+   "<div><div class=\"lbl\">Liquid</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Sıvı\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Liquid\">"
+  ],
+  [
+   "<button type=\"button\" data-fm=\"pbc\" aria-pressed=\"true\">Periyodik kutu</button>",
+   "<button type=\"button\" data-fm=\"pbc\" aria-pressed=\"true\">Periodic box</button>"
+  ],
+  [
+   "<button type=\"button\" data-fm=\"inf\" aria-pressed=\"false\">Sonsuz sıvı</button>",
+   "<button type=\"button\" data-fm=\"inf\" aria-pressed=\"false\">Infinite liquid</button>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"k6fL\">Küp kutunun kenarı L</label><div class=\"big\" id=\"k6fLV\"></div><input type=\"range\" id=\"k6fL\" min=\"5\" max=\"20\" step=\"0.5\" value=\"8\"></div>",
+   "<div><label class=\"lbl\" for=\"k6fL\">Edge of the cubic box, L</label><div class=\"big\" id=\"k6fLV\"></div><input type=\"range\" id=\"k6fL\" min=\"5\" max=\"20\" step=\"0.5\" value=\"8\"></div>"
+  ],
+  [
+   "<dt>Proteinin hızı (sonsuz sıvıya göre)</dt><dd id=\"k6fv\"></dd>",
+   "<dt>Speed of the protein (relative to infinite liquid)</dt><dd id=\"k6fv\"></dd>"
+  ],
+  [
+   "<dt>Birinci derece formül: 1 − 2,837 R/L</dt><dd id=\"k6fyh\"></dd>",
+   "<dt>First-order formula: 1 − 2.837 R/L</dt><dd id=\"k6fyh\"></dd>"
+  ],
+  [
+   "<dt>Kesitte en hızlı geri akış</dt><dd id=\"k6fback\"></dd>",
+   "<dt>Fastest backflow in the section</dt><dd id=\"k6fback\"></dd>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k6fPlay\">Durdur</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"k6fPlay\">Pause</button></div>"
+  ],
+  [
+   "<p class=\"small\">Hesap: suyun akışı Stokes denklemleriyle, protein R = 1,539 nm yarıçaplı yumuşak bir kuvvet bulutu (Gauss) olarak, küp kutunun bütün kopyalarıyla birlikte ters uzayda toplanarak bulunur; sayfada hesaplanır. Aynı toplam R/L küçükken Hasimoto (1959) serisini verir: 1 − 2,837297 R/L + (4π/3)(R/L)³. Yeh ve Hummer (2004) bunun ilk iki terimini MD'deki difüzyon düzeltmesi olarak önerdi. Sonsuz sıvı çiziminde yalnız proteinin kendi akışı vardır (düzgünleştirilmiş Stokes akışı); pencere kenarı yalnız çizimin sınırıdır. Çizim, kutunun protein merkezinden geçen kesitidir.</p>",
+   "<p class=\"small\">Calculation: the flow of water follows from the Stokes equations, with the protein as a soft cloud of force (Gaussian) of radius R = 1.539 nm, summed in reciprocal space together with all the images of the cubic box; it is computed on the page. For small R/L the same sum gives the Hasimoto (1959) series: 1 − 2.837297 R/L + (4π/3)(R/L)³. Yeh and Hummer (2004) proposed its first two terms as the diffusion correction for MD. In the infinite-liquid drawing there is only the protein's own flow (regularized Stokes flow); the window edge is only the edge of the drawing. The drawing is the section of the box through the centre of the protein.</p>"
+  ],
+  [
+   "<article class=\"q\" id=\"k6c1\"><span class=\"k\">Açık</span><h3>Kopya kesmeye girer mi?</h3><p>Atölyede d'yi 0,5 nm ve altına, sonra 1,0 nm ve üstüne getirin.</p><div class=\"mine\" id=\"mk6c1\">d'yi bir kez 0,5 nm ya da daha aza, bir kez 1,0 nm ya da daha fazlaya getirin.</div></article>",
+   "<article class=\"q\" id=\"k6c1\"><span class=\"k\">Open</span><h3>Does the image enter the cut-off?</h3><p>In the workshop, set d to 0.5 nm or less, then to 1.0 nm or more.</p><div class=\"mine\" id=\"mk6c1\">Set d once to 0.5 nm or less and once to 1.0 nm or more.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"k6c2\"><span class=\"k\">Açık</span><h3>Küçük kutu proteini yavaşlatır mı?</h3><p>Tezgâhta periyodik kutuyu en az üç boyda deneyin, sonra sonsuz sıvıya bakın.</p><div class=\"mine\" id=\"mk6c2\">Periyodik kutuda en az üç L deneyin (en büyüğü en küçüğünün en az iki katı) ve sonsuz sıvıyı bir kez açın.</div></article>",
+   "<article class=\"q\" id=\"k6c2\"><span class=\"k\">Open</span><h3>Does a small box slow the protein down?</h3><p>On the bench, try the periodic box in at least three sizes, then look at the infinite liquid.</p><div class=\"mine\" id=\"mk6c2\">Try at least three values of L in the periodic box (the largest at least twice the smallest) and open the infinite liquid once.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"k6c3\"><span class=\"k\">Açık</span><h3>Sonsuz kutunun difüzyonu nerede?</h3><p>Aşağıdaki defterde en az dört kutu boyu ölçün ve doğruyu 1/L = 0'a uzatın.</p><div class=\"mine\" id=\"mk6c3\">Aynı su modelinde en az dört kutu ölçün; biri 8 nm ya da daha küçük, biri 15 nm ya da daha büyük olsun.</div></article>",
+   "<article class=\"q\" id=\"k6c3\"><span class=\"k\">Open</span><h3>Where is the diffusion of the infinite box?</h3><p>In the notebook below, measure at least four box sizes and extend the line to 1/L = 0.</p><div class=\"mine\" id=\"mk6c3\">Measure at least four boxes with the same water model; one of 8 nm or smaller and one of 15 nm or larger.</div></article>"
+  ],
+  [
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Keşif defteri</span><h2 id=\"k6h3\">Kutu büyüdükçe difüzyon nereye gider?</h2></div>",
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Discovery notebook</span><h2 id=\"k6h3\">Where does diffusion go as the box grows?</h2></div>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"k6nClr\">Defteri temizle</button>",
+   "<button type=\"button\" class=\"btn\" id=\"k6nClr\">Clear notebook</button>"
+  ],
+  [
+   "<p class=\"small\">Her ölçüm, tek bir ubikitinin (R = 1,539 nm) küp kutuda difüzyon katsayısını tezgâhtaki hesapla bulur: D<sub>PBC</sub> = D<sub>∞</sub> · (hareketlilik oranı). D<sub>∞</sub>, seçilen suyun viskozitesiyle Stokes-Einstein'dan gelir (298 K). Grafik D<sub>PBC</sub>'yi 1/L'ye karşı çizer; ölçtüğünüz noktalardan geçen doğrunun 1/L = 0'daki değeri, sonsuz kutunun tahminidir. Aynı yöntemi Laboratuvar 1'de molekül başına enerji için kullandınız.</p>",
+   "<p class=\"small\">Each measurement finds the diffusion coefficient of a single ubiquitin (R = 1.539 nm) in a cubic box with the bench calculation: D<sub>PBC</sub> = D<sub>∞</sub> · (mobility ratio). D<sub>∞</sub> comes from Stokes-Einstein with the viscosity of the chosen water (298 K). The graph plots D<sub>PBC</sub> against 1/L; the value at 1/L = 0 of the line through your points is the estimate for the infinite box. You used the same method in Lab 1 for the energy per molecule.</p>"
+  ],
+  [
+   "<div><div class=\"lbl\">Su modeli</div><div class=\"chips\" id=\"k6nW\"><button type=\"button\" class=\"chip\" data-w=\"tip3p\" aria-pressed=\"true\">TIP3P (bu projenin suyu)</button><button type=\"button\" class=\"chip\" data-w=\"exp\" aria-pressed=\"false\">Gerçek su</button></div></div>",
+   "<div><div class=\"lbl\">Water model</div><div class=\"chips\" id=\"k6nW\"><button type=\"button\" class=\"chip\" data-w=\"tip3p\" aria-pressed=\"true\">TIP3P (this project's water)</button><button type=\"button\" class=\"chip\" data-w=\"exp\" aria-pressed=\"false\">Real water</button></div></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Küp kutunun kenarı L (nm)</div><div class=\"chips\" id=\"k6nL\"></div></div>",
+   "<div><div class=\"lbl\">Edge of the cubic box, L (nm)</div><div class=\"chips\" id=\"k6nL\"></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k6nRun\">Ölç</button><button type=\"button\" class=\"btn\" id=\"k6nAll\">Bu suda tüm seriyi ölç</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k6nRun\">Measure</button><button type=\"button\" class=\"btn\" id=\"k6nAll\">Measure the whole series in this water</button></div>"
+  ],
+  [
+   "<p class=\"busy\" id=\"k6nBusy\" aria-live=\"polite\">Ölçüm yok.</p>",
+   "<p class=\"busy\" id=\"k6nBusy\" aria-live=\"polite\">No measurements.</p>"
+  ],
+  [
+   "<canvas id=\"k6book\" class=\"plot\" aria-label=\"1/L'ye karşı ubikitinin difüzyon katsayısı: ölçümler, doğru, sonsuz sıvı değeri ve deneysel değer\"></canvas>",
+   "<canvas id=\"k6book\" class=\"plot\" aria-label=\"Diffusion coefficient of ubiquitin against 1/L: measurements, line, infinite-liquid value and experimental value\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>TIP3P</span><span><i style=\"background:var(--deep)\"></i>Gerçek su</span><span><i style=\"background:var(--good)\"></i>Deney (PFG-NMR yarıçapından, 158 µm²/s)</span><span>Kesikli çizgi: seçilen suda D<sub>∞</sub>; halka: bu projenin iki onikiyüzlü kutusu</span><span id=\"k6nCount\"></span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>TIP3P</span><span><i style=\"background:var(--deep)\"></i>Real water</span><span><i style=\"background:var(--good)\"></i>Experiment (from the PFG-NMR radius, 158 µm²/s)</span><span>Dashed line: D<sub>∞</sub> in the chosen water; ring: this project's two dodecahedral boxes</span><span id=\"k6nCount\"></span></div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Su</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Hareketlilik oranı</th><th>D<sub>PBC</sub> (µm²/s)</th></tr></thead><tbody id=\"k6nTab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Water</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Mobility ratio</th><th>D<sub>PBC</sub> (µm²/s)</th></tr></thead><tbody id=\"k6nTab\"></tbody></table></div>"
+  ],
+  [
+   "<p class=\"small\">Viskozite (298 K, 1 bar): TIP3P 0,321 mPa·s, gerçek su 0,896 mPa·s (González ve Abascal 2010, J Chem Phys 132:096101). TIP3P suyu gerçek sudan yaklaşık üç kat akışkandır; bu yüzden TIP3P'de protein de sonsuz kutuda yaklaşık üç kat hızlı yayılır. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Viscosity (298 K, 1 bar): TIP3P 0.321 mPa·s, real water 0.896 mPa·s (González and Abascal 2010, J Chem Phys 132:096101). TIP3P water is about three times more fluid than real water; therefore in TIP3P the protein also spreads about three times faster in the infinite box. Your notebook is stored only in this browser.</p>"
+  ],
+  [
+   "<h2 id=\"k6h4\">Bu projenin iki kutusu: d = 1,0 nm ve d = 0,5 nm</h2>",
+   "<h2 id=\"k6h4\">This project's two boxes: d = 1.0 nm and d = 0.5 nm</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bu projede ubikitin iki kutuda koşuldu: ana hazırlık (S0, <code>editconf -d 1.0</code>) ve dar kutu denemesi (S3, <code>-d 0.5</code>). İkisinde de 10 ps kısıtsız dinamikten sonra <code>gmx mindist -pi</code> ile proteinin kendi kopyasına en kısa uzaklığı ölçüldü. Grafik bu ölçümlerin kendisidir.</p></div>",
+   "<div class=\"prose\"><p>In this project ubiquitin was run in two boxes: the main preparation (S0, <code>editconf -d 1.0</code>) and the narrow-box trial (S3, <code>-d 0.5</code>). In both, after 10 ps of unrestrained dynamics, the shortest distance of the protein to its own image was measured with <code>gmx mindist -pi</code>. The graph shows these measurements themselves.</p></div>"
+  ],
+  [
+   "<canvas id=\"k6md\" class=\"plot\" aria-label=\"Zamana karşı proteinin kendi kopyasına en kısa uzaklığı: S0 ve S3, kesme mesafesi 1,0 nm\"></canvas>",
+   "<canvas id=\"k6md\" class=\"plot\" aria-label=\"Shortest distance of the protein to its own image against time: S0 and S3, cut-off distance 1.0 nm\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>S0: d = 1,0 nm</span><span><i style=\"background:var(--accent)\"></i>S3: d = 0,5 nm</span><span>Kesikli çizgi: kesme mesafesi 1,0 nm; noktalı çizgi: iki kesme (2,0 nm)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>S0: d = 1.0 nm</span><span><i style=\"background:var(--accent)\"></i>S3: d = 0.5 nm</span><span>Dashed line: cut-off distance 1.0 nm; dotted line: two cut-offs (2.0 nm)</span></div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th></th><th>S0 (d = 1,0 nm)</th><th>S3 (d = 0,5 nm)</th></tr></thead><tbody id=\"k6mdTab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th></th><th>S0 (d = 1.0 nm)</th><th>S3 (d = 0.5 nm)</th></tr></thead><tbody id=\"k6mdTab\"></tbody></table></div>"
+  ],
+  [
+   "<p><b>Ne görüyoruz?</b> Dar kutuda protein kendi kopyasına 1,26 nm'ye kadar yaklaştı: kesme mesafesinin hemen üstü. 10 ps çok kısa bir süredir; daha uzun bir koşuda protein dönüp uzayınca bu uzaklığın 1,0 nm'nin altına inmeyeceğinin bir güvencesi yoktur. Ana kutuda en kısa uzaklık 2,25 nm, yani iki kesme mesafesinin üstünde: hiçbir su molekülü aynı anda hem proteini hem kopyasını kesme mesafesi içinde görmez.</p>",
+   "<p><b>What do we see?</b> In the narrow box the protein came as close as 1.26 nm to its own image: just above the cut-off distance. 10 ps is a very short time; in a longer run there is no guarantee that this distance will not drop below 1.0 nm when the protein turns and stretches. In the main box the shortest distance is 2.25 nm, above two cut-off distances: no water molecule sees both the protein and its image within the cut-off distance at the same time.</p>"
+  ],
+  [
+   "<p><b>Difüzyon.</b> Bu projenin koşularında proteinin difüzyon katsayısı ölçülmedi; 10 ps bunun için çok kısa. Bu senaryo hesaplanmadı. Tablodaki D satırları ölçüm değil, tezgâhtaki modelin bu iki onikiyüzlü kutu için verdiği tahmindir. Dikkat çekici bir sonuç çıkıyor: TIP3P suyu proteini sonsuz kutuda deneyden yaklaşık üç kat hızlı yayar, küçük kutu ise yaklaşık üç kat yavaşlatır. İki hata birbirini neredeyse götürür. Bir MD difüzyon değeri deneye uyuyorsa, bunun doğru nedenle mi uyduğu ayrıca sorulmalıdır.</p>",
+   "<p><b>Diffusion.</b> The diffusion coefficient of the protein was not measured in this project's runs; 10 ps is far too short for that. This scenario was not computed. The D rows in the table are not measurements but the estimate of the bench model for these two dodecahedral boxes. A striking result emerges: in the infinite box TIP3P water makes the protein spread about three times faster than in experiment, while the small box slows it down about threefold. The two errors almost cancel. If an MD diffusion value agrees with experiment, it is worth asking separately whether it agrees for the right reason.</p>"
+  ],
+  [
+   "<p class=\"small\">Veri: gromacs_trial (S0) ve scenarios/S3 (GROMACS 2023.3, amber99sb-ildn, TIP3P, 300 K, V-rescale ve C-rescale; kısıtsız koşu 5.000 adım × 2 fs, mindist 1 ps aralıkla, 11 kare). Kutu vektörü editconf'un başlangıç değeri ve kısıtsız koşunun son karesi; hacim onikiyüzlü için L³/√2. Proteinin hareketlilik oranı tezgâhtaki kafes toplamıyla, onikiyüzlü kafes için hesaplandı (R = 1,539 nm).</p>",
+   "<p class=\"small\">Data: gromacs_trial (S0) and scenarios/S3 (GROMACS 2023.3, amber99sb-ildn, TIP3P, 300 K, V-rescale and C-rescale; unrestrained run 5,000 steps × 2 fs, mindist at 1 ps intervals, 11 frames). Box vector: editconf's initial value and the last frame of the unrestrained run; volume L³/√2 for the dodecahedron. The mobility ratio of the protein was computed with the bench lattice sum for the dodecahedral lattice (R = 1.539 nm).</p>"
+  ],
+  [
+   "<h2 id=\"k6h5\">Altı soru</h2>",
+   "<h2 id=\"k6h5\">Six questions</h2>"
+  ],
+  [
+   "<p class=\"small\">Model: atölyede şematik iki boyutlu ubikitin kesiti; hacim, derişim ve su sayısı bu projenin iki gerçek hazırlığından ayarlandı. Tezgâh ve defterde Stokes akışı: proteine uygulanan kuvvet, yarıçapı hidrodinamik yarıçapa eşit Gauss bulutuna yayılır; periyodik kopyaların hepsi ters uzay kafes toplamıyla hesaba katılır; ortalama akış sıfırdır (kutu hareketsiz). Bu, proteini katı bir küre gibi ele alan bir tahmindir; gerçek proteinin biçimi ve su tabakası sayıları biraz değiştirir. Proteine dönüşteki uzaklıklar ve kutu boyutları bu projenin gerçek koşularından. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Model: in the workshop a schematic two-dimensional section of ubiquitin; volume, concentration and number of waters calibrated from this project's two real preparations. On the bench and in the notebook Stokes flow: the force on the protein is spread over a Gaussian cloud whose radius equals the hydrodynamic radius; all periodic images are included through a reciprocal-space lattice sum; the mean flow is zero (the box is at rest). This is an estimate that treats the protein as a rigid sphere; the real shape of the protein and its water layer change the numbers somewhat. The distances and box sizes in \"back to the protein\" come from this project's real runs. Your notebook is stored only in this browser.</p>"
+  ],
+  [
    "<p class=\"next\">Sıradaki modül: <a href=\"../md-cut/\">MD-CUT · En yakın kopya ve kesme</a>. Periyodik kutudaki sonsuz kopyadan hangisiyle etkileşilir, etkileşim nerede kesilir?</p>",
    "<p class=\"next\">Next module: <a href=\"../md-cut/\">MD-CUT · Nearest image and cut-off</a>. Which of the infinitely many copies in the periodic box does a molecule interact with, and where is the interaction cut off?</p>"
   ],
@@ -434,8 +686,8 @@
    "function pc(v,d){ return fx(v,d)+'%'; }"
   ],
   [
-   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 6'; }",
-   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 6'; }"
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }",
+   "var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }"
   ],
   [
    "cs+='<text x=\"'+(ox+a*2+6)+'\" y=\"'+(oy+a-6)+'\" font-size=\"12\" fill=\"var(--accent)\" font-family=\"Segoe UI, system-ui, sans-serif\">birim hücre</text>';",
@@ -828,10 +1080,195 @@
   [
    "['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Açık'; });",
    "['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }"
+  ],
+  [
+   "g.textAlign='left'; g.fillText('g/L, logaritmik ölçek',L,14);",
+   "g.textAlign='left'; g.fillText('g/L, logarithmic scale',L,14);"
+  ],
+  [
+   "var xN=dot(0.5e-3*MW,good); lab(xN,narrow?'NMR örneği':'NMR örneği (0,5 mM)',good,y-16);",
+   "var xN=dot(0.5e-3*MW,good); lab(xN,narrow?'NMR sample':'NMR sample (0.5 mM)',good,y-16);"
+  ],
+  [
+   "lab(X(346),narrow?'E. coli':'E. coli sitoplazması',gold,y-20);",
+   "lab(X(346),narrow?'E. coli':'E. coli cytoplasm',gold,y-20);"
+  ],
+  [
+   "g.font=fs+'px '+css('--sans'); g.textAlign='right'; g.fillStyle=deep; g.fillText(narrow?'S0':'S0 (d = 1,0)',x0-2,y+38); g.textAlign='left'; g.fillStyle=muted; g.fillText(narrow?'S3':'S3 (d = 0,5)',x3+2,y+38);",
+   "g.font=fs+'px '+css('--sans'); g.textAlign='right'; g.fillStyle=deep; g.fillText(narrow?'S0':'S0 (d = 1.0)',x0-2,y+38); g.textAlign='left'; g.fillStyle=muted; g.fillText(narrow?'S3':'S3 (d = 0.5)',x3+2,y+38);"
+  ],
+  [
+   "lab(xv,'sizin kutunuz: '+fx(v,0)+' g/L',acc,y+60,true); }",
+   "lab(xv,'your box: '+fx(v,0)+' g/L',acc,y+60,true); }"
+  ],
+  [
+   "$('k6cost').textContent=fx(at/ATOM0,2)+' kat';",
+   "$('k6cost').textContent=fx(at/ATOM0,2)+' ×';"
+  ],
+  [
+   "if(A.gapMin<1.0) note='Kopya, bir tur içinde proteinin 1,0 nm\\'lik kesme kuşağına giriyor: protein kendi kopyasıyla etkileşir. Bu, gerçek bir örnekte olmayan bir etkileşimdir.';",
+   "if(A.gapMin<1.0) note='Within one turn the image enters the 1.0 nm cut-off belt of the protein: the protein interacts with its own image. This is an interaction that does not exist in a real sample.';"
+  ],
+  [
+   "else if(A.gapMin<2.0) note='Kopya kesme kuşağının dışında kalıyor, ama arada iki kesme mesafesinden az yer var: bazı su molekülleri proteini de kopyasını da aynı anda görür.';",
+   "else if(A.gapMin<2.0) note='The image stays outside the cut-off belt, but there is less than two cut-off distances of room in between: some water molecules see both the protein and its image at the same time.';"
+  ],
+  [
+   "else note='Protein ile kopyası arasında iki kesme mesafesinden fazla su var: hiçbir su molekülü ikisini birden kesme içinde görmez. Bedeli: '+NFI.format(at)+' atom.';",
+   "else note='There is more than two cut-off distances of water between the protein and its image: no water molecule sees both within the cut-off. The price: '+NFI.format(at)+' atoms.';"
+  ],
+  [
+   "if(A.seenLo&&A.seenHi) card('k6c1',true,'<b>'+fx(A.seenLo.d,2)+' nm</b>: dönen proteinle kopyası arasındaki boşluk bir turda '+fx(A.seenLo.g,2)+' nm\\'ye iniyor'+(A.seenLo.g<1?', 1,0 nm\\'lik kesmeden kısa: protein kendi kopyasını görebilir.':'.')+' <b>'+fx(A.seenHi.d,2)+' nm</b>: boşluk '+fx(A.seenHi.g,2)+' nm. Güvenli kutu '+fx(A.seenHi.at/A.seenLo.at,1)+' kat atom taşır ve derişim '+fx(A.seenHi.c,1)+' mM\\'ye iner ('+fx(A.seenLo.c,1)+' mM\\'den). Kutu boyu, doğruluk ile maliyet arasındaki bir seçimdir.');",
+   "if(A.seenLo&&A.seenHi) card('k6c1',true,'<b>'+fx(A.seenLo.d,2)+' nm</b>: within one turn the gap between the rotating protein and its image drops to '+fx(A.seenLo.g,2)+' nm'+(A.seenLo.g<1?', shorter than the 1.0 nm cut-off: the protein can see its own image.':'.')+' <b>'+fx(A.seenHi.d,2)+' nm</b>: gap '+fx(A.seenHi.g,2)+' nm. The safe box carries '+fx(A.seenHi.at/A.seenLo.at,1)+' times as many atoms and the concentration falls to '+fx(A.seenHi.c,1)+' mM (from '+fx(A.seenLo.c,1)+' mM). Box size is a choice between accuracy and cost.');"
+  ],
+  [
+   "$('k6fv').textContent=F.mode==='pbc'?pc(100*F.ratio,1):'%100 (tanım)';",
+   "$('k6fv').textContent=F.mode==='pbc'?pc(100*F.ratio,1):'100% (by definition)';"
+  ],
+  [
+   "$('k6fyh').textContent=F.mode==='pbc'?pc(100*Math.max(0,HY.yh1('cub',F.L,RH)),1):'yok';",
+   "$('k6fyh').textContent=F.mode==='pbc'?pc(100*Math.max(0,HY.yh1('cub',F.L,RH)),1):'none';"
+  ],
+  [
+   "$('k6fback').textContent=F.mode==='pbc'?(mn<0?'proteinin hızının '+pc(100*(-mn)/F.ratio,0)+'\\'i':'yok'):'yok (su geri akmaz)';",
+   "$('k6fback').textContent=F.mode==='pbc'?(mn<0?pc(100*(-mn)/F.ratio,0)+' of the protein speed':'none'):'none (water does not flow back)';"
+  ],
+  [
+   "card('k6c2',true,'L = <b>'+fx(lo,1)+' nm</b>: protein sonsuz sıvıdaki hızının '+pc(100*F.seen[lo],0)+'\\'iyle; L = <b>'+fx(hi,1)+' nm</b>: '+pc(100*F.seen[hi],0)+'\\'iyle ilerliyor. Küçük kutuda itilen su kopyaların akışıyla birleşip geri döner ve proteini yavaşlatır. Birinci derece formül 1 − 2,837 R/L büyük kutuda hesapla örtüşür ('+pc(100*HY.yh1('cub',hi,RH),0)+'), küçük kutuda sapar ('+pc(100*Math.max(0,HY.yh1('cub',lo,RH)),0)+').'); }",
+   "card('k6c2',true,'L = <b>'+fx(lo,1)+' nm</b>: the protein moves at '+pc(100*F.seen[lo],0)+' of its speed in the infinite liquid; L = <b>'+fx(hi,1)+' nm</b>: at '+pc(100*F.seen[hi],0)+'. In a small box the pushed water joins the flow of the images, turns back and slows the protein down. The first-order formula 1 − 2.837 R/L agrees with the calculation in the large box ('+pc(100*HY.yh1('cub',hi,RH),0)+') and deviates in the small one ('+pc(100*Math.max(0,HY.yh1('cub',lo,RH)),0)+').'); }"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText(pbc?'periyodik kutu, L = '+fx(L,1)+' nm':'sonsuz sıvı (aynı ölçek)',X(-L/2)+6,Y(-L/2)-8);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText(pbc?'periodic box, L = '+fx(L,1)+' nm':'infinite liquid (same scale)',X(-L/2)+6,Y(-L/2)-8);"
+  ],
+  [
+   "pill(g,'protein hızı '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy')); }",
+   "pill(g,'protein speed '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy')); }"
+  ],
+  [
+   "var P=book6.length; $('k6nCount').textContent=P?P+' ölçüm':'';",
+   "var P=book6.length; $('k6nCount').textContent=P?P+(P===1?' measurement':' measurements'):'';"
+  ],
+  [
+   "$('k6nBusy').textContent=P?'Son ölçümler defterde. Doğru, her su modelinde en az iki ölçüm olunca çizilir.':'Ölçüm yok.';",
+   "$('k6nBusy').textContent=P?'The latest measurements are in the notebook. The line is drawn once a water model has at least two measurements.':'No measurements.';"
+  ],
+  [
+   "card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Gerçek su')+'</b>, '+got.n+' kutu: doğrunuz 1/L = 0\\'da <b>'+fx(got.f.a,0)+' µm²/s</b> veriyor; sonsuz kutunun değeri '+fx(D,0)+' µm²/s (fark '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; en küçük kutuları çıkarıp daha büyük kutular ekleyince fark küçülür':'')+'). Eğiminiz '+fx(got.f.b,0)+' µm²/s · nm; Yeh-Hummer düzeltmesinin eğimi −kTξ/(6πη) = '+fx(th,0)+'. Küçük kutuların noktaları doğrunun altında kalır: formülün R/L terimleri orada önem kazanır.'); }",
+   "card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Real water')+'</b>, '+got.n+' boxes: your line gives <b>'+fx(got.f.a,0)+' µm²/s</b> at 1/L = 0; the value for the infinite box is '+fx(D,0)+' µm²/s (difference '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; removing the smallest boxes and adding larger ones reduces the difference':'')+'). Your slope is '+fx(got.f.b,0)+' µm²/s · nm; the slope of the Yeh-Hummer correction is −kTξ/(6πη) = '+fx(th,0)+'. The points of the small boxes fall below the line: the higher R/L terms of the formula matter there.'); }"
+  ],
+  [
+   "$('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Gerçek su')+'</td><td class=\"n\">'+NFI.format(p.L)+'</td><td class=\"n\">'+fx(1/p.L,3)+'</td><td class=\"n\">'+fx(r,3)+'</td><td class=\"n\">'+fx(dInf(p.w)*r,0)+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">Henüz ölçüm yok.</td></tr>'; }",
+   "$('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Real water')+'</td><td class=\"n\">'+NFI.format(p.L)+'</td><td class=\"n\">'+fx(1/p.L,3)+'</td><td class=\"n\">'+fx(r,3)+'</td><td class=\"n\">'+fx(dInf(p.w)*r,0)+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">No measurements yet.</td></tr>'; }"
+  ],
+  [
+   "g.fillText('1/L (nm⁻¹)   ·   0 = sonsuz kutu',X(xmax/2),H-6);",
+   "g.fillText('1/L (nm⁻¹)   ·   0 = infinite box',X(xmax/2),H-6);"
+  ],
+  [
+   "g.fillStyle=good; g.textAlign='right'; g.fillText('deney: 158',W-R-4,Y(158.4)-6); g.textAlign='left'; }",
+   "g.fillStyle=good; g.textAlign='right'; g.fillText('experiment: 158',W-R-4,Y(158.4)-6); g.textAlign='left'; }"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,2,4,6,8,10].forEach(function(t){ g.fillText(NFI.format(t),X(t),H-B+18); }); g.fillText('zaman (ps)',X(5),H-4);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,2,4,6,8,10].forEach(function(t){ g.fillText(NFI.format(t),X(t),H-B+18); }); g.fillText('time (ps)',X(5),H-4);"
+  ],
+  [
+   "g.save(); g.translate(12,Y(1.5)); g.rotate(-Math.PI/2); g.fillText('en kısa uzaklık (nm)',0,0); g.restore();",
+   "g.save(); g.translate(12,Y(1.5)); g.rotate(-Math.PI/2); g.fillText('shortest distance (nm)',0,0); g.restore();"
+  ],
+  [
+   "var rows=[['Kutu vektörü: başlangıç / son kare',fx(MD.S0.L0,3)+' / '+fx(MD.S0.L1,3)+' nm',fx(MD.S3.L0,3)+' / '+fx(MD.S3.L1,3)+' nm'],",
+   "var rows=[['Box vector: start / last frame',fx(MD.S0.L0,3)+' / '+fx(MD.S0.L1,3)+' nm',fx(MD.S3.L0,3)+' / '+fx(MD.S3.L1,3)+' nm'],"
+  ],
+  [
+   "['Hacim (başlangıç)',fx(MD.S0.V,2)+' nm³',fx(MD.S3.V,2)+' nm³'],",
+   "['Volume (start)',fx(MD.S0.V,2)+' nm³',fx(MD.S3.V,2)+' nm³'],"
+  ],
+  [
+   "['Su molekülü / atom',NFI.format(MD.S0.w)+' / '+NFI.format(MD.S0.at),NFI.format(MD.S3.w)+' / '+NFI.format(MD.S3.at)],",
+   "['Water molecules / atoms',NFI.format(MD.S0.w)+' / '+NFI.format(MD.S0.at),NFI.format(MD.S3.w)+' / '+NFI.format(MD.S3.at)],"
+  ],
+  [
+   "['Derişim (tek protein)',fx(concM(MD.S0.V)*1000,2)+' mM',fx(concM(MD.S3.V)*1000,2)+' mM'],",
+   "['Concentration (one protein)',fx(concM(MD.S0.V)*1000,2)+' mM',fx(concM(MD.S3.V)*1000,2)+' mM'],"
+  ],
+  [
+   "['Kopyaya en kısa uzaklık (11 kare): en az / en çok',fx(mn(MD.S0.v),3)+' / '+fx(mx(MD.S0.v),3)+' nm',fx(mn(MD.S3.v),3)+' / '+fx(mx(MD.S3.v),3)+' nm'],",
+   "['Shortest distance to the image (11 frames): min / max',fx(mn(MD.S0.v),3)+' / '+fx(mx(MD.S0.v),3)+' nm',fx(mn(MD.S3.v),3)+' / '+fx(mx(MD.S3.v),3)+' nm'],"
+  ],
+  [
+   "['Hareketlilik oranı (model, son kare)',fx(r0,3),fx(r3,3)],",
+   "['Mobility ratio (model, last frame)',fx(r0,3),fx(r3,3)],"
+  ],
+  [
+   "['D tahmini, TIP3P (sonsuz kutuda '+fx(Dt,0)+')',fx(Dt*r0,0)+' µm²/s',fx(Dt*r3,0)+' µm²/s'],",
+   "['D estimate, TIP3P ('+fx(Dt,0)+' in the infinite box)',fx(Dt*r0,0)+' µm²/s',fx(Dt*r3,0)+' µm²/s'],"
+  ],
+  [
+   "['D ölçümü bu koşularda','hesaplanmadı','hesaplanmadı'],",
+   "['D measured in these runs','not computed','not computed'],"
+  ],
+  [
+   "['Deney (PFG-NMR yarıçapından)','158 µm²/s','158 µm²/s']];",
+   "['Experiment (from the PFG-NMR radius)','158 µm²/s','158 µm²/s']];"
+  ],
+  [
+   "{s:'Kutuda tek ubikitin var ve hacim 193 nm³. Derişim yaklaşık kaç?',o:[['8,6 µM',0],['8,6 mM',1],['0,86 M',0],['Derişim kutu boyundan bağımsızdır',0]],w:'c = 1/(N<sub>A</sub>V) = 1/(6,022 × 10²³ × 1,93 × 10⁻²²) mol/L ≈ 8,6 × 10⁻³ M. Tek proteinli bir kutu, çoğu deneyden derişiktir.'},",
+   "{s:'The box holds one ubiquitin and its volume is 193 nm³. What is the concentration, roughly?',o:[['8.6 µM',0],['8.6 mM',1],['0.86 M',0],['Concentration does not depend on box size',0]],w:'c = 1/(N<sub>A</sub>V) = 1/(6.022 × 10²³ × 1.93 × 10⁻²²) mol/L ≈ 8.6 × 10⁻³ M. A box with a single protein is more concentrated than most experiments.'},"
+  ],
+  [
+   "{s:'editconf -d 0,5 nm ile kurulan kutuda protein ile kopyası arasındaki en kısa uzaklık başlangıçta en az ne kadardır?',o:[['0,5 nm',0],['Yaklaşık 1,0 nm (iki kez d)',1],['L kadar',0],['Sıfır',0]],w:'Kutu vektörü L = proteinin çapı + 2d olduğu için iki kopyanın yüzeyleri arasında en az 2d kalır. Protein dönerse bu uzaklık değişir; bu projenin S3 koşusunda 1,26 ile 1,55 nm arasında ölçüldü.'},",
+   "{s:'In a box built with editconf -d 0.5 nm, what is the smallest possible initial distance between the protein and its image?',o:[['0.5 nm',0],['About 1.0 nm (twice d)',1],['As large as L',0],['Zero',0]],w:'Because the box vector is L = protein diameter + 2d, at least 2d remains between the surfaces of two images. If the protein turns, this distance changes; in this project\\'s S3 run it was measured between 1.26 and 1.55 nm.'},"
+  ],
+  [
+   "{s:'Kutu küçükken periyodik kutudaki protein neden sonsuz sıvıdakinden yavaş yayılır?',o:[['Su daha viskoz olur',0],['Proteinin ittiği su kopyaların akışıyla birleşip geri akar ve proteini frenler',1],['Kesme mesafesi büyür',0],['Protein kopyasına yapışır',0]],w:'Kutunun toplam akışı sıfırdır; itilen su bir yerde geri dönmek zorundadır. Bu geri akış, R/L oranı büyüdükçe proteinin hareketliliğini düşürür (Hasimoto; Yeh ve Hummer).'},",
+   "{s:'Why does a protein in a small periodic box spread more slowly than in an infinite liquid?',o:[['The water becomes more viscous',0],['The water pushed by the protein joins the flow of the images, flows back and brakes the protein',1],['The cut-off distance grows',0],['The protein sticks to its image',0]],w:'The total flow of the box is zero; the pushed water has to turn back somewhere. This backflow lowers the mobility of the protein as R/L grows (Hasimoto; Yeh and Hummer).'},"
+  ],
+  [
+   "{s:'Yeh-Hummer düzeltmesinde difüzyon katsayısı kutu kenarıyla nasıl değişir?',o:[['1/L³ ile',0],['1/L ile: D<sub>PBC</sub> = D<sub>∞</sub> − kTξ/(6πηL)',1],['e<sup>−L</sup> ile',0],['Değişmez',0]],w:'Düzeltme 1/L ile azalır, bu yüzden D<sub>PBC</sub>, 1/L\\'ye karşı çizilip 1/L = 0\\'a uzatılır. Küp kutu için ξ = 2,837297.'},",
+   "{s:'In the Yeh-Hummer correction, how does the diffusion coefficient change with the box edge?',o:[['As 1/L³',0],['As 1/L: D<sub>PBC</sub> = D<sub>∞</sub> − kTξ/(6πηL)',1],['As e<sup>−L</sup>',0],['It does not change',0]],w:'The correction falls off as 1/L, which is why D<sub>PBC</sub> is plotted against 1/L and extended to 1/L = 0. For a cubic box ξ = 2.837297.'},"
+  ],
+  [
+   "{s:'TIP3P suyunda sonsuz kutudaki bir proteinin difüzyonu deneyle karşılaştırıldığında nasıldır?',o:[['Yaklaşık aynı',0],['Yaklaşık üç kat hızlı, çünkü TIP3P\\'nin viskozitesi gerçek suyun yaklaşık üçte biridir',1],['Üç kat yavaş',0],['Su modeli difüzyonu etkilemez',0]],w:'Stokes-Einstein: D = kT/(6πηR). TIP3P 0,321, gerçek su 0,896 mPa·s (298 K). Küçük kutunun yavaşlatması bu hatayı kısmen gizleyebilir.'},",
+   "{s:'In TIP3P water, how does the diffusion of a protein in an infinite box compare with experiment?',o:[['About the same',0],['About three times faster, because the viscosity of TIP3P is about a third of that of real water',1],['Three times slower',0],['The water model does not affect diffusion',0]],w:'Stokes-Einstein: D = kT/(6πηR). TIP3P 0.321, real water 0.896 mPa·s (298 K). The slowing effect of a small box can partly hide this error.'},"
+  ],
+  [
+   "{s:'MD\\'den bir proteinin difüzyon katsayısını DLS ölçümüyle karşılaştırmak için ne yapmak gerekir?',o:[['Hiçbir şey',0],['Farklı kutu boylarında ölçüp 1/L = 0\\'a uzatmak ya da Yeh-Hummer düzeltmesini uygulamak; su modelinin viskozitesini de hesaba katmak',1],['Kesme mesafesini artırmak',0],['Zaman adımını küçültmek',0]],w:'DLS sonsuz bir çözeltideki difüzyonu ölçer; MD periyodik kutudakini verir. Ayrıca koşunun, proteinin kutu içinde birkaç nm yol alacağı kadar uzun olması gerekir; bu projenin 10 ps\\'lik koşuları bunun için yetmez.'}",
+   "{s:'What do you need to do to compare the diffusion coefficient of a protein from MD with a DLS measurement?',o:[['Nothing',0],['Measure in several box sizes and extend to 1/L = 0, or apply the Yeh-Hummer correction; also account for the viscosity of the water model',1],['Increase the cut-off distance',0],['Reduce the time step',0]],w:'DLS measures diffusion in an infinite solution; MD gives it in a periodic box. The run also has to be long enough for the protein to travel several nm in the box; this project\\'s 10 ps runs are not enough for that.'}"
+  ],
+  [
+   "b.classList.add(ok?'right':'wrong'); var w=$('k6why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(ok?'right':'wrong'); var w=$('k6why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('k6score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });",
+   "$('k6score').textContent='Answered: '+n+' / '+QZ.length+' · correct at the first try: '+r; }); });"
+  ],
+  [
+   "$('k6fPlay').addEventListener('click',function(){ F.play=!F.play; this.textContent=F.play?'Durdur':'Oynat'; kick(); });",
+   "$('k6fPlay').addEventListener('click',function(){ F.play=!F.play; this.textContent=F.play?'Pause':'Play'; kick(); });"
+  ],
+  [
+   "$('k6nClr').addEventListener('click',function(){ book6=[]; save6(); nEval(); $('k6nBusy').textContent='Defter temizlendi.'; });",
+   "$('k6nClr').addEventListener('click',function(){ book6=[]; save6(); nEval(); $('k6nBusy').textContent='Notebook cleared.'; });"
+  ],
+  [
+   "['k6c1','k6c2','k6c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['k6c1','k6c2','k6c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "if(reduce){ F.play=false; $('k6fPlay').textContent='Oynat'; }",
+   "if(reduce){ F.play=false; $('k6fPlay').textContent='Play'; }"
   ]
  ],
  "keep": [
   "0 kJ/mol",
+  "E. coli",
   "var(--warm)",
   "var(--pale)",
   "var(--gold)",

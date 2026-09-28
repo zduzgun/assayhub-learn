@@ -131,16 +131,20 @@ p.next a{color:var(--accent)}
 #k3s6Plot{aspect-ratio:16/4}
 h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px}
 @media (max-width:820px){ #k3s6Plot{aspect-ratio:16/7} }
+/* Laboratuvar 2 (kutu boyu) */
+#k6box{aspect-ratio:1/1} #k6flow{aspect-ratio:1/1;cursor:default} td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+#k6ruler{aspect-ratio:auto;height:150px;width:100%} #k6book{aspect-ratio:16/7} #k6md{aspect-ratio:16/6}
+@media (max-width:560px){ #k6book{aspect-ratio:4/3.4} #k6md{aspect-ratio:4/3} }
 </style>
 
 <div class="wrap">
-  <div class="proto">Bu sürümde modülün 1. laboratuvarı yayında; kutu boyu laboratuvarı hazırlanıyor. Kesme mesafesi MD-CUT, tuz ve Ewald MD-ELEC modülünde. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>
+  <div class="proto">Bu sürümde modülün 1. ve 2. laboratuvarları yayında. Kesme mesafesi MD-CUT, tuz ve Ewald MD-ELEC modülünde. Bütün sayılar tarayıcınızda şimdi hesaplanır.</div>
 
   <header>
     <span class="eyebrow">MD-PBC · Laboratuvar 1 · Periyodik sınır</span>
     <h1>Kenarsız kutu: birkaç bin molekül nasıl bir okyanus gibi davranır?</h1>
     <p class="lead">Bir MD simülasyonu, bir proteini ve çevresindeki birkaç bin su molekülünü küçük bir kutuya koyar. Gerçek bir örnekteyse protein, kenarlardan çok uzakta, sayısız su molekülünün ortasındadır. Küçük kutuya bir de kenar eklersek ne değişir? Kenarı nasıl ortadan kaldırırız ve bunun enerji açısından önemi ne?</p>
-    <div class="prog" aria-live="polite">Keşifler: <b id="progN">0 / 6</b></div>
+    <div class="prog" aria-live="polite">Keşifler: <b id="progN">0 / 9</b></div>
     <nav class="labnav" aria-label="Periyodik sınır dizisi"><a aria-current="page">MD-PBC · Kenarsız kutu</a><a href="../md-cut/">MD-CUT · En yakın kopya ve kesme</a><a href="../md-elec/">MD-ELEC · Tuz ve Ewald</a></nav>
   </header>
 
@@ -328,6 +332,127 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
 
   <p class="small">Model: atölyede sürtünmesiz tek parçacık (su molekülü kütlesi, 3 nm kutu). Tezgâh ve defterde iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), kesme 2,5 σ, hız-Verlet, Δt = 0,005; yoğunluk ρ = 0,82 (periyodik ve duvarlı kutu); defter ölçümlerinde sıcaklık Langevin ısı banyosuyla sabit tutulur (T = 0,40 ε). İki boyutlu model gerçek suyun sayılarını vermez; yüzey etkisinin yönünü ve büyüklük sırasını gösterir. Defteriniz yalnız bu tarayıcıda saklanır.</p>
 
+  <header class="lab2" id="kutu">
+    <span class="eyebrow">MD-PBC · Laboratuvar 2 · Kutu boyu</span>
+    <h2 class="h1">Kutu ne kadar büyük olmalı? Derişim, kopyalar ve suyun akışı</h2>
+    <p class="lead">Periyodik kutuda protein hiçbir kenara değmez, ama kendi kopyalarından da kaçamaz. Kutu küçükse protein kopyasını kesme mesafesi içinde görür ve itilen su dönüp proteinin kendisine çarpar. Kutu büyükse her adım pahalanır. Bu laboratuvarda kutuyu siz kuracaksınız: önce derişime, sonra kopyalar arasındaki boşluğa, en son da suyun akışına ve difüzyona bakacaksınız.</p>
+  </header>
+
+  <section class="card" aria-labelledby="k6h0">
+    <span class="step">Deneysel köprü</span>
+    <h2 id="k6h0">Kutunuzdaki proteinin derişimi kaç?</h2>
+    <div class="prose">
+      <p>Bir NMR örneği hazırlarken derişimi seçersiniz: örneğin ubikitinin difüzyonunu ölçen bir PFG-NMR deneyinde örnek 0,5 mM idi. MD kutusunda da bir derişim vardır, ama onu kimse seçmez: kutuda tek bir protein molekülü varsa derişim yalnız kutunun hacmine bağlıdır, c = 1/(N<sub>A</sub> · V). Bu projenin ubikitin kutusu (onikiyüzlü, 193,42 nm³) tek proteinle yaklaşık 8,6 mM demektir: NMR örneğinden on yedi kat derişik.</p>
+      <p>Aşağıdaki cetvel derişimi gram/litre olarak gösterir. Atölyedeki kaydırıcıyı oynattıkça "sizin kutunuz" işareti de yer değiştirir.</p>
+    </div>
+    <canvas id="k6ruler" class="plot" aria-label="Protein derişimi cetveli, gram/litre, logaritmik: NMR örneği, bu projenin iki kutusu, sizin kutunuz ve E. coli sitoplazması"></canvas>
+    <div class="prose">
+      <p>Deneyde bir proteinin ne kadar hızlı yayıldığını da ölçersiniz: FRAP'ta ağartılan bölgenin geri dolma hızından, DLS'de saçılan ışığın dalgalanmasından, PFG-NMR'de gradyanla sinyalin sönmesinden. Suda GFP'nin difüzyon katsayısı yaklaşık 87 µm²/s, E. coli sitoplazmasında 7,7 µm²/s ölçülmüştür. Aynı ölçüm ubikitin için 1,539 nm hidrodinamik yarıçap vermiştir; bu, 25 °C'de suda yaklaşık 158 µm²/s demektir (Stokes-Einstein). MD bu sayıyı verebilir mi? Tezgâhta göreceğiniz gibi, cevap kutunun boyuna bağlıdır.</p>
+    </div>
+    <p class="small">Kaynaklar: ubikitin, 0,5 mM, R<sub>h</sub> = 15,39 Å (288 K, PFG-NMR; Ramanujam ve ark. 2020, J Magn Reson 312:106701). E. coli sitoplazmasında makromolekül derişimi 0,3-0,4 g/ml (Zimmerman ve Trach 1991, J Mol Biol 222:599). GFP difüzyonu suda 87 µm²/s, E. coli'de 7,7 µm²/s (Elowitz ve ark. 1999, J Bacteriol 181:197). Ubikitinin molekül kütlesi 8.565 Da (76 amino asit dizisinden). 158 µm²/s, D = kT/(6πηR<sub>h</sub>) ile 298 K ve η = 0,896 mPa·s alınarak hesaplandı (R<sub>h</sub>'nin 288 K ile 298 K arasında değişmediği varsayıldı).</p>
+  </section>
+
+  <section class="card" aria-labelledby="k6h1">
+    <span class="step">1 · Atölye</span>
+    <h2 id="k6h1">Kutuyu kurun: d, derişim ve kopyalar arasındaki boşluk</h2>
+    <div class="prose"><p><code>gmx editconf -d</code> proteinin en uzak iki atomu arasındaki uzaklığa (ubikitinde 4,49 nm) her iki yandan d ekler; kutu vektörü L = 4,49 + 2d olur. Kesit, merkez kutuyu ve dört komşu kopyayı gösterir. Protein yavaşça döner; kopyalar da tam aynı biçimde döner. Kesikli çizgi proteinin çevresindeki 1,0 nm'lik kesme kuşağıdır: bir kopya bu kuşağa girerse protein kendi kopyasıyla etkileşir.</p></div>
+    <div class="two">
+      <div class="stagebox"><canvas id="k6box" class="stage" aria-label="Periyodik kutu kesiti: ubikitin, dört kopyası, kesme kuşağı ve en kısa boşluk"></canvas></div>
+      <div class="ctl">
+        <div><label class="lbl" for="k6d">Kenara eklenen uzaklık d (editconf -d)</label><div class="big" id="k6dV"></div><input type="range" id="k6d" min="0.3" max="2" step="0.05" value="1"></div>
+        <div><div class="lbl">Kutu biçimi</div>
+          <div class="seg" role="group" aria-label="Kutu biçimi">
+            <button type="button" data-bt="dod" aria-pressed="true">Onikiyüzlü</button>
+            <button type="button" data-bt="cub" aria-pressed="false">Küp</button>
+          </div></div>
+        <dl class="read">
+          <dt>Kutu vektörü L</dt><dd id="k6L"></dd>
+          <dt>Hacim</dt><dd id="k6Vol"></dd>
+          <dt>Derişim (tek protein)</dt><dd id="k6c"></dd>
+          <dt>Aynı derişim, g/L</dt><dd id="k6gl"></dd>
+          <dt>Su molekülü (tahmin)</dt><dd id="k6w"></dd>
+          <dt>Atom sayısı (tahmin)</dt><dd id="k6at"></dd>
+          <dt>Her adımın maliyeti (d = 1,0 nm'ye göre)</dt><dd id="k6cost"></dd>
+          <dt>Kopyalar arası boşluk, şu an</dt><dd id="k6gap"></dd>
+          <dt>Aynı boşluk, en az (tam tur)</dt><dd id="k6gapMin"></dd>
+        </dl>
+        <div class="btns" id="k6pre"><button type="button" class="btn" data-d="0.5">S3: 0,5 nm</button><button type="button" class="btn" data-d="1">S0: 1,0 nm</button><button type="button" class="btn" data-d="1.5">1,5 nm</button></div>
+      </div>
+    </div>
+    <p class="busy" id="k6note" aria-live="polite"></p>
+    <p class="small">Su ve atom sayısı bu projenin iki gerçek hazırlığından ayarlandı: d = 1,0 nm'de 193,42 nm³ ve 5.902 su, d = 0,5 nm'de 117,10 nm³ ve 3.378 su (onikiyüzlü). Buradan su için nm³ başına 33,07 molekül ve proteinin kapladığı yaklaşık 14,96 nm³ çıkar. Maliyet atom sayısıyla orantılı alındı (PME ile yaklaşık doğrusal). Kesit iki boyutludur ve protein şematiktir; boşluk, iki taslağın en yakın noktaları arasındadır. "En az" satırı proteinin bir tam turundaki en kötü durumdur; gerçek protein 10 ps'de bu kadar dönmez: bu projenin dar kutusunda (S3) ölçülen en kısa uzaklık 1,26 nm idi (aşağıda, proteine dönüş).</p>
+  </section>
+
+  <section class="card" aria-labelledby="k6h2">
+    <span class="step">2 · Tezgâh</span>
+    <h2 id="k6h2">Protein kendi akışına çarpar: periyodik kutuda su</h2>
+    <div class="prose"><p>Protein suyun içinde ilerlerken önündeki suyu iter. Sonsuz bir sıvıda bu akış uzakta söner. Periyodik kutuda ise itilen su kutunun öbür yüzünden geri gelir ve kopyaların akışıyla birleşir; kutu hareketsiz kalsın diye bir yerde geriye akmak zorundadır. Aşağıda proteine sabit bir kuvvet uygulanıyor; noktalar suyun nereye gittiğini gösterir. Turuncu çizgiler proteinle aynı yöne, mavi çizgiler geriye akan suyu gösterir. Çizim suyun o anki hızını gösterir; protein yerinde çizildi, kopyaları soluk.</p></div>
+    <div class="two">
+      <div class="stagebox"><canvas id="k6flow" class="stage" aria-label="Kuvvetle itilen proteinin çevresinde suyun akışı: periyodik kutu ya da sonsuz sıvı"></canvas></div>
+      <div class="ctl">
+        <div><div class="lbl">Sıvı</div>
+          <div class="seg" role="group" aria-label="Sıvı">
+            <button type="button" data-fm="pbc" aria-pressed="true">Periyodik kutu</button>
+            <button type="button" data-fm="inf" aria-pressed="false">Sonsuz sıvı</button>
+          </div></div>
+        <div><label class="lbl" for="k6fL">Küp kutunun kenarı L</label><div class="big" id="k6fLV"></div><input type="range" id="k6fL" min="5" max="20" step="0.5" value="8"></div>
+        <dl class="read">
+          <dt>Proteinin hızı (sonsuz sıvıya göre)</dt><dd id="k6fv"></dd>
+          <dt>Birinci derece formül: 1 − 2,837 R/L</dt><dd id="k6fyh"></dd>
+          <dt>Kesitte en hızlı geri akış</dt><dd id="k6fback"></dd>
+        </dl>
+        <div class="btns"><button type="button" class="btn" id="k6fPlay">Durdur</button></div>
+      </div>
+    </div>
+    <p class="small">Hesap: suyun akışı Stokes denklemleriyle, protein R = 1,539 nm yarıçaplı yumuşak bir kuvvet bulutu (Gauss) olarak, küp kutunun bütün kopyalarıyla birlikte ters uzayda toplanarak bulunur; sayfada hesaplanır. Aynı toplam R/L küçükken Hasimoto (1959) serisini verir: 1 − 2,837297 R/L + (4π/3)(R/L)³. Yeh ve Hummer (2004) bunun ilk iki terimini MD'deki difüzyon düzeltmesi olarak önerdi. Sonsuz sıvı çiziminde yalnız proteinin kendi akışı vardır (düzgünleştirilmiş Stokes akışı); pencere kenarı yalnız çizimin sınırıdır. Çizim, kutunun protein merkezinden geçen kesitidir.</p>
+    <div class="minis">
+      <article class="q" id="k6c1"><span class="k">Açık</span><h3>Kopya kesmeye girer mi?</h3><p>Atölyede d'yi 0,5 nm ve altına, sonra 1,0 nm ve üstüne getirin.</p><div class="mine" id="mk6c1">d'yi bir kez 0,5 nm ya da daha aza, bir kez 1,0 nm ya da daha fazlaya getirin.</div></article>
+      <article class="q" id="k6c2"><span class="k">Açık</span><h3>Küçük kutu proteini yavaşlatır mı?</h3><p>Tezgâhta periyodik kutuyu en az üç boyda deneyin, sonra sonsuz sıvıya bakın.</p><div class="mine" id="mk6c2">Periyodik kutuda en az üç L deneyin (en büyüğü en küçüğünün en az iki katı) ve sonsuz sıvıyı bir kez açın.</div></article>
+      <article class="q" id="k6c3"><span class="k">Açık</span><h3>Sonsuz kutunun difüzyonu nerede?</h3><p>Aşağıdaki defterde en az dört kutu boyu ölçün ve doğruyu 1/L = 0'a uzatın.</p><div class="mine" id="mk6c3">Aynı su modelinde en az dört kutu ölçün; biri 8 nm ya da daha küçük, biri 15 nm ya da daha büyük olsun.</div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="k6h3">
+    <div class="row">
+      <div style="display:grid;gap:4px"><span class="step">3 · Keşif defteri</span><h2 id="k6h3">Kutu büyüdükçe difüzyon nereye gider?</h2></div>
+      <button type="button" class="btn" id="k6nClr">Defteri temizle</button>
+    </div>
+    <p class="small">Her ölçüm, tek bir ubikitinin (R = 1,539 nm) küp kutuda difüzyon katsayısını tezgâhtaki hesapla bulur: D<sub>PBC</sub> = D<sub>∞</sub> · (hareketlilik oranı). D<sub>∞</sub>, seçilen suyun viskozitesiyle Stokes-Einstein'dan gelir (298 K). Grafik D<sub>PBC</sub>'yi 1/L'ye karşı çizer; ölçtüğünüz noktalardan geçen doğrunun 1/L = 0'daki değeri, sonsuz kutunun tahminidir. Aynı yöntemi Laboratuvar 1'de molekül başına enerji için kullandınız.</p>
+    <div class="row" style="justify-content:flex-start;align-items:end">
+      <div><div class="lbl">Su modeli</div><div class="chips" id="k6nW"><button type="button" class="chip" data-w="tip3p" aria-pressed="true">TIP3P (bu projenin suyu)</button><button type="button" class="chip" data-w="exp" aria-pressed="false">Gerçek su</button></div></div>
+      <div><div class="lbl">Küp kutunun kenarı L (nm)</div><div class="chips" id="k6nL"></div></div>
+      <div class="btns"><button type="button" class="btn primary" id="k6nRun">Ölç</button><button type="button" class="btn" id="k6nAll">Bu suda tüm seriyi ölç</button></div>
+    </div>
+    <p class="busy" id="k6nBusy" aria-live="polite">Ölçüm yok.</p>
+    <canvas id="k6book" class="plot" aria-label="1/L'ye karşı ubikitinin difüzyon katsayısı: ölçümler, doğru, sonsuz sıvı değeri ve deneysel değer"></canvas>
+    <div class="legend"><span><i style="background:var(--accent)"></i>TIP3P</span><span><i style="background:var(--deep)"></i>Gerçek su</span><span><i style="background:var(--good)"></i>Deney (PFG-NMR yarıçapından, 158 µm²/s)</span><span>Kesikli çizgi: seçilen suda D<sub>∞</sub>; halka: bu projenin iki onikiyüzlü kutusu</span><span id="k6nCount"></span></div>
+    <div class="tw"><table><thead><tr><th>Su</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Hareketlilik oranı</th><th>D<sub>PBC</sub> (µm²/s)</th></tr></thead><tbody id="k6nTab"></tbody></table></div>
+    <p class="small">Viskozite (298 K, 1 bar): TIP3P 0,321 mPa·s, gerçek su 0,896 mPa·s (González ve Abascal 2010, J Chem Phys 132:096101). TIP3P suyu gerçek sudan yaklaşık üç kat akışkandır; bu yüzden TIP3P'de protein de sonsuz kutuda yaklaşık üç kat hızlı yayılır. Defteriniz yalnız bu tarayıcıda saklanır.</p>
+  </section>
+
+  <section class="card" aria-labelledby="k6h4">
+    <span class="step">4 · Proteine dönüş</span>
+    <h2 id="k6h4">Bu projenin iki kutusu: d = 1,0 nm ve d = 0,5 nm</h2>
+    <div class="prose"><p>Bu projede ubikitin iki kutuda koşuldu: ana hazırlık (S0, <code>editconf -d 1.0</code>) ve dar kutu denemesi (S3, <code>-d 0.5</code>). İkisinde de 10 ps kısıtsız dinamikten sonra <code>gmx mindist -pi</code> ile proteinin kendi kopyasına en kısa uzaklığı ölçüldü. Grafik bu ölçümlerin kendisidir.</p></div>
+    <canvas id="k6md" class="plot" aria-label="Zamana karşı proteinin kendi kopyasına en kısa uzaklığı: S0 ve S3, kesme mesafesi 1,0 nm"></canvas>
+    <div class="legend"><span><i style="background:var(--deep)"></i>S0: d = 1,0 nm</span><span><i style="background:var(--accent)"></i>S3: d = 0,5 nm</span><span>Kesikli çizgi: kesme mesafesi 1,0 nm; noktalı çizgi: iki kesme (2,0 nm)</span></div>
+    <div class="tw"><table><thead><tr><th></th><th>S0 (d = 1,0 nm)</th><th>S3 (d = 0,5 nm)</th></tr></thead><tbody id="k6mdTab"></tbody></table></div>
+    <div class="prose">
+      <p><b>Ne görüyoruz?</b> Dar kutuda protein kendi kopyasına 1,26 nm'ye kadar yaklaştı: kesme mesafesinin hemen üstü. 10 ps çok kısa bir süredir; daha uzun bir koşuda protein dönüp uzayınca bu uzaklığın 1,0 nm'nin altına inmeyeceğinin bir güvencesi yoktur. Ana kutuda en kısa uzaklık 2,25 nm, yani iki kesme mesafesinin üstünde: hiçbir su molekülü aynı anda hem proteini hem kopyasını kesme mesafesi içinde görmez.</p>
+      <p><b>Difüzyon.</b> Bu projenin koşularında proteinin difüzyon katsayısı ölçülmedi; 10 ps bunun için çok kısa. Bu senaryo hesaplanmadı. Tablodaki D satırları ölçüm değil, tezgâhtaki modelin bu iki onikiyüzlü kutu için verdiği tahmindir. Dikkat çekici bir sonuç çıkıyor: TIP3P suyu proteini sonsuz kutuda deneyden yaklaşık üç kat hızlı yayar, küçük kutu ise yaklaşık üç kat yavaşlatır. İki hata birbirini neredeyse götürür. Bir MD difüzyon değeri deneye uyuyorsa, bunun doğru nedenle mi uyduğu ayrıca sorulmalıdır.</p>
+    </div>
+    <p class="small">Veri: gromacs_trial (S0) ve scenarios/S3 (GROMACS 2023.3, amber99sb-ildn, TIP3P, 300 K, V-rescale ve C-rescale; kısıtsız koşu 5.000 adım × 2 fs, mindist 1 ps aralıkla, 11 kare). Kutu vektörü editconf'un başlangıç değeri ve kısıtsız koşunun son karesi; hacim onikiyüzlü için L³/√2. Proteinin hareketlilik oranı tezgâhtaki kafes toplamıyla, onikiyüzlü kafes için hesaplandı (R = 1,539 nm).</p>
+  </section>
+
+  <section class="card" aria-labelledby="k6h5">
+    <span class="step">5 · Kendinizi sınayın</span>
+    <h2 id="k6h5">Altı soru</h2>
+    <div class="quiz" id="k6quiz"></div>
+    <p class="score" id="k6score"></p>
+  </section>
+
+  <p class="small">Model: atölyede şematik iki boyutlu ubikitin kesiti; hacim, derişim ve su sayısı bu projenin iki gerçek hazırlığından ayarlandı. Tezgâh ve defterde Stokes akışı: proteine uygulanan kuvvet, yarıçapı hidrodinamik yarıçapa eşit Gauss bulutuna yayılır; periyodik kopyaların hepsi ters uzay kafes toplamıyla hesaba katılır; ortalama akış sıfırdır (kutu hareketsiz). Bu, proteini katı bir küre gibi ele alan bir tahmindir; gerçek proteinin biçimi ve su tabakası sayıları biraz değiştirir. Proteine dönüşteki uzaklıklar ve kutu boyutları bu projenin gerçek koşularından. Defteriniz yalnız bu tarayıcıda saklanır.</p>
+
   <p class="next">Sıradaki modül: <a href="../md-cut/">MD-CUT · En yakın kopya ve kesme</a>. Periyodik kutudaki sonsuz kopyadan hangisiyle etkileşilir, etkileşim nerede kesilir?</p>
 </div>
 
@@ -425,7 +550,7 @@ function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.meas
 
 /* ---------- keşif kartları ---------- */
 var FOUND={};
-var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 6'; }
+var CH={}; function card(id,done,html){ var q=$(id); if(html!=null && (done||!FOUND[id]) && CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done && !FOUND[id]){ FOUND[id]=true; } q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }
 
 /* ---------- köprü çizimleri ---------- */
 function drawBridge(){
@@ -957,6 +1082,312 @@ lSetMode('vac'); for(var w=0;w<30;w++) lPhys(); nChips(); nGal(); nDraw(); nEval
 ['w1','w2','w3','b1','b2','b3'].forEach(function(id){ var q=$(id); q.querySelector('.k').textContent='Açık'; });
 bDraw(); bRead(); lDraw(); lPlot(); lRead();
 if(!reduce) kickLoop();
+})();
+</script>
+<script>
+/* MD-PBC kutu boyu motoru: periyodik kutuda Stokes akışı (Gauss yumuşatılmış nokta kuvvet, ters uzay kafes toplamı) */
+var HY=(function(){
+  var SQPI=Math.sqrt(Math.PI);
+  /* kafes: 'cub' (küp, kenar L) ya da 'dod' (eşkenar onikiyüzlü, GROMACS kutu vektörü uzunluğu L; hacim L³/√2) */
+  function recip(type,L){ var A;
+    if(type==='dod') A=[[L,0,0],[0,L,0],[L/2,L/2,L*Math.SQRT1_2]]; else A=[[L,0,0],[0,L,0],[0,0,L]];
+    var a=A[0],b=A[1],c=A[2];
+    function cr(u,v){ return [u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]]; }
+    var V=a[0]*(b[1]*c[2]-b[2]*c[1])-a[1]*(b[0]*c[2]-b[2]*c[0])+a[2]*(b[0]*c[1]-b[1]*c[0]);
+    var s=2*Math.PI/V; var B=[cr(b,c),cr(c,a),cr(a,b)].map(function(v){return v.map(function(x){return x*s;});});
+    return {B:B,V:Math.abs(V)}; }
+  /* hareketlilik oranı μ_L/μ_∞ (yön ortalaması); R hidrodinamik yarıçap (σ = R/√π), aynı uzunluk biriminde */
+  function ratio(type,L,R){ var r=recip(type,L), B=r.B, s=R/SQPI, s2=s*s, kmax=6/s, kmax2=kmax*kmax;
+    var bmin=Math.min.apply(null,B.map(function(v){return Math.hypot(v[0],v[1],v[2]);}));
+    var n=Math.ceil(kmax/bmin*1.3)+1, sum=0, i,j,k;
+    for(i=-n;i<=n;i++) for(j=-n;j<=n;j++) for(k=-n;k<=n;k++){ if(!i&&!j&&!k) continue;
+      var kx=i*B[0][0]+j*B[1][0]+k*B[2][0], ky=i*B[0][1]+j*B[1][1]+k*B[2][1], kz=i*B[0][2]+j*B[1][2]+k*B[2][2], k2=kx*kx+ky*ky+kz*kz;
+      if(k2>kmax2) continue; sum+=Math.exp(-k2*s2)/k2; }
+    var mu=(2/3)*sum/r.V, muInf=SQPI/(6*Math.PI*Math.PI*s); return mu/muInf; }
+  function yh1(type,L,R){ var V=type==='dod'?L*L*L*Math.SQRT1_2:L*L*L; return 1-2.837297*R/Math.cbrt(V); }
+  function hasimoto(L,R){ var x=R/L; return 1-2.837297*x+4*Math.PI/3*x*x*x; }
+  /* küp kutuda z = 0 diliminde hız alanı; kuvvet +x yönünde. Birim: proteinin kendi hızı = 1 (periyodik kutuda). */
+  function field(L,R,N){ var s=R/SQPI, s2=s*s, b=2*Math.PI/L, kmax=5/s, n=Math.ceil(kmax/b), kz, i,j, C=[];
+    for(i=-n;i<=n;i++) for(j=-n;j<=n;j++){ var cx=0,cy=0, kx=i*b, ky=j*b;
+      for(kz=-n;kz<=n;kz++){ if(!i&&!j&&!kz) continue; var kzv=kz*b, k2=kx*kx+ky*ky+kzv*kzv; if(k2>kmax*kmax) continue; var g=Math.exp(-k2*s2/2)/k2; cx+=(1-kx*kx/k2)*g; cy+=(-kx*ky/k2)*g; }
+      if(cx||cy) C.push([kx,ky,cx,cy]); }
+    var mu=0; /* proteinin hızı: çift yumuşatma ile */ (function(){ var sum=0; for(i=-n*2;i<=n*2;i++) for(j=-n*2;j<=n*2;j++) for(kz=-n*2;kz<=n*2;kz++){ if(!i&&!j&&!kz) continue; var k2=(i*i+j*j+kz*kz)*b*b; if(k2*s2>36) continue; sum+=(1-(i*b)*(i*b)/k2)*Math.exp(-k2*s2)/k2; } mu=sum; })();
+    var ux=new Float32Array(N*N), uy=new Float32Array(N*N), h=L/N;
+    for(var q=0;q<N;q++) for(var p=0;p<N;p++){ var x=(p+0.5)*h-L/2, y=(q+0.5)*h-L/2, sx=0, sy=0;
+      for(var m=0;m<C.length;m++){ var c=Math.cos(C[m][0]*x+C[m][1]*y); sx+=C[m][2]*c; sy+=C[m][3]*c; }
+      ux[q*N+p]=sx/mu; uy[q*N+p]=sy/mu; }
+    return {ux:ux,uy:uy,N:N,L:L}; }
+  /* sonsuz sıvı: düzgünleştirilmiş Stokes akışı (Cortez), birim: proteinin hızı = 1 */
+  function fieldInf(L,R,N){ var e=R*0.75, ux=new Float32Array(N*N), uy=new Float32Array(N*N), h=L/N, u0=2/e;
+    for(var q=0;q<N;q++) for(var p=0;p<N;p++){ var x=(p+0.5)*h-L/2, y=(q+0.5)*h-L/2, r2=x*x+y*y, d=Math.pow(r2+e*e,1.5);
+      ux[q*N+p]=((r2+2*e*e)/d+x*x/d)/u0; uy[q*N+p]=(x*y/d)/u0; }
+    return {ux:ux,uy:uy,N:N,L:L}; }
+  return {ratio:ratio,yh1:yh1,hasimoto:hasimoto,field:field,fieldInf:fieldInf};
+})();
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }
+function pc(v,d){ return '%'+fx(v,d); }
+function sci(v){ if(!(v>0)) return fx(0,0); var e=Math.floor(Math.log10(v)), m=v/Math.pow(10,e); var SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}; return fx(m,1)+' × 10'+String(e).split('').map(function(c){return SUP[c];}).join(''); }
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fit(c){ var r=c.getBoundingClientRect(), d=Math.min(2,window.devicePixelRatio||1), w=Math.max(1,Math.round(r.width*d)), h=Math.max(1,Math.round(r.height*d)); if(c.width!==w||c.height!==h){c.width=w;c.height=h;} var g=c.getContext('2d'); g.setTransform(d,0,0,d,0,0); return {g:g,W:r.width,H:r.height}; }
+function rgb(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
+function mixA(a,b,t){ return a.map(function(v,i){return Math.round(v+(b[i]-v)*t);}); }
+function str(a,al){ return al==null?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')'; }
+function sprite(hex,rPx){ var d=Math.min(2,window.devicePixelRatio||1), pad=Math.ceil(rPx*0.6), S=Math.ceil((2*rPx+2*pad)*d); var c=document.createElement('canvas'); c.width=c.height=S; var g=c.getContext('2d'); g.scale(d,d);
+  var m=S/d/2, base=rgb(hex), hi=mixA(base,[255,255,255],0.55), lo=mixA(base,[0,0,0],0.38);
+  g.fillStyle='rgba(40,40,30,0.18)'; g.beginPath(); g.ellipse(m+rPx*0.16,m+rPx*0.3,rPx*0.98,rPx*0.82,0,0,Math.PI*2); g.fill();
+  var gr=g.createRadialGradient(m-rPx*0.38,m-rPx*0.42,rPx*0.06,m,m,rPx); gr.addColorStop(0,str(hi)); gr.addColorStop(0.5,str(base)); gr.addColorStop(1,str(lo));
+  g.fillStyle=gr; g.beginPath(); g.arc(m,m,rPx,0,Math.PI*2); g.fill(); g.strokeStyle=str(lo,0.55); g.lineWidth=0.8; g.stroke(); return {c:c,s:S/d}; }
+function blit(g,sp,x,y,al){ if(al!=null) g.globalAlpha=al; g.drawImage(sp.c,x-sp.s/2,y-sp.s/2,sp.s,sp.s); if(al!=null) g.globalAlpha=1; }
+function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.measureText(txt).width+14; g.fillStyle=bg; g.beginPath(); if(g.roundRect) g.roundRect(x-w/2,y-11,w,22,11); else g.rect(x-w/2,y-11,w,22); g.fill(); g.fillStyle=fg; g.textAlign='center'; g.textBaseline='middle'; g.fillText(txt,x,y+0.5); g.textAlign='left'; g.textBaseline='alphabetic'; }
+function tiles(g,X,Y,L,x0,x1,y0,y1,paper,navy,line){ for(var j=Math.floor(y0/L)-1;j<=Math.ceil(y1/L);j++) for(var i=Math.floor(x0/L)-1;i<=Math.ceil(x1/L);i++){ var c=(i===0&&j===0), a=X(i*L), b=Y(j*L), w=X((i+1)*L)-a; g.fillStyle=c?paper:str(rgb(paper),0.45); g.fillRect(a,b,w,w); g.strokeStyle=c?navy:line; g.lineWidth=c?2:1; g.setLineDash(c?[7,5]:[4,5]); g.strokeRect(a,b,w,w); g.setLineDash([]); } }
+
+
+/* keşif kartları */
+var FOUND={}, CH={};
+function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('progN').textContent=document.querySelectorAll('.q.done').length+' / 9'; }
+function axisY(g,L,R,T,H,B,W,vals,Y,fmt,line,muted){ g.font='12px '+css('--sans'); g.lineWidth=1; vals.forEach(function(v){ var y=Y(v); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=muted; g.textAlign='right'; g.fillText(fmt(v),L-6,y+4); }); g.textAlign='left'; }
+
+/* ---------------- sabitler ---------------- */
+var NA=6.02214076e23, MW=8565, DIAM=4.491, RH=1.539, KT=1.380649e-23*298.15;
+var V0=193.42, W0=5902, V3=117.10, W3=3378, RHOW=(W0-W3)/(V0-V3), VP=V0-W0/RHOW, NPROT=1231, ATOM0=NPROT+3*W0;
+var ETA={tip3p:0.321e-3, exp:0.896e-3};
+function dInf(w){ return KT/(6*Math.PI*ETA[w]*RH*1e-9)*1e12; } /* µm²/s */
+function boxL(d){ return DIAM+2*d; }
+function boxV(L,bt){ return bt==='dod'?L*L*L*Math.SQRT1_2:L*L*L; }
+function concM(V){ return 1/(NA*V*1e-24); }
+function nWat(V){ return Math.max(0,Math.round(RHOW*(V-VP))); }
+var NFI=new Intl.NumberFormat('tr-TR');
+var MD={S0:{d:1.0,L0:6.491,L1:6.444,V:193.42,w:5902,at:18937,t:[0,1,2,3,4,5,6,7,8,9,10],v:[2.253,2.295,2.361,2.320,2.348,2.468,2.484,2.491,2.483,2.379,2.332]},
+        S3:{d:0.5,L0:5.491,L1:5.425,V:117.10,w:3378,at:11365,t:[0,1,2,3,4,5,6,7,8,9,10],v:[1.302,1.299,1.334,1.340,1.290,1.263,1.345,1.422,1.398,1.547,1.505]}};
+
+/* ---------------- köprü: derişim cetveli ---------------- */
+function rulerDraw(){ var c=$('k6ruler'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
+  var muted=css('--muted'), line=css('--line'), acc=css('--accent'), deep=css('--deep'), gold=css('--gold'), good=css('--good'), paper=css('--paper'), narrow=W<560;
+  var L=narrow?14:24, R=narrow?14:24, y=62, lo=0, hi=3, X=function(v){ return L+(Math.log10(v)-lo)/(hi-lo)*(W-L-R); }, fs=narrow?11.5:12.5;
+  g.fillStyle=str(rgb(gold),0.22); g.fillRect(X(300),y-14,X(400)-X(300),28);
+  g.strokeStyle=line; g.lineWidth=2; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke();
+  g.font='12px '+css('--sans'); g.fillStyle=muted; g.textAlign='center';
+  [1,3,10,30,100,300,1000].forEach(function(v){ var x=X(v); g.strokeStyle=line; g.lineWidth=1; g.beginPath(); g.moveTo(x,y-5); g.lineTo(x,y+5); g.stroke(); g.fillText(NFI.format(v),x,y+19); });
+  g.textAlign='left'; g.fillText('g/L, logaritmik ölçek',L,14);
+  var gl=function(V){ return concM(V)*MW; };
+  function dot(v,col,big){ var x=X(v); g.fillStyle=col; g.beginPath(); g.arc(x,y,big?7:5,0,Math.PI*2); g.fill(); g.strokeStyle=paper; g.lineWidth=2; g.stroke(); return x; }
+  function lab(x,txt,col,yy,bold){ g.font=(bold?'600 ':'')+fs+'px '+css('--sans'); g.fillStyle=col; var w=g.measureText(txt).width; var x0=Math.max(2,Math.min(W-2-w,x-w/2)); g.textAlign='left'; g.fillText(txt,x0,yy); }
+  var xN=dot(0.5e-3*MW,good); lab(xN,narrow?'NMR örneği':'NMR örneği (0,5 mM)',good,y-16);
+  lab(X(346),narrow?'E. coli':'E. coli sitoplazması',gold,y-20);
+  var x0=dot(gl(MD.S0.V),deep), x3=dot(gl(MD.S3.V),muted);
+  g.font=fs+'px '+css('--sans'); g.textAlign='right'; g.fillStyle=deep; g.fillText(narrow?'S0':'S0 (d = 1,0)',x0-2,y+38); g.textAlign='left'; g.fillStyle=muted; g.fillText(narrow?'S3':'S3 (d = 0,5)',x3+2,y+38);
+  var v=gl(boxV(boxL(A.d),A.bt)), xv=dot(v,acc,true); g.strokeStyle=acc; g.lineWidth=1.2; g.beginPath(); g.moveTo(xv,y+8); g.lineTo(xv,y+46); g.stroke();
+  lab(xv,'sizin kutunuz: '+fx(v,0)+' g/L',acc,y+60,true); }
+
+/* ---------------- atölye: kutu kesiti ---------------- */
+var A={d:1.0, bt:'dod', phi:0, t:0, seenLo:null, seenHi:null, gapMin:0};
+var NP=90;
+function pRad0(th,t){ return 1.62*(1+0.16*Math.cos(2*th)+0.08*Math.sin(3*th+0.7)+0.06*Math.sin(5*th-1.3+0.4*Math.sin(t*0.7))+0.04*Math.cos(4*th+2.1)); }
+var PS=(function(){ var m=0; for(var i=0;i<360;i++){ var th=i*Math.PI/180; m=Math.max(m,pRad0(th,0)+pRad0(th+Math.PI,0)); } return DIAM/m; })();
+function outline(phi,t){ var P=new Float64Array(NP*2); for(var i=0;i<NP;i++){ var th=i*2*Math.PI/NP, r=PS*pRad0(th-phi,t); P[2*i]=r*Math.cos(th); P[2*i+1]=r*Math.sin(th); } return P; }
+var IMG=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+function gapOf(P,L){ var best=1e9; for(var m=0;m<IMG.length;m++){ var ox=IMG[m][0]*L, oy=IMG[m][1]*L; if(Math.abs(ox)+Math.abs(oy)>L*2.2) continue;
+    for(var i=0;i<NP;i++){ var ax=P[2*i], ay=P[2*i+1]; for(var j=0;j<NP;j++){ var dx=P[2*j]+ox-ax, dy=P[2*j+1]+oy-ay, q=dx*dx+dy*dy; if(q<best) best=q; } } }
+  return Math.sqrt(best); }
+function gapMinFull(L){ var m=1e9; for(var k=0;k<48;k++){ var ph=k*Math.PI/24; m=Math.min(m,gapOf(outline(ph,k*0.61),L)); } return m; }
+function aSet(user){ var L=boxL(A.d), V=boxV(L,A.bt), c=concM(V), w=nWat(V), at=NPROT+3*w;
+  $('k6dV').innerHTML=fx(A.d,2)+' <small>nm</small>'; $('k6L').textContent=fx(L,3)+' nm'; $('k6Vol').textContent=fx(V,1)+' nm³';
+  $('k6c').textContent=fx(c*1000,2)+' mM'; $('k6gl').textContent=fx(c*MW,0)+' g/L'; $('k6w').textContent=NFI.format(w); $('k6at').textContent=NFI.format(at);
+  $('k6cost').textContent=fx(at/ATOM0,2)+' kat';
+  A.gapMin=gapMinFull(L); $('k6gapMin').textContent=fx(A.gapMin,2)+' nm';
+  var note;
+  if(A.gapMin<1.0) note='Kopya, bir tur içinde proteinin 1,0 nm\'lik kesme kuşağına giriyor: protein kendi kopyasıyla etkileşir. Bu, gerçek bir örnekte olmayan bir etkileşimdir.';
+  else if(A.gapMin<2.0) note='Kopya kesme kuşağının dışında kalıyor, ama arada iki kesme mesafesinden az yer var: bazı su molekülleri proteini de kopyasını da aynı anda görür.';
+  else note='Protein ile kopyası arasında iki kesme mesafesinden fazla su var: hiçbir su molekülü ikisini birden kesme içinde görmez. Bedeli: '+NFI.format(at)+' atom.';
+  $('k6note').textContent=note;
+  if(user&&A.d<=0.5+1e-9) A.seenLo={d:A.d,g:A.gapMin,c:c*1000,w:w,at:at};
+  if(user&&A.d>=1.0-1e-9) A.seenHi={d:A.d,g:A.gapMin,c:c*1000,w:w,at:at};
+  if(A.seenLo&&A.seenHi) card('k6c1',true,'<b>'+fx(A.seenLo.d,2)+' nm</b>: dönen proteinle kopyası arasındaki boşluk bir turda '+fx(A.seenLo.g,2)+' nm\'ye iniyor'+(A.seenLo.g<1?', 1,0 nm\'lik kesmeden kısa: protein kendi kopyasını görebilir.':'.')+' <b>'+fx(A.seenHi.d,2)+' nm</b>: boşluk '+fx(A.seenHi.g,2)+' nm. Güvenli kutu '+fx(A.seenHi.at/A.seenLo.at,1)+' kat atom taşır ve derişim '+fx(A.seenHi.c,1)+' mM\'ye iner ('+fx(A.seenLo.c,1)+' mM\'den). Kutu boyu, doğruluk ile maliyet arasındaki bir seçimdir.');
+  rulerDraw(); aDraw(); }
+function shapePath(g,P,ox,oy,X,Y){ g.beginPath(); for(var i=0;i<NP;i++){ var x=X(P[2*i]+ox), y=Y(P[2*i+1]+oy); if(i) g.lineTo(x,y); else g.moveTo(x,y); } g.closePath(); }
+function aDraw(){ var c=$('k6box'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
+  var L=boxL(A.d), span=L*1.9, s=Math.min(W,H)/span, cx=W/2, cy=H/2, X=function(x){return cx+x*s;}, Y=function(y){return cy-y*s;};
+  var paper=css('--paper'), navy=css('--navy'), line=css('--line'), prot=css('--prot'), acc=css('--accent'), muted=css('--muted'), bad=css('--bad'), ink=css('--ink');
+  for(var j=-2;j<=1;j++) for(var i=-2;i<=1;i++){ var a=X((i+0.5)*L), b=Y((j+1.5)*L), w=L*s, cen=(i===-1&&j===-1); g.fillStyle=cen?paper:str(rgb(paper),0.5); g.fillRect(a,b,w,w); g.strokeStyle=cen?navy:line; g.lineWidth=cen?2:1; g.setLineDash(cen?[7,5]:[4,5]); g.strokeRect(a,b,w,w); g.setLineDash([]); }
+  var P=outline(A.phi,A.t), pc_=rgb(prot);
+  /* kesme kuşağı */
+  g.save(); g.strokeStyle=str(rgb(acc),0.55); g.lineWidth=1.2; g.setLineDash([5,4]); g.beginPath();
+  for(var k=0;k<NP;k++){ var th=k*2*Math.PI/NP, r=PS*pRad0(th-A.phi,A.t)+1.0, x=X(r*Math.cos(th)), y=Y(r*Math.sin(th)); if(k) g.lineTo(x,y); else g.moveTo(x,y); } g.closePath(); g.stroke(); g.restore();
+  /* kopyalar ve en kısa boşluk */
+  var best=1e9, bp=null;
+  for(var m=0;m<IMG.length;m++){ var ox=IMG[m][0]*L, oy=IMG[m][1]*L; shapePath(g,P,ox,oy,X,Y); g.fillStyle=str(pc_,0.35); g.fill(); g.strokeStyle=str(pc_,0.7); g.lineWidth=1; g.stroke();
+    for(var p=0;p<NP;p+=1){ var ax=P[2*p], ay=P[2*p+1]; for(var q=0;q<NP;q++){ var dx=P[2*q]+ox-ax, dy=P[2*q+1]+oy-ay, dd=dx*dx+dy*dy; if(dd<best){ best=dd; bp=[ax,ay,P[2*q]+ox,P[2*q+1]+oy]; } } } }
+  shapePath(g,P,0,0,X,Y); var gr=g.createRadialGradient(X(-0.5),Y(0.6),2,X(0),Y(0),PS*2.2*s); gr.addColorStop(0,str(mixA(pc_,[255,255,255],0.35))); gr.addColorStop(1,str(mixA(pc_,[0,0,0],0.2)));
+  g.fillStyle=gr; g.fill(); g.strokeStyle=str(mixA(pc_,[0,0,0],0.35)); g.lineWidth=1.2; g.stroke();
+  var gap=Math.sqrt(best); $('k6gap').textContent=fx(gap,2)+' nm';
+  if(bp){ var col=gap<1?bad:(gap<2?css('--gold'):css('--good')); g.strokeStyle=col; g.lineWidth=2.5; g.beginPath(); g.moveTo(X(bp[0]),Y(bp[1])); g.lineTo(X(bp[2]),Y(bp[3])); g.stroke();
+    [0,2].forEach(function(k){ g.fillStyle=col; g.beginPath(); g.arc(X(bp[k]),Y(bp[k+1]),3.5,0,Math.PI*2); g.fill(); });
+    pill(g,fx(gap,2)+' nm',(X(bp[0])+X(bp[2]))/2,(Y(bp[1])+Y(bp[3]))/2-16,paper,col); }
+  g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('L = '+fx(L,2)+' nm',X(-L/2)+6,Y(-L/2)-8);
+  var bx=X(-L/2)+6, by=Y(L/2)+18; g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+s,by); g.stroke(); g.fillStyle=ink; g.fillText('1 nm',bx+s+6,by+4);
+}
+
+/* ---------------- tezgâh: periyodik kutuda akış ---------------- */
+var F={mode:'pbc', L:8, D:8, play:true, fld:null, fldL:null, ratio:1, tr:[], xp:0, seen:{}, inf:false, back:0, center:1};
+var NG=40, NTR=620;
+function fCompute(user){ var r;
+  if(F.mode==='pbc'){ F.ratio=HY.ratio('cub',F.L,RH); r=HY.field(F.L,RH,NG); }
+  else { F.ratio=1; r=HY.fieldInf(1.8*F.L,RH,NG); }
+  F.D=F.mode==='pbc'?F.L:1.8*F.L;
+  var c=r.ux[(NG/2)*NG+NG/2]; /* merkez hücre: proteinin bulunduğu yer */
+  var k=F.ratio/c, mn=0; for(var i=0;i<r.ux.length;i++){ r.ux[i]*=k; r.uy[i]*=k; if(r.ux[i]<mn) mn=r.ux[i]; }
+  F.fld=r; F.back=mn;
+  $('k6fLV').innerHTML=fx(F.L,1)+' <small>nm</small>';
+  $('k6fv').textContent=F.mode==='pbc'?pc(100*F.ratio,1):'%100 (tanım)';
+  $('k6fyh').textContent=F.mode==='pbc'?pc(100*Math.max(0,HY.yh1('cub',F.L,RH)),1):'yok';
+  $('k6fback').textContent=F.mode==='pbc'?(mn<0?'proteinin hızının '+pc(100*(-mn)/F.ratio,0)+'\'i':'yok'):'yok (su geri akmaz)';
+  if(user){ if(F.mode==='pbc') F.seen[F.L]=F.ratio; else F.inf=true; }
+  var Ls=Object.keys(F.seen).map(Number).sort(function(a,b){return a-b;});
+  if(Ls.length>=3&&Ls[Ls.length-1]>=2*Ls[0]&&F.inf){ var lo=Ls[0], hi=Ls[Ls.length-1];
+    card('k6c2',true,'L = <b>'+fx(lo,1)+' nm</b>: protein sonsuz sıvıdaki hızının '+pc(100*F.seen[lo],0)+'\'iyle; L = <b>'+fx(hi,1)+' nm</b>: '+pc(100*F.seen[hi],0)+'\'iyle ilerliyor. Küçük kutuda itilen su kopyaların akışıyla birleşip geri döner ve proteini yavaşlatır. Birinci derece formül 1 − 2,837 R/L büyük kutuda hesapla örtüşür ('+pc(100*HY.yh1('cub',hi,RH),0)+'), küçük kutuda sapar ('+pc(100*Math.max(0,HY.yh1('cub',lo,RH)),0)+').'); }
+  fSeed(); }
+function fSeed(){ F.tr=[]; for(var i=0;i<NTR;i++) F.tr.push(newTr(true)); }
+function newTr(any){ return {x:(Math.random()-0.5)*F.D, y:(Math.random()-0.5)*F.D, a:any?Math.random()*3:0, life:2+Math.random()*3}; }
+function wrapL(v){ var L=F.D; v=v-L*Math.round(v/L); return v; }
+function uAt(x,y){ var L=F.D, h=L/NG, fx_=(wrapL(x-F.xp)+L/2)/h-0.5, fy=(wrapL(y)+L/2)/h-0.5, i=Math.floor(fx_), j=Math.floor(fy), a=fx_-i, b=fy-j;
+  function I(p,q){ p=((p%NG)+NG)%NG; q=((q%NG)+NG)%NG; return q*NG+p; }
+  var ux=F.fld.ux, uy=F.fld.uy, i00=I(i,j), i10=I(i+1,j), i01=I(i,j+1), i11=I(i+1,j+1);
+  return [(1-a)*(1-b)*ux[i00]+a*(1-b)*ux[i10]+(1-a)*b*ux[i01]+a*b*ux[i11], (1-a)*(1-b)*uy[i00]+a*(1-b)*uy[i10]+(1-a)*b*uy[i01]+a*b*uy[i11]]; }
+function fStep(dt){ var sc=F.L/6, pbc=F.mode==='pbc', h=F.D/2;
+  for(var i=0;i<F.tr.length;i++){ var p=F.tr[i], u=uAt(p.x,p.y); var nx=p.x+u[0]*sc*dt, ny=p.y+u[1]*sc*dt, out=!pbc&&(Math.abs(nx)>h||Math.abs(ny)>h); p.x=wrapL(nx); p.y=wrapL(ny); p.u=u[0]; p.v=u[1]; p.a+=dt; if(out||p.a>p.life){ var n=newTr(false); p.x=n.x; p.y=n.y; p.a=0; p.life=n.life; } } }
+function fDraw(){ var c=$('k6flow'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
+  var L=F.L, pbc=F.mode==='pbc', span=L*1.8, s=Math.min(W,H)/span, cx=W/2, cy=H/2, X=function(x){return cx+x*s;}, Y=function(y){return cy-y*s;};
+  var paper=css('--paper'), navy=css('--navy'), line=css('--line'), prot=css('--prot'), warm=rgb(css('--warm')), acc=rgb(css('--accent')), mid=rgb(css('--mid')), deep=rgb(css('--deep')), muted=css('--muted'), ink=css('--ink');
+  g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
+  if(pbc){ for(var j=-1;j<=1;j++) for(var i=-1;i<=1;i++){ var cen=!i&&!j; g.fillStyle=cen?paper:str(rgb(paper),0.5); g.fillRect(X(i*L-L/2),Y(j*L+L/2),L*s,L*s); g.strokeStyle=cen?navy:line; g.lineWidth=cen?2:1; g.setLineDash(cen?[7,5]:[4,5]); g.strokeRect(X(i*L-L/2),Y(j*L+L/2),L*s,L*s); g.setLineDash([]); } }
+  else { g.fillStyle=paper; g.fillRect(0,0,W,H); }
+  var reps=pbc?[-1,0,1]:[0], vmax=Math.max(0.05,F.ratio);
+  for(var t=0;t<F.tr.length;t++){ var p=F.tr[t], u=p.u||0, k=Math.min(1,Math.abs(u)/((u>=0?0.35:0.12)*vmax)), col=u>=0?mixA(warm,acc,0.25+0.5*k):mixA(mid,deep,0.45+0.55*k), al=Math.min(1,p.a*2,(p.life-p.a)*2)*(0.4+0.6*k);
+    g.strokeStyle=str(col,al); g.lineWidth=2.2; g.lineCap='round'; var tl=Math.max(0.6,Math.min(9,Math.hypot(u,p.v||0)/vmax*9)), ang=Math.atan2(p.v||0,u), dx=-Math.cos(ang)*tl, dy=Math.sin(ang)*tl;
+    for(var a=0;a<reps.length;a++) for(var b=0;b<reps.length;b++){ var x=X(p.x+reps[a]*L), y=Y(p.y+reps[b]*L); if(x<-10||x>W+10||y<-10||y>H+10) continue; g.beginPath(); g.moveTo(x+dx,y+dy); g.lineTo(x,y); g.stroke(); } }
+  var pcol=rgb(prot);
+  for(var a2=0;a2<reps.length;a2++) for(var b2=0;b2<reps.length;b2++){ var x0=X(F.xp+reps[a2]*L), y0=Y(reps[b2]*L), cen2=!reps[a2]&&!reps[b2];
+    var gr=g.createRadialGradient(x0-RH*s*0.35,y0-RH*s*0.4,2,x0,y0,RH*s); gr.addColorStop(0,str(mixA(pcol,[255,255,255],0.4),cen2?1:0.55)); gr.addColorStop(1,str(mixA(pcol,[0,0,0],0.25),cen2?1:0.55));
+    g.fillStyle=gr; g.beginPath(); g.arc(x0,y0,RH*s,0,Math.PI*2); g.fill();
+    if(cen2){ g.strokeStyle=ink; g.lineWidth=2.2; g.beginPath(); g.moveTo(x0-RH*s*0.5,y0); g.lineTo(x0+RH*s*1.6,y0); g.stroke(); g.beginPath(); g.moveTo(x0+RH*s*1.6,y0); g.lineTo(x0+RH*s*1.25,y0-6); g.lineTo(x0+RH*s*1.25,y0+6); g.closePath(); g.fillStyle=ink; g.fill(); } }
+  g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText(pbc?'periyodik kutu, L = '+fx(L,1)+' nm':'sonsuz sıvı (aynı ölçek)',X(-L/2)+6,Y(-L/2)-8);
+  pill(g,'protein hızı '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy')); }
+
+/* ---------------- defter ---------------- */
+var LS=[5,6,8,10,12,15,20,30], nW='tip3p', nL=10, KEY6='ahl-mdpbc-lab4-v1', book6=[], RC={};
+try{ var raw6=localStorage.getItem(KEY6); if(raw6){ var bb6=JSON.parse(raw6); if(Array.isArray(bb6)) book6=bb6.filter(function(p){return p&&(p.w==='tip3p'||p.w==='exp')&&LS.indexOf(p.L)>=0;}); } }catch(e){}
+function save6(){ try{ localStorage.setItem(KEY6,JSON.stringify(book6)); }catch(e){} }
+function rc(L){ if(!(L in RC)) RC[L]=HY.ratio('cub',L,RH); return RC[L]; }
+function nChips(){ $('k6nL').innerHTML=LS.map(function(L){ return '<button type="button" class="chip" data-l="'+L+'" aria-pressed="'+(L===nL)+'">'+NFI.format(L)+'</button>'; }).join('');
+  document.querySelectorAll('#k6nL .chip').forEach(function(b){ b.addEventListener('click',function(){ nL=+b.getAttribute('data-l'); nChips(); }); }); }
+function nAdd(w,L){ if(!book6.some(function(p){return p.w===w&&p.L===L;})) book6.push({w:w,L:L}); }
+function nFit(w){ var P=book6.filter(function(p){return p.w===w;}); if(P.length<2) return null; var n=P.length,sx=0,sy=0,sxx=0,sxy=0;
+  P.forEach(function(p){ var x=1/p.L, y=dInf(w)*rc(p.L); sx+=x; sy+=y; sxx+=x*x; sxy+=x*y; }); var den=n*sxx-sx*sx; if(Math.abs(den)<1e-12) return null; var b=(n*sxy-sx*sy)/den, a=(sy-b*sx)/n; return {a:a,b:b,n:n}; }
+function nEval(){ var sw=['tip3p','exp'], got=null;
+  sw.forEach(function(w){ var P=book6.filter(function(p){return p.w===w;}); if(P.length<4) return; var Ls=P.map(function(p){return p.L;}); if(Math.min.apply(null,Ls)>8||Math.max.apply(null,Ls)<15) return;
+    var ft=nFit(w); if(ft&&!got) got={w:w,f:ft,n:P.length}; });
+  var P=book6.length; $('k6nCount').textContent=P?P+' ölçüm':'';
+  $('k6nBusy').textContent=P?'Son ölçümler defterde. Doğru, her su modelinde en az iki ölçüm olunca çizilir.':'Ölçüm yok.';
+  if(got){ var D=dInf(got.w), th=-KT*2.837297/(6*Math.PI*ETA[got.w])*1e21; /* µm²/s · nm */
+    card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Gerçek su')+'</b>, '+got.n+' kutu: doğrunuz 1/L = 0\'da <b>'+fx(got.f.a,0)+' µm²/s</b> veriyor; sonsuz kutunun değeri '+fx(D,0)+' µm²/s (fark '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; en küçük kutuları çıkarıp daha büyük kutular ekleyince fark küçülür':'')+'). Eğiminiz '+fx(got.f.b,0)+' µm²/s · nm; Yeh-Hummer düzeltmesinin eğimi −kTξ/(6πη) = '+fx(th,0)+'. Küçük kutuların noktaları doğrunun altında kalır: formülün R/L terimleri orada önem kazanır.'); }
+  nDraw(); nTab(); }
+function nTab(){ var rows=book6.slice().sort(function(a,b){ return a.w===b.w?a.L-b.L:(a.w==='tip3p'?-1:1); });
+  $('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Gerçek su')+'</td><td class="n">'+NFI.format(p.L)+'</td><td class="n">'+fx(1/p.L,3)+'</td><td class="n">'+fx(r,3)+'</td><td class="n">'+fx(dInf(p.w)*r,0)+'</td></tr>'; }).join(''):'<tr><td colspan="5" class="small">Henüz ölçüm yok.</td></tr>'; }
+function nDraw(){ var c=$('k6book'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
+  var Lp=58, R=18, T=16, B=40, ink=css('--ink'), muted=css('--muted'), line=css('--line'), paper=css('--paper'), good=css('--good');
+  var COL={tip3p:css('--accent'),exp:css('--deep')}, ymax=500, xmax=0.21;
+  var X=function(x){return Lp+x/xmax*(W-Lp-R);}, Y=function(y){return T+(1-y/ymax)*(H-T-B);};
+  axisY(g,Lp,R,T,H,B,W,[0,100,200,300,400,500],Y,function(v){return NFI.format(v);},line,muted);
+  g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center';
+  [0,0.05,0.1,0.15,0.2].forEach(function(x){ g.fillText(fx(x,2),X(x),H-B+18); });
+  g.fillText('1/L (nm⁻¹)   ·   0 = sonsuz kutu',X(xmax/2),H-6);
+  g.save(); g.translate(14,Y(ymax/2)); g.rotate(-Math.PI/2); g.fillText('D (µm²/s)',0,0); g.restore();
+  g.strokeStyle=good; g.lineWidth=2; g.beginPath(); g.moveTo(X(0),Y(158.4)); g.lineTo(X(xmax),Y(158.4)); g.stroke();
+  ['tip3p','exp'].forEach(function(w){ var P=book6.filter(function(p){return p.w===w;}), col=COL[w], D=dInf(w); if(!P.length&&w!==nW) return;
+    g.strokeStyle=col; g.setLineDash([6,5]); g.lineWidth=1.3; g.beginPath(); g.moveTo(X(0),Y(D)); g.lineTo(X(xmax),Y(D)); g.stroke(); g.setLineDash([]);
+    var ft=nFit(w); if(ft){ g.strokeStyle=str(rgb(col),0.8); g.lineWidth=1.8; g.beginPath(); g.moveTo(X(0),Y(ft.a)); g.lineTo(X(xmax),Y(Math.max(0,ft.a+ft.b*xmax))); g.stroke(); g.fillStyle=col; g.beginPath(); g.arc(X(0),Y(ft.a),5,0,Math.PI*2); g.fill(); }
+    P.forEach(function(p){ var x=X(1/p.L), y=Y(D*rc(p.L)); g.fillStyle=col; g.beginPath(); g.arc(x,y,5,0,Math.PI*2); g.fill(); g.strokeStyle=paper; g.lineWidth=1.5; g.stroke(); });
+    if(w===nW) ['S0','S3'].forEach(function(k){ var m=MD[k], V=m.L1*m.L1*m.L1*Math.SQRT1_2, x=X(1/Math.cbrt(V)), y=Y(D*HY.ratio('dod',m.L1,RH)); g.strokeStyle=col; g.lineWidth=2; g.beginPath(); g.arc(x,y,7,0,Math.PI*2); g.stroke(); g.fillStyle=muted; g.textAlign='left'; g.textAlign=x>W-60?'right':'left'; g.fillText(k,x>W-60?x-10:x+10,y+4); }); });
+  g.fillStyle=good; g.textAlign='right'; g.fillText('deney: 158',W-R-4,Y(158.4)-6); g.textAlign='left'; }
+function nRun(all){ if(all) LS.forEach(function(L){ nAdd(nW,L); }); else nAdd(nW,nL); save6(); nEval(); }
+
+/* ---------------- proteine dönüş ---------------- */
+function mdPlot(){ var c=$('k6md'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
+  var Lp=46, R=14, T=14, B=36, muted=css('--muted'), line=css('--line'), acc=css('--accent'), deep=css('--deep'), bad=css('--bad'), ymax=3;
+  var X=function(t){return Lp+t/10*(W-Lp-R);}, Y=function(v){return T+(1-v/ymax)*(H-T-B);};
+  axisY(g,Lp,R,T,H,B,W,[0,1,2,3],Y,function(v){return fx(v,1);},line,muted);
+  g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,2,4,6,8,10].forEach(function(t){ g.fillText(NFI.format(t),X(t),H-B+18); }); g.fillText('zaman (ps)',X(5),H-4);
+  g.save(); g.translate(12,Y(1.5)); g.rotate(-Math.PI/2); g.fillText('en kısa uzaklık (nm)',0,0); g.restore();
+  g.strokeStyle=bad; g.setLineDash([6,4]); g.lineWidth=1.5; g.beginPath(); g.moveTo(X(0),Y(1)); g.lineTo(X(10),Y(1)); g.stroke();
+  g.setLineDash([2,4]); g.strokeStyle=muted; g.beginPath(); g.moveTo(X(0),Y(2)); g.lineTo(X(10),Y(2)); g.stroke(); g.setLineDash([]);
+  [['S0',deep],['S3',acc]].forEach(function(z){ var m=MD[z[0]]; g.strokeStyle=z[1]; g.lineWidth=2.2; g.beginPath(); m.t.forEach(function(t,i){ var x=X(t), y=Y(m.v[i]); if(i) g.lineTo(x,y); else g.moveTo(x,y); }); g.stroke();
+    m.t.forEach(function(t,i){ g.fillStyle=z[1]; g.beginPath(); g.arc(X(t),Y(m.v[i]),3.2,0,Math.PI*2); g.fill(); }); }); }
+function mdTab(){ var r0=HY.ratio('dod',MD.S0.L1,RH), r3=HY.ratio('dod',MD.S3.L1,RH), Dt=dInf('tip3p');
+  function mn(a){ return Math.min.apply(null,a); } function mx(a){ return Math.max.apply(null,a); }
+  var rows=[['Kutu vektörü: başlangıç / son kare',fx(MD.S0.L0,3)+' / '+fx(MD.S0.L1,3)+' nm',fx(MD.S3.L0,3)+' / '+fx(MD.S3.L1,3)+' nm'],
+    ['Hacim (başlangıç)',fx(MD.S0.V,2)+' nm³',fx(MD.S3.V,2)+' nm³'],
+    ['Su molekülü / atom',NFI.format(MD.S0.w)+' / '+NFI.format(MD.S0.at),NFI.format(MD.S3.w)+' / '+NFI.format(MD.S3.at)],
+    ['Derişim (tek protein)',fx(concM(MD.S0.V)*1000,2)+' mM',fx(concM(MD.S3.V)*1000,2)+' mM'],
+    ['Kopyaya en kısa uzaklık (11 kare): en az / en çok',fx(mn(MD.S0.v),3)+' / '+fx(mx(MD.S0.v),3)+' nm',fx(mn(MD.S3.v),3)+' / '+fx(mx(MD.S3.v),3)+' nm'],
+    ['Hareketlilik oranı (model, son kare)',fx(r0,3),fx(r3,3)],
+    ['D tahmini, TIP3P (sonsuz kutuda '+fx(Dt,0)+')',fx(Dt*r0,0)+' µm²/s',fx(Dt*r3,0)+' µm²/s'],
+    ['D ölçümü bu koşularda','hesaplanmadı','hesaplanmadı'],
+    ['Deney (PFG-NMR yarıçapından)','158 µm²/s','158 µm²/s']];
+  $('k6mdTab').innerHTML=rows.map(function(r){ return '<tr><td>'+r[0]+'</td><td class="n">'+r[1]+'</td><td class="n">'+r[2]+'</td></tr>'; }).join(''); }
+
+/* ---------------- sınav ---------------- */
+var QZ=[
+ {s:'Kutuda tek ubikitin var ve hacim 193 nm³. Derişim yaklaşık kaç?',o:[['8,6 µM',0],['8,6 mM',1],['0,86 M',0],['Derişim kutu boyundan bağımsızdır',0]],w:'c = 1/(N<sub>A</sub>V) = 1/(6,022 × 10²³ × 1,93 × 10⁻²²) mol/L ≈ 8,6 × 10⁻³ M. Tek proteinli bir kutu, çoğu deneyden derişiktir.'},
+ {s:'editconf -d 0,5 nm ile kurulan kutuda protein ile kopyası arasındaki en kısa uzaklık başlangıçta en az ne kadardır?',o:[['0,5 nm',0],['Yaklaşık 1,0 nm (iki kez d)',1],['L kadar',0],['Sıfır',0]],w:'Kutu vektörü L = proteinin çapı + 2d olduğu için iki kopyanın yüzeyleri arasında en az 2d kalır. Protein dönerse bu uzaklık değişir; bu projenin S3 koşusunda 1,26 ile 1,55 nm arasında ölçüldü.'},
+ {s:'Kutu küçükken periyodik kutudaki protein neden sonsuz sıvıdakinden yavaş yayılır?',o:[['Su daha viskoz olur',0],['Proteinin ittiği su kopyaların akışıyla birleşip geri akar ve proteini frenler',1],['Kesme mesafesi büyür',0],['Protein kopyasına yapışır',0]],w:'Kutunun toplam akışı sıfırdır; itilen su bir yerde geri dönmek zorundadır. Bu geri akış, R/L oranı büyüdükçe proteinin hareketliliğini düşürür (Hasimoto; Yeh ve Hummer).'},
+ {s:'Yeh-Hummer düzeltmesinde difüzyon katsayısı kutu kenarıyla nasıl değişir?',o:[['1/L³ ile',0],['1/L ile: D<sub>PBC</sub> = D<sub>∞</sub> − kTξ/(6πηL)',1],['e<sup>−L</sup> ile',0],['Değişmez',0]],w:'Düzeltme 1/L ile azalır, bu yüzden D<sub>PBC</sub>, 1/L\'ye karşı çizilip 1/L = 0\'a uzatılır. Küp kutu için ξ = 2,837297.'},
+ {s:'TIP3P suyunda sonsuz kutudaki bir proteinin difüzyonu deneyle karşılaştırıldığında nasıldır?',o:[['Yaklaşık aynı',0],['Yaklaşık üç kat hızlı, çünkü TIP3P\'nin viskozitesi gerçek suyun yaklaşık üçte biridir',1],['Üç kat yavaş',0],['Su modeli difüzyonu etkilemez',0]],w:'Stokes-Einstein: D = kT/(6πηR). TIP3P 0,321, gerçek su 0,896 mPa·s (298 K). Küçük kutunun yavaşlatması bu hatayı kısmen gizleyebilir.'},
+ {s:'MD\'den bir proteinin difüzyon katsayısını DLS ölçümüyle karşılaştırmak için ne yapmak gerekir?',o:[['Hiçbir şey',0],['Farklı kutu boylarında ölçüp 1/L = 0\'a uzatmak ya da Yeh-Hummer düzeltmesini uygulamak; su modelinin viskozitesini de hesaba katmak',1],['Kesme mesafesini artırmak',0],['Zaman adımını küçültmek',0]],w:'DLS sonsuz bir çözeltideki difüzyonu ölçer; MD periyodik kutudakini verir. Ayrıca koşunun, proteinin kutu içinde birkaç nm yol alacağı kadar uzun olması gerekir; bu projenin 10 ps\'lik koşuları bunun için yetmez.'}
+];
+function renderQuiz(){
+  $('k6quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'">'+o[0]+'</button>';}).join('')+'</div><p class="why" id="k6why'+i+'" hidden></p></div>'; }).join('');
+  var got={};
+  document.querySelectorAll('#k6quiz .opt').forEach(function(b){ b.addEventListener('click',function(){
+    var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], ok=q.o[j][1]===1;
+    document.querySelectorAll('#k6quiz .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); });
+    b.classList.add(ok?'right':'wrong'); var w=$('k6why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;
+    if(!(i in got)) got[i]=ok; var n=Object.keys(got).length, r=Object.keys(got).filter(function(k){return got[k];}).length;
+    $('k6score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });
+}
+
+/* ---------------- olaylar ---------------- */
+$('k6d').addEventListener('input',function(){ A.d=+this.value; aSet(true); });
+document.querySelectorAll('#k6pre .btn').forEach(function(b){ b.addEventListener('click',function(){ A.d=+b.getAttribute('data-d'); $('k6d').value=A.d; aSet(true); }); });
+document.querySelectorAll('[data-bt]').forEach(function(b){ b.addEventListener('click',function(){ A.bt=b.getAttribute('data-bt'); document.querySelectorAll('[data-bt]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); aSet(true); }); });
+document.querySelectorAll('[data-fm]').forEach(function(b){ b.addEventListener('click',function(){ F.mode=b.getAttribute('data-fm'); document.querySelectorAll('[data-fm]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); fCompute(true); fDraw(); kick(); }); });
+$('k6fL').addEventListener('input',function(){ F.L=+this.value; $('k6fLV').innerHTML=fx(F.L,1)+' <small>nm</small>'; });
+$('k6fL').addEventListener('change',function(){ F.L=+this.value; fCompute(true); fDraw(); kick(); });
+$('k6fPlay').addEventListener('click',function(){ F.play=!F.play; this.textContent=F.play?'Durdur':'Oynat'; kick(); });
+document.querySelectorAll('#k6nW .chip').forEach(function(b){ b.addEventListener('click',function(){ nW=b.getAttribute('data-w'); document.querySelectorAll('#k6nW .chip').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); nDraw(); }); });
+$('k6nRun').addEventListener('click',function(){ nRun(false); });
+$('k6nAll').addEventListener('click',function(){ nRun(true); });
+$('k6nClr').addEventListener('click',function(){ book6=[]; save6(); nEval(); $('k6nBusy').textContent='Defter temizlendi.'; });
+
+/* ---------------- döngü ---------------- */
+var visA=true, visF=true, raf=null, last=null, aSpin=!reduce;
+function frame(ts){ raf=null; var dt=last===null?0.016:Math.min(0.05,(ts-last)/1000); last=ts; var go=false;
+  if(visA&&aSpin){ A.phi+=dt*0.25; A.t+=dt; aDraw(); go=true; }
+  if(visF&&F.play){ fStep(dt); fDraw(); go=true; }
+  if(go) raf=requestAnimationFrame(frame); else last=null; }
+function kick(){ if(!raf) raf=requestAnimationFrame(frame); }
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(es){ visA=es[0].isIntersecting; if(visA) kick(); }).observe($('k6box').closest('section'));
+  new IntersectionObserver(function(es){ visF=es[0].isIntersecting; if(visF) kick(); }).observe($('k6flow').closest('section')); }
+var rT=null; window.addEventListener('resize',function(){ clearTimeout(rT); rT=setTimeout(function(){ rulerDraw(); aDraw(); fDraw(); nDraw(); mdPlot(); },80); });
+
+/* başlangıç */
+['k6c1','k6c2','k6c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });
+if(reduce){ F.play=false; $('k6fPlay').textContent='Oynat'; }
+aSet(); fCompute(); fDraw(); nChips(); nEval(); mdPlot(); mdTab(); renderQuiz(); kick();
 })();
 </script>
 </body>

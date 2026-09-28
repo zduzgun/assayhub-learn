@@ -177,21 +177,26 @@
       "title": "Kenarsız kutu: periyodik sınır",
       "path": "md/md-pbc/",
       "source": "sources/MD-PBC.html",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "status": "pilot",
       "book": "CH04",
       "goals": [
         "Duvar, boşluk ve periyodik kutu",
         "Kenardaki molekülün enerjisi",
         "Örnek boyutu ve sonsuz sıvıya uzatma",
-        "Protein kutusu: d, kutu biçimi ve maliyet"
+        "Protein kutusu: d, kutu biçimi ve maliyet",
+        "Kutu boyu: tek proteinin derişimi, kopyalar arası boşluk ve maliyet",
+        "Periyodik kutuda suyun geri akışı ve difüzyonun kutu boyuna bağlılığı (Yeh-Hummer)"
       ],
       "data": [
         "Tarayıcıda hesaplanan iki boyutlu Lennard-Jones sıvısı (öğretim amaçlı)",
         "Bu projenin 1UBQ hazırlığı (editconf -d 1.0, dodecahedron)",
-        "RTX 5080 hız tahmini: Exxact, AMBER 26 ölçümleri"
+        "RTX 5080 hız tahmini: Exxact, AMBER 26 ölçümleri",
+        "Tarayıcıda hesaplanan periyodik Stokes akışı (kafes toplamı, öğretim amaçlı)",
+        "Bu projenin iki ubikitin kutusu (d = 1,0 ve 0,5 nm): mindist -pi, kutu vektörü, su ve atom sayıları",
+        "Ubikitin hidrodinamik yarıçapı (PFG-NMR), su modellerinin viskozitesi, GFP difüzyonu (FRAP)"
       ],
-      "notice": "Bu sürümde 1. laboratuvar yayında; kutu boyu laboratuvarı hazırlanıyor. Kesme mesafesi MD-CUT, tuz ve Ewald MD-ELEC modülünde.",
+      "notice": "Bu sürümde 1. ve 2. laboratuvarlar yayında. Kesme mesafesi MD-CUT, tuz ve Ewald MD-ELEC modülünde.",
       "en": {
         "title": "The box without edges: periodic boundaries",
         "book": "CH04",
@@ -199,14 +204,19 @@
           "Walls, vacuum and the periodic box",
           "The energy of a molecule at the edge",
           "Sample size and extrapolation to the infinite liquid",
-          "The protein box: d, box shape and cost"
+          "The protein box: d, box shape and cost",
+          "Box size: concentration of a single protein, gap between images and cost",
+          "Backflow of water in a periodic box and the dependence of diffusion on box size (Yeh-Hummer)"
         ],
         "data": [
           "Two-dimensional Lennard-Jones liquid computed in the browser (for teaching)",
           "This project's 1UBQ preparation (editconf -d 1.0, dodecahedron)",
-          "RTX 5080 speed estimate: Exxact, AMBER 26 measurements"
+          "RTX 5080 speed estimate: Exxact, AMBER 26 measurements",
+          "Periodic Stokes flow computed in the browser (lattice sum, for teaching)",
+          "This project's two ubiquitin boxes (d = 1.0 and 0.5 nm): mindist -pi, box vector, numbers of waters and atoms",
+          "Hydrodynamic radius of ubiquitin (PFG-NMR), viscosity of water models, GFP diffusion (FRAP)"
         ],
-        "notice": "In this version Lab 1 is published; the lab on box size is in preparation. The cut-off distance is in MD-CUT, salt and Ewald in MD-ELEC."
+        "notice": "In this version Labs 1 and 2 are published. The cut-off distance is in MD-CUT, salt and Ewald in MD-ELEC."
       }
     },
     {

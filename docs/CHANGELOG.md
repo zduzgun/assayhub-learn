@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.10.0 (28 Eylül 2026) · MD-PBC laboratuvar 2: kutu boyu
+
+- MD-PBC 0.6.0: Laboratuvar 2 "Kutu ne kadar büyük olmalı?" aynı sayfaya eklendi; ilerleme iki laboratuvarı birlikte sayar (9 kart). Deneysel köprü: tek proteinli kutunun derişimi (g/L log cetvelinde NMR örneği, bu projenin iki kutusu ve E. coli sitoplazması), FRAP, DLS ve PFG-NMR ile ölçülen difüzyon. Atölye: `editconf -d` ve kutu biçimi; hacim, derişim, su ve atom tahmini, maliyet; dönen şematik ubikitin, kopyaları ve 1,0 nm kesme kuşağı. Tezgâh: periyodik kutuda Stokes akışı sayfada hesaplanır; suyun geri akışı ve proteinin hareketliliği, sonsuz sıvıyla karşılaştırma. Defter: küp kutuda 5-30 nm, TIP3P ya da gerçek su; difüzyon 1/L'ye karşı ve 1/L = 0'a uzatma. Proteine dönüş: bu projenin S0 ve S3 kutularında ölçülen en kısa kopya uzaklıkları; difüzyon bu koşularda ölçülmedi. Altı soru.
+- İngilizce tablo 315 çifte çıktı (`i18n/_work/mdpbc_en_h.py` HTML, `mdpbc_en_i.py` betik). Yeni laboratuvarın çapası `#kutu`; eski `#lab2` ve `#lab3` çapaları MD-CUT ve MD-ELEC'e yönlenmeye devam eder.
+
 ## 0.9.0 (28 Eylül 2026) · MD-PBC üç modüle bölündü
 
 - MD-PBC sayfası çok uzadığı için (üç laboratuvar, 12 kart, 30'dan çok tuval) üç modüle ayrıldı; hepsi temel düzey, kitapta CH04. MD-PBC 0.5.0: Laboratuvar 1 "Kenarsız kutu" (6 kart; kutu boyu laboratuvarı buraya eklenecek). Yeni MD-CUT 0.1.0: "En yakın kopya ve kesme" (eski Laboratuvar 2, 3 kart). Yeni MD-ELEC 0.1.0: "Tuz, perdeleme ve Ewald" (eski Laboratuvar 3, 3 kart). İçerik ve sayılar değişmedi.
