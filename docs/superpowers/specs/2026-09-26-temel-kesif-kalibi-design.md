@@ -196,3 +196,7 @@ Karar (28 Eylül, proje sahibi): minimizasyon ve dengeleme laboratuvarı MD-O i�
 
 Proje sahibinin geri bildirimleriyle şekillenen kararlar: çakışan atomlarla dinamik çalışamaz (iki boyutlu LJ yerine gerçek birimlerde katı TIP3P ve kısıt çökmesi); su gerçekçi hareket etmeli (tek katman yerine üç boyutlu 125 molekül, 10 ps, iz çizgileri); Berendsen'in üretimde neden kullanılmadığı uygulamalı gösterilir (sıcaklık dağılımı ve dalgalanmadan ısı sığası; uçan buz küpü katı suda gösterilemediği için yalnız kaynakla anlatılır); proteine dönüş gerçek dosyalarla etkileşimli (çakışma yerleri ve S1'in çökme kareleri). Minimizasyonun ara kareleri kaydedilmediği için canlandırma düz geçiştir ve sayfada öyle yazar.
 
+## 10. MD-O yeniden yazımı (28 Eylül 2026)
+
+Karar (proje sahibi): MD-O (CH07) keşif kalıbıyla yeniden yazılır; ilk laboratuvar "Protonasyon ve yük". Eski 0.1.0 taslağının yerini alır; yapı dosyası laboratuvarı (kristal suları, doluluk, B faktörü) sonra eklenir. Tezgâh, proje sahibinin geri bildirimiyle iki parçalıdır: kuralın dört adımlı anlatımı ve ölçüt haritası ile karar akış şeması (değişkenlerin etkisi doğrudan görünsün diye). Bütün pdb2gmx sonuçları gerçek çalıştırmalardır; sayfanın kural hesabı bunlarla birebir denetlenir.
+

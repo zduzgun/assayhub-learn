@@ -1,1687 +1,552 @@
 {
  "module": "MD-O",
  "lang": "en",
- "source_sha256": "d89304063249eab796349a150a197daf9d24bc52e6d75aa6115c6fb004fcf72e",
+ "source_sha256": "e1f02fdc3a57fada4cdeeb0f1054a33cc58364455440fd422b07f177d1ebb26f",
  "reviewed": false,
- "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
- "translator": "Claude (machine translation, needs human review)",
+ "translator": "Claude (AI), MD-O 0.2.0; insan gözden geçirmesi bekliyor",
  "pairs": [
   [
-   "Ubikitini MD'ye Hazırlamak",
-   "Preparing Ubiquitin for MD"
+   "<title>Protonasyon ve Yük</title>",
+   "<title>Protonation and Charge</title>"
   ],
   [
-   "MD-O etkileşimli pilot bölüm: insan ubikitini (PDB 1UBQ) MD'ye hazırlanırken verilen kararlar ve önceden koşulmuş gerçek GROMACS koşularının sonuçları.",
-   "MD-O interactive pilot chapter: the decisions made while preparing human ubiquitin (PDB 1UBQ) for MD, and the results of real GROMACS runs performed in advance."
+   "<div class=\"proto\">Bu sürümde MD-O'nun 1. laboratuvarı yayında: protonasyon ve yük. Yapı dosyası laboratuvarı (kristal suları, doluluk, B faktörü) sonra eklenecek. Eğriler tarayıcınızda şimdi hesaplanır; yapı, koordinatlar ve pdb2gmx sonuçları bu projenin gerçek dosyalarından ve gerçekten koşulmuş çalıştırmalardan gelir.</div>",
+   "<div class=\"proto\">In this version Lab 1 of MD-O is published: protonation and charge. A lab on the structure file (crystal waters, occupancy, B-factor) will be added later. The curves are computed in your browser right now; the structure, coordinates and pdb2gmx results come from this project's real files and from runs that were actually made.</div>"
   ],
   [
-   "Biyomoleküler sistemlerde Moleküler Dinamik · Orta düzey",
-   "Molecular Dynamics in Biomolecular Systems · Intermediate level"
+   "<span class=\"eyebrow\">MD-O · Bir proteini MD'ye hazırlamak</span>",
+   "<span class=\"eyebrow\">MD-O · Preparing a protein for MD</span>"
   ],
   [
-   "Uygulamalar: ",
-   "Exercises: "
+   "<h1>Hidrojenler nereye? Protonasyon ve yük</h1>",
+   "<h1>Where do the hydrogens go? Protonation and charge</h1>"
   ],
   [
-   "MD-O · Pilot bölüm · Etkileşimli sürüm",
-   "MD-O · Pilot chapter · Interactive edition"
+   "<p class=\"lead\">X-ışını yapısında hidrojen görünmez: 1UBQ dosyasında 602 ağır atom var, hidrojenlerin hiçbiri yok. MD programı onları kuvvet alanından ekler ve bu sırada her asidik ve bazik grubun yüklü mü nötr mü olacağına bir kez karar verir. Bu karar bütün simülasyon boyunca değişmez. Deneyde pH'yı tamponla seçersiniz; MD'de pH, bu kararların içinde saklıdır.</p>",
+   "<p class=\"lead\">Hydrogens are invisible in an X-ray structure: the 1UBQ file has 602 heavy atoms and not a single hydrogen. The MD program adds them from the force field, and in doing so it decides once whether each acidic and basic group is charged or neutral. That decision does not change for the whole simulation. In the lab you choose the pH with a buffer; in MD the pH is hidden inside these decisions.</p>"
   ],
   [
-   "Bir proteini MD'ye hazırlamak: ubikitin",
-   "Preparing a protein for MD: ubiquitin"
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"o1progN\">0 / 4</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"o1progN\">0 / 4</b></div>"
   ],
   [
-   "Kristal yapıdan çalışan bir simülasyona giden yolda kararları siz vereceksiniz: kristal suları, düşük doluluklu uç, kutu, tuz, minimizasyon ve zaman adımı. Her kararın karşısında, o kararla gerçekten koşulmuş bir GROMACS koşusunun sonucu duruyor.",
-   "On the way from a crystal structure to a working simulation, you make the decisions: crystal waters, the low-occupancy terminus, the box, salt, minimization and the time step. Each decision is paired with the result of a GROMACS run actually performed with that choice."
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Bridge to the bench</span>"
   ],
   [
-   "Bu bir yeniden oynatmadır",
-   "This is a replay"
+   "<h2 id=\"o1h0\">Tampondan tanıdığınız denklem</h2>",
+   "<h2 id=\"o1h0\">The equation you know from buffers</h2>"
   ],
   [
-   "Bu sayfada hiçbir simülasyon tarayıcıda çalışmaz. <b>Başlat</b> düğmesine bastığınızda, önceden koşulmuş gerçek GROMACS koşularının kayıt satırları ve zaman serileri hızlandırılmış olarak yeniden akar. Gösterilen her sayı bu koşuların dosyalarından çıkarıldı ve sayfaya gömülü veri paketinden okunur.",
-   "No simulation runs in the browser on this page. When you press the <b>Start</b> button, the log lines and time series of real GROMACS runs performed in advance are replayed at accelerated speed. Every number shown was extracted from the files of these runs and is read from the data package embedded in the page."
+   "<div class=\"prose\"><p>Tampon hazırlarken Henderson-Hasselbalch denklemini kullanırsınız: pH = pK<sub>a</sub> + log([A⁻] / [HA]). Aynı denklem proteindeki her iyonlaşabilen grup için de geçerlidir. pH, pK<sub>a</sub>'ya eşitken grubun yarısı protonludur; pH bir birim uzaklaştıkça iki biçimin oranı onda bire iner. Bir grup seçin ve pH'yı değiştirin.</p></div>",
+   "<div class=\"prose\"><p>When you make a buffer you use the Henderson-Hasselbalch equation: pH = pK<sub>a</sub> + log([A⁻] / [HA]). The same equation holds for every ionizable group in a protein. When the pH equals the pK<sub>a</sub>, half of the group is protonated; each unit the pH moves away shifts the ratio of the two forms by a factor of ten. Choose a group and change the pH.</p></div>"
   ],
   [
-   "Koşulmamış bir seçim yaptığınızda sayfa sonuç uydurmaz: yalnızca <b>“Bu senaryo hesaplanmadı”</b> yazar ve hiçbir sayı göstermez.",
-   "When you make a choice that was not run, the page does not invent a result: it only says <b>“This scenario was not computed”</b> and shows no numbers."
+   "<canvas id=\"o1hh\" class=\"plot\" aria-label=\"Seçilen grubun protonlu kesri pH'ya karşı; diğer gruplar soluk\"></canvas>",
+   "<canvas id=\"o1hh\" class=\"plot\" aria-label=\"Protonated fraction of the chosen group against pH; the other groups faded\"></canvas>"
   ],
   [
-   "Temel düzeyden hatırlatma (MD-T)",
-   "Reminder from the basic level (MD-T)"
+   "<div><div class=\"lbl\">Grup</div><div class=\"chips\" id=\"o1grp\"></div></div>",
+   "<div><div class=\"lbl\">Group</div><div class=\"chips\" id=\"o1grp\"></div></div>"
   ],
   [
-   "<b>Kuvvet</b>: potansiyel enerji eğiminin tersidir; dik bir eğim, büyük bir kuvvet demektir.",
-   "<b>Force</b>: the negative of the potential energy slope; a steep slope means a large force."
+   "<dt>pK<sub>a</sub> (model peptit)</dt><dd id=\"o1pk\"></dd>",
+   "<dt>pK<sub>a</sub> (model peptide)</dt><dd id=\"o1pk\"></dd>"
   ],
   [
-   "<b>Zaman adımı</b>: en hızlı titreşimin bir periyodu en az 5 adıma bölünmelidir.",
-   "<b>Time step</b>: one period of the fastest vibration should be divided into at least 5 steps."
+   "<dt>Protonlu kesir</dt><dd id=\"o1fp\"></dd>",
+   "<dt>Protonated fraction</dt><dd id=\"o1fp\"></dd>"
   ],
   [
-   "<b>Kısıt</b>: H içeren bağların uzunluğu sabitlenince en hızlı titreşim kalkar; 2 fs bu yüzden rahattır.",
-   "<b>Constraint</b>: once the lengths of bonds involving H are fixed, the fastest vibration disappears; that is why 2 fs is comfortable."
+   "<dt>Grubun ortalama yükü</dt><dd id=\"o1fq\"></dd>",
+   "<dt>Mean charge of the group</dt><dd id=\"o1fq\"></dd>"
   ],
   [
-   "<b>Kare</b>: trajektoriye seyrek yazılır; kare sayısı, bağımsız ölçüm sayısı değildir.",
-   "<b>Frame</b>: frames are written to the trajectory sparsely; the number of frames is not the number of independent measurements."
+   "<p class=\"small\">pK<sub>a</sub> değerleri alanin pentapeptitlerinde, 0,1 M KCl ve 25 °C'de potansiyometrik titrasyonla ölçülmüştür (Thurlkill, Grimsley, Scholtz ve Pace 2006, Protein Sci 15:1214): α-karboksil ve Asp 3,67, Glu 4,25, His 6,54, α-amino 8,00, Tyr 9,84, Lys 10,40. Arginin için 13,8 (Fitch ve ark. 2015, Protein Sci 24:752). Bir proteinin içinde bu değerler komşu gruplara göre kayabilir; atölyede bunu göreceksiniz.</p>",
+   "<p class=\"small\">The pK<sub>a</sub> values were measured by potentiometric titration in alanine pentapeptides in 0.1 M KCl at 25 °C (Thurlkill, Grimsley, Scholtz and Pace 2006, Protein Sci 15:1214): α-carboxyl and Asp 3.67, Glu 4.25, His 6.54, α-amino 8.00, Tyr 9.84, Lys 10.40. For arginine 13.8 (Fitch et al. 2015, Protein Sci 24:752). Inside a protein these values can shift depending on neighbouring groups; you will see this in the workshop.</p>"
   ],
   [
-   "1UBQ dosyasından ve hazırlık koşularından sayılar",
-   "Numbers from the 1UBQ file and the preparation runs"
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
   ],
   [
-   "protein kalıntısı, tek zincir",
-   "protein residues, single chain"
+   "<h2 id=\"o1h1\">Ubikitinin yükü pH ile nasıl değişir?</h2>",
+   "<h2 id=\"o1h1\">How does the charge of ubiquitin change with pH?</h2>"
   ],
   [
-   "<span>kristal suyu</span>",
-   "<span>crystal waters</span>"
+   "<div class=\"prose\"><p>1UBQ'nun dizisinde 7 Lys, 4 Arg, 1 His, 5 Asp, 6 Glu ve 1 Tyr var; Cys yok. Bunlara iki uç, Met1'in amino grubu ve Gly76'nın karboksil grubu eklenir. Görünümde protein, bu projenin pdb2gmx çıktısındaki (<code>protein.gro</code>) gerçek koordinatlarıyla duruyor. Her iyonlaşabilen grubun çevresinde bir hale var: mavi artı, kırmızı eksi yük. Halenin boyu ve parlaklığı, o pH'da grubun yüklü olma olasılığıdır. pH'yı kaydırın ya da titrasyonu oynatın; proteini sürükleyerek döndürebilirsiniz.</p></div>",
+   "<div class=\"prose\"><p>The sequence of 1UBQ has 7 Lys, 4 Arg, 1 His, 5 Asp, 6 Glu and 1 Tyr; no Cys. Add the two termini, the amino group of Met1 and the carboxyl group of Gly76. The view shows the protein at the real coordinates from this project's pdb2gmx output (<code>protein.gro</code>). Each ionizable group has a halo around it: blue for positive, red for negative charge. The size and brightness of the halo is the probability that the group is charged at that pH. Move the pH slider or play the titration; you can rotate the protein by dragging.</p></div>"
   ],
   [
-   "doluluğu 1 olmayan kalıntılar (C-ucu)",
-   "residues with occupancy other than 1 (C-terminus)"
+   "<div class=\"stagebox\"><canvas id=\"o1ubq\" class=\"stage\" aria-label=\"Ubikitin ve iyonlaşabilen grupları: halenin rengi yükün işaretini, boyu yüklü olma olasılığını gösterir; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"o1ubq\" class=\"stage\" aria-label=\"Ubiquitin and its ionizable groups: the colour of the halo shows the sign of the charge, its size the probability of being charged; can be rotated by dragging\"></canvas></div>"
   ],
   [
-   "protein atomu, pdb2gmx sonrası (H dahil)",
-   "protein atoms after pdb2gmx (including H)"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"o1play\">Titrasyonu oynat (pH 1 → 13)</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"o1play\">Play the titration (pH 1 → 13)</button></div>"
   ],
   [
-   "atom, suyla doldurulmuş sistem",
-   "atoms in the water-filled system"
+   "<div><div class=\"lbl\">pK<sub>a</sub> değerleri</div>",
+   "<div><div class=\"lbl\">pK<sub>a</sub> values</div>"
   ],
   [
-   "toplam yük (e), pdb2gmx",
-   "total charge (e), pdb2gmx"
+   "<div class=\"seg\" role=\"group\" aria-label=\"pKa değerleri\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"pKa values\">"
   ],
   [
-   "Kaynak: <a href=\"https://www.rcsb.org/structure/1UBQ\">PDB 1UBQ</a>, insan ubikitini (Vijay-Kumar, Bugg ve Cook 1987, <i>J Mol Biol</i> 194:531). Sayılar yapı denetiminden (<code>structure-audit.json</code>), <code>pdb2gmx</code> günlüğünden ve çözücü eklenmiş sistemden okunur.",
-   "Source: <a href=\"https://www.rcsb.org/structure/1UBQ\">PDB 1UBQ</a>, human ubiquitin (Vijay-Kumar, Bugg and Cook 1987, <i>J Mol Biol</i> 194:531). The numbers are read from the structure audit (<code>structure-audit.json</code>), the <code>pdb2gmx</code> log and the solvated system."
+   "<button type=\"button\" data-pk=\"model\" aria-pressed=\"true\">Model peptitler</button>",
+   "<button type=\"button\" data-pk=\"model\" aria-pressed=\"true\">Model peptides</button>"
   ],
   [
-   "Laboratuvar ",
-   "Lab "
+   "<button type=\"button\" data-pk=\"ubq\" aria-pressed=\"false\">Ubikitinde ölçülen</button>",
+   "<button type=\"button\" data-pk=\"ubq\" aria-pressed=\"false\">Measured in ubiquitin</button>"
   ],
   [
-   "Görev tamamlandı",
-   "Task completed"
+   "<dt>Net yük</dt><dd id=\"o1Q\"></dd>",
+   "<dt>Net charge</dt><dd id=\"o1Q\"></dd>"
   ],
   [
-   "<h4>Görev ",
-   "<h4>Task "
+   "<dt>Artı yüklerin toplamı / eksi yüklerin toplamı</dt><dd id=\"o1PN\"></dd>",
+   "<dt>Sum of positive charges / sum of negative charges</dt><dd id=\"o1PN\"></dd>"
   ],
   [
-   "Görev 1 seçenekleri",
-   "Task 1 options"
+   "<dt>İzoelektrik nokta (hesaplanan)</dt><dd id=\"o1pI\"></dd>",
+   "<dt>Isoelectric point (computed)</dt><dd id=\"o1pI\"></dd>"
   ],
   [
-   "Görev 2 seçenekleri",
-   "Task 2 options"
+   "<dt>His68'in yüklü olma olasılığı</dt><dd id=\"o1Hq\"></dd>",
+   "<dt>Probability that His68 is charged</dt><dd id=\"o1Hq\"></dd>"
   ],
   [
-   "Görev 4 seçenekleri",
-   "Task 4 options"
+   "<canvas id=\"o1tit\" class=\"plot\" aria-label=\"Ubikitinin net yükü pH'ya karşı: model eğri, ölçülen pKa'larla bant, seçilen pH ve izoelektrik nokta\"></canvas>",
+   "<canvas id=\"o1tit\" class=\"plot\" aria-label=\"Net charge of ubiquitin against pH: model curve, band with measured pKa values, chosen pH and isoelectric point\"></canvas>"
   ],
   [
-   "Görev 5 seçenekleri",
-   "Task 5 options"
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Net yük, model pK<sub>a</sub></span><span><i style=\"background:var(--pale)\"></i>Ubikitinde ölçülen pK<sub>a</sub>'larla bant</span><span><i style=\"background:var(--deep)\"></i>Kesikli: ölçülen kipte aralıkların ortası</span><span><i style=\"background:var(--gold)\"></i>pdb2gmx'in bu projedeki ataması (0 e)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Net charge, model pK<sub>a</sub></span><span><i style=\"background:var(--pale)\"></i>Band with pK<sub>a</sub> values measured in ubiquitin</span><span><i style=\"background:var(--deep)\"></i>Dashed: middle of the ranges in the measured mode</span><span><i style=\"background:var(--gold)\"></i>pdb2gmx's assignment in this project (0 e)</span></div>"
   ],
   [
-   "Görev 6 cümleleri",
-   "Task 6 statements"
+   "<p class=\"small\">Hesap: her grubun yükü Henderson-Hasselbalch ile bulunur ve gruplar birbirinden bağımsız sayılır. \"Ubikitinde ölçülen\" kipinde NMR ile ölçülen değerler kullanılır: beş Asp 3,1 ile 3,8, altı Glu 3,8 ile 4,5 arasında (Sundd ve ark. 2002, Biochemistry 41:7586); eğri bandı bu aralıkların iki ucuyla, görünümdeki haleler aralıkların ortasıyla çizilir. Met1'in amino grubu 9,14 (Oregioni ve ark. 2017, Sci Rep 7:43748; 21,5 °C). Ubikitinde ölçülmüş bir değeri bulunmayan gruplar model değerinde kalır. İzoelektrik nokta bu varsayımlarla hesaplanan bir model sonucudur, ölçüm değildir.</p>",
+   "<p class=\"small\">Calculation: the charge of each group comes from Henderson-Hasselbalch, and the groups are treated as independent of each other. The \"Measured in ubiquitin\" mode uses values measured by NMR: the five Asp between 3.1 and 3.8, the six Glu between 3.8 and 4.5 (Sundd et al. 2002, Biochemistry 41:7586); the band is drawn with the two ends of these ranges, the halos in the view with their middles. The amino group of Met1 9.14 (Oregioni et al. 2017, Sci Rep 7:43748; 21.5 °C). Groups without a value measured in ubiquitin keep the model value. The isoelectric point is a model result computed under these assumptions, not a measurement.</p>"
   ],
   [
-   ">Kontrol et<",
-   ">Check<"
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
   ],
   [
-   ">Başlat<",
-   ">Start<"
+   "<h2 id=\"o1h2\">pdb2gmx His68'in hidrojenini nereye koydu?</h2>",
+   "<h2 id=\"o1h2\">Where did pdb2gmx put the hydrogen of His68?</h2>"
   ],
   [
-   ">Sonuca atla<",
-   ">Skip to result<"
+   "<div class=\"prose\"><p>Histidinin yükü, halkasındaki hidrojenlerin sayısına bağlıdır. X-ışını bu hidrojenleri görmez; onları pdb2gmx yerleştirir ve yerleştirirken bir kural uygular. Önce kuralı dört adımda, His68'in gerçek geometrisi üzerinde izleyin; sonra kuralın iki ayarını kendiniz değiştirin.</p></div>",
+   "<div class=\"prose\"><p>The charge of a histidine depends on how many hydrogens its ring carries. X-rays do not see these hydrogens; pdb2gmx places them, and it follows a rule when it does. First follow the rule in four steps on the real geometry of His68; then change the rule's two settings yourself.</p></div>"
   ],
   [
-   "Zaman adımı",
-   "Time step"
+   "<div class=\"stagebox\"><canvas id=\"o1his\" class=\"stage\" aria-label=\"His68 ve çevresi: deneme hidrojenleri, uzaklık küreleri, açı konileri ve aday oksijenler; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"o1his\" class=\"stage\" aria-label=\"His68 and its surroundings: trial hydrogens, distance spheres, angle cones and candidate oxygens; can be rotated by dragging\"></canvas></div>"
   ],
   [
-   "ns/gün",
-   "ns/day"
+   "<div class=\"lbl\">Kural dört adımda</div>",
+   "<div class=\"lbl\">The rule in four steps</div>"
   ],
   [
-   "<dt>Durum</dt>",
-   "<dt>Status</dt>"
+   "<li><button type=\"button\" data-st=\"1\" aria-pressed=\"true\">Halkada iki azot</button></li>",
+   "<li><button type=\"button\" data-st=\"1\" aria-pressed=\"true\">Two nitrogens in the ring</button></li>"
   ],
   [
-   ">çöktü</dd>",
-   ">crashed</dd>"
+   "<li><button type=\"button\" data-st=\"2\" aria-pressed=\"false\">Deneme hidrojenleri</button></li>",
+   "<li><button type=\"button\" data-st=\"2\" aria-pressed=\"false\">Trial hydrogens</button></li>"
   ],
   [
-   ">bitti</dd>",
-   ">finished</dd>"
+   "<li><button type=\"button\" data-st=\"3\" aria-pressed=\"false\">İki ölçüt: uzaklık ve açı</button></li>",
+   "<li><button type=\"button\" data-st=\"3\" aria-pressed=\"false\">Two criteria: distance and angle</button></li>"
   ],
   [
-   ">grompp reddetti</dd>",
-   ">rejected by grompp</dd>"
+   "<li><button type=\"button\" data-st=\"4\" aria-pressed=\"false\">Kural ve karar</button></li>",
+   "<li><button type=\"button\" data-st=\"4\" aria-pressed=\"false\">The rule and the decision</button></li>"
   ],
   [
-   "<dt>Adım</dt>",
-   "<dt>Steps</dt>"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"o1next\">Sonraki adım</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"o1next\">Next step</button></div>"
   ],
   [
-   "<dt>LINCS uyarısı</dt>",
-   "<dt>LINCS warnings</dt>"
+   "<h3 class=\"h3\">Kendiniz deneyin: ölçüt haritası</h3>",
+   "<h3 class=\"h3\">Try it yourself: the criterion map</h3>"
   ],
   [
-   "'LINCS uyarısı: '",
-   "'LINCS warnings: '"
+   "<div class=\"prose\"><p>Haritada His68'in iki azotuna 0,7 nm'den yakın her oksijen bir noktadır: yatay eksende azota uzaklığı, dikey eksende deneme hidrojenindeki açısı. Ölçüt, sol üstte bir <b>kabul penceresidir</b>: <code>-dist</code> pencerenin sağ kenarını, <code>-angle</code> alt kenarını taşır. Pencereye giren oksijen \"hidrojen bağı\" sayılır. Yandaki akış şeması kuralın hangi yolu izlediğini gösterir. Sonra pdb2gmx'i gerçekten çalıştırıp sonucu karşılaştırın.</p></div>",
+   "<div class=\"prose\"><p>On the map every oxygen within 0.7 nm of the two nitrogens of His68 is a point: its distance to the nitrogen on the horizontal axis, its angle at the trial hydrogen on the vertical axis. The criterion is an <b>acceptance window</b> at the top left: <code>-dist</code> moves the right edge of the window, <code>-angle</code> its bottom edge. An oxygen that enters the window counts as a \"hydrogen bond\". The flow chart beside it shows which path the rule takes. Then actually run pdb2gmx and compare the result.</p></div>"
   ],
   [
-   "' · son adım: '",
-   "' · last step: '"
+   "<canvas id=\"o1map\" class=\"plot\" aria-label=\"Ölçüt haritası: His68'in azotlarına aday oksijenler, uzaklık ve açıya göre; kabul penceresi\"></canvas>",
+   "<canvas id=\"o1map\" class=\"plot\" aria-label=\"Criterion map: candidate oxygens for the nitrogens of His68 by distance and angle; acceptance window\"></canvas>"
   ],
   [
-   "# sütunlar: ",
-   "# columns: "
+   "<div><label class=\"lbl\" for=\"o1dist\"><code>-dist</code>: pencerenin sağ kenarı</label><div class=\"big\" id=\"o1distV\"></div><input type=\"range\" id=\"o1dist\" min=\"0\" max=\"7\" step=\"1\" value=\"1\"></div>",
+   "<div><label class=\"lbl\" for=\"o1dist\"><code>-dist</code>: right edge of the window</label><div class=\"big\" id=\"o1distV\"></div><input type=\"range\" id=\"o1dist\" min=\"0\" max=\"7\" step=\"1\" value=\"1\"></div>"
   ],
   [
-   "'zaman, ps'",
-   "'time, ps'"
+   "<div><div class=\"lbl\"><code>-angle</code>: pencerenin alt kenarı</div><div class=\"seg\" role=\"group\" aria-label=\"Açı ölçütü\" id=\"o1ang\"></div></div>",
+   "<div><div class=\"lbl\"><code>-angle</code>: bottom edge of the window</div><div class=\"seg\" role=\"group\" aria-label=\"Angle criterion\" id=\"o1ang\"></div></div>"
   ],
   [
-   "'sıcaklık, K'",
-   "'temperature, K'"
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>ND1'e aday oksijen (daire)</span><span><i style=\"background:var(--accent)\"></i>NE2'ye aday oksijen (üçgen)</span><span><i style=\"background:var(--good)\"></i>Pencerede: bağ sayılır</span><span>Kesikli çizgiler: varsayılan ölçüt (0,30 nm, 135°)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Candidate oxygen for ND1 (circle)</span><span><i style=\"background:var(--accent)\"></i>Candidate oxygen for NE2 (triangle)</span><span><i style=\"background:var(--good)\"></i>In the window: counts as a bond</span><span>Dashed lines: default criterion (0.30 nm, 135°)</span></div>"
   ],
   [
-   "'yoğunluk, kg m⁻³'",
-   "'density, kg m⁻³'"
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o1wat\"> Kristal sularını da ver (<code>1UBQ.pdb</code>, 58 su)</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o1wat\"> Include the crystal waters (<code>1UBQ.pdb</code>, 58 waters)</label>"
   ],
   [
-   "'basınç, bar'",
-   "'pressure, bar'"
+   "<button type=\"button\" class=\"btn primary\" id=\"o1run\">pdb2gmx'i bu ölçütle çalıştır</button>",
+   "<button type=\"button\" class=\"btn primary\" id=\"o1run\">Run pdb2gmx with this criterion</button>"
   ],
   [
-   "'HESAPLANDI':'HESAPLANMADI'",
-   "'COMPUTED':'NOT COMPUTED'"
+   "<div class=\"crash ok\" id=\"o1logBox\" hidden><div class=\"lbl\">pdb2gmx çıktısı</div><pre id=\"o1log\"></pre></div>",
+   "<div class=\"crash ok\" id=\"o1logBox\" hidden><div class=\"lbl\">pdb2gmx output</div><pre id=\"o1log\"></pre></div>"
   ],
   [
-   "<dt>Protein ağır atomu</dt>",
-   "<dt>Protein heavy atoms</dt>"
+   "<div class=\"tw\"><table><thead><tr><th>Girdi</th><th><code>-dist</code> (nm)</th><th><code>-angle</code></th><th>His68</th><th>Hidrojen bağı sayısı</th><th>His68'in yükü</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Input</th><th><code>-dist</code> (nm)</th><th><code>-angle</code></th><th>His68</th><th>Number of hydrogen bonds</th><th>Charge of His68</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>"
   ],
   [
-   "<small>1 · Yapıyı okumak</small>Dosyada olan, dosyada olmayan",
-   "<small>1 · Reading the structure</small>What is in the file, and what is not"
+   "<p class=\"small\">Sonuçlar bu projenin girdisiyle (<code>1UBQ_protein_only.pdb</code> ve kristal sularını da içeren <code>1UBQ.pdb</code>) gerçekten koşulmuş 96 pdb2gmx çalıştırmasından gelir: 8 uzaklık × 6 açı × 2 girdi, GROMACS 2023.3, <code>-ff amber99sb-ildn -water tip3p -ignh</code>. Kural GROMACS 2023 kaynak kodundan (<code>hizzie.cpp</code>): deneme hidrojeni halkanın iki komşu atomundan uzaklaşan yönde 0,1 nm'ye konur; bir oksijen, azota uzaklığı <code>-dist</code>'ten kısa ve hidrojendeki açısı <code>-angle</code>'dan büyükse bağ sayılır. Harita ve akış şeması bu kuralı aynı koordinatlarla tarayıcıda uygular ve kristal susuz 48 çalıştırmanın hepsinde pdb2gmx ile aynı kararı verir. Görünümdeki koni şematiktir (açının ekrana izdüşümü). \"Hidrojen bağı sayısı\", pdb2gmx'in bütün protein için günlüğe yazdığı sayıdır.</p>",
+   "<p class=\"small\">The results come from 96 pdb2gmx runs actually made with this project's input (<code>1UBQ_protein_only.pdb</code> and <code>1UBQ.pdb</code>, which also contains the crystal waters): 8 distances × 6 angles × 2 inputs, GROMACS 2023.3, <code>-ff amber99sb-ildn -water tip3p -ignh</code>. The rule is from the GROMACS 2023 source code (<code>hizzie.cpp</code>): the trial hydrogen is placed 0.1 nm from the nitrogen, pointing away from the two neighbouring ring atoms; an oxygen counts as a bond if its distance to the nitrogen is shorter than <code>-dist</code> and its angle at the hydrogen is larger than <code>-angle</code>. The map and the flow chart apply this rule in the browser with the same coordinates and give the same decision as pdb2gmx in all 48 runs without crystal waters. The cone in the view is schematic (the projection of the angle onto the screen). \"Number of hydrogen bonds\" is the number pdb2gmx writes to its log for the whole protein.</p>"
   ],
   [
-   "Bir PDB dosyası, ölçülmüş elektron yoğunluğuna oturtulmuş bir <b>modeldir</b>. MD'ye geçmeden önce içinde ne olduğunu sayarız: zincirler, kalıntılar, eksik atomlar, alternatif konumlar, kristal suları ve doluluk.",
-   "A PDB file is a <b>model</b> fitted to measured electron density. Before moving on to MD, we take stock of what it contains: chains, residues, missing atoms, alternate locations, crystal waters and occupancy."
+   "<article class=\"q\" id=\"o1c1\"><span class=\"k\">Açık</span><h3>Protein hangi pH'da yüksüzdür?</h3><p>Atölyede net yükün sıfır olduğu pH'yı bulun.</p><div class=\"mine\" id=\"mo1c1\">Kaydırıcıyla net yükün 0,1 e'den küçük olduğu bir pH bulun.</div></article>",
+   "<article class=\"q\" id=\"o1c1\"><span class=\"k\">Open</span><h3>At what pH is the protein uncharged?</h3><p>In the workshop, find the pH where the net charge is zero.</p><div class=\"mine\" id=\"mo1c1\">With the slider, find a pH where the net charge is smaller than 0.1 e.</div></article>"
   ],
   [
-   "1UBQ temiz bir dosyadır: tek zincir, <span data-b=\"res\"></span> kalıntı; omurga atomu eksik kalıntı ve alternatif konum yok. C-ucu ise farklıdır: <span data-b=\"lowRange\"></span> kalıntılarının atomlarında doluluk 1 değildir. Aşağıdaki şerit her kalıntının en düşük doluluğunu gösteriyor. Sonra iki karar verin: kristal suları ne olacak, düşük doluluklu uç ne olacak?",
-   "1UBQ is a clean file: a single chain, <span data-b=\"res\"></span> residues; no residues with missing backbone atoms and no alternate locations. The C-terminus is different: the atoms of residues <span data-b=\"lowRange\"></span> do not have occupancy 1. The strip below shows the lowest occupancy of each residue. Then make two decisions: what happens to the crystal waters, and what happens to the low-occupancy terminus?"
+   "<article class=\"q\" id=\"o1c2\"><span class=\"k\">Açık</span><h3>Proteindeki pK<sub>a</sub> neden önemli?</h3><p>Atölyede \"Ubikitinde ölçülen\" kipine geçin; izoelektrik noktaya ve düşük pH'ya bakın.</p><div class=\"mine\" id=\"mo1c2\">Ölçülen kipte pH'yı hem 5'in altına hem 7'nin üstüne getirin.</div></article>",
+   "<article class=\"q\" id=\"o1c2\"><span class=\"k\">Open</span><h3>Why does the pK<sub>a</sub> inside the protein matter?</h3><p>In the workshop, switch to the \"Measured in ubiquitin\" mode; look at the isoelectric point and at low pH.</p><div class=\"mine\" id=\"mo1c2\">In the measured mode, bring the pH both below 5 and above 7.</div></article>"
   ],
   [
-   "Yapı denetimi ve iki karar",
-   "Structure audit and two decisions"
+   "<article class=\"q\" id=\"o1c3\"><span class=\"k\">Açık</span><h3>His68'in biçimini ne belirledi?</h3><p>Tezgâhta pdb2gmx'i farklı ölçütlerle çalıştırın.</p><div class=\"mine\" id=\"mo1c3\">His68 için iki farklı sonuç veren iki çalıştırma yapın.</div></article>",
+   "<article class=\"q\" id=\"o1c3\"><span class=\"k\">Open</span><h3>What decided the form of His68?</h3><p>On the bench, run pdb2gmx with different criteria.</p><div class=\"mine\" id=\"mo1c3\">Make two runs that give two different results for His68.</div></article>"
   ],
   [
-   "1UBQ kalıntılarının en düşük doluluk değerleri; C-ucundaki kalıntılar 1'in altında",
-   "Lowest occupancy values of the 1UBQ residues; the residues at the C-terminus are below 1"
+   "<article class=\"q\" id=\"o1c4\"><span class=\"k\">Açık</span><h3>Kristal suları karara katılır mı?</h3><p>Aynı ölçütle bir kez kristal suyuyla, bir kez onsuz çalıştırın.</p><div class=\"mine\" id=\"mo1c4\">Aynı <code>-dist</code> ve <code>-angle</code> ile iki girdiyi de çalıştırın.</div></article>",
+   "<article class=\"q\" id=\"o1c4\"><span class=\"k\">Open</span><h3>Do the crystal waters enter the decision?</h3><p>With the same criterion, run once with the crystal waters and once without.</p><div class=\"mine\" id=\"mo1c4\">Run both inputs with the same <code>-dist</code> and <code>-angle</code>.</div></article>"
   ],
   [
-   "Şeritte en düşük doluluk <b><span data-b=\"occMin\"></span></b>. Bu değer ne anlama gelir?",
-   "The lowest occupancy in the strip is <b><span data-b=\"occMin\"></span></b>. What does this value mean?"
+   "<span class=\"step\">3 · Proteine dönüş</span>",
+   "<span class=\"step\">3 · Back to the protein</span>"
   ],
   [
-   "xl:'kalıntı numarası',yl:'en düşük doluluk'",
-   "xl:'residue number',yl:'lowest occupancy'"
+   "<h2 id=\"o1h3\">Bu projenin pdb2gmx çalıştırması</h2>",
+   "<h2 id=\"o1h3\">This project's pdb2gmx run</h2>"
   ],
   [
-   "<dt>Çözünürlük (kaynak kaydı)</dt>",
-   "<dt>Resolution (source record)</dt>"
+   "<div class=\"prose\"><p>Bu projede ubikitin şu komutla hazırlandı: <code>gmx pdb2gmx -f 1UBQ_protein_only.pdb -ff amber99sb-ildn -water tip3p -ignh</code>. Girdi, 1UBQ'dan kristal suları çıkarılmış hâldir. Aşağıda günlüğün gerçek satırları ve verilen kararlar var.</p></div>",
+   "<div class=\"prose\"><p>In this project ubiquitin was prepared with this command: <code>gmx pdb2gmx -f 1UBQ_protein_only.pdb -ff amber99sb-ildn -water tip3p -ignh</code>. The input is 1UBQ with the crystal waters removed. Below are the real lines of the log and the decisions made.</p></div>"
   ],
   [
-   "<dt>Zincir</dt>",
-   "<dt>Chain</dt>"
+   "<div class=\"crash ok\"><div class=\"lbl\">pdb2gmx.log (24 Eylül 2026, GROMACS 2023.3)</div><pre>there were 0 atoms with zero occupancy and 28 atoms with occupancy unequal to one (out of 602 atoms)",
+   "<div class=\"crash ok\"><div class=\"lbl\">pdb2gmx.log (24 September 2026, GROMACS 2023.3)</div><pre>there were 0 atoms with zero occupancy and 28 atoms with occupancy unequal to one (out of 602 atoms)"
   ],
   [
-   "<dt>Kalıntı</dt>",
-   "<dt>Residues</dt>"
+   "<div class=\"tw\"><table><thead><tr><th>Karar</th><th>Bu projede</th><th>Ne anlama gelir?</th></tr></thead><tbody>",
+   "<div class=\"tw\"><table><thead><tr><th>Decision</th><th>In this project</th><th>What does it mean?</th></tr></thead><tbody>"
   ],
   [
-   "<dt>Elementler</dt>",
-   "<dt>Elements</dt>"
+   "<tr><td>Hidrojenler</td><td><code>-ignh</code>; 602 ağır atoma 629 hidrojen eklendi (1.231 atom)</td><td>Girdideki hidrojenler yok sayılır, hepsi kuvvet alanının kalıntı tanımlarından yeniden kurulur. 1UBQ'da zaten hidrojen yok.</td></tr>",
+   "<tr><td>Hydrogens</td><td><code>-ignh</code>; 629 hydrogens added to 602 heavy atoms (1,231 atoms)</td><td>Hydrogens in the input are ignored; all of them are rebuilt from the residue definitions of the force field. 1UBQ has no hydrogens anyway.</td></tr>"
   ],
   [
-   "<dt>Hidrojen atomu (kaynakta)</dt>",
-   "<dt>Hydrogen atoms (in source)</dt>"
+   "<tr><td>Asp, Glu, Lys, Arg</td><td>5 Asp ve 6 Glu eksi, 7 Lys ve 4 Arg artı</td><td>pdb2gmx pH sormaz; bu, nötr pH için alışılmış atamadır. Model pK<sub>a</sub>'lara göre pH 7'de bu grupların hepsi %99'dan çok bu hâldedir.</td></tr>",
+   "<tr><td>Asp, Glu, Lys, Arg</td><td>5 Asp and 6 Glu negative, 7 Lys and 4 Arg positive</td><td>pdb2gmx does not ask for a pH; this is the usual assignment for neutral pH. By the model pK<sub>a</sub> values all these groups are in this state more than 99% of the time at pH 7.</td></tr>"
   ],
   [
-   "<dt>Kristal suyu (HOH)</dt>",
-   "<dt>Crystal waters (HOH)</dt>"
+   "<tr><td>His68</td><td>HISE (hidrojen NE2'de, yüksüz)</td><td>Hidrojen bağına bakan otomatik karar; His68'de iki azotun da 0,3 nm içinde protein alıcısı yok, bu yüzden kural varsayılan HISE'yi verdi.</td></tr>",
+   "<tr><td>His68</td><td>HISE (hydrogen on NE2, uncharged)</td><td>An automatic decision based on hydrogen bonds; neither nitrogen of His68 has a protein acceptor within 0.3 nm, so the rule gave the default HISE.</td></tr>"
   ],
   [
-   "<dt>Omurgası eksik kalıntı</dt>",
-   "<dt>Residues with missing backbone</dt>"
+   "<tr><td>Uçlar</td><td>Met1 NH₃⁺ (H1, H2, H3), Gly76 COO⁻ (OC1, OC2)</td><td>İki uç da yüklü; birbirini dengeler.</td></tr>",
+   "<tr><td>Termini</td><td>Met1 NH₃⁺ (H1, H2, H3), Gly76 COO⁻ (OC1, OC2)</td><td>Both termini are charged; they balance each other.</td></tr>"
   ],
   [
-   "<dt>Alternatif konum</dt>",
-   "<dt>Alternate locations</dt>"
+   "<tr><td>Toplam yük</td><td>0 e</td><td>Nötrleştirmek için iyon gerekmez. Tuz eklemek ayrı bir karardır (bu projenin S4 senaryosu: 0,15 M NaCl).</td></tr>",
+   "<tr><td>Total charge</td><td>0 e</td><td>No ions are needed to neutralize. Adding salt is a separate decision (this project's S4 scenario: 0.15 M NaCl).</td></tr>"
   ],
   [
-   "<dt>Doluluğu 1 olmayan atom</dt>",
-   "<dt>Atoms with occupancy other than 1</dt>"
+   "<tr><td>Kristal suları</td><td>Girdiden çıkarıldı (58 su)</td><td>Tutulsalardı His68 kararı değişmezdi (tezgâhta gördünüz); su kutusu <code>solvate</code> ile ayrıca eklenir.</td></tr>",
+   "<tr><td>Crystal waters</td><td>Removed from the input (58 waters)</td><td>Had they been kept, the His68 decision would not have changed (as you saw on the bench); the water box is added separately with <code>solvate</code>.</td></tr>"
   ],
   [
-   "t:'Kristal suları ('",
-   "t:'Crystal waters ('"
+   "<p class=\"small\">Sabit protonasyon: MD koşusu boyunca bu yükler değişmez. Model pK<sub>a</sub> ile pH 7'de His68 moleküllerin yaklaşık dörtte birinde yüklü olurdu (%26); simülasyon bunu tek bir biçimle, HISE ile temsil eder. Başka bir biçim isteyen, <code>pdb2gmx -his</code> ile her histidini elle seçer. Protonasyonun koşu sırasında değişmesine izin veren sabit pH MD yöntemleri de vardır; bu laboratuvarın konusu değildir. Sonraki adımlar: kutu ve kopyalar MD-PBC'de, minimizasyon ve dengeleme MD-EQ'da.</p>",
+   "<p class=\"small\">Fixed protonation: these charges do not change during the MD run. With the model pK<sub>a</sub>, His68 would be charged in about a quarter of the molecules at pH 7 (26%); the simulation represents this with a single form, HISE. Anyone who wants another form chooses each histidine by hand with <code>pdb2gmx -his</code>. There are also constant-pH MD methods that let protonation change during the run; they are not the subject of this lab. Next steps: the box and its images in MD-PBC, minimization and equilibration in MD-EQ.</p>"
   ],
   [
-   "['out','Çıkar',1],['keep','Tut',0]",
-   "['out','Remove',1],['keep','Keep',0]"
+   "<span class=\"step\">4 · Kendinizi sınayın</span>",
+   "<span class=\"step\">4 · Test yourself</span>"
   ],
   [
-   "t:'Düşük doluluklu C-ucu ('",
-   "t:'Low-occupancy C-terminus ('"
+   "<h2 id=\"o1h4\">Altı soru</h2>",
+   "<h2 id=\"o1h4\">Six questions</h2>"
   ],
   [
-   "['keep','Koordinatlarıyla koru',1],['del','Sil',0]",
-   "['keep','Keep with its coordinates',1],['del','Delete',0]"
+   "<p class=\"next\">Sıradaki adımlar: <a href=\"../md-pbc/\">MD-PBC · Kenarsız kutu</a> (kutu ve kopyalar) ve <a href=\"../md-eq/\">MD-EQ · Minimizasyon ve dengeleme</a>.</p>",
+   "<p class=\"next\">Next steps: <a href=\"../md-pbc/\">MD-PBC · The box without edges</a> (the box and its images) and <a href=\"../md-eq/\">MD-EQ · Minimization and equilibration</a>.</p>"
   ],
   [
-   "Bu senaryo hesaplanmadı. Bu seçimle hazırlanmış bir sistem koşulmadı; sonucunu tahmin edip yazmıyoruz.",
-   "This scenario was not computed. No system prepared with this choice was run; we do not write down a guessed result."
+   "<p class=\"small\">Model: atölyedeki yük eğrileri Henderson-Hasselbalch ile, grupların birbirini etkilemediği varsayımıyla tarayıcıda hesaplanır. Yapı ve koordinatlar bu projenin <code>1UBQ.pdb</code> (RCSB, 1,8 Å, CC0) ve <code>protein.gro</code> dosyalarından; pdb2gmx sonuçları gerçek çalıştırmalardan. Molekül çizimleri gerçek koordinatlardır; atom yarıçapları okunabilirlik için küçültülmüştür.</p>",
+   "<p class=\"small\">Model: the charge curves in the workshop are computed in the browser with Henderson-Hasselbalch, assuming the groups do not affect each other. The structure and coordinates come from this project's <code>1UBQ.pdb</code> (RCSB, 1.8 Å, CC0) and <code>protein.gro</code> files; the pdb2gmx results from real runs. The molecule drawings use real coordinates; atom radii are reduced for readability.</p>"
   ],
   [
-   "<dt>pdb2gmx girdisi</dt><dd>yalnız ATOM satırları</dd>",
-   "<dt>pdb2gmx input</dt><dd>ATOM records only</dd>"
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
   ],
   [
-   "<dt>Dışarıda bırakılan HOH</dt>",
-   "<dt>HOH left out</dt>"
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('o1progN').textContent=Object.keys(FOUND).length+' / 4'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('o1progN').textContent=Object.keys(FOUND).length+' / 4'; }"
   ],
   [
-   "<dt>C-ucu kalıntıları</dt>",
-   "<dt>C-terminal residues</dt>"
+   "var NFI=new Intl.NumberFormat('tr-TR');",
+   "var NFI=new Intl.NumberFormat('en-US');"
   ],
   [
-   "', dosyadaki koordinatlarla</dd>",
-   "', with the coordinates from the file</dd>"
+   "var GNAME={D:'Asp',E:'Glu',H:'His',Nt:'N-ucu (α-amino)',Y:'Tyr',K:'Lys',R:'Arg',Ct:'C-ucu (α-karboksil)'};",
+   "var GNAME={D:'Asp',E:'Glu',H:'His',Nt:'N-terminus (α-amino)',Y:'Tyr',K:'Lys',R:'Arg',Ct:'C-terminus (α-carboxyl)'};"
   ],
   [
-   "Sular çıkarıldıktan sonra kutu yeni suyla dolduruldu (3. kısım). Bu seçim, kristal sularının önemsiz olduğu ya da C-ucunun bu konumda kesin durduğu anlamına gelmez; yalnızca hesaplanan yolun kaydıdır.",
-   "After the waters were removed, the box was filled with new water (Section 3). This choice does not mean that the crystal waters are unimportant or that the C-terminus definitely sits in this position; it is only the record of the computed path."
+   "function hhChips(){ $('o1grp').innerHTML=GORD.map(function(k){ return '<button type=\"button\" class=\"chip\" data-g=\"'+k+'\" aria-pressed=\"'+(k===HH.g)+'\">'+(k==='Nt'?'N-ucu':GNAME[k])+' '+fx(PKM[k],2)+'</button>'; }).join('');",
+   "function hhChips(){ $('o1grp').innerHTML=GORD.map(function(k){ return '<button type=\"button\" class=\"chip\" data-g=\"'+k+'\" aria-pressed=\"'+(k===HH.g)+'\">'+(k==='Nt'?'N-terminus':GNAME[k])+' '+fx(PKM[k],2)+'</button>'; }).join('');"
   ],
   [
-   "'Atom, MD sırasında zamanın dörtte birini bu konumda geçirecektir.'",
-   "'The atom will spend a quarter of the time in this position during MD.'"
+   "if(Math.abs(d)<0.05) n='pH = pKa: grubun yarısı protonlu, yarısı değil.';",
+   "if(Math.abs(d)<0.05) n='pH = pKa: half of the group is protonated, half is not.';"
   ],
   [
-   "'Kristaldeki moleküllerin yalnız yaklaşık dörtte birinde bu konum bu atomla dolu olarak modellenmiştir; dosya geri kalanı için başka bir konum vermez. Koordinat, tek ve kesin bir yapı değildir.'",
-   "'This position is modeled as occupied by this atom in only about a quarter of the molecules in the crystal; the file gives no other position for the rest. The coordinate is not a single, definitive structure.'"
+   "else n='pH, pKa\\'dan '+fx(Math.abs(d),2)+' birim '+(d>0?'yukarıda':'aşağıda')+': protonlu ve protonsuz biçimlerin oranı 1\\'e '+(Math.abs(d)>=3?'1.000\\'den fazla':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Asit gruplar protonunu verince eksi yüklenir.':'Baz gruplar proton alınca artı yüklenir.');",
+   "else n='The pH is '+fx(Math.abs(d),2)+' units '+(d>0?'above':'below')+' the pKa: the ratio of the protonated and deprotonated forms is 1 to '+(Math.abs(d)>=3?'more than 1,000':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Acidic groups become negative when they give up their proton.':'Basic groups become positive when they take up a proton.');"
   ],
   [
-   "'Atomun konumu ±'",
-   "'The position of the atom is uncertain by ±'"
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText('protonlu kesir',L+4,T+10); }",
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText('protonated fraction',L+4,T+10); }"
   ],
   [
-   "' Å belirsizdir.'",
-   "' Å.'"
+   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*2.35); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+sc,by); g.stroke(); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('1 nm · döndürmek için sürükleyin',bx+sc+8,by+4); }",
+   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*2.35); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+sc,by); g.stroke(); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('1 nm · drag to rotate',bx+sc+8,by+4); }"
   ],
   [
-   "'Bu atomlar dosyada eksiktir; pdb2gmx onları yeniden kurar.'",
-   "'These atoms are missing from the file; pdb2gmx rebuilds them.'"
+   "g.fillStyle=muted; g.textAlign='left'; g.fillText('net yük (e)',L+4,T+10); }",
+   "g.fillStyle=muted; g.textAlign='left'; g.fillText('net charge (e)',L+4,T+10); }"
   ],
   [
-   "'Doğru. Doluluk, kristal örgüsündeki moleküllerin ne kadarında o konumun dolu olduğunu bildirir; burada alternatif konum da yazılmamış. Konum belirsizliğini ise B faktörü taşır. Doluluğu MD trajektorisinde geçirilen zamanın payı gibi okumayız. C-ucu araştırma sorusunun parçasıysa, farklı başlangıç konumlarıyla bir duyarlılık denemesi önceden tasarlanmalıdır; bu sayfada yapılmadı.'",
-   "'Correct. Occupancy reports in what fraction of the molecules in the crystal lattice that position is occupied; here no alternate location is given either. Positional uncertainty is carried by the B factor instead. We do not read occupancy as the fraction of time spent in an MD trajectory. If the C-terminus is part of the research question, a sensitivity trial with different starting positions should be designed in advance; this was not done on this page.'"
+   "var n=T1.mode==='ubq'?'Ölçülen pKa\\'larla: ':'';",
+   "var n=T1.mode==='ubq'?'With the measured pKa values: ':'';"
   ],
   [
-   "'Tekrar düşünün: doluluk bir zaman payı ya da bir uzaklık değildir. Kristaldeki çok sayıda molekülün ortalaması olarak neyi sayar? Ayrıca şeritteki atomlar dosyada var mı, yok mu?'",
-   "'Think again: occupancy is neither a fraction of time nor a distance. As an average over many molecules in the crystal, what does it count? Also, are the atoms in the strip present in the file or not?'"
+   "if(Math.abs(r.q)<0.1) n+='Net yük sıfıra yakın, ama protein yüksüz değil: '+fx(r.pos,1)+' artı ve '+fx(r.neg,1)+' eksi yük birbirini dengeliyor.';",
+   "if(Math.abs(r.q)<0.1) n+='The net charge is close to zero, but the protein is not uncharged: '+fx(r.pos,1)+' positive and '+fx(r.neg,1)+' negative charges balance each other.';"
   ],
   [
-   "<small>2 · Topoloji ve protonasyon</small>Koordinattan kuvvet alanına",
-   "<small>2 · Topology and protonation</small>From coordinates to a force field"
+   "else if(T1.pH<4.5) n+='Karboksil grupları proton aldıkça eksi yükler kayboluyor; artı yükler tam. Protein güçlü artı yüklü.';",
+   "else if(T1.pH<4.5) n+='As the carboxyl groups take up protons the negative charges disappear; the positive charges are complete. The protein is strongly positive.';"
   ],
   [
-   "Koordinat dosyası bağları, yükleri ve hidrojenleri bilmez. <code>pdb2gmx</code> bunları seçilen kuvvet alanından ekler ve bu sırada bazı kararları, çoğu zaman sessizce, sizin yerinize verir.",
-   "A coordinate file knows nothing about bonds, charges or hydrogens. <code>pdb2gmx</code> adds them from the chosen force field and, along the way, makes some decisions for you, often silently."
+   "else if(T1.pH>10) n+='Lys\\'ler protonunu veriyor, Tyr eksi yükleniyor; Arg\\'ler hâlâ artı. Protein eksi yüklü.';",
+   "else if(T1.pH>10) n+='The Lys residues give up their protons and Tyr becomes negative; the Arg residues are still positive. The protein is negative.';"
   ],
   [
-   "Aşağıdaki günlük gerçek <code>pdb2gmx</code> çıktısıdır. Vurgulanan satırlar sonraki her adımı belirler: kuvvet alanı ve su modeli, eklenen hidrojenler, HIS68'in protonasyonu, uç gruplar ve toplam yük.",
-   "The log below is real <code>pdb2gmx</code> output. The highlighted lines determine every subsequent step: the force field and water model, the added hydrogens, the protonation of HIS68, the terminal groups and the total charge."
+   "else n+=(r.q>0?'Net artı yük ':'Net eksi yük ')+fx(Math.abs(r.q),2)+' e. His68 bu pH\\'da %'+fx(100*hq,0)+' olasılıkla yüklü.';",
+   "else n+=(r.q>0?'Net positive charge ':'Net negative charge ')+fx(Math.abs(r.q),2)+' e. At this pH His68 is charged with a probability of '+fx(100*hq,0)+'%.';"
   ],
   [
-   "pdb2gmx ne yaptı?",
-   "What did pdb2gmx do?"
+   "function tCard(r,pi,P){ if(!T1.play){ if(Math.abs(r.q)<0.1&&T1.mode==='model') card('o1c1',true,'pH <b>'+fx(T1.pH,2)+'</b>\\'te net yük '+fx(r.q,2)+' e: model pKa\\'larla izoelektrik nokta <b>'+fx(pi,2)+'</b>. Bu pH\\'da protein yüksüz değildir: yaklaşık <b>'+fx(r.pos,1)+' artı ve '+fx(r.neg,1)+' eksi</b> yük birbirini dengeler. pdb2gmx ise pH sormadan bütün grupları nötr pH\\'ya göre atadı ve toplam 0 e buldu; model eğrisinde pH 7\\'deki yük '+fx(netQ(7,pkSet('model')).q,2)+' e.');",
+   "function tCard(r,pi,P){ if(!T1.play){ if(Math.abs(r.q)<0.1&&T1.mode==='model') card('o1c1',true,'At pH <b>'+fx(T1.pH,2)+'</b> the net charge is '+fx(r.q,2)+' e: with the model pKa values the isoelectric point is <b>'+fx(pi,2)+'</b>. At this pH the protein is not uncharged: about <b>'+fx(r.pos,1)+' positive and '+fx(r.neg,1)+' negative</b> charges balance each other. pdb2gmx, without asking for a pH, assigned every group for neutral pH and found a total of 0 e; on the model curve the charge at pH 7 is '+fx(netQ(7,pkSet('model')).q,2)+' e.');"
   ],
   [
-   "pdb2gmx günlüğünün sonu (<code data-b=\"topLog\"></code>) ve iki alıntı",
-   "End of the pdb2gmx log (<code data-b=\"topLog\"></code>) and two excerpts"
+   "card('o1c2',true,'Ölçülen pKa\\'larla izoelektrik nokta <b>'+fx(pI(pkSet('ubq',false)),2)+'-'+fx(pI(pkSet('ubq',true)),2)+'</b>, modelde '+fx(pI(M),2)+'. Yalnız N-ucunu 8,00\\'den 9,14\\'e çekmek pI\\'yı '+fx(pI(onlyN),2)+'\\'ye taşır: kaymanın neredeyse tamamı oradan gelir, çünkü pI\\'da karboksiller zaten tamamen yüklüdür. Karboksillerin kayması ise düşük pH\\'da görünür: pH 3,5\\'te net yük modelde '+fx(q3m,1)+', ölçülen aralıkla '+fx(Math.min(q3u,q3v),1)+' ile '+fx(Math.max(q3u,q3v),1)+' arası. Bir proteinin içindeki pKa, komşularına göre değişir.'); } } } }",
+   "card('o1c2',true,'With the measured pKa values the isoelectric point is <b>'+fx(pI(pkSet('ubq',false)),2)+'-'+fx(pI(pkSet('ubq',true)),2)+'</b>, '+fx(pI(M),2)+' in the model. Moving only the N-terminus from 8.00 to 9.14 takes the pI to '+fx(pI(onlyN),2)+': almost the whole shift comes from there, because at the pI the carboxyls are already fully charged. The shift of the carboxyls shows at low pH: at pH 3.5 the net charge is '+fx(q3m,1)+' in the model and between '+fx(Math.min(q3u,q3v),1)+' and '+fx(Math.max(q3u,q3v),1)+' with the measured ranges. The pKa inside a protein changes with its neighbours.'); } } } }"
   ],
   [
-   "aria-label=\"pdb2gmx günlüğü\"",
-   "aria-label=\"pdb2gmx log\""
+   "1:'His68\\'in halkasında iki azot var: ND1 ve NE2. Hidrojen hangisinde durur? Üç olasılık var: HID (hidrojen ND1\\'de, yüksüz), HIE (NE2\\'de, yüksüz), HIP (ikisinde birden, +1). Görünüm üçünü sırayla gösteriyor. X-ışını bu hidrojeni görmez; seçimi program yapar.',",
+   "1:'The ring of His68 has two nitrogens: ND1 and NE2. Which one carries the hydrogen? There are three possibilities: HID (hydrogen on ND1, uncharged), HIE (on NE2, uncharged), HIP (on both, +1). The view shows the three in turn. X-rays do not see this hydrogen; the program makes the choice.',"
   ],
   [
-   "pdb2gmx'e göre toplam yük <b><span data-b=\"charge\"></span> e</b>. Sistemi nötrleştirmek için iyon eklemek gerekir mi?",
-   "According to pdb2gmx, the total charge is <b><span data-b=\"charge\"></span> e</b>. Do you need to add ions to neutralize the system?"
+   "2:'pdb2gmx girdideki hidrojenleri atar (<code>-ignh</code>) ve her azota 0,1 nm uzaklıkta bir <b>deneme hidrojeni</b> koyar; yönü halkanın dışına doğrudur. Sorulan şudur: bu hidrojen yakındaki bir oksijene hidrojen bağı verebilir mi?',",
+   "2:'pdb2gmx discards the hydrogens in the input (<code>-ignh</code>) and puts a <b>trial hydrogen</b> 0.1 nm from each nitrogen, pointing out of the ring. The question is: can this hydrogen donate a hydrogen bond to a nearby oxygen?',"
   ],
   [
-   "HISE ataması, pdb2gmx'in hidrojen bağı ağına bakarak verdiği otomatik bir karardır; deneyin kanıtladığı bir protonasyon değildir. Bu sayfadaki bütün koşular bu atamayla yapıldı. <code>solvate</code> adımında kullanılan <code>spc216.gro</code> yalnızca su koordinatları için bir şablondur; topolojideki su modeli TIP3P'dir. Dosya adından su modelini çıkarmayın, topolojiyi okuyun.",
-   "The HISE assignment is an automatic decision that pdb2gmx makes by looking at the hydrogen-bond network; it is not a protonation state proven by experiment. All runs on this page were performed with this assignment. The <code>spc216.gro</code> used in the <code>solvate</code> step is only a template for the water coordinates; the water model in the topology is TIP3P. Do not infer the water model from the file name; read the topology."
+   "3:'Bir oksijen iki koşulu birden sağlarsa \"bağ\" sayılır. <b>Uzaklık:</b> azot ile oksijen arası <code>-dist</code>\\'ten kısa olmalı (kesikli küre, varsayılan 0,30 nm). <b>Açı:</b> azot, hidrojen ve oksijen neredeyse bir doğru üzerinde olmalı; hidrojendeki açı <code>-angle</code>\\'dan büyük olmalı. Varsayılan 135°, yani oksijen N-H doğrultusunun en çok 45° yanında durmalı (sarı koni).',",
+   "3:'An oxygen counts as a \"bond\" if it meets two conditions at once. <b>Distance:</b> the nitrogen-oxygen distance must be shorter than <code>-dist</code> (dashed sphere, default 0.30 nm). <b>Angle:</b> nitrogen, hydrogen and oxygen must lie almost on a line; the angle at the hydrogen must be larger than <code>-angle</code>. The default is 135°, so the oxygen must sit at most 45° off the N-H direction (yellow cone).',"
   ],
   [
-   " (son kısım)</span>",
-   " (final part)</span>"
+   "4:'Kural: ND1 bağ kurarsa NE2\\'ye bakılır; o da kurarsa <b>HISH</b> (+1), kurmazsa <b>HISD</b>. ND1 bağ kurmazsa sonuç doğrudan <b>HISE</b>. His68\\'de varsayılan ölçütle iki küre de boş: iki azota en yakın oksijenler 0,46 ve 0,47 nm\\'de; açı koşulunu da sağlayan en yakın oksijen ND1 için 0,66 nm\\'de (görünümdeki kesikli çizgi), NE2 için 0,7 nm içinde hiç yok. Karar bu yüzden HISE; bir bağdan değil, kuralın varsayılanından. Şimdi aşağıdaki haritada ölçütü kendiniz değiştirin.'};",
+   "4:'The rule: if ND1 forms a bond, NE2 is checked; if it forms one too, the result is <b>HISH</b> (+1), if not, <b>HISD</b>. If ND1 forms no bond, the result is <b>HISE</b> straight away. At His68 both spheres are empty with the default criterion: the oxygens closest to the two nitrogens are at 0.46 and 0.47 nm; the closest oxygen that also meets the angle condition is at 0.66 nm for ND1 (the dashed line in the view) and there is none within 0.7 nm for NE2. That is why the decision is HISE; it comes not from a bond but from the rule\\'s default. Now change the criterion yourself on the map below.'};"
   ],
   [
-   "# aynı günlüğün başından (histidin ataması):</span>\\n<span class=\"hl\">Will use HISE for residue 68</span>",
-   "# from the start of the same log (histidine assignment):</span>\\n<span class=\"hl\">Will use HISE for residue 68</span>"
+   "$('o1stepT').innerHTML=s?STEPT[s]:'Ölçütü değiştirdiniz: görünüm şimdi sizin <code>-dist</code> ve <code>-angle</code> değerlerinizi gösteriyor. Adımlara dönmek için bir adım seçin.';",
+   "$('o1stepT').innerHTML=s?STEPT[s]:'You changed the criterion: the view now shows your <code>-dist</code> and <code>-angle</code> values. To return to the steps, choose a step.';"
   ],
   [
-   "# gromacs_trial/topol.top, uç kalıntıların başlık satırları:",
-   "# gromacs_trial/topol.top, header lines of the terminal residues:"
+   "$('o1next').textContent=s===4?'Haritaya git':(s?'Sonraki adım':'Baştan izle');",
+   "$('o1next').textContent=s===4?'Go to the map':(s?'Next step':'Watch from the start');"
   ],
   [
-   "<dt>Kuvvet alanı</dt>",
-   "<dt>Force field</dt>"
+   "if(st===2){ g.font='600 11.5px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='left'; g.fillText('deneme H',sh[0]+r+4,sh[1]-4); } }",
+   "if(st===2){ g.font='600 11.5px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='left'; g.fillText('trial H',sh[0]+r+4,sh[1]-4); } }"
   ],
   [
-   "<dt>Su modeli</dt>",
-   "<dt>Water model</dt>"
+   "if(T2.wat&&st===0) MO1.w.forEach(function(w){ var d0=Math.hypot(w[1]-HCEN[0],w[2]-HCEN[1],w[3]-HCEN[2]); if(d0>0.8) return; var s=P(w[1],w[2],w[3]); blit(g,ball('wO','#e6897f',0.062*s[3]*1.25),s[0],s[1],0.9); g.font='11px '+css('--sans'); g.fillStyle=muted; g.textAlign='left'; g.fillText('su '+w[0],s[0]+8,s[1]-6); });",
+   "if(T2.wat&&st===0) MO1.w.forEach(function(w){ var d0=Math.hypot(w[1]-HCEN[0],w[2]-HCEN[1],w[3]-HCEN[2]); if(d0>0.8) return; var s=P(w[1],w[2],w[3]); blit(g,ball('wO','#e6897f',0.062*s[3]*1.25),s[0],s[1],0.9); g.font='11px '+css('--sans'); g.fillStyle=muted; g.textAlign='left'; g.fillText('water '+w[0],s[0]+8,s[1]-6); });"
   ],
   [
-   "<dt>Girdi ağır atomu</dt>",
-   "<dt>Input heavy atoms</dt>"
+   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*0.72); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+0.2*sc,by); g.stroke(); g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('0,2 nm · döndürmek için sürükleyin',bx+0.2*sc+8,by+4);",
+   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*0.72); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+0.2*sc,by); g.stroke(); g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('0.2 nm · drag to rotate',bx+0.2*sc+8,by+4);"
   ],
   [
-   "<dt>pdb2gmx sonrası atom</dt>",
-   "<dt>Atoms after pdb2gmx</dt>"
+   "var tag=st===2||st===3?'deneme':(tau+(tau==='HIP'?' · +1':' · 0'));",
+   "var tag=st===2||st===3?'trial':(tau+(tau==='HIP'?' · +1':' · 0'));"
   ],
   [
-   "<dt>Eklenen atom (hidrojenler)</dt>",
-   "<dt>Added atoms (hydrogens)</dt>"
+   "if(st===4) tag='karar: HISE'; if(st===0) tag=T2.tau+(T2.tau==='HIP'?' · +1':' · 0');",
+   "if(st===4) tag='decision: HISE'; if(st===0) tag=T2.tau+(T2.tau==='HIP'?' · +1':' · 0');"
   ],
   [
-   "' (otomatik; H, Nε2 üzerinde)':' (otomatik)'",
-   "' (automatic; H on Nε2)':' (automatic)'"
+   "if(st===0||st>=3) { g.font='12px '+css('--sans'); g.fillStyle=muted; g.textAlign='right'; g.fillText('küre: '+fx(dd,2)+' nm · koni: '+ang+'° (şematik)',W-12,H-14); } }",
+   "if(st===0||st>=3) { g.font='12px '+css('--sans'); g.fillStyle=muted; g.textAlign='right'; g.fillText('sphere: '+fx(dd,2)+' nm · cone: '+ang+'° (schematic)',W-12,H-14); } }"
   ],
   [
-   "<dt>N-ucu</dt>",
-   "<dt>N-terminus</dt>"
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0.2,0.3,0.4,0.5,0.6,0.7].forEach(function(d){ g.fillText(fx(d,1),X(d),H-B+16); }); g.fillText('azot ile oksijen arası (nm)',X(0.45),H-4);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0.2,0.3,0.4,0.5,0.6,0.7].forEach(function(d){ g.fillText(fx(d,1),X(d),H-B+16); }); g.fillText('nitrogen-oxygen distance (nm)',X(0.45),H-4);"
   ],
   [
-   "<dt>C-ucu</dt>",
-   "<dt>C-terminus</dt>"
+   "g.save(); g.translate(12,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('hidrojendeki açı',0,0); g.restore();",
+   "g.save(); g.translate(12,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('angle at the hydrogen',0,0); g.restore();"
   ],
   [
-   "<dt>Toplam yük</dt>",
-   "<dt>Total charge</dt>"
+   "g.fillStyle=good; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('kabul penceresi',X(x0)+6,Y(180)+15);",
+   "g.fillStyle=good; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('acceptance window',X(x0)+6,Y(180)+15);"
   ],
   [
-   "t:'Kuvvet alanı ve su'",
-   "t:'Force field and water'"
+   "$('o1flow').innerHTML='<svg viewBox=\"0 0 330 178\" role=\"img\" aria-label=\"pdb2gmx histidin kuralı: sonuç '+res+'\">'+",
+   "$('o1flow').innerHTML='<svg viewBox=\"0 0 330 178\" role=\"img\" aria-label=\"pdb2gmx histidine rule: result '+res+'\">'+"
   ],
   [
-   "'Başka bir kuvvet alanı ya da su modeli'",
-   "'Another force field or water model'"
+   "'<rect x=\"6\" y=\"6\" width=\"170\" height=\"40\" rx=\"8\" class=\"fq on\"/><text x=\"91\" y=\"23\" class=\"ft\">ND1 bağ kurdu mu?</text><text x=\"91\" y=\"39\" class=\"fs\">'+hits(C1).length+' oksijen pencerede</text>'+",
+   "'<rect x=\"6\" y=\"6\" width=\"170\" height=\"40\" rx=\"8\" class=\"fq on\"/><text x=\"91\" y=\"23\" class=\"ft\">Did ND1 form a bond?</text><text x=\"91\" y=\"39\" class=\"fs\">'+hits(C1).length+' oxygen(s) in the window</text>'+"
   ],
   [
-   "t:'HIS68 protonasyonu'",
-   "t:'HIS68 protonation'"
+   "'<line x1=\"176\" y1=\"26\" x2=\"226\" y2=\"26\" class=\"fl'+on(!a)+'\" marker-end=\"url(#o1ar)\"/><text x=\"201\" y=\"20\" class=\"fs\">hayır</text>'+",
+   "'<line x1=\"176\" y1=\"26\" x2=\"226\" y2=\"26\" class=\"fl'+on(!a)+'\" marker-end=\"url(#o1ar)\"/><text x=\"201\" y=\"20\" class=\"fs\">no</text>'+"
   ],
   [
-   "'HISE (otomatik)'",
-   "'HISE (automatic)'"
+   "'<line x1=\"91\" y1=\"46\" x2=\"91\" y2=\"72\" class=\"fl'+on(a)+'\" marker-end=\"url(#o1ar)\"/><text x=\"104\" y=\"64\" class=\"fs\" style=\"text-anchor:start\">evet</text>'+",
+   "'<line x1=\"91\" y1=\"46\" x2=\"91\" y2=\"72\" class=\"fl'+on(a)+'\" marker-end=\"url(#o1ar)\"/><text x=\"104\" y=\"64\" class=\"fs\" style=\"text-anchor:start\">yes</text>'+"
   ],
   [
-   "'HISH (yüklü)'",
-   "'HISH (charged)'"
+   "'<rect x=\"6\" y=\"74\" width=\"170\" height=\"40\" rx=\"8\" class=\"fq'+on(a)+'\"/><text x=\"91\" y=\"91\" class=\"ft\">NE2 bağ kurdu mu?</text><text x=\"91\" y=\"107\" class=\"fs\">'+hits(C2).length+' oksijen pencerede</text>'+",
+   "'<rect x=\"6\" y=\"74\" width=\"170\" height=\"40\" rx=\"8\" class=\"fq'+on(a)+'\"/><text x=\"91\" y=\"91\" class=\"ft\">Did NE2 form a bond?</text><text x=\"91\" y=\"107\" class=\"fs\">'+hits(C2).length+' oxygen(s) in the window</text>'+"
   ],
   [
-   "Bu senaryo hesaplanmadı. Bu topolojiyle hiçbir koşu yapılmadı; toplam yükün ya da sonuçların nasıl değişeceğini yazmıyoruz.",
-   "This scenario was not computed. No run was performed with this topology; we do not write down how the total charge or the results would change."
+   "'<line x1=\"176\" y1=\"94\" x2=\"226\" y2=\"94\" class=\"fl'+on(a&&!b)+'\" marker-end=\"url(#o1ar)\"/><text x=\"201\" y=\"88\" class=\"fs\">hayır</text>'+",
+   "'<line x1=\"176\" y1=\"94\" x2=\"226\" y2=\"94\" class=\"fl'+on(a&&!b)+'\" marker-end=\"url(#o1ar)\"/><text x=\"201\" y=\"88\" class=\"fs\">no</text>'+"
   ],
   [
-   "Soldaki sayılar bu topolojiden gelir ve sayfadaki bütün koşularda kullanıldı. Uç yükleri (+1 ve −1) birbirini götürür; iç kalıntıların yük toplamı da '",
-   "The numbers on the left come from this topology and were used in all runs on the page. The terminal charges (+1 and −1) cancel each other; the charges of the internal residues also sum to '"
+   "'<line x1=\"91\" y1=\"114\" x2=\"91\" y2=\"138\" class=\"fl'+on(a&&b)+'\" marker-end=\"url(#o1ar)\"/><text x=\"104\" y=\"132\" class=\"fs\" style=\"text-anchor:start\">evet</text>'+",
+   "'<line x1=\"91\" y1=\"114\" x2=\"91\" y2=\"138\" class=\"fl'+on(a&&b)+'\" marker-end=\"url(#o1ar)\"/><text x=\"104\" y=\"132\" class=\"fs\" style=\"text-anchor:start\">yes</text>'+"
   ],
   [
-   "' e\\'dir.</p>'",
-   "' e.</p>'"
+   "$('o1tab').innerHTML=T2.runs.map(function(x){ return '<tr><td>'+(x.w?'kristal sularıyla':'yalnız protein')+'</td><td class=\"n\">'+fx(+x.d,2)+'</td><td class=\"n\">'+x.a+'°</td><td><b>'+x.his+'</b></td><td class=\"n\">'+NFI.format(x.nhb)+'</td><td class=\"n\">'+(HISQ[x.his]?'+1':'0')+'</td></tr>'; }).join('');",
+   "$('o1tab').innerHTML=T2.runs.map(function(x){ return '<tr><td>'+(x.w?'with crystal waters':'protein only')+'</td><td class=\"n\">'+fx(+x.d,2)+'</td><td class=\"n\">'+x.a+'°</td><td><b>'+x.his+'</b></td><td class=\"n\">'+NFI.format(x.nhb)+'</td><td class=\"n\">'+(HISQ[x.his]?'+1':'0')+'</td></tr>'; }).join('');"
   ],
   [
-   "'Evet; PME kullanan her sistem nötrleştirici iyon ister.'",
-   "'Yes; every system that uses PME requires neutralizing ions.'"
+   "if(his==='HISE') n='pdb2gmx de HISE dedi: pencerede ND1\\'e ait bir oksijen yok. Bu bir kanıt değil, kuralın varsayılanıdır.';",
+   "if(his==='HISE') n='pdb2gmx also said HISE: there is no oxygen for ND1 in the window. This is not evidence, it is the rule\\'s default.';"
   ],
   [
-   "'Hayır; net yük zaten sıfır, nötrleştirmek için iyon gerekmez. Tuz derişimi ayrı bir karardır ve araştırma sorusuna göre verilir.'",
-   "'No; the net charge is already zero, so no ions are needed for neutralization. The salt concentration is a separate decision, made according to the research question.'"
+   "else if(his==='HISD') n='pdb2gmx HISD dedi: pencere '+lab(p1.j)+' oksijenine kadar genişledi ve ND1 \"bağ\" kurdu. '+fx(p1.d,3)+' nm gerçek bir hidrojen bağı için çok uzundur; karar ölçüte duyarlı.';",
+   "else if(his==='HISD') n='pdb2gmx said HISD: the window widened to reach '+lab(p1.j)+' and ND1 formed a \"bond\". '+fx(p1.d,3)+' nm is far too long for a real hydrogen bond; the decision is sensitive to the criterion.';"
   ],
   [
-   "'Hayır; yük sıfır olduğu için sistem fizyolojik ortamı zaten temsil eder.'",
-   "'No; since the charge is zero, the system already represents a physiological environment.'"
+   "else n='pdb2gmx HISH dedi: pencere hem ND1\\'e hem NE2\\'ye bir oksijen kattı ve His68 yüklü oldu. Toplam yük +1 e olur, sistemi nötrleştirmek için bir karşı iyon gerekir. Bunun için '+fx(+dd,2)+' nm ve '+T2.ang+'° gibi gerçekçi olmayan bir ölçüt gerekti.';",
+   "else n='pdb2gmx said HISH: the window brought in an oxygen for both ND1 and NE2 and His68 became charged. The total charge becomes +1 e, and a counter-ion is needed to neutralize the system. This took an unrealistic criterion such as '+fx(+dd,2)+' nm and '+T2.ang+'°.';"
   ],
   [
-   "'Doğru. Ana yolda (S0) hiç iyon yok ve bu, “tuzsuz su” demektir, fizyolojik çözelti değil. Tuzlu senaryoda (S4) genion -neutral -conc 0,15 ile '",
-   "'Correct. On the main path (S0) there are no ions at all, which means “salt-free water”, not a physiological solution. In the salt scenario (S4), genion -neutral -conc 0.15 added '"
+   "n+=gd===his?' Harita da aynı sonucu gösteriyor.':' (Harita bu ayarda '+gd+' gösteriyor.)';",
+   "n+=gd===his?' The map shows the same result.':' (With this setting the map shows '+gd+'.)';"
   ],
   [
-   "' Na⁺ ve '",
-   "' Na⁺ and '"
+   "if(ks.length>=2){ var e=hs.HISE, o=hs.HISD||hs.HISH; if(e&&o) card('o1c3',true,'<b>'+fx(+e.d,2)+' nm, '+e.a+'°</b> ile pdb2gmx His68\\'e <b>HISE</b> verdi; <b>'+fx(+o.d,2)+' nm, '+o.a+'°</b> ile <b>'+o.his+'</b>'+(o.his==='HISH'?' (yüklü, +1 e)':'')+'. Varsayılan ölçütte (0,30 nm, 135°) iki azotun da ortağı yok, HISE kuralın varsayılanından geliyor. ND1\\'in \"ortağı\" '+lab(nearA(C1,o.a).j)+', '+fx(nearA(C1,o.a).d,3)+' nm uzakta: gerçek bir hidrojen bağı için alışılmış 0,30 nm sınırının bir buçuk katından fazla. Halkanın yanında ise kristal yapıda bir su duruyor (su 112, NE2\\'den 0,364 nm); pdb2gmx suyu bu hesaba katmaz.'); }",
+   "if(ks.length>=2){ var e=hs.HISE, o=hs.HISD||hs.HISH; if(e&&o) card('o1c3',true,'With <b>'+fx(+e.d,2)+' nm, '+e.a+'°</b> pdb2gmx gave His68 <b>HISE</b>; with <b>'+fx(+o.d,2)+' nm, '+o.a+'°</b> it gave <b>'+o.his+'</b>'+(o.his==='HISH'?' (charged, +1 e)':'')+'. With the default criterion (0.30 nm, 135°) neither nitrogen has a partner, and HISE comes from the rule\\'s default. The \"partner\" of ND1, '+lab(nearA(C1,o.a).j)+', is '+fx(nearA(C1,o.a).d,3)+' nm away: more than one and a half times the usual 0.30 nm limit for a real hydrogen bond. Next to the ring, in the crystal structure, there is a water (water 112, 0.364 nm from NE2); pdb2gmx leaves water out of this calculation.'); }"
   ],
   [
-   "' Cl⁻ eklendi: sayıların eşit olması, nötrleştirme için ek iyon gerekmediğini gösterir.'",
-   "' Cl⁻: the equal numbers show that no extra ions were needed for neutralization.'"
+   "if(pairs.length){ var p=pairs[pairs.length-1]; card('o1c4',true,'Aynı ölçütle (<b>'+fx(+p[0].d,2)+' nm, '+p[0].a+'°</b>) kristal sularıyla '+p[0].his+' ve '+NFI.format(p[0].nhb)+' hidrojen bağı, onlarsız '+p[1].his+' ve '+NFI.format(p[1].nhb)+'. pdb2gmx suları ayrı bir zincir olarak işler ve histidin kararını yalnız proteinin kendi zincirinde verir; su 112, NE2\\'nin 0,364 nm yanında dursa da karara girmez.'); } }",
+   "if(pairs.length){ var p=pairs[pairs.length-1]; card('o1c4',true,'With the same criterion (<b>'+fx(+p[0].d,2)+' nm, '+p[0].a+'°</b>): with crystal waters '+p[0].his+' and '+NFI.format(p[0].nhb)+' hydrogen bonds, without them '+p[1].his+' and '+NFI.format(p[1].nhb)+'. pdb2gmx processes the waters as a separate chain and makes the histidine decision only within the protein\\'s own chain; water 112 sits 0.364 nm from NE2 but does not enter the decision.'); } }"
   ],
   [
-   "'Tekrar düşünün: nötrleştirme, net yükü sıfırlamak için yapılır. Tuz ise hangi ortamı temsil etmek istediğinizle ilgili ayrı bir karardır.'",
-   "'Think again: neutralization is done to bring the net charge to zero. Salt, on the other hand, is a separate decision about which environment you want to represent.'"
+   "{s:'Bir grubun pK<sub>a</sub>\\'sı 6,5 ise pH 7,5\\'te ne olur?',o:[['Grup yarı yarıya protonludur',0],['Protonlu biçim, protonsuz biçimin yaklaşık onda biri kadardır',1],['Grup tamamen protonludur',0],['Grubun yükü pH\\'ya bağlı değildir',0]],w:'pH, pK<sub>a</sub>\\'dan bir birim yukarıdaysa [A⁻]/[HA] = 10: protonlu biçim yaklaşık %9.'},",
+   "{s:'If the pK<sub>a</sub> of a group is 6.5, what happens at pH 7.5?',o:[['The group is half protonated',0],['The protonated form is about one tenth of the deprotonated form',1],['The group is fully protonated',0],['The charge of the group does not depend on pH',0]],w:'If the pH is one unit above the pK<sub>a</sub>, [A⁻]/[HA] = 10: the protonated form is about 9%.'},"
   ],
   [
-   "<small>3 · Kutu, çözücü ve tuz</small>Ne kadar su, ne kadar tuz?",
-   "<small>3 · Box, solvent and salt</small>How much water, how much salt?"
+   "{s:'pdb2gmx bir proteinin protonasyonuna hangi bilgiyle karar verir?',o:[['Kullanıcının verdiği pH ile',0],['Grupların alışılmış nötr pH atamasıyla; histidinde ise yapıdaki hidrojen bağlarına bakarak',1],['Her grubun deneysel pK<sub>a</sub>\\'sıyla',0],['Rastgele',0]],w:'pdb2gmx pH sormaz. Asp, Glu, Lys ve Arg için alışılmış yükleri verir; histidin için varsayımsal hidrojenlerle hidrojen bağı arar. İsteyen <code>-his</code>, <code>-asp</code>, <code>-glu</code>, <code>-lys</code>, <code>-arg</code> seçenekleriyle elle seçer.'},",
+   "{s:'What information does pdb2gmx use to decide the protonation of a protein?',o:[['The pH given by the user',0],['The usual neutral-pH assignment of the groups; for histidine, the hydrogen bonds in the structure',1],['The experimental pK<sub>a</sub> of each group',0],['Chance',0]],w:'pdb2gmx does not ask for a pH. It gives the usual charges for Asp, Glu, Lys and Arg; for histidine it looks for hydrogen bonds with trial hydrogens. Anyone who wants to can choose by hand with the <code>-his</code>, <code>-asp</code>, <code>-glu</code>, <code>-lys</code>, <code>-arg</code> options.'},"
   ],
   [
-   "Protein periyodik bir kutuya konur ve kutu suyla doldurulur. Kutu küçüldükçe atom sayısı ve hesap maliyeti düşer, ama protein kendi periyodik görüntüsüne yaklaşır. Kesme mesafesi içinde kendi kopyasını “gören” bir protein, gerçekte olmayan bir etkileşim kurar. Bu koşularda kesme mesafesi <span data-b=\"cut\"></span> nm'dir (<code>.mdp</code> dosyalarındaki <code>rcoulomb = rvdw</code> tanımı, bir ölçüm değil).",
-   "The protein is placed in a periodic box, and the box is filled with water. As the box gets smaller, the number of atoms and the computational cost fall, but the protein comes closer to its own periodic image. A protein that “sees” its own copy within the cut-off distance forms an interaction that does not exist in reality. In these runs the cut-off distance is <span data-b=\"cut\"></span> nm (the <code>rcoulomb = rvdw</code> setting in the <code>.mdp</code> files, not a measurement)."
+   "{s:'Bu projede His68 neden HISE oldu?',o:[['NMR ölçümü bunu gösterdiği için',0],['ND1\\'in varsayılan ölçüt içinde bir hidrojen bağı ortağı olmadığı için kural varsayılanı verdi',1],['NE2 bir karboksille güçlü bir bağ kurduğu için',0],['Kristal suları bunu gerektirdiği için',0]],w:'Varsayılan ölçütte (0,30 nm, 135°) iki azotun da protein içinde ortağı yok; kural, ND1 bağ kurmayınca HISE verir.'},",
+   "{s:'Why did His68 become HISE in this project?',o:[['Because an NMR measurement showed it',0],['Because ND1 had no hydrogen-bond partner within the default criterion, so the rule gave its default',1],['Because NE2 formed a strong bond with a carboxyl',0],['Because the crystal waters required it',0]],w:'With the default criterion (0.30 nm, 135°) neither nitrogen has a partner in the protein; when ND1 forms no bond, the rule gives HISE.'},"
   ],
   [
-   "Kutu boyutunu, <code>editconf -d</code> ile proteinden kutu kenarına bırakılan en az boşluk belirler. Tuz ise ayrı bir karardır: toplam yük sıfır olduğu için nötrleştirmek gerekmez; 0,15 M NaCl eklemek, araştırma sorusunun istediği ortama göre verilen bir tercihtir.",
-   "The box size is set by the minimum margin left between the protein and the box edge with <code>editconf -d</code>. Salt is a separate decision: since the total charge is zero, no neutralization is needed; adding 0.15 M NaCl is a choice made according to the environment the research question calls for."
+   "{s:'İzoelektrik noktada bir protein için hangisi doğrudur?',o:[['Hiçbir grubu yüklü değildir',0],['Artı ve eksi yüklerin toplamı birbirine eşittir; çok sayıda yüklü grup vardır',1],['Bütün grupları protonludur',0],['Çözünürlüğü en yüksektir',0]],w:'Ubikitinde pI\\'da yaklaşık 12 artı ve 12 eksi yük birbirini dengeler; net yük sıfırdır, yük yok değildir.'},",
+   "{s:'Which is true for a protein at its isoelectric point?',o:[['None of its groups is charged',0],['The sums of positive and negative charges are equal; many groups are charged',1],['All of its groups are protonated',0],['Its solubility is highest',0]],w:'In ubiquitin at the pI about 12 positive and 12 negative charges balance each other; the net charge is zero, yet the protein still carries many charges.'},"
   ],
   [
-   "Kutu ve tuz: atom sayısı, maliyet, görüntü mesafesi",
-   "Box and salt: atom count, cost, image distance"
+   "{s:'Ubikitinin izoelektrik noktası ölçülen pK<sub>a</sub>\\'larla neden kaydı?',o:[['Asp ve Glu\\'ların pK<sub>a</sub>\\'sı çok düştüğü için',0],['Met1\\'in amino grubunun pK<sub>a</sub>\\'sı 8,00 yerine 9,14 ölçüldüğü için',1],['Arg\\'lerin pK<sub>a</sub>\\'sı düştüğü için',0],['His68 yüklü olduğu için',0]],w:'pI\\'yı en çok, pK<sub>a</sub>\\'sı pI\\'ya yakın gruplar belirler. Karboksiller pI\\'da zaten tamamen yüklüdür; N-ucunun kayması pI\\'yı yaklaşık yarım birim taşır.'},",
+   "{s:'Why did the isoelectric point of ubiquitin shift with the measured pK<sub>a</sub> values?',o:[['Because the pK<sub>a</sub> of Asp and Glu dropped a lot',0],['Because the pK<sub>a</sub> of the amino group of Met1 was measured as 9.14 instead of 8.00',1],['Because the pK<sub>a</sub> of the Arg residues dropped',0],['Because His68 is charged',0]],w:'The pI is set mostly by groups whose pK<sub>a</sub> is close to the pI. The carboxyls are already fully charged at the pI; the shift of the N-terminus moves the pI by about half a unit.'},"
   ],
   [
-   "<th>Kutu · tuz</th><th>Atom</th><th>Su</th>",
-   "<th>Box · salt</th><th>Atoms</th><th>Water</th>"
+   "{s:'Standart bir MD koşusunda protonasyon için hangisi doğrudur?',o:[['Her adımda pH\\'ya göre yeniden hesaplanır',0],['Hazırlıkta bir kez seçilir ve koşu boyunca değişmez',1],['Sıcaklıkla birlikte değişir',0],['Termostat tarafından ayarlanır',0]],w:'Sabit protonasyon: His68 pH 7\\'de moleküllerin yaklaşık dörtte birinde yüklü olabilirdi, ama koşu boyunca tek bir biçimde, HISE\\'de kalır.'}",
+   "{s:'Which is true for protonation in a standard MD run?',o:[['It is recomputed from the pH at every step',0],['It is chosen once during preparation and does not change during the run',1],['It changes with the temperature',0],['It is set by the thermostat',0]],w:'Fixed protonation: at pH 7 His68 could be charged in about a quarter of the molecules, but it stays in a single form, HISE, for the whole run.'}"
   ],
   [
-   "<th>Konum kısıtlı NVT</th><th>Konum kısıtsız</th>",
-   "<th>Restrained NVT</th><th>Unrestrained</th>"
+   "b.classList.add(okk?'right':'wrong'); var w=$('o1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var w=$('o1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
   ],
   [
-   "Kutu boşluğu (<code>editconf -d</code>)",
-   "Box margin (<code>editconf -d</code>)"
+   "$('o1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }",
+   "$('o1score').textContent='Answered: '+n+' / '+QZ.length+' · correct on the first try: '+r; }); }); }"
   ],
   [
-   "aria-label=\"Kutu boşluğu\"",
-   "aria-label=\"Box margin\""
+   "$('o1pH').addEventListener('input',function(){ T1.play=false; $('o1play').textContent='Titrasyonu oynat (pH 1 → 13)'; T1.pH=+this.value; tRead(); ubqDraw(); titDraw(); });",
+   "$('o1pH').addEventListener('input',function(){ T1.play=false; $('o1play').textContent='Play the titration (pH 1 → 13)'; T1.pH=+this.value; tRead(); ubqDraw(); titDraw(); });"
   ],
   [
-   ">1,0 nm<",
-   ">1.0 nm<"
+   "$('o1play').addEventListener('click',function(){ if(T1.play){ T1.play=false; this.textContent='Titrasyonu oynat (pH 1 → 13)'; tRead(); return; } T1.play=true; if(T1.pH>=12.9) T1.pH=1; this.textContent='Durdur'; if(reduce){ T1.pH=13; T1.play=false; $('o1pH').value=13; tRead(); ubqDraw(); titDraw(); this.textContent='Titrasyonu oynat (pH 1 → 13)'; } else kick(); });",
+   "$('o1play').addEventListener('click',function(){ if(T1.play){ T1.play=false; this.textContent='Play the titration (pH 1 → 13)'; tRead(); return; } T1.play=true; if(T1.pH>=12.9) T1.pH=1; this.textContent='Pause'; if(reduce){ T1.pH=13; T1.play=false; $('o1pH').value=13; tRead(); ubqDraw(); titDraw(); this.textContent='Play the titration (pH 1 → 13)'; } else kick(); });"
   ],
   [
-   ">0,5 nm<",
-   ">0.5 nm<"
+   "if(T1.play){ T1.pH=Math.min(13,T1.pH+dt*1.1); $('o1pH').value=T1.pH; tRead(); ubqDraw(); titDraw(); if(T1.pH>=13){ T1.play=false; $('o1play').textContent='Titrasyonu oynat (pH 1 → 13)'; tRead(); } else go=true; }",
+   "if(T1.play){ T1.pH=Math.min(13,T1.pH+dt*1.1); $('o1pH').value=T1.pH; tRead(); ubqDraw(); titDraw(); if(T1.pH>=13){ T1.play=false; $('o1play').textContent='Play the titration (pH 1 → 13)'; tRead(); } else go=true; }"
   ],
   [
-   "<span class=\"lbl\">Tuz</span>",
-   "<span class=\"lbl\">Salt</span>"
-  ],
-  [
-   "aria-label=\"Tuz\"",
-   "aria-label=\"Salt\""
-  ],
-  [
-   ">Tuz yok<",
-   ">No salt<"
-  ],
-  [
-   ">0,15 M NaCl<",
-   ">0.15 M NaCl<"
-  ],
-  [
-   "Proteinin kendi görüntüsüne en kısa mesafesi",
-   "Minimum distance from the protein to its own periodic image"
-  ],
-  [
-   "Konum kısıtsız koşularda proteinin periyodik görüntüsüne en kısa mesafesi, iki kutu boyutu için, kesme mesafesi çizgisiyle",
-   "Minimum distance from the protein to its periodic image in the unrestrained runs, for two box sizes, with the cut-off distance line"
-  ],
-  [
-   "kesme mesafesi (<code>.mdp</code>)",
-   "cut-off distance (<code>.mdp</code>)"
-  ],
-  [
-   "0,5 nm'lik kutuda, bu konum kısıtsız koşu boyunca proteinin kendi görüntüsüne olan mesafesi en az kaç nm oldu (iki ondalık)? Bu mesafe kesme mesafesinin altına indi mi?",
-   "In the 0.5 nm box, what was the minimum distance from the protein to its own image during this unrestrained run (in nm, two decimal places)? Did this distance fall below the cut-off distance?"
-  ],
-  [
-   ">En kısa mesafe (nm)<",
-   ">Minimum distance (nm)<"
-  ],
-  [
-   "placeholder=\"en kısa = ?\"",
-   "placeholder=\"minimum = ?\""
-  ],
-  [
-   "aria-label=\"Kesme mesafesinin altına indi mi?\"",
-   "aria-label=\"Did it fall below the cut-off distance?\""
-  ],
-  [
-   ">Altına indi<",
-   ">Fell below<"
-  ],
-  [
-   ">Altına inmedi<",
-   ">Did not fall below<"
-  ],
-  [
-   "lab:'1,0 nm · tuz yok'",
-   "lab:'1.0 nm · no salt'"
-  ],
-  [
-   "lab:'0,5 nm · tuz yok'",
-   "lab:'0.5 nm · no salt'"
-  ],
-  [
-   "lab:'1,0 nm · 0,15 M NaCl'",
-   "lab:'1.0 nm · 0.15 M NaCl'"
-  ],
-  [
-   "fx(m.CL||0,0):'yok'",
-   "fx(m.CL||0,0):'none'"
-  ],
-  [
-   "'Performans ns/gün cinsindendir ve hepsi aynı bulut makinesinde ölçüldü ('",
-   "'Performance is in ns/day, and all values were measured on the same cloud machine ('"
-  ],
-  [
-   "'). 1,0 nm ve tuzsuz sistemin satırı, S0 koşularının bu makinedeki tekrarlarıdır (C0: konum kısıtlı NVT, C1: konum kısıtsız). S0\\'ın kendi WSL ölçümleri başka bir makineden geldiği için bu tabloya konmadı.'",
-   "'). The row for the 1.0 nm, salt-free system consists of repeats of the S0 runs on this machine (C0: position-restrained NVT, C1: unrestrained). The WSL measurements of S0 itself come from another machine and are therefore not included in this table.'"
-  ],
-  [
-   "'Hesaplanan birleşimler: 1,0 nm + tuz yok (S0; bulutta C0 ve C1), 0,5 nm + tuz yok (S3), 1,0 nm + 0,15 M NaCl (S4). Dördüncü birleşim koşulmadı.'",
-   "'Computed combinations: 1.0 nm + no salt (S0; C0 and C1 on the cloud machine), 0.5 nm + no salt (S3), 1.0 nm + 0.15 M NaCl (S4). The fourth combination was not run.'"
-  ],
-  [
-   "Bu senaryo hesaplanmadı. Dar kutu ile tuz birlikte koşulmadı; atom sayısını, maliyeti ya da görüntü mesafesini tahmin edip yazmıyoruz.",
-   "This scenario was not computed. The small box and salt were not run together; we do not write down a guessed atom count, cost or image distance."
-  ],
-  [
-   "<dt>Toplam atom</dt>",
-   "<dt>Total atoms</dt>"
-  ],
-  [
-   "<dt>Protein atomu</dt>",
-   "<dt>Protein atoms</dt>"
-  ],
-  [
-   "<dt>Su molekülü</dt>",
-   "<dt>Water molecules</dt>"
-  ],
-  [
-   "<dt>Konum kısıtlı NVT, bulut</dt>",
-   "<dt>Position-restrained NVT, cloud</dt>"
-  ],
-  [
-   "<dt>Konum kısıtsız, bulut</dt>",
-   "<dt>Unrestrained, cloud</dt>"
-  ],
-  [
-   "<dt>Atom sayısı, tuzsuz 1,0 nm\\'ye göre</dt>",
-   "<dt>Atom count relative to salt-free 1.0 nm</dt>"
-  ],
-  [
-   "' %</dd><dt>Hız (konum kısıtsız), aynı makinede</dt><dd>'",
-   "'%</dd><dt>Speed (unrestrained), same machine</dt><dd>'"
-  ],
-  [
-   "' kat</dd>'",
-   "'×</dd>'"
-  ],
-  [
-   "style=\"margin-top:8px\">genion '",
-   "style=\"margin-top:8px\">genion replaced '"
-  ],
-  [
-   "' su molekülünü iyonla değiştirdi: '",
-   "' water molecules with ions: '"
-  ],
-  [
-   "' × 3 atom çıktı, '",
-   "' × 3 atoms out, '"
-  ],
-  [
-   "' iyon girdi; toplam atom '",
-   "' ions in; the total number of atoms fell by '"
-  ],
-  [
-   "' azaldı. Hız neredeyse aynı kaldı.</p>'",
-   "'. The speed stayed almost the same.</p>'"
-  ],
-  [
-   "Daha az su, daha az atom, daha hızlı koşu. Bedeli aşağıdaki grafikte: protein kendi görüntüsüne yaklaşır.",
-   "Less water, fewer atoms, a faster run. The price is shown in the graph below: the protein comes closer to its own image."
-  ],
-  [
-   "label:'kesme mesafesi '",
-   "label:'cut-off distance '"
-  ],
-  [
-   "xl:'zaman, ps (konum kısıtsız koşu)',yl:'en kısa mesafe, nm'",
-   "xl:'time, ps (unrestrained run)',yl:'minimum distance, nm'"
-  ],
-  [
-   "'gmx mindist -pi ile konum kısıtsız koşunun her karesinde hesaplandı ('",
-   "'Computed with gmx mindist -pi for every frame of the unrestrained run ('"
-  ],
-  [
-   "'). 1,0 nm kutuda en kısa mesafe '",
-   "'). Minimum distance in the 1.0 nm box: '"
-  ],
-  [
-   "' nm, 0,5 nm kutuda '",
-   "' nm; in the 0.5 nm box: '"
-  ],
-  [
-   "' nm ('+fx(b.t_ps[ib],0)+'. ps).'",
-   "' nm (at '+fx(b.t_ps[ib],0)+' ps).'"
-  ],
-  [
-   "'Doğru: en kısa mesafe '",
-   "'Correct: the minimum distance, '"
-  ],
-  [
-   "'), kesme mesafesinin ('",
-   "'), stayed above the cut-off distance ('"
-  ],
-  [
-   "' nm) üstünde kaldı. Ama bu yalnız '",
-   "' nm). But this is only a '"
-  ],
-  [
-   "' ps\\'lik bir koşu. Protein kutuda döndükçe uzun eksenini görüntüsüne doğru çevirebilir; daha uzun bir koşuda mesafe inebilir. Dar kutu kararı, üretim süresi boyunca mindist izlenerek sınanmalıdır.'",
-   "' ps run. As the protein rotates in the box, it can turn its long axis towards its image; in a longer run the distance may drop. The small-box decision should be tested by monitoring mindist throughout the production run.'"
-  ],
-  [
-   "'Sayı doğru. Şimdi onu kesme mesafesiyle ('",
-   "'The number is correct. Now compare it with the cut-off distance ('"
-  ],
-  [
-   "' nm, kırmızı kesikli çizgi) karşılaştırıp “indi” ya da “inmedi” seçin.'",
-   "' nm, red dashed line) and choose “Fell below” or “Did not fall below”.'"
-  ],
-  [
-   "'Karşılaştırma doğru; şimdi turuncu eğrinin en düşük noktasını iki ondalıkla yazın (grafik altındaki açıklamada da var).'",
-   "'The comparison is correct; now enter the lowest point of the orange curve to two decimal places (it is also given in the caption below the graph).'"
-  ],
-  [
-   "'Turuncu eğri 0,5 nm kutudur. En düşük noktasını okuyun, sonra kırmızı çizgiyle karşılaştırın.'",
-   "'The orange curve is the 0.5 nm box. Read off its lowest point, then compare it with the red line.'"
-  ],
-  [
-   "<small>4 · Minimizasyon</small>Çakışmaları gidermeden yola çıkmak",
-   "<small>4 · Minimization</small>Setting off without removing the clashes"
-  ],
-  [
-   "Çözücü ekleme, suları proteinin çevresine geometrik bir kuralla yerleştirir; bazı atomlar birbirine fazla yakın düşer. Enerji minimizasyonu (burada steepest descent) atomları enerjinin azaldığı yöne küçük adımlarla iterek bu çakışmaları giderir. Hedef, en büyük kuvvetin (Fmax) önceden seçilen bir eşiğin altına inmesidir.",
-   "Solvation places the waters around the protein by a geometric rule; some atoms end up too close to each other. Energy minimization (here steepest descent) removes these clashes by pushing the atoms in small steps in the direction in which the energy decreases. The goal is for the largest force (Fmax) to fall below a threshold chosen in advance."
-  ],
-  [
-   "Minimizasyonu yapın ya da atlayın, sonra <b>Başlat</b>'a basın.",
-   "Run or skip the minimization, then press <b>Start</b>."
-  ],
-  [
-   "Minimizasyon: yap ya da atla",
-   "Minimization: run it or skip it"
-  ],
-  [
-   "Minimizasyon ya da dinamik koşusunun kayıt satırları",
-   "Log lines of the minimization or dynamics run"
-  ],
-  [
-   "Enerji minimizasyonu",
-   "Energy minimization"
-  ],
-  [
-   ">Yap</button>",
-   ">Run</button>"
-  ],
-  [
-   "Atla, doğrudan NVT'ye geç",
-   "Skip it, go straight to NVT"
-  ],
-  [
-   "Minimizasyonu atlayıp koşuyu oynatın. Sorunu ilk ne haber verdi ve koşu nerede durdu?",
-   "Skip the minimization and play the run. What was the first sign of the problem, and where did the run stop?"
-  ],
-  [
-   "Seçenekler, minimizasyonsuz koşu oynatıldığında etkinleşir.",
-   "The options become active once the run without minimization has been played."
-  ],
-  [
-   "' · mdrun -v satırlarından: adım, Epot (kJ mol⁻¹), Fmax (kJ mol⁻¹ nm⁻¹)'",
-   "' · from the mdrun -v lines: step, Epot (kJ mol⁻¹), Fmax (kJ mol⁻¹ nm⁻¹)'"
-  ],
-  [
-   "'Minimizasyonda potansiyel enerji, adıma karşı'",
-   "'Potential energy during minimization versus step'"
-  ],
-  [
-   "xl:'adım'",
-   "xl:'step'"
-  ],
-  [
-   "'Minimizasyonda en büyük kuvvet Fmax, logaritmik eksende, adıma karşı'",
-   "'Largest force Fmax during minimization, on a logarithmic axis, versus step'"
-  ],
-  [
-   "label:'eşik '",
-   "label:'threshold '"
-  ],
-  [
-   "'0. adımdaki sıcaklık: minimizasyonsuz koşu ve minimizasyonlu kontrol'",
-   "'Temperature at step 0: run without minimization and control with minimization'"
-  ],
-  [
-   "'C0 (minimizasyonlu)'",
-   "'C0 (with minimization)'"
-  ],
-  [
-   "'S1 (minimizasyonsuz)'",
-   "'S1 (without minimization)'"
-  ],
-  [
-   "xl:'0. adımdaki sıcaklık, K'",
-   "xl:'temperature at step 0, K'"
-  ],
-  [
-   "<dt>Fmax eşiği</dt>",
-   "<dt>Fmax threshold</dt>"
-  ],
-  [
-   "<dt>İlk Fmax</dt>",
-   "<dt>Initial Fmax</dt>"
-  ],
-  [
-   "<dt>Son Fmax</dt>",
-   "<dt>Final Fmax</dt>"
-  ],
-  [
-   "<dt>İlk Epot</dt>",
-   "<dt>Initial Epot</dt>"
-  ],
-  [
-   "<dt>Son Epot</dt>",
-   "<dt>Final Epot</dt>"
-  ],
-  [
-   ">Fmax '+fx(EM.em.fmax[0]/EM.final_fmax,0)+' kat küçüldü. Eşiğe inmek fiziksel bir doğrulama değildir; yalnızca dinamiğe güvenle başlanabileceğini gösterir. Sonraki NVT, 0. adımda '",
-   ">Fmax decreased by a factor of '+fx(EM.em.fmax[0]/EM.final_fmax,0)+'. Reaching the threshold is not a physical validation; it only shows that the dynamics can be started safely. The subsequent NVT started at step 0 with '"
-  ],
-  [
-   "' K ile başladı (S0).</p>'",
-   "' K (S0).</p>'"
-  ],
-  [
-   "<dt>0. adımda sıcaklık</dt>",
-   "<dt>Temperature at step 0</dt>"
-  ],
-  [
-   "<dt>0. adımda basınç</dt>",
-   "<dt>Pressure at step 0</dt>"
-  ],
-  [
-   "<dt>Minimizasyonlu kontrol (C0), 0. adım</dt>",
-   "<dt>Control with minimization (C0), step 0</dt>"
-  ],
-  [
-   "' (ilki '+fx(S1.first_warning_step,0)+'. adımda)</dd>",
-   "' (first at step '+fx(S1.first_warning_step,0)+')</dd>"
-  ],
-  [
-   "<dt>En büyük göreli bağ sapması</dt>",
-   "<dt>Largest relative bond deviation</dt>"
-  ],
-  [
-   "<dt>Durduğu yer</dt><dd>'+fx(S1_CRASH[0],0)+'. adım ('",
-   "<dt>Stopped at</dt><dd>step '+fx(S1_CRASH[0],0)+' ('"
-  ],
-  [
-   "<dt>Çıkış kodu</dt>",
-   "<dt>Exit code</dt>"
-  ],
-  [
-   "Hızlar iki koşuda da aynı hedef sıcaklık için üretildi. Çakışan atomlar üzerindeki dev kuvvetler ilk yarım adımda hızları o kadar büyüttü ki kaydedilen sıcaklık '",
-   "In both runs the velocities were generated for the same target temperature. The huge forces on the clashing atoms increased the velocities so much in the first half step that the recorded temperature was '"
-  ],
-  [
-   "' K oldu. Bir sonraki adımda bir bağ, olması gereken uzunluğun yaklaşık '",
-   "' K. In the next step, one bond deviated by about '"
-  ],
-  [
-   "' milyar katı kadar saptı ve program “Segmentation fault” ile çöktü. Enerji dosyasına yalnız 0. adım yazılabildi. İki koşu da aynı bulut makinesinde yapıldı.</p>'",
-   "' billion times its reference length, and the program crashed with a “Segmentation fault”. Only step 0 could be written to the energy file. Both runs were performed on the same cloud machine.</p>'"
-  ],
-  [
-   "Başlat\\'a basın: koşunun kaydı akacak, sonuç burada görünecek.",
-   "Press Start: the log of the run will stream by, and the result will appear here."
-  ],
-  [
-   "'Minimizasyon (S0) · '",
-   "'Minimization (S0) · '"
-  ],
-  [
-   "'Minimizasyonsuz NVT (S1) · '",
-   "'NVT without minimization (S1) · '"
-  ],
-  [
-   "'Kayıt satırlarına ve sonuç paneline bakıp bir seçenek işaretleyin.'",
-   "'Look at the log lines and the result panel, then select an option.'"
-  ],
-  [
-   "'Koşu 10 ps boyunca sürdü, ama sıcaklık sonuna kadar yüksek kaldı.'",
-   "'The run lasted 10 ps, but the temperature stayed high until the end.'"
-  ],
-  [
-   "'grompp girdiyi reddetti; mdrun hiç başlamadı.'",
-   "'grompp rejected the input; mdrun never started.'"
-  ],
-  [
-   "'0. adımda sıcaklık '",
-   "'At step 0 the temperature was '"
-  ],
-  [
-   "' K çıktı ve bir LINCS uyarısı geldi; '",
-   "' K and a LINCS warning appeared; at step '"
-  ],
-  [
-   "'. adımda bağ sapması milyarlar mertebesine ulaştı ve program çöktü (çıkış kodu '",
-   "' the bond deviation reached the order of billions and the program crashed (exit code '"
-  ],
-  [
-   "'Hiçbir belirti yoktu; koşu sonunda rastgele bir donanım hatasıyla durdu.'",
-   "'There was no warning sign; in the end the run stopped because of a random hardware fault.'"
-  ],
-  [
-   "'Doğru. İlk belirti 0. adımdaki sıcaklık ve LINCS uyarısıdır: kısıtlanan bağlar, çakışan atomların kuvvetiyle çekiştirilince hedef uzunluklarını tutamaz. Minimizasyonlu yolda ('",
-   "'Correct. The first signs are the temperature at step 0 and the LINCS warning: when the constrained bonds are pulled by the forces on the clashing atoms, they cannot keep their target lengths. On the path with minimization ('"
-  ],
-  [
-   "' adım) aynı NVT ayarları sorunsuz koştu. Minimizasyon bir kalite kanıtı değildir, ama atlandığında koşu ilk adımlarda dağılabilir.'",
-   "' steps), the same NVT settings ran without problems. Minimization is not proof of quality, but when it is skipped the run can blow up in the first steps.'"
-  ],
-  [
-   "'Kayıt satırlarına tekrar bakın: uyarı hangi adımda geldi, koşu kaç adım sürdü? grompp aşaması bu koşuda çıkış kodu 0 ile geçti.'",
-   "'Look at the log lines again: at which step did the warning appear, and how many steps did the run last? In this run the grompp stage passed with exit code 0.'"
-  ],
-  [
-   "<small>5 · Dengeleme ve zaman adımı</small>Sıcaklık, basınç ve dört femtosaniye",
-   "<small>5 · Equilibration and time step</small>Temperature, pressure and four femtoseconds"
-  ],
-  [
-   "Minimizasyondan sonra sistem önce sabit hacimde hedef sıcaklığa getirilir (NVT; <code>.mdp</code> dosyasındaki tanım <code>ref_t = 300</code> K), sonra basınç denetimi açılır (NPT). İki aşamada da protein ağır atomları konum kısıtıyla yerinde tutulur. Aynı yerde bir karar daha verilir: zaman adımı ve hangi bağların uzunluğunun sabitleneceği.",
-   "After minimization, the system is first brought to the target temperature at constant volume (NVT; the setting in the <code>.mdp</code> file is <code>ref_t = 300</code> K), and then pressure control is switched on (NPT). In both stages the protein heavy atoms are held in place by position restraints. At the same point one more decision is made: the time step, and which bonds are to have their lengths constrained."
-  ],
-  [
-   "MD-T'deki kural burada gerçek bir girdiyle karşınıza çıkıyor: en hızlı titreşimin bir periyodu en az 5 adıma bölünmelidir. 4 fs'lik denemeler, 2 fs'lik konum kısıtlı yolun sonundaki NPT durumundan başlayan 10 ps'lik konum kısıtsız koşulardır; karşılaştırma için aynı bulut makinesinde 2 fs ile bir kontrol (C1) koşuldu.",
-   "Here the rule from MD-T meets you with a real input: one period of the fastest vibration should be divided into at least 5 steps. The 4 fs trials are 10 ps unrestrained runs starting from the NPT state at the end of the 2 fs position-restrained path; for comparison, a control (C1) with 2 fs was run on the same cloud machine."
-  ],
-  [
-   "Zaman adımı ve bağ kısıtı",
-   "Time step and bond constraints"
-  ],
-  [
-   "Koşunun ya da grompp'un kayıt satırları",
-   "Log lines of the run or of grompp"
-  ],
-  [
-   "<span class=\"lbl\">H içeren bağlar</span>",
-   "<span class=\"lbl\">Bonds involving H</span>"
-  ],
-  [
-   "aria-label=\"H içeren bağlar\"",
-   "aria-label=\"Bonds involving H\""
-  ],
-  [
-   ">Kısıtlı (LINCS)<",
-   ">Constrained (LINCS)<"
-  ],
-  [
-   ">Kısıtsız</button>",
-   ">Unconstrained</button>"
-  ],
-  [
-   "Dört seçenekten biri koşmadan reddedildi. Hangisi, neden?",
-   "One of the four options was rejected before it could run. Which one, and why?"
-  ],
-  [
-   "Seçenekler, 4 fs ile iki kısıt seçeneğini de oynattığınızda etkinleşir",
-   "The options become active once you have played 4 fs with both constraint options"
-  ],
-  [
-   "' (bağ kısıtı olmayanı henüz oynatmadınız).'",
-   "' (you have not yet played the unconstrained one).'"
-  ],
-  [
-   "' (bağ kısıtlı olanı henüz oynatmadınız).'",
-   "' (you have not yet played the constrained one).'"
-  ],
-  [
-   "xl:'aşama zamanı, ps (her aşama 0\\'dan başlar)'",
-   "xl:'stage time, ps (each stage starts from 0)'"
-  ],
-  [
-   "'S0 konum kısıtlı NVT ve NPT: sıcaklık'",
-   "'S0 position-restrained NVT and NPT: temperature'"
-  ],
-  [
-   "'S0 konum kısıtlı NVT ve NPT: basınç'",
-   "'S0 position-restrained NVT and NPT: pressure'"
-  ],
-  [
-   "'S0 konum kısıtlı NPT: yoğunluk'",
-   "'S0 position-restrained NPT: density'"
-  ],
-  [
-   "'4 fs ve 2 fs konum kısıtsız koşularda sıcaklık, aynı bulut makinesinde'",
-   "'Temperature in the 4 fs and 2 fs unrestrained runs, on the same cloud machine'"
-  ],
-  [
-   "'4 fs ve 2 fs konum kısıtsız koşularda korunan enerjinin ilk değere göre değişimi'",
-   "'Change in the conserved energy relative to its initial value in the 4 fs and 2 fs unrestrained runs'"
-  ],
-  [
-   "yl:'korunan enerji − ilk değer, kJ mol⁻¹'",
-   "yl:'conserved energy − initial value, kJ mol⁻¹'"
-  ],
-  [
-   "C1: 2 fs, bağ kısıtlı (bulut)",
-   "C1: 2 fs, constrained (cloud)"
-  ],
-  [
-   "S2a: 4 fs, bağ kısıtlı (bulut)",
-   "S2a: 4 fs, constrained (cloud)"
-  ],
-  [
-   "'# grompp çıkış kodu: '",
-   "'# grompp exit code: '"
-  ],
-  [
-   "' (-maxwarn kullanılmadı). .tpr dosyası oluşmadığı için ardından çağrılan mdrun dinamik koşmadan hata verdi (çıkış kodu '",
-   "' (-maxwarn was not used). Because no .tpr file was produced, the mdrun call that followed failed without running any dynamics (exit code '"
-  ],
-  [
-   "<dt>Adım (her aşama)</dt>",
-   "<dt>Steps (each stage)</dt>"
-  ],
-  [
-   "<dt>NVT sıcaklığı: ilk → son</dt>",
-   "<dt>NVT temperature: first → last</dt>"
-  ],
-  [
-   "<dt>NVT sıcaklığı: en düşük</dt>",
-   "<dt>NVT temperature: minimum</dt>"
-  ],
-  [
-   "<dt>NPT sıcaklık ortalaması</dt>",
-   "<dt>NPT mean temperature</dt>"
-  ],
-  [
-   "<dt>NPT yoğunluğu: ilk → son</dt>",
-   "<dt>NPT density: first → last</dt>"
-  ],
-  [
-   "Yoğunluk kg m⁻³ cinsindendir. Bu iki 10 ps\\'lik aşama bir dengeleme <i>kabulü</i> değildir: yoğunluğun ve basıncın yakınsadığını gösterecek bir ölçüt önceden yazılmadı ve uygulanmadı. Basınç bu kadar kısa sürede yüzlerce bar dalgalanır; tek bir değeri anlamlı değildir. Koşular '",
-   "Density is in kg m⁻³. These two 10 ps stages are not an <i>acceptance</i> of equilibration: no criterion that would show convergence of the density and pressure was written in advance or applied. Over such a short time the pressure fluctuates by hundreds of bar; a single value of it is not meaningful. The runs are on the '"
-  ],
-  [
-   "' makinesindedir.</p>'",
-   "' machine.</p>'"
-  ],
-  [
-   "<dt>Performans: S2a / C1 (aynı makine)</dt>",
-   "<dt>Performance: S2a / C1 (same machine)</dt>"
-  ],
-  [
-   "<dt>Korunan enerji kayması, doğrusal uyum eğimi: S2a / C1</dt>",
-   "<dt>Conserved-energy drift, slope of a linear fit: S2a / C1</dt>"
-  ],
-  [
-   "<dt>Aynısı, uç noktalardan</dt>",
-   "<dt>Same, from the end points</dt>"
-  ],
-  [
-   "4 fs koştu ve aynı makinede yaklaşık '",
-   "4 fs ran and was about '"
-  ],
-  [
-   "' kat hızlıydı. Korunan enerjinin kayması için tek bir hız söylenemez: doğrusal uyum eğimi S2a\\'da '",
-   "' times as fast on the same machine. No single drift rate can be given for the conserved energy: the slope of a linear fit is '"
-  ],
-  [
-   "+', C1\\'de '+sgn(dc.fit,0)+' kJ mol⁻¹ ps⁻¹. Uç noktalardan bakınca fark daha büyük görünüyor ('",
-   "+' for S2a and '+sgn(dc.fit,0)+' for C1 (kJ mol⁻¹ ps⁻¹). Judged from the end points the difference looks larger ('"
-  ],
-  [
-   "+' ve '+sgn(dc.end,0)+'), çünkü S2a\\'nın ilk yarım pikosaniyesinde bir sıçrama var. Tek bir 10 ps\\'lik koşudan kayma hızı güvenilir biçimde çıkmaz; 4 fs\\'in bu sistem için yeterli olup olmadığı bu veriden anlaşılmaz. Uygulamada 4 fs genellikle hidrojen kütlesini yeniden dağıtma (HMR) gibi ek önlemlerle kullanılır; burada kullanılmadı.</p>'",
-   "+' and '+sgn(dc.end,0)+'), because S2a shows a jump in its first half picosecond. A single 10 ps run does not give a reliable drift rate; whether 4 fs is adequate for this system cannot be decided from these data. In practice, 4 fs is usually used together with additional measures such as hydrogen mass repartitioning (HMR); none were used here.</p>'"
-  ],
-  [
-   "<dt>Bağ</dt><dd>treonin O–H (OG1–HG1)</dd><dt>Tahmini titreşim periyodu</dt>",
-   "<dt>Bond</dt><dd>threonine O–H (OG1–HG1)</dd><dt>Estimated vibration period</dt>"
-  ],
-  [
-   "<dt>Gereken en kısa periyot ('",
-   "<dt>Minimum required period ('"
-  ],
-  [
-   "' × adım)</dt>",
-   "' × step)</dt>"
-  ],
-  [
-   "<dt>Periyot başına adım</dt>",
-   "<dt>Steps per period</dt>"
-  ],
-  [
-   "Bu, MD-T\\'deki “periyot başına en az 5 adım” kuralının ta kendisidir; GROMACS onu grompp aşamasında denetler. Kısıt yokken O–H bağı en hızlı titreşimdir ve 4 fs\\'lik adımla bir periyoda '",
-   "This is exactly the “at least 5 steps per period” rule from MD-T; GROMACS checks it at the grompp stage. Without constraints, the O–H bond is the fastest vibration, and with a 4 fs step one period spans only '"
-  ],
-  [
-   "' adım düşer. -maxwarn ile uyarı bastırılabilirdi; bu projede bastırılmadı, çünkü uyarı tam da sorunun kendisidir.</p>'",
-   "' steps. The warning could have been suppressed with -maxwarn; in this project it was not, because the warning is precisely the problem itself.</p>'"
-  ],
-  [
-   "Bu senaryo hesaplanmadı. Bu zaman adımı ile kısıtsız bağlar birlikte koşulmadı; sonucunu tahmin edip yazmıyoruz.",
-   "This scenario was not computed. This time step was not run together with unconstrained bonds; we do not write down a guessed result."
-  ],
-  [
-   "Başlat\\'a basın: kaydın akışı bitince sonuç burada görünür.",
-   "Press Start: the result appears here once the log has finished streaming."
-  ],
-  [
-   "'S0 konum kısıtlı NVT, sonra konum kısıtlı NPT · '",
-   "'S0 position-restrained NVT, then position-restrained NPT · '"
-  ],
-  [
-   "'S2a (4 fs) ve C1 (2 fs), konum kısıtsız · '",
-   "'S2a (4 fs) and C1 (2 fs) unrestrained · '"
-  ],
-  [
-   "'S2b (4 fs, bağ kısıtı yok) · '",
-   "'S2b (4 fs, unconstrained) · '"
-  ],
-  [
-   "'İki 4 fs koşusunun sonucunu gördünüz; bir seçenek işaretleyin.'",
-   "'You have seen the results of both 4 fs runs; select an option.'"
-  ],
-  [
-   "'4 fs, H içeren bağlar kısıtlı: LINCS bağları tutamadı ve koşu çöktü.'",
-   "'4 fs, bonds involving H constrained: LINCS could not hold the bonds and the run crashed.'"
-  ],
-  [
-   "'4 fs, bağ kısıtı yok: grompp, treonin O–H bağının tahmini periyodunun ('",
-   "'4 fs, unconstrained: grompp reported that the estimated period of the threonine O–H bond ('"
-  ],
-  [
-   "' fs) zaman adımının '",
-   "' fs) is shorter than '"
-  ],
-  [
-   "' katından ('",
-   "' times the time step ('"
-  ],
-  [
-   "' fs) kısa olduğunu bildirdi; -maxwarn kullanılmadığı için koşu hiç başlamadı.'",
-   "' fs); because -maxwarn was not used, the run never started.'"
-  ],
-  [
-   "'4 fs, bağ kısıtı yok: mdrun başladı ve ilk adımda çöktü.'",
-   "'4 fs, unconstrained: mdrun started and crashed at the first step.'"
-  ],
-  [
-   "'2 fs, bağ kısıtlı: yoğunluk yakınsamadığı için GROMACS koşuyu durdurdu.'",
-   "'2 fs, constrained: GROMACS stopped the run because the density did not converge.'"
-  ],
-  [
-   "'Doğru. Reddeden grompp\\'tur, mdrun değil: sorun daha koşu başlamadan, girdinin kendisinde yakalandı. Bağ kısıtlı 4 fs ise koştu; ama “koştu” ile “doğru örnekledi” aynı şey değildir. Korunan enerjideki kayma aynı makinedeki 2 fs kontrolüyle karşılaştırılmalıdır ve 10 ps bunun için kısadır.'",
-   "'Correct. It was grompp that rejected it, not mdrun: the problem was caught in the input itself, before the run even started. The constrained 4 fs run, on the other hand, did run; but “it ran” and “it sampled correctly” are not the same thing. The drift in the conserved energy must be compared with the 2 fs control on the same machine, and 10 ps is too short for that.'"
-  ],
-  [
-   "'Kayıt satırlarına tekrar bakın: hangi durumda mdrun hiç başlamadı? Hangi program, hangi kurala dayanarak uyardı?'",
-   "'Look at the log lines again: in which case did mdrun never start? Which program issued the warning, and on the basis of which rule?'"
-  ],
-  [
-   "<small>6 · Kısa konum kısıtsız koşu</small>On pikosaniye neyi gösterir?",
-   "<small>6 · Short unrestrained run</small>What do ten picoseconds show?"
-  ],
-  [
-   "Konum kısıtları kaldırılır ve protein serbestçe hareket eder. Bu koşu <span data-b=\"freeSteps\"></span> adım × <span data-b=\"freeDt\"></span> fs = <span data-b=\"freeLen\"></span> ps sürdü ve trajektoriye her ps'de bir kare yazıldı. Aşağıda <span data-b=\"nCa\"></span> Cα atomundan oluşan iskeleti <span data-b=\"nFr\"></span> karede izleyin.",
-   "The position restraints are removed and the protein moves freely. This run lasted <span data-b=\"freeSteps\"></span> steps × <span data-b=\"freeDt\"></span> fs = <span data-b=\"freeLen\"></span> ps, and one frame was written to the trajectory every ps. Below, follow the trace formed by <span data-b=\"nCa\"></span> Cα atoms across <span data-b=\"nFr\"></span> frames."
-  ],
-  [
-   "Ubikitin iskeleti, 0'dan <span data-b=\"freeLen\"></span> ps'ye",
-   "Ubiquitin Cα trace, from 0 to <span data-b=\"freeLen\"></span> ps"
-  ],
-  [
-   "Ubikitinin Cα iskeleti; N-ucundan C-ucuna renk geçişi. Sürükleyerek ya da ok tuşlarıyla döndürülür, artı ve eksi tuşlarıyla yakınlaştırılır.",
-   "Cα trace of ubiquitin; color gradient from the N-terminus to the C-terminus. Rotate by dragging or with the arrow keys; zoom with the plus and minus keys."
-  ],
-  [
-   ">Oynat<",
-   ">Play<"
-  ],
-  [
-   "for=\"fr6\">Kare<",
-   "for=\"fr6\">Frame<"
-  ],
-  [
-   "Renk: N-ucu <span class=\"sw6\" aria-hidden=\"true\"></span> C-ucu. Sürükleyin ya da tuvale odaklanıp <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> ile döndürün; <kbd>+</kbd> <kbd>−</kbd> yakınlaştırır.",
-   "Color: N-terminus <span class=\"sw6\" aria-hidden=\"true\"></span> C-terminus. Drag, or focus the canvas and rotate with <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd>; <kbd>+</kbd> <kbd>−</kbd> zoom."
-  ],
-  [
-   "İlk kareyi gölge olarak göster",
-   "Show the first frame as a shadow"
-  ],
-  [
-   "Düşük doluluklu C-ucunu işaretle",
-   "Mark the low-occupancy C-terminus"
-  ],
-  [
-   "Omurga RMSD'si, zamana karşı",
-   "Backbone RMSD versus time"
-  ],
-  [
-   "Konum kısıtsız koşunun kayıt satırları",
-   "Log lines of the unrestrained run"
-  ],
-  [
-   "Bu koşudan hangi cümleler söylenebilir? Doğru olanların hepsini işaretleyin.",
-   "Which statements can be made from this run? Select all the correct ones."
-  ],
-  [
-   "Yan yana koyalım: bu sayfadaki bütün koşular teknik denemelerdir. Hesabın çalıştığını, dosyaların okunabildiğini ve bazı kararların gözle görülür sonuçlarını gösterirler; dengeyi, yakınsamayı ya da biyolojik bir davranışı göstermezler.",
-   "Let us put it side by side: all runs on this page are technical trials. They show that the calculation works, that the files can be read, and the visible consequences of some decisions; they do not show equilibrium, convergence or any biological behavior."
-  ],
-  [
-   "<h4>Söylenebilir</h4>",
-   "<h4>Can be said</h4>"
-  ],
-  [
-   "<h4>Söylenemez</h4>",
-   "<h4>Cannot be said</h4>"
-  ],
-  [
-   "Hazırlık yolu uçtan uca çalıştı; konum kısıtsız koşu LINCS uyarısı olmadan bitti.",
-   "The preparation path worked end to end; the unrestrained run finished without LINCS warnings."
-  ],
-  [
-   "Aynı girdiler başka bir makinede de hatasız koştu (C0, C1).",
-   "The same inputs also ran without errors on another machine (C0, C1)."
-  ],
-  [
-   "Minimizasyonu atlamak bu sistemde koşuyu çökertti; 4 fs'i bağ kısıtı olmadan denemek ise koşuyu başlamadan durdurdu (grompp girdiyi reddetti).",
-   "Skipping the minimization crashed the run in this system; trying 4 fs without bond constraints stopped it before it started (grompp rejected the input)."
-  ],
-  [
-   "Protein dengeye ulaştı; yoğunluk ya da RMSD yakınsadı.",
-   "The protein reached equilibrium; the density or the RMSD converged."
-  ],
-  [
-   "C-ucu şu kadar esnek; HIS68'in protonasyonu doğru.",
-   "The C-terminus is this flexible; the protonation of HIS68 is correct."
-  ],
-  [
-   "Bu koşu biyolojik işlevi ya da bir deneyi yeniden üretti.",
-   "This run reproduced the biological function or an experiment."
-  ],
-  [
-   "yl:'omurga RMSD, nm'",
-   "yl:'backbone RMSD, nm'"
-  ],
-  [
-   "'<dt>Kare</dt><dd>'",
-   "'<dt>Frame</dt><dd>'"
-  ],
-  [
-   "<dt>Omurga RMSD (<code>em.gro</code> referansı)</dt>",
-   "<dt>Backbone RMSD (reference <code>em.gro</code>)</dt>"
-  ],
-  [
-   "<dt>Cα kayması, 0. kareye göre: C-ucu '",
-   "<dt>Cα displacement relative to frame 0: C-terminus '"
-  ],
-  [
-   "<dt>Cα kayması, geri kalan kalıntılar</dt>",
-   "<dt>Cα displacement, remaining residues</dt>"
-  ],
-  [
-   "'Duraklat':'Oynat'",
-   "'Pause':'Play'"
-  ],
-  [
-   "'Konum kısıtsız koşuda sıcaklık'",
-   "'Temperature in the unrestrained run'"
-  ],
-  [
-   "'Konum kısıtsız koşuda yoğunluk'",
-   "'Density in the unrestrained run'"
-  ],
-  [
-   "'# Performans bu makineye özgüdür: '",
-   "'# Performance is specific to this machine: '"
-  ],
-  [
-   "'. Bulut koşularıyla karşılaştırılmaz.'",
-   "'. It is not compared with the cloud runs.'"
-  ],
-  [
-   "'S0 konum kısıtsız 10 ps · '",
-   "'S0 unrestrained 10 ps · '"
-  ],
-  [
-   "'Koşu '+fx(last(s.t_ps),0)+' ps boyunca teknik olarak sorunsuz ilerledi: LINCS uyarısı yok, program normal bitti.'",
-   "'Over '+fx(last(s.t_ps),0)+' ps the run proceeded without technical problems: no LINCS warnings, and the program finished normally.'"
-  ],
-  [
-   "'Protein bu sürede dengeye ulaştı.'",
-   "'The protein reached equilibrium within this time.'"
-  ],
-  [
-   "'Yoğunluk yakınsadı; su modeli ve kutu doğrulandı.'",
-   "'The density converged; the water model and the box were validated.'"
-  ],
-  [
-   "'Aynı girdilerle bulutta tekrarlanan koşu (C1) da hatasız bitti; bu, yolun teknik olarak yeniden üretilebildiğini gösterir, bilimsel bir kabul değildir.'",
-   "'The run repeated with the same inputs on the cloud machine (C1) also finished without errors; this shows that the path is technically reproducible, and it is not a scientific acceptance.'"
-  ],
-  [
-   "'C-ucunun Cα\\'ları daha çok kaydığı için C-ucunun biyolojik olarak esnek olduğu bu koşudan söylenebilir.'",
-   "'Because the C-terminal Cα atoms moved more, it can be said from this run that the C-terminus is biologically flexible.'"
-  ],
-  [
-   "'Doğru. '+fx(last(s.t_ps),0)+' ps, bir proteinin yavaş hareketleri için çok kısadır: yoğunluk bu sürede '",
-   "'Correct. '+fx(last(s.t_ps),0)+' ps is very short for the slow motions of a protein: over this time the density fluctuated between '"
-  ],
-  [
-   "+' ile '+fx(maxOf(s.Density),1)+' kg m⁻³ arasında dalgalandı ve RMSD '",
-   "+' and '+fx(maxOf(s.Density),1)+' kg m⁻³, and the RMSD rose from '"
-  ],
-  [
-   "' nm\\'den en çok '",
-   "' nm to at most '"
-  ],
-  [
-   "' nm\\'ye çıktı. Denge ya da esneklik iddiası için önceden yazılmış bir ölçüt, çok daha uzun ve bağımsız tohumlu koşular gerekir. Bu koşu, yolun çalıştığının kaydıdır.'",
-   "' nm. A claim of equilibrium or flexibility requires a criterion written in advance and much longer runs with independent seeds. This run is a record that the path works.'"
-  ],
-  [
-   "'Henüz değil. Her cümle için sorun: bu, '",
-   "'Not yet. Ask for each statement: is this something that a single '"
-  ],
-  [
-   "' ps\\'lik tek bir koşunun gerçekten gösterebileceği bir şey mi, yoksa bir ölçüt ve çok daha uzun koşular mı ister?'",
-   "' ps run can really show, or does it require a criterion and much longer runs?'"
-  ],
-  [
-   "'En az bir cümle işaretleyin.'",
-   "'Select at least one statement.'"
-  ],
-  [
-   "<small>7 · Kendinizi sınayın</small>Dört karar, dört gerekçe",
-   "<small>7 · Test yourself</small>Four decisions, four reasons"
-  ],
-  [
-   "Her soruda bir seçenek işaretleyin; açıklama hemen altında açılır.",
-   "Select one option in each question; the explanation opens right below it."
-  ],
-  [
-   "Kitabın sonraki bölümleri, bu sayfanın bilerek bıraktığı soruları ele alır: dengelemenin zaman serileriyle ve önceden yazılmış ölçütlerle kabulü, bağımsız tohumlu üretim koşuları, örnekleme ve belirsizlik. Buradaki kısa koşular o işin başlangıç kaydıdır, sonucu değil.",
-   "Later chapters of the book take up the questions this page deliberately leaves open: accepting equilibration using time series and criteria written in advance, production runs with independent seeds, sampling and uncertainty. The short runs here are the starting record of that work, not its result."
-  ],
-  [
-   "'1UBQ\\'da omurga atomu eksik kalıntı yok, ama '",
-   "'In 1UBQ no residue is missing backbone atoms, but residues '"
-  ],
-  [
-   "' kalıntılarının doluluğu 1\\'in altında. Hangisi doğrudur?'",
-   "' have occupancy below 1. Which statement is correct?'"
-  ],
-  [
-   "'Omurga tam olduğuna göre C-ucunun konumu kesindir.'",
-   "'Since the backbone is complete, the position of the C-terminus is certain.'"
-  ],
-  [
-   "'Atomların varlığı ile konumlarının güvenilirliği ayrı bilgilerdir; C-ucu araştırma sorusunun parçasıysa duyarlılık denemesi önceden tasarlanmalıdır.'",
-   "'The presence of the atoms and the reliability of their positions are separate pieces of information; if the C-terminus is part of the research question, a sensitivity trial should be designed in advance.'"
-  ],
-  [
-   "'Düşük doluluklu atomlar MD\\'den önce her zaman silinmelidir.'",
-   "'Low-occupancy atoms must always be deleted before MD.'"
-  ],
-  [
-   "'Bu sayfada C-ucu dosyadaki koordinatlarla korundu; silmek ya da başka bir başlangıç konumu denemek hesaplanmadı. Karar günlüğünde bu açıkça yazılmalıdır.'",
-   "'On this page the C-terminus was kept with the coordinates from the file; deleting it or trying another starting position was not computed. This should be stated explicitly in the decision log.'"
-  ],
-  [
-   "'Tuzlu senaryoda genion '",
-   "'In the salt scenario, genion added '"
-  ],
-  [
-   "' Cl⁻ ekledi. Sayıların eşit olmasının nedeni nedir?'",
-   "' Cl⁻. Why are the numbers equal?'"
-  ],
-  [
-   "'Protein net yükü zaten sıfırdı; -neutral için ek iyon gerekmedi, -conc 0,15 yalnız iyon çiftleri ekledi.'",
-   "'The net charge of the protein was already zero; no extra ions were needed for -neutral, and -conc 0.15 added only ion pairs.'"
-  ],
-  [
-   "'genion her zaman eşit sayıda iyon ekler.'",
-   "'genion always adds equal numbers of ions.'"
-  ],
-  [
-   "'Proteinin yükü iyonlarla sıfırlandı.'",
-   "'The charge of the protein was brought to zero by the ions.'"
-  ],
-  [
-   "'Net yükü sıfır olmayan bir proteinde önce karşı iyonlar eklenir ve iki iyonun sayısı farklı olur. Burada fark sıfırdır, çünkü pdb2gmx toplam yükü '",
-   "'For a protein with a non-zero net charge, counterions are added first, and the numbers of the two ions differ. Here the difference is zero because pdb2gmx found the total charge to be '"
-  ],
-  [
-   "' e buldu.'",
-   "' e.'"
-  ],
-  [
-   "'Minimizasyon atlandığında 0. adımdaki sıcaklık neden hedefin çok üstünde çıktı?'",
-   "'When the minimization was skipped, why was the temperature at step 0 far above the target?'"
-  ],
-  [
-   "'Termostat yanlış ayarlanmıştı.'",
-   "'The thermostat had been set incorrectly.'"
-  ],
-  [
-   "'Hızlar yüksek bir sıcaklık için üretilmişti.'",
-   "'The velocities had been generated for a high temperature.'"
-  ],
-  [
-   "'Çakışan atomlar üzerindeki çok büyük kuvvetler ilk yarım adımda hızları büyüttü; kısıtlı bağlar da uzunluklarını tutamadı.'",
-   "'The very large forces on the clashing atoms increased the velocities in the first half step; the constrained bonds could not keep their lengths either.'"
-  ],
-  [
-   "'İki koşuda (S1 ve C0) aynı hız üretimi ve aynı termostat kullanıldı; fark yalnız başlangıç yapısındaydı. Minimizasyon, dinamiğin ilk adımlarını bu dev kuvvetlerden korur.'",
-   "'Both runs (S1 and C0) used the same velocity generation and the same thermostat; the only difference was the starting structure. Minimization protects the first steps of the dynamics from these huge forces.'"
-  ],
-  [
-   "'4 fs, H içeren bağlar kısıtlıyken koşu hatasız bitti ve yaklaşık iki kat hızlıydı. Bu, 4 fs\\'in bu sistem için güvenli olduğunu gösterir mi?'",
-   "'With 4 fs and bonds involving H constrained, the run finished without errors and was about twice as fast. Does this show that 4 fs is safe for this system?'"
-  ],
-  [
-   "'Evet; LINCS uyarısı olmadığına göre güvenlidir.'",
-   "'Yes; since there were no LINCS warnings, it is safe.'"
-  ],
-  [
-   "'Hayır; 10 ps\\'lik tek bir koşu bu karar için yetersizdir: korunan enerjinin kayma hızı bu kadar kısa bir koşudan güvenilir biçimde çıkmaz.'",
-   "'No; a single 10 ps run is not enough for this decision: the drift rate of the conserved energy cannot be estimated reliably from such a short run.'"
-  ],
-  [
-   "'Evet; GROMACS uyarı vermediğine göre sorun yoktur.'",
-   "'Yes; since GROMACS gave no warning, there is no problem.'"
-  ],
-  [
-   "'Performans yalnız aynı makinede karşılaştırıldı (S2a ve C1). Daha büyük bir zaman adımı, genellikle hidrojen kütlesini yeniden dağıtma gibi ek önlemler ve daha uzun sınamalarla birlikte kullanılır.'",
-   "'Performance was compared only on the same machine (S2a and C1). A larger time step is usually used together with additional measures such as hydrogen mass repartitioning, and with longer tests.'"
-  ],
-  [
-   "'Sınav: '+n+' / '+Q.length+' doğru'",
-   "'Quiz: '+n+' / '+Q.length+' correct'"
-  ],
-  [
-   "aria-label=\"Soru '+(i+1)+' seçenekleri\"",
-   "aria-label=\"Question '+(i+1)+' options\""
-  ],
-  [
-   ">Doğru.</b> ",
-   ">Correct.</b> "
-  ],
-  [
-   ">Tekrar düşünün.</b> ",
-   ">Think again.</b> "
-  ],
-  [
-   "r.status==='ok'?'bitti':r.status==='crashed'?'çöktü':r.status==='grompp_refused'?'grompp reddetti'",
-   "r.status==='ok'?'finished':r.status==='crashed'?'crashed':r.status==='grompp_refused'?'rejected by grompp'"
-  ],
-  [
-   "<td>bulut</td><td>bitti</td>",
-   "<td>cloud</td><td>finished</td>"
-  ],
-  [
-   "<td>yapı</td><td style=\"text-align:left\">yapı denetimi, ",
-   "<td>structure</td><td style=\"text-align:left\">structure audit, "
-  ],
-  [
-   "<td>S0 (WSL)</td><td>bitti</td>",
-   "<td>S0 (WSL)</td><td>finished</td>"
-  ],
-  [
-   "<td>topoloji</td>",
-   "<td>topology</td>"
-  ],
-  [
-   "<b>Bu sayfa hakkında.</b> MD-O için etkileşimli pilot bölümdür (kitapta CH07: yapı, eksik bilgi ve protonasyon). Sayfa hiçbir hesabı tarayıcıda yapmaz; gömülü veri paketi <code>learn/md-o_data.json</code>, koşu dosyalarından (<code>.edr</code>, <code>.log</code>, <code>.xtc</code>, <code>.gro</code>) <code>extract.py</code> ile çıkarıldı ve <code>verify.py</code> her sayıyı kaynak dosyadan yeniden hesaplayarak denetler.",
-   "<b>About this page.</b> This is the interactive pilot chapter for MD-O (CH07 in the book: structure, missing information and protonation). The page performs no calculation in the browser; the embedded data package <code>learn/md-o_data.json</code> was extracted from the run files (<code>.edr</code>, <code>.log</code>, <code>.xtc</code>, <code>.gro</code>) with <code>extract.py</code>, and <code>verify.py</code> checks every number by recomputing it from the source file."
-  ],
-  [
-   "<h3>Makineler</h3>",
-   "<h3>Machines</h3>"
-  ],
-  [
-   "<b>S0 (ana yol):</b> <span data-b=\"machS0\"></span>. Yapı denetimi, pdb2gmx, kutu, çözücü, minimizasyon, konum kısıtlı NVT, konum kısıtlı NPT ve konum kısıtsız 10 ps.",
-   "<b>S0 (main path):</b> <span data-b=\"machS0\"></span>. Structure audit, pdb2gmx, box, solvent, minimization, position-restrained NVT, position-restrained NPT and 10 ps unrestrained."
-  ],
-  [
-   "<b>Ek senaryolar:</b> <span data-b=\"machCloud\"></span>. C0 ve C1 (S0 adımlarının bulut makinesinde tekrarı), S1 (minimizasyonsuz), S2a ve S2b (4 fs), S3 (0,5 nm kutu), S4 (0,15 M NaCl) ve iki <code>mindist -pi</code> analizi.",
-   "<b>Additional scenarios:</b> <span data-b=\"machCloud\"></span>. C0 and C1 (repeats of S0 steps on the cloud machine), S1 (without minimization), S2a and S2b (4 fs), S3 (0.5 nm box), S4 (0.15 M NaCl) and two <code>mindist -pi</code> analyses."
-  ],
-  [
-   "İki makinede aynı GROMACS sürümü kullanıldı. Performans (ns/gün) yalnızca aynı makinedeki koşular arasında karşılaştırılır; S0'ın WSL ölçümleri bulut ölçümleriyle yan yana konmaz.",
-   "The same GROMACS version was used on both machines. Performance (ns/day) is compared only between runs on the same machine; the WSL measurements of S0 are not placed side by side with the cloud measurements."
-  ],
-  [
-   "<h3>Protokol</h3>",
-   "<h3>Protocol</h3>"
-  ],
-  [
-   "Ek senaryoların protokolü koşulardan önce yazıldı ve SHA-256 ile donduruldu (<code>scenarios/SCENARIO_PROTOCOL_2026-09-25.md</code>). <code>-maxwarn</code> kullanılmadı; çöken ya da reddedilen koşular yeniden denenmedi. <b>C1 kontrolü, dondurmadan sonra</b>, S2a'nın korunan enerji kaymasını aynı makinede 2 fs ile karşılaştırmak için bilinçli olarak eklendi ve protokolde ayrıca işaretlendi.",
-   "The protocol for the additional scenarios was written before the runs and frozen with SHA-256 (<code>scenarios/SCENARIO_PROTOCOL_2026-09-25.md</code>). <code>-maxwarn</code> was not used; runs that crashed or were rejected were not retried. <b>The C1 control was added after the freeze</b>, deliberately, to compare the conserved-energy drift of S2a with 2 fs on the same machine, and it is flagged separately in the protocol."
-  ],
-  [
-   "Her sayı hangi koşudan?",
-   "Which run does each number come from?"
-  ],
-  [
-   "<th>Koşu</th><th>Ne</th><th>Makine</th><th>Durum</th><th>Kaynak dosyalar</th>",
-   "<th>Run</th><th>What</th><th>Machine</th><th>Status</th><th>Source files</th>"
-  ],
-  [
-   "Yapılmayanlar (<code>NOT_EXECUTED</code>)",
-   "Not done (<code>NOT_EXECUTED</code>)"
-  ],
-  [
-   "HIS68 ve uç grupların pH ve ortam bağlamında bağımsız protonasyon incelemesi;",
-   "an independent protonation review of HIS68 and the terminal groups in the context of pH and environment;"
-  ],
-  [
-   "düşük doluluklu C-ucuna duyarlılık karşılaştırması;",
-   "a sensitivity comparison for the low-occupancy C-terminus;"
-  ],
-  [
-   "hedef iyon ve tuz koşullarının gerekçesi;",
-   "a justification of the target ion and salt conditions;"
-  ],
-  [
-   "kuvvet alanı ve su modeli seçiminin soruya dayalı gerekçesi;",
-   "a question-based justification of the choice of force field and water model;"
-  ],
-  [
-   "son kutu ve geometri denetimi (periyodik görüntü mesafesi yalnız bu 10 ps'lik koşularda ölçüldü);",
-   "a final box and geometry check (the periodic image distance was measured only in these 10 ps runs);"
-  ],
-  [
-   "enerji, sıcaklık, yoğunluk ve basınç zaman serileri üzerinden dengeleme kabulü;",
-   "acceptance of equilibration based on energy, temperature, density and pressure time series;"
-  ],
-  [
-   "bağımsız tohumlu üretim koşuları;",
-   "production runs with independent seeds;"
-  ],
-  [
-   "örnekleme ve belirsizlik analizi, biyolojik gözlemle karşılaştırma.",
-   "sampling and uncertainty analysis, comparison with biological observation."
-  ],
-  [
-   "Bunların hiçbiri, <code>grompp</code> ya da <code>mdrun</code> çıkış kodu 0 olduğu için geçmiş sayılmadı.",
-   "None of these was counted as passed because the <code>grompp</code> or <code>mdrun</code> exit code was 0."
-  ],
-  [
-   "<h3>Lisans ve kaynak</h3>",
-   "<h3>License and source</h3>"
-  ],
-  [
-   "<p>Yapı: <a href=",
-   "<p>Structure: <a href="
-  ],
-  [
-   ". Özgün çalışma: S. Vijay-Kumar, C. E. Bugg, W. J. Cook (1987). Structure of ubiquitin refined at 1.8 Å resolution. <i>Journal of Molecular Biology</i> 194(3):531–544.",
-   ". Original work: S. Vijay-Kumar, C. E. Bugg, W. J. Cook (1987). Structure of ubiquitin refined at 1.8 Å resolution. <i>Journal of Molecular Biology</i> 194(3):531–544."
-  ],
-  [
-   "Yazılım: GROMACS 2023.3, amber99sb-ildn kuvvet alanı, TIP3P su modeli. Bilimsel ve hedef okur incelemesi yapılmadı.",
-   "Software: GROMACS 2023.3, amber99sb-ildn force field, TIP3P water model. No scientific or target-reader review has been carried out."
-  ],
-  [
-   "new Intl.NumberFormat('tr-TR'",
-   "new Intl.NumberFormat('en-US'"
-  ],
-  [
-   "run.machine.indexOf('bulut')===0?'bulut':'S0 (WSL)'",
-   "run.machine.indexOf('cloud')===0?'cloud':'S0 (WSL)'"
-  ],
-  [
-   "\"system\":\"insan ubikitini, PDB 1UBQ (CC0 1.0)\"",
-   "\"system\":\"human ubiquitin, PDB 1UBQ (CC0 1.0)\""
-  ],
-  [
-   "\"note\":\"Kısa teknik denemeler; denge, yakınsama ya da biyolojik çıkarım kanıtı değildir.\"",
-   "\"note\":\"Short technical trials; not evidence of equilibrium, convergence or biological inference.\""
-  ],
-  [
-   "\"S0: WSL Ubuntu 24.04, GROMACS 2023.3, 4 iş parçacığı (24 Eylül 2026)\"",
-   "\"S0: WSL Ubuntu 24.04, GROMACS 2023.3, 4 threads (24 September 2026)\""
-  ],
-  [
-   "\"bulut: Ubuntu 24.04, GROMACS 2023.3, 2 iş parçacığı (Intel(R) Xeon(R) Processor @ 2.10GHz), 25 Eylül 2026\"",
-   "\"cloud: Ubuntu 24.04, GROMACS 2023.3, 2 threads (Intel(R) Xeon(R) Processor @ 2.10GHz), 25 September 2026\""
-  ],
-  [
-   "\"fatal\":\"Segmentation fault (çıkış kodu 139); program çöktü.\"",
-   "\"fatal\":\"Segmentation fault (exit code 139); the program crashed.\""
-  ],
-  [
-   " (terimler: ",
-   " (terms: "
-  ],
-  [
-   " (mdrun -v kullanılmadığı için adım başına Fmax yok)",
-   " (no per-step Fmax because mdrun -v was not used)"
-  ],
-  [
-   "\"label\":\"S0 minimizasyon\"",
-   "\"label\":\"S0 minimization\""
-  ],
-  [
-   "\"label\":\"S0 konum kısıtlı NVT\"",
-   "\"label\":\"S0 position-restrained NVT\""
-  ],
-  [
-   "\"label\":\"S0 konum kısıtlı NPT\"",
-   "\"label\":\"S0 position-restrained NPT\""
-  ],
-  [
-   "\"label\":\"S0 konum kısıtsız\"",
-   "\"label\":\"S0 unrestrained\""
-  ],
-  [
-   "\"label\":\"C0 kontrol: S0 NVT bulutta\"",
-   "\"label\":\"C0 control: S0 NVT on the cloud machine\""
-  ],
-  [
-   "\"label\":\"C1 kontrol: S0 konum kısıtsız (2 fs) bulutta\"",
-   "\"label\":\"C1 control: S0 unrestrained (2 fs) on the cloud machine\""
-  ],
-  [
-   "\"label\":\"S1 minimizasyonsuz NVT\"",
-   "\"label\":\"S1 NVT without minimization\""
-  ],
-  [
-   "\"label\":\"S2a 4 fs, H içeren bağlar kısıtlı\"",
-   "\"label\":\"S2a 4 fs, bonds involving H constrained\""
-  ],
-  [
-   "\"label\":\"S2b 4 fs, bağ kısıtı yok\"",
-   "\"label\":\"S2b 4 fs, no constraints\""
-  ],
-  [
-   "\"label\":\"S3 dar kutu 0,5 nm: minimizasyon\"",
-   "\"label\":\"S3 small box 0.5 nm: minimization\""
-  ],
-  [
-   "\"label\":\"S3 dar kutu 0,5 nm: konum kısıtlı NVT\"",
-   "\"label\":\"S3 small box 0.5 nm: position-restrained NVT\""
-  ],
-  [
-   "\"label\":\"S3 dar kutu 0,5 nm: konum kısıtlı NPT\"",
-   "\"label\":\"S3 small box 0.5 nm: position-restrained NPT\""
-  ],
-  [
-   "\"label\":\"S3 dar kutu 0,5 nm: konum kısıtsız\"",
-   "\"label\":\"S3 small box 0.5 nm: unrestrained\""
-  ],
-  [
-   "\"label\":\"S4 0,15 M NaCl: minimizasyon\"",
-   "\"label\":\"S4 0.15 M NaCl: minimization\""
-  ],
-  [
-   "\"label\":\"S4 0,15 M NaCl: konum kısıtlı NVT\"",
-   "\"label\":\"S4 0.15 M NaCl: position-restrained NVT\""
-  ],
-  [
-   "\"label\":\"S4 0,15 M NaCl: konum kısıtlı NPT\"",
-   "\"label\":\"S4 0.15 M NaCl: position-restrained NPT\""
-  ],
-  [
-   "\"label\":\"S4 0,15 M NaCl: konum kısıtsız\"",
-   "\"label\":\"S4 0.15 M NaCl: unrestrained\""
-  ],
-  [
-   "\"label\":\"S0 kutu 1,0 nm\"",
-   "\"label\":\"S0 box 1.0 nm\""
-  ],
-  [
-   "\"label\":\"S3 kutu 0,5 nm\"",
-   "\"label\":\"S3 box 0.5 nm\""
+   "['o1c1','o1c2','o1c3','o1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['o1c1','o1c2','o1c3','o1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
   ]
  ],
  "keep": [
-  "Epot",
-  "S2b/mdrun_free",
-  "Steepest Descents converged to Fmax <",
-  "Epot, kJ mol⁻¹",
-  "Fmax, kJ mol⁻¹ nm⁻¹ (log)",
-  "Temperature",
-  "Pressure",
-  "Density",
-  "Fatal error:",
-  "px Segoe UI, system-ui, sans-serif",
-  "</code> <code>gromacs_trial/topol.top</code></td>"
+  "<code>-dist</code> (nm)",
+  "<code>-angle</code>",
+  "Asp",
+  "Glu",
+  "His",
+  "Tyr",
+  "Lys",
+  "Arg",
+  "var(--warm)",
+  "var(--gold)",
+  "var(--deep)",
+  "var(--pale)",
+  "var(--accent)",
+  "Henderson-Hasselbalch",
+  "Asp, Glu, Lys, Arg",
+  "There are 1 chains and 1 blocks of water and 134 residues with 660 atoms",
+  "Analysing hydrogen-bonding network",
+  "hydrogen bonds",
+  "Will use",
+  "for residue 68",
+  "Processing chain 2 (58 atoms, 58 residues)"
  ]
 }

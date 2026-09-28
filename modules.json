@@ -333,39 +333,37 @@
       "app": "md",
       "level": "orta",
       "title": "Bir proteini MD'ye hazırlamak: ubikitin (1UBQ)",
-      "version": "0.1.0",
-      "status": "planned",
+      "version": "0.2.0",
+      "status": "pilot",
       "book": "CH07",
       "goals": [
-        "Yapı dosyası ve kristal suları",
-        "Topoloji, protonasyon, uçlar",
-        "Kutu ve tuz",
-        "Minimizasyon",
-        "Dengeleme ve zaman adımı",
-        "Trajektoriyi okumak"
+        "Protonasyon ve yük: pH, pKa, izoelektrik nokta",
+        "pdb2gmx'in histidin kararı (His68)",
+        "Yapı dosyası: kristal suları, doluluk, B faktörü (sonraki laboratuvar)"
       ],
       "data": [
         "PDB 1UBQ (CC0 1.0)",
-        "GROMACS 2023.3: 24 Eylül yerel deneme ve 25 Eylül ek senaryoları (10 ps teknik denemeler)"
+        "Bu projenin pdb2gmx çıktısı (protein.gro) ve 96 gerçek pdb2gmx çalıştırması (GROMACS 2023.3)",
+        "pKa: Thurlkill ve ark. 2006, Fitch ve ark. 2015, Sundd ve ark. 2002, Oregioni ve ark. 2017"
       ],
       "notice": null,
       "en": {
         "title": "Preparing a protein for MD: ubiquitin (1UBQ)",
         "book": "CH07",
         "goals": [
-          "The structure file and crystal waters",
-          "Topology, protonation, termini",
-          "Box and salt",
-          "Minimization",
-          "Equilibration and time step",
-          "Reading the trajectory"
+          "Protonation and charge: pH, pKa, isoelectric point",
+          "pdb2gmx's histidine decision (His68)",
+          "The structure file: crystal waters, occupancy, B-factor (next lab)"
         ],
         "data": [
           "PDB 1UBQ (CC0 1.0)",
-          "GROMACS 2023.3: local trial of 24 September and additional scenarios of 25 September (10 ps technical trials)"
+          "This project's pdb2gmx output (protein.gro) and 96 real pdb2gmx runs (GROMACS 2023.3)",
+          "pKa: Thurlkill et al. 2006, Fitch et al. 2015, Sundd et al. 2002, Oregioni et al. 2017"
         ],
         "notice": null
-      }
+      },
+      "path": "md/md-o/",
+      "source": "sources/MD-O.html"
     },
     {
       "id": "MD-U",
