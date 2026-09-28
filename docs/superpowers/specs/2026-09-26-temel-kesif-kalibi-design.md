@@ -189,3 +189,10 @@ Deneysel köprü: 96 kuyucuklu plakanın kenar etkisi ve kristalin birim hücres
 ### 8.5 Yayın ve test
 
 Her lab önce claude.ai prototipi olarak onaylanır, sonra sayfaya eklenir ve aynı yayında İngilizce tablo güncellenir (i18n/_work/build_MD-PBC_en.py; değişen satırlardan tablo). tools/mdpbc2_test.mjs her lab için kart açılışlarını (okurun denemesiyle), İngilizce sayfayı, 390 px taşmayı, saklama kapalı ve azaltılmış hareket durumlarını sınar. Kitap kopyası her yayında yeni sürümlü bir dosyadır.
+
+## 9. MD-EQ (28 Eylül 2026)
+
+Karar (28 Eylül, proje sahibi): minimizasyon ve dengeleme laboratuvarı MD-O içine değil, yeni bir modül olarak yayımlanır: MD-EQ, orta düzey, kitapta CH11. MD-O (CH07) yapı dosyası ve protonasyon laboratuvarlarıyla sonra yeniden yazılır. Tek sayfa, tek laboratuvar, beş keşif kartı (atölye, tezgâh, üretim sınaması, defter, proteine dönüş).
+
+Proje sahibinin geri bildirimleriyle şekillenen kararlar: çakışan atomlarla dinamik çalışamaz (iki boyutlu LJ yerine gerçek birimlerde katı TIP3P ve kısıt çökmesi); su gerçekçi hareket etmeli (tek katman yerine üç boyutlu 125 molekül, 10 ps, iz çizgileri); Berendsen'in üretimde neden kullanılmadığı uygulamalı gösterilir (sıcaklık dağılımı ve dalgalanmadan ısı sığası; uçan buz küpü katı suda gösterilemediği için yalnız kaynakla anlatılır); proteine dönüş gerçek dosyalarla etkileşimli (çakışma yerleri ve S1'in çökme kareleri). Minimizasyonun ara kareleri kaydedilmediği için canlandırma düz geçiştir ve sayfada öyle yazar.
+

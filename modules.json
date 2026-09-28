@@ -292,6 +292,43 @@
       }
     },
     {
+      "id": "MD-EQ",
+      "app": "md",
+      "level": "orta",
+      "title": "Minimizasyon ve dengeleme",
+      "path": "md/md-eq/",
+      "source": "sources/MD-EQ.html",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH11",
+      "goals": [
+        "Çakışan atomlar ve minimizasyon (en dik iniş, emtol)",
+        "Termostat: V-rescale ve Berendsen, τ_T",
+        "Dengeyi günlükten okumak: sıcaklık, basınç, yoğunluk",
+        "Gerçek kutuda çakışma ve minimizasyonsuz çöküş"
+      ],
+      "data": [
+        "Tarayıcıda hesaplanan üç boyutlu katı TIP3P su kutusu (125 molekül; öğretim amaçlı)",
+        "Bu projenin ubikitin kutusu: solvated.gro, em.gro, S0 enerji günlükleri, S3 ve S4 minimizasyonları, minimizasyonsuz S1 koşusunun çökme görüntüleri (GROMACS 2023.3)"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Minimization and equilibration",
+        "book": "CH11",
+        "goals": [
+          "Clashing atoms and minimization (steepest descent, emtol)",
+          "Thermostats: V-rescale and Berendsen, τ_T",
+          "Reading equilibrium from the log: temperature, pressure, density",
+          "Clashes in the real box and the crash without minimization"
+        ],
+        "data": [
+          "Three-dimensional box of rigid TIP3P water computed in the browser (125 molecules; for teaching)",
+          "This project's ubiquitin box: solvated.gro, em.gro, S0 energy logs, S3 and S4 minimizations, crash snapshots of the S1 run without minimization (GROMACS 2023.3)"
+        ],
+        "notice": null
+      }
+    },
+    {
       "id": "MD-O",
       "app": "md",
       "level": "orta",

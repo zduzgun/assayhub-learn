@@ -1,0 +1,853 @@
+{
+ "module": "MD-EQ",
+ "lang": "en",
+ "source_sha256": "234a1061d2e04d3ae1a96fa8bd0bf0c3a6e267ea6c0bc6bd39e6d8decab05183",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-EQ 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>Minimizasyon ve Dengeleme</title>",
+   "<title>Minimization and Equilibration</title>"
+  ],
+  [
+   "<div class=\"proto\">Bu modül bir protein kutusunu dinamiğe hazırlamanın son iki adımını, minimizasyonu ve dengelemeyi anlatır. Atölye ve tezgâhtaki su kutusu tarayıcınızda şimdi hesaplanır; ubikitin sayıları ve görüntüleri bu projenin gerçek GROMACS koşularından gelir.</div>",
+   "<div class=\"proto\">This module covers the last two steps of preparing a protein box for dynamics: minimization and equilibration. The water box in the workshop and on the bench is computed in your browser right now; the ubiquitin numbers and images come from this project's real GROMACS runs.</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-EQ · Minimizasyon ve dengeleme</span>",
+   "<span class=\"eyebrow\">MD-EQ · Minimization and equilibration</span>"
+  ],
+  [
+   "<h1>Çakışan atomlardan dengeye: minimizasyon ve dengeleme</h1>",
+   "<h1>From clashing atoms to equilibrium: minimization and equilibration</h1>"
+  ],
+  [
+   "<p class=\"lead\">Kristal yapıya hidrojenler eklenir, çevresine su kutusu dökülür. Bu kurulumda bazı atomlar birbirine olması gerekenden çok yakın düşer. Hemen hareket başlatılırsa bu çakışmalar dev kuvvetler doğurur ve simülasyon ilk adımlarda patlar. Bu laboratuvarda önce çakışmaları gidereceksiniz (minimizasyon), sonra sistemi hedef sıcaklığa getireceksiniz (dengeleme) ve dengeye gelip gelmediğini bu projenin gerçek günlüğünden ölçeceksiniz.</p>",
+   "<p class=\"lead\">Hydrogens are added to the crystal structure and a box of water is poured around it. In this setup some atoms end up much closer to each other than they should be. If motion is started right away, these clashes produce huge forces and the simulation blows up in its first steps. In this lab you will first remove the clashes (minimization), then bring the system to the target temperature (equilibration), and measure from this project's real log whether it has reached equilibrium.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"m1progN\">0 / 5</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"m1progN\">0 / 5</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Bridge to the bench</span>"
+  ],
+  [
+   "<h2 id=\"m1h0\">Ölçmeden önce beklersiniz</h2>",
+   "<h2 id=\"m1h0\">You wait before you measure</h2>"
+  ],
+  [
+   "<p>Spektrofotometrede küveti sıcaklık tutuculu yuvaya koyunca okumayı hemen almazsınız; örnek yuvanın sıcaklığına gelene kadar beklersiniz. ITC'de ya da DSC'de de ölçüme taban çizgisi durulduktan sonra başlanır. MD'de de aynı iki adım vardır. Önce kurulum sırasında ortaya çıkan \"yanlış yerde duran\" atomlar düzeltilir, sonra sistem hedef sıcaklık ve basınçta kendi hâline bırakılır. Ölçüm, yani üretim koşusu, ancak bundan sonra başlar.</p>",
+   "<p>When you put a cuvette into the thermostatted holder of a spectrophotometer, you do not take the reading at once; you wait until the sample reaches the temperature of the holder. In ITC or DSC, too, the measurement starts only after the baseline has settled. MD has the same two steps. First the atoms left \"in the wrong place\" by the setup are fixed, then the system is left to itself at the target temperature and pressure. Only after that does the measurement, the production run, begin.</p>"
+  ],
+  [
+   "<p>İki atom birbirine ne kadar yaklaşırsa o kadar sert itilir. Aşağıda iki TIP3P su oksijeni arasındaki Lennard-Jones etkileşimini görüyorsunuz. Uzaklığı değiştirin: itme kuvveti σ'nın altında çok hızlı büyür.</p>",
+   "<p>The closer two atoms get, the harder they are pushed apart. Below is the Lennard-Jones interaction between two TIP3P water oxygens. Change the distance: the repulsive force grows very fast below σ.</p>"
+  ],
+  [
+   "<canvas id=\"m1lj\" class=\"plot\" aria-label=\"İki su oksijeni arasında uzaklığa karşı Lennard-Jones enerjisi ve kuvveti\"></canvas>",
+   "<canvas id=\"m1lj\" class=\"plot\" aria-label=\"Lennard-Jones energy and force between two water oxygens against distance\"></canvas>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"m1r\">İki oksijen arasındaki uzaklık</label><div class=\"big\" id=\"m1rV\"></div><input type=\"range\" id=\"m1r\" min=\"0.16\" max=\"0.6\" step=\"0.002\" value=\"0.25\"></div>",
+   "<div><label class=\"lbl\" for=\"m1r\">Distance between the two oxygens</label><div class=\"big\" id=\"m1rV\"></div><input type=\"range\" id=\"m1r\" min=\"0.16\" max=\"0.6\" step=\"0.002\" value=\"0.25\"></div>"
+  ],
+  [
+   "<dt>Enerji</dt><dd id=\"m1U\"></dd>",
+   "<dt>Energy</dt><dd id=\"m1U\"></dd>"
+  ],
+  [
+   "<dt>Aynı enerji, kT biriminde (300 K)</dt><dd id=\"m1UkT\"></dd>",
+   "<dt>Same energy in units of kT (300 K)</dt><dd id=\"m1UkT\"></dd>"
+  ],
+  [
+   "<dt>Kuvvet</dt><dd id=\"m1F\"></dd>",
+   "<dt>Force</dt><dd id=\"m1F\"></dd>"
+  ],
+  [
+   "<p class=\"small\">TIP3P oksijen-oksijen parametreleri: σ = 0,31506 nm, ε = 0,63639 kJ/mol (amber99sb-ildn ile gelen tip3p.itp). Grafikteki iki işaret bu projenin gerçek minimizasyonundan: başlangıçtaki en büyük kuvvet 196.569 kJ mol⁻¹ nm⁻¹ (bu kuvvet tek başına LJ ile 0,175 nm'lik bir yaklaşmaya karşılık gelir) ve durma ölçütü emtol = 1.000 kJ mol⁻¹ nm⁻¹ (0,260 nm).</p>",
+   "<p class=\"small\">TIP3P oxygen-oxygen parameters: σ = 0.31506 nm, ε = 0.63639 kJ/mol (tip3p.itp shipped with amber99sb-ildn). The two marks on the plot come from this project's real minimization: the largest initial force, 196,569 kJ mol⁻¹ nm⁻¹ (with LJ alone this force corresponds to an approach to 0.175 nm), and the stopping criterion emtol = 1,000 kJ mol⁻¹ nm⁻¹ (0.260 nm).</p>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
+  ],
+  [
+   "<h2 id=\"m1h1\">Minimize etmeden başlatırsanız ne olur?</h2>",
+   "<h2 id=\"m1h1\">What happens if you start without minimizing?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kutuda 125 katı su molekülü var (TIP3P geometrisi ve yükleri; kırmızı oksijen, beyaz hidrojen). Kutu üç boyutlu bir küptür, kenarı 1,55 nm; fareyle ya da parmağınızla sürükleyerek döndürebilirsiniz. Kutu önceden dengelenmiştir; GROMACS'ın <code>solvate</code> komutu da suyu böyle hazır bir kutudan kopyalar. Çakışma, kutuya sonradan eklenenlerden gelir: proteinin eklenen hidrojenleri, <code>solvate</code>'in yerleştirdiği sular, <code>genion</code>'un koyduğu iyonlar. Burada bunun yerine kutuya birkaç su molekülü sıkıştırılıyor; sıkıştırılanlar koyu halkayla işaretli. Dinamiği önce minimize etmeden başlatın. Dinamik 10 ps sürer (5.000 adım); her molekülün son 0,5 ps'lik yolu ince, üç işaretli molekülün bütün yolu altın renkli çizgiyle çizilir. Sıvı suda bir molekül 10 ps'de ortalama yarım nanometre kadar yol alır; bu, kendi çapının bir buçuk katıdır.</p></div>",
+   "<div class=\"prose\"><p>The box holds 125 rigid water molecules (TIP3P geometry and charges; red oxygen, white hydrogen). The box is a three-dimensional cube with an edge of 1.55 nm; you can rotate it by dragging with the mouse or your finger. The box has been equilibrated beforehand; GROMACS's <code>solvate</code> command also copies water from such a ready-made box. Clashes come from what is added to the box afterwards: the hydrogens added to the protein, the waters placed by <code>solvate</code>, the ions placed by <code>genion</code>. Here, instead, a few water molecules are squeezed into the box; the squeezed ones are marked with a dark ring. Start the dynamics first without minimizing. The dynamics lasts 10 ps (5,000 steps); the last 0.5 ps of each molecule's path is drawn with a thin line, and the whole path of three marked molecules with a gold line. In liquid water a molecule travels about half a nanometre on average in 10 ps, one and a half times its own diameter.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"m1box\" class=\"stage\" aria-label=\"Periyodik kübik kutuda 125 su molekülü ve kutuya sıkıştırılan moleküller; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"m1box\" class=\"stage\" aria-label=\"125 water molecules in a periodic cubic box and the molecules squeezed into it; can be rotated by dragging\"></canvas></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kurulum</div>",
+   "<div><div class=\"lbl\">Setup</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Kurulum\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Setup\">"
+  ],
+  [
+   "<button type=\"button\" data-ov=\"0\" aria-pressed=\"false\">Dengeli su kutusu</button>",
+   "<button type=\"button\" data-ov=\"0\" aria-pressed=\"false\">Equilibrated water box</button>"
+  ],
+  [
+   "<button type=\"button\" data-ov=\"2\" aria-pressed=\"true\">2 su sıkıştırılmış</button>",
+   "<button type=\"button\" data-ov=\"2\" aria-pressed=\"true\">2 waters squeezed in</button>"
+  ],
+  [
+   "<button type=\"button\" data-ov=\"4\" aria-pressed=\"false\">4 su sıkıştırılmış</button>",
+   "<button type=\"button\" data-ov=\"4\" aria-pressed=\"false\">4 waters squeezed in</button>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"m1new\">Kutuyu yeniden kur</button><button type=\"button\" class=\"btn\" id=\"m1em\">Minimize et</button><button type=\"button\" class=\"btn primary\" id=\"m1md\">Dinamiği başlat (10 ps)</button><button type=\"button\" class=\"btn\" id=\"m1pause\">Durdur</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"m1new\">Rebuild the box</button><button type=\"button\" class=\"btn\" id=\"m1em\">Minimize</button><button type=\"button\" class=\"btn primary\" id=\"m1md\">Start dynamics (10 ps)</button><button type=\"button\" class=\"btn\" id=\"m1pause\">Pause</button></div>"
+  ],
+  [
+   "<dt>Durum</dt><dd id=\"m1state\"></dd>",
+   "<dt>State</dt><dd id=\"m1state\"></dd>"
+  ],
+  [
+   "<dt>Minimizasyon adımı (kabul / deneme)</dt><dd id=\"m1steps\"></dd>",
+   "<dt>Minimization steps (accepted / tried)</dt><dd id=\"m1steps\"></dd>"
+  ],
+  [
+   "<dt>En büyük kuvvet F<sub>max</sub> (kJ mol⁻¹ nm⁻¹)</dt><dd id=\"m1fmax\"></dd>",
+   "<dt>Largest force F<sub>max</sub> (kJ mol⁻¹ nm⁻¹)</dt><dd id=\"m1fmax\"></dd>"
+  ],
+  [
+   "<dt>Farklı moleküllerin en yakın iki atomu</dt><dd id=\"m1dmin\"></dd>",
+   "<dt>Closest two atoms of different molecules</dt><dd id=\"m1dmin\"></dd>"
+  ],
+  [
+   "<dt>Sıcaklık, şu an / en yüksek</dt><dd id=\"m1T\"></dd>",
+   "<dt>Temperature, now / highest</dt><dd id=\"m1T\"></dd>"
+  ],
+  [
+   "<dt>Oksijenlerin başlangıçtan ortalama uzaklaşması</dt><dd id=\"m1msd\"></dd>",
+   "<dt>Mean displacement of the oxygens from the start</dt><dd id=\"m1msd\"></dd>"
+  ],
+  [
+   "<dt>Son adımda en çok yer değiştiren atom (O-H bağı 0,096 nm)</dt><dd id=\"m1disp\"></dd>",
+   "<dt>Largest atom displacement in the last step (O-H bond 0.096 nm)</dt><dd id=\"m1disp\"></dd>"
+  ],
+  [
+   "<div class=\"crash\" id=\"m1logBox\" hidden><div class=\"lbl\">Program çıktısı</div><pre id=\"m1log2\"></pre></div>",
+   "<div class=\"crash\" id=\"m1logBox\" hidden><div class=\"lbl\">Program output</div><pre id=\"m1log2\"></pre></div>"
+  ],
+  [
+   "<canvas id=\"m1plot\" class=\"plot\" aria-label=\"Solda minimizasyon adımına karşı en büyük kuvvet, sağda zamana karşı sıcaklık\"></canvas>",
+   "<canvas id=\"m1plot\" class=\"plot\" aria-label=\"Left: largest force against minimization step; right: temperature against time\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Minimizasyon: F<sub>max</sub> (logaritmik)</span><span><i style=\"background:var(--accent)\"></i>Dinamik: sıcaklık</span><span>Kesikli çizgiler: emtol = 1.000 kJ mol⁻¹ nm⁻¹ ve hedef sıcaklık 300 K</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Minimization: F<sub>max</sub> (logarithmic)</span><span><i style=\"background:var(--accent)\"></i>Dynamics: temperature</span><span>Dashed lines: emtol = 1,000 kJ mol⁻¹ nm⁻¹ and the target temperature of 300 K</span></div>"
+  ],
+  [
+   "<p class=\"small\">Model: üç boyutlu, periyodik kübik kutuda katı TIP3P suyu: O-H 0,09572 nm, H-O-H 104,52°, yükler O −0,834 e ve H +0,417 e; Lennard-Jones yalnız oksijenler arasında (σ = 0,31506 nm, ε = 0,63639 kJ/mol). Etkileşimler molekül bazında kesilir: oksijenler arası uzaklık 0,60 nm'den 0,75 nm'ye doğru yumuşakça sıfırlanır. Küçük kutuya uyan bu kesme GROMACS'ın PME'sinin yerini tutar, onun kadar doğru değildir. Gerçek birimler: adım 2 fs, V-rescale 300 K, τ<sub>T</sub> = 0,1 ps; minimizasyon GROMACS'ın en dik iniş kuralıyla (emstep 0,01 nm, emtol 1.000). Su molekülleri SHAKE ile katı tutulur (GROMACS suda SETTLE kullanır). Bir su molekülü tek adımda 30°'den çok dönerse uyarı yazılır; kısıtlar sağlanamazsa program durur. Dengeli kutu, ızgaradan başlatılıp minimize edilen, 5 ps 600 K'de eritilen ve 15 ps 300 K'de dengelenen bir kutudur. Bu kutuda ölçülen difüzyon katsayısı D ≈ 4,0 × 10⁻³ nm²/ps, molekül başına potansiyel enerji ≈ −40,6 kJ/mol. TIP3P için yayımlanan değerler D ≈ 5,9 × 10⁻³ nm²/ps ve ≈ −41 kJ/mol; küçük periyodik kutu difüzyonu bilinen bir şekilde düşürür (Yeh ve Hummer 2004).</p>",
+   "<p class=\"small\">Model: rigid TIP3P water in a three-dimensional periodic cubic box: O-H 0.09572 nm, H-O-H 104.52°, charges O −0.834 e and H +0.417 e; Lennard-Jones only between oxygens (σ = 0.31506 nm, ε = 0.63639 kJ/mol). Interactions are cut per molecule: they are smoothly switched to zero as the oxygen-oxygen distance goes from 0.60 to 0.75 nm. This cut-off, which suits the small box, stands in for GROMACS's PME and is not as accurate. Real units: step 2 fs, V-rescale 300 K, τ<sub>T</sub> = 0.1 ps; minimization with GROMACS's steepest-descent rule (emstep 0.01 nm, emtol 1,000). Water molecules are kept rigid with SHAKE (GROMACS uses SETTLE for water). If a water molecule rotates by more than 30° in one step a warning is written; if the constraints cannot be satisfied the program stops. The equilibrated box was started from a lattice, minimized, melted for 5 ps at 600 K and equilibrated for 15 ps at 300 K. Measured in this box: diffusion coefficient D ≈ 4.0 × 10⁻³ nm²/ps, potential energy per molecule ≈ −40.6 kJ/mol. Published values for TIP3P are D ≈ 5.9 × 10⁻³ nm²/ps and ≈ −41 kJ/mol; a small periodic box is known to lower diffusion (Yeh and Hummer 2004).</p>"
+  ],
+  [
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
+  ],
+  [
+   "<h2 id=\"m1h2\">Termostat sıcaklığı nasıl getirir?</h2>",
+   "<h2 id=\"m1h2\">How does a thermostat bring the temperature there?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Minimizasyondan sonra atomlara başlangıç hızları verilir (<code>gen_vel</code>) ve bir termostat sistemi hedef sıcaklığa çeker. Termostatın ne kadar sıkı çektiğini τ<sub>T</sub> belirler. Aynı dengeli su kutusunda başlangıç sıcaklığını, termostatı ve τ<sub>T</sub>'yi değiştirin; sıcaklığın hedefe ne kadar sürede geldiğine ve hedefin çevresinde ne kadar dalgalandığına bakın.</p></div>",
+   "<div class=\"prose\"><p>After minimization the atoms are given initial velocities (<code>gen_vel</code>) and a thermostat pulls the system to the target temperature. τ<sub>T</sub> sets how tightly the thermostat pulls. In the same equilibrated water box, change the starting temperature, the thermostat and τ<sub>T</sub>; look at how long the temperature takes to reach the target and how much it fluctuates around it.</p></div>"
+  ],
+  [
+   "<canvas id=\"m1th\" class=\"plot\" style=\"aspect-ratio:16/10\" aria-label=\"Zamana karşı sıcaklık: seçilen termostat ve τ ile\"></canvas>",
+   "<canvas id=\"m1th\" class=\"plot\" style=\"aspect-ratio:16/10\" aria-label=\"Temperature against time with the chosen thermostat and τ\"></canvas>"
+  ],
+  [
+   "<div><div class=\"lbl\">Termostat</div>",
+   "<div><div class=\"lbl\">Thermostat</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Termostat\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Thermostat\">"
+  ],
+  [
+   "<button type=\"button\" data-tk=\"none\" aria-pressed=\"false\">Yok</button>",
+   "<button type=\"button\" data-tk=\"none\" aria-pressed=\"false\">None</button>"
+  ],
+  [
+   "<div><div class=\"lbl\">Başlangıç sıcaklığı</div>",
+   "<div><div class=\"lbl\">Starting temperature</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Başlangıç sıcaklığı\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Starting temperature\">"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1run\">5 ps koştur</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1run\">Run 5 ps</button></div>"
+  ],
+  [
+   "<dt>Hedefin ±%5'ine varış (0,13 ps'lik ortalama)</dt><dd id=\"m1reach\"></dd>",
+   "<dt>Reaching ±5% of the target (0.13 ps average)</dt><dd id=\"m1reach\"></dd>"
+  ],
+  [
+   "<dt>Son 2,5 ps ortalaması</dt><dd id=\"m1mean\"></dd>",
+   "<dt>Mean of the last 2.5 ps</dt><dd id=\"m1mean\"></dd>"
+  ],
+  [
+   "<dt>Son 2,5 ps dalgalanması (standart sapma)</dt><dd id=\"m1sd\"></dd>",
+   "<dt>Fluctuation in the last 2.5 ps (standard deviation)</dt><dd id=\"m1sd\"></dd>"
+  ],
+  [
+   "<dt>Doğru dağılımın dalgalanması</dt><dd id=\"m1sdc\"></dd>",
+   "<dt>Fluctuation of the correct distribution</dt><dd id=\"m1sdc\"></dd>"
+  ],
+  [
+   "<p class=\"small\">Model: atölyedeki dengeli 125 moleküllük su kutusu; adım 2 fs, 2.500 adım. V-rescale (Bussi, Donadio ve Parrinello 2007) kinetik enerjiyi rastgele bir terimle ölçekler ve kanonik dağılımı verir; Berendsen yalnız farkı sönümler ve dalgalanmayı olması gerekenden küçük tutar. Doğru dağılımın dalgalanması T·√(2/N<sub>f</sub>); katı suyun her molekülü 3 öteleme ve 3 dönme serbestlik derecesi taşır ve toplam momentum sabit tutulur: N<sub>f</sub> = 6 · 125 − 3 = 747, 300 K'de dalgalanma 15,5 K. Bu projenin ayarı: V-rescale, τ<sub>T</sub> = 0,1 ps, 300 K.</p>",
+   "<p class=\"small\">Model: the equilibrated 125-molecule water box of the workshop; step 2 fs, 2,500 steps. V-rescale (Bussi, Donadio and Parrinello 2007) scales the kinetic energy with a random term and gives the canonical distribution; Berendsen only damps the difference and keeps the fluctuation smaller than it should be. The fluctuation of the correct distribution is T·√(2/N<sub>f</sub>); each rigid water molecule carries 3 translational and 3 rotational degrees of freedom and the total momentum is kept fixed: N<sub>f</sub> = 6 · 125 − 3 = 747, a fluctuation of 15.5 K at 300 K. This project's setting: V-rescale, τ<sub>T</sub> = 0.1 ps, 300 K.</p>"
+  ],
+  [
+   "<h3 class=\"h3\">Üretimde neden Berendsen kullanılmaz?</h3>",
+   "<h3 class=\"h3\">Why is Berendsen not used in production?</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Yukarıda gördünüz: Berendsen ortalamayı 300 K'ye tam oturtur, ama sıcaklığı olması gerekenden az dalgalandırır. Ortalama doğruysa bu neden sorun olsun? Çünkü MD'de bazı ölçülebilir büyüklükler ortalamadan değil, dalgalanmadan hesaplanır. En tanıdığı ısı sığasıdır: DSC ile ölçtüğünüz C<sub>p</sub>'nin simülasyondaki karşılığı, sabit sıcaklıkta toplam enerjinin dalgalanmasından gelir, C<sub>V</sub> = σ<sub>E</sub>² / (k<sub>B</sub> T²). Bu formül yalnız doğru topluluk örneklenirse geçerlidir. Aşağıda aynı kutu, aynı başlangıç hızları ve aynı τ<sub>T</sub> = 0,1 ps ile iki termostat yan yana 10 ps koşar; ilk 2,5 ps atılır.</p></div>",
+   "<div class=\"prose\"><p>You saw it above: Berendsen puts the mean exactly at 300 K, but lets the temperature fluctuate less than it should. If the mean is right, why is that a problem? Because in MD some measurable quantities are computed not from a mean but from a fluctuation. The most familiar one is the heat capacity: the simulation counterpart of the C<sub>p</sub> you measure by DSC comes from the fluctuation of the total energy at constant temperature, C<sub>V</sub> = σ<sub>E</sub>² / (k<sub>B</sub> T²). This formula holds only if the correct ensemble is sampled. Below, the two thermostats run side by side for 10 ps with the same box, the same initial velocities and the same τ<sub>T</sub> = 0.1 ps; the first 2.5 ps are discarded.</p></div>"
+  ],
+  [
+   "<canvas id=\"m1hist\" class=\"plot\" aria-label=\"Anlık sıcaklığın dağılımı: V-rescale, Berendsen ve doğru kanonik dağılım\"></canvas>",
+   "<canvas id=\"m1hist\" class=\"plot\" aria-label=\"Distribution of the instantaneous temperature: V-rescale, Berendsen and the correct canonical distribution\"></canvas>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1prRun\">İki termostatı yan yana koştur (10 ps)</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1prRun\">Run both thermostats side by side (10 ps)</button></div>"
+  ],
+  [
+   "<tr><td>Ortalama sıcaklık, K <span class=\"ok\">(hedef 300)</span></td><td class=\"n\" id=\"m1prTa\">·</td><td class=\"n\" id=\"m1prTb\">·</td></tr>",
+   "<tr><td>Mean temperature, K <span class=\"ok\">(target 300)</span></td><td class=\"n\" id=\"m1prTa\">·</td><td class=\"n\" id=\"m1prTb\">·</td></tr>"
+  ],
+  [
+   "<tr><td>Sıcaklık dalgalanması, K <span class=\"ok\">(doğrusu 15,5)</span></td><td class=\"n\" id=\"m1prSa\">·</td><td class=\"n\" id=\"m1prSb\">·</td></tr>",
+   "<tr><td>Temperature fluctuation, K <span class=\"ok\">(correct 15.5)</span></td><td class=\"n\" id=\"m1prSa\">·</td><td class=\"n\" id=\"m1prSb\">·</td></tr>"
+  ],
+  [
+   "<tr><td>Toplam enerji dalgalanması, kJ/mol</td><td class=\"n\" id=\"m1prEa\">·</td><td class=\"n\" id=\"m1prEb\">·</td></tr>",
+   "<tr><td>Total energy fluctuation, kJ/mol</td><td class=\"n\" id=\"m1prEa\">·</td><td class=\"n\" id=\"m1prEb\">·</td></tr>"
+  ],
+  [
+   "<tr><td>Isı sığası, dalgalanmadan, J mol⁻¹ K⁻¹ <span class=\"ok\">(doğrusu ≈ 74)</span></td><td class=\"n\" id=\"m1prCa\">·</td><td class=\"n\" id=\"m1prCb\">·</td></tr>",
+   "<tr><td>Heat capacity from the fluctuation, J mol⁻¹ K⁻¹ <span class=\"ok\">(correct ≈ 74)</span></td><td class=\"n\" id=\"m1prCa\">·</td><td class=\"n\" id=\"m1prCb\">·</td></tr>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>V-rescale</span><span><i style=\"background:var(--deep)\"></i>Berendsen</span><span><i style=\"background:var(--good)\"></i>Doğru dağılım: ortalama 300 K, standart sapma 15,5 K</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>V-rescale</span><span><i style=\"background:var(--deep)\"></i>Berendsen</span><span><i style=\"background:var(--good)\"></i>Correct distribution: mean 300 K, standard deviation 15.5 K</span></div>"
+  ],
+  [
+   "<div class=\"prose\"><p>Tablodaki doğru ısı sığası dalgalanmadan değil, ortalamalardan hesaplandı: bu modelde 270 ve 330 K'de 20'şer ps'lik ikişer koşu yapıldı ve ortalama enerji farkı sıcaklık farkına bölündü. V-rescale ile 73, Berendsen ile 75 J mol⁻¹ K⁻¹ çıktı; ortalamalar iki termostatta da doğrudur (deneysel suyun C<sub>p</sub>'si 75,3 J mol⁻¹ K⁻¹). Dalgalanmadan hesaplanan değer kısa bir koşuda gürültülüdür; sizin koşunuz da her seferinde biraz farklı sayı verir. Ama Berendsen'in açığı bu gürültüden çok büyüktür. 300 K'de farklı başlangıç hızları ve 10 ile 20 ps arası sürelerle yaptığımız koşularda V-rescale 39 ile 110 arasında değer verdi (18 koşu, ortalama 73, yani ortalamalardan bulunan değerin aynısı); Berendsen 5 ile 28 arasında (16 koşu, ortalama 12). Berendsen'le üretim koşusu yapıp ısı sığası hesaplayan biri, kalorimetrenin göstereceği değerin aşağı yukarı altıda birini bulur. Aynı sorun basınçta da vardır: Berendsen barostatı hacim dalgalanmasını bastırır ve dalgalanmadan hesaplanan sıkıştırılabilirliği bozar.</p>",
+   "<div class=\"prose\"><p>The correct heat capacity in the table was computed not from a fluctuation but from means: in this model two runs of 20 ps each were made at 270 and at 330 K, and the difference in mean energy was divided by the difference in temperature. V-rescale gave 73 and Berendsen 75 J mol⁻¹ K⁻¹; the means are right with both thermostats (the C<sub>p</sub> of real water is 75.3 J mol⁻¹ K⁻¹). A value computed from the fluctuation is noisy in a short run; your run also gives a slightly different number each time. But Berendsen's shortfall is much larger than this noise. In our runs at 300 K with different initial velocities and lengths of 10 to 20 ps, V-rescale gave values between 39 and 110 (18 runs, mean 73, the same as the value from the means); Berendsen gave between 5 and 28 (16 runs, mean 12). Someone who runs production with Berendsen and computes a heat capacity finds roughly one sixth of what a calorimeter would show. Pressure has the same problem: the Berendsen barostat suppresses volume fluctuations and spoils a compressibility computed from them.</p>"
+  ],
+  [
+   "<p>İkinci bir kusur uzun koşularda birikir: Berendsen kinetik enerjiyi hızlı titreşimlerden yavaş öteleme ve dönme hareketine aktarır, sistem sonunda \"uçan buz küpü\" gibi bütün olarak hareket eder (Harvey, Tan ve Cheatham 1998; Braun, Moosavi ve Smit 2018). Buradaki su katı olduğu, yani titreşmediği için bu kutu o etkiyi gösteremez; 20 ps'lik koşularımızda öteleme ve dönme sıcaklıkları arasında gürültüyü aşan bir ayrılma görmedik.</p>",
+   "<p>A second flaw builds up in long runs: Berendsen transfers kinetic energy from fast vibrations to slow translation and rotation, and in the end the system moves as a whole like a \"flying ice cube\" (Harvey, Tan and Cheatham 1998; Braun, Moosavi and Smit 2018). Because the water here is rigid, that is, it does not vibrate, this box cannot show that effect; in our 20 ps runs we saw no separation between the translational and rotational temperatures beyond the noise.</p>"
+  ],
+  [
+   "<p>Berendsen'in iyi yaptığı iş dengelemedir: sistemi hızlı ve salınımsız hedefe getirir. Üretimde ise topluluğu doğru örnekleyen bir termostat gerekir; V-rescale (bu projenin ayarı) ya da Nosé-Hoover. GROMACS bu yüzden Berendsen seçildiğinde <code>grompp</code> aşamasında şu notu yazar: <code>The Berendsen thermostat does not generate the correct kinetic energy distribution.</code></p></div>",
+   "<p>What Berendsen does well is equilibration: it brings the system to the target quickly and without oscillation. Production, however, needs a thermostat that samples the ensemble correctly: V-rescale (this project's setting) or Nosé-Hoover. That is why GROMACS writes this note at the <code>grompp</code> stage when Berendsen is chosen: <code>The Berendsen thermostat does not generate the correct kinetic energy distribution.</code></p></div>"
+  ],
+  [
+   "<p class=\"small\">Isı sığası: C<sub>V</sub> = σ<sub>E</sub>² / (k<sub>B</sub> T²), E kinetik ve potansiyel enerjinin toplamı, 125 moleküle bölünür. Kısa koşuda tek bir değer, çok sayıda koşunun ortalamasının yarısı ile bir buçuk katı arasında oynayabilir. Berendsen τ<sub>T</sub> büyüdükçe termostatsız koşuya (NVE), küçüldükçe sabit kinetik enerjiye yaklaşır: 20 ps'lik koşularımızda sıcaklık dalgalanması τ<sub>T</sub> = 0,01 ps'de 6,2 K, 0,1 ps'de 11,0 K, termostatsız 12,8 K; V-rescale 15,5 K.</p>",
+   "<p class=\"small\">Heat capacity: C<sub>V</sub> = σ<sub>E</sub>² / (k<sub>B</sub> T²), with E the sum of kinetic and potential energy, divided by the 125 molecules. In a short run a single value can fall anywhere between half and one and a half times the mean of many runs. As τ<sub>T</sub> grows, Berendsen approaches a run without a thermostat (NVE); as it shrinks, a constant kinetic energy: in our 20 ps runs the temperature fluctuation was 6.2 K at τ<sub>T</sub> = 0.01 ps, 11.0 K at 0.1 ps and 12.8 K without a thermostat; V-rescale 15.5 K.</p>"
+  ],
+  [
+   "<article class=\"q\" id=\"m1c1\"><span class=\"k\">Açık</span><h3>Minimizasyon neyi önler?</h3><p>Atölyede sıkıştırılmış bir kutuda dinamiği bir kez minimize etmeden, bir kez minimize ettikten sonra başlatın.</p><div class=\"mine\" id=\"mm1c1\">Aynı sıkıştırılmış kurulumda dinamiği önce minimizasyonsuz, sonra minimizasyonla başlatın.</div></article>",
+   "<article class=\"q\" id=\"m1c1\"><span class=\"k\">Open</span><h3>What does minimization prevent?</h3><p>In the workshop, start the dynamics in a squeezed box once without minimizing and once after minimizing.</p><div class=\"mine\" id=\"mm1c1\">In the same squeezed setup, start the dynamics first without minimization, then with minimization.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"m1c2\"><span class=\"k\">Açık</span><h3>τ<sub>T</sub> neyi değiştirir?</h3><p>Tezgâhta V-rescale ile en az üç τ<sub>T</sub> deneyin, sonra Berendsen'e bakın.</p><div class=\"mine\" id=\"mm1c2\">V-rescale ile en az üç τ<sub>T</sub> koşturun (en büyüğü en küçüğünün en az on katı), sonra Berendsen ile bir koşu yapın.</div></article>",
+   "<article class=\"q\" id=\"m1c2\"><span class=\"k\">Open</span><h3>What does τ<sub>T</sub> change?</h3><p>On the bench, try at least three values of τ<sub>T</sub> with V-rescale, then look at Berendsen.</p><div class=\"mine\" id=\"mm1c2\">Run at least three values of τ<sub>T</sub> with V-rescale (the largest at least ten times the smallest), then make one run with Berendsen.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"m1c3\"><span class=\"k\">Açık</span><h3>Yoğunluk oturdu mu?</h3><p>Aşağıdaki defterde NPT yoğunluğunu iki farklı \"atılan başlangıç\" ile ölçün; bir de basınca bakın.</p><div class=\"mine\" id=\"mm1c3\">NPT yoğunluğunu en az iki farklı atılan başlangıçla (biri 0, biri en az 4 ps) ve bir basınç serisini ölçün.</div></article>",
+   "<article class=\"q\" id=\"m1c3\"><span class=\"k\">Open</span><h3>Has the density settled?</h3><p>In the notebook below, measure the NPT density with two different \"discarded starts\"; look at the pressure as well.</p><div class=\"mine\" id=\"mm1c3\">Measure the NPT density with at least two different discarded starts (one 0, one at least 4 ps) and one pressure series.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"m1c4\"><span class=\"k\">Açık</span><h3>Berendsen neden üretimde yok?</h3><p>Tezgâhın altındaki sınamada iki termostatı yan yana koşturun.</p><div class=\"mine\" id=\"mm1c4\">İki termostatı aynı kutuda yan yana 10 ps koşturun; sıcaklık dağılımına ve ısı sığasına bakın.</div></article>",
+   "<article class=\"q\" id=\"m1c4\"><span class=\"k\">Open</span><h3>Why is Berendsen absent from production?</h3><p>In the test at the bottom of the bench, run the two thermostats side by side.</p><div class=\"mine\" id=\"mm1c4\">Run the two thermostats side by side in the same box for 10 ps; look at the temperature distribution and the heat capacity.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"m1c5\"><span class=\"k\">Açık</span><h3>Çöken bağlar nerede?</h3><p>Proteine dönüşte bir yeri önce minimize edin, sonra minimizasyonsuz kipte son kareye kadar ilerleyin.</p><div class=\"mine\" id=\"mm1c5\">Aynı yeri (iki su dışında) bir kez minimizasyonla sona kadar, bir kez minimizasyonsuz kipte son kareye kadar izleyin.</div></article>",
+   "<article class=\"q\" id=\"m1c5\"><span class=\"k\">Open</span><h3>Where are the bonds that broke?</h3><p>In Back to the protein, first minimize one site, then step through to the last frame in the mode without minimization.</p><div class=\"mine\" id=\"mm1c5\">Follow the same site (other than the two waters) once with minimization to the end and once to the last frame in the mode without minimization.</div></article>"
+  ],
+  [
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Keşif defteri</span><h2 id=\"m1h3\">Günlükten ölçün: sistem dengede mi?</h2></div>",
+   "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Discovery notebook</span><h2 id=\"m1h3\">Measure from the log: is the system at equilibrium?</h2></div>"
+  ],
+  [
+   "<button type=\"button\" class=\"btn\" id=\"m1nClr\">Defteri temizle</button>",
+   "<button type=\"button\" class=\"btn\" id=\"m1nClr\">Clear the notebook</button>"
+  ],
+  [
+   "<p class=\"small\">Veriler bu projenin ubikitin kutusunun gerçek enerji dosyalarından (S0: 18.937 atom; NVT ve NPT 10'ar ps, konum kısıtlı; ardından 10 ps kısıtsız). Her seri 0,2 ps aralıklı 51 değerdir. Bir seri seçin, başından atılacak süreyi belirleyin ve ölçün: ortalama, standart sapma ve kalan sürenin iki yarısının ortalaması hesaplanır.</p>",
+   "<p class=\"small\">The data come from the real energy files of this project's ubiquitin box (S0: 18,937 atoms; NVT and NPT for 10 ps each with position restraints, then 10 ps unrestrained). Each series is 51 values 0.2 ps apart. Choose a series, set how much of its start to discard and measure: the mean, the standard deviation and the means of the two halves of the remaining time are computed.</p>"
+  ],
+  [
+   "<div><div class=\"lbl\">Seri</div><div class=\"chips\" id=\"m1nS\"></div></div>",
+   "<div><div class=\"lbl\">Series</div><div class=\"chips\" id=\"m1nS\"></div></div>"
+  ],
+  [
+   "<div style=\"min-width:220px\"><label class=\"lbl\" for=\"m1nD\">Başından atılan süre</label><div class=\"big\" id=\"m1nDV\"></div><input type=\"range\" id=\"m1nD\" min=\"0\" max=\"6\" step=\"0.2\" value=\"0\"></div>",
+   "<div style=\"min-width:220px\"><label class=\"lbl\" for=\"m1nD\">Time discarded from the start</label><div class=\"big\" id=\"m1nDV\"></div><input type=\"range\" id=\"m1nD\" min=\"0\" max=\"6\" step=\"0.2\" value=\"0\"></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1nRun\">Ölç</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1nRun\">Measure</button></div>"
+  ],
+  [
+   "<p class=\"busy\" id=\"m1nBusy\" aria-live=\"polite\">Ölçüm yok.</p>",
+   "<p class=\"busy\" id=\"m1nBusy\" aria-live=\"polite\">No measurements.</p>"
+  ],
+  [
+   "<canvas id=\"m1book\" class=\"plot\" aria-label=\"Seçilen gerçek seri zamana karşı: atılan bölüm soluk, kalan bölümün ortalaması ve iki yarısının ortalaması\"></canvas>",
+   "<canvas id=\"m1book\" class=\"plot\" aria-label=\"The chosen real series against time: the discarded part faded, the mean of the remaining part and the means of its two halves\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Seçilen seri</span><span><i style=\"background:var(--deep)\"></i>Kalan bölümün ortalaması</span><span><i style=\"background:var(--gold)\"></i>İki yarının ortalaması</span><span>Soluk: atılan başlangıç</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Chosen series</span><span><i style=\"background:var(--deep)\"></i>Mean of the remaining part</span><span><i style=\"background:var(--gold)\"></i>Means of the two halves</span><span>Faded: discarded start</span></div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Seri</th><th>Atılan (ps)</th><th>Ortalama</th><th>Standart sapma</th><th>1. yarı / 2. yarı</th></tr></thead><tbody id=\"m1nTab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Series</th><th>Discarded (ps)</th><th>Mean</th><th>Standard deviation</th><th>1st half / 2nd half</th></tr></thead><tbody id=\"m1nTab\"></tbody></table></div>"
+  ],
+  [
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to the protein</span>"
+  ],
+  [
+   "<h2 id=\"m1h4\">Bu projenin minimizasyonları ve minimizasyonsuz koşu</h2>",
+   "<h2 id=\"m1h4\">This project's minimizations and the run without minimization</h2>"
+  ],
+  [
+   "<h3 class=\"h3\">Çakışmanın adresi: bu projenin gerçek kutusu</h3>",
+   "<h3 class=\"h3\">Where the clashes are: this project's real box</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Görünümde bu projenin ana kutusundaki ubikitin, dosyadaki gerçek koordinatlarıyla duruyor (S0: 1.231 protein atomu ve 5.902 su, toplam 18.937 atom). Başlangıç, suya konmuş ama minimize edilmemiş kutudur (<code>solvated.gro</code>). Kırmızı halkalı beş yer, atomların en çok sıkıştığı yerlerden seçildi. Birini seçince görünüm oraya yaklaşır ve çevresindeki sular da çizilir. İki kipi karşılaştırın: <b>Minimizasyonla</b> aynı yerin minimizasyondan önceki ve sonraki hâlini (<code>em.gro</code>) gösterir. <b>Minimizasyonsuz</b> ise aynı kutu doğrudan dinamiğe sokulunca (S1) GROMACS'ın çökerken diske yazdığı anlık görüntüleri gösterir.</p></div>",
+   "<div class=\"prose\"><p>The view shows the ubiquitin of this project's main box at the real coordinates from the file (S0: 1,231 protein atoms and 5,902 waters, 18,937 atoms in all). The starting point is the box solvated but not minimized (<code>solvated.gro</code>). The five sites with red rings were chosen from where the atoms are most squeezed. Choosing one zooms the view in and also draws the waters around it. Compare the two modes: <b>With minimization</b> shows the same site before and after minimization (<code>em.gro</code>). <b>Without minimization</b> shows the snapshots GROMACS wrote to disk as it crashed when the same box went straight into dynamics (S1).</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"m1ubq\" class=\"stage\" aria-label=\"Ubikitin ve çevresindeki su: minimizasyondan önce, sonra ve minimizasyonsuz dinamiğin çöken adımları; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"m1ubq\" class=\"stage\" aria-label=\"Ubiquitin and the surrounding water: before and after minimization and the crashing steps of dynamics without minimization; can be rotated by dragging\"></canvas></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kip</div>",
+   "<div><div class=\"lbl\">Mode</div>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Kip\">",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Mode\">"
+  ],
+  [
+   "<button type=\"button\" data-um=\"s0\" aria-pressed=\"true\">Minimizasyonla</button>",
+   "<button type=\"button\" data-um=\"s0\" aria-pressed=\"true\">With minimization</button>"
+  ],
+  [
+   "<button type=\"button\" data-um=\"s1\" aria-pressed=\"false\">Minimizasyonsuz (S1)</button>",
+   "<button type=\"button\" data-um=\"s1\" aria-pressed=\"false\">Without minimization (S1)</button>"
+  ],
+  [
+   "<div><div class=\"lbl\">Yer</div><div class=\"chips\" id=\"m1uHs\"></div></div>",
+   "<div><div class=\"lbl\">Site</div><div class=\"chips\" id=\"m1uHs\"></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1uGo\">Minimize et</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"m1uGo\">Minimize</button></div>"
+  ],
+  [
+   "<div class=\"frs\" id=\"m1uFr\" hidden><span>Adım 0 · önce</span><span>Adım 0 · sonra</span><span>Adım 1 · sonra</span></div>",
+   "<div class=\"frs\" id=\"m1uFr\" hidden><span>Step 0 · before</span><span>Step 0 · after</span><span>Step 1 · after</span></div>"
+  ],
+  [
+   "<dt>Görünen</dt><dd id=\"m1uMode\"></dd>",
+   "<dt>Showing</dt><dd id=\"m1uMode\"></dd>"
+  ],
+  [
+   "<dt>Yer</dt><dd id=\"m1uSite\"></dd>",
+   "<dt>Site</dt><dd id=\"m1uSite\"></dd>"
+  ],
+  [
+   "<div class=\"tw\" id=\"m1uLogW\" hidden><table><thead><tr><th>Bağ, nm</th><th>Olmalı</th><th>Adım 0</th><th>Adım 1</th></tr></thead><tbody id=\"m1uLog\"></tbody></table></div>",
+   "<div class=\"tw\" id=\"m1uLogW\" hidden><table><thead><tr><th>Bond, nm</th><th>Should be</th><th>Step 0</th><th>Step 1</th></tr></thead><tbody id=\"m1uLog\"></tbody></table></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:#7f8791\"></i>C</span><span><i style=\"background:#3a6bd0\"></i>N</span><span><i style=\"background:#d0453a\"></i>O</span><span><i style=\"background:#f3f2ec;border:1px solid var(--line)\"></i>H</span><span><i style=\"background:#e6897f\"></i>Suyun oksijeni</span><span><i style=\"background:var(--warm)\"></i>Kuvvet oku (uzunluk logaritmik)</span><span><i style=\"background:var(--bad)\"></i>Kesikli: 0,2 nm'den yakın çift; kenardaki ok: görünümden fırlamış atom</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:#7f8791\"></i>C</span><span><i style=\"background:#3a6bd0\"></i>N</span><span><i style=\"background:#d0453a\"></i>O</span><span><i style=\"background:#f3f2ec;border:1px solid var(--line)\"></i>H</span><span><i style=\"background:#e6897f\"></i>Water oxygen</span><span><i style=\"background:var(--warm)\"></i>Force arrow (logarithmic length)</span><span><i style=\"background:var(--bad)\"></i>Dashed: pair closer than 0.2 nm; arrow at the edge: atom thrown out of the view</span></div>"
+  ],
+  [
+   "<p class=\"small\">Koordinatlar ve bağlar bu projenin dosyalarından: <code>solvated.gro</code>, <code>em.gro</code>, <code>topol.top</code>; S1 için <code>scenarios/step0b.pdb</code>, <code>step0c.pdb</code> ve <code>step1c.pdb</code> (<code>step1b.pdb</code>, <code>step0c.pdb</code> ile aynıdır). Minimizasyonun ara adımları kaydedilmedi (<code>em.trr</code> yalnız son kareyi tutar); \"Minimize et\" canlandırması başlangıç ile son konum arasında düz bir geçiştir, minimizasyonun izlediği yol değildir. S1 kareleri arasındaki geçiş de görseldir; uzaklıklar yalnız kareler üzerindeyken yazılır. Tablodaki bağ uzunlukları GROMACS'ın S1 günlüğündeki LINCS tablolarından alındı; aynı uzunluklar anlık görüntülerden de hesaplanıp denetlendi. Kutudaki en büyük kuvvet (196.569 kJ mol⁻¹ nm⁻¹, atom 10895) GROMACS'ın aynı girdilerle sıfır adımlık bir minimizasyonda bildirdiği değerdir ve S0'ın enerji dosyasındaki ilk F<sub>max</sub> ile aynıdır; minimizasyon sonundaki 755 değeri <code>em.log</code>'dan. Oklar ve seçili yerdeki kuvvetler, iki kutu için GROMACS 2023.3 ile yeniden hesaplanan kuvvetlerdir; su katı olduğundan suyun kuvveti molekülü öteleyen ve döndüren kısma indirgendi. Bu indirgeme GROMACS'ınkinden biraz farklıdır (aynı su için 204.651 verir). Sayfaya proteinin bütün atomları ve seçili yerlerin 0,6 nm çevresindeki 151 su alındı.</p>",
+   "<p class=\"small\">Coordinates and bonds come from this project's files: <code>solvated.gro</code>, <code>em.gro</code>, <code>topol.top</code>; for S1, <code>scenarios/step0b.pdb</code>, <code>step0c.pdb</code> and <code>step1c.pdb</code> (<code>step1b.pdb</code> is identical to <code>step0c.pdb</code>). The intermediate steps of the minimization were not saved (<code>em.trr</code> holds only the last frame); the \"Minimize\" animation is a straight transition between the start and end positions, not the path the minimization took. The transition between S1 frames is also only visual; distances are written only while on a frame. The bond lengths in the table were taken from the LINCS tables in GROMACS's S1 log; the same lengths were also computed from the snapshots and checked. The largest force in the box (196,569 kJ mol⁻¹ nm⁻¹, atom 10895) is the value GROMACS reports in a zero-step minimization with the same inputs, and it matches the first F<sub>max</sub> in S0's energy file; the final value of 755 is from <code>em.log</code>. The arrows and the forces at the chosen site are forces recomputed for the two boxes with GROMACS 2023.3; because water is rigid, the force on a water was reduced to the part that translates and rotates the molecule. This reduction differs slightly from GROMACS's (it gives 204,651 for the same water). The page holds all the protein atoms and the 151 waters within 0.6 nm of the chosen sites.</p>"
+  ],
+  [
+   "<h3 class=\"h3\" style=\"margin-top:8px\">Üç minimizasyon ve minimizasyonsuz koşu</h3>",
+   "<h3 class=\"h3\" style=\"margin-top:8px\">Three minimizations and the run without minimization</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bu projede ubikitin kutusu üç biçimde minimize edildi: ana kutu (S0), dar kutu (S3, d = 0,5 nm) ve 0,15 M NaCl eklenmiş kutu (S4). Grafik üçünün potansiyel enerjisini, atom sayısına bölerek, adım adım gösterir. Bir de aynı kutu minimizasyon hiç yapılmadan dinamiğe sokuldu (S1).</p></div>",
+   "<div class=\"prose\"><p>In this project the ubiquitin box was minimized in three forms: the main box (S0), a narrow box (S3, d = 0.5 nm) and a box with 0.15 M NaCl added (S4). The plot shows the potential energy of all three, divided by the number of atoms, step by step. The same box was also put into dynamics with no minimization at all (S1).</p></div>"
+  ],
+  [
+   "<canvas id=\"m1em3\" class=\"plot\" aria-label=\"Minimizasyon adımına karşı atom başına potansiyel enerji: S0, S3 ve S4\"></canvas>",
+   "<canvas id=\"m1em3\" class=\"plot\" aria-label=\"Potential energy per atom against minimization step: S0, S3 and S4\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>S0: ana kutu</span><span><i style=\"background:var(--accent)\"></i>S3: dar kutu</span><span><i style=\"background:var(--gold)\"></i>S4: 0,15 M NaCl</span><span>Her üçü de F<sub>max</sub> &lt; emtol = 1.000 kJ mol⁻¹ nm⁻¹ olunca durdu</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>S0: main box</span><span><i style=\"background:var(--accent)\"></i>S3: narrow box</span><span><i style=\"background:var(--gold)\"></i>S4: 0.15 M NaCl</span><span>All three stopped when F<sub>max</sub> &lt; emtol = 1,000 kJ mol⁻¹ nm⁻¹</span></div>"
+  ],
+  [
+   "<div class=\"lbl\">S1: minimizasyonsuz NVT, GROMACS çıktısı</div>",
+   "<div class=\"lbl\">S1: NVT without minimization, GROMACS output</div>"
+  ],
+  [
+   "Segmentation fault (çıkış kodu 139)</pre>",
+   "Segmentation fault (exit code 139)</pre>"
+  ],
+  [
+   "<p class=\"small\" style=\"margin:0\">0. adımdaki sıcaklık 1.151 K, basınç 66.225 bar idi (enerji dosyasından). Bir adım sonra H içeren bir bağın uzunluğu olması gerekenin yaklaşık 2,8 milyar katına çıktı ve program çöktü.</p>",
+   "<p class=\"small\" style=\"margin:0\">At step 0 the temperature was 1,151 K and the pressure 66,225 bar (from the energy file). One step later the length of a bond involving H grew to about 2.8 billion times what it should be, and the program crashed.</p>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Aşama</th><th>Ayar (bu projenin .mdp dosyaları)</th><th>Ne için?</th></tr></thead><tbody>",
+   "<div class=\"tw\"><table><thead><tr><th>Stage</th><th>Setting (this project's .mdp files)</th><th>What for?</th></tr></thead><tbody>"
+  ],
+  [
+   "<tr><td>Minimizasyon</td><td><code>integrator = steep</code>, <code>emtol = 1000</code>, <code>emstep = 0.01</code>, en çok 5.000 adım</td><td>Çakışmaları gidermek; hız ve sıcaklık yoktur</td></tr>",
+   "<tr><td>Minimization</td><td><code>integrator = steep</code>, <code>emtol = 1000</code>, <code>emstep = 0.01</code>, at most 5,000 steps</td><td>To remove clashes; there are no velocities and no temperature</td></tr>"
+  ],
+  [
+   "<tr><td>NVT, 10 ps</td><td><code>define = -DPOSRES</code>, <code>tcoupl = V-rescale</code>, <code>tau_t = 0.1</code>, <code>ref_t = 300</code>, <code>gen_vel = yes</code></td><td>Suyu 300 K'ye getirmek; protein ağır atomları konumuna yaylarla bağlı</td></tr>",
+   "<tr><td>NVT, 10 ps</td><td><code>define = -DPOSRES</code>, <code>tcoupl = V-rescale</code>, <code>tau_t = 0.1</code>, <code>ref_t = 300</code>, <code>gen_vel = yes</code></td><td>To bring the water to 300 K; the heavy atoms of the protein are tied to their positions with springs</td></tr>"
+  ],
+  [
+   "<tr><td>NPT, 10 ps</td><td><code>pcoupl = C-rescale</code>, <code>tau_p = 5.0</code>, <code>ref_p = 1.0</code>, <code>-DPOSRES</code></td><td>Kutunun hacmini 1 bar'da yoğunluğa göre ayarlamak</td></tr>",
+   "<tr><td>NPT, 10 ps</td><td><code>pcoupl = C-rescale</code>, <code>tau_p = 5.0</code>, <code>ref_p = 1.0</code>, <code>-DPOSRES</code></td><td>To adjust the box volume to the density at 1 bar</td></tr>"
+  ],
+  [
+   "<tr><td>Kısıtsız, 10 ps</td><td>konum kısıtı yok, aynı termostat ve barostat</td><td>Üretim koşusunun başı; burada yalnız teknik deneme</td></tr>",
+   "<tr><td>Unrestrained, 10 ps</td><td>no position restraints, same thermostat and barostat</td><td>Start of the production run; here only a technical trial</td></tr>"
+  ],
+  [
+   "<p class=\"small\">Veri: gromacs_trial (S0, 24 Eylül 2026, WSL, GROMACS 2023.3) ve scenarios/S1, S3, S4 (25 Eylül 2026, bulut, aynı GROMACS sürümü). S0 667 adımda, S3 403 adımda, S4 600 adımda emtol'e ulaştı. S3 ve S4 enerji dosyalarında reddedilen adımlar yazılmadığı için adım numaralarında boşluklar vardır. Bütün koşular 10 ps'lik teknik denemelerdir; dengenin ya da yakınsamanın kanıtı değildir.</p>",
+   "<p class=\"small\">Data: gromacs_trial (S0, 24 September 2026, WSL, GROMACS 2023.3) and scenarios/S1, S3, S4 (25 September 2026, cloud, same GROMACS version). S0 reached emtol in 667 steps, S3 in 403 and S4 in 600. The energy files of S3 and S4 do not record rejected steps, so there are gaps in the step numbers. All runs are 10 ps technical trials; they are not evidence of equilibrium or convergence.</p>"
+  ],
+  [
+   "<span class=\"step\">5 · Kendinizi sınayın</span>",
+   "<span class=\"step\">5 · Test yourself</span>"
+  ],
+  [
+   "<h2 id=\"m1h5\">Altı soru</h2>",
+   "<h2 id=\"m1h5\">Six questions</h2>"
+  ],
+  [
+   "<p class=\"small\">Model: atölye ve tezgâhta üç boyutlu periyodik kutuda 125 katı TIP3P suyu, gerçek birimlerle (nm, ps, kJ/mol; adım 2 fs). Küçük kutu ve basitleştirilmiş kesme yüzünden sayılar büyük bir GROMACS kutusununkini birebir vermez; çakışmanın, minimizasyonun ve termostatın davranışını gerçek ölçeğinde gösterir. Köprüdeki enerji ve kuvvet TIP3P parametreleriyle hesaplanır; proteine dönüş ve defterdeki bütün sayılar bu projenin gerçek koşularından gelir. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Model: in the workshop and on the bench, 125 rigid TIP3P waters in a three-dimensional periodic box, in real units (nm, ps, kJ/mol; step 2 fs). Because of the small box and the simplified cut-off, the numbers do not match those of a large GROMACS box one to one; they show the behaviour of clashes, minimization and the thermostat at its real scale. The energy and force in the bridge are computed with the TIP3P parameters; all numbers in Back to the protein and in the notebook come from this project's real runs. Your notebook is stored only in this browser.</p>"
+  ],
+  [
+   "if(s.maxRot>30){ s.warn++; s.log.push('Step '+step+', time '+s.t.toFixed(3)+' (ps): bir su molekülünün bağı tek adımda '+s.maxRot.toFixed(0)+'° döndü (uyarı sınırı 30°)'); } }",
+   "if(s.maxRot>30){ s.warn++; s.log.push('Step '+step+', time '+s.t.toFixed(3)+' (ps): a bond of a water molecule rotated '+s.maxRot.toFixed(0)+'° in one step (warning limit 30°)'); } }"
+  ],
+  [
+   "if(!ok||md>1.0){ s.crashed=true; s.why='settle'; s.log.push('Step '+step+', time '+s.t.toFixed(3)+' (ps): bir atom tek adımda '+(md>=10?'çok büyük':md.toFixed(2)+' nm')+' yol aldı'); s.log.push('Water molecule starting at atom '+(1+3*Math.floor(mi/3))+' can not be settled.'); return; }",
+   "if(!ok||md>1.0){ s.crashed=true; s.why='settle'; s.log.push('Step '+step+', time '+s.t.toFixed(3)+' (ps): an atom moved '+(md>=10?'a huge distance':md.toFixed(2)+' nm')+' in one step'); s.log.push('Water molecule starting at atom '+(1+3*Math.floor(mi/3))+' can not be settled.'); return; }"
+  ],
+  [
+   "var T=temp(s); if(!isFinite(T)||!isFinite(s.U)){ s.crashed=true; s.why='nan'; s.log.push('Sayılar sonsuza gitti'); }",
+   "var T=temp(s); if(!isFinite(T)||!isFinite(s.U)){ s.crashed=true; s.why='nan'; s.log.push('The numbers went to infinity'); }"
+  ],
+  [
+   "if(s.warn>=10&&!s.crashed){ s.crashed=true; s.why='warn'; s.log.push('Too many LINCS/SETTLE warnings: program durdu'); } }",
+   "if(s.warn>=10&&!s.crashed){ s.crashed=true; s.why='warn'; s.log.push('Too many LINCS/SETTLE warnings: the program stopped'); } }"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('m1progN').textContent=Object.keys(FOUND).length+' / 5'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('m1progN').textContent=Object.keys(FOUND).length+' / 5'; }"
+  ],
+  [
+   "var NFI=new Intl.NumberFormat('tr-TR');",
+   "var NFI=new Intl.NumberFormat('en-US');"
+  ],
+  [
+   "if(F>1000) n='İtme kuvveti bu projenin durma ölçütünün (1.000 kJ mol⁻¹ nm⁻¹) '+fx(F/1000,F>1e4?0:1)+' katı. Minimizasyon bu atom çiftini ayırmadan durmaz.';",
+   "if(F>1000) n='The repulsive force is '+fx(F/1000,F>1e4?0:1)+' times this project\\'s stopping criterion (1,000 kJ mol⁻¹ nm⁻¹). Minimization does not stop before it separates this pair of atoms.';"
+  ],
+  [
+   "else if(F>0) n='Kuvvet durma ölçütünün altında: minimizasyon bu kadar yakınlığı kabul eder. Kalan küçük çakışmayı dinamik kendisi dağıtır.';",
+   "else if(F>0) n='The force is below the stopping criterion: minimization accepts this much closeness. The dynamics itself disperses the small remaining clash.';"
+  ],
+  [
+   "else n='σ\\'nın yaklaşık 1,12 katından sonra kuvvet çekmeye döner; su molekülleri en rahat bu uzaklık dolayında durur.';",
+   "else n='Beyond about 1.12 times σ the force turns attractive; water molecules sit most comfortably around this distance.';"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0.2,0.3,0.4,0.5,0.6].forEach(function(r){ g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('uzaklık (nm)',X(0.38),H-4);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0.2,0.3,0.4,0.5,0.6].forEach(function(r){ g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('distance (nm)',X(0.38),H-4);"
+  ],
+  [
+   "g.save(); g.translate(12,Y(14)); g.rotate(-Math.PI/2); g.fillText('enerji (kT)',0,0); g.restore();",
+   "g.save(); g.translate(12,Y(14)); g.rotate(-Math.PI/2); g.fillText('energy (kT)',0,0); g.restore();"
+  ],
+  [
+   "[[0.1752,'S0 başlangıç Fmax'],[0.2598,'emtol']].forEach(function(m,i){ var x=X(m[0]); g.strokeStyle=gold; g.setLineDash([4,4]); g.lineWidth=1.2; g.beginPath(); g.moveTo(x,T); g.lineTo(x,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=gold; g.textAlign='left'; g.fillText(m[1],x+4,T+12+i*16); });",
+   "[[0.1752,'S0 initial Fmax'],[0.2598,'emtol']].forEach(function(m,i){ var x=X(m[0]); g.strokeStyle=gold; g.setLineDash([4,4]); g.lineWidth=1.2; g.beginPath(); g.moveTo(x,T); g.lineTo(x,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=gold; g.textAlign='left'; g.fillText(m[1],x+4,T+12+i*16); });"
+  ],
+  [
+   "var ST={'new':'kuruldu, minimize edilmedi','em':'minimize ediliyor','emDone':'minimize edildi','md':'dinamik sürüyor','mdDone':'dinamik bitti','crash':'program durdu'};",
+   "var ST={'new':'built, not minimized','em':'minimizing','emDone':'minimized','md':'dynamics running','mdDone':'dynamics finished','crash':'program stopped'};"
+  ],
+  [
+   "$('m1fmax').textContent=s.crashed?'hesaplanamadı':big(s.fmax);",
+   "$('m1fmax').textContent=s.crashed?'could not be computed':big(s.fmax);"
+  ],
+  [
+   "$('m1dmin').textContent=s.crashed?'hesaplanamadı':fx(dMin(s),3)+' nm';",
+   "$('m1dmin').textContent=s.crashed?'could not be computed':fx(dMin(s),3)+' nm';"
+  ],
+  [
+   "$('m1T').textContent=W1.mdHist.length?(s.crashed?'sonsuz':NFI.format(Math.round(T)))+' / '+(W1.Tmax>=1e5||s.crashed?'çok büyük':NFI.format(Math.round(W1.Tmax)))+' K':'dinamik yok';",
+   "$('m1T').textContent=W1.mdHist.length?(s.crashed?'infinite':NFI.format(Math.round(T)))+' / '+(W1.Tmax>=1e5||s.crashed?'huge':NFI.format(Math.round(W1.Tmax)))+' K':'no dynamics';"
+  ],
+  [
+   "$('m1msd').textContent=W1.mdHist.length&&!s.crashed?fx(rmsd(),2)+' nm, '+fx(s.t,1)+' ps\\'de':'dinamik yok';",
+   "$('m1msd').textContent=W1.mdHist.length&&!s.crashed?fx(rmsd(),2)+' nm at '+fx(s.t,1)+' ps':'no dynamics';"
+  ],
+  [
+   "$('m1disp').textContent=W1.mdHist.length?(s.maxDisp>=10?'çok büyük':fx(s.maxDisp,3)+' nm'):'dinamik yok';",
+   "$('m1disp').textContent=W1.mdHist.length?(s.maxDisp>=10?'huge':fx(s.maxDisp,3)+' nm'):'no dynamics';"
+  ],
+  [
+   "if(W1.phase==='crash') pill(g,'Program durdu: su molekülü katı tutulamadı',W/2,H/2,paper,bad);",
+   "if(W1.phase==='crash') pill(g,'Program stopped: a water molecule could not be kept rigid',W/2,H/2,paper,bad);"
+  ],
+  [
+   "var bx=10, by=H-14; g.fillStyle=str(rgb(paper),0.9); g.fillRect(bx-6,by-16,240,22); g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+0.5*sc,by); g.stroke(); g.fillStyle=ink; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('0,5 nm · döndürmek için sürükleyin',bx+0.5*sc+6,by+4); }",
+   "var bx=10, by=H-14; g.fillStyle=str(rgb(paper),0.9); g.fillRect(bx-6,by-16,240,22); g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+0.5*sc,by); g.stroke(); g.fillStyle=ink; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('0.5 nm · drag to rotate',bx+0.5*sc+6,by+4); }"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(W<560?'adım':'minimizasyon adımı (kabul edilen)',L+(w-L)/2,H-6); g.fillText(NFI.format(0),X(0),H-B+16); g.fillText(NFI.format(nmax),X(nmax),H-B+16);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(W<560?'step':'minimization step (accepted)',L+(w-L)/2,H-6); g.fillText(NFI.format(0),X(0),H-B+16); g.fillText(NFI.format(nmax),X(nmax),H-B+16);"
+  ],
+  [
+   "if(W1.phase==='crash'){ g.fillStyle=bad; g.textAlign='center'; g.fillText('program durdu',o+(w+L)/2,T+14); }",
+   "if(W1.phase==='crash'){ g.fillStyle=bad; g.textAlign='center'; g.fillText('program stopped',o+(w+L)/2,T+14); }"
+  ],
+  [
+   "g.fillStyle=muted; g.textAlign='center'; g.fillText('zaman (ps)',o+L+(w-L)/2,H-6); g.fillText(fx(0,0),X2(0),H-B+16); g.fillText(fx(tmax,0),X2(tmax),H-B+16);",
+   "g.fillStyle=muted; g.textAlign='center'; g.fillText('time (ps)',o+L+(w-L)/2,H-6); g.fillText(fx(0,0),X2(0),H-B+16); g.fillText(fx(tmax,0),X2(tmax),H-B+16);"
+  ],
+  [
+   "g.textAlign='left'; g.fillText('sıcaklık (K)',o+L+4,T+10); }",
+   "g.textAlign='left'; g.fillText('temperature (K)',o+L+4,T+10); }"
+  ],
+  [
+   "if(s.fmax<1000||s.emTries>=3000){ W1.phase='emDone'; W1.minimized=true; $('m1note').textContent='Minimizasyon '+NFI.format(s.emStep)+' kabul edilen adımda (toplam '+NFI.format(s.emTries)+' deneme) Fmax < 1.000 kJ mol⁻¹ nm⁻¹ ölçütüne ulaştı; en yakın iki atom artık '+fx(dMin(s),3)+' nm. Şimdi dinamiği başlatın.'; return false; }",
+   "if(s.fmax<1000||s.emTries>=3000){ W1.phase='emDone'; W1.minimized=true; $('m1note').textContent='Minimization reached the criterion Fmax < 1,000 kJ mol⁻¹ nm⁻¹ in '+NFI.format(s.emStep)+' accepted steps ('+NFI.format(s.emTries)+' tries in all); the two closest atoms are now '+fx(dMin(s),3)+' nm apart. Now start the dynamics.'; return false; }"
+  ],
+  [
+   "var msg=crash?'Program '+NFI.format(Math.round(s.t/DT)+1)+'. adımda durdu. Çakışan atomlar arasındaki itme bir hidrojene tek adımda bağ uzunluğundan kat kat uzun bir yol aldırdı; molekül katı tutulamadı. GROMACS da bu durumda LINCS ya da SETTLE uyarısıyla durur.':",
+   "var msg=crash?'The program stopped at step '+NFI.format(Math.round(s.t/DT)+1)+'. The repulsion between clashing atoms moved a hydrogen many times its bond length in a single step; the molecule could not be kept rigid. GROMACS also stops with a LINCS or SETTLE warning in this case.':"
+  ],
+  [
+   "((W1.ov===0?'Dengeli kutuda çakışma yoktur; dinamik minimizasyonsuz da başlar. ':'')+'Sıcaklık en çok '+NFI.format(Math.round(W1.Tmax))+' K oldu. '+fx(s.t,0)+' ps\\'de su molekülleri başlangıçtaki yerlerinden ortalama '+fx(rmsd(),2)+' nm uzaklaştı. İnce çizgiler her molekülün son 0,5 ps\\'lik yolunu, sarı çizgiler üç molekülün bütün yolunu gösterir.');",
+   "((W1.ov===0?'The equilibrated box has no clashes; the dynamics starts even without minimization. ':'')+'The temperature reached at most '+NFI.format(Math.round(W1.Tmax))+' K. In '+fx(s.t,0)+' ps the water molecules moved on average '+fx(rmsd(),2)+' nm from their starting places. The thin lines show the last 0.5 ps of each molecule\\'s path, the gold lines the whole path of three molecules.');"
+  ],
+  [
+   "if(done) card('m1c1',true,done.k+' su sıkıştırılmış kutu: minimizasyonsuz dinamik '+(done.r.no.crash?'<b>'+NFI.format(done.r.no.step+1)+'. adımda durdu</b>':'sıcaklığı <b>'+NFI.format(Math.round(done.r.no.Tmax))+' K</b>\\'ye fırlattı')+'; minimize edilince '+fx(done.r.em.t,0)+' ps sorunsuz koştu, en yüksek sıcaklık <b>'+NFI.format(Math.round(done.r.em.Tmax))+' K</b>, moleküller ortalama '+fx(done.r.em.msd,2)+' nm yol aldı. Bu projenin minimizasyonsuz koşusu (S1) da aynı yoldan gitti: 0. adımda 1.151 K, 1. adımda LINCS uyarısı ve çökme.');",
+   "if(done) card('m1c1',true,'Box with '+done.k+' waters squeezed in: without minimization the dynamics '+(done.r.no.crash?'<b>stopped at step '+NFI.format(done.r.no.step+1)+'</b>':'shot the temperature up to <b>'+NFI.format(Math.round(done.r.no.Tmax))+' K</b>')+'; after minimization it ran '+fx(done.r.em.t,0)+' ps without trouble, highest temperature <b>'+NFI.format(Math.round(done.r.em.Tmax))+' K</b>, and the molecules travelled '+fx(done.r.em.msd,2)+' nm on average. This project\\'s run without minimization (S1) went the same way: 1,151 K at step 0, a LINCS warning and a crash at step 1.');"
+  ],
+  [
+   "function rs(r){ return r.st.reach==null?'5 ps\\'de varamadı':fx(r.st.reach,2)+' ps\\'de hedefte'; }",
+   "function rs(r){ return r.st.reach==null?'did not arrive within 5 ps':'at the target after '+fx(r.st.reach,2)+' ps'; }"
+  ],
+  [
+   "card('m1c2',true,'V-rescale, τ<sub>T</sub> = <b>'+tf(lo.tau)+' ps</b>: '+rs(lo)+', dalgalanma '+NFI.format(Math.round(lo.st.sd))+' K; τ<sub>T</sub> = <b>'+tf(hi.tau)+' ps</b>: '+rs(hi)+', dalgalanma '+NFI.format(Math.round(hi.st.sd))+' K. Berendsen (τ<sub>T</sub> = '+tf(TH.ber.tau)+' ps): dalgalanma '+NFI.format(Math.round(TH.ber.st.sd))+' K; doğru dağılımda '+NFI.format(Math.round(SDC))+' K olmalı. τ<sub>T</sub> hızı belirler; doğru dalgalanmayı termostatın türü belirler.'); } }",
+   "card('m1c2',true,'V-rescale, τ<sub>T</sub> = <b>'+tf(lo.tau)+' ps</b>: '+rs(lo)+', fluctuation '+NFI.format(Math.round(lo.st.sd))+' K; τ<sub>T</sub> = <b>'+tf(hi.tau)+' ps</b>: '+rs(hi)+', fluctuation '+NFI.format(Math.round(hi.st.sd))+' K. Berendsen (τ<sub>T</sub> = '+tf(TH.ber.tau)+' ps): fluctuation '+NFI.format(Math.round(TH.ber.st.sd))+' K; the correct distribution should give '+NFI.format(Math.round(SDC))+' K. τ<sub>T</sub> sets the speed; the kind of thermostat sets whether the fluctuation is right.'); } }"
+  ],
+  [
+   "function thRead(st,c){ $('m1reach').textContent=st.reach==null?'5 ps içinde yok':fx(st.reach,2)+' ps'; $('m1mean').textContent=NFI.format(Math.round(st.mean))+' K'; $('m1sd').textContent=fx(st.sd,1)+' K'; $('m1sdc').textContent=fx(SDC,1)+' K';",
+   "function thRead(st,c){ $('m1reach').textContent=st.reach==null?'not within 5 ps':fx(st.reach,2)+' ps'; $('m1mean').textContent=NFI.format(Math.round(st.mean))+' K'; $('m1sd').textContent=fx(st.sd,1)+' K'; $('m1sdc').textContent=fx(SDC,1)+' K';"
+  ],
+  [
+   "if(c.kind==='none') n='Termostat yok: sistem kendi enerjisini korur. Sıcaklık hedefe değil, başlangıçtaki toplam enerjinin potansiyel ve kinetik paylaşımına göre bir değere oturur.';",
+   "if(c.kind==='none') n='No thermostat: the system conserves its own energy. The temperature settles not at the target but at a value set by how the initial total energy is shared between potential and kinetic energy.';"
+  ],
+  [
+   "else if(c.kind==='ber'&&st.sd<0.6*SDC) n='Berendsen sıcaklığı hedefe getirdi ama doğru dağılımın '+NFI.format(Math.round(SDC))+' K\\'lik dalgalanmasını '+NFI.format(Math.round(st.sd))+' K\\'ye bastırdı. Ortalama doğru, dağılım yanlış.';",
+   "else if(c.kind==='ber'&&st.sd<0.6*SDC) n='Berendsen brought the temperature to the target but squeezed the '+NFI.format(Math.round(SDC))+' K fluctuation of the correct distribution down to '+NFI.format(Math.round(st.sd))+' K. The mean is right, the distribution is wrong.';"
+  ],
+  [
+   "else if(st.reach!=null&&st.reach<1) n='Hedefe hızla geldi; dalgalanma doğru dağılımın dalgalanmasına yakın.';",
+   "else if(st.reach!=null&&st.reach<1) n='It reached the target quickly; the fluctuation is close to that of the correct distribution.';"
+  ],
+  [
+   "else n='Termostat gevşek: sistem hedefe yavaş geliyor. Dengeleme bu kadar uzun sürerse üretim koşusunun başı hâlâ ısınma olur.';",
+   "else n='The thermostat is loose: the system approaches the target slowly. If equilibration takes this long, the start of the production run is still warming up.';"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,1,2,3,4,5].forEach(function(t){ g.fillText(NFI.format(t),X(t),H-B+16); }); g.fillText('zaman (ps)',X(2.5),H-4);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,1,2,3,4,5].forEach(function(t){ g.fillText(NFI.format(t),X(t),H-B+16); }); g.fillText('time (ps)',X(2.5),H-4);"
+  ],
+  [
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText('sıcaklık (K); yeşil bant: 300 K ± %5',L+4,T+10); }",
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText('temperature (K); green band: 300 K ± 5%',L+4,T+10); }"
+  ],
+  [
+   "PR.cur={a:a,b:b,k:0,Ta:[],Tb:[],Ea:[],Eb:[],done:false}; $('m1prRun').disabled=true; $('m1prNote').textContent='Koşu sürüyor: iki kutu aynı hızlarla başladı.'; }",
+   "PR.cur={a:a,b:b,k:0,Ta:[],Tb:[],Ea:[],Eb:[],done:false}; $('m1prRun').disabled=true; $('m1prNote').textContent='Running: both boxes started with the same velocities.'; }"
+  ],
+  [
+   "if(!st){ ids.forEach(function(id){ $(id).textContent=c?'ölçülüyor':'yok'; }); return; }",
+   "if(!st){ ids.forEach(function(id){ $(id).textContent=c?'measuring':'none'; }); return; }"
+  ],
+  [
+   "$('m1prNote').textContent='10 ps bitti. İki ortalama da 300 K\\'ye yakın; dalgalanma V-rescale\\'de '+fx(st.ta[1],1)+' K, Berendsen\\'de '+fx(st.tb[1],1)+' K. Dalgalanmadan ısı sığası V-rescale ile '+NFI.format(Math.round(st.ca))+', Berendsen ile '+NFI.format(Math.round(st.cb))+' J mol⁻¹ K⁻¹; ortalamalardan hesaplanan değer ≈ 74.';",
+   "$('m1prNote').textContent='10 ps done. Both means are close to 300 K; the fluctuation is '+fx(st.ta[1],1)+' K with V-rescale and '+fx(st.tb[1],1)+' K with Berendsen. Heat capacity from the fluctuation: '+NFI.format(Math.round(st.ca))+' with V-rescale, '+NFI.format(Math.round(st.cb))+' J mol⁻¹ K⁻¹ with Berendsen; the value computed from the means is ≈ 74.';"
+  ],
+  [
+   "card('m1c4',true,'Aynı kutu, aynı hızlar, τ<sub>T</sub> = 0,1 ps. Ortalama sıcaklık V-rescale\\'de '+fx(st.ta[0],1)+', Berendsen\\'de '+fx(st.tb[0],1)+' K: ortalamaya bakan fark göremez. Dalgalanma V-rescale\\'de <b>'+fx(st.ta[1],1)+' K</b> (doğrusu 15,5 K), Berendsen\\'de <b>'+fx(st.tb[1],1)+' K</b>. Dalgalanmadan hesaplanan ısı sığası V-rescale ile <b>'+NFI.format(Math.round(st.ca))+'</b>, Berendsen ile <b>'+NFI.format(Math.round(st.cb))+' J mol⁻¹ K⁻¹</b>; ortalamalardan bulunan değer ≈ 74. Berendsen dengelemede işe yarar; üretimde topluluğu yanlış örnekler ve dalgalanmadan türetilen her sonucu bozar.'); }",
+   "card('m1c4',true,'Same box, same velocities, τ<sub>T</sub> = 0.1 ps. Mean temperature '+fx(st.ta[0],1)+' K with V-rescale, '+fx(st.tb[0],1)+' K with Berendsen: looking at the mean you see no difference. Fluctuation <b>'+fx(st.ta[1],1)+' K</b> with V-rescale (correct 15.5 K), <b>'+fx(st.tb[1],1)+' K</b> with Berendsen. Heat capacity from the fluctuation <b>'+NFI.format(Math.round(st.ca))+'</b> with V-rescale, <b>'+NFI.format(Math.round(st.cb))+' J mol⁻¹ K⁻¹</b> with Berendsen; the value from the means is ≈ 74. Berendsen is useful for equilibration; in production it samples the wrong ensemble and spoils every result derived from fluctuations.'); }"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; for(var v=240;v<=360;v+=20) g.fillText(NFI.format(v),X(v),H-B+16); g.fillText('anlık sıcaklık (K)',X(300),H-4);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; for(var v=240;v<=360;v+=20) g.fillText(NFI.format(v),X(v),H-B+16); g.fillText('instantaneous temperature (K)',X(300),H-4);"
+  ],
+  [
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText(c&&c.Ta.length?'2,5 ps sonrası '+NFI.format(c.Ta.length)+' adımın dağılımı':'koşu yok: kesikli çizgi doğru dağılım',L+4,T+10); }",
+   "g.textAlign='left'; g.fillStyle=muted; g.fillText(c&&c.Ta.length?'distribution of '+NFI.format(c.Ta.length)+' steps after 2.5 ps':'no run: the dashed line is the correct distribution',L+4,T+10); }"
+  ],
+  [
+   "var SER=[['nvtT','NVT · sıcaklık','K'],['nvtP','NVT · basınç','bar'],['nptT','NPT · sıcaklık','K'],['nptP','NPT · basınç','bar'],['nptD','NPT · yoğunluk','kg/m³'],['freeT','Kısıtsız · sıcaklık','K'],['freeP','Kısıtsız · basınç','bar'],['freeD','Kısıtsız · yoğunluk','kg/m³']];",
+   "var SER=[['nvtT','NVT · temperature','K'],['nvtP','NVT · pressure','bar'],['nptT','NPT · temperature','K'],['nptP','NPT · pressure','bar'],['nptD','NPT · density','kg/m³'],['freeT','Unrestrained · temperature','K'],['freeP','Unrestrained · pressure','bar'],['freeD','Unrestrained · density','kg/m³']];"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,2,4,6,8,10].forEach(function(t){ g.fillText(NFI.format(t),X(t),H-B+16); }); g.fillText(W<560?'zaman (ps)':'zaman (ps), '+q[1],X(5),H-4);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,2,4,6,8,10].forEach(function(t){ g.fillText(NFI.format(t),X(t),H-B+16); }); g.fillText(W<560?'time (ps)':'time (ps), '+q[1],X(5),H-4);"
+  ],
+  [
+   "function nTab(){ $('m1nTab').innerHTML=N1.book.length?N1.book.map(function(p){ var q=serOf(p.s), st=nStats(p.s,p.d); return '<tr><td>'+q[1]+'</td><td class=\"n\">'+fx(p.d,1)+'</td><td class=\"n\">'+nfmt(p.s,st.m)+' '+q[2]+'</td><td class=\"n\">'+nfmt(p.s,st.sd)+'</td><td class=\"n\">'+nfmt(p.s,st.h1)+' / '+nfmt(p.s,st.h2)+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">Henüz ölçüm yok.</td></tr>'; }",
+   "function nTab(){ $('m1nTab').innerHTML=N1.book.length?N1.book.map(function(p){ var q=serOf(p.s), st=nStats(p.s,p.d); return '<tr><td>'+q[1]+'</td><td class=\"n\">'+fx(p.d,1)+'</td><td class=\"n\">'+nfmt(p.s,st.m)+' '+q[2]+'</td><td class=\"n\">'+nfmt(p.s,st.sd)+'</td><td class=\"n\">'+nfmt(p.s,st.h1)+' / '+nfmt(p.s,st.h2)+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">No measurements yet.</td></tr>'; }"
+  ],
+  [
+   "$('m1nBusy').textContent=B.length?B.length+' ölçüm defterde.':'Ölçüm yok.';",
+   "$('m1nBusy').textContent=B.length?B.length+(B.length===1?' measurement':' measurements')+' in the notebook.':'No measurements.';"
+  ],
+  [
+   "card('m1c3',true,'NPT yoğunluğu baştan ölçülünce <b>'+fx(a.m,1)+'</b>, ilk '+fx(d4.d,1)+' ps atılınca <b>'+fx(b.m,1)+' kg/m³</b>. Kalan sürenin iki yarısı '+fx(b.h1,1)+' ve '+fx(b.h2,1)+': yoğunluk hâlâ artıyor, 10 ps\\'lik NPT onu oturtmaya yetmedi. '+q[1]+': ortalama '+fx(p.m,0)+' bar, standart sapma '+fx(p.sd,0)+' bar. Anlık basınç yüzlerce bar oynar; 1 bar\\'lık hedefi tek bir değerden değil, uzun bir ortalamadan okumak gerekir.'); }",
+   "card('m1c3',true,'NPT density measured from the start: <b>'+fx(a.m,1)+'</b>; with the first '+fx(d4.d,1)+' ps discarded: <b>'+fx(b.m,1)+' kg/m³</b>. The two halves of the remaining time: '+fx(b.h1,1)+' and '+fx(b.h2,1)+': the density is still rising, and 10 ps of NPT was not enough to settle it. '+q[1]+': mean '+fx(p.m,0)+' bar, standard deviation '+fx(p.sd,0)+' bar. The instantaneous pressure swings by hundreds of bar; the 1 bar target has to be read not from a single value but from a long average.'); }"
+  ],
+  [
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,100,200,300,400,500,600,700].forEach(function(n){ g.fillText(NFI.format(n),X(n),H-B+16); }); g.fillText('minimizasyon adımı',X(350),H-4);",
+   "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,100,200,300,400,500,600,700].forEach(function(n){ g.fillText(NFI.format(n),X(n),H-B+16); }); g.fillText('minimization step',X(350),H-4);"
+  ],
+  [
+   "g.save(); g.translate(12,Y(-9)); g.rotate(-Math.PI/2); g.fillText('kJ/mol, atom başına',0,0); g.restore();",
+   "g.save(); g.translate(12,Y(-9)); g.rotate(-Math.PI/2); g.fillText('kJ/mol per atom',0,0); g.restore();"
+  ],
+  [
+   "var rows=[['Atom sayısı',function(e){return NFI.format(e.n);}],['Potansiyel enerji, başlangıç',function(e){return NFI.format(Math.round(e.u[0]))+' kJ/mol';}],['Potansiyel enerji, son',function(e){return NFI.format(Math.round(e.uf))+' kJ/mol';}],['Atom başına, başlangıç / son',function(e){return fx(e.u[0]/e.n,2)+' / '+fx(e.uf/e.n,2);}],['Adım (emtol\\'e kadar)',function(e){return NFI.format(e.steps);}],['Son Fmax (kJ mol⁻¹ nm⁻¹)',function(e){return fx(e.fmax,1);}]];",
+   "var rows=[['Number of atoms',function(e){return NFI.format(e.n);}],['Potential energy, start',function(e){return NFI.format(Math.round(e.u[0]))+' kJ/mol';}],['Potential energy, end',function(e){return NFI.format(Math.round(e.uf))+' kJ/mol';}],['Per atom, start / end',function(e){return fx(e.u[0]/e.n,2)+' / '+fx(e.uf/e.n,2);}],['Steps (to emtol)',function(e){return NFI.format(e.steps);}],['Final Fmax (kJ mol⁻¹ nm⁻¹)',function(e){return fx(e.fmax,1);}]];"
+  ],
+  [
+   "$('m1emTab').innerHTML=rows.map(function(r){ return '<tr><td>'+r[0]+'</td>'+K.map(function(k){ return '<td class=\"n\">'+r[1](E[k])+'</td>'; }).join('')+'</tr>'; }).join('')+'<tr><td>Başlangıç Fmax</td><td class=\"n\">'+NFI.format(Math.round(E.S0.f[0]))+'</td><td class=\"n\">kaydedilmedi</td><td class=\"n\">kaydedilmedi</td></tr>'; }",
+   "$('m1emTab').innerHTML=rows.map(function(r){ return '<tr><td>'+r[0]+'</td>'+K.map(function(k){ return '<td class=\"n\">'+r[1](E[k])+'</td>'; }).join('')+'</tr>'; }).join('')+'<tr><td>Initial Fmax</td><td class=\"n\">'+NFI.format(Math.round(E.S0.f[0]))+'</td><td class=\"n\">not recorded</td><td class=\"n\">not recorded</td></tr>'; }"
+  ],
+  [
+   "{s:'Minimizasyonun amacı nedir?',o:[['Sistemi hedef sıcaklığa getirmek',0],['Kurulumda oluşan çakışmaları giderip dev kuvvetleri kaldırmak',1],['Proteinin en kararlı katlanmasını bulmak',0],['Kutunun hacmini ayarlamak',0]],w:'Minimizasyon yalnız en yakın yerel minimuma iner; proteini yeniden katlamaz, sıcaklık da vermez. Bu projede en büyük kuvvet 196.569\\'dan 755 kJ mol⁻¹ nm⁻¹\\'ye indi.'},",
+   "{s:'What is the purpose of minimization?',o:[['To bring the system to the target temperature',0],['To remove the clashes created during setup and get rid of the huge forces',1],['To find the most stable fold of the protein',0],['To adjust the volume of the box',0]],w:'Minimization only descends to the nearest local minimum; it does not refold the protein, and it does not give a temperature. In this project the largest force fell from 196,569 to 755 kJ mol⁻¹ nm⁻¹.'},"
+  ],
+  [
+   "{s:'Bu projede minimizasyon atlanınca (S1) ne oldu?',o:[['Hiçbir şey; sonuç aynıydı',0],['0. adımda sıcaklık 1.151 K oldu, 1. adımda bağlar koptu ve program çöktü',1],['Koşu yavaşladı ama bitti',0],['grompp başlatmayı reddetti',0]],w:'LINCS 1. adımda bağ uzunluğunda yaklaşık 2,8 milyar katlık bir sapma bildirdi; mdrun segmentation fault ile durdu (çıkış kodu 139).'},",
+   "{s:'What happened in this project when minimization was skipped (S1)?',o:[['Nothing; the result was the same',0],['At step 0 the temperature was 1,151 K, at step 1 bonds broke and the program crashed',1],['The run slowed down but finished',0],['grompp refused to start',0]],w:'At step 1 LINCS reported a deviation of about 2.8 billion times the bond length; mdrun stopped with a segmentation fault (exit code 139).'},"
+  ],
+  [
+   "{s:'GROMACS en dik iniş yönteminde enerji düşmeyen bir adımda ne yapılır?',o:[['Adım kabul edilir',0],['Adım reddedilir ve adım boyu küçültülür',1],['Minimizasyon durur',0],['Hızlar sıfırlanır',0]],w:'Enerji düşerse adım kabul edilir ve adım boyu 1,2 ile çarpılır; düşmezse adım reddedilir ve adım boyu 0,2 ile çarpılır.'},",
+   "{s:'In GROMACS steepest descent, what is done with a step that does not lower the energy?',o:[['The step is accepted',0],['The step is rejected and the step size is reduced',1],['Minimization stops',0],['The velocities are reset',0]],w:'If the energy falls, the step is accepted and the step size is multiplied by 1.2; if not, the step is rejected and the step size is multiplied by 0.2.'},"
+  ],
+  [
+   "{s:'Termostatın τ<sub>T</sub> değeri küçüldükçe ne olur?',o:[['Sıcaklık hedefe daha hızlı çekilir',1],['Ortalama sıcaklık değişir',0],['Zaman adımı küçülür',0],['Basınç düşer',0]],w:'τ<sub>T</sub>, sıcaklık farkının sönme süresidir. Hedef ve ortalama aynı kalır; değişen, hedefe varış süresidir.'},",
+   "{s:'What happens as the τ<sub>T</sub> of the thermostat gets smaller?',o:[['The temperature is pulled to the target faster',1],['The mean temperature changes',0],['The time step gets smaller',0],['The pressure drops',0]],w:'τ<sub>T</sub> is the decay time of the temperature difference. The target and the mean stay the same; what changes is the time to reach the target.'},"
+  ],
+  [
+   "{s:'Berendsen termostatının sorunu nedir?',o:[['Sıcaklığı hedefe getiremez',0],['Ortalamayı doğru tutar ama sıcaklık dalgalanmasını olması gerekenden küçük tutar; kanonik dağılımı vermez',1],['Çok yavaştır',0],['Yalnız NPT\\'de çalışır',0]],w:'V-rescale, Berendsen\\'e rastgele bir terim ekler ve doğru dağılımı verir; bu projede V-rescale kullanıldı.'},",
+   "{s:'What is the problem with the Berendsen thermostat?',o:[['It cannot bring the temperature to the target',0],['It keeps the mean right but the temperature fluctuation smaller than it should be; it does not give the canonical distribution',1],['It is very slow',0],['It works only in NPT',0]],w:'V-rescale adds a random term to Berendsen and gives the correct distribution; this project used V-rescale.'},"
+  ],
+  [
+   "{s:'NPT\\'de anlık basınç −600 ile +200 bar arasında oynuyorsa ne söylenir?',o:[['Barostat bozuktur',0],['Küçük bir kutuda basınç dalgalanması doğal olarak yüzlerce bar\\'dır; hedefe uyum uzun bir ortalamadan okunur',1],['Kutu patlayacaktır',0],['Yoğunluk kesin olarak yanlıştır',0]],w:'Bu projenin NPT koşusunda basıncın standart sapması 186 bar idi. Dengeyi yoğunluk gibi daha az dalgalanan büyüklüklerin sürüklenip sürüklenmediğinden de okumak gerekir.'}",
+   "{s:'If the instantaneous pressure in NPT swings between −600 and +200 bar, what can be said?',o:[['The barostat is broken',0],['In a small box the pressure naturally fluctuates by hundreds of bar; agreement with the target is read from a long average',1],['The box is about to blow up',0],['The density is certainly wrong',0]],w:'In this project\\'s NPT run the standard deviation of the pressure was 186 bar. Equilibrium should also be read from whether quantities that fluctuate less, such as the density, are drifting.'}"
+  ],
+  [
+   "b.classList.add(ok?'right':'wrong'); var w=$('m1why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(ok?'right':'wrong'); var w=$('m1why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('m1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });",
+   "$('m1score').textContent='Answered: '+n+' / '+QZ.length+' · correct on the first try: '+r; }); });"
+  ],
+  [
+   "document.querySelectorAll('[data-ov]').forEach(function(b){ b.addEventListener('click',function(){ if(W1.phase==='em'||W1.phase==='md') return; W1.ov=+b.getAttribute('data-ov'); document.querySelectorAll('[data-ov]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); wNew(); $('m1note').textContent=W1.ov?'Kutuya '+W1.ov+' su sıkıştırıldı; en yakın iki atom '+fx(dMin(W1.s),3)+' nm.':'Dengeli su kutusu: en yakın iki atom '+fx(dMin(W1.s),3)+' nm.'; }); });",
+   "document.querySelectorAll('[data-ov]').forEach(function(b){ b.addEventListener('click',function(){ if(W1.phase==='em'||W1.phase==='md') return; W1.ov=+b.getAttribute('data-ov'); document.querySelectorAll('[data-ov]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); wNew(); $('m1note').textContent=W1.ov?W1.ov+' waters were squeezed into the box; the two closest atoms are '+fx(dMin(W1.s),3)+' nm apart.':'Equilibrated water box: the two closest atoms are '+fx(dMin(W1.s),3)+' nm apart.'; }); });"
+  ],
+  [
+   "$('m1new').addEventListener('click',function(){ if(W1.phase==='em'||W1.phase==='md') return; wNew(); $('m1note').textContent='Kutu yeniden kuruldu; en yakın iki atom '+fx(dMin(W1.s),3)+' nm.'; });",
+   "$('m1new').addEventListener('click',function(){ if(W1.phase==='em'||W1.phase==='md') return; wNew(); $('m1note').textContent='The box was rebuilt; the two closest atoms are '+fx(dMin(W1.s),3)+' nm apart.'; });"
+  ],
+  [
+   "WM.genVel(s,300); s.log=[]; s.warn=0; W1.mdHist=[[0,WM.temp(s)]]; W1.Tmax=WM.temp(s); s.t=0; W1.mdLeft=MDSTEPS; W1.paused=false; trInit(s); $('m1pause').textContent='Durdur'; W1.phase='md'; wRead(); kick(); });",
+   "WM.genVel(s,300); s.log=[]; s.warn=0; W1.mdHist=[[0,WM.temp(s)]]; W1.Tmax=WM.temp(s); s.t=0; W1.mdLeft=MDSTEPS; W1.paused=false; trInit(s); $('m1pause').textContent='Pause'; W1.phase='md'; wRead(); kick(); });"
+  ],
+  [
+   "$('m1pause').addEventListener('click',function(){ if(W1.phase!=='md') return; W1.paused=!W1.paused; this.textContent=W1.paused?'Devam et':'Durdur'; if(!W1.paused) kick(); });",
+   "$('m1pause').addEventListener('click',function(){ if(W1.phase!=='md') return; W1.paused=!W1.paused; this.textContent=W1.paused?'Resume':'Pause'; if(!W1.paused) kick(); });"
+  ],
+  [
+   "$('m1nClr').addEventListener('click',function(){ N1.book=[]; save1(); nEval(); $('m1nBusy').textContent='Defter temizlendi.'; });",
+   "$('m1nClr').addEventListener('click',function(){ N1.book=[]; save1(); nEval(); $('m1nBusy').textContent='The notebook was cleared.'; });"
+  ],
+  [
+   "var UNAME={ala46:'Ala46 metili ve bir su',arg72:'Arg72 yan zinciri',gly75:'C-ucu: Gly75',glu18:'Glu18 yan zinciri',sol:'Suyun içinde: iki su'};",
+   "var UNAME={ala46:'Ala46 methyl and a water',arg72:'Arg72 side chain',gly75:'C-terminus: Gly75',glu18:'Glu18 side chain',sol:'Inside the water: two waters'};"
+  ],
+  [
+   "var UFRL=['Adım 0 · önce','Adım 0 · sonra','Adım 1 · sonra'];",
+   "var UFRL=['Step 0 · before','Step 0 · after','Step 1 · after'];"
+  ],
+  [
+   "var UFRN=['Dinamiğin başladığı konumlar. Hızlar 300 K için rastgele verildi (gen_vel), kuvvetler minimize edilmemiş kutunun kuvvetleri.',",
+   "var UFRN=['The positions the dynamics started from. Velocities were drawn at random for 300 K (gen_vel); the forces are those of the unminimized box.',"
+  ],
+  [
+   "'Tek bir 2 fs\\'lik adım sonra. GROMACS\\'ın ilk LINCS uyarısı: göreli sapma en çok 3,15 (atom 1157 ile 1159 arası), 12 bağ tek adımda 30°\\'den çok döndü.',",
+   "'After a single 2 fs step. GROMACS\\'s first LINCS warning: largest relative deviation 3.15 (between atoms 1157 and 1159); 12 bonds rotated by more than 30° in one step.',"
+  ],
+  [
+   "'Bir adım daha. Göreli sapma 2,8 × 10⁹ (atom 1217 ile 1218 arası); birkaç atom yüz milyonlarca nanometre öteye fırladı ve program burada çöktü (segmentation fault).'];",
+   "'One more step. Relative deviation 2.8 × 10⁹ (between atoms 1217 and 1218); several atoms were thrown hundreds of millions of nanometres away and the program crashed here (segmentation fault).'];"
+  ],
+  [
+   "var UNOTE={ala46:'Minimizasyon başlamadan önceki en büyük kuvvet buradaydı: GROMACS 196.569 kJ mol⁻¹ nm⁻¹ ile atom 10895\\'i gösterir, yani su 3298\\'in oksijenini. Suyun iki hidrojeni Ala46\\'nın metil hidrojenlerine 0,147 ve 0,148 nm yaklaşmış.',",
+   "var UNOTE={ala46:'The largest force before minimization began was here: GROMACS points to atom 10895 with 196,569 kJ mol⁻¹ nm⁻¹, the oxygen of water 3298. The two hydrogens of this water came within 0.147 and 0.148 nm of the methyl hydrogens of Ala46.',"
+  ],
+  [
+   "arg72:'Arg72\\'nin HG2 hidrojeni, aynı kalıntının omurga oksijenine (atom 1173) 0,155 nm yakın. S1\\'in ilk LINCS uyarısındaki en büyük sapma bu bağdaydı.',",
+   "arg72:'The HG2 hydrogen of Arg72 is 0.155 nm from the backbone oxygen of the same residue (atom 1173). The largest deviation in S1\\'s first LINCS warning was in this bond.',"
+  ],
+  [
+   "gly75:'C-ucundaki Gly75\\'in HA2 hidrojeni bir suyun oksijenine 0,163 nm yakın. S1 bu kuyrukta çöktü.',",
+   "gly75:'The HA2 hydrogen of Gly75 at the C-terminus is 0.163 nm from the oxygen of a water. S1 crashed in this tail.',"
+  ],
+  [
+   "glu18:'Glu18\\'in HG1 hidrojeni ile bir suyun hidrojeni arasında yalnız 0,139 nm var; iki hidrojen neredeyse üst üste. S1\\'de bu hidrojenin bağı 0. adımda 90° döndü.',",
+   "glu18:'Only 0.139 nm separates the HG1 hydrogen of Glu18 from a hydrogen of a water; the two hydrogens almost sit on top of each other. In S1 the bond of this hydrogen rotated by 90° at step 0.',"
+  ],
+  [
+   "sol:'Çakışma yalnız proteinin yüzeyinde değil. Proteinden 1,66 nm uzakta iki suyun oksijenleri 0,175 nm\\'ye yaklaşmış; sıvı suda en yakın O-O uzaklığı yaklaşık 0,28 nm. Bu suyun oksijenindeki kuvvet de yaklaşık 198.000 kJ mol⁻¹ nm⁻¹ (yeniden hesaplanan).'};",
+   "sol:'Clashes are not only on the surface of the protein. 1.66 nm away from the protein the oxygens of two waters came within 0.175 nm; in liquid water the closest O-O distance is about 0.28 nm. The force on this water\\'s oxygen is also about 198,000 kJ mol⁻¹ nm⁻¹ (recomputed).'};"
+  ],
+  [
+   "var UPAIR={ala46:['HB2 · Ala46','HW2 · su 3298'], arg72:['HG2 · Arg72','O · Arg72'], gly75:['HA2 · Gly75','OW · su 5966'], glu18:['HG1 · Glu18','HW2 · su 4888'], sol:['OW · su 4494','OW · su 1700']};",
+   "var UPAIR={ala46:['HB2 · Ala46','HW2 · water 3298'], arg72:['HG2 · Arg72','O · Arg72'], gly75:['HA2 · Gly75','OW · water 5966'], glu18:['HG1 · Glu18','HW2 · water 4888'], sol:['OW · water 4494','OW · water 1700']};"
+  ],
+  [
+   "else if(key&&hsel.d[key]!=null&&hsel.d[key]>5) pill(g,'Çift arası '+uDist(hsel.d[key]),W/2,28,paper,bad); }",
+   "else if(key&&hsel.d[key]!=null&&hsel.d[key]>5) pill(g,'Pair distance '+uDist(hsel.d[key]),W/2,28,paper,bad); }"
+  ],
+  [
+   "var bl=0.5*sc>W*0.4?0.2:0.5, bx=12, by=H-14; g.fillStyle=str(rgb(paper),0.85); g.fillRect(bx-6,by-16,bl*sc+230,24); g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+bl*sc,by); g.stroke(); g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText(fx(bl,1)+' nm · döndürmek için sürükleyin',bx+bl*sc+8,by+4); }",
+   "var bl=0.5*sc>W*0.4?0.2:0.5, bx=12, by=H-14; g.fillStyle=str(rgb(paper),0.85); g.fillRect(bx-6,by-16,bl*sc+230,24); g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+bl*sc,by); g.stroke(); g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText(fx(bl,1)+' nm · drag to rotate',bx+bl*sc+8,by+4); }"
+  ],
+  [
+   "$('m1uMode').textContent=UB.mode==='s0'?(UB.t<=0?'Minimizasyondan önce (solvated.gro)':(UB.t>=1?'Minimizasyondan sonra (em.gro)':'geçiş')):(key?'S1 · '+UFRL[UB.fr]:'geçiş');",
+   "$('m1uMode').textContent=UB.mode==='s0'?(UB.t<=0?'Before minimization (solvated.gro)':(UB.t>=1?'After minimization (em.gro)':'transition')):(key?'S1 · '+UFRL[UB.fr]:'transition');"
+  ],
+  [
+   "$('m1uSite').textContent=h?UNAME[h.id]:'Bütün protein (1.231 atom)';",
+   "$('m1uSite').textContent=h?UNAME[h.id]:'Whole protein (1,231 atoms)';"
+  ],
+  [
+   "if(!h){ $('m1uPairL').textContent='Proteinin hidrojeniyle başka bir hidrojen arasında 0,18 nm\\'den kısa çift'; $('m1uPair').textContent='önce 75 (en kısası 0,137 nm), sonra 0 (en kısası 0,184 nm)'; }",
+   "if(!h){ $('m1uPairL').textContent='Pairs of a protein hydrogen and another hydrogen closer than 0.18 nm'; $('m1uPair').textContent='before 75 (shortest 0.137 nm), after 0 (shortest 0.184 nm)'; }"
+  ],
+  [
+   "else { $('m1uPairL').textContent='Kırmızı kesikli çift: '+UPAIR[h.id][0]+' ve '+UPAIR[h.id][1]; $('m1uPair').textContent=key?uDist(h.d[key]):'geçiş'; }",
+   "else { $('m1uPairL').textContent='Red dashed pair: '+UPAIR[h.id][0]+' and '+UPAIR[h.id][1]; $('m1uPair').textContent=key?uDist(h.d[key]):'transition'; }"
+  ],
+  [
+   "$('m1uF').textContent=h?(NFI.format(h.f0[fk])+' → '+NFI.format(h.f1[fk])+' kJ mol⁻¹ nm⁻¹ ('+UBQ.a[h.atoms[fk]][2]+')'):'196.569 → 755 kJ mol⁻¹ nm⁻¹ (atom 10895 → 1229)';",
+   "$('m1uF').textContent=h?(NFI.format(h.f0[fk])+' → '+NFI.format(h.f1[fk])+' kJ mol⁻¹ nm⁻¹ ('+UBQ.a[h.atoms[fk]][2]+')'):'196,569 → 755 kJ mol⁻¹ nm⁻¹ (atom 10895 → 1229)';"
+  ],
+  [
+   "$('m1uFL').textContent=h?'Turuncu oklu atomlarda en büyük kuvvet (yeniden hesaplanan), önce → sonra':'Kutudaki en büyük kuvvet Fmax (GROMACS), önce → sonra';",
+   "$('m1uFL').textContent=h?'Largest force on the atoms with orange arrows (recomputed), before → after':'Largest force in the box, Fmax (GROMACS), before → after';"
+  ],
+  [
+   "if(UB.mode==='s1'&&h){ $('m1uLogW').hidden=false; tb.innerHTML=rows.length?rows.map(function(r){ var cur=UB.fr; function c(v,k){ return '<td class=\"n'+(k<=cur?'':' dim')+'\">'+(v==null?'yok':(v>=1e4?sci(v):fx(v,3)))+'</td>'; } return '<tr><td>'+r[0]+'<br><span class=\"small\">'+r[1]+'</span></td><td class=\"n\">'+fx(r[2],3)+'</td>'+c(r[3],1)+c(r[4],2)+'</tr>'; }).join(''):'<tr><td colspan=\"4\">Su SETTLE ile katı tutulur; LINCS tablosunda yer almaz.</td></tr>'; }",
+   "if(UB.mode==='s1'&&h){ $('m1uLogW').hidden=false; tb.innerHTML=rows.length?rows.map(function(r){ var cur=UB.fr; function c(v,k){ return '<td class=\"n'+(k<=cur?'':' dim')+'\">'+(v==null?'not listed':(v>=1e4?sci(v):fx(v,3)))+'</td>'; } return '<tr><td>'+r[0]+'<br><span class=\"small\">'+r[1]+'</span></td><td class=\"n\">'+fx(r[2],3)+'</td>'+c(r[3],1)+c(r[4],2)+'</tr>'; }).join(''):'<tr><td colspan=\"4\">Water is kept rigid by SETTLE; it does not appear in the LINCS table.</td></tr>'; }"
+  ],
+  [
+   "var nt=h?UNOTE[h.id]:'Kırmızı halkalı beş yer, minimizasyondan önce atomların en çok sıkıştığı yerlerden seçildi. Birini seçin.';",
+   "var nt=h?UNOTE[h.id]:'The five sites with red rings were chosen from where the atoms were most squeezed before minimization. Choose one.';"
+  ],
+  [
+   "if(UB.mode==='s1'&&key) nt=UFRN[UB.fr]+' '+(h?'':'Bir yer seçerseniz o yerin bağları tabloya gelir.');",
+   "if(UB.mode==='s1'&&key) nt=UFRN[UB.fr]+' '+(h?'':'If you choose a site, its bonds appear in the table.');"
+  ],
+  [
+   "else if(UB.mode==='s0'&&h&&UB.t>=1) nt='Minimizasyondan sonra bu çiftin arası '+uDist(h.d.E)+'. '+UNOTE[h.id];",
+   "else if(UB.mode==='s0'&&h&&UB.t>=1) nt='After minimization this pair is '+uDist(h.d.E)+' apart. '+UNOTE[h.id];"
+  ],
+  [
+   "$('m1uGo').textContent=UB.mode==='s0'?(UB.tT>=1?'Başa dön':'Minimize et'):(UB.frT>=2?'Baştan':'Sonraki kare');",
+   "$('m1uGo').textContent=UB.mode==='s0'?(UB.tT>=1?'Back to the start':'Minimize'):(UB.frT>=2?'From the start':'Next frame');"
+  ],
+  [
+   "card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: minimizasyondan önce kırmızı çiftin arası '+uDist(hh.d.S)+'. Minimizasyon bunu <b>'+uDist(hh.d.E)+'</b>\\'ye açtı ve buradaki en büyük kuvvet '+NFI.format(Math.max.apply(null,hh.f0))+'\\'den '+NFI.format(Math.max.apply(null,hh.f1))+' kJ mol⁻¹ nm⁻¹\\'ye indi. Minimizasyon yapılmayan S1\\'de aynı yerin '+r[0]+' bağı, olması gereken '+fx(r[2],3)+' nm yerine 1. adımda <b>'+uDist(r[4])+'</b> oldu. Çöken bağlar, minimizasyonun düzelttiği çakışmaların üzerindeydi.'); } }",
+   "card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: before minimization the red pair was '+uDist(hh.d.S)+' apart. Minimization opened this to <b>'+uDist(hh.d.E)+'</b>, and the largest force here fell from '+NFI.format(Math.max.apply(null,hh.f0))+' to '+NFI.format(Math.max.apply(null,hh.f1))+' kJ mol⁻¹ nm⁻¹. In S1, where no minimization was done, the '+r[0]+' bond at the same site became <b>'+uDist(r[4])+'</b> at step 1 instead of the '+fx(r[2],3)+' nm it should be. The bonds that broke sat on the clashes that minimization fixes.'); } }"
+  ],
+  [
+   "function uChips(){ var names=['Bütün protein'].concat(UBQ.hs.map(function(h,k){ return (k+1)+' · '+UNAME[h.id]; }));",
+   "function uChips(){ var names=['Whole protein'].concat(UBQ.hs.map(function(h,k){ return (k+1)+' · '+UNAME[h.id]; }));"
+  ],
+  [
+   "['m1c1','m1c2','m1c3','m1c4','m1c5'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['m1c1','m1c2','m1c3','m1c4','m1c5'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "ljSet(); wNew(); thSet(); thDraw(); prDraw(); prRead(); uChips(); uDraw(); uRead(); $('m1sdc').textContent=fx(SDC,1)+' K'; ['m1reach','m1mean','m1sd'].forEach(function(id){ $(id).textContent='koşu yok'; });",
+   "ljSet(); wNew(); thSet(); thDraw(); prDraw(); prRead(); uChips(); uDraw(); uRead(); $('m1sdc').textContent=fx(SDC,1)+' K'; ['m1reach','m1mean','m1sd'].forEach(function(id){ $(id).textContent='no run'; });"
+  ]
+ ],
+ "keep": [
+  "Nosé-Hoover",
+  "var(--warm)",
+  "var(--gold)",
+  "var(--deep)",
+  "V-rescale",
+  "Berendsen",
+  "LINCS WARNING",
+  "<code>tcoupl = V-rescale</code>",
+  "<code>pcoupl = C-rescale</code>",
+  "Step",
+  "Water molecule starting at atom",
+  "can not be settled.",
+  "V-rescale, τ<sub>T</sub> = <b>",
+  "K. Berendsen (τ<sub>T</sub> ="
+ ]
+}
