@@ -43,7 +43,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | MD-O | MD | Orta | CH07 (1UBQ hazırlık) | Yayında (0.2.1, 29 Eylül 2026: protonasyon ve yük) |
 | MD-PDB | MD | Orta | CH07 (yapı dosyası: doluluk, B faktörü, kristal suları) | Yayında (0.1.0, 29 Eylül 2026) |
 | MD-DT | MD | Orta | CH02 (proteinde zaman adımı: kısıtlar, kütle, hız) | Yayında (0.1.0, 29 Eylül 2026) |
-| MD-U | MD | Uzman | CH17 (yakınsama, örnekleme) | Planlanacak |
+| MD-U | MD | Uzman | CH17 (örnekleme ve belirsizlik) | Yayında (0.2.0, 29 Eylül 2026) |
 
 Kimlikler değişmez; içerik sürümlenir (DK-T v1, v2 ...). Bir modülün adresi kimliğe bağlıdır, sürüme değil.
 

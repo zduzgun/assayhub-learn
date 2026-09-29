@@ -1,1641 +1,557 @@
 {
  "module": "MD-U",
  "lang": "en",
- "source_sha256": "d60fcbe7616aa200e9c7e4acd64632a3705f49b74952faf0737eea76e679f949",
+ "source_sha256": "38a6eaeb449c0dfe18ab6586188ad138a6c819e1dc89dd2654fc804adf02bde8",
  "reviewed": false,
- "editorial_pass": "Claude scientific-editor pass, 2026-09-26",
- "translator": "Claude (machine translation, needs human review)",
+ "translator": "Claude (AI), MD-U 0.2.0; insan gözden geçirmesi bekliyor",
  "pairs": [
   [
-   "Örnekleme ve kararlılık yanılsaması: alanin dipeptidi",
-   "Sampling and the illusion of stability: alanine dipeptide"
+   "<title>Örnekleme ve Belirsizlik</title>",
+   "<title>Sampling and Uncertainty</title>"
   ],
   [
-   "MD-U etkileşimli pilot bölüm: alanin dipeptidinin önceden koşulmuş gerçek GROMACS pilot koşularıyla RMSD, durum tanımı, pencere karşılaştırması, istatistiksel verimsizlik ve bağımsız koşular.",
-   "MD-U interactive pilot chapter: RMSD, state definition, window comparison, statistical inefficiency and independent runs, with real GROMACS pilot runs of alanine dipeptide performed in advance."
+   "<div class=\"proto\">Bu modül MD-T'deki kayıt aralığı laboratuvarıyla aynı alanin dipeptidi pilotunu kullanır ve bu kez hatayı sorar. Köprüdeki model ve bütün istatistikler tarayıcınızda şimdi hesaplanır; açılar, RMSD ve 3B kareler bu projenin pilotundan (5 bağımsız koşu × 10 ns, GROMACS 2026.3) gelir.</div>",
+   "<div class=\"proto\">This module uses the same alanine dipeptide pilot as the recording interval lab in MD-T, and this time it asks about the error. The model in the bridge and all the statistics are computed in your browser right now; the angles, RMSD and 3D frames come from this project's pilot (5 independent runs × 10 ns, GROMACS 2026.3).</div>"
   ],
   [
-   "Biyomoleküler sistemlerde Moleküler Dinamik · Uzman düzey",
-   "Molecular Dynamics in Biomolecular Systems · Expert level"
+   "<span class=\"eyebrow\">MD-U · Örnekleme ve belirsizlik</span>",
+   "<span class=\"eyebrow\">MD-U · Sampling and uncertainty</span>"
   ],
   [
-   "Uygulamalar: ",
-   "Exercises: "
+   "<h1>αR payı kaç, ne kadar eminiz? Otokorelasyon, etkin örnek sayısı ve bağımsız koşular</h1>",
+   "<h1>What is the αR fraction, and how sure are we? Autocorrelation, effective sample size and independent runs</h1>"
   ],
   [
-   "MD-U · Pilot bölüm · Etkileşimli sürüm",
-   "MD-U · Pilot chapter · Interactive edition"
+   "<p class=\"lead\">Bir MD koşusu binlerce kare üretir ve her kare bir ölçüm gibi görünür. Ama ardışık kareler birbirine çok benzer: molekül bir karede neredeyse bir önceki karede bıraktığı yerdedir. Bu laboratuvarda bu projenin alanin dipeptidi pilotuyla basit bir soruyu soracaksınız: molekül zamanın ne kadarını αR bölgesinde geçiriyor? Sonra asıl zor soruya geçeceksiniz: bu sayıya ne kadar güvenebilirsiniz?</p>",
+   "<p class=\"lead\">An MD run produces thousands of frames, and each frame looks like a measurement. But consecutive frames are very similar: in one frame the molecule is almost where it was in the previous one. In this lab you will ask a simple question of this project's alanine dipeptide pilot: what fraction of the time does the molecule spend in the αR region? Then you will move on to the really hard question: how far can you trust that number?</p>"
   ],
   [
-   "Sakin bir eğri, birbirine benzeyen iki pencere, binlerce kare: hiçbiri tek başına dengeyi ya da güvenilir bir popülasyonu kanıtlamaz. <span data-b=\"nSolute\"></span> atomluk bir molekülün gerçek GROMACS koşularında, neyin söylenebileceğini ve neyin söylenemeyeceğini sayılarla ayıracaksınız.",
-   "A calm curve, two windows that look alike, thousands of frames: none of these on its own proves equilibrium or a reliable population. In real GROMACS runs of a <span data-b=\"nSolute\"></span>-atom molecule, you will use numbers to separate what can be said from what cannot."
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"u1progN\">0 / 4</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"u1progN\">0 / 4</b></div>"
   ],
   [
-   "Bu bir yeniden oynatmadır",
-   "This is a replay"
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
   ],
   [
-   "Bu sayfada hiçbir simülasyon tarayıcıda çalışmaz. <b>Başlat</b> düğmesi, önceden koşulmuş gerçek GROMACS <span data-b=\"gmx\"></span> koşularının zaman serilerini hızlandırılmış olarak yeniden oynatır. Gösterilen her sayı bu koşuların dosyalarından çıkarıldı ve sayfaya gömülü veri paketinden okunur.",
-   "No simulation runs in the browser on this page. The <b>Start</b> button replays, at accelerated speed, the time series of real GROMACS <span data-b=\"gmx\"></span> runs performed in advance. Every number shown was extracted from the files of these runs and is read from the data package embedded in the page."
+   "<h2 id=\"u1h0\">n kaç? Kare sayısı ile bağımsız ölçüm sayısı aynı şey değildir</h2>",
+   "<h2 id=\"u1h0\">What is n? The number of frames and the number of independent measurements are not the same</h2>"
   ],
   [
-   "Tamamlanmamış bir koşuyu ya da henüz yapılmamış bir aşamayı seçtiğinizde sayfa sonuç uydurmaz: yalnızca <b>“Bu senaryo hesaplanmadı”</b> yazar ve hiçbir sayı göstermez.",
-   "When you select a run that was not completed or a stage that has not been carried out yet, the page does not invent a result: it only says <b>“This scenario was not computed”</b> and shows no numbers."
+   "<div class=\"prose\"><p>Aynı lizattan hazırlanan üç kuyu, üç biyolojik tekrar değildir: üçü de aynı hücrelerden gelir. Saniyede bir kare çekilen bir hücre göçü videosunun 600 karesi de 600 bağımsız ölçüm değildir: hücre bir saniyede yönünü pek değiştirmez. Gözlemler zamanda ya da uzayda birbirine bağlıyken bağımsızmış gibi işlenirse buna <b>sözde tekrar</b> denir; hata çubuğu olduğundan dar çıkar (Lazic 2010, BMC Neurosci 11:5).</p><p>Aşağıdaki küçük model bir hücrenin hızını 10 dakika boyunca ölçer. Hız yavaş değişir: bir değerden \"unutulması\" yaklaşık 30 saniye sürer. Kare aralığını seçin; aynı deney 20 kez tekrarlanır. Her deneyin ortalaması, \"her kare bağımsız\" varsayımıyla hesaplanan %95 hata çubuğuyla çizilir. Gerçek ortalama bilinir (kesikli çizgi): hata çubuklarının kaçı onu yakalıyor?</p></div>",
+   "<div class=\"prose\"><p>Three wells prepared from the same lysate are not three biological replicates: all three come from the same cells. The 600 frames of a cell migration video taken at one frame per second are not 600 independent measurements either: a cell hardly changes direction within a second. When observations that are linked in time or space are treated as if they were independent, this is called <b>pseudoreplication</b>; the error bar comes out narrower than it really is (Lazic 2010, BMC Neurosci 11:5).</p><p>The small model below measures the speed of a cell for 10 minutes. The speed changes slowly: it takes about 30 seconds to \"forget\" a value. Choose the frame interval; the same experiment is repeated 20 times. The mean of each experiment is drawn with a 95% error bar computed on the assumption that \"every frame is independent\". The true mean is known (dashed line): how many of the error bars catch it?</p></div>"
   ],
   [
-   "MD-O'dan hatırlatma",
-   "Reminder from MD-O"
+   "<canvas id=\"u1br\" class=\"plot\" aria-label=\"Üstte bir deneyin hız izi ve çekilen kareler; altta 20 deneyin ortalamaları ve her kare bağımsız varsayımıyla hesaplanmış hata çubukları\"></canvas>",
+   "<canvas id=\"u1br\" class=\"plot\" aria-label=\"Top: the speed trace of one experiment and the frames taken; bottom: the means of 20 experiments and error bars computed on the assumption that every frame is independent\"></canvas>"
   ],
   [
-   "<b>Hatasız biten koşu</b>: hesabın çalıştığını gösterir; dengeyi ya da yakınsamayı göstermez.",
-   "<b>A run that finishes without errors</b>: shows that the calculation works; it does not show equilibrium or convergence."
+   "<div><label class=\"lbl\" for=\"u1bdt\">Kare aralığı</label><div class=\"big\" id=\"u1bdtV\"></div><input type=\"range\" id=\"u1bdt\" min=\"0\" max=\"7\" step=\"1\" value=\"0\"></div>",
+   "<div><label class=\"lbl\" for=\"u1bdt\">Frame interval</label><div class=\"big\" id=\"u1bdtV\"></div><input type=\"range\" id=\"u1bdt\" min=\"0\" max=\"7\" step=\"1\" value=\"0\"></div>"
   ],
   [
-   "<b>RMSD</b>: bir referans yapıya ortalama uzaklıktır; tek bir sayıya indirgenmiş bir özettir.",
-   "<b>RMSD</b>: the average distance to a reference structure; a summary reduced to a single number."
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"u1bnew\">Yeni 20 deney</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"u1bnew\">New 20 experiments</button></div>"
   ],
   [
-   "<b>Kare</b>: trajektoriye yazılan anlık görüntüdür; ardışık kareler birbirine bağlıdır.",
-   "<b>Frame</b>: a snapshot written to the trajectory; consecutive frames depend on each other."
+   "<dt>Deney başına kare, N</dt><dd id=\"u1bN\"></dd>",
+   "<dt>Frames per experiment, N</dt><dd id=\"u1bN\"></dd>"
   ],
   [
-   "<b>Protokol</b>: kararlar ve ölçütler sonuçlardan önce yazılır ve sonra değiştirilmez.",
-   "<b>Protocol</b>: decisions and criteria are written before the results and are not changed afterwards."
+   "<dt>\"Her kare bağımsız\" hata çubuğu (ortalama)</dt><dd id=\"u1bNa\"></dd>",
+   "<dt>\"Every frame independent\" error bar (mean)</dt><dd id=\"u1bNa\"></dd>"
   ],
   [
-   "Hazırlık ve pilot koşulardan sayılar",
-   "Numbers from the preparation and the pilot runs"
+   "<dt>20 ortalamanın gerçek saçılımı (SD)</dt><dd id=\"u1bSd\"></dd>",
+   "<dt>True scatter of the 20 means (SD)</dt><dd id=\"u1bSd\"></dd>"
   ],
   [
-   "<span>dipeptit atomu (ACE-ALA-NME)</span>",
-   "<span>dipeptide atoms (ACE-ALA-NME)</span>"
+   "<dt>Gerçek ortalamayı yakalayan hata çubuğu</dt><dd id=\"u1bCov\"></dd>",
+   "<dt>Error bars that catch the true mean</dt><dd id=\"u1bCov\"></dd>"
   ],
   [
-   "<span>su molekülü (TIP3P)</span>",
-   "<span>water molecules (TIP3P)</span>"
+   "<p class=\"small\">Model: hız, ortalamaya dönen bir rastgele süreçtir (Ornstein-Uhlenbeck; ilişki süresi 30 s, ortalama 1,0 µm/dk, standart sapma 0,4 µm/dk), tarayıcıda her deney için yeniden üretilir. Sayılar bir öğretim modeline aittir, gerçek bir göç deneyine değil. %95 hata çubuğu: ortalama ± 1,96 · s / √N.</p>",
+   "<p class=\"small\">Model: the speed is a mean-reverting random process (Ornstein-Uhlenbeck; correlation time 30 s, mean 1.0 µm/min, standard deviation 0.4 µm/min), generated anew in the browser for every experiment. The numbers belong to a teaching model, not to a real migration experiment. 95% error bar: mean ± 1.96 · s / √N.</p>"
   ],
   [
-   "<span>atom, sulu sistem</span>",
-   "<span>atoms, solvated system</span>"
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
   ],
   [
-   "<span>ns, koşu başına pilot üretim</span>",
-   "<span>ns of pilot production per run</span>"
+   "<h2 id=\"u1h1\">Sakin eğri, gezen açılar</h2>",
+   "<h2 id=\"u1h1\">A calm curve, wandering angles</h2>"
   ],
   [
-   "<span>kare, koşu başına</span>",
-   "<span>frames per run</span>"
+   "<div class=\"prose\"><p>Alanin dipeptidi 22 atomluk küçük bir moleküldür; bütün esnekliği iki açıdadır: φ ve ψ. Bu projede su içinde beş bağımsız koşusu yapıldı, her biri 10 ns, 1 ps'de bir kare. Durumlar koşulardan önce yazılıp donduruldu: αL (φ ≥ 0), αR (φ &lt; 0 ve −120 ≤ ψ &lt; 50) ve geri kalanı, β/PPII. Bir koşu ve bir zaman penceresi seçin: RMSD ne diyor, açılar ne diyor?</p></div>",
+   "<div class=\"prose\"><p>Alanine dipeptide is a small molecule of 22 atoms; all of its flexibility lies in two angles: φ and ψ. In this project five independent runs of it were made in water, 10 ns each, one frame per ps. The states were written down and frozen before the runs: αL (φ ≥ 0), αR (φ &lt; 0 and −120 ≤ ψ &lt; 50) and the rest, β/PPII. Choose a run and a time window: what does the RMSD say, and what do the angles say?</p></div>"
   ],
   [
-   "<span>tamamlanan pilot koşu</span>",
-   "<span>pilot runs completed</span>"
+   "<div class=\"stagebox\"><canvas id=\"u1mol\" class=\"stage\" aria-label=\"Alanin dipeptidi, seçili zamandaki gerçek kare; φ ve ψ bağları vurgulu; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"u1mol\" class=\"stage\" aria-label=\"Alanine dipeptide, the real frame at the selected time; the φ and ψ bonds highlighted; can be rotated by dragging\"></canvas></div>"
   ],
   [
-   "Sayılar hazırlık kayıtlarından (<code>topol.top</code>, <code>solv.gro</code>, minimizasyon günlüğü) ve pilot koşuların dosyalarından okunur. Koşuların ve analizin kuralları, koşular başlamadan önce yazılıp SHA-256 ile donduruldu (<code data-b=\"protoFile\"></code>).",
-   "The numbers are read from the preparation records (<code>topol.top</code>, <code>solv.gro</code>, minimization log) and from the files of the pilot runs. The rules for the runs and the analysis were written before the runs started and frozen with SHA-256 (<code data-b=\"protoFile\"></code>)."
+   "<div><div class=\"lbl\">Koşu</div><div class=\"seg\" role=\"group\" aria-label=\"Koşu\" id=\"u1run\"></div></div>",
+   "<div><div class=\"lbl\">Run</div><div class=\"seg\" role=\"group\" aria-label=\"Run\" id=\"u1run\"></div></div>"
   ],
   [
-   "Laboratuvar ",
-   "Lab "
+   "<div><label class=\"lbl\" for=\"u1w0\">Pencere başı</label><div class=\"big\" id=\"u1w0V\"></div><input type=\"range\" id=\"u1w0\" min=\"0\" max=\"9.5\" step=\"0.1\" value=\"0\"></div>",
+   "<div><label class=\"lbl\" for=\"u1w0\">Window start</label><div class=\"big\" id=\"u1w0V\"></div><input type=\"range\" id=\"u1w0\" min=\"0\" max=\"9.5\" step=\"0.1\" value=\"0\"></div>"
   ],
   [
-   "Görev tamamlandı",
-   "Task completed"
+   "<div><div class=\"lbl\">Pencere boyu</div><div class=\"seg\" role=\"group\" aria-label=\"Pencere boyu\" id=\"u1wl\"><button type=\"button\" data-l=\"0.5\" aria-pressed=\"true\">0,5 ns</button><button type=\"button\" data-l=\"1\" aria-pressed=\"false\">1 ns</button><button type=\"button\" data-l=\"2\" aria-pressed=\"false\">2 ns</button><button type=\"button\" data-l=\"10\" aria-pressed=\"false\">10 ns</button></div></div>",
+   "<div><div class=\"lbl\">Window length</div><div class=\"seg\" role=\"group\" aria-label=\"Window length\" id=\"u1wl\"><button type=\"button\" data-l=\"0.5\" aria-pressed=\"true\">0.5 ns</button><button type=\"button\" data-l=\"1\" aria-pressed=\"false\">1 ns</button><button type=\"button\" data-l=\"2\" aria-pressed=\"false\">2 ns</button><button type=\"button\" data-l=\"10\" aria-pressed=\"false\">10 ns</button></div></div>"
   ],
   [
-   "<h4>Görev ",
-   "<h4>Task "
+   "<dt>RMSD, pencerede (ortanca / en büyük)</dt><dd id=\"u1rR\"></dd>",
+   "<dt>RMSD in the window (median / largest)</dt><dd id=\"u1rR\"></dd>"
   ],
   [
-   "Görev 1 seçenekleri",
-   "Task 1 options"
+   "<dt>Durum değişimi, pencerede</dt><dd id=\"u1rT\"></dd>",
+   "<dt>State changes in the window</dt><dd id=\"u1rT\"></dd>"
   ],
   [
-   "Görev 3 seçenekleri",
-   "Task 3 options"
+   "<dt>αR / β / αL payı, pencerede</dt><dd id=\"u1rP\"></dd>",
+   "<dt>αR / β / αL fraction in the window</dt><dd id=\"u1rP\"></dd>"
   ],
   [
-   "Görev 5 seçenekleri",
-   "Task 5 options"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"u1play\">Pencereyi oynat</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"u1play\">Play the window</button></div>"
   ],
   [
-   "Görev 6 seçenekleri",
-   "Task 6 options"
+   "<canvas id=\"u1ts\" class=\"plot\" aria-label=\"Seçili koşunun RMSD'si, φ ve ψ açıları zamana karşı; seçili pencere vurgulu; durum şeridi\"></canvas>",
+   "<canvas id=\"u1ts\" class=\"plot\" aria-label=\"The RMSD and the φ and ψ angles of the selected run against time; the selected window highlighted; a state strip\"></canvas>"
   ],
   [
-   ">Kontrol et<",
-   ">Check<"
+   "<canvas id=\"u1rama\" class=\"plot\" aria-label=\"Ramachandran haritası: seçili penceredeki kareler, üç durum bölgesi ve αR/β sınırı\"></canvas>",
+   "<canvas id=\"u1rama\" class=\"plot\" aria-label=\"Ramachandran map: the frames in the selected window, the three state regions and the αR/β boundary\"></canvas>"
   ],
   [
-   ">Başlat<",
-   ">Start<"
+   "<div><label class=\"lbl\" for=\"u1sp\">αR/β sınırı, ψ</label><div class=\"big\" id=\"u1spV\"></div><input type=\"range\" id=\"u1sp\" min=\"20\" max=\"80\" step=\"1\" value=\"50\"></div>",
+   "<div><label class=\"lbl\" for=\"u1sp\">αR/β boundary, ψ</label><div class=\"big\" id=\"u1spV\"></div><input type=\"range\" id=\"u1sp\" min=\"20\" max=\"80\" step=\"1\" value=\"50\"></div>"
   ],
   [
-   ">Sonuca atla<",
-   ">Skip to result<"
+   "<dt>αR payı, bütün koşu (bu sınırla)</dt><dd id=\"u1spP\"></dd>",
+   "<dt>αR fraction, whole run (with this boundary)</dt><dd id=\"u1spP\"></dd>"
   ],
   [
-   "aria-label=\"Pilot koşu\"",
-   "aria-label=\"Pilot run\""
+   "<dt>Önceden yazılmış sınırlar</dt><dd>ψ = 50 (ana), 30 ve 70 (duyarlılık)</dd>",
+   "<dt>Boundaries written in advance</dt><dd>ψ = 50 (main), 30 and 70 (sensitivity)</dd>"
   ],
   [
-   ">Pilot koşu<",
-   ">Pilot run<"
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>αR</span><span><i style=\"background:var(--deep)\"></i>β/PPII</span><span><i style=\"background:var(--gold)\"></i>αL</span><span><i style=\"background:var(--muted)\"></i>RMSD (ağır atomlar, minimize yapıya)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>αR</span><span><i style=\"background:var(--deep)\"></i>β/PPII</span><span><i style=\"background:var(--gold)\"></i>αL</span><span><i style=\"background:var(--muted)\"></i>RMSD (heavy atoms, to the minimized structure)</span></div>"
   ],
   [
-   "<th>Ölçüt</th><th>Değer</th>",
-   "<th>Metric</th><th>Value</th>"
+   "<article class=\"q\" id=\"u1c1\"><span class=\"k\">Açık</span><h3>RMSD neyi göremiyor?</h3><p>Bir pencerede RMSD'nin ne kadar sakin kaldığını ve aynı pencerede durumun kaç kez değiştiğini karşılaştırın.</p><div class=\"mine\" id=\"mu1c1\">Pencereyi en az bir kez taşıyın ya da boyunu değiştirin.</div></article>",
+   "<article class=\"q\" id=\"u1c1\"><span class=\"k\">Open</span><h3>What can RMSD not see?</h3><p>In a window, compare how calm the RMSD stays with how many times the state changes in the same window.</p><div class=\"mine\" id=\"mu1c1\">Move the window at least once, or change its length.</div></article>"
   ],
   [
-   "<th>Ölçüt</th><th>Pilot</th><th>Üretim</th>",
-   "<th>Metric</th><th>Pilot</th><th>Production</th>"
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
   ],
   [
-   "<h4>Söylenebilir</h4>",
-   "<h4>Can be said</h4>"
+   "<h2 id=\"u1h2\">Ardışık kareler bağımsız değil: etkin örnek sayısı</h2>",
+   "<h2 id=\"u1h2\">Consecutive frames are not independent: the effective sample size</h2>"
   ],
   [
-   "<h4>Söylenemez</h4>",
-   "<h4>Cannot be said</h4>"
+   "<div class=\"prose\"><p>Her kareye bir soru sorun: \"αR'de mi?\" Cevap 1 ya da 0'dır ve 10.000 karelik bir barkod çıkar. Barkodun ortalaması αR payıdır. Kareler bağımsız olsaydı hatası √(p(1 − p) / N) olurdu. Ama barkod uzun şeritlerden oluşur: molekül αR'ye girince onlarca pikosaniye orada kalır. Bu belleği iki yolla ölçün: otokorelasyon (bir kare, k kare sonrasına ne kadar benziyor?) ve blok ortalaması (kareleri bloklara toplayıp blok ortalamalarının ne kadar saçıldığına bakmak). İkisi de aynı sayıyı arar: istatistiksel verimsizlik g, yani kaç karenin bir bağımsız ölçüm ettiği.</p></div>",
+   "<div class=\"prose\"><p>Ask every frame one question: \"is it in αR?\" The answer is 1 or 0, and you get a barcode of 10,000 frames. The mean of the barcode is the αR fraction. If the frames were independent, its error would be √(p(1 − p) / N). But the barcode is made of long stripes: once the molecule enters αR, it stays there for tens of picoseconds. Measure this memory in two ways: autocorrelation (how much does a frame resemble the frame k frames later?) and block averaging (sum the frames into blocks and look at how much the block means scatter). Both look for the same number: the statistical inefficiency g, that is, how many frames make one independent measurement.</p></div>"
   ],
   [
-   "<small>1 · RMSD ve durumlar</small>Sakin eğri, gezen açılar",
-   "<small>1 · RMSD and states</small>A calm curve, wandering angles"
+   "<canvas id=\"u1bar\" class=\"plot\" aria-label=\"Seçili durumun gösterge dizisi (barkod), 10 ns; seçili blok boyuyla blok ortalamaları\"></canvas>",
+   "<canvas id=\"u1bar\" class=\"plot\" aria-label=\"Indicator series (barcode) of the selected state, 10 ns; block means with the selected block size\"></canvas>"
   ],
   [
-   "MD raporlarında en sık görülen grafik RMSD'dir: yapı, bir referans yapıdan ortalama olarak ne kadar uzaklaştı? Eğri düzleşince çoğu zaman “sistem dengeye geldi” denir. Alanin dipeptidi, bu okumanın neden eksik kaldığını gösteren en küçük örnektir: iki omurga dihedral açısı, φ ve ψ, molekülün hangi konformasyon durumunda olduğunu belirler.",
-   "The most common plot in MD reports is the RMSD: on average, how far has the structure moved away from a reference structure? When the curve flattens, people often say “the system has equilibrated”. Alanine dipeptide is the smallest example that shows why this reading falls short: two backbone dihedral angles, φ and ψ, determine which conformational state the molecule is in."
+   "<div><div class=\"lbl\">Koşu</div><div class=\"seg\" role=\"group\" aria-label=\"Koşu\" id=\"u1run2\"></div></div>",
+   "<div><div class=\"lbl\">Run</div><div class=\"seg\" role=\"group\" aria-label=\"Run\" id=\"u1run2\"></div></div>"
   ],
   [
-   "Aşağıda <span data-b=\"pilotNs\"></span> ns'lik bir pilot koşuyu oynatın. Üstteki grafik dipeptidin ağır atomlarının RMSD'sidir: molekül periyodik sınırdan bütünleştirildi, ağır atomlar kütle ağırlıklı olarak minimize yapıya hizalandı. Alttaki haritada aynı anlardaki (φ, ψ) çiftleri birikir. İki grafiği birlikte izleyin: eğri sakin görünürken açılar ne yapıyor?",
-   "Play a <span data-b=\"pilotNs\"></span> ns pilot run below. The upper plot is the RMSD of the dipeptide heavy atoms: the molecule was made whole across the periodic boundary, and the heavy atoms were aligned to the minimized structure with mass weighting. In the map below, the (φ, ψ) pairs from the same moments accumulate. Watch the two plots together: what are the angles doing while the curve looks calm?"
+   "<div><div class=\"lbl\">Durum</div><div class=\"seg\" role=\"group\" aria-label=\"Durum\" id=\"u1st\"><button type=\"button\" data-s=\"0\" aria-pressed=\"true\">αR</button><button type=\"button\" data-s=\"1\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-s=\"2\" aria-pressed=\"false\">αL</button></div></div>",
+   "<div><div class=\"lbl\">State</div><div class=\"seg\" role=\"group\" aria-label=\"State\" id=\"u1st\"><button type=\"button\" data-s=\"0\" aria-pressed=\"true\">αR</button><button type=\"button\" data-s=\"1\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-s=\"2\" aria-pressed=\"false\">αL</button></div></div>"
   ],
   [
-   "RMSD ve Ramachandran haritası, aynı zaman ekseninde",
-   "RMSD and the Ramachandran map on the same time axis"
+   "<div><label class=\"lbl\" for=\"u1B\">Blok boyu</label><div class=\"big\" id=\"u1BV\"></div><input type=\"range\" id=\"u1B\" min=\"0\" max=\"9\" step=\"1\" value=\"0\"></div>",
+   "<div><label class=\"lbl\" for=\"u1B\">Block size</label><div class=\"big\" id=\"u1BV\"></div><input type=\"range\" id=\"u1B\" min=\"0\" max=\"9\" step=\"1\" value=\"0\"></div>"
   ],
   [
-   "Dipeptit ağır atomlarının RMSD'si, zamana karşı; üstünde durum şeridi",
-   "RMSD of the dipeptide heavy atoms versus time, with a state strip above"
+   "<canvas id=\"u1acf\" class=\"plot\" aria-label=\"Otokorelasyon fonksiyonu ρ(k) ve bütünleşik otokorelasyon süresi\"></canvas>",
+   "<canvas id=\"u1acf\" class=\"plot\" aria-label=\"Autocorrelation function ρ(k) and the integrated autocorrelation time\"></canvas>"
   ],
   [
-   "<span>Şerit: her karenin durumu</span>",
-   "<span>Strip: the state of each frame</span>"
+   "<canvas id=\"u1blk\" class=\"plot\" aria-label=\"Blok ortalaması: blok boyuna karşı g; plato\"></canvas>",
+   "<canvas id=\"u1blk\" class=\"plot\" aria-label=\"Block averaging: g against block size; plateau\"></canvas>"
   ],
   [
-   "Ramachandran haritası: (φ, ψ) çiftleri, durum bölgeleri gölgeli",
-   "Ramachandran map: (φ, ψ) pairs, with the state regions shaded"
+   "<canvas id=\"u1err\" class=\"plot\" aria-label=\"Aynı pay için iki hata çubuğu: her kare bağımsız ve otokorelasyon düzeltmeli\"></canvas>",
+   "<canvas id=\"u1err\" class=\"plot\" aria-label=\"Two error bars for the same fraction: every frame independent, and corrected for autocorrelation\"></canvas>"
   ],
   [
-   "aria-label=\"RMSD ekseni\"",
-   "aria-label=\"RMSD axis\""
+   "<dt>Kare sayısı, N</dt><dd id=\"u1eN\"></dd>",
+   "<dt>Number of frames, N</dt><dd id=\"u1eN\"></dd>"
   ],
   [
-   ">RMSD ekseni<",
-   ">RMSD axis<"
+   "<dt>Pay, p</dt><dd id=\"u1eP\"></dd>",
+   "<dt>Fraction, p</dt><dd id=\"u1eP\"></dd>"
   ],
   [
-   "Protein ölçeği",
-   "Protein scale"
+   "<dt>Ziyaret sayısı</dt><dd id=\"u1eV\"></dd>",
+   "<dt>Number of visits</dt><dd id=\"u1eV\"></dd>"
   ],
   [
-   "Veriye sığdır",
-   "Fit to data"
+   "<dt>g (blok ortalaması, bu blok boyunda)</dt><dd id=\"u1eGB\"></dd>",
+   "<dt>g (block averaging, at this block size)</dt><dd id=\"u1eGB\"></dd>"
   ],
   [
-   "Oynattığınız koşuya göre RMSD eğrisi neyi gösteriyor, neyi göstermiyor?",
-   "Based on the run you played, what does the RMSD curve show, and what does it not show?"
+   "<dt>g (otokorelasyon, Sokal)</dt><dd id=\"u1eGS\"></dd>",
+   "<dt>g (autocorrelation, Sokal)</dt><dd id=\"u1eGS\"></dd>"
   ],
   [
-   "Seçenekler, tamamlanmış bir koşuyu sonuna kadar oynattığınızda etkinleşir.",
-   "The options become active once you have played a completed run to the end."
+   "<dt>Etkin örnek sayısı, N / g</dt><dd id=\"u1eNe\"></dd>",
+   "<dt>Effective sample size, N / g</dt><dd id=\"u1eNe\"></dd>"
   ],
   [
-   "Buradaki ders RMSD'nin “yanlış” olması değildir. RMSD, bütün atomların konumunu tek bir uzaklığa indirger: çok farklı iki yapı referansa aynı uzaklıkta olabilir ve küçük bir molekülde bütün değerler, bir protein için “sakin” sayılacak dar bir aralıkta kalır. Eksen protein ölçeğindeyken eğri düz bir çizgi gibi görünür; veriye sığdırıldığında durum değişimleriyle birlikte sıçradığı görülür. Hangi durumda ne kadar zaman geçirildiğini sormak için önce durumları tanımlamak gerekir.",
-   "The lesson here is not that RMSD is “wrong”. RMSD reduces the positions of all atoms to a single distance: two very different structures can be at the same distance from the reference, and in a small molecule all values stay within a narrow range that would count as “calm” for a protein. With the axis at protein scale, the curve looks like a flat line; fitted to the data, it can be seen to jump together with the state changes. To ask how much time was spent in which state, you first need to define the states."
+   "<dt>Hata: her kare bağımsız</dt><dd id=\"u1eEn\"></dd>",
+   "<dt>Error: every frame independent</dt><dd id=\"u1eEn\"></dd>"
   ],
   [
-   "xl:'zaman (ns)'",
-   "xl:'time (ns)'"
+   "<dt>Hata: düzeltilmiş, √g kat</dt><dd id=\"u1eEc\"></dd>",
+   "<dt>Error: corrected, √g times</dt><dd id=\"u1eEc\"></dd>"
   ],
   [
-   "lb.textContent='durum'",
-   "lb.textContent='state'"
+   "<p class=\"small\">Tanımlar koşulardan önce donduruldu (PROTOCOL_2026-09-26.md). Blok ortalaması: B = 2^k kare, en az 16 blok; g_B = B · s²(blok ortalamaları) / σ²(kareler). Otokorelasyon: τ_int(M) = ½ + Σρ(k), M ≥ 5 · τ_int olan ilk M'de durulur; g = 2 τ_int. Sayfa bu sayıları şimdi hesaplar; projenin Python analiziyle (analysis.py) birebir aynıdır. Yöntem için bkz. Grossfield ve ark. 2018, Living J Comput Mol Sci 1:5067.</p>",
+   "<p class=\"small\">The definitions were frozen before the runs (PROTOCOL_2026-09-26.md). Block averaging: B = 2^k frames, at least 16 blocks; g_B = B · s²(block means) / σ²(frames). Autocorrelation: τ_int(M) = ½ + Σρ(k), stopping at the first M with M ≥ 5 · τ_int; g = 2 τ_int. The page computes these numbers right now; they are identical to the project's Python analysis (analysis.py). For the method see Grossfield et al. 2018, Living J Comput Mol Sci 1:5067.</p>"
   ],
   [
-   "fx(median(v),3):'yok'",
-   "fx(median(v),3):'none'"
+   "<article class=\"q\" id=\"u1c2\"><span class=\"k\">Açık</span><h3>10.000 kare kaç ölçüm eder?</h3><p>αR ya da β için blok boyunu plato görünene kadar büyütün.</p><div class=\"mine\" id=\"mu1c2\">Blok boyunu en az 128 kareye çıkarın.</div></article>",
+   "<article class=\"q\" id=\"u1c2\"><span class=\"k\">Open</span><h3>How many measurements are 10,000 frames worth?</h3><p>For αR or β, increase the block size until a plateau appears.</p><div class=\"mine\" id=\"mu1c2\">Raise the block size to at least 128 frames.</div></article>"
   ],
   [
-   "'<dt>Kare</dt><dd id=\"d1n\">'",
-   "'<dt>Frames</dt><dd id=\"d1n\">'"
+   "<article class=\"q\" id=\"u1c3\"><span class=\"k\">Açık</span><h3>Hata çubuğu ne zaman kurulamaz?</h3><p>Çok az ziyaret edilen bir duruma bakın.</p><div class=\"mine\" id=\"mu1c3\">αL'yi, αL'ye en fazla iki kez girilen bir koşuda seçin.</div></article>",
+   "<article class=\"q\" id=\"u1c3\"><span class=\"k\">Open</span><h3>When can no error bar be built?</h3><p>Look at a state that is visited very rarely.</p><div class=\"mine\" id=\"mu1c3\">Choose αL in a run where αL was entered at most twice.</div></article>"
   ],
   [
-   "</dd><dt>Kare aralığı</dt><dd id=\"d1dt\">",
-   "</dd><dt>Frame interval</dt><dd id=\"d1dt\">"
+   "<span class=\"step\">3 · Defter</span>",
+   "<span class=\"step\">3 · Notebook</span>"
   ],
   [
-   "<dt>RMSD medyanı</dt><dd id=\"d1med\">",
-   "<dt>RMSD median</dt><dd id=\"d1med\">"
+   "<h2 id=\"u1h3\">Beş koşu: hata çubuğunu koşuların kendisinden ölçmek</h2>",
+   "<h2 id=\"u1h3\">Five runs: measuring the error bar from the runs themselves</h2>"
   ],
   [
-   "<dt>RMSD, Ç1–Ç3</dt>",
-   "<dt>RMSD, Q1–Q3</dt>"
+   "<div class=\"prose\"><p>g'yi tek bir koşudan tahmin etmek bir modele dayanır ve g'nin kendisi de belirsizdir: beş koşuda αR için 91 ile 228 kare arasında çıktı. Daha sağlam yol, koşuları birbirinden bağımsız ölçümler gibi kullanmaktır: her koşu bir pay verir, payların saçılımı hatayı verir. Pencere boyunu ve kullanılacak koşuları seçin; her denemeniz aşağıdaki deftere yazılır.</p></div>",
+   "<div class=\"prose\"><p>Estimating g from a single run rests on a model, and g itself is uncertain: across the five runs it came out between 91 and 228 frames for αR. A sturdier way is to use the runs as measurements independent of each other: each run gives a fraction, and the scatter of the fractions gives the error. Choose the window length and the runs to use; each of your trials is written into the notebook below.</p></div>"
   ],
   [
-   "<dt>RMSD medyanı, αR / β / αL kareleri</dt>",
-   "<dt>RMSD median, αR / β / αL frames</dt>"
+   "<canvas id=\"u1five\" class=\"plot\" aria-label=\"Seçili koşuların payları, her birinin düzeltilmiş hata çubuğu; koşular arası ortalama ve %95 aralık\"></canvas>",
+   "<canvas id=\"u1five\" class=\"plot\" aria-label=\"The fractions of the selected runs, each with its corrected error bar; the mean across runs and the 95% interval\"></canvas>"
   ],
   [
-   "<dt>Durum değişimi</dt>",
-   "<dt>State changes</dt>"
+   "<div><div class=\"lbl\">Durum</div><div class=\"seg\" role=\"group\" aria-label=\"Durum\" id=\"u1st3\"><button type=\"button\" data-s=\"0\" aria-pressed=\"true\">αR</button><button type=\"button\" data-s=\"1\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-s=\"2\" aria-pressed=\"false\">αL</button></div></div>",
+   "<div><div class=\"lbl\">State</div><div class=\"seg\" role=\"group\" aria-label=\"State\" id=\"u1st3\"><button type=\"button\" data-s=\"0\" aria-pressed=\"true\">αR</button><button type=\"button\" data-s=\"1\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-s=\"2\" aria-pressed=\"false\">αL</button></div></div>"
   ],
   [
-   "<dt>Kare sayısı, αR / β / αL</dt>",
-   "<dt>Frames, αR / β / αL</dt>"
+   "<div><div class=\"lbl\">Pencere boyu (her koşunun başından)</div><div class=\"seg\" role=\"group\" aria-label=\"Pencere boyu\" id=\"u1L\"><button type=\"button\" data-l=\"1\" aria-pressed=\"false\">1 ns</button><button type=\"button\" data-l=\"2\" aria-pressed=\"false\">2 ns</button><button type=\"button\" data-l=\"5\" aria-pressed=\"false\">5 ns</button><button type=\"button\" data-l=\"10\" aria-pressed=\"true\">10 ns</button></div></div>",
+   "<div><div class=\"lbl\">Window length (from the start of each run)</div><div class=\"seg\" role=\"group\" aria-label=\"Window length\" id=\"u1L\"><button type=\"button\" data-l=\"1\" aria-pressed=\"false\">1 ns</button><button type=\"button\" data-l=\"2\" aria-pressed=\"false\">2 ns</button><button type=\"button\" data-l=\"5\" aria-pressed=\"false\">5 ns</button><button type=\"button\" data-l=\"10\" aria-pressed=\"true\">10 ns</button></div></div>"
   ],
   [
-   "<dt>Ortalama sıcaklık</dt>",
-   "<dt>Mean temperature</dt>"
+   "<div><div class=\"lbl\">Kullanılan koşular (en az 2)</div><div class=\"chips\" id=\"u1use\"></div></div>",
+   "<div><div class=\"lbl\">Runs used (at least 2)</div><div class=\"chips\" id=\"u1use\"></div></div>"
   ],
   [
-   "<dt>Ortalama yoğunluk</dt>",
-   "<dt>Mean density</dt>"
+   "<dt>Koşular arası ortalama</dt><dd id=\"u1fM\"></dd>",
+   "<dt>Mean across runs</dt><dd id=\"u1fM\"></dd>"
   ],
   [
-   "Bu koşuda β karelerindeki RMSD medyanı αR karelerindekinden küçük: minimize yapı β bölgesine daha yakın.",
-   "In this run, the median RMSD of the β frames is smaller than that of the αR frames: the minimized structure is closer to the β region."
+   "<dt>%95 aralık (t, n − 1 serbestlik)</dt><dd id=\"u1fC\"></dd>",
+   "<dt>95% interval (t, n − 1 degrees of freedom)</dt><dd id=\"u1fC\"></dd>"
   ],
   [
-   "Bu koşuda αR karelerindeki RMSD medyanı β karelerindekinden küçük ya da ona eşit.",
-   "In this run, the median RMSD of the αR frames is smaller than or equal to that of the β frames."
+   "<dt>Toplam benzetim süresi</dt><dd id=\"u1fT\"></dd>",
+   "<dt>Total simulated time</dt><dd id=\"u1fT\"></dd>"
   ],
   [
-   "'Durum değişimi ve durum sayıları bütün karelerden; durum başına RMSD medyanları grafikte çizilen seyreltilmiş seriden (her '",
-   "'State changes and state counts come from all frames; the per-state RMSD medians were computed from the thinned series drawn in the plot (one frame every '"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"u1rec\">Deftere yaz</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"u1rec\">Write to the notebook</button></div>"
   ],
   [
-   "' ps\\'de bir kare) hesaplandı.'",
-   "' ps).'"
+   "<canvas id=\"u1wid\" class=\"plot\" aria-label=\"Denemeleriniz: toplam benzetim süresine karşı %95 aralığın yarı genişliği\"></canvas>",
+   "<canvas id=\"u1wid\" class=\"plot\" aria-label=\"Your trials: half-width of the 95% interval against total simulated time\"></canvas>"
   ],
   [
-   "' ns · durum: '",
-   "' ns · state: '"
+   "<div class=\"tw\"><table><thead><tr><th>Deneme</th><th>Durum</th><th>Pencere</th><th>Koşu sayısı</th><th>Toplam</th><th>Ortalama</th><th>%95 aralık</th></tr></thead><tbody id=\"u1tab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Trial</th><th>State</th><th>Window</th><th>Number of runs</th><th>Total</th><th>Mean</th><th>95% interval</th></tr></thead><tbody id=\"u1tab\"></tbody></table></div>"
   ],
   [
-   "RMSD sakin olduğuna göre molekül tek bir konformasyonda kaldı ve dengeye ulaştı.",
-   "Since the RMSD is calm, the molecule stayed in a single conformation and reached equilibrium."
+   "<p class=\"small\">Protokol yalnız beş koşunun 10 ns'lik payları için %95 aralığı önceden yazdı (t = 2,776). Daha az koşu ve daha kısa pencere bu laboratuvarın öğretim genişletmesidir; t değeri koşu sayısına göre alınır (2: 12,706; 3: 4,303; 4: 3,182; 5: 2,776). Kısa pencereler her koşunun başından alınır ve bütün koşular aynı minimize yapıdan başladığı için başlangıca daha yakındır. Tek koşunun hata çubuğu ±1,96 · düzeltilmiş hatadır (g, Sokal).</p>",
+   "<p class=\"small\">The protocol wrote the 95% interval in advance only for the 10 ns fractions of five runs (t = 2.776). Fewer runs and shorter windows are a teaching extension of this lab; the t value is taken according to the number of runs (2: 12.706; 3: 4.303; 4: 3.182; 5: 2.776). Short windows are taken from the start of each run, and because all runs started from the same minimized structure, they are closer to the start. The error bar of a single run is ±1.96 · the corrected error (g, Sokal).</p>"
   ],
   [
-   "RMSD küçük bir aralıkta kalırken molekül αR ile β arasında defalarca geçiş yapıyor; RMSD tek başına durum popülasyonlarını bildirmez.",
-   "While the RMSD stays within a small range, the molecule switches between αR and β many times; RMSD alone does not report state populations."
+   "<article class=\"q\" id=\"u1c4\"><span class=\"k\">Açık</span><h3>Aynı 10 ns: tek koşu mu, beş kısa koşu mu?</h3><p>Toplamı 10 ns olan iki düzeni deftere yazın ve karşılaştırın.</p><div class=\"mine\" id=\"mu1c4\">αR için 5 koşu × 2 ns'yi deftere yazın; tek 10 ns'lik koşuların hata çubukları 10 ns penceresinde çizilir.</div></article>",
+   "<article class=\"q\" id=\"u1c4\"><span class=\"k\">Open</span><h3>The same 10 ns: one run or five short runs?</h3><p>Write two schemes that total 10 ns into the notebook and compare them.</p><div class=\"mine\" id=\"mu1c4\">Write 5 runs × 2 ns for αR into the notebook; the error bars of the single 10 ns runs are drawn at the 10 ns window.</div></article>"
   ],
   [
-   "RMSD\\'nin düşük kalması, αR ve β popülasyonlarının yakınsadığını gösterir.",
-   "The fact that the RMSD stays low shows that the αR and β populations have converged."
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to the protein</span>"
   ],
   [
-   "RMSD küçük olduğuna göre φ ve ψ de değişmedi; durum değişimi sayısı bir ölçüm hatasıdır.",
-   "Since the RMSD is small, φ and ψ did not change either; the number of state changes is a measurement error."
+   "<h2 id=\"u1h4\">Bu projenin sonuçlarından hangisi kaç tekrara dayanıyor?</h2>",
+   "<h2 id=\"u1h4\">Which of this project's results rest on how many repeats?</h2>"
   ],
   [
-   "'Doğru. Bu koşuda '",
-   "'Correct. This run has '"
+   "<div class=\"prose\"><p>Alanin dipeptidinde αR'nin belleği 45-115 ps sürdü; 10 ns'lik bir koşuda 126-206 durum değişimi sayıldı ve hata çubuğu yine de genişti. Bir proteinde ilginç hareketler çoğu zaman bundan çok daha yavaştır. Aşağıdaki tablo bu kitabın kendi koşularını aynı gözle okur.</p></div>",
+   "<div class=\"prose\"><p>In alanine dipeptide the memory of αR lasted 45-115 ps; in a 10 ns run 126-206 state changes were counted, and the error bar was still wide. In a protein, the interesting motions are often much slower than this. The table below reads this book's own runs with the same eye.</p></div>"
   ],
   [
-   "' durum değişimi var ve bütün RMSD değerleri dar bir aralıkta kalıyor. Eğri veriye sığdırıldığında RMSD\\'nin durumla birlikte iki düzey arasında sıçradığı görülür: RMSD burada durumu kısmen izler, ama hangi durumda ne kadar zaman geçtiğini, bu payın belirsizliğini ya da dengeyi bildirmez.'",
-   "' state changes, and all RMSD values stay within a narrow range. When the curve is fitted to the data, the RMSD can be seen to jump between two levels together with the state: here RMSD partly tracks the state, but it does not report how much time was spent in which state, the uncertainty of that fraction, or equilibrium.'"
+   "<div class=\"tw\" id=\"u1pTab\"><table><thead><tr><th>Sonuç</th><th>Dayandığı koşu</th><th>Belirsizlik hakkında bildiğimiz</th></tr></thead><tbody>",
+   "<div class=\"tw\" id=\"u1pTab\"><table><thead><tr><th>Result</th><th>Runs it rests on</th><th>What we know about the uncertainty</th></tr></thead><tbody>"
   ],
   [
-   "Tekrar bakın: Ramachandran haritasında noktalar hangi bölgelerde birikiyor ve durum şeridi kaç kez renk değiştiriyor? RMSD\\'nin küçük kalması açıların sabit kaldığı anlamına gelir mi?",
-   "Look again: in which regions do the points accumulate on the Ramachandran map, and how many times does the state strip change color? Does a small RMSD mean that the angles stayed fixed?"
+   "<tr><td>Alanin dipeptidi, αR payı (bu sayfa)</td><td>5 bağımsız koşu × 10 ns</td><td>0,254; %95 aralık 0,179-0,329. αL için aralık sıfırı içerir (−0,008 ile 0,026).</td></tr>",
+   "<tr><td>Alanine dipeptide, αR fraction (this page)</td><td>5 independent runs × 10 ns</td><td>0.254; 95% interval 0.179-0.329. For αL the interval includes zero (−0.008 to 0.026).</td></tr>"
   ],
   [
-   "<small>2 · Durum tanımı</small>Durumları önceden tanımlamak",
-   "<small>2 · State definition</small>Defining the states in advance"
+   "<tr><td>Ubikitin, kristal B ile MD dalgalanması (MD-PDB)</td><td>1 koşu × 2 ns</td><td>Koşunun iki yarısı arasında r 0,86; 1-72 kalıntılarında kristal B ile r 0,59. Tek koşu; koşular arası hata ölçülmedi.</td></tr>",
+   "<tr><td>Ubiquitin, crystal B against MD fluctuation (MD-PDB)</td><td>1 run × 2 ns</td><td>r 0.86 between the two halves of the run; r 0.59 with crystal B for residues 1-72. A single run; no between-run error was measured.</td></tr>"
   ],
   [
-   "“Molekül zamanının ne kadarını αR'de geçirdi?” sorusu, αR'nin sınırı çizilmeden anlamsızdır. Bu çalışmada (φ, ψ) düzlemi, koşulardan önce yazılan protokolde, her kare tam bir duruma düşecek biçimde üç bölgeye ayrıldı:",
-   "The question “What fraction of its time did the molecule spend in αR?” is meaningless until the boundary of αR has been drawn. In this study, in the protocol written before the runs, the (φ, ψ) plane was divided into three regions so that every frame falls into exactly one state:"
+   "<tr><td>Ubikitin, zaman adımı ızgarası (MD-DT)</td><td>24 koşu × 20 ps, her ayar tek tohum</td><td>Ayarlar arasındaki küçük farklar için tekrar yok; sayfa bunu \"bu kısa deneyin sonucu\" diye yazar.</td></tr>",
+   "<tr><td>Ubiquitin, time step grid (MD-DT)</td><td>24 runs × 20 ps, one seed per setting</td><td>No repeats for the small differences between settings; the page calls this \"the result of this short experiment\".</td></tr>"
   ],
   [
-   "αR ile β arasındaki ψ sınırı (<span data-b=\"split\"></span>°) bir karardır, doğa yasası değil. Bu yüzden protokol iki duyarlılık sınırını da önceden yazdı: ψ = <span data-b=\"sens0\"></span>° ve ψ = <span data-b=\"sens1\"></span>°. Ana sonuç <span data-b=\"split\"></span>° ile raporlanır; öteki ikisi yalnız ayrıca gösterilir. Sonuçları gördükten sonra “daha iyi görünen” sınırı seçmek, ne okura ne de yazara açık bir seçenektir.",
-   "The ψ boundary between αR and β (<span data-b=\"split\"></span>°) is a decision, not a law of nature. That is why the protocol also fixed two sensitivity boundaries in advance: ψ = <span data-b=\"sens0\"></span>° and ψ = <span data-b=\"sens1\"></span>°. The main result is reported with <span data-b=\"split\"></span>°; the other two are only shown separately. Choosing the boundary that “looks better” after seeing the results is an option open to neither the reader nor the author."
+   "<tr><td>Alanin dipeptidi, üretim (5 × 200 ns)</td><td>Protokolde yazılı</td><td>Bu senaryo hesaplanmadı.</td></tr>",
+   "<tr><td>Alanine dipeptide, production (5 × 200 ns)</td><td>Written in the protocol</td><td>This scenario has not been computed.</td></tr>"
   ],
   [
-   "Açılar periyodiktir: ψ = 180° ile ψ = −180° aynı açıdır. β bölgesi bu yüzden haritanın üst ve alt kenarında iki şerit gibi görünür, ama tek bir bölgedir: ψ = 175° ile ψ = −175° arasında 350° değil, 10° vardır. φ için durum farklıdır: bu bölüntüde φ = 0° çizgisi de, φ = ±180° çizgisi de bir sınırdır. φ, −180°'nin altına sarıldığında +180°'nin hemen altına, yani αL'ye geçer; φ = −180° ise β ya da αR tarafında kalır. Bu fiziksel bir engel değil, seçilen bölüntünün bir özelliğidir.",
-   "Angles are periodic: ψ = 180° and ψ = −180° are the same angle. That is why the β region appears as two strips at the top and bottom edges of the map, but it is a single region: between ψ = 175° and ψ = −175° there are 10°, not 350°. For φ the situation is different: in this partition, both the φ = 0° line and the φ = ±180° line are boundaries. When φ wraps below −180°, it moves to just below +180°, that is, into αL; φ = −180° itself stays on the β or αR side. This is not a physical barrier but a property of the chosen partition."
+   "<p class=\"small\">Uygulamada: sonucun sayısı kadar, dayandığı bağımsız koşu sayısını ve hatanın nasıl hesaplandığını yazın. Aynı başlangıç yapısından, yalnız hız tohumu değiştirilerek başlatılan koşular bu sayfada \"bağımsız\" sayıldı; bu, farklı başlangıç yapılarından başlamanın yerini tutmaz. Kaynak: Grossfield ve ark. 2018 (Living J Comput Mol Sci 1:5067).</p>",
+   "<p class=\"small\">In practice: along with the number of the result, write down the number of independent runs it rests on and how the error was computed. Runs started from the same starting structure, with only the velocity seed changed, were counted as \"independent\" on this page; this does not replace starting from different starting structures. Source: Grossfield et al. 2018 (Living J Comput Mol Sci 1:5067).</p>"
   ],
   [
-   "Üç bölge ve sınır duyarlılığı",
-   "Three regions and boundary sensitivity"
+   "<span class=\"step\">5 · Kendinizi sınayın</span>",
+   "<span class=\"step\">5 · Test yourself</span>"
   ],
   [
-   "Seçili koşunun (φ, ψ) histogramı, durum bölgeleri ve seçili ψ sınırı",
-   "(φ, ψ) histogram of the selected run, with the state regions and the selected ψ boundary"
+   "<h2 id=\"u1h5\">Altı soru</h2>",
+   "<h2 id=\"u1h5\">Six questions</h2>"
   ],
   [
-   "<span><i class=\"ln c\"></i>seçili αR/β sınırı</span><span><i class=\"ln\"></i>öteki sınırlar</span><span>Gri hücreler: kare sayısı (karekök ölçeği)</span>",
-   "<span><i class=\"ln c\"></i>selected αR/β boundary</span><span><i class=\"ln\"></i>other boundaries</span><span>Gray cells: frame count (square-root scale)</span>"
+   "<p class=\"next\">Önceki adımlar: <a href=\"../md-t/\">MD-T · Enerji, kuvvetler ve sayısal hareket</a> (kayıt aralığı, aynı pilot) ve <a href=\"../md-dt/\">MD-DT · Proteinde zaman adımı</a> (tek tohumlu ızgara).</p>",
+   "<p class=\"next\">Previous steps: <a href=\"../md-t/\">MD-T · Energy, forces and numerical motion</a> (recording interval, the same pilot) and <a href=\"../md-dt/\">MD-DT · The time step in a protein</a> (a single-seed grid).</p>"
   ],
   [
-   "αR/β ψ sınırı",
-   "αR/β ψ boundary"
+   "<p class=\"small\">Model ve veri: köprüdeki hız modeli tarayıcıda hesaplanan bir öğretim modelidir. Açılar (gmx angle, 1 ps), RMSD (ağır atomlar, minimize yapıya) ve 3B kareler (40 ps'de bir) bu projenin alanin dipeptidi pilotundan gelir: AMBER99SB-ILDN, TIP3P, 300 K, 1 bar, 2 fs, GROMACS 2026.3; koşular arasındaki tek fark hız ve termostat tohumlarıdır. Başlangıç yapısı: mdshare ALA2 (Freie Universität Berlin, CC BY 4.0). Pilot koşular denge ya da popülasyon kanıtı değildir.</p>",
+   "<p class=\"small\">Model and data: the speed model in the bridge is a teaching model computed in the browser. The angles (gmx angle, 1 ps), RMSD (heavy atoms, to the minimized structure) and 3D frames (one every 40 ps) come from this project's alanine dipeptide pilot: AMBER99SB-ILDN, TIP3P, 300 K, 1 bar, 2 fs, GROMACS 2026.3; the only difference between the runs is the velocity and thermostat seeds. Starting structure: mdshare ALA2 (Freie Universität Berlin, CC BY 4.0). Pilot runs are not evidence of equilibrium or of populations.</p>"
   ],
   [
-   "Beş koşunun ortalaması, bu sınırla",
-   "Mean of the five runs, with this boundary"
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
   ],
   [
-   "Aşağıdaki (φ, ψ) çiftlerini ana bölüntüye (αR/β sınırı ψ = <span data-b=\"split\"></span>°) göre sınıflandırın.",
-   "Classify the (φ, ψ) pairs below according to the main partition (αR/β boundary at ψ = <span data-b=\"split\"></span>°)."
+   "function pc(v,d){ return '%'+fx(v,d); }",
+   "function pc(v,d){ return fx(v,d)+'%'; }"
   ],
   [
-   "(v===SPLIT?'protokol':'duyarlılık')",
-   "(v===SPLIT?'protocol':'sensitivity')"
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('u1progN').textContent=Object.keys(FOUND).length+' / 4'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('u1progN').textContent=Object.keys(FOUND).length+' / 4'; }"
   ],
   [
-   "Ana sınır: protokolde önceden yazılan ve raporlanan bölüntü.",
-   "Main boundary: the partition fixed in advance in the protocol, and the one that is reported."
+   "$('u1bNa').textContent='± '+fx(S.h,3)+' µm/dk'; $('u1bSd').textContent=fx(S.sdm,3)+' µm/dk (%95 için yaklaşık ± '+fx(1.96*S.sdm,3)+')'; $('u1bCov').textContent=S.cov+' / 20';",
+   "$('u1bNa').textContent='± '+fx(S.h,3)+' µm/min'; $('u1bSd').textContent=fx(S.sdm,3)+' µm/min (about ± '+fx(1.96*S.sdm,3)+' for 95%)'; $('u1bCov').textContent=S.cov+' / 20';"
   ],
   [
-   "Duyarlılık sınırı: önceden yazıldı, yalnız ayrıca raporlanır; ana sonucun yerine geçmez.",
-   "Sensitivity boundary: fixed in advance and reported only separately; it does not replace the main result."
+   "$('u1bNote').textContent=S.dt<30?'Kare sayısı arttıkça \"her kare bağımsız\" hata çubuğu daraldı ('+NFI.format(S.n)+' kare), ama 20 deneyin ortalamaları bu çubuklardan çok daha fazla saçılıyor: '+S.cov+' / 20 çubuk gerçek ortalamayı yakaladı. Kareler 30 s içinde birbirine benzer; fazladan kare yeni bilgi getirmiyor.':'Kareler artık ilişki süresinden (30 s) seyrek: her kare yaklaşık bağımsız. Hata çubuğu genişledi ama dürüst: '+S.cov+' / 20 çubuk gerçek ortalamayı yakaladı. Aynı 10 dakikadan çıkan bilgi kare aralığına pek bağlı değil; çubuğu değiştiren, bağımsızlık varsayımı.'; brDraw(S); }",
+   "$('u1bNote').textContent=S.dt<30?'As the number of frames grew, the \"every frame independent\" error bar narrowed ('+NFI.format(S.n)+' frames), but the means of the 20 experiments scatter much more than these bars: '+S.cov+' / 20 bars caught the true mean. Within 30 s the frames resemble each other; extra frames bring no new information.':'The frames are now sparser than the correlation time (30 s): each frame is roughly independent. The error bar widened, but it is honest: '+S.cov+' / 20 bars caught the true mean. The information in the same 10 minutes hardly depends on the frame interval; what changes the bar is the independence assumption.'; brDraw(S); }"
   ],
   [
-   "Değerler, seçili koşunun bütün karelerinde durum paylarıdır (p). αL payı bu sınırdan etkilenmez, çünkü αL tanımı ψ\\'ye bağlı değildir.</p>",
-   "The values are the state fractions (p) over all frames of the selected run. The αL fraction is not affected by this boundary, because the definition of αL does not depend on ψ.</p>"
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('1. deney: hız izi ve çekilen kareler (10 dk)',L+6,T1+13);",
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Experiment 1: speed trace and frames taken (10 min)',L+6,T1+13);"
   ],
   [
-   "aria-label=\"Nokta sınıfı\"",
-   "aria-label=\"Point class\""
+   "g.save(); g.translate(11,T1+h1/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('µm/dk',0,0); g.restore();",
+   "g.save(); g.translate(11,T1+h1/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('µm/min',0,0); g.restore();"
   ],
   [
-   "Her nokta için bir durum seçin.",
-   "Select a state for each point."
+   "g.fillStyle=css('--muted'); g.fillText('20 deneyin ortalaması ve \"her kare bağımsız\" %95 çubuğu; kesikli: gerçek ortalama',L+6,T2+13);",
+   "g.fillStyle=css('--muted'); g.fillText('Means of 20 experiments and the \"every frame independent\" 95% bar; dashed: true mean',L+6,T2+13);"
   ],
   [
-   "'Doğru. ψ = 175° ile ψ = −175° periyodiklik nedeniyle aynı β bölgesindedir. ψ = '",
-   "'Correct. Because of periodicity, ψ = 175° and ψ = −175° are in the same β region. ψ = '"
+   "if(A1.moved&&tr>=5) card('u1c1',true,'Koşu '+(A1.run+1)+', '+fx(w[0]/1000,1)+'-'+fx(w[1]/1000,1)+' ns: RMSD ortanca '+fx(med,3)+' nm, en büyük '+fx(mx,3)+' nm. Aynı pencerede durum '+NFI.format(tr)+' kez değişti; αR payı '+fx(frac(s,0,w[0],w[1]),2)+'. RMSD bütün atomların ortalama sapmasıdır; molekülün hangi durumda olduğunu ayırt etmek için yapılmamıştır. Sakin bir RMSD eğrisi, örneklemenin bittiğini söylemez.');",
+   "if(A1.moved&&tr>=5) card('u1c1',true,'Run '+(A1.run+1)+', '+fx(w[0]/1000,1)+'-'+fx(w[1]/1000,1)+' ns: RMSD median '+fx(med,3)+' nm, largest '+fx(mx,3)+' nm. In the same window the state changed '+NFI.format(tr)+' times; αR fraction '+fx(frac(s,0,w[0],w[1]),2)+'. RMSD is the mean deviation of all the atoms; it was not made to tell which state the molecule is in. A calm RMSD curve does not say that sampling is finished.');"
   ],
   [
-   "'° tam sınırdadır ve β\\'ya düşer, çünkü αR tanımı ψ < '",
-   "'° lies exactly on the boundary and falls into β, because the αR definition says ψ < '"
+   "$('u1sNote').textContent='Bu koşuda sınır 30° ile 70° arasında kayınca αR payı '+fx(p30,3)+' ile '+fx(p70,3)+' arasında değişir. Sınır veriye bakıldıktan sonra seçilseydi, istenen sonuca göre ayarlanabilirdi; bu yüzden protokolde koşulardan önce yazıldı ve sayfanın bütün sonraki hesapları ψ = 50° ile yapılır.'; }",
+   "$('u1sNote').textContent='In this run, moving the boundary between 30° and 70° changes the αR fraction between '+fx(p30,3)+' and '+fx(p70,3)+'. Had the boundary been chosen after looking at the data, it could have been tuned to the desired result; that is why the protocol wrote it down before the runs, and all later calculations on the page use ψ = 50°.'; }"
   ],
   [
-   "'° der. φ ≥ '",
-   "'°. Every point with φ ≥ '"
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText(W<420?'Kalın bağlar: φ ve ψ':'Kalın bağlar φ ve ψ\\'yi tanımlar; 40 ps\\'de bir gerçek kare',10,H-10); }",
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText(W<420?'Thick bonds: φ and ψ':'Thick bonds define φ and ψ; one real frame every 40 ps',10,H-10); }"
   ],
   [
-   "'° olan her nokta, ψ ne olursa olsun αL\\'dir.'",
-   "'° is αL, whatever ψ is.'"
+   "$('u1BV').textContent=NFI.format(1<<Math.min(T2.k,Math.max(0,d.gb.gB.length-1)))+' kare';",
+   "$('u1BV').textContent=NFI.format(1<<Math.min(T2.k,Math.max(0,d.gb.gB.length-1)))+(Math.min(T2.k,Math.max(0,d.gb.gB.length-1))===0?' frame':' frames');"
   ],
   [
-   "'Kırmızı satırları yeniden düşünün. Önce φ\\'nin işaretine bakın; sonra ψ\\'nin αR aralığında ('",
-   "'Reconsider the red rows. First look at the sign of φ; then check whether ψ lies in the αR range ('"
+   "$('u1eGB').textContent=gB==null?'hesaplanamaz':fx(gB,1)+(iB===d.gb.gB.length-1?(d.gb.plateau?' (plato)':' (plato yok)'):'');",
+   "$('u1eGB').textContent=gB==null?'cannot be computed':fx(gB,1)+(iB===d.gb.gB.length-1?(d.gb.plateau?' (plateau)':' (no plateau)'):'');"
   ],
   [
-   "'°) olup olmadığına. Sınırın hangi tarafının kapalı olduğu önemlidir.'",
-   "'°). It matters which side of the boundary is closed.'"
+   "$('u1eGS').textContent=gs==null?'hesaplanamaz':fx(gs,1)+' (τ_int '+fx(d.gs.tau,1)+' ps)';",
+   "$('u1eGS').textContent=gs==null?'cannot be computed':fx(gs,1)+' (τ_int '+fx(d.gs.tau,1)+' ps)';"
   ],
   [
-   "<small>3 · Pencereler</small>Eşit pencereler",
-   "<small>3 · Windows</small>Equal windows"
+   "var ne=gs?NFR/gs:null; $('u1eNe').textContent=ne==null?'hesaplanamaz':NFI.format(Math.round(ne))+(ne>NFR?' (N\\'den büyük: anlamsız)':'');",
+   "var ne=gs?NFR/gs:null; $('u1eNe').textContent=ne==null?'cannot be computed':NFI.format(Math.round(ne))+(ne>NFR?' (larger than N: meaningless)':'');"
   ],
   [
-   "Dengeyi sınamanın yaygın bir yolu, trajektoriyi eşit pencerelere bölüp dağılımları karşılaştırmaktır. İlk pencere geç pencerelerden farklı, geç pencereler birbirine benziyorsa “ilk kısım dengelemeydi, sonrası dengede” denir. Bu akıl yürütmeyi protokoldeki tanımlarla sınayın.",
-   "A common way to test for equilibrium is to split the trajectory into equal windows and compare the distributions. If the first window differs from the late windows and the late windows resemble one another, people say “the first part was equilibration, the rest is at equilibrium”. Test this reasoning with the definitions in the protocol."
+   "$('u1eEn').textContent='± '+fx(nv,4); $('u1eEc').textContent=gs?'± '+fx(Math.sqrt(gs)*nv,4)+(few?' (güvenilmez)':''):'hesaplanamaz';",
+   "$('u1eEn').textContent='± '+fx(nv,4); $('u1eEc').textContent=gs?'± '+fx(Math.sqrt(gs)*nv,4)+(few?' (unreliable)':''):'cannot be computed';"
   ],
   [
-   "(φ, ψ) düzlemi <span data-b=\"nb\"></span> × <span data-b=\"nb\"></span> eşit hücreye bölündü; bir pencerenin dağılımı, karelerin bu hücrelere düşen paylarıdır. İki dağılımın farkı toplam varyasyon uzaklığıyla (TVD) ölçülür: D<sub>TV</sub> = ½ Σ |p<sub>b</sub> − q<sub>b</sub>|. Değer 0 ise dağılımlar aynıdır, 1 ise hiç örtüşmez. Pencereler üretimin başından, örtüşmeden kesildi; baştan hiçbir kare atılmadı. Değerler betimleyicidir: protokol bunlar için güven aralığı hesaplamaz.",
-   "The (φ, ψ) plane was divided into <span data-b=\"nb\"></span> × <span data-b=\"nb\"></span> equal cells; the distribution of a window is the fraction of its frames that falls into each cell. The difference between two distributions is measured by the total variation distance (TVD): D<sub>TV</sub> = ½ Σ |p<sub>b</sub> − q<sub>b</sub>|. A value of 0 means that the distributions are identical; 1 means that they do not overlap at all. The windows were cut from the start of production without overlap; no frames were discarded from the beginning. The values are descriptive: the protocol does not compute confidence intervals for them."
+   "$('u1eNote').textContent=few?SN[T2.st]+' bu koşuda yalnız '+d.v+' kez ziyaret edildi ('+NFI.format(Math.round(d.p*NFR))+' kare). Otokorelasyon ve blok yöntemi, durumun defalarca girilip çıkıldığını varsayar; birkaç ziyaretten ne pay ne de hatası güvenilir hesaplanır. Sayfa bu koşuda '+SN[T2.st]+' için hata çubuğu çizmez.':'Blok boyu büyüdükçe g_B önce B ile birlikte büyür (kareler hâlâ ilişkili), sonra bir düzlüğe yaklaşır. Düzlükteki değer g\\'dir: '+(gs?'otokorelasyonla '+fx(gs,0)+' kare':'')+'. Hata √g kat, yani yaklaşık '+(gs?fx(Math.sqrt(gs),0):'?')+' kat büyür.';",
+   "$('u1eNote').textContent=few?'In this run '+SN[T2.st]+' was visited only '+d.v+' times ('+NFI.format(Math.round(d.p*NFR))+' frames). Autocorrelation and block averaging assume that the state is entered and left many times; from a few visits neither the fraction nor its error can be computed reliably. The page draws no error bar for '+SN[T2.st]+' in this run.':'As the block size grows, g_B first grows along with B (the frames are still correlated), then approaches a flat level. The value on the flat level is g: '+(gs?fx(gs,0)+' frames by autocorrelation':'')+'. The error grows √g times, that is, about '+(gs?fx(Math.sqrt(gs),0):'?')+' times.';"
   ],
   [
-   "İlk pencere ve geç pencereler",
-   "The first window and the late windows"
+   "if(T2.k>=7&&T2.st!==2&&!few&&gs) card('u1c2',true,'Koşu '+(T2.run+1)+', '+SN[T2.st]+': blok boyu '+NFI.format(1<<Math.min(T2.k,d.gb.gB.length-1))+' karede g_B = '+fx(gB,0)+', otokorelasyonla g = '+fx(gs,0)+'. 10.000 kare yaklaşık '+NFI.format(Math.round(NFR/gs))+' bağımsız ölçüm eder. \"Her kare bağımsız\" hata ± '+fx(nv,4)+', düzeltilmiş hata ± '+fx(Math.sqrt(gs)*nv,3)+': '+fx(Math.sqrt(gs),0)+' kat.');",
+   "if(T2.k>=7&&T2.st!==2&&!few&&gs) card('u1c2',true,'Run '+(T2.run+1)+', '+SN[T2.st]+': at a block size of '+NFI.format(1<<Math.min(T2.k,d.gb.gB.length-1))+' frames g_B = '+fx(gB,0)+', by autocorrelation g = '+fx(gs,0)+'. 10,000 frames are worth about '+NFI.format(Math.round(NFR/gs))+' independent measurements. The \"every frame independent\" error is ± '+fx(nv,4)+', the corrected error ± '+fx(Math.sqrt(gs)*nv,3)+': '+fx(Math.sqrt(gs),0)+' times larger.');"
   ],
   [
-   "Pencere çiftleri arasındaki TVD değerleri: ilk ile geç pencereler ve geç pencereler kendi aralarında",
-   "TVD values between window pairs: the first versus the late windows, and the late windows among themselves"
+   "if(T2.st===2&&d.v<=2) card('u1c3',true,'Koşu '+(T2.run+1)+', αL: 10.000 karenin '+NFI.format(Math.round(d.p*NFR))+'\\'i, '+d.v+' ziyaret. Hesap yine bir sayı üretiyor ('+(gs?'g = '+fx(gs,1)+', N_eff = '+NFI.format(Math.round(NFR/gs)):'g hesaplanamaz')+'), ama bu sayı hiçbir şey ölçmüyor: bir durumu birkaç kez görmek, o durumda ne kadar kalındığının dağılımı hakkında bilgi vermez. Böyle bir durum için dürüst cevap \"hata çubuğu kurulamaz\"dır.');",
+   "if(T2.st===2&&d.v<=2) card('u1c3',true,'Run '+(T2.run+1)+', αL: '+NFI.format(Math.round(d.p*NFR))+' of 10,000 frames, '+d.v+' visits. The calculation still produces a number ('+(gs?'g = '+fx(gs,1)+', N_eff = '+NFI.format(Math.round(NFR/gs)):'g cannot be computed')+'), but this number measures nothing: seeing a state a few times says nothing about the distribution of how long it is occupied. For such a state the honest answer is \"no error bar can be built\".');"
   ],
   [
-   "aria-label=\"Pencere boyu\"",
-   "aria-label=\"Window length\""
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Barkod: her kare '+SN[T2.st]+'\\'de mi? (renkli: evet)'+(B>1?' · siyah: '+NFI.format(B)+' karelik blok ortalamaları':''),L,16);",
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Barcode: is each frame in '+SN[T2.st]+'? (coloured: yes)'+(B>1?' · black: block means of '+NFI.format(B)+' frames':''),L,16);"
   ],
   [
-   ">Pencere boyu<",
-   ">Window length<"
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Otokorelasyon ρ(k)',L,14);",
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Autocorrelation ρ(k)',L,14);"
   ],
   [
-   "İki yarının (φ, ψ) dağılımı",
-   "(φ, ψ) distribution of the two halves"
+   "if(!d.gs.r){ g.fillText('Bu durum hiç görülmedi ya da hep görüldü: hesaplanamaz.',L+8,H/2); return; }",
+   "if(!d.gs.r){ g.fillText('This state was never seen or always seen: cannot be computed.',L+8,H/2); return; }"
   ],
   [
-   "İlk yarı pencerenin (φ, ψ) dağılımı",
-   "(φ, ψ) distribution of the first-half window"
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Blok ortalaması: g_B',L,14);",
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Block averaging: g_B',L,14);"
   ],
   [
-   "İkinci yarı pencerenin (φ, ψ) dağılımı",
-   "(φ, ψ) distribution of the second-half window"
+   "if(!d.gb.gB.length){ g.fillText('Hesaplanamaz.',L+8,H/2); return; }",
+   "if(!d.gb.gB.length){ g.fillText('Cannot be computed.',L+8,H/2); return; }"
   ],
   [
-   "İddia: <b>“İlk pencere kötüydü, sonrası kesin dengede.”</b> Önce tabloyu okuyun, sonra iddiayı değerlendirin.",
-   "Claim: <b>“The first window was bad; after that it is definitely at equilibrium.”</b> Read the table first, then evaluate the claim."
+   "if(d.gs.g){ var yg=Y(d.gs.g); g.strokeStyle=css('--ink'); g.setLineDash([5,4]); g.beginPath(); g.moveTo(L,yg); g.lineTo(W-R,yg); g.stroke(); g.setLineDash([]); g.fillStyle=css('--ink'); g.fillText('otokorelasyon: g = '+fx(d.gs.g,0),L+6,yg-5); }",
+   "if(d.gs.g){ var yg=Y(d.gs.g); g.strokeStyle=css('--ink'); g.setLineDash([5,4]); g.beginPath(); g.moveTo(L,yg); g.lineTo(W-R,yg); g.stroke(); g.setLineDash([]); g.fillStyle=css('--ink'); g.fillText('autocorrelation: g = '+fx(d.gs.g,0),L+6,yg-5); }"
   ],
   [
-   "a) Seçili koşu ve pencere boyunda, geç ↔ geç farklarının en büyüğü, ilk ↔ geç farklarının en büyüğüne eşit ya da ondan büyük mü?",
-   "a) For the selected run and window length, is the largest late ↔ late difference equal to or larger than the largest first ↔ late difference?"
+   "g.fillStyle=css('--muted'); g.textAlign='center'; d.gb.B.forEach(function(b,i){ if(i%2===0||i===d.gb.B.length-1) g.fillText(NFI.format(b),X(i),H-12); }); g.fillText('blok boyu (kare)',L+(W-L-R)/2,H-1); g.textAlign='left'; }",
+   "g.fillStyle=css('--muted'); g.textAlign='center'; d.gb.B.forEach(function(b,i){ if(i%2===0||i===d.gb.B.length-1) g.fillText(NFI.format(b),X(i),H-12); }); g.fillText('block size (frames)',L+(W-L-R)/2,H-1); g.textAlign='left'; }"
   ],
   [
-   "Geç ↔ geç en büyük fark, ilk ↔ geç en büyük farka eşit ya da büyük mü?",
-   "Is the largest late ↔ late difference equal to or larger than the largest first ↔ late difference?"
+   "var X=function(v){ return L+v*(W-L-R); }, rows=[['Her kare bağımsız',nv],['Düzeltilmiş (√g kat)',gs&&!few?Math.sqrt(gs)*nv:null]];",
+   "var X=function(v){ return L+v*(W-L-R); }, rows=[['Every frame independent',nv],['Corrected (√g times)',gs&&!few?Math.sqrt(gs)*nv:null]];"
   ],
   [
-   ">Evet</button>",
-   ">Yes</button>"
+   "rows.forEach(function(q,i){ var y=26+i*((H-60)/2)+16; g.fillStyle=css('--ink'); g.font='600 12px '+css('--sans'); g.fillText(q[0]+(q[1]==null?': kurulamaz':': ± '+fx(1.96*q[1],3)+' (%95)'),L,y-10);",
+   "rows.forEach(function(q,i){ var y=26+i*((H-60)/2)+16; g.fillStyle=css('--ink'); g.font='600 12px '+css('--sans'); g.fillText(q[0]+(q[1]==null?': cannot be built':': ± '+fx(1.96*q[1],3)+' (95%)'),L,y-10);"
   ],
   [
-   ">Hayır</button>",
-   ">No</button>"
+   "$('u1fM').textContent=fx(b.mean,3); $('u1fC').textContent=fx(b.lo,3)+' ile '+fx(b.hi,3)+' (± '+fx(b.hi-b.mean,3)+'; t = '+fx(b.t,3)+')'; $('u1fT').textContent=n+' × '+D3.L+' ns = '+(n*D3.L)+' ns';",
+   "$('u1fM').textContent=fx(b.mean,3); $('u1fC').textContent=fx(b.lo,3)+' to '+fx(b.hi,3)+' (± '+fx(b.hi-b.mean,3)+'; t = '+fx(b.t,3)+')'; $('u1fT').textContent=n+' × '+D3.L+' ns = '+(n*D3.L)+' ns';"
   ],
   [
-   "b) Tablo iddiayı destekliyor mu?",
-   "b) Does the table support the claim?"
+   "$('u1fNote').textContent=(b.lo<0?'Aralık sıfırın altına iniyor: bu veriden '+SN[D3.st]+' payı için bir alt sınır verilemez; pay sıfır olabilir. ':'')+(n<5?'Koşu sayısı azaldıkça t büyür ('+fx(b.t,3)+'): az tekrarla aralık hızla genişler. ':'')+(D3.L<5?'Kısa pencereler her koşunun başından alınır; koşular aynı yapıdan başladığı için ilk nanosaniyeler birbirine daha çok benzeyebilir ya da hep aynı yöne sapabilir.':'');",
+   "$('u1fNote').textContent=(b.lo<0?'The interval drops below zero: from these data no lower bound can be given for the '+SN[D3.st]+' fraction; the fraction could be zero. ':'')+(n<5?'As the number of runs falls, t grows ('+fx(b.t,3)+'): with few repeats the interval widens quickly. ':'')+(D3.L<5?'Short windows are taken from the start of each run; because the runs started from the same structure, the first nanoseconds may resemble each other more, or all drift the same way.':'');"
   ],
   [
-   "Pencere boyu da bir karardır. Kısa pencerelerde dağılım az sayıda geçişe dayanır; molekül hiçbir şeyi “değiştirmeden” de iki pencere birbirinden farklı görünebilir. Uzun pencerelerde gürültü azalır, ama <span data-b=\"pilotNs\"></span> ns'lik bir koşuda <span data-b=\"wLast\"></span> ns'lik pencereden yalnız iki tane çıkar ve geç pencereleri kendi aralarında karşılaştırmak mümkün olmaz. İki yarının birbirine benzemesi de, benzememesi de tek başına denge hakkında hüküm vermez.",
-   "The window length is also a decision. In short windows, the distribution rests on a small number of transitions; two windows can look different from each other even without the molecule “changing” anything. In long windows the noise decreases, but a <span data-b=\"pilotNs\"></span> ns run yields only two <span data-b=\"wLast\"></span> ns windows, and comparing the late windows among themselves is no longer possible. Whether the two halves resemble each other or not, that alone settles nothing about equilibrium."
+   "if(w.ce){ g.strokeStyle=col; g.lineWidth=2; g.beginPath(); g.moveTo(x,Y(w.p-1.96*w.ce)); g.lineTo(x,Y(w.p+1.96*w.ce)); g.stroke(); } else { g.fillStyle=css('--bad'); g.fillText('çubuk yok',x-22,Y(w.p)-10); }",
+   "if(w.ce){ g.strokeStyle=col; g.lineWidth=2; g.beginPath(); g.moveTo(x,Y(w.p-1.96*w.ce)); g.lineTo(x,Y(w.p+1.96*w.ce)); g.stroke(); } else { g.fillStyle=css('--bad'); g.fillText('no bar',x-18,Y(w.p)-10); }"
   ],
   [
-   "'Seçili pencere boyu '",
-   "'Selected window length: '"
+   "g.fillStyle=col; g.beginPath(); g.arc(x,Y(w.p),5,0,Math.PI*2); g.fill(); g.globalAlpha=1; g.fillStyle=css('--muted'); g.textAlign='center'; g.fillText((i+1)+'. koşu',x,H-12); g.textAlign='left'; }",
+   "g.fillStyle=col; g.beginPath(); g.arc(x,Y(w.p),5,0,Math.PI*2); g.fill(); g.globalAlpha=1; g.fillStyle=css('--muted'); g.textAlign='center'; g.fillText('run '+(i+1),x,H-12); g.textAlign='left'; }"
   ],
   [
-   "' ns; koşu '",
-   "' ns; run: '"
+   "var xa=X(5); g.fillStyle=css('--navy'); g.font='600 11.5px '+css('--sans'); g.textAlign='center'; g.fillText('koşular arası',xa,Math.max(T+12,Y(b.hi)-8)); g.fillText(fx(b.mean,3),xa,Y(b.mean)-5); g.textAlign='left'; }",
+   "var xa=X(5); g.fillStyle=css('--navy'); g.font='600 11.5px '+css('--sans'); g.textAlign='center'; g.fillText('across runs',xa,Math.max(T+12,Y(b.hi)-8)); g.fillText(fx(b.mean,3),xa,Y(b.mean)-5); g.textAlign='left'; }"
   ],
   [
-   "Bu pencere boyu için karşılaştırma yok.",
-   "No comparison for this window length."
+   "$('u1tab').innerHTML=D3.trials.map(function(t,k){ return '<tr><td class=\"n\">'+(D3.trials.length-k)+'</td><td>'+SN[t.st]+'</td><td class=\"n\">'+t.L+' ns</td><td class=\"n\">'+t.n+'</td><td class=\"n\">'+(t.n*t.L)+' ns</td><td class=\"n\">'+fx(t.m,3)+'</td><td class=\"n\">'+fx(t.lo,3)+' ile '+fx(t.hi,3)+'</td></tr>'; }).join('');",
+   "$('u1tab').innerHTML=D3.trials.map(function(t,k){ return '<tr><td class=\"n\">'+(D3.trials.length-k)+'</td><td>'+SN[t.st]+'</td><td class=\"n\">'+t.L+' ns</td><td class=\"n\">'+t.n+'</td><td class=\"n\">'+(t.n*t.L)+' ns</td><td class=\"n\">'+fx(t.m,3)+'</td><td class=\"n\">'+fx(t.lo,3)+' to '+fx(t.hi,3)+'</td></tr>'; }).join('');"
   ],
   [
-   "'Pencere sayısı'",
-   "'Number of windows'"
+   "card('u1c4',true,'5 koşu × 2 ns: αR '+fx(t5.m,3)+', %95 aralık ± '+fx(t5.h,3)+'. Tek 10 ns\\'lik koşuların kendi (düzeltilmiş) çubukları ± '+fx(lo,3)+' ile ± '+fx(hi,3)+' arasında; payları ise '+fx(Math.min.apply(null,P10),3)+' ile '+fx(Math.max.apply(null,P10),3)+' arasında dağılıyor: 20 koşu çiftinin '+nOut+'\\'inde bir koşunun çubuğu öbür koşunun değerini içermiyor. Aynı toplam süreyle beş kısa koşu hatayı bir modelden değil koşuların saçılımından ölçer; bedeli, kısa pencerelerin başlangıca yakın olması ve t\\'nin 4 serbestlikle büyük olmasıdır.'); }",
+   "card('u1c4',true,'5 runs × 2 ns: αR '+fx(t5.m,3)+', 95% interval ± '+fx(t5.h,3)+'. The single 10 ns runs have their own (corrected) bars of ± '+fx(lo,3)+' to ± '+fx(hi,3)+', while their fractions spread from '+fx(Math.min.apply(null,P10),3)+' to '+fx(Math.max.apply(null,P10),3)+': in '+nOut+' of the 20 run pairs, one run\\'s bar does not contain the other run\\'s value. With the same total time, five short runs measure the error from the scatter of the runs rather than from a model; the price is that short windows lie close to the start and that t is large with 4 degrees of freedom.'); }"
   ],
   [
-   "'İlk ↔ geç: karşılaştırma sayısı'",
-   "'First ↔ late: number of comparisons'"
+   "g.font='11px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [1,2,5,10,20,50].forEach(function(t){ g.fillText(t+' ns',X(t),H-14); }); g.fillText('toplam benzetim süresi (log)',L+(W-L-R)/2,H-2); g.textAlign='right'; [0,0.1,0.2,0.3,0.4,0.5].forEach(function(v){ g.fillText(fx(v,1),L-5,Y(v)+4); }); g.textAlign='left';",
+   "g.font='11px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [1,2,5,10,20,50].forEach(function(t){ g.fillText(t+' ns',X(t),H-14); }); g.fillText('total simulated time (log)',L+(W-L-R)/2,H-2); g.textAlign='right'; [0,0.1,0.2,0.3,0.4,0.5].forEach(function(v){ g.fillText(fx(v,1),L-5,Y(v)+4); }); g.textAlign='left';"
   ],
   [
-   "'İlk ↔ geç: en küçük–en büyük TVD'",
-   "'First ↔ late: min–max TVD'"
+   "g.save(); g.translate(11,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('%95 aralığın yarısı',0,0); g.restore();",
+   "g.save(); g.translate(11,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('half of the 95% interval',0,0); g.restore();"
   ],
   [
-   "'Geç ↔ geç: karşılaştırma sayısı'",
-   "'Late ↔ late: number of comparisons'"
+   "g.fillStyle=css('--muted'); g.fillText('içi boş: tek 10 ns koşu, αR, düzeltilmiş çubuk',X(10)+26,Y(0.16));",
+   "g.fillStyle=css('--muted'); g.fillText('open circles: single 10 ns run, αR, corrected bar',X(10)+26,Y(0.16));"
   ],
   [
-   "'Geç ↔ geç: en küçük–en büyük TVD'",
-   "'Late ↔ late: min–max TVD'"
+   "if(!D3.trials.length){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Bir deneme yazın: \"Deftere yaz\".',L+10,T+22); } }",
+   "if(!D3.trials.length){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Write a trial: \"Write to the notebook\".',L+10,T+22); } }"
   ],
   [
-   "'İlk ↔ geç TVD değerleri, sırayla: '",
-   "'First ↔ late TVD values, in order: '"
+   "function useChips(){ $('u1use').innerHTML=D3.use.map(function(u,i){ return '<button type=\"button\" class=\"chip\" data-i=\"'+i+'\" aria-pressed=\"'+(!!u)+'\">'+(i+1)+'. koşu</button>'; }).join('');",
+   "function useChips(){ $('u1use').innerHTML=D3.use.map(function(u,i){ return '<button type=\"button\" class=\"chip\" data-i=\"'+i+'\" aria-pressed=\"'+(!!u)+'\">'+'run '+(i+1)+'</button>'; }).join('');"
   ],
   [
-   "Bu pencere boyunda yalnız bir geç pencere var; geç ↔ geç karşılaştırması yapılamaz.",
-   "At this window length there is only one late window; a late ↔ late comparison is not possible."
+   "{s:'Bir koşu 10.000 kare üretti ve αR göstergesi için g = 200 kare bulundu. Etkin örnek sayısı yaklaşık kaçtır?',o:[['10.000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10.000 / 200 = 50. Hata, kareler bağımsız sayılsaydı bulunacak olanın √200 ≈ 14 katıdır.'},",
+   "{s:'A run produced 10,000 frames and g = 200 frames was found for the αR indicator. What is the effective sample size, roughly?',o:[['10,000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10,000 / 200 = 50. The error is √200 ≈ 14 times what you would find if the frames were counted as independent.'},"
   ],
   [
-   "Değerler betimleyicidir; güven aralığı hesaplanmadı.",
-   "The values are descriptive; no confidence interval was computed."
+   "{s:'RMSD eğrisi koşunun başından sonuna düz ve küçük. Bu ne gösterir?',o:[['Örnekleme tamamlandı',0],['Molekül dengeye ulaştı',0],['Yalnız ortalama atom sapmasının küçük kaldığını; açıların ve durumların nasıl gezdiği ayrıca bakılmadan bilinmez',1],['Hata çubuğu küçüktür',0]],w:'Alanin dipeptidinde RMSD ortanca 0,05 nm civarında kalırken durum 126-206 kez değişti. RMSD, soruyu soran niceliğin (burada durum payının) yerine geçmez.'},",
+   "{s:'The RMSD curve is flat and small from the start of the run to the end. What does this show?',o:[['Sampling is complete',0],['The molecule has reached equilibrium',0],['Only that the mean atomic deviation stayed small; how the angles and states wander cannot be known without looking separately',1],['The error bar is small',0]],w:'In alanine dipeptide the state changed 126-206 times while the RMSD stayed around a median of 0.05 nm. RMSD does not stand in for the quantity the question is about (here, the state fraction).'},"
   ],
   [
-   "[2,'İlk ↔ geç',fl",
-   "[2,'First ↔ late',fl"
+   "{s:'Aynı lizattan üç kuyu ölçtünüz. Bu, MD\\'de hangisine benzer?',o:[['Beş bağımsız koşu',0],['Tek bir koşunun art arda üç karesi',1],['Farklı kuvvet alanlarıyla üç koşu',0],['Üç farklı protein',0]],w:'Art arda kareler aynı \"örnekten\" gelir ve birbirine bağlıdır; bağımsız tekrar yerine geçmez (sözde tekrar).'},",
+   "{s:'You measured three wells from the same lysate. What does this resemble in MD?',o:[['Five independent runs',0],['Three consecutive frames of a single run',1],['Three runs with different force fields',0],['Three different proteins',0]],w:'Consecutive frames come from the same \"sample\" and are linked to each other; they do not stand in for independent repeats (pseudoreplication).'},"
   ],
   [
-   "[1,'Geç ↔ geç',lp",
-   "[1,'Late ↔ late',lp"
+   "{s:'αL durumu bir koşuda yalnız iki kez ziyaret edildi. Bu koşudan αL payı için hata çubuğu nasıl verilmeli?',o:[['√(p(1 − p)/N) ile',0],['Otokorelasyon düzeltmesiyle',0],['Verilmemeli: birkaç ziyaretten ne pay ne hata güvenilir hesaplanır',1],['Blok boyunu büyüterek',0]],w:'Yöntemler durumun defalarca girilip çıkıldığını varsayar. Bu projede bir koşuda N_eff, N\\'den büyük çıktı: sayı üretildi ama anlamı yok.'},",
+   "{s:'The αL state was visited only twice in a run. How should an error bar for the αL fraction be given from this run?',o:[['With √(p(1 − p)/N)',0],['With the autocorrelation correction',0],['It should not be given: from a few visits neither the fraction nor the error can be computed reliably',1],['By increasing the block size',0]],w:'The methods assume that the state is entered and left many times. In this project N_eff came out larger than N in one run: a number was produced, but it has no meaning.'},"
   ],
   [
-   "Bu koşu için iki yarının dağılımı pakette yok.",
-   "The distribution of the two halves for this run is not in the package."
+   "{s:'Beş koşunun αR payları 0,219, 0,347, 0,244, 0,188 ve 0,271. %95 aralığı hesaplarken neden 1,96 yerine 2,776 kullanılır?',o:[['Payların ortalaması küçük olduğu için',0],['Standart sapma yalnız 5 değerden tahmin edildiği için t dağılımı (4 serbestlik) kullanılır',1],['Koşular 10 ns olduğu için',0],['Otokorelasyon yüzünden',0]],w:'Az sayıda tekrarla standart sapmanın kendisi belirsizdir; t dağılımı bunu hesaba katar. Aralık 0,179 ile 0,329 çıkar.'},",
+   "{s:'The αR fractions of the five runs are 0.219, 0.347, 0.244, 0.188 and 0.271. Why is 2.776 used instead of 1.96 when computing the 95% interval?',o:[['Because the mean of the fractions is small',0],['Because the standard deviation is estimated from only 5 values, the t distribution (4 degrees of freedom) is used',1],['Because the runs are 10 ns long',0],['Because of autocorrelation',0]],w:'With few repeats the standard deviation itself is uncertain; the t distribution accounts for this. The interval comes out as 0.179 to 0.329.'},"
   ],
   [
-   "+' kare)'",
-   "+' frames)'"
+   "{s:'αR/β sınırı ψ = 30° seçildiğinde pay düşüyor, 70° seçildiğinde artıyor. Doğru uygulama hangisidir?',o:[['Sonuca bakıp en makul görünen sınırı seçmek',0],['Sınırı koşulardan önce yazmak, başka sınırları yalnız duyarlılık olarak raporlamak',1],['En yüksek payı veren sınırı seçmek',0],['Sınırı her koşu için ayrı ayarlamak',0]],w:'Bu projenin protokolü ψ = 50°\\'yi ana, 30° ve 70°\\'yi duyarlılık sınırı olarak koşulardan önce dondurdu.'}];",
+   "{s:'With the αR/β boundary at ψ = 30° the fraction falls, at 70° it rises. What is the right practice?',o:[['Look at the result and pick the boundary that seems most reasonable',0],['Write the boundary down before the runs and report other boundaries only as sensitivity',1],['Pick the boundary that gives the highest fraction',0],['Tune the boundary separately for each run',0]],w:'This project\\'s protocol froze ψ = 50° as the main boundary and 30° and 70° as sensitivity boundaries before the runs.'}];"
   ],
   [
-   "'İki yarı arasındaki TVD: '",
-   "'TVD between the two halves: '"
+   "b.classList.add(okk?'right':'wrong'); var w=$('u1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var w=$('u1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Right.</b> ':'<b>Not quite.</b> ')+q.w;"
   ],
   [
-   "'. Renk koyuluğu kare sayısının kareköküyle ölçeklenir ve iki harita aynı ölçeği kullanır. Benzer ya da farklı görünmeleri, tek başına denge hakkında bir şey söylemez.'",
-   "'. Color intensity is scaled with the square root of the frame count, and both maps use the same scale. Whether they look similar or different says nothing about equilibrium on its own.'"
+   "$('u1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }",
+   "$('u1score').textContent='Answered: '+n+' / '+QZ.length+' · right on the first try: '+r; }); }); }"
   ],
   [
-   "Destekliyor: ilk ↔ geç farkları sıfırdan büyük olduğuna göre ilk pencere farklıdır; geç pencereler de dengededir.",
-   "Supports it: since the first ↔ late differences are greater than zero, the first window is different, and the late windows are at equilibrium."
+   "var NFI=new Intl.NumberFormat('tr-TR');",
+   "var NFI=new Intl.NumberFormat('en-US');"
   ],
   [
-   "Desteklemiyor: “sonrası dengede” demek için geç pencerelerin birbirine, ilk pencereye olduğundan belirgin biçimde daha yakın olması gerekirdi; tablo bunu göstermiyor. Üstelik değerler tek koşudan ve güven aralığı olmadan betimleyicidir.",
-   "Does not support it: to say “the rest is at equilibrium”, the late windows would have to be clearly closer to one another than to the first window; the table does not show this. Moreover, the values come from a single run, have no confidence intervals and are descriptive."
+   "$('u1play').addEventListener('click',function(){ A1.play=!A1.play; this.textContent=A1.play?'Durdur':'Pencereyi oynat'; if(A1.play){ var w=win(); if(A1.tc>=w[1]-1) A1.tc=w[0]+1; } kick(); });",
+   "$('u1play').addEventListener('click',function(){ A1.play=!A1.play; this.textContent=A1.play?'Stop':'Play the window'; if(A1.play){ var w=win(); if(A1.tc>=w[1]-1) A1.tc=w[0]+1; } kick(); });"
   ],
   [
-   "Destekliyor: TVD değerleri 1\\'den küçük olduğuna göre dağılımlar örtüşüyor; bu da dengeyi gösterir.",
-   "Supports it: since the TVD values are smaller than 1, the distributions overlap, and this shows equilibrium."
+   "if(A1.play){ var w=win(); A1.tc+=dt*(w[1]-w[0])/8; if(A1.tc>=w[1]){ A1.tc=w[1]; A1.play=false; $('u1play').textContent='Pencereyi oynat'; } tsDraw(); molDraw(); go=A1.play; }",
+   "if(A1.play){ var w=win(); A1.tc+=dt*(w[1]-w[0])/8; if(A1.tc>=w[1]){ A1.tc=w[1]; A1.play=false; $('u1play').textContent='Play the window'; } tsDraw(); molDraw(); go=A1.play; }"
   ],
   [
-   "Karar verilemez, çünkü TVD değerleri güven aralıklarıyla verilmiş ve aralıklar örtüşüyor.",
-   "It cannot be decided, because the TVD values are given with confidence intervals and the intervals overlap."
-  ],
-  [
-   "Önce tamamlanmış bir koşu seçin.",
-   "Select a completed run first."
-  ],
-  [
-   "Bu pencere boyunda geç ↔ geç karşılaştırması yok. Daha kısa bir pencere boyu seçin.",
-   "There is no late ↔ late comparison at this window length. Choose a shorter window length."
-  ],
-  [
-   "İki soruyu da yanıtlayın.",
-   "Answer both questions."
-  ],
-  [
-   "'a) şıkkını tablodan yeniden okuyun: ilk ↔ geç en büyük değer '",
-   "'Read part a) from the table again: the largest first ↔ late value is '"
-  ],
-  [
-   "', geç ↔ geç en büyük değer '",
-   "', the largest late ↔ late value is '"
-  ],
-  [
-   "a) doğru. b) için yeniden düşünün: bu tablo tek bir koşudan, güven aralığı olmadan betimleyici değerler veriyor. “Sonrası dengede” demek için geç pencerelerin birbirine ne kadar benzemesi gerekirdi?",
-   "a) is correct. For b), think again: this table gives descriptive values from a single run, without confidence intervals. How similar would the late windows have to be to one another to say “the rest is at equilibrium”?"
-  ],
-  [
-   "'Doğru. Geç pencereler kendi aralarında en çok '",
-   "'Correct. The late windows differ among themselves by up to '"
-  ],
-  [
-   "' kadar ayrışıyor; bu, ilk ↔ geç farkının en büyüğüne ('",
-   "'; this is equal to or larger than the largest first ↔ late difference ('"
-  ],
-  [
-   "') eşit ya da ondan büyük. İlk pencere özel görünmüyor ve “sonrası dengede” sonucu çıkmıyor.'",
-   "'). The first window does not look special, and the conclusion “the rest is at equilibrium” does not follow.'"
-  ],
-  [
-   "'Doğru. Bu seçimde ilk ↔ geç farkının en büyüğü ('",
-   "'Correct. In this selection the largest first ↔ late difference ('"
-  ],
-  [
-   "') geç ↔ geç farkının en büyüğünden ('",
-   "') is larger than the largest late ↔ late difference ('"
-  ],
-  [
-   "') büyük; yine de geç pencereler de birbirinden belirgin biçimde ayrışıyor.'",
-   "'); even so, the late windows also differ clearly from one another.'"
-  ],
-  [
-   "Tek koşu ve güven aralığı olmadan, bu değerler bir denge kanıtı değildir.",
-   "From a single run and without confidence intervals, these values are not evidence of equilibrium."
-  ],
-  [
-   "<small>4 · İstatistiksel verimsizlik</small>Kare sayısı, bağımsız örnek sayısı değildir",
-   "<small>4 · Statistical inefficiency</small>The number of frames is not the number of independent samples"
-  ],
-  [
-   "Bir pilot koşuda <span data-b=\"nFrames\"></span> kare var. Her kareyi bağımsız bir ölçüm sayarsak αR payının hatası çok küçük çıkar. Oysa ardışık kareler birbirine bağlıdır: molekül αR'ye girdiğinde orada bir süre kalır. Bu bağımlılığı iki yolla ölçüyoruz.",
-   "A pilot run has <span data-b=\"nFrames\"></span> frames. If we count every frame as an independent measurement, the error of the αR fraction comes out very small. But consecutive frames depend on each other: once the molecule enters αR, it stays there for a while. We measure this dependence in two ways."
-  ],
-  [
-   "Her kare için bir gösterge dizisi tanımlayın: kare αR'deyse h = 1, değilse h = 0. Bu dizinin otokorelasyon fonksiyonu ρ(k), k kare sonra hâlâ aynı durumda olma eğilimini ölçer. Bütünleşik otokorelasyon zamanı τ<sub>int</sub> = ½ + Σ<sub>k=1..M</sub> ρ(k), toplamın kesildiği M ise M ≥ 5 τ<sub>int</sub> koşulunu sağlayan en küçük değerdir (Sokal'ın kendini ayarlayan penceresi). İstatistiksel verimsizlik g = 2 τ<sub>int</sub> (kare biriminde), etkin örnek sayısı N<sub>eff</sub> = N / g'dir.",
-   "Define an indicator series over the frames: h = 1 if the frame is in αR, otherwise h = 0. The autocorrelation function of this series, ρ(k), measures the tendency to still be in the same state k frames later. The integrated autocorrelation time is τ<sub>int</sub> = ½ + Σ<sub>k=1..M</sub> ρ(k), where M, the lag at which the sum is truncated, is the smallest value that satisfies M ≥ 5 τ<sub>int</sub> (Sokal's self-consistent window). The statistical inefficiency is g = 2 τ<sub>int</sub> (in frames), and the effective sample size is N<sub>eff</sub> = N / g."
-  ],
-  [
-   "İkinci yol blok ortalamasıdır: dizi B karelik bloklara bölünür ve g<sub>B</sub> = B · s²(blok ortalamaları) / σ²(kareler) hesaplanır. Bloklar birbirinden bağımsızlaşacak kadar uzunsa g<sub>B</sub> bir platoya ulaşır. Protokol, en az 16 blok kalan en büyük B'deki değeri bildirir; son iki B'deki değerler %20'den fazla farklıysa “plato yok” diye işaretler.",
-   "The second way is block averaging: the series is split into blocks of B frames, and g<sub>B</sub> = B · s²(block means) / σ²(frames) is computed. If the blocks are long enough to become independent of each other, g<sub>B</sub> reaches a plateau. The protocol reports the value at the largest B that still leaves at least 16 blocks; if the values at the last two B differ by more than 20%, it flags “no plateau”."
-  ],
-  [
-   "Otokorelasyon ve blok ortalaması",
-   "Autocorrelation and block averaging"
-  ],
-  [
-   "αR gösterge dizisinin otokorelasyon fonksiyonu",
-   "Autocorrelation function of the αR indicator series"
-  ],
-  [
-   "ρ(k), αR göstergesi",
-   "ρ(k), αR indicator"
-  ],
-  [
-   "Blok ortalamasıyla g, blok uzunluğuna karşı",
-   "g from block averaging versus block length"
-  ],
-  [
-   "</i>g<sub>B</sub>, blok ortalaması</span>",
-   "</i>g<sub>B</sub>, block averaging</span>"
-  ],
-  [
-   "Durum göstergesi",
-   "State indicator"
-  ],
-  [
-   "Otokorelasyon eğrisi veri paketinde yalnız αR göstergesi için vardır; blok eğrisi ve okuma paneli seçili durum içindir.",
-   "The data package contains the autocorrelation curve only for the αR indicator; the block curve and the readout panel refer to the selected state."
-  ],
-  [
-   "Seçili koşuda αR göstergesi için N<sub>eff</sub> (Sokal) kaçtır? Okuma panelindeki N ve g (Sokal) değerlerinden hesaplayın.",
-   "What is N<sub>eff</sub> (Sokal) for the αR indicator in the selected run? Compute it from the N and g (Sokal) values in the readout panel."
-  ],
-  [
-   "g ile ne yapılır? Bir popülasyonun saf hatası √(p(1 − p)/N), g ile büyütülerek düzeltilir: √(g · p(1 − p)/N). Ama g'nin kendisi de bir tahmindir. Blok eğrisi düzleşmediyse koşu, durumlar arasındaki yavaş gidiş gelişi yeterince çok kez görmemiştir; gerçek g daha büyük olabilir. O zaman N<sub>eff</sub> iyimser bir değer, düzeltilmiş hata da bir alt sınır gibi okunmalıdır.",
-   "What do you do with g? The naive error of a population, √(p(1 − p)/N), is corrected by inflating it with g: √(g · p(1 − p)/N). But g itself is also an estimate. If the block curve has not flattened, the run has not seen the slow back-and-forth between the states often enough; the true g may be larger. In that case N<sub>eff</sub> should be read as an optimistic value, and the corrected error as a lower bound."
-  ],
-  [
-   "'<dt>Kare sayısı (N)</dt><dd id=\"d4n\">'",
-   "'<dt>Number of frames (N)</dt><dd id=\"d4n\">'"
-  ],
-  [
-   "<dt>M, toplamın kesildiği gecikme</dt>",
-   "<dt>M, lag at which the sum is truncated</dt>"
-  ],
-  [
-   "v(gs.M,0,' kare')",
-   "v(gs.M,0,' frames')"
-  ],
-  [
-   "<dt>g (blok, en büyük B)</dt>",
-   "<dt>g (block, largest B)</dt>"
-  ],
-  [
-   "<dt>Blok platosu</dt>",
-   "<dt>Block plateau</dt>"
-  ],
-  [
-   "(gb.plateau?'var':'plato yok')",
-   "(gb.plateau?'present':'no plateau')"
-  ],
-  [
-   "'? (Görev 4)'",
-   "'? (Task 4)'"
-  ],
-  [
-   "<dt>N<sub>eff</sub> (blok)</dt>",
-   "<dt>N<sub>eff</sub> (block)</dt>"
-  ],
-  [
-   "Bu durum koşuda görülmediği ya da gösterge dizisi sabit olduğu için g hesaplanamaz.",
-   "g cannot be computed because this state was not visited in the run or the indicator series is constant."
-  ],
-  [
-   "pl.textContent=ns0(r)+' ns içinde blok eğrisi düzleşmedi; g tahmini güvenilir değildir. Gerçek g daha büyük, N_eff daha küçük olabilir.'",
-   "pl.textContent='Within '+ns0(r)+' ns, the block curve did not flatten; the g estimate is not reliable. The true g may be larger and N_eff smaller.'"
-  ],
-  [
-   "Son iki blok değeri protokol ölçütüne göre birbirine yakın (plato var). Yine de tek bir koşudan gelen g tahmini belirsizdir.",
-   "By the protocol criterion, the last two block values are close to each other (plateau present). Even so, a g estimate from a single run is uncertain."
-  ],
-  [
-   "xl:'gecikme (ps)'",
-   "xl:'lag (ps)'"
-  ],
-  [
-   "' ps (eksenin dışında)'",
-   "' ps (outside the axis range)'"
-  ],
-  [
-   "xl:'blok uzunluğu (ps, log₂ ölçek)'",
-   "xl:'block length (ps, log₂ scale)'"
-  ],
-  [
-   "+' göstergesi'",
-   "+' indicator'"
-  ],
-  [
-   "'g_blok = '",
-   "'g_block = '"
-  ],
-  [
-   "' (plato var)'",
-   "' (plateau present)'"
-  ],
-  [
-   "' (plato yok)'",
-   "' (no plateau)'"
-  ],
-  [
-   "Bu koşuda αR için g hesaplanamaz; başka bir koşu seçin.",
-   "g cannot be computed for αR in this run; choose another run."
-  ],
-  [
-   "Bir sayı yazın (ondalık için virgül kullanabilirsiniz).",
-   "Enter a number (a decimal comma is also accepted)."
-  ],
-  [
-   "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
-   "if(/,/.test(str))str=/^-?[1-9]\\d{0,2}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
-  ],
-  [
-   "'Doğru. N_eff = N / g = '",
-   "'Correct. N_eff = N / g = '"
-  ],
-  [
-   "'. Bu koşunun '",
-   "'. The '"
-  ],
-  [
-   "' karesi, αR payı hakkında yaklaşık '",
-   "' frames of this run carry about as much information on the αR fraction as '"
-  ],
-  [
-   "' bağımsız ölçüm kadar bilgi taşır.'",
-   "' independent measurements.'"
-  ],
-  [
-   "Blok eğrisi bu durumda protokol ölçütüne göre düzleşti; yine de tek koşunun g tahmini belirsizdir.",
-   "For this state, the block curve flattened by the protocol criterion; even so, the g estimate from a single run is uncertain."
-  ],
-  [
-   "Blok eğrisi düzleşmediği için bu sayı da iyimserdir.",
-   "Because the block curve did not flatten, this number is optimistic too."
-  ],
-  [
-   "Tekrar deneyin: N_eff = N / g. Kare sayısını g (Sokal) değerine bölün; g kare biriminde verilir ve αR göstergesi için okunmalıdır.",
-   "Try again: N_eff = N / g. Divide the number of frames by the g (Sokal) value; g is given in frames and must be read for the αR indicator."
-  ],
-  [
-   "<small>5 · Bağımsız koşular</small>Beş bağımsız koşu",
-   "<small>5 · Independent runs</small>Five independent runs"
-  ],
-  [
-   "Tek bir koşunun içinden hesaplanan hata, o koşunun kendi otokorelasyonunu ne kadar doğru tahmin ettiğimize bağlıdır. Daha doğrudan bir yol, aynı protokolü birden çok kez koşup sonuçların birbirinden ne kadar saçıldığına bakmaktır.",
-   "An error computed from within a single run depends on how accurately we estimate that run's own autocorrelation. A more direct way is to run the same protocol several times and look at how much the results scatter."
-  ],
-  [
-   "Burada “bağımsız” sözcüğü dar bir anlamda kullanılıyor: <span data-b=\"nRuns\"></span> koşunun hepsi aynı minimize yapıdan başlar; aralarındaki tek fark, hız üretimi ve termostat için kullanılan tohumlardır (<span data-b=\"seeds\"></span>). Ortak başlangıç yapısı ortak bir yanlılık taşıyabilir; bu koşular başlangıç koşullarından bağımsızlığı kanıtlamaz.",
-   "Here the word “independent” is used in a narrow sense: all <span data-b=\"nRuns\"></span> runs start from the same minimized structure; the only difference between them is the seeds used for velocity generation and the thermostat (<span data-b=\"seeds\"></span>). The common starting structure may carry a common bias; these runs do not demonstrate independence from the initial conditions."
-  ],
-  [
-   "Koşular arası standart hata s / √n, %95 aralık ise p̄ ± t · s / √n ile hesaplanır; burada n = <span data-b=\"nRuns\"></span>, t = <span data-b=\"t975\"></span> (t dağılımı, <span data-b=\"df\"></span> serbestlik derecesi). Beş koşu tamamlanmadan bu değer hesaplanmaz.",
-   "The between-run standard error is computed as s / √n, and the 95% interval as p̄ ± t · s / √n, where n = <span data-b=\"nRuns\"></span> and t = <span data-b=\"t975\"></span> (t distribution, <span data-b=\"df\"></span> degrees of freedom). This value is not computed until all five runs are completed."
-  ],
-  [
-   "Üç hata çubuğu",
-   "Three error bars"
-  ],
-  [
-   "Koşu başına durum popülasyonları ve hata çubukları",
-   "State populations per run, with error bars"
-  ],
-  [
-   "<span><i class=\"ln\"></i>saf</span><span><i class=\"ln c\"></i>otokorelasyon düzeltmeli</span><span><i class=\"ln g\"></i>koşular arası (%95 aralık)</span>",
-   "<span><i class=\"ln\"></i>naive</span><span><i class=\"ln c\"></i>autocorrelation-corrected</span><span><i class=\"ln g\"></i>between-run (95% interval)</span>"
-  ],
-  [
-   "<th>Koşu</th><th>p</th><th>Saf hata</th><th>Düzeltilmiş hata</th><th>g (Sokal)</th>",
-   "<th>Run</th><th>p</th><th>Naive error</th><th>Corrected error</th><th>g (Sokal)</th>"
-  ],
-  [
-   "aria-label=\"Durum\"",
-   "aria-label=\"State\""
-  ],
-  [
-   "<span class=\"lbl\">Durum</span>",
-   "<span class=\"lbl\">State</span>"
-  ],
-  [
-   "Gösterilen hata çubuğu",
-   "Error bars shown"
-  ],
-  [
-   ">Saf</button>",
-   ">Naive</button>"
-  ],
-  [
-   ">Otokorelasyon düzeltmeli</button>",
-   ">Autocorrelation-corrected</button>"
-  ],
-  [
-   ">Koşular arası</button>",
-   ">Between-run</button>"
-  ],
-  [
-   "Koşular arası: ortalama ± standart hata",
-   "Between-run: mean ± standard error"
-  ],
-  [
-   "Koşular arası: %95 aralık",
-   "Between-run: 95% interval"
-  ],
-  [
-   "Koşu çiftleri arası TVD, en küçük–en büyük",
-   "TVD between run pairs, min–max"
-  ],
-  [
-   "Bu protokolde αR popülasyonu için hangi hata çubuğu savunulabilir?",
-   "Which error bar is defensible for the αR population in this protocol?"
-  ],
-  [
-   "'Ortalama':(MOB?'K'+runNo(k)",
-   "'Mean':(MOB?'R'+runNo(k)"
-  ],
-  [
-   "Saf hata: her kare ayrı bir ölçümdür ve kare sayısı büyük olduğu için hata küçüktür.",
-   "Naive error: each frame is a separate measurement, and because the number of frames is large, the error is small."
-  ],
-  [
-   "Koşular arası saçılma (standart hata ve t dağılımıyla %95 aralık); her koşudaki otokorelasyon düzeltmeli hata bununla çapraz denetim olarak karşılaştırılır. Saf hata fazla dardır.",
-   "The between-run scatter (standard error and a 95% interval from the t distribution); the autocorrelation-corrected error of each run is compared with it as a cross-check. The naive error is too narrow."
-  ],
-  [
-   "Otokorelasyon düzeltmeli hata tek başına yeter, çünkü g her zaman güvenilir biçimde bilinir.",
-   "The autocorrelation-corrected error is enough on its own, because g is always known reliably."
-  ],
-  [
-   "En dar hata çubuğu seçilmelidir, çünkü en kesin sonucu o verir.",
-   "The narrowest error bar should be chosen, because it gives the most precise result."
-  ],
-  [
-   "Doğru. Koşular arası saçılma, koşu içi otokorelasyonu tahmin etmeye gerek bırakmadan belirsizliği doğrudan ölçer; ama yalnız aynı başlangıç yapısından gelen tohum farkını kapsar. Düzeltilmiş hata bir çapraz denetimdir: ikisi çok farklıysa g ya da koşu uzunluğu sorgulanmalıdır.",
-   "Correct. The between-run scatter measures the uncertainty directly, without the need to estimate the within-run autocorrelation; but it covers only the seed differences from the same starting structure. The corrected error is a cross-check: if the two differ greatly, g or the run length should be questioned."
-  ],
-  [
-   "(ratio!=null?' '+runLabel(OKIDS[0])+'\\'de αR için düzeltilmiş hata saf hatanın yaklaşık '",
-   "(ratio!=null?' In '+runLabel(OKIDS[0])+', the corrected error for αR is about '"
-  ],
-  [
-   "' katı; saf çubuk bu kadar dar kalıyor.'",
-   "' times the naive error; the naive bar is narrower by that factor.'"
-  ],
-  [
-   "Beş koşu tamamlanmadığı için koşular arası değer bu sayfada henüz hesaplanmadı.",
-   "Because the five runs have not been completed, the between-run value has not yet been computed on this page."
-  ],
-  [
-   "Tekrar düşünün: ardışık kareler bağımsız değil ve blok eğrisi çoğu durumda düzleşmedi. Hangi hata, tek bir koşunun iç varsayımlarına en az dayanır?",
-   "Think again: consecutive frames are not independent, and in most cases the block curve did not flatten. Which error depends least on the internal assumptions of a single run?"
-  ],
-  [
-   "<small>6 · Pilot ve üretim</small>Pilot ne söyler, üretim ne söyleyebilir?",
-   "<small>6 · Pilot and production</small>What the pilot says, and what production can say"
-  ],
-  [
-   "Pilot koşular, hattın uçtan uca çalıştığını ve bu sistemde g'nin hangi büyüklükte olduğunu görmek için yapıldı. Üretim aşaması aynı plan ve aynı dosyalarla, yalnız daha uzun koşularla yürütülecek; bu sayfa hazırlanırken henüz koşulmadı.",
-   "The pilot runs were performed to see that the pipeline works end to end and what order of magnitude g has in this system. The production stage will be carried out with the same plan and the same files, only with longer runs; it had not yet been run when this page was prepared."
-  ],
-  [
-   "Pilottaki g, üretimin ne kadar uzun olması gerektiğini kabaca planlamaya yardım eder. Pilotun kendi popülasyonları ise sonuç olarak raporlanmaz; protokol bunu koşulardan önce yazdı.",
-   "The pilot g helps to plan roughly how long production needs to be. The pilot's own populations, however, are not reported as results; the protocol stated this before the runs."
-  ],
-  [
-   "Pilot ile üretim yan yana",
-   "Pilot and production side by side"
-  ],
-  [
-   "Pilot koşulardan hangisi söylenebilir?",
-   "Which of these can be said from the pilot runs?"
-  ],
-  [
-   "Yan yana koyalım: pilot koşular bir planlama kaydıdır. Hangi cümlelerin kurulabileceğini veri belirler; aşağıdaki “söylenebilir” listesi de veri paketinden üretilir.",
-   "Side by side: the pilot runs are a planning record. The data determine which statements can be made; the “can be said” list below is also generated from the data package."
-  ],
-  [
-   "Denge popülasyonları: “αR payı şudur” biçiminde bir sonuç.",
-   "Equilibrium populations: a result of the form “the αR fraction is X”."
-  ],
-  [
-   "Bu <span data-b=\"pilotNs\"></span> ns'lik koşuların yakınsadığı ya da dengeye ulaştığı.",
-   "That these <span data-b=\"pilotNs\"></span> ns runs have converged or reached equilibrium."
-  ],
-  [
-   "Durumlar arasındaki serbest enerji farkları.",
-   "Free energy differences between the states."
-  ],
-  [
-   "Kuvvet alanının ya da su modelinin deneye göre doğruluğu.",
-   "The accuracy of the force field or the water model relative to experiment."
-  ],
-  [
-   "'Tamamlanan koşu'",
-   "'Completed runs'"
-  ],
-  [
-   "'Koşu uzunluğu'",
-   "'Run length'"
-  ],
-  [
-   "'Popülasyon, koşuların ortalaması: '",
-   "'Population, mean over runs: '"
-  ],
-  [
-   "'Koşular arası standart hata: '",
-   "'Between-run standard error: '"
-  ],
-  [
-   "'g (Sokal), koşu başına: '",
-   "'g (Sokal), per run: '"
-  ],
-  [
-   "'N_eff (Sokal), koşu başına: '",
-   "'N_eff (Sokal), per run: '"
-  ],
-  [
-   "Koşu başına satırlar, tamamlanan koşuların en küçük ve en büyük değeridir (tek koşuda tek değer). Ortalama ve koşular arası hata, bir aşamanın bütün koşuları tamamlanınca hesaplanır. Üretim sütunu, üretim aşamasının verisi pakete eklendiğinde aynı hesapla dolar.",
-   "The per-run rows give the smallest and largest values over the completed runs (a single value when there is only one run). The mean and the between-run error are computed once all runs of a stage are completed. The production column will be filled by the same calculation once the data of the production stage are added to the package."
-  ],
-  [
-   "'Hazırlık ve analiz hattı uçtan uca çalıştı: tamamlanan tek pilot koşuda açılar, durumlar, pencere karşılaştırmaları ve g hesaplandı.'",
-   "'The preparation and analysis pipeline worked end to end: angles, states, window comparisons and g were computed in the single completed pilot run.'"
-  ],
-  [
-   "'Hazırlık ve analiz hattı uçtan uca çalıştı: tamamlanan '",
-   "'The preparation and analysis pipeline worked end to end: angles, states, window comparisons and g were computed in each of the '"
-  ],
-  [
-   "' pilot koşunun her birinde açılar, durumlar, pencere karşılaştırmaları ve g hesaplandı.'",
-   "' completed pilot runs.'"
-  ],
-  [
-   "'Tamamlanan her pilot koşuda, '",
-   "'In every completed pilot run, within '"
-  ],
-  [
-   "' kare. Ardışık kareler bağımsız değildir.'",
-   "' frames. Consecutive frames are not independent.'"
-  ],
-  [
-   "+' kare.')",
-   "+' frames.')"
-  ],
-  [
-   "Pilot koşuların ortalaması, αR\\'nin denge popülasyonunu verir.",
-   "The mean of the pilot runs gives the equilibrium population of αR."
-  ],
-  [
-   "Pilot koşular yakınsadı; üretim koşularına gerek yok.",
-   "The pilot runs converged; production runs are not needed."
-  ],
-  [
-   "αR ile β arasındaki serbest enerji farkı, pilot popülasyonlarından güvenilir biçimde hesaplanabilir.",
-   "The free energy difference between αR and β can be computed reliably from the pilot populations."
-  ],
-  [
-   "Doğru. Pilotun işi planlamadır: hattın çalıştığını ve g\\'nin büyüklüğünü gösterir. Popülasyon, yakınsama ve serbest enerji iddiaları için önceden yazılmış kurallarla koşulan üretim verisi gerekir; bu sayfada o sütun henüz boştur.",
-   "Correct. The job of the pilot is planning: it shows that the pipeline works and how large g is. Population, convergence and free energy claims require production data run under rules written in advance; on this page that column is still empty."
-  ],
-  [
-   "Tekrar düşünün: protokol pilot koşular için neyi baştan dışarıda bıraktı? Blok eğrileri ve pencere karşılaştırmaları ne gösterdi?",
-   "Think again: what did the protocol exclude from the outset for the pilot runs? What did the block curves and window comparisons show?"
-  ],
-  [
-   "<small>7 · Kendinizi sınayın</small>Beş soru, beş gerekçe",
-   "<small>7 · Test yourself</small>Five questions, five explanations"
-  ],
-  [
-   "Her soruda bir seçenek işaretleyin; açıklama hemen altında açılır.",
-   "Select one option in each question; the explanation opens right below it."
-  ],
-  [
-   "{s:'Bir pilot koşuda '",
-   "{s:'A pilot run has '"
-  ],
-  [
-   "' kare var ve αR göstergesi için g (Sokal) = '",
-   "' frames, and g (Sokal) = '"
-  ],
-  [
-   "'. αR payı için etkin örnek sayısı yaklaşık kaçtır?'",
-   "' for the αR indicator. Approximately what is the effective sample size for the αR fraction?'"
-  ],
-  [
-   "'; her kare bir ölçümdür.'",
-   "'; each frame is a measurement.'"
-  ],
-  [
-   "g, kaç ardışık karenin kabaca tek bir bağımsız ölçüm kadar bilgi taşıdığını söyler. Hata çubuğu N yerine N / g ile hesaplanır; blok eğrisi düzleşmediyse bu değer de iyimserdir.",
-   "g tells you how many consecutive frames together carry roughly as much information as a single independent measurement. The error bar is computed with N / g instead of N; if the block curve has not flattened, this value is optimistic too."
-  ],
-  [
-   "{s:'Protokolde '",
-   "{s:'The protocol counts the '"
-  ],
-  [
-   "' pilot koşu “bağımsız” sayılıyor. Bu burada ne anlama gelir?'",
-   "' pilot runs as “independent”. What does this mean here?'"
-  ],
-  [
-   "Yalnız hız üretimi ve termostat tohumları farklıdır; başlangıç yapısı ve hazırlık ortaktır.",
-   "Only the seeds for velocity generation and the thermostat differ; the starting structure and the preparation are shared."
-  ],
-  [
-   "Her koşu farklı bir başlangıç yapısından ve farklı bir kuvvet alanıyla koşuldu.",
-   "Each run was started from a different starting structure and with a different force field."
-  ],
-  [
-   "Koşular farklı makinelerde yapıldığı için sonuçları birbirinden bağımsızdır.",
-   "Because the runs were performed on different machines, their results are independent of each other."
-  ],
-  [
-   "Tohum farkı, aynı başlangıçtan farklı yörüngeler üretir. Ortak başlangıç yapısının taşıyabileceği yanlılığı gidermez; bu yüzden “bağımsız” sözcüğü dar anlamda kullanılır.",
-   "A different seed produces different trajectories from the same start. It does not remove the bias that the common starting structure may carry; that is why the word “independent” is used in a narrow sense."
-  ],
-  [
-   "{s:'αR payı ψ = '",
-   "{s:'The αR fraction computed with the ψ = '"
-  ],
-  [
-   "'° sınırıyla, ψ = '",
-   "'° boundary differed from the one computed with the ψ = '"
-  ],
-  [
-   "'° sınırıyla hesaplanandan farklı çıktı. Hangisi raporlanmalı?'",
-   "'° boundary. Which one should be reported?'"
-  ],
-  [
-   "Sonuçlar hangisiyle daha tutarlı görünüyorsa o.",
-   "Whichever the results look more consistent with."
-  ],
-  [
-   "Protokolde önceden yazılan ana sınır; öteki sınırlar duyarlılık olarak ayrıca gösterilir.",
-   "The main boundary fixed in advance in the protocol; the other boundaries are shown separately as sensitivity checks."
-  ],
-  [
-   "Üç sınırın ortalaması.",
-   "The mean of the three boundaries."
-  ],
-  [
-   "Sınır sonuçlardan önce sabitlendi. Sonuçları gördükten sonra sınır seçmek, popülasyonu istenen yöne itmenin sessiz bir yoludur; duyarlılık sonuçları bu yüzden ayrıca ve önceden tanımlanmış olarak raporlanır.",
-   "The boundary was fixed before the results. Choosing a boundary after seeing the results is a quiet way of pushing the population in the desired direction; that is why the sensitivity results are reported separately and as defined in advance."
-  ],
-  [
-   "{s:'Pencere boyu '",
-   "{s:'What happens when the window length is increased from '"
-  ],
-  [
-   "+' ns\\'den '+",
-   "+' ns to '+"
-  ],
-  [
-   "' ns\\'ye çıkınca ne olur?'",
-   "' ns?'"
-  ],
-  [
-   "Pencereler uzadıkça sistem dengeye yaklaşır.",
-   "As the windows get longer, the system approaches equilibrium."
-  ],
-  [
-   "Pencere boyu TVD değerlerini etkilemez.",
-   "The window length does not affect the TVD values."
-  ],
-  [
-   "Her pencere daha çok kare ve geçiş içerir, dağılımlar daha az gürültülü olur; ama kısa bir koşuda geriye çok az pencere kalır ve geç pencereleri kendi aralarında karşılaştırmak zorlaşır.",
-   "Each window contains more frames and transitions, and the distributions become less noisy; but in a short run very few windows remain, and comparing the late windows among themselves becomes harder."
-  ],
-  [
-   "Pencere boyu, gürültü ile karşılaştırma sayısı arasında bir takastır ve bu yüzden önceden seçilir. Pencere boyunu değiştirmek sistemin kendisini değiştirmez.",
-   "The window length is a trade-off between noise and the number of comparisons, and is therefore chosen in advance. Changing the window length does not change the system itself."
-  ],
-  [
-   "Sakin bir RMSD eğrisi ve birbirine benzeyen iki pencere birlikte ne gösterir?",
-   "What do a calm RMSD curve and two windows that look alike show together?"
-  ],
-  [
-   "'Dengeyi kanıtlar.'",
-   "'They prove equilibrium.'"
-  ],
-  [
-   "Dengeyi kanıtlar; popülasyon için ayrıca N_eff gerekir.",
-   "They prove equilibrium; a population additionally requires N_eff."
-  ],
-  [
-   "Tek başına ne dengeyi ne de popülasyonları kanıtlar; önceden tanımlanmış durumlar, atma kuralı ve belirsizlik yöntemi gerekir.",
-   "On their own, they prove neither equilibrium nor the populations; predefined states, a discard rule and an uncertainty method are required."
-  ],
-  [
-   "Bu bölümün ana cümlesi budur. Sakin görünüm bir gözlemdir; bir iddiaya dönüşmesi için ölçütlerin sonuçlardan önce yazılmış olması ve belirsizliğin bağımsız koşularla ölçülmesi gerekir.",
-   "This is the main message of this chapter. A calm appearance is an observation; for it to become a claim, the criteria must have been written before the results and the uncertainty must be measured with independent runs."
-  ],
-  [
-   "'Sınav: '+n+' / '+Q.length+' doğru'",
-   "'Quiz: '+n+' / '+Q.length+' correct'"
-  ],
-  [
-   "aria-label=\"Soru '+(i+1)+' seçenekleri\"",
-   "aria-label=\"Question '+(i+1)+' options\""
-  ],
-  [
-   ">Doğru.</b> ",
-   ">Correct.</b> "
-  ],
-  [
-   ">Tekrar düşünün.</b> ",
-   ">Think again.</b> "
-  ],
-  [
-   "Kitaptaki bölüm (CH17) aynı dersi genel olarak anlatır: sakin bir eğri ya da birbirine benzeyen iki pencere denge kanıtı değildir; <span data-b=\"nFrames\"></span> kare, <span data-b=\"nFrames\"></span> bağımsız örnek değildir; bir popülasyon iddiası ancak durum tanımları, atma kuralı ve belirsizlik yöntemi sonuçları görmeden sabitlendiğinde kurulabilir.",
-   "The chapter in the book (CH17) teaches the same lesson in general terms: a calm curve or two windows that look alike are not evidence of equilibrium; <span data-b=\"nFrames\"></span> frames are not <span data-b=\"nFrames\"></span> independent samples; a population claim can be made only if the state definitions, the discard rule and the uncertainty method were fixed before seeing the results."
-  ],
-  [
-   "<b>Bu sayfa hakkında.</b> MD-U için etkileşimli pilot bölümdür (kitapta CH17: örnekleme, denge ve belirsizlik). Sayfa hiçbir hesabı tarayıcıda yapmaz; gömülü veri paketi <code>learn/md-u_data.json</code>, koşu dosyalarından (<code>.xtc</code>, <code>.edr</code>, <code>.log</code>) <code>extract.py</code> ile çıkarıldı; <code>verify.py</code> açıları, durumları, histogramları ve blok g değerlerini ayrı yollarla yeniden hesaplayarak denetler.",
-   "<b>About this page.</b> This is the interactive pilot chapter for MD-U (CH17 in the book: sampling, equilibrium and uncertainty). The page performs no calculation in the browser; the embedded data package <code>learn/md-u_data.json</code> was extracted from the run files (<code>.xtc</code>, <code>.edr</code>, <code>.log</code>) with <code>extract.py</code>; <code>verify.py</code> checks it by recomputing the angles, states, histograms and block g values independently."
-  ],
-  [
-   "<h3>Yazılım ve makine</h3>",
-   "<h3>Software and machine</h3>"
-  ],
-  [
-   "GROMACS <span data-b=\"gmx\"></span> (SIMD: <span data-b=\"simd\"></span>, karma duyarlık, GPU yok), amber99sb-ildn kuvvet alanı, TIP3P su modeli. Makine: <span data-b=\"machine\"></span>. Performans (ns/gün) yalnız bu makinedeki koşular arasında karşılaştırılır.",
-   "GROMACS <span data-b=\"gmx\"></span> (SIMD: <span data-b=\"simd\"></span>, mixed precision, no GPU), amber99sb-ildn force field, TIP3P water model. Machine: <span data-b=\"machine\"></span>. Performance (ns/day) is compared only among runs on this machine."
-  ],
-  [
-   "<h3>Protokol</h3>",
-   "<h3>Protocol</h3>"
-  ],
-  [
-   "Koşu ve analiz protokolü koşulardan önce yazıldı ve donduruldu: <code data-b=\"protoFile\"></code>, SHA-256 <code data-b=\"protoShaShort\"></code>… (tam değer: <code data-b=\"protoSha\"></code>). <code>-maxwarn</code> kullanılmaz; başarısız bir adım yeniden denenmez.",
-   "The run and analysis protocol was written and frozen before the runs: <code data-b=\"protoFile\"></code>, SHA-256 <code data-b=\"protoShaShort\"></code>… (full value: <code data-b=\"protoSha\"></code>). <code>-maxwarn</code> is not used; a failed step is not retried."
-  ],
-  [
-   "<h3>Hazırlık</h3>",
-   "<h3>Preparation</h3>"
-  ],
-  [
-   "<h3>Koşular</h3>",
-   "<h3>Runs</h3>"
-  ],
-  [
-   "<th>Koşu</th><th>Tohum</th><th>Durum</th><th>Kare</th><th>ns/gün</th><th>T (K)</th><th>Yoğunluk (kg/m³)</th><th>xtc SHA-256</th>",
-   "<th>Run</th><th>Seed</th><th>Status</th><th>Frames</th><th>ns/day</th><th>T (K)</th><th>Density (kg/m³)</th><th>xtc SHA-256</th>"
-  ],
-  [
-   "<h3>Başlangıç yapısı</h3>",
-   "<h3>Starting structure</h3>"
-  ],
-  [
-   "<span data-b=\"attribution\"></span> SHA-256 <code data-b=\"pdbSha\"></code>. Yalnız başlangıç koordinatları alındı; mdshare koşu verisi kullanılmadı.",
-   "<span data-b=\"attribution\"></span> SHA-256 <code data-b=\"pdbSha\"></code>. Only the starting coordinates were taken; no mdshare simulation data were used."
-  ],
-  [
-   "<h3>Not</h3>",
-   "<h3>Note</h3>"
-  ],
-  [
-   "Yapılmayanlar (<code>NOT_EXECUTED</code>)",
-   "Not done (<code>NOT_EXECUTED</code>)"
-  ],
-  [
-   "kuvvet alanı ya da su modeli karşılaştırması;",
-   "force field or water model comparison;"
-  ],
-  [
-   "deneysel veriyle kıyas;",
-   "comparison with experimental data;"
-  ],
-  [
-   "gelişmiş örnekleme;",
-   "enhanced sampling;"
-  ],
-  [
-   "bilinen bir denge referansıyla karşılaştırma;",
-   "comparison with a known equilibrium reference;"
-  ],
-  [
-   "çekirdek (core) tabanlı durum tanımı ve Markov modeli;",
-   "core-based state definition and Markov model;"
-  ],
-  [
-   "pilot koşularda ayrıca: denge kabulü ve popülasyon iddiası.",
-   "additionally, for the pilot runs: acceptance of equilibrium and population claims."
-  ],
-  [
-   "Bunların hiçbiri, <code>grompp</code> ya da <code>mdrun</code> çıkış kodu 0 olduğu için geçmiş sayılmadı.",
-   "None of these was counted as passed because the <code>grompp</code> or <code>mdrun</code> exit code was 0."
-  ],
-  [
-   "<h3>Lisans ve kaynak</h3>",
-   "<h3>License and source</h3>"
-  ],
-  [
-   "Başlangıç yapısı mdshare'den (Computational Molecular Biology Group, Freie Universität Berlin) CC BY 4.0 lisansıyla alındı; ayrıntı yukarıda. Yazılım: GROMACS <span data-b=\"gmx\"></span>, amber99sb-ildn kuvvet alanı, TIP3P su modeli. Bilimsel ve hedef okur incelemesi yapılmadı.",
-   "The starting structure was taken from mdshare (Computational Molecular Biology Group, Freie Universität Berlin) under the CC BY 4.0 license; details above. Software: GROMACS <span data-b=\"gmx\"></span>, amber99sb-ildn force field, TIP3P water model. No scientific or target-reader review has been carried out."
-  ],
-  [
-   "$('#prep7').textContent='Sistem: '",
-   "$('#prep7').textContent='System: '"
-  ],
-  [
-   "+' atom; '+",
-   "+' atoms; a '+"
-  ],
-  [
-   "' atomluk dipeptit ve '",
-   "'-atom dipeptide and '"
-  ],
-  [
-   "' su molekülü, iyon yok. Kutu: onikiyüzlü (dodecahedron), kutu vektörlerinin uzunlukları '",
-   "' water molecules, no ions. Box: dodecahedron, box vector lengths '"
-  ],
-  [
-   "' nm, hacim '",
-   "' nm, volume '"
-  ],
-  [
-   "' nm³. Minimizasyon (steepest descent, emtol '",
-   "' nm³. Minimization (steepest descent, emtol '"
-  ],
-  [
-   "' adım, son Fmax '",
-   "' steps, final Fmax '"
-  ],
-  [
-   "' kJ mol⁻¹. Bütün koşular bu minimize yapıdan başladı.'",
-   "' kJ mol⁻¹. All runs started from this minimized structure.'"
-  ],
-  [
-   "'</td><td>tamamlandı</td><td>'",
-   "'</td><td>completed</td><td>'"
-  ],
-  [
-   "'</td><td>tamamlanmadı</td><td colspan=\"5\"></td>'",
-   "'</td><td>not completed</td><td colspan=\"5\"></td>'"
-  ],
-  [
-   "var VMIN=5,FEWLAB='anlamsız (az ziyaret)';",
-   "var VMIN=5,FEWLAB='meaningless (few visits)';"
-  ],
-  [
-   "'<dt>Ziyaret sayısı, αR / β / αL</dt><dd id=\"d1v\">'",
-   "'<dt>Visits, αR / β / αL</dt><dd id=\"d1v\">'"
-  ],
-  [
-   "' (az ziyaret)'",
-   "' (few visits)'"
-  ],
-  [
-   "': bu koşuda yalnız '",
-   "': only '"
-  ],
-  [
-   "' ziyaret. Bu pay birkaç olaya dayanır; bir popülasyon tahmini olarak okunamaz.'",
-   "' visit(s) in this run. This fraction rests on a few events; it cannot be read as a population estimate.'"
-  ],
-  [
-   "'<dt>Ziyaret sayısı (bu durum)</dt><dd id=\"d4v\">'",
-   "'<dt>Visits (this state)</dt><dd id=\"d4v\">'"
-  ],
-  [
-   "'Bu koşuda bu duruma yalnız '",
-   "'In this run, this state was entered only '"
-  ],
-  [
-   "' kez girildi. Birkaç ziyarette g ve N_eff tahminleri anlamsızdır: g ≈ 1 çıkması karelerin bağımsız olduğunu göstermez, yalnız olayın çok seyrek olduğunu gösterir.'",
-   "' time(s). With only a few visits, the g and N_eff estimates are meaningless: a g of about 1 does not show that the frames are independent, only that the event is very rare.'"
-  ],
-  [
-   "' (anlamsız, az ziyaret)'",
-   "' (meaningless, few visits)'"
-  ],
-  [
-   "'Aralığın alt sınırı sıfırın altında, ama bir popülasyon negatif olamaz. '",
-   "'The lower limit of the interval is below zero, but a population cannot be negative. With '"
-  ],
-  [
-   "' koşu ve seyrek bir durumla t aralığı (normal yaklaşım) uygun değildir; bu aralık gerçek bir değer aralığı gibi okunmamalıdır.'",
-   "' runs and a rare state, the t interval (a normal approximation) is not appropriate; this interval should not be read as a real range of values.'"
-  ],
-  [
-   "'Az ziyaret: '",
-   "'Few visits: in at least one run, the '"
-  ],
-  [
-   "' durumuna en az bir koşuda '",
-   "' state was entered fewer than '"
-  ],
-  [
-   "'\\'ten az kez girildi (koşu başına '",
-   "' times ('"
-  ],
-  [
-   "' ziyaret). İşaretli satırlarda p, hatalar ve g anlamsızdır; koşular arası ortalama da birkaç olaya dayanır.'",
-   "' visits per run). In the marked rows, p, the errors and g are meaningless; the between-run mean also rests on a few events.'"
-  ],
-  [
-   "<th>Ziyaret</th>",
-   "<th>Visits</th>"
-  ],
-  [
-   "'Ziyaret sayısı, koşu başına: '",
-   "'Visits, per run: '"
-  ],
-  [
-   "' Üstü çizili satırlar az ziyarete dayanır (sunum uyarısı): bu değerler popülasyon ya da g tahmini olarak okunamaz.'",
-   "' Struck-through rows rest on few visits (presentation note): these values cannot be read as population or g estimates.'"
-  ],
-  [
-   "' ns içinde molekül üç bölgeye de en az bir kez girdi.'",
-   "' ns the molecule entered each of the three regions at least once.'"
-  ],
-  [
-   "'Tamamlanan her pilot koşuda girilen bölgeler: '",
-   "'Regions entered in every completed pilot run: '"
-  ],
-  [
-   "'Şu bölgelere her koşuda defalarca girildi: '",
-   "'These regions were entered many times in every run: '"
-  ],
-  [
-   "' (koşu başına en az '",
-   "' (at least '"
-  ],
-  [
-   "+' ziyaret).')",
-   "+' visits per run).')"
-  ],
-  [
-   "'Sık ziyaret edilen durumların göstergeleri için g (Sokal): '",
-   "'For the indicators of frequently visited states, g (Sokal) is '"
-  ],
-  [
-   "'Az ziyaret edilen durumun popülasyonu ya da g değeri: '",
-   "'The population or g value of a rarely visited state: for '"
-  ],
-  [
-   "' için her koşuda yalnız '",
-   "', each run has only '"
-  ],
-  [
-   "' ziyaret var; bu kadar az olayla pay da, g de tahmin edilemez.'",
-   "' visits; with so few events, neither the fraction nor g can be estimated.'"
-  ],
-  [
-   "Hazırlık ve analiz hattı çalışıyor ve sık ziyaret edilen durumların göstergeleri için g, kare aralığından çok büyük; bu bilgi üretim koşularının uzunluğunu planlamaya yardım eder.",
-   "The preparation and analysis pipeline works, and for the indicators of frequently visited states g is much larger than the frame interval; this information helps to plan the length of the production runs."
-  ],
-  [
-   "'Ziyaret: bir duruma giriş; aynı durumdaki kesintisiz kare dizisi bir ziyaret sayılır. '",
-   "'Visit: an entry into a state; an uninterrupted sequence of frames in the same state counts as one visit. The '"
-  ],
-  [
-   "' ziyaret eşiği yalnız sunum uyarısıdır; önceden kaydedilmiş analiz planının parçası değildir. Bu eşiğin altında kalan durumlar için pay, g ve N_eff sayfada “'",
-   "'-visit threshold is only a presentation note, not part of the analysis plan fixed in advance. For states below this threshold, the fraction, g and N_eff are marked on the page as “'"
-  ],
-  [
-   "'” diye işaretlenir.'",
-   "'”.'"
-  ],
-  [
-   "Alanin dipeptidinin üç boyutlu top ve çubuk modeli; sürükleyerek ya da ok tuşlarıyla döndürülür",
-   "Three-dimensional ball-and-stick model of alanine dipeptide; rotate it by dragging or with the arrow keys"
-  ],
-  [
-   ">Görünümü sıfırla<",
-   ">Reset view<"
-  ],
-  [
-   "> Hidrojenler</label>",
-   "> Hydrogens</label>"
-  ],
-  [
-   "Renk, her atomun minimize yapıdan uzaklığıdır (kareler ağır atomlarla hizalandıktan sonra). Bu küçük molekülde en büyük yer değiştirmeler dönen uç metil gruplarından (ACE ve NME) gelir; kırmızı “önemli” demek değildir. Durum bilgisini φ ve ψ vurgusu taşır: renkli iki bağ ve onları tanımlayan dört atom.",
-   "Color shows each atom's distance from the minimized structure (after the frames were aligned on the heavy atoms). In this small molecule, the largest displacements come from the rotating terminal methyl groups (ACE and NME); red does not mean “important”. The state information is carried by the φ and ψ highlight: the two colored bonds and the four atoms that define them."
-  ],
-  [
-   "<span>Zaman imleci</span>",
-   "<span>Time cursor</span>"
-  ],
-  [
-   "' nm ve üstü'",
-   "' nm and above'"
-  ],
-  [
-   "'Görüntü, zaman imlecindeki ya da ondan önceki son 3B karedir; kare aralığı '",
-   "'The view shows the last 3D frame at or before the time cursor; frame interval '"
-  ],
-  [
-   "' ps, ara kare üretilmez.'",
-   "' ps; no frames are interpolated.'"
-  ],
-  [
-   "('3B kare '",
-   "('3D frame '"
-  ],
-  [
-   "'Minimize yapı (başlangıç); ilk 3B kare t = '",
-   "'Minimized structure (start); first 3D frame at t = '"
-  ],
-  [
-   "$('#seed1').textContent='Bu '",
-   "$('#seed1').textContent='These '"
-  ],
-  [
-   "' koşu, aynı sistemin '",
-   "' runs are '"
-  ],
-  [
-   "' bağımsız örneklemesidir: hepsi aynı minimize yapıdan başladı; yalnız hızlar ve termostat için kullanılan rastgele tohumlar farklıdır.'",
-   "' independent samplings of the same system: all of them started from the same minimized structure; only the random seeds used for the velocities and the thermostat differ.'"
-  ],
-  [
-   "<h3 class=\"subh\">Kısa bakış ve beş koşu</h3>",
-   "<h3 class=\"subh\">A short look and five runs</h3>"
-  ],
-  [
-   "<h4>Kötü okuma</h4>",
-   "<h4>Bad reading</h4>"
-  ],
-  [
-   "<h4>Daha iyi okuma</h4>",
-   "<h4>Better reading</h4>"
-  ],
-  [
-   ">Seçili koşunun yalnız başı<",
-   ">Only the beginning of the selected run<"
-  ],
-  [
-   "aria-label=\"Kısa bakış süresi\"",
-   "aria-label=\"Length of the short look\""
-  ],
-  [
-   "<th>Koşu</th><th>αR</th><th>β</th><th>αL</th><th>Ziyaret αR / β / αL</th>",
-   "<th>Run</th><th>αR</th><th>β</th><th>αL</th><th>Visits αR / β / αL</th>"
-  ],
-  [
-   "var LOC={aR:'αR\\'de',b:'β\\'da',aL:'αL\\'de'};",
-   "var LOC={aR:'in αR',b:'in β',aL:'in αL'};"
-  ],
-  [
-   "label:'İlk '+fx(Number(k),1)+' ns'",
-   "label:'First '+fx(Number(k),1)+' ns'"
-  ],
-  [
-   "'Soldaki kısa bakış (koşunun ilk '",
-   "'The short look on the left (the first '"
-  ],
-  [
-   ".join(' ya da ')",
-   ".join(' or ')"
-  ],
-  [
-   "' ns\\'si) bir öğretim gösterimidir; önceden kaydedilmiş analiz planının parçası değildir. Hiçbir koşu “kötü” değildir: '",
-   "' ns of the run) is a teaching display, not part of the analysis plan fixed in advance. No run is “bad”: all '"
-  ],
-  [
-   "' koşunun hepsi aynı sistemin eşit geçerlikte örnekleridir; fark okumadadır.'",
-   "' runs are equally valid samples of the same system; the difference lies in the reading.'"
-  ],
-  [
-   "'Tam koşularda αR payı '",
-   "'In the full runs, the αR fraction ranges over '"
-  ],
-  [
-   "' arasında değişiyor. '",
-   "'. '"
-  ],
-  [
-   "'αL sütunu üstü çizili: αL\\'ye her koşuda yalnız '",
-   "'The αL column is struck through: αL was entered only '"
-  ],
-  [
-   "' kez girildi; bu pay '",
-   "' time(s) in each run; this fraction is '"
-  ],
-  [
-   "'Birbirinden farklı tam koşu değerleri, tek bir koşunun (hele başının) popülasyon için neden yetmediğini gösterir.'",
-   "'The differing full-run values show why a single run (let alone its beginning) is not enough for a population.'"
-  ],
-  [
-   "'“İlk '+fx(w,1)+' ns\\'ye baktım: RMSD sakin, molekül hep '",
-   "'“I looked at the first '+fx(w,1)+' ns: the RMSD is calm, and the molecule stays '"
-  ],
-  [
-   "' kalıyor. Sistem dengede; molekül bu durumdadır.”'",
-   "' the whole time. The system is at equilibrium; the molecule is in this state.”'"
-  ],
-  [
-   "'“İlk '+fx(w,1)+' ns\\'ye baktım: RMSD sakin, molekül çoğunlukla '",
-   "'“I looked at the first '+fx(w,1)+' ns: the RMSD is calm, and the molecule is mostly '"
-  ],
-  [
-   "+' (pay '+fx(P[d],3)",
-   "+' (fraction '+fx(P[d],3)"
-  ],
-  [
-   "'). Sistem dengede; popülasyon budur.”'",
-   "'). The system is at equilibrium; this is the population.”'"
-  ],
-  [
-   "<dt>Pay, αR / β / αL</dt>",
-   "<dt>Fraction, αR / β / αL</dt>"
-  ],
-  [
-   "<dt>Ziyaret, αR / β / αL</dt>",
-   "<dt>Visits, αR / β / αL</dt>"
-  ],
-  [
-   "<dt>RMSD medyanı</dt><dd id=\"e1r\">",
-   "<dt>RMSD median</dt><dd id=\"e1r\">"
-  ],
-  [
-   "'<dt>Aynı koşu, bütün '",
-   "'<dt>Same run, all '"
-  ],
-  [
-   "<b>Yanlış çıkarım örneği</b>",
-   "<b>Example of a wrong inference</b>"
-  ],
-  [
-   "', ilk '+fx(Number(k),1)",
-   "', first '+fx(Number(k),1)"
-  ],
-  [
-   "+' ns: β payı '+",
-   "+' ns: β fraction '+"
-  ],
-  [
-   "+' ve '+fx(e.transitions,0)",
-   "+' and '+fx(e.transitions,0)"
-  ],
-  [
-   "' durum değişimi; bu kısa bakış tek başına molekülün dengede olduğunu ve β popülasyonunu gösterir.'",
-   "' state changes; this short look alone shows that the molecule is at equilibrium, and gives the β population.'"
-  ],
-  [
-   "'Sık ziyaret edilen durumların göstergeleri için g, kare aralığına göre büyük: g (Sokal) '",
-   "'For the indicators of frequently visited states, g is large relative to the frame interval: g (Sokal) is '"
-  ],
-  [
-   "\"note\":\"Kareler minimize yapıya ağır atomlarla kütle ağırlıklı hizalandı; koordinatlar 0,001 nm biriminde tamsayı.\"",
-   "\"note\":\"Frames were aligned to the minimized structure on the heavy atoms with mass weighting; coordinates are integers in units of 0.001 nm.\""
-  ],
-  [
-   "new Intl.NumberFormat('tr-TR'",
-   "new Intl.NumberFormat('en-US'"
-  ],
-  [
-   "var NE='Bu senaryo hesaplanmadı',NEG='hesaplanamaz';",
-   "var NE='This scenario was not computed',NEG='cannot be computed';"
-  ],
-  [
-   "'Bu koşu tamamlanmadı; sonucunu tahmin edip yazmıyoruz.'",
-   "'This run was not completed; we do not guess its result.'"
-  ],
-  [
-   "return 'Koşu '+runNo(id);",
-   "return 'Run '+runNo(id);"
-  ],
-  [
-   "'HESAPLANMADI'",
-   "'NOT COMPUTED'"
-  ],
-  [
-   ">HESAPLANMADI</span>",
-   ">NOT COMPUTED</span>"
-  ],
-  [
-   "\"system\":\"alanin dipeptidi (ACE-ALA-NME), TIP3P su\"",
-   "\"system\":\"alanine dipeptide (ACE-ALA-NME), TIP3P water\""
-  ],
-  [
-   "\"machine\":\"bulut: Ubuntu 24.04, 2 iş parçacığı, Intel Xeon 2,10 GHz (AVX-512), ",
-   "\"machine\":\"cloud: Ubuntu 24.04, 2 threads, Intel Xeon 2.10 GHz (AVX-512), "
-  ],
-  [
-   " Eylül 2026\",\"protocol\"",
-   " September 2026\",\"protocol\""
-  ],
-  [
-   "\"attribution\":\"Başlangıç yapısı: ",
-   "\"attribution\":\"Starting structure: "
-  ],
-  [
-   "<= phi < 0 ve ",
-   "<= phi < 0 and "
-  ],
-  [
-   " ya da psi < ",
-   " or psi < "
-  ],
-  [
-   "\"note\":\"Pilot koşular 10 ns'lik teknik denemelerdir; denge, yakınsama ya da popülasyon kanıtı değildir.\"",
-   "\"note\":\"The pilot runs are 10 ns technical trials; they are not evidence of equilibrium, convergence or populations.\""
+   "['u1c1','u1c2','u1c3','u1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['u1c1','u1c2','u1c3','u1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
   ]
  ],
  "keep": [
-  "px system-ui,sans-serif",
-  "fill:var(--accent)",
-  "var(--good)",
-  "N_eff (Sokal), αR",
-  "g (Sokal)",
-  "Pilot",
-  "xtc SHA-256",
-  "button[aria-pressed=true]",
-  "</dd><dt>g (Sokal)</dt><dd id=\"d4gs\">",
-  "</dd><dt>τ<sub>int</sub> (Sokal)</dt><dd id=\"d4tau\">",
-  "<dt>N<sub>eff</sub> (Sokal)</dt><dd id=\"d4ns\">",
-  "<dt>g (Sokal)</dt><dd id=\"d4gs\">",
-  "kJ mol⁻¹ nm⁻¹, Epot"
+  "Freie Universität Berlin",
+  "Ramachandran map"
  ]
 }

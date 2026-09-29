@@ -443,40 +443,38 @@
       "id": "MD-U",
       "app": "md",
       "level": "uzman",
-      "title": "Örnekleme ve kararlılık yanılsaması: alanin dipeptidi",
-      "version": "0.1.0",
-      "status": "planned",
+      "title": "Örnekleme ve belirsizlik: alanin dipeptidi",
+      "version": "0.2.0",
+      "status": "pilot",
       "book": "CH17",
       "goals": [
-        "Sakin eğri ve gezen açılar",
-        "Durumları önceden tanımlamak",
-        "Eşit pencereler",
-        "Etkin örnek sayısı",
-        "Bağımsız koşular ve hata",
-        "Pilot ve üretim"
+        "n kaç? Kare sayısı ile bağımsız ölçüm",
+        "Sakin RMSD, gezen açılar ve önceden yazılmış durumlar",
+        "Otokorelasyon, blok ortalaması ve etkin örnek sayısı",
+        "Beş bağımsız koşudan hata çubuğu"
       ],
       "data": [
-        "GROMACS 2026.3: 5 bağımsız koşu × 10 ns (pilot, 26 Eylül 2026)",
+        "GROMACS 2026.3: 5 bağımsız koşu × 10 ns (pilot, 26 Eylül 2026; protokol koşulardan önce donduruldu)",
         "Başlangıç yapısı: mdshare ALA2 (CC BY 4.0)"
       ],
       "notice": null,
       "en": {
-        "title": "Sampling and the illusion of stability: alanine dipeptide",
+        "title": "Sampling and uncertainty: alanine dipeptide",
         "book": "CH17",
         "goals": [
-          "Calm curve, wandering angles",
-          "Defining states in advance",
-          "Equal windows",
-          "Effective sample size",
-          "Independent runs and error",
-          "Pilot and production"
+          "What is n? Number of frames versus independent measurements",
+          "Calm RMSD, wandering angles and states written in advance",
+          "Autocorrelation, block averaging and effective sample size",
+          "An error bar from five independent runs"
         ],
         "data": [
-          "GROMACS 2026.3: 5 independent runs × 10 ns (pilot, 26 September 2026)",
+          "GROMACS 2026.3: 5 independent runs × 10 ns (pilot, 26 September 2026; protocol frozen before the runs)",
           "Starting structure: mdshare ALA2 (CC BY 4.0)"
         ],
         "notice": null
-      }
+      },
+      "path": "md/md-u/",
+      "source": "sources/MD-U.html"
     }
   ]
 }
