@@ -1,7 +1,7 @@
 {
  "module": "MD-O",
  "lang": "en",
- "source_sha256": "e1f02fdc3a57fada4cdeeb0f1054a33cc58364455440fd422b07f177d1ebb26f",
+ "source_sha256": "f7d7c9dfb569aea3a1df2482b5afdc9d231fcaeab833e72149be55ac9234c055",
  "reviewed": false,
  "translator": "Claude (AI), MD-O 0.2.0; insan gözden geçirmesi bekliyor",
  "pairs": [
@@ -10,8 +10,8 @@
    "<title>Protonation and Charge</title>"
   ],
   [
-   "<div class=\"proto\">Bu sürümde MD-O'nun 1. laboratuvarı yayında: protonasyon ve yük. Yapı dosyası laboratuvarı (kristal suları, doluluk, B faktörü) sonra eklenecek. Eğriler tarayıcınızda şimdi hesaplanır; yapı, koordinatlar ve pdb2gmx sonuçları bu projenin gerçek dosyalarından ve gerçekten koşulmuş çalıştırmalardan gelir.</div>",
-   "<div class=\"proto\">In this version Lab 1 of MD-O is published: protonation and charge. A lab on the structure file (crystal waters, occupancy, B-factor) will be added later. The curves are computed in your browser right now; the structure, coordinates and pdb2gmx results come from this project's real files and from runs that were actually made.</div>"
+   "<div class=\"proto\">Bu sürümde MD-O'nun 1. laboratuvarı yayında: protonasyon ve yük. Yapı dosyası laboratuvarı (kristal suları, doluluk, B faktörü) ayrı bir modül oldu: MD-PDB. Eğriler tarayıcınızda şimdi hesaplanır; yapı, koordinatlar ve pdb2gmx sonuçları bu projenin gerçek dosyalarından ve gerçekten koşulmuş çalıştırmalardan gelir.</div>",
+   "<div class=\"proto\">In this version Lab 1 of MD-O is published: protonation and charge. The lab on the structure file (crystal waters, occupancy, B-factor) has become a separate module: MD-PDB. The curves are computed in your browser right now; the structure, coordinates and pdb2gmx results come from this project's real files and from runs that were actually made.</div>"
   ],
   [
    "<span class=\"eyebrow\">MD-O · Bir proteini MD'ye hazırlamak</span>",
@@ -286,8 +286,8 @@
    "<h2 id=\"o1h4\">Six questions</h2>"
   ],
   [
-   "<p class=\"next\">Sıradaki adımlar: <a href=\"../md-pbc/\">MD-PBC · Kenarsız kutu</a> (kutu ve kopyalar) ve <a href=\"../md-eq/\">MD-EQ · Minimizasyon ve dengeleme</a>.</p>",
-   "<p class=\"next\">Next steps: <a href=\"../md-pbc/\">MD-PBC · The box without edges</a> (the box and its images) and <a href=\"../md-eq/\">MD-EQ · Minimization and equilibration</a>.</p>"
+   "<p class=\"next\">Sıradaki adımlar: <a href=\"../md-pdb/\">MD-PDB · Yapı dosyası</a> (doluluk, B faktörü, kristal suları), <a href=\"../md-pbc/\">MD-PBC · Kenarsız kutu</a> (kutu ve kopyalar) ve <a href=\"../md-eq/\">MD-EQ · Minimizasyon ve dengeleme</a>.</p>",
+   "<p class=\"next\">Next steps: <a href=\"../md-pdb/\">MD-PDB · The structure file</a> (occupancy, B-factor, crystal waters), <a href=\"../md-pbc/\">MD-PBC · The box without edges</a> (the box and its images) and <a href=\"../md-eq/\">MD-EQ · Minimization and equilibration</a>.</p>"
   ],
   [
    "<p class=\"small\">Model: atölyedeki yük eğrileri Henderson-Hasselbalch ile, grupların birbirini etkilemediği varsayımıyla tarayıcıda hesaplanır. Yapı ve koordinatlar bu projenin <code>1UBQ.pdb</code> (RCSB, 1,8 Å, CC0) ve <code>protein.gro</code> dosyalarından; pdb2gmx sonuçları gerçek çalıştırmalardan. Molekül çizimleri gerçek koordinatlardır; atom yarıçapları okunabilirlik için küçültülmüştür.</p>",

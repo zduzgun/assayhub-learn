@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.13.0 (29 Eylül 2026) · Yeni modül MD-PDB: yapı dosyası
+
+- MD-PDB 0.1.0 (orta düzey, kitapta CH07): "Yapı dosyası neyi saklar? Doluluk, B faktörü ve kristal suları". Deneysel köprü: uzun pozlama canlandırması; ubikitin atomları 1UBQ'daki B değerleri kadar titreşir, doluluklar kadar sık görünür (bütün protein Cα ile, C ucu bütün ağır atomlarla). Atölye: 1UBQ'nun 602 ağır atomu ve 58 suyu, B ya da doluluğa göre renkli 3B görünüm; seçilen kalıntının gerçek Cα PDB satırı, alanlarına dokununca açıklama; gerçek ölçekte yayılma bulutu; kalıntı başına B grafiği, kristal temasları ve düşük doluluk işaretli. Tezgâh: tek karbonun yoğunluk profili dört adımda (hareketsiz atom, B, doluluk, kontur) ve 70-76 kalıntılarının model yoğunluk haritası (doluluk, B, kontur düzeyi; görünmeyen atomlar içi boş). Defter: 58 kristal suyu (B, polar protein komşusu, doluluk, kristal komşusu), kendi ölçütüyle tutulan sular 3B görünümde ve tabloda. Proteine dönüş: pdb2gmx'in doluluk uyarısı (28 ve 57 atom), simülasyona giren tam dolu kopyalar; kristal B ile bu projenin yeni 2 ns koşusundan hesaplanan B'nin kalıntı kalıntı karşılaştırması (r 0,87; 1-72'de 0,59; iki yarı 0,86). Altı soru, dört keşif kartı.
+- İngilizce tablo 151 çift (`i18n/_work/build_MD-PDB_en.py`, `mdpdb_en_a.py` HTML, `mdpdb_en_b.py` betik). Kısa adresler: `/tr/l/MD-PDB`, `/en/l/MD-PDB`.
+- MD-O 0.2.1: üst not ve sıradaki adımlar MD-PDB'yi gösterir; modül hedeflerinden "yapı dosyası (sonraki laboratuvar)" satırı kaldırıldı.
+
 ## 0.12.0 (28 Eylül 2026) · MD-O yeniden yazımı, laboratuvar 1: protonasyon ve yük
 
 - MD-O 0.2.0 yayında (orta düzey, CH07); eski 0.1.0 taslağının yerini keşif kalıbıyla yazılan ilk laboratuvar alır. Deneysel köprü: tampon ve Henderson-Hasselbalch, yedi grubun protonlu kesri. Atölye: bu projenin `protein.gro`'sunda döndürülebilir 3B ubikitin, 26 iyonlaşabilen grup pH ile yanıp söner; titrasyon canlandırması ve net yük eğrisi; model pKa ile ubikitinde ölçülen pKa karşılaştırması (pI 7,27 ve 7,74-7,75). Tezgâh: pdb2gmx'in His68 kararı; kural dört adımda (iki azot, deneme hidrojenleri, uzaklık küresi ve açı konisi, kural), ardından ölçüt haritası (kabul penceresi), karar akış şeması ve 96 gerçek pdb2gmx çalıştırması. Proteine dönüş: bu projenin pdb2gmx günlüğü ve kararlar. Altı soru, dört keşif kartı.

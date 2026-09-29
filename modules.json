@@ -333,13 +333,12 @@
       "app": "md",
       "level": "orta",
       "title": "Bir proteini MD'ye hazırlamak: ubikitin (1UBQ)",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "pilot",
       "book": "CH07",
       "goals": [
         "Protonasyon ve yük: pH, pKa, izoelektrik nokta",
-        "pdb2gmx'in histidin kararı (His68)",
-        "Yapı dosyası: kristal suları, doluluk, B faktörü (sonraki laboratuvar)"
+        "pdb2gmx'in histidin kararı (His68)"
       ],
       "data": [
         "PDB 1UBQ (CC0 1.0)",
@@ -352,8 +351,7 @@
         "book": "CH07",
         "goals": [
           "Protonation and charge: pH, pKa, isoelectric point",
-          "pdb2gmx's histidine decision (His68)",
-          "The structure file: crystal waters, occupancy, B-factor (next lab)"
+          "pdb2gmx's histidine decision (His68)"
         ],
         "data": [
           "PDB 1UBQ (CC0 1.0)",
@@ -364,6 +362,45 @@
       },
       "path": "md/md-o/",
       "source": "sources/MD-O.html"
+    },
+    {
+      "id": "MD-PDB",
+      "app": "md",
+      "level": "orta",
+      "title": "Yapı dosyası: doluluk, B faktörü ve kristal suları (1UBQ)",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH07",
+      "goals": [
+        "Doluluk ve B faktörü: PDB satırı neyi saklar?",
+        "Yoğunluk haritasında bir atom ne zaman kaybolur?",
+        "58 kristal suyu: hangileri proteine ait?",
+        "Kristal B ile 2 ns MD'nin karşılaştırması"
+      ],
+      "data": [
+        "PDB 1UBQ (CC0 1.0; Vijay-Kumar, Bugg ve Cook 1987)",
+        "Bu projenin pdb2gmx çalıştırmaları ve 2 ns kısıtsız ubikitin koşusu (GROMACS 2023.3)",
+        "Kristal komşuları P2₁2₁2₁ simetrisiyle bu dosyadan hesaplandı"
+      ],
+      "notice": null,
+      "en": {
+        "title": "The structure file: occupancy, B-factor and crystal waters (1UBQ)",
+        "book": "CH07",
+        "goals": [
+          "Occupancy and B-factor: what does a PDB line hold?",
+          "When does an atom disappear from a density map?",
+          "58 crystal waters: which belong to the protein?",
+          "Crystal B compared with a 2 ns MD run"
+        ],
+        "data": [
+          "PDB 1UBQ (CC0 1.0; Vijay-Kumar, Bugg and Cook 1987)",
+          "This project's pdb2gmx runs and a 2 ns unrestrained ubiquitin run (GROMACS 2023.3)",
+          "Crystal neighbours computed from this file with P2₁2₁2₁ symmetry"
+        ],
+        "notice": null
+      },
+      "path": "md/md-pdb/",
+      "source": "sources/MD-PDB.html"
     },
     {
       "id": "MD-U",

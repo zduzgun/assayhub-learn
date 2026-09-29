@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yapı Dosyası</title>
+</head>
+<body>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f5f4ef; --paper:#fffefb; --ink:#1f2f3b; --muted:#5d6872; --line:#d8d6cc; --soft:#ecebe4; --stage:#f1f0ea;
+  --navy:#243744; --accent:#934b3c; --good:#2e7658; --bad:#b0402e; --gold:#b98a1f;
+  --c1:#b0402e; --c3:#2f6b8f;
+  --ball:#c4553a; --deep:#1d4a6b; --mid:#3f7fa6; --pale:#a9cadb; --warm:#e2b25a; --prot:#6f8f3e;
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:grid;gap:20px}
+.proto{font-size:12.5px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:8px 12px;background:var(--paper)}
+header{display:grid;gap:8px}
+.eyebrow{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1,.h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0;text-wrap:balance}
+.lead{font-family:var(--serif);font-size:19px;line-height:1.5;margin:0;max-width:66ch}
+.small{font-size:13px;color:var(--muted);max-width:78ch;margin:0}
+h2{font-family:var(--serif);font-weight:400;font-size:24px;margin:0;text-wrap:balance}
+.step{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px}
+.prog{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.prog b{font-family:var(--mono);color:var(--ink);font-weight:500}
+.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px}
+.stagebox{position:relative;min-width:0}
+canvas{width:100%;display:block;border-radius:12px;touch-action:none}
+canvas.stage{background:var(--stage);aspect-ratio:1/1;cursor:grab}
+canvas.stage.aiming{cursor:crosshair}
+canvas.plot{background:var(--soft);aspect-ratio:16/6}
+#book{aspect-ratio:16/8}
+.hint{position:absolute;left:12px;bottom:12px;right:12px;font-size:12.5px;color:var(--muted);pointer-events:none;text-align:center}
+.lbl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ctl{display:grid;gap:16px;align-content:start}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--paper)}
+.seg button{all:unset;cursor:pointer;padding:7px 14px;font-size:13.5px;color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--navy);color:var(--paper)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{all:unset;cursor:pointer;padding:7px 13px;border-radius:8px;border:1px solid var(--line);font-size:13.5px;color:var(--ink);background:var(--paper)}
+.btn.primary{background:var(--navy);color:var(--paper);border-color:var(--navy)}
+.btn[disabled]{opacity:.5;cursor:default}
+.btn,.seg button,.chip{transition:transform .08s ease,background-color .2s ease,box-shadow .2s ease}
+.btn:active,.seg button:active,.chip:active{transform:scale(.95)}
+.btn.flash{animation:flash 1.2s ease-out}
+@keyframes flash{0%{background:var(--warm);border-color:var(--gold);box-shadow:0 0 0 6px color-mix(in srgb,var(--warm) 40%,transparent)}100%{background:var(--paper);box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion: reduce){.btn.flash{animation:none;background:var(--warm)}.btn:active{transform:none}}
+.seg button:focus-visible,.btn:focus-visible,.opt:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13.5px}
+.read{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:14px;margin:0}
+.read dt{color:var(--muted)}
+.read dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.change{border-radius:10px;padding:12px 14px;background:var(--soft);font-size:14px;display:grid;gap:4px}
+.change .t{font-weight:600}
+.minis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:8px;align-content:start;background:var(--paper)}
+.q .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.q.done{border-color:var(--good)} .q.done .k{color:var(--good)}
+.q h3{margin:0;font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.3}
+.q p{margin:0;font-size:14px}
+.q .mine{font-size:14px;border-left:3px solid var(--gold);padding:4px 10px}
+.q.done .mine{border-color:var(--good)}
+.prose{display:grid;gap:10px;max-width:70ch}
+.prose p{margin:0}
+.bridge{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fig{display:grid;gap:8px;align-content:start;background:var(--soft);border-radius:12px;padding:14px}
+.fig svg{width:100%;height:auto;display:block}
+.fig p{margin:0;font-size:13.5px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);align-items:center}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.scale{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.scale span.bar{flex:1;height:10px;border-radius:5px;min-width:120px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{all:unset;cursor:pointer;padding:6px 11px;border-radius:999px;border:1px solid var(--line);font-size:13.5px;color:var(--ink);background:var(--paper)}
+.chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.big{font-family:var(--mono);font-size:28px;font-variant-numeric:tabular-nums}
+.big small{font-size:14px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.n{text-align:right;font-family:var(--mono)}
+.tw{overflow-x:auto}
+.quiz{display:grid;gap:14px}
+.qq{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px;background:var(--paper)}
+.qq p.stem{margin:0;font-weight:600}
+.opts{display:grid;gap:8px}
+.opt{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px;color:var(--ink);background:var(--paper)}
+.opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,var(--paper))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--paper))}
+.why{font-size:14px;border-left:3px solid var(--line);padding:4px 10px;margin:0}
+.score{font-weight:600;margin:0}
+.busy{font-size:13px;color:var(--muted);margin:0}
+.facts4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.fact{background:var(--soft);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
+.fact span{font-size:12px;color:var(--muted)}
+.fact b{font-family:var(--mono);font-size:16px;font-weight:500;font-variant-numeric:tabular-nums}
+.fact.hi{background:color-mix(in srgb,var(--navy) 10%,var(--soft))}
+code{font-family:var(--mono);font-size:.92em}
+@media (max-width:820px){.facts4{grid-template-columns:1fr 1fr}}
+.galw{overflow-x:auto}
+.gal{display:grid;grid-template-columns:auto repeat(5,minmax(96px,1fr));gap:8px 10px;align-items:center;min-width:560px}
+.gal .rl{font-size:12.5px;font-weight:600;color:var(--muted);text-align:right}
+.gal .hd{font-size:12px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.gal .th{display:grid;gap:4px}
+.gal canvas{aspect-ratio:1/1;background:var(--stage);border-radius:8px}
+.gal .cap{font-size:12px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums;min-height:2.6em}
+
+@media (max-width:820px){ .two,.minis,.bridge{grid-template-columns:1fr} canvas.plot{aspect-ratio:16/10} #book{aspect-ratio:4/3} }
+/* Laboratuvar 2 */
+.read dd{white-space:nowrap}
+#k2miPlot{aspect-ratio:16/8}
+ol.steps{margin:6px 0 14px;padding-left:22px;display:grid;gap:4px}
+header.lab2,header.lab3{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+.labnav{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px}
+.labnav a{color:var(--accent)}
+.labnav a[aria-current]{color:var(--ink);font-weight:600;text-decoration:none}
+p.next{margin:28px 0 0;font-size:15px}
+p.next a{color:var(--accent)}
+@media (max-width:820px){ #k2scene{aspect-ratio:4/3 !important} #k2miPlot{aspect-ratio:16/14} }
+/* Laboratuvar 3 */
+#k3s6Plot{aspect-ratio:16/4}
+<style>.card>*,.sub>*,.two>*,.ctl>*{min-width:0} .sub{display:grid;gap:14px;border-top:1px solid var(--line);padding-top:18px;margin-top:4px} .h3{margin:0;font-size:18px;line-height:1.3} #o1map{aspect-ratio:16/11} .steps{list-style:none;margin:0;padding:0;display:grid;gap:6px;counter-reset:st} .steps li{counter-increment:st} .steps button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:14px;color:var(--ink)} .steps button::before{content:counter(st);display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft);font-weight:600;font-size:12.5px;flex:none} .steps button[aria-pressed="true"]{border-color:var(--navy);box-shadow:inset 3px 0 0 var(--navy)} .steps button[aria-pressed="true"]::before{background:var(--navy);color:var(--paper)} .steps button:focus-visible{outline:2px solid var(--accent);outline-offset:2px} .stepbox{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14.5px;line-height:1.55;min-height:7.5em} .stepbox p{margin:0} .flow svg{width:100%;height:auto;display:block} .flow .fq{fill:var(--paper);stroke:var(--line);stroke-width:1.5} .flow .fq.on{stroke:var(--navy);stroke-width:2} .flow .fr{fill:var(--soft);stroke:var(--line);stroke-width:1.5} .flow .fr.on{fill:var(--navy);stroke:var(--navy)} .flow .fr.on.plus{fill:var(--bad);stroke:var(--bad)} .flow .fl{stroke:var(--line);stroke-width:2} .flow .fl.on{stroke:var(--navy);stroke-width:3} .flow .fa{fill:var(--muted)} .flow .ft{font:600 13px var(--sans);fill:var(--ink);text-anchor:middle} .flow .fr.on+.ft{fill:var(--paper)} .flow .fs{font:12px var(--sans);fill:var(--muted);text-anchor:middle} #o1hh{aspect-ratio:16/10} #o1tit{aspect-ratio:16/6} td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap} .crash{display:grid;gap:8px;border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:8px;padding:12px 14px;background:var(--paper)} .crash.ok{border-left-color:var(--good)} .crash pre{margin:0;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;word-break:break-word;color:var(--ink)} .btn:disabled{opacity:.45;cursor:not-allowed} @media (min-width:821px){ .minis{grid-template-columns:repeat(2,minmax(0,1fr))} } @media (max-width:560px){ #o1map{aspect-ratio:4/3.6} #o1tit{aspect-ratio:4/3.2} #o1hh{aspect-ratio:4/3.4} }</style>
+<style>.pdbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px} .pdbl code{white-space:pre;font-family:var(--mono);font-size:13.5px;line-height:1.9} .pdbl .fld{all:unset;cursor:pointer;border-radius:4px;padding:2px 0;background:var(--soft);box-shadow:inset 0 -2px 0 var(--line)} .pdbl .fld.key{box-shadow:inset 0 -2px 0 var(--gold)} .pdbl .fld[aria-pressed="true"]{background:var(--navy);color:var(--paper);box-shadow:none} .pdbl .fld:focus-visible{outline:2px solid var(--accent);outline-offset:1px} #o2cloud{aspect-ratio:16/7} #o2bplot{aspect-ratio:16/5} #o2prof{aspect-ratio:16/10} #o2map{aspect-ratio:16/11;background:var(--paper)} #o2ws{aspect-ratio:16/11} #o2md{aspect-ratio:16/6} .chips .chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)} @media (max-width:560px){ #o2bplot{aspect-ratio:4/2.2} #o2map{aspect-ratio:4/3.6} #o2md{aspect-ratio:4/2.6} #o2ws{aspect-ratio:4/3.4} }</style>
+<div class="wrap">
+  <div class="proto">Bu modül MD-O'dan (protonasyon ve yük) sonra gelir ve aynı ubikitin dosyasını kullanır. Canlandırmalar ve yoğunluk haritası tarayıcınızda şimdi hesaplanır; koordinatlar, doluluk ve B değerleri 1UBQ dosyasının gerçek satırlarından, pdb2gmx çıktıları ve MD karşılaştırması bu projede gerçekten koşulmuş çalıştırmalardan gelir.</div>
+
+  <header>
+    <span class="eyebrow">MD-PDB · Bir proteini MD'ye hazırlamak</span>
+    <h1>Yapı dosyası neyi saklar? Doluluk, B faktörü ve kristal suları</h1>
+    <p class="lead">Bir PDB dosyası tek bir molekülün fotoğrafı değildir. Kristaldeki çok sayıda molekülün, ölçüm süresi boyunca alınmış ortalamasıdır. Her atom satırının sonundaki iki sayı bu ortalamanın izini taşır: <b>doluluk</b>, atomun o konumda bulunduğu molekül payını; <b>B faktörü</b>, konumun çevresindeki yayılmayı söyler. MD programı ise bu iki sayıyı kullanmaz. Bu laboratuvarda o sayıların ne anlattığını ve simülasyona girerken neyin kaybolduğunu göreceksiniz.</p>
+    <div class="prog" aria-live="polite">Keşifler: <b id="o2progN">0 / 4</b></div>
+  </header>
+
+  <section class="card" aria-labelledby="o2h0">
+    <span class="step">Deneysel köprü</span>
+    <h2 id="o2h0">Uzun pozlamayla çekilmiş bir fotoğraf</h2>
+    <div class="prose"><p>Kalabalık bir meydanı uzun pozlamayla fotoğraflarsanız duran kişi net çıkar, dolaşan kişi bulanık bir iz bırakır, sürenin yarısında orada olan kişi soluk görünür. X-ışını kırınımı da böyle çalışır: ölçülen yoğunluk, kristaldeki bütün moleküllerin ve ölçüm süresinin ortalamasıdır. Aşağıdaki görünümde ubikitinin atomları, 1UBQ dosyasındaki kendi B değerlerinin öngördüğü kadar titreşiyor ve kendi dolulukları kadar sık görünüyor. Bütün protein görünümünde her kalıntı Cα atomuyla, C ucu görünümünde bütün ağır atomlarıyla çizilir; mavi küçük noktalar kristal sularıdır. Tek bir anı ve uzun pozlamayı karşılaştırın.</p></div>
+    <div class="two">
+      <div class="stagebox"><canvas id="o2exp" class="stage" aria-label="Ubikitin atomları: her karede atomlar B değerlerine göre rastgele kayar; kareler üst üste biriktikçe uzun pozlama görüntüsü oluşur"></canvas></div>
+      <div class="ctl">
+        <div class="btns"><button type="button" class="btn" id="o2snap">Tek an</button><button type="button" class="btn primary" id="o2expose">Uzun pozlama</button></div>
+        <div><div class="lbl">Görüntü</div><div class="seg" role="group" aria-label="Görüntü alanı" id="o2zoom"><button type="button" data-z="all" aria-pressed="true">Bütün protein (Cα)</button><button type="button" data-z="tail" aria-pressed="false">C ucu (70-76)</button></div></div>
+        <label class="chk"><input type="checkbox" id="o2occ" checked> Doluluğu uygula (atom her karede doluluğu kadar olasılıkla çizilir)</label>
+        <dl class="read">
+          <dt>Üst üste binen kare</dt><dd id="o2nF"></dd>
+          <dt>Leu43 Cα (B 3,51 Å²): tek yöndeki yayılma</dt><dd id="o2uLo"></dd>
+          <dt>Gly76 Cα (B 36,19 Å², doluluk 0,25): tek yöndeki yayılma</dt><dd id="o2uHi"></dd>
+        </dl>
+        <p class="small" id="o2expNote" style="margin:0"></p>
+      </div>
+    </div>
+    <p class="small">1UBQ: Vijay-Kumar, Bugg ve Cook 1987 (J Mol Biol 194:531), X-ışını, 1,8 Å, R 0,176, çözücü payı %33, uzay grubu P2₁2₁2₁. Canlandırmada her atomun her yöndeki kayması, ortalaması sıfır ve standart sapması u = √(B / 8π²) olan normal dağılımdan çekilir; bu, izotropik B faktörünün tanımıdır. Canlandırma bir öğretim modelidir: gerçek moleküllerde atomlar birbirinden bağımsız titreşmez, komşular birlikte hareket eder. Atom yarıçapları okunabilirlik için küçültülmüştür.</p>
+  </section>
+
+  <section class="card" aria-labelledby="o2h1">
+    <span class="step">1 · Atölye</span>
+    <h2 id="o2h1">PDB satırını okuyun</h2>
+    <div class="prose"><p>Görünümdeki ubikitin 1UBQ'nun 602 ağır atomu ve 58 kristal suyudur; renk her atomun B değerini gösterir. Kaydırıcıyla bir kalıntı seçin: o kalıntının Cα satırı dosyada nasıl yazılıysa aşağıda öyle görünür. Satırın bir alanına dokunursanız ne anlama geldiği açılır. Proteini sürükleyerek döndürebilirsiniz.</p></div>
+    <div class="two">
+      <div class="stagebox"><canvas id="o2ubq" class="stage" aria-label="Ubikitin ve kristal suları; renk B faktörünü ya da doluluğu gösterir; seçili kalıntı vurgulanır; sürükleyerek döndürülebilir"></canvas></div>
+      <div class="ctl">
+        <div><label class="lbl" for="o2res">Kalıntı</label><div class="big" id="o2resV"></div><input type="range" id="o2res" min="1" max="76" step="1" value="43"></div>
+        <div><div class="lbl">Renk</div><div class="seg" role="group" aria-label="Renk ölçeği" id="o2col"><button type="button" data-c="b" aria-pressed="true">B faktörü</button><button type="button" data-c="o" aria-pressed="false">Doluluk</button></div></div>
+        <dl class="read">
+          <dt>Cα'nın B değeri</dt><dd id="o2rB"></dd>
+          <dt>Tek yöndeki yayılma, u = √(B / 8π²)</dt><dd id="o2rU"></dd>
+          <dt>Üç boyutta kök ortalama kare yayılma, √3 · u</dt><dd id="o2rR"></dd>
+          <dt>Doluluk</dt><dd id="o2rO"></dd>
+          <dt>Kristalde komşu moleküle değiyor mu? (4 Å)</dt><dd id="o2rC"></dd>
+        </dl>
+        <canvas id="o2cloud" class="plot" aria-label="Seçili Cα'nın yayılma bulutu, gerçek ölçekte; 1,53 Å'lük C-C bağıyla karşılaştırma"></canvas>
+      </div>
+    </div>
+    <div class="pdbl" id="o2line" role="group" aria-label="PDB satırının alanları"></div>
+    <div class="stepbox"><p id="o2fieldT"></p></div>
+    <canvas id="o2bplot" class="plot" aria-label="Kalıntı başına Cα B değeri; kristal komşusuna değen kalıntılar işaretli; seçili kalıntı vurgulu"></canvas>
+    <div class="legend"><span><i style="background:var(--deep)"></i>Cα'nın B değeri</span><span><i style="background:var(--gold)"></i>Kristalde komşu moleküle değen kalıntı (4 Å içinde)</span><span><i style="background:var(--accent)"></i>Doluluğu 1'den küçük kalıntı</span></div>
+    <div class="minis">
+      <article class="q" id="o2c1"><span class="k">Açık</span><h3>En sabit ve en hareketli kalıntı ne kadar farklı?</h3><p>B değeri çok düşük bir kalıntıyla çok yüksek bir kalıntıyı karşılaştırın.</p><div class="mine" id="mo2c1">Cα B değeri 5 Å²'den düşük bir kalıntı ve 30 Å²'den yüksek bir kalıntı seçin.</div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="o2h2">
+    <span class="step">2 · Tezgâh</span>
+    <h2 id="o2h2">Yoğunluk haritasında bir atom ne zaman kaybolur?</h2>
+    <div class="prose"><p>Kristalograf atomları doğrudan görmez; elektron yoğunluğu haritasını görür ve modeli o haritaya yerleştirir. B faktörü ve doluluk, bir atomun haritada ne kadar belirgin olduğunu belirler. Önce dört adımda tek bir karbon atomunu izleyin; sonra 1UBQ'nun C ucunda iki sayıyı kendiniz değiştirin.</p></div>
+    <div class="two">
+      <canvas id="o2prof" class="plot" aria-label="Tek bir karbon atomunun yoğunluk profili: B ve doluluk değiştikçe tepe yüksekliği ve genişliği; kontur düzeyi"></canvas>
+      <div class="ctl">
+        <div class="lbl">Yoğunluk dört adımda</div>
+        <ol class="steps" id="o2steps">
+          <li><button type="button" data-st="1" aria-pressed="true">Hareketsiz atom</button></li>
+          <li><button type="button" data-st="2" aria-pressed="false">Titreşim bulutu genişletir</button></li>
+          <li><button type="button" data-st="3" aria-pressed="false">Doluluk tepeyi alçaltır</button></li>
+          <li><button type="button" data-st="4" aria-pressed="false">Kontur: haritada ne görünür?</button></li>
+        </ol>
+        <div class="stepbox"><p id="o2stepT"></p></div>
+        <div class="btns"><button type="button" class="btn primary" id="o2next">Sonraki adım</button></div>
+      </div>
+    </div>
+
+    <div class="sub" id="o2try">
+      <h3 class="h3">Kendiniz deneyin: C ucunun haritası</h3>
+      <div class="prose"><p>Harita, 1UBQ'nun 70-76 kalıntılarının gerçek koordinatlarından, her atomun dosyadaki doluluğu ve B değeriyle hesaplanır. Çizgiler kontur düzeyidir: yoğunluğun bu düzeyi aştığı yer "görünür". Bir kalıntı seçip doluluğunu ve B değerini değiştirin; atomun yerindeki yoğunluk kontur düzeyinin altına inerse atom içi boş çizilir.</p></div>
+      <div class="two">
+        <canvas id="o2map" class="plot" aria-label="70-76 kalıntılarının model yoğunluk haritası, kontur çizgileri ve atom modeli"></canvas>
+        <div class="ctl">
+          <div><div class="lbl">Kalıntı</div><div class="chips" id="o2mres"></div></div>
+          <div><label class="lbl" for="o2mo">Doluluk</label><div class="big" id="o2moV"></div><input type="range" id="o2mo" min="0.05" max="1" step="0.01" value="0.45"></div>
+          <div><label class="lbl" for="o2mb">B (Å²)</label><div class="big" id="o2mbV"></div><input type="range" id="o2mb" min="2" max="120" step="0.1" value="35"></div>
+          <div><label class="lbl" for="o2mc">Kontur düzeyi</label><div class="big" id="o2mcV"></div><input type="range" id="o2mc" min="0.10" max="1.00" step="0.01" value="0.25"></div>
+          <div class="btns"><button type="button" class="btn" id="o2mreset">Dosyadaki değerlere dön</button></div>
+          <dl class="read">
+            <dt>Seçili kalıntıda görünen atom</dt><dd id="o2mvis"></dd>
+            <dt>En zayıf atomun yerindeki yoğunluk / kontur</dt><dd id="o2mweak"></dd>
+            <dt>Kalıntının tepe yüksekliği (tam dolu, B 13,41 Å² karbon = 1)</dt><dd id="o2mpk"></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="legend"><span><i style="background:var(--deep)"></i>Kontur çizgisi</span><span><i style="background:var(--good)"></i>Görünen atom (dolu)</span><span><i style="background:var(--bad)"></i>Konturun altında kalan atom (içi boş)</span><span>Kalın çizilen: seçili kalıntı</span></div>
+      <p class="busy" id="o2mnote" aria-live="polite"></p>
+      <div class="tw"><table><thead><tr><th>Deneme</th><th>Kalıntı</th><th>Doluluk</th><th>B (Å²)</th><th>Tepe yüksekliği</th></tr></thead><tbody id="o2mtab"></tbody></table></div>
+      <p class="small">Model: her atom, elektron sayısı (C 6, N 7, O 8) çarpı doluluk kadar yük taşıyan üç boyutlu bir Gauss bulutudur; bulutun her yöndeki varyansı σ² = σ₀² + B / 8π². σ₀ = 0,45 Å, 1,8 Å çözünürlüğün kendi bulanıklığını temsil eden bir model değişkenidir. Görünen harita, bu bulutların toplamı olan üç boyutlu yoğunluğun, kalıntılara en iyi uyan düzleme dik yönde alınmış en büyük değeridir; bir atomun görünüp görünmediğine ise yoğunluğun o atomun merkezindeki değerine bakılır. Harita yalnız 70-76 kalıntılarını içerir. Bu sayfadaki yoğunluk 1UBQ'nun ölçülmüş haritası değildir; atom koordinatlarından, doluluk ve B değerlerinden tarayıcıda hesaplanan bir öğretim modelidir. Kontur düzeyi, tam dolu ve B değeri 13,41 Å² (1UBQ protein atomlarının ortalaması) olan tek bir karbonun tepe yüksekliğine göre verilir.</p>
+    </div>
+    <div class="minis">
+      <article class="q" id="o2c2"><span class="k">Açık</span><h3>Tam dolu bir atom da kaybolabilir mi?</h3><p>Doluluğu 1'e yakın tutun ve yalnız B değerini değiştirin.</p><div class="mine" id="mo2c2">Doluluğu en az 0,90 olan bir kalıntının yan zincirindeki bütün atomları, kontur 0,40'ı aşmadan, konturun altına indirin.</div></article>
+      <article class="q" id="o2c3"><span class="k">Açık</span><h3>Haritaya bakarak doluluk ile B ayırt edilir mi?</h3><p>Aynı kalıntıda aynı tepe yüksekliğini iki farklı yoldan elde edin.</p><div class="mine" id="mo2c3">Doluluğu en az 0,3 farklı iki denemede tepe yüksekliğini %5 içinde eşitleyin (tablodaki satırlar).</div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="o2h3">
+    <span class="step">3 · Defter</span>
+    <h2 id="o2h3">58 suyun kararı</h2>
+    <div class="prose"><p>1UBQ'da 58 kristal suyu var. Bu projede sular girdiden çıkarıldı ve protein yeni bir su kutusuna yerleştirildi. Bazı çalışmalar ise proteine sıkı bağlı suları tutar. Hangi su "proteinin suyu", hangisi kristalin? Her nokta bir su: yatay eksende B, dikey eksende 3,5 Å içindeki polar protein komşusu (N ya da O) sayısı; nokta boyu doluluk. Halkalı noktalar kristalde komşu bir ubikitin molekülüne de değiyor. Kendi ölçütünüzü kurun ve kaç suyun kaldığını görün.</p></div>
+    <div class="two">
+      <canvas id="o2ws" class="plot" aria-label="58 kristal suyu: B faktörüne karşı polar protein komşusu sayısı; nokta boyu doluluk; halka kristal komşusu; tutulan sular koyu"></canvas>
+      <div class="ctl">
+        <div><label class="lbl" for="o2wb">En yüksek B (Å²)</label><div class="big" id="o2wbV"></div><input type="range" id="o2wb" min="5" max="50" step="0.5" value="50"></div>
+        <div><label class="lbl" for="o2wp">En az polar protein komşusu</label><div class="big" id="o2wpV"></div><input type="range" id="o2wp" min="0" max="4" step="1" value="0"></div>
+        <div><label class="lbl" for="o2wo">En az doluluk</label><div class="big" id="o2woV"></div><input type="range" id="o2wo" min="0" max="1" step="0.05" value="0"></div>
+        <label class="chk"><input type="checkbox" id="o2wsym"> Kristalde komşu moleküle değen suları çıkar</label>
+        <dl class="read">
+          <dt>Tutulan su</dt><dd id="o2wn"></dd>
+          <dt>Tutulanların ortalama B değeri</dt><dd id="o2wmb"></dd>
+          <dt>Tutulanlardan komşu moleküle de değen</dt><dd id="o2wsy"></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="two">
+      <div class="stagebox"><canvas id="o2wat" class="stage" aria-label="Ubikitinin omurgası ve tutulan kristal suları; sürükleyerek döndürülebilir"></canvas></div>
+      <div class="ctl">
+        <div class="lbl">Seçtiğiniz ölçütle tutulan sular</div>
+        <div class="tw"><table><thead><tr><th>Su</th><th>B</th><th>Doluluk</th><th>En yakın protein atomu</th></tr></thead><tbody id="o2wtab"></tbody></table></div>
+      </div>
+    </div>
+    <p class="small">Komşu sayıları bu sayfa için 1UBQ koordinatlarından hesaplandı: polar protein komşusu, suyun oksijenine 3,5 Å'den yakın N ya da O atomudur. Kristal komşuları, uzay grubunun (P2₁2₁2₁) simetri işlemleri ve birim hücre kaydırmalarıyla üretilen ubikitin kopyalarıdır; bir su bu kopyalardan birinin N ya da O atomuna 3,5 Å'den yakınsa "komşu moleküle değiyor" sayılır. 58 suyun 25'i komşu bir moleküle, bunların 16'sı aynı anda proteinin kendisine de değiyor. 9 su ne proteine ne komşu moleküle 3,5 Å içinde polar temas kuruyor; bunlar büyük olasılıkla başka suların oluşturduğu ağda duruyor. Ölçütün doğrusu yoktur: amaç, hangi seçimin hangi soruya uyduğunu görmektir.</p>
+    <div class="minis">
+      <article class="q" id="o2c4"><span class="k">Açık</span><h3>Proteine ait olan sular hangileri?</h3><p>Kristal komşusuna değen suları çıkarın ve proteine en az iki polar temas isteyin.</p><div class="mine" id="mo2c4">Komşu moleküle değenleri çıkarıp en az 2 polar protein komşusu isteyen bir ölçüt kurun.</div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="o2h4">
+    <span class="step">4 · Proteine dönüş</span>
+    <h2 id="o2h4">Bu iki sayı simülasyona girerken ne oluyor?</h2>
+    <div class="prose"><p>pdb2gmx, doluluğu 1'den küçük atomları sayar, bir uyarı yazar ve devam eder. Bu atomların her biri simülasyona tam dolu bir atom olarak girer; B faktörü hiç kullanılmaz. Aşağıda bu projenin iki gerçek çalıştırması var: biri projenin kendi girdisiyle (kristal suları çıkarılmış), öteki suları da içeren özgün dosyayla.</p></div>
+    <div class="crash ok"><div class="lbl">pdb2gmx.log (24 Eylül 2026, <code>1UBQ_protein_only.pdb</code>)</div><pre>there were 0 atoms with zero occupancy and 28 atoms with occupancy unequal to one (out of 602 atoms). Check your pdb file.</pre></div>
+    <div class="crash ok"><div class="lbl">pdb2gmx (29 Eylül 2026, <code>1UBQ.pdb</code>, kristal sularıyla)</div><pre>there were 0 atoms with zero occupancy and 57 atoms with occupancy unequal to one (out of 660 atoms). Check your pdb file.
+Processing chain 1 'A' (602 atoms, 76 residues)
+Processing chain 2 (58 atoms, 58 residues)
+Total charge in system 0.000 e</pre></div>
+    <div class="tw"><table><thead><tr><th>Doluluğu 1'den küçük</th><th>Atom</th><th>Dosyadaki doluluk</th><th>Simülasyonda</th></tr></thead><tbody>
+      <tr><td>Leu73</td><td class="n">8</td><td class="n">0,45</td><td>tam dolu, bir kopya</td></tr>
+      <tr><td>Arg74</td><td class="n">11</td><td class="n">0,45</td><td>tam dolu, bir kopya</td></tr>
+      <tr><td>Gly75</td><td class="n">4</td><td class="n">0,25</td><td>tam dolu, bir kopya</td></tr>
+      <tr><td>Gly76</td><td class="n">5</td><td class="n">0,25</td><td>tam dolu, bir kopya</td></tr>
+      <tr><td>Kristal suları</td><td class="n">29</td><td class="n">0,36-0,87</td><td>bu projede simülasyona girmedi (girdiden çıkarıldı)</td></tr>
+    </tbody></table></div>
+    <p class="small">1UBQ'da alternatif konum (altloc) yok; her atomun tek bir konumu var. Alternatif konumlu bir dosyada pdb2gmx yalnız bir konumu kullanır; hangisini isteyeceğinize girdiyi hazırlarken siz karar verirsiniz. Aynı C ucu, MD-EQ'daki minimizasyonsuz S1 koşusunun çöktüğü yerdir (Gly75, ilk adımda N-H bağı); orada nedeni, minimizasyonsuz başlangıçtaki çok yakın su-hidrojen temaslarıydı; doluluk değil. Bu iki bulgu aynı bölgeyi gösterir ama biri ötekinin nedeni değildir.</p>
+
+    <div class="sub" id="o2mdS">
+      <h3 class="h3">Kristal B ile çözeltideki MD aynı şeyi mi söylüyor?</h3>
+      <div class="prose" id="o2mdP"><p>Bu projede S0 hazırlığından (kristal suları çıkarılmış, TIP3P su kutusu, 300 K, NPT) kısıtsız 2 ns koşuldu; protokol koşudan önce yazılıp donduruldu. İlk 200 ps atıldı. Kalan 901 karede protein omurgaya göre hizalandı ve her Cα'nın ortalama konumu çevresindeki kök ortalama kare yayılması (RMSF) hesaplandı. Kristal B ile karşılaştırmak için B = (8π² / 3) · RMSF² kullanıldı. Aşağıda ikisi kalıntı kalıntı yan yana.</p></div>
+      <canvas id="o2md" class="plot" aria-label="Kalıntı başına Cα B değeri: kristal ve 2 ns MD'den hesaplanan"></canvas>
+      <div class="legend"><span><i style="background:var(--deep)"></i>Kristal, 1UBQ</span><span><i style="background:var(--accent)"></i>MD, 200-2000 ps</span><span><i style="background:var(--pale)"></i>MD'nin iki yarısı arasındaki aralık</span></div>
+      <dl class="read" id="o2mdR"></dl>
+      <div class="prose"><p><b>Ne görülüyor?</b> İki eğri aynı yerlerde yükseliyor: C ucu (72-76) ve 8-10 dönemeci ikisinde de en hareketli bölgeler; 76 kalıntının tamamında r 0,87. Kuyruğu çıkarınca uyum azalıyor (1-72'de r 0,59), çünkü ilk sayıyı büyük ölçüde kuyruk belirliyor. Çekirdekte MD daha düşük: 1-72 kalıntılarının ortanca B değeri kristalde 8,8, MD'de 5,8 Å². Kristal B, ısıl titreşimin yanında moleküller arasındaki küçük konum farklarını ve kristal kusurlarını da içerir; MD'de bunlar yoktur. Kuyrukta ise tersine MD çok daha yüksek (Gly75: kristal 36,1, MD 87,6 Å²). Çözeltide komşu molekül yoktur ve kuyruk serbesttir; kristalde ise Arg72 ve Arg74 komşu bir moleküle değer ve kuyruğun düzensizliğinin bir kısmı B'ye değil düşük doluluğa yazılmıştır. Bunlar olası açıklamalardır; bu karşılaştırma hangisinin ne kadar etkili olduğunu ayırmaz.</p></div>
+      <p class="small" id="o2mdN">Sınırlar: 2 ns kısa bir koşudur ve keşifsel olarak etiketlidir; yakınsama kanıtı değildir. Koşunun iki yarısı (200-1100 ve 1100-2000 ps) arasında r 0,86, ama kuyrukta fark büyük (Arg74'te iki yarı arasında 52 Å²): kuyruğun hareketi bu sürede yeterince örneklenmedi. Kristalin ölçüm sıcaklığı dosyada yazılı değil; koşu 300 K'dedir. Hesap: <code>gmx trjconv -pbc mol -center</code>, omurgaya <code>-fit rot+trans</code>, <code>gmx rmsf</code> (Cα, 200-2000 ps). Koşu bulutta, GROMACS 2023.3, 2 iş parçacığıyla 3 sa 42 dk sürdü (12,98 ns/gün).</p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="o2h5">
+    <span class="step">5 · Kendinizi sınayın</span>
+    <h2 id="o2h5">Altı soru</h2>
+    <div class="quiz" id="o2quiz"></div>
+    <p class="score" id="o2score"></p>
+  </section>
+
+  <p class="next">Önceki adım: <a href="../md-o/">MD-O · Protonasyon ve yük</a>. Sıradaki adımlar: <a href="../md-pbc/">MD-PBC · Kenarsız kutu</a> (kutu ve kopyalar) ve <a href="../md-eq/">MD-EQ · Minimizasyon ve dengeleme</a>.</p>
+  <p class="small">Model: uzun pozlama canlandırması ve yoğunluk haritası tarayıcıda hesaplanan öğretim modelleridir. Koordinatlar, doluluk ve B değerleri <code>1UBQ.pdb</code> dosyasından (RCSB, 1,8 Å, CC0); su komşuları ve kristal komşuları bu dosyadan hesaplandı; pdb2gmx çıktıları ve MD koşusu bu projede gerçekten koşuldu.</p>
+</div>
+<script>
+var MO2={"p":[[27.34,24.43,2.61,"N","MET",1,1.0,9.67],[26.27,25.41,2.84,"CA","MET",1,1.0,10.38],[26.91,26.64,3.53,"C","MET",1,1.0,9.62],[27.89,26.46,4.26,"O","MET",1,1.0,9.62],[25.11,24.88,3.65,"CB","MET",1,1.0,13.77],[25.35,24.86,5.13,"CG","MET",1,1.0,16.29],[23.93,23.96,5.9,"SD","MET",1,1.0,17.17],[24.45,23.98,7.62,"CE","MET",1,1.0,16.11],[26.34,27.77,3.26,"N","GLN",2,1.0,9.27],[26.85,29.02,3.9,"CA","GLN",2,1.0,9.07],[26.1,29.25,5.2,"C","GLN",2,1.0,8.72],[24.86,29.02,5.33,"O","GLN",2,1.0,8.22],[26.73,30.15,2.9,"CB","GLN",2,1.0,14.46],[26.88,31.55,3.41,"CG","GLN",2,1.0,17.01],[26.79,32.56,2.27,"CD","GLN",2,1.0,20.1],[27.78,33.16,1.87,"OE1","GLN",2,1.0,21.89],[25.56,32.73,1.81,"NE2","GLN",2,1.0,19.49],[26.85,29.66,6.22,"N","ILE",3,1.0,5.87],[26.23,30.06,7.5,"CA","ILE",3,1.0,5.07],[26.88,31.43,7.86,"C","ILE",3,1.0,4.01],[27.91,31.71,7.26,"O","ILE",3,1.0,4.61],[26.34,29.05,8.64,"CB","ILE",3,1.0,6.55],[27.81,28.75,9.0,"CG1","ILE",3,1.0,4.72],[25.49,27.77,8.29,"CG2","ILE",3,1.0,5.58],[27.97,28.09,10.42,"CD1","ILE",3,1.0,10.83],[26.21,32.1,8.77,"N","PHE",4,1.0,4.55],[26.77,33.44,9.2,"CA","PHE",4,1.0,4.68],[27.15,33.36,10.65,"C","PHE",4,1.0,5.3],[26.35,32.78,11.39,"O","PHE",4,1.0,5.58],[25.7,34.5,8.95,"CB","PHE",4,1.0,4.83],[25.29,34.61,7.5,"CG","PHE",4,1.0,7.97],[24.15,33.97,7.04,"CD1","PHE",4,1.0,6.69],[26.14,35.35,6.64,"CD2","PHE",4,1.0,8.34],[23.81,34.03,5.68,"CE1","PHE",4,1.0,9.1],[25.81,35.39,5.27,"CE2","PHE",4,1.0,10.61],[24.62,34.78,4.85,"CZ","PHE",4,1.0,8.9],[28.26,33.94,11.1,"N","VAL",5,1.0,4.44],[28.61,33.97,12.5,"CA","VAL",5,1.0,3.87],[28.64,35.46,12.9,"C","VAL",5,1.0,4.93],[29.52,36.1,12.32,"O","VAL",5,1.0,6.84],[29.96,33.32,12.81,"CB","VAL",5,1.0,2.99],[30.21,33.39,14.3,"CG1","VAL",5,1.0,5.28],[29.96,31.84,12.35,"CG2","VAL",5,1.0,9.13],[27.75,35.87,13.74,"N","LYS",6,1.0,6.04],[27.69,37.31,14.14,"CA","LYS",6,1.0,6.12],[28.47,37.48,15.42,"C","LYS",6,1.0,6.57],[28.21,36.75,16.41,"O","LYS",6,1.0,5.76],[26.22,37.68,14.31,"CB","LYS",6,1.0,7.45],[25.88,39.14,14.62,"CG","LYS",6,1.0,11.12],[24.35,39.3,14.64,"CD","LYS",6,1.0,14.54],[23.86,40.72,14.75,"CE","LYS",6,1.0,18.84],[22.38,40.72,14.91,"NZ","LYS",6,1.0,20.55],[29.43,38.43,15.45,"N","THR",7,1.0,7.41],[30.23,38.64,16.66,"CA","THR",7,1.0,7.48],[29.66,39.84,17.43,"C","THR",7,1.0,8.75],[28.85,40.56,16.86,"O","THR",7,1.0,8.58],[31.74,38.88,16.3,"CB","THR",7,1.0,9.61],[31.74,40.26,15.82,"OG1","THR",7,1.0,11.78],[32.26,37.97,15.17,"CG2","THR",7,1.0,9.17],[30.13,40.07,18.64,"N","LEU",8,1.0,9.84],[29.61,41.18,19.47,"CA","LEU",8,1.0,14.15],[30.07,42.54,18.98,"C","LEU",8,1.0,17.37],[29.59,43.57,19.48,"O","LEU",8,1.0,17.01],[29.92,40.89,20.94,"CB","LEU",8,1.0,16.63],[29.18,39.72,21.58,"CG","LEU",8,1.0,18.88],[29.31,39.75,23.09,"CD1","LEU",8,1.0,19.31],[27.7,39.72,21.23,"CD2","LEU",8,1.0,18.59],[30.99,42.57,18.0,"N","THR",9,1.0,18.33],[31.42,43.94,17.55,"CA","THR",9,1.0,19.24],[30.75,44.35,16.28,"C","THR",9,1.0,19.48],[31.21,45.27,15.57,"O","THR",9,1.0,23.14],[32.98,43.92,17.45,"CB","THR",9,1.0,18.97],[33.17,43.07,16.27,"OG1","THR",9,1.0,20.24],[33.66,43.32,18.67,"CG2","THR",9,1.0,19.7],[29.72,43.67,15.88,"N","GLY",10,1.0,19.43],[28.98,43.96,14.68,"CA","GLY",10,1.0,18.74],[29.6,43.51,13.39,"C","GLY",10,1.0,17.62],[29.22,43.98,12.3,"O","GLY",10,1.0,19.74],[30.56,42.62,13.49,"N","LYS",11,1.0,13.56],[31.19,42.01,12.33,"CA","LYS",11,1.0,11.91],[30.46,40.67,12.13,"C","LYS",11,1.0,10.18],[30.25,39.99,13.13,"O","LYS",11,1.0,9.1],[32.67,41.72,12.51,"CB","LYS",11,1.0,13.43],[33.28,41.09,11.23,"CG","LYS",11,1.0,16.69],[34.76,40.8,11.47,"CD","LYS",11,1.0,17.92],[35.61,40.85,10.24,"CE","LYS",11,1.0,20.81],[35.1,40.07,9.1,"NZ","LYS",11,1.0,21.93],[30.16,40.34,10.89,"N","THR",12,1.0,9.63],[29.54,39.02,10.65,"CA","THR",12,1.0,9.85],[30.49,38.26,9.73,"C","THR",12,1.0,11.66],[30.85,38.85,8.71,"O","THR",12,1.0,12.33],[28.11,39.05,10.02,"CB","THR",12,1.0,10.85],[27.28,39.72,11.0,"OG1","THR",12,1.0,10.91],[27.59,37.63,9.71,"CG2","THR",12,1.0,9.63],[30.8,37.02,10.1,"N","ILE",13,1.0,10.42],[31.72,36.29,9.18,"CA","ILE",13,1.0,11.84],[30.95,35.21,8.46,"C","ILE",13,1.0,10.55],[30.02,34.62,9.04,"O","ILE",13,1.0,11.92],[32.99,35.88,9.93,"CB","ILE",13,1.0,14.86],[33.31,34.38,9.84,"CG1","ILE",13,1.0,14.87],[33.11,36.38,11.44,"CG2","ILE",13,1.0,17.08],[34.53,34.03,10.72,"CD1","ILE",13,1.0,16.46],[31.24,34.99,7.2,"N","THR",14,1.0,9.39],[30.5,33.88,6.51,"CA","THR",14,1.0,9.63],[31.41,32.68,6.45,"C","THR",14,1.0,11.2],[32.62,32.81,6.12,"O","THR",14,1.0,11.63],[30.09,34.39,5.08,"CB","THR",14,1.0,10.38],[31.44,34.51,4.49,"OG1","THR",14,1.0,16.3],[29.42,35.76,5.12,"CG2","THR",14,1.0,11.66],[30.88,31.48,6.67,"N","LEU",15,1.0,8.29],[31.68,30.27,6.64,"CA","LEU",15,1.0,9.03],[31.02,29.29,5.67,"C","LEU",15,1.0,8.59],[29.81,29.39,5.54,"O","LEU",15,1.0,7.79],[31.56,29.69,8.04,"CB","LEU",15,1.0,11.08],[32.63,29.44,9.06,"CG","LEU",15,1.0,15.79],[33.81,30.39,9.03,"CD1","LEU",15,1.0,15.88],[31.95,29.45,10.44,"CD2","LEU",15,1.0,15.27],[31.83,28.41,5.12,"N","GLU",16,1.0,11.04],[31.22,27.34,4.28,"CA","GLU",16,1.0,11.5],[31.44,26.08,5.08,"C","GLU",16,1.0,10.13],[32.58,25.8,5.46,"O","GLU",16,1.0,9.83],[31.83,27.26,2.89,"CB","GLU",16,1.0,17.22],[31.36,28.41,1.96,"CG","GLU",16,1.0,23.33],[31.67,28.29,0.5,"CD","GLU",16,1.0,26.99],[30.87,28.62,-0.37,"OE1","GLU",16,1.0,28.86],[32.84,27.86,0.28,"OE2","GLU",16,1.0,28.9],[30.31,25.46,5.38,"N","VAL",17,1.0,8.99],[30.29,24.25,6.19,"CA","VAL",17,1.0,8.85],[29.28,23.23,5.64,"C","VAL",17,1.0,8.04],[28.48,23.52,4.72,"O","VAL",17,1.0,8.99],[29.9,24.59,7.67,"CB","VAL",17,1.0,9.78],[30.86,25.5,8.39,"CG1","VAL",17,1.0,12.05],[28.48,25.14,7.71,"CG2","VAL",17,1.0,10.54],[29.38,22.06,6.23,"N","GLU",18,1.0,7.29],[28.47,20.94,5.98,"CA","GLU",18,1.0,7.08],[27.82,20.61,7.32,"C","GLU",18,1.0,6.45],[28.45,20.67,8.36,"O","GLU",18,1.0,5.28],[29.21,19.7,5.51,"CB","GLU",18,1.0,10.28],[29.73,19.75,4.06,"CG","GLU",18,1.0,12.65],[28.75,20.06,2.98,"CD","GLU",18,1.0,14.15],[27.55,19.99,2.98,"OE1","GLU",18,1.0,14.33],[29.34,20.42,1.9,"OE2","GLU",18,1.0,18.17],[26.56,20.22,7.29,"N","PRO",19,1.0,7.24],[25.83,19.82,8.49,"CA","PRO",19,1.0,7.07],[26.54,18.73,9.25,"C","PRO",19,1.0,6.65],[26.33,18.54,10.46,"O","PRO",19,1.0,6.37],[24.47,19.33,7.95,"CB","PRO",19,1.0,7.61],[24.3,20.13,6.7,"CG","PRO",19,1.0,8.16],[25.71,20.11,6.07,"CD","PRO",19,1.0,7.49],[27.36,17.96,8.56,"N","SER",20,1.0,6.8],[28.05,16.84,9.21,"CA","SER",20,1.0,6.28],[29.26,17.32,9.98,"C","SER",20,1.0,8.45],[29.93,16.48,10.61,"O","SER",20,1.0,7.26],[28.52,15.82,8.18,"CB","SER",20,1.0,8.57],[28.95,16.45,6.97,"OG","SER",20,1.0,11.13],[29.6,18.6,9.83,"N","ASP",21,1.0,7.5],[30.8,19.08,10.57,"CA","ASP",21,1.0,7.7],[30.49,19.16,12.04,"C","ASP",21,1.0,7.08],[29.37,19.52,12.44,"O","ASP",21,1.0,8.11],[31.16,20.52,10.05,"CB","ASP",21,1.0,11.0],[31.92,20.44,8.76,"CG","ASP",21,1.0,15.32],[32.49,19.37,8.46,"OD1","ASP",21,1.0,18.03],[31.84,21.4,7.97,"OD2","ASP",21,1.0,14.36],[31.51,18.94,12.85,"N","THR",22,1.0,5.37],[31.4,19.06,14.29,"CA","THR",22,1.0,6.01],[31.59,20.55,14.65,"C","THR",22,1.0,8.01],[32.16,21.31,13.86,"O","THR",22,1.0,8.11],[32.49,18.19,14.99,"CB","THR",22,1.0,8.92],[33.78,18.74,14.52,"OG1","THR",22,1.0,10.22],[32.35,16.7,14.63,"CG2","THR",22,1.0,9.65],[31.11,20.86,15.86,"N","ILE",23,1.0,8.32],[31.29,22.2,16.42,"CA","ILE",23,1.0,9.92],[32.78,22.52,16.58,"C","ILE",23,1.0,10.01],[33.23,23.66,16.38,"O","ILE",23,1.0,8.71],[30.52,22.3,17.76,"CB","ILE",23,1.0,10.78],[29.01,22.04,17.44,"CG1","ILE",23,1.0,11.38],[30.83,23.7,18.36,"CG2","ILE",23,1.0,10.9],[28.41,22.95,16.37,"CD1","ILE",23,1.0,12.3],[33.55,21.53,16.95,"N","GLU",24,1.0,9.54],[35.03,21.72,17.07,"CA","GLU",24,1.0,11.81],[35.62,22.19,15.76,"C","GLU",24,1.0,11.14],[36.53,23.05,15.72,"O","GLU",24,1.0,10.62],[35.67,20.38,17.45,"CB","GLU",24,1.0,19.24],[37.13,20.29,17.87,"CG","GLU",24,1.0,27.76],[37.56,18.85,18.08,"CD","GLU",24,1.0,32.92],[37.76,18.02,17.2,"OE1","GLU",24,1.0,34.8],[37.63,18.6,19.31,"OE2","GLU",24,1.0,36.51],[35.14,21.62,14.66,"N","ASN",25,1.0,9.43],[35.59,21.95,13.3,"CA","ASN",25,1.0,10.96],[35.24,23.38,12.92,"C","ASN",25,1.0,9.68],[36.07,24.11,12.33,"O","ASN",25,1.0,9.33],[35.06,20.96,12.26,"CB","ASN",25,1.0,16.78],[35.54,21.42,10.87,"CG","ASN",25,1.0,22.31],[36.77,21.62,10.68,"OD1","ASN",25,1.0,25.66],[34.63,21.59,9.92,"ND2","ASN",25,1.0,24.7],[34.01,23.75,13.25,"N","VAL",26,1.0,6.52],[33.53,25.1,12.98,"CA","VAL",26,1.0,5.53],[34.44,26.1,13.68,"C","VAL",26,1.0,4.42],[34.88,27.09,13.09,"O","VAL",26,1.0,3.4],[32.06,25.26,13.36,"CB","VAL",26,1.0,3.86],[31.68,26.75,13.34,"CG1","VAL",26,1.0,7.25],[31.15,24.42,12.48,"CG2","VAL",26,1.0,8.12],[34.73,25.82,14.95,"N","LYS",27,1.0,2.64],[35.6,26.71,15.74,"CA","LYS",27,1.0,4.14],[36.98,26.83,15.11,"C","LYS",27,1.0,5.58],[37.58,27.93,15.16,"O","LYS",27,1.0,4.11],[35.72,26.2,17.17,"CB","LYS",27,1.0,3.97],[34.34,26.45,17.9,"CG","LYS",27,1.0,7.45],[34.51,26.08,19.36,"CD","LYS",27,1.0,9.02],[33.21,26.31,20.12,"CE","LYS",27,1.0,12.9],[33.45,25.91,21.55,"NZ","LYS",27,1.0,15.47],[37.5,25.74,14.57,"N","ALA",28,1.0,6.61],[38.79,25.76,13.88,"CA","ALA",28,1.0,7.74],[38.73,26.59,12.61,"C","ALA",28,1.0,9.17],[39.7,27.35,12.28,"O","ALA",28,1.0,11.45],[39.28,24.34,13.57,"CB","ALA",28,1.0,7.68],[37.63,26.54,11.87,"N","LYS",29,1.0,8.96],[37.47,27.39,10.67,"CA","LYS",29,1.0,7.9],[37.44,28.88,11.05,"C","LYS",29,1.0,6.92],[38.02,29.77,10.38,"O","LYS",29,1.0,6.87],[36.19,27.06,9.91,"CB","LYS",29,1.0,10.28],[36.15,25.62,9.41,"CG","LYS",29,1.0,14.94],[34.76,25.28,8.9,"CD","LYS",29,1.0,19.69],[34.79,24.26,7.77,"CE","LYS",29,1.0,22.63],[34.91,24.94,6.44,"NZ","LYS",29,1.0,24.98],[36.81,29.17,12.19,"N","ILE",30,1.0,4.57],[36.73,30.57,12.64,"CA","ILE",30,1.0,5.58],[38.15,30.98,13.07,"C","ILE",30,1.0,7.26],[38.54,32.15,12.86,"O","ILE",30,1.0,9.46],[35.71,30.78,13.81,"CB","ILE",30,1.0,5.36],[34.23,30.63,13.32,"CG1","ILE",30,1.0,2.94],[35.87,32.14,14.51,"CG2","ILE",30,1.0,2.78],[33.28,30.5,14.55,"CD1","ILE",30,1.0,2.0],[38.88,30.11,13.71,"N","GLN",31,1.0,7.06],[40.27,30.51,14.12,"CA","GLN",31,1.0,8.67],[41.09,30.81,12.85,"C","GLN",31,1.0,10.9],[41.83,31.81,12.68,"O","GLN",31,1.0,9.63],[41.0,29.4,14.87,"CB","GLN",31,1.0,9.12],[42.45,29.85,15.18,"CG","GLN",31,1.0,10.76],[43.09,28.83,16.09,"CD","GLN",31,1.0,13.78],[42.77,27.66,15.91,"OE1","GLN",31,1.0,14.48],[43.9,29.25,17.05,"NE2","GLN",31,1.0,14.76],[41.0,29.88,11.93,"N","ASP",32,1.0,10.93],[41.72,30.02,10.64,"CA","ASP",32,1.0,14.01],[41.4,31.34,9.97,"C","ASP",32,1.0,14.04],[42.26,32.04,9.38,"O","ASP",32,1.0,13.39],[41.4,28.78,9.81,"CB","ASP",32,1.0,18.01],[42.63,28.56,8.93,"CG","ASP",32,1.0,24.33],[43.67,28.26,9.54,"OD1","ASP",32,1.0,26.29],[42.43,28.81,7.73,"OD2","ASP",32,1.0,25.17],[40.12,31.75,9.99,"N","LYS",33,1.0,14.22],[39.81,32.99,9.23,"CA","LYS",33,1.0,14.0],[39.84,34.27,9.99,"C","LYS",33,1.0,12.37],[40.16,35.32,9.35,"O","LYS",33,1.0,12.17],[38.62,32.8,8.32,"CB","LYS",33,1.0,18.62],[37.22,32.82,8.83,"CG","LYS",33,1.0,24.0],[36.35,33.61,7.84,"CD","LYS",33,1.0,27.61],[36.32,32.94,6.48,"CE","LYS",33,1.0,27.64],[35.77,33.95,5.49,"NZ","LYS",33,1.0,30.06],[39.66,34.34,11.29,"N","GLU",34,1.0,10.11],[39.68,35.55,12.07,"CA","GLU",34,1.0,10.07],[40.67,35.53,13.2,"C","GLU",34,1.0,9.32],[40.81,36.53,13.91,"O","GLU",34,1.0,11.61],[38.29,35.81,12.7,"CB","GLU",34,1.0,14.77],[37.16,35.98,11.69,"CG","GLU",34,1.0,18.75],[37.19,37.36,11.03,"CD","GLU",34,1.0,22.28],[37.52,38.36,11.64,"OE1","GLU",34,1.0,21.95],[36.86,37.32,9.82,"OE2","GLU",34,1.0,25.19],[41.32,34.39,13.43,"N","GLY",35,1.0,7.22],[42.34,34.27,14.43,"CA","GLY",35,1.0,6.29],[41.95,34.08,15.84,"C","GLY",35,1.0,6.93],[42.83,34.0,16.74,"O","GLY",35,1.0,7.41],[40.64,33.92,16.11,"N","ILE",36,1.0,5.86],[40.23,33.72,17.51,"CA","ILE",36,1.0,6.07],[40.45,32.28,17.95,"C","ILE",36,1.0,6.36],[39.94,31.34,17.32,"O","ILE",36,1.0,6.18],[38.69,34.11,17.59,"CB","ILE",36,1.0,7.47],[38.47,35.55,17.05,"CG1","ILE",36,1.0,8.52],[38.15,33.93,19.03,"CG2","ILE",36,1.0,7.36],[36.96,35.75,16.68,"CD1","ILE",36,1.0,9.49],[41.19,32.09,19.03,"N","PRO",37,1.0,8.65],[41.46,30.75,19.59,"CA","PRO",37,1.0,9.18],[40.17,30.03,19.92,"C","PRO",37,1.0,9.85],[39.26,30.66,20.52,"O","PRO",37,1.0,8.51],[42.2,31.14,20.91,"CB","PRO",37,1.0,11.42],[42.9,32.41,20.55,"CG","PRO",37,1.0,9.27],[41.82,33.19,19.81,"CD","PRO",37,1.0,8.33],[40.06,28.76,19.61,"N","PRO",38,1.0,8.71],[38.82,28.02,19.89,"CA","PRO",38,1.0,9.08],[38.42,28.05,21.34,"C","PRO",38,1.0,9.28],[37.21,28.04,21.7,"O","PRO",38,1.0,6.5],[39.09,26.63,19.32,"CB","PRO",38,1.0,10.31],[40.08,26.9,18.2,"CG","PRO",38,1.0,10.81],[41.03,27.91,18.88,"CD","PRO",38,1.0,12.0],[39.37,28.09,22.24,"N","ASP",39,1.0,11.2],[39.06,28.06,23.7,"CA","ASP",39,1.0,14.96],[38.37,29.34,24.16,"C","ASP",39,1.0,13.99],[37.68,29.39,25.22,"O","ASP",39,1.0,13.75],[40.34,27.69,24.47,"CB","ASP",39,1.0,24.16],[40.56,28.59,25.68,"CG","ASP",39,1.0,31.06],[40.72,29.81,25.46,"OD1","ASP",39,1.0,35.55],[40.55,28.09,26.84,"OD2","ASP",39,1.0,34.22],[38.42,30.37,23.34,"N","GLN",40,1.0,11.6],[37.74,31.64,23.71,"CA","GLN",40,1.0,10.76],[36.33,31.74,23.09,"C","GLN",40,1.0,8.01],[35.57,32.62,23.48,"O","GLN",40,1.0,8.96],[38.53,32.85,23.18,"CB","GLN",40,1.0,11.14],[39.92,32.85,23.84,"CG","GLN",40,1.0,14.85],[40.76,34.04,23.39,"CD","GLN",40,1.0,16.11],[41.98,34.01,23.62,"OE1","GLN",40,1.0,20.52],[40.14,35.01,22.77,"NE2","GLN",40,1.0,18.16],[36.0,30.86,22.17,"N","GLN",41,1.0,6.52],[34.74,30.88,21.47,"CA","GLN",41,1.0,3.87],[33.59,30.19,22.18,"C","GLN",41,1.0,4.79],[33.58,29.01,22.5,"O","GLN",41,1.0,6.34],[34.88,30.24,20.07,"CB","GLN",41,1.0,4.2],[36.01,30.86,19.22,"CG","GLN",41,1.0,3.2],[36.08,30.19,17.88,"CD","GLN",41,1.0,4.89],[35.05,29.7,17.39,"OE1","GLN",41,1.0,5.21],[37.23,30.13,17.23,"NE2","GLN",41,1.0,7.13],[32.48,30.92,22.27,"N","ARG",42,1.0,5.73],[31.2,30.33,22.78,"CA","ARG",42,1.0,6.97],[30.21,30.51,21.65,"C","ARG",42,1.0,7.15],[29.98,31.73,21.27,"O","ARG",42,1.0,7.33],[30.85,30.93,24.12,"CB","ARG",42,1.0,13.23],[29.41,30.8,24.6,"CG","ARG",42,1.0,21.27],[29.27,31.31,26.02,"CD","ARG",42,1.0,26.14],[27.88,31.32,26.44,"NE","ARG",42,1.0,32.26],[27.13,32.42,26.57,"CZ","ARG",42,1.0,34.32],[27.63,33.66,26.46,"NH1","ARG",42,1.0,35.3],[25.81,32.3,26.73,"NH2","ARG",42,1.0,36.39],[29.69,29.44,21.05,"N","LEU",43,1.0,4.65],[28.76,29.57,19.91,"CA","LEU",43,1.0,3.51],[27.33,29.32,20.36,"C","LEU",43,1.0,5.56],[27.1,28.35,21.1,"O","LEU",43,1.0,4.19],[29.15,28.66,18.75,"CB","LEU",43,1.0,3.74],[30.42,28.91,17.98,"CG","LEU",43,1.0,6.32],[30.74,27.69,17.12,"CD1","LEU",43,1.0,9.55],[30.2,30.17,17.13,"CD2","LEU",43,1.0,6.41],[26.44,30.23,20.0,"N","ILE",44,1.0,4.58],[25.03,30.17,20.4,"CA","ILE",44,1.0,5.55],[24.1,30.15,19.2,"C","ILE",44,1.0,5.46],[24.2,30.95,18.29,"O","ILE",44,1.0,6.04],[24.64,31.43,21.29,"CB","ILE",44,1.0,6.8],[25.65,31.67,22.42,"CG1","ILE",44,1.0,10.31],[23.18,31.31,21.82,"CG2","ILE",44,1.0,7.39],[25.78,30.44,23.36,"CD1","ILE",44,1.0,13.9],[23.14,29.19,19.24,"N","PHE",45,1.0,6.75],[22.13,29.06,18.18,"CA","PHE",45,1.0,4.7],[20.84,28.63,18.9,"C","PHE",45,1.0,6.34],[20.82,27.73,19.75,"O","PHE",45,1.0,5.45],[22.49,28.06,17.11,"CB","PHE",45,1.0,5.51],[21.45,27.87,16.03,"CG","PHE",45,1.0,5.98],[21.32,28.81,15.01,"CD1","PHE",45,1.0,6.86],[20.64,26.73,16.05,"CD2","PHE",45,1.0,5.87],[20.37,28.65,14.0,"CE1","PHE",45,1.0,6.68],[19.68,26.54,15.05,"CE2","PHE",45,1.0,6.64],[19.59,27.46,14.02,"CZ","PHE",45,1.0,6.84],[19.81,29.38,18.58,"N","ALA",46,1.0,6.53],[18.44,29.14,19.08,"CA","ALA",46,1.0,7.15],[18.45,28.94,20.59,"C","ALA",46,1.0,9.0],[17.86,27.99,21.13,"O","ALA",46,1.0,11.15],[17.86,27.98,18.35,"CB","ALA",46,1.0,8.99],[19.17,29.81,21.24,"N","GLY",47,1.0,9.35],[19.4,29.89,22.66,"CA","GLY",47,1.0,11.68],[20.08,28.73,23.32,"C","GLY",47,1.0,11.14],[19.99,28.58,24.56,"O","GLY",47,1.0,13.93],[20.8,27.93,22.58,"N","LYS",48,1.0,10.47],[21.55,26.8,23.13,"CA","LYS",48,1.0,8.82],[23.05,27.09,22.91,"C","LYS",48,1.0,7.68],[23.38,27.63,21.87,"O","LYS",48,1.0,6.47],[21.24,25.52,22.39,"CB","LYS",48,1.0,9.74],[19.76,25.08,22.45,"CG","LYS",48,1.0,14.14],[19.63,23.89,21.53,"CD","LYS",48,1.0,16.32],[18.79,24.22,20.31,"CE","LYS",48,1.0,20.04],[17.44,24.66,20.83,"NZ","LYS",48,1.0,23.92],[23.88,26.73,23.85,"N","GLN",49,1.0,8.89],[25.35,26.87,23.64,"CA","GLN",49,1.0,7.18],[25.74,25.59,22.92,"C","GLN",49,1.0,8.23],[25.32,24.49,23.38,"O","GLN",49,1.0,9.7],[26.07,27.02,24.96,"CB","GLN",49,1.0,11.67],[27.55,27.36,24.7,"CG","GLN",49,1.0,15.82],[28.26,27.58,26.02,"CD","GLN",49,1.0,20.21],[29.19,26.84,26.34,"OE1","GLN",49,1.0,23.23],[27.78,28.59,26.74,"NE2","GLN",49,1.0,20.67],[26.46,25.69,21.83,"N","LEU",50,1.0,6.51],[26.83,24.52,21.01,"CA","LEU",50,1.0,7.41],[27.99,23.78,21.64,"C","LEU",50,1.0,8.27],[28.9,24.44,22.1,"O","LEU",50,1.0,8.34],[27.04,24.99,19.57,"CB","LEU",50,1.0,7.13],[25.93,25.84,18.96,"CG","LEU",50,1.0,7.53],[26.2,26.08,17.47,"CD1","LEU",50,1.0,8.14],[24.58,25.19,19.08,"CD2","LEU",50,1.0,9.11],[27.94,22.45,21.65,"N","GLU",51,1.0,9.43],[29.02,21.66,22.29,"CA","GLU",51,1.0,11.9],[29.94,21.11,21.24,"C","GLU",51,1.0,11.49],[29.47,20.68,20.19,"O","GLU",51,1.0,9.88],[28.35,20.54,23.07,"CB","GLU",51,1.0,16.56],[29.25,19.46,23.7,"CG","GLU",51,1.0,26.06],[28.72,19.05,25.07,"CD","GLU",51,1.0,29.86],[29.14,18.13,25.75,"OE1","GLU",51,1.0,32.13],[27.78,19.84,25.37,"OE2","GLU",51,1.0,33.44],[31.23,21.09,21.46,"N","ASP",52,1.0,12.71],[32.26,20.67,20.51,"CA","ASP",52,1.0,16.56],[32.13,19.36,19.75,"C","ASP",52,1.0,15.83],[32.55,19.32,18.56,"O","ASP",52,1.0,17.21],[33.64,20.72,21.24,"CB","ASP",52,1.0,21.05],[34.17,22.13,21.35,"CG","ASP",52,1.0,25.12],[35.25,22.32,21.96,"OD1","ASP",52,1.0,28.37],[33.54,23.09,20.88,"OD2","ASP",52,1.0,25.82],[31.7,18.31,20.41,"N","GLY",53,1.0,15.0],[31.57,16.96,19.82,"CA","GLY",53,1.0,11.77],[30.32,16.7,19.05,"C","GLY",53,1.0,11.1],[30.2,15.66,18.37,"O","GLY",53,1.0,11.25],[29.34,17.59,19.08,"N","ARG",54,1.0,8.53],[28.11,17.44,18.28,"CA","ARG",54,1.0,9.05],[28.38,18.0,16.89,"C","ARG",54,1.0,8.96],[29.33,18.79,16.69,"O","ARG",54,1.0,11.6],[26.93,18.19,18.89,"CB","ARG",54,1.0,7.97],[26.62,17.8,20.35,"CG","ARG",54,1.0,9.62],[26.01,16.37,20.28,"CD","ARG",54,1.0,12.2],[26.98,15.52,20.94,"NE","ARG",54,1.0,18.23],[27.6,14.42,20.66,"CZ","ARG",54,1.0,22.08],[27.48,13.73,19.54,"NH1","ARG",54,1.0,23.38],[28.52,13.97,21.55,"NH2","ARG",54,1.0,25.5],[27.51,17.69,15.95,"N","THR",55,1.0,9.05],[27.57,18.19,14.56,"CA","THR",55,1.0,9.03],[26.48,19.28,14.43,"C","THR",55,1.0,8.15],[25.61,19.39,15.29,"O","THR",55,1.0,5.91],[27.3,17.05,13.53,"CB","THR",55,1.0,11.15],[25.93,16.61,13.91,"OG1","THR",55,1.0,11.95],[28.24,15.86,13.56,"CG2","THR",55,1.0,11.71],[26.59,20.06,13.38,"N","LEU",56,1.0,6.91],[25.59,21.11,13.07,"CA","LEU",56,1.0,8.29],[24.24,20.44,12.86,"C","LEU",56,1.0,8.05],[23.26,20.95,13.33,"O","LEU",56,1.0,10.17],[26.08,21.89,11.83,"CB","LEU",56,1.0,6.6],[27.43,22.62,11.9,"CG","LEU",56,1.0,7.73],[27.72,23.34,10.58,"CD1","LEU",56,1.0,9.85],[27.38,23.72,12.96,"CD2","LEU",56,1.0,8.64],[24.24,19.23,12.25,"N","SER",57,1.0,8.92],[22.92,18.58,12.03,"CA","SER",57,1.0,9.0],[22.23,18.24,13.32,"C","SER",57,1.0,9.44],[20.96,18.25,13.39,"O","SER",57,1.0,10.91],[23.06,17.33,11.15,"CB","SER",57,1.0,10.32],[23.91,16.39,11.76,"OG","SER",57,1.0,13.59],[23.0,17.98,14.37,"N","ASP",58,1.0,9.11],[22.42,17.64,15.69,"CA","ASP",58,1.0,7.91],[21.46,18.74,16.16,"C","ASP",58,1.0,9.12],[20.5,18.51,16.9,"O","ASP",58,1.0,8.61],[23.46,17.33,16.74,"CB","ASP",58,1.0,8.41],[24.18,16.02,16.62,"CG","ASP",58,1.0,11.5],[25.3,15.89,17.15,"OD1","ASP",58,1.0,10.05],[23.57,15.11,15.97,"OD2","ASP",58,1.0,11.7],[21.85,19.95,15.9,"N","TYR",59,1.0,7.97],[21.08,21.15,16.25,"CA","TYR",59,1.0,8.45],[20.14,21.59,15.15,"C","TYR",59,1.0,10.98],[19.5,22.64,15.32,"O","TYR",59,1.0,12.95],[22.09,22.25,16.58,"CB","TYR",59,1.0,7.94],[22.95,21.95,17.79,"CG","TYR",59,1.0,6.91],[24.27,21.54,17.64,"CD1","TYR",59,1.0,4.59],[22.44,22.16,19.07,"CD2","TYR",59,1.0,6.98],[25.05,21.29,18.78,"CE1","TYR",59,1.0,5.39],[23.2,21.91,20.19,"CE2","TYR",59,1.0,6.52],[24.52,21.47,20.03,"CZ","TYR",59,1.0,6.76],[25.25,21.3,21.19,"OH","TYR",59,1.0,7.63],[19.99,20.88,14.05,"N","ASN",60,1.0,12.38],[19.07,21.35,13.0,"CA","ASN",60,1.0,13.94],[19.44,22.75,12.51,"C","ASN",60,1.0,14.16],[18.57,23.61,12.29,"O","ASN",60,1.0,14.26],[17.59,21.28,13.46,"CB","ASN",60,1.0,19.23],[16.58,21.26,12.31,"CG","ASN",60,1.0,22.65],[15.44,21.82,12.38,"OD1","ASN",60,1.0,25.45],[16.92,20.59,11.22,"ND2","ASN",60,1.0,24.09],[20.72,22.96,12.26,"N","ILE",61,1.0,11.08],[21.18,24.26,11.69,"CA","ILE",61,1.0,11.78],[21.11,24.11,10.17,"C","ILE",61,1.0,13.74],[21.84,23.2,9.69,"O","ILE",61,1.0,14.6],[22.65,24.52,12.17,"CB","ILE",61,1.0,11.8],[22.66,24.82,13.7,"CG1","ILE",61,1.0,11.56],[23.38,25.64,11.41,"CG2","ILE",61,1.0,13.29],[24.12,24.98,14.2,"CD1","ILE",61,1.0,11.42],[20.29,24.88,9.51,"N","GLN",62,1.0,13.97],[20.08,24.77,8.03,"CA","GLN",62,1.0,15.52],[20.82,25.91,7.33,"C","GLN",62,1.0,13.94],[21.32,26.83,8.01,"O","GLN",62,1.0,12.15],[18.6,24.74,7.73,"CB","GLN",62,1.0,19.53],[17.82,23.43,7.9,"CG","GLN",62,1.0,26.38],[16.51,23.53,7.12,"CD","GLN",62,1.0,30.61],[15.45,22.98,7.43,"OE1","GLN",62,1.0,33.23],[16.54,24.29,6.01,"NE2","GLN",62,1.0,32.71],[20.92,25.86,6.01,"N","LYS",63,1.0,11.73],[21.66,26.85,5.24,"CA","LYS",63,1.0,11.97],[21.13,28.24,5.57,"C","LYS",63,1.0,10.41],[19.96,28.46,5.84,"O","LYS",63,1.0,9.59],[21.63,26.64,3.73,"CB","LYS",63,1.0,13.73],[20.21,26.42,3.17,"CG","LYS",63,1.0,16.98],[20.27,26.59,1.66,"CD","LYS",63,1.0,20.19],[19.2,25.86,0.89,"CE","LYS",63,1.0,23.42],[17.88,26.54,1.07,"NZ","LYS",63,1.0,25.97],[22.1,29.16,5.61,"N","GLU",64,1.0,10.04],[21.91,30.56,5.88,"CA","GLU",64,1.0,10.94],[21.47,30.95,7.26,"C","GLU",64,1.0,9.74],[21.07,32.11,7.53,"O","GLU",64,1.0,9.42],[21.02,31.22,4.78,"CB","GLU",64,1.0,18.31],[21.86,31.34,3.47,"CG","GLU",64,1.0,24.16],[21.16,30.73,2.31,"CD","GLU",64,1.0,29.0],[19.94,30.79,2.17,"OE1","GLU",64,1.0,31.72],[21.95,30.15,1.53,"OE2","GLU",64,1.0,32.61],[21.67,30.03,8.19,"N","SER",65,1.0,6.85],[21.42,30.25,9.62,"CA","SER",65,1.0,6.9],[22.5,31.23,10.14,"C","SER",65,1.0,4.72],[23.58,31.32,9.55,"O","SER",65,1.0,3.91],[21.64,28.92,10.35,"CB","SER",65,1.0,7.28],[20.54,28.05,10.06,"OG","SER",65,1.0,10.56],[22.24,31.87,11.24,"N","THR",66,1.0,4.48],[23.21,32.76,11.89,"CA","THR",66,1.0,3.8],[23.51,32.22,13.29,"C","THR",66,1.0,4.6],[22.54,31.94,14.03,"O","THR",66,1.0,5.33],[22.7,34.27,11.98,"CB","THR",66,1.0,2.85],[22.5,34.69,10.59,"OG1","THR",66,1.0,2.15],[23.73,35.13,12.72,"CG2","THR",66,1.0,3.4],[24.79,32.02,13.62,"N","LEU",67,1.0,4.17],[25.15,31.61,14.98,"CA","LEU",67,1.0,3.85],[25.7,32.88,15.67,"C","LEU",67,1.0,3.8],[26.16,33.73,14.89,"O","LEU",67,1.0,5.54],[26.31,30.59,14.97,"CB","LEU",67,1.0,7.18],[26.29,29.48,13.96,"CG","LEU",67,1.0,9.67],[27.39,28.44,14.23,"CD1","LEU",67,1.0,8.12],[24.94,28.81,13.95,"CD2","LEU",67,1.0,11.66],[25.62,32.95,16.95,"N","HIS",68,1.0,2.94],[26.18,34.13,17.65,"CA","HIS",68,1.0,4.17],[27.48,33.65,18.3,"C","HIS",68,1.0,5.32],[27.51,32.59,18.96,"O","HIS",68,1.0,7.7],[25.21,34.56,18.78,"CB","HIS",68,1.0,5.57],[23.98,35.12,18.13,"CG","HIS",68,1.0,9.95],[23.85,36.43,17.78,"ND1","HIS",68,1.0,13.74],[22.82,34.51,17.78,"CD2","HIS",68,1.0,12.79],[22.67,36.63,17.2,"CE1","HIS",68,1.0,14.75],[22.05,35.45,17.17,"NE2","HIS",68,1.0,16.3],[28.52,34.45,18.19,"N","LEU",69,1.0,5.29],[29.8,34.15,18.83,"CA","LEU",69,1.0,3.97],[30.05,35.04,20.0,"C","LEU",69,1.0,5.07],[30.11,36.3,19.79,"O","LEU",69,1.0,4.34],[30.93,34.3,17.75,"CB","LEU",69,1.0,6.08],[32.34,34.18,18.36,"CG","LEU",69,1.0,7.37],[32.55,32.78,18.87,"CD1","LEU",69,1.0,6.87],[33.36,34.49,17.25,"CD2","LEU",69,1.0,9.96],[30.12,34.53,21.19,"N","VAL",70,1.0,4.29],[30.48,35.37,22.37,"CA","VAL",70,1.0,6.26],[31.9,34.91,22.73,"C","VAL",70,1.0,9.22],[32.19,33.7,22.64,"O","VAL",70,1.0,9.36],[29.47,35.18,23.5,"CB","VAL",70,1.0,8.69],[29.82,35.96,24.77,"CG1","VAL",70,1.0,9.76],[28.05,35.45,23.07,"CG2","VAL",70,1.0,8.54],[32.76,35.83,23.09,"N","LEU",71,1.0,12.71],[34.15,35.47,23.48,"CA","LEU",71,1.0,16.06],[34.24,35.35,24.98,"C","LEU",71,1.0,18.09],[33.71,36.2,25.73,"O","LEU",71,1.0,19.26],[35.11,36.56,22.91,"CB","LEU",71,1.0,17.1],[35.93,35.98,21.74,"CG","LEU",71,1.0,19.37],[35.0,35.08,20.92,"CD1","LEU",71,1.0,17.51],[36.53,37.09,20.92,"CD2","LEU",71,1.0,19.57],[34.93,34.38,25.45,"N","ARG",72,1.0,21.47],[35.16,34.17,26.9,"CA","ARG",72,1.0,25.83],[36.67,34.3,27.09,"C","ARG",72,1.0,27.74],[37.3,33.23,26.8,"O","ARG",72,1.0,30.65],[34.72,32.76,27.29,"CB","ARG",72,1.0,28.49],[35.75,32.05,28.16,"CG","ARG",72,1.0,31.79],[35.61,30.58,28.04,"CD","ARG",72,1.0,34.05],[35.04,30.25,26.73,"NE","ARG",72,1.0,35.08],[34.34,29.1,26.65,"CZ","ARG",72,1.0,34.67],[34.11,28.44,27.77,"NH1","ARG",72,1.0,35.02],[34.01,28.66,25.46,"NH2","ARG",72,1.0,34.97],[37.2,35.4,27.51,"N","LEU",73,0.45,28.93],[38.67,35.5,27.68,"CA","LEU",73,0.45,30.76],[39.08,34.93,29.03,"C","LEU",73,0.45,32.18],[38.3,34.95,30.0,"O","LEU",73,0.45,32.31],[39.08,36.94,27.41,"CB","LEU",73,0.45,30.53],[39.5,37.34,26.0,"CG","LEU",73,0.45,30.16],[38.68,36.65,24.92,"CD1","LEU",73,0.45,29.57],[39.34,38.85,25.86,"CD2","LEU",73,0.45,29.11],[40.29,34.41,29.05,"N","ARG",74,0.45,33.82],[40.87,33.8,30.25,"CA","ARG",74,0.45,35.33],[41.77,34.83,30.94,"C","ARG",74,0.45,36.22],[42.95,34.99,30.58,"O","ARG",74,0.45,36.7],[41.65,32.53,29.92,"CB","ARG",74,0.45,36.91],[41.61,31.44,30.99,"CG","ARG",74,0.45,38.62],[41.9,30.08,30.46,"CD","ARG",74,0.45,39.75],[43.31,29.73,30.56,"NE","ARG",74,0.45,41.13],[44.17,29.91,29.55,"CZ","ARG",74,0.45,41.91],[43.75,30.31,28.36,"NH1","ARG",74,0.45,42.75],[45.48,29.73,29.76,"NH2","ARG",74,0.45,41.93],[41.16,35.53,31.9,"N","GLY",75,0.25,36.31],[41.84,36.55,32.69,"CA","GLY",75,0.25,36.07],[41.25,37.94,32.59,"C","GLY",75,0.25,36.16],[41.1,38.52,31.5,"O","GLY",75,0.25,36.26],[40.95,38.47,33.76,"N","GLY",76,0.25,36.05],[40.37,39.81,33.94,"CA","GLY",76,0.25,36.19],[40.03,39.99,35.43,"C","GLY",76,0.25,36.2],[38.93,40.52,35.69,"O","GLY",76,0.25,36.13],[40.86,39.58,36.25,"OXT","GLY",76,0.25,36.27]],"bonds":[[0,1],[1,2],[1,4],[2,3],[2,8],[4,5],[5,6],[6,7],[8,9],[9,10],[9,12],[10,11],[10,17],[12,13],[13,14],[14,15],[14,16],[17,18],[18,19],[18,21],[19,20],[19,25],[21,22],[21,23],[22,24],[25,26],[26,27],[26,29],[27,28],[27,36],[29,30],[30,31],[30,32],[31,33],[32,34],[33,35],[34,35],[36,37],[37,38],[37,40],[38,39],[38,43],[40,41],[40,42],[43,44],[44,45],[44,47],[45,46],[45,52],[47,48],[48,49],[49,50],[50,51],[52,53],[53,54],[53,56],[54,55],[54,59],[56,57],[56,58],[59,60],[60,61],[60,63],[61,62],[61,67],[63,64],[64,65],[64,66],[67,68],[68,69],[68,71],[69,70],[69,74],[71,72],[71,73],[74,75],[75,76],[76,77],[76,78],[78,79],[79,80],[79,82],[80,81],[80,87],[82,83],[83,84],[84,85],[85,86],[87,88],[88,89],[88,91],[89,90],[89,94],[91,92],[91,93],[94,95],[95,96],[95,98],[96,97],[96,102],[98,99],[98,100],[99,101],[102,103],[103,104],[103,106],[104,105],[104,109],[106,107],[106,108],[109,110],[110,111],[110,113],[111,112],[111,117],[113,114],[114,115],[114,116],[117,118],[118,119],[118,121],[119,120],[119,126],[121,122],[122,123],[123,124],[123,125],[126,127],[127,128],[127,130],[128,129],[128,133],[130,131],[130,132],[133,134],[134,135],[134,137],[135,136],[135,142],[137,138],[138,139],[139,140],[139,141],[142,143],[142,148],[143,144],[143,146],[144,145],[144,149],[146,147],[147,148],[149,150],[150,151],[150,153],[151,152],[151,155],[153,154],[155,156],[156,157],[156,159],[157,158],[157,163],[159,160],[160,161],[160,162],[163,164],[164,165],[164,167],[165,166],[165,170],[167,168],[167,169],[170,171],[171,172],[171,174],[172,173],[172,178],[174,175],[174,176],[175,177],[178,179],[179,180],[179,182],[180,181],[180,187],[182,183],[183,184],[184,185],[184,186],[187,188],[188,189],[188,191],[189,190],[189,195],[191,192],[192,193],[192,194],[195,196],[196,197],[196,199],[197,198],[197,202],[199,200],[199,201],[202,203],[203,204],[203,206],[204,205],[204,211],[206,207],[207,208],[208,209],[209,210],[211,212],[212,213],[212,215],[213,214],[213,216],[216,217],[217,218],[217,220],[218,219],[218,225],[220,221],[221,222],[222,223],[223,224],[225,226],[226,227],[226,229],[227,228],[227,233],[229,230],[229,231],[230,232],[233,234],[234,235],[234,237],[235,236],[235,242],[237,238],[238,239],[239,240],[239,241],[242,243],[243,244],[243,246],[244,245],[244,250],[246,247],[247,248],[247,249],[250,251],[251,252],[251,254],[252,253],[252,259],[254,255],[255,256],[256,257],[257,258],[259,260],[260,261],[260,263],[261,262],[261,268],[263,264],[264,265],[265,266],[265,267],[268,269],[269,270],[270,271],[270,272],[272,273],[273,274],[273,276],[274,275],[274,280],[276,277],[276,278],[277,279],[280,281],[280,286],[281,282],[281,284],[282,283],[282,287],[284,285],[285,286],[287,288],[287,293],[288,289],[288,291],[289,290],[289,294],[291,292],[292,293],[294,295],[295,296],[295,298],[296,297],[296,302],[298,299],[299,300],[299,301],[302,303],[303,304],[303,306],[304,305],[304,311],[306,307],[307,308],[308,309],[308,310],[311,312],[312,313],[312,315],[313,314],[313,320],[315,316],[316,317],[317,318],[317,319],[320,321],[321,322],[321,324],[322,323],[322,331],[324,325],[325,326],[326,327],[327,328],[328,329],[328,330],[331,332],[332,333],[332,335],[333,334],[333,339],[335,336],[336,337],[336,338],[339,340],[340,341],[340,343],[341,342],[341,347],[343,344],[343,345],[344,346],[347,348],[348,349],[348,351],[349,350],[349,358],[351,352],[352,353],[352,354],[353,355],[354,356],[355,357],[356,357],[358,359],[359,360],[359,362],[360,361],[360,363],[363,364],[364,365],[365,366],[365,367],[367,368],[368,369],[368,371],[369,370],[369,376],[371,372],[372,373],[373,374],[374,375],[376,377],[377,378],[377,380],[378,379],[378,385],[380,381],[381,382],[382,383],[382,384],[385,386],[386,387],[386,389],[387,388],[387,393],[389,390],[390,391],[390,392],[393,394],[394,395],[394,397],[395,396],[395,402],[397,398],[398,399],[399,400],[399,401],[402,403],[403,404],[403,406],[404,405],[404,410],[406,407],[407,408],[407,409],[410,411],[411,412],[412,413],[412,414],[414,415],[415,416],[415,418],[416,417],[416,425],[418,419],[419,420],[420,421],[421,422],[422,423],[422,424],[425,426],[426,427],[426,429],[427,428],[427,432],[429,430],[429,431],[432,433],[433,434],[433,436],[434,435],[434,440],[436,437],[437,438],[437,439],[440,441],[441,442],[441,444],[442,443],[442,446],[444,445],[446,447],[447,448],[447,450],[448,449],[448,454],[450,451],[451,452],[451,453],[454,455],[455,456],[455,458],[456,457],[456,466],[458,459],[459,460],[459,461],[460,462],[461,463],[462,464],[463,464],[464,465],[466,467],[467,468],[467,470],[468,469],[468,474],[470,471],[471,472],[471,473],[474,475],[475,476],[475,478],[476,477],[476,482],[478,479],[478,480],[479,481],[482,483],[483,484],[483,486],[484,485],[484,491],[486,487],[487,488],[488,489],[488,490],[491,492],[492,493],[492,495],[493,494],[493,500],[495,496],[496,497],[497,498],[498,499],[500,501],[501,502],[501,504],[502,503],[502,509],[504,505],[505,506],[506,507],[506,508],[509,510],[510,511],[510,513],[511,512],[511,515],[513,514],[515,516],[516,517],[516,519],[517,518],[517,522],[519,520],[519,521],[522,523],[523,524],[523,526],[524,525],[524,530],[526,527],[527,528],[527,529],[530,531],[531,532],[531,534],[532,533],[532,540],[534,535],[535,536],[535,537],[536,538],[537,539],[538,539],[540,541],[541,542],[541,544],[542,543],[542,548],[544,545],[545,546],[545,547],[548,549],[549,550],[549,552],[550,551],[550,555],[552,553],[552,554],[555,556],[556,557],[556,559],[557,558],[557,563],[559,560],[560,561],[560,562],[563,564],[564,565],[564,567],[565,566],[565,574],[567,568],[568,569],[569,570],[570,571],[571,572],[571,573],[574,575],[575,576],[575,578],[576,577],[576,582],[578,579],[579,580],[579,581],[582,583],[583,584],[583,586],[584,585],[584,593],[586,587],[587,588],[588,589],[589,590],[590,591],[590,592],[593,594],[594,595],[595,596],[595,597],[597,598],[598,599],[599,600],[599,601]],"w":[[45.75,30.08,19.71,1.0,12.43],[19.17,31.87,17.05,1.0,12.65],[32.01,38.39,19.64,1.0,12.83],[42.08,27.36,21.95,1.0,22.27],[21.31,20.64,8.72,1.0,18.33],[31.96,38.64,3.7,1.0,31.69],[27.71,15.91,4.65,1.0,20.3],[19.97,32.72,14.77,1.0,10.14],[29.85,13.58,10.86,1.0,29.65],[23.89,27.86,1.5,1.0,23.48],[19.64,23.31,4.78,1.0,18.4],[34.63,29.37,4.78,1.0,26.17],[42.24,24.74,25.71,1.0,31.34],[30.29,42.5,8.82,1.0,16.49],[24.51,39.16,10.84,1.0,13.14],[26.56,43.45,19.94,1.0,19.38],[42.53,22.39,13.87,1.0,29.35],[42.44,26.38,12.69,1.0,29.46],[22.65,14.46,13.09,1.0,22.07],[35.33,26.55,23.2,1.0,15.2],[23.63,20.94,3.15,1.0,15.45],[25.93,21.77,2.33,1.0,13.7],[33.39,21.97,5.66,1.0,24.89],[18.33,23.91,17.7,1.0,24.1],[18.16,27.07,10.66,1.0,20.76],[34.75,17.17,18.22,1.0,32.86],[19.8,32.36,20.21,1.0,21.09],[30.29,26.83,22.19,1.0,8.56],[44.61,32.31,16.96,1.0,7.69],[16.29,26.0,13.14,0.78,28.9],[27.1,42.13,15.49,0.51,23.36],[37.21,23.8,21.37,0.74,27.88],[19.58,32.03,-0.69,0.49,22.24],[28.82,25.09,0.89,0.77,36.99],[25.15,19.16,25.32,0.87,36.7],[20.75,37.77,14.67,0.85,29.64],[16.04,17.84,8.77,0.61,23.89],[35.71,46.81,12.93,0.48,27.11],[15.57,27.48,7.48,0.51,24.18],[33.45,21.07,2.92,0.59,26.03],[41.12,39.02,13.06,0.63,22.39],[32.35,13.69,18.91,0.48,24.09],[31.2,13.05,7.92,0.71,29.54],[42.85,39.38,29.31,0.64,46.9],[39.65,23.96,9.7,0.41,18.25],[34.41,45.18,13.42,0.87,26.13],[26.52,24.3,27.59,0.41,21.02],[40.74,38.73,9.6,0.45,16.6],[31.49,18.28,23.17,0.67,26.53],[37.75,30.95,1.06,0.87,32.52],[31.77,16.94,7.51,0.64,15.94],[41.63,24.54,10.14,0.57,22.53],[28.99,22.18,-1.74,0.56,29.32],[14.88,16.54,10.69,0.53,24.82],[32.59,40.38,7.52,0.36,26.01],[38.36,30.37,5.58,0.49,35.45],[27.84,46.06,17.59,0.81,32.15],[37.67,43.42,17.0,0.5,33.32]],"wt":[[77,1.0,12.43,1,2,4,0,3.34,"Gln31 NE2"],[78,1.0,12.65,1,2,6,2,2.99,"Ala46 N"],[79,1.0,12.83,2,0,14,0,2.71,"Leu8 N"],[80,1.0,22.27,2,0,14,0,2.82,"Asp39 N"],[81,1.0,18.33,1,0,9,0,2.78,"Ile61 O"],[82,1.0,31.69,0,1,2,0,4.1,"Thr14 CG2"],[83,1.0,20.3,1,1,6,0,2.68,"Ser20 OG"],[84,1.0,10.14,1,0,8,1,2.79,"Thr66 O"],[85,1.0,29.65,1,0,5,1,2.91,"Ser20 O"],[86,1.0,23.48,2,0,14,0,3.0,"Glu64 OE2"],[87,1.0,18.4,2,1,11,0,3.11,"Lys63 N"],[88,1.0,26.17,1,0,11,0,2.97,"Glu16 N"],[89,1.0,31.34,0,3,3,0,3.72,"Asp39 CB"],[90,1.0,16.49,1,0,10,1,2.99,"Thr12 N"],[91,1.0,13.14,1,1,7,0,2.83,"Thr12 OG1"],[92,1.0,19.38,1,2,5,0,3.07,"Leu8 O"],[93,1.0,29.35,0,0,1,0,3.8,"Ala28 CB"],[94,1.0,29.46,2,0,13,1,2.93,"Ala28 O"],[95,1.0,22.07,2,1,10,0,2.67,"Ser57 OG"],[96,1.0,15.2,4,0,15,0,2.58,"Lys27 NZ"],[97,1.0,15.45,0,2,5,1,3.69,"Pro19 CD"],[98,1.0,13.7,2,0,9,1,2.5,"Glu18 OE1"],[99,1.0,24.89,2,0,10,1,2.84,"Asp21 OD2"],[100,1.0,24.1,2,0,10,0,2.68,"Lys48 CE"],[101,1.0,20.76,2,0,12,1,2.65,"Ser65 OG"],[102,1.0,32.86,3,0,12,0,3.09,"Asp52 O"],[103,1.0,21.09,2,1,8,1,2.83,"Gly47 N"],[104,1.0,8.56,3,0,17,0,2.76,"Leu50 O"],[105,1.0,7.69,2,1,12,0,2.47,"Gly35 O"],[106,0.78,28.9,1,1,4,1,3.41,"Asn60 O"],[107,0.51,23.36,2,0,13,0,2.72,"Thr7 O"],[108,0.74,27.88,1,0,8,0,2.52,"Asp52 OD1"],[109,0.49,22.24,1,3,3,0,3.13,"Glu64 OE1"],[110,0.77,36.99,1,0,10,0,2.37,"Met1 N"],[111,0.87,36.7,1,1,5,0,2.72,"Glu51 OE2"],[112,0.85,29.64,1,0,6,0,3.38,"His68 CE1"],[113,0.61,23.89,0,0,1,1,3.79,"Asn60 ND2"],[114,0.48,27.11,0,1,0,1,5.45,"Thr9 O"],[115,0.51,24.18,0,1,4,0,3.64,"Gln62 NE2"],[116,0.59,26.03,0,0,2,1,4.11,"Glu18 CG"],[117,0.63,22.39,1,0,5,1,2.65,"Glu34 O"],[118,0.48,24.09,1,1,3,0,2.96,"Gly53 O"],[119,0.71,29.54,0,1,2,1,3.86,"Ser20 CB"],[120,0.64,46.9,1,1,2,0,2.93,"Gly75 O"],[121,0.41,18.25,0,0,8,1,3.83,"Asn25 OD1"],[122,0.87,26.13,0,1,4,1,3.75,"Thr9 OG1"],[123,0.41,21.02,0,0,5,0,3.81,"Gln49 CB"],[124,0.45,16.6,1,2,5,1,3.47,"Lys33 O"],[125,0.67,26.53,3,0,13,0,2.59,"Glu51 CG"],[126,0.87,32.52,0,0,0,0,5.71,"Lys33 NZ"],[127,0.64,15.94,2,0,12,0,2.71,"Asp21 OD1"],[128,0.57,22.53,0,0,6,2,4.02,"Ala28 O"],[129,0.56,29.32,0,2,1,0,4.06,"Glu18 OE2"],[130,0.53,24.82,0,0,0,1,4.56,"Asn60 ND2"],[131,0.36,26.01,2,0,6,1,2.6,"Thr12 O"],[132,0.49,35.45,0,0,5,0,3.41,"Lys33 CE"],[133,0.81,32.15,1,2,7,0,3.49,"Gly10 N"],[134,0.5,33.32,0,1,1,0,4.35,"Thr9 CG2"]],"ccres":[4,6,8,9,12,14,16,18,19,20,22,32,33,34,35,37,40,42,45,46,47,48,49,51,54,57,58,59,63,64,68,70,72,74],"calines":["ATOM      2  CA  MET A   1      26.266  25.413   2.842  1.00 10.38           C  ","ATOM     10  CA  GLN A   2      26.850  29.021   3.898  1.00  9.07           C  ","ATOM     19  CA  ILE A   3      26.235  30.058   7.497  1.00  5.07           C  ","ATOM     27  CA  PHE A   4      26.772  33.436   9.197  1.00  4.68           C  ","ATOM     38  CA  VAL A   5      28.605  33.965  12.503  1.00  3.87           C  ","ATOM     45  CA  LYS A   6      27.691  37.315  14.143  1.00  6.12           C  ","ATOM     54  CA  THR A   7      30.225  38.643  16.662  1.00  7.48           C  ","ATOM     61  CA  LEU A   8      29.607  41.180  19.467  1.00 14.15           C  ","ATOM     69  CA  THR A   9      31.422  43.940  17.553  1.00 19.24           C  ","ATOM     76  CA  GLY A  10      28.978  43.960  14.678  1.00 18.74           C  ","ATOM     80  CA  LYS A  11      31.191  42.012  12.331  1.00 11.91           C  ","ATOM     89  CA  THR A  12      29.542  39.020  10.653  1.00  9.85           C  ","ATOM     96  CA  ILE A  13      31.720  36.289   9.176  1.00 11.84           C  ","ATOM    104  CA  THR A  14      30.505  33.884   6.512  1.00  9.63           C  ","ATOM    111  CA  LEU A  15      31.677  30.275   6.639  1.00  9.03           C  ","ATOM    119  CA  GLU A  16      31.220  27.341   4.275  1.00 11.50           C  ","ATOM    128  CA  VAL A  17      30.288  24.245   6.193  1.00  8.85           C  ","ATOM    135  CA  GLU A  18      28.468  20.940   5.980  1.00  7.08           C  ","ATOM    144  CA  PRO A  19      25.829  19.825   8.494  1.00  7.07           C  ","ATOM    151  CA  SER A  20      28.054  16.835   9.210  1.00  6.28           C  ","ATOM    157  CA  ASP A  21      30.796  19.083  10.566  1.00  7.70           C  ","ATOM    165  CA  THR A  22      31.398  19.064  14.286  1.00  6.01           C  ","ATOM    172  CA  ILE A  23      31.288  22.201  16.417  1.00  9.92           C  ","ATOM    180  CA  GLU A  24      35.031  21.722  17.069  1.00 11.81           C  ","ATOM    189  CA  ASN A  25      35.590  21.945  13.302  1.00 10.96           C  ","ATOM    197  CA  VAL A  26      33.533  25.097  12.978  1.00  5.53           C  ","ATOM    204  CA  LYS A  27      35.596  26.715  15.736  1.00  4.14           C  ","ATOM    213  CA  ALA A  28      38.794  25.761  13.880  1.00  7.74           C  ","ATOM    218  CA  LYS A  29      37.471  27.391  10.668  1.00  7.90           C  ","ATOM    227  CA  ILE A  30      36.731  30.570  12.645  1.00  5.58           C  ","ATOM    235  CA  GLN A  31      40.269  30.508  14.115  1.00  8.67           C  ","ATOM    244  CA  ASP A  32      41.718  30.022  10.643  1.00 14.01           C  ","ATOM    252  CA  LYS A  33      39.808  32.994   9.233  1.00 14.00           C  ","ATOM    261  CA  GLU A  34      39.676  35.547  12.072  1.00 10.07           C  ","ATOM    270  CA  GLY A  35      42.345  34.269  14.431  1.00  6.29           C  ","ATOM    274  CA  ILE A  36      40.226  33.716  17.509  1.00  6.07           C  ","ATOM    282  CA  PRO A  37      41.461  30.751  19.594  1.00  9.18           C  ","ATOM    289  CA  PRO A  38      38.817  28.020  19.889  1.00  9.08           C  ","ATOM    296  CA  ASP A  39      39.063  28.063  23.695  1.00 14.96           C  ","ATOM    304  CA  GLN A  40      37.738  31.637  23.712  1.00 10.76           C  ","ATOM    313  CA  GLN A  41      34.738  30.875  21.473  1.00  3.87           C  ","ATOM    322  CA  ARG A  42      31.200  30.329  22.780  1.00  6.97           C  ","ATOM    333  CA  LEU A  43      28.762  29.573  19.906  1.00  3.51           C  ","ATOM    341  CA  ILE A  44      25.034  30.170  20.401  1.00  5.55           C  ","ATOM    349  CA  PHE A  45      22.126  29.062  18.183  1.00  4.70           C  ","ATOM    360  CA  ALA A  46      18.443  29.143  19.083  1.00  7.15           C  ","ATOM    365  CA  GLY A  47      19.399  29.894  22.655  1.00 11.68           C  ","ATOM    369  CA  LYS A  48      21.550  26.796  23.133  1.00  8.82           C  ","ATOM    378  CA  GLN A  49      25.349  26.872  23.643  1.00  7.18           C  ","ATOM    387  CA  LEU A  50      26.826  24.521  21.012  1.00  7.41           C  ","ATOM    395  CA  GLU A  51      29.015  21.657  22.288  1.00 11.90           C  ","ATOM    404  CA  ASP A  52      32.262  20.670  20.514  1.00 16.56           C  ","ATOM    412  CA  GLY A  53      31.568  16.962  19.825  1.00 11.77           C  ","ATOM    416  CA  ARG A  54      28.108  17.439  18.276  1.00  9.05           C  ","ATOM    427  CA  THR A  55      27.574  18.192  14.563  1.00  9.03           C  ","ATOM    434  CA  LEU A  56      25.594  21.109  13.072  1.00  8.29           C  ","ATOM    442  CA  SER A  57      22.924  18.583  12.025  1.00  9.00           C  ","ATOM    448  CA  ASP A  58      22.418  17.638  15.693  1.00  7.91           C  ","ATOM    456  CA  TYR A  59      21.079  21.149  16.251  1.00  8.45           C  ","ATOM    468  CA  ASN A  60      19.065  21.352  12.999  1.00 13.94           C  ","ATOM    476  CA  ILE A  61      21.184  24.263  11.690  1.00 11.78           C  ","ATOM    484  CA  GLN A  62      20.081  24.773   8.033  1.00 15.52           C  ","ATOM    493  CA  LYS A  63      21.656  26.847   5.240  1.00 11.97           C  ","ATOM    502  CA  GLU A  64      21.907  30.563   5.881  1.00 10.94           C  ","ATOM    511  CA  SER A  65      21.419  30.253   9.620  1.00  6.90           C  ","ATOM    517  CA  THR A  66      23.212  32.762  11.891  1.00  3.80           C  ","ATOM    524  CA  LEU A  67      25.149  31.609  14.980  1.00  3.85           C  ","ATOM    532  CA  HIS A  68      26.179  34.127  17.650  1.00  4.17           C  ","ATOM    542  CA  LEU A  69      29.801  34.145  18.829  1.00  3.97           C  ","ATOM    550  CA  VAL A  70      30.479  35.369  22.374  1.00  6.26           C  ","ATOM    557  CA  LEU A  71      34.145  35.472  23.481  1.00 16.06           C  ","ATOM    565  CA  ARG A  72      35.161  34.174  26.896  1.00 25.83           C  ","ATOM    576  CA  LEU A  73      38.668  35.502  27.680  0.45 30.76           C  ","ATOM    584  CA  ARG A  74      40.873  33.802  30.253  0.45 35.33           C  ","ATOM    595  CA  GLY A  75      41.845  36.550  32.686  0.25 36.07           C  ","ATOM    599  CA  GLY A  76      40.373  39.813  33.944  0.25 36.19           C  "],"md":{"bx":[10.38,9.07,5.07,4.68,3.87,6.12,7.48,14.15,19.24,18.74,11.91,9.85,11.84,9.63,9.03,11.5,8.85,7.08,7.07,6.28,7.7,6.01,9.92,11.81,10.96,5.53,4.14,7.74,7.9,5.58,8.67,14.01,14.0,10.07,6.29,6.07,9.18,9.08,14.96,10.76,3.87,6.97,3.51,5.55,4.7,7.15,11.68,8.82,7.18,7.41,11.9,16.56,11.77,9.05,9.03,8.29,9.0,7.91,8.45,13.94,11.78,15.52,11.97,10.94,6.9,3.8,3.85,4.17,3.97,6.26,16.06,25.83,30.76,35.33,36.07,36.19],"bmd":[7.2,4.96,3.96,3.45,3.76,4.4,7.7,23.11,40.53,30.41,10.85,6.53,4.98,4.15,4.51,4.58,4.21,5.69,6.9,7.34,5.74,4.25,4.64,7.03,5.07,3.74,3.94,4.34,4.06,3.96,4.84,7.25,9.16,7.96,7.76,7.7,8.58,6.53,9.1,5.5,4.32,5.64,3.92,4.3,5.28,18.44,24.97,15.6,7.42,6.82,10.22,12.1,12.03,5.33,4.98,4.17,6.55,7.39,7.37,8.28,5.57,7.39,5.86,5.99,4.93,4.87,4.15,3.35,3.8,6.61,7.39,15.0,45.93,73.75,87.56,67.88],"bh1":[7.48,4.89,3.88,3.51,3.86,4.3,6.45,21.04,48.25,35.66,8.46,6.37,5.62,4.69,4.04,4.32,3.74,5.38,6.19,6.53,5.35,3.53,3.82,5.86,4.64,3.24,3.53,4.06,3.76,3.56,4.36,6.27,7.9,7.14,7.25,7.2,8.22,6.09,8.82,5.38,3.82,4.55,3.58,4.09,5.12,15.73,20.85,12.86,6.42,6.24,9.44,9.16,9.89,4.55,4.49,4.06,6.22,6.71,7.39,8.98,6.09,7.9,5.57,5.62,4.89,4.93,4.21,2.87,3.45,5.81,6.4,8.67,22.18,43.93,79.68,59.45],"bh2":[6.47,4.82,3.04,3.06,3.32,4.25,8.08,20.38,26.85,20.75,10.88,5.94,4.15,3.43,4.36,4.38,4.51,5.86,7.37,7.96,5.99,4.84,4.69,7.01,5.1,3.8,3.94,4.32,3.94,4.04,5.17,7.7,9.38,8.14,7.96,7.56,8.4,6.69,8.08,4.49,4.34,5.5,4.0,4.42,5.28,20.85,27.27,14.65,7.51,6.47,7.67,10.51,12.39,6.04,5.35,4.17,6.66,7.67,6.82,7.34,4.89,6.74,5.59,5.89,4.71,4.51,3.64,3.7,4.02,5.99,5.81,17.52,67.97,96.42,80.97,66.54]}};
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }
+function pc(v,d){ return '%'+fx(v,d); }
+function sci(v){ if(!(v>0)) return fx(0,0); var e=Math.floor(Math.log10(v)), m=v/Math.pow(10,e); var SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}; return fx(m,1)+' × 10'+String(e).split('').map(function(c){return SUP[c];}).join(''); }
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fit(c){ var r=c.getBoundingClientRect(), d=Math.min(2,window.devicePixelRatio||1), w=Math.max(1,Math.round(r.width*d)), h=Math.max(1,Math.round(r.height*d)); if(c.width!==w||c.height!==h){c.width=w;c.height=h;} var g=c.getContext('2d'); g.setTransform(d,0,0,d,0,0); return {g:g,W:r.width,H:r.height}; }
+function rgb(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
+function mixA(a,b,t){ return a.map(function(v,i){return Math.round(v+(b[i]-v)*t);}); }
+function str(a,al){ return al==null?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')'; }
+function sprite(hex,rPx){ var d=Math.min(2,window.devicePixelRatio||1), pad=Math.ceil(rPx*0.6), S=Math.ceil((2*rPx+2*pad)*d); var c=document.createElement('canvas'); c.width=c.height=S; var g=c.getContext('2d'); g.scale(d,d);
+  var m=S/d/2, base=rgb(hex), hi=mixA(base,[255,255,255],0.55), lo=mixA(base,[0,0,0],0.38);
+  g.fillStyle='rgba(40,40,30,0.18)'; g.beginPath(); g.ellipse(m+rPx*0.16,m+rPx*0.3,rPx*0.98,rPx*0.82,0,0,Math.PI*2); g.fill();
+  var gr=g.createRadialGradient(m-rPx*0.38,m-rPx*0.42,rPx*0.06,m,m,rPx); gr.addColorStop(0,str(hi)); gr.addColorStop(0.5,str(base)); gr.addColorStop(1,str(lo));
+  g.fillStyle=gr; g.beginPath(); g.arc(m,m,rPx,0,Math.PI*2); g.fill(); g.strokeStyle=str(lo,0.55); g.lineWidth=0.8; g.stroke(); return {c:c,s:S/d}; }
+function blit(g,sp,x,y,al){ if(al!=null) g.globalAlpha=al; g.drawImage(sp.c,x-sp.s/2,y-sp.s/2,sp.s,sp.s); if(al!=null) g.globalAlpha=1; }
+function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.measureText(txt).width+14; g.fillStyle=bg; g.beginPath(); if(g.roundRect) g.roundRect(x-w/2,y-11,w,22,11); else g.rect(x-w/2,y-11,w,22); g.fill(); g.fillStyle=fg; g.textAlign='center'; g.textBaseline='middle'; g.fillText(txt,x,y+0.5); g.textAlign='left'; g.textBaseline='alphabetic'; }
+function tiles(g,X,Y,L,x0,x1,y0,y1,paper,navy,line){ for(var j=Math.floor(y0/L)-1;j<=Math.ceil(y1/L);j++) for(var i=Math.floor(x0/L)-1;i<=Math.ceil(x1/L);i++){ var c=(i===0&&j===0), a=X(i*L), b=Y(j*L), w=X((i+1)*L)-a; g.fillStyle=c?paper:str(rgb(paper),0.45); g.fillRect(a,b,w,w); g.strokeStyle=c?navy:line; g.lineWidth=c?2:1; g.setLineDash(c?[7,5]:[4,5]); g.strokeRect(a,b,w,w); g.setLineDash([]); } }
+
+
+/* keşif kartları */
+var FOUND={}, CH={};
+function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('o2progN').textContent=Object.keys(FOUND).length+' / 4'; }
+function axisY(g,L,R,T,H,B,W,vals,Y,fmt,line,muted){ g.font='12px '+css('--sans'); g.lineWidth=1; vals.forEach(function(v){ var y=Y(v); g.strokeStyle=line; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=muted; g.textAlign='right'; g.fillText(fmt(v),L-6,y+4); }); g.textAlign='left'; }
+var NFI=new Intl.NumberFormat('tr-TR');
+var EL={C:'#7f8791',N:'#3a6bd0',O:'#d0453a',S:'#dcb431'};
+var SPR={};
+function ball(key,hex,rPx){ var k=key+'|'+Math.round(rPx*2); if(SPR[k]) return SPR[k]; SPR[k]=sprite(hex,rPx); return SPR[k]; }
+function elOf(nm){ for(var k=0;k<nm.length;k++){ var ch=nm[k]; if(/[A-Z]/.test(ch)) return ch; } return 'C'; }
+var AP=MO2.p, NP=AP.length, WA=MO2.w, NW=WA.length;
+var PEL=AP.map(function(a){ return elOf(a[3]); });
+var ZE={C:6,N:7,O:8,S:16};
+var RES=[]; AP.forEach(function(a,i){ var r=a[5]; if(!RES[r]) RES[r]={name:a[4],idx:[],ca:-1}; RES[r].idx.push(i); if(a[3]==='CA') RES[r].ca=i; });
+var CC={}; MO2.ccres.forEach(function(r){ CC[r]=true; });
+function TT(s){ return s.charAt(0)+s.slice(1).toLowerCase(); }
+function rName(r){ return TT(RES[r].name)+r; }
+function uOf(B){ return Math.sqrt(B/(8*Math.PI*Math.PI)); }
+function gauss(){ var u=0,v=0; while(u===0) u=Math.random(); v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+/* renk rampaları */
+function ramp(stops,t){ t=Math.max(0,Math.min(1,t)); var n=stops.length-1, k=Math.min(n-1,Math.floor(t*n)), f=t*n-k; return str(mixA(rgb(stops[k]),rgb(stops[k+1]),f)); }
+function hexOf(s){ var m=s.match(/\d+/g); return '#'+m.slice(0,3).map(function(v){ return (+v).toString(16).padStart(2,'0'); }).join(''); }
+var BST=null, OST=null;
+function bCol(B){ if(!BST) BST=[css('--deep'),css('--mid'),css('--gold'),css('--bad')]; return hexOf(ramp(BST,(B-2)/(42-2))); }
+function oCol(o){ if(!OST) OST=[css('--bad'),css('--gold'),css('--deep')]; return hexOf(ramp(OST,(o-0.25)/0.75)); }
+/* ortak 3B */
+function View(yaw,pitch){ this.yaw=yaw; this.pitch=pitch; }
+function projector(V,C,r,W,H){ var sc=Math.min(W,H)/(2*r), cy=Math.cos(V.yaw), sy=Math.sin(V.yaw), cp=Math.cos(V.pitch), sp=Math.sin(V.pitch), DD=r*4.5;
+  return function(x,y,z){ x-=C[0]; y-=C[1]; z-=C[2]; var x1=cy*x+sy*z, z1=-sy*x+cy*z, y1=cp*y-sp*z1, z2=sp*y+cp*z1, pf=DD/(DD-Math.max(-r*3,Math.min(r*3,z2))); return [W/2+x1*sc*pf, H/2-y1*sc*pf, z2, pf*sc]; }; }
+function dragRotate(id,V,redraw){ var c=$(id), d=null; c.addEventListener('pointerdown',function(e){ d=[e.clientX,e.clientY,V.yaw,V.pitch]; c.setPointerCapture(e.pointerId); V.user=true; });
+  c.addEventListener('pointermove',function(e){ if(!d) return; V.yaw=d[2]+(e.clientX-d[0])*0.01; V.pitch=Math.max(-1.4,Math.min(1.4,d[3]+(e.clientY-d[1])*0.01)); redraw(); });
+  c.addEventListener('pointerup',function(){ d=null; }); c.addEventListener('pointercancel',function(){ d=null; }); }
+var CEN=(function(){ var s=[0,0,0]; AP.forEach(function(a){ s[0]+=a[0]; s[1]+=a[1]; s[2]+=a[2]; }); return s.map(function(v){ return v/NP; }); })();
+var RAD=(function(){ var m=0; AP.forEach(function(a){ m=Math.max(m,Math.hypot(a[0]-CEN[0],a[1]-CEN[1],a[2]-CEN[2])); }); return m+2; })();
+var TAILC=(function(){ var s=[0,0,0],n=0; for(var r=70;r<=76;r++) RES[r].idx.forEach(function(i){ s[0]+=AP[i][0]; s[1]+=AP[i][1]; s[2]+=AP[i][2]; n++; }); return s.map(function(v){ return v/n; }); })();
+
+/* ---------------- deneysel köprü: uzun pozlama ---------------- */
+var E0={V:new View(0.5,0.2), n:0, target:0, zoom:'all', occ:true, off:null, mode:'snap'};
+function expGeom(){ var c=$('o2exp'), f=fit(c); var C=E0.zoom==='tail'?TAILC:CEN, R=E0.zoom==='tail'?10.5:RAD; return {f:f,P:projector(E0.V,C,R,f.W,f.H)}; }
+function expClear(){ var c=$('o2exp'), d=Math.min(2,window.devicePixelRatio||1); if(!E0.off) E0.off=document.createElement('canvas'); var r=c.getBoundingClientRect(); E0.off.width=Math.max(1,Math.round(r.width*d)); E0.off.height=Math.max(1,Math.round(r.height*d)); E0.n=0; }
+var CAI=[]; for(var r0=1;r0<=76;r0++) CAI.push(RES[r0].ca);
+function expFrames(k,alpha){ var G=expGeom(), og=E0.off.getContext('2d'), d=Math.min(2,window.devicePixelRatio||1); og.setTransform(d,0,0,d,0,0);
+  var tail=E0.zoom==='tail', list=tail?null:CAI, nA=tail?NP:CAI.length, navy=css('--navy'), wc=css('--mid');
+  for(var t=0;t<k;t++){
+    for(var q=0;q<nA+NW;q++){ var isP=q<nA, i=isP?(tail?q:list[q]):q-nA, a=isP?AP[i]:WA[i], occ=isP?a[6]:a[3], B=isP?a[7]:a[4];
+      if(E0.occ&&Math.random()>occ) continue;
+      var u=uOf(B), s=G.P(a[0]+u*gauss(),a[1]+u*gauss(),a[2]+u*gauss());
+      og.fillStyle=isP?(tail?EL[PEL[i]]:navy):wc; og.globalAlpha=alpha; og.beginPath(); og.arc(s[0],s[1],tail?(isP?0.16:0.13)*s[3]:(isP?2.4:1.8),0,Math.PI*2); og.fill(); }
+    E0.n++; }
+  og.globalAlpha=1; }
+function expDraw(){ var c=$('o2exp'), f=fit(c), g=f.g; g.fillStyle=css('--stage'); g.fillRect(0,0,f.W,f.H);
+  if(E0.off) g.drawImage(E0.off,0,0,f.W,f.H);
+  g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); var G=expGeom(), s0=G.P(TAILC[0],TAILC[1],TAILC[2]), s1=G.P(TAILC[0]+5,TAILC[1],TAILC[2]);
+  var L=Math.abs(s1[0]-s0[0]); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(14,f.H-16); g.lineTo(14+L,f.H-16); g.stroke(); g.fillStyle=css('--ink'); g.fillText('5 Å',18+L,f.H-12);
+  if(E0.zoom==='all'){ var l43=AP[RES[43].ca], s43=G.P(l43[0],l43[1],l43[2]); pill(g,'C ucu (70-76)',s0[0],s0[1]-26,css('--paper'),str(rgb(css('--navy')),0.85)); pill(g,'Leu43',s43[0],s43[1]-18,css('--paper'),str(rgb(css('--navy')),0.85)); }
+  else { [73,74,75,76].forEach(function(r){ var a=AP[RES[r].ca], s=G.P(a[0],a[1],a[2]); pill(g,rName(r),s[0],s[1]-22,css('--paper'),str(rgb(css('--navy')),0.85)); }); }
+  $('o2nF').textContent=NFI.format(E0.n);
+  var nt=$('o2expNote');
+  if(E0.mode==='snap') nt.textContent='Tek bir an: her atom tek bir noktada. Hangi atomun hareketli olduğu bu görüntüden anlaşılmaz.';
+  else if(E0.n<E0.target) nt.textContent='Pozlama sürüyor…';
+  else nt.textContent=E0.occ?'Çekirdekteki atomlar her karede aşağı yukarı aynı yere düştü ve keskin kaldı. C ucu bulut gibi yayıldı; Gly75 ve Gly76 dört karenin yalnız birinde çizildiği için soluk. B faktörü bu yayılmanın, doluluk bu solukluğun sayısal karşılığıdır.':'Doluluk kapalı: her atom her karede çizildi. C ucu yine yayılıyor ama artık soluk değil. Solukluk doluluktan, yayılma B\'den gelir.'; }
+function expSnap(){ E0.mode='snap'; E0.target=0; expClear(); expFrames(1,1); expDraw(); }
+function expStart(){ E0.mode='exp'; expClear(); E0.target=300; if(reduce){ expFrames(300,0.05); expDraw(); return; } kick(); }
+$('o2uLo').textContent=fx(uOf(3.51),2)+' Å'; $('o2uHi').textContent=fx(uOf(36.19),2)+' Å';
+
+/* ---------------- atölye: PDB satırı ---------------- */
+var A1={V:new View(0.4,0.25), res:43, col:'b', field:'b', seen:{lo:null,hi:null}};
+var FIELDS=[['rec',0,6],['ser',6,11],['name',12,16],['alt',16,17],['resn',17,20],['ch',21,22],['resi',22,26],['x',30,38],['y',38,46],['z',46,54],['occ',54,60],['b',60,66],['el',76,78]];
+var FTXT={rec:'<b>Kayıt türü.</b> ATOM, polimerin (proteinin) atomudur. Su, ligand ve iyonlar HETATM satırıdır; 1UBQ\'nun 58 suyu HETATM olarak yazılmıştır.',
+ ser:'<b>Atom sıra numarası.</b> MD programı kendi numarasını yeniden verir: pdb2gmx hidrojenleri ekleyince numaralar kayar. Bir atomu dosyalar arasında numarasıyla değil, kalıntı ve adıyla izleyin.',
+ name:'<b>Atom adı.</b> CA, alfa karbonudur. pdb2gmx her kalıntıyı kuvvet alanındaki tanımla bu adlar üzerinden eşleştirir; tanımadığı bir adda hata verip durur.',
+ alt:'<b>Alternatif konum.</b> Bir atom kristalde iki ya da daha çok konumda bulunuyorsa her konum A, B gibi bir harfle ayrı satıra yazılır; bu konumların dolulukları toplamı çoğunlukla 1\'dir. 1UBQ\'da bu sütun her satırda boştur.',
+ resn:'<b>Kalıntı adı</b> (üç harf).',
+ ch:'<b>Zincir kimliği.</b> 1UBQ\'da tek zincir var: A. Kristal suları da A zincirine yazılmış, pdb2gmx onları ayrı bir zincir olarak işler.',
+ resi:'<b>Kalıntı numarası.</b>',
+ x:'<b>Koordinat x</b>, ångström (Å). GROMACS nanometre kullanır (10 Å = 1 nm); pdb2gmx dönüşümü kendisi yapar.', y:'<b>Koordinat y</b>, ångström (Å).', z:'<b>Koordinat z</b>, ångström (Å).',
+ occ:'<b>Doluluk.</b> Bu atomun bu konumda bulunduğu molekül payı. 1,00: her molekülde burada. 1UBQ\'da Leu73 ve Arg74 0,45, Gly75 ve Gly76 0,25; model bu atomların moleküllerin yalnız bir kısmında bu konumda olduğunu söyler. Geri kalan moleküllerde neredeler? Dosya bunu söylemez.',
+ b:'<b>B faktörü</b> (Å²). Konumun çevresindeki yayılmanın ölçüsü: her yöndeki ortalama kare kayma u² = B / 8π². İçinde ısıl titreşim, moleküller arasındaki küçük konum farkları ve kristal kusurları birlikte vardır; hangisinin payının ne kadar olduğu bu tek sayıdan ayrılamaz.',
+ el:'<b>Element simgesi.</b>'};
+function lineRender(){ var r=A1.res, L=MO2.calines[r-1]; while(L.length<80) L+=' ';
+  var h='', pos=0; FIELDS.forEach(function(fd){ if(fd[1]>pos) h+='<span class="gap">'+L.slice(pos,fd[1])+'</span>'; h+='<button type="button" class="fld'+(fd[0]==='occ'||fd[0]==='b'?' key':'')+'" data-f="'+fd[0]+'" aria-pressed="'+(A1.field===fd[0])+'">'+L.slice(fd[1],fd[2]).replace(/ /g,'&nbsp;')+'</button>'; pos=fd[2]; });
+  $('o2line').innerHTML='<code>'+h+'</code>';
+  $('o2line').querySelectorAll('.fld').forEach(function(b){ b.addEventListener('click',function(){ A1.field=b.getAttribute('data-f'); lineRender(); }); });
+  $('o2fieldT').innerHTML=FTXT[A1.field]; }
+function resRead(){ var r=A1.res, a=AP[RES[r].ca], B=a[7], u=uOf(B);
+  $('o2resV').textContent=rName(r); $('o2rB').textContent=fx(B,2)+' Å²'; $('o2rU').textContent=fx(u,2)+' Å'; $('o2rR').textContent=fx(u*Math.sqrt(3),2)+' Å'; $('o2rO').textContent=fx(a[6],2); $('o2rC').textContent=CC[r]?'evet':'hayır';
+  if(B<5) A1.seen.lo=r; if(B>30) A1.seen.hi=r;
+  if(A1.seen.lo&&A1.seen.hi){ var bl=AP[RES[A1.seen.lo].ca][7], bh=AP[RES[A1.seen.hi].ca][7];
+    card('o2c1',true,rName(A1.seen.lo)+': B '+fx(bl,2)+' Å², u '+fx(uOf(bl),2)+' Å. '+rName(A1.seen.hi)+': B '+fx(bh,2)+' Å², u '+fx(uOf(bh),2)+' Å. B '+fx(bh/bl,1)+' kat büyük ama yayılma yalnız '+fx(Math.sqrt(bh/bl),1)+' kat: B, yayılmanın karesiyle büyür.'); }
+  else card('o2c1',false,A1.seen.lo?rName(A1.seen.lo)+' seçildi (B < 5 Å²). Şimdi B değeri 30 Å²\'den yüksek bir kalıntı seçin.':(A1.seen.hi?rName(A1.seen.hi)+' seçildi (B > 30 Å²). Şimdi B değeri 5 Å²\'den düşük bir kalıntı seçin.':null));
+  lineRender(); }
+function ubqDraw(){ var c=$('o2ubq'), f=fit(c), g=f.g; g.fillStyle=css('--stage'); g.fillRect(0,0,f.W,f.H);
+  var P=projector(A1.V,CEN,RAD,f.W,f.H), S=new Array(NP), items=[], sel=RES[A1.res].idx, isSel={}; sel.forEach(function(i){ isSel[i]=1; });
+  for(var i=0;i<NP;i++){ S[i]=P(AP[i][0],AP[i][1],AP[i][2]); items.push({k:0,i:i,z:S[i][2]}); }
+  MO2.bonds.forEach(function(b){ items.push({k:1,a:b[0],b:b[1],z:(S[b[0]][2]+S[b[1]][2])/2}); });
+  var SW=WA.map(function(w,j){ var s=P(w[0],w[1],w[2]); items.push({k:2,j:j,z:s[2]}); return s; });
+  items.sort(function(p,q){ return p.z-q.z; });
+  items.forEach(function(it){ var dep;
+    if(it.k===1){ var A=S[it.a], B=S[it.b]; dep=Math.max(0,Math.min(1,0.5+it.z/RAD)); g.strokeStyle='rgba(95,100,108,'+(0.25+0.45*dep).toFixed(3)+')'; g.lineWidth=Math.max(1,0.18*A[3]); g.beginPath(); g.moveTo(A[0],A[1]); g.lineTo(B[0],B[1]); g.stroke(); return; }
+    if(it.k===2){ var w=WA[it.j], s2=SW[it.j], hx=A1.col==='b'?bCol(w[4]):oCol(w[3]); blit(g,ball('w'+hx,hx,Math.max(1.2,0.32*s2[3])),s2[0],s2[1],0.35+0.5*w[3]); return; }
+    var a=AP[it.i], s=S[it.i], hex=A1.col==='b'?bCol(a[7]):oCol(a[6]); dep=Math.max(0,Math.min(1,0.5+it.z/RAD));
+    var rad=(isSel[it.i]?0.62:0.36)*s[3];
+    if(isSel[it.i]){ g.fillStyle=str(rgb(css('--ink')),0.25); g.beginPath(); g.arc(s[0],s[1],rad*1.45,0,Math.PI*2); g.fill(); }
+    blit(g,ball('p'+hex,hex,Math.max(1.1,rad)),s[0],s[1],0.55+0.45*dep); });
+  var ca=S[RES[A1.res].ca]; pill(g,rName(A1.res),ca[0],ca[1]-ca[3]*1.6-10,css('--paper'),str(rgb(css('--navy')),0.88));
+  /* ölçek */
+  var W=f.W, H=f.H, x0=W-18-120, y0=H-18; for(var k=0;k<=24;k++){ g.fillStyle=A1.col==='b'?bCol(2+k*40/24):oCol(0.25+k*0.75/24); g.fillRect(x0+k*5,y0-8,5,8); }
+  g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='left'; g.fillText(A1.col==='b'?'B 2':'0,25',x0,y0-12); g.textAlign='right'; g.fillText(A1.col==='b'?'42 Å²':'doluluk 1',x0+125,y0-12); g.textAlign='left'; }
+function cloudDraw(){ var c=$('o2cloud'), f=fit(c), g=f.g, W=f.W, H=f.H; g.fillStyle=css('--soft'); g.fillRect(0,0,W,H);
+  var a=AP[RES[A1.res].ca], u=uOf(a[7]), sc=Math.min(W/6.2,H/3.4), cx=W*0.42, cy=H/2;
+  var gr=g.createRadialGradient(cx,cy,0,cx,cy,2.5*u*sc); var col=rgb(bCol(a[7])); gr.addColorStop(0,str(col,0.85)); gr.addColorStop(0.4,str(col,0.45)); gr.addColorStop(1,str(col,0)); g.fillStyle=gr; g.beginPath(); g.arc(cx,cy,2.5*u*sc,0,Math.PI*2); g.fill();
+  g.strokeStyle=css('--ink'); g.setLineDash([4,4]); g.lineWidth=1; g.beginPath(); g.arc(cx,cy,u*sc,0,Math.PI*2); g.stroke(); g.setLineDash([]);
+  g.fillStyle=css('--ink'); g.beginPath(); g.arc(cx,cy,2.5,0,Math.PI*2); g.fill();
+  /* komşu atom, bağ uzunluğunda */
+  var bx=cx+1.53*sc; g.strokeStyle=css('--muted'); g.lineWidth=2; g.beginPath(); g.moveTo(cx,cy); g.lineTo(bx,cy); g.stroke(); g.fillStyle=css('--muted'); g.beginPath(); g.arc(bx,cy,4,0,Math.PI*2); g.fill();
+  g.font='12px '+css('--sans'); g.fillStyle=css('--ink'); g.fillText('C-C bağı 1,53 Å',cx+10,cy-10);
+  g.fillText('kesikli çember: u = '+fx(u,2)+' Å',10,18);
+  var L=sc; g.lineWidth=2; g.strokeStyle=css('--ink'); g.beginPath(); g.moveTo(10,H-12); g.lineTo(10+L,H-12); g.stroke(); g.fillText('1 Å',14+L,H-8); }
+function bplotDraw(){ var c=$('o2bplot'), f=fit(c), g=f.g, W=f.W, H=f.H, Lm=40, R=10, T=12, Bm=30; g.fillStyle=css('--soft'); g.fillRect(0,0,W,H);
+  var X=function(r){ return Lm+(r-0.5)*(W-Lm-R)/76; }, Y=function(v){ return T+(1-v/40)*(H-T-Bm); }, bw=(W-Lm-R)/76;
+  axisY(g,Lm,R,T,H,Bm,W,[0,10,20,30,40],Y,function(v){ return fx(v,0); },css('--line'),css('--muted'));
+  for(var r=1;r<=76;r++){ var a=AP[RES[r].ca]; g.fillStyle=r===A1.res?css('--navy'):str(rgb(css('--deep')),0.75); g.fillRect(X(r)-bw*0.38,Y(a[7]),bw*0.76,Y(0)-Y(a[7]));
+    if(CC[r]){ g.fillStyle=css('--gold'); g.fillRect(X(r)-bw*0.38,Y(0)+3,bw*0.76,4); }
+    if(a[6]<1){ g.fillStyle=css('--accent'); g.fillRect(X(r)-bw*0.38,Y(0)+9,bw*0.76,4); } }
+  g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [1,10,20,30,40,50,60,70,76].forEach(function(r){ g.fillText(String(r),X(r),H-4); }); g.textAlign='left';
+  g.save(); g.translate(12,T+(H-T-Bm)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('Cα B (Å²)',0,0); g.restore();
+  var a0=AP[RES[A1.res].ca]; pill(g,rName(A1.res)+' · '+fx(a0[7],1),Math.max(60,Math.min(W-60,X(A1.res))),Math.max(14,Y(a0[7])-14),css('--paper'),str(rgb(css('--navy')),0.88)); }
+(function(){ var c=$('o2bplot'), d=false; function pick(e){ var r=c.getBoundingClientRect(), x=e.clientX-r.left, res=Math.round((x-40)/((r.width-50)/76)+0.5); res=Math.max(1,Math.min(76,res)); if(res!==A1.res){ A1.res=res; $('o2res').value=res; resRead(); ubqDraw(); cloudDraw(); bplotDraw(); } }
+  c.addEventListener('pointerdown',function(e){ d=true; c.setPointerCapture(e.pointerId); pick(e); }); c.addEventListener('pointermove',function(e){ if(d) pick(e); }); c.addEventListener('pointerup',function(){ d=false; }); c.addEventListener('pointercancel',function(){ d=false; }); })();
+
+/* ---------------- tezgâh: yoğunluk modeli ---------------- */
+var S0=0.45*0.45, P8=8*Math.PI*Math.PI;
+function sig2(B){ return S0+B/P8; }
+var CREF=6/Math.pow(2*Math.PI*sig2(13.41),1.5);
+function peakOf(Z,occ,B){ return Z*occ/Math.pow(2*Math.PI*sig2(B),1.5)/CREF; }
+var T2={step:1, anT:0, level:0.25};
+var STEPT={
+ 1:function(){ return 'Hareketsiz bir karbon bile haritada bir nokta değildir: 1,8 Å çözünürlükte ölçüm her atomu yaklaşık σ₀ = 0,45 Å genişliğinde bir bulut olarak verir. B = 0 iken tepe yüksekliği '+fx(peakOf(6,1,0),2)+'. Ölçek: tam dolu ve B değeri 1UBQ ortalaması (13,41 Å²) olan bir karbonun tepesi = 1.'; },
+ 2:function(){ return 'B büyüdükçe bulut yayılır, tepe alçalır; eğrinin altındaki alan, yani atomun elektron sayısı değişmez. Leu43 Cα (B 3,51 Å²): tepe '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36,19 Å²): tepe '+fx(peakOf(6,1,36.19),2)+', aynı atom, üçte birinden az yükseklik.'; },
+ 3:function(){ return 'Doluluk eğriyi olduğu gibi küçültür: 0,25 doluluk tepeyi de alanı da dörtte birine indirir. Gly76 Cα\'nın dosyadaki değerleriyle (doluluk 0,25, B 36,19 Å²) tepe '+fx(peakOf(6,0.25,36.19),2)+'.'; },
+ 4:function(){ var a=peakOf(6,1,3.51), b=peakOf(6,0.25,36.19); return 'Kristalograf haritayı bir kontur düzeyinde çizer; yoğunluğu bu düzeyi aşan yer görünür. Düzey '+fx(T2.level,2)+' iken Leu43 Cα ('+fx(a,2)+') açıkça görünür, Gly76 Cα ('+fx(b,2)+') '+(b>=T2.level?'sınırda görünür.':'görünmez. Model kurulurken böyle bir atomun konumu komşularından tahmin edilir, doluluğu ya da B\'si yükseltilir ya da atom hiç yazılmaz.'); }};
+function setStep(n){ T2.step=n; T2.anT=0; document.querySelectorAll('#o2steps button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-st')===n)); }); $('o2stepT').textContent=STEPT[n](); $('o2next').textContent=n===4?'Haritaya geç':'Sonraki adım'; profDraw(); kick(); }
+function profDraw(){ var c=$('o2prof'), f=fit(c), g=f.g, W=f.W, H=f.H, L=44, R=12, T=14, B=30; g.fillStyle=css('--soft'); g.fillRect(0,0,W,H);
+  var X=function(x){ return L+(x+3)/6*(W-L-R); }, Y=function(v){ return T+(1-v/2.6)*(H-T-B); };
+  axisY(g,L,R,T,H,B,W,[0,0.5,1,1.5,2,2.5],Y,function(v){ return fx(v,1); },css('--line'),css('--muted'));
+  g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [-3,-2,-1,0,1,2,3].forEach(function(x){ g.fillText(fx(x,0),X(x),H-12); }); g.fillText('atom merkezinden uzaklık (Å)',X(0),H-1); g.textAlign='left';
+  function curve(occ,Bv,col,wid,dash,label){ var s=sig2(Bv), pk=peakOf(6,occ,Bv); g.strokeStyle=col; g.lineWidth=wid; g.setLineDash(dash||[]); g.beginPath(); for(var k=0;k<=240;k++){ var x=-3+6*k/240, y=pk*Math.exp(-x*x/(2*s)); if(k===0) g.moveTo(X(x),Y(y)); else g.lineTo(X(x),Y(y)); } g.stroke(); g.setLineDash([]);
+    if(label){ g.fillStyle=col; g.font='600 12px '+css('--sans'); g.fillText(label,X(0.06)+4,Math.max(T+10,Y(pk)-6)); } return pk; }
+  var st=T2.step, t=T2.anT, dk=css('--deep'), ac=css('--accent'), mu=css('--muted');
+  if(st===1){ curve(1,13.41,mu,1.2,[4,4],'başvuru (B 13,41)'); curve(1,0,dk,2.6,null,'B = 0'); }
+  if(st===2){ var Bn=reduce?36.19:(20+20*Math.sin(t*1.1-Math.PI/2)+0.01); curve(1,3.51,mu,1.2,[4,4],null); curve(1,36.19,mu,1.2,[4,4],null); curve(1,Bn,dk,2.6,null,'B = '+fx(Bn,1)+' Å²'); }
+  if(st===3){ var on=reduce?0.25:(0.625+0.375*Math.cos(t*1.1)); curve(1,36.19,mu,1.2,[4,4],'doluluk 1'); curve(on,36.19,ac,2.6,null,'doluluk '+fx(on,2)); }
+  if(st===4){ var lv=Y(T2.level); g.fillStyle=str(rgb(css('--good')),0.12); g.fillRect(L,T,W-L-R,lv-T); g.strokeStyle=css('--good'); g.lineWidth=1.6; g.setLineDash([6,4]); g.beginPath(); g.moveTo(L,lv); g.lineTo(W-R,lv); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.font='600 12px '+css('--sans'); g.textAlign='right'; g.fillText('kontur '+fx(T2.level,2),W-R-4,lv-5); g.textAlign='left';
+    curve(1,3.51,dk,2.4,null,'Leu43 Cα'); curve(0.25,36.19,ac,2.4,null,'Gly76 Cα'); }
+}
+
+/* harita: 70-76 */
+var MR=[70,71,72,73,74,75,76], MI=[]; MR.forEach(function(r){ RES[r].idx.forEach(function(i){ MI.push(i); }); });
+function eig3(A){ var V=[[1,0,0],[0,1,0],[0,0,1]], a=A.map(function(r){ return r.slice(); });
+  for(var sw=0;sw<30;sw++){ for(var p=0;p<2;p++) for(var q=p+1;q<3;q++){ if(Math.abs(a[p][q])<1e-12) continue; var th=(a[q][q]-a[p][p])/(2*a[p][q]), t=(th>=0?1:-1)/(Math.abs(th)+Math.sqrt(th*th+1)), c=1/Math.sqrt(t*t+1), s=t*c;
+      for(var k=0;k<3;k++){ var akp=a[k][p], akq=a[k][q]; a[k][p]=c*akp-s*akq; a[k][q]=s*akp+c*akq; } for(k=0;k<3;k++){ var apk=a[p][k], aqk=a[q][k]; a[p][k]=c*apk-s*aqk; a[q][k]=s*apk+c*aqk; } for(k=0;k<3;k++){ var vkp=V[k][p], vkq=V[k][q]; V[k][p]=c*vkp-s*vkq; V[k][q]=s*vkp+c*vkq; } } }
+  var ev=[0,1,2].map(function(i){ return {l:a[i][i],v:[V[0][i],V[1][i],V[2][i]]}; }); ev.sort(function(x,y){ return y.l-x.l; }); return ev; }
+var MPROJ=(function(){ var c=[0,0,0]; MI.forEach(function(i){ c[0]+=AP[i][0]; c[1]+=AP[i][1]; c[2]+=AP[i][2]; }); c=c.map(function(v){ return v/MI.length; });
+  var C=[[0,0,0],[0,0,0],[0,0,0]]; MI.forEach(function(i){ var d=[AP[i][0]-c[0],AP[i][1]-c[1],AP[i][2]-c[2]]; for(var a=0;a<3;a++) for(var b=0;b<3;b++) C[a][b]+=d[a]*d[b]; });
+  var ev=eig3(C), e1=ev[0].v, e2=ev[1].v, e3=ev[2].v; var uv={}; MI.forEach(function(i){ var d=[AP[i][0]-c[0],AP[i][1]-c[1],AP[i][2]-c[2]]; uv[i]=[d[0]*e1[0]+d[1]*e1[1]+d[2]*e1[2], d[0]*e2[0]+d[1]*e2[1]+d[2]*e2[2], d[0]*e3[0]+d[1]*e3[1]+d[2]*e3[2]]; });
+  var xs=MI.map(function(i){ return uv[i][0]; }), ys=MI.map(function(i){ return uv[i][1]; });
+  return {uv:uv, x0:Math.min.apply(null,xs)-2.4, x1:Math.max.apply(null,xs)+2.4, y0:Math.min.apply(null,ys)-2.4, y1:Math.max.apply(null,ys)+2.4}; })();
+var MB=MO2.bonds.filter(function(b){ return MPROJ.uv[b[0]]&&MPROJ.uv[b[1]]; });
+var MS={}, MB0={}; MR.forEach(function(r){ var bs=RES[r].idx.map(function(i){ return AP[i][7]; }); MB0[r]=bs.reduce(function(s,v){ return s+v; },0)/bs.length; MS[r]={occ:AP[RES[r].idx[0]][6], bs:1}; });
+var T3={res:74, level:0.25, trials:[], vis:{}};
+function aOcc(i){ return MS[AP[i][5]].occ; } function aB(i){ return AP[i][7]*MS[AP[i][5]].bs; }
+var MQ={}; function mqUpd(){ MI.forEach(function(i){ var q=sig2(aB(i)); MQ[i]={q:q,a:ZE[PEL[i]]*aOcc(i)/Math.pow(2*Math.PI*q,1.5)/CREF}; }); }
+function rho3(x,y,w,list){ var s=0; for(var k=0;k<list.length;k++){ var i=list[k], p=MPROJ.uv[i], m=MQ[i], dx=x-p[0], dy=y-p[1], dw=w-p[2], d2=dx*dx+dy*dy+dw*dw; if(d2>16*m.q) continue; s+=m.a*Math.exp(-d2/(2*m.q)); } return s; }
+function densMIP(x,y){ var near=[]; for(var k=0;k<MI.length;k++){ var i=MI[k], p=MPROJ.uv[i], dx=x-p[0], dy=y-p[1]; if(dx*dx+dy*dy<16*MQ[i].q) near.push(i); } if(!near.length) return 0; var best=0; for(k=0;k<near.length;k++){ var v=rho3(x,y,MPROJ.uv[near[k]][2],near); if(v>best) best=v; } return best; }
+function densAt(i){ var p=MPROJ.uv[i]; return rho3(p[0],p[1],p[2],MI); }
+function resPeak(r){ var idx=RES[r].idx, s=0; idx.forEach(function(i){ s+=peakOf(ZE[PEL[i]],aOcc(i),aB(i)); }); return s/idx.length; }
+function mapDraw(){ var c=$('o2map'), f=fit(c), g=f.g, W=f.W, H=f.H; var M=MPROJ, sx=(W-16)/(M.x1-M.x0), sy=(H-16)/(M.y1-M.y0), sc=Math.min(sx,sy);
+  var ox=W/2-(M.x0+M.x1)/2*sc, oy=H/2+(M.y0+M.y1)/2*sc, X=function(u){ return ox+u*sc; }, Y=function(v){ return oy-v*sc; };
+  mqUpd(); var st=W<500?4:3, nx=Math.ceil(W/st), ny=Math.ceil(H/st), grid=new Float32Array((nx+1)*(ny+1));
+  for(var j=0;j<=ny;j++) for(var i=0;i<=nx;i++) grid[j*(nx+1)+i]=densMIP((i*st-ox)/sc,(oy-j*st)/sc);
+  var img=g.createImageData(nx,ny), p0=rgb(css('--paper')), p1=rgb(css('--pale')), p2=rgb(css('--mid'));
+  for(j=0;j<ny;j++) for(i=0;i<nx;i++){ var v=Math.min(1.4,grid[j*(nx+1)+i])/1.4, cc=v<0.5?mixA(p0,p1,v*2):mixA(p1,p2,(v-0.5)*2), o=(j*nx+i)*4; img.data[o]=cc[0]; img.data[o+1]=cc[1]; img.data[o+2]=cc[2]; img.data[o+3]=255; }
+  var tmp=document.createElement('canvas'); tmp.width=nx; tmp.height=ny; tmp.getContext('2d').putImageData(img,0,0); g.imageSmoothingEnabled=true; g.drawImage(tmp,0,0,nx*st,ny*st);
+  /* kontur: marching squares */
+  var lv=T3.level; g.strokeStyle=css('--deep'); g.lineWidth=1.5; g.beginPath();
+  function ip(a,b){ return (lv-a)/(b-a); }
+  for(j=0;j<ny;j++) for(i=0;i<nx;i++){ var a=grid[j*(nx+1)+i], b=grid[j*(nx+1)+i+1], d=grid[(j+1)*(nx+1)+i], e=grid[(j+1)*(nx+1)+i+1];
+    var code=(a>=lv?8:0)|(b>=lv?4:0)|(e>=lv?2:0)|(d>=lv?1:0); if(code===0||code===15) continue;
+    var x=i*st, y=j*st, T=[x+ip(a,b)*st,y], Rr=[x+st,y+ip(b,e)*st], Bt=[x+ip(d,e)*st,y+st], Lf=[x,y+ip(a,d)*st];
+    var segs={1:[[Lf,Bt]],2:[[Bt,Rr]],3:[[Lf,Rr]],4:[[T,Rr]],5:[[Lf,T],[Bt,Rr]],6:[[T,Bt]],7:[[Lf,T]],8:[[Lf,T]],9:[[T,Bt]],10:[[T,Rr],[Lf,Bt]],11:[[T,Rr]],12:[[Lf,Rr]],13:[[Bt,Rr]],14:[[Lf,Bt]]}[code];
+    segs.forEach(function(sg){ g.moveTo(sg[0][0],sg[0][1]); g.lineTo(sg[1][0],sg[1][1]); }); }
+  g.stroke();
+  /* model */
+  MB.forEach(function(bd){ var p=MPROJ.uv[bd[0]], q=MPROJ.uv[bd[1]], sel=AP[bd[0]][5]===T3.res||AP[bd[1]][5]===T3.res; g.strokeStyle=sel?css('--ink'):str(rgb(css('--ink')),0.45); g.lineWidth=sel?2.6:1.3; g.beginPath(); g.moveTo(X(p[0]),Y(p[1])); g.lineTo(X(q[0]),Y(q[1])); g.stroke(); });
+  var vis={}; MI.forEach(function(i){ var p=MPROJ.uv[i], dv=densAt(i), ok=dv>=lv; vis[i]=dv; var sel=AP[i][5]===T3.res, r=sel?4.6:3.4; g.beginPath(); g.arc(X(p[0]),Y(p[1]),r,0,Math.PI*2);
+    if(ok){ g.fillStyle=css('--good'); g.fill(); } else { g.fillStyle=css('--paper'); g.fill(); g.strokeStyle=css('--bad'); g.lineWidth=1.8; g.stroke(); } });
+  T3.vis=vis;
+  g.font='600 12px '+css('--sans'); MR.forEach(function(r){ var p=MPROJ.uv[RES[r].ca]; pill(g,rName(r),X(p[0]),Y(p[1])-16,r===T3.res?css('--paper'):css('--ink'),r===T3.res?str(rgb(css('--navy')),0.9):str(rgb(css('--paper')),0.85)); });
+  var L=sc*2; g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(10,H-10); g.lineTo(10+L,H-10); g.stroke(); g.fillStyle=css('--ink'); g.font='12px '+css('--sans'); g.fillText('2 Å',14+L,H-6); }
+function mapChips(){ $('o2mres').innerHTML=MR.map(function(r){ return '<button type="button" class="chip" data-r="'+r+'" aria-pressed="'+(r===T3.res)+'">'+rName(r)+'</button>'; }).join('');
+  $('o2mres').querySelectorAll('.chip').forEach(function(b){ b.addEventListener('click',function(){ T3.res=+b.getAttribute('data-r'); mapChips(); mapSync(); mapAll(); }); }); }
+function mapSync(){ var s=MS[T3.res]; $('o2mo').value=s.occ; $('o2mb').value=(s.bs*MB0[T3.res]).toFixed(1); }
+function mapRead(){ var r=T3.res, s=MS[r], idx=RES[r].idx, nv=0, weak=1e9; idx.forEach(function(i){ var v=T3.vis[i]; if(v>=T3.level) nv++; weak=Math.min(weak,v/T3.level); });
+  $('o2moV').textContent=fx(s.occ,2); $('o2mbV').textContent=fx(s.bs*MB0[r],1)+' Å² (ortalama)'; $('o2mcV').textContent=fx(T3.level,2);
+  $('o2mvis').textContent=nv+' / '+idx.length; $('o2mweak').textContent=fx(weak,2); $('o2mpk').textContent=fx(resPeak(r),3);
+  var fileSame=Math.abs(s.occ-AP[idx[0]][6])<1e-6&&Math.abs(s.bs-1)<1e-6;
+  $('o2mnote').textContent=fileSame?rName(r)+': dosyadaki değerler (doluluk '+fx(s.occ,2)+', ortalama B '+fx(MB0[r],1)+' Å²).':'';
+  var BB={N:1,CA:1,C:1,O:1,OXT:1}, sc=idx.filter(function(i){ return !BB[AP[i][3]]; }), nsv=sc.filter(function(i){ return T3.vis[i]>=T3.level; }).length;
+  if(s.occ>=0.9&&sc.length&&nsv===0&&T3.level<=0.40){ card('o2c2',true,rName(r)+': doluluk '+fx(s.occ,2)+', ortalama B '+fx(s.bs*MB0[r],1)+' Å², kontur '+fx(T3.level,2)+'. Yan zincirin '+sc.length+' atomunun hepsi konturun altında; tam dolu bir kalıntı da yalnız B yeterince büyükse haritadan kaybolur.'+(nv?' Omurganın '+(idx.length-sc.length)+' atomundan '+nv+' tanesi komşu kalıntıların yoğunluğuyla hâlâ görünüyor.':' Omurga da kayboldu.')); }
+  else if(!FOUND.o2c2) card('o2c2',false,(s.occ>=0.9&&sc.length)?rName(r)+': yan zincirde '+nsv+' / '+sc.length+' atom hâlâ görünüyor'+(T3.level>0.40?' (kontur 0,40\'ı aşmamalı)':'')+'.':null); }
+function trialAdd(){ var r=T3.res, s=MS[r], pk=resPeak(r); T3.trials.unshift({r:r,occ:s.occ,B:s.bs*MB0[r],pk:pk}); if(T3.trials.length>8) T3.trials.pop();
+  $('o2mtab').innerHTML=T3.trials.map(function(t,k){ return '<tr><td class="n">'+(T3.trials.length-k)+'</td><td>'+rName(t.r)+'</td><td class="n">'+fx(t.occ,2)+'</td><td class="n">'+fx(t.B,1)+'</td><td class="n">'+fx(t.pk,3)+'</td></tr>'; }).join('');
+  var hit=null; for(var a=0;a<T3.trials.length&&!hit;a++) for(var b=a+1;b<T3.trials.length;b++){ var p=T3.trials[a], q=T3.trials[b]; if(p.r===q.r&&Math.abs(p.occ-q.occ)>=0.3-1e-9&&Math.abs(p.pk/q.pk-1)<=0.05){ hit=[p,q]; break; } }
+  if(hit){ var lo=hit[0].occ<hit[1].occ?hit[0]:hit[1], hi=lo===hit[0]?hit[1]:hit[0]; card('o2c3',true,rName(lo.r)+': doluluk '+fx(lo.occ,2)+' ve B '+fx(lo.B,1)+' Å² → tepe '+fx(lo.pk,3)+'; doluluk '+fx(hi.occ,2)+' ve B '+fx(hi.B,1)+' Å² → tepe '+fx(hi.pk,3)+'. Tepe yüksekliği ikisinde aynı. Bulutun genişliği farklıdır, ama bu fark komşu atomlarla karışınca kolay ayrılmaz; bu yüzden iyileştirmede doluluk ile B birbirine bağlıdır.'); }
+  else if(!FOUND.o2c3&&T3.trials.length) card('o2c3',false,T3.trials.length+' deneme kaydedildi. Aynı kalıntıda, dolulukları en az 0,3 farklı iki denemede tepeyi eşitleyin.'); }
+function mapAll(){ mapDraw(); mapRead(); }
+
+/* ---------------- defter: sular ---------------- */
+var WT=MO2.wt, T4={bmax:50, pmin:0, omin:0, sym:false, V:new View(0.9,0.3), seen:[]};
+function keep(w){ return w[2]<=T4.bmax+1e-9&&w[3]>=T4.pmin&&w[1]>=T4.omin-1e-9&&!(T4.sym&&w[4]>0); }
+function jit(id){ var s=Math.sin(id*12.9898)*43758.5453; return (s-Math.floor(s))-0.5; }
+function wsDraw(){ var c=$('o2ws'), f=fit(c), g=f.g, W=f.W, H=f.H, L=40, R=12, T=12, B=30; g.fillStyle=css('--soft'); g.fillRect(0,0,W,H);
+  var X=function(b){ return L+b/50*(W-L-R); }, Y=function(n){ return T+(1-(n+0.5)/5)*(H-T-B); };
+  g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.strokeStyle=css('--line'); g.lineWidth=1;
+  [0,1,2,3,4].forEach(function(n){ g.beginPath(); g.moveTo(L,Y(n)); g.lineTo(W-R,Y(n)); g.stroke(); g.textAlign='right'; g.fillText(String(n),L-8,Y(n)+4); });
+  g.textAlign='center'; [0,10,20,30,40,50].forEach(function(b){ g.fillText(fx(b,0),X(b),H-12); }); g.fillText('B (Å²)',X(25),H-1); g.textAlign='left';
+  g.fillStyle=str(rgb(css('--good')),0.10); g.fillRect(L,T,X(T4.bmax)-L,Y(T4.pmin-0.5)-T);
+  g.strokeStyle=css('--good'); g.setLineDash([5,4]); g.beginPath(); g.moveTo(X(T4.bmax),T); g.lineTo(X(T4.bmax),H-B); g.moveTo(L,Y(T4.pmin-0.5)); g.lineTo(W-R,Y(T4.pmin-0.5)); g.stroke(); g.setLineDash([]);
+  WT.forEach(function(w){ var k=keep(w), x=X(w[2]), y=Y(w[3])+jit(w[0])*(H-T-B)/5*0.6, r=2.5+4.5*w[1];
+    g.beginPath(); g.arc(x,y,r,0,Math.PI*2); g.fillStyle=k?css('--deep'):str(rgb(css('--muted')),0.35); g.fill();
+    if(w[4]>0){ g.strokeStyle=css('--gold'); g.lineWidth=2; g.beginPath(); g.arc(x,y,r+2.5,0,Math.PI*2); g.stroke(); } }); }
+function wRead(){ var K=WT.filter(keep), n=K.length; $('o2wbV').textContent=fx(T4.bmax,1); $('o2wpV').textContent=String(T4.pmin); $('o2woV').textContent=fx(T4.omin,2);
+  $('o2wn').textContent=n+' / 58'; $('o2wmb').textContent=n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1)+' Å²':'yok'; $('o2wsy').textContent=String(K.filter(function(w){ return w[4]>0; }).length);
+  $('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td>HOH '+w[0]+'</td><td class="n">'+fx(w[2],1)+'</td><td class="n">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan="4">Bu ölçütle hiç su kalmadı.</td></tr>';
+  if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Ölçütünüz: komşu moleküle değmeyen, en az '+T4.pmin+' polar protein komşusu olan'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', doluluk ≥ '+fx(T4.omin,2):'')+' sular: '+n+' / 58, ortalama B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'yok')+' Å². Bunlar proteinin kendi yüzeyine bağlı; çözeltide de benzer yerlerde bulunmaları beklenir, ama bu bir beklentidir, kanıt değil.'); }
+  else if(!FOUND.o2c4) card('o2c4',false,T4.sym?'Komşu moleküle değenler çıkarıldı. Şimdi en az 2 polar protein komşusu isteyin.':(T4.pmin>=2?'En az '+T4.pmin+' polar komşu istendi. Şimdi komşu moleküle değenleri de çıkarın.':null)); }
+function watDraw(){ var c=$('o2wat'), f=fit(c), g=f.g; g.fillStyle=css('--stage'); g.fillRect(0,0,f.W,f.H);
+  var P=projector(T4.V,CEN,RAD,f.W,f.H), items=[];
+  for(var r=1;r<76;r++){ var a=AP[RES[r].ca], b=AP[RES[r+1].ca], sa=P(a[0],a[1],a[2]), sb=P(b[0],b[1],b[2]); items.push({k:0,a:sa,b:sb,z:(sa[2]+sb[2])/2}); }
+  WT.forEach(function(w,j){ var p=WA[j], s=P(p[0],p[1],p[2]); items.push({k:1,s:s,w:w,z:s[2]}); });
+  items.sort(function(p,q){ return p.z-q.z; });
+  items.forEach(function(it){ var dep=Math.max(0,Math.min(1,0.5+it.z/RAD));
+    if(it.k===0){ g.strokeStyle=str(rgb(css('--navy')),0.35+0.5*dep); g.lineWidth=Math.max(2,0.55*it.a[3]); g.lineCap='round'; g.beginPath(); g.moveTo(it.a[0],it.a[1]); g.lineTo(it.b[0],it.b[1]); g.stroke(); return; }
+    var k=keep(it.w), hx=k?css('--mid'):'#b9bec3'; blit(g,ball('ww'+hx,hx,Math.max(1.4,(k?0.62:0.4)*it.s[3])),it.s[0],it.s[1],k?0.95:0.35);
+    if(k&&it.w[4]>0){ g.strokeStyle=css('--gold'); g.lineWidth=2; g.beginPath(); g.arc(it.s[0],it.s[1],0.62*it.s[3]+3,0,Math.PI*2); g.stroke(); } }); }
+
+/* ---------------- proteine dönüş: kristal B ve MD ---------------- */
+function mdDraw(){ var D=MO2.md; if(!D) return; var c=$('o2md'), f=fit(c), g=f.g, W=f.W, H=f.H, L=40, R=10, T=12, B=30; g.fillStyle=css('--soft'); g.fillRect(0,0,W,H);
+  var ym=Math.max(40,Math.ceil(Math.max.apply(null,D.bmd.concat(D.bh1,D.bh2))/10)*10), X=function(r){ return L+(r-1)/75*(W-L-R); }, Y=function(v){ return T+(1-v/ym)*(H-T-B); };
+  var tk=[]; for(var v=0;v<=ym;v+=ym>60?20:10) tk.push(v); axisY(g,L,R,T,H,B,W,tk,Y,function(v){ return fx(v,0); },css('--line'),css('--muted'));
+  g.fillStyle=str(rgb(css('--pale')),0.8); g.beginPath(); for(var r=1;r<=76;r++){ var hi=Math.max(D.bh1[r-1],D.bh2[r-1]); if(r===1) g.moveTo(X(r),Y(hi)); else g.lineTo(X(r),Y(hi)); } for(r=76;r>=1;r--) g.lineTo(X(r),Y(Math.min(D.bh1[r-1],D.bh2[r-1]))); g.closePath(); g.fill();
+  function line(arr,col,w){ g.strokeStyle=col; g.lineWidth=w; g.beginPath(); arr.forEach(function(v,k){ if(k===0) g.moveTo(X(k+1),Y(v)); else g.lineTo(X(k+1),Y(v)); }); g.stroke(); }
+  line(D.bx,css('--deep'),2.2); line(D.bmd,css('--accent'),2.2);
+  g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [1,10,20,30,40,50,60,70,76].forEach(function(r){ g.fillText(String(r),X(r),H-12); }); g.fillText('kalıntı',X(38),H-1); g.textAlign='left';
+  g.save(); g.translate(12,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('Cα B (Å²)',0,0); g.restore(); }
+function pear(a,b){ var n=a.length, ma=0, mb=0; for(var i=0;i<n;i++){ ma+=a[i]; mb+=b[i]; } ma/=n; mb/=n; var sab=0,saa=0,sbb=0; for(i=0;i<n;i++){ sab+=(a[i]-ma)*(b[i]-mb); saa+=(a[i]-ma)*(a[i]-ma); sbb+=(b[i]-mb)*(b[i]-mb); } return sab/Math.sqrt(saa*sbb); }
+function mdRead(){ var D=MO2.md; if(!D){ $('o2mdR').innerHTML=''; $('o2md').hidden=true; document.querySelector('#o2mdS .legend').hidden=true; $('o2mdP').innerHTML='<p>Bu karşılaştırma için bu projede 2 ns\'lik kısıtsız bir koşu (S0 hazırlığı, 300 K, NPT) şu anda sürüyor; protokolü koşudan önce yazılıp donduruldu. Sonuç gelince burada kristal B değerleri ile koşudan hesaplanan değerler kalıntı kalıntı karşılaştırılacak. Bu senaryo henüz hesaplanmadı.</p>'; return; } var mean=function(a){ return a.reduce(function(s,v){ return s+v; },0)/a.length; };
+  $('o2mdR').innerHTML='<dt>Pearson r, 76 kalıntı</dt><dd>'+fx(pear(D.bx,D.bmd),2)+'</dd><dt>Pearson r, 1-72 (esnek kuyruk hariç)</dt><dd>'+fx(pear(D.bx.slice(0,72),D.bmd.slice(0,72)),2)+'</dd><dt>Ortalama Cα B: kristal / MD</dt><dd>'+fx(mean(D.bx),1)+' / '+fx(mean(D.bmd),1)+' Å²</dd><dt>MD\'nin iki yarısı arasında r</dt><dd>'+fx(pear(D.bh1,D.bh2),2)+'</dd>'; }
+
+/* ---------------- sınav ---------------- */
+var QZ=[
+ {s:'B değeri 36 Å² olan bir atomun tek yöndeki yayılması (u) yaklaşık ne kadardır?',o:[['0,07 Å',0],['0,68 Å',1],['6 Å',0],['36 Å',0]],w:'u = √(B / 8π²) = √(36 / 79) ≈ 0,68 Å. Üç boyutta kök ortalama kare yayılma √3 kat, yaklaşık 1,17 Å.'},
+ {s:'Bir atomun doluluğunun 0,25 olması ne demektir?',o:[['Atomun elektronlarının dörtte biri ölçülmüştür',0],['Model, atomun kristaldeki moleküllerin yaklaşık dörtte birinde bu konumda olduğunu söyler',1],['Atom, zamanın dörtte birinde titreşir',0],['Koordinatların hatası %25\'tir',0]],w:'Doluluk bir paydır: bu konumun moleküllerin ne kadarında dolu olduğu. Geri kalan moleküllerde atomun nerede olduğunu dosya söylemez.'},
+ {s:'1UBQ\'da C ucunun B değerleri yüksek. Bu tek başına neyi kanıtlamaz?',o:[['Bu bölgenin konumunun moleküller arasında daha çok yayıldığını',0],['Bu yayılmanın tamamen ısıl titreşimden geldiğini',1],['Haritada bu bölgenin daha zayıf göründüğünü',0],['Bu atomların modelde daha belirsiz olduğunu',0]],w:'B; titreşimi, moleküller arasındaki konum farklarını ve kristal kusurlarını birlikte içerir. Payları tek sayıdan ayrılamaz.'},
+ {s:'pdb2gmx, dosyada doluluğu 0,25 olan Gly75\'i nasıl işler?',o:[['Atomu siler',0],['Uyarı yazar ve atomu tam dolu, tek bir kopya olarak topolojiye koyar',1],['Atomu dörtte bir kütleyle koyar',0],['Dört kopya üretir',0]],w:'Bu projenin günlüğünde: "28 atoms with occupancy unequal to one". pdb2gmx devam eder; simülasyonda doluluk diye bir şey yoktur.'},
+ {s:'Haritada zayıf görünen bir atom için doluluk ile B neden zor ayrılır?',o:[['İkisi de tepe yüksekliğini düşürür; düşük doluluk ile yüksek B benzer bir tepe verebilir',1],['Doluluk yalnız hidrojenleri etkiler',0],['B yalnız suları etkiler',0],['İkisi aynı niceliğin iki adıdır',0]],w:'Tezgâhta gördünüz: aynı tepe yüksekliği iki farklı yoldan elde edilebilir. Bu yüzden iyileştirmede doluluk ve B birbirine bağlıdır ve düşük doluluklu atomların B\'si dikkatle okunmalıdır.'},
+ {s:'Kristal sularını MD\'ye taşımayı düşünüyorsunuz. Hangi sulara en çok şüpheyle bakmalısınız?',o:[['B\'si en düşük sulara',0],['Kristalde komşu bir moleküle değen sulara: kristal örgüsünün ürünü olabilirler',1],['Proteine üç polar temas kuran sulara',0],['Doluluğu 1 olan sulara',0]],w:'1UBQ\'da 58 suyun 25\'i komşu bir ubikitin molekülüne değiyor. Çözeltide o komşu yoktur; bu suların aynı yerde kalması gerekmez.'}];
+function renderQuiz(){ var got={};
+  $('o2quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'">'+o[0]+'</button>';}).join('')+'</div><p class="why" id="o2why'+i+'" hidden></p></div>'; }).join('');
+  document.querySelectorAll('#o2quiz .opt').forEach(function(b){ b.addEventListener('click',function(){
+    var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], okk=q.o[j][1]===1;
+    document.querySelectorAll('#o2quiz .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); });
+    b.classList.add(okk?'right':'wrong'); var w=$('o2why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;
+    if(!(i in got)) got[i]=okk; var n=Object.keys(got).length, r=Object.keys(got).filter(function(k){return got[k];}).length;
+    $('o2score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }
+
+/* ---------------- olaylar ve döngü ---------------- */
+$('o2snap').addEventListener('click',expSnap);
+$('o2expose').addEventListener('click',expStart);
+$('o2zoom').querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ E0.zoom=b.getAttribute('data-z'); $('o2zoom').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); if(E0.mode==='snap') expSnap(); else expStart(); }); });
+$('o2occ').addEventListener('change',function(){ E0.occ=this.checked; if(E0.mode==='snap') expSnap(); else expStart(); });
+$('o2res').addEventListener('input',function(){ A1.res=+this.value; resRead(); ubqDraw(); cloudDraw(); bplotDraw(); });
+$('o2col').querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ A1.col=b.getAttribute('data-c'); $('o2col').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); ubqDraw(); }); });
+document.querySelectorAll('#o2steps button').forEach(function(b){ b.addEventListener('click',function(){ setStep(+b.getAttribute('data-st')); }); });
+$('o2next').addEventListener('click',function(){ if(T2.step===4){ $('o2try').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); return; } setStep(T2.step+1); });
+$('o2mo').addEventListener('input',function(){ MS[T3.res].occ=+this.value; mapAll(); });
+$('o2mb').addEventListener('input',function(){ MS[T3.res].bs=+this.value/MB0[T3.res]; mapAll(); });
+$('o2mo').addEventListener('change',trialAdd); $('o2mb').addEventListener('change',trialAdd);
+$('o2mc').addEventListener('input',function(){ T3.level=+this.value; mapAll(); });
+$('o2mreset').addEventListener('click',function(){ MR.forEach(function(r){ MS[r]={occ:AP[RES[r].idx[0]][6], bs:1}; }); mapSync(); mapAll(); });
+$('o2wb').addEventListener('input',function(){ T4.bmax=+this.value; wAll(); });
+$('o2wp').addEventListener('input',function(){ T4.pmin=+this.value; wAll(); });
+$('o2wo').addEventListener('input',function(){ T4.omin=+this.value; wAll(); });
+$('o2wsym').addEventListener('change',function(){ T4.sym=this.checked; wAll(); });
+function wAll(){ wsDraw(); wRead(); watDraw(); }
+dragRotate('o2ubq',A1.V,function(){ ubqDraw(); });
+dragRotate('o2wat',T4.V,function(){ watDraw(); });
+dragRotate('o2exp',E0.V,function(){ if(E0.mode==='snap') expSnap(); });
+var raf=null, lastT=null;
+function frame(ts){ raf=null; var dt=lastT==null?0.016:Math.min(0.05,(ts-lastT)/1000); lastT=ts; var go=false;
+  if(E0.mode==='exp'&&E0.n<E0.target){ expFrames(Math.min(6,E0.target-E0.n),0.05); expDraw(); go=true; }
+  if(!A1.V.user&&!reduce&&vis.u){ A1.V.yaw+=dt*0.22; ubqDraw(); go=true; }
+  if(!T4.V.user&&!reduce&&vis.w){ T4.V.yaw+=dt*0.22; watDraw(); go=true; }
+  if((T2.step===2||T2.step===3)&&!reduce&&vis.p){ T2.anT+=dt; profDraw(); go=true; }
+  if(go) raf=requestAnimationFrame(frame); else lastT=null; }
+function kick(){ if(!raf) raf=requestAnimationFrame(frame); }
+var vis={u:true,w:true,p:true}; if('IntersectionObserver' in window){ [['u','o2ubq'],['w','o2wat'],['p','o2prof']].forEach(function(q){ new IntersectionObserver(function(es){ vis[q[0]]=es[0].isIntersecting; if(vis[q[0]]) kick(); }).observe($(q[1])); }); }
+var rT=null; window.addEventListener('resize',function(){ clearTimeout(rT); rT=setTimeout(function(){ if(E0.mode==='snap') expSnap(); else { expClear(); expFrames(E0.target,0.05); expDraw(); } ubqDraw(); cloudDraw(); bplotDraw(); profDraw(); mapAll(); wAll(); mdDraw(); },100); });
+
+['o2c1','o2c2','o2c3','o2c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });
+expStart(); resRead(); ubqDraw(); cloudDraw(); bplotDraw(); setStep(1); mapChips(); mapSync(); mapAll(); wAll(); mdDraw(); mdRead(); renderQuiz(); kick();
+})();
+</script>
+</body>
+</html>

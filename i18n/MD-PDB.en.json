@@ -1,0 +1,628 @@
+{
+ "module": "MD-PDB",
+ "lang": "en",
+ "source_sha256": "dc41016ebf933a4f255a0c4c0df2fefcf2d92625cb812848f5aa69e514c5cdc2",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-PDB 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>Yapı Dosyası</title>",
+   "<title>The Structure File</title>"
+  ],
+  [
+   "<div class=\"proto\">Bu modül MD-O'dan (protonasyon ve yük) sonra gelir ve aynı ubikitin dosyasını kullanır. Canlandırmalar ve yoğunluk haritası tarayıcınızda şimdi hesaplanır; koordinatlar, doluluk ve B değerleri 1UBQ dosyasının gerçek satırlarından, pdb2gmx çıktıları ve MD karşılaştırması bu projede gerçekten koşulmuş çalıştırmalardan gelir.</div>",
+   "<div class=\"proto\">This module follows MD-O (protonation and charge) and uses the same ubiquitin file. The animations and the density map are computed in your browser right now; the coordinates, occupancies and B values come from the real lines of the 1UBQ file, and the pdb2gmx outputs and the MD comparison come from runs that were actually made in this project.</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-PDB · Bir proteini MD'ye hazırlamak</span>",
+   "<span class=\"eyebrow\">MD-PDB · Preparing a protein for MD</span>"
+  ],
+  [
+   "<h1>Yapı dosyası neyi saklar? Doluluk, B faktörü ve kristal suları</h1>",
+   "<h1>What does a structure file hold? Occupancy, B-factor and crystal waters</h1>"
+  ],
+  [
+   "<p class=\"lead\">Bir PDB dosyası tek bir molekülün fotoğrafı değildir. Kristaldeki çok sayıda molekülün, ölçüm süresi boyunca alınmış ortalamasıdır. Her atom satırının sonundaki iki sayı bu ortalamanın izini taşır: <b>doluluk</b>, atomun o konumda bulunduğu molekül payını; <b>B faktörü</b>, konumun çevresindeki yayılmayı söyler. MD programı ise bu iki sayıyı kullanmaz. Bu laboratuvarda o sayıların ne anlattığını ve simülasyona girerken neyin kaybolduğunu göreceksiniz.</p>",
+   "<p class=\"lead\">A PDB file is not a photograph of a single molecule. It is an average over many molecules in the crystal, taken over the whole measurement. Two numbers at the end of each atom line carry the trace of this average: the <b>occupancy</b> gives the fraction of molecules in which the atom sits at that position; the <b>B-factor</b> gives the spread around the position. The MD program uses neither number. In this lab you will see what these numbers tell you and what is lost when the structure enters the simulation.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"o2progN\">0 / 4</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"o2progN\">0 / 4</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Bridge to the bench</span>"
+  ],
+  [
+   "<h2 id=\"o2h0\">Uzun pozlamayla çekilmiş bir fotoğraf</h2>",
+   "<h2 id=\"o2h0\">A long-exposure photograph</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kalabalık bir meydanı uzun pozlamayla fotoğraflarsanız duran kişi net çıkar, dolaşan kişi bulanık bir iz bırakır, sürenin yarısında orada olan kişi soluk görünür. X-ışını kırınımı da böyle çalışır: ölçülen yoğunluk, kristaldeki bütün moleküllerin ve ölçüm süresinin ortalamasıdır. Aşağıdaki görünümde ubikitinin atomları, 1UBQ dosyasındaki kendi B değerlerinin öngördüğü kadar titreşiyor ve kendi dolulukları kadar sık görünüyor. Bütün protein görünümünde her kalıntı Cα atomuyla, C ucu görünümünde bütün ağır atomlarıyla çizilir; mavi küçük noktalar kristal sularıdır. Tek bir anı ve uzun pozlamayı karşılaştırın.</p></div>",
+   "<div class=\"prose\"><p>Photograph a crowded square with a long exposure and a person standing still comes out sharp, a person walking around leaves a blurred trail, and a person who was there for half the time looks faint. X-ray diffraction works the same way: the measured density is an average over all the molecules in the crystal and over the whole measurement time. In the view below the atoms of ubiquitin vibrate as much as their own B values in the 1UBQ file predict, and appear as often as their own occupancies. In the whole-protein view each residue is drawn by its Cα atom, in the C-terminus view by all its heavy atoms; the small blue dots are crystal waters. Compare a single instant with a long exposure.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"o2exp\" class=\"stage\" aria-label=\"Ubikitin atomları: her karede atomlar B değerlerine göre rastgele kayar; kareler üst üste biriktikçe uzun pozlama görüntüsü oluşur\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"o2exp\" class=\"stage\" aria-label=\"Ubiquitin atoms: in every frame the atoms shift at random according to their B values; as frames pile up, a long-exposure image forms\"></canvas></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"o2snap\">Tek an</button><button type=\"button\" class=\"btn primary\" id=\"o2expose\">Uzun pozlama</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"o2snap\">Single instant</button><button type=\"button\" class=\"btn primary\" id=\"o2expose\">Long exposure</button></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Görüntü</div><div class=\"seg\" role=\"group\" aria-label=\"Görüntü alanı\" id=\"o2zoom\"><button type=\"button\" data-z=\"all\" aria-pressed=\"true\">Bütün protein (Cα)</button><button type=\"button\" data-z=\"tail\" aria-pressed=\"false\">C ucu (70-76)</button></div></div>",
+   "<div><div class=\"lbl\">View</div><div class=\"seg\" role=\"group\" aria-label=\"View area\" id=\"o2zoom\"><button type=\"button\" data-z=\"all\" aria-pressed=\"true\">Whole protein (Cα)</button><button type=\"button\" data-z=\"tail\" aria-pressed=\"false\">C-terminus (70-76)</button></div></div>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o2occ\" checked> Doluluğu uygula (atom her karede doluluğu kadar olasılıkla çizilir)</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o2occ\" checked> Apply occupancy (in each frame an atom is drawn with a probability equal to its occupancy)</label>"
+  ],
+  [
+   "<dt>Üst üste binen kare</dt><dd id=\"o2nF\"></dd>",
+   "<dt>Frames stacked</dt><dd id=\"o2nF\"></dd>"
+  ],
+  [
+   "<dt>Leu43 Cα (B 3,51 Å²): tek yöndeki yayılma</dt><dd id=\"o2uLo\"></dd>",
+   "<dt>Leu43 Cα (B 3.51 Å²): spread along one direction</dt><dd id=\"o2uLo\"></dd>"
+  ],
+  [
+   "<dt>Gly76 Cα (B 36,19 Å², doluluk 0,25): tek yöndeki yayılma</dt><dd id=\"o2uHi\"></dd>",
+   "<dt>Gly76 Cα (B 36.19 Å², occupancy 0.25): spread along one direction</dt><dd id=\"o2uHi\"></dd>"
+  ],
+  [
+   "<p class=\"small\">1UBQ: Vijay-Kumar, Bugg ve Cook 1987 (J Mol Biol 194:531), X-ışını, 1,8 Å, R 0,176, çözücü payı %33, uzay grubu P2₁2₁2₁. Canlandırmada her atomun her yöndeki kayması, ortalaması sıfır ve standart sapması u = √(B / 8π²) olan normal dağılımdan çekilir; bu, izotropik B faktörünün tanımıdır. Canlandırma bir öğretim modelidir: gerçek moleküllerde atomlar birbirinden bağımsız titreşmez, komşular birlikte hareket eder. Atom yarıçapları okunabilirlik için küçültülmüştür.</p>",
+   "<p class=\"small\">1UBQ: Vijay-Kumar, Bugg and Cook 1987 (J Mol Biol 194:531), X-ray, 1.8 Å, R 0.176, solvent content 33%, space group P2₁2₁2₁. In the animation, each atom's shift along each direction is drawn from a normal distribution with mean zero and standard deviation u = √(B / 8π²); this is the definition of the isotropic B-factor. The animation is a teaching model: in real molecules atoms do not vibrate independently of one another; neighbours move together. Atom radii are reduced for legibility.</p>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
+  ],
+  [
+   "<h2 id=\"o2h1\">PDB satırını okuyun</h2>",
+   "<h2 id=\"o2h1\">Read the PDB line</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Görünümdeki ubikitin 1UBQ'nun 602 ağır atomu ve 58 kristal suyudur; renk her atomun B değerini gösterir. Kaydırıcıyla bir kalıntı seçin: o kalıntının Cα satırı dosyada nasıl yazılıysa aşağıda öyle görünür. Satırın bir alanına dokunursanız ne anlama geldiği açılır. Proteini sürükleyerek döndürebilirsiniz.</p></div>",
+   "<div class=\"prose\"><p>The ubiquitin in the view is the 602 heavy atoms and 58 crystal waters of 1UBQ; the colour shows each atom's B value. Pick a residue with the slider: the Cα line of that residue appears below exactly as it is written in the file. Touch a field of the line and its meaning opens. You can rotate the protein by dragging.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"o2ubq\" class=\"stage\" aria-label=\"Ubikitin ve kristal suları; renk B faktörünü ya da doluluğu gösterir; seçili kalıntı vurgulanır; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"o2ubq\" class=\"stage\" aria-label=\"Ubiquitin and crystal waters; colour shows the B-factor or the occupancy; the selected residue is highlighted; rotate by dragging\"></canvas></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"o2res\">Kalıntı</label><div class=\"big\" id=\"o2resV\"></div><input type=\"range\" id=\"o2res\" min=\"1\" max=\"76\" step=\"1\" value=\"43\"></div>",
+   "<div><label class=\"lbl\" for=\"o2res\">Residue</label><div class=\"big\" id=\"o2resV\"></div><input type=\"range\" id=\"o2res\" min=\"1\" max=\"76\" step=\"1\" value=\"43\"></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Renk</div><div class=\"seg\" role=\"group\" aria-label=\"Renk ölçeği\" id=\"o2col\"><button type=\"button\" data-c=\"b\" aria-pressed=\"true\">B faktörü</button><button type=\"button\" data-c=\"o\" aria-pressed=\"false\">Doluluk</button></div></div>",
+   "<div><div class=\"lbl\">Colour</div><div class=\"seg\" role=\"group\" aria-label=\"Colour scale\" id=\"o2col\"><button type=\"button\" data-c=\"b\" aria-pressed=\"true\">B-factor</button><button type=\"button\" data-c=\"o\" aria-pressed=\"false\">Occupancy</button></div></div>"
+  ],
+  [
+   "<dt>Cα'nın B değeri</dt><dd id=\"o2rB\"></dd>",
+   "<dt>B value of the Cα</dt><dd id=\"o2rB\"></dd>"
+  ],
+  [
+   "<dt>Tek yöndeki yayılma, u = √(B / 8π²)</dt><dd id=\"o2rU\"></dd>",
+   "<dt>Spread along one direction, u = √(B / 8π²)</dt><dd id=\"o2rU\"></dd>"
+  ],
+  [
+   "<dt>Üç boyutta kök ortalama kare yayılma, √3 · u</dt><dd id=\"o2rR\"></dd>",
+   "<dt>Root-mean-square spread in three dimensions, √3 · u</dt><dd id=\"o2rR\"></dd>"
+  ],
+  [
+   "<dt>Doluluk</dt><dd id=\"o2rO\"></dd>",
+   "<dt>Occupancy</dt><dd id=\"o2rO\"></dd>"
+  ],
+  [
+   "<dt>Kristalde komşu moleküle değiyor mu? (4 Å)</dt><dd id=\"o2rC\"></dd>",
+   "<dt>Does it touch a neighbouring molecule in the crystal? (4 Å)</dt><dd id=\"o2rC\"></dd>"
+  ],
+  [
+   "<canvas id=\"o2cloud\" class=\"plot\" aria-label=\"Seçili Cα'nın yayılma bulutu, gerçek ölçekte; 1,53 Å'lük C-C bağıyla karşılaştırma\"></canvas>",
+   "<canvas id=\"o2cloud\" class=\"plot\" aria-label=\"Spread cloud of the selected Cα at true scale, compared with a 1.53 Å C-C bond\"></canvas>"
+  ],
+  [
+   "<div class=\"pdbl\" id=\"o2line\" role=\"group\" aria-label=\"PDB satırının alanları\"></div>",
+   "<div class=\"pdbl\" id=\"o2line\" role=\"group\" aria-label=\"Fields of the PDB line\"></div>"
+  ],
+  [
+   "<canvas id=\"o2bplot\" class=\"plot\" aria-label=\"Kalıntı başına Cα B değeri; kristal komşusuna değen kalıntılar işaretli; seçili kalıntı vurgulu\"></canvas>",
+   "<canvas id=\"o2bplot\" class=\"plot\" aria-label=\"Cα B value per residue; residues touching a crystal neighbour are marked; the selected residue is highlighted\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Cα'nın B değeri</span><span><i style=\"background:var(--gold)\"></i>Kristalde komşu moleküle değen kalıntı (4 Å içinde)</span><span><i style=\"background:var(--accent)\"></i>Doluluğu 1'den küçük kalıntı</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>B value of the Cα</span><span><i style=\"background:var(--gold)\"></i>Residue touching a neighbouring molecule in the crystal (within 4 Å)</span><span><i style=\"background:var(--accent)\"></i>Residue with occupancy below 1</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"o2c1\"><span class=\"k\">Açık</span><h3>En sabit ve en hareketli kalıntı ne kadar farklı?</h3><p>B değeri çok düşük bir kalıntıyla çok yüksek bir kalıntıyı karşılaştırın.</p><div class=\"mine\" id=\"mo2c1\">Cα B değeri 5 Å²'den düşük bir kalıntı ve 30 Å²'den yüksek bir kalıntı seçin.</div></article>",
+   "<article class=\"q\" id=\"o2c1\"><span class=\"k\">Open</span><h3>How different are the most rigid and the most mobile residue?</h3><p>Compare a residue with a very low B value and one with a very high B value.</p><div class=\"mine\" id=\"mo2c1\">Pick a residue whose Cα B value is below 5 Å² and one whose Cα B value is above 30 Å².</div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
+  ],
+  [
+   "<h2 id=\"o2h2\">Yoğunluk haritasında bir atom ne zaman kaybolur?</h2>",
+   "<h2 id=\"o2h2\">When does an atom disappear from a density map?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kristalograf atomları doğrudan görmez; elektron yoğunluğu haritasını görür ve modeli o haritaya yerleştirir. B faktörü ve doluluk, bir atomun haritada ne kadar belirgin olduğunu belirler. Önce dört adımda tek bir karbon atomunu izleyin; sonra 1UBQ'nun C ucunda iki sayıyı kendiniz değiştirin.</p></div>",
+   "<div class=\"prose\"><p>Crystallographers do not see atoms directly; they see an electron density map and place the model into it. The B-factor and the occupancy decide how clearly an atom stands out in the map. First follow a single carbon atom in four steps; then change the two numbers yourself at the C-terminus of 1UBQ.</p></div>"
+  ],
+  [
+   "<canvas id=\"o2prof\" class=\"plot\" aria-label=\"Tek bir karbon atomunun yoğunluk profili: B ve doluluk değiştikçe tepe yüksekliği ve genişliği; kontur düzeyi\"></canvas>",
+   "<canvas id=\"o2prof\" class=\"plot\" aria-label=\"Density profile of a single carbon atom: peak height and width as B and occupancy change; contour level\"></canvas>"
+  ],
+  [
+   "<div class=\"lbl\">Yoğunluk dört adımda</div>",
+   "<div class=\"lbl\">Density in four steps</div>"
+  ],
+  [
+   "<li><button type=\"button\" data-st=\"1\" aria-pressed=\"true\">Hareketsiz atom</button></li>",
+   "<li><button type=\"button\" data-st=\"1\" aria-pressed=\"true\">An atom at rest</button></li>"
+  ],
+  [
+   "<li><button type=\"button\" data-st=\"2\" aria-pressed=\"false\">Titreşim bulutu genişletir</button></li>",
+   "<li><button type=\"button\" data-st=\"2\" aria-pressed=\"false\">Vibration widens the cloud</button></li>"
+  ],
+  [
+   "<li><button type=\"button\" data-st=\"3\" aria-pressed=\"false\">Doluluk tepeyi alçaltır</button></li>",
+   "<li><button type=\"button\" data-st=\"3\" aria-pressed=\"false\">Occupancy lowers the peak</button></li>"
+  ],
+  [
+   "<li><button type=\"button\" data-st=\"4\" aria-pressed=\"false\">Kontur: haritada ne görünür?</button></li>",
+   "<li><button type=\"button\" data-st=\"4\" aria-pressed=\"false\">Contour: what shows in the map?</button></li>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"o2next\">Sonraki adım</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"o2next\">Next step</button></div>"
+  ],
+  [
+   "<h3 class=\"h3\">Kendiniz deneyin: C ucunun haritası</h3>",
+   "<h3 class=\"h3\">Try it yourself: the map of the C-terminus</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Harita, 1UBQ'nun 70-76 kalıntılarının gerçek koordinatlarından, her atomun dosyadaki doluluğu ve B değeriyle hesaplanır. Çizgiler kontur düzeyidir: yoğunluğun bu düzeyi aştığı yer \"görünür\". Bir kalıntı seçip doluluğunu ve B değerini değiştirin; atomun yerindeki yoğunluk kontur düzeyinin altına inerse atom içi boş çizilir.</p></div>",
+   "<div class=\"prose\"><p>The map is computed from the real coordinates of residues 70-76 of 1UBQ, with each atom's occupancy and B value from the file. The lines are the contour level: where the density exceeds this level is \"visible\". Pick a residue and change its occupancy and B value; if the density at an atom's position falls below the contour level, the atom is drawn hollow.</p></div>"
+  ],
+  [
+   "<canvas id=\"o2map\" class=\"plot\" aria-label=\"70-76 kalıntılarının model yoğunluk haritası, kontur çizgileri ve atom modeli\"></canvas>",
+   "<canvas id=\"o2map\" class=\"plot\" aria-label=\"Model density map of residues 70-76, contour lines and atomic model\"></canvas>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kalıntı</div><div class=\"chips\" id=\"o2mres\"></div></div>",
+   "<div><div class=\"lbl\">Residue</div><div class=\"chips\" id=\"o2mres\"></div></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"o2mo\">Doluluk</label><div class=\"big\" id=\"o2moV\"></div><input type=\"range\" id=\"o2mo\" min=\"0.05\" max=\"1\" step=\"0.01\" value=\"0.45\"></div>",
+   "<div><label class=\"lbl\" for=\"o2mo\">Occupancy</label><div class=\"big\" id=\"o2moV\"></div><input type=\"range\" id=\"o2mo\" min=\"0.05\" max=\"1\" step=\"0.01\" value=\"0.45\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"o2mc\">Kontur düzeyi</label><div class=\"big\" id=\"o2mcV\"></div><input type=\"range\" id=\"o2mc\" min=\"0.10\" max=\"1.00\" step=\"0.01\" value=\"0.25\"></div>",
+   "<div><label class=\"lbl\" for=\"o2mc\">Contour level</label><div class=\"big\" id=\"o2mcV\"></div><input type=\"range\" id=\"o2mc\" min=\"0.10\" max=\"1.00\" step=\"0.01\" value=\"0.25\"></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"o2mreset\">Dosyadaki değerlere dön</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"o2mreset\">Back to the file values</button></div>"
+  ],
+  [
+   "<dt>Seçili kalıntıda görünen atom</dt><dd id=\"o2mvis\"></dd>",
+   "<dt>Visible atoms in the selected residue</dt><dd id=\"o2mvis\"></dd>"
+  ],
+  [
+   "<dt>En zayıf atomun yerindeki yoğunluk / kontur</dt><dd id=\"o2mweak\"></dd>",
+   "<dt>Density at the weakest atom / contour</dt><dd id=\"o2mweak\"></dd>"
+  ],
+  [
+   "<dt>Kalıntının tepe yüksekliği (tam dolu, B 13,41 Å² karbon = 1)</dt><dd id=\"o2mpk\"></dd>",
+   "<dt>Peak height of the residue (fully occupied carbon with B 13.41 Å² = 1)</dt><dd id=\"o2mpk\"></dd>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Kontur çizgisi</span><span><i style=\"background:var(--good)\"></i>Görünen atom (dolu)</span><span><i style=\"background:var(--bad)\"></i>Konturun altında kalan atom (içi boş)</span><span>Kalın çizilen: seçili kalıntı</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Contour line</span><span><i style=\"background:var(--good)\"></i>Visible atom (filled)</span><span><i style=\"background:var(--bad)\"></i>Atom below the contour (hollow)</span><span>Drawn thick: selected residue</span></div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Deneme</th><th>Kalıntı</th><th>Doluluk</th><th>B (Å²)</th><th>Tepe yüksekliği</th></tr></thead><tbody id=\"o2mtab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Trial</th><th>Residue</th><th>Occupancy</th><th>B (Å²)</th><th>Peak height</th></tr></thead><tbody id=\"o2mtab\"></tbody></table></div>"
+  ],
+  [
+   "<p class=\"small\">Model: her atom, elektron sayısı (C 6, N 7, O 8) çarpı doluluk kadar yük taşıyan üç boyutlu bir Gauss bulutudur; bulutun her yöndeki varyansı σ² = σ₀² + B / 8π². σ₀ = 0,45 Å, 1,8 Å çözünürlüğün kendi bulanıklığını temsil eden bir model değişkenidir. Görünen harita, bu bulutların toplamı olan üç boyutlu yoğunluğun, kalıntılara en iyi uyan düzleme dik yönde alınmış en büyük değeridir; bir atomun görünüp görünmediğine ise yoğunluğun o atomun merkezindeki değerine bakılır. Harita yalnız 70-76 kalıntılarını içerir. Bu sayfadaki yoğunluk 1UBQ'nun ölçülmüş haritası değildir; atom koordinatlarından, doluluk ve B değerlerinden tarayıcıda hesaplanan bir öğretim modelidir. Kontur düzeyi, tam dolu ve B değeri 13,41 Å² (1UBQ protein atomlarının ortalaması) olan tek bir karbonun tepe yüksekliğine göre verilir.</p>",
+   "<p class=\"small\">Model: each atom is a three-dimensional Gaussian cloud carrying its electron count (C 6, N 7, O 8) times its occupancy; the cloud's variance along each direction is σ² = σ₀² + B / 8π². σ₀ = 0.45 Å is a model parameter standing for the blur of the 1.8 Å resolution itself. The map shown is the largest value, taken along the direction perpendicular to the plane that best fits the residues, of the three-dimensional density formed by these clouds; whether an atom is visible is decided by the density at that atom's centre. The map contains only residues 70-76. The density on this page is not the measured map of 1UBQ; it is a teaching model computed in the browser from the atomic coordinates, occupancies and B values. The contour level is given relative to the peak height of a single fully occupied carbon with a B value of 13.41 Å² (the mean over 1UBQ protein atoms).</p>"
+  ],
+  [
+   "<article class=\"q\" id=\"o2c2\"><span class=\"k\">Açık</span><h3>Tam dolu bir atom da kaybolabilir mi?</h3><p>Doluluğu 1'e yakın tutun ve yalnız B değerini değiştirin.</p><div class=\"mine\" id=\"mo2c2\">Doluluğu en az 0,90 olan bir kalıntının yan zincirindeki bütün atomları, kontur 0,40'ı aşmadan, konturun altına indirin.</div></article>",
+   "<article class=\"q\" id=\"o2c2\"><span class=\"k\">Open</span><h3>Can a fully occupied atom disappear too?</h3><p>Keep the occupancy close to 1 and change only the B value.</p><div class=\"mine\" id=\"mo2c2\">Bring every side-chain atom of a residue with occupancy of at least 0.90 below the contour, without raising the contour above 0.40.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"o2c3\"><span class=\"k\">Açık</span><h3>Haritaya bakarak doluluk ile B ayırt edilir mi?</h3><p>Aynı kalıntıda aynı tepe yüksekliğini iki farklı yoldan elde edin.</p><div class=\"mine\" id=\"mo2c3\">Doluluğu en az 0,3 farklı iki denemede tepe yüksekliğini %5 içinde eşitleyin (tablodaki satırlar).</div></article>",
+   "<article class=\"q\" id=\"o2c3\"><span class=\"k\">Open</span><h3>Can occupancy and B be told apart from the map?</h3><p>Reach the same peak height in the same residue by two different routes.</p><div class=\"mine\" id=\"mo2c3\">Match the peak height within 5% in two trials whose occupancies differ by at least 0.3 (the rows of the table).</div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Defter</span>",
+   "<span class=\"step\">3 · Notebook</span>"
+  ],
+  [
+   "<h2 id=\"o2h3\">58 suyun kararı</h2>",
+   "<h2 id=\"o2h3\">Deciding on 58 waters</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>1UBQ'da 58 kristal suyu var. Bu projede sular girdiden çıkarıldı ve protein yeni bir su kutusuna yerleştirildi. Bazı çalışmalar ise proteine sıkı bağlı suları tutar. Hangi su \"proteinin suyu\", hangisi kristalin? Her nokta bir su: yatay eksende B, dikey eksende 3,5 Å içindeki polar protein komşusu (N ya da O) sayısı; nokta boyu doluluk. Halkalı noktalar kristalde komşu bir ubikitin molekülüne de değiyor. Kendi ölçütünüzü kurun ve kaç suyun kaldığını görün.</p></div>",
+   "<div class=\"prose\"><p>1UBQ contains 58 crystal waters. In this project the waters were removed from the input and the protein was placed into a new water box. Some studies, however, keep waters bound tightly to the protein. Which water is \"the protein's water\" and which belongs to the crystal? Each point is a water: B on the horizontal axis, the number of polar protein neighbours (N or O) within 3.5 Å on the vertical axis; the point size is the occupancy. Ringed points also touch a neighbouring ubiquitin molecule in the crystal. Build your own criterion and see how many waters remain.</p></div>"
+  ],
+  [
+   "<canvas id=\"o2ws\" class=\"plot\" aria-label=\"58 kristal suyu: B faktörüne karşı polar protein komşusu sayısı; nokta boyu doluluk; halka kristal komşusu; tutulan sular koyu\"></canvas>",
+   "<canvas id=\"o2ws\" class=\"plot\" aria-label=\"58 crystal waters: B-factor against the number of polar protein neighbours; point size occupancy; ring crystal neighbour; kept waters dark\"></canvas>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"o2wb\">En yüksek B (Å²)</label><div class=\"big\" id=\"o2wbV\"></div><input type=\"range\" id=\"o2wb\" min=\"5\" max=\"50\" step=\"0.5\" value=\"50\"></div>",
+   "<div><label class=\"lbl\" for=\"o2wb\">Highest B (Å²)</label><div class=\"big\" id=\"o2wbV\"></div><input type=\"range\" id=\"o2wb\" min=\"5\" max=\"50\" step=\"0.5\" value=\"50\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"o2wp\">En az polar protein komşusu</label><div class=\"big\" id=\"o2wpV\"></div><input type=\"range\" id=\"o2wp\" min=\"0\" max=\"4\" step=\"1\" value=\"0\"></div>",
+   "<div><label class=\"lbl\" for=\"o2wp\">Fewest polar protein neighbours</label><div class=\"big\" id=\"o2wpV\"></div><input type=\"range\" id=\"o2wp\" min=\"0\" max=\"4\" step=\"1\" value=\"0\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"o2wo\">En az doluluk</label><div class=\"big\" id=\"o2woV\"></div><input type=\"range\" id=\"o2wo\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0\"></div>",
+   "<div><label class=\"lbl\" for=\"o2wo\">Lowest occupancy</label><div class=\"big\" id=\"o2woV\"></div><input type=\"range\" id=\"o2wo\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0\"></div>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o2wsym\"> Kristalde komşu moleküle değen suları çıkar</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o2wsym\"> Remove waters that touch a neighbouring molecule in the crystal</label>"
+  ],
+  [
+   "<dt>Tutulan su</dt><dd id=\"o2wn\"></dd>",
+   "<dt>Waters kept</dt><dd id=\"o2wn\"></dd>"
+  ],
+  [
+   "<dt>Tutulanların ortalama B değeri</dt><dd id=\"o2wmb\"></dd>",
+   "<dt>Mean B of the kept waters</dt><dd id=\"o2wmb\"></dd>"
+  ],
+  [
+   "<dt>Tutulanlardan komşu moleküle de değen</dt><dd id=\"o2wsy\"></dd>",
+   "<dt>Kept waters that also touch a neighbouring molecule</dt><dd id=\"o2wsy\"></dd>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"o2wat\" class=\"stage\" aria-label=\"Ubikitinin omurgası ve tutulan kristal suları; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"o2wat\" class=\"stage\" aria-label=\"Ubiquitin backbone and the kept crystal waters; rotate by dragging\"></canvas></div>"
+  ],
+  [
+   "<div class=\"lbl\">Seçtiğiniz ölçütle tutulan sular</div>",
+   "<div class=\"lbl\">Waters kept by your criterion</div>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Su</th><th>B</th><th>Doluluk</th><th>En yakın protein atomu</th></tr></thead><tbody id=\"o2wtab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Water</th><th>B</th><th>Occupancy</th><th>Nearest protein atom</th></tr></thead><tbody id=\"o2wtab\"></tbody></table></div>"
+  ],
+  [
+   "<p class=\"small\">Komşu sayıları bu sayfa için 1UBQ koordinatlarından hesaplandı: polar protein komşusu, suyun oksijenine 3,5 Å'den yakın N ya da O atomudur. Kristal komşuları, uzay grubunun (P2₁2₁2₁) simetri işlemleri ve birim hücre kaydırmalarıyla üretilen ubikitin kopyalarıdır; bir su bu kopyalardan birinin N ya da O atomuna 3,5 Å'den yakınsa \"komşu moleküle değiyor\" sayılır. 58 suyun 25'i komşu bir moleküle, bunların 16'sı aynı anda proteinin kendisine de değiyor. 9 su ne proteine ne komşu moleküle 3,5 Å içinde polar temas kuruyor; bunlar büyük olasılıkla başka suların oluşturduğu ağda duruyor. Ölçütün doğrusu yoktur: amaç, hangi seçimin hangi soruya uyduğunu görmektir.</p>",
+   "<p class=\"small\">Neighbour counts were computed for this page from the 1UBQ coordinates: a polar protein neighbour is an N or O atom closer than 3.5 Å to the water oxygen. Crystal neighbours are copies of ubiquitin generated with the symmetry operations of the space group (P2₁2₁2₁) and unit-cell translations; a water closer than 3.5 Å to an N or O atom of one of these copies counts as \"touching a neighbouring molecule\". Of the 58 waters, 25 touch a neighbouring molecule, and 16 of those touch the protein itself as well. 9 waters make no polar contact within 3.5 Å with either the protein or a neighbouring molecule; they most likely sit in a network formed by other waters. There is no correct criterion: the point is to see which choice fits which question.</p>"
+  ],
+  [
+   "<article class=\"q\" id=\"o2c4\"><span class=\"k\">Açık</span><h3>Proteine ait olan sular hangileri?</h3><p>Kristal komşusuna değen suları çıkarın ve proteine en az iki polar temas isteyin.</p><div class=\"mine\" id=\"mo2c4\">Komşu moleküle değenleri çıkarıp en az 2 polar protein komşusu isteyen bir ölçüt kurun.</div></article>",
+   "<article class=\"q\" id=\"o2c4\"><span class=\"k\">Open</span><h3>Which waters belong to the protein?</h3><p>Remove the waters that touch a crystal neighbour and ask for at least two polar contacts with the protein.</p><div class=\"mine\" id=\"mo2c4\">Build a criterion that removes waters touching a neighbouring molecule and asks for at least 2 polar protein neighbours.</div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to the protein</span>"
+  ],
+  [
+   "<h2 id=\"o2h4\">Bu iki sayı simülasyona girerken ne oluyor?</h2>",
+   "<h2 id=\"o2h4\">What happens to these two numbers when the structure enters the simulation?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>pdb2gmx, doluluğu 1'den küçük atomları sayar, bir uyarı yazar ve devam eder. Bu atomların her biri simülasyona tam dolu bir atom olarak girer; B faktörü hiç kullanılmaz. Aşağıda bu projenin iki gerçek çalıştırması var: biri projenin kendi girdisiyle (kristal suları çıkarılmış), öteki suları da içeren özgün dosyayla.</p></div>",
+   "<div class=\"prose\"><p>pdb2gmx counts the atoms with occupancy below 1, writes a warning and carries on. Each of these atoms enters the simulation as a fully occupied atom; the B-factor is not used at all. Below are two real runs from this project: one with the project's own input (crystal waters removed), the other with the original file that also contains the waters.</p></div>"
+  ],
+  [
+   "<div class=\"crash ok\"><div class=\"lbl\">pdb2gmx.log (24 Eylül 2026, <code>1UBQ_protein_only.pdb</code>)</div><pre>there were 0 atoms with zero occupancy and 28 atoms with occupancy unequal to one (out of 602 atoms). Check your pdb file.</pre></div>",
+   "<div class=\"crash ok\"><div class=\"lbl\">pdb2gmx.log (24 September 2026, <code>1UBQ_protein_only.pdb</code>)</div><pre>there were 0 atoms with zero occupancy and 28 atoms with occupancy unequal to one (out of 602 atoms). Check your pdb file.</pre></div>"
+  ],
+  [
+   "<div class=\"crash ok\"><div class=\"lbl\">pdb2gmx (29 Eylül 2026, <code>1UBQ.pdb</code>, kristal sularıyla)</div><pre>there were 0 atoms with zero occupancy and 57 atoms with occupancy unequal to one (out of 660 atoms). Check your pdb file.",
+   "<div class=\"crash ok\"><div class=\"lbl\">pdb2gmx (29 September 2026, <code>1UBQ.pdb</code>, with crystal waters)</div><pre>there were 0 atoms with zero occupancy and 57 atoms with occupancy unequal to one (out of 660 atoms). Check your pdb file."
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Doluluğu 1'den küçük</th><th>Atom</th><th>Dosyadaki doluluk</th><th>Simülasyonda</th></tr></thead><tbody>",
+   "<div class=\"tw\"><table><thead><tr><th>Occupancy below 1</th><th>Atoms</th><th>Occupancy in the file</th><th>In the simulation</th></tr></thead><tbody>"
+  ],
+  [
+   "<tr><td>Leu73</td><td class=\"n\">8</td><td class=\"n\">0,45</td><td>tam dolu, bir kopya</td></tr>",
+   "<tr><td>Leu73</td><td class=\"n\">8</td><td class=\"n\">0.45</td><td>fully occupied, one copy</td></tr>"
+  ],
+  [
+   "<tr><td>Arg74</td><td class=\"n\">11</td><td class=\"n\">0,45</td><td>tam dolu, bir kopya</td></tr>",
+   "<tr><td>Arg74</td><td class=\"n\">11</td><td class=\"n\">0.45</td><td>fully occupied, one copy</td></tr>"
+  ],
+  [
+   "<tr><td>Gly75</td><td class=\"n\">4</td><td class=\"n\">0,25</td><td>tam dolu, bir kopya</td></tr>",
+   "<tr><td>Gly75</td><td class=\"n\">4</td><td class=\"n\">0.25</td><td>fully occupied, one copy</td></tr>"
+  ],
+  [
+   "<tr><td>Gly76</td><td class=\"n\">5</td><td class=\"n\">0,25</td><td>tam dolu, bir kopya</td></tr>",
+   "<tr><td>Gly76</td><td class=\"n\">5</td><td class=\"n\">0.25</td><td>fully occupied, one copy</td></tr>"
+  ],
+  [
+   "<tr><td>Kristal suları</td><td class=\"n\">29</td><td class=\"n\">0,36-0,87</td><td>bu projede simülasyona girmedi (girdiden çıkarıldı)</td></tr>",
+   "<tr><td>Crystal waters</td><td class=\"n\">29</td><td class=\"n\">0.36-0.87</td><td>not in the simulation in this project (removed from the input)</td></tr>"
+  ],
+  [
+   "<p class=\"small\">1UBQ'da alternatif konum (altloc) yok; her atomun tek bir konumu var. Alternatif konumlu bir dosyada pdb2gmx yalnız bir konumu kullanır; hangisini isteyeceğinize girdiyi hazırlarken siz karar verirsiniz. Aynı C ucu, MD-EQ'daki minimizasyonsuz S1 koşusunun çöktüğü yerdir (Gly75, ilk adımda N-H bağı); orada nedeni, minimizasyonsuz başlangıçtaki çok yakın su-hidrojen temaslarıydı; doluluk değil. Bu iki bulgu aynı bölgeyi gösterir ama biri ötekinin nedeni değildir.</p>",
+   "<p class=\"small\">1UBQ has no alternate locations (altloc); every atom has a single position. In a file with alternate locations pdb2gmx uses only one of them; you decide which one you want when you prepare the input. The same C-terminus is where the unminimized S1 run in MD-EQ crashed (Gly75, an N-H bond in the first step); there the cause was the very close water-hydrogen contacts of the unminimized start, not the occupancy. The two findings point to the same region, but one is not the cause of the other.</p>"
+  ],
+  [
+   "<h3 class=\"h3\">Kristal B ile çözeltideki MD aynı şeyi mi söylüyor?</h3>",
+   "<h3 class=\"h3\">Do the crystal B and MD in solution tell the same story?</h3>"
+  ],
+  [
+   "<div class=\"prose\" id=\"o2mdP\"><p>Bu projede S0 hazırlığından (kristal suları çıkarılmış, TIP3P su kutusu, 300 K, NPT) kısıtsız 2 ns koşuldu; protokol koşudan önce yazılıp donduruldu. İlk 200 ps atıldı. Kalan 901 karede protein omurgaya göre hizalandı ve her Cα'nın ortalama konumu çevresindeki kök ortalama kare yayılması (RMSF) hesaplandı. Kristal B ile karşılaştırmak için B = (8π² / 3) · RMSF² kullanıldı. Aşağıda ikisi kalıntı kalıntı yan yana.</p></div>",
+   "<div class=\"prose\" id=\"o2mdP\"><p>In this project an unrestrained 2 ns run was made from the S0 preparation (crystal waters removed, TIP3P water box, 300 K, NPT); the protocol was written and frozen before the run. The first 200 ps were discarded. In the remaining 901 frames the protein was fitted on its backbone and the root-mean-square fluctuation (RMSF) of each Cα around its mean position was computed. To compare with the crystal B, B = (8π² / 3) · RMSF² was used. Below, the two are shown side by side, residue by residue.</p></div>"
+  ],
+  [
+   "<canvas id=\"o2md\" class=\"plot\" aria-label=\"Kalıntı başına Cα B değeri: kristal ve 2 ns MD'den hesaplanan\"></canvas>",
+   "<canvas id=\"o2md\" class=\"plot\" aria-label=\"Cα B value per residue: crystal and computed from 2 ns of MD\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Kristal, 1UBQ</span><span><i style=\"background:var(--accent)\"></i>MD, 200-2000 ps</span><span><i style=\"background:var(--pale)\"></i>MD'nin iki yarısı arasındaki aralık</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Crystal, 1UBQ</span><span><i style=\"background:var(--accent)\"></i>MD, 200-2000 ps</span><span><i style=\"background:var(--pale)\"></i>Range between the two halves of the MD run</span></div>"
+  ],
+  [
+   "<div class=\"prose\"><p><b>Ne görülüyor?</b> İki eğri aynı yerlerde yükseliyor: C ucu (72-76) ve 8-10 dönemeci ikisinde de en hareketli bölgeler; 76 kalıntının tamamında r 0,87. Kuyruğu çıkarınca uyum azalıyor (1-72'de r 0,59), çünkü ilk sayıyı büyük ölçüde kuyruk belirliyor. Çekirdekte MD daha düşük: 1-72 kalıntılarının ortanca B değeri kristalde 8,8, MD'de 5,8 Å². Kristal B, ısıl titreşimin yanında moleküller arasındaki küçük konum farklarını ve kristal kusurlarını da içerir; MD'de bunlar yoktur. Kuyrukta ise tersine MD çok daha yüksek (Gly75: kristal 36,1, MD 87,6 Å²). Çözeltide komşu molekül yoktur ve kuyruk serbesttir; kristalde ise Arg72 ve Arg74 komşu bir moleküle değer ve kuyruğun düzensizliğinin bir kısmı B'ye değil düşük doluluğa yazılmıştır. Bunlar olası açıklamalardır; bu karşılaştırma hangisinin ne kadar etkili olduğunu ayırmaz.</p></div>",
+   "<div class=\"prose\"><p><b>What do we see?</b> The two curves rise in the same places: the C-terminus (72-76) and the 8-10 turn are the most mobile regions in both; over all 76 residues r is 0.87. Without the tail the agreement drops (r 0.59 over 1-72), because the first number is set largely by the tail. In the core MD is lower: the median B of residues 1-72 is 8.8 Å² in the crystal and 5.8 Å² in MD. The crystal B contains, besides thermal vibration, small position differences between molecules and crystal defects; MD has none of these. At the tail, by contrast, MD is much higher (Gly75: crystal 36.1, MD 87.6 Å²). In solution there is no neighbouring molecule and the tail is free; in the crystal Arg72 and Arg74 touch a neighbouring molecule, and part of the tail's disorder was written into a low occupancy rather than into B. These are possible explanations; this comparison does not separate how much each one contributes.</p></div>"
+  ],
+  [
+   "<p class=\"small\" id=\"o2mdN\">Sınırlar: 2 ns kısa bir koşudur ve keşifsel olarak etiketlidir; yakınsama kanıtı değildir. Koşunun iki yarısı (200-1100 ve 1100-2000 ps) arasında r 0,86, ama kuyrukta fark büyük (Arg74'te iki yarı arasında 52 Å²): kuyruğun hareketi bu sürede yeterince örneklenmedi. Kristalin ölçüm sıcaklığı dosyada yazılı değil; koşu 300 K'dedir. Hesap: <code>gmx trjconv -pbc mol -center</code>, omurgaya <code>-fit rot+trans</code>, <code>gmx rmsf</code> (Cα, 200-2000 ps). Koşu bulutta, GROMACS 2023.3, 2 iş parçacığıyla 3 sa 42 dk sürdü (12,98 ns/gün).</p>",
+   "<p class=\"small\" id=\"o2mdN\">Limits: 2 ns is a short run and is labelled exploratory; it is not evidence of convergence. Between the two halves of the run (200-1100 and 1100-2000 ps) r is 0.86, but the difference is large at the tail (52 Å² between the two halves at Arg74): the motion of the tail was not sampled well enough in this time. The crystal's measurement temperature is not given in the file; the run is at 300 K. Computation: <code>gmx trjconv -pbc mol -center</code>, <code>-fit rot+trans</code> on the backbone, <code>gmx rmsf</code> (Cα, 200-2000 ps). The run took 3 h 42 min in the cloud, GROMACS 2023.3, with 2 threads (12.98 ns/day).</p>"
+  ],
+  [
+   "<span class=\"step\">5 · Kendinizi sınayın</span>",
+   "<span class=\"step\">5 · Test yourself</span>"
+  ],
+  [
+   "<h2 id=\"o2h5\">Altı soru</h2>",
+   "<h2 id=\"o2h5\">Six questions</h2>"
+  ],
+  [
+   "<p class=\"next\">Önceki adım: <a href=\"../md-o/\">MD-O · Protonasyon ve yük</a>. Sıradaki adımlar: <a href=\"../md-pbc/\">MD-PBC · Kenarsız kutu</a> (kutu ve kopyalar) ve <a href=\"../md-eq/\">MD-EQ · Minimizasyon ve dengeleme</a>.</p>",
+   "<p class=\"next\">Previous step: <a href=\"../md-o/\">MD-O · Protonation and charge</a>. Next steps: <a href=\"../md-pbc/\">MD-PBC · The box without edges</a> (the box and its images) and <a href=\"../md-eq/\">MD-EQ · Minimization and equilibration</a>.</p>"
+  ],
+  [
+   "<p class=\"small\">Model: uzun pozlama canlandırması ve yoğunluk haritası tarayıcıda hesaplanan öğretim modelleridir. Koordinatlar, doluluk ve B değerleri <code>1UBQ.pdb</code> dosyasından (RCSB, 1,8 Å, CC0); su komşuları ve kristal komşuları bu dosyadan hesaplandı; pdb2gmx çıktıları ve MD koşusu bu projede gerçekten koşuldu.</p>",
+   "<p class=\"small\">Model: the long-exposure animation and the density map are teaching models computed in the browser. Coordinates, occupancies and B values come from the <code>1UBQ.pdb</code> file (RCSB, 1.8 Å, CC0); water neighbours and crystal neighbours were computed from this file; the pdb2gmx outputs and the MD run were actually run in this project.</p>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('o2progN').textContent=Object.keys(FOUND).length+' / 4'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('o2progN').textContent=Object.keys(FOUND).length+' / 4'; }"
+  ],
+  [
+   "var NFI=new Intl.NumberFormat('tr-TR');",
+   "var NFI=new Intl.NumberFormat('en-US');"
+  ],
+  [
+   "if(E0.zoom==='all'){ var l43=AP[RES[43].ca], s43=G.P(l43[0],l43[1],l43[2]); pill(g,'C ucu (70-76)',s0[0],s0[1]-26,css('--paper'),str(rgb(css('--navy')),0.85)); pill(g,'Leu43',s43[0],s43[1]-18,css('--paper'),str(rgb(css('--navy')),0.85)); }",
+   "if(E0.zoom==='all'){ var l43=AP[RES[43].ca], s43=G.P(l43[0],l43[1],l43[2]); pill(g,'C-terminus (70-76)',s0[0],s0[1]-26,css('--paper'),str(rgb(css('--navy')),0.85)); pill(g,'Leu43',s43[0],s43[1]-18,css('--paper'),str(rgb(css('--navy')),0.85)); }"
+  ],
+  [
+   "if(E0.mode==='snap') nt.textContent='Tek bir an: her atom tek bir noktada. Hangi atomun hareketli olduğu bu görüntüden anlaşılmaz.';",
+   "if(E0.mode==='snap') nt.textContent='A single instant: every atom at a single point. You cannot tell from this image which atom is mobile.';"
+  ],
+  [
+   "else if(E0.n<E0.target) nt.textContent='Pozlama sürüyor…';",
+   "else if(E0.n<E0.target) nt.textContent='Exposure in progress…';"
+  ],
+  [
+   "else nt.textContent=E0.occ?'Çekirdekteki atomlar her karede aşağı yukarı aynı yere düştü ve keskin kaldı. C ucu bulut gibi yayıldı; Gly75 ve Gly76 dört karenin yalnız birinde çizildiği için soluk. B faktörü bu yayılmanın, doluluk bu solukluğun sayısal karşılığıdır.':'Doluluk kapalı: her atom her karede çizildi. C ucu yine yayılıyor ama artık soluk değil. Solukluk doluluktan, yayılma B\\'den gelir.'; }",
+   "else nt.textContent=E0.occ?'The core atoms landed in roughly the same place in every frame and stayed sharp. The C-terminus spread out like a cloud; Gly75 and Gly76 are faint because they were drawn in only one frame out of four. The B-factor is the number behind this spread, the occupancy the number behind this faintness.':'Occupancy off: every atom was drawn in every frame. The C-terminus still spreads, but it is no longer faint. The faintness comes from occupancy, the spread from B.'; }"
+  ],
+  [
+   "var FTXT={rec:'<b>Kayıt türü.</b> ATOM, polimerin (proteinin) atomudur. Su, ligand ve iyonlar HETATM satırıdır; 1UBQ\\'nun 58 suyu HETATM olarak yazılmıştır.',",
+   "var FTXT={rec:'<b>Record type.</b> ATOM is an atom of the polymer (the protein). Water, ligands and ions are HETATM lines; the 58 waters of 1UBQ are written as HETATM.',"
+  ],
+  [
+   "ser:'<b>Atom sıra numarası.</b> MD programı kendi numarasını yeniden verir: pdb2gmx hidrojenleri ekleyince numaralar kayar. Bir atomu dosyalar arasında numarasıyla değil, kalıntı ve adıyla izleyin.',",
+   "ser:'<b>Atom serial number.</b> The MD program renumbers the atoms: once pdb2gmx adds the hydrogens, the numbers shift. Follow an atom across files by its residue and name, not by its number.',"
+  ],
+  [
+   "name:'<b>Atom adı.</b> CA, alfa karbonudur. pdb2gmx her kalıntıyı kuvvet alanındaki tanımla bu adlar üzerinden eşleştirir; tanımadığı bir adda hata verip durur.',",
+   "name:'<b>Atom name.</b> CA is the alpha carbon. pdb2gmx matches each residue to its definition in the force field through these names; it stops with an error at a name it does not recognize.',"
+  ],
+  [
+   "alt:'<b>Alternatif konum.</b> Bir atom kristalde iki ya da daha çok konumda bulunuyorsa her konum A, B gibi bir harfle ayrı satıra yazılır; bu konumların dolulukları toplamı çoğunlukla 1\\'dir. 1UBQ\\'da bu sütun her satırda boştur.',",
+   "alt:'<b>Alternate location.</b> If an atom sits at two or more positions in the crystal, each position is written on its own line with a letter such as A or B; the occupancies of these positions usually add up to 1. In 1UBQ this column is empty on every line.',"
+  ],
+  [
+   "resn:'<b>Kalıntı adı</b> (üç harf).',",
+   "resn:'<b>Residue name</b> (three letters).',"
+  ],
+  [
+   "ch:'<b>Zincir kimliği.</b> 1UBQ\\'da tek zincir var: A. Kristal suları da A zincirine yazılmış, pdb2gmx onları ayrı bir zincir olarak işler.',",
+   "ch:'<b>Chain identifier.</b> 1UBQ has a single chain: A. The crystal waters are also written to chain A; pdb2gmx treats them as a separate chain.',"
+  ],
+  [
+   "resi:'<b>Kalıntı numarası.</b>',",
+   "resi:'<b>Residue number.</b>',"
+  ],
+  [
+   "x:'<b>Koordinat x</b>, ångström (Å). GROMACS nanometre kullanır (10 Å = 1 nm); pdb2gmx dönüşümü kendisi yapar.', y:'<b>Koordinat y</b>, ångström (Å).', z:'<b>Koordinat z</b>, ångström (Å).',",
+   "x:'<b>Coordinate x</b>, in angstroms (Å). GROMACS uses nanometres (10 Å = 1 nm); pdb2gmx does the conversion itself.', y:'<b>Coordinate y</b>, in angstroms (Å).', z:'<b>Coordinate z</b>, in angstroms (Å).',"
+  ],
+  [
+   "occ:'<b>Doluluk.</b> Bu atomun bu konumda bulunduğu molekül payı. 1,00: her molekülde burada. 1UBQ\\'da Leu73 ve Arg74 0,45, Gly75 ve Gly76 0,25; model bu atomların moleküllerin yalnız bir kısmında bu konumda olduğunu söyler. Geri kalan moleküllerde neredeler? Dosya bunu söylemez.',",
+   "occ:'<b>Occupancy.</b> The fraction of molecules in which this atom sits at this position. 1.00: here in every molecule. In 1UBQ, Leu73 and Arg74 have 0.45 and Gly75 and Gly76 0.25; the model says these atoms are at this position in only part of the molecules. Where are they in the rest? The file does not say.',"
+  ],
+  [
+   "b:'<b>B faktörü</b> (Å²). Konumun çevresindeki yayılmanın ölçüsü: her yöndeki ortalama kare kayma u² = B / 8π². İçinde ısıl titreşim, moleküller arasındaki küçük konum farkları ve kristal kusurları birlikte vardır; hangisinin payının ne kadar olduğu bu tek sayıdan ayrılamaz.',",
+   "b:'<b>B-factor</b> (Å²). A measure of the spread around the position: the mean square displacement along each direction is u² = B / 8π². It contains thermal vibration, small position differences between molecules and crystal defects together; how much each contributes cannot be separated from this single number.',"
+  ],
+  [
+   "el:'<b>Element simgesi.</b>'};",
+   "el:'<b>Element symbol.</b>'};"
+  ],
+  [
+   "$('o2resV').textContent=rName(r); $('o2rB').textContent=fx(B,2)+' Å²'; $('o2rU').textContent=fx(u,2)+' Å'; $('o2rR').textContent=fx(u*Math.sqrt(3),2)+' Å'; $('o2rO').textContent=fx(a[6],2); $('o2rC').textContent=CC[r]?'evet':'hayır';",
+   "$('o2resV').textContent=rName(r); $('o2rB').textContent=fx(B,2)+' Å²'; $('o2rU').textContent=fx(u,2)+' Å'; $('o2rR').textContent=fx(u*Math.sqrt(3),2)+' Å'; $('o2rO').textContent=fx(a[6],2); $('o2rC').textContent=CC[r]?'yes':'no';"
+  ],
+  [
+   "card('o2c1',true,rName(A1.seen.lo)+': B '+fx(bl,2)+' Å², u '+fx(uOf(bl),2)+' Å. '+rName(A1.seen.hi)+': B '+fx(bh,2)+' Å², u '+fx(uOf(bh),2)+' Å. B '+fx(bh/bl,1)+' kat büyük ama yayılma yalnız '+fx(Math.sqrt(bh/bl),1)+' kat: B, yayılmanın karesiyle büyür.'); }",
+   "card('o2c1',true,rName(A1.seen.lo)+': B '+fx(bl,2)+' Å², u '+fx(uOf(bl),2)+' Å. '+rName(A1.seen.hi)+': B '+fx(bh,2)+' Å², u '+fx(uOf(bh),2)+' Å. B '+fx(bh/bl,1)+' times larger, but the spread only '+fx(Math.sqrt(bh/bl),1)+' times: B grows with the square of the spread.'); }"
+  ],
+  [
+   "else card('o2c1',false,A1.seen.lo?rName(A1.seen.lo)+' seçildi (B < 5 Å²). Şimdi B değeri 30 Å²\\'den yüksek bir kalıntı seçin.':(A1.seen.hi?rName(A1.seen.hi)+' seçildi (B > 30 Å²). Şimdi B değeri 5 Å²\\'den düşük bir kalıntı seçin.':null));",
+   "else card('o2c1',false,A1.seen.lo?rName(A1.seen.lo)+' picked (B < 5 Å²). Now pick a residue with a B value above 30 Å².':(A1.seen.hi?rName(A1.seen.hi)+' picked (B > 30 Å²). Now pick a residue with a B value below 5 Å².':null));"
+  ],
+  [
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='left'; g.fillText(A1.col==='b'?'B 2':'0,25',x0,y0-12); g.textAlign='right'; g.fillText(A1.col==='b'?'42 Å²':'doluluk 1',x0+125,y0-12); g.textAlign='left'; }",
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='left'; g.fillText(A1.col==='b'?'B 2':'0.25',x0,y0-12); g.textAlign='right'; g.fillText(A1.col==='b'?'42 Å²':'occupancy 1',x0+125,y0-12); g.textAlign='left'; }"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--ink'); g.fillText('C-C bağı 1,53 Å',cx+10,cy-10);",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--ink'); g.fillText('C-C bond 1.53 Å',cx+10,cy-10);"
+  ],
+  [
+   "g.fillText('kesikli çember: u = '+fx(u,2)+' Å',10,18);",
+   "g.fillText('dashed circle: u = '+fx(u,2)+' Å',10,18);"
+  ],
+  [
+   "1:function(){ return 'Hareketsiz bir karbon bile haritada bir nokta değildir: 1,8 Å çözünürlükte ölçüm her atomu yaklaşık σ₀ = 0,45 Å genişliğinde bir bulut olarak verir. B = 0 iken tepe yüksekliği '+fx(peakOf(6,1,0),2)+'. Ölçek: tam dolu ve B değeri 1UBQ ortalaması (13,41 Å²) olan bir karbonun tepesi = 1.'; },",
+   "1:function(){ return 'Even a carbon at rest is not a point in the map: at 1.8 Å resolution the measurement gives each atom as a cloud about σ₀ = 0.45 Å wide. With B = 0 the peak height is '+fx(peakOf(6,1,0),2)+'. Scale: the peak of a fully occupied carbon with the 1UBQ mean B value (13.41 Å²) = 1.'; },"
+  ],
+  [
+   "2:function(){ return 'B büyüdükçe bulut yayılır, tepe alçalır; eğrinin altındaki alan, yani atomun elektron sayısı değişmez. Leu43 Cα (B 3,51 Å²): tepe '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36,19 Å²): tepe '+fx(peakOf(6,1,36.19),2)+', aynı atom, üçte birinden az yükseklik.'; },",
+   "2:function(){ return 'As B grows, the cloud spreads and the peak drops; the area under the curve, that is the electron count of the atom, does not change. Leu43 Cα (B 3.51 Å²): peak '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36.19 Å²): peak '+fx(peakOf(6,1,36.19),2)+', the same atom at less than a third of the height.'; },"
+  ],
+  [
+   "3:function(){ return 'Doluluk eğriyi olduğu gibi küçültür: 0,25 doluluk tepeyi de alanı da dörtte birine indirir. Gly76 Cα\\'nın dosyadaki değerleriyle (doluluk 0,25, B 36,19 Å²) tepe '+fx(peakOf(6,0.25,36.19),2)+'.'; },",
+   "3:function(){ return 'Occupancy shrinks the whole curve: an occupancy of 0.25 cuts both the peak and the area to a quarter. With the file values of Gly76 Cα (occupancy 0.25, B 36.19 Å²) the peak is '+fx(peakOf(6,0.25,36.19),2)+'.'; },"
+  ],
+  [
+   "4:function(){ var a=peakOf(6,1,3.51), b=peakOf(6,0.25,36.19); return 'Kristalograf haritayı bir kontur düzeyinde çizer; yoğunluğu bu düzeyi aşan yer görünür. Düzey '+fx(T2.level,2)+' iken Leu43 Cα ('+fx(a,2)+') açıkça görünür, Gly76 Cα ('+fx(b,2)+') '+(b>=T2.level?'sınırda görünür.':'görünmez. Model kurulurken böyle bir atomun konumu komşularından tahmin edilir, doluluğu ya da B\\'si yükseltilir ya da atom hiç yazılmaz.'); }};",
+   "4:function(){ var a=peakOf(6,1,3.51), b=peakOf(6,0.25,36.19); return 'The crystallographer draws the map at a contour level; wherever the density exceeds this level is visible. At level '+fx(T2.level,2)+' Leu43 Cα ('+fx(a,2)+') is clearly visible and Gly76 Cα ('+fx(b,2)+') '+(b>=T2.level?'is just visible.':'is not. When the model is built, the position of such an atom is guessed from its neighbours, its occupancy or B is raised, or the atom is left out altogether.'); }};"
+  ],
+  [
+   "function setStep(n){ T2.step=n; T2.anT=0; document.querySelectorAll('#o2steps button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-st')===n)); }); $('o2stepT').textContent=STEPT[n](); $('o2next').textContent=n===4?'Haritaya geç':'Sonraki adım'; profDraw(); kick(); }",
+   "function setStep(n){ T2.step=n; T2.anT=0; document.querySelectorAll('#o2steps button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-st')===n)); }); $('o2stepT').textContent=STEPT[n](); $('o2next').textContent=n===4?'Go to the map':'Next step'; profDraw(); kick(); }"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [-3,-2,-1,0,1,2,3].forEach(function(x){ g.fillText(fx(x,0),X(x),H-12); }); g.fillText('atom merkezinden uzaklık (Å)',X(0),H-1); g.textAlign='left';",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [-3,-2,-1,0,1,2,3].forEach(function(x){ g.fillText(fx(x,0),X(x),H-12); }); g.fillText('distance from the atom centre (Å)',X(0),H-1); g.textAlign='left';"
+  ],
+  [
+   "if(st===1){ curve(1,13.41,mu,1.2,[4,4],'başvuru (B 13,41)'); curve(1,0,dk,2.6,null,'B = 0'); }",
+   "if(st===1){ curve(1,13.41,mu,1.2,[4,4],'reference (B 13.41)'); curve(1,0,dk,2.6,null,'B = 0'); }"
+  ],
+  [
+   "if(st===3){ var on=reduce?0.25:(0.625+0.375*Math.cos(t*1.1)); curve(1,36.19,mu,1.2,[4,4],'doluluk 1'); curve(on,36.19,ac,2.6,null,'doluluk '+fx(on,2)); }",
+   "if(st===3){ var on=reduce?0.25:(0.625+0.375*Math.cos(t*1.1)); curve(1,36.19,mu,1.2,[4,4],'occupancy 1'); curve(on,36.19,ac,2.6,null,'occupancy '+fx(on,2)); }"
+  ],
+  [
+   "if(st===4){ var lv=Y(T2.level); g.fillStyle=str(rgb(css('--good')),0.12); g.fillRect(L,T,W-L-R,lv-T); g.strokeStyle=css('--good'); g.lineWidth=1.6; g.setLineDash([6,4]); g.beginPath(); g.moveTo(L,lv); g.lineTo(W-R,lv); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.font='600 12px '+css('--sans'); g.textAlign='right'; g.fillText('kontur '+fx(T2.level,2),W-R-4,lv-5); g.textAlign='left';",
+   "if(st===4){ var lv=Y(T2.level); g.fillStyle=str(rgb(css('--good')),0.12); g.fillRect(L,T,W-L-R,lv-T); g.strokeStyle=css('--good'); g.lineWidth=1.6; g.setLineDash([6,4]); g.beginPath(); g.moveTo(L,lv); g.lineTo(W-R,lv); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.font='600 12px '+css('--sans'); g.textAlign='right'; g.fillText('contour '+fx(T2.level,2),W-R-4,lv-5); g.textAlign='left';"
+  ],
+  [
+   "$('o2moV').textContent=fx(s.occ,2); $('o2mbV').textContent=fx(s.bs*MB0[r],1)+' Å² (ortalama)'; $('o2mcV').textContent=fx(T3.level,2);",
+   "$('o2moV').textContent=fx(s.occ,2); $('o2mbV').textContent=fx(s.bs*MB0[r],1)+' Å² (mean)'; $('o2mcV').textContent=fx(T3.level,2);"
+  ],
+  [
+   "$('o2mnote').textContent=fileSame?rName(r)+': dosyadaki değerler (doluluk '+fx(s.occ,2)+', ortalama B '+fx(MB0[r],1)+' Å²).':'';",
+   "$('o2mnote').textContent=fileSame?rName(r)+': file values (occupancy '+fx(s.occ,2)+', mean B '+fx(MB0[r],1)+' Å²).':'';"
+  ],
+  [
+   "if(s.occ>=0.9&&sc.length&&nsv===0&&T3.level<=0.40){ card('o2c2',true,rName(r)+': doluluk '+fx(s.occ,2)+', ortalama B '+fx(s.bs*MB0[r],1)+' Å², kontur '+fx(T3.level,2)+'. Yan zincirin '+sc.length+' atomunun hepsi konturun altında; tam dolu bir kalıntı da yalnız B yeterince büyükse haritadan kaybolur.'+(nv?' Omurganın '+(idx.length-sc.length)+' atomundan '+nv+' tanesi komşu kalıntıların yoğunluğuyla hâlâ görünüyor.':' Omurga da kayboldu.')); }",
+   "if(s.occ>=0.9&&sc.length&&nsv===0&&T3.level<=0.40){ card('o2c2',true,rName(r)+': occupancy '+fx(s.occ,2)+', mean B '+fx(s.bs*MB0[r],1)+' Å², contour '+fx(T3.level,2)+'. All '+sc.length+' side-chain atoms are below the contour; a fully occupied residue also disappears from the map if B alone is large enough.'+(nv?' Of the '+(idx.length-sc.length)+' backbone atoms, '+nv+' are still visible thanks to the density of the neighbouring residues.':' The backbone has disappeared too.')); }"
+  ],
+  [
+   "else if(!FOUND.o2c2) card('o2c2',false,(s.occ>=0.9&&sc.length)?rName(r)+': yan zincirde '+nsv+' / '+sc.length+' atom hâlâ görünüyor'+(T3.level>0.40?' (kontur 0,40\\'ı aşmamalı)':'')+'.':null); }",
+   "else if(!FOUND.o2c2) card('o2c2',false,(s.occ>=0.9&&sc.length)?rName(r)+': '+nsv+' / '+sc.length+' side-chain atoms still visible'+(T3.level>0.40?' (the contour must not exceed 0.40)':'')+'.':null); }"
+  ],
+  [
+   "if(hit){ var lo=hit[0].occ<hit[1].occ?hit[0]:hit[1], hi=lo===hit[0]?hit[1]:hit[0]; card('o2c3',true,rName(lo.r)+': doluluk '+fx(lo.occ,2)+' ve B '+fx(lo.B,1)+' Å² → tepe '+fx(lo.pk,3)+'; doluluk '+fx(hi.occ,2)+' ve B '+fx(hi.B,1)+' Å² → tepe '+fx(hi.pk,3)+'. Tepe yüksekliği ikisinde aynı. Bulutun genişliği farklıdır, ama bu fark komşu atomlarla karışınca kolay ayrılmaz; bu yüzden iyileştirmede doluluk ile B birbirine bağlıdır.'); }",
+   "if(hit){ var lo=hit[0].occ<hit[1].occ?hit[0]:hit[1], hi=lo===hit[0]?hit[1]:hit[0]; card('o2c3',true,rName(lo.r)+': occupancy '+fx(lo.occ,2)+' and B '+fx(lo.B,1)+' Å² → peak '+fx(lo.pk,3)+'; occupancy '+fx(hi.occ,2)+' and B '+fx(hi.B,1)+' Å² → peak '+fx(hi.pk,3)+'. The peak height is the same in both. The width of the cloud differs, but once it mixes with neighbouring atoms the difference is hard to separate; that is why occupancy and B are coupled in refinement.'); }"
+  ],
+  [
+   "else if(!FOUND.o2c3&&T3.trials.length) card('o2c3',false,T3.trials.length+' deneme kaydedildi. Aynı kalıntıda, dolulukları en az 0,3 farklı iki denemede tepeyi eşitleyin.'); }",
+   "else if(!FOUND.o2c3&&T3.trials.length) card('o2c3',false,T3.trials.length+' trials recorded. In the same residue, match the peak in two trials whose occupancies differ by at least 0.3.'); }"
+  ],
+  [
+   "$('o2wn').textContent=n+' / 58'; $('o2wmb').textContent=n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1)+' Å²':'yok'; $('o2wsy').textContent=String(K.filter(function(w){ return w[4]>0; }).length);",
+   "$('o2wn').textContent=n+' / 58'; $('o2wmb').textContent=n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1)+' Å²':'none'; $('o2wsy').textContent=String(K.filter(function(w){ return w[4]>0; }).length);"
+  ],
+  [
+   "$('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td>HOH '+w[0]+'</td><td class=\"n\">'+fx(w[2],1)+'</td><td class=\"n\">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan=\"4\">Bu ölçütle hiç su kalmadı.</td></tr>';",
+   "$('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td>HOH '+w[0]+'</td><td class=\"n\">'+fx(w[2],1)+'</td><td class=\"n\">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan=\"4\">No water is left with this criterion.</td></tr>';"
+  ],
+  [
+   "if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Ölçütünüz: komşu moleküle değmeyen, en az '+T4.pmin+' polar protein komşusu olan'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', doluluk ≥ '+fx(T4.omin,2):'')+' sular: '+n+' / 58, ortalama B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'yok')+' Å². Bunlar proteinin kendi yüzeyine bağlı; çözeltide de benzer yerlerde bulunmaları beklenir, ama bu bir beklentidir, kanıt değil.'); }",
+   "if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Your criterion: waters that do not touch a neighbouring molecule and have at least '+T4.pmin+' polar protein neighbours'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', occupancy ≥ '+fx(T4.omin,2):'')+': '+n+' / 58, mean B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'none')+' Å². These are bound to the protein\\'s own surface; they would be expected in similar places in solution too, but that is an expectation, not evidence.'); }"
+  ],
+  [
+   "else if(!FOUND.o2c4) card('o2c4',false,T4.sym?'Komşu moleküle değenler çıkarıldı. Şimdi en az 2 polar protein komşusu isteyin.':(T4.pmin>=2?'En az '+T4.pmin+' polar komşu istendi. Şimdi komşu moleküle değenleri de çıkarın.':null)); }",
+   "else if(!FOUND.o2c4) card('o2c4',false,T4.sym?'Waters touching a neighbouring molecule were removed. Now ask for at least 2 polar protein neighbours.':(T4.pmin>=2?'At least '+T4.pmin+' polar neighbours requested. Now remove the waters touching a neighbouring molecule as well.':null)); }"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [1,10,20,30,40,50,60,70,76].forEach(function(r){ g.fillText(String(r),X(r),H-12); }); g.fillText('kalıntı',X(38),H-1); g.textAlign='left';",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [1,10,20,30,40,50,60,70,76].forEach(function(r){ g.fillText(String(r),X(r),H-12); }); g.fillText('residue',X(38),H-1); g.textAlign='left';"
+  ],
+  [
+   "function mdRead(){ var D=MO2.md; if(!D){ $('o2mdR').innerHTML=''; $('o2md').hidden=true; document.querySelector('#o2mdS .legend').hidden=true; $('o2mdP').innerHTML='<p>Bu karşılaştırma için bu projede 2 ns\\'lik kısıtsız bir koşu (S0 hazırlığı, 300 K, NPT) şu anda sürüyor; protokolü koşudan önce yazılıp donduruldu. Sonuç gelince burada kristal B değerleri ile koşudan hesaplanan değerler kalıntı kalıntı karşılaştırılacak. Bu senaryo henüz hesaplanmadı.</p>'; return; } var mean=function(a){ return a.reduce(function(s,v){ return s+v; },0)/a.length; };",
+   "function mdRead(){ var D=MO2.md; if(!D){ $('o2mdR').innerHTML=''; $('o2md').hidden=true; document.querySelector('#o2mdS .legend').hidden=true; $('o2mdP').innerHTML='<p>For this comparison an unrestrained 2 ns run (S0 preparation, 300 K, NPT) is under way in this project; its protocol was written and frozen before the run. When the result arrives, the crystal B values and the values computed from the run will be compared here residue by residue. This scenario has not been computed yet.</p>'; return; } var mean=function(a){ return a.reduce(function(s,v){ return s+v; },0)/a.length; };"
+  ],
+  [
+   "$('o2mdR').innerHTML='<dt>Pearson r, 76 kalıntı</dt><dd>'+fx(pear(D.bx,D.bmd),2)+'</dd><dt>Pearson r, 1-72 (esnek kuyruk hariç)</dt><dd>'+fx(pear(D.bx.slice(0,72),D.bmd.slice(0,72)),2)+'</dd><dt>Ortalama Cα B: kristal / MD</dt><dd>'+fx(mean(D.bx),1)+' / '+fx(mean(D.bmd),1)+' Å²</dd><dt>MD\\'nin iki yarısı arasında r</dt><dd>'+fx(pear(D.bh1,D.bh2),2)+'</dd>'; }",
+   "$('o2mdR').innerHTML='<dt>Pearson r, 76 residues</dt><dd>'+fx(pear(D.bx,D.bmd),2)+'</dd><dt>Pearson r, 1-72 (flexible tail excluded)</dt><dd>'+fx(pear(D.bx.slice(0,72),D.bmd.slice(0,72)),2)+'</dd><dt>Mean Cα B: crystal / MD</dt><dd>'+fx(mean(D.bx),1)+' / '+fx(mean(D.bmd),1)+' Å²</dd><dt>r between the two halves of the MD run</dt><dd>'+fx(pear(D.bh1,D.bh2),2)+'</dd>'; }"
+  ],
+  [
+   "{s:'B değeri 36 Å² olan bir atomun tek yöndeki yayılması (u) yaklaşık ne kadardır?',o:[['0,07 Å',0],['0,68 Å',1],['6 Å',0],['36 Å',0]],w:'u = √(B / 8π²) = √(36 / 79) ≈ 0,68 Å. Üç boyutta kök ortalama kare yayılma √3 kat, yaklaşık 1,17 Å.'},",
+   "{s:'For an atom with a B value of 36 Å², what is the spread along one direction (u), roughly?',o:[['0.07 Å',0],['0.68 Å',1],['6 Å',0],['36 Å',0]],w:'u = √(B / 8π²) = √(36 / 79) ≈ 0.68 Å. The root-mean-square spread in three dimensions is √3 times larger, about 1.17 Å.'},"
+  ],
+  [
+   "{s:'Bir atomun doluluğunun 0,25 olması ne demektir?',o:[['Atomun elektronlarının dörtte biri ölçülmüştür',0],['Model, atomun kristaldeki moleküllerin yaklaşık dörtte birinde bu konumda olduğunu söyler',1],['Atom, zamanın dörtte birinde titreşir',0],['Koordinatların hatası %25\\'tir',0]],w:'Doluluk bir paydır: bu konumun moleküllerin ne kadarında dolu olduğu. Geri kalan moleküllerde atomun nerede olduğunu dosya söylemez.'},",
+   "{s:'What does an occupancy of 0.25 for an atom mean?',o:[['A quarter of the atom\\'s electrons were measured',0],['The model says the atom is at this position in about a quarter of the molecules in the crystal',1],['The atom vibrates for a quarter of the time',0],['The coordinate error is 25%',0]],w:'Occupancy is a fraction: in how many of the molecules this position is filled. The file does not say where the atom is in the remaining molecules.'},"
+  ],
+  [
+   "{s:'1UBQ\\'da C ucunun B değerleri yüksek. Bu tek başına neyi kanıtlamaz?',o:[['Bu bölgenin konumunun moleküller arasında daha çok yayıldığını',0],['Bu yayılmanın tamamen ısıl titreşimden geldiğini',1],['Haritada bu bölgenin daha zayıf göründüğünü',0],['Bu atomların modelde daha belirsiz olduğunu',0]],w:'B; titreşimi, moleküller arasındaki konum farklarını ve kristal kusurlarını birlikte içerir. Payları tek sayıdan ayrılamaz.'},",
+   "{s:'The B values of the C-terminus in 1UBQ are high. What does this alone not prove?',o:[['That the position of this region is more spread out across molecules',0],['That this spread comes entirely from thermal vibration',1],['That this region looks weaker in the map',0],['That these atoms are less certain in the model',0]],w:'B contains vibration, position differences between molecules and crystal defects together. Their shares cannot be separated from a single number.'},"
+  ],
+  [
+   "{s:'pdb2gmx, dosyada doluluğu 0,25 olan Gly75\\'i nasıl işler?',o:[['Atomu siler',0],['Uyarı yazar ve atomu tam dolu, tek bir kopya olarak topolojiye koyar',1],['Atomu dörtte bir kütleyle koyar',0],['Dört kopya üretir',0]],w:'Bu projenin günlüğünde: \"28 atoms with occupancy unequal to one\". pdb2gmx devam eder; simülasyonda doluluk diye bir şey yoktur.'},",
+   "{s:'How does pdb2gmx handle Gly75, whose occupancy in the file is 0.25?',o:[['It deletes the atoms',0],['It writes a warning and puts the atoms into the topology as a single, fully occupied copy',1],['It puts the atoms in with a quarter of the mass',0],['It generates four copies',0]],w:'In this project\\'s log: \"28 atoms with occupancy unequal to one\". pdb2gmx carries on; in the simulation there is no such thing as occupancy.'},"
+  ],
+  [
+   "{s:'Haritada zayıf görünen bir atom için doluluk ile B neden zor ayrılır?',o:[['İkisi de tepe yüksekliğini düşürür; düşük doluluk ile yüksek B benzer bir tepe verebilir',1],['Doluluk yalnız hidrojenleri etkiler',0],['B yalnız suları etkiler',0],['İkisi aynı niceliğin iki adıdır',0]],w:'Tezgâhta gördünüz: aynı tepe yüksekliği iki farklı yoldan elde edilebilir. Bu yüzden iyileştirmede doluluk ve B birbirine bağlıdır ve düşük doluluklu atomların B\\'si dikkatle okunmalıdır.'},",
+   "{s:'Why are occupancy and B hard to tell apart for an atom that looks weak in the map?',o:[['Both lower the peak height; a low occupancy and a high B can give a similar peak',1],['Occupancy affects only hydrogens',0],['B affects only waters',0],['They are two names for the same quantity',0]],w:'You saw it on the bench: the same peak height can be reached by two different routes. That is why occupancy and B are coupled in refinement, and the B of low-occupancy atoms should be read with care.'},"
+  ],
+  [
+   "{s:'Kristal sularını MD\\'ye taşımayı düşünüyorsunuz. Hangi sulara en çok şüpheyle bakmalısınız?',o:[['B\\'si en düşük sulara',0],['Kristalde komşu bir moleküle değen sulara: kristal örgüsünün ürünü olabilirler',1],['Proteine üç polar temas kuran sulara',0],['Doluluğu 1 olan sulara',0]],w:'1UBQ\\'da 58 suyun 25\\'i komşu bir ubikitin molekülüne değiyor. Çözeltide o komşu yoktur; bu suların aynı yerde kalması gerekmez.'}];",
+   "{s:'You are thinking of carrying crystal waters into MD. Which waters deserve the most suspicion?',o:[['The waters with the lowest B',0],['Waters that touch a neighbouring molecule in the crystal: they may be a product of the crystal lattice',1],['Waters that make three polar contacts with the protein',0],['Waters with occupancy 1',0]],w:'In 1UBQ, 25 of the 58 waters touch a neighbouring ubiquitin molecule. In solution that neighbour is absent; these waters need not stay in the same place.'}];"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var w=$('o2why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var w=$('o2why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('o2score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }",
+   "$('o2score').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+r; }); }); }"
+  ],
+  [
+   "['o2c1','o2c2','o2c3','o2c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['o2c1','o2c2','o2c3','o2c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ]
+ ],
+ "keep": [
+  "var(--gold)",
+  "var(--deep)",
+  "var(--pale)",
+  "var(--accent)",
+  "var(--good)",
+  "var(--bad)",
+  "Processing chain 1",
+  "Processing chain 2 (58 atoms, 58 residues)",
+  "Total charge in system 0.000 e",
+  "there were 0 atoms with zero occupancy",
+  "Pearson r",
+  "Vijay-Kumar, Bugg",
+  "HOH "
+ ]
+}

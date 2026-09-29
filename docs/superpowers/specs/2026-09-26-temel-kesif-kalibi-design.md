@@ -200,3 +200,9 @@ Proje sahibinin geri bildirimleriyle şekillenen kararlar: çakışan atomlarla 
 
 Karar (proje sahibi): MD-O (CH07) keşif kalıbıyla yeniden yazılır; ilk laboratuvar "Protonasyon ve yük". Eski 0.1.0 taslağının yerini alır; yapı dosyası laboratuvarı (kristal suları, doluluk, B faktörü) sonra eklenir. Tezgâh, proje sahibinin geri bildirimiyle iki parçalıdır: kuralın dört adımlı anlatımı ve ölçüt haritası ile karar akış şeması (değişkenlerin etkisi doğrudan görünsün diye). Bütün pdb2gmx sonuçları gerçek çalıştırmalardır; sayfanın kural hesabı bunlarla birebir denetlenir.
 
+## 11. MD-PDB (29 Eylül 2026)
+
+Karar (29 Eylül, proje sahibi): MD-O'nun 2. laboratuvarı olarak tasarlanan yapı dosyası laboratuvarı ayrı modül olarak yayımlanır: MD-PDB, orta düzey, kitapta CH07 (bir sayfada bir laboratuvar kuralı, bkz. 8. kısım). Kalıcı kimlik proje sahibinin seçimi. Kimlik öneki o2, dört keşif kartı (o2c1 atölye, o2c2 ve o2c3 tezgâh, o2c4 defter).
+
+B ile MD dalgalanmasının karşılaştırması için proje sahibi yeni bir gerçek koşu istedi (seçenekler 2 ns ve 10 ns'ydi; proje sahibi 2 ns'yi seçti). Koşunun protokolü ve analizi koşudan önce yazılıp SHA-256 ile donduruldu; ilk deneme konteyner sonlanınca 40 ps'de durdu, aynı girdiyle baştan koşuldu ve bu sapma protokole yazıldı. Sayfadaki yoğunluk haritası ve uzun pozlama öğretim modelidir ve sayfada öyle etiketlenir; 1UBQ'nun ölçülmüş haritası kullanılmadı. Tezgâhta atom görünürlüğü önce izdüşürülmüş (toplam) yoğunlukla denendi; üst üste binen atomlar haritayı gerçek dışı doldurduğu için üç boyutlu yoğunluğa (düzleme dik en büyük değer, görünürlük atom merkezinde) geçildi.
+
