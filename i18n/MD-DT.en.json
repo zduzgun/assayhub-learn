@@ -1,0 +1,781 @@
+{
+ "module": "MD-DT",
+ "lang": "en",
+ "source_sha256": "aac64ffada5ffaaf1ad391d6bd0a586a252dfa48e4265c3b29519edcf349d1af",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-DT 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>Zaman Adımı</title>",
+   "<title>The Time Step</title>"
+  ],
+  [
+   "<div class=\"proto\">Bu modül MD-T'deki tek bağın Verlet adımını bir proteinin 1.237 bağına taşır ve MD-EQ'de dengelenen ubikitin sisteminden başlar. Tek bağın canlandırması tarayıcınızda şimdi hesaplanır; bağ periyotları bu projenin ubikitin topolojisinden, enerji eğrileri ve hızlar bu projede gerçekten koşulmuş 24 GROMACS koşusundan gelir.</div>",
+   "<div class=\"proto\">This module carries the single-bond Verlet step of MD-T over to the 1,237 bonds of a protein and starts from the ubiquitin system equilibrated in MD-EQ. The single-bond animation is computed in your browser right now; the bond periods come from this project's ubiquitin topology, and the energy curves and speeds come from 24 GROMACS runs that were actually made in this project.</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-DT · Proteinde zaman adımı</span>",
+   "<span class=\"eyebrow\">MD-DT · The time step in a protein</span>"
+  ],
+  [
+   "<h1>Adım ne kadar uzun olabilir? Kısıtlar, kütle ve hız</h1>",
+   "<h1>How long can a step be? Constraints, mass and speed</h1>"
+  ],
+  [
+   "<p class=\"lead\">MD programı atomları küçük zaman adımlarıyla ilerletir. Adım uzadıkça aynı süre daha az hesapla simüle edilir, ama adımın, sistemdeki en hızlı titreşimi izleyebilecek kadar kısa olması gerekir. Bir proteinde en hızlı titreşimler hidrojenli bağlardadır. Bu laboratuvarda ubikitinin bütün bağlarının \"saatini\" okuyacak, bir bağı kendi elinizle patlatacak ve bu projede koşulmuş 24 gerçek koşuyla adım, kısıt ve kütle seçimlerinin bedelini ölçeceksiniz.</p>",
+   "<p class=\"lead\">An MD program moves atoms forward in small time steps. The longer the step, the less computation it takes to simulate the same stretch of time, but the step must be short enough to follow the fastest vibration in the system. In a protein, the fastest vibrations are in the bonds to hydrogen. In this lab you will read the \"clock\" of every bond in ubiquitin, blow up a bond with your own hands, and use 24 real runs made in this project to measure the cost of choices of step, constraints and mass.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"d1progN\">0 / 4</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"d1progN\">0 / 4</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"d1h0\">IR spektrumundaki bantlar, bağların saatidir</h2>",
+   "<h2 id=\"d1h0\">The bands of an IR spectrum are the clocks of the bonds</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bir bağ, iki kütle arasında bir yay gibi titreşir. IR spektroskopisi bu titreşimleri dalga sayısıyla (cm⁻¹) ölçer; dalga sayısı ile titreşim periyodu T arasında basit bir bağ vardır: ν̃ = 1 / (c · T). Aşağıda bu projenin ubikitin topolojisindeki 1.237 bağın, kuvvet alanındaki yay sabitlerinden hesaplanan titreşimleri bir \"çubuk spektrumu\" olarak duruyor. Bir bağ türü seçin; hem spektrumdaki yerini hem de periyodunu görün.</p></div>",
+   "<div class=\"prose\"><p>A bond vibrates like a spring between two masses. IR spectroscopy measures these vibrations as wavenumbers (cm⁻¹); the wavenumber and the vibrational period T are related simply: ν̃ = 1 / (c · T). Below, the vibrations of the 1,237 bonds in this project's ubiquitin topology, computed from the spring constants of the force field, are shown as a \"stick spectrum\". Choose a bond type and see both its place in the spectrum and its period.</p></div>"
+  ],
+  [
+   "<canvas id=\"d1ir\" class=\"plot\" aria-label=\"Ubikitin bağlarının dalga sayısına göre çubuk spektrumu; üstte periyot ekseni; IR'daki amid A ve amid I bantları gölgeli\"></canvas>",
+   "<canvas id=\"d1ir\" class=\"plot\" aria-label=\"Stick spectrum of the ubiquitin bonds by wavenumber; period axis on top; the amide A and amide I bands of IR shaded\"></canvas>"
+  ],
+  [
+   "<div><div class=\"lbl\">Bağ türü</div><div class=\"chips\" id=\"d1cls\"></div></div>",
+   "<div><div class=\"lbl\">Bond type</div><div class=\"chips\" id=\"d1cls\"></div></div>"
+  ],
+  [
+   "<dt>Bu türdeki bağ sayısı</dt><dd id=\"d1cN\"></dd>",
+   "<dt>Number of bonds of this type</dt><dd id=\"d1cN\"></dd>"
+  ],
+  [
+   "<dt>Periyot (kuvvet alanından)</dt><dd id=\"d1cT\"></dd>",
+   "<dt>Period (from the force field)</dt><dd id=\"d1cT\"></dd>"
+  ],
+  [
+   "<dt>Dalga sayısı, 1 / (c · T)</dt><dd id=\"d1cW\"></dd>",
+   "<dt>Wavenumber, 1 / (c · T)</dt><dd id=\"d1cW\"></dd>"
+  ],
+  [
+   "<h3 class=\"h3\">Bağların saati: dört gerçek bağ, ağır çekimde</h3>",
+   "<h3 class=\"h3\">The clock of the bonds: four real bonds in slow motion</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Aşağıdaki dört bağ ubikitinin kendisinden: bir Ser hidroksili, bir omurga N-H'si, bir Ala metilinin C-H'si ve bir omurga C=O'su. Dördü de kendi periyotlarıyla, aynı ağır çekimde titreşiyor (1 fs = 0,25 s); soldaki kadranlar birer saattir. Sağdaki şeritlerde soluk eğri her bağın gerçek titreşimi, noktalar ise Δt aralıklarla alınan örneklerdir: MD programı atomları yalnız bu anlarda görür. Δt'yi büyütün ve noktaları birleştiren çizgiye bakın; periyot başına iki örnekten az düşünce çizgi gerçek titreşimden kopar ve sahte, yavaş bir dalgaya dönüşür. Stroboskobu açarsanız bağların kendisini de yalnız flaş anlarında görürsünüz.</p></div>",
+   "<div class=\"prose\"><p>The four bonds below come from ubiquitin itself: a Ser hydroxyl, a backbone N-H, a C-H of an Ala methyl and a backbone C=O. All four vibrate with their own periods in the same slow motion (1 fs = 0.25 s); the dials on the left are clocks. In the strips on the right, the faint curve is the true vibration of each bond and the dots are samples taken at intervals of Δt: the MD program sees the atoms only at these instants. Make Δt larger and watch the line joining the dots; once there are fewer than two samples per period, the line breaks away from the true vibration and turns into a false, slow wave. If you switch on the stroboscope, you also see the bonds themselves only at the flashes.</p></div>"
+  ],
+  [
+   "<canvas id=\"d1bonds\" class=\"plot\" aria-label=\"Dört gerçek bağ ağır çekimde titreşiyor; kadranlar periyodu gösterir; sağdaki şeritlerde gerçek titreşim ve Δt aralıklı örnekler\"></canvas>",
+   "<canvas id=\"d1bonds\" class=\"plot\" aria-label=\"Four real bonds vibrating in slow motion; the dials show the period; the strips on the right show the true vibration and samples every Δt\"></canvas>"
+  ],
+  [
+   "<p class=\"small\" style=\"margin:6px 2px 0\">Her şerit 60 fs gösterir. Soluk eğri: bağın gerçek titreşimi. Noktalar: her Δt'de bir alınan örnek (MD'nin gördüğü anlar). Altın çizgi: şu anki zaman.</p>",
+   "<p class=\"small\" style=\"margin:6px 2px 0\">Each strip shows 60 fs. Faint curve: the true vibration of the bond. Dots: one sample every Δt (the instants MD sees). Gold line: the current time.</p>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"d1strb\"> Stroboskobu aç</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"d1strb\"> Switch on the stroboscope</label>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"d1sdt\">Flaş aralığı, Δt</label><div class=\"big\" id=\"d1sdtV\"></div><input type=\"range\" id=\"d1sdt\" min=\"0.5\" max=\"12\" step=\"0.1\" value=\"2\"></div>",
+   "<div><label class=\"lbl\" for=\"d1sdt\">Flash interval, Δt</label><div class=\"big\" id=\"d1sdtV\"></div><input type=\"range\" id=\"d1sdt\" min=\"0.5\" max=\"12\" step=\"0.1\" value=\"2\"></div>"
+  ],
+  [
+   "<p class=\"small\">Periyot: T = 2π √(μ / k); μ, iki atomun indirgenmiş kütlesi; k, amber99sb-ildn kuvvet alanındaki bağ yay sabiti (bu projenin <code>.tpr</code> dosyasından, <code>gmx dump</code>). Bu hesap Thr7 OG1-HG1 için 8,99 fs verir; grompp'un bu projede aynı bağ için yazdığı tahmin 9,0 fs'dir. Gölgeli bantlar proteinlerin IR spektrumunda ölçülen amid A (N-H gerilmesi, yaklaşık 3.300 cm⁻¹) ve amid I (çoğunlukla C=O gerilmesi, 1.600-1.700 cm⁻¹) bantlarıdır (Barth 2007, Biochim Biophys Acta 1767:1073). Tek bağlı, harmonik hesap gerçek titreşimlerin komşu bağlar ve açılarla karışmasını içermez; bu yüzden C=O için bulunan değer amid I bandından düşüktür. Açı titreşimleri bu şekle girmez.</p>",
+   "<p class=\"small\">Period: T = 2π √(μ / k); μ is the reduced mass of the two atoms; k is the bond spring constant in the amber99sb-ildn force field (from this project's <code>.tpr</code> file, <code>gmx dump</code>). This calculation gives 8.99 fs for Thr7 OG1-HG1; the estimate grompp wrote for the same bond in this project is 9.0 fs. The shaded bands are the amide A (N-H stretch, about 3,300 cm⁻¹) and amide I (mostly C=O stretch, 1,600-1,700 cm⁻¹) bands measured in the IR spectra of proteins (Barth 2007, Biochim Biophys Acta 1767:1073). The single-bond, harmonic calculation leaves out how real vibrations mix with neighbouring bonds and angles; that is why the value found for C=O lies below the amide I band. Angle vibrations are not included in this figure.</p>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
+  ],
+  [
+   "<h2 id=\"d1h1\">Bu proteinin saati: hangi bağ adımı sınırlar?</h2>",
+   "<h2 id=\"d1h1\">The clock of this protein: which bond limits the step?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>GROMACS, bir bağın periyodu zaman adımının beş katından kısaysa grompp aşamasında uyarır ve durur. Aşağıdaki çubuklar ubikitinin 1.237 bağının periyot dağılımıdır. Zaman adımını değiştirin: periyodu 5 · Δt'den kısa kalan serbest bağlar kırmızıya döner ve üç boyutlu görünümde yanar. Sonra bağları kısıtlayın (kısıtlı bir bağın boyu sabit tutulur, titreşmez) ya da hidrojen kütlesini yeniden dağıtın ve sınırın nereye taşındığına bakın.</p></div>",
+   "<div class=\"prose\"><p>If the period of a bond is shorter than five times the time step, GROMACS warns at the grompp stage and stops. The bars below are the period distribution of the 1,237 bonds of ubiquitin. Change the time step: the free bonds whose period falls below 5 · Δt turn red and light up in the 3D view. Then constrain bonds (a constrained bond keeps a fixed length and does not vibrate) or repartition the hydrogen mass, and see where the limit moves.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"d1ubq\" class=\"stage\" aria-label=\"Ubikitin; seçilen zaman adımında periyodu 5 kat adımdan kısa kalan serbest bağlar kırmızı; kısıtlı bağlar gri; sürükleyerek döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"d1ubq\" class=\"stage\" aria-label=\"Ubiquitin; at the chosen time step, free bonds with a period shorter than 5 times the step in red; constrained bonds in grey; can be rotated by dragging\"></canvas></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"d1dt\">Zaman adımı, Δt</label><div class=\"big\" id=\"d1dtV\"></div><input type=\"range\" id=\"d1dt\" min=\"0.5\" max=\"6\" step=\"0.1\" value=\"2\"></div>",
+   "<div><label class=\"lbl\" for=\"d1dt\">Time step, Δt</label><div class=\"big\" id=\"d1dtV\"></div><input type=\"range\" id=\"d1dt\" min=\"0.5\" max=\"6\" step=\"0.1\" value=\"2\"></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kısıtlar</div><div class=\"seg\" role=\"group\" aria-label=\"Kısıt düzeni\" id=\"d1con\"><button type=\"button\" data-c=\"none\" aria-pressed=\"true\">Yok</button><button type=\"button\" data-c=\"h\" aria-pressed=\"false\">H bağları</button><button type=\"button\" data-c=\"all\" aria-pressed=\"false\">Tüm bağlar</button></div></div>",
+   "<div><div class=\"lbl\">Constraints</div><div class=\"seg\" role=\"group\" aria-label=\"Constraint scheme\" id=\"d1con\"><button type=\"button\" data-c=\"none\" aria-pressed=\"true\">None</button><button type=\"button\" data-c=\"h\" aria-pressed=\"false\">H bonds</button><button type=\"button\" data-c=\"all\" aria-pressed=\"false\">All bonds</button></div></div>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"d1hmr\"> Hidrojen kütlesini yeniden dağıt (HMR: H 1,008 → 3,024 u, fark bağlı ağır atomdan)</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"d1hmr\"> Repartition the hydrogen mass (HMR: H 1.008 → 3.024 u, the difference taken from the bonded heavy atom)</label>"
+  ],
+  [
+   "<dt>Serbest bağ / kısıtlı bağ</dt><dd id=\"d1nFree\"></dd>",
+   "<dt>Free bonds / constrained bonds</dt><dd id=\"d1nFree\"></dd>"
+  ],
+  [
+   "<dt>Periyodu 5 · Δt'den kısa serbest bağ</dt><dd id=\"d1nBad\"></dd>",
+   "<dt>Free bonds with a period below 5 · Δt</dt><dd id=\"d1nBad\"></dd>"
+  ],
+  [
+   "<dt>En hızlı serbest bağ</dt><dd id=\"d1fast\"></dd>",
+   "<dt>Fastest free bond</dt><dd id=\"d1fast\"></dd>"
+  ],
+  [
+   "<dt>Bu düzende grompp'un kabul ettiği en uzun adım (T / 5)</dt><dd id=\"d1lim\"></dd>",
+   "<dt>Longest step grompp accepts in this scheme (T / 5)</dt><dd id=\"d1lim\"></dd>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"d1fly\">En hızlı serbest bağa git</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"d1fly\">Go to the fastest free bond</button></div>"
+  ],
+  [
+   "<canvas id=\"d1hist\" class=\"plot\" aria-label=\"Bağ periyotlarının dağılımı; 5 · Δt çizgisi; kısıtlı, güvenli ve sınırı aşan bağlar ayrı renkte\"></canvas>",
+   "<canvas id=\"d1hist\" class=\"plot\" aria-label=\"Distribution of bond periods; the 5 · Δt line; constrained, safe and over-the-limit bonds in different colours\"></canvas>"
+  ],
+  [
+   "<p class=\"small\" style=\"margin:0\">İpucu: dağılımdaki bir çubuğa dokunun; o periyot aralığındaki bağlar üç boyutlu görünümde altın rengiyle vurgulanır. Kırmızı bağlar abartılı genlikle titreşir; kısıtlı bağlar kalın, gri ve hareketsizdir.</p>",
+   "<p class=\"small\" style=\"margin:0\">Tip: tap a bar of the distribution; the bonds in that period range are highlighted in gold in the 3D view. Red bonds vibrate with exaggerated amplitude; constrained bonds are thick, grey and still.</p>"
+  ],
+  [
+   "<canvas id=\"d1res\" class=\"plot\" aria-label=\"Periyodu 5 · Δt'den kısa kalan serbest bağların kalıntı türüne göre sayısı\"></canvas>",
+   "<canvas id=\"d1res\" class=\"plot\" aria-label=\"Number of free bonds with a period below 5 · Δt, by residue type\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Serbest bağ, periyodu 5 · Δt'den uzun</span><span><i style=\"background:var(--bad)\"></i>Serbest bağ, periyodu 5 · Δt'den kısa</span><span><i style=\"background:var(--line)\"></i>Kısıtlı bağ (titreşmez)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Free bond, period longer than 5 · Δt</span><span><i style=\"background:var(--bad)\"></i>Free bond, period shorter than 5 · Δt</span><span><i style=\"background:var(--line)\"></i>Constrained bond (does not vibrate)</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"d1c1\"><span class=\"k\">Açık</span><h3>Kısıtlar sınırı nereye taşır?</h3><p>İki farklı kısıt düzeninde, hiçbir serbest bağın kırmızıya dönmediği en uzun adımı bulun.</p><div class=\"mine\" id=\"md1c1\">\"Yok\" ve \"H bağları\" düzenlerinin her birinde sınırın 0,1 fs yakınına gelin.</div></article>",
+   "<article class=\"q\" id=\"d1c1\"><span class=\"k\">Open</span><h3>Where do constraints move the limit?</h3><p>In two different constraint schemes, find the longest step at which no free bond turns red.</p><div class=\"mine\" id=\"md1c1\">In each of the \"None\" and \"H bonds\" schemes, come within 0.1 fs of the limit.</div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
+  ],
+  [
+   "<h2 id=\"d1h2\">Bir bağı adım adım ilerletmek: ne zaman patlar?</h2>",
+   "<h2 id=\"d1h2\">Moving a bond forward step by step: when does it blow up?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Tek bir Ser O-H bağını, GROMACS'ın kullandığı türden bir Verlet algoritmasıyla kendiniz ilerletin: yay sabiti ve kütleler bu projenin topolojisinden. Soluk eğri kesin çözümdür, noktalar algoritmanın her adımda hesapladığı konumlardır. Adımı büyütün; önce enerji salınmaya başlar, belli bir adımdan sonra yörünge sınırsız büyür. Sonra hidrojeni ağırlaştırın.</p></div>",
+   "<div class=\"prose\"><p>Move a single Ser O-H bond forward yourself with a Verlet algorithm of the kind GROMACS uses: the spring constant and the masses come from this project's topology. The faint curve is the exact solution; the dots are the positions the algorithm computes at each step. Make the step larger; first the energy starts to oscillate, and beyond a certain step the trajectory grows without bound. Then make the hydrogen heavier.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"d1osc\" class=\"stage\" aria-label=\"Ser O-H bağı: oksijen ve hidrojen; üstte konum-zaman eğrisi, kesin çözüm ve Verlet adımları; altta enerji\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"d1osc\" class=\"stage\" aria-label=\"Ser O-H bond: oxygen and hydrogen; above, the position-time curve, the exact solution and the Verlet steps; below, the energy\"></canvas></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"d1odt\">Zaman adımı, Δt</label><div class=\"big\" id=\"d1odtV\"></div><input type=\"range\" id=\"d1odt\" min=\"0.2\" max=\"5\" step=\"0.05\" value=\"1\"></div>",
+   "<div><label class=\"lbl\" for=\"d1odt\">Time step, Δt</label><div class=\"big\" id=\"d1odtV\"></div><input type=\"range\" id=\"d1odt\" min=\"0.2\" max=\"5\" step=\"0.05\" value=\"1\"></div>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"d1ohmr\"> HMR (H 3,024 u, O 13,984 u)</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"d1ohmr\"> HMR (H 3.024 u, O 13.984 u)</label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"d1orun\">Adım adım oynat</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"d1orun\">Play step by step</button></div>"
+  ],
+  [
+   "<dt>Bağın periyodu, T</dt><dd id=\"d1oT\"></dd>",
+   "<dt>Period of the bond, T</dt><dd id=\"d1oT\"></dd>"
+  ],
+  [
+   "<dt>Kararlılık sınırı, T / π</dt><dd id=\"d1oL\"></dd>",
+   "<dt>Stability limit, T / π</dt><dd id=\"d1oL\"></dd>"
+  ],
+  [
+   "<dt>Enerjideki en büyük sapma</dt><dd id=\"d1oE\"></dd>",
+   "<dt>Largest deviation in energy</dt><dd id=\"d1oE\"></dd>"
+  ],
+  [
+   "<dt>Durum</dt><dd id=\"d1oS\"></dd>",
+   "<dt>Status</dt><dd id=\"d1oS\"></dd>"
+  ],
+  [
+   "<canvas id=\"d1ph\" class=\"plot\" aria-label=\"Faz uzayı: bağ uzaması hıza karşı; kararlı koşuda kapalı eğri, patlayan koşuda dışa açılan sarmal\"></canvas>",
+   "<canvas id=\"d1ph\" class=\"plot\" aria-label=\"Phase space: bond stretch against velocity; a closed curve for a stable run, an outward spiral for a run that blows up\"></canvas>"
+  ],
+  [
+   "<canvas id=\"d1map\" class=\"plot\" aria-label=\"Kararlılık haritası: en büyük enerji sapması Δt / T'ye karşı; T / 10, T / 5 ve T / π çizgileri; denemeleriniz noktalarla\"></canvas>",
+   "<canvas id=\"d1map\" class=\"plot\" aria-label=\"Stability map: largest energy deviation against Δt / T; lines at T / 10, T / 5 and T / π; your trials as dots\"></canvas>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Sol: faz uzayı, kesin çözüm soluk çember</span><span><i style=\"background:var(--deep)\"></i>Sağ: kararlılık haritası (tarayıcıda hesaplandı)</span><span><i style=\"background:var(--gold)\"></i>Sizin denemeleriniz</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Left: phase space, exact solution as the faint circle</span><span><i style=\"background:var(--deep)\"></i>Right: stability map (computed in the browser)</span><span><i style=\"background:var(--gold)\"></i>Your trials</span></div>"
+  ],
+  [
+   "<h3 class=\"h3\">Tek bir Verlet adımının içi</h3>",
+   "<h3 class=\"h3\">Inside a single Verlet step</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Algoritma her adımda aynı dört işi yapar. Adımları sırayla izleyin; sayılar yukarıda seçtiğiniz Δt ile bağın 0,01 nm çekilmiş hâlinden atılan ilk adımdır. Büyük Δt'de üçüncü adımdaki kaymanın dengeyi nasıl aştığına bakın.</p></div>",
+   "<div class=\"prose\"><p>At every step the algorithm does the same four jobs. Follow the steps in order; the numbers are the first step taken, with the Δt you chose above, from the bond stretched by 0.01 nm. At a large Δt, watch how the drift in the third step overshoots the equilibrium.</p></div>"
+  ],
+  [
+   "<canvas id=\"d1vv\" class=\"plot\" aria-label=\"Tek Verlet adımı: konum, kuvvet ve hız okları\"></canvas>",
+   "<canvas id=\"d1vv\" class=\"plot\" aria-label=\"A single Verlet step: position, force and velocity arrows\"></canvas>"
+  ],
+  [
+   "<li><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">Kuvveti hesapla</button></li>",
+   "<li><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">Compute the force</button></li>"
+  ],
+  [
+   "<li><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">Yarım itme: hız</button></li>",
+   "<li><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">Half kick: velocity</button></li>"
+  ],
+  [
+   "<li><button type=\"button\" data-v=\"3\" aria-pressed=\"false\">Kayma: yeni konum</button></li>",
+   "<li><button type=\"button\" data-v=\"3\" aria-pressed=\"false\">Drift: new position</button></li>"
+  ],
+  [
+   "<li><button type=\"button\" data-v=\"4\" aria-pressed=\"false\">Yeni kuvvet, ikinci yarım itme</button></li>",
+   "<li><button type=\"button\" data-v=\"4\" aria-pressed=\"false\">New force, second half kick</button></li>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Deneme</th><th>Hidrojen</th><th>Δt (fs)</th><th>Δt / T</th><th>Enerji sapması</th><th>Sonuç</th></tr></thead><tbody id=\"d1otab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Trial</th><th>Hydrogen</th><th>Δt (fs)</th><th>Δt / T</th><th>Energy deviation</th><th>Result</th></tr></thead><tbody id=\"d1otab\"></tbody></table></div>"
+  ],
+  [
+   "<p class=\"small\">Model: tek boyutlu harmonik bağ, k = 462.750 kJ mol⁻¹ nm⁻² (amber99sb-ildn, Ser OG-HG ve Thr OG1-HG1), O 16,00 u, H 1,008 u; HMR ile H 3,024 u, O 13,984 u. Algoritma hız-Verlet; GROMACS'ın varsayılanı leap-frog aynı yörüngeyi verir ve aynı kararlılık sınırına sahiptir: ω Δt &lt; 2, yani Δt &lt; T / π. Enerji sapması, toplam enerjinin başlangıç değerinden en büyük bağıl farkıdır. Gerçek bir proteinde bağlar birbirine ve açılara bağlıdır; bu tek bağ, sınırın nereden geldiğini göstermek içindir.</p>",
+   "<p class=\"small\">Model: one-dimensional harmonic bond, k = 462,750 kJ mol⁻¹ nm⁻² (amber99sb-ildn, Ser OG-HG and Thr OG1-HG1), O 16.00 u, H 1.008 u; with HMR, H 3.024 u, O 13.984 u. The algorithm is velocity Verlet; GROMACS's default, leap-frog, gives the same trajectory and has the same stability limit: ω Δt &lt; 2, that is Δt &lt; T / π. The energy deviation is the largest relative difference of the total energy from its starting value. In a real protein the bonds are coupled to each other and to the angles; this single bond is here to show where the limit comes from.</p>"
+  ],
+  [
+   "<article class=\"q\" id=\"d1c2\"><span class=\"k\">Açık</span><h3>Verlet'in sınırı nerede?</h3><p>Bir koşu kararlı kalsın, biraz daha uzun adımla bir koşu patlasın.</p><div class=\"mine\" id=\"md1c2\">Sınırın %10 altında kararlı ve %10 üstünde patlayan iki koşu yapın.</div></article>",
+   "<article class=\"q\" id=\"d1c2\"><span class=\"k\">Open</span><h3>Where is Verlet's limit?</h3><p>Let one run stay stable and a run with a slightly longer step blow up.</p><div class=\"mine\" id=\"md1c2\">Make two runs: one stable 10% below the limit and one that blows up 10% above it.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"d1c3\"><span class=\"k\">Açık</span><h3>Ağır hidrojen neyi değiştirir?</h3><p>Aynı adımla bir kez normal, bir kez HMR ile koşun.</p><div class=\"mine\" id=\"md1c3\">Normal hidrojenle patlayan bir adımı HMR ile kararlı koşun.</div></article>",
+   "<article class=\"q\" id=\"d1c3\"><span class=\"k\">Open</span><h3>What does a heavy hydrogen change?</h3><p>Run the same step once normally and once with HMR.</p><div class=\"mine\" id=\"md1c3\">Run a step that blows up with normal hydrogen stably with HMR.</div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Defter</span>",
+   "<span class=\"step\">3 · Notebook</span>"
+  ],
+  [
+   "<h2 id=\"d1h3\">24 gerçek koşu: hız mı, doğruluk mu?</h2>",
+   "<h2 id=\"d1h3\">24 real runs: speed or accuracy?</h2>"
+  ],
+  [
+   "<div class=\"prose\" id=\"d1gP\"><p>Bu projede aynı başlangıçtan (S0'ın NPT sonu; hızlar 300 K'de, aynı tohumla yeniden üretildi) 24 NVE koşusu yapıldı: 6 zaman adımı × 4 kısıt düzeni, her biri 20 ps; protokol koşulardan önce yazılıp donduruldu. NVE'de termostat yoktur, bu yüzden integrasyon hatası doğrudan enerjiye ve sıcaklığa yansır: termometre gibi okuyun. Her hücrede, aynı düzenin 0,5 fs koşusuna göre ortalama sıcaklığın ne kadar yükseldiği ve hız (ns/gün) var. Hücre rengi sizin ölçütünüzdür: ne kadar ısınmaya izin veriyorsunuz? Bir hücreye dokunun; en çok üç koşunun enerji eğrisi aşağıda üst üste çizilir.</p></div>",
+   "<div class=\"prose\" id=\"d1gP\"><p>In this project, 24 NVE runs were made from the same start (the end of S0's NPT; velocities regenerated at 300 K with the same seed): 6 time steps × 4 constraint schemes, 20 ps each; the protocol was written and frozen before the runs. NVE has no thermostat, so the integration error goes straight into the energy and the temperature: read it like a thermometer. Each cell holds how much the mean temperature rose relative to the 0.5 fs run of the same scheme, and the speed (ns/day). The cell colour is your criterion: how much warming do you allow? Tap a cell; the energy curves of up to three runs are drawn on top of each other below.</p></div>"
+  ],
+  [
+   "<div id=\"d1grid\" class=\"gridtab\" aria-label=\"Zaman adımı ve kısıt düzeni ızgarası; her hücre bir koşu\"></div>",
+   "<div id=\"d1grid\" class=\"gridtab\" aria-label=\"Grid of time step and constraint scheme; each cell is a run\"></div>"
+  ],
+  [
+   "<div><label class=\"lbl\" for=\"d1thr\">İzin verilen ısınma (aynı düzenin 0,5 fs koşusuna göre)</label><div class=\"big\" id=\"d1thrV\"></div><input type=\"range\" id=\"d1thr\" min=\"0.5\" max=\"17\" step=\"0.1\" value=\"3\"></div>",
+   "<div><label class=\"lbl\" for=\"d1thr\">Allowed warming (relative to the 0.5 fs run of the same scheme)</label><div class=\"big\" id=\"d1thrV\"></div><input type=\"range\" id=\"d1thr\" min=\"0.5\" max=\"17\" step=\"0.1\" value=\"3\"></div>"
+  ],
+  [
+   "<dt>Seçili koşu</dt><dd id=\"d1gSel\"></dd>",
+   "<dt>Selected run</dt><dd id=\"d1gSel\"></dd>"
+  ],
+  [
+   "<dt>Isınma (0,5 fs koşusuna göre)</dt><dd id=\"d1gDT\"></dd>",
+   "<dt>Warming (relative to the 0.5 fs run)</dt><dd id=\"d1gDT\"></dd>"
+  ],
+  [
+   "<dt>Korunan enerji eğimi, 1-20 ps</dt><dd id=\"d1gDr\"></dd>",
+   "<dt>Conserved energy slope, 1-20 ps</dt><dd id=\"d1gDr\"></dd>"
+  ],
+  [
+   "<dt>GROMACS'ın günlüğe yazdığı kayma (bütün koşu)</dt><dd id=\"d1gGd\"></dd>",
+   "<dt>Drift written to the log by GROMACS (whole run)</dt><dd id=\"d1gGd\"></dd>"
+  ],
+  [
+   "<dt>Hız</dt><dd id=\"d1gSp\"></dd>",
+   "<dt>Speed</dt><dd id=\"d1gSp\"></dd>"
+  ],
+  [
+   "<dt>Ortalama sıcaklık</dt><dd id=\"d1gT\"></dd>",
+   "<dt>Mean temperature</dt><dd id=\"d1gT\"></dd>"
+  ],
+  [
+   "<canvas id=\"d1sc\" class=\"plot\" aria-label=\"Hız ve ısınma: her koşu bir nokta; renk kısıt düzeni; kesikli çizgi ısınma sınırı; en iyi takas cephesi\"></canvas>",
+   "<canvas id=\"d1sc\" class=\"plot\" aria-label=\"Speed and warming: each run a dot; colour is the constraint scheme; dashed line the warming limit; the best trade-off front\"></canvas>"
+  ],
+  [
+   "<div class=\"crash\" id=\"d1crB\" hidden><div class=\"lbl\" id=\"d1crH\"></div><canvas id=\"d1cr\" class=\"plot\" aria-label=\"Çöken koşunun son adımında en çok kayan atomlar, logaritmik ölçek; normal bir adımdaki ortanca kayma\"></canvas><p class=\"small\" id=\"d1crN\" style=\"margin:0\"></p></div>",
+   "<div class=\"crash\" id=\"d1crB\" hidden><div class=\"lbl\" id=\"d1crH\"></div><canvas id=\"d1cr\" class=\"plot\" aria-label=\"Atoms that moved most in the last step of the crashed run, logarithmic scale; the median displacement in a normal step\"></canvas><p class=\"small\" id=\"d1crN\" style=\"margin:0\"></p></div>"
+  ],
+  [
+   "<canvas id=\"d1en\" class=\"plot\" aria-label=\"Seçili koşuların korunan enerjisi zamana karşı\"></canvas>",
+   "<canvas id=\"d1en\" class=\"plot\" aria-label=\"Conserved energy of the selected runs against time\"></canvas>"
+  ],
+  [
+   "<canvas id=\"d1tt\" class=\"plot\" aria-label=\"Seçili koşuların sıcaklığı zamana karşı\"></canvas>",
+   "<canvas id=\"d1tt\" class=\"plot\" aria-label=\"Temperature of the selected runs against time\"></canvas>"
+  ],
+  [
+   "<p class=\"small\" id=\"d1gN\">Okuma notları. H bağları kısıtlıyken adım büyüdükçe korunan enerji pozitife döner ve sistem ısınır: ortalama sıcaklık 0,5 fs'de 298,9 K, 4 fs'de 309,1 K. 5 fs'yi grompp reddetti (Glu16 CD-OE1, 22,2 fs); zorla koşulunca 0,3 ps'de LINCS uyarıları başladı ve koşu çöktü. HMR bu düzende kaymayı azaltmadı, artırdı (4 fs'de eğim 1,05, H bağlarında 0,29), ama 5 fs'de çökmeden 20 ps tamamlanan tek düzen o oldu; sıcaklık 315,5 K'e çıktı. HMR ağır atomları hafiflettiği için bazı ağır atom bağları hızlanır (bu projede en yavaş bağın periyodu 42,6'dan 36,4 fs'ye iner); tek tohumlu, 20 ps'lik bu deney kaymanın nedenini ayırmaz. Tüm bağlar kısıtlıyken eğim negatif ve adımla büyüyor (4 fs'de −4,20); koşular LINCS'in varsayılan ayarlarıyla (lincs-order 4, lincs-iter 1) yapıldı ve 5 fs'de 0,35 ps'de LINCS uyarısıyla çöktü. Kısıt yokken 2 fs'yi grompp reddetti (Thr7 OG1-HG1, 9,0 fs); zorla koşulan 2 fs tamamlandı; 3, 4 ve 5 fs'de su molekülleri ilk adımlarda (13., 3. ve 2. adım) SETTLE ile çözülemedi ve koşular çöktü. 0,5 ve 1 fs'de bütün düzenlerde küçük, düzenli bir negatif eğim var; kaynağı bu ızgarada ayrılamaz. Eğim birimi kJ mol⁻¹ ns⁻¹, atom başına (18.937 atom). Hızlar aynı makinede ölçüldü; aynı adımda düzenler arasındaki küçük farklar kısmen ölçüm gürültüsüdür ve hbonds 0,5 fs koşusu sırasında makinede başka işler de çalıştı.</p>",
+   "<p class=\"small\" id=\"d1gN\">Reading notes. With H bonds constrained, the conserved energy turns positive as the step grows and the system warms: the mean temperature is 298.9 K at 0.5 fs and 309.1 K at 4 fs. grompp rejected 5 fs (Glu16 CD-OE1, 22.2 fs); when forced, LINCS warnings began at 0.3 ps and the run crashed. In this scheme HMR did not reduce the drift, it increased it (slope 1.05 at 4 fs, 0.29 with H bonds), but it was the only scheme that completed 20 ps at 5 fs without crashing; the temperature rose to 315.5 K. Because HMR makes the heavy atoms lighter, some heavy-atom bonds become faster (in this project the period of the slowest bond drops from 42.6 to 36.4 fs); this single-seed, 20 ps experiment does not separate the cause of the drift. With all bonds constrained, the slope is negative and grows with the step (−4.20 at 4 fs); the runs were made with the default LINCS settings (lincs-order 4, lincs-iter 1) and at 5 fs crashed at 0.35 ps with a LINCS warning. Without constraints, grompp rejected 2 fs (Thr7 OG1-HG1, 9.0 fs); the forced 2 fs run completed; at 3, 4 and 5 fs, water molecules could not be settled by SETTLE in the first steps (steps 13, 3 and 2) and the runs crashed. At 0.5 and 1 fs there is a small, regular negative slope in every scheme; its source cannot be separated in this grid. The slope unit is kJ mol⁻¹ ns⁻¹ per atom (18,937 atoms). The speeds were measured on the same machine; at the same step, the small differences between schemes are partly measurement noise, and other jobs were also running on the machine during the hbonds 0.5 fs run.</p>"
+  ],
+  [
+   "<article class=\"q\" id=\"d1c4\"><span class=\"k\">Açık</span><h3>Ölçütünüze göre en hızlı ayar hangisi?</h3><p>Bir ısınma sınırı seçin ve sınırın altında kalan koşular arasında en hızlısını bulun.</p><div class=\"mine\" id=\"md1c4\">Sınırı, tamamlanmış en az bir koşuyu dışarıda bırakacak kadar düşürün ve kalanlar arasında en hızlı koşuyu seçin.</div></article>",
+   "<article class=\"q\" id=\"d1c4\"><span class=\"k\">Open</span><h3>By your criterion, which setting is fastest?</h3><p>Choose a warming limit and find the fastest of the runs that stay under it.</p><div class=\"mine\" id=\"md1c4\">Lower the limit far enough to leave out at least one completed run, and pick the fastest run among those that remain.</div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to the protein</span>"
+  ],
+  [
+   "<h2 id=\"d1h4\">Bu projenin koşuları neden öyle davrandı?</h2>",
+   "<h2 id=\"d1h4\">Why did this project's runs behave as they did?</h2>"
+  ],
+  [
+   "<div class=\"prose\" id=\"d1pP\"><p>Bu projenin önceki koşularında (25 Eylül, 10 ps, termostat ve barostat açık) zaman adımı üç kez denenmişti. Izgara aynı soruları termostatsız ve aynı başlangıçtan yeniden sorar. Aşağıda S2b'nin gerçek grompp çıktısı ve üç koşunun ızgaradaki karşılıkları var.</p></div>",
+   "<div class=\"prose\" id=\"d1pP\"><p>In this project's earlier runs (25 September, 10 ps, thermostat and barostat on), the time step had been tried three times. The grid asks the same questions again, without a thermostat and from the same start. Below are the real grompp output of S2b and the grid counterparts of the three runs.</p></div>"
+  ],
+  [
+   "<div class=\"crash\"><div class=\"lbl\">grompp, S2b (25 Eylül 2026): 4 fs, bağ kısıtı yok</div><pre>WARNING 1 [file topol.top, line 11764]:",
+   "<div class=\"crash\"><div class=\"lbl\">grompp, S2b (25 September 2026): 4 fs, no bond constraints</div><pre>WARNING 1 [file topol.top, line 11764]:"
+  ],
+  [
+   "<div class=\"tw\" id=\"d1pTab\"><table><thead><tr><th>Önceki koşu</th><th>Ayar</th><th>Önceki sonuç</th><th>Izgarada (NVE, 20 ps)</th></tr></thead><tbody><tr><td>C1</td><td>2 fs, H bağları</td><td>tamamlandı; korunan enerji eğimi yaklaşık +60 kJ mol⁻¹ ps⁻¹; 13,5 ns/gün</td><td>tamamlandı; 0,5 fs'ye göre +2,3 K; 7,4 ns/gün</td></tr><tr><td>S2a</td><td>4 fs, H bağları</td><td>tamamlandı; eğim yaklaşık +68 kJ mol⁻¹ ps⁻¹; 26,8 ns/gün</td><td>tamamlandı; +10,2 K; 15,7 ns/gün</td></tr><tr><td>S2b</td><td>4 fs, kısıt yok</td><td>grompp reddetti; koşu başlamadı</td><td>grompp yine reddetti; zorla koşulunca 3. adımda su molekülleri çözülemedi ve koşu çöktü</td></tr></tbody></table></div>",
+   "<div class=\"tw\" id=\"d1pTab\"><table><thead><tr><th>Earlier run</th><th>Setting</th><th>Earlier result</th><th>In the grid (NVE, 20 ps)</th></tr></thead><tbody><tr><td>C1</td><td>2 fs, H bonds</td><td>completed; conserved energy slope about +60 kJ mol⁻¹ ps⁻¹; 13.5 ns/day</td><td>completed; +2.3 K relative to 0.5 fs; 7.4 ns/day</td></tr><tr><td>S2a</td><td>4 fs, H bonds</td><td>completed; slope about +68 kJ mol⁻¹ ps⁻¹; 26.8 ns/day</td><td>completed; +10.2 K; 15.7 ns/day</td></tr><tr><td>S2b</td><td>4 fs, no constraints</td><td>grompp rejected it; the run did not start</td><td>grompp rejected it again; when forced, water molecules could not be settled at step 3 and the run crashed</td></tr></tbody></table></div>"
+  ],
+  [
+   "<p class=\"small\" id=\"d1pN\">Termostatlı koşularda korunan enerji termostatın yaptığı işi de içerir ve 10 ps, kayma hızını güvenilir vermez; ızgaranın NVE koşulmasının nedeni budur. Uygulamada yaygın seçim 2 fs ve H bağları kısıtıdır. HMR ile 4 fs, Hopkins, Le Grand, Walker ve Roitberg 2015'te (J Chem Theory Comput 11:1864) bir tripeptit ve lizozim üzerinde sınanmış ve zaman adımını 2 kata kadar büyütmeye izin verdiği bildirilmiştir. Bu projenin tek tohumlu, 20 ps'lik ızgarası HMR'nin bu sistemde kaymayı azalttığını göstermedi; bu, yöntem hakkında bir hüküm değil, bu kısa deneyin sonucudur. Hızları yalnız ızgara içinde karşılaştırın: ızgara enerjiyi 60 fs'de bir hesapladı ve önceki koşulardan farklı bir oturumda koşuldu (aynı 2 fs'de 7,4'e karşı 13,5 ns/gün).</p>",
+   "<p class=\"small\" id=\"d1pN\">In thermostatted runs, the conserved energy also includes the work done by the thermostat, and 10 ps does not give the drift rate reliably; that is why the grid was run in NVE. The common choice in practice is 2 fs with H bonds constrained. 4 fs with HMR was tested on a tripeptide and on lysozyme by Hopkins, Le Grand, Walker and Roitberg 2015 (J Chem Theory Comput 11:1864), who reported that it allows the time step to be made up to 2 times larger. This project's single-seed, 20 ps grid did not show that HMR reduces the drift in this system; that is the result of this short experiment, not a verdict on the method. Compare speeds only within the grid: the grid computed the energy once every 60 fs and was run in a different session from the earlier runs (7.4 against 13.5 ns/day at the same 2 fs).</p>"
+  ],
+  [
+   "<span class=\"step\">5 · Kendinizi sınayın</span>",
+   "<span class=\"step\">5 · Test yourself</span>"
+  ],
+  [
+   "<h2 id=\"d1h5\">Altı soru</h2>",
+   "<h2 id=\"d1h5\">Six questions</h2>"
+  ],
+  [
+   "<p class=\"next\">Önceki adımlar: <a href=\"../md-t/\">MD-T · Enerji, kuvvetler ve sayısal hareket</a> (tek bağın Verlet adımı) ve <a href=\"../md-eq/\">MD-EQ · Minimizasyon ve dengeleme</a> (ızgaranın başladığı dengeli sistem).</p>",
+   "<p class=\"next\">Previous steps: <a href=\"../md-t/\">MD-T · Energy, forces and numerical motion</a> (the Verlet step of a single bond) and <a href=\"../md-eq/\">MD-EQ · Minimization and equilibration</a> (the equilibrated system the grid starts from).</p>"
+  ],
+  [
+   "<p class=\"small\">Model: tek bağ canlandırması tarayıcıda hesaplanan bir öğretim modelidir. Bağ periyotları bu projenin ubikitin topolojisinden (amber99sb-ildn, 1.231 protein atomu, 1.237 bağ) hesaplandı; enerji eğrileri, sıcaklıklar ve hızlar bu projede bulutta, GROMACS 2023.3 ile gerçekten koşulmuş NVE koşularından gelir.</p>",
+   "<p class=\"small\">Model: the single-bond animation is a teaching model computed in the browser. The bond periods were computed from this project's ubiquitin topology (amber99sb-ildn, 1,231 protein atoms, 1,237 bonds); the energy curves, temperatures and speeds come from NVE runs actually made in this project in the cloud with GROMACS 2023.3.</p>"
+  ],
+  [
+   "\"lab\":\"H bağları + HMR, 0,5 fs\"",
+   "\"lab\":\"H bonds + HMR, 0.5 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları, 0,5 fs\"",
+   "\"lab\":\"H bonds, 0.5 fs\""
+  ],
+  [
+   "\"lab\":\"Tüm bağlar, 0,5 fs\"",
+   "\"lab\":\"All bonds, 0.5 fs\""
+  ],
+  [
+   "\"lab\":\"Kısıt yok, 0,5 fs\"",
+   "\"lab\":\"No constraints, 0.5 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları + HMR, 1 fs\"",
+   "\"lab\":\"H bonds + HMR, 1 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları, 1 fs\"",
+   "\"lab\":\"H bonds, 1 fs\""
+  ],
+  [
+   "\"lab\":\"Tüm bağlar, 1 fs\"",
+   "\"lab\":\"All bonds, 1 fs\""
+  ],
+  [
+   "\"lab\":\"Kısıt yok, 1 fs\"",
+   "\"lab\":\"No constraints, 1 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları + HMR, 2 fs\"",
+   "\"lab\":\"H bonds + HMR, 2 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları, 2 fs\"",
+   "\"lab\":\"H bonds, 2 fs\""
+  ],
+  [
+   "\"lab\":\"Tüm bağlar, 2 fs\"",
+   "\"lab\":\"All bonds, 2 fs\""
+  ],
+  [
+   "\"lab\":\"Kısıt yok, 2 fs\"",
+   "\"lab\":\"No constraints, 2 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları + HMR, 3 fs\"",
+   "\"lab\":\"H bonds + HMR, 3 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları, 3 fs\"",
+   "\"lab\":\"H bonds, 3 fs\""
+  ],
+  [
+   "\"lab\":\"Tüm bağlar, 3 fs\"",
+   "\"lab\":\"All bonds, 3 fs\""
+  ],
+  [
+   "\"lab\":\"Kısıt yok, 3 fs\"",
+   "\"lab\":\"No constraints, 3 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları + HMR, 4 fs\"",
+   "\"lab\":\"H bonds + HMR, 4 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları, 4 fs\"",
+   "\"lab\":\"H bonds, 4 fs\""
+  ],
+  [
+   "\"lab\":\"Tüm bağlar, 4 fs\"",
+   "\"lab\":\"All bonds, 4 fs\""
+  ],
+  [
+   "\"lab\":\"Kısıt yok, 4 fs\"",
+   "\"lab\":\"No constraints, 4 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları + HMR, 5 fs\"",
+   "\"lab\":\"H bonds + HMR, 5 fs\""
+  ],
+  [
+   "\"lab\":\"H bağları, 5 fs\"",
+   "\"lab\":\"H bonds, 5 fs\""
+  ],
+  [
+   "\"lab\":\"Tüm bağlar, 5 fs\"",
+   "\"lab\":\"All bonds, 5 fs\""
+  ],
+  [
+   "\"lab\":\"Kısıt yok, 5 fs\"",
+   "\"lab\":\"No constraints, 5 fs\""
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function pc(v,d){ return '%'+fx(v,d); }",
+   "function pc(v,d){ return fx(v,d)+'%'; }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('d1progN').textContent=Object.keys(FOUND).length+' / 4'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('d1progN').textContent=Object.keys(FOUND).length+' / 4'; }"
+  ],
+  [
+   "var NFI=new Intl.NumberFormat('tr-TR');",
+   "var NFI=new Intl.NumberFormat('en-US');"
+  ],
+  [
+   "var CLS=[['OH','O-H (Ser, Thr, Tyr)'],['NH','N-H'],['CH','C-H'],['CO','C=O (omurga)'],['CN','C-N (peptit bağı)'],['HV','Diğer ağır atom bağları']];",
+   "var CLS=[['OH','O-H (Ser, Thr, Tyr)'],['NH','N-H'],['CH','C-H'],['CO','C=O (backbone)'],['CN','C-N (peptide bond)'],['HV','Other heavy-atom bonds']];"
+  ],
+  [
+   "var N={OH:'Bu projedeki en hızlı bağlar: tek bir titreşim 9 fs sürer. Kuvvet alanı bağı serbest bırakırsa zaman adımını bu bağlar belirler.',NH:'Omurganın N-H bağları: hesaplanan dalga sayısı, IR\\'daki amid A bandının (yaklaşık 3.300 cm⁻¹) üstüne düşer.',CH:'485 bağla en kalabalık grup; periyotları 10,9-11,4 fs.',CO:'Hesaplanan değer amid I bandının (1.600-1.700 cm⁻¹) altında kalır: gerçek amid I titreşimi komşu bağlarla ve açılarla karışır, tek bağ modeli bunu içermez.',CN:'Peptit bağı; C=O ile birlikte amid titreşimlerine katılır.',HV:'Ağır atomlar arasındaki bağlar 22-43 fs\\'lik periyotlarla hidrojenli bağlardan iki-dört kat yavaştır.'};",
+   "var N={OH:'The fastest bonds in this project: a single vibration lasts 9 fs. If the force field leaves these bonds free, they set the time step.',NH:'The N-H bonds of the backbone: the computed wavenumber falls on the amide A band of IR (about 3,300 cm⁻¹).',CH:'The largest group, with 485 bonds; periods 10.9-11.4 fs.',CO:'The computed value lies below the amide I band (1,600-1,700 cm⁻¹): the real amide I vibration mixes with neighbouring bonds and angles, which the single-bond model leaves out.',CN:'The peptide bond; together with C=O it takes part in the amide vibrations.',HV:'With periods of 22-43 fs, the bonds between heavy atoms are two to four times slower than the bonds to hydrogen.'};"
+  ],
+  [
+   "band(3250,3350,'amid A'); band(1600,1700,'amid I');",
+   "band(3250,3350,'amide A'); band(1600,1700,'amide I');"
+  ],
+  [
+   "[4000,3500,3000,2500,2000,1500,1000].forEach(function(w){ g.fillText(NFI.format(w),X(w),H-B+16); }); g.fillText('dalga sayısı (cm⁻¹)',(L+W-R)/2,H-3);",
+   "[4000,3500,3000,2500,2000,1500,1000].forEach(function(w){ g.fillText(NFI.format(w),X(w),H-B+16); }); g.fillText('wavenumber (cm⁻¹)',(L+W-R)/2,H-3);"
+  ],
+  [
+   "g.textAlign='left'; g.save(); g.translate(12,(T+H-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('bağ sayısı (karekök ölçek)',0,0); g.restore(); }",
+   "g.textAlign='left'; g.save(); g.translate(12,(T+H-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('number of bonds (square-root scale)',0,0); g.restore(); }"
+  ],
+  [
+   "var lm=limit(); if(lm.k<0){ $('d1fast').textContent='yok (bütün bağlar kısıtlı)'; $('d1lim').textContent='bağlar sınırlamıyor; sınırı açılar ve diğer hareketler belirler'; }",
+   "var lm=limit(); if(lm.k<0){ $('d1fast').textContent='none (all bonds constrained)'; $('d1lim').textContent='bonds do not limit it; the limit is set by angles and other motions'; }"
+  ],
+  [
+   "if(ok('none')&&ok('h')) card('d1c1',true,'Kısıt yokken en uzun adım '+fx(A1.best.none,1)+' fs (sınır: Thr ve Ser O-H bağları, 8,99 fs / 5). H bağları kısıtlanınca '+fx(A1.best.h,1)+' fs (sınır artık ağır atom bağları, 22,2 fs / 5). Kısıt, en hızlı bağları denklemden çıkarır ve sınırı bir sonraki en hızlı harekete taşır.');",
+   "if(ok('none')&&ok('h')) card('d1c1',true,'Without constraints the longest step is '+fx(A1.best.none,1)+' fs (limit: the Thr and Ser O-H bonds, 8.99 fs / 5). With H bonds constrained it is '+fx(A1.best.h,1)+' fs (the limit is now the heavy-atom bonds, 22.2 fs / 5). A constraint takes the fastest bonds out of the equation and moves the limit to the next fastest motion.');"
+  ],
+  [
+   "else card('d1c1',false,(A1.best.none||A1.best.h)?'Şimdiye kadar kırmızısız en uzun adım: '+(A1.best.none?'yok düzeninde '+fx(A1.best.none,1)+' fs':'')+(A1.best.none&&A1.best.h?', ':'')+(A1.best.h?'H bağları düzeninde '+fx(A1.best.h,1)+' fs':'')+'.':null); }",
+   "else card('d1c1',false,(A1.best.none||A1.best.h)?'Longest step without red so far: '+(A1.best.none?fx(A1.best.none,1)+' fs in the None scheme':'')+(A1.best.none&&A1.best.h?', ':'')+(A1.best.h?fx(A1.best.h,1)+' fs in the H bonds scheme':'')+'.':null); }"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [5,10,15,20,25,30,35,40,45].forEach(function(t){ g.fillText(fx(t,0),X(t),H-B+15); }); g.fillText('bağın titreşim periyodu (fs)',(L+W-R)/2,H-2); g.textAlign='left';",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [5,10,15,20,25,30,35,40,45].forEach(function(t){ g.fillText(fx(t,0),X(t),H-B+15); }); g.fillText('vibrational period of the bond (fs)',(L+W-R)/2,H-2); g.textAlign='left';"
+  ],
+  [
+   "var r=O2.run; if(!r){ $('d1oE').textContent='-'; $('d1oS').textContent='henüz koşulmadı'; $('d1oTxt').textContent='Adımı seçin ve \"Adım adım oynat\"a basın. Bağ 0,01 nm çekilmiş hâlden bırakılır; algoritma altı periyot boyunca ilerletilir.'; return; }",
+   "var r=O2.run; if(!r){ $('d1oE').textContent='-'; $('d1oS').textContent='not run yet'; $('d1oTxt').textContent='Choose the step and press \"Play step by step\". The bond is released from a stretch of 0.01 nm; the algorithm is advanced for six periods.'; return; }"
+  ],
+  [
+   "$('d1oE').textContent=r.blow?'sınırsız':'%'+fx(100*r.emax,r.emax<0.01?3:1); $('d1oS').textContent=r.blow?'patladı':'kararlı';",
+   "$('d1oE').textContent=r.blow?'unbounded':fx(100*r.emax,r.emax<0.01?3:1)+'%'; $('d1oS').textContent=r.blow?'blew up':'stable';"
+  ],
+  [
+   "$('d1oTxt').textContent=r.blow?'Δt = '+fx(r.dt,2)+' fs, periyodun '+fx(q,2)+' katı; bir titreşime '+fx(pts,1)+' adım düşüyor. Sınır T / π = '+fx(r.T/Math.PI,2)+' fs aşıldı: her adımda genlik biraz daha büyüyor ve yörünge sınırsız açılıyor. GROMACS böyle bir koşuda önce LINCS ya da SETTLE uyarısı verir, sonra durur.':(q>0.2?'Kararlı, ama bir titreşime yalnız '+fx(pts,1)+' adım düşüyor; enerji her titreşimde %'+fx(100*r.emax,1)+'\\'e kadar salınıyor. grompp bu adımı reddederdi (Δt > T / 5).':'Bir titreşime '+fx(pts,1)+' adım düşüyor; noktalar kesin eğrinin üstünde, enerji sapması %'+fx(100*r.emax,r.emax<0.01?3:2)+'. Adımı büyüttükçe sapmanın karesel büyüdüğüne dikkat edin.'); }",
+   "$('d1oTxt').textContent=r.blow?'Δt = '+fx(r.dt,2)+' fs, '+fx(q,2)+' times the period; '+fx(pts,1)+' steps per vibration. The limit T / π = '+fx(r.T/Math.PI,2)+' fs was exceeded: at every step the amplitude grows a little more and the trajectory opens without bound. In such a run GROMACS first gives a LINCS or SETTLE warning, then stops.':(q>0.2?'Stable, but only '+fx(pts,1)+' steps per vibration; the energy swings by up to '+fx(100*r.emax,1)+'% in every vibration. grompp would reject this step (Δt > T / 5).':fx(pts,1)+' steps per vibration; the dots sit on the exact curve, energy deviation '+fx(100*r.emax,r.emax<0.01?3:2)+'%. Notice that the deviation grows quadratically as you make the step larger.'); }"
+  ],
+  [
+   "$('d1otab').innerHTML=O2.trials.map(function(t,k){ return '<tr><td class=\"n\">'+(O2.trials.length-k)+'</td><td>'+(t.h?'HMR':'normal')+'</td><td class=\"n\">'+fx(t.dt,2)+'</td><td class=\"n\">'+fx(t.q,3)+'</td><td class=\"n\">'+(t.blow?'sınırsız':'%'+fx(100*t.e,t.e<0.01?3:1))+'</td><td>'+(t.blow?'patladı':'kararlı')+'</td></tr>'; }).join('');",
+   "$('d1otab').innerHTML=O2.trials.map(function(t,k){ return '<tr><td class=\"n\">'+(O2.trials.length-k)+'</td><td>'+(t.h?'HMR':'normal')+'</td><td class=\"n\">'+fx(t.dt,2)+'</td><td class=\"n\">'+fx(t.q,3)+'</td><td class=\"n\">'+(t.blow?'unbounded':fx(100*t.e,t.e<0.01?3:1)+'%')+'</td><td>'+(t.blow?'blew up':'stable')+'</td></tr>'; }).join('');"
+  ],
+  [
+   "if(st.length&&bl.length) card('d1c2',true,'Normal hidrojenle Δt = '+fx(st[0].dt,2)+' fs kararlı, '+fx(bl[0].dt,2)+' fs patladı. Sınır T / π = '+fx(8.994/Math.PI,2)+' fs: bir titreşime π\\'den az adım düşünce Verlet her adımda enerji ekler.');",
+   "if(st.length&&bl.length) card('d1c2',true,'With normal hydrogen, Δt = '+fx(st[0].dt,2)+' fs was stable and '+fx(bl[0].dt,2)+' fs blew up. The limit is T / π = '+fx(8.994/Math.PI,2)+' fs: with fewer than π steps per vibration, Verlet adds energy at every step.');"
+  ],
+  [
+   "else card('d1c2',false,st.length?'Sınırın hemen altında kararlı bir koşu var ('+fx(st[0].dt,2)+' fs). Şimdi sınırın %10 üstüne kadar bir adımla patlatın.':(bl.length?'Sınırın hemen üstünde patlayan bir koşu var ('+fx(bl[0].dt,2)+' fs). Şimdi sınırın %10 altına kadar bir adımla kararlı koşun.':null));",
+   "else card('d1c2',false,st.length?'There is a stable run just below the limit ('+fx(st[0].dt,2)+' fs). Now blow it up with a step up to 10% above the limit.':(bl.length?'There is a run that blew up just above the limit ('+fx(bl[0].dt,2)+' fs). Now make a stable run with a step down to 10% below the limit.':null));"
+  ],
+  [
+   "if(pair) card('d1c3',true,'Δt = '+fx(pair[0].dt,2)+' fs: normal hidrojenle patladı, HMR ile kararlı. Hidrojen 3 kat ağırlaşınca O-H periyodu 8,99\\'dan 14,56 fs\\'ye çıkıyor: 1,62 kat, √3 değil, çünkü oksijen de hafifliyor ve belirleyici olan indirgenmiş kütle.');",
+   "if(pair) card('d1c3',true,'Δt = '+fx(pair[0].dt,2)+' fs: it blew up with normal hydrogen and was stable with HMR. When the hydrogen becomes 3 times heavier, the O-H period rises from 8.99 to 14.56 fs: 1.62 times, not √3, because the oxygen also becomes lighter and what counts is the reduced mass.');"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('bağ uzaması',L,top+10);",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('bond stretch',L,top+10);"
+  ],
+  [
+   "g.fillStyle=css('--muted'); g.fillText('toplam enerji sapması (±%20 ölçek)',L,yb-2);",
+   "g.fillStyle=css('--muted'); g.fillText('total energy deviation (±20% scale)',L,yb-2);"
+  ],
+  [
+   "if(r&&r.blow&&n>=r.xs.length-1){ pill(g,'yörünge ölçeğin dışına çıktı: bağ patladı',W/2,top+h1/2,css('--paper'),str(rgb(css('--bad')),0.9)); } }",
+   "if(r&&r.blow&&n>=r.xs.length-1){ pill(g,'the trajectory left the scale: the bond blew up',W/2,top+h1/2,css('--paper'),str(rgb(css('--bad')),0.9)); } }"
+  ],
+  [
+   "function gridRender(){ var D=MDT.grid; if(!D){ $('d1grid').innerHTML='<p class=\"small\">Izgara koşuları sürüyor; sonuçlar gelince bu bölüm dolacak. Bu senaryo henüz hesaplanmadı.</p>'; return; }",
+   "function gridRender(){ var D=MDT.grid; if(!D){ $('d1grid').innerHTML='<p class=\"small\">The grid runs are in progress; this section will fill in when the results arrive. This scenario has not been computed yet.</p>'; return; }"
+  ],
+  [
+   "var CO=[['hbonds','H bağları'],['hmr','H bağları + HMR'],['all','Tüm bağlar'],['none','Kısıt yok']], DT=[0.5,1,2,3,4,5];",
+   "var CO=[['hbonds','H bonds'],['hmr','H bonds + HMR'],['all','All bonds'],['none','No constraints']], DT=[0.5,1,2,3,4,5];"
+  ],
+  [
+   "var h='<table><thead><tr><th>Kısıt</th>'+DT.map(function(d){ return '<th>'+fx(d,d<1?1:0)+' fs</th>'; }).join('')+'</tr></thead><tbody>';",
+   "var h='<table><thead><tr><th>Constraints</th>'+DT.map(function(d){ return '<th>'+fx(d,d<1?1:0)+' fs</th>'; }).join('')+'</tr></thead><tbody>';"
+  ],
+  [
+   "h+='<td><button type=\"button\" class=\"gcell '+cls+'\" data-id=\"'+id+'\" aria-pressed=\"'+sel+'\">'+(r.crash?'çöktü':(v>=0?'+':'−')+fx(Math.abs(v),1)+'&nbsp;K')+'<small>'+(r.crash?(r.last<0.05?'ilk adımlarda':fx(r.last,2)+'&nbsp;ps'):fx(r.nsday,1)+'&nbsp;ns/gün')+'</small>'+(r.forced?'<i>zorla</i>':'')+'</button></td>'; }); h+='</tr>'; });",
+   "h+='<td><button type=\"button\" class=\"gcell '+cls+'\" data-id=\"'+id+'\" aria-pressed=\"'+sel+'\">'+(r.crash?'crashed':(v>=0?'+':'−')+fx(Math.abs(v),1)+'&nbsp;K')+'<small>'+(r.crash?(r.last<0.05?'first steps':fx(r.last,2)+'&nbsp;ps'):fx(r.nsday,1)+'&nbsp;ns/day')+'</small>'+(r.forced?'<i>forced</i>':'')+'</button></td>'; }); h+='</tr>'; });"
+  ],
+  [
+   "function gRead(){ var D=MDT.grid; $('d1thrV').textContent='en çok +'+fx(G4.thr,1)+' K'; if(!D) return;",
+   "function gRead(){ var D=MDT.grid; $('d1thrV').textContent='at most +'+fx(G4.thr,1)+' K'; if(!D) return;"
+  ],
+  [
+   "$('d1gSel').textContent=r?r.lab:'bir hücre seçin';",
+   "$('d1gSel').textContent=r?r.lab:'choose a cell';"
+  ],
+  [
+   "$('d1gSp').textContent=r&&!r.crash?fx(r.nsday,1)+' ns/gün':(r?(r.last<0.05?'çöktü (ilk adımlarda)':'çöktü ('+fx(r.last,2)+' ps)'):'-'); $('d1gW').textContent=r&&r.crash&&r.warn?'mdrun: '+r.warn:'';",
+   "$('d1gSp').textContent=r&&!r.crash?fx(r.nsday,1)+' ns/day':(r?(r.last<0.05?'crashed (in the first steps)':'crashed ('+fx(r.last,2)+' ps)'):'-'); $('d1gW').textContent=r&&r.crash&&r.warn?'mdrun: '+r.warn:'';"
+  ],
+  [
+   "$('d1gT').textContent=r&&r.T?fx(r.T,1)+' K':'-'; $('d1gG').textContent=r?(r.forced?'reddetti; zorla koşuldu':'kabul etti'):'-';",
+   "$('d1gT').textContent=r&&r.T?fx(r.T,1)+' K':'-'; $('d1gG').textContent=r?(r.forced?'rejected; run forced':'accepted'):'-';"
+  ],
+  [
+   "if(r&&best===id&&rejDone.length) card('d1c4',true,'Sınır +'+fx(G4.thr,1)+' K: '+acc.length+' koşu kabul, tamamlanmış '+rejDone.length+' koşu dışarıda. En hızlı kabul edilen koşu '+r.lab+': '+fx(r.nsday,1)+' ns/gün, +'+fx(v,1)+' K'+(r.forced?' (grompp reddetmişti; zorla koşuldu)':'')+'. Sınırı siz seçtiniz; başka bir soru başka bir sınır ister.');",
+   "if(r&&best===id&&rejDone.length) card('d1c4',true,'Limit +'+fx(G4.thr,1)+' K: '+acc.length+' runs accepted, '+rejDone.length+' completed runs left out. The fastest accepted run is '+r.lab+': '+fx(r.nsday,1)+' ns/day, +'+fx(v,1)+' K'+(r.forced?' (grompp had rejected it; run forced)':'')+'. You chose the limit; a different question calls for a different limit.');"
+  ],
+  [
+   "else if(!FOUND.d1c4&&r) card('d1c4',false,!rejDone.length?'Bu sınırda tamamlanan bütün koşular kabul ediliyor; sınırı düşürün.':(best?'Sınırın altındaki en hızlı koşu henüz seçilmedi.':'Bu sınırda hiçbir koşu kabul edilmiyor.')); }",
+   "else if(!FOUND.d1c4&&r) card('d1c4',false,!rejDone.length?'At this limit all completed runs are accepted; lower the limit.':(best?'The fastest run under the limit has not been selected yet.':'No run is accepted at this limit.')); }"
+  ],
+  [
+   "if(!sets.length){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Izgaradan en çok üç koşu seçin.',L,H/2); $('d1enL').innerHTML=''; return; }",
+   "if(!sets.length){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Choose up to three runs from the grid.',L,H/2); $('d1enL').innerHTML=''; return; }"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [0,5,10,15,20].forEach(function(t){ g.fillText(String(t),X(t),H-12); }); g.fillText('süre (ps)',X(10),H-1); g.textAlign='left';",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [0,5,10,15,20].forEach(function(t){ g.fillText(String(t),X(t),H-12); }); g.fillText('time (ps)',X(10),H-1); g.textAlign='left';"
+  ],
+  [
+   "{s:'Bir bağın titreşim periyodu 9 fs. grompp hangi zaman adımına kadar uyarı vermez?',o:[['9 fs',0],['4,5 fs',0],['1,8 fs',1],['0,9 fs',0]],w:'grompp, periyodun zaman adımının beş katından kısa olmasına izin vermez: 9 / 5 = 1,8 fs.'},",
+   "{s:'The vibrational period of a bond is 9 fs. Up to which time step does grompp give no warning?',o:[['9 fs',0],['4.5 fs',0],['1.8 fs',1],['0.9 fs',0]],w:'grompp does not allow the period to be shorter than five times the time step: 9 / 5 = 1.8 fs.'},"
+  ],
+  [
+   "{s:'H bağlarını kısıtlamak zaman adımı sınırını neden yükseltir?',o:[['Hidrojenleri ağırlaştırdığı için',0],['En hızlı titreşimleri (X-H gerilmeleri) hareketten çıkardığı için; sınırı bir sonraki en hızlı hareket belirler',1],['Kuvvetleri küçülttüğü için',0],['Sıcaklığı düşürdüğü için',0]],w:'Kısıtlı bir bağın boyu sabittir, titreşmez. Bu projede H bağları kısıtlanınca en hızlı serbest bağ 22,2 fs\\'lik bir ağır atom bağıdır.'},",
+   "{s:'Why does constraining the H bonds raise the time step limit?',o:[['Because it makes the hydrogens heavier',0],['Because it takes the fastest vibrations (X-H stretches) out of the motion; the limit is then set by the next fastest motion',1],['Because it makes the forces smaller',0],['Because it lowers the temperature',0]],w:'A constrained bond has a fixed length and does not vibrate. In this project, with H bonds constrained, the fastest free bond is a heavy-atom bond with a period of 22.2 fs.'},"
+  ],
+  [
+   "{s:'Verlet algoritmasıyla harmonik bir bağ hangi adımdan sonra patlar?',o:[['Δt > T / 10',0],['Δt > T / 5',0],['Δt > T / π',1],['Δt > T',0]],w:'Hız-Verlet ve leap-frog, ω Δt < 2 iken kararlıdır; bu Δt < T / π demektir. T / 5 kuralı bu sınırın altında bir güvenlik payıdır.'},",
+   "{s:'Beyond which step does a harmonic bond blow up with the Verlet algorithm?',o:[['Δt > T / 10',0],['Δt > T / 5',0],['Δt > T / π',1],['Δt > T',0]],w:'Velocity Verlet and leap-frog are stable while ω Δt < 2; that means Δt < T / π. The T / 5 rule is a safety margin below this limit.'},"
+  ],
+  [
+   "{s:'HMR ile hidrojen kütlesi üç katına çıkınca O-H periyodu ne kadar uzar?',o:[['3 kat',0],['√3 kat (1,73)',0],['Yaklaşık 1,62 kat',1],['Değişmez',0]],w:'Periyot indirgenmiş kütlenin kareköküyle büyür. Oksijen de hafiflediği için (16,00 → 13,98 u) artış √3\\'ten küçüktür: 8,99 → 14,56 fs.'},",
+   "{s:'When HMR triples the hydrogen mass, how much longer does the O-H period become?',o:[['3 times',0],['√3 times (1.73)',0],['About 1.62 times',1],['It does not change',0]],w:'The period grows with the square root of the reduced mass. Because the oxygen also becomes lighter (16.00 → 13.98 u), the increase is smaller than √3: 8.99 → 14.56 fs.'},"
+  ],
+  [
+   "{s:'Tüm bağlar kısıtlıyken bile zaman adımını neden sınırsız büyütemezsiniz?',o:[['Açı titreşimleri ve diğer hareketler hâlâ serbesttir ve kendi periyotları vardır',1],['Kısıtlar yalnız hidrojenlere uygulanır',0],['PME buna izin vermez',0],['Sıcaklık sıfıra iner',0]],w:'Bağlar titreşmese de açılar, burulmalar ve su molekülünün dönmesi titreşir. Bu sayfadaki bağ analizi açıları içermez; ızgaradaki gerçek koşular bu hareketlerin etkisini de taşır.'},",
+   "{s:'Even with all bonds constrained, why can you not make the time step as large as you like?',o:[['Angle vibrations and other motions are still free and have their own periods',1],['Constraints apply only to hydrogens',0],['PME does not allow it',0],['The temperature drops to zero',0]],w:'Even if the bonds do not vibrate, the angles, the torsions and the rotation of the water molecules still move. The bond analysis on this page leaves out the angles; the real runs in the grid also carry the effect of these motions.'},"
+  ],
+  [
+   "{s:'Bu projenin S2a koşusu (4 fs, H bağları kısıtlı) grompp\\'tan geçti. Bu neyi kanıtlar?',o:[['4 fs\\'nin bu sistem için doğru olduğunu',0],['Yalnız, bağ periyodu kuralının sağlandığını; enerji korunumunu ayrıca ölçmek gerekir',1],['Kısıtların hiç hata üretmediğini',0],['HMR\\'ye gerek olmadığını',0]],w:'grompp yalnız bağların periyodunu denetler. Açıların ve diğer hareketlerin zaman adımıyla nasıl başa çıktığını ancak koşu gösterir: bu projenin ızgarasında aynı ayar (NVE, 20 ps) ortalama sıcaklığı 0,5 fs koşusuna göre 10,2 K yükseltti.'}];",
+   "{s:'This project\\'s S2a run (4 fs, H bonds constrained) passed grompp. What does that prove?',o:[['That 4 fs is right for this system',0],['Only that the bond period rule is met; energy conservation has to be measured separately',1],['That the constraints produce no error at all',0],['That HMR is not needed',0]],w:'grompp checks only the periods of the bonds. Only a run shows how the angles and other motions cope with the time step: in this project\\'s grid the same setting (NVE, 20 ps) raised the mean temperature by 10.2 K relative to the 0.5 fs run.'}];"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var w=$('d1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var w=$('d1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Right.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('d1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }",
+   "$('d1score').textContent='Answered: '+n+' / '+QZ.length+' · right on the first try: '+r; }); }); }"
+  ],
+  [
+   "var CLK={t:0, strobe:false, sdt:2, lanes:[[325,'Ser20 O-H'],[36,'Ile3 N-H (omurga)'],[747,'Ala46 C-H (metil)'],[700,'Leu43 C=O (omurga)']]};",
+   "var CLK={t:0, strobe:false, sdt:2, lanes:[[325,'Ser20 O-H'],[36,'Ile3 N-H (backbone)'],[747,'Ala46 C-H (methyl)'],[700,'Leu43 C=O (backbone)']]};"
+  ],
+  [
+   "var h=CLK.lanes.map(function(L){ var T=BD[L[0]][2], n=T/CLK.sdt, ta=aliasT(T,CLK.sdt); return '<dt>'+L[1]+' ('+fx(T,2)+' fs)</dt><dd>'+(CLK.strobe?(n>=2?fx(n,1)+' flaş / periyot':(isFinite(ta)?'görünen '+fx(ta,1)+' fs':'duruyor gibi')):fx(n,(n>1.9&&n<2.1)?2:1)+' adım / periyot'+(n<2?' (sahte)':''))+'</dd>'; }).join('');",
+   "var h=CLK.lanes.map(function(L){ var T=BD[L[0]][2], n=T/CLK.sdt, ta=aliasT(T,CLK.sdt); return '<dt>'+L[1]+' ('+fx(T,2)+' fs)</dt><dd>'+(CLK.strobe?(n>=2?fx(n,1)+' flashes / period':(isFinite(ta)?'apparent '+fx(ta,1)+' fs':'seems to stand still')):fx(n,(n>1.9&&n<2.1)?2:1)+' steps / period'+(n<2?' (false)':''))+'</dd>'; }).join('');"
+  ],
+  [
+   "$('d1sNote').textContent=!CLK.strobe?(n0>=2?'Şeritlerde soluk eğri gerçek titreşim, noktalar Δt aralıklarla alınan örnekler. O-H\\'ye periyot başına '+fx(n0,1)+' örnek düşüyor'+(n0>=5?'; noktalar eğriyi iyi izliyor.':'; noktaları birleştiren çizgi kabalaştı.')+' Stroboskobu açarsanız bağları da yalnız flaş anlarında görürsünüz.':clkBad()):(n0>=5?'O-H titreşimine '+fx(n0,1)+' flaş düşüyor: hareket kesik kesik ama doğru görünüyor. grompp\\'un istediği en az 5 flaş.':(n0>=2?'O-H titreşimine yalnız '+fx(n0,1)+' flaş düşüyor: şekil kabalaştı; MD\\'de bu, hatanın büyüdüğü bölgedir.':'O-H titreşimine 2\\'den az flaş düşüyor: gördüğünüz hareket gerçek değil. Hidroksil '+(isFinite(aliasT(T0,CLK.sdt))?fx(aliasT(T0,CLK.sdt),1)+' fs\\'lik':'duran')+' sahte bir titreşim yapıyor gibi görünüyor. Algoritma da bağı yalnız bu anlarda \"görür\".')); }",
+   "$('d1sNote').textContent=!CLK.strobe?(n0>=2?'In the strips, the faint curve is the true vibration and the dots are samples taken every Δt. O-H gets '+fx(n0,1)+' samples per period'+(n0>=5?'; the dots follow the curve well.':'; the line joining the dots has become coarse.')+' If you switch on the stroboscope, you also see the bonds only at the flashes.':clkBad()):(n0>=5?'The O-H vibration gets '+fx(n0,1)+' flashes: the motion looks jerky but right. grompp asks for at least 5 flashes.':(n0>=2?'The O-H vibration gets only '+fx(n0,1)+' flashes: the shape has become coarse; in MD this is the region where the error grows.':'The O-H vibration gets fewer than 2 flashes: the motion you see is not real. The hydroxyl seems to make a false vibration '+(isFinite(aliasT(T0,CLK.sdt))?'with a period of '+fx(aliasT(T0,CLK.sdt),1)+' fs':'that stands still')+'. The algorithm, too, \"sees\" the bond only at these instants.')); }"
+  ],
+  [
+   "var s='Kırmızı şeritlerde ('+bad.map(function(b){ return b[0]; }).join(', ')+') noktaları birleştiren çizgi gerçek titreşim değil: periyot başına 2\\'den az örnek düşünce algoritma hızlı titreşimi yavaş, sahte bir dalga olarak görür. ';",
+   "var s='In the red strips ('+bad.map(function(b){ return b[0]; }).join(', ')+') the line joining the dots is not the true vibration: with fewer than 2 samples per period, the algorithm sees the fast vibration as a slow, false wave. ';"
+  ],
+  [
+   "if(ok.length) return s+ok.map(function(b){ return b[0]; }).join(', ')+' hâlâ doğru izleniyor.';",
+   "if(ok.length) return s+ok.map(function(b){ return b[0]; }).join(', ')+(ok.length>1?' are':' is')+' still followed correctly.';"
+  ],
+  [
+   "var c=bad[bad.length-1]; return s+'Bu Δt\\'de en yavaş bağ olan '+c[0]+' bile sınırın altında: '+fx(c[1],2)+' / '+fx(CLK.sdt,1)+' = '+fx(c[1]/CLK.sdt,2)+' örnek. Noktalar tepe ve çukurlara denk geldiği için şekli gerçeğe benziyor, ama bu bir rastlantı: aynı noktalardan '+fx(aliasT(c[1],CLK.sdt),1)+' fs\\'lik bir dalga da geçer.'; }",
+   "var c=bad[bad.length-1]; return s+'At this Δt even '+c[0]+', the slowest bond, is below the limit: '+fx(c[1],2)+' / '+fx(CLK.sdt,1)+' = '+fx(c[1]/CLK.sdt,2)+' samples. Because the dots land on the peaks and troughs, its shape looks real, but that is a coincidence: a wave with a period of '+fx(aliasT(c[1],CLK.sdt),1)+' fs passes through the same dots.'; }"
+  ],
+  [
+   "g.fillText(per>=2?fx(per,1)+' örnek / periyot':(isFinite(ta)?'görünen periyot '+fx(ta,1)+' fs (sahte)':'duruyor gibi (sahte)'),sx1,st+sh+2+ (nar?10:11)); g.textAlign='left';",
+   "g.fillText(per>=2?fx(per,1)+' samples / period':(isFinite(ta)?'apparent period '+fx(ta,1)+' fs (false)':'seems to stand still (false)'),sx1,st+sh+2+ (nar?10:11)); g.textAlign='left';"
+  ],
+  [
+   "function flyTo(){ var lm=limit(); if(A1.cam.to){ A1.cam.to=null; A1.cam.c=CEN.slice(); A1.cam.r=RAD; $('d1fly').textContent='En hızlı serbest bağa git'; ubqDraw(); return; }",
+   "function flyTo(){ var lm=limit(); if(A1.cam.to){ A1.cam.to=null; A1.cam.c=CEN.slice(); A1.cam.r=RAD; $('d1fly').textContent='Go to the fastest free bond'; ubqDraw(); return; }"
+  ],
+  [
+   "if(lm.k<0) return; var b=BD[lm.k], a=AX[b[0]], c=AX[b[1]]; A1.cam.to={c:[(a[0]+c[0])/2,(a[1]+c[1])/2,(a[2]+c[2])/2],r:7,t:0,c0:A1.cam.c.slice(),r0:A1.cam.r}; $('d1fly').textContent='Bütün proteine dön'; kick(); }",
+   "if(lm.k<0) return; var b=BD[lm.k], a=AX[b[0]], c=AX[b[1]]; A1.cam.to={c:[(a[0]+c[0])/2,(a[1]+c[1])/2,(a[2]+c[2])/2],r:7,t:0,c0:A1.cam.c.slice(),r0:A1.cam.r}; $('d1fly').textContent='Back to the whole protein'; kick(); }"
+  ],
+  [
+   "if(!ks.length){ g.fillStyle=css('--muted'); g.fillText('Bu ayarda periyodu 5 · Δt\\'den kısa serbest bağ yok.',12,H/2+4); return; }",
+   "if(!ks.length){ g.fillStyle=css('--muted'); g.fillText('At this setting no free bond has a period below 5 · Δt.',12,H/2+4); return; }"
+  ],
+  [
+   "g.fillStyle=css('--muted'); g.fillText('Sınırı aşan serbest bağlar, kalıntı türüne göre',L,14);",
+   "g.fillStyle=css('--muted'); g.fillText('Free bonds over the limit, by residue type',L,14);"
+  ],
+  [
+   "if(A1.hl){ var n=0; for(var k=0;k<NB;k++){ var p=perOf(k); if(p>=A1.hl[0]&&p<A1.hl[1]) n++; } $('d1hl').textContent='Vurgulanan: periyodu '+fx(A1.hl[0],1)+'-'+fx(A1.hl[1],1)+' fs olan '+n+' bağ (altın rengi).'; } else $('d1hl').textContent='';",
+   "if(A1.hl){ var n=0; for(var k=0;k<NB;k++){ var p=perOf(k); if(p>=A1.hl[0]&&p<A1.hl[1]) n++; } $('d1hl').textContent='Highlighted: '+n+' bonds with a period of '+fx(A1.hl[0],1)+'-'+fx(A1.hl[1],1)+' fs (gold).'; } else $('d1hl').textContent='';"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('uzama',W-52,cy-6); g.fillText('hız',cx+6,16);",
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('stretch',W-52,cy-6); g.fillText('velocity',cx+6,16);"
+  ],
+  [
+   "var r=O2.run; if(!r) { g.fillText('Bir koşu oynatın.',12,H-10); return; }",
+   "var r=O2.run; if(!r) { g.fillText('Play a run.',12,H-10); return; }"
+  ],
+  [
+   "g.fillStyle=css('--ink'); g.font='600 12px '+css('--sans'); g.fillText(r.blow?'dışa açılan sarmal: patladı':'kapalı eğri: kararlı',12,H-10); }",
+   "g.fillStyle=css('--ink'); g.font='600 12px '+css('--sans'); g.fillText(r.blow?'outward spiral: blew up':'closed curve: stable',12,H-10); }"
+  ],
+  [
+   "[-5,-4,-3,-2,-1,0,1].forEach(function(l){ var y=T+(hi-l)/(hi-lo)*(H-T-B); g.strokeStyle=css('--line'); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=css('--muted'); g.font='11.5px '+css('--sans'); g.textAlign='right'; g.fillText(l>=-2?'%'+fx(100*Math.pow(10,l),l>=0?0:(l===-1?0:0)):'%'+fx(100*Math.pow(10,l),Math.min(3,-l-2)),L-5,y+4); g.textAlign='left'; });",
+   "[-5,-4,-3,-2,-1,0,1].forEach(function(l){ var y=T+(hi-l)/(hi-lo)*(H-T-B); g.strokeStyle=css('--line'); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.fillStyle=css('--muted'); g.font='11.5px '+css('--sans'); g.textAlign='right'; g.fillText(l>=-2?fx(100*Math.pow(10,l),l>=0?0:(l===-1?0:0))+'%':fx(100*Math.pow(10,l),Math.min(3,-l-2))+'%',L-5,y+4); g.textAlign='left'; });"
+  ],
+  [
+   "g.save(); g.translate(11,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('en büyük enerji sapması',0,0); g.restore(); }",
+   "g.save(); g.translate(11,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('largest energy deviation',0,0); g.restore(); }"
+  ],
+  [
+   "var tx={1:'Başlangıç: bağ dengeden 0,010 nm uzun, hız sıfır. Yay bağı geri çeker: F = −k · x = '+fx(F0,0)+' kJ mol⁻¹ nm⁻¹. İvme a = F / μ (μ = '+fx(s.mu,3)+' u).',",
+   "var tx={1:'Start: the bond is 0.010 nm longer than at equilibrium, the velocity is zero. The spring pulls the bond back: F = −k · x = '+fx(F0,0)+' kJ mol⁻¹ nm⁻¹. The acceleration is a = F / μ (μ = '+fx(s.mu,3)+' u).',"
+  ],
+  [
+   "2:'Yarım itme: hız, yarım adım boyunca bu ivmeyle değişir: v½ = v + a · Δt / 2. Δt = '+fx(s.h,2)+' fs ile v½ = '+fx(s.vh*1000,3)+' nm/ps.',",
+   "2:'Half kick: over half a step the velocity changes with this acceleration: v½ = v + a · Δt / 2. With Δt = '+fx(s.h,2)+' fs, v½ = '+fx(s.vh*1000,3)+' nm/ps.',"
+  ],
+  [
+   "3:'Kayma: atom bu hızla bütün bir adım boyunca ilerler: x′ = x + v½ · Δt = '+fx(s.x1,4)+' nm. '+(s.x1<-0.01?'Dikkat: tek adımda denge noktasını aşıp başlangıçtan daha uzağa gitti; bir sonraki adımda daha da büyük bir kuvvet bekliyor.':(s.x1<0?'Tek adımda denge noktasını geçti.':'Periyodun '+fx(s.h/T,2)+' katı kadar bir adımla dengeye doğru bir miktar yaklaştı.')),",
+   "3:'Drift: the atom moves at this velocity for a whole step: x′ = x + v½ · Δt = '+fx(s.x1,4)+' nm. '+(s.x1<-0.01?'Careful: in a single step it overshot the equilibrium point and went further out than where it started; an even larger force awaits it at the next step.':(s.x1<0?'In a single step it passed the equilibrium point.':'With a step of '+fx(s.h/T,2)+' times the period it moved somewhat closer to equilibrium.')),"
+  ],
+  [
+   "4:'Yeni konumda kuvvet yeniden hesaplanır (F′ = '+fx(F1,0)+' kJ mol⁻¹ nm⁻¹) ve hız ikinci yarım itmeyle tamamlanır: v′ = v½ + a′ · Δt / 2 = '+fx(s.v1*1000,3)+' nm/ps. Bir sonraki adım bu değerlerden başlar. Proteinde bu dört iş her adımda bütün atomlar için yapılır; en pahalısı kuvvet hesabıdır.'};",
+   "4:'At the new position the force is computed again (F′ = '+fx(F1,0)+' kJ mol⁻¹ nm⁻¹) and the velocity is completed with the second half kick: v′ = v½ + a′ · Δt / 2 = '+fx(s.v1*1000,3)+' nm/ps. The next step starts from these values. In a protein these four jobs are done for every atom at every step; the most expensive is the force calculation.'};"
+  ],
+  [
+   "g.strokeStyle=css('--line'); g.setLineDash([4,4]); g.beginPath(); g.moveTo(x0p,20); g.lineTo(x0p,H-20); g.stroke(); g.setLineDash([]); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('denge',x0p+4,30);",
+   "g.strokeStyle=css('--line'); g.setLineDash([4,4]); g.beginPath(); g.moveTo(x0p,20); g.lineTo(x0p,H-20); g.stroke(); g.setLineDash([]); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('equilibrium',x0p+4,30);"
+  ],
+  [
+   "if(st===1) arrow(xa,y+26,xa+s.a0*fs,y+26,css('--bad'),'kuvvet');",
+   "if(st===1) arrow(xa,y+26,xa+s.a0*fs,y+26,css('--bad'),'force');"
+  ],
+  [
+   "if(st===2){ arrow(xa,y+26,xa+s.a0*fs,y+26,css('--bad'),'kuvvet'); arrow(xa,y-26,xa+Math.sign(s.vh)*Math.min(W/2-30,Math.abs(s.vh*s.h)*sc),y-26,css('--deep'),'v½ · Δt'); }",
+   "if(st===2){ arrow(xa,y+26,xa+s.a0*fs,y+26,css('--bad'),'force'); arrow(xa,y-26,xa+Math.sign(s.vh)*Math.min(W/2-30,Math.abs(s.vh*s.h)*sc),y-26,css('--deep'),'v½ · Δt'); }"
+  ],
+  [
+   "if(st===3){ arrow(xa,y-26,xb,y-26,css('--deep'),'kayma'); }",
+   "if(st===3){ arrow(xa,y-26,xb,y-26,css('--deep'),'drift'); }"
+  ],
+  [
+   "if(st===4){ arrow(xb,y+26,xb+Math.max(-W/2,Math.min(W/2,s.a1*fs)),y+26,css('--bad'),'yeni kuvvet'); }",
+   "if(st===4){ arrow(xb,y+26,xb+Math.max(-W/2,Math.min(W/2,s.a1*fs)),y+26,css('--bad'),'new force'); }"
+  ],
+  [
+   "if(Math.abs(X(s.x1))>W) { pill(g,'yeni konum çerçevenin dışında',W/2,H-30,css('--paper'),str(rgb(css('--bad')),0.9)); } }",
+   "if(Math.abs(X(s.x1))>W) { pill(g,'the new position is outside the frame',W/2,H-30,css('--paper'),str(rgb(css('--bad')),0.9)); } }"
+  ],
+  [
+   "var SCH={hbonds:['H bağları','--deep'],hmr:['H bağları + HMR','--accent'],all:['Tüm bağlar','--gold'],none:['Kısıt yok','--good']};",
+   "var SCH={hbonds:['H bonds','--deep'],hmr:['H bonds + HMR','--accent'],all:['All bonds','--gold'],none:['No constraints','--good']};"
+  ],
+  [
+   "g.textAlign='center'; [0,5,10,15,20].forEach(function(v){ g.fillText(String(v),X(v),H-14); }); g.fillText('hız (ns/gün)',X(12),H-1); g.textAlign='left';",
+   "g.textAlign='center'; [0,5,10,15,20].forEach(function(v){ g.fillText(String(v),X(v),H-14); }); g.fillText('speed (ns/day)',X(12),H-1); g.textAlign='left';"
+  ],
+  [
+   "$('d1scL').innerHTML=Object.keys(SCH).map(function(s){ return '<span><i style=\"background:var('+SCH[s][1]+')\"></i>'+SCH[s][0]+'</span>'; }).join('')+'<span>Nokta yanındaki sayı: Δt (fs); en soldaki küme 0,5 fs · noktalı çizgi: hızda ve ısınmada daha iyisi olmayan koşular</span>'; }",
+   "$('d1scL').innerHTML=Object.keys(SCH).map(function(s){ return '<span><i style=\"background:var('+SCH[s][1]+')\"></i>'+SCH[s][0]+'</span>'; }).join('')+'<span>Number next to a dot: Δt (fs); the leftmost cluster is 0.5 fs · dotted line: runs with nothing better in both speed and warming</span>'; }"
+  ],
+  [
+   "if(!sets.length){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Sıcaklık eğrisi için tamamlanmış bir koşu seçin.',L,H/2); return; }",
+   "if(!sets.length){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Choose a completed run for the temperature curve.',L,H/2); return; }"
+  ],
+  [
+   "$('d1crH').textContent=r.lab+': çöküşten önce GROMACS\\'ın yazdığı son kareler (adım '+C.step+', '+fx(C.step*dtv/1000,3)+' ps)';",
+   "$('d1crH').textContent=r.lab+': the last frames GROMACS wrote before the crash (step '+C.step+', '+fx(C.step*dtv/1000,3)+' ps)';"
+  ],
+  [
+   "$('d1crN').textContent='Kırmızı çubuklar: bu adımda en çok kayan atomlar (logaritmik ölçek). Yeşil kesikli çizgi: aynı adımda atomların ortanca kayması, '+fx(C.med,3)+' Å. '+(C.nan?C.nan+' atomun yeni konumu tanımsız (NaN): GROMACS bu su moleküllerini çözemedi. ':'')+(id.indexOf('none')===0?'Kısıt yokken ilk fırlayanlar hidroksil ve N-H hidrojenleri: atölyede en hızlı bulduğunuz bağlar.':(id==='hbonds_dt5'?'H bağları kısıtlı olduğu hâlde 5 fs, Arg74\\'ün yan zincirinde LINCS\\'i bozdu: sınırı artık ağır atom bağları ve açılar koyuyor.':'Tüm bağlar kısıtlı olduğu hâlde 5 fs\\'de LINCS dağıldı: kısıtlı bağlar titreşmez ama açılar ve burulmalar hâlâ hızlıdır.')); }",
+   "$('d1crN').textContent='Red bars: the atoms that moved most in this step (logarithmic scale). Green dashed line: the median displacement of the atoms in the same step, '+fx(C.med,3)+' Å. '+(C.nan?'The new position of '+C.nan+' atoms is undefined (NaN): GROMACS could not settle these water molecules. ':'')+(id.indexOf('none')===0?'Without constraints the first to fly off are hydroxyl and N-H hydrogens: the bonds you found to be fastest in the workshop.':(id==='hbonds_dt5'?'Although the H bonds were constrained, 5 fs broke LINCS in the side chain of Arg74: the limit is now set by heavy-atom bonds and angles.':'Although all bonds were constrained, LINCS fell apart at 5 fs: constrained bonds do not vibrate, but angles and torsions are still fast.')); }"
+  ],
+  [
+   "['d1c1','d1c2','d1c3','d1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
+   "['d1c1','d1c2','d1c3','d1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ]
+ ],
+ "keep": [
+  "grompp",
+  "The bond in molecule-type Protein_chain_A",
+  "kJ mol⁻¹ ns⁻¹ atom⁻¹",
+  "LINCS WARNING",
+  "water molecules can not be settled",
+  "O-H (Ser, Thr, Tyr)"
+ ]
+}

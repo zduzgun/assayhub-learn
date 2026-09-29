@@ -403,6 +403,43 @@
       "source": "sources/MD-PDB.html"
     },
     {
+      "id": "MD-DT",
+      "app": "md",
+      "level": "orta",
+      "title": "Proteinde zaman adımı: kısıtlar, kütle ve hız (1UBQ)",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH02",
+      "goals": [
+        "Bağların saati: IR bantları ve titreşim periyotları",
+        "Hangi bağ adımı sınırlar? Kısıtlar ve HMR",
+        "Tek bağ Verlet'te ne zaman patlar?",
+        "24 gerçek koşu: hız ile ısınma arasındaki takas"
+      ],
+      "data": [
+        "Bu projenin ubikitin topolojisi (amber99sb-ildn, 1.237 bağ; yay sabitleri .tpr dosyasından)",
+        "DTGRID: 24 NVE koşusu, 6 zaman adımı × 4 kısıt düzeni, 20 ps (GROMACS 2023.3, 29 Eylül 2026)"
+      ],
+      "notice": null,
+      "en": {
+        "title": "The time step in a protein: constraints, mass and speed (1UBQ)",
+        "book": "CH02",
+        "goals": [
+          "The clock of the bonds: IR bands and vibrational periods",
+          "Which bond limits the step? Constraints and HMR",
+          "When does a single bond blow up in Verlet?",
+          "24 real runs: the trade-off between speed and warming"
+        ],
+        "data": [
+          "This project's ubiquitin topology (amber99sb-ildn, 1,237 bonds; spring constants from the .tpr file)",
+          "DTGRID: 24 NVE runs, 6 time steps × 4 constraint schemes, 20 ps (GROMACS 2023.3, 29 September 2026)"
+        ],
+        "notice": null
+      },
+      "path": "md/md-dt/",
+      "source": "sources/MD-DT.html"
+    },
+    {
       "id": "MD-U",
       "app": "md",
       "level": "uzman",
