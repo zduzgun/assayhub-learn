@@ -36,7 +36,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | Kimlik | Uygulama | Düzey | Kitap bağlantısı | Durum |
 |---|---|---|---|---|
 | DK-T | Docking | Temel | CH02 sonrası (bir pozu bulmak ve doğrulamak) | Yayında (0.2.0, 30 Eylül 2026) |
-| DK-O | Docking | Orta | CH07–CH09 | Prototip hazır |
+| DK-O | Docking | Orta | CH07–CH09 (sonuç kilidin hangi ayrıntısına bağlı?) | Yayında (0.2.0, 30 Eylül 2026; çapraz docking sonraki sürümde) |
 | DK-U | Docking | Uzman | CH18–CH19 | Prototip hazır |
 | MD-T | MD | Temel | CH02 (enerji, kuvvet, integrasyon) | Prototip var (CH02 etkileşimli) |
 | MD-EQ | MD | Orta | CH11 (minimizasyon ve dengeleme) | Yayında (0.1.0, 28 Eylül 2026) |

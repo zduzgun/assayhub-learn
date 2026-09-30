@@ -1,921 +1,395 @@
 {
  "module": "DK-O",
  "lang": "en",
- "source_sha256": "d1571d582c700a667bee7a947d5a598b672dbde387283424c37bac3b8349d9f4",
+ "source_sha256": "1f1154a1ae9158c29ab7d74e37c495c20426236b21c7fb868f51d9d6e675a5cd",
  "reviewed": false,
- "translator": "Claude (machine translation, needs human review)",
- "editorial_pass": "Claude scientific-editor pass, 2026-09-25",
+ "translator": "Claude (AI), DK-O 0.2.0; insan gözden geçirmesi bekliyor",
  "pairs": [
   [
-   "Gerçek Kilit: 3PTB Docking",
-   "The Real Lock: 3PTB Docking"
+   "<title>Docking: Gerçek Kilit</title>",
+   "<title>Docking: The Real Lock</title>"
   ],
   [
-   "Biyomoleküler sistemlerde Moleküler Dinamik · Docking eki · Orta düzey",
-   "Molecular Dynamics in Biomolecular Systems · Docking appendix · Intermediate level"
+   "<div class=\"proto\">Bu modül DK-T'deki tripsin cebini (3PTB) orta düzeyde kullanır. Bütün sonuçlar bu projede gerçekten çalıştırılmış Vina koşularındandır: 198 farklı hazırlık, 1.080 koşu (DKOPREP, DKOPREP2). Başka tripsin kristalleriyle çapraz docking sonraki sürümde.</div>",
+   "<div class=\"proto\">This module uses the trypsin pocket (3PTB) from DK-T at the intermediate level. All results come from Vina runs actually carried out in this project: 198 different preparations, 1,080 runs (DKOPREP, DKOPREP2). Cross-docking with other trypsin crystals comes in the next version.</div>"
   ],
   [
-   "Uygulamalar: ",
-   "Exercises: "
+   "<span class=\"eyebrow\">DK-O · Docking: gerçek kilit</span>",
+   "<span class=\"eyebrow\">DK-O · Docking: the real lock</span>"
   ],
   [
-   "DK-O · Pilot bölüm · Etkileşimli sürüm",
-   "DK-O · Pilot chapter · Interactive edition"
+   "<h1>Sonuç kilidin hangi ayrıntısına bağlı?</h1>",
+   "<h1>Which detail of the lock does the result depend on?</h1>"
   ],
   [
-   "Gerçek kilit: tripsin ve benzamidin",
-   "The real lock: trypsin and benzamidine"
+   "<p class=\"lead\">DK-T'de benzamidin kendi kristalindeki tripsin cebine geri yerleştirildi ve Vina onu buldu. Ama o reseptör dosyası birkaç kararla hazırlanmıştı ve tam da bu ligandı taşırken çözülmüş bir yapıydı. Bu laboratuvarda hazırlık kararlarını tek tek değiştirip sonuca bakacaksınız; aynı ligandı başka tripsin kristallerine yerleştirmek sonraki sürümde. Soru şu: sonucu hangi ayrıntı değiştirir, hangisi değiştirmez?</p>",
+   "<p class=\"lead\">In DK-T, benzamidine was put back into the trypsin pocket of its own crystal and Vina found it. But that receptor file had been prepared with a few decisions, and it was a structure solved while carrying exactly this ligand. In this lab you will change the preparation decisions one by one and look at the result; placing the same ligand into other trypsin crystals comes in the next version. The question is: which detail changes the result, and which does not?</p>"
   ],
   [
-   "Oyuncak cepten gerçek bir kristal yapıya geçiyoruz. Aynı anahtar, aynı kilit; ama artık dosyadaki her satır bir ölçüm ya da bir karar ve her sonuç gerçek bir Vina koşusundan geliyor.",
-   "We move from the toy pocket to a real crystal structure. Same key, same lock; but now every line in the file is a measurement or a decision, and every result comes from a real Vina run."
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"o1progN\">0 / 5</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"o1progN\">0 / 5</b></div>"
   ],
   [
-   "Temel düzeyden hatırlatma (DK-T)",
-   "Reminder from the basic level (DK-T)"
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
   ],
   [
-   "<b>Poz</b>: konum, yönelim ve burulma açıları; 3B'de 6 + <i>n</i> sayı.",
-   "<b>Pose</b>: position, orientation and torsion angles; in 3D, 6 + <i>n</i> numbers."
+   "<h2 id=\"o1h0\">Standartta geçmek, numunede geçmek</h2>",
+   "<h2 id=\"o1h0\">Passing on the standard, passing on the sample</h2>"
   ],
   [
-   "<b>Skor</b>: terimlerin toplamı; ölçülmüş bağlanma enerjisi değil, bir tahmin.",
-   "<b>Score</b>: a sum of terms; an estimate, not a measured binding energy."
+   "<div class=\"prose\"><p>Bir ELISA ya da kütle spektrometresi yöntemi saf tamponda hazırlanmış standartlarla kurulur ve orada iyi çalışır. Aynı analit serumda ya da doku lizatında ölçülünce sonuç kayabilir: matriks başka bileşenler taşır, analiti bağlar ya da sinyali bastırır. Bu yüzden yöntem, bilinen miktarda analit gerçek matrikse eklenerek (spike-recovery) yeniden sınanır. Tampondaki başarı, matrikste başarı demek değildir.</p><p>Docking'de redocking tampondaki standarttır: reseptör, ligandı tam da o ligandı taşırken çözülmüş yapıdadır ve hazırlığı biz yaptık. Gerçek iş ise çoğu zaman başka bir yapıyla, başka bir hazırlıkla yapılır. Bu sürüm hazırlığı değiştirerek bu farkın ilk yarısını ölçer; yapının kendisini değiştirmek (çapraz docking) sonraki sürümde.</p></div>",
+   "<div class=\"prose\"><p>An ELISA or a mass spectrometry method is set up with standards prepared in pure buffer, and it works well there. When the same analyte is measured in serum or tissue lysate, the result can shift: the matrix carries other components, binds the analyte or suppresses the signal. This is why the method is tested again by adding a known amount of analyte to the real matrix (spike-recovery). Success in buffer does not mean success in the matrix.</p><p>In docking, redocking is the standard in buffer: the receptor is in the structure solved while carrying exactly that ligand, and we did the preparation ourselves. Real work, however, is usually done with another structure and another preparation. This version measures the first half of that difference by changing the preparation; changing the structure itself (cross-docking) comes in the next version.</p></div>"
   ],
   [
-   "<b>Arama</b>: sıçra, yerel iyileştir, Metropolis ile kabul et; tohum sonucu değiştirebilir.",
-   "<b>Search</b>: jump, refine locally, accept with Metropolis; the seed can change the result."
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
   ],
   [
-   "<b>Redocking</b>: kristal ligandı geri yerleştir; hizalamasız, simetri düzeltmeli RMSD &lt; 2 Å.",
-   "<b>Redocking</b>: put the crystal ligand back; symmetry-corrected RMSD without alignment &lt; 2 Å."
+   "<h2 id=\"o1h1\">Dosyadan docking girdisine: sekiz karar</h2>",
+   "<h2 id=\"o1h1\">From the file to the docking input: eight decisions</h2>"
   ],
   [
-   "3PTB dosyasından sayılar",
-   "Numbers from the 3PTB file"
+   "<div class=\"prose\"><p>Kristal yapı dosyası doğrudan docking'e girmez. Önce hangi suların kalacağı, hangi kalıntının hangi protonasyonda yazılacağı, doluluğu 0 olan atomlarla ne yapılacağı seçilir; programlar bunların çoğunu sessizce, varsayılan değerle yapar. Aşağıda kararları değiştirin: önce beş olağan hazırlık kararı, sonra sonucu değiştirebilecek üç karar. Her birleşim için sayfadaki bütün sayılar, o hazırlıkla gerçekten çalıştırılmış Vina koşularından gelir: kristal pozun skoru ve beş tohumlu redocking (DKOPREP ve DKOPREP2: 198 farklı hazırlık, 1.080 koşu). Bir kararı değiştirince ligand eski pozundan yenisine kayar; önceki poz gri kesikli olarak kalır. Kararlarla ilgili atomların çevresindeki halka, o atomun kristal pozdaki katkısını gösterir: yeşil çeker, kırmızı iter. Kesit DK-T'deki gibidir: dolu bölge protein yüzeyi, boşluk cep; mavi daireler kristal suları, kırmızı kesikli daireler Gln192'nin doluluğu 0 olan iki atomu.</p></div>",
+   "<div class=\"prose\"><p>A crystal structure file does not go straight into docking. First you choose which waters stay, which residue is written in which protonation state, and what to do with atoms whose occupancy is 0; programs make most of these choices silently, with default values. Change the decisions below: first five routine preparation decisions, then three decisions that might change the result. For every combination, all the numbers on the page come from Vina runs actually carried out with that preparation: the score of the crystal pose and a five-seed redocking (DKOPREP and DKOPREP2: 198 different preparations, 1,080 runs). When you change a decision, the ligand slides from its old pose to the new one; the previous pose stays as a grey dashed outline. The ring around each atom involved in the decisions shows that atom's contribution in the crystal pose: green attracts, red repels. The section is the same as in DK-T: the filled region is the protein surface, the empty space is the pocket; blue circles are crystal waters, red dashed circles are the two atoms of Gln192 with occupancy 0.</p></div>"
   ],
   [
-   "<b>1,70 Å</b><span>X-ışını çözünürlüğü, R<sub>work</sub> 0,182</span>",
-   "<b>1.70 Å</b><span>X-ray resolution, R<sub>work</sub> 0.182</span>"
+   "<div class=\"stagebox\"><canvas id=\"o1pk\" class=\"stage\" aria-label=\"3PTB cebinin kesiti: protein yüzeyi, kristal suları, doluluğu 0 olan Gln192 atomları, kristal benzamidin ve seçilen hazırlıkla bulunan ilk poz\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"o1pk\" class=\"stage\" aria-label=\"Section through the 3PTB pocket: protein surface, crystal waters, Gln192 atoms with occupancy 0, crystal benzamidine and the first pose found with the selected preparation\"></canvas></div>"
   ],
   [
-   "protein kalıntısı, tek zincir",
-   "protein residues, single chain"
+   "<div><div class=\"lbl\">Kristal suları</div><div class=\"seg\" role=\"group\" aria-label=\"Sular\" id=\"o1w\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">Hiçbiri</button><button type=\"button\" data-v=\"416\" aria-pressed=\"false\">Yalnız HOH416</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">62 suyun hepsi</button></div></div>",
+   "<div><div class=\"lbl\">Crystal waters</div><div class=\"seg\" role=\"group\" aria-label=\"Waters\" id=\"o1w\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">None</button><button type=\"button\" data-v=\"416\" aria-pressed=\"false\">HOH416 only</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">All 62 waters</button></div></div>"
   ],
   [
-   "<span>kristal suyu</span>",
-   "<span>crystal waters</span>"
+   "<div><div class=\"lbl\">Asp189 (cebin dibindeki karboksilat)</div><div class=\"seg\" role=\"group\" aria-label=\"Asp189\" id=\"o1d\"><button type=\"button\" data-v=\"ASP\" aria-pressed=\"true\">Yüklü (ASP)</button><button type=\"button\" data-v=\"ASH\" aria-pressed=\"false\">Nötr (ASH)</button></div></div>",
+   "<div><div class=\"lbl\">Asp189 (the carboxylate at the bottom of the pocket)</div><div class=\"seg\" role=\"group\" aria-label=\"Asp189\" id=\"o1d\"><button type=\"button\" data-v=\"ASP\" aria-pressed=\"true\">Charged (ASP)</button><button type=\"button\" data-v=\"ASH\" aria-pressed=\"false\">Neutral (ASH)</button></div></div>"
   ],
   [
-   "benzamidin ağır atomu",
-   "benzamidine heavy atoms"
+   "<div><div class=\"lbl\">His57 (katalitik üçlü)</div><div class=\"seg\" role=\"group\" aria-label=\"His57\" id=\"o1h\"><button type=\"button\" data-v=\"HIE\" aria-pressed=\"true\">HIE</button><button type=\"button\" data-v=\"HID\" aria-pressed=\"false\">HID</button><button type=\"button\" data-v=\"HIP\" aria-pressed=\"false\">HIP</button></div></div>",
+   "<div><div class=\"lbl\">His57 (catalytic triad)</div><div class=\"seg\" role=\"group\" aria-label=\"His57\" id=\"o1h\"><button type=\"button\" data-v=\"HIE\" aria-pressed=\"true\">HIE</button><button type=\"button\" data-v=\"HID\" aria-pressed=\"false\">HID</button><button type=\"button\" data-v=\"HIP\" aria-pressed=\"false\">HIP</button></div></div>"
   ],
   [
-   "<span>Ca²⁺ iyonu, cepten 22,6 Å uzakta</span>",
-   "<span>Ca²⁺ ion, 22.6 Å from the pocket</span>"
+   "<div><div class=\"lbl\">Gln192 OE1 ve NE2 (doluluk 0)</div><div class=\"seg\" role=\"group\" aria-label=\"Gln192\" id=\"o1q\"><button type=\"button\" data-v=\"keep\" aria-pressed=\"true\">Dosyadaki gibi tut</button><button type=\"button\" data-v=\"del\" aria-pressed=\"false\">Sil</button></div></div>",
+   "<div><div class=\"lbl\">Gln192 OE1 and NE2 (occupancy 0)</div><div class=\"seg\" role=\"group\" aria-label=\"Gln192\" id=\"o1q\"><button type=\"button\" data-v=\"keep\" aria-pressed=\"true\">Keep as in the file</button><button type=\"button\" data-v=\"del\" aria-pressed=\"false\">Delete</button></div></div>"
   ],
   [
-   "doluluğu 0 olan protein atomu",
-   "protein atoms with occupancy 0"
+   "<div><div class=\"lbl\">Ile16 N ucu</div><div class=\"seg\" role=\"group\" aria-label=\"Ile16\" id=\"o1n\"><button type=\"button\" data-v=\"NH\" aria-pressed=\"true\">NH (Meeko varsayılanı)</button><button type=\"button\" data-v=\"NH3\" aria-pressed=\"false\">NH₃⁺</button></div></div>",
+   "<div><div class=\"lbl\">Ile16 N terminus</div><div class=\"seg\" role=\"group\" aria-label=\"Ile16\" id=\"o1n\"><button type=\"button\" data-v=\"NH\" aria-pressed=\"true\">NH (Meeko default)</button><button type=\"button\" data-v=\"NH3\" aria-pressed=\"false\">NH₃⁺</button></div></div>"
   ],
   [
-   "Kaynak: <a href=\"https://www.rcsb.org/structure/3PTB\">PDB 3PTB</a>, sığır beta-tripsini ve benzamidin (Marquart ve ark. 1983, <i>Acta Crystallogr B</i> 39:480). Sayılar bu sayfa için dosyadan hesaplandı; kayıt <code>book/cases/trypsin_3ptb/structure-audit.json</code>.",
-   "Source: <a href=\"https://www.rcsb.org/structure/3PTB\">PDB 3PTB</a>, bovine beta-trypsin and benzamidine (Marquart et al. 1983, <i>Acta Crystallogr B</i> 39:480). The numbers were computed from the file for this page; record <code>book/cases/trypsin_3ptb/structure-audit.json</code>."
+   "<p class=\"small\" id=\"o1dn\" hidden style=\"margin:0\">Asp189 ve Ile16 seçenekleri yalnız temel ligand ve reseptörle hesaplandı (orada pozları birebir aynı bıraktılar); bu birleşimde ASP ve NH kullanılır.</p>",
+   "<p class=\"small\" id=\"o1dn\" hidden style=\"margin:0\">The Asp189 and Ile16 options were computed only with the baseline ligand and receptor (there they left the poses exactly the same); in this combination ASP and NH are used.</p>"
   ],
   [
-   "<small>1 · Dosyayı okumak</small>Her koordinat aynı güvende değil",
-   "<small>1 · Reading the file</small>Not every coordinate is equally trustworthy"
+   "<div class=\"lbl\" style=\"margin-top:6px;color:var(--accent)\">Sonucu değiştirebilecek üç karar</div>",
+   "<div class=\"lbl\" style=\"margin-top:6px;color:var(--accent)\">Three decisions that might change the result</div>"
   ],
   [
-   "Bir kristal yapı dosyası, ölçülmüş elektron yoğunluğuna oturtulmuş bir <b>modeldir</b>. Her atomun yanında iki sayı daha durur: <b>doluluk</b> (o konumun ne kadarının bu atomla dolu olduğu) ve <b>B faktörü</b> (konumun ne kadar belirsiz ya da hareketli olduğu).",
-   "A crystal structure file is a <b>model</b> fitted to measured electron density. Each atom also carries two more numbers: <b>occupancy</b> (what fraction of that position is filled by this atom) and the <b>B factor</b> (how uncertain or mobile the position is)."
+   "<div><div class=\"lbl\">Benzamidinin protonasyonu</div><div class=\"seg\" role=\"group\" aria-label=\"Ligand\" id=\"o1l\"><button type=\"button\" data-v=\"cat\" aria-pressed=\"true\">Amidinyum (+1)</button><button type=\"button\" data-v=\"neu\" aria-pressed=\"false\">Nötr amidin</button></div></div>",
+   "<div><div class=\"lbl\">Protonation of benzamidine</div><div class=\"seg\" role=\"group\" aria-label=\"Ligand\" id=\"o1l\"><button type=\"button\" data-v=\"cat\" aria-pressed=\"true\">Amidinium (+1)</button><button type=\"button\" data-v=\"neu\" aria-pressed=\"false\">Neutral amidine</button></div></div>"
   ],
   [
-   "3PTB'de 86 protein atomunun doluluğu 0'dır. Bu atomların koordinatı dosyada vardır ama deneyle desteklenmez: yazarlar onları yerleştirmiş, fakat yoğunlukta görmemiştir. Docking programı bu farkı kendiliğinden bilmez; ona verdiğiniz her atomu gerçekmiş gibi kullanır.",
-   "In 3PTB, 86 protein atoms have occupancy 0. These atoms have coordinates in the file, but the experiment does not support them: the authors placed them but did not see them in the density. A docking program cannot tell the difference on its own; it treats every atom you give it as real."
+   "<div><div class=\"lbl\">Kristal ligand reseptör dosyasında</div><div class=\"seg\" role=\"group\" aria-label=\"Kristal ligand\" id=\"o1x\"><button type=\"button\" data-v=\"no\" aria-pressed=\"true\">Çıkarıldı</button><button type=\"button\" data-v=\"yes\" aria-pressed=\"false\">Unutuldu</button></div></div>",
+   "<div><div class=\"lbl\">Crystal ligand in the receptor file</div><div class=\"seg\" role=\"group\" aria-label=\"Crystal ligand\" id=\"o1x\"><button type=\"button\" data-v=\"no\" aria-pressed=\"true\">Removed</button><button type=\"button\" data-v=\"yes\" aria-pressed=\"false\">Forgotten</button></div></div>"
   ],
   [
-   "Laboratuvar ",
-   "Lab "
+   "<div><div class=\"lbl\">Asp189 yan zinciri</div><div class=\"seg\" role=\"group\" aria-label=\"Asp189 yan zinciri\" id=\"o1a\"><button type=\"button\" data-v=\"full\" aria-pressed=\"true\">Tam</button><button type=\"button\" data-v=\"cut\" aria-pressed=\"false\">CG, OD1, OD2 kesik</button></div></div>",
+   "<div><div class=\"lbl\">Asp189 side chain</div><div class=\"seg\" role=\"group\" aria-label=\"Asp189 side chain\" id=\"o1a\"><button type=\"button\" data-v=\"full\" aria-pressed=\"true\">Complete</button><button type=\"button\" data-v=\"cut\" aria-pressed=\"false\">CG, OD1, OD2 cut</button></div></div>"
   ],
   [
-   "3PTB'nin S1 cebi, üç boyutta",
-   "The S1 pocket of 3PTB, in three dimensions"
+   "<div><div class=\"lbl\">Kesit</div><div class=\"seg\" role=\"group\" aria-label=\"Kesit\" id=\"o1vw\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Yandan: iki duvar</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Üstten: halka yüzü</button></div></div>",
+   "<div><div class=\"lbl\">Section</div><div class=\"seg\" role=\"group\" aria-label=\"Section\" id=\"o1vw\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Side: two walls</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Top: ring face</button></div></div>"
   ],
   [
-   "Görev tamamlandı",
-   "Task completed"
+   "<dt>Kristal pozun Vina skoru (kcal/mol)</dt><dd id=\"o1cr\"></dd>",
+   "<dt>Vina score of the crystal pose (kcal/mol)</dt><dd id=\"o1cr\"></dd>"
   ],
   [
-   "3PTB tripsin yapısı ve cepteki benzamidin; sürükleyerek döndürülebilir",
-   "3PTB trypsin structure and benzamidine in the pocket; drag to rotate"
+   "<dt>Yerel optimizasyondan sonra (kcal/mol)</dt><dd id=\"o1co\"></dd>",
+   "<dt>After local optimization (kcal/mol)</dt><dd id=\"o1co\"></dd>"
   ],
   [
-   ">Cebe odaklan<",
-   ">Focus on pocket<"
+   "<dt>Temel hazırlığa göre fark (kcal/mol)</dt><dd id=\"o1cd\"></dd>",
+   "<dt>Difference from the baseline preparation (kcal/mol)</dt><dd id=\"o1cd\"></dd>"
   ],
   [
-   ">Bütün protein<",
-   ">Whole protein<"
+   "<dt>Önceki seçiminize göre fark</dt><dd id=\"o1prev\"></dd>",
+   "<dt>Difference from your previous choice</dt><dd id=\"o1prev\"></dd>"
   ],
   [
-   "<span>Sürükleyerek döndürün, atomlara tıklayın.</span>",
-   "<span>Drag to rotate, click atoms.</span>"
+   "<dt>Redocking: ilk poz 2 Å'dan yakın</dt><dd id=\"o1ok\"></dd>",
+   "<dt>Redocking: first pose closer than 2 Å</dt><dd id=\"o1ok\"></dd>"
   ],
   [
-   "Bütün atomlar (yüzey görünümü)",
-   "All atoms (surface view)"
+   "<dt>Beş tohumun ilk poz skoru: ortalama (aralık)</dt><dd id=\"o1top\"></dd>",
+   "<dt>First pose score of the five seeds: mean (range)</dt><dd id=\"o1top\"></dd>"
   ],
   [
-   "Doluluğu 0 olan atomları işaretle",
-   "Mark atoms with occupancy 0"
+   "<dt>Bu sayfanın kendi skor hesabı</dt><dd id=\"o1js\"></dd>",
+   "<dt>This page's own score calculation</dt><dd id=\"o1js\"></dd>"
   ],
   [
-   "Yakındaki kristal suları",
-   "Nearby crystal waters"
+   "<div><div class=\"lbl\">Çizimdeki poz</div><div class=\"seg\" role=\"group\" aria-label=\"Tohum\" id=\"o1sd\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"3\" aria-pressed=\"false\">4</button><button type=\"button\" data-v=\"4\" aria-pressed=\"false\">5</button></div><p class=\"small\" id=\"o1seedR\" style=\"margin:6px 0 0\"></p></div>",
+   "<div><div class=\"lbl\">Pose in the drawing</div><div class=\"seg\" role=\"group\" aria-label=\"Seed\" id=\"o1sd\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"3\" aria-pressed=\"false\">4</button><button type=\"button\" data-v=\"4\" aria-pressed=\"false\">5</button></div><p class=\"small\" id=\"o1seedR\" style=\"margin:6px 0 0\"></p></div>"
   ],
   [
-   "Temas uzaklıkları",
-   "Contact distances"
+   "<canvas id=\"o1eff\" class=\"plot\" aria-label=\"Her kararın kristal poz skoruna etkisi: yalnız o karar değişince skordaki fark\"></canvas>",
+   "<canvas id=\"o1eff\" class=\"plot\" aria-label=\"Effect of each decision on the crystal pose score: the difference in score when only that decision changes\"></canvas>"
   ],
   [
-   "Ya da listeden bir atom seçin",
-   "Or pick an atom from the list"
+   "<canvas id=\"o1run\" class=\"plot\" aria-label=\"Seçilen hazırlıkla beş tohumun bütün pozları: RMSD'ye karşı skor; temel hazırlık gri\"></canvas>",
+   "<canvas id=\"o1run\" class=\"plot\" aria-label=\"All poses of the five seeds with the selected preparation: score against RMSD; baseline preparation in grey\"></canvas>"
   ],
   [
-   "Bir atoma tıklayın: kalıntı, doluluk, B faktörü ve benzamidine uzaklık burada görünür.",
-   "Click an atom: residue, occupancy, B factor and distance to benzamidine appear here."
+   "<div class=\"prose\"><p>Vina neden bazı kararları hiç görmez? Skor, atom çiftleri arasındaki uzaklığa ve atom türüne bağlıdır; elektrostatik terim yoktur ve hidrojenler yalnız bir atomun verici olup olmadığını belirler. Aşağıdaki tablo, kararlarla ilgili atomların Vina'daki türünü, kristal benzamidine uzaklığını ve kristal pozdaki katkısını gösterir. Seçiminizle türü değişen satırlar vurgulanır.</p></div>",
+   "<div class=\"prose\"><p>Why does Vina not see some decisions at all? The score depends on the distance between atom pairs and on atom types; there is no electrostatic term, and hydrogens only decide whether an atom is a donor. The table below shows, for the atoms involved in the decisions, their Vina type, their distance to the crystal benzamidine and their contribution in the crystal pose. Rows whose type changes with your choice are highlighted.</p></div>"
   ],
   [
-   ">Görev 1<",
-   ">Task 1<"
+   "<div class=\"tw\"><table><thead><tr><th>Atom</th><th>Vina türü (rolü)</th><th>Benzamidine en yakın</th><th>H bağı katkısı</th><th>Toplam katkı</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Atom</th><th>Vina type (role)</th><th>Closest to benzamidine</th><th>H bond contribution</th><th>Total contribution</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>"
   ],
   [
-   ">Görev 2<",
-   ">Task 2<"
+   "<p class=\"small\">Katkılar kristal pozda, bölünmeden önce, bu sayfanın Vina hesabıyla (DK-T'deki kod; kristal skoru 50 kcal/mol'ün altında olan bütün hazırlıklarda Vina 1.2.7'nin kristal skoruyla en çok 0,003 kcal/mol fark). Hazırlık: Meeko 0.8.0 (`mk_prepare_receptor.py`, protonasyon `--set_template` ile), Gln192 atomları PDBQT'den silindi; kutu 20 Å, exhaustiveness 8, tohumlar 1-5; protokoller koşulardan önce donduruldu (DKOPREP, DKOPREP2). Kristal ligand \"unutulunca\" amidinyum biçimindeki kristal benzamidin reseptör dosyasına eklendi; Asp189 yan zinciri \"kesilince\" CG, OD1 ve OD2 reseptör dosyasından silindi. Temel hazırlık (su yok, ASP, HIE, Gln192 tutuldu, NH) bu projenin 24 Eylül denemesindeki reseptörle bayt bayt aynıdır.</p>",
+   "<p class=\"small\">Contributions in the crystal pose, before division, from this page's Vina calculation (the code from DK-T; in every preparation whose crystal score is below 50 kcal/mol, at most 0.003 kcal/mol from the crystal score of Vina 1.2.7). Preparation: Meeko 0.8.0 (`mk_prepare_receptor.py`, protonation with `--set_template`), Gln192 atoms deleted from the PDBQT; box 20 Å, exhaustiveness 8, seeds 1-5; protocols frozen before the runs (DKOPREP, DKOPREP2). When the crystal ligand is \"forgotten\", the crystal benzamidine in its amidinium form was added to the receptor file; when the Asp189 side chain is \"cut\", CG, OD1 and OD2 were deleted from the receptor file. The baseline preparation (no water, ASP, HIE, Gln192 kept, NH) is byte for byte identical to the receptor from this project's 24 September trial.</p>"
   ],
   [
-   ">Görev 3<",
-   ">Task 3<"
+   "<article class=\"q\" id=\"o1c1\"><span class=\"k\">Açık</span><h3>Skoru en çok hangi karar değiştirir?</h3><p>Suları değiştirin; poz ve skor ne yapıyor?</p><div class=\"mine\" id=\"mo1c1\">Kristal sularını \"62 suyun hepsi\" yapın.</div></article>",
+   "<article class=\"q\" id=\"o1c1\"><span class=\"k\">Open</span><h3>Which decision changes the score the most?</h3><p>Change the waters; what do the pose and the score do?</p><div class=\"mine\" id=\"mo1c1\">Set the crystal waters to \"All 62 waters\".</div></article>"
   ],
   [
-   ">Görev 4<",
-   ">Task 4<"
+   "<article class=\"q\" id=\"o1c2\"><span class=\"k\">Açık</span><h3>Vina'nın göremediği kararlar</h3><p>Asp189'u ve Ile16 ucunu değiştirin.</p><div class=\"mine\" id=\"mo1c2\">Asp189'u nötr (ASH) ve Ile16'yı NH₃⁺ yapın; skor ve pozlar değişiyor mu?</div></article>",
+   "<article class=\"q\" id=\"o1c2\"><span class=\"k\">Open</span><h3>Decisions Vina cannot see</h3><p>Change Asp189 and the Ile16 terminus.</p><div class=\"mine\" id=\"mo1c2\">Make Asp189 neutral (ASH) and Ile16 NH₃⁺; do the score and the poses change?</div></article>"
   ],
   [
-   "Benzamidine <b>4 Å'dan yakın</b> olup doluluğu 0 olan atomu bulun ve seçin. Sonra B faktörüne bakın: aynı kalıntının doluluğu 1 olan atomlarıyla karşılaştırın.",
-   "Find and select the atom that is <b>closer than 4 Å</b> to benzamidine and has occupancy 0. Then look at its B factor: compare it with the atoms of the same residue that have occupancy 1."
+   "<article class=\"q\" id=\"o1c3\"><span class=\"k\">Açık</span><h3>Aynı skor, aynı sonuç mu?</h3><p>His57'yi değiştirin.</p><div class=\"mine\" id=\"mo1c3\">His57'yi HID ya da HIP yapın; kristal skoru ve docking skorlarını karşılaştırın.</div></article>",
+   "<article class=\"q\" id=\"o1c3\"><span class=\"k\">Open</span><h3>Same score, same result?</h3><p>Change His57.</p><div class=\"mine\" id=\"mo1c3\">Set His57 to HID or HIP; compare the crystal score and the docking scores.</div></article>"
   ],
   [
-   "Kesikli çizgiler kristaldeki temasları gösterir: amidin ucunun iki azotu Asp189'un iki oksijenine 2,92 ve 2,87 Å uzaklıkta; biri Gly219'un karbonil oksijenine, öteki Ser190'ın hidroksiline ve bir su molekülüne (HOH416) de yakın. Temel düzeydeki tuz köprüsü burada gerçek sayılarla duruyor.",
-   "The dashed lines show the contacts in the crystal: the two nitrogens of the amidine end are 2.92 and 2.87 Å from the two oxygens of Asp189; one is also close to the carbonyl oxygen of Gly219, the other to the hydroxyl of Ser190 and to a water molecule (HOH416). The salt bridge from the basic level appears here with real numbers."
+   "<article class=\"q\" id=\"o1c4\"><span class=\"k\">Açık</span><h3>Hazırlık hatası mı, yöntem hatası mı?</h3><p>Kristal ligandı reseptör dosyasında unutun.</p><div class=\"mine\" id=\"mo1c4\">\"Kristal ligand reseptör dosyasında\" seçeneğini \"Unutuldu\" yapın.</div></article>",
+   "<article class=\"q\" id=\"o1c4\"><span class=\"k\">Open</span><h3>Preparation error or method error?</h3><p>Forget the crystal ligand in the receptor file.</p><div class=\"mine\" id=\"mo1c4\">Set \"Crystal ligand in the receptor file\" to \"Forgotten\".</div></article>"
   ],
   [
-   "<small>2 · Hazırlık</small>Bir karar günlüğü tutmak",
-   "<small>2 · Preparation</small>Keeping a decision log"
+   "<article class=\"q\" id=\"o1c5\"><span class=\"k\">Açık</span><h3>Tuz köprüsünün iki ucu</h3><p>Köprünün bir ucunu reseptörde, öbür ucunu ligandda değiştirin.</p><div class=\"mine\" id=\"mo1c5\">Asp189 yan zincirini kesin; ayrıca benzamidini nötr amidin olarak deneyin.</div></article>",
+   "<article class=\"q\" id=\"o1c5\"><span class=\"k\">Open</span><h3>The two ends of the salt bridge</h3><p>Change one end of the bridge in the receptor and the other end in the ligand.</p><div class=\"mine\" id=\"mo1c5\">Cut the Asp189 side chain; also try benzamidine as a neutral amidine.</div></article>"
   ],
   [
-   "Dosyadan docking girdisine giden yolda bir dizi karar verilir: hangi sular kalacak, hangi atomlar silinecek, hangi kalıntı hangi protonasyonda yazılacak. Programlar bunların çoğunu sessizce, varsayılan değerle verir. CH07'deki gibi, her kararı <b>ne seçildi, neden, test edildi mi</b> diye kaydediyoruz.",
-   "On the way from the file to the docking input, a series of decisions is made: which waters stay, which atoms are deleted, which residue is written in which protonation state. Programs make most of these silently, with default values. As in CH07, we record each decision as <b>what was chosen, why, and whether it was tested</b>."
+   "<span class=\"step\">2 · Proteine dönüş</span>",
+   "<span class=\"step\">2 · Back to the protein</span>"
   ],
   [
-   "Aşağıdaki günlük bu sayfa için yapılan gerçek hazırlığın kaydıdır. Yeşil etiketli seçenekler Vina ile koşuldu; sarı etiketliler koşulmadı ve sonuçları yoktur.",
-   "The log below is the record of the actual preparation done for this page. Options with a green tag were run with Vina; those with a yellow tag were not run and have no results."
+   "<h2 id=\"o1h4\">Hazırlık günlüğü: ne sınandı, ne sınanmadı?</h2>",
+   "<h2 id=\"o1h4\">Preparation log: what was tested, what was not?</h2>"
   ],
   [
-   "Ile16 satırı ayrıca dikkat ister. Aktif tripsinde zincir başındaki Ile16'nın α-amino grubu protonlanmıştır (NH3⁺) ve Asp194 ile tuz köprüsü kurarak enzimin aktif yapısını tutar; 3PTB'de bu azot Asp194 OD1'e 2,7 Å uzaklıktadır. Kimyasal olarak beklenen durum bu yüzden NH3⁺ biçimidir. Meeko ise bu azota, zincir içindeki bir kalıntının peptit N–H'si gibi tek H ekledi; bu geçerli bir seçenek değil, şablondan kalan bir yapıntıdır. Bu sayfadaki bütün koşular bu tek H ile yapıldı. Azot benzamidinden 8,4 Å uzaktadır; NH3⁺ ile koşu yapılmadı ve etkisi değerlendirilmedi.",
-   "The Ile16 row needs extra attention. In active trypsin the α-amino group of the N-terminal residue Ile16 is protonated (NH3⁺) and forms a salt bridge with Asp194 that holds the enzyme in its active conformation; in 3PTB this nitrogen is 2.7 Å from Asp194 OD1. The chemically expected state is therefore NH3⁺. Meeko instead added a single H to this nitrogen, like the peptide N–H of a residue inside the chain; this is not a valid option but a template artifact. All runs on this page used this single H. The nitrogen is 8.4 Å from benzamidine; no run with NH3⁺ was done, and its effect was not assessed."
+   "<div class=\"prose\"><p>Redocking'in bu kadar sağlam çıkması hazırlığın doğru olduğunu göstermez: reseptör tam da bu ligandı taşırken çözülmüştür ve cebin yarığı ligandın biçimindedir. Bu sayfanın ölçtüğü, hangi kararın bu skor fonksiyonunda sonucu değiştirdiğidir. Bir kararın Vina'ya görünmemesi, kimyasal olarak önemsiz olduğu anlamına gelmez; aynı kararlar moleküler dinamikte, elektrostatik terimi olan bir kuvvet alanında doğrudan görünür (MD-O).</p></div>",
+   "<div class=\"prose\"><p>That redocking comes out this robust does not show that the preparation is correct: the receptor was solved while carrying exactly this ligand, and the slot of the pocket has the ligand's shape. What this page measures is which decision changes the result with this scoring function. A decision being invisible to Vina does not mean it is chemically unimportant; the same decisions show up directly in molecular dynamics, in a force field with an electrostatic term (MD-O).</p></div>"
   ],
   [
-   ">Karar günlüğü<",
-   ">Decision log<"
+   "<div class=\"tw\"><table><thead><tr><th>Karar</th><th>Bu projede (3PTB, kendi kristali)</th></tr></thead><tbody>",
+   "<div class=\"tw\"><table><thead><tr><th>Decision</th><th>In this project (3PTB, its own crystal)</th></tr></thead><tbody>"
   ],
   [
-   "Seçilen hazırlık kararlarına göre cep görünümü",
-   "Pocket view for the selected preparation decisions"
+   "<tr><td>Kristal suları</td><td>Poz aynı; kristal skor HOH416 ile −0,25, 62 suyun hepsiyle −0,43 kcal/mol. Farklı hazırlıkların skorları yan yana konamaz.</td></tr>",
+   "<tr><td>Crystal waters</td><td>Same pose; crystal score −0.25 with HOH416, −0.43 kcal/mol with all 62 waters. Scores from different preparations cannot be put side by side.</td></tr>"
   ],
   [
-   "Asp189'u yüklü (varsayılan) ve nötr (ASH) yazarak iki koşuyu karşılaştırın. Kristal pozun Vina skoru kaç birim değişti?",
-   "Compare the two runs with Asp189 written as charged (default) and as neutral (ASH). By how many units did the Vina score of the crystal pose change?"
+   "<tr><td>Asp189, His57, Ile16 protonasyonu; ligandın yükü</td><td>Kristal skor 0,000 değişti. Asp189 ve Ile16'da pozlar da birebir aynı; His57'de kristal skor aynı, pozlar biraz farklı.</td></tr>",
+   "<tr><td>Protonation of Asp189, His57 and Ile16; the charge of the ligand</td><td>The crystal score changed by 0.000. For Asp189 and Ile16 the poses were also exactly the same; for His57 the crystal score was the same, the poses slightly different.</td></tr>"
   ],
   [
-   ">Skor farkı<",
-   ">Score difference<"
+   "<tr><td>Doluluğu 0 olan Gln192 atomları</td><td>Silinince kristal skor +0,06; redocking aynı.</td></tr>",
+   "<tr><td>Gln192 atoms with occupancy 0</td><td>Deleting them makes the crystal score +0.06; redocking the same.</td></tr>"
   ],
   [
-   "placeholder=\"fark = ?\"",
-   "placeholder=\"difference = ?\""
+   "<tr><td>Asp189 yan zinciri kesik</td><td>Kristal skor +0,6; redocking yine 180/180 başarılı, ilk pozlar 1,4 Å'a kadar kayıyor.</td></tr>",
+   "<tr><td>Asp189 side chain cut</td><td>Crystal score +0.6; redocking still succeeds 180/180, the first poses shift by up to 1.4 Å.</td></tr>"
   ],
   [
-   ">Kontrol et<",
-   ">Check<"
+   "<tr><td>Kristal ligand dosyada unutuldu</td><td>Redocking 0/180; pozlar yaklaşık 10 Å uzakta. Program uyarı vermez.</td></tr>",
+   "<tr><td>Crystal ligand forgotten in the file</td><td>Redocking 0/180; the poses are about 10 Å away. The program gives no warning.</td></tr>"
   ],
   [
-   "<small>3 · Redocking</small>On tohum, 198 poz, üç ölçüm",
-   "<small>3 · Redocking</small>Ten seeds, 198 poses, three measures"
+   "<tr><td>Başka tripsin kristallerinde (ligandsız, başka ligandlı, tripsinojen)</td><td>Bu senaryo henüz hesaplanmadı; protokol donduruldu (DKOCROSS), yapı dosyaları gelince sonraki sürümde.</td></tr>",
+   "<tr><td>In other trypsin crystals (without ligand, with another ligand, trypsinogen)</td><td>This scenario has not been computed yet; the protocol is frozen (DKOCROSS), next version once the structure files arrive.</td></tr>"
   ],
   [
-   "Suları çıkarılmış reseptörle, kristalden bağımsız bir başlangıç yapısından on ayrı tohumla docking yaptık: kutu kristal ligandın merkezinde, kenarı 20 Å, exhaustiveness 8. Her koşu en çok 20 poz döndürdü; toplam 198 poz.",
-   "Using the receptor with its waters removed, we docked the ligand from a starting structure independent of the crystal, with ten different seeds: box centered on the crystal ligand, 20 Å edge, exhaustiveness 8. Each run returned at most 20 poses; 198 poses in total."
+   "<tr><td>Elektrostatik terimi olan başka bir skor fonksiyonu</td><td>Bu senaryo hesaplanmadı.</td></tr>",
+   "<tr><td>Another scoring function with an electrostatic term</td><td>This scenario was not computed.</td></tr>"
   ],
   [
-   "Her pozun kristale uzaklığını üç yolla ölçtük. Aşağıda ölçüm türünü değiştirin ve 2 Å altında kalan poz sayısının nasıl değiştiğine bakın. Bir noktaya tıklayınca o poz, kristal pozun (gri) üstünde görünür.",
-   "We measured each pose’s distance to the crystal in three ways. Switch the measure below and watch how the number of poses under 2 Å changes. Click a point to show that pose over the crystal pose (gray)."
+   "<span class=\"step\">3 · Kendinizi sınayın</span>",
+   "<span class=\"step\">3 · Test yourself</span>"
   ],
   [
-   "Redocking masası, gerçek sayılarla",
-   "The redocking bench, with real numbers"
+   "<h2 id=\"o1h5\">Yedi soru</h2>",
+   "<h2 id=\"o1h5\">Seven questions</h2>"
   ],
   [
-   "198 docking pozunun skoru ve kristale RMSD değeri",
-   "Score and RMSD to the crystal for 198 docking poses"
+   "<p class=\"next\">Önceki adım: <a href=\"../dk-t/\">DK-T · Docking: bir pozu bulmak</a> (redocking, arama ve Vina skoru). Sıradaki: <a href=\"../dk-u/\">DK-U · Skor, afinite ve binlerce anahtar</a> (skor ile ölçülen bağlanma).</p>",
+   "<p class=\"next\">Previous step: <a href=\"../dk-t/\">DK-T · Docking: finding a pose</a> (redocking, search and the Vina score). Next: <a href=\"../dk-u/\">DK-U · Score, affinity and thousands of keys</a> (score versus measured binding).</p>"
   ],
   [
-   "<span class=\"lbl\">RMSD nasıl ölçülsün?</span>",
-   "<span class=\"lbl\">How should RMSD be measured?</span>"
+   "<p class=\"small\">Model ve veri: 3PTB (sığır beta-tripsini ve benzamidin, 1,70 Å; Marquart ve ark. 1983, Acta Crystallogr B 39:480). Koşular AutoDock Vina 1.2.7 ile bu projenin bulut makinesinde, 30 Eylül 2026'da çalıştırıldı (DKOPREP ve DKOPREP2, koşulardan önce dondurulmuş protokoller).</p>",
+   "<p class=\"small\">Model and data: 3PTB (bovine beta-trypsin and benzamidine, 1.70 Å; Marquart et al. 1983, Acta Crystallogr B 39:480). The runs were carried out with AutoDock Vina 1.2.7 on this project's cloud machine on 30 September 2026 (DKOPREP and DKOPREP2, protocols frozen before the runs).</p>"
   ],
   [
-   "RMSD türü",
-   "RMSD type"
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
   ],
   [
-   ">Hizalamasız, simetri düzeltmeli<",
-   ">No alignment, symmetry-corrected<"
+   "function pc(v,d){ return '%'+fx(v,d); }",
+   "function pc(v,d){ return fx(v,d)+'%'; }"
   ],
   [
-   ">Hizalamasız, simetrisiz<",
-   ">No alignment, no symmetry correction<"
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('o1progN').textContent=Object.keys(FOUND).length+' / 5'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('o1progN').textContent=Object.keys(FOUND).length+' / 5'; }"
   ],
   [
-   ">Önce hizala<",
-   ">Align first<"
+   "var NFI=new Intl.NumberFormat('tr-TR');",
+   "var NFI=new Intl.NumberFormat('en-US');"
   ],
   [
-   "Seçilen poz ve kristal poz",
-   "Selected pose and crystal pose"
+   "var VIEWS={side:{e1:AXA,e2:AXN,o:v3x(AXA,AXN),ad:'yandan kesit: halka kenardan görünür, iki duvar üstte ve altta'},top:{e1:AXA,e2:AXB,o:AXN,ad:'üstten kesit: halkanın yüzü görünür'}};",
+   "var VIEWS={side:{e1:AXA,e2:AXN,o:v3x(AXA,AXN),ad:'side section: the ring is seen edge-on, the two walls above and below'},top:{e1:AXA,e2:AXB,o:AXN,ad:'top section: the face of the ring is seen'}};"
   ],
   [
-   ">2 Å altındaki poz<",
-   ">Poses under 2 Å<"
+   "function roleOf(t){ return t==='C_H'?'hidrofobik':(t==='C_P'?'kutuplu karbon':(t==='N_D'?'verici':(t==='N_A'?'alıcı':(t==='O_A'?'alıcı':(t==='O_DA'?'verici ve alıcı':(t==='N_P'?'ne verici ne alıcı':t)))))); }",
+   "function roleOf(t){ return t==='C_H'?'hydrophobic':(t==='C_P'?'polar carbon':(t==='N_D'?'donor':(t==='N_A'?'acceptor':(t==='O_A'?'acceptor':(t==='O_DA'?'donor and acceptor':(t==='N_P'?'neither donor nor acceptor':t)))))); }"
   ],
   [
-   ">Seçilen poz<",
-   ">Selected pose<"
+   "return {lbl:k[2],now:a?a[3]:null,base:b?b[3]:null,d:d,c:a?atomContrib(a):null,p:a}; }).concat(ST.X==='yes'?[(function(){ var B=R.filter(function(q){ return q[5]==='BEN'; }), P=vinaPrep(B), t=vinaTerms(P,LX,ST.L==='neu'?LT0:LT); return {lbl:'dosyada kalan benzamidin (9 atom)',now:'reseptör atomu',base:null,d:0,c:{e:vinaInter(t),hb:VW.hb*t.hb},ben:1}; })()]:[]); }",
+   "return {lbl:k[2],now:a?a[3]:null,base:b?b[3]:null,d:d,c:a?atomContrib(a):null,p:a}; }).concat(ST.X==='yes'?[(function(){ var B=R.filter(function(q){ return q[5]==='BEN'; }), P=vinaPrep(B), t=vinaTerms(P,LX,ST.L==='neu'?LT0:LT); return {lbl:'benzamidine left in the file (9 atoms)',now:'receptor atoms',base:null,d:0,c:{e:vinaInter(t),hb:VW.hb*t.hb},ben:1}; })()]:[]); }"
   ],
   [
-   ">Skor<",
-   ">Score<"
+   "var cx=PB.reduce(function(s,p){ return s+p[0]; },0)/9, cy=PB.reduce(function(s,p){ return s+p[1]; },0)/9; pill(g,W<420?'dosyada kalan ligand':'dosyada unutulan kristal benzamidin',cx,cy-3.6*sc,css('--paper'),str(rgb(css('--accent')),0.9)); }",
+   "var cx=PB.reduce(function(s,p){ return s+p[0]; },0)/9, cy=PB.reduce(function(s,p){ return s+p[1]; },0)/9; pill(g,W<420?'ligand left in file':'crystal benzamidine forgotten in the file',cx,cy-3.6*sc,css('--paper'),str(rgb(css('--accent')),0.9)); }"
   ],
   [
-   "RMSD (üç ölçüm)",
-   "RMSD (three measures)"
+   "if(offp&&ANI.t>=1){ var px=P.reduce(function(s,p){ return s+p[0]; },0)/P.length, py=P.reduce(function(s,p){ return s+p[1]; },0)/P.length; g.font='600 11px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='center'; g.fillText('bulunan poz: düzlemin '+fx(Math.abs(hc),1)+' Å '+(hc>0?'önünde':'arkasında'),px,py+2.2*sc); g.textAlign='left'; }",
+   "if(offp&&ANI.t>=1){ var px=P.reduce(function(s,p){ return s+p[0]; },0)/P.length, py=P.reduce(function(s,p){ return s+p[1]; },0)/P.length; g.font='600 11px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='center'; g.fillText('pose found: '+fx(Math.abs(hc),1)+' Å '+(hc>0?'in front of':'behind')+' the plane',px,py+2.2*sc); g.textAlign='left'; }"
   ],
   [
-   ">Tohum<",
-   ">Seed<"
+   "g.fillStyle=css('--muted'); g.font='11px '+css('--sans'); g.fillText(W<420?(ST.view==='side'?'yandan kesit':'üstten kesit'):V.ad+' · \"·\" işaretli kalıntı bu düzlemin önünde ya da arkasında',10,15);",
+   "g.fillStyle=css('--muted'); g.font='11px '+css('--sans'); g.fillText(W<420?(ST.view==='side'?'side section':'top section'):V.ad+' · residues marked \"·\" lie in front of or behind this plane',10,15);"
   ],
   [
-   ">1. pozun skoru<",
-   ">Top-pose score<"
+   "g.fillText(W<420?'altın: kristal · koyu: docking · gri kesikli: önceki':'altın: kristal poz · koyu: seçilen tohumun ilk pozu · gri kesikli: önceki seçiminiz · mavi: su · halka: atomun katkısı (yeşil çeker, kırmızı iter)',10,H-7); }",
+   "g.fillText(W<420?'gold: crystal · dark: docking · grey dashed: previous':'gold: crystal pose · dark: first pose of the selected seed · grey dashed: your previous choice · blue: water · ring: atom contribution (green attracts, red repels)',10,H-7); }"
   ],
   [
-   ">1. pozun RMSD’si<",
-   ">Top-pose RMSD<"
+   "var EFR=[['W 0→416','HOH416 tutulur','W','416'],['W 0→all','62 suyun hepsi','W','all'],['Q keep→del','Gln192 OE1/NE2 silinir','Q','del'],['D ASP→ASH','Asp189 nötr (ASH)','D','ASH'],['H HIE→HID','His57 HID','H','HID'],['H HIE→HIP','His57 HIP','H','HIP'],['N NH→NH3','Ile16 NH₃⁺','N','NH3'],['L cat→neu','Benzamidin nötr','L','neu'],['A full→cut','Asp189 yan zinciri kesik','A','cut'],['X no→yes','Kristal ligand unutuldu','X','yes']];",
+   "var EFR=[['W 0→416','HOH416 kept','W','416'],['W 0→all','all 62 waters','W','all'],['Q keep→del','Gln192 OE1/NE2 deleted','Q','del'],['D ASP→ASH','Asp189 neutral (ASH)','D','ASH'],['H HIE→HID','His57 HID','H','HID'],['H HIE→HIP','His57 HIP','H','HIP'],['N NH→NH3','Ile16 NH₃⁺','N','NH3'],['L cat→neu','Benzamidine neutral','L','neu'],['A full→cut','Asp189 side chain cut','A','cut'],['X no→yes','Crystal ligand forgotten','X','yes']];"
   ],
   [
-   ">Poz sayısı<",
-   ">Poses<"
+   "g.font=(act?'600 ':'')+'11.5px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='right'; g.fillText(W<420?r[1].replace('62 suyun hepsi','bütün sular').replace('Gln192 OE1/NE2 silinir','Gln192 sil'):r[1],L-8,y+rh*0.62);",
+   "g.font=(act?'600 ':'')+'11.5px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='right'; g.fillText(W<420?r[1].replace('all 62 waters','all waters').replace('Gln192 OE1/NE2 deleted','Gln192 deleted'):r[1],L-8,y+rh*0.62);"
   ],
   [
-   ">2 Å altı poz<",
-   ">Poses under 2 Å<"
+   "else if(Math.abs(m)<0.0005){ g.fillStyle=css('--muted'); g.textAlign='left'; g.fillText(W<420?'0':'0,000: görünmez',X(0)+6,y+rh*0.62); }",
+   "else if(Math.abs(m)<0.0005){ g.fillStyle=css('--muted'); g.textAlign='left'; g.fillText(W<420?'0':'0.000: invisible',X(0)+6,y+rh*0.62); }"
   ],
   [
-   ">Süre<",
-   ">Time<"
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='11px '+css('--sans'); g.fillText(W<420?'kristal skorda fark (kcal/mol)':'yalnız o karar değişince kristal pozun skorundaki fark (kcal/mol; bütün eşleşmiş çiftlerde)',8,14); }",
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='11px '+css('--sans'); g.fillText(W<420?'change in crystal score (kcal/mol)':'change in the crystal pose score when only that decision changes (kcal/mol; over all matched pairs)',8,14); }"
   ],
   [
-   "198 pozun kaçı doğru ölçütle (hizalamasız, simetri düzeltmeli) 2 Å altında? “Önce hizala” seçilince kaçı 2 Å altında görünüyor?",
-   "How many of the 198 poses are under 2 Å with the correct criterion (no alignment, symmetry-corrected)? With “Align first” selected, how many appear to be under 2 Å?"
+   "g.textAlign='center'; [0,2,4,8,12].forEach(function(v){ g.fillText(v+' Å',X(v),H-B+14); }); g.fillText(W<420?'RMSD; dikey: skor':'pozun kristale RMSD\\'si; dikey: Vina skoru (kcal/mol)',L+(W-L-R)/2,H-3);",
+   "g.textAlign='center'; [0,2,4,8,12].forEach(function(v){ g.fillText(v+' Å',X(v),H-B+14); }); g.fillText(W<420?'RMSD; vertical: score':'RMSD of the pose to the crystal; vertical: Vina score (kcal/mol)',L+(W-L-R)/2,H-3);"
   ],
   [
-   ">Doğru ölçütle<",
-   ">With the correct criterion<"
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.fillText(W<420?'koyu: sizin · gri: temel':'koyu: sizin hazırlığınız (büyük nokta: her tohumun ilk pozu) · gri: temel hazırlık',L,12); }",
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.fillText(W<420?'dark: yours · grey: baseline':'dark: your preparation (large dot: first pose of each seed) · grey: baseline preparation',L,12); }"
   ],
   [
-   "placeholder=\"doğru ölçüt\"",
-   "placeholder=\"correct criterion\""
+   "$('o1js').textContent=Math.abs(run.cr)<50?fx(js,3)+' (Vina '+fx(run.cr,3)+')':'karşılaştırılmadı (derin çakışmada sayfanın hesabı Vina\\'dan ayrılır)';",
+   "$('o1js').textContent=Math.abs(run.cr)<50?fx(js,3)+' (Vina '+fx(run.cr,3)+')':'not compared (with a deep clash this page\\'s calculation departs from Vina)';"
   ],
   [
-   ">Hizalayınca<",
-   ">After alignment<"
+   "$('o1seedR').textContent='tohum '+(ST.seed+1)+': skor '+fx(run.s[ST.seed][0],3)+', RMSD '+fx(run.s[ST.seed][1],2)+' Å';",
+   "$('o1seedR').textContent='seed '+(ST.seed+1)+': score '+fx(run.s[ST.seed][0],3)+', RMSD '+fx(run.s[ST.seed][1],2)+' Å';"
   ],
   [
-   "placeholder=\"hizalayınca\"",
-   "placeholder=\"after alignment\""
+   "return '<tr'+(ch||r.ben?' class=\"hl\"':'')+'><td>'+r.lbl+'</td><td>'+(r.now?(ch?r.base+' → ':'')+r.now+(r.ben?'':' ('+roleOf(r.now)+')'):(r.lbl.indexOf('HOH')===0?'tutulmadı':'silindi'))+'</td><td class=\"n\">'+(r.d!=null&&!r.ben?fx(r.d,1)+' Å':'-')+'</td><td class=\"n\">'+(r.c?sg(r.c.hb):'-')+'</td><td class=\"n\">'+(r.c?(Math.abs(r.c.e)>=100?(r.c.e>0?'+':'−')+NFI.format(Math.round(Math.abs(r.c.e))):sg(r.c.e)):'-')+'</td></tr>'; }).join('');",
+   "return '<tr'+(ch||r.ben?' class=\"hl\"':'')+'><td>'+r.lbl+'</td><td>'+(r.now?(ch?r.base+' → ':'')+r.now+(r.ben?'':' ('+roleOf(r.now)+')'):(r.lbl.indexOf('HOH')===0?'not kept':'deleted'))+'</td><td class=\"n\">'+(r.d!=null&&!r.ben?fx(r.d,1)+' Å':'-')+'</td><td class=\"n\">'+(r.c?sg(r.c.hb):'-')+'</td><td class=\"n\">'+(r.c?(Math.abs(r.c.e)>=100?(r.c.e>0?'+':'−')+NFI.format(Math.round(Math.abs(r.c.e))):sg(r.c.e)):'-')+'</td></tr>'; }).join('');"
   ],
   [
-   "On koşunun hepsinde birinci poz kristale 0,37–0,41 Å uzakta ve skorları −6,10 ile −6,12 arasında: bu yapıda, bu ayarlarla sonuç tohuma neredeyse hiç bağlı değil. Bu iyi bir haberdir ama bir yanılgıya da kapı açar. Simetrisiz ölçümde bazı pozlar 1,6 Å çıkar; oysa aynı pozlar düzeltmeyle 0,4 Å'dur: halka 180° dönmüş, atom numaraları yer değiştirmiştir. Hizalama ise tam tersini yapar: cebin dışına düşmüş pozları bile “başarılı” gösterir.",
-   "In all ten runs the top pose is 0.37–0.41 Å from the crystal and the scores lie between −6.10 and −6.12: for this structure and these settings, the result hardly depends on the seed. This is good news, but it also opens the door to a misconception. Without symmetry correction some poses come out at 1.6 Å, whereas the same poses are 0.4 Å with the correction: the ring is flipped by 180°, so the atom numbers have swapped places. Alignment does the opposite: it makes even poses that fell outside the pocket look “successful”."
+   "card('o1c1',true,'Kristal pozun skoru temel hazırlıkta '+fx(base.cr,3)+'; yalnız HOH416 tutulunca '+fx(w4.cr,3)+', 62 suyun hepsi tutulunca '+fx(a.cr,3)+' kcal/mol. Redocking yine 5 tohumun 5\\'inde doğru pozu buldu. Sular pozu değiştirmedi, sayıyı değiştirdi: iki farklı hazırlıkla elde edilmiş skorlar yan yana konamaz.'); }",
+   "card('o1c1',true,'The crystal pose scores '+fx(base.cr,3)+' with the baseline preparation, '+fx(w4.cr,3)+' when only HOH416 is kept and '+fx(a.cr,3)+' kcal/mol when all 62 waters are kept. Redocking still found the right pose in 5 of 5 seeds. The waters did not change the pose, they changed the number: scores obtained with two different preparations cannot be put side by side.'); }"
   ],
   [
-   "<small>4 · Kutu ve arama çabası</small>Başarısızlığın iki farklı kaynağı",
-   "<small>4 · Box and search effort</small>Two different sources of failure"
+   "if(ST.seen.D&&ST.seen.N){ card('o1c2',true,'Asp189 nötr yazılınca OD2 O_A\\'dan O_DA\\'ya döner: hâlâ alıcıdır, amidin azotlarıyla kurduğu hidrojen bağı terimi aynı kalır. Ile16 azotu NH ya da NH₃⁺ yazılsa da vericidir (N_D) ve benzamidinden 8,4 Å uzaktadır. Vina skorunda elektrostatik terim yoktur; bu iki karar 36 eşleşmiş çiftin hepsinde kristal skoru 0,000 değiştirdi ve 180 docking koşusunun 180\\'inde bütün pozlar birebir aynı çıktı. Karar kimyasal olarak önemli olabilir; bu skor fonksiyonu onu göremez.'); }",
+   "if(ST.seen.D&&ST.seen.N){ card('o1c2',true,'When Asp189 is written as neutral, OD2 turns from O_A into O_DA: it is still an acceptor, and the hydrogen bond term with the amidine nitrogens stays the same. The Ile16 nitrogen is a donor (N_D) whether it is written as NH or NH₃⁺, and it lies 8.4 Å from benzamidine. The Vina score has no electrostatic term; in all 36 matched pairs these two decisions changed the crystal score by 0.000, and in 180 of 180 docking runs all poses came out exactly the same. The decision may matter chemically; this scoring function cannot see it.'); }"
   ],
   [
-   "Redocking kolay geçti, çünkü kutuyu cebin üstüne biz koyduk. Cebin yerini bilmeseydik ne olurdu? Kutuyu kaydırdık, büyüttük, bütün proteini kapsayacak kadar genişlettik ve exhaustiveness değerini değiştirdik. Her ayarı en az beş tohumla koştuk.",
-   "Redocking passed easily because we placed the box over the pocket ourselves. What if we had not known where the pocket was? We shifted the box, enlarged it, widened it to cover the whole protein, and changed the exhaustiveness value. We ran each setting with at least five seeds."
+   "card('o1c3',true,'His57 HID ya da HIP yazılınca kristal pozun skoru değişmedi ('+sg(d[0][1])+', '+sg(d[1][1])+'), ama docking pozları değişti: beş tohumun ilk poz skor ortalaması HIE\\'ye göre HID\\'de '+sg(d[0][2])+', HIP\\'te '+sg(d[1][2])+' kcal/mol. His57 NE2 kristal ligandın 5,5 Å yakınında. Kristal pozda benzamidinin vericileri bu azotlarla hidrojen bağı kuracak kadar yakın değil; aramanın denediği başka pozlar ise yakın olabilir. \"Kristal skor aynı\" ile \"sonuç aynı\" aynı şey değildir.'); }",
+   "card('o1c3',true,'With His57 written as HID or HIP, the crystal pose score did not change ('+sg(d[0][1])+', '+sg(d[1][1])+'), but the docking poses did: relative to HIE, the mean first pose score of the five seeds changed by '+sg(d[0][2])+' with HID and '+sg(d[1][2])+' kcal/mol with HIP. His57 NE2 is 5.5 Å from the crystal ligand. In the crystal pose the donors of benzamidine are not close enough to these nitrogens to form hydrogen bonds; other poses the search tries may be. \"Same crystal score\" and \"same result\" are not the same thing.'); }"
   ],
   [
-   "Bir docking sonucu iki nedenle yanlış olabilir. <b>Arama hatası</b>: doğru poz daha iyi skor alırdı ama arama onu bulamadı. <b>Skor hatası</b>: arama doğru pozu buldu ama skor fonksiyonu başka bir pozu daha iyi saydı. Ayarları gezip hangi başarısızlığın hangisi olduğuna bakın.",
-   "A docking result can be wrong for two reasons. <b>Search error</b>: the correct pose would have scored better, but the search did not find it. <b>Scoring error</b>: the search found the correct pose, but the scoring function rated another pose as better. Go through the settings and see which failure is which."
+   "card('o1c4',true,'Kristal benzamidin reseptör dosyasında kalınca cep doludur: kristal pozun skoru '+(r.cr>0?'+':'')+NFI.format(Math.round(r.cr))+' kcal/mol (ligand kendi kopyasının üstüne oturur). Docking 5 tohumun '+okx+'\\'inde doğru pozu buldu; ilk pozlar kristale '+fx(Math.min.apply(null,rm),1)+'-'+fx(Math.max.apply(null,rm),1)+' Å uzakta, skorları '+fx(r.s[0][0],2)+' civarında. Program hata vermez, yalnız başka bir yer bulur. Bu bir yöntem hatası değil, hazırlık hatasıdır; reseptör dosyasında cepte ne kaldığına bakmadan sonuç yorumlanamaz.'); }",
+   "card('o1c4',true,'When the crystal benzamidine stays in the receptor file, the pocket is full: the crystal pose scores '+(r.cr>0?'+':'')+NFI.format(Math.round(r.cr))+' kcal/mol (the ligand sits on top of its own copy). Docking found the right pose in '+okx+' of 5 seeds; the first poses are '+fx(Math.min.apply(null,rm),1)+'-'+fx(Math.max.apply(null,rm),1)+' Å from the crystal, with scores around '+fx(r.s[0][0],2)+'. The program gives no error, it just finds another place. This is not a method error but a preparation error; the result cannot be interpreted without checking what was left in the pocket of the receptor file.'); }"
   ],
   [
-   "Kutu, exhaustiveness ve tohumlar",
-   "Box, exhaustiveness and seeds"
+   "card('o1c5',true,'Tuz köprüsünün iki ucu. Asp189 yan zinciri kesilince kristal pozun skoru '+fx(base.cr,3)+'\\'ten '+fx(rc.cr,3)+'\\'e kötüleşti, ama redocking yine '+ok1+' / 5 (ilk pozlar kristale '+fx(Math.min.apply(null,rmc),2)+'-'+fx(Math.max.apply(null,rmc),2)+' Å): pozu belirleyen, dar yarığın biçimi. Benzamidin nötr amidin olarak hazırlanınca '+fx(rl.cr,3)+', redocking '+ok2+' / 5. Nötr formda azotlardan biri yine vericidir (N_DA); Vina açısından tuz köprüsünü taşıyan şey yük değil, verici-alıcı çiftidir. Benzamidinin pKa\\'sı 11\\'in üstünde olduğu için pH 7\\'de neredeyse tamamen yüklüdür; kimyasal olarak doğru biçim amidinyumdur.'); }",
+   "card('o1c5',true,'The two ends of the salt bridge. With the Asp189 side chain cut, the crystal pose score got worse, from '+fx(base.cr,3)+' to '+fx(rc.cr,3)+', but redocking was still '+ok1+' / 5 (first poses '+fx(Math.min.apply(null,rmc),2)+'-'+fx(Math.max.apply(null,rmc),2)+' Å from the crystal): what sets the pose is the shape of the narrow slot. With benzamidine prepared as a neutral amidine: '+fx(rl.cr,3)+', redocking '+ok2+' / 5. In the neutral form one nitrogen is still a donor (N_DA); for Vina, what carries the salt bridge is not the charge but the donor-acceptor pair. Because the pKa of benzamidine is above 11, it is almost fully charged at pH 7; the chemically correct form is the amidinium.'); }"
   ],
   [
-   "Deney ayarı",
-   "Experiment setting"
+   "{s:'72 hazırlığın 360 redocking koşusunun hepsi doğru pozu buldu. Bu ne gösterir?',o:[['Bu hazırlıkların hepsi kimyasal olarak doğrudur',0],['Bu cepte, bu ligand ve bu skor fonksiyonu için bu kararlar pozu değiştirmedi; hazırlığın doğru olduğunu göstermez',1],['Vina her proteinde doğru pozu bulur',0],['Kararların hiçbiri skoru değiştirmedi',0]],w:'Reseptör bu ligandı taşırken çözülmüştür; redocking kolay bir sınavdır. Sular skoru değiştirdi ama pozu değiştirmedi.'},",
+   "{s:'All 360 redocking runs of the 72 preparations found the right pose. What does this show?',o:[['All these preparations are chemically correct',0],['In this pocket, for this ligand and this scoring function, these decisions did not change the pose; it does not show that the preparation is correct',1],['Vina finds the right pose in every protein',0],['None of the decisions changed the score',0]],w:'The receptor was solved while carrying this ligand; redocking is an easy test. The waters changed the score but not the pose.'},"
   ],
   [
-   "<span class=\"lbl\">Ayar</span>",
-   "<span class=\"lbl\">Setting</span>"
+   "{s:'Asp189 nötr (ASH) yazılınca Vina skoru neden hiç değişmedi?',o:[['Asp189 ligandın çok uzağında olduğu için',0],['Vina skorunda elektrostatik terim yok; OD2 nötr formda da hidrojen bağı alıcısı',1],['Meeko protonasyonu yok saydığı için',0],['Tohum aynı olduğu için',0]],w:'ASH\\'de OD2 O_A\\'dan O_DA\\'ya döner; alıcı rolü sürer ve amidin azotlarıyla hidrojen bağı terimi aynı kalır.'},",
+   "{s:'Why did the Vina score not change at all when Asp189 was written as neutral (ASH)?',o:[['Because Asp189 is far from the ligand',0],['The Vina score has no electrostatic term; in the neutral form OD2 is still a hydrogen bond acceptor',1],['Because Meeko ignored the protonation',0],['Because the seed was the same',0]],w:'In ASH, OD2 turns from O_A into O_DA; its acceptor role remains and the hydrogen bond term with the amidine nitrogens stays the same.'},"
   ],
   [
-   "Arama kutusu ve her tohumun en iyi pozu; yeşil başarılı, kırmızı başarısız",
-   "Search box and the best pose of each seed; green successful, red failed"
+   "{s:'Suların hepsi tutulunca kristal poz skoru 0,43 kcal/mol iyileşti. Susuz hazırlıkla elde edilmiş bir başka ligandın skoruyla karşılaştırılabilir mi?',o:[['Evet, skorlar kcal/mol olduğu için',0],['Hayır; farklı hazırlıklarla elde edilmiş skorlar yan yana konamaz',1],['Evet, poz aynı kaldığı için',0],['Yalnız sular yakınsa',0]],w:'Poz aynı kaldı, sayı kaydı. Skorları karşılaştırmak için hazırlık aynı olmalıdır.'},",
+   "{s:'With all waters kept, the crystal pose score improved by 0.43 kcal/mol. Can it be compared with the score of another ligand obtained with a water-free preparation?',o:[['Yes, because scores are in kcal/mol',0],['No; scores obtained with different preparations cannot be put side by side',1],['Yes, because the pose stayed the same',0],['Only if the waters are close',0]],w:'The pose stayed the same, the number shifted. To compare scores, the preparation must be the same.'},"
   ],
   [
-   "<span><i style=\"border-color:#2f7254;border-top-width:4px\"></i>1. poz, RMSD &lt; 2 Å</span><span><i style=\"border-color:#a3402f;border-top-width:4px\"></i>1. poz, RMSD ≥ 2 Å</span><span><i style=\"border-top:2px dashed #96661c\"></i>arama kutusu</span><span><i style=\"border-color:#8a93a0;border-top-width:4px\"></i>kristal poz</span>",
-   "<span><i style=\"border-color:#2f7254;border-top-width:4px\"></i>top pose, RMSD &lt; 2 Å</span><span><i style=\"border-color:#a3402f;border-top-width:4px\"></i>top pose, RMSD ≥ 2 Å</span><span><i style=\"border-top:2px dashed #96661c\"></i>search box</span><span><i style=\"border-color:#8a93a0;border-top-width:4px\"></i>crystal pose</span>"
+   "{s:'Kristal benzamidin reseptör dosyasında unutulunca ne oldu?',o:[['Vina hata verdi',0],['Docking uyarı vermeden cepten yaklaşık 10 Å uzakta bir poz buldu',1],['Docking yine doğru pozu buldu',0],['Skor değişmedi',0]],w:'180 koşunun hiçbiri doğru pozu bulmadı; kristal pozun skoru +206 kcal/mol çıktı. Hazırlık hatası sessizdir.'},",
+   "{s:'What happened when the crystal benzamidine was forgotten in the receptor file?',o:[['Vina gave an error',0],['Docking found a pose about 10 Å from the pocket without any warning',1],['Docking still found the right pose',0],['The score did not change',0]],w:'None of the 180 runs found the right pose; the crystal pose scored +206 kcal/mol. A preparation error is silent.'},"
   ],
   [
-   ">Cepte doğru poz var mı?<",
-   ">Correct pose in the pocket?<"
+   "{s:'Asp189 yan zinciri kesildiği hâlde redocking başarılı oldu. Bu en çok neyi gösterir?',o:[['Tuz köprüsü bağlanma için önemsizdir',0],['Bu skor fonksiyonunda pozu en çok cebin dar yarığının biçimi belirler; tuz köprüsü skoru etkiler',1],['Vina Asp189\\'u görmez',0],['Kesik yan zincir yeniden eklenmiştir',0]],w:'Kristal skor 0,6 kcal/mol kötüleşti, ama benzamidin yarığa aynı biçimde girdi. Bağlanmanın kimyası ile Vina\\'nın poz bulması aynı şey değildir.'},",
+   "{s:'Redocking succeeded even with the Asp189 side chain cut. What does this show most?',o:[['The salt bridge is unimportant for binding',0],['With this scoring function the pose is set mostly by the shape of the narrow slot of the pocket; the salt bridge affects the score',1],['Vina does not see Asp189',0],['The cut side chain was added back',0]],w:'The crystal score got 0.6 kcal/mol worse, but benzamidine entered the slot in the same way. The chemistry of binding and Vina finding a pose are not the same thing.'},"
   ],
   [
-   "<b>Tüm protein · exhaustiveness 1</b> ayarını açın. Başarısız koşularda ne oldu?",
-   "Select the <b>Whole protein · exhaustiveness 1</b> setting. What happened in the failed runs?"
+   "{s:'His57 HID yazılınca kristal pozun skoru aynı kaldı ama docking pozları değişti. Neden?',o:[['Rastgele sayılar değiştiği için',0],['Kristal pozda His57 azotları hidrojen bağı mesafesinde değil, ama aramanın denediği başka pozlar bu azotlara yakın olabilir',1],['His57 kutunun dışında olduğu için',0],['Vina His57\\'yi silmiştir',0]],w:'Tohumlar aynıydı. Türü değişen azotlar kristal pozun terimlerine katılmaz, aramanın gezdiği enerji yüzeyine katılır.'},",
+   "{s:'With His57 written as HID, the crystal pose score stayed the same but the docking poses changed. Why?',o:[['Because the random numbers changed',0],['In the crystal pose the His57 nitrogens are not at hydrogen bond distance, but other poses the search tries may be close to them',1],['Because His57 is outside the box',0],['Vina deleted His57',0]],w:'The seeds were the same. The nitrogens whose type changed do not enter the terms of the crystal pose; they enter the energy surface the search travels over.'},"
   ],
   [
-   "Görev 4 seçenekleri",
-   "Task 4 options"
+   "{s:'Deneysel köprüde redocking\\'in tahlildeki karşılığı nedir?',o:[['Gerçek numunede spike-recovery',0],['Saf tamponda hazırlanmış standartla sınama',1],['Negatif kontrol',0],['Teknik tekrar',0]],w:'Redocking reseptörün kendi kristalinde, bizim hazırlığımızla yapılır; tampondaki standarda benzer. Gerçek matrikse karşılık gelen, başka bir yapıyla yapılan çapraz docking\\'dir.'}];",
+   "{s:'In the experimental bridge, what is the assay equivalent of redocking?',o:[['Spike-recovery in a real sample',0],['Testing with a standard prepared in pure buffer',1],['A negative control',0],['A technical replicate',0]],w:'Redocking is done in the receptor\\'s own crystal with our own preparation; it resembles the standard in buffer. What corresponds to the real matrix is cross-docking with another structure.'}];"
   ],
   [
-   "Skor hatası: arama doğru pozu buldu, ama skor fonksiyonu yanlış pozu daha iyi saydı.",
-   "Scoring error: the search found the correct pose, but the scoring function rated a wrong pose as better."
+   "b.classList.add(okk?'right':'wrong'); var w=$('o1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var w=$('o1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
   ],
   [
-   "Arama hatası: bulunan pozlar doğru pozdan belirgin biçimde daha kötü skor aldı; arama doğru pozu hiç bulamadı.",
-   "Search error: the poses found scored clearly worse than the correct pose; the search never found the correct pose."
+   "$('o1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }",
+   "$('o1score').textContent='Answered: '+n+' / '+QZ.length+' · correct at first try: '+r; }); }); }"
   ],
   [
-   "Kutu hatası: cep kutunun dışında kaldı.",
-   "Box error: the pocket lay outside the box."
-  ],
-  [
-   "Seçenekler, bu ayar açıldığında etkinleşir.",
-   "The options become available once this setting is selected."
-  ],
-  [
-   "Başarısız yedi koşunun dördünde ligand cebe girmiş ama ters durmuş: halkanın ucu dipte, amidin ucu Asp189'dan yaklaşık 8,5 Å uzakta. Beşincisi cebin ağzında kalmış, ikisi proteinin başka bir yüzüne yerleşmiş. Temel düzeydeki oyuncak cepte gördüğünüz “ters oturmuş poz”un gerçek karşılığı budur. Bu yapıda skor fonksiyonu ters pozu açıkça cezalandırıyor (yaklaşık −4,6'ya karşı −6,1); sorun aramadaydı ve exhaustiveness 8 ile on koşunun onu da doğru pozu buldu. Kutuyu 14 Å kaydırınca ise cep kutunun dışında kaldı: o zaman ne arama ne skor kurtarır.",
-   "In four of the seven failed runs the ligand entered the pocket but sat inverted: the ring end at the bottom, the amidine end about 8.5 Å from Asp189. The fifth stayed at the mouth of the pocket, and two settled on another face of the protein. This is the real counterpart of the “inverted pose” you saw in the toy pocket at the basic level. In this structure the scoring function clearly penalizes the inverted pose (about −4.6 versus −6.1); the problem was in the search, and with exhaustiveness 8 all ten runs found the correct pose. When the box was shifted by 14 Å, however, the pocket lay outside the box: then neither the search nor the score can rescue the result."
-  ],
-  [
-   "<small>5 · Sınırlar ve rapor</small>Redocking'in söylemediği",
-   "<small>5 · Limits and report</small>What redocking does not tell you"
-  ],
-  [
-   "Çapraz docking: bu sayfada koşulmadı",
-   "Cross-docking: not run on this page"
-  ],
-  [
-   "Buradaki reseptör, tam da benzamidini taşırken çözülmüş yapıdır; yan zincirler bu ligandın etrafına zaten yerleşmiştir. On koşunun onunun da başarılı olması bu yüzden hazırlığın doğru olduğunu kanıtlamaz. Daha gerçekçi sınav, ligandı başka bir ligandla ya da ligandsız çözülmüş bir tripsin yapısına yerleştirmektir. Bunun için ikinci bir yapı gerekir; bu deneme yapılmadı ve sonucu yoktur (<code>NOT_EXECUTED</code>).",
-   "The receptor here is the very structure solved with benzamidine bound; its side chains are already arranged around this ligand. So the success of all ten runs does not prove that the preparation is correct. A more realistic test is to dock the ligand into a trypsin structure solved with another ligand or with no ligand. That requires a second structure; this trial was not performed and has no result (<code>NOT_EXECUTED</code>)."
-  ],
-  [
-   "Bir docking sonucunu başkasının tekrar edebilmesi için gereken en az bilgi aşağıdadır. Kart, bu sayfadaki gerçek denemenin kaydından üretildi.",
-   "Below is the minimum information someone else needs to reproduce a docking result. The card was generated from the record of the actual trial on this page."
-  ],
-  [
-   "DOCKING KAYDI · 3PTB REDOCKING",
-   "DOCKING RECORD · 3PTB REDOCKING"
-  ],
-  [
-   ">Metni kopyala<",
-   ">Copy text<"
-  ],
-  [
-   "<small>6 · Kendinizi sınayın</small>Dört karar, dört gerekçe",
-   "<small>6 · Test yourself</small>Four decisions, four reasons"
-  ],
-  [
-   "Sıradaki adım, uzman düzey (DK-U): pozu bulmak çözüldü, ama skor bağlanma gücünü sıralayabilir mi? Skor fonksiyonunun ağırlıklarını verilere kendiniz uyduracak, yapay bir tarama kütüphanesinde zenginleştirme eğrisi çizecek ve docking ile serbest enerji hesaplarının nerede ayrıldığını göreceksiniz.",
-   "Next step, expert level (DK-U): finding the pose is solved, but can the score rank binding strength? You will fit the weights of a scoring function to data yourself, draw an enrichment curve on a synthetic screening library, and see where docking and free energy calculations part ways."
-  ],
-  [
-   "<b>Bu sayfa hakkında.</b> DK-O için etkileşimli pilot bölümdür; kitabın kaynak metni ve yerel sitesi değiştirilmedi. Yapı verileri PDB 3PTB dosyasından alındı (SHA-256 <code>d2744dba…232f</code>). Bütün skorlar ve pozlar 24 Eylül 2026'da bulut çalışma alanında AutoDock Vina 1.2.7, Meeko 0.8.0 ve RDKit 2026.03.6 ile yapılan gerçek koşulardan gelir; komutlar, betikler ve ham çıktılar <code>book/cases/trypsin_3ptb/</code> altındadır ve temiz bir klasörde yeniden çalıştırıldığında aynı sonuçları verdi. Bu, keşif amaçlı teknik bir denemedir. Şunlar koşulmadı: çapraz docking, His57 ve N ucu protonasyon incelemesi, doluluğu 0 atomların silinmesi, diğer kristal sularının tutulması, Ca²⁺ iyonunun tutulması, başka skor fonksiyonları ve MD ile kararlılık sınaması. Bilimsel ve hedef-okur incelemesi yapılmadı.",
-   "<b>About this page.</b> This is the interactive pilot chapter for DK-O; the book’s source text and local site were not changed. The structure data were taken from the PDB 3PTB file (SHA-256 <code>d2744dba…232f</code>). All scores and poses come from real runs made on 24 September 2026 in a cloud workspace with AutoDock Vina 1.2.7, Meeko 0.8.0 and RDKit 2026.03.6; the commands, scripts and raw outputs are under <code>book/cases/trypsin_3ptb/</code> and gave the same results when rerun in a clean folder. This is an exploratory technical trial. The following were not run: cross-docking, His57 and N-terminus protonation review, deletion of occupancy-0 atoms, keeping the other crystal waters, keeping the Ca²⁺ ion, other scoring functions and a stability check with MD. No scientific or target-reader review has been carried out."
-  ],
-  [
-   "Intl.NumberFormat('tr-TR',",
-   "Intl.NumberFormat('en-US',"
-  ],
-  [
-   "'<b>Benzamidin · '",
-   "'<b>Benzamidine · '"
-  ],
-  [
-   "'</b><br>Ligand atomu. Doluluk 1,0; B 19,9 Å² (protein ortalaması 13,5 Å²).'",
-   "'</b><br>Ligand atom. Occupancy 1.0; B 19.9 Å² (protein mean 13.5 Å²).'"
-  ],
-  [
-   "'<b>Su · HOH'",
-   "'<b>Water · HOH'"
-  ],
-  [
-   "' Å²; benzamidine en yakın '",
-   "' Å²; closest distance to benzamidine '"
-  ],
-  [
-   "')<br>Doluluk: '",
-   "')<br>Occupancy: '"
-  ],
-  [
-   "'<span class=\"o0\">0 (deneyle desteklenmiyor)</span>'",
-   "'<span class=\"o0\">0 (not supported by the experiment)</span>'"
-  ],
-  [
-   "'<br>B faktörü: '",
-   "'<br>B factor: '"
-  ],
-  [
-   "' · kalıntının doluluğu > 0 atomlarında ortalama '",
-   "' · mean over the residue’s atoms with occupancy > 0: '"
-  ],
-  [
-   "'<br>Benzamidine en yakın uzaklık: '",
-   "'<br>Closest distance to benzamidine: '"
-  ],
-  [
-   "'Buldunuz: '",
-   "'Found it: '"
-  ],
-  [
-   "', benzamidine '+fx(a.dBen,1)+' Å. Doluluğu 0, B değeri dosyada 0 olarak yazılmış; aynı kalıntının CG ve CD atomlarında B '",
-   "', '+fx(a.dBen,1)+' Å from benzamidine. Occupancy 0, and its B value is written as 0 in the file; the CG and CD atoms of the same residue have B = '"
-  ],
-  [
-   "' Å², protein ortalamasının (13,5) iki katı. Bu kalıntının amid ucu deneyle görülmemiş. Bu denemede atom koordinatıyla tutuldu; silmenin etkisi koşulmadı.'",
-   "' Å², twice the protein mean (13.5). The amide end of this residue was not observed in the experiment. In this trial the atom was kept with its coordinates; the effect of deleting it was not tested.'"
-  ],
-  [
-   "'Doğru türde bir atom (doluluk 0), ama benzamidine '",
-   "'The right kind of atom (occupancy 0), but it is '"
-  ],
-  [
-   "' Å uzakta. Daha yakınını arayın.'",
-   "' Å from benzamidine. Look for a closer one.'"
-  ],
-  [
-   "'<option value=\"\">Cepteki bir atom seçin…</option>'",
-   "'<option value=\"\">Pick an atom in the pocket…</option>'"
-  ],
-  [
-   "' · doluluk 0'",
-   "' · occupancy 0'"
-  ],
-  [
-   "t:'Kristal suları'",
-   "t:'Crystal waters'"
-  ],
-  [
-   "'Hepsini çıkar'",
-   "'Remove all'"
-  ],
-  [
-   "'Yalnız HOH416’yı tut'",
-   "'Keep only HOH416'"
-  ],
-  [
-   "'Hepsini tut'",
-   "'Keep all'"
-  ],
-  [
-   "t:'Asp189 protonasyonu'",
-   "t:'Asp189 protonation'"
-  ],
-  [
-   "'Yüklü (varsayılan)'",
-   "'Charged (default)'"
-  ],
-  [
-   "'Nötr (ASH)'",
-   "'Neutral (ASH)'"
-  ],
-  [
-   "t:'Doluluğu 0 olan 86 atom'",
-   "t:'86 atoms with occupancy 0'"
-  ],
-  [
-   "'Koordinatlarıyla tut'",
-   "'Keep with coordinates'"
-  ],
-  [
-   "'Sil'",
-   "'Delete'"
-  ],
-  [
-   "t:'Ca²⁺ iyonu'",
-   "t:'Ca²⁺ ion'"
-  ],
-  [
-   "'Çıkar'",
-   "'Remove'"
-  ],
-  [
-   "'Tut'",
-   "'Keep'"
-  ],
-  [
-   "t:'His57 (ve diğer His)'",
-   "t:'His57 (and other His)'"
-  ],
-  [
-   "'HIE, otomatik'",
-   "'HIE, automatic'"
-  ],
-  [
-   "'HID ya da HIP'",
-   "'HID or HIP'"
-  ],
-  [
-   "t:'Ile16 N ucu'",
-   "t:'Ile16 N terminus'"
-  ],
-  [
-   "'Meeko varsayılanı (tek H, şablon yapıntısı)'",
-   "'Meeko default (single H, template artifact)'"
-  ],
-  [
-   "'NH3⁺ (kimyasal olarak beklenen)'",
-   "'NH3⁺ (chemically expected)'"
-  ],
-  [
-   "'KOŞULDU'",
-   "'EXECUTED'"
-  ],
-  [
-   "'Asp189 (nötr, OD2–H)'",
-   "'Asp189 (neutral, OD2–H)'"
-  ],
-  [
-   "<div class=\"ne-box\">Bu seçim birleşimi koşulmadı (NOT_EXECUTED). Sonuç göstermiyoruz: koşulmamış bir hesabın sonucunu tahmin edip yazmak, bu kitabın kuralına aykırıdır.</div><p class=\"keys\" style=\"margin-top:10px\">Koşulan birleşimler: su yok + yüklü Asp189; HOH416 + yüklü Asp189; su yok + nötr Asp189. Diğer satırlarda yalnız yeşil seçenekler koşuldu.</p>",
-   "<div class=\"ne-box\">This combination of choices was not run (NOT_EXECUTED). We show no result: guessing and writing down the result of a calculation that was not run is against the rules of this book.</div><p class=\"keys\" style=\"margin-top:10px\">Combinations that were run: no water + charged Asp189; HOH416 + charged Asp189; no water + neutral Asp189. In the other rows only the green options were run.</p>"
-  ],
-  [
-   "<dl class=\"outcome\"><dt>Kristal poz, yalnız puanlama</dt><dd>",
-   "<dl class=\"outcome\"><dt>Crystal pose, score only</dt><dd>"
-  ],
-  [
-   "</dd><dt>Kristal poz, Vina yerel optimizasyonu</dt><dd>",
-   "</dd><dt>Crystal pose, Vina local optimization</dt><dd>"
-  ],
-  [
-   "</dd><dt>Optimizasyonda kayma (RMSD)</dt><dd>",
-   "</dd><dt>Shift during optimization (RMSD)</dt><dd>"
-  ],
-  [
-   "Å</dd><dt>Redocking: 1. poz &lt; 2 Å</dt><dd>",
-   "Å</dd><dt>Redocking: top pose &lt; 2 Å</dt><dd>"
-  ],
-  [
-   "' tohum</dd><dt>1. pozların skoru</dt><dd>'",
-   "' seeds</dd><dt>Top-pose scores</dt><dd>'"
-  ],
-  [
-   "</dd><dt>1. pozların RMSD’si</dt><dd>",
-   "</dd><dt>Top-pose RMSDs</dt><dd>"
-  ],
-  [
-   "Å</dd></dl><p class=\"keys\" style=\"margin-top:10px\">Birimler Vina’nın kcal/mol olarak yazdığı skor birimidir; ölçülmüş bağlanma enerjisi değildir. Koşu:",
-   "Å</dd></dl><p class=\"keys\" style=\"margin-top:10px\">Values are in Vina’s score units, which Vina reports as kcal/mol; they are not a measured binding energy. Run:"
-  ],
-  [
-   "'Doğru: fark '",
-   "'Correct: difference '"
-  ],
-  [
-   ". İki koşuda skorlar ve pozlar birebir aynı çıktı. Vina’nın skor fonksiyonunda elektrostatik terim yoktur; dosyadaki kısmi yükler bu skorda kullanılmaz. Asp189’un yükünü “görmez”; yalnız atom tiplerinden H-bağı vericisi ve alıcısı olarak etkilenir. ASH yazılınca değişen tek şey OD2’nin hem verici hem alıcı olmasıdır; OD1 ve OD2 iki durumda da alıcıdır, amidinyum azotları ise yalnız vericidir. Ligandda OD2’nin H’siyle eşleşecek bir alıcı olmadığından sayılan H-bağı çiftleri aynı kalır. Tuz köprüsü bu skorda bir H-bağı gibi sayılır. HOH416’yı tutmak ise kristal pozun skorunu",
-   ". The two runs gave exactly the same scores and poses. Vina’s scoring function has no electrostatic term; the partial charges in the file are not used in this score. The scoring function does not “see” the charge of Asp189; it is affected only through the atom types, as H-bond donors and acceptors. Writing ASH changes only one thing: OD2 becomes both a donor and an acceptor; OD1 and OD2 are acceptors in both states, and the amidinium nitrogens are donors only. The ligand has no acceptor that could pair with the H on OD2, so the counted H-bond pairs stay the same. In this score the salt bridge counts as an H-bond. Keeping HOH416, on the other hand, changed the crystal-pose score by"
-  ],
-  [
-   "' değiştirdi.'",
-   "'.'"
-  ],
-  [
-   "Karar günlüğünde Asp189 satırını değiştirip “Kristal poz, yalnız puanlama” değerlerini karşılaştırın.",
-   "Change the Asp189 row in the decision log and compare the “Crystal pose, score only” values."
-  ],
-  [
-   "'Vina skoru (aşağısı iyi)'",
-   "'Vina score (lower is better)'"
-  ],
-  [
-   "' poz > −2,5'",
-   "' poses > −2.5'"
-  ],
-  [
-   "'tohum '+sel.seed+', '+sel.rank+'. poz'",
-   "'seed '+sel.seed+', pose '+sel.rank"
-  ],
-  [
-   "'Doğru: doğru ölçütle '",
-   "'Correct: '"
-  ],
-  [
-   "' poz, hizalayınca '",
-   "' poses with the correct criterion, '"
-  ],
-  [
-   "poz. Hizalama her pozu kristal pozun üstüne taşıyıp yalnız şekil farkını ölçer; ligandın cepte nerede durduğu bilgisini siler. Katı ve küçük bir ligandda şekil pozdan poza neredeyse hiç değişmediği için burada her poz “başarılı” görünür.",
-   "poses after alignment. Alignment moves every pose onto the crystal pose and measures only the difference in shape; it erases the information about where the ligand sits in the pocket. For a small, rigid ligand the shape hardly changes from pose to pose, so here every pose looks “successful”."
-  ],
-  [
-   "Birincisi doğru. İkinci sayı için “Önce hizala” düğmesine basıp sağdaki sayacı okuyun.",
-   "The first is correct. For the second number, press the “Align first” button and read the counter on the right."
-  ],
-  [
-   "İkincisi doğru. Birinci sayı için “Hizalamasız, simetri düzeltmeli” seçiliyken sayacı okuyun.",
-   "The second is correct. For the first number, read the counter while “No alignment, symmetry-corrected” is selected."
-  ],
-  [
-   "Ölçüm türünü seçin ve sağdaki “2 Å altındaki poz” sayacını okuyun.",
-   "Choose the measure and read the “Poses under 2 Å” counter on the right."
-  ],
-  [
-   "'Cep · 20 Å'",
-   "'Pocket · 20 Å'"
-  ],
-  [
-   "'Cep · 12 Å'",
-   "'Pocket · 12 Å'"
-  ],
-  [
-   "'Cep · 30 Å'",
-   "'Pocket · 30 Å'"
-  ],
-  [
-   "'9 Å kaydırılmış'",
-   "'Shifted 9 Å'"
-  ],
-  [
-   "'14 Å kaydırılmış'",
-   "'Shifted 14 Å'"
-  ],
-  [
-   "'Tüm protein · exh 1'",
-   "'Whole protein · exh 1'"
-  ],
-  [
-   "'Tüm protein · exh 8'",
-   "'Whole protein · exh 8'"
-  ],
-  [
-   "'Tüm protein · exh 32'",
-   "'Whole protein · exh 32'"
-  ],
-  [
-   "'S1 cebi'",
-   "'S1 pocket'"
-  ],
-  [
-   "<dt>1. poz &lt; 2 Å</dt><dd>",
-   "<dt>Top pose &lt; 2 Å</dt><dd>"
-  ],
-  [
-   "</dd><dt>Kutu</dt><dd>",
-   "</dd><dt>Box</dt><dd>"
-  ],
-  [
-   "Å</dd><dt>Kutu merkezinin kristal ligandın merkezine uzaklığı</dt><dd>",
-   "Å</dd><dt>Distance from box center to crystal ligand center</dt><dd>"
-  ],
-  [
-   "</dd><dt>Ortalama süre</dt><dd>",
-   "</dd><dt>Mean time</dt><dd>"
-  ],
-  [
-   "<span style=\"color:#a3402f;font-weight:600\">hayır</span>",
-   "<span style=\"color:#a3402f;font-weight:600\">no</span>"
-  ],
-  [
-   "'evet, 1. sırada'",
-   "'yes, rank 1'"
-  ],
-  [
-   "'evet, '",
-   "'yes, rank '"
-  ],
-  [
-   "'. sırada ('",
-   "' ('"
-  ],
-  [
-   "Tablonun son sütununa ve skorlara bakıp bir seçenek işaretleyin.",
-   "Look at the last column of the table and at the scores, then pick an option."
-  ],
-  [
-   "Doğru. Başarısız koşuların döndürdüğü pozların hiçbiri doğru değil ve buldukları en iyi skor −4,9 ile −4,2 arasında; doğru pozu bulan üç koşu −6,0 ile −6,1 arası alıyor. Skor fonksiyonu doğru pozu tercih ederdi, ama arama oraya ulaşamadı. Çare arama çabasını artırmaktır: exhaustiveness 8 ile on koşunun onu da başarılı.",
-   "Correct. None of the poses returned by the failed runs is correct, and their best scores range from −4.9 to −4.2; the three runs that found the correct pose score between −6.0 and −6.1. The scoring function would have preferred the correct pose, but the search did not reach it. The remedy is to increase the search effort: with exhaustiveness 8 all ten runs succeed."
-  ],
-  [
-   "Tabloya tekrar bakın: başarısız koşularda doğru poz listenin herhangi bir sırasında var mı? Bulunan skorlar doğru pozun skoruyla (yaklaşık −6,1) nasıl karşılaştırılıyor? Kutu bu ayarda bütün proteini kapsıyor.",
-   "Look at the table again: in the failed runs, is the correct pose anywhere in the list? How do the scores that were found compare with the score of the correct pose (about −6.1)? In this setting the box covers the whole protein."
-  ],
-  [
-   "['Yapı',",
-   "['Structure',"
-  ],
-  [
-   "PDB 3PTB, mmCIF, X-ışını 1,70 Å; SHA-256 <code>",
-   "PDB 3PTB, mmCIF, X-ray 1.70 Å; SHA-256 <code>"
-  ],
-  [
-   "['Reseptör',",
-   "['Receptor',"
-  ],
-  [
-   "Meeko 0.8.0 <code>mk_prepare_receptor.py</code>; bütün kristal suları ve Ca²⁺ çıkarıldı; doluluğu 0 olan atomlar koordinatlarıyla tutuldu; His HIE, Cys disülfit, Asp189 yüklü (otomatik şablon, bağımsız inceleme yapılmadı)",
-   "Meeko 0.8.0 <code>mk_prepare_receptor.py</code>; all crystal waters and Ca²⁺ removed; atoms with occupancy 0 kept with their coordinates; His HIE, Cys disulfide, Asp189 charged (automatic template; not independently reviewed)"
-  ],
-  [
-   "Benzamidinyum (+1), SMILES <code>NC(=[NH2+])c1ccccc1</code>; RDKit 2026.03.6 ETKDG başlangıç yapısı (tohum 20260924), MMFF; 1 dönebilir bağ",
-   "Benzamidinium (+1), SMILES <code>NC(=[NH2+])c1ccccc1</code>; RDKit 2026.03.6 ETKDG starting structure (seed 20260924), MMFF; 1 rotatable bond"
-  ],
-  [
-   "AutoDock Vina 1.2.7 (Python), skor fonksiyonu <code>vina</code>, 2 CPU",
-   "AutoDock Vina 1.2.7 (Python), scoring function <code>vina</code>, 2 CPUs"
-  ],
-  [
-   "['Kutu','merkez ('",
-   "['Box','center ('"
-  ],
-  [
-   "') Å, kenar 20 Å'",
-   "') Å, edge 20 Å'"
-  ],
-  [
-   "['Arama','exhaustiveness 8; en çok 20 poz; tohumlar 1–10']",
-   "['Search','exhaustiveness 8; at most 20 poses; seeds 1–10']"
-  ],
-  [
-   "['Doğrulama',",
-   "['Validation',"
-  ],
-  [
-   "9 ağır atom; hizalamasız, simetri düzeltmeli RMSD (RDKit CalcRMS); eşik 2 Å",
-   "9 heavy atoms; symmetry-corrected RMSD without alignment (RDKit CalcRMS); threshold 2 Å"
-  ],
-  [
-   "['Sonuç',",
-   "['Result',"
-  ],
-  [
-   "' tohumda 1. poz 2 Å altında ('",
-   "' seeds with the top pose under 2 Å ('"
-  ],
-  [
-   "' Å); 1. poz skoru '",
-   "' Å); top-pose score '"
-  ],
-  [
-   "['Koşulmayanlar',",
-   "['Not run',"
-  ],
-  [
-   "çapraz docking; His57 ve N ucu protonasyon incelemesi; doluluğu 0 atomların silinmesi; diğer kristal sularının tutulması; Ca²⁺ iyonunun tutulması; başka skor fonksiyonları; MD ile kararlılık sınaması",
-   "cross-docking; His57 and N-terminus protonation review; deletion of occupancy-0 atoms; keeping the other crystal waters; keeping the Ca²⁺ ion; other scoring functions; stability check with MD"
-  ],
-  [
-   "['Dosyalar',",
-   "['Files',"
-  ],
-  [
-   "'Kopyalandı.'",
-   "'Copied.'"
-  ],
-  [
-   "'Kopyalanamadı; metni seçip kopyalayabilirsiniz.'",
-   "'Could not copy; you can select the text and copy it.'"
-  ],
-  [
-   "Asp189 yüklü ya da nötr yazıldığında Vina skoru neden hiç değişmedi?",
-   "Why did the Vina score not change at all when Asp189 was written as charged or as neutral?"
-  ],
-  [
-   "Çünkü Asp189 cepte değildir.",
-   "Because Asp189 is not in the pocket."
-  ],
-  [
-   "Çünkü Vina’nın skor fonksiyonunda elektrostatik terim yoktur; yük yalnız atom tipleri üzerinden dolaylı etkiler.",
-   "Because Vina’s scoring function has no electrostatic term; the charge acts only indirectly, through the atom types."
-  ],
-  [
-   "Çünkü protonasyon docking’de hiçbir zaman önemli değildir.",
-   "Because protonation never matters in docking."
-  ],
-  [
-   "Protonasyon başka skor fonksiyonlarında, MD’de ve serbest enerji hesaplarında belirgin fark yaratabilir. Bir sonucun bir karara duyarsız olması, o kararın önemsiz olduğunu değil, bu modelin onu görmediğini gösterebilir.",
-   "Protonation can make a clear difference in other scoring functions, in MD and in free energy calculations. When a result is insensitive to a decision, this may show not that the decision is unimportant, but that this model does not see it."
-  ],
-  [
-   "Tüm protein kutusunda exhaustiveness 1 ile yedi koşu başarısız oldu. En doğru yorum hangisi?",
-   "With the whole-protein box and exhaustiveness 1, seven runs failed. Which interpretation is most accurate?"
-  ],
-  [
-   "Skor fonksiyonu bu yapı için yanlıştır.",
-   "The scoring function is wrong for this structure."
-  ],
-  [
-   "Tohumlar kötü seçilmiştir; 1–10 yerine başka sayılar denenmeli.",
-   "The seeds were poorly chosen; other numbers should be tried instead of 1–10."
-  ],
-  [
-   "Arama yetersizdir: doğru poz daha iyi skor alıyor ama bulunamadı; arama çabası artınca sorun kalktı.",
-   "The search is insufficient: the correct pose scores better but was not found; when the search effort was increased, the problem went away."
-  ],
-  [
-   "Arama hatası ile skor hatasını ayırmanın yolu, doğru pozun skorunu bilmektir. Bu yüzden redocking’de kristal pozun kendisi de puanlanır.",
-   "The way to tell a search error from a scoring error is to know the score of the correct pose. That is why in redocking the crystal pose itself is scored too."
-  ],
-  [
-   "198 pozun hepsi hizalanarak ölçülünce 2 Å altında kalıyor. Bu ne gösterir?",
-   "When measured after alignment, all 198 poses fall under 2 Å. What does this show?"
-  ],
-  [
-   "Hizalama, ligandın cepteki yerini sildiği için docking doğrulamasında yanıltıcıdır.",
-   "Alignment is misleading for docking validation because it erases the ligand’s position in the pocket."
-  ],
-  [
-   "Vina bu cepte her zaman doğru poz üretir.",
-   "Vina always produces the correct pose in this pocket."
-  ],
-  [
-   "Simetri düzeltmesi gereksizdir.",
-   "Symmetry correction is unnecessary."
-  ],
-  [
-   "Docking’de soru “ligand cepte nerede ve nasıl duruyor?” sorusudur. Reseptör çerçevesi sabit olduğu için ölçüm hizalamasız yapılır.",
-   "In docking, the question is “Where and how does the ligand sit in the pocket?” Because the receptor frame is fixed, the measurement is made without alignment."
-  ],
-  [
-   "On tohumun onunda redocking başarılı. Bu, hazırlığın doğru olduğunu kanıtlar mı?",
-   "Redocking succeeds with all ten seeds. Does this prove that the preparation is correct?"
-  ],
-  [
-   "Evet; 10/10 kesin bir sonuçtur.",
-   "Yes; 10/10 is a conclusive result."
-  ],
-  [
-   "Hayır; reseptör bu ligandla çözülmüş yapıdadır. Daha gerçekçi sınav çapraz docking’dir ve bu sayfada koşulmadı.",
-   "No; the receptor is the structure solved with this ligand. A more realistic test is cross-docking, which was not run on this page."
-  ],
-  [
-   "Evet, çünkü kutu merkezi doğru seçildi.",
-   "Yes, because the box center was chosen correctly."
-  ],
-  [
-   "Redocking gerekli ama yeterli olmayan bir sınavdır. Koşulmayan ya da sonucu kaydedilmeyen her sınav raporda açıkça belirtilmelidir.",
-   "Redocking is a necessary but not sufficient test. Any test that was not run, or whose result was not recorded, must be stated explicitly in the report."
-  ],
-  [
-   "aria-label=\"Soru '",
-   "aria-label=\"Question '"
-  ],
-  [
-   "' seçenekleri\"",
-   "' options\""
-  ],
-  [
-   "<b style=\"color:var(--good)\">Doğru.</b>",
-   "<b style=\"color:var(--good)\">Correct.</b>"
-  ],
-  [
-   "<b style=\"color:var(--bad)\">Tekrar düşünün.</b>",
-   "<b style=\"color:var(--bad)\">Think again.</b>"
-  ],
-  [
-   "if(/,/.test(str))str=str.replace(/\\./g,'').replace(',','.');",
-   "if(/,/.test(str))str=/^-?[1-9]\\d{0,2}(,\\d{3})+(\\.\\d+)?$/.test(str)?str.replace(/,/g,''):str.replace(/\\./g,'').replace(',','.');"
+   "['o1c1','o1c2','o1c3','o1c4','o1c5'].forEach(function(id){ var e=$(id); if(e) e.querySelector('.k').textContent='Açık'; });",
+   "['o1c1','o1c2','o1c3','o1c4','o1c5'].forEach(function(id){ var e=$(id); if(e) e.querySelector('.k').textContent='Open'; });"
   ]
  ],
  "keep": [
+  "exhaustiveness",
+  "Vina",
+  "kcal/mol",
+  "Ile16",
   "Ligand",
-  "Program",
-  "Exhaustiveness",
-  "px Segoe UI, system-ui, sans-serif",
-  "<code>book/cases/trypsin_3ptb/</code>: <code>TRIAL_PROTOCOL_2026-09-24.md</code>, <code>docking_trial/</code>"
+  "Atom",
+  "W 0→416",
+  "W 0→all",
+  "Q keep→del",
+  "D ASP→ASH",
+  "H HIE→HID",
+  "H HIE→HIP",
+  "N NH→NH3",
+  "L cat→neu",
+  "A full→cut",
+  "X no→yes"
  ]
 }

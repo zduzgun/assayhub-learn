@@ -65,35 +65,35 @@
       "id": "DK-O",
       "app": "docking",
       "level": "orta",
-      "title": "Gerçek kilit: tripsin ve benzamidin (3PTB)",
+      "title": "Gerçek kilit: sonuç kilidin hangi ayrıntısına bağlı?",
       "path": "docking/dk-o/",
       "source": "sources/DK-O.html",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH07 ve CH09",
       "goals": [
-        "Yapı dosyasını okumak",
-        "Hazırlık karar günlüğü",
-        "Gerçek redocking ve üç RMSD",
-        "Kutu ve exhaustiveness"
+        "Redocking tampondaki standarttır: matriks etkisi",
+        "Hazırlık kararları: sular, protonasyon, doluluğu 0 olan atomlar",
+        "Vina'nın göremediği kararlar ve nedeni",
+        "Sessiz hazırlık hataları: dosyada unutulan ligand"
       ],
       "data": [
         "PDB 3PTB (CC0 1.0)",
-        "AutoDock Vina 1.2.7 koşuları"
+        "AutoDock Vina 1.2.7: 198 hazırlık, 1.080 koşu (DKOPREP ve DKOPREP2, 30 Eylül 2026; protokoller koşulardan önce donduruldu)"
       ],
       "notice": null,
       "en": {
-        "title": "The real lock: trypsin and benzamidine (3PTB)",
+        "title": "The real lock: which detail of the lock does the result depend on?",
         "book": "CH07 and CH09",
         "goals": [
-          "Reading the structure file",
-          "Preparation decision log",
-          "Real redocking and three RMSDs",
-          "Box and exhaustiveness"
+          "Redocking is the standard in buffer: the matrix effect",
+          "Preparation decisions: waters, protonation, atoms with occupancy 0",
+          "Decisions Vina cannot see, and why",
+          "Silent preparation errors: a ligand forgotten in the file"
         ],
         "data": [
           "PDB 3PTB (CC0 1.0)",
-          "AutoDock Vina 1.2.7 runs"
+          "AutoDock Vina 1.2.7: 198 preparations, 1,080 runs (DKOPREP and DKOPREP2, 30 September 2026; protocols frozen before the runs)"
         ],
         "notice": null
       }
