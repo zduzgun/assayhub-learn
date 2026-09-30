@@ -28,33 +28,35 @@
       "id": "DK-T",
       "app": "docking",
       "level": "temel",
-      "title": "Docking: bir pozu aramak ve puanlamak",
+      "title": "Docking: bir pozu bulmak ve doğrulamak",
       "path": "docking/dk-t/",
       "source": "sources/DK-T.html",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH02 sonrası",
       "goals": [
-        "Poz ve serbestlik derecesi",
-        "Skor terimleri",
-        "Arama uzayı ve arama algoritması",
-        "Redocking ve RMSD"
+        "Redocking: cevabı bilinen pozitif kontrol",
+        "Vina skorunun beş terimi ve yumuşak itme",
+        "Arama: sıçra, iyileştir, kabul et; yerel minimum",
+        "Arama derinliği, başarı ölçütü ve bedeli"
       ],
       "data": [
-        "Oyuncak 2B model (öğretim amaçlı)"
+        "PDB 3PTB (CC0 1.0); ChEMBL Ki ölçümleri",
+        "AutoDock Vina 1.2.7: 100 koşu (DKTGRID, 30 Eylül 2026; protokol koşulardan önce donduruldu)"
       ],
       "notice": null,
       "en": {
-        "title": "Docking: searching for a pose and scoring it",
+        "title": "Docking: finding a pose and checking it",
         "book": "after CH02",
         "goals": [
-          "Pose and degrees of freedom",
-          "Score terms",
-          "Search space and search algorithm",
-          "Redocking and RMSD"
+          "Redocking: a positive control with a known answer",
+          "The five terms of the Vina score and soft repulsion",
+          "Search: jump, improve, accept; local minimum",
+          "Search depth, success criterion and cost"
         ],
         "data": [
-          "Toy 2D model (for teaching)"
+          "PDB 3PTB (CC0 1.0); ChEMBL Ki measurements",
+          "AutoDock Vina 1.2.7: 100 runs (DKTGRID, 30 September 2026; protocol frozen before the runs)"
         ],
         "notice": null
       }
