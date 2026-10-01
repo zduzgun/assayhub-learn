@@ -102,35 +102,37 @@
       "id": "DK-U",
       "app": "docking",
       "level": "uzman",
-      "title": "Skor, afinite ve binlerce anahtar",
+      "title": "Skor neyi sıralar?",
       "path": "docking/dk-u/",
       "source": "sources/DK-U.html",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH18 ve CH19",
       "goals": [
+        "Tek doz ve doz-yanıt",
         "Skor ve ölçülen afinite",
-        "Boyut karıştırıcısı",
-        "Zenginleştirme ve tuzak yanlılığı",
-        "Ağırlık uydurma ve gruplu doğrulama"
+        "Ayırma ve tuzak yanlılığı",
+        "Kendi skor fonksiyonunu eğitmek"
       ],
       "data": [
         "ChEMBL tripsin ve D2 Ki verisi (CC BY-SA 3.0)",
+        "84 eşleştirilmiş tuzak ve 20 bileşiklik tohum örneği",
         "PDB 3PTB (CC0 1.0)",
         "AutoDock Vina 1.2.7 taraması"
       ],
       "notice": "Bu sayfadaki bileşik verisi ChEMBL'den türetilmiştir ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.",
       "en": {
-        "title": "Score, affinity and thousands of keys",
+        "title": "What does the score rank?",
         "book": "CH18 and CH19",
         "goals": [
+          "Single dose and dose-response",
           "Score and measured affinity",
-          "The size confounder",
-          "Enrichment and decoy bias",
-          "Weight fitting and grouped validation"
+          "Separation and decoy bias",
+          "Training your own scoring function"
         ],
         "data": [
           "ChEMBL trypsin and D2 Ki data (CC BY-SA 3.0)",
+          "84 matched decoys and a 20-compound seed sample",
           "PDB 3PTB (CC0 1.0)",
           "AutoDock Vina 1.2.7 screen"
         ],

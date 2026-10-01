@@ -6,7 +6,7 @@ Bu klasördeki HTML dosyaları MD kitabı deposundaki prototiplerin kopyasıdır
 |---|---|---|
 | `DK-T.html` | `book/prototypes/DK-T_POZ_BULMAK_2026-09-30.html` | `380735de168bdc621d0cb5b3b731043a2c22a1a72e6f1d1813aaaea7925cb22f` |
 | `DK-O.html` | `book/prototypes/DK-O_KILIDIN_AYRINTILARI_2026-09-30.html` | `1f1154a1ae9158c29ab7d74e37c495c20426236b21c7fb868f51d9d6e675a5cd` |
-| `DK-U.html` | `book/prototypes/DK-U_UZMAN_TARAMA_ETKILESIMLI_PILOT_2026-09-25_v2.html` | `c62e54d81d748fda12efab337a9020aa4e87ffc8631fb149b77e4fa25a28361a` |
+| `DK-U.html` | `book/prototypes/DK-U_SKOR_NEYI_SIRALAR_ETKILESIMLI_PILOT_2026-10-01.html` | `32c338e9442e122114bd9f942d71c07c4396c5952e4eaeccc5f837705555a460` |
 | `MD-T.html` | `book/prototypes/MD-T_ENERJI_KUVVET_KESIF_2026-09-26.html` | `1d619cb6836c6c49bbade589128e14c863719448b7359979fe44634de09e8c89` |
 | `MD-O.html` | `book/prototypes/MD-O_PROTONASYON_YUK_2026-09-29.html` | `f7d7c9dfb569aea3a1df2482b5afdc9d231fcaeab833e72149be55ac9234c055` |
 | `MD-PDB.html` | `book/prototypes/MD-PDB_YAPI_DOSYASI_2026-09-29.html` | `dc41016ebf933a4f255a0c4c0df2fefcf2d92625cb812848f5aa69e514c5cdc2` |
