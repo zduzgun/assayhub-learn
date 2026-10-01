@@ -276,3 +276,8 @@ Analiz planı (dondurulur): bileşik skoru, 5 tohumun ilk poz skorlarının orta
 6. **Sınav:** yedi soru.
 
 Sayfanın tarayıcıda hesapladığı nokta değerleri (korelasyon, kısmi korelasyon, AUC, ridge ve bölmeler) testte Python analizinin dondurulmuş sonuçlarıyla karşılaştırılır; bootstrap aralıkları Python'dan gömülür ve süzgeç değişince "aralık yalnız tam set için hesaplandı" yazılır. Yayında DK-U 0.2.0, İngilizcesiyle; testler iki dilde ve üç genişlikte.
+
+## 17. MD-ENS (1 Ekim 2026)
+
+Karar (1 Ekim, proje sahibi): topluluk, dağılım ve ortalama ayrımı yeni modül olarak yayımlanır: MD-ENS, temel düzey, kitapta CH03; yeni GROMACS koşusu yoktur, veri MD-U'nun pilotudur ve oyuncak model çift kuyulu Langevin'dir. Kimlik öneki e1, sekiz keşif kartı (c1 ile c4 atölye, c5, c6 ve c8 tezgâh, c7 defter). İlk prototip (0.1.0) durağandı; proje sahibi "daha interaktif, hareketli ve kaliteli simülasyonlu" olmasını istedi ve dört yönü birlikte seçti: canlı çift kuyu topluluğu, alanin Ramachandran oynatıcısı, alanin 3B molekül görünümü ve köprüde canlı topluluk ile zaman. Tasarım sohbette onaylandı (0.2.0). Tek animasyon döngüsü, görünürlük gözlemcisi, ilk görünürlükte bir kez otomatik oynatma (hareket azaltma ayarında kapalı), sabit tohumlu rastgele sayı üreteci; 3B kare en yakın gerçek kare olarak gösterilir (ara değerleme yok). Keşif kartlarında koşulların yanlışlıkla karşılanmaması için kullanıcı eylemi sayılır ve durma adımı (Dur) kesin adımda durdurur. Sınırlar sayfada açık: pilot denge kanıtı değildir; beş koşu nadir αL durumu için yetmez; oyuncak model proteinin yerine geçmez.
+

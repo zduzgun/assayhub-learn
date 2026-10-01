@@ -487,6 +487,45 @@
       },
       "path": "md/md-u/",
       "source": "sources/MD-U.html"
+    },
+    {
+      "id": "MD-ENS",
+      "app": "md",
+      "level": "temel",
+      "title": "Topluluk, dağılım ve ortalama: bir MD koşusu neyi temsil eder?",
+      "version": "0.2.0",
+      "status": "pilot",
+      "book": "CH03",
+      "goals": [
+        "Ortalama konum, molekülün bulunduğu konum mu? Dağılıma bakmak",
+        "Termostat ve barostat neyi sabit tutar? Sıcaklık ve basınç dalgalanması",
+        "Beş koşu aynı topluluğu mu gezdi? Nadir durumlar",
+        "Çift kuyu: tek yol ile topluluk ne zaman aynı şeyi söyler?"
+      ],
+      "data": [
+        "GROMACS 2026.3: 5 bağımsız koşu × 10 ns, φ, ψ, T ve P 1 ps aralıkla, 3B kareler 40 ps aralıkla (pilot, 26 Eylül 2026; MD-U ile aynı koşular, yeni simülasyon yok)",
+        "Başlangıç yapısı: mdshare ALA2 (CC BY 4.0)",
+        "Çift kuyulu Langevin oyuncak modeli tarayıcıda hesaplanır (BAOAB, Boltzmann dağılımı sayısal integralle)"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Ensemble, distribution and average: what does an MD run represent?",
+        "book": "CH03",
+        "goals": [
+          "Is the mean position a position where the molecule is found? Looking at the distribution",
+          "What do the thermostat and barostat hold constant? Temperature and pressure fluctuations",
+          "Did five runs explore the same ensemble? Rare states",
+          "The double well: when do the single path and the ensemble say the same thing?"
+        ],
+        "data": [
+          "GROMACS 2026.3: 5 independent runs × 10 ns, φ, ψ, T and P at 1 ps intervals, 3D frames at 40 ps intervals (pilot, 26 September 2026; the same runs as MD-U, no new simulation)",
+          "Starting structure: mdshare ALA2 (CC BY 4.0)",
+          "The double-well Langevin toy model is computed in the browser (BAOAB, Boltzmann distribution by numerical integral)"
+        ],
+        "notice": null
+      },
+      "path": "md/md-ens/",
+      "source": "sources/MD-ENS.html"
     }
   ]
 }

@@ -1,0 +1,699 @@
+{
+ "module": "MD-ENS",
+ "lang": "en",
+ "source_sha256": "c02640216c52dbc872401633a68d1145343784dd5f9ef266c5aac061eaa9e59d",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-ENS 0.2.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Topluluk, dağılım ve ortalama</title>",
+   "<title>MD: Ensemble, Distribution and Average</title>"
+  ],
+  [
+   "<div class=\"proto\">Bu modül MD-U'daki alanin dipeptidi pilotunu (5 bağımsız koşu × 10 ns, GROMACS 2026.3) yeniden kullanır; yeni bir simülasyon çalıştırılmadı. Açılar, sıcaklık ve basınç o koşulardan 1 ps aralıkla, 3B kareler 40 ps aralıkla gelir. Çift kuyulu oyuncak model ve bütün istatistikler tarayıcınızda şimdi hesaplanır. Hiçbir sonuç uydurulmamıştır.</div>",
+   "<div class=\"proto\">This module reuses the alanine dipeptide pilot from MD-U (5 independent runs × 10 ns, GROMACS 2026.3); no new simulation was run. The angles, temperature and pressure come from those runs at 1 ps intervals, and the 3D frames at 40 ps intervals. The double-well toy model and all the statistics are computed in your browser right now. No result has been invented.</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-ENS · Topluluk, dağılım ve ortalama</span>",
+   "<span class=\"eyebrow\">MD-ENS · Ensemble, distribution and average</span>"
+  ],
+  [
+   "<h1>Bir MD koşusu neyi temsil eder: tek yolu mu, yoksa topluluğu mu?</h1>",
+   "<h1>What does an MD run represent: a single path, or the ensemble?</h1>"
+  ],
+  [
+   "<p class=\"lead\">Bir deney milyarlarca molekülün ortalamasını ölçer; bir MD koşusu tek bir molekülü zaman içinde izler. İkisi ancak bazı koşullarda aynı şeyi söyler. Bu laboratuvarda aynı koşuların ortalamasına, dağılımına ve dalgalanmasına bakıp şunu soracaksınız: ortalama nerede, molekül nerede, ve koşu topluluğu gerçekten gezdi mi?</p>",
+   "<p class=\"lead\">An experiment measures the average over billions of molecules; an MD run follows a single molecule through time. The two say the same thing only under certain conditions. In this lab you will look at the mean, the distribution and the fluctuation of the same runs and ask: where is the mean, where is the molecule, and did the run really explore the ensemble?</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"e1progN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"e1progN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"e1h0\">Aynı anda çok molekül, ya da tek molekül uzun süre</h2>",
+   "<h2 id=\"e1h0\">Many molecules at once, or one molecule for a long time</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bir NMR ya da kalorimetre deneyi çok sayıda molekülü <b>aynı anda</b> ölçer ve topluluk ortalamasını verir. Bir MD koşusu ise <b>tek</b> molekülü zaman içinde izler ve onun zaman ortalamasını verir. Aşağıda beş bağımsız koşunun ψ açısı vardır. Oynat düğmesine basın: zaman logaritmik akar, böylece ilk pikosaniyeler de uzun saniyeler de görülür. Sol panel, o anda beş molekülün ψ değerini (küçük bir topluluk); sağ panel, koşu 1'in başından o ana kadarki gidişini ve kümülatif zaman ortalamasını gösterir. Kaydırıcıyla istediğiniz ana atlayabilirsiniz.</p></div>",
+   "<div class=\"prose\"><p>An NMR or calorimetry experiment measures a very large number of molecules <b>at the same time</b> and gives the ensemble average. An MD run follows <b>one</b> molecule through time and gives its time average. Below is the ψ angle of five independent runs. Press Play: time runs logarithmically, so both the first picoseconds and the long stretches can be seen. The left panel shows the ψ value of the five molecules at that moment (a small ensemble); the right panel shows the course of run 1 from its start up to that moment, with the cumulative time average. You can jump to any moment with the slider.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1bridge\" class=\"plot\" aria-label=\"Solda seçilen anda beş koşunun ψ değerleri nokta olarak ve ortalamaları; sağda koşu 1'in ψ gidişi ve kümülatif zaman ortalaması\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1bridge\" class=\"plot\" aria-label=\"Left: the ψ values of the five runs at the chosen moment as dots, with their mean; right: the ψ course of run 1 and its cumulative time average\"></canvas></div>"
+  ],
+  [
+   "<div class=\"row\"><button type=\"button\" class=\"btn primary\" id=\"e1bplay\">Oynat</button><label>Zaman: <b id=\"e1bT\" class=\"big\" style=\"font-size:18px\">1</b> ps</label></div>",
+   "<div class=\"row\"><button type=\"button\" class=\"btn primary\" id=\"e1bplay\">Play</button><label>Time: <b id=\"e1bT\" class=\"big\" style=\"font-size:18px\">1</b> ps</label></div>"
+  ],
+  [
+   "<input type=\"range\" id=\"e1bsl\" min=\"0\" max=\"100\" step=\"0.05\" value=\"35\" aria-label=\"Zaman\">",
+   "<input type=\"range\" id=\"e1bsl\" min=\"0\" max=\"100\" step=\"0.05\" value=\"35\" aria-label=\"Time\">"
+  ],
+  [
+   "<div class=\"prose\"><p>Kısa sürede ne topluluk anlık görüntüsü ne de tek koşunun ortalaması güvenilirdir. Kaç molekülün ya da ne kadar sürenin yeterli olduğu, sistemin durumlar arasında ne sıklıkla geçtiğine bağlıdır. Bu modülün sorusu budur.</p></div>",
+   "<div class=\"prose\"><p>Over a short time neither the ensemble snapshot nor the average of a single run is reliable. How many molecules or how long a time is enough depends on how often the system moves between states. That is the question of this module.</p></div>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye</span>",
+   "<span class=\"step\">1 · Workshop</span>"
+  ],
+  [
+   "<h2 id=\"e1h1\">Ortalama, dağılım ve dalgalanma</h2>",
+   "<h2 id=\"e1h1\">Mean, distribution and fluctuation</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Önce koşuyu izleyin. Aşağıdaki oynatıcıda seçtiğiniz koşu zamanla akar: solda gerçek 3B kareler (fareyle döndürebilirsiniz), ortada φ-ψ düzleminde molekülün yeri ve biriken yoğunluk, altta durum çubuğu, sıcaklık ve basınç. Zaman imleci hepsini aynı ana bağlar.</p></div>",
+   "<div class=\"prose\"><p>First watch the run. In the player below, the run you choose unfolds in time: real 3D frames on top (you can rotate them with the mouse), the position of the molecule in the φ-ψ plane with the accumulated density in the middle, and at the bottom the state bar, temperature and pressure. The time cursor ties them all to the same moment.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Oynatıcı koşusu:</span><div class=\"chips\" role=\"group\" aria-label=\"Oynatıcı koşusu\" id=\"e1plruns\"></div></div>",
+   "<div class=\"selrow\"><span>Player run:</span><div class=\"chips\" role=\"group\" aria-label=\"Player run\" id=\"e1plruns\"></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1mol\" class=\"plot\" aria-label=\"Alanin dipeptidinin üç boyutlu görünümü; seçilen zamandaki gerçek kare, fareyle döndürülebilir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1mol\" class=\"plot\" aria-label=\"Three-dimensional view of alanine dipeptide; the real frame at the chosen time, which can be rotated with the mouse\"></canvas></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1rama\" class=\"plot\" aria-label=\"φ ve ψ düzleminde molekülün yeri, izi ve biriken yoğunluğu\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1rama\" class=\"plot\" aria-label=\"The position, trail and accumulated density of the molecule in the φ and ψ plane\"></canvas></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1strip\" class=\"plot\" aria-label=\"Zaman içinde durum çubuğu, sıcaklık ve basınç; zaman imleci seçilen anı gösterir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1strip\" class=\"plot\" aria-label=\"State bar, temperature and pressure over time; the time cursor marks the chosen moment\"></canvas></div>"
+  ],
+  [
+   "<div class=\"row\"><button type=\"button\" class=\"btn primary\" id=\"e1play\">Oynat</button>",
+   "<div class=\"row\"><button type=\"button\" class=\"btn primary\" id=\"e1play\">Play</button>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Oynatma hızı\" id=\"e1spd\"><button type=\"button\" data-v=\"100\" aria-pressed=\"false\">100 ps/s</button><button type=\"button\" data-v=\"400\" aria-pressed=\"true\">400 ps/s</button><button type=\"button\" data-v=\"1600\" aria-pressed=\"false\">1600 ps/s</button><button type=\"button\" data-v=\"6400\" aria-pressed=\"false\">6400 ps/s</button></div>",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Playback speed\" id=\"e1spd\"><button type=\"button\" data-v=\"100\" aria-pressed=\"false\">100 ps/s</button><button type=\"button\" data-v=\"400\" aria-pressed=\"true\">400 ps/s</button><button type=\"button\" data-v=\"1600\" aria-pressed=\"false\">1600 ps/s</button><button type=\"button\" data-v=\"6400\" aria-pressed=\"false\">6400 ps/s</button></div>"
+  ],
+  [
+   "<label>Zaman: <b id=\"e1plT\" class=\"big\" style=\"font-size:18px\">0,001</b> ns</label></div>",
+   "<label>Time: <b id=\"e1plT\" class=\"big\" style=\"font-size:18px\">0.001</b> ns</label></div>"
+  ],
+  [
+   "<input type=\"range\" id=\"e1plsl\" min=\"1\" max=\"10000\" step=\"1\" value=\"1\" aria-label=\"Koşu zamanı\">",
+   "<input type=\"range\" id=\"e1plsl\" min=\"1\" max=\"10000\" step=\"1\" value=\"1\" aria-label=\"Run time\">"
+  ],
+  [
+   "<div class=\"prose\"><p>Şimdi aynı koşuların istatistiğine bakın: bir nicelik ve bir koşu (ya da tümü) seçin. Üstte zaman içindeki değeri ve kümülatif ortalamayı, altta dağılımı görürsünüz. Ortalamanın nerede olduğuna ve molekülün orada ne kadar zaman geçirdiğine bakın. Çubukların üstüne gelince kutu bilgisi çıkar.</p></div>",
+   "<div class=\"prose\"><p>Now look at the statistics of the same runs: choose a quantity and a run (or all of them). On top you see the value over time and the cumulative mean, below it the distribution. Look at where the mean lies and how much time the molecule spends there. Hovering over the bars shows the bin information.</p></div>"
+  ],
+  [
+   "<span>Nicelik:</span>",
+   "<span>Quantity:</span>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Nicelik seçimi\" id=\"e1var\"><button type=\"button\" data-v=\"psi\" aria-pressed=\"true\">ψ açısı</button><button type=\"button\" data-v=\"phi\" aria-pressed=\"false\">φ açısı</button><button type=\"button\" data-v=\"T\" aria-pressed=\"false\">sıcaklık</button><button type=\"button\" data-v=\"P\" aria-pressed=\"false\">basınç</button></div>",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Choice of quantity\" id=\"e1var\"><button type=\"button\" data-v=\"psi\" aria-pressed=\"true\">ψ angle</button><button type=\"button\" data-v=\"phi\" aria-pressed=\"false\">φ angle</button><button type=\"button\" data-v=\"T\" aria-pressed=\"false\">temperature</button><button type=\"button\" data-v=\"P\" aria-pressed=\"false\">pressure</button></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Koşu:</span><div class=\"chips\" role=\"group\" aria-label=\"Koşu seçimi\" id=\"e1runs\"></div><label class=\"chk\" id=\"e1theolab\"><input type=\"checkbox\" id=\"e1theo\"> kuramsal çan eğrisi</label></div>",
+   "<div class=\"selrow\"><span>Run:</span><div class=\"chips\" role=\"group\" aria-label=\"Choice of run\" id=\"e1runs\"></div><label class=\"chk\" id=\"e1theolab\"><input type=\"checkbox\" id=\"e1theo\"> theoretical bell curve</label></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1ser\" class=\"plot\" aria-label=\"Seçilen niceliğin zaman içindeki değeri ve kümülatif ortalaması\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1ser\" class=\"plot\" aria-label=\"The value of the chosen quantity over time and its cumulative mean\"></canvas></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1hist\" class=\"plot\" aria-label=\"Seçilen niceliğin dağılımı; ortalama ve en kalabalık kutu işaretli\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1hist\" class=\"plot\" aria-label=\"The distribution of the chosen quantity; the mean and the most populated bin are marked\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"e1c1\"><span class=\"k\">Açık</span><h3>Ortalama konum, molekülün bulunduğu konum mu?</h3><p>ψ açısını seçin ve \"Tümü\" koşusuna bakın. Ortalama ψ nerede, molekül orada ne kadar zaman geçiriyor?</p><div class=\"mine\" id=\"me1c1\"></div></article>",
+   "<article class=\"q\" id=\"e1c1\"><span class=\"k\">Open</span><h3>Is the mean position a position where the molecule is found?</h3><p>Choose the ψ angle and look at the \"All\" run. Where is the mean ψ, and how much time does the molecule spend there?</p><div class=\"mine\" id=\"me1c1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"e1c2\"><span class=\"k\">Açık</span><h3>Termostat sıcaklığı sabit tutuyor mu?</h3><p>Sıcaklığı seçin ve \"kuramsal çan eğrisini\" açın. Anlık sıcaklığın saçılımı kuramdan ne kadar uzak?</p><div class=\"mine\" id=\"me1c2\"></div></article>",
+   "<article class=\"q\" id=\"e1c2\"><span class=\"k\">Open</span><h3>Does the thermostat hold the temperature constant?</h3><p>Choose temperature and switch on the \"theoretical bell curve\". How far is the scatter of the instantaneous temperature from the theory?</p><div class=\"mine\" id=\"me1c2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"e1c3\"><span class=\"k\">Açık</span><h3>Basıncın ortalaması ile bir karedeki değeri</h3><p>Basıncı seçin. Hedef 1 bar iken tek karedeki değer ne kadar uzağa gidiyor? Beş koşunun ortalaması birbirine yakın mı?</p><div class=\"mine\" id=\"me1c3\"></div></article>",
+   "<article class=\"q\" id=\"e1c3\"><span class=\"k\">Open</span><h3>The mean pressure versus its value in a single frame</h3><p>Choose pressure. With a target of 1 bar, how far does the value in a single frame go? Are the means of the five runs close to each other?</p><div class=\"mine\" id=\"me1c3\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"e1c4\"><span class=\"k\">Açık</span><h3>Her koşu aynı topluluğu mu gezdi?</h3><p>ψ ya da φ için en az üç farklı koşuyu tek tek seçin. Koşular arasında durum payları nasıl değişiyor?</p><div class=\"mine\" id=\"me1c4\"></div></article>",
+   "<article class=\"q\" id=\"e1c4\"><span class=\"k\">Open</span><h3>Did every run explore the same ensemble?</h3><p>For ψ or φ, choose at least three different runs one by one. How do the state fractions change between runs?</p><div class=\"mine\" id=\"me1c4\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
+  ],
+  [
+   "<h2 id=\"e1h2\">Çift kuyulu oyuncak: koşu ne zaman topluluğu temsil eder?</h2>",
+   "<h2 id=\"e1h2\">The double-well toy: when does a run represent the ensemble?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bir parçacık iki kuyulu bir enerji yüzeyinde Langevin dinamiğiyle hareket ediyor (oyuncak birimlerde; sol kuyudan engel 0,8, sağ kuyudan 1,2, sağ kuyu 0,4 daha derin). Denge dağılımı Boltzmann yasasıyla bilinir, bu yüzden koşunuzu tam doğru cevapla karşılaştırabilirsiniz. Simülasyon sürekli akar: sıcaklığı koşu sürerken değiştirebilir, hızı artırabilir, tek yolun yanına 80 parçacıklı bir topluluk ekleyebilirsiniz. Sarı çubuk, enerji eğrisine kıyasla sıcaklığın (kT) büyüklüğüdür.</p></div>",
+   "<div class=\"prose\"><p>A particle moves on a two-well energy surface with Langevin dynamics (in toy units; the barrier is 0.8 from the left well and 1.2 from the right well, and the right well is 0.4 deeper). The equilibrium distribution is known from the Boltzmann law, so you can compare your run with the exact answer. The simulation runs continuously: you can change the temperature while the run is going, raise the speed, and add an 80-particle ensemble next to the single path. The yellow bar shows the size of the temperature (kT) relative to the energy curve.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Sıcaklık θ:</span><input type=\"range\" id=\"e1thsl\" min=\"0\" max=\"100\" step=\"0.01\" value=\"50\" aria-label=\"Sıcaklık\" style=\"max-width:240px\"><b class=\"big\" id=\"e1thv\" style=\"font-size:18px\">0,150</b>",
+   "<div class=\"selrow\"><span>Temperature θ:</span><input type=\"range\" id=\"e1thsl\" min=\"0\" max=\"100\" step=\"0.01\" value=\"50\" aria-label=\"Temperature\" style=\"max-width:240px\"><b class=\"big\" id=\"e1thv\" style=\"font-size:18px\">0.150</b>"
+  ],
+  [
+   "<div class=\"seg\" role=\"group\" aria-label=\"Hazır sıcaklıklar\" id=\"e1th\"><button type=\"button\" data-v=\"0.1\" aria-pressed=\"false\">0,1</button><button type=\"button\" data-v=\"0.15\" aria-pressed=\"true\">0,15</button><button type=\"button\" data-v=\"0.2\" aria-pressed=\"false\">0,2</button><button type=\"button\" data-v=\"0.3\" aria-pressed=\"false\">0,3</button><button type=\"button\" data-v=\"0.5\" aria-pressed=\"false\">0,5</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">1</button></div></div>",
+   "<div class=\"seg\" role=\"group\" aria-label=\"Preset temperatures\" id=\"e1th\"><button type=\"button\" data-v=\"0.1\" aria-pressed=\"false\">0.1</button><button type=\"button\" data-v=\"0.15\" aria-pressed=\"true\">0.15</button><button type=\"button\" data-v=\"0.2\" aria-pressed=\"false\">0.2</button><button type=\"button\" data-v=\"0.3\" aria-pressed=\"false\">0.3</button><button type=\"button\" data-v=\"0.5\" aria-pressed=\"false\">0.5</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">1</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Hız:</span><div class=\"seg\" role=\"group\" aria-label=\"Simülasyon hızı\" id=\"e1spd2\"><button type=\"button\" data-v=\"5\" aria-pressed=\"true\">1×</button><button type=\"button\" data-v=\"50\" aria-pressed=\"false\">10×</button><button type=\"button\" data-v=\"500\" aria-pressed=\"false\">100×</button><button type=\"button\" data-v=\"5000\" aria-pressed=\"false\">1000×</button><button type=\"button\" data-v=\"50000\" aria-pressed=\"false\">10 000×</button></div><span class=\"small\">1× = kare başına 5 adım</span>",
+   "<div class=\"selrow\"><span>Speed:</span><div class=\"seg\" role=\"group\" aria-label=\"Simulation speed\" id=\"e1spd2\"><button type=\"button\" data-v=\"5\" aria-pressed=\"true\">1×</button><button type=\"button\" data-v=\"50\" aria-pressed=\"false\">10×</button><button type=\"button\" data-v=\"500\" aria-pressed=\"false\">100×</button><button type=\"button\" data-v=\"5000\" aria-pressed=\"false\">1000×</button><button type=\"button\" data-v=\"50000\" aria-pressed=\"false\">10,000×</button></div><span class=\"small\">1× = 5 steps per frame</span>"
+  ],
+  [
+   "<span>Dur:</span><div class=\"seg\" role=\"group\" aria-label=\"Otomatik durma adımı\" id=\"e1stop\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">yok</button><button type=\"button\" data-v=\"10000\" aria-pressed=\"false\">10⁴</button><button type=\"button\" data-v=\"100000\" aria-pressed=\"false\">10⁵</button><button type=\"button\" data-v=\"1000000\" aria-pressed=\"false\">10⁶</button></div></div>",
+   "<span>Stop:</span><div class=\"seg\" role=\"group\" aria-label=\"Automatic stop step\" id=\"e1stop\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">none</button><button type=\"button\" data-v=\"10000\" aria-pressed=\"false\">10⁴</button><button type=\"button\" data-v=\"100000\" aria-pressed=\"false\">10⁵</button><button type=\"button\" data-v=\"1000000\" aria-pressed=\"false\">10⁶</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Başlangıç:</span><div class=\"seg\" role=\"group\" aria-label=\"Başlangıç kuyusu\" id=\"e1st\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">sol kuyu</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">sağ kuyu</button></div>",
+   "<div class=\"selrow\"><span>Start:</span><div class=\"seg\" role=\"group\" aria-label=\"Starting well\" id=\"e1st\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">left well</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">right well</button></div>"
+  ],
+  [
+   "<span>Gösterim:</span><div class=\"seg\" role=\"group\" aria-label=\"Tek yol ya da topluluk\" id=\"e1mode\"><button type=\"button\" data-v=\"single\" aria-pressed=\"true\">tek yol</button><button type=\"button\" data-v=\"ens\" aria-pressed=\"false\">tek yol + topluluk (80)</button></div>",
+   "<span>Display:</span><div class=\"seg\" role=\"group\" aria-label=\"Single path or ensemble\" id=\"e1mode\"><button type=\"button\" data-v=\"single\" aria-pressed=\"true\">single path</button><button type=\"button\" data-v=\"ens\" aria-pressed=\"false\">single path + ensemble (80)</button></div>"
+  ],
+  [
+   "<label>Tohum: <select id=\"e1seed\"></select></label></div>",
+   "<label>Seed: <select id=\"e1seed\"></select></label></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"e1sim\">Oynat</button><button type=\"button\" class=\"btn\" id=\"e1reset\">Sıfırla</button><button type=\"button\" class=\"btn\" id=\"e1snap\">Deftere yaz</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"e1sim\">Play</button><button type=\"button\" class=\"btn\" id=\"e1reset\">Reset</button><button type=\"button\" class=\"btn\" id=\"e1snap\">Write to ledger</button></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1well\" class=\"plot\" aria-label=\"Çift kuyulu enerji eğrisi üzerinde parçacığın canlı hareketi; kT çubuğu sıcaklığı gösterir\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1well\" class=\"plot\" aria-label=\"Live motion of the particle on the double-well energy curve; the kT bar shows the temperature\"></canvas></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1tray\" class=\"plot\" aria-label=\"Parçacığın konumunun zaman içindeki gidişi; kümülatif zaman ortalaması, topluluk ortalaması ve Boltzmann ortalaması\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1tray\" class=\"plot\" aria-label=\"The position of the particle over time; the cumulative time average, the ensemble average and the Boltzmann average\"></canvas></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1toyh\" class=\"plot\" aria-label=\"Canlı konum histogramı ile tam Boltzmann dağılımı\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1toyh\" class=\"plot\" aria-label=\"The live position histogram and the exact Boltzmann distribution\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"e1c5\"><span class=\"k\">Açık</span><h3>Hiç geçmeyen koşu</h3><p>θ = 0,1 seçip Sıfırla düğmesine basın, sol kuyudan başlayın, Dur seçeneğini 10⁵ ve hızı 10 000× yapıp Oynat düğmesine basın. Koşu 10⁵ adımda durunca Deftere yazın. Koşu bitti; peki topluluğu temsil ediyor mu?</p><div class=\"mine\" id=\"me1c5\"></div></article>",
+   "<article class=\"q\" id=\"e1c5\"><span class=\"k\">Open</span><h3>A run that never crosses</h3><p>Choose θ = 0.1 and press Reset, start from the left well, set Stop to 10⁵ and the speed to 10,000×, and press Play. When the run stops at 10⁵ steps, write it to the ledger. The run is finished; but does it represent the ensemble?</p><div class=\"mine\" id=\"me1c5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"e1c6\"><span class=\"k\">Açık</span><h3>Koşuyu uzatmak her zaman yeter mi?</h3><p>Aynı koşuyu Dur = 10⁴ ile durdurup Deftere yazın, sonra Dur = 10⁵ ya da 10⁶ yapıp devam ettirin ve yine yazın. Uzatınca ne değişti?</p><div class=\"mine\" id=\"me1c6\"></div></article>",
+   "<article class=\"q\" id=\"e1c6\"><span class=\"k\">Open</span><h3>Is making the run longer always enough?</h3><p>Stop the same run with Stop = 10⁴ and write it to the ledger, then set Stop = 10⁵ or 10⁶, continue, and write it again. What changed when you extended it?</p><div class=\"mine\" id=\"me1c6\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"e1c8\"><span class=\"k\">Açık</span><h3>Tek yol ve topluluk aynı şeyi mi söylüyor?</h3><p>Gösterimi \"tek yol + topluluk\" yapın, θ = 0,5 ile 2·10⁴ adım izleyin. Sonra θ = 0,1 ile deneyin. İkisi aynı anda Boltzmann ortalamasına varıyor mu?</p><div class=\"mine\" id=\"me1c8\"></div></article>",
+   "<article class=\"q\" id=\"e1c8\"><span class=\"k\">Open</span><h3>Do the single path and the ensemble say the same thing?</h3><p>Set the display to \"single path + ensemble\" and watch 2·10⁴ steps at θ = 0.5. Then try θ = 0.1. Do both reach the Boltzmann average at the same time?</p><div class=\"mine\" id=\"me1c8\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Defter</span>",
+   "<span class=\"step\">3 · Ledger</span>"
+  ],
+  [
+   "<h2 id=\"e1h3\">Koşularınızın defteri</h2>",
+   "<h2 id=\"e1h3\">The ledger of your runs</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Tezgâhta Deftere yaz düğmesiyle kaydettiğiniz her koşu buraya yazılır (en az 10³ adım). TV mesafesi, koşunun histogramı ile tam Boltzmann dağılımı arasındaki farkın yarısıdır: 0, iki dağılımın aynı olduğu; 1, hiç örtüşmedikleri anlamına gelir. Aynı θ, başlangıç ve tohumla kaydettiğiniz koşular çizgiyle bağlanır; aynı koşuyu birkaç kez yazarak uzunluğun etkisini görürsünüz.</p></div>",
+   "<div class=\"prose\"><p>Every run you record with the Write to ledger button on the bench is written here (at least 10³ steps). The TV distance is half the difference between the histogram of the run and the exact Boltzmann distribution: 0 means the two distributions are identical; 1 means they do not overlap at all. Runs recorded with the same θ, start and seed are joined by a line; by writing the same run several times you can see the effect of length.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"e1led\" class=\"plot\" aria-label=\"Koşu uzunluğuna karşı TV mesafesi; geçiş sayısına göre renkli noktalar\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"e1led\" class=\"plot\" aria-label=\"TV distance against run length; points coloured by the number of crossings\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"e1clear\">Defteri temizle</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"e1clear\">Clear the ledger</button></div>"
+  ],
+  [
+   "<div class=\"minis\"><article class=\"q\" id=\"e1c7\"><span class=\"k\">Açık</span><h3>Küçük TV neye bağlı?</h3><p>Defterinize en az iki geçişsiz ve en az iki (beş ve üzeri geçişli) koşu yazın. İki grubun TV mesafesi nasıl ayrışıyor?</p><div class=\"mine\" id=\"me1c7\"></div></article></div>",
+   "<div class=\"minis\"><article class=\"q\" id=\"e1c7\"><span class=\"k\">Open</span><h3>What does a small TV depend on?</h3><p>Write at least two runs with no crossing and at least two runs with five or more crossings into your ledger. How does the TV distance of the two groups differ?</p><div class=\"mine\" id=\"me1c7\"></div></article></div>"
+  ],
+  [
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to the protein</span>"
+  ],
+  [
+   "<h2 id=\"e1h4\">Alanin dipeptidi koşuları neyi temsil ediyor?</h2>",
+   "<h2 id=\"e1h4\">What do the alanine dipeptide runs represent?</h2>"
+  ],
+  [
+   "<span class=\"step\">5 · Kendinizi sınayın</span>",
+   "<span class=\"step\">5 · Test yourself</span>"
+  ],
+  [
+   "<h2 id=\"e1h5\">Altı kısa soru</h2>",
+   "<h2 id=\"e1h5\">Six short questions</h2>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('e1progN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('e1progN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "T:{name:'sıcaklık',unit:'K',rng:[260,340],nb:40,ticks:[260,280,300,320,340],d:2,lab:'T (K)'},",
+   "T:{name:'temperature',unit:'K',rng:[260,340],nb:40,ticks:[260,280,300,320,340],d:2,lab:'T (K)'},"
+  ],
+  [
+   "P:{name:'basınç',unit:'bar',rng:[-3000,3000],nb:40,ticks:[-3000,-1500,0,1500,3000],d:1,lab:'P (bar)'}",
+   "P:{name:'pressure',unit:'bar',rng:[-3000,3000],nb:40,ticks:[-3000,-1500,0,1500,3000],d:1,lab:'P (bar)'}"
+  ],
+  [
+   "function pfmt(t){ var p=t*100; return fx(p,Math.abs(p-Math.round(p))<1e-9?0:1)+' %'; }",
+   "function pfmt(t){ var p=t*100; return fx(p,Math.abs(p-Math.round(p))<1e-9?0:1)+'%'; }"
+  ],
+  [
+   "$('e1bleg').innerHTML=RUN.map(function(r,i){return dot(RCOL[i])+'koşu '+(i+1);}).join(' ')+lin(PAL.accent)+'kümülatif zaman ortalaması (koşu 1)';",
+   "$('e1bleg').innerHTML=RUN.map(function(r,i){return dot(RCOL[i])+'run '+(i+1);}).join(' ')+lin(PAL.accent)+'cumulative time average (run 1)';"
+  ],
+  [
+   "var pl=plot(g,left,T,wl,hh,[0,1],yr,{yticks:[-100,0,100,200],ylab:'ψ (°)',ylabPad:46,xlab:'topluluk',bg:css('--paper'),xticks:[]});",
+   "var pl=plot(g,left,T,wl,hh,[0,1],yr,{yticks:[-100,0,100,200],ylab:'ψ (°)',ylabPad:46,xlab:'ensemble',bg:css('--paper'),xticks:[]});"
+  ],
+  [
+   "var pr=plot(g,left+wl+gap,T,wr,hh,[0,n<2?2:n],yr,{xticks:n<5?[0,n]:[0,n/4,n/2,n*3/4,n],yticks:[-100,0,100,200],noylab:true,xfmt:function(t){return fx(Math.round(t),0);},xlab:'zaman (ps)'});",
+   "var pr=plot(g,left+wl+gap,T,wr,hh,[0,n<2?2:n],yr,{xticks:n<5?[0,n]:[0,n/4,n/2,n*3/4,n],yticks:[-100,0,100,200],noylab:true,xfmt:function(t){return fx(Math.round(t),0);},xlab:'time (ps)'});"
+  ],
+  [
+   "$('e1bread').innerHTML=dl('Beş molekül, bu anda (topluluk ortalaması)',fx(em,1)+' °')+dl('Topluluk ortalamasının referanstan sapması',fx(Math.abs(em-REFPSI),1)+' °')+dl('Koşu 1, 0 ile t arası (zaman ortalaması)',fx(zm,1)+' °')+dl('Zaman ortalamasının referanstan sapması',fx(Math.abs(zm-REFPSI),1)+' °')+dl('Referans: beş koşunun tamamı, 50 ns',fx(REFPSI,1)+' °');",
+   "$('e1bread').innerHTML=dl('Five molecules, at this moment (ensemble average)',fx(em,1)+' °')+dl('Deviation of the ensemble average from the reference',fx(Math.abs(em-REFPSI),1)+' °')+dl('Run 1, from 0 to t (time average)',fx(zm,1)+' °')+dl('Deviation of the time average from the reference',fx(Math.abs(zm-REFPSI),1)+' °')+dl('Reference: all five runs, 50 ns',fx(REFPSI,1)+' °');"
+  ],
+  [
+   "function setPlay(on){ BR.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
+   "function setPlay(on){ BR.play=on; btn.textContent=on?'Pause':'Play'; btn.classList.toggle('primary',!on); if(on) aniKick(); }"
+  ],
+  [
+   "ch.innerHTML=labels.map(function(l,i){return '<button type=\"button\" class=\"chip\" data-v=\"'+i+'\" aria-pressed=\"'+(i===0)+'\">Koşu '+l+'</button>';}).join('')+'<button type=\"button\" class=\"chip\" data-v=\"all\" aria-pressed=\"false\">Tümü</button>';",
+   "ch.innerHTML=labels.map(function(l,i){return '<button type=\"button\" class=\"chip\" data-v=\"'+i+'\" aria-pressed=\"'+(i===0)+'\">Run '+l+'</button>';}).join('')+'<button type=\"button\" class=\"chip\" data-v=\"all\" aria-pressed=\"false\">All</button>';"
+  ],
+  [
+   "? RUN.map(function(r,i){return lin(RCOL[i])+'koşu '+(i+1)+' kümülatif ortalama';}).join(' ')+dot(hexA(PAL.muted,0.6))+'kareler (her 10. kare)'",
+   "? RUN.map(function(r,i){return lin(RCOL[i])+'run '+(i+1)+' cumulative mean';}).join(' ')+dot(hexA(PAL.muted,0.6))+'frames (every 10th frame)'"
+  ],
+  [
+   ": dot(hexA(RCOL[0],0.7))+'kareler (her 5. kare)'+lin(PAL.accent)+'kümülatif zaman ortalaması';",
+   ": dot(hexA(RCOL[0],0.7))+'frames (every 5th frame)'+lin(PAL.accent)+'cumulative time average';"
+  ],
+  [
+   "var pl=plot(g,62,12,W-62-14,H-48,[0,10],m.rng,{xticks:[0,2,4,6,8,10],yticks:m.ticks,ylab:m.lab,ylabPad:52,xlab:'zaman (ns)'});",
+   "var pl=plot(g,62,12,W-62-14,H-48,[0,10],m.rng,{xticks:[0,2,4,6,8,10],yticks:m.ticks,ylab:m.lab,ylabPad:52,xlab:'time (ns)'});"
+  ],
+  [
+   "var pl=plot(g,62,12,W-62-14,H-48,m.rng,[0,ym],{xticks:m.ticks,yticks:[0,ym/4,ym/2,ym*3/4,ym],yfmt:pfmt,xlab:m.lab,ylab:'zaman payı',ylabPad:52});",
+   "var pl=plot(g,62,12,W-62-14,H-48,m.rng,[0,ym],{xticks:m.ticks,yticks:[0,ym/4,ym/2,ym*3/4,ym],yfmt:pfmt,xlab:m.lab,ylab:'time fraction',ylabPad:52});"
+  ],
+  [
+   "g.fillStyle=PAL.accent; g.font='600 12px '+css('--sans'); g.textAlign=mxp>pl.L+pl.W*0.8?'right':'left'; g.fillText('ortalama',mxp+(mxp>pl.L+pl.W*0.8?-5:5),pl.T+13); g.textAlign='left';",
+   "g.fillStyle=PAL.accent; g.font='600 12px '+css('--sans'); g.textAlign=mxp>pl.L+pl.W*0.8?'right':'left'; g.fillText('mean',mxp+(mxp>pl.L+pl.W*0.8?-5:5),pl.T+13); g.textAlign='left';"
+  ],
+  [
+   "var rows=dl('Kare sayısı',fx(S.n,0))+dl('Ortalama',val(wk.v,S.mean))+dl('Standart sapma',val(wk.v,S.sd))+dl('Ortanca',val(wk.v,S.med))+dl('Ortalamanın kutusundaki zaman payı',pct(shMean))+dl('En kalabalık kutu',fx(modeLo,0)+' ile '+fx(modeLo+bw,0)+' '+m.unit)+dl('En kalabalık kutudaki zaman payı',pct(shMode));",
+   "var rows=dl('Number of frames',fx(S.n,0))+dl('Mean',val(wk.v,S.mean))+dl('Standard deviation',val(wk.v,S.sd))+dl('Median',val(wk.v,S.med))+dl('Time fraction in the bin of the mean',pct(shMean))+dl('Most populated bin',fx(modeLo,0)+' to '+fx(modeLo+bw,0)+' '+m.unit)+dl('Time fraction in the most populated bin',pct(shMode));"
+  ],
+  [
+   "if(wk.v==='T'){ var th=theorySD(); rows+=dl('Kuramsal SD (kanonik, 300 K)',fx(th,2)+' K')+dl('Ölçülen SD / kuramsal SD',fx(S.sd/th,2)+' kat'); }",
+   "if(wk.v==='T'){ var th=theorySD(); rows+=dl('Theoretical SD (canonical, 300 K)',fx(th,2)+' K')+dl('Measured SD / theoretical SD',fx(S.sd/th,2)+' times'); }"
+  ],
+  [
+   "var notes={psi:'ψ burada −100° ile 260° arasında gösterilir; böylece β bölgesi tek parça olur ve aritmetik ortalama tanımlanır. Ortalama bu pencere seçimine bağlıdır, bu yüzden dağılıma bakmak ortalamadan daha güvenilirdir. Kutu 10°.',",
+   "var notes={psi:'ψ is shown here between −100° and 260°; this keeps the β region in one piece and makes the arithmetic mean defined. The mean depends on this choice of window, so looking at the distribution is more reliable than looking at the mean. Bin 10°.',"
+  ],
+  [
+   "phi:'φ −180° ile 180° arasında gösterilir. Dağılım ψ kadar iki parçaya bölünmediği için ortalamanın kutusundaki pay ile en kalabalık kutudaki payı karşılaştırın. Kutu 10°.',",
+   "phi:'φ is shown between −180° and 180°. Because the distribution is not split into two pieces as much as ψ, compare the fraction in the bin of the mean with the fraction in the most populated bin. Bin 10°.',"
+  ],
+  [
+   "T:'Termostat (V-rescale, tau_t 0,1 ps) ortalamayı 300 K civarında tutar. Tek karenin sıcaklığı kinetik enerjinin anlık değeridir ve dalgalanır. Kutu 2 K.',",
+   "T:'The thermostat (V-rescale, tau_t 0.1 ps) holds the mean near 300 K. The temperature of a single frame is the instantaneous value of the kinetic energy and it fluctuates. Bin 2 K.',"
+  ],
+  [
+   "P:'Barostat (C-rescale, tau_p 2 ps) ortalamayı 1 bar hedefine çeker. Anlık basınç, bu büyüklükte bir kutuda yüzlerce bar dalgalanır. Kutu 150 bar.'};",
+   "P:'The barostat (C-rescale, tau_p 2 ps) pulls the mean toward the 1 bar target. The instantaneous pressure fluctuates by hundreds of bar in a box of this size. Bin 150 bar.'};"
+  ],
+  [
+   "var t='Seçili koşu için ortalama ψ <b>'+fx(S.mean,1)+'°</b>; bu ortalamanın kutusunda zaman payı <b>'+pct(shMean)+'</b>, en kalabalık kutuda (<b>'+fx(lo,0)+'° ile '+fx(lo+bw,0)+'°</b>) <b>'+pct(shMode)+'</b>.';",
+   "var t='For the selected run the mean ψ is <b>'+fx(S.mean,1)+'°</b>; the time fraction in the bin of this mean is <b>'+pct(shMean)+'</b>, and in the most populated bin (<b>'+fx(lo,0)+'° to '+fx(lo+bw,0)+'°</b>) it is <b>'+pct(shMode)+'</b>.';"
+  ],
+  [
+   "if(shMean<0.25*shMode) t+=' Ortalama iki yığılmanın (αR ve β) arasına düşer: molekül oraya neredeyse hiç uğramaz. <b>Ortalama, tipik yapıyı değil dağılımın ağırlık merkezini verir.</b>';",
+   "if(shMean<0.25*shMode) t+=' The mean falls between the two clusters (αR and β): the molecule almost never goes there. <b>The mean gives the centre of mass of the distribution, not the typical structure.</b>';"
+  ],
+  [
+   "else t+=' Bu seçimde ortalamanın kutusu da kalabalık.';",
+   "else t+=' In this selection the bin of the mean is also well populated.';"
+  ],
+  [
+   "card('e1c2',$('e1theo').checked,'Seçili karelerde sıcaklık: ortalama <b>'+fx(S.mean,2)+' K</b>, SD <b>'+fx(S.sd,2)+' K</b>, en düşük '+fx(S.min,1)+' K, en yüksek '+fx(S.max,1)+' K. Kanonik topluluk için beklenen SD, T·√(2/N) = <b>'+fx(th,2)+' K</b> (N = '+fx(DOF,0)+' serbestlik derecesi). Beş koşunun SD değerleri '+fx(Math.min.apply(null,all),2)+' ile '+fx(Math.max.apply(null,all),2)+' K arasında. <b>Termostat ortalamayı tutar, anlık sıcaklığı değil;</b> dalgalanmanın kuramla aynı büyüklükte olması beklenen davranıştır.');",
+   "card('e1c2',$('e1theo').checked,'Temperature in the selected frames: mean <b>'+fx(S.mean,2)+' K</b>, SD <b>'+fx(S.sd,2)+' K</b>, lowest '+fx(S.min,1)+' K, highest '+fx(S.max,1)+' K. The expected SD for a canonical ensemble is T·√(2/N) = <b>'+fx(th,2)+' K</b> (N = '+fx(DOF,0)+' degrees of freedom). The SD values of the five runs lie between '+fx(Math.min.apply(null,all),2)+' and '+fx(Math.max.apply(null,all),2)+' K. <b>The thermostat holds the mean, not the instantaneous temperature;</b> a fluctuation of the same size as the theory is the expected behaviour.');"
+  ],
+  [
+   "card('e1c3',true,'Seçili karelerde basınç: ortalama <b>'+fx(S.mean,1)+' bar</b>, SD <b>'+fx(S.sd,0)+' bar</b>, en düşük '+fx(S.min,0)+', en yüksek '+fx(S.max,0)+' bar; hedef 1 bar. Beş koşunun ortalamaları <b>'+fx(Math.min.apply(null,rm),1)+' ile '+fx(Math.max.apply(null,rm),1)+' bar</b> arasında (koşular arası SD '+fx(sdr,1)+' bar). Kareler bağımsız olsaydı tek koşunun ortalaması için hata çubuğu '+fx(naive,1)+' bar olurdu; gerçek saçılım '+fx(sdr/naive,1)+' kat büyük, çünkü ardışık kareler bağımsız değil (MD-U). <b>Tek karedeki basınç anlamlı değildir; ortalama anlamlıdır.</b>');",
+   "card('e1c3',true,'Pressure in the selected frames: mean <b>'+fx(S.mean,1)+' bar</b>, SD <b>'+fx(S.sd,0)+' bar</b>, lowest '+fx(S.min,0)+', highest '+fx(S.max,0)+' bar; target 1 bar. The means of the five runs lie between <b>'+fx(Math.min.apply(null,rm),1)+' and '+fx(Math.max.apply(null,rm),1)+' bar</b> (between-run SD '+fx(sdr,1)+' bar). If the frames were independent, the error bar for the mean of a single run would be '+fx(naive,1)+' bar; the real scatter is '+fx(sdr/naive,1)+' times larger, because successive frames are not independent (MD-U). <b>The pressure in a single frame is not meaningful; the mean is.</b>');"
+  ],
+  [
+   "card('e1c4',Object.keys(wk.seen).length>=3,'Koşu başına αR payı: <b>%'+ar.join(', %')+'</b>. αL payı: <b>%'+al.join(', %')+'</b>. Aynı başlangıç yapısı ve aynı koşullar, yalnız hız ve termostat tohumu farklı. αL durumuna %0,5 üzerinde uğrayan koşu: <b>'+nal+' / '+NRUN+'</b>. Bir koşu, topluluğun payını ancak sık geçilen durumlar için temsil eder; nadir durum için tek koşu yetmez.');",
+   "card('e1c4',Object.keys(wk.seen).length>=3,'αR fraction per run: <b>'+ar.join('%, ')+'%</b>. αL fraction: <b>'+al.join('%, ')+'%</b>. The same starting structure and the same conditions, only the velocity and thermostat seeds differ. Runs that visit the αL state above 0.5%: <b>'+nal+' / '+NRUN+'</b>. A run represents the fraction of the ensemble only for frequently visited states; for a rare state a single run is not enough.');"
+  ],
+  [
+   "cv.addEventListener('pointermove',function(e){ var r=cv.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, hit=null; for(var i=0;i<bars.length;i++){ if(mx>=bars[i].x0&&mx<bars[i].x1){ hit=bars[i]; break; } } if(hit&&geomH&&my>=geomH.T&&my<=geomH.T+geomH.H){ var m=VAR[wk.v]; tipShow(tipH,r.width,(hit.x0+hit.x1)/2,hit.y,'<b>'+fx(hit.lo,0)+' ile '+fx(hit.hi,0)+' '+m.unit+'</b><br>zaman payı '+pct(hit.p,2)); } else tipHide(tipH); });",
+   "cv.addEventListener('pointermove',function(e){ var r=cv.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, hit=null; for(var i=0;i<bars.length;i++){ if(mx>=bars[i].x0&&mx<bars[i].x1){ hit=bars[i]; break; } } if(hit&&geomH&&my>=geomH.T&&my<=geomH.T+geomH.H){ var m=VAR[wk.v]; tipShow(tipH,r.width,(hit.x0+hit.x1)/2,hit.y,'<b>'+fx(hit.lo,0)+' to '+fx(hit.hi,0)+' '+m.unit+'</b><br>time fraction '+pct(hit.p,2)); } else tipHide(tipH); });"
+  ],
+  [
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText(W<420?'Kalın bağlar: φ ve ψ':'Kalın bağlar φ ve ψ tanımlar; 40 ps aralıkla gerçek kare',10,H-10);",
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText(W<420?'Thick bonds: φ and ψ':'Thick bonds define φ and ψ; real frames at 40 ps intervals',10,H-10);"
+  ],
+  [
+   "gg.font='11px '+css('--sans'); gg.fillStyle=css('--muted'); gg.textAlign='right'; gg.fillText('durum',L-6,16);",
+   "gg.font='11px '+css('--sans'); gg.fillStyle=css('--muted'); gg.textAlign='right'; gg.fillText('state',L-6,16);"
+  ],
+  [
+   "gg.fillStyle=css('--muted'); gg.textAlign='left'; gg.fillText(o.lab+(k?'  kalın çizgi: 100 ps ortalaması':''),L+4,o.y+12); });",
+   "gg.fillStyle=css('--muted'); gg.textAlign='left'; gg.fillText(o.lab+(k?'  thick line: 100 ps average':''),L+4,o.y+12); });"
+  ],
+  [
+   "gg.fillStyle=css('--muted'); gg.textAlign='center'; [0,2,4,6,8,10].forEach(function(t){ gg.fillText(String(t),X(t*1000),H-13); }); gg.fillText('zaman (ns)',L+pw/2,H-1);",
+   "gg.fillStyle=css('--muted'); gg.textAlign='center'; [0,2,4,6,8,10].forEach(function(t){ gg.fillText(String(t),X(t*1000),H-13); }); gg.fillText('time (ns)',L+pw/2,H-1);"
+  ],
+  [
+   "$('e1plread').innerHTML=dl('φ, ψ (şimdi)',fx(r.phi[idx],0)+'°, '+fx(r.psw[idx],0)+'°')+dl('Durum (şimdi)',SN[st])+dl('0 ile t arası αR payı',pct(ps.cs[0][m]/m))+dl('0 ile t arası β/PPII payı',pct(ps.cs[1][m]/m))+dl('0 ile t arası αL payı',pct(ps.cs[2][m]/m,2))+dl('T, şimdi ve 0 ile t ortalaması',fx(r.T[idx],1)+' K, '+fx(ps.pT[m]/m,2)+' K')+dl('P, şimdi ve 0 ile t ortalaması',fx(r.P[idx],0)+' bar, '+fx(ps.pP[m]/m,1)+' bar');",
+   "$('e1plread').innerHTML=dl('φ, ψ (now)',fx(r.phi[idx],0)+'°, '+fx(r.psw[idx],0)+'°')+dl('State (now)',SN[st])+dl('αR fraction from 0 to t',pct(ps.cs[0][m]/m))+dl('β/PPII fraction from 0 to t',pct(ps.cs[1][m]/m))+dl('αL fraction from 0 to t',pct(ps.cs[2][m]/m,2))+dl('T, now and average from 0 to t',fx(r.T[idx],1)+' K, '+fx(ps.pT[m]/m,2)+' K')+dl('P, now and average from 0 to t',fx(r.P[idx],0)+' bar, '+fx(ps.pP[m]/m,1)+' bar');"
+  ],
+  [
+   "var ch=$('e1plruns'); ch.innerHTML=RUN.map(function(r,i){return '<button type=\"button\" class=\"chip\" data-v=\"'+i+'\" aria-pressed=\"'+(i===0)+'\">Koşu '+(i+1)+'</button>';}).join('');",
+   "var ch=$('e1plruns'); ch.innerHTML=RUN.map(function(r,i){return '<button type=\"button\" class=\"chip\" data-v=\"'+i+'\" aria-pressed=\"'+(i===0)+'\">Run '+(i+1)+'</button>';}).join('');"
+  ],
+  [
+   "function setPlay(on){ PL.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
+   "function setPlay(on){ PL.play=on; btn.textContent=on?'Pause':'Play'; btn.classList.toggle('primary',!on); if(on) aniKick(); }"
+  ],
+  [
+   "var pl=plot(g,16,10,W-32,H-48,[XL,XR],[-0.5,2.0],{xticks:[-2,-1,0,1,2],xlab:'konum x'});",
+   "var pl=plot(g,16,10,W-32,H-48,[XL,XR],[-0.5,2.0],{xticks:[-2,-1,0,1,2],xlab:'position x'});"
+  ],
+  [
+   "g.font='600 12px '+css('--sans'); g.fillStyle=PAL.muted; g.textAlign='center'; g.fillText('sol kuyu (sığ)',pl.X(-1),pl.T+pl.H-8); g.fillText('sağ kuyu (derin)',pl.X(1),pl.T+pl.H-8); g.textAlign='left';",
+   "g.font='600 12px '+css('--sans'); g.fillStyle=PAL.muted; g.textAlign='center'; g.fillText('left well (shallow)',pl.X(-1),pl.T+pl.H-8); g.fillText('right well (deep)',pl.X(1),pl.T+pl.H-8); g.textAlign='left';"
+  ],
+  [
+   "if(!S.n){ g.fillStyle=PAL.muted; g.font='13px '+css('--sans'); g.textAlign='center'; g.fillText('Oynat düğmesine basın',pl.L+pl.W/2,pl.T+22); g.textAlign='left'; }",
+   "if(!S.n){ g.fillStyle=PAL.muted; g.font='13px '+css('--sans'); g.textAlign='center'; g.fillText('Press Play',pl.L+pl.W/2,pl.T+22); g.textAlign='left'; }"
+  ],
+  [
+   "var pl=plot(g,50,12,W-50-26,H-48,[0,tm],[XL,XR],{xticks:tk,yticks:[-2,-1,0,1,2],xfmt:function(t){ return fx(t,t<10?1:0); },xlab:'zaman (oyuncak birim)',ylab:'x',ylabPad:34});",
+   "var pl=plot(g,50,12,W-50-26,H-48,[0,tm],[XL,XR],{xticks:tk,yticks:[-2,-1,0,1,2],xfmt:function(t){ return fx(t,t<10?1:0); },xlab:'time (toy units)',ylab:'x',ylabPad:34});"
+  ],
+  [
+   "} else { g.fillStyle=PAL.muted; g.textAlign='center'; g.font='14px '+css('--sans'); g.fillText('Oynat düğmesine basın',pl.L+pl.W/2,pl.T+pl.H/2); g.textAlign='left'; }",
+   "} else { g.fillStyle=PAL.muted; g.textAlign='center'; g.font='14px '+css('--sans'); g.fillText('Press Play',pl.L+pl.W/2,pl.T+pl.H/2); g.textAlign='left'; }"
+  ],
+  [
+   "var pl=plot(g,62,12,W-62-14,H-48,[XL,XR],[0,ym],{xticks:[-2,-1,0,1,2],yticks:[0,ym/4,ym/2,ym*3/4,ym],yfmt:pfmt,xlab:'konum x',ylab:'zaman payı',ylabPad:52});",
+   "var pl=plot(g,62,12,W-62-14,H-48,[XL,XR],[0,ym],{xticks:[-2,-1,0,1,2],yticks:[0,ym/4,ym/2,ym*3/4,ym],yfmt:pfmt,xlab:'position x',ylab:'time fraction',ylabPad:52});"
+  ],
+  [
+   "if(!S.n){ $('e1tread').innerHTML=dl('Boltzmann ortalaması ⟨x⟩ (seçili θ)',fx(B.mean,3))+dl('Sağ kuyuda denge payı (seçili θ)',pct(B.pright)); return; }",
+   "if(!S.n){ $('e1tread').innerHTML=dl('Boltzmann average ⟨x⟩ (selected θ)',fx(B.mean,3))+dl('Equilibrium fraction in the right well (selected θ)',pct(B.pright)); return; }"
+  ],
+  [
+   "var rows=dl('Adım sayısı n',fx(S.n,0))+dl('Kuyular arası geçiş sayısı',fx(S.cross,0))+dl('Tek yol: zaman ortalaması ⟨x⟩',fx(S.sx/S.n,3))+dl('Boltzmann ortalaması ⟨x⟩',fx(B.mean,3))+dl('Tek yol: sağ kuyuda zaman payı',pct(S.nr/S.n))+dl('Sağ kuyuda denge payı',pct(B.pright))+dl('TV mesafesi (tek yol, Boltzmann)',cur?fx(cur.tv,3):'-');",
+   "var rows=dl('Number of steps n',fx(S.n,0))+dl('Number of crossings between wells',fx(S.cross,0))+dl('Single path: time average ⟨x⟩',fx(S.sx/S.n,3))+dl('Boltzmann average ⟨x⟩',fx(B.mean,3))+dl('Single path: time fraction in the right well',pct(S.nr/S.n))+dl('Equilibrium fraction in the right well',pct(B.pright))+dl('TV distance (single path, Boltzmann)',cur?fx(cur.tv,3):'-');"
+  ],
+  [
+   "if(S.E){ var e=ensStats(); rows+=dl('Topluluk ('+NE+' parçacık): ortalama ⟨x⟩',fx(e.m,3))+dl('Topluluk: sağ kuyudaki pay',pct(e.p,0)); }",
+   "if(S.E){ var e=ensStats(); rows+=dl('Ensemble ('+NE+' particles): average ⟨x⟩',fx(e.m,3))+dl('Ensemble: fraction in the right well',pct(e.p,0)); }"
+  ],
+  [
+   "if(!S.n) t='Simülasyon henüz başlamadı. Hızı ve sıcaklığı seçip Oynat düğmesine basın; Dur seçeneğiyle belirli bir adımda otomatik durdurabilir, sonra Deftere yazabilirsiniz.';",
+   "if(!S.n) t='The simulation has not started yet. Choose the speed and temperature and press Play; with the Stop option you can stop it automatically at a given step and then write it to the ledger.';"
+  ],
+  [
+   "else if(S.cross===0) t='Hiç geçiş yok: parçacık yalnız başladığı kuyuyu görüyor. Zaman ortalaması o kuyunun ortalamasıdır, topluluk ortalaması değil.';",
+   "else if(S.cross===0) t='No crossing: the particle sees only the well it started in. The time average is the average of that well, not the ensemble average.';"
+  ],
+  [
+   "else if(S.cross<5) t='Yalnız '+S.cross+' geçiş var: iki kuyuda geçirilen sürelerin oranı birkaç olaya bağlıdır ve tohumdan tohuma çok değişir. TV küçük çıksa bile bu şans olabilir; başka bir tohumla tekrarlayın.';",
+   "else if(S.cross<5) t='Only '+S.cross+(S.cross===1?' crossing':' crossings')+': the ratio of the times spent in the two wells depends on a few events and varies a lot from seed to seed. Even if the TV comes out small, this can be luck; repeat with another seed.';"
+  ],
+  [
+   "else t=S.cross+' geçiş: iki kuyu da birçok kez ziyaret edildi, histogram Boltzmann dağılımına yaklaşır.';",
+   "else t=S.cross+' crossings: both wells were visited many times, and the histogram approaches the Boltzmann distribution.';"
+  ],
+  [
+   "var t='<b>'+fx(S.n,0)+' adımda:</b> topluluk ortalaması '+fx(e.m,2)+', tek yolun zaman ortalaması '+fx(tm,2)+', Boltzmann ortalaması '+fx(B.mean,2)+'. Topluluğun sağ kuyudaki payı '+pct(e.p,0)+', denge payı '+pct(B.pright,0)+'; tek yol '+(S.cross===0?'hâlâ başladığı kuyuda (hiç geçiş yok).':S.cross+' geçiş yaptı.')+' ';",
+   "var t='<b>After '+fx(S.n,0)+' steps:</b> ensemble average '+fx(e.m,2)+', time average of the single path '+fx(tm,2)+', Boltzmann average '+fx(B.mean,2)+'. The fraction of the ensemble in the right well is '+pct(e.p,0)+', the equilibrium fraction '+pct(B.pright,0)+'; the single path '+(S.cross===0?'is still in the well it started in (no crossing).':'made '+S.cross+(S.cross===1?' crossing.':' crossings.'))+' ';"
+  ],
+  [
+   "if(closeE&&!closeS) t+='<b>Topluluk dengeye vardı, tek yol henüz varmadı:</b> topluluk, her parçacığın engeli aşmasını aynı anda bekler; tek yol bunu bir kez, çok daha uzun sürede yapmak zorunda.';",
+   "if(closeE&&!closeS) t+='<b>The ensemble reached equilibrium, the single path has not yet:</b> the ensemble waits for every particle to cross the barrier at the same time; the single path has to do this once, over a much longer time.';"
+  ],
+  [
+   "else if(closeE&&closeS) t+='<b>İkisi de Boltzmann ortalamasına yakın:</b> bu sıcaklıkta engel sık aşılıyor, zaman ortalaması topluluk ortalamasına yaklaşabiliyor.';",
+   "else if(closeE&&closeS) t+='<b>Both are close to the Boltzmann average:</b> at this temperature the barrier is crossed often, so the time average can approach the ensemble average.';"
+  ],
+  [
+   "else t+='<b>İkisi de henüz dengeye varmadı:</b> bu sıcaklıkta engel o kadar nadir aşılıyor ki topluluk bile başlangıç kuyusunda takılı. Sıcaklığı yükseltmeyi ya da daha uzun beklemeyi deneyin.';",
+   "else t+='<b>Neither has reached equilibrium yet:</b> at this temperature the barrier is crossed so rarely that even the ensemble is stuck in the starting well. Try raising the temperature or waiting longer.';"
+  ],
+  [
+   "function setPlay(on){ S.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
+   "function setPlay(on){ S.play=on; btn.textContent=on?'Pause':'Play'; btn.classList.toggle('primary',!on); if(on) aniKick(); }"
+  ],
+  [
+   "consts(); S.B=boltz(t); if(S.n>0&&!S.flag){ S.flag=true; setStale('Sıcaklık koşu sırasında değişti: bu koşu deftere yazılamaz. Sıfırlayınca yeniden yazılabilir.'); } drawAll(true);",
+   "consts(); S.B=boltz(t); if(S.n>0&&!S.flag){ S.flag=true; setStale('The temperature changed during the run: this run cannot be written to the ledger. After a reset it can be written again.'); } drawAll(true);"
+  ],
+  [
+   "if(S.n<1000){ setStale('Deftere yazmak için en az 10³ adım gerekir.'); return; }",
+   "if(S.n<1000){ setStale('At least 10³ steps are needed to write to the ledger.'); return; }"
+  ],
+  [
+   "if(S.flag){ setStale('Sıcaklık koşu sırasında değişti: bu koşu deftere yazılamaz. Sıfırlayın.'); return; }",
+   "if(S.flag){ setStale('The temperature changed during the run: this run cannot be written to the ledger. Reset it.'); return; }"
+  ],
+  [
+   "if(R.cross===0&&R.n>=100000){ card('e1c5',true,'<b>'+nTxt(R.n)+' adımda hiç geçiş yok.</b> Zaman ortalaması '+fx(R.mean,2)+', Boltzmann ortalaması '+fx(R.B.mean,2)+'; sağ kuyuda zaman payı '+pct(R.prt,0)+', denge payı '+pct(R.B.pright,0)+'. Koşu sakin ve kararlı görünür ama topluluğu temsil etmez: parçacık yalnız başladığı kuyuyu örnekledi.'); }",
+   "if(R.cross===0&&R.n>=100000){ card('e1c5',true,'<b>No crossing in '+nTxt(R.n)+' steps.</b> Time average '+fx(R.mean,2)+', Boltzmann average '+fx(R.B.mean,2)+'; time fraction in the right well '+pct(R.prt,0)+', equilibrium fraction '+pct(R.B.pright,0)+'. The run looks calm and stable but does not represent the ensemble: the particle sampled only the well it started in.'); }"
+  ],
+  [
+   "else if(R.cross===0) card('e1c5',false,'Bu kayıt kısa ve geçişsiz. Asıl soru için θ = 0,1 seçip Dur seçeneğini 10⁵ yapın, koşu orada durunca yazın.');",
+   "else if(R.cross===0) card('e1c5',false,'This record is short and has no crossing. For the real question, choose θ = 0.1, set Stop to 10⁵, and write it when the run stops there.');"
+  ],
+  [
+   "else card('e1c5',false,'Bu kayıtta '+R.cross+' geçiş var. Hiç geçmeyen bir koşu için θ = 0,1 seçip sıfırlayın, Dur seçeneğini 10⁵ yapın ve orada yazın.');",
+   "else card('e1c5',false,'This record has '+R.cross+(R.cross===1?' crossing':' crossings')+'. For a run that never crosses, choose θ = 0.1, reset, set Stop to 10⁵ and write it there.');"
+  ],
+  [
+   "var t='Aynı koşunun uzatması: <b>'+nTxt(lo.n)+' adımda</b> geçiş '+lo.cross+', TV '+fx(lo.tv,2)+'; <b>'+nTxt(hi.n)+' adımda</b> geçiş '+hi.cross+', TV '+fx(hi.tv,2)+'. ';",
+   "var t='Extending the same run: <b>at '+nTxt(lo.n)+' steps</b> crossings '+lo.cross+', TV '+fx(lo.tv,2)+'; <b>at '+nTxt(hi.n)+' steps</b> crossings '+hi.cross+', TV '+fx(hi.tv,2)+'. ';"
+  ],
+  [
+   "if(lo.cross===0&&hi.cross===0) t+='<b>Uzatmak yetmedi:</b> hâlâ hiç geçiş yok ve TV neredeyse değişmedi. Belirleyici olan koşu uzunluğu değil, engeli aşma olayıdır.';",
+   "if(lo.cross===0&&hi.cross===0) t+='<b>Extending it was not enough:</b> there is still no crossing and the TV hardly changed. What matters is not the run length but the event of crossing the barrier.';"
+  ],
+  [
+   "else if(lo.cross===0&&hi.cross>0) t+='<b>Geçiş gerçekleşince dağılım topluluğa yaklaştı.</b> Tek ya da birkaç geçiş yine de topluluğu güvenilir temsil etmez; başka bir tohumla deneyin.';",
+   "else if(lo.cross===0&&hi.cross>0) t+='<b>Once a crossing happened, the distribution moved closer to the ensemble.</b> One or a few crossings still do not represent the ensemble reliably; try another seed.';"
+  ],
+  [
+   "else t+='Geçişli koşu uzatılınca TV '+(hi.tv<lo.tv?'azaldı':'azalmadı')+'. Geçiş sayısı arttıkça iki kuyunun payları daha iyi oturur.';",
+   "else t+='When the run with crossings was extended, the TV '+(hi.tv<lo.tv?'decreased':'did not decrease')+'. As the number of crossings grows, the fractions of the two wells settle better.';"
+  ],
+  [
+   "} else card('e1c6',false,'Aynı koşuyu Dur = 10⁴ ile durdurup yazın, sonra Dur = 10⁵ yapıp devam ettirin ve yine yazın.');",
+   "} else card('e1c6',false,'Stop the same run with Stop = 10⁴ and write it, then set Stop = 10⁵, continue, and write it again.');"
+  ],
+  [
+   "if(A.length&&B.length){ t='Defterde geçişsiz '+A.length+' koşu (ortalama TV <b>'+fx(mtv(A),2)+'</b>) ve beş ve üzeri geçişli '+B.length+' koşu (ortalama TV <b>'+fx(mtv(B),2)+'</b>) var.'; if(done) t+=(mtv(B)<mtv(A)?' <b>Küçük TV, geçiş sayısıyla birlikte geliyor:</b> geçişli koşular Boltzmann dağılımına çok daha yakın.':' Bu defterde geçişli koşular daha yakın çıkmadı; farklı θ ve tohumlarla çoğaltın.'); }",
+   "if(A.length&&B.length){ t='The ledger has '+A.length+' runs with no crossing (mean TV <b>'+fx(mtv(A),2)+'</b>) and '+B.length+' runs with five or more crossings (mean TV <b>'+fx(mtv(B),2)+'</b>).'; if(done) t+=(mtv(B)<mtv(A)?' <b>A small TV comes with the number of crossings:</b> the runs with crossings are much closer to the Boltzmann distribution.':' In this ledger the runs with crossings did not come out closer; repeat with different θ and seeds.'); }"
+  ],
+  [
+   "else t='Defterde şimdi: geçişsiz '+A.length+', beş ve üzeri geçişli '+B.length+' koşu. Her gruptan en az ikisi gerekiyor.';",
+   "else t='In the ledger now: '+A.length+' with no crossing, '+B.length+' with five or more crossings. At least two from each group are needed.';"
+  ],
+  [
+   "$('e1tleg').innerHTML=dot(hexA(PAL.mid,0.8))+'tek yol: konum x(t)'+lin(PAL.accent)+'tek yol: kümülatif zaman ortalaması'+lin(PAL.c3)+'topluluk ortalaması (80 parçacık)'+lin(PAL.good)+'Boltzmann ortalaması ve dağılımı';",
+   "$('e1tleg').innerHTML=dot(hexA(PAL.mid,0.8))+'single path: position x(t)'+lin(PAL.accent)+'single path: cumulative time average'+lin(PAL.c3)+'ensemble average (80 particles)'+lin(PAL.good)+'Boltzmann average and distribution';"
+  ],
+  [
+   "$('e1lleg').innerHTML=dot(PAL.bad)+'hiç geçiş yok'+dot(PAL.gold)+'1 ile 4 geçiş'+dot(PAL.good)+'5 ve üzeri geçiş'+'<span>çizgi = aynı θ, başlangıç ve tohum</span>';",
+   "$('e1lleg').innerHTML=dot(PAL.bad)+'no crossing'+dot(PAL.gold)+'1 to 4 crossings'+dot(PAL.good)+'5 or more crossings'+'<span>line = same θ, start and seed</span>';"
+  ],
+  [
+   "var pl=plot(g,62,12,W-62-14,H-48,[2.8,7.2],[0,1],{xticks:[3,4,5,6,7],xfmt:function(t){return ['10³','10⁴','10⁵','10⁶','10⁷'][t-3];},yticks:[0,0.25,0.5,0.75,1],yfmt:function(t){return fx(t,2);},xlab:'adım sayısı',ylab:'TV mesafesi',ylabPad:50});",
+   "var pl=plot(g,62,12,W-62-14,H-48,[2.8,7.2],[0,1],{xticks:[3,4,5,6,7],xfmt:function(t){return ['10³','10⁴','10⁵','10⁶','10⁷'][t-3];},yticks:[0,0.25,0.5,0.75,1],yfmt:function(t){return fx(t,2);},xlab:'number of steps',ylab:'TV distance',ylabPad:50});"
+  ],
+  [
+   "var tb=$('e1tbl'), head='<tr><th>#</th><th>θ</th><th>Adım</th><th>Başlangıç</th><th>Tohum</th><th>Geçiş</th><th>⟨x⟩ zaman</th><th>⟨x⟩ Boltzmann</th><th>TV</th></tr>';",
+   "var tb=$('e1tbl'), head='<tr><th>#</th><th>θ</th><th>Steps</th><th>Start</th><th>Seed</th><th>Crossings</th><th>⟨x⟩ time</th><th>⟨x⟩ Boltzmann</th><th>TV</th></tr>';"
+  ],
+  [
+   "var rows=LED.map(function(q,i){ return {q:q,i:i}; }).reverse().slice(0,12).map(function(o){ var q=o.q; return '<tr><td class=\"n\">'+(o.i+1)+'</td><td class=\"n\">'+fx(q.th,3)+'</td><td class=\"n\">'+nTxt(q.n)+'</td><td>'+(q.st?'sağ':'sol')+'</td><td class=\"n\">'+q.seed+'</td><td class=\"n\">'+q.cross+'</td><td class=\"n\">'+fx(q.mean,3)+'</td><td class=\"n\">'+fx(q.bmean,3)+'</td><td class=\"n\">'+fx(q.tv,3)+'</td></tr>'; }).join('');",
+   "var rows=LED.map(function(q,i){ return {q:q,i:i}; }).reverse().slice(0,12).map(function(o){ var q=o.q; return '<tr><td class=\"n\">'+(o.i+1)+'</td><td class=\"n\">'+fx(q.th,3)+'</td><td class=\"n\">'+nTxt(q.n)+'</td><td>'+(q.st?'right':'left')+'</td><td class=\"n\">'+q.seed+'</td><td class=\"n\">'+q.cross+'</td><td class=\"n\">'+fx(q.mean,3)+'</td><td class=\"n\">'+fx(q.bmean,3)+'</td><td class=\"n\">'+fx(q.tv,3)+'</td></tr>'; }).join('');"
+  ],
+  [
+   "tb.innerHTML=head+(rows||'<tr><td colspan=\"9\" style=\"color:var(--muted)\">Henüz koşu yok.</td></tr>');",
+   "tb.innerHTML=head+(rows||'<tr><td colspan=\"9\" style=\"color:var(--muted)\">No runs yet.</td></tr>');"
+  ],
+  [
+   "var lc=$('e1led'); lc.addEventListener('pointermove',function(e){ var r=lc.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=null, bd=225; for(var i=0;i<ledPts.length;i++){ var dx=ledPts[i].x-mx, dy=ledPts[i].y-my, dd=dx*dx+dy*dy; if(dd<bd){ bd=dd; best=ledPts[i]; } } if(best){ var q=best.q; tipShow(tipL,r.width,best.x,best.y,'<b>θ '+fx(q.th,3)+'</b>, '+nTxt(q.n)+' adım, '+(q.st?'sağ':'sol')+' kuyu, tohum '+q.seed+'<br>geçiş '+q.cross+', TV '+fx(q.tv,3)); } else tipHide(tipL); });",
+   "var lc=$('e1led'); lc.addEventListener('pointermove',function(e){ var r=lc.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=null, bd=225; for(var i=0;i<ledPts.length;i++){ var dx=ledPts[i].x-mx, dy=ledPts[i].y-my, dd=dx*dx+dy*dy; if(dd<bd){ bd=dd; best=ledPts[i]; } } if(best){ var q=best.q; tipShow(tipL,r.width,best.x,best.y,'<b>θ '+fx(q.th,3)+'</b>, '+nTxt(q.n)+' steps, '+(q.st?'right':'left')+' well, seed '+q.seed+'<br>crossings '+q.cross+', TV '+fx(q.tv,3)); } else tipHide(tipL); });"
+  ],
+  [
+   "var hc=$('e1toyh'); hc.addEventListener('pointermove',function(e){ var r=hc.getBoundingClientRect(), mx=e.clientX-r.left, hit=null; for(var i=0;i<hbars.length;i++){ if(mx>=hbars[i].x0&&mx<hbars[i].x1){ hit=hbars[i]; break; } } if(hit) tipShow(tipT,r.width,(hit.x0+hit.x1)/2,hit.y,'<b>x: '+fx(hit.lo,1)+' ile '+fx(hit.hi,1)+'</b><br>Boltzmann '+pct(hit.b,2)+(hit.h!=null?'<br>tek yol '+pct(hit.h,2):'')+(hit.e!=null?'<br>topluluk '+pct(hit.e,2):'')); else tipHide(tipT); });",
+   "var hc=$('e1toyh'); hc.addEventListener('pointermove',function(e){ var r=hc.getBoundingClientRect(), mx=e.clientX-r.left, hit=null; for(var i=0;i<hbars.length;i++){ if(mx>=hbars[i].x0&&mx<hbars[i].x1){ hit=hbars[i]; break; } } if(hit) tipShow(tipT,r.width,(hit.x0+hit.x1)/2,hit.y,'<b>x: '+fx(hit.lo,1)+' to '+fx(hit.hi,1)+'</b><br>Boltzmann '+pct(hit.b,2)+(hit.h!=null?'<br>single path '+pct(hit.h,2):'')+(hit.e!=null?'<br>ensemble '+pct(hit.e,2):'')); else tipHide(tipT); });"
+  ],
+  [
+   "card('e1c7',false,'Defterde şimdi: geçişsiz 0, beş ve üzeri geçişli 0 koşu. Her gruptan en az ikisi gerekiyor.');",
+   "card('e1c7',false,'In the ledger now: 0 with no crossing, 0 with five or more crossings. At least two from each group are needed.');"
+  ],
+  [
+   "'<p>Alanin dipeptidinin her koşusu, ayrı bir molekülün 10 ns süren yolculuğudur. Beş koşu aynı yapıdan ve aynı koşullarda başladı; yalnız hız ve termostat tohumu farklıydı. Tablo, hızlı dalgalanan niceliklerin koşular arasında tutarlı, yavaş olaylara bağlı niceliklerin tutarsız olduğunu gösteriyor.</p>'+",
+   "'<p>Each run of alanine dipeptide is the 10 ns journey of a separate molecule. The five runs started from the same structure and under the same conditions; only the velocity and thermostat seeds differed. The table shows that quantities that fluctuate quickly are consistent between runs, while quantities that depend on slow events are inconsistent.</p>'+"
+  ],
+  [
+   "'<p>Sıcaklığın koşu ortalamaları '+fx(tmin,2)+' ile '+fx(tmax,2)+' K arasında; basıncın ortalamaları hedefe yakın ama tek karedeki değerlerin yanında küçük. Bu niceliklerin ortalaması kısa sürede oturur. Buna karşılık αR payı %'+fx(Math.min.apply(null,ar)*100,1)+' ile %'+fx(Math.max.apply(null,ar)*100,1)+' arasında değişti, ve nadir αL durumuna %0,5 üzerinde uğrayan koşu yalnız <b>'+nal+' / '+NRUN+'</b>: oyuncak modeldeki sorunun gerçek bir örneği.</p>'+",
+   "'<p>The run means of the temperature lie between '+fx(tmin,2)+' and '+fx(tmax,2)+' K; the means of the pressure are close to the target but small next to the values in a single frame. The means of these quantities settle quickly. By contrast, the αR fraction varied between '+fx(Math.min.apply(null,ar)*100,1)+'% and '+fx(Math.max.apply(null,ar)*100,1)+'%, and only <b>'+nal+' / '+NRUN+'</b> runs visited the rare αL state above 0.5%: a real example of the problem seen in the toy model.</p>'+"
+  ],
+  [
+   "'<p>Rapor ederken ortalamayla birlikte şunları yazın: bağımsız koşu sayısı ve süresi, ortalama ± koşular arası SD (n − 1 ile), nadir durumlar için koşu başına pay. Belirsizliğin nasıl hesaplanacağı MD-U modülünde anlatılıyor; bu pilot koşuların denge ya da popülasyon kanıtı olmadığı notu burada da geçerli.</p>';",
+   "'<p>When reporting, write the following together with the mean: the number and length of independent runs, the mean ± between-run SD (with n − 1), and the fraction per run for rare states. How to compute the uncertainty is explained in the MD-U module; the note that these pilot runs are not evidence of equilibrium or of populations applies here as well.</p>';"
+  ],
+  [
+   "var head='<tr><th>Koşu</th><th>αR</th><th>β</th><th>αL</th><th>T ortalama (K)</th><th>T SD (K)</th><th>P ortalama (bar)</th><th>P SD (bar)</th></tr>';",
+   "var head='<tr><th>Run</th><th>αR</th><th>β</th><th>αL</th><th>T mean (K)</th><th>T SD (K)</th><th>P mean (bar)</th><th>P SD (bar)</th></tr>';"
+  ],
+  [
+   "rows+='<tr><td><b>Ortalama</b></td><td class=\"n\">'+pct(c0[0])+'</td><td class=\"n\">'+pct(c1[0])+'</td><td class=\"n\">'+pct(c2[0],2)+'</td><td class=\"n\">'+fx(c3[0],2)+'</td><td class=\"n\">'+fx(c4[0],2)+'</td><td class=\"n\">'+fx(c5[0],1)+'</td><td class=\"n\">'+fx(c6[0],0)+'</td></tr>';",
+   "rows+='<tr><td><b>Mean</b></td><td class=\"n\">'+pct(c0[0])+'</td><td class=\"n\">'+pct(c1[0])+'</td><td class=\"n\">'+pct(c2[0],2)+'</td><td class=\"n\">'+fx(c3[0],2)+'</td><td class=\"n\">'+fx(c4[0],2)+'</td><td class=\"n\">'+fx(c5[0],1)+'</td><td class=\"n\">'+fx(c6[0],0)+'</td></tr>';"
+  ],
+  [
+   "rows+='<tr><td><b>SD (koşular arası)</b></td><td class=\"n\">'+pct(c0[1])+'</td><td class=\"n\">'+pct(c1[1])+'</td><td class=\"n\">'+pct(c2[1],2)+'</td><td class=\"n\">'+fx(c3[1],2)+'</td><td class=\"n\">'+fx(c4[1],2)+'</td><td class=\"n\">'+fx(c5[1],1)+'</td><td class=\"n\">'+fx(c6[1],0)+'</td></tr>';",
+   "rows+='<tr><td><b>SD (between runs)</b></td><td class=\"n\">'+pct(c0[1])+'</td><td class=\"n\">'+pct(c1[1])+'</td><td class=\"n\">'+pct(c2[1],2)+'</td><td class=\"n\">'+fx(c3[1],2)+'</td><td class=\"n\">'+fx(c4[1],2)+'</td><td class=\"n\">'+fx(c5[1],1)+'</td><td class=\"n\">'+fx(c6[1],0)+'</td></tr>';"
+  ],
+  [
+   "{s:'Beş koşunun tamamında ortalama ψ '+fx(psi.mean,1)+'° ve bu ortalamanın kutusundaki zaman payı '+pct(hp[bm])+' (en kalabalık kutuda '+pct(hp[mode])+'). Bu ortalama için ne söylenir?',",
+   "{s:'Over all five runs the mean ψ is '+fx(psi.mean,1)+'° and the time fraction in the bin of this mean is '+pct(hp[bm])+' (in the most populated bin '+pct(hp[mode])+'). What can be said about this mean?',"
+  ],
+  [
+   "o:[['Dağılımın zirvesidir; molekül en çok bu açıda bulunur',0],['Molekülün tipik yapısı değil; iki yığılmanın arasına düşen bir ağırlık merkezi',1],['İyi bir temsildir, çünkü standart sapma küçüktür',0]],",
+   "o:[['It is the peak of the distribution; the molecule is found most often at this angle',0],['It is not the typical structure of the molecule; it is a centre of mass falling between two clusters',1],['It is a good representation, because the standard deviation is small',0]],"
+  ],
+  [
+   "w:'ψ dağılımı iki yerde yığılıyor (αR ve β). Ortalama bu yığılmaların arasına düşer ve molekül oraya neredeyse hiç uğramaz. Ayrıca açılarda ortalama pencere seçimine bağlıdır; dağılıma bakmak daha güvenilirdir.'},",
+   "w:'The ψ distribution clusters in two places (αR and β). The mean falls between these clusters and the molecule almost never goes there. Also, for angles the mean depends on the choice of window; looking at the distribution is more reliable.'},"
+  ],
+  [
+   "{s:'Anlık sıcaklık, 300 K civarında '+fx(tS.sd,2)+' K standart sapmayla dalgalanıyor; kanonik beklenti '+fx(th,2)+' K. Bu ne demek?',",
+   "{s:'The instantaneous temperature fluctuates around 300 K with a standard deviation of '+fx(tS.sd,2)+' K; the canonical expectation is '+fx(th,2)+' K. What does this mean?',"
+  ],
+  [
+   "o:[['Termostat bozuk, sapma sıfır olmalıydı',0],['Sistemin ortalama sıcaklığı 300 K değil',0],['Dalgalanma kanonik topluluğun doğal dalgalanmasıyla uyumlu; termostat ortalamayı tutuyor',1]],",
+   "o:[['The thermostat is broken, the deviation should have been zero',0],['The mean temperature of the system is not 300 K',0],['The fluctuation agrees with the natural fluctuation of the canonical ensemble; the thermostat holds the mean',1]],"
+  ],
+  [
+   "w:'Kanonik topluluğta anlık sıcaklık dalgalanır: SD yaklaşık T√(2/N). Termostat ortalamayı hedefte tutar, anlık değerleri sabitlemez. Serbestlik derecesi azaldıkça dalgalanma büyür.'},",
+   "w:'In a canonical ensemble the instantaneous temperature fluctuates: the SD is about T√(2/N). The thermostat holds the mean at the target; it does not fix the instantaneous values. The fewer degrees of freedom, the larger the fluctuation.'},"
+  ],
+  [
+   "{s:'Hedef basınç 1 bar iken tek karede '+fx(pS.max,0)+' bar görüldü ve basıncın SD değeri '+fx(pS.sd,0)+' bar. Koşu bozuk mu?',",
+   "{s:'With a target pressure of 1 bar, '+fx(pS.max,0)+' bar was seen in a single frame and the SD of the pressure is '+fx(pS.sd,0)+' bar. Is the run broken?',"
+  ],
+  [
+   "o:[['Hayır; anlık basınç bu kadar dalgalanır, anlamlı olan zaman ortalamasıdır',1],['Evet, barostat başarısız olmuş',0],['Hayır, ama bu kareler silinmeli',0]],",
+   "o:[['No; the instantaneous pressure fluctuates this much, and the time average is what is meaningful',1],['Yes, the barostat has failed',0],['No, but these frames should be deleted',0]],"
+  ],
+  [
+   "w:'Küçük bir sistemde anlık basınç yüzlerce bar dalgalanır. Beş koşunun ortalamaları '+fx(Math.min.apply(null,rm),1)+' ile '+fx(Math.max.apply(null,rm),1)+' bar arasında, yani hedefe yakın.'},",
+   "w:'In a small system the instantaneous pressure fluctuates by hundreds of bar. The means of the five runs lie between '+fx(Math.min.apply(null,rm),1)+' and '+fx(Math.max.apply(null,rm),1)+' bar, that is, close to the target.'},"
+  ],
+  [
+   "{s:'Çift kuyuda θ = 0,1, 10⁵ adım, sol kuyudan başlayan koşuda geçiş sayısı '+rs.cross+'. Zaman ortalaması '+fx(rs.mean,2)+', Boltzmann ortalaması '+fx(B1.mean,2)+'. Koşu hakkında ne söylenir?',",
+   "{s:'In the double well, in a run at θ = 0.1 for 10⁵ steps starting from the left well, the number of crossings is '+rs.cross+'. The time average is '+fx(rs.mean,2)+' and the Boltzmann average is '+fx(B1.mean,2)+'. What can be said about the run?',"
+  ],
+  [
+   "o:[['Koşu yakınsadı, ortalama güvenilir',0],['Koşu yalnız sol kuyuyu gördü; sakin görünse de topluluğu örneklemedi',1],['Boltzmann ortalaması yanlış, çünkü koşuyla uyuşmuyor',0]],",
+   "o:[['The run converged, the average is reliable',0],['The run saw only the left well; although it looks calm, it did not sample the ensemble',1],['The Boltzmann average is wrong, because it does not agree with the run',0]],"
+  ],
+  [
+   "w:'Geçiş olmadığı için koşu başladığı kuyuda kaldı. Koşunun içinden bakınca her şey kararlı görünür; bu yüzden koşunun kendisi yetersiz örneklemeyi göstermez, bilinen dağılımla ya da başka başlangıçlarla karşılaştırmak gerekir.'},",
+   "w:'Because there was no crossing, the run stayed in the well it started in. From inside the run everything looks stable; so the run itself does not reveal the insufficient sampling, and it has to be compared with the known distribution or with other starting points.'},"
+  ],
+  [
+   "{s:'Aynı koşu 10⁴ adımda TV '+fx(t4,2)+', 10⁵ adımda TV '+fx(t5,2)+' verdi. Buradan ne çıkar?',",
+   "{s:'The same run gave a TV of '+fx(t4,2)+' at 10⁴ steps and a TV of '+fx(t5,2)+' at 10⁵ steps. What follows from this?',"
+  ],
+  [
+   "o:[['Uzatmak yetmedi, çünkü engeli aşan geçiş olmadı',1],['Her koşuyu 10 kat uzatmak mutlaka çözer',0],['TV mesafesi bu sorunun ölçüsü değildir',0]],",
+   "o:[['Extending it was not enough, because no crossing of the barrier happened',1],['Making every run 10 times longer always solves it',0],['The TV distance is not a measure for this problem',0]],"
+  ],
+  [
+   "w:'Belirleyici olan koşu uzunluğu değil, yavaş olayın (kuyudan kuyuya geçişin) gerçekleşip gerçekleşmediği. Geçiş yoksa uzatmak dağılımı düzeltmez; daha da uzatınca geçiş görülebilir, ama birkaç geçiş de güvenilir değildir.'},",
+   "w:'What matters is not the run length but whether the slow event (the crossing from well to well) happened. Without a crossing, extending the run does not fix the distribution; extending it further may show a crossing, but a few crossings are not reliable either.'},"
+  ],
+  [
+   "{s:'Beş koşunun αR payı %'+fx(Math.min.apply(null,ar)*100,0)+' ile %'+fx(Math.max.apply(null,ar)*100,0)+' arasında. Sonucu nasıl bildirirsiniz?',",
+   "{s:'The αR fraction of the five runs lies between '+fx(Math.min.apply(null,ar)*100,0)+'% and '+fx(Math.max.apply(null,ar)*100,0)+'%. How do you report the result?',"
+  ],
+  [
+   "o:[['En uyumlu çıkan koşuyu seçip onun payını yazarım',0],['En uzun tek koşunun payı yeterli',0],['Beş koşunun ortalaması ± koşular arası SD, koşu sayısı ve süresiyle birlikte',1]],",
+   "o:[['I pick the run that comes out most consistent and write its fraction',0],['The fraction of the single longest run is enough',0],['The mean of the five runs ± between-run SD, together with the number and length of the runs',1]],"
+  ],
+  [
+   "w:'Bağımsız koşular arasındaki saçılım, gerçek belirsizliğin dürüst bir ölçüsüdür. İyi görüneni seçmek yanlılık getirir; tek koşu ise saçılımı hiç göstermez (MD-U).'}",
+   "w:'The scatter between independent runs is an honest measure of the real uncertainty. Picking the one that looks good introduces bias; a single run shows no scatter at all (MD-U).'}"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('e1why'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('e1why'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('e1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('e1score').textContent='Answered: '+n+' / '+QZ.length+' · correct on the first try: '+rr; }); }); }"
+  ],
+  [
+   "['e1c1','e1c2','e1c3','e1c4','e1c5','e1c6','e1c7','e1c8'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['e1c1','e1c2','e1c3','e1c4','e1c5','e1c6','e1c7','e1c8'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "$('e1notice').innerHTML='Alanin dipeptidi verisi bu projenin pilot koşularından gelir: AMBER99SB-ILDN, TIP3P, 300 K (V-rescale), 1 bar (C-rescale), 2 fs, GROMACS 2026.3; 5 bağımsız koşu × 10 ns, açılar gmx angle ile, sıcaklık ve basınç gmx energy ile 1 ps aralıkla. Koşular arasındaki tek fark hız ve termostat tohumlarıdır. Başlangıç yapısı: mdshare ALA2 (Freie Universität Berlin, CC BY 4.0). Kuramsal sıcaklık SD değeri için serbestlik derecesi (3099) GROMACS günlüğünden alınmıştır. Çift kuyulu oyuncak model tarayıcıda hesaplanır (BAOAB Langevin, adım 0,01, sürtünme 1, kütle 1). Pilot koşular denge ya da popülasyon kanıtı değildir.';",
+   "$('e1notice').innerHTML='The alanine dipeptide data come from the pilot runs of this project: AMBER99SB-ILDN, TIP3P, 300 K (V-rescale), 1 bar (C-rescale), 2 fs, GROMACS 2026.3; 5 independent runs × 10 ns, angles with gmx angle, temperature and pressure with gmx energy at 1 ps intervals. The only difference between the runs is the velocity and thermostat seeds. Starting structure: mdshare ALA2 (Freie Universität Berlin, CC BY 4.0). The number of degrees of freedom (3099) for the theoretical temperature SD was taken from the GROMACS log. The double-well toy model is computed in the browser (BAOAB Langevin, step 0.01, friction 1, mass 1). The pilot runs are not evidence of equilibrium or of populations.';"
+  ]
+ ],
+ "keep": [
+  "Freie Universität Berlin",
+  "nu3X5lTms92y1pzbweS93DbiaMbQyhfcW8uB0Xfcvs6JxkbL",
+  "bzkyNrY3yDm8I1lDrjgkOGkuoDj1NRkxaTcEQIc/5DaTvadC",
+  "JXdpdA11S3Lccv91a3Twc8B1fHVDd4d1YHvgdz10yHOMeHB1",
+  "pwyd800KFvyTCBQYGwZtBH/8shRSD48PvOQk4Z/+nxfn7Nzw",
+  "wubg4ZbjBeb65InjW+Lc5ILdZOh/3H/i0Ofp4V/JN+TQ66Hb",
+  "lzUHQbY/WD1UO0M+hTkmOV47lDEjNnkxoTroPAtFXTFnPHVA",
+  "OXcwd69we3KEcw10HXOKeSBxZXiee2hxtHYZcvx38HfMellx",
+  "nu48CR/vEOL74Vb5MfFUCUX2NAFS7S/6+gB/+KwAEP7i91kI",
+  "c+HZ5FDZNtbD2J7HutDJyVLU1s9t2a/Wadqjz6O/YMezxu3E",
+  "nTq6OXvK7LneuenAqEARN7dD/j9fOJE52Dz7RK46xDtwOWO8",
+  "EXa1do56JXXTcpB5oHX/d2B3N3eMeXV0vHSfc8Z4QXZSeDx1",
+  "lAoA9Bn4L+oxDPT/nflLEiQa8/+q8YATyevV7T/9bhe5BPH+",
+  "2ea86QTh0OSO5xLd0uMW1d3lPNCY3FLQmNtO1YbRx8cb5KHi",
+  "OjjYNyk7BCy0NSNDdjy9P+ZApT7jNXo57TvUP4Q24jGPPI86",
+  "u3OIchJ7ZXfMc+B3p3QreFx49HbOci54G3L9dnRwc3Vuc2V6",
+  "rAHF7Zjyphql1vbqlhLq/d4CifzRAYsbFv3B9nvNF/dYAsoh",
+  "Jd5S4nTqYN3l2u7ZftpRwbPGC96t66bmo+Nk5gfjrtv7zLXI",
+  "Qil6Lnw42jC6QuK5xyrHNE081T0iNpk8rTWJMN9ASzyOPYq6",
+  "NXQRdYN1eHZkc3lvEnoLdzN08nfied93EXhMdrB16HI8fHZ0",
+  "WvSXKCf7/u4YAlAnFNK7DMHu6Oyj/24NXgPw39X/P+MJ+z3p",
+  "P (bar)",
+  "bar</b>, SD <b>",
+  "</b><br>Boltzmann"
+ ]
+}
