@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.19.0 (1 Ekim 2026) · DK-O 0.3.0: aynı anahtar, farklı kilit (çapraz docking)
+
+- DK-O 0.3.0: iki yeni bölüm. Tezgâh: benzamidin sığır tripsininin beş kristalindeki cebe yerleştirildi (3PTB, 2PTN, 1TNH, 2PTC, 1TGN; 100 Vina koşusu, DKOCROSS); yapı seçilir, tohum ve poz sırası gezilir, yandan ve üstten kesit çizilir. Üç olgun yapıda ilk poz 20 tohumun hepsinde doğru; tripsinojen 1TGN'de hiçbirinde değil, doğru poz 2. ya da 3. sırada ve skor farkı çok küçük (sıralama sorunu). Defter: dört hizalama ve puanlama ölçüsü ve kullanıcının koyduğu eşik; hepsini doğru sınıflayan aralık geniştir, yani veri eşiği belirlemez.
+- Üç yeni soru (on soru), üç yeni keşif kartı (sekiz keşif), hazırlık günlüğü satırı güncellendi. Sınırlar sayfada açık: bir ligand, bir cep, dört ek yapı; tohumlar bağımsız kanıt değil; 1TGN nedeni sınanmadı.
+- İngilizce tablo 150 çift (`i18n/_work/build_DK-O_030.py`, `dko_en_a.py`, `dko_en_b.py`, `dko_en_c.txt`). NOTICE: 2PTN, 1TNH, 2PTC ve 1TGN eklendi.
+
 ## 0.18.0 (1 Ekim 2026) · DK-U yeniden yazımı: skor neyi sıralar?
 
 - DK-U 0.2.0 yayında (uzman düzey, CH18 ve CH19); eski dört konulu 0.1.1 yerine tek soru: "Skor neyi sıralar: afinite mi, yoksa yalnız ayırma mı?" Deneysel köprü: tek doz ile doz-yanıt öğretim modeli (dört örnek bileşik, Ki 3-3000 nM). Atölye: 142 tripsin bileşiğinin docking skoru (beş tohumun ortancası) ile ölçülen pKi'si; ağır atom, S1 ve net yük renklendirmesi, yayın süzgeci, nokta üstü bilgi balonu; Pearson, Spearman ve ağır atoma göre kısmi korelasyon (bootstrap %95 aralık); kartlar s1c1 (skor farkı ile tohum gürültüsü) ve s1c2 (boyut karıştırıcısı). Tezgâh: zayıf tripsin, D2 ve eşleştirilmiş tuzaklara karşı ROC ve AUC; yalnız ağır atom, logP ve net yük sıfır modellerinin ROC eğrileri bindirilir; etkin ve tuzak ağır atom dağılımı; kartlar s1c3 (D2 ile eşleştirilmiş fark) ve s1c4 (skor boyut sıralamasını geçiyor mu). Defter: beş Vina terimi ve ağır atom sayısıyla ridge (lambda 1); rastgele ve yayına göre gruplu bölmenin çapraz doğrulama R2'si sıfır çizgili çubuk grafikte; kart s1c5 (sızıntı). Proteine dönüş: skor ayırmada iş görür (eşleştirilmiş AUC 0,79), afinite sıralamasında zayıf (Spearman -0,38; boyut sabitken -0,12); RBFE, FEP, MM-GBSA hesaplanmadı. Yedi soru, beş keşif kartı. Tarayıcı istatistikleri dondurulmuş Python analiziyle birebir.

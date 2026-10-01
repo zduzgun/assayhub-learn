@@ -68,18 +68,22 @@
       "title": "Gerçek kilit: sonuç kilidin hangi ayrıntısına bağlı?",
       "path": "docking/dk-o/",
       "source": "sources/DK-O.html",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "status": "pilot",
       "book": "CH07 ve CH09",
       "goals": [
         "Redocking tampondaki standarttır: matriks etkisi",
         "Hazırlık kararları: sular, protonasyon, doluluğu 0 olan atomlar",
         "Vina'nın göremediği kararlar ve nedeni",
-        "Sessiz hazırlık hataları: dosyada unutulan ligand"
+        "Aynı anahtar, farklı kilit: beş tripsin yapısında çapraz docking",
+        "Sessiz hazırlık hataları: dosyada unutulan ligand",
+        "Hizalama ve puanlama ölçüleri sonucu önceden gösterir mi?"
       ],
       "data": [
         "PDB 3PTB (CC0 1.0)",
-        "AutoDock Vina 1.2.7: 198 hazırlık, 1.080 koşu (DKOPREP ve DKOPREP2, 30 Eylül 2026; protokoller koşulardan önce donduruldu)"
+        "PDB 2PTN, 1TNH, 2PTC ve 1TGN (CC0 1.0)",
+        "AutoDock Vina 1.2.7: 198 hazırlık, 1.080 koşu (DKOPREP ve DKOPREP2, 30 Eylül 2026; protokoller koşulardan önce donduruldu)",
+        "AutoDock Vina 1.2.7: beş yapıda 100 çapraz docking koşusu (DKOCROSS, 1 Ekim 2026; protokol koşulardan önce donduruldu)"
       ],
       "notice": null,
       "en": {
@@ -89,11 +93,15 @@
           "Redocking is the standard in buffer: the matrix effect",
           "Preparation decisions: waters, protonation, atoms with occupancy 0",
           "Decisions Vina cannot see, and why",
-          "Silent preparation errors: a ligand forgotten in the file"
+          "Same key, different lock: cross-docking on five trypsin structures",
+          "Silent preparation errors: a ligand forgotten in the file",
+          "Do alignment and scoring measures predict the result in advance?"
         ],
         "data": [
           "PDB 3PTB (CC0 1.0)",
-          "AutoDock Vina 1.2.7: 198 preparations, 1,080 runs (DKOPREP and DKOPREP2, 30 September 2026; protocols frozen before the runs)"
+          "PDB 2PTN, 1TNH, 2PTC and 1TGN (CC0 1.0)",
+          "AutoDock Vina 1.2.7: 198 preparations, 1,080 runs (DKOPREP and DKOPREP2, 30 September 2026; protocols frozen before the runs)",
+          "AutoDock Vina 1.2.7: 100 cross-docking runs on five structures (DKOCROSS, 1 October 2026; protocol frozen before the runs)"
         ],
         "notice": null
       }

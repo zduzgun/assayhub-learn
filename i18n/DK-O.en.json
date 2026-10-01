@@ -1,17 +1,17 @@
 {
  "module": "DK-O",
  "lang": "en",
- "source_sha256": "1f1154a1ae9158c29ab7d74e37c495c20426236b21c7fb868f51d9d6e675a5cd",
+ "source_sha256": "98dab965798a6deb2ec1ba20cccc70b4b044f6b06be4fc6cd888dbdc7068fe55",
  "reviewed": false,
- "translator": "Claude (AI), DK-O 0.2.0; insan gözden geçirmesi bekliyor",
+ "translator": "Claude (AI), DK-O 0.3.0; insan gözden geçirmesi bekliyor",
  "pairs": [
   [
    "<title>Docking: Gerçek Kilit</title>",
    "<title>Docking: The Real Lock</title>"
   ],
   [
-   "<div class=\"proto\">Bu modül DK-T'deki tripsin cebini (3PTB) orta düzeyde kullanır. Bütün sonuçlar bu projede gerçekten çalıştırılmış Vina koşularındandır: 198 farklı hazırlık, 1.080 koşu (DKOPREP, DKOPREP2). Başka tripsin kristalleriyle çapraz docking sonraki sürümde.</div>",
-   "<div class=\"proto\">This module uses the trypsin pocket (3PTB) from DK-T at the intermediate level. All results come from Vina runs actually carried out in this project: 198 different preparations, 1,080 runs (DKOPREP, DKOPREP2). Cross-docking with other trypsin crystals comes in the next version.</div>"
+   "<div class=\"proto\">Bu modül DK-T'deki tripsin cebini (3PTB) orta düzeyde kullanır. Bütün sonuçlar bu projede gerçekten çalıştırılmış Vina koşularındandır: 198 farklı hazırlık, 1.080 koşu (DKOPREP, DKOPREP2) ve beş tripsin yapısında 100 çapraz docking koşusu (DKOCROSS).</div>",
+   "<div class=\"proto\">This module uses the trypsin pocket (3PTB) from DK-T at the intermediate level. All results come from Vina runs actually carried out in this project: 198 different preparations, 1,080 runs (DKOPREP, DKOPREP2) and 100 cross-docking runs on five trypsin structures (DKOCROSS).</div>"
   ],
   [
    "<span class=\"eyebrow\">DK-O · Docking: gerçek kilit</span>",
@@ -22,12 +22,12 @@
    "<h1>Which detail of the lock does the result depend on?</h1>"
   ],
   [
-   "<p class=\"lead\">DK-T'de benzamidin kendi kristalindeki tripsin cebine geri yerleştirildi ve Vina onu buldu. Ama o reseptör dosyası birkaç kararla hazırlanmıştı ve tam da bu ligandı taşırken çözülmüş bir yapıydı. Bu laboratuvarda hazırlık kararlarını tek tek değiştirip sonuca bakacaksınız; aynı ligandı başka tripsin kristallerine yerleştirmek sonraki sürümde. Soru şu: sonucu hangi ayrıntı değiştirir, hangisi değiştirmez?</p>",
-   "<p class=\"lead\">In DK-T, benzamidine was put back into the trypsin pocket of its own crystal and Vina found it. But that receptor file had been prepared with a few decisions, and it was a structure solved while carrying exactly this ligand. In this lab you will change the preparation decisions one by one and look at the result; placing the same ligand into other trypsin crystals comes in the next version. The question is: which detail changes the result, and which does not?</p>"
+   "<p class=\"lead\">DK-T'de benzamidin kendi kristalindeki tripsin cebine geri yerleştirildi ve Vina onu buldu. Ama o reseptör dosyası birkaç kararla hazırlanmıştı ve tam da bu ligandı taşırken çözülmüş bir yapıydı. Bu laboratuvarda önce hazırlık kararlarını tek tek değiştirip sonuca bakacaksınız, sonra aynı ligandı tripsinin başka kristallerine yerleştireceksiniz. Soru şu: sonucu hangi ayrıntı değiştirir, hangisi değiştirmez?</p>",
+   "<p class=\"lead\">In DK-T, benzamidine was put back into the trypsin pocket of its own crystal and Vina found it. But that receptor file had been prepared with a few decisions and was a structure solved while carrying exactly this ligand. In this lab you will first change the preparation decisions one by one and look at the result, then dock the same ligand into other crystals of trypsin. The question: which detail changes the result, and which does not?</p>"
   ],
   [
-   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"o1progN\">0 / 5</b></div>",
-   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"o1progN\">0 / 5</b></div>"
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"o1progN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"o1progN\">0 / 8</b></div>"
   ],
   [
    "<span class=\"step\">Deneysel köprü</span>",
@@ -38,8 +38,8 @@
    "<h2 id=\"o1h0\">Passing on the standard, passing on the sample</h2>"
   ],
   [
-   "<div class=\"prose\"><p>Bir ELISA ya da kütle spektrometresi yöntemi saf tamponda hazırlanmış standartlarla kurulur ve orada iyi çalışır. Aynı analit serumda ya da doku lizatında ölçülünce sonuç kayabilir: matriks başka bileşenler taşır, analiti bağlar ya da sinyali bastırır. Bu yüzden yöntem, bilinen miktarda analit gerçek matrikse eklenerek (spike-recovery) yeniden sınanır. Tampondaki başarı, matrikste başarı demek değildir.</p><p>Docking'de redocking tampondaki standarttır: reseptör, ligandı tam da o ligandı taşırken çözülmüş yapıdadır ve hazırlığı biz yaptık. Gerçek iş ise çoğu zaman başka bir yapıyla, başka bir hazırlıkla yapılır. Bu sürüm hazırlığı değiştirerek bu farkın ilk yarısını ölçer; yapının kendisini değiştirmek (çapraz docking) sonraki sürümde.</p></div>",
-   "<div class=\"prose\"><p>An ELISA or a mass spectrometry method is set up with standards prepared in pure buffer, and it works well there. When the same analyte is measured in serum or tissue lysate, the result can shift: the matrix carries other components, binds the analyte or suppresses the signal. This is why the method is tested again by adding a known amount of analyte to the real matrix (spike-recovery). Success in buffer does not mean success in the matrix.</p><p>In docking, redocking is the standard in buffer: the receptor is in the structure solved while carrying exactly that ligand, and we did the preparation ourselves. Real work, however, is usually done with another structure and another preparation. This version measures the first half of that difference by changing the preparation; changing the structure itself (cross-docking) comes in the next version.</p></div>"
+   "<div class=\"prose\"><p>Bir ELISA ya da kütle spektrometresi yöntemi saf tamponda hazırlanmış standartlarla kurulur ve orada iyi çalışır. Aynı analit serumda ya da doku lizatında ölçülünce sonuç kayabilir: matriks başka bileşenler taşır, analiti bağlar ya da sinyali bastırır. Bu yüzden yöntem, bilinen miktarda analit gerçek matrikse eklenerek (spike-recovery) yeniden sınanır. Tampondaki başarı, matrikste başarı demek değildir.</p><p>Docking'de redocking tampondaki standarttır: reseptör, ligandı tam da o ligandı taşırken çözülmüş yapıdadır ve hazırlığı biz yaptık. Gerçek iş ise çoğu zaman başka bir yapıyla, başka bir hazırlıkla yapılır. Bu sayfa farkın iki yarısını da ölçer: önce hazırlığı değiştirir (atölye), sonra yapının kendisini (tezgâh, çapraz docking).</p></div>",
+   "<div class=\"prose\"><p>An ELISA or a mass spectrometry method is set up with standards prepared in pure buffer, and it works well there. When the same analyte is measured in serum or tissue lysate, the result can shift: the matrix carries other components, binds the analyte or suppresses the signal. This is why the method is tested again by adding a known amount of analyte to the real matrix (spike-recovery). Success in buffer does not mean success in the matrix.</p><p>In docking, redocking is the standard in buffer: the receptor is in the structure solved while carrying exactly that ligand, and we did the preparation ourselves. Real work, however, is usually done with another structure and another preparation. This page measures both halves of that difference: first it changes the preparation (workshop), then the structure itself (bench, cross-docking).</p></div>"
   ],
   [
    "<span class=\"step\">1 · Atölye</span>",
@@ -174,8 +174,168 @@
    "<article class=\"q\" id=\"o1c5\"><span class=\"k\">Open</span><h3>The two ends of the salt bridge</h3><p>Change one end of the bridge in the receptor and the other end in the ligand.</p><div class=\"mine\" id=\"mo1c5\">Cut the Asp189 side chain; also try benzamidine as a neutral amidine.</div></article>"
   ],
   [
-   "<span class=\"step\">2 · Proteine dönüş</span>",
-   "<span class=\"step\">2 · Back to the protein</span>"
+   "<span class=\"step\">2 · Tezgâh</span>",
+   "<span class=\"step\">2 · Bench</span>"
+  ],
+  [
+   "<h2 id=\"o1h2\">Aynı anahtar, beş kilit: çapraz docking</h2>",
+   "<h2 id=\"o1h2\">The same key, five locks: cross-docking</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Atölyede yapı hep 3PTB'ydi; kilidi hazırlığımız değiştirdi. Şimdi hazırlık sabit, yapı değişiyor: benzamidin, sığır tripsininin beş kristalindeki cebe yerleştirildi. Her yapı, benzamidinin 3PTB'deki 10 Å çevresinde bulunan Cα atomlarıyla 3PTB'ye hizalandı; kutu her yapıda aynı yerde (merkez: 3PTB kristal benzamidininin ağırlık merkezi, kenar 20 Å), exhaustiveness 8, 20 tohum. Sular, iyonlar ve başka zincirler çıkarıldı. Altın çizgi 3PTB kristalindeki benzamidin, koyu çizgi seçtiğiniz tohumun seçtiğiniz sıradaki pozudur. Başarı ölçütü DK-T'deki gibidir: ilk poz kristal pozdan 2 Å'dan yakın.</p></div>",
+   "<div class=\"prose\"><p>In the workshop the structure was always 3PTB; our preparation changed the lock. Now the preparation is fixed and the structure changes: benzamidine was docked into the pocket of five crystals of bovine trypsin. Each structure was aligned onto 3PTB using the Cα atoms within 10 Å of benzamidine in 3PTB; the box is at the same place in every structure (center: the centroid of the 3PTB crystal benzamidine, edge 20 Å), exhaustiveness 8, 20 seeds. Waters, ions and other chains were removed. The gold line is benzamidine in the 3PTB crystal; the dark line is the pose of the seed you selected at the rank you selected. The success criterion is the same as in DK-T: the first pose is closer than 2 Å to the crystal pose.</p></div>"
+  ],
+  [
+   "<div class=\"chips\" role=\"group\" aria-label=\"Yapı\" id=\"o1xs\"><button type=\"button\" class=\"chip\" data-v=\"3PTB\" aria-pressed=\"true\">3PTB</button><button type=\"button\" class=\"chip\" data-v=\"2PTN\" aria-pressed=\"false\">2PTN</button><button type=\"button\" class=\"chip\" data-v=\"1TNH\" aria-pressed=\"false\">1TNH</button><button type=\"button\" class=\"chip\" data-v=\"2PTC\" aria-pressed=\"false\">2PTC</button><button type=\"button\" class=\"chip\" data-v=\"1TGN\" aria-pressed=\"false\">1TGN</button></div>",
+   "<div class=\"chips\" role=\"group\" aria-label=\"Structure\" id=\"o1xs\"><button type=\"button\" class=\"chip\" data-v=\"3PTB\" aria-pressed=\"true\">3PTB</button><button type=\"button\" class=\"chip\" data-v=\"2PTN\" aria-pressed=\"false\">2PTN</button><button type=\"button\" class=\"chip\" data-v=\"1TNH\" aria-pressed=\"false\">1TNH</button><button type=\"button\" class=\"chip\" data-v=\"2PTC\" aria-pressed=\"false\">2PTC</button><button type=\"button\" class=\"chip\" data-v=\"1TGN\" aria-pressed=\"false\">1TGN</button></div>"
+  ],
+  [
+   "<p data-x=\"3PTB\">3PTB: sığır beta-tripsini ve benzamidin, 1,70 Å. Başvuru yapısı: benzamidin kendi kristalinde (redocking).</p>",
+   "<p data-x=\"3PTB\">3PTB: bovine beta-trypsin and benzamidine, 1.70 Å. Reference structure: benzamidine in its own crystal (redocking).</p>"
+  ],
+  [
+   "<p data-x=\"2PTN\">2PTN: sığır tripsini, ligandsız (yalnız Ca²⁺), 1,55 Å. Cep boş çözülmüş.</p>",
+   "<p data-x=\"2PTN\">2PTN: bovine trypsin, without ligand (only Ca²⁺), 1.55 Å. The pocket was solved empty.</p>"
+  ],
+  [
+   "<p data-x=\"1TNH\">1TNH: sığır tripsini ve 4-florobenzilamin, 1,80 Å. Cepte başka bir ligand çözülmüş.</p>",
+   "<p data-x=\"1TNH\">1TNH: bovine trypsin and 4-fluorobenzylamine, 1.80 Å. Another ligand was solved in the pocket.</p>"
+  ],
+  [
+   "<p data-x=\"2PTC\">2PTC: sığır beta-tripsini ve BPTI inhibitörü, 1,90 Å. İnhibitör zinciri çıkarıldı, tripsin zinciri (E) kaldı.</p>",
+   "<p data-x=\"2PTC\">2PTC: bovine beta-trypsin and the BPTI inhibitor, 1.90 Å. The inhibitor chain was removed; the trypsin chain (E) was kept.</p>"
+  ],
+  [
+   "<p data-x=\"1TGN\">1TGN: sığır tripsinojeni (tripsinin öncül, etkin olmayan biçimi), 1,65 Å. Cep çevresinin olgun tripsinden ne kadar ayrıldığı aşağıdaki hizalama RMSD'sinde görünür.</p>",
+   "<p data-x=\"1TGN\">1TGN: bovine trypsinogen (the precursor, inactive form of trypsin), 1.65 Å. How far the surroundings of the pocket depart from mature trypsin shows in the alignment RMSD below.</p>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"o1xk\" class=\"stage\" aria-label=\"Seçilen yapının cebinin kesiti: protein yüzeyi, 3PTB kristalindeki benzamidin ve seçilen tohumun seçilen sıradaki pozu\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"o1xk\" class=\"stage\" aria-label=\"Section through the pocket of the selected structure: protein surface, benzamidine in the 3PTB crystal and the pose of the selected seed at the selected rank\"></canvas></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Poz sırası (skora göre)</div><div class=\"seg\" role=\"group\" aria-label=\"Poz sırası\" id=\"o1xr\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"3\" aria-pressed=\"false\">4</button><button type=\"button\" data-v=\"4\" aria-pressed=\"false\">5</button></div></div>",
+   "<div><div class=\"lbl\">Pose rank (by score)</div><div class=\"seg\" role=\"group\" aria-label=\"Pose rank\" id=\"o1xr\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"3\" aria-pressed=\"false\">4</button><button type=\"button\" data-v=\"4\" aria-pressed=\"false\">5</button></div></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Tohum: <b id=\"o1xsdv\">1</b> / 20</div><input type=\"range\" id=\"o1xsd\" min=\"1\" max=\"20\" step=\"1\" value=\"1\" aria-label=\"Tohum\"></div>",
+   "<div><div class=\"lbl\">Seed: <b id=\"o1xsdv\">1</b> / 20</div><input type=\"range\" id=\"o1xsd\" min=\"1\" max=\"20\" step=\"1\" value=\"1\" aria-label=\"Seed\"></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Kesit</div><div class=\"seg\" role=\"group\" aria-label=\"Kesit\" id=\"o1xvw\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Yandan: iki duvar</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Üstten: halka yüzü</button></div></div>",
+   "<div><div class=\"lbl\">Section</div><div class=\"seg\" role=\"group\" aria-label=\"Section\" id=\"o1xvw\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Side: two walls</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Top: face of the ring</button></div></div>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o1xsh\"> 3PTB yüzeyini gölge olarak göster</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o1xsh\"> Show the 3PTB surface as a shadow</label>"
+  ],
+  [
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o1xal\"> Grafikte bütün yapıları göster</label>",
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o1xal\"> Show all structures in the plot</label>"
+  ],
+  [
+   "<dt>Cep Cα RMSD'si, 3PTB'ye göre (Å)</dt><dd id=\"o1xca\"></dd>",
+   "<dt>Pocket Cα RMSD relative to 3PTB (Å)</dt><dd id=\"o1xca\"></dd>"
+  ],
+  [
+   "<dt>Hizalanan cep Cα sayısı / 3PTB cebindeki sayı</dt><dd id=\"o1xcn\"></dd>",
+   "<dt>Aligned pocket Cα count / count in the 3PTB pocket</dt><dd id=\"o1xcn\"></dd>"
+  ],
+  [
+   "<dt>Benzamidinin 6 Å çevresindeki ağır atomların RMSD'si (Å)</dt><dd id=\"o1xhv\"></dd>",
+   "<dt>RMSD of the heavy atoms within 6 Å of benzamidine (Å)</dt><dd id=\"o1xhv\"></dd>"
+  ],
+  [
+   "<dt>Kristal pozun Vina skoru: ham → yerel optimizasyon sonrası (kcal/mol)</dt><dd id=\"o1xcr\"></dd>",
+   "<dt>Vina score of the crystal pose: raw → after local optimization (kcal/mol)</dt><dd id=\"o1xcr\"></dd>"
+  ],
+  [
+   "<dt>Çizilen poz: skor · RMSD</dt><dd id=\"o1xps\"></dd>",
+   "<dt>Drawn pose: score · RMSD</dt><dd id=\"o1xps\"></dd>"
+  ],
+  [
+   "<dt>Yirmi tohumda ilk poz 2 Å'dan yakın</dt><dd id=\"o1xok\"></dd>",
+   "<dt>First pose closer than 2 Å in twenty seeds</dt><dd id=\"o1xok\"></dd>"
+  ],
+  [
+   "<dt>2 Å altındaki en iyi skorlu pozun sırası: medyan (aralık)</dt><dd id=\"o1xrk\"></dd>",
+   "<dt>Rank of the best-scoring pose under 2 Å: median (range)</dt><dd id=\"o1xrk\"></dd>"
+  ],
+  [
+   "<dt>O pozun ilk pozdan skor farkı: medyan (aralık, kcal/mol)</dt><dd id=\"o1xgp\"></dd>",
+   "<dt>Score gap of that pose from the first pose: median (range, kcal/mol)</dt><dd id=\"o1xgp\"></dd>"
+  ],
+  [
+   "<canvas id=\"o1xrun\" class=\"plot\" aria-label=\"Seçilen yapıda 20 tohumun bütün pozları: kristale RMSD'ye karşı Vina skoru\"></canvas>",
+   "<canvas id=\"o1xrun\" class=\"plot\" aria-label=\"All poses of the 20 seeds in the selected structure: Vina score against RMSD to the crystal\"></canvas>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Yapı</th><th>Cep Cα RMSD (Å)</th><th>İlk poz &lt; 2 Å</th><th>İlk poz RMSD, medyan (Å)</th><th>İlk poz skoru, medyan</th><th>Kristal poz skoru: ham → optimize</th></tr></thead><tbody id=\"o1xtab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Structure</th><th>Pocket Cα RMSD (Å)</th><th>First pose &lt; 2 Å</th><th>First pose RMSD, median (Å)</th><th>First pose score, median</th><th>Crystal pose score: raw → optimized</th></tr></thead><tbody id=\"o1xtab\"></tbody></table></div>"
+  ],
+  [
+   "<p class=\"small\">RMSD: 9 ağır atom, hizalamasız, simetri düzeltmeli, 3PTB kristal pozuna göre. Yirmi tohum aynı aramanın tekrarıdır; bağımsız kanıt sayısı yapı sayısıdır (beş), tohum sayısı değil. Kristal pozun \"ham\" skoru, 3PTB kristal benzamidininin bu yapının hizalanmış cebinde hiç oynatılmadan puanlanmasıdır; \"optimize\", Vina'nın yerel optimizasyonundan sonraki skordur. Reseptörler Meeko 0.8.0 varsayılanlarıyla (His HIE, Asp yüklü) hazırlandı; protokol koşulardan önce donduruldu (DKOCROSS).</p>",
+   "<p class=\"small\">RMSD: 9 heavy atoms, no alignment, symmetry-corrected, relative to the 3PTB crystal pose. The twenty seeds are repeats of the same search; the number of independent pieces of evidence is the number of structures (five), not the number of seeds. The \"raw\" score of the crystal pose is the scoring of the 3PTB crystal benzamidine in the aligned pocket of this structure without moving it at all; \"optimized\" is the score after the local optimization of Vina. The receptors were prepared with Meeko 0.8.0 defaults (His HIE, Asp charged); the protocol was frozen before the runs (DKOCROSS).</p>"
+  ],
+  [
+   "<article class=\"q\" id=\"o1c6\"><span class=\"k\">Açık</span><h3>Aynı anahtar, farklı kilit</h3><p>Üç olgun tripsin yapısını ve tripsinojeni gezin.</p><div class=\"mine\" id=\"mo1c6\">2PTN, 1TNH ya da 2PTC'yi, sonra 1TGN'yi seçin; başarı sayısı ve cep Cα RMSD'si nasıl değişiyor?</div></article>",
+   "<article class=\"q\" id=\"o1c6\"><span class=\"k\">Open</span><h3>The same key, a different lock</h3><p>Browse the three mature trypsin structures and trypsinogen.</p><div class=\"mine\" id=\"mo1c6\">Select 2PTN, 1TNH or 2PTC, then 1TGN; how do the success count and the pocket Cα RMSD change?</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"o1c7\"><span class=\"k\">Açık</span><h3>İlk poz yanlışsa doğru poz nerede?</h3><p>1TGN'de poz sırasını değiştirin.</p><div class=\"mine\" id=\"mo1c7\">1TGN'yi seçin ve poz sırasını 2'ye getirin; çizimdeki poz ve skor nasıl değişiyor?</div></article>",
+   "<article class=\"q\" id=\"o1c7\"><span class=\"k\">Open</span><h3>If the first pose is wrong, where is the right one?</h3><p>Change the pose rank for 1TGN.</p><div class=\"mine\" id=\"mo1c7\">Select 1TGN and set the pose rank to 2; how do the drawn pose and the score change?</div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Defter</span>",
+   "<span class=\"step\">3 · Ledger</span>"
+  ],
+  [
+   "<h2 id=\"o1h3\">Sonucu önceden gösteren bir ölçü var mı?</h2>",
+   "<h2 id=\"o1h3\">Is there a measure that shows the result in advance?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Çapraz docking'in sonucunu koşmadan öngörebilseydik, her yapı için docking yapmak gerekmezdi. Aşağıda beş yapının dört ölçüsü var; hepsi hizalamadan ve kristal pozun puanlanmasından gelir, docking sonucundan değil. Bir ölçü seçin ve bir eşik koyun: değer eşikten küçükse \"başarılı\", değilse \"başarısız\" deyin. Kural beş yapıdan kaçını doğru sınıflıyor? Başarılı, 20 tohumun hepsinde ilk pozu 2 Å'dan yakın olan yapıdır (beş yapıdan dördü başarılı, biri başarısız).</p></div>",
+   "<div class=\"prose\"><p>If we could predict the result of cross-docking without running it, we would not need to dock every structure. Below are four measures for the five structures; all of them come from the alignment and from scoring the crystal pose, not from the docking result. Choose a measure and set a threshold: if the value is smaller than the threshold, call the structure \"successful\", otherwise \"failed\". How many of the five structures does the rule classify correctly? Successful means a structure whose first pose is closer than 2 Å in all 20 seeds (four of the five structures are successful, one failed).</p></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Ölçü</div><div class=\"chips\" role=\"group\" aria-label=\"Ölçü\" id=\"o1dm\"><button type=\"button\" class=\"chip\" data-v=\"rca\" aria-pressed=\"true\">Cep Cα RMSD</button><button type=\"button\" class=\"chip\" data-v=\"rh\" aria-pressed=\"false\">6 Å çevresi ağır atom RMSD</button><button type=\"button\" class=\"chip\" data-v=\"cr\" aria-pressed=\"false\">Kristal poz skoru (ham)</button><button type=\"button\" class=\"chip\" data-v=\"gain\" aria-pressed=\"false\">Optimizasyon kazancı</button></div></div>",
+   "<div><div class=\"lbl\">Measure</div><div class=\"chips\" role=\"group\" aria-label=\"Measure\" id=\"o1dm\"><button type=\"button\" class=\"chip\" data-v=\"rca\" aria-pressed=\"true\">Pocket Cα RMSD</button><button type=\"button\" class=\"chip\" data-v=\"rh\" aria-pressed=\"false\">Heavy-atom RMSD within 6 Å</button><button type=\"button\" class=\"chip\" data-v=\"cr\" aria-pressed=\"false\">Crystal pose score (raw)</button><button type=\"button\" class=\"chip\" data-v=\"gain\" aria-pressed=\"false\">Optimization gain</button></div></div>"
+  ],
+  [
+   "<div><div class=\"lbl\">Eşik: <b id=\"o1dtv\"></b></div><input type=\"range\" id=\"o1dt\" min=\"0\" max=\"2.6\" step=\"0.01\" value=\"0\" aria-label=\"Eşik\"></div>",
+   "<div><div class=\"lbl\">Threshold: <b id=\"o1dtv\"></b></div><input type=\"range\" id=\"o1dt\" min=\"0\" max=\"2.6\" step=\"0.01\" value=\"0\" aria-label=\"Threshold\"></div>"
+  ],
+  [
+   "<dt>Kural</dt><dd>değer &lt; eşik ise başarılı</dd>",
+   "<dt>Rule</dt><dd>successful if value &lt; threshold</dd>"
+  ],
+  [
+   "<dt>Doğru sınıflanan yapı</dt><dd id=\"o1dok\"></dd>",
+   "<dt>Correctly classified structures</dt><dd id=\"o1dok\"></dd>"
+  ],
+  [
+   "<dt>Hepsini doğru sınıflayan eşikler</dt><dd id=\"o1dgap\"></dd>",
+   "<dt>Thresholds that classify all correctly</dt><dd id=\"o1dgap\"></dd>"
+  ],
+  [
+   "<canvas id=\"o1dstrip\" class=\"plot\" aria-label=\"Seçilen ölçüde beş yapının değerleri, eşik çizgisi ve beş yapıyı da doğru sınıflayan eşik aralığı\"></canvas>",
+   "<canvas id=\"o1dstrip\" class=\"plot\" aria-label=\"Values of the five structures for the selected measure, the threshold line and the threshold range that classifies all five structures correctly\"></canvas>"
+  ],
+  [
+   "<div class=\"tw\"><table><thead><tr><th>Yapı</th><th>Tezgâhtaki sonuç</th><th>Cep Cα RMSD (Å)</th><th>6 Å çevresi RMSD (Å)</th><th>Kristal poz skoru (ham)</th><th>Optimizasyon kazancı</th><th>Kuralınızın tahmini</th></tr></thead><tbody id=\"o1dtab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Structure</th><th>Result at the bench</th><th>Pocket Cα RMSD (Å)</th><th>RMSD within 6 Å (Å)</th><th>Crystal pose score (raw)</th><th>Optimization gain</th><th>Prediction of your rule</th></tr></thead><tbody id=\"o1dtab\"></tbody></table></div>"
+  ],
+  [
+   "<div class=\"prose\"><p>Dört ölçü de bu beş noktayı ayırabiliyor. Ama başarısız yalnız bir yapı olduğundan, eşiğin nerede durması gerektiği bu veriden çıkmaz: aralık geniştir ve içindeki her eşik aynı sonucu verir. Bu bir doğrulama değil, beş noktanın betimlemesidir. Başka bir ligand ya da başka bir protein için eşik taşınmaz. Bir ölçünün sonucu ayırması, o ölçünün sonucun nedeni olduğunu da göstermez.</p></div>",
+   "<div class=\"prose\"><p>All four measures can separate these five points. But because only one structure failed, the data do not determine where the threshold should stand: the range is wide and every threshold inside it gives the same result. This is not a validation but a description of five points. A threshold does not transfer to another ligand or another protein. That a measure separates the outcome also does not show that the measure is the cause of the outcome.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"o1c8\"><span class=\"k\">Açık</span><h3>Eşik nerede durmalı?</h3><p>Beş yapıyı da doğru sınıflayan bir eşik bulun.</p><div class=\"mine\" id=\"mo1c8\">Bir ölçü seçin ve eşiği kaydırarak \"5 / 5\"e ulaşın; sonra o aralığın ne kadar geniş olduğuna bakın.</div></article>",
+   "<article class=\"q\" id=\"o1c8\"><span class=\"k\">Open</span><h3>Where should the threshold stand?</h3><p>Find a threshold that classifies all five structures correctly.</p><div class=\"mine\" id=\"mo1c8\">Choose a measure and slide the threshold until you reach \"5 / 5\"; then look at how wide that range is.</div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to the protein</span>"
   ],
   [
    "<h2 id=\"o1h4\">Hazırlık günlüğü: ne sınandı, ne sınanmadı?</h2>",
@@ -210,28 +370,32 @@
    "<tr><td>Crystal ligand forgotten in the file</td><td>Redocking 0/180; the poses are about 10 Å away. The program gives no warning.</td></tr>"
   ],
   [
-   "<tr><td>Başka tripsin kristallerinde (ligandsız, başka ligandlı, tripsinojen)</td><td>Bu senaryo henüz hesaplanmadı; protokol donduruldu (DKOCROSS), yapı dosyaları gelince sonraki sürümde.</td></tr>",
-   "<tr><td>In other trypsin crystals (without ligand, with another ligand, trypsinogen)</td><td>This scenario has not been computed yet; the protocol is frozen (DKOCROSS), next version once the structure files arrive.</td></tr>"
+   "<tr><td>Başka tripsin kristallerinde (ligandsız, başka ligandlı, BPTI'li, tripsinojen)</td><td>2PTN, 1TNH ve 2PTC'de ilk poz 20 tohumun hepsinde doğru; tripsinojen 1TGN'de 20 tohumun hiçbirinde doğru değil (doğru poz 2. ya da 3. sırada, ilk pozdan skor farkı 0,14 ile 0,23 kcal/mol). Bir ligand, bir cep, dört ek yapı: genellenmez.</td></tr>",
+   "<tr><td>In other trypsin crystals (without ligand, with another ligand, with BPTI, trypsinogen)</td><td>In 2PTN, 1TNH and 2PTC the first pose is correct in all 20 seeds; in trypsinogen 1TGN it is correct in none of the 20 seeds (the right pose is at rank 2 or 3, with a score gap of 0.14 to 0.23 kcal/mol from the first pose). One ligand, one pocket, four additional structures: it does not generalize.</td></tr>"
+  ],
+  [
+   "<tr><td>Başka ligand ya da başka protein</td><td>Bu senaryo hesaplanmadı.</td></tr>",
+   "<tr><td>Another ligand or another protein</td><td>This scenario was not computed.</td></tr>"
   ],
   [
    "<tr><td>Elektrostatik terimi olan başka bir skor fonksiyonu</td><td>Bu senaryo hesaplanmadı.</td></tr>",
    "<tr><td>Another scoring function with an electrostatic term</td><td>This scenario was not computed.</td></tr>"
   ],
   [
-   "<span class=\"step\">3 · Kendinizi sınayın</span>",
-   "<span class=\"step\">3 · Test yourself</span>"
+   "<span class=\"step\">5 · Kendinizi sınayın</span>",
+   "<span class=\"step\">5 · Test yourself</span>"
   ],
   [
-   "<h2 id=\"o1h5\">Yedi soru</h2>",
-   "<h2 id=\"o1h5\">Seven questions</h2>"
+   "<h2 id=\"o1h5\">On soru</h2>",
+   "<h2 id=\"o1h5\">Ten questions</h2>"
   ],
   [
    "<p class=\"next\">Önceki adım: <a href=\"../dk-t/\">DK-T · Docking: bir pozu bulmak</a> (redocking, arama ve Vina skoru). Sıradaki: <a href=\"../dk-u/\">DK-U · Skor, afinite ve binlerce anahtar</a> (skor ile ölçülen bağlanma).</p>",
    "<p class=\"next\">Previous step: <a href=\"../dk-t/\">DK-T · Docking: finding a pose</a> (redocking, search and the Vina score). Next: <a href=\"../dk-u/\">DK-U · Score, affinity and thousands of keys</a> (score versus measured binding).</p>"
   ],
   [
-   "<p class=\"small\">Model ve veri: 3PTB (sığır beta-tripsini ve benzamidin, 1,70 Å; Marquart ve ark. 1983, Acta Crystallogr B 39:480). Koşular AutoDock Vina 1.2.7 ile bu projenin bulut makinesinde, 30 Eylül 2026'da çalıştırıldı (DKOPREP ve DKOPREP2, koşulardan önce dondurulmuş protokoller).</p>",
-   "<p class=\"small\">Model and data: 3PTB (bovine beta-trypsin and benzamidine, 1.70 Å; Marquart et al. 1983, Acta Crystallogr B 39:480). The runs were carried out with AutoDock Vina 1.2.7 on this project's cloud machine on 30 September 2026 (DKOPREP and DKOPREP2, protocols frozen before the runs).</p>"
+   "<p class=\"small\">Model ve veri: 3PTB (sığır beta-tripsini ve benzamidin, 1,70 Å; Marquart ve ark. 1983, Acta Crystallogr B 39:480). Çapraz docking yapıları: 2PTN (Walter ve ark. 1982, Acta Crystallogr B 38:1462), 1TNH (Kurinov ve Harrison 1994, Nat Struct Biol 1:735), 2PTC (Marquart ve ark. 1983, Acta Crystallogr B 39:480) ve 1TGN (Kossiakoff ve ark. 1977, Biochemistry 16:654); hepsi RCSB mmCIF dosyalarıdır. Koşular AutoDock Vina 1.2.7 ile bu projenin bulut makinesinde çalıştırıldı: DKOPREP ve DKOPREP2 30 Eylül 2026'da, DKOCROSS 1 Ekim 2026'da (koşulardan önce dondurulmuş protokoller).</p>",
+   "<p class=\"small\">Model and data: 3PTB (bovine beta-trypsin and benzamidine, 1.70 Å; Marquart et al. 1983, Acta Crystallogr B 39:480). Cross-docking structures: 2PTN (Walter et al. 1982, Acta Crystallogr B 38:1462), 1TNH (Kurinov and Harrison 1994, Nat Struct Biol 1:735), 2PTC (Marquart et al. 1983, Acta Crystallogr B 39:480) and 1TGN (Kossiakoff et al. 1977, Biochemistry 16:654); all are RCSB mmCIF files. The runs were carried out with AutoDock Vina 1.2.7 on the cloud machine of this project: DKOPREP and DKOPREP2 on 30 September 2026, DKOCROSS on 1 October 2026 (protocols frozen before the runs).</p>"
   ],
   [
    "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
@@ -242,8 +406,8 @@
    "function pc(v,d){ return fx(v,d)+'%'; }"
   ],
   [
-   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('o1progN').textContent=Object.keys(FOUND).length+' / 5'; }",
-   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('o1progN').textContent=Object.keys(FOUND).length+' / 5'; }"
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('o1progN').textContent=Object.keys(FOUND).length+' / 8'; }",
+   "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('o1progN').textContent=Object.keys(FOUND).length+' / 8'; }"
   ],
   [
    "var NFI=new Intl.NumberFormat('tr-TR');",
@@ -358,8 +522,20 @@
    "{s:'With His57 written as HID, the crystal pose score stayed the same but the docking poses changed. Why?',o:[['Because the random numbers changed',0],['In the crystal pose the His57 nitrogens are not at hydrogen bond distance, but other poses the search tries may be close to them',1],['Because His57 is outside the box',0],['Vina deleted His57',0]],w:'The seeds were the same. The nitrogens whose type changed do not enter the terms of the crystal pose; they enter the energy surface the search travels over.'},"
   ],
   [
-   "{s:'Deneysel köprüde redocking\\'in tahlildeki karşılığı nedir?',o:[['Gerçek numunede spike-recovery',0],['Saf tamponda hazırlanmış standartla sınama',1],['Negatif kontrol',0],['Teknik tekrar',0]],w:'Redocking reseptörün kendi kristalinde, bizim hazırlığımızla yapılır; tampondaki standarda benzer. Gerçek matrikse karşılık gelen, başka bir yapıyla yapılan çapraz docking\\'dir.'}];",
-   "{s:'In the experimental bridge, what is the assay equivalent of redocking?',o:[['Spike-recovery in a real sample',0],['Testing with a standard prepared in pure buffer',1],['A negative control',0],['A technical replicate',0]],w:'Redocking is done in the receptor\\'s own crystal with our own preparation; it resembles the standard in buffer. What corresponds to the real matrix is cross-docking with another structure.'}];"
+   "{s:'Deneysel köprüde redocking\\'in tahlildeki karşılığı nedir?',o:[['Gerçek numunede spike-recovery',0],['Saf tamponda hazırlanmış standartla sınama',1],['Negatif kontrol',0],['Teknik tekrar',0]],w:'Redocking reseptörün kendi kristalinde, bizim hazırlığımızla yapılır; tampondaki standarda benzer. Gerçek matrikse karşılık gelen, başka bir yapıyla yapılan çapraz docking\\'dir.'},",
+   "{s:'In the experimental bridge, what is the assay equivalent of redocking?',o:[['Spike-recovery in a real sample',0],['Testing with a standard prepared in pure buffer',1],['Negative control',0],['Technical replicate',0]],w:'Redocking is done on the receptor in its own crystal, with our preparation; it resembles the standard in buffer. The counterpart of the real matrix is cross-docking with another structure.'},"
+  ],
+  [
+   "{s:'1TGN yapısında 20 tohumun hepsinde 2 Å altında bir poz üretildi, ama ilk poz yanlıştı. Bu hangi sorunu gösterir?',o:[['Arama sorunu: Vina doğru pozu hiç bulamadı',0],['Sıralama sorunu: doğru poz bulundu ama skor onu birinci yapmadı',1],['Hazırlık hatası: reseptör dosyasında ligand kalmış',0],['Tohum sorunu: başka bir tohum çözerdi',0]],w:'Doğru poz her tohumda 2. ya da 3. sıradaydı ve ilk pozdan yalnız 0,14 ile 0,23 kcal/mol daha zayıftı. Aramanın yetmediği bir durum değil, skor fonksiyonunun iki pozu ayıramadığı bir durum; yirmi tohumun hepsi aynı sonucu verdi.'},",
+   "{s:'In 1TGN a pose under 2 Å was produced in all 20 seeds, but the first pose was wrong. Which problem does this show?',o:[['Search problem: Vina never found the right pose',0],['Ranking problem: the right pose was found but the score did not make it first',1],['Preparation error: a ligand was left in the receptor file',0],['Seed problem: another seed would have solved it',0]],w:'The right pose was at rank 2 or 3 in every seed and was only 0.14 to 0.23 kcal/mol weaker than the first pose. This is not a case where the search fell short, but one where the scoring function could not separate two poses; all twenty seeds gave the same result.'},"
+  ],
+  [
+   "{s:'Cep Cα RMSD değeri 0,27 Å altındaki üç yapıda başarı 20/20, 2,44 Å olan 1TGN yapısında 0/20 oldu. Bu veri, doğru eşiğin 1 Å olduğunu gösterir mi?',o:[['Evet, 1 Å iki grubu ayırdığı için',0],['Hayır: 0,27 ile 2,44 Å arasında yapı yok; o aralıktaki her eşik beş yapıyı aynı doğrulukla ayırır, eşik bu veriyle belirlenemez',1],['Evet, çünkü RMSD her sistemde aynı eşiği verir',0],['Hayır, çünkü RMSD docking sonucuyla hiç ilgili değildir',0]],w:'Başarısız tek yapı olduğundan eşik aralığı çok geniştir. Defterdeki dört ölçünün hepsi bu beş noktayı ayırır; hangisinin gelecekteki bir yapıda ayıracağı bu veriden bilinmez.'},",
+   "{s:'In the three structures with a pocket Cα RMSD below 0.27 Å the success was 20/20, and in 1TGN with 2.44 Å it was 0/20. Does this data show that the right threshold is 1 Å?',o:[['Yes, because 1 Å separates the two groups',0],['No: there is no structure between 0.27 and 2.44 Å; every threshold in that range separates the five structures equally well, so the threshold cannot be determined from this data',1],['Yes, because RMSD gives the same threshold in every system',0],['No, because RMSD has nothing to do with the docking result',0]],w:'Because only one structure failed, the threshold range is very wide. All four measures in the ledger separate these five points; which of them would separate a future structure cannot be known from this data.'},"
+  ],
+  [
+   "{s:'Yirmi tohumun hepsi aynı sonucu verdi. Bu, sonucun her yapı için 20 kez doğrulandığı anlamına gelir mi?',o:[['Evet, 20 bağımsız deney yapıldı',0],['Hayır: tohumlar aynı aramanın tekrarıdır; bağımsız kanıt yapı sayısıdır (beş yapı, bir ligand, bir cep)',1],['Evet, tohum sayısı arttıkça sonuç kesinleşir',0],['Hayır, çünkü tohumlar rastgele değildir',0]],w:'Tohum, aramanın rastgele başlangıcını değiştirir; kilit, ligand ve skor fonksiyonu aynıdır. Tohumlar arası küçük yayılım aramanın kararlı olduğunu gösterir, sonucun başka yapılara taşınacağını göstermez.'}];",
+   "{s:'All twenty seeds gave the same result. Does this mean the result was confirmed 20 times for each structure?',o:[['Yes, 20 independent experiments were done',0],['No: the seeds are repeats of the same search; the independent evidence is the number of structures (five structures, one ligand, one pocket)',1],['Yes, the result becomes certain as the number of seeds grows',0],['No, because the seeds are not random',0]],w:'A seed changes the random start of the search; the lock, the ligand and the scoring function are the same. The small spread between seeds shows that the search is stable, not that the result will transfer to other structures.'}];"
   ],
   [
    "b.classList.add(okk?'right':'wrong'); var w=$('o1why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
@@ -370,8 +546,64 @@
    "$('o1score').textContent='Answered: '+n+' / '+QZ.length+' · correct at first try: '+r; }); }); }"
   ],
   [
-   "['o1c1','o1c2','o1c3','o1c4','o1c5'].forEach(function(id){ var e=$(id); if(e) e.querySelector('.k').textContent='Açık'; });",
-   "['o1c1','o1c2','o1c3','o1c4','o1c5'].forEach(function(id){ var e=$(id); if(e) e.querySelector('.k').textContent='Open'; });"
+   "['o1c1','o1c2','o1c3','o1c4','o1c5','o1c6','o1c7','o1c8'].forEach(function(id){ var e=$(id); if(e) e.querySelector('.k').textContent='Açık'; });",
+   "['o1c1','o1c2','o1c3','o1c4','o1c5','o1c6','o1c7','o1c8'].forEach(function(id){ var e=$(id); if(e) e.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "if(offp){ var px=P.reduce(function(s,p){ return s+p[0]; },0)/P.length, py=P.reduce(function(s,p){ return s+p[1]; },0)/P.length; g.font='600 11px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='center'; g.fillText('poz: düzlemin '+fx(Math.abs(hc),1)+' Å '+(hc>0?'önünde':'arkasında'),px,py+2.2*sc); g.textAlign='left'; }",
+   "if(offp){ var px=P.reduce(function(s,p){ return s+p[0]; },0)/P.length, py=P.reduce(function(s,p){ return s+p[1]; },0)/P.length; g.font='600 11px '+css('--sans'); g.fillStyle=css('--ink'); g.textAlign='center'; g.fillText('pose: '+fx(Math.abs(hc),1)+' Å '+(hc>0?'in front of':'behind')+' the plane',px,py+2.2*sc); g.textAlign='left'; }"
+  ],
+  [
+   "g.fillStyle=css('--ink'); g.font='600 12px '+css('--sans'); g.fillText(code+' · tohum '+(XT.seed+1)+' · poz sırası '+(XT.rank+1),10,15);",
+   "g.fillStyle=css('--ink'); g.font='600 12px '+css('--sans'); g.fillText(code+' · seed '+(XT.seed+1)+' · pose rank '+(XT.rank+1),10,15);"
+  ],
+  [
+   "g.fillStyle=css('--muted'); g.font='11px '+css('--sans'); g.fillText(W<420?'altın: 3PTB kristali · koyu: docking':'altın: 3PTB kristal benzamidini · koyu: seçilen poz'+(XT.shadow&&code!=='3PTB'?' · mavi gölge: 3PTB yüzeyi':''),10,H-7); }",
+   "g.fillStyle=css('--muted'); g.font='11px '+css('--sans'); g.fillText(W<420?'gold: 3PTB crystal · dark: docking':'gold: 3PTB crystal benzamidine · dark: selected pose'+(XT.shadow&&code!=='3PTB'?' · blue shadow: 3PTB surface':''),10,H-7); }"
+  ],
+  [
+   "g.textAlign='center'; [0,2,4,8,12].forEach(function(v){ g.fillText(v+' Å',X(v),H-B+14); }); g.fillText(W<420?'RMSD; dikey: skor':'pozun 3PTB kristal pozuna olan RMSD değeri; dikey: Vina skoru (kcal/mol)',L+(W-L-R)/2,H-3);",
+   "g.textAlign='center'; [0,2,4,8,12].forEach(function(v){ g.fillText(v+' Å',X(v),H-B+14); }); g.fillText(W<420?'RMSD; dikey: skor':'RMSD of the pose to the 3PTB crystal pose; vertical: Vina score (kcal/mol)',L+(W-L-R)/2,H-3);"
+  ],
+  [
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='10.5px '+css('--sans'); g.fillText(W<420?'yeşil/kırmızı: ilk poz · halka: çizilen':'yeşil: ilk poz doğru · kırmızı: ilk poz yanlış · mavi: öteki pozlar · halka: çizilen poz'+(XT.all?' · gri: öteki yapıların ilk pozları':''),L,12); }",
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='10.5px '+css('--sans'); g.fillText(W<420?'green/red: first pose · ring: drawn':'green: first pose correct · red: first pose wrong · blue: other poses · ring: drawn pose'+(XT.all?' · grey: first poses of the other structures':''),L,12); }"
+  ],
+  [
+   "$('o1xhv').textContent=fx(d.rh,3)+(d.miss?' ('+d.miss+' atom eksik)':'');",
+   "$('o1xhv').textContent=fx(d.rh,3)+(d.miss?' ('+d.miss+' atoms missing)':'');"
+  ],
+  [
+   "card('o1c6',true,'Cep Cα RMSD değeri 0,27 Å ve altında olan üç yapıda (2PTN, 1TNH, 2PTC) ilk poz, 20 tohumun hepsinde 2 Å sınırının içindeydi (RMSD medyanları '+fx(a.medR,2)+', '+fx(b.medR,2)+' ve '+fx(cc.medR,2)+' Å). Tripsinojen 1TGN yapısında cep Cα RMSD değeri '+fx(XD['1TGN'].rca,2)+' Å ve 20 tohumun '+t.ok+' tanesinde ilk poz doğruydu (RMSD medyanı '+fx(t.medR,2)+' Å). Ligand, kutu, hazırlık hattı ve arama aynıydı; değişen yalnız kilitti. Redocking tampondaki standarttı, bu ise gerçek numune.'); }",
+   "card('o1c6',true,'With the three structures whose pocket Cα RMSD is 0.27 Å or lower (2PTN, 1TNH, 2PTC), the first pose was within the 2 Å limit in all 20 seeds (RMSD medians '+fx(a.medR,2)+', '+fx(b.medR,2)+' and '+fx(cc.medR,2)+' Å). In trypsinogen 1TGN the pocket Cα RMSD is '+fx(XD['1TGN'].rca,2)+' Å and the first pose was correct in '+t.ok+' of 20 seeds (RMSD median '+fx(t.medR,2)+' Å). The ligand, box, preparation pipeline and search were the same; only the lock changed. Redocking was the standard in buffer; this is the real sample.'); }"
+  ],
+  [
+   "card('o1c7',true,'1TGN yapısında doğru poz her tohumda üretildi ama ilk sırada değildi: 2 Å altındaki en iyi skorlu pozun sırası medyan '+fx(med(t2.rk),0)+' ('+Math.min.apply(null,t2.rk)+' ile '+Math.max.apply(null,t2.rk)+' arası), ilk pozdan skor farkı medyan '+fx(med(t2.gp),3)+' kcal/mol ('+fx(Math.min.apply(null,t2.gp),3)+' ile '+fx(Math.max.apply(null,t2.gp),3)+' arası). Bu çok küçük bir fark. Sorun aramada değil sıralamada: doğru poz bulundu, ama skor onu birinci seçmedi. Yalnız ilk pozu alan bir iş akışı bunu görmez.'); }",
+   "card('o1c7',true,'In 1TGN the correct pose was produced in every seed but was not first: the rank of the best-scoring pose under 2 Å is median '+fx(med(t2.rk),0)+' (range '+Math.min.apply(null,t2.rk)+' to '+Math.max.apply(null,t2.rk)+'), the score gap from the first pose is median '+fx(med(t2.gp),3)+' kcal/mol (range '+fx(Math.min.apply(null,t2.gp),3)+' to '+fx(Math.max.apply(null,t2.gp),3)+'). This is a very small difference. The problem is not in the search but in the ranking: the correct pose was found, but the score did not choose it as first. A workflow that takes only the first pose does not see this.'); }"
+  ],
+  [
+   "if(gp.has){ g.fillStyle=str(rgb(css('--good')),0.16); g.fillRect(X(gp.lo),T,X(gp.hi)-X(gp.lo),H-T-B); g.fillStyle=css('--good'); g.font='600 11px '+css('--sans'); g.textAlign='center'; g.fillText(W<420?'hepsi doğru':'beş yapıyı da doğru sınıflayan eşikler',(X(gp.lo)+X(gp.hi))/2,T-8); }",
+   "if(gp.has){ g.fillStyle=str(rgb(css('--good')),0.16); g.fillRect(X(gp.lo),T,X(gp.hi)-X(gp.lo),H-T-B); g.fillStyle=css('--good'); g.font='600 11px '+css('--sans'); g.textAlign='center'; g.fillText(W<420?'all correct':'thresholds that classify all five structures correctly',(X(gp.lo)+X(gp.hi))/2,T-8); }"
+  ],
+  [
+   "g.fillStyle=css('--accent'); g.font='600 11px '+css('--sans'); g.textAlign=X(DT.t)>W-90?'right':'left'; g.fillText('eşik '+fx(DT.t,M.d),X(DT.t)+(X(DT.t)>W-90?-6:6),H-B-6); g.textAlign='left';",
+   "g.fillStyle=css('--accent'); g.font='600 11px '+css('--sans'); g.textAlign=X(DT.t)>W-90?'right':'left'; g.fillText('threshold '+fx(DT.t,M.d),X(DT.t)+(X(DT.t)>W-90?-6:6),H-B-6); g.textAlign='left';"
+  ],
+  [
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='10.5px '+css('--sans'); g.fillText(W<420?'yeşil: başarılı · kırmızı: başarısız · halka: yanlış':'yeşil: başarılı yapı · kırmızı: başarısız yapı · siyah halka: kuralınızın yanlış sınıfladığı yapı',L,H-6); }",
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='10.5px '+css('--sans'); g.fillText(W<420?'green: successful · red: failed · ring: wrong':'green: successful structure · red: failed structure · black ring: misclassified by your rule',L,H-6); }"
+  ],
+  [
+   "return '<tr><td>'+k+'</td><td>'+(s?'başarılı':'başarısız')+' ('+st.ok+' / '+st.n+')</td><td class=\"n\">'+fx(q.rca,2)+'</td><td class=\"n\">'+fx(q.rh,2)+'</td><td class=\"n\">'+fx(q.cr,2)+'</td><td class=\"n\">'+fx(q.cr-q.co,2)+'</td><td>'+(pred?'başarılı':'başarısız')+(okk?' ✓':' ✗')+'</td></tr>'; });",
+   "return '<tr><td>'+k+'</td><td>'+(s?'successful':'failed')+' ('+st.ok+' / '+st.n+')</td><td class=\"n\">'+fx(q.rca,2)+'</td><td class=\"n\">'+fx(q.rh,2)+'</td><td class=\"n\">'+fx(q.cr,2)+'</td><td class=\"n\">'+fx(q.cr-q.co,2)+'</td><td>'+(pred?'successful':'failed')+(okk?' ✓':' ✗')+'</td></tr>'; });"
+  ],
+  [
+   "$('o1dgap').textContent=gp.has?fx(gp.lo,M.d)+' ile '+fx(gp.hi,M.d)+' arası (genişlik '+fx(gp.hi-gp.lo,M.d)+')':'yok';",
+   "$('o1dgap').textContent=gp.has?fx(gp.lo,M.d)+' to '+fx(gp.hi,M.d)+' (width '+fx(gp.hi-gp.lo,M.d)+')':'none';"
+  ],
+  [
+   "card('o1c8',true,'Beş yapının hepsi doğru sınıflandı. Seçtiğiniz ölçüde bunu sağlayan eşikler '+fx(gp.lo,M.d)+' ile '+fx(gp.hi,M.d)+' arasında, yani aralığın genişliği '+fx(gp.hi-gp.lo,M.d)+'. '+(all?'Dört ölçünün hepsinde böyle bir aralık var. ':'')+'Başarısız yalnız bir yapı olduğundan eşiğin aralıkta nerede durması gerektiğini bu veri söylemez. Bu bir doğrulama değil, beş noktanın betimlemesidir; başka bir ligand ya da protein için eşik taşınmaz.'); }",
+   "card('o1c8',true,'All five structures were classified correctly. With your selected measure, the thresholds that achieve this lie between '+fx(gp.lo,M.d)+' and '+fx(gp.hi,M.d)+', so the width of the range is '+fx(gp.hi-gp.lo,M.d)+'. '+(all?'All four measures have such a range. ':'')+'Because only one structure failed, the data do not say where in the range the threshold should stand. This is not a validation but a description of five points; a threshold does not transfer to another ligand or protein.'); }"
   ]
  ],
  "keep": [
