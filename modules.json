@@ -526,6 +526,49 @@
       },
       "path": "md/md-ens/",
       "source": "sources/MD-ENS.html"
+    },
+    {
+      "id": "MD-CON",
+      "app": "md",
+      "level": "temel",
+      "title": "Soruyu bozmadan simülasyon kontrolü: termostat ve barostat neyi sabit tutar, neyi bozar?",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH05",
+      "goals": [
+        "Anlık sıcaklık kuramdaki gibi dalgalanıyor mu? Dört termostat, iki bağlanma süresi",
+        "Termostat hareketi de değiştiriyor mu? Su difüzyonu, ψ geçişleri, Ramachandran",
+        "Barostat hacmi nasıl dalgalandırır? Gerçek kutunun nefes alması",
+        "Neden üretim koşusunda Berendsen kullanılmaz? Dalgalanmadan hesaplanan büyüklükler",
+        "Kendi koşunuz için neden kaydı: ne denetlediniz, neyi denetlemediniz?"
+      ],
+      "data": [
+        "GROMACS 2023.3, yeni ızgara (KONTROLGRID, 1-2 Ekim 2026): alanin dipeptidi, 1546 atomluk TIP3P kutusu; 8 NVT termostat koşusu × 4 ns ve 6 NPT barostat koşusu × 2 ns, tek tohum; koşu ve analiz planı sonuçlardan önce SHA-256 ile donduruldu",
+        "3B kareler bu koşulardan 1000-1080 ps arasında 1 ps aralıkla; sonuçlar bağımsız bir betikle yeniden hesaplanıp denetlendi",
+        "Başlangıç yapısı: mdshare ALA2 (CC BY 4.0)",
+        "Termostat oyuncağı (periyodik zincir) ve sıcaklık sıçraması tarayıcıda hesaplanır"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Controlling the simulation without spoiling the question: what do thermostats and barostats hold constant, and what do they distort?",
+        "book": "CH05",
+        "goals": [
+          "Does the instantaneous temperature fluctuate as theory predicts? Four thermostats, two coupling times",
+          "Does the thermostat also change the motion? Water diffusion, ψ transitions, Ramachandran",
+          "How does a barostat make the volume fluctuate? The real box breathing",
+          "Why is Berendsen not used in production runs? Quantities computed from fluctuations",
+          "A reasons record for your own run: what did you check, and what did you not check?"
+        ],
+        "data": [
+          "GROMACS 2023.3, new grid (KONTROLGRID, 1-2 October 2026): alanine dipeptide, 1546-atom TIP3P box; 8 NVT thermostat runs × 4 ns and 6 NPT barostat runs × 2 ns, single seed; run and analysis plan frozen with SHA-256 before the results",
+          "3D frames from these runs between 1000 and 1080 ps at 1 ps intervals; results recomputed and audited with an independent script",
+          "Starting structure: mdshare ALA2 (CC BY 4.0)",
+          "The thermostat toy (periodic chain) and the temperature jump are computed in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-con/",
+      "source": "sources/MD-CON.html"
     }
   ]
 }
