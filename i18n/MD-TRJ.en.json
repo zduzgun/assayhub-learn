@@ -1,0 +1,637 @@
+{
+ "module": "MD-TRJ",
+ "lang": "en",
+ "source_sha256": "6a6cb6bc3d2762af458e96791a99a69b4ab1cc43f3086e5d9df528d290f2ef32",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-TRJ 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Trajektoriyi analize hazırlamak</title>",
+   "<title>MD: Preparing a trajectory for analysis</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"tproto\">Bu modül yeni simülasyon koşturmaz. İki gerçek ham trajektoriyi yeniden işler: MD-REP'in su içindeki alanin dipeptidi koşusu (REPGRID W1, 2 ns) ve MD-O'nun ubikitin koşusu (RMSF2NS, 2 ns). Analiz planı hesaplardan önce yazılıp SHA-256 ile donduruldu; işlem zincirleri GROMACS 2023.3 ile, ölçütler MDAnalysis ile hesaplandı ve GROMACS araçlarıyla bağımsız olarak denetlendi. Mikroskopi köprüsü tarayıcınızda hesaplanan bir öğretim modelidir, gerçek ölçüm değildir. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye yazılır.</div>",
+   "<div class=\"proto\" id=\"tproto\">This module runs no new simulation. It reprocesses two real raw trajectories: the MD-REP run of alanine dipeptide in water (REPGRID W1, 2 ns) and the MD-O ubiquitin run (RMSF2NS, 2 ns). The analysis plan was written before any computation and frozen with SHA-256; the processing chains were run with GROMACS 2023.3, the measures were computed with MDAnalysis and checked independently with GROMACS tools. The microscopy bridge is a teaching model computed in your browser, not a real measurement. Everything that was not computed is marked \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-TRJ · Trajektoriyi analize hazırlamak</span>",
+   "<span class=\"eyebrow\">MD-TRJ · Preparing a trajectory for analysis</span>"
+  ],
+  [
+   "<h1>Ham dosya ölçüme hazır değildir: PBC, seçim, hizalama ve birim</h1>",
+   "<h1>A raw file is not ready to measure: PBC, selection, fitting and units</h1>"
+  ],
+  [
+   "<p class=\"lead\">Simülasyon programının yazdığı kareler, molekülün gerçekte nasıl durduğunu her zaman göstermez. Periyodik kutuda molekül sınırda ikiye bölünür, bir yüzden çıkıp karşı yüzden girer; protein yer değiştirir ve döner; araçlar farklı birim ve varsayılanlarla çalışır. Ölçümden önce dört karar verilir ve yazılır: periyodik sınırlar nasıl çözülecek, hangi atomlar seçilecek, neye göre ve hangi grupla hizalanacak, sonuç hangi birimle raporlanacak. Bu sayfada aynı ham kareleri farklı zincirlerle işleyip sayıların nasıl değiştiğini kendiniz göreceksiniz.</p>",
+   "<p class=\"lead\">The frames a simulation program writes do not always show how the molecule really sits. In a periodic box a molecule is split in two at the boundary, leaves through one face and comes back through the opposite one; a protein moves and rotates; tools work with different units and defaults. Before measuring, four decisions are made and written down: how the periodic boundaries will be resolved, which atoms will be selected, what the structure will be fitted to and with which group, and in which unit the result will be reported. On this page you will process the same raw frames with different chains and see for yourself how the numbers change.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"tprogN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"tprogN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"th0\">Zaman atlamalı mikroskopide hücre izi: kayma ve kenar</h2>",
+   "<h2 id=\"th0\">A cell track in time-lapse microscopy: drift and the edge</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bir hücreyi 100 × 100 µm'lik görüş alanında 200 kare boyunca izlediğinizi düşünün. İki şey ölçümü bozar. Birincisi tabla kayması: bütün görüntü her karede biraz aynı yöne kayar ve hücrenin yer değiştirmesine eklenir. İkincisi kenar: hücre görüş alanının bir kenarından çıkınca, izleme programı onu karşı kenardan giren hücreyle birleştirirse iz bir karede tüm alan boyunca sıçrar. Aşağıdaki iz öğretim modelidir: değerler tarayıcınızda açık bir modelle (rastgele yürüyüş, sabit kayma ve sarmalı görüş alanı) üretilir. İki düzeltmeyi açıp kapatın; hız ve net yer değiştirme nasıl değişiyor?</p></div>",
+   "<div class=\"prose\"><p>Imagine following one cell for 200 frames in a 100 × 100 µm field of view. Two things spoil the measurement. The first is stage drift: the whole image shifts a little in the same direction every frame, and this adds to the cell's displacement. The second is the edge: when the cell leaves the field through one edge, a tracking program that joins it to the cell entering through the opposite edge makes the track jump across the whole field in one frame. The track below is a teaching model: the values are generated in your browser by an explicit model (random walk, constant drift and a wrapping field of view). Switch the two corrections on and off; how do the speed and the net displacement change?</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><label class=\"chk\"><input type=\"checkbox\" id=\"tbdrift\"> Kayma düzeltmesi (hizalamanın karşılığı)</label><label class=\"chk\"><input type=\"checkbox\" id=\"tbwrap\"> Kenar sıçramalarını birleştir (nojump'ın karşılığı)</label><button type=\"button\" class=\"btn\" id=\"tbnew\">Yeni iz üret</button></div>",
+   "<div class=\"selrow\"><label class=\"chk\"><input type=\"checkbox\" id=\"tbdrift\"> Drift correction (the counterpart of fitting)</label><label class=\"chk\"><input type=\"checkbox\" id=\"tbwrap\"> Join edge jumps (the counterpart of nojump)</label><button type=\"button\" class=\"btn\" id=\"tbnew\">Generate a new track</button></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"tbridge\" class=\"plot\" aria-label=\"Öğretim modeli: görüş alanında hücre izi; kayma ve kenar sıçramaları\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"tbridge\" class=\"plot\" aria-label=\"Teaching model: a cell track in the field of view; drift and edge jumps\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc0\"><span class=\"k\">Açık</span><h3>Hızı ve yolu şişiren iki şey</h3><p>İki düzeltmeyi ayrı ayrı açıp kapatın.</p><div class=\"mine\" id=\"mtc0\"></div></article>",
+   "<article class=\"q\" id=\"tc0\"><span class=\"k\">Open</span><h3>Two things that inflate speed and path</h3><p>Switch the two corrections on and off separately.</p><div class=\"mine\" id=\"mtc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: periyodik sınırlar</span>",
+   "<span class=\"step\">1 · Workshop: periodic boundaries</span>"
+  ],
+  [
+   "<h2 id=\"th1\">Su içinde alanin dipeptidi: aynı kareler, beş işlem zinciri</h2>",
+   "<h2 id=\"th1\">Alanine dipeptide in water: the same frames, five processing chains</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>REPGRID W1 koşusu on iki yüzlü bir kutuda 1520 su molekülü ve 22 atomluk peptit içerir; 2001 kare, 1 ps aralıkla. Peptidin kendisi yaklaşık 10 Å boyundadır. Aşağıda peptidi beş biçimde görebilirsiniz: <b>ham</b> (mdrun'ın yazdığı gibi), <b>bütün</b> (<code>-pbc mol</code>), <b>sıçramasız</b> (<code>-pbc mol</code> ardından <code>-pbc nojump</code>), <b>ortalanmış</b> (<code>-pbc mol -center</code>) ve <b>hizalanmış</b> (sıçramasız ardından <code>-fit rot+trans</code>). Çizgi kutunun birim hücresidir. Grafikte dört ölçütten birini seçin; her zincirin eğrisi aynı ham karelerden gelir.</p></div>",
+   "<div class=\"prose\"><p>The REPGRID W1 run contains 1520 water molecules and a 22-atom peptide in a rhombic dodecahedron box; 2001 frames, 1 ps apart. The peptide itself is about 10 Å long. Below you can view the peptide in five forms: <b>raw</b> (as mdrun wrote it), <b>whole</b> (<code>-pbc mol</code>), <b>no jumps</b> (<code>-pbc mol</code> followed by <code>-pbc nojump</code>), <b>centered</b> (<code>-pbc mol -center</code>) and <b>fitted</b> (no jumps followed by <code>-fit rot+trans</code>). The lines are the unit cell of the box. Choose one of four measures in the plot; every chain's curve comes from the same raw frames.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Zincir:</span><div class=\"seg\" role=\"group\" aria-label=\"İşlem zinciri\" id=\"tpch\"><button type=\"button\" data-v=\"A0\" aria-pressed=\"true\">ham</button><button type=\"button\" data-v=\"A1\" aria-pressed=\"false\">bütün</button><button type=\"button\" data-v=\"A2\" aria-pressed=\"false\">sıçramasız</button><button type=\"button\" data-v=\"A3\" aria-pressed=\"false\">ortalanmış</button><button type=\"button\" data-v=\"A4\" aria-pressed=\"false\">hizalanmış</button></div></div>",
+   "<div class=\"selrow\"><span>Chain:</span><div class=\"seg\" role=\"group\" aria-label=\"Processing chain\" id=\"tpch\"><button type=\"button\" data-v=\"A0\" aria-pressed=\"true\">raw</button><button type=\"button\" data-v=\"A1\" aria-pressed=\"false\">whole</button><button type=\"button\" data-v=\"A2\" aria-pressed=\"false\">no jumps</button><button type=\"button\" data-v=\"A3\" aria-pressed=\"false\">centered</button><button type=\"button\" data-v=\"A4\" aria-pressed=\"false\">fitted</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Görünüm:</span><div class=\"seg\" role=\"group\" aria-label=\"Görünüm\" id=\"tpview\"><button type=\"button\" data-v=\"box\" aria-pressed=\"true\">bütün kutu</button><button type=\"button\" data-v=\"mol\" aria-pressed=\"false\">moleküle yakın</button></div></div>",
+   "<div class=\"selrow\"><span>View:</span><div class=\"seg\" role=\"group\" aria-label=\"View\" id=\"tpview\"><button type=\"button\" data-v=\"box\" aria-pressed=\"true\">whole box</button><button type=\"button\" data-v=\"mol\" aria-pressed=\"false\">close to the molecule</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"tpep\" aria-label=\"Peptidin 3B görünümü ve kutunun birim hücresi\"></canvas></div><dl class=\"read\" id=\"tpread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"tpep\" aria-label=\"3D view of the peptide and the unit cell of the box\"></canvas></div><dl class=\"read\" id=\"tpread\"></dl></div>"
+  ],
+  [
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn primary\" id=\"tpplay\">Oynat</button><label for=\"tpt\">Zaman: <b id=\"tptv\">0</b> ps</label><input type=\"range\" id=\"tpt\" min=\"0\" max=\"500\" step=\"1\" value=\"0\"></div>",
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn primary\" id=\"tpplay\">Play</button><label for=\"tpt\">Time: <b id=\"tptv\">0</b> ps</label><input type=\"range\" id=\"tpt\" min=\"0\" max=\"500\" step=\"1\" value=\"0\"></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Ölçüt\" id=\"tpm\"><button type=\"button\" data-v=\"ext\" aria-pressed=\"true\">en büyük uzanım</button><button type=\"button\" data-v=\"ee\" aria-pressed=\"false\">uç uca uzaklık</button><button type=\"button\" data-v=\"com\" aria-pressed=\"false\">kütle merkezi yer değiştirmesi</button><button type=\"button\" data-v=\"rmsd\" aria-pressed=\"false\">ağır atom RMSD</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Measure\" id=\"tpm\"><button type=\"button\" data-v=\"ext\" aria-pressed=\"true\">largest extent</button><button type=\"button\" data-v=\"ee\" aria-pressed=\"false\">end-to-end distance</button><button type=\"button\" data-v=\"com\" aria-pressed=\"false\">center-of-mass displacement</button><button type=\"button\" data-v=\"rmsd\" aria-pressed=\"false\">heavy-atom RMSD</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"tser\" class=\"plot\" aria-label=\"Seçilen ölçütün zamanla değişimi, beş zincir\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"tser\" class=\"plot\" aria-label=\"Change of the selected measure over time, five chains\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Kutunun üç gösterimi</h3>",
+   "<h3 class=\"sub\">Three representations of the box</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Aynı kare (1000 ps), su oksijenleri ve peptit, <code>-pbc mol</code> ile üç farklı <code>-ur</code> seçeneğiyle yazıldı. Moleküller aynıdır; yalnız hangi periyodik kopyanın gösterildiği değişir. Görünüm yukarıdan (x, y düzlemi).</p></div>",
+   "<div class=\"prose\"><p>The same frame (1000 ps), water oxygens and the peptide, was written with <code>-pbc mol</code> and three different <code>-ur</code> options. The molecules are the same; only which periodic copy is shown changes. View from above (x, y plane).</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><div class=\"seg\" role=\"group\" aria-label=\"Kutu gösterimi\" id=\"tur\"><button type=\"button\" data-v=\"rect\" aria-pressed=\"true\">-ur rect (tuğla)</button><button type=\"button\" data-v=\"tric\" aria-pressed=\"false\">-ur tric</button><button type=\"button\" data-v=\"compact\" aria-pressed=\"false\">-ur compact</button></div></div>",
+   "<div class=\"selrow\"><div class=\"seg\" role=\"group\" aria-label=\"Box representation\" id=\"tur\"><button type=\"button\" data-v=\"rect\" aria-pressed=\"true\">-ur rect (brick)</button><button type=\"button\" data-v=\"tric\" aria-pressed=\"false\">-ur tric</button><button type=\"button\" data-v=\"compact\" aria-pressed=\"false\">-ur compact</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"tboxv\" class=\"plot\" aria-label=\"Kutu gösterimi: su oksijenlerinin x, y izdüşümü\"></canvas></div><dl class=\"read\" id=\"tboxr\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"tboxv\" class=\"plot\" aria-label=\"Box representation: x, y projection of the water oxygens\"></canvas></div><dl class=\"read\" id=\"tboxr\"></dl></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc1\"><span class=\"k\">Açık</span><h3>Bölünmüş molekül</h3><p>Ham ve bütün zincirde en büyük uzanıma bakın.</p><div class=\"mine\" id=\"mtc1\"></div></article>",
+   "<article class=\"q\" id=\"tc1\"><span class=\"k\">Open</span><h3>A split molecule</h3><p>Look at the largest extent in the raw and whole chains.</p><div class=\"mine\" id=\"mtc1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc2\"><span class=\"k\">Açık</span><h3>Sıçrama mı, yol mu?</h3><p>Kütle merkezi yer değiştirmesini bütün, sıçramasız ve ortalanmış zincirlerde karşılaştırın.</p><div class=\"mine\" id=\"mtc2\"></div></article>",
+   "<article class=\"q\" id=\"tc2\"><span class=\"k\">Open</span><h3>Jump or path?</h3><p>Compare the center-of-mass displacement in the whole, no-jumps and centered chains.</p><div class=\"mine\" id=\"mtc2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc3\"><span class=\"k\">Açık</span><h3>Aynı kare, üç kutu</h3><p>Üç kutu gösterimine de bakın.</p><div class=\"mine\" id=\"mtc3\"></div></article>",
+   "<article class=\"q\" id=\"tc3\"><span class=\"k\">Open</span><h3>One frame, three boxes</h3><p>Look at all three box representations.</p><div class=\"mine\" id=\"mtc3\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye ve proteine dönüş: hizalama ve seçim</span>",
+   "<span class=\"step\">2 · Workshop and back to proteins: fitting and selection</span>"
+  ],
+  [
+   "<h2 id=\"th2\">Ubikitin: neye göre, hangi grupla hizalanır?</h2>",
+   "<h2 id=\"th2\">Ubiquitin: fitted to what, and with which group?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>MD-O'nun RMSF2NS koşusu 1UBQ ubikitinini (76 kalıntı, 1231 atom) suda 2 ns izler; dosyaya yalnız protein, 2 ps aralıkla yazıldı (1001 kare). Proteinin C-ucundaki 71 ile 76 arası kalıntılar esnek bir kuyruktur; kristal yapıda da 73 ile 76 düşük dolulukla kaydedilmiştir (MD-PDB). Aşağıda Cα zincirini üç biçimde görebilir, RMSD'yi farklı hizalama ve ölçüm gruplarıyla karşılaştırabilirsiniz. Kuyruk ayrı renkte çizilir.</p></div>",
+   "<div class=\"prose\"><p>The MD-O RMSF2NS run follows 1UBQ ubiquitin (76 residues, 1231 atoms) in water for 2 ns; only the protein was written to the file, every 2 ps (1001 frames). Residues 71 to 76 at the C terminus of the protein form a flexible tail; in the crystal structure, too, 73 to 76 were recorded with low occupancy (MD-PDB). Below you can view the Cα chain in three forms and compare the RMSD with different fitting and measurement groups. The tail is drawn in a separate color.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Zincir:</span><div class=\"seg\" role=\"group\" aria-label=\"Ubikitin işlem zinciri\" id=\"tuch\"><button type=\"button\" data-v=\"B0\" aria-pressed=\"true\">ham</button><button type=\"button\" data-v=\"B2\" aria-pressed=\"false\">bütün ve sıçramasız</button><button type=\"button\" data-v=\"B3\" aria-pressed=\"false\">çekirdekle hizalanmış</button></div></div>",
+   "<div class=\"selrow\"><span>Chain:</span><div class=\"seg\" role=\"group\" aria-label=\"Ubiquitin processing chain\" id=\"tuch\"><button type=\"button\" data-v=\"B0\" aria-pressed=\"true\">raw</button><button type=\"button\" data-v=\"B2\" aria-pressed=\"false\">whole and no jumps</button><button type=\"button\" data-v=\"B3\" aria-pressed=\"false\">fitted on the core</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"tubq\" aria-label=\"Ubikitin Cα zinciri 3B; kuyruk 71 ile 76 ayrı renkte\"></canvas></div><dl class=\"read\" id=\"turead\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"tubq\" aria-label=\"3D ubiquitin Cα chain; tail 71 to 76 in a separate color\"></canvas></div><dl class=\"read\" id=\"turead\"></dl></div>"
+  ],
+  [
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn primary\" id=\"tuplay\">Oynat</button><label for=\"tut\">Zaman: <b id=\"tutv\">0</b> ps</label><input type=\"range\" id=\"tut\" min=\"0\" max=\"100\" step=\"1\" value=\"0\"></div>",
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn primary\" id=\"tuplay\">Play</button><label for=\"tut\">Time: <b id=\"tutv\">0</b> ps</label><input type=\"range\" id=\"tut\" min=\"0\" max=\"100\" step=\"1\" value=\"0\"></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Eğriler:</span><div class=\"seg\" role=\"group\" aria-label=\"RMSD karşılaştırması\" id=\"tum\"><button type=\"button\" data-v=\"fit\" aria-pressed=\"true\">hizalama var mı?</button><button type=\"button\" data-v=\"grp\" aria-pressed=\"false\">hizalama grubu</button><button type=\"button\" data-v=\"sel\" aria-pressed=\"false\">ölçüm seçimi</button><button type=\"button\" data-v=\"ref\" aria-pressed=\"false\">referans</button></div></div>",
+   "<div class=\"selrow\"><span>Curves:</span><div class=\"seg\" role=\"group\" aria-label=\"RMSD comparison\" id=\"tum\"><button type=\"button\" data-v=\"fit\" aria-pressed=\"true\">fitted or not?</button><button type=\"button\" data-v=\"grp\" aria-pressed=\"false\">fitting group</button><button type=\"button\" data-v=\"sel\" aria-pressed=\"false\">measurement selection</button><button type=\"button\" data-v=\"ref\" aria-pressed=\"false\">reference</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"tuser\" class=\"plot\" aria-label=\"Ubikitin RMSD eğrileri\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"tuser\" class=\"plot\" aria-label=\"Ubiquitin RMSD curves\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"trot\" class=\"plot\" aria-label=\"Proteinin ilk kareye göre dönme açısı ve kütle merkezi yer değiştirmesi\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"trot\" class=\"plot\" aria-label=\"Rotation angle of the protein relative to the first frame and center-of-mass displacement\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc4\"><span class=\"k\">Açık</span><h3>Hizalama neyi çıkarır?</h3><p>\"Hizalama var mı?\" eğrilerine ve dönme grafiğine bakın.</p><div class=\"mine\" id=\"mtc4\"></div></article>",
+   "<article class=\"q\" id=\"tc4\"><span class=\"k\">Open</span><h3>What does fitting remove?</h3><p>Look at the \"fitted or not?\" curves and the rotation plot.</p><div class=\"mine\" id=\"mtc4\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc5\"><span class=\"k\">Açık</span><h3>Kuyruk hizalamayı bozar mı?</h3><p>\"Hizalama grubu\" eğrilerini açın.</p><div class=\"mine\" id=\"mtc5\"></div></article>",
+   "<article class=\"q\" id=\"tc5\"><span class=\"k\">Open</span><h3>Does the tail spoil the fit?</h3><p>Open the \"fitting group\" curves.</p><div class=\"mine\" id=\"mtc5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc6\"><span class=\"k\">Açık</span><h3>Seçim, referans ve birim</h3><p>\"Ölçüm seçimi\" ve \"referans\" eğrilerini açın.</p><div class=\"mine\" id=\"mtc6\"></div></article>",
+   "<article class=\"q\" id=\"tc6\"><span class=\"k\">Open</span><h3>Selection, reference and unit</h3><p>Open the \"measurement selection\" and \"reference\" curves.</p><div class=\"mine\" id=\"mtc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Tezgâh: işlem sırası</span>",
+   "<span class=\"step\">3 · Bench: processing order</span>"
+  ],
+  [
+   "<h2 id=\"th3\">Altı zincir: sonucu önce siz tahmin edin</h2>",
+   "<h2 id=\"th3\">Six chains: predict the result first</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Aşağıdaki altı komut zinciri bu sayfanın verisinde gerçekten çalıştırıldı. Her biri için sonucu tahmin edin; seçiminizden sonra gerçek çıktı görünür. Seçenekler: molekül bütün ve yol sürekli; molekül bütün ama kütle merkezi sıçrıyor; molekül bütün ama yer değiştirmesi siliniyor; bazı karelerde molekül hâlâ bölünmüş; araç hata verip duruyor.</p></div>",
+   "<div class=\"prose\"><p>The six command chains below were actually run on this page's data. Predict the result for each; after your choice the real output appears. Options: molecule whole and path continuous; molecule whole but the center of mass jumps; molecule whole but its displacement is erased; molecule still split in some frames; the tool fails and stops.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"tc7\"><span class=\"k\">Açık</span><h3>Sıra sonucu değiştirir</h3><p>En az dört zincir için tahmininizi verin.</p><div class=\"mine\" id=\"mtc7\"></div></article>",
+   "<article class=\"q\" id=\"tc7\"><span class=\"k\">Open</span><h3>Order changes the result</h3><p>Give your prediction for at least four chains.</p><div class=\"mine\" id=\"mtc7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Defter: işlem kaydı</span>",
+   "<span class=\"step\">4 · Notebook: processing record</span>"
+  ],
+  [
+   "<h2 id=\"th4\">Ölçümden önce yazılan beş satır</h2>",
+   "<h2 id=\"th4\">Five lines written before measuring</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bu kayıt, analizinizi okuyan birinin aynı sayıyı yeniden üretebilmesi içindir. Kendi çalışmanız için doldurun; örnekler bu sayfanın ubikitin analizinden alındı. Metin yalnız tarayıcınızda oluşturulur, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>This record lets someone who reads your analysis reproduce the same number. Fill it in for your own study; the examples come from this page's ubiquitin analysis. The text is created only in your browser; it is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>Girdi (dosyalar ve SHA-256; kare sayısı ve kayıt aralığı)<textarea id=\"tfin\" rows=\"2\">Örnek: prod.xtc (0929e74c…) ve prot.tpr (b43f0d23…); yalnız protein, 1001 kare, 2 ps.</textarea></label>",
+   "<label>Input (files and SHA-256; number of frames and recording interval)<textarea id=\"tfin\" rows=\"2\">Example: prod.xtc (0929e74c…) and prot.tpr (b43f0d23…); protein only, 1001 frames, 2 ps.</textarea></label>"
+  ],
+  [
+   "<label>PBC adımları (sırasıyla)<textarea id=\"tfpbc\" rows=\"2\">Örnek: gmx trjconv -pbc mol, ardından -pbc nojump; ilk kare referans.</textarea></label>",
+   "<label>PBC steps (in order)<textarea id=\"tfpbc\" rows=\"2\">Example: gmx trjconv -pbc mol, followed by -pbc nojump; first frame as reference.</textarea></label>"
+  ],
+  [
+   "<label>Hizalama (grup, referans, ağırlık)<textarea id=\"tffit\" rows=\"2\">Örnek: çekirdek Cα 1 ile 70, referans 0. kare, en küçük kareler; kütle ağırlığı yok (Cα'lar eşit kütle).</textarea></label>",
+   "<label>Fitting (group, reference, weighting)<textarea id=\"tffit\" rows=\"2\">Example: core Cα 1 to 70, reference frame 0, least squares; no mass weighting (the Cα atoms have equal mass).</textarea></label>"
+  ],
+  [
+   "<label>Ölçüm (seçim ve nicelik)<textarea id=\"tfsel\" rows=\"2\">Örnek: Cα RMSD, ölçüm grubu bütün Cα; kuyruk 71 ile 76 ayrıca raporlanır.</textarea></label>",
+   "<label>Measurement (selection and quantity)<textarea id=\"tfsel\" rows=\"2\">Example: Cα RMSD, measurement group all Cα; the tail 71 to 76 is reported separately.</textarea></label>"
+  ],
+  [
+   "<label>Birim ve araç varsayılanları<textarea id=\"tfunit\" rows=\"2\">Örnek: GROMACS nm verir, rapor Å; gmx rms -mw no (varsayılan kütle ağırlıklı).</textarea></label>",
+   "<label>Units and tool defaults<textarea id=\"tfunit\" rows=\"2\">Example: GROMACS gives nm, the report uses Å; gmx rms -mw no (the default is mass weighted).</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"tfcopy\">Metni kopyala</button><span class=\"small\" id=\"tfmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"tfcopy\">Copy text</button><span class=\"small\" id=\"tfmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">5 · Sınav</span>",
+   "<span class=\"step\">5 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"th5\">Altı soru</h2>",
+   "<h2 id=\"th5\">Six questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('tprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('tprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== deneysel köprü: zaman atlamalı mikroskopide hücre izi (öğretim modeli) ===== */",
+   "/* ===== experimental bridge: a cell track in time-lapse microscopy (teaching model) ===== */"
+  ],
+  [
+   "/* model: kalıcılıklı rastgele yürüyüş (v ← 0,7 v + gürültü), sabit tabla kayması, 100 µm'lik sarmalı görüş alanı */",
+   "/* model: persistent random walk (v ← 0.7 v + noise), constant stage drift, wrapping 100 µm field of view */"
+  ],
+  [
+   "/* düzeltmeler: önce sıçrama birleştirme, sonra kayma çıkarma (nojump, sonra hizalama) */",
+   "/* corrections: first join jumps, then subtract drift (nojump, then fitting) */"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('görüş alanı (100 µm)',X(0)+6,Y(TB.L)+15);",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('field of view (100 µm)',X(0)+6,Y(TB.L)+15);"
+  ],
+  [
+   "$('tbread').innerHTML=dl('Kenar sıçraması (bu izde)',String(st.jumps))+dl('Ortalama anlık hız',fx(st.v,2)+' µm/kare')+dl('Modeldeki gerçek hız',fx(tr.v,2)+' µm/kare')+dl('Net yer değiştirme (200 kare)',fx(st.net,1)+' µm')+dl('Modeldeki gerçek net yer değiştirme',fx(tr.net,1)+' µm')+dl('Renkler','yeşil başlangıç, sarı bitiş; kesikli kırmızı çizgi kenar sıçraması');",
+   "$('tbread').innerHTML=dl('Edge jumps (this track)',String(st.jumps))+dl('Mean instantaneous speed',fx(st.v,2)+' µm/frame')+dl('True speed in the model',fx(tr.v,2)+' µm/frame')+dl('Net displacement (200 frames)',fx(st.net,1)+' µm')+dl('True net displacement in the model',fx(tr.net,1)+' µm')+dl('Colors','green start, yellow end; dashed red line an edge jump');"
+  ],
+  [
+   "card('tc0',true,'Ham izde '+raw.jumps+' kenar sıçraması var ve ortalama hız '+fx(raw.v,2)+' µm/kare çıkıyor; modeldeki gerçek değer '+fx(tr.v,2)+'. Sıçramaları birleştirmek hızı '+fx(w.v,2)+' µm/kareye indiriyor. Kayma hızı az değiştiriyor ama net yer değiştirmeyi şişiriyor: sıçramalar birleşmiş izde '+fx(w.net,1)+' µm, kayma da çıkarılınca '+fx(dd.net,1)+' µm (gerçek '+fx(tr.net,1)+'). Sıra da önemli: kaymayı sıçramalar birleşmeden çıkarırsanız sıçramalar kalır. MD\\'de karşılıkları: -pbc nojump ve hizalama (-fit).'); }",
+   "card('tc0',true,'The raw track has '+raw.jumps+' edge jump(s) and the mean speed comes out as '+fx(raw.v,2)+' µm/frame; the true value in the model is '+fx(tr.v,2)+'. Joining the jumps brings the speed down to '+fx(w.v,2)+' µm/frame. Drift changes the speed little but inflates the net displacement: '+fx(w.net,1)+' µm in the joined track, '+fx(dd.net,1)+' µm once the drift is also subtracted (true '+fx(tr.net,1)+'). Order matters too: if you subtract the drift before joining the jumps, the jumps remain. Their MD counterparts: -pbc nojump and fitting (-fit).'); }"
+  ],
+  [
+   "else card('tc0',false,'Şimdiye kadar baktığınız durum: '+(TB.fixD?'kayma düzeltmesi açık':'kayma düzeltmesi kapalı')+', '+(TB.fixW?'sıçramalar birleşik':'sıçramalar birleşik değil')+'. İki düzeltmeyi ayrı ayrı deneyin.'); }",
+   "else card('tc0',false,'The state you have looked at so far: '+(TB.fixD?'drift correction on':'drift correction off')+', '+(TB.fixW?'jumps joined':'jumps not joined')+'. Try the two corrections separately.'); }"
+  ],
+  [
+   "/* ===== atölye 1: periyodik sınırlar (REPGRID W1, alanin dipeptidi) ===== */",
+   "/* ===== workshop 1: periodic boundaries (REPGRID W1, alanine dipeptide) ===== */"
+  ],
+  [
+   "var CHN={A0:'ham',A1:'bütün',A2:'sıçramasız',A3:'ortalanmış',A4:'hizalanmış',A5:'hizala sonra bütünle'};",
+   "var CHN={A0:'raw',A1:'whole',A2:'no jumps',A3:'centered',A4:'fitted',A5:'fit, then make whole'};"
+  ],
+  [
+   "var MET={ext:'En büyük uzanım (Å)',ee:'Uç uca uzaklık (Å)',com:'Kütle merkezi yer değiştirmesi (Å)',rmsd:'Ağır atom RMSD (Å)'};",
+   "var MET={ext:'Largest extent (Å)',ee:'End-to-end distance (Å)',com:'Center-of-mass displacement (Å)',rmsd:'Heavy-atom RMSD (Å)'};"
+  ],
+  [
+   "TP.cell=D.cell; /* Å, satırlar a, b, c */",
+   "TP.cell=D.cell; /* Å, rows a, b, c */"
+  ],
+  [
+   "if(TP.view==='mol'){ var o8=(fi*na+8)*3, c0=[X[o8],X[o8+1],X[o8+2]]; /* merkez: alaninin Cα atomu */ bb={lo:[c0[0]-7,c0[1]-7,c0[2]-7],hi:[c0[0]+7,c0[1]+7,c0[2]+7]}; }",
+   "if(TP.view==='mol'){ var o8=(fi*na+8)*3, c0=[X[o8],X[o8+1],X[o8+2]]; /* center: the alanine Cα atom */ bb={lo:[c0[0]-7,c0[1]-7,c0[2]-7],hi:[c0[0]+7,c0[1]+7,c0[2]+7]}; }"
+  ],
+  [
+   "$('tpread').innerHTML=dl('Zincir',CHN[TP.ch])+dl('Zaman',String(t)+' ps')+dl('Bu karede 3 Å\\'dan uzun görünen bağ',String(nb))+dl('En büyük uzanım',fx(Sx.ext[si],1)+' Å')+dl('Uç uca uzaklık (CH3 ile CH3)',fx(Sx.ee[si],1)+' Å')+dl('Kütle merkezi, 0. kareye göre',fx(Sx.com[si],1)+' Å')+dl('15 Å\\'dan uzun kare (2001 karede)',String(cntOver(Sx.ext,15)));",
+   "$('tpread').innerHTML=dl('Chain',CHN[TP.ch])+dl('Time',String(t)+' ps')+dl('Bonds longer than 3 Å in this frame',String(nb))+dl('Largest extent',fx(Sx.ext[si],1)+' Å')+dl('End-to-end distance (CH3 to CH3)',fx(Sx.ee[si],1)+' Å')+dl('Center of mass, relative to frame 0',fx(Sx.com[si],1)+' Å')+dl('Frames longer than 15 Å (of 2001)',String(cntOver(Sx.ext,15)));"
+  ],
+  [
+   "var p=plot(g,L,T,pw,ph,[0,2000],[0,ym],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:MET[m]});",
+   "var p=plot(g,L,T,pw,ph,[0,2000],[0,ym],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'time (ps)',ylab:MET[m]});"
+  ],
+  [
+   "$('tsleg').innerHTML=ks.map(function(k){ return '<span>'+lin(TCOL[k])+CHN[k]+' (en çok '+fx(arrMax(TP.S[k][m]),1)+' Å)</span>'; }).join('');",
+   "$('tsleg').innerHTML=ks.map(function(k){ return '<span>'+lin(TCOL[k])+CHN[k]+' (max '+fx(arrMax(TP.S[k][m]),1)+' Å)</span>'; }).join('');"
+  ],
+  [
+   "var N={ext:'Peptidin atom koordinatlarının eksen başına aralığının en büyüğü. Bütün bir peptit 10 Å civarındadır; daha büyük değer molekülün kutu sınırında bölündüğünü gösterir (eşik 15 Å, plan önceden).',",
+   "var N={ext:'The largest per-axis range of the peptide atom coordinates. A whole peptide is about 10 Å; a larger value shows that the molecule is split at the box boundary (threshold 15 Å, set in the plan beforehand).',"
+  ],
+  [
+   "ee:'ACE CH3 ile NME CH3 atomları arasındaki düz uzaklık, en küçük görüntü kuralı uygulanmadan. Programların çoğu mesafeyi kutuyu hesaba katarak da ölçebilir; burada ham koordinatın ne verdiğini görüyorsunuz.',",
+   "ee:'The plain distance between the ACE CH3 and NME CH3 atoms, without the minimum image convention. Most programs can also measure distances taking the box into account; here you see what the raw coordinates give.',"
+  ],
+  [
+   "com:'Kütle merkezinin 0. kareye göre düz uzaklığı. Bütün zincirde molekül kutudan çıkınca karşı yüzden girer; sıçramasız zincir gerçek yolu izler; her karede ortalamak (-center) ve hizalamak yer değiştirmeyi siler.',",
+   "com:'The plain distance of the center of mass from frame 0. In the whole chain the molecule leaves the box and comes back through the opposite face; the no-jumps chain follows the real path; centering every frame (-center) and fitting erase the displacement.',"
+  ],
+  [
+   "rmsd:'Ağır atomların 0. kareye göre RMSD\\'si, ek hizalama yapmadan. Hizalanmamış zincirlerde öteleme de RMSD\\'ye girer; yalnız hizalanmış zincirde değer yapısal farkı gösterir.'};",
+   "rmsd:'RMSD of the heavy atoms relative to frame 0, without any extra fitting. In unfitted chains translation also enters the RMSD; only in the fitted chain does the value show the structural difference.'};"
+  ],
+  [
+   "if((s['A0|ext']||s['A0|ee'])&&(s['A1|ext']||s['A1|ee'])) card('tc1',true,'Ham dosyada peptit 2001 karenin '+nLoc(cntOver(S.A0.ext,15))+' 15 Å\\'dan uzun görünüyor (en çok '+fx(arrMax(S.A0.ext),1)+' Å); bütün zincirde '+cntOver(S.A1.ext,15)+' kare, en çok '+fx(arrMax(S.A1.ext),1)+' Å. Uç uca uzaklık hamda '+fx(arrMax(S.A0.ee),1)+' Å\\'a çıkıyor, bütün zincirde '+fx(arrMax(S.A1.ee),1)+' Å\\'u geçmiyor. Bölünme bir yapı değişimi değil, kutunun yazılış biçimi: ölçümden önce molekül bütünlenir.');",
+   "if((s['A0|ext']||s['A0|ee'])&&(s['A1|ext']||s['A1|ee'])) card('tc1',true,'In the raw file the peptide looks longer than 15 Å in '+nLoc(cntOver(S.A0.ext,15))+' of the 2001 frames (up to '+fx(arrMax(S.A0.ext),1)+' Å); in the whole chain in '+cntOver(S.A1.ext,15)+' frames, at most '+fx(arrMax(S.A1.ext),1)+' Å. The end-to-end distance reaches '+fx(arrMax(S.A0.ee),1)+' Å in the raw file and never exceeds '+fx(arrMax(S.A1.ee),1)+' Å in the whole chain. The split is not a structural change but the way the box is written: the molecule is made whole before measuring.');"
+  ],
+  [
+   "if(s['A1|com']&&s['A2|com']&&s['A3|com']) card('tc2',true,'Bütün zincirde kütle merkezi uzaklığı '+cntJump(S.A1.com,10)+' karede tek adımda 10 Å\\'dan fazla değişiyor; sıçramasız zincirde '+cntJump(S.A2.com,10)+'. 2 ns sonunda yer değiştirme: bütün '+fx(S.A1.com[2000],1)+' Å, sıçramasız '+fx(S.A2.com[2000],1)+' Å, ortalanmış '+fx(S.A3.com[2000],1)+' Å. Difüzyon gibi yol ölçen bir nicelik sıçramasız zincir ister; her karede ortalamak (-center) ise molekülün yer değiştirmesini siler ama görüntü ve yerel yapı için uygundur.');",
+   "if(s['A1|com']&&s['A2|com']&&s['A3|com']) card('tc2',true,'In the whole chain the center-of-mass distance changes by more than 10 Å in a single step in '+cntJump(S.A1.com,10)+' frames; in the no-jumps chain in '+cntJump(S.A2.com,10)+'. Displacement after 2 ns: whole '+fx(S.A1.com[2000],1)+' Å, no jumps '+fx(S.A2.com[2000],1)+' Å, centered '+fx(S.A3.com[2000],1)+' Å. A quantity that measures a path, such as diffusion, needs the no-jumps chain; centering every frame (-center) erases the displacement of the molecule but suits visualization and local structure.');"
+  ],
+  [
+   "else if(s['A1|com']||s['A2|com']||s['A3|com']) card('tc2',false,'Kütle merkezi grafiğinde üç zincire de bakın: bütün, sıçramasız, ortalanmış.'); }",
+   "else if(s['A1|com']||s['A2|com']||s['A3|com']) card('tc2',false,'In the center-of-mass plot, look at all three chains: whole, no jumps, centered.'); }"
+  ],
+  [
+   "/* kutu gösterimi */",
+   "/* box representation */"
+  ],
+  [
+   "$('tboxr').innerHTML=dl('Gösterim','-ur '+TP.ur)+dl('Su oksijeni',String(w.length/3))+dl('x aralığı',fx(ext[0][0],1)+' ile '+fx(ext[0][1],1)+' Å')+dl('y aralığı',fx(ext[1][0],1)+' ile '+fx(ext[1][1],1)+' Å')+dl('z aralığı',fx(ext[2][0],1)+' ile '+fx(ext[2][1],1)+' Å')+dl('Peptide 5 Å yakın su (düz koordinatla)',String(near))+dl('Renkler','mavi su oksijeni, kırmızı peptit, çizgi birim hücrenin x, y izdüşümü');",
+   "$('tboxr').innerHTML=dl('Representation','-ur '+TP.ur)+dl('Water oxygens',String(w.length/3))+dl('x range',fx(ext[0][0],1)+' to '+fx(ext[0][1],1)+' Å')+dl('y range',fx(ext[1][0],1)+' to '+fx(ext[1][1],1)+' Å')+dl('z range',fx(ext[2][0],1)+' to '+fx(ext[2][1],1)+' Å')+dl('Waters within 5 Å of the peptide (plain coordinates)',String(near))+dl('Colors','blue water oxygen, red peptide, line the x, y projection of the unit cell');"
+  ],
+  [
+   "if(TP.urSeen.rect!=null&&TP.urSeen.tric!=null&&TP.urSeen.compact!=null) card('tc3',true,'Aynı 1520 su oksijeni üç gösterimde farklı bölgelere yazılıyor; moleküller ve aralarındaki gerçek uzaklıklar aynı. Kutuyu hesaba katmadan düz koordinatla sayınca peptide 5 Å yakın su: tuğla '+TP.urSeen.rect+', tric '+TP.urSeen.tric+', compact '+TP.urSeen.compact+'. En küçük görüntü kuralıyla ölçen bir araç her gösterimde aynı sayıyı verir; düz koordinatla seçim yapan bir betik vermez. MD-REP\\'in 3B sahnesinde sular ilk denemede tuğla biçiminde görünmüştü; -ur tric ile düzeltildi.');",
+   "if(TP.urSeen.rect!=null&&TP.urSeen.tric!=null&&TP.urSeen.compact!=null) card('tc3',true,'The same 1520 water oxygens are written to different regions in the three representations; the molecules and the true distances between them are the same. Counting with plain coordinates, without taking the box into account, the waters within 5 Å of the peptide are: brick '+TP.urSeen.rect+', tric '+TP.urSeen.tric+', compact '+TP.urSeen.compact+'. A tool that measures with the minimum image convention gives the same number in every representation; a script that selects with plain coordinates does not. In the MD-REP 3D scene the waters first appeared as a brick; this was fixed with -ur tric.');"
+  ],
+  [
+   "else card('tc3',false,'Baktığınız gösterimler: '+Object.keys(TP.urSeen).map(function(u){return '-ur '+u;}).join(', ')+'. Üçüne de bakın.'); }",
+   "else card('tc3',false,'Representations you have looked at: '+Object.keys(TP.urSeen).map(function(u){return '-ur '+u;}).join(', ')+'. Look at all three.'); }"
+  ],
+  [
+   "function setPlay(on){ TP.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
+   "function setPlay(on){ TP.play=on; btn.textContent=on?'Pause':'Play'; btn.classList.toggle('primary',!on); if(on) aniKick(); }"
+  ],
+  [
+   "/* ===== atölye 2 ve proteine dönüş: ubikitin (MD-O RMSF2NS) ===== */",
+   "/* ===== workshop 2 and back to proteins: ubiquitin (MD-O RMSF2NS) ===== */"
+  ],
+  [
+   "var UCH={B0:'ham',B2:'bütün ve sıçramasız',B3:'çekirdekle hizalanmış'};",
+   "var UCH={B0:'raw',B2:'whole and no jumps',B3:'fitted on the core'};"
+  ],
+  [
+   "var RN={nofit:'hizalamasız (bütün Cα)',fitall:'bütün Cα ile hizala, bütün Cα ölç',core_core:'çekirdekle hizala, çekirdek ölç',core_all:'çekirdekle hizala, bütün Cα ölç',core_tail:'çekirdekle hizala, kuyruk ölç',fitall_tail:'bütün Cα ile hizala, kuyruk ölç',",
+   "var RN={nofit:'no fitting (all Cα)',fitall:'fit on all Cα, measure all Cα',core_core:'fit on the core, measure the core',core_all:'fit on the core, measure all Cα',core_tail:'fit on the core, measure the tail',fitall_tail:'fit on all Cα, measure the tail',"
+  ],
+  [
+   "core_heavy:'çekirdekle hizala, ağır atomlar',core_allatom:'çekirdekle hizala, bütün atomlar',xtal_core:'kristal yapıya göre, çekirdek'};",
+   "core_heavy:'fit on the core, heavy atoms',core_allatom:'fit on the core, all atoms',xtal_core:'relative to the crystal structure, core'};"
+  ],
+  [
+   "$('turead').innerHTML=dl('Zincir',UCH[TU.ch])+dl('Zaman',String(t)+' ps (kare '+si+', 0\\'dan sayılarak)')+dl('Bu karede 4,5 Å\\'dan uzun Cα bağı',String(nb))+dl('Proteinin en büyük uzanımı',fx(TU.E[TU.ch==='B0'?'B0':(TU.ch==='B2'?'B2':'B3')][si],1)+' Å')+dl('50 Å\\'dan uzun kare (1001 karede)',String(cntOver(TU.E[TU.ch],50)))+dl('Çekirdek Cα RMSD (çekirdekle hizalı)',fx(TU.R.core_core[si],2)+' Å')+dl('Renkler','yeşil çekirdek 1 ile 70, sarı kuyruk 71 ile 76, kesikli kırmızı bölünmüş bağ; çizgi 0. karenin birim hücresi');",
+   "$('turead').innerHTML=dl('Chain',UCH[TU.ch])+dl('Time',String(t)+' ps (frame '+si+', counting from 0)')+dl('Cα bonds longer than 4.5 Å in this frame',String(nb))+dl('Largest extent of the protein',fx(TU.E[TU.ch==='B0'?'B0':(TU.ch==='B2'?'B2':'B3')][si],1)+' Å')+dl('Frames longer than 50 Å (of 1001)',String(cntOver(TU.E[TU.ch],50)))+dl('Core Cα RMSD (fitted on the core)',fx(TU.R.core_core[si],2)+' Å')+dl('Colors','green core 1 to 70, yellow tail 71 to 76, dashed red a split bond; line the unit cell of frame 0');"
+  ],
+  [
+   "var L=50, T=12, pw=W-L-14, ph=H-T-44, p=plot(g,L,T,pw,ph,[0,2000],[0,ym],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'Cα RMSD (Å)'});",
+   "var L=50, T=12, pw=W-L-14, ph=H-T-44, p=plot(g,L,T,pw,ph,[0,2000],[0,ym],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'time (ps)',ylab:'Cα RMSD (Å)'});"
+  ],
+  [
+   "$('tuleg').innerHTML=ks.map(function(k){ return '<span>'+lin(UCOL[k])+RN[k]+': ortalama '+fx(arrMean(TU.R[k]),2)+' Å</span>'; }).join('');",
+   "$('tuleg').innerHTML=ks.map(function(k){ return '<span>'+lin(UCOL[k])+RN[k]+': mean '+fx(arrMean(TU.R[k]),2)+' Å</span>'; }).join('');"
+  ],
+  [
+   "var NT={fit:'Hizalamasız eğri yalnız PBC düzeltilmiş (bütün ve sıçramasız) koordinatlardan; öteleme ve dönme de RMSD\\'ye girer.',grp:'Hizalama grubu en küçük kareler uydurmasına katılan atomlardır; ölçüm grubu ayrı seçilebilir. Kuyruk 71 ile 76, çekirdek 1 ile 70.',sel:'Aynı hizalama (çekirdek Cα), üç farklı ölçüm seçimi: Cα, ağır atomlar ve hidrojenler dahil bütün atomlar.',ref:'Referans 0. kare ya da 1UBQ kristal yapısı (yalnız Cα, kalıntı 1 ile 70). Ölçüm ve hizalama çekirdek Cα ile.'};",
+   "var NT={fit:'The unfitted curve comes from coordinates with PBC corrected only (whole and no jumps); translation and rotation also enter the RMSD.',grp:'The fitting group is the set of atoms that take part in the least-squares fit; the measurement group can be chosen separately. Tail 71 to 76, core 1 to 70.',sel:'The same fit (core Cα), three different measurement selections: Cα, heavy atoms, and all atoms including hydrogens.',ref:'Reference frame 0 or the 1UBQ crystal structure (Cα only, residues 1 to 70). Measurement and fitting with the core Cα.'};"
+  ],
+  [
+   "$('tunote').textContent=NT[TU.m]+' Bütün eğriler 1001 karenin hepsinden (2 ps aralık); plan pencere atmaz.';",
+   "$('tunote').textContent=NT[TU.m]+' All curves use all 1001 frames (2 ps apart); the plan discards no window.';"
+  ],
+  [
+   "var p=plot(g,L,T,pw,ph,[0,2000],[0,rm],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'dönme (derece)'});",
+   "var p=plot(g,L,T,pw,ph,[0,2000],[0,rm],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'time (ps)',ylab:'rotation (degrees)'});"
+  ],
+  [
+   "$('trleg').innerHTML='<span>'+lin(PAL.accent)+'çekirdeğin 0. kareye göre dönme açısı (sol eksen; en çok '+fx(arrMax(TU.rot),1)+'°)</span><span>'+lin(PAL.c3)+'kütle merkezi yer değiştirmesi (sağ eksen; en çok '+fx(arrMax(TU.com),1)+' Å)</span>'; }",
+   "$('trleg').innerHTML='<span>'+lin(PAL.accent)+'rotation angle of the core relative to frame 0 (left axis; max '+fx(arrMax(TU.rot),1)+'°)</span><span>'+lin(PAL.c3)+'center-of-mass displacement (right axis; max '+fx(arrMax(TU.com),1)+' Å)</span>'; }"
+  ],
+  [
+   "if(s.fit) card('tc4',true,'Hizalamasız Cα RMSD\\'si ortalama '+fx(arrMean(R.nofit),2)+' Å (en çok '+fx(arrMax(R.nofit),2)+'); çekirdekle hizalayınca bütün Cα için '+fx(arrMean(R.core_all),2)+' Å. Aradaki farkın büyük kısmı yapı değişimi değil, proteinin bütün olarak hareketi: 2 ns içinde kütle merkezi '+fx(arrMax(TU.com),1)+' Å\\'a kadar yer değiştirdi, çekirdek ilk kareye göre '+fx(arrMax(TU.rot),1)+'°\\'ye kadar döndü.');",
+   "if(s.fit) card('tc4',true,'Without fitting the Cα RMSD averages '+fx(arrMean(R.nofit),2)+' Å (max '+fx(arrMax(R.nofit),2)+'); fitted on the core it is '+fx(arrMean(R.core_all),2)+' Å for all Cα. Most of the difference is not structural change but motion of the protein as a whole: within 2 ns the center of mass moved up to '+fx(arrMax(TU.com),1)+' Å and the core rotated up to '+fx(arrMax(TU.rot),1)+'° relative to the first frame.');"
+  ],
+  [
+   "if(s.grp) card('tc5',true,'Çekirdekle hizalayınca çekirdeğin kendi RMSD\\'si ortalama '+fx(arrMean(R.core_core),2)+' Å, kuyruğunki '+fx(arrMean(R.core_tail),2)+' Å. Bütün Cα ile hizalayınca kuyruk '+fx(arrMean(R.fitall_tail),2)+' Å\\'a iner, bütün Cα '+fx(arrMean(R.fitall),2)+' Å verir (çekirdekle hizalamada '+fx(arrMean(R.core_all),2)+'): en küçük kareler hareketli kuyruğu da yakalamaya çalışır ve kuyruğun hareketinin bir kısmı hizalamaya karışır. Hangi grubun hizalanacağı sorudan gelir ve sonuca bakmadan yazılır.');",
+   "if(s.grp) card('tc5',true,'Fitted on the core, the RMSD of the core itself averages '+fx(arrMean(R.core_core),2)+' Å and that of the tail '+fx(arrMean(R.core_tail),2)+' Å. Fitted on all Cα, the tail drops to '+fx(arrMean(R.fitall_tail),2)+' Å and all Cα give '+fx(arrMean(R.fitall),2)+' Å ('+fx(arrMean(R.core_all),2)+' when fitted on the core): least squares also tries to follow the moving tail, and part of the tail motion leaks into the fit. Which group to fit comes from the question and is written down without looking at the result.');"
+  ],
+  [
+   "if(s.sel&&s.ref) card('tc6',true,'Aynı hizalamayla çekirdek RMSD\\'si Cα için '+fx(arrMean(R.core_core),2)+', ağır atomlar için '+fx(arrMean(R.core_heavy),2)+', bütün atomlar için '+fx(arrMean(R.core_allatom),2)+' Å: yan zincirler ve hidrojenler daha çok oynar, bu yüzden seçim sayının parçasıdır. Kristal yapıya göre çekirdek RMSD\\'si '+fx(arrMean(R.xtal_core),2)+' Å, 0. kareye göre '+fx(arrMean(R.core_core),2)+' Å. Birim: GROMACS aynı değeri nm ile yazar ('+fx(arrMean(R.core_core)/10,3)+' nm); gmx rms ayrıca varsayılan olarak kütle ağırlıklı hesaplar, bu sayfanın bağımsız denetiminde -mw no gerekti.');",
+   "if(s.sel&&s.ref) card('tc6',true,'With the same fit, the core RMSD is '+fx(arrMean(R.core_core),2)+' for Cα, '+fx(arrMean(R.core_heavy),2)+' for heavy atoms and '+fx(arrMean(R.core_allatom),2)+' Å for all atoms: side chains and hydrogens move more, so the selection is part of the number. Relative to the crystal structure the core RMSD is '+fx(arrMean(R.xtal_core),2)+' Å, relative to frame 0 '+fx(arrMean(R.core_core),2)+' Å. Units: GROMACS writes the same value in nm ('+fx(arrMean(R.core_core)/10,3)+' nm); gmx rms also computes mass-weighted values by default, and the independent check on this page needed -mw no.');"
+  ],
+  [
+   "else if(s.sel||s.ref) card('tc6',false,'\"Ölçüm seçimi\" ve \"referans\" eğrilerinin ikisine de bakın.'); }",
+   "else if(s.sel||s.ref) card('tc6',false,'Look at both the \"measurement selection\" and the \"reference\" curves.'); }"
+  ],
+  [
+   "function setPlay(on){ TU.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
+   "function setPlay(on){ TU.play=on; btn.textContent=on?'Pause':'Play'; btn.classList.toggle('primary',!on); if(on) aniKick(); }"
+  ],
+  [
+   "/* ===== tezgâh: işlem sırası ===== */",
+   "/* ===== bench: processing order ===== */"
+  ],
+  [
+   "var OPT=[['ok','bütün, yol sürekli'],['jump','bütün, kütle merkezi sıçrıyor'],['erase','bütün, yer değiştirme siliniyor'],['broken','bazı karelerde hâlâ bölünmüş'],['error','araç hata verip duruyor']];",
+   "var OPT=[['ok','whole, path continuous'],['jump','whole, center of mass jumps'],['erase','whole, displacement erased'],['broken','still split in some frames'],['error','the tool fails and stops']];"
+  ],
+  [
+   "{id:'k1', h:'Peptit: yalnız molekülü bütünle', cmd:'gmx trjconv -f md.xtc -pbc mol', ans:'jump', res:function(){ var S=TP.S.A1; return cntOver(S.ext,15)+' bölünmüş kare; kütle merkezi uzaklığı '+cntJump(S.com,10)+' karede tek adımda 10 Å\\'dan fazla değişti. Molekül bütün ama kutudan çıkınca karşı yüzden giriyor.'; }},",
+   "{id:'k1', h:'Peptide: only make the molecule whole', cmd:'gmx trjconv -f md.xtc -pbc mol', ans:'jump', res:function(){ var S=TP.S.A1; return cntOver(S.ext,15)+' split frames; the center-of-mass distance changed by more than 10 Å in a single step in '+cntJump(S.com,10)+' frames. The molecule is whole but comes back through the opposite face when it leaves the box.'; }},"
+  ],
+  [
+   "{id:'k2', h:'Peptit: bütünle, sonra sıçramaları kaldır', cmd:'gmx trjconv -f md.xtc -pbc mol -o whole.xtc\\ngmx trjconv -f whole.xtc -pbc nojump', ans:'ok', res:function(){ var S=TP.S.A2; return cntOver(S.ext,15)+' bölünmüş kare, '+cntJump(S.com,10)+' sıçrama; 2 ns sonunda net yer değiştirme '+fx(S.com[2000],1)+' Å. Yol ölçen nicelikler (difüzyon) için doğru zincir.'; }},",
+   "{id:'k2', h:'Peptide: make whole, then remove jumps', cmd:'gmx trjconv -f md.xtc -pbc mol -o whole.xtc\\ngmx trjconv -f whole.xtc -pbc nojump', ans:'ok', res:function(){ var S=TP.S.A2; return cntOver(S.ext,15)+' split frames, '+cntJump(S.com,10)+' jumps; net displacement after 2 ns '+fx(S.com[2000],1)+' Å. The right chain for quantities that measure a path (diffusion).'; }},"
+  ],
+  [
+   "{id:'k3', h:'Peptit: bütünle ve her karede ortala', cmd:'gmx trjconv -f md.xtc -pbc mol -center', ans:'erase', res:function(){ var S=TP.S.A3; return cntOver(S.ext,15)+' bölünmüş kare; kütle merkezi en çok '+fx(arrMax(S.com),1)+' Å oynuyor. Görüntü ve yerel yapı için uygun, yer değiştirme ise silindi.'; }},",
+   "{id:'k3', h:'Peptide: make whole and center every frame', cmd:'gmx trjconv -f md.xtc -pbc mol -center', ans:'erase', res:function(){ var S=TP.S.A3; return cntOver(S.ext,15)+' split frames; the center of mass moves at most '+fx(arrMax(S.com),1)+' Å. Suitable for visualization and local structure, but the displacement is erased.'; }},"
+  ],
+  [
+   "{id:'k4', h:'Peptit: önce hizala, sonra bütünle', cmd:'gmx trjconv -f md.xtc -fit rot+trans -o fit.xtc\\ngmx trjconv -f fit.xtc -pbc mol', ans:'broken', res:function(){ var S=TP.S.A5; return '2001 karenin '+nLoc(cntOver(S.ext,15))+' peptit hâlâ 15 Å\\'dan uzun (en çok '+fx(arrMax(S.ext),1)+' Å). Hizalama bölünmüş molekülü yanlış bir dönmeyle çevirdi; kutu vektörleri dönmediği için -pbc mol parçaları birleştiremedi.'; }},",
+   "{id:'k4', h:'Peptide: fit first, then make whole', cmd:'gmx trjconv -f md.xtc -fit rot+trans -o fit.xtc\\ngmx trjconv -f fit.xtc -pbc mol', ans:'broken', res:function(){ var S=TP.S.A5; return 'In '+nLoc(cntOver(S.ext,15))+' of the 2001 frames the peptide is still longer than 15 Å (up to '+fx(arrMax(S.ext),1)+' Å). The fit turned the split molecule with a wrong rotation; because the box vectors did not rotate, -pbc mol could not join the pieces.'; }},"
+  ],
+  [
+   "{id:'k5', h:'Ubikitin: bütünle, sıçramaları kaldır, çekirdekle hizala', cmd:'gmx trjconv -f prod.xtc -pbc mol -o whole.xtc\\ngmx trjconv -f whole.xtc -pbc nojump -o nj.xtc\\ngmx trjconv -f nj.xtc -fit rot+trans   (hizalama grubu: Cα 1 ile 70)', ans:'ok', res:function(){ return cntOver(TU.E.B3,50)+' bölünmüş kare (eşik 50 Å); çekirdek Cα RMSD\\'si ortalama '+fx(arrMean(TU.R.core_core),2)+' Å. Sayfadaki ubikitin RMSD eğrileri bu zincirin ilk iki adımından (bütün ve sıçramasız koordinatlar) hesaplandı; her eğri kendi hizalama grubuyla.'; }},",
+   "{id:'k5', h:'Ubiquitin: make whole, remove jumps, fit on the core', cmd:'gmx trjconv -f prod.xtc -pbc mol -o whole.xtc\\ngmx trjconv -f whole.xtc -pbc nojump -o nj.xtc\\ngmx trjconv -f nj.xtc -fit rot+trans   (fitting group: Cα 1 to 70)', ans:'ok', res:function(){ return cntOver(TU.E.B3,50)+' split frames (threshold 50 Å); core Cα RMSD averages '+fx(arrMean(TU.R.core_core),2)+' Å. The ubiquitin RMSD curves on this page were computed from the first two steps of this chain (whole and no-jumps coordinates), each curve with its own fitting group.'; }},"
+  ],
+  [
+   "{id:'k6', h:'Ubikitin: önce hizala, sonra bütünle', cmd:'gmx trjconv -f prod.xtc -fit rot+trans -o fit.xtc   (bütün Cα)\\ngmx trjconv -f fit.xtc -pbc mol', ans:'error', res:function(){ return 'GROMACS '+TU.E.B5.length+' kare yazdıktan sonra \"inconsistent shifts over periodic boundaries\" ölümcül hatasıyla durdu. Yazılan karelerin '+nLoc(cntOver(TU.E.B5,50))+' protein 50 Å\\'dan uzun (en çok '+fx(arrMax(TU.E.B5),1)+' Å). Aynı hatalı sıra peptitte hatasız bitmiş ama yanlış sonuç vermişti: aracın durmaması sonucun doğru olduğu anlamına gelmez.'; }}",
+   "{id:'k6', h:'Ubiquitin: fit first, then make whole', cmd:'gmx trjconv -f prod.xtc -fit rot+trans -o fit.xtc   (all Cα)\\ngmx trjconv -f fit.xtc -pbc mol', ans:'error', res:function(){ return 'GROMACS stopped with the fatal error \"inconsistent shifts over periodic boundaries\" after writing '+TU.E.B5.length+' frames. In '+nLoc(cntOver(TU.E.B5,50))+' of the frames written the protein is longer than 50 Å (up to '+fx(arrMax(TU.E.B5),1)+' Å). The same wrong order finished without error on the peptide but gave a wrong result: a tool that does not stop does not mean the result is right.'; }}"
+  ],
+  [
+   "var fb=$(c.id+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Tahmininiz doğru.':'Gerçek sonuç farklı.')+'</b> '+c.res();",
+   "var fb=$(c.id+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Your prediction is right.':'The real result is different.')+'</b> '+c.res();"
+  ],
+  [
+   "if(n>=4) card('tc7',true,'Tahmin ettiğiniz '+n+' zincirin '+nLoc(r)+' ilk tahmininiz doğru. Üç komut (-pbc mol, -pbc nojump, -fit) farklı sırayla farklı sonuç verdi: doğru sırada molekül bütün ve yol sürekli; hizalama bütünlemeden önce gelince peptit bölünmüş kaldı, ubikitinde araç durdu. Sıra, işlem kaydının bir satırıdır.');",
+   "if(n>=4) card('tc7',true,'Your first prediction was right for '+nLoc(r)+' of the '+n+' chains you predicted. Three commands (-pbc mol, -pbc nojump, -fit) gave different results in different orders: in the right order the molecule is whole and the path continuous; when fitting came before making whole, the peptide stayed split and the tool stopped on ubiquitin. The order is one line of the processing record.');"
+  ],
+  [
+   "else card('tc7',false,'Şimdiye kadar '+n+' zincir; en az dört zincir için tahmin verin.'); }); }); }",
+   "else card('tc7',false,'So far '+n+' chain(s); give a prediction for at least four chains.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: işlem kaydı ===== */",
+   "/* ===== notebook: processing record ===== */"
+  ],
+  [
+   "function tfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; }",
+   "function tfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; }"
+  ],
+  [
+   "var L=['İŞLEM KAYDI (MD-TRJ taslağı)','Girdi: '+v('tfin'),'PBC adımları: '+v('tfpbc'),'Hizalama: '+v('tffit'),'Ölçüm: '+v('tfsel'),'Birim ve araç varsayılanları: '+v('tfunit')];",
+   "var L=['PROCESSING RECORD (MD-TRJ draft)','Input: '+v('tfin'),'PBC steps: '+v('tfpbc'),'Fitting: '+v('tffit'),'Measurement: '+v('tfsel'),'Units and tool defaults: '+v('tfunit')];"
+  ],
+  [
+   "if(/fit/.test(p)&&/mol|whole|nojump/.test(p)&&p.indexOf('fit')<Math.max(p.indexOf('mol'),p.indexOf('whole'),p.indexOf('nojump'))) wr.push('PBC satırında hizalama, molekül bütünlenmeden önce geliyor: bu sayfada aynı sıra peptitte bölünmüş kareler bıraktı, ubikitinde aracı durdurdu.');",
+   "if(/fit/.test(p)&&/mol|whole|nojump/.test(p)&&p.indexOf('fit')<Math.max(p.indexOf('mol'),p.indexOf('whole'),p.indexOf('nojump'))) wr.push('In the PBC row, fitting comes before the molecule is made whole: on this page the same order left split frames for the peptide and stopped the tool for ubiquitin.');"
+  ],
+  [
+   "if(/difüzyon|msd|yer değiştirme/.test(all)&&!/nojump/.test(p)) wr.push('Yol ölçen bir nicelik (difüzyon, MSD) geçiyor ama PBC adımlarında nojump yok.');",
+   "if(/diffusion|msd|displacement/.test(all)&&!/nojump/.test(p)) wr.push('A quantity that measures a path (diffusion, MSD) is mentioned, but there is no nojump in the PBC steps.');"
+  ],
+  [
+   "if(!/referans|reference|kare|kristal/.test(fz)) wr.push('Hizalama satırında referans yazılmamış (0. kare mi, kristal yapı mı, ortalama yapı mı?).');",
+   "if(!/reference|frame|crystal/.test(fz)) wr.push('No reference is written in the fitting row (frame 0, the crystal structure, or an average structure?).');"
+  ],
+  [
+   "if(!/nm|å|angstrom|ångström/.test(u)) wr.push('Birim yazılmamış: GROMACS nm, MDAnalysis ve çoğu görüntüleyici Å kullanır.');",
+   "if(!/nm|å|angstrom/.test(u)) wr.push('No unit is written: GROMACS uses nm, MDAnalysis and most viewers use Å.');"
+  ],
+  [
+   "if(/rms/.test(all)&&!/-mw|ağırlık/.test(u+fz)) wr.push('RMSD geçiyor: kütle ağırlığı kullanılıp kullanılmadığını yazın (gmx rms varsayılanı kütle ağırlıklı).');",
+   "if(/rms/.test(all)&&!/-mw|weight/.test(u+fz)) wr.push('RMSD is mentioned: write whether mass weighting is used (the gmx rms default is mass weighted).');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(e){ L.push('- '+e); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to check:'); wr.forEach(function(e){ L.push('- '+e); }); }"
+  ],
+  [
+   "$('tfcopy').onclick=function(){ var t=$('tfout').textContent, m=$('tfmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('tfcopy').onclick=function(){ var t=$('tfout').textContent, m=$('tfmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'gmx rms bir RMSD değerini 0,075 olarak yazdı. MDAnalysis aynı hesabı hangi sayı olarak verir?',",
+   "Q.push({s:'gmx rms wrote an RMSD value as 0.075. Which number does MDAnalysis give for the same calculation?',"
+  ],
+  [
+   "o:[['0,75 Å',1],['0,075 Å',0],['7,5 Å',0]], w:'GROMACS uzunlukları nm ile yazar, MDAnalysis Å ile: 0,075 nm = 0,75 Å. Birim, raporda sayının yanında yazılır.'});",
+   "o:[['0.75 Å',1],['0.075 Å',0],['7.5 Å',0]], w:'GROMACS writes lengths in nm, MDAnalysis in Å: 0.075 nm = 0.75 Å. The unit is written next to the number in the report.'});"
+  ],
+  [
+   "Q.push({s:'Ham dosyada peptidin en büyük uzanımı '+fx(arrMax(S.A0.ext),1)+' Å çıktı; bütünlenmiş dosyada '+fx(arrMax(S.A1.ext),1)+' Å. Bu fark neyi gösterir?',",
+   "Q.push({s:'In the raw file the largest extent of the peptide came out as '+fx(arrMax(S.A0.ext),1)+' Å; in the file made whole, '+fx(arrMax(S.A1.ext),1)+' Å. What does this difference show?',"
+  ],
+  [
+   "o:[['Peptit bazı karelerde açılıp uzadı',0],['Peptit kutu sınırında ikiye bölünmüş yazıldı; bu bir gösterim etkisidir',1],['Simülasyon patladı',0]], w:'Periyodik kutuda atomlar birim hücreye geri yazılır; sınırı geçen molekül iki parça görünür. -pbc mol molekülü bütünler; yapı değişmez.'});",
+   "o:[['The peptide unfolded and stretched in some frames',0],['The peptide was written split in two at the box boundary; this is a representation effect',1],['The simulation blew up',0]], w:'In a periodic box atoms are written back into the unit cell; a molecule that crosses the boundary appears in two pieces. -pbc mol makes the molecule whole; the structure does not change.'});"
+  ],
+  [
+   "Q.push({s:'Peptidin su içindeki difüzyonunu (kütle merkezinin yer değiştirmesini) ölçmek istiyorsunuz. Hangi zincir uygun?',",
+   "Q.push({s:'You want to measure the diffusion of the peptide in water (the displacement of its center of mass). Which chain is suitable?',"
+  ],
+  [
+   "o:[['-pbc mol',0],['-pbc mol -center',0],['-pbc mol, ardından -pbc nojump',1]], w:'Yalnız bütünlenmiş dosyada molekül karşı yüzden girdikçe sıçrar ('+cntJump(S.A1.com,10)+' sıçrama); her karede ortalamak (-center) yer değiştirmeyi siler. nojump gerçek yolu korur.'});",
+   "o:[['-pbc mol',0],['-pbc mol -center',0],['-pbc mol, followed by -pbc nojump',1]], w:'In the file that was only made whole, the molecule jumps every time it comes back through the opposite face ('+cntJump(S.A1.com,10)+' jumps); centering every frame (-center) erases the displacement. nojump keeps the real path.'});"
+  ],
+  [
+   "Q.push({s:'Ubikitinde bütün Cα ile hizalayınca kuyruğun RMSD\\'si ortalama '+fx(arrMean(R.fitall_tail),2)+' Å, çekirdekle hizalayınca '+fx(arrMean(R.core_tail),2)+' Å çıktı. Kuyruk sorusu soruluyorsa hizalama grubu nasıl seçilir?',",
+   "Q.push({s:'For ubiquitin, fitting on all Cα gave a mean tail RMSD of '+fx(arrMean(R.fitall_tail),2)+' Å, fitting on the core gave '+fx(arrMean(R.core_tail),2)+' Å. If the question is about the tail, how is the fitting group chosen?',"
+  ],
+  [
+   "o:[['Görece katı bir çekirdek önceden seçilir ve yazılır; kuyruk ayrıca ölçülür',1],['RMSD\\'yi en küçük yapan grup seçilir',0],['Hizalama yapılmaz',0]], w:'En küçük kareler hizalamaya katılan her atomu yakalamaya çalışır; hareketli kuyruk hizalama grubundaysa hareketinin bir kısmı hizalamaya karışır. Grup sorudan gelir, sonuca bakılarak seçilmez.'});",
+   "o:[['A relatively rigid core is chosen and written down in advance; the tail is measured separately',1],['The group that gives the smallest RMSD is chosen',0],['No fitting is done',0]], w:'Least squares tries to follow every atom that takes part in the fit; if the moving tail is in the fitting group, part of its motion leaks into the fit. The group comes from the question and is not chosen by looking at the result.'});"
+  ],
+  [
+   "Q.push({s:'RMSF2NS dosyasında kareler 2 ps aralıkla kayıtlı ve ilk kare 0 ps. 0\\'dan sayılarak 500. kare kaçıncı pikosaniyedir?',",
+   "Q.push({s:'In the RMSF2NS file frames are recorded 2 ps apart and the first frame is at 0 ps. Counting from 0, at which picosecond is frame 500?',"
+  ],
+  [
+   "o:[['500 ps',0],['1002 ps',0],['1000 ps',1]], w:'Zaman = kare sırası × kayıt aralığı = 500 × 2 ps = 1000 ps. Kare numarası ile zaman yalnız aralık 1 ps iken aynı sayıdır.'});",
+   "o:[['500 ps',0],['1002 ps',0],['1000 ps',1]], w:'Time = frame index × recording interval = 500 × 2 ps = 1000 ps. The frame number and the time are the same number only when the interval is 1 ps.'});"
+  ],
+  [
+   "Q.push({s:'\"Ham dosyayı önce hizala, sonra -pbc mol uygula\" sırası peptitte hatasız bitti, ubikitinde araç durdu. Buradan ne çıkar?',",
+   "Q.push({s:'The order \"fit the raw file first, then apply -pbc mol\" finished without error on the peptide and stopped the tool on ubiquitin. What follows from this?',"
+  ],
+  [
+   "o:[['Peptit sonucu doğrudur, çünkü araç hata vermedi',0],['Sıra yanlıştır; aracın hata vermemesi sonucun doğru olduğunu göstermez',1],['Ubikitin dosyası bozuktur',0]], w:'Peptitte aynı sıra 2001 karenin '+nLoc(cntOver(S.A5.ext,15))+' bölünmüş molekül bıraktı. Doğru sıra: bütünle, sıçramaları kaldır, sonra hizala.'});",
+   "o:[['The peptide result is right, because the tool gave no error',0],['The order is wrong; a tool that gives no error does not show that the result is right',1],['The ubiquitin file is corrupt',0]], w:'On the peptide the same order left a split molecule in '+nLoc(cntOver(S.A5.ext,15))+' of the 2001 frames. The right order: make whole, remove jumps, then fit.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('tnotice').innerHTML='<p><b>Veri.</b> İki ham trajektori, bu sitenin önceki modülleri için üretildi. (1) MD-REP, REPGRID W1: alanin dipeptidi, AMBER99SB-ILDN, TIP3P, 1520 su, on iki yüzlü kutu, 2 ns NPT, 1 ps kayıt; md.xtc SHA-256 '+m.d1_xtc.slice(0,12)+'…, md.tpr '+m.d1_tpr.slice(0,12)+'…; başlangıç yapısı mdshare ALA2 (Freie Universität Berlin, CC BY 4.0). (2) MD-O, RMSF2NS: 1UBQ ubikitini, AMBER99SB-ILDN, TIP3P, 2 ns NPT, yalnız protein 2 ps kayıt; prod.xtc '+m.d2_xtc.slice(0,12)+'…, prot.tpr '+m.d2_tpr.slice(0,12)+'…. Kristal referansı RCSB PDB 1UBQ (Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531), dosya '+m.xtal.slice(0,12)+'…. GROMACS 2023.3.</p>'+",
+   "$('tnotice').innerHTML='<p><b>Data.</b> Two raw trajectories, produced for earlier modules of this site. (1) MD-REP, REPGRID W1: alanine dipeptide, AMBER99SB-ILDN, TIP3P, 1520 waters, rhombic dodecahedron box, 2 ns NPT, 1 ps recording; md.xtc SHA-256 '+m.d1_xtc.slice(0,12)+'…, md.tpr '+m.d1_tpr.slice(0,12)+'…; starting structure mdshare ALA2 (Freie Universität Berlin, CC BY 4.0). (2) MD-O, RMSF2NS: 1UBQ ubiquitin, AMBER99SB-ILDN, TIP3P, 2 ns NPT, protein only recorded every 2 ps; prod.xtc '+m.d2_xtc.slice(0,12)+'…, prot.tpr '+m.d2_tpr.slice(0,12)+'…. Crystal reference RCSB PDB 1UBQ (Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531), file '+m.xtal.slice(0,12)+'…. GROMACS 2023.3.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Analiz planı hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…); plandan sapma yok. İşlem zincirleri gmx trjconv ile, ölçütler MDAnalysis ile hesaplandı. Bağımsız denetim (gmx distance, gmx rms, gmx traj) '+m.audit_n+' karşılaştırmanın '+nLoc(m.audit_ok)+' kare başına en çok '+fx(m.audit_max,3)+' Å farkla aynı sonucu verdi. Denetimde iki araç varsayılanı ortaya çıktı: gmx rms kütle ağırlıklı hesaplar (-mw yes) ve -fit none ile yalnız bir grup sorar. Sayfadaki sayıların çoğu tarayıcınızda gömülü dizilerden yeniden hesaplanır; değerler 0,01 Å (RMSD için 0,001 Å) duyarlıkla saklandı. 3B görünümde peptit 4 ps, ubikitin 20 ps aralıkla gösterilir; grafikler bütün kareleri kullanır.</p>'+",
+   "'<p><b>Analysis.</b> The analysis plan was written before any computation and frozen (SHA-256 '+m.plan_sha.slice(0,12)+'…); no deviation from the plan. Processing chains were run with gmx trjconv, measures computed with MDAnalysis. The independent check (gmx distance, gmx rms, gmx traj) gave the same result in '+nLoc(m.audit_ok)+' of '+m.audit_n+' comparisons, with at most '+fx(m.audit_max,3)+' Å difference per frame. Two tool defaults came to light during the check: gmx rms computes mass-weighted values (-mw yes), and with -fit none it asks for only one group. Most numbers on the page are recomputed in your browser from the embedded arrays; values were stored with a precision of 0.01 Å (0.001 Å for RMSD). In the 3D views the peptide is shown every 4 ps and ubiquitin every 20 ps; the plots use all frames.</p>'+"
+  ],
+  [
+   "'<p><b>Öğretim modeli.</b> Mikroskopi köprüsündeki hücre izi tarayıcıda açık bir modelle üretilir (kalıcılıklı rastgele yürüyüş, sabit kayma, sarmalı görüş alanı); gerçek ölçüm değildir.</p>'+",
+   "'<p><b>Teaching model.</b> The cell track in the microscopy bridge is generated in the browser by an explicit model (persistent random walk, constant drift, wrapping field of view); it is not a real measurement.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> İki tek koşu, her biri 2 ns; amaç işleme kararlarının sayıya etkisini göstermektir. Ubikitin hareketi, esneklik, denge ya da yakınsama hakkında bir sonuç çıkarılmaz (MD-U, MD-REP). Ubikitin dosyasında su yoktur; su ile ilgili örnekler yalnız peptit kutusundandır. En küçük görüntü kuralıyla su sayımı: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> Two single runs, 2 ns each; the aim is to show the effect of processing decisions on the numbers. No conclusion is drawn about ubiquitin motion, flexibility, equilibrium or convergence (MD-U, MD-REP). The ubiquitin file contains no water; the water examples come only from the peptide box. Counting waters with the minimum image convention: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('twhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('twhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Right.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('tscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('tscore').textContent='Answered: '+n+' / '+QZ.length+' · right on first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start ---------- */"
+  ],
+  [
+   "['tc0','tc1','tc2','tc3','tc4','tc5','tc6','tc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['tc0','tc1','tc2','tc3','tc4','tc5','tc6','tc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDTRJ={TP:TP,TU:TU,cntOver:cntOver,cntJump:cntJump,arrMax:arrMax,arrMean:arrMean}; /* sınama için */",
+   "window.MDTRJ={TP:TP,TU:TU,cntOver:cntOver,cntJump:cntJump,arrMax:arrMax,arrMean:arrMean}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "Freie Universität Berlin",
+  "ps",
+  "tric",
+  "compact",
+  "rect",
+  "t = ",
+  "-ur ",
+  "Cα RMSD (Å)",
+  "-ur tric",
+  "-ur compact",
+  "A0|ext",
+  "A1|ext",
+  "A1|com",
+  "A2|com",
+  "A3|com",
+  "gmx trjconv -f md.xtc -pbc mol",
+  "gmx trjconv -f md.xtc -pbc mol -o whole.xtc\\ngmx trjconv -f whole.xtc -pbc nojump",
+  "gmx trjconv -f md.xtc -pbc mol -center",
+  "gmx trjconv -f md.xtc -fit rot+trans -o fit.xtc\\ngmx trjconv -f fit.xtc -pbc mol",
+  "-pbc mol",
+  "-pbc mol -center",
+  "…, prot.tpr"
+ ]
+}

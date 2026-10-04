@@ -653,6 +653,47 @@
       },
       "path": "md/md-q/",
       "source": "sources/MD-Q.html"
+    },
+    {
+      "id": "MD-TRJ",
+      "app": "md",
+      "level": "orta",
+      "title": "Ham dosya ölçüme hazır değildir: trajektoriyi analize hazırlamak",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH13",
+      "goals": [
+        "Periyodik sınırlar: bölünmüş molekül, sıçrama ve gerçek yol",
+        "Kutunun üç gösterimi ve düz koordinatla seçimin tuzağı",
+        "Hizalama: neye göre, hangi grupla? Ubikitin çekirdeği ve C-uç kuyruğu",
+        "Seçim, referans, birim ve araç varsayılanları",
+        "İşlem sırası: altı gerçek trjconv zinciri ve kendi işlem kaydınız"
+      ],
+      "data": [
+        "MD-REP REPGRID W1: su içinde alanin dipeptidi, 2 ns, 2001 kare (GROMACS 2023.3)",
+        "MD-O RMSF2NS: 1UBQ ubikitini, 2 ns, 1001 protein karesi; kristal referansı PDB 1UBQ (CC0 1.0)",
+        "Yeni simülasyon yok; analiz planı hesaplardan önce donduruldu; mikroskopi köprüsü tarayıcıda hesaplanan öğretim modelidir"
+      ],
+      "notice": null,
+      "en": {
+        "title": "A raw file is not ready to measure: preparing a trajectory for analysis",
+        "book": "CH13",
+        "goals": [
+          "Periodic boundaries: a split molecule, jumps and the real path",
+          "Three representations of the box and the trap of selecting with plain coordinates",
+          "Fitting: to what, with which group? The ubiquitin core and the C-terminal tail",
+          "Selection, reference, units and tool defaults",
+          "Processing order: six real trjconv chains and your own processing record"
+        ],
+        "data": [
+          "MD-REP REPGRID W1: alanine dipeptide in water, 2 ns, 2001 frames (GROMACS 2023.3)",
+          "MD-O RMSF2NS: 1UBQ ubiquitin, 2 ns, 1001 protein frames; crystal reference PDB 1UBQ (CC0 1.0)",
+          "No new simulation; the analysis plan was frozen before any computation; the microscopy bridge is a teaching model computed in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-trj/",
+      "source": "sources/MD-TRJ.html"
     }
   ]
 }

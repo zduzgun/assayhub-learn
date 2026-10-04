@@ -48,6 +48,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | MD-CON | MD | Temel | CH05 (termostat ve barostat seçimi, neden kaydı) | Yayında (0.1.0, 3 Ekim 2026) |
 | MD-REP | MD | Temel | CH06 (karşılaştırma, tekrar ve kontrol tasarımı) | Yayında (0.1.0, 4 Ekim 2026) |
 | MD-Q | MD | Temel | CH01 (biyolojik sorudan ölçülebilir niceliğe ve iddiaya) | Yayında (0.1.0, 4 Ekim 2026) |
+| MD-TRJ | MD | Orta | CH13 (trajektoriyi analize hazırlamak: PBC, seçim, hizalama, birim) | Yayında (0.1.0, 4 Ekim 2026) |
 
 Kimlikler değişmez; içerik sürümlenir (DK-T v1, v2 ...). Bir modülün adresi kimliğe bağlıdır, sürüme değil.
 

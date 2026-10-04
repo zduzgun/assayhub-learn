@@ -1,5 +1,14 @@
 # Sürüm notları
 
+## 0.24.0 (4 Ekim 2026) · Yeni modül MD-TRJ: trajektoriyi analize hazırlamak
+
+- MD-TRJ 0.1.0 (orta düzey, kitapta CH13): "Ham dosya ölçüme hazır değildir: PBC, seçim, hizalama ve birim." Yeni simülasyon yok; iki var olan ham trajektori yeniden işlendi: MD-REP REPGRID W1 (su içinde alanin dipeptidi, 2001 kare) ve MD-O RMSF2NS (1UBQ ubikitini, 1001 protein karesi). Analiz planı hesaplardan önce SHA-256 ile donduruldu; sapma yok.
+- Deneysel köprü: zaman atlamalı mikroskopide hücre izi (öğretim modeli); tabla kayması hizalamanın, kenar sıçraması nojump'ın karşılığı.
+- Atölye 1: peptidin beş işlem zinciri 3B (ham, bütün, sıçramasız, ortalanmış, hizalanmış; kutu ya da moleküle yakın görünüm), dört ölçüt grafiği, kutunun üç -ur gösterimi. Ham dosyada peptit 2001 karenin 554'ünde bölünmüş; bütün zincirde kütle merkezi 66 kez sıçrıyor; sıçramasız zincirde 2 ns'de 45,7 Å yer değiştirme.
+- Atölye 2 ve proteine dönüş: ubikitin Cα 3B, RMSD dört kipte (hizalama, grup, seçim, referans), dönme ve kütle merkezi. Hizalamasız 7,42 Å, bütün Cα ile 1,75 Å, çekirdek (1 ile 70) ile çekirdekte 0,75 Å, kuyrukta (71 ile 76) 6,21 Å; 2 ns'de 80,6°'ye kadar dönme.
+- Tezgâh: altı gerçek gmx trjconv zinciri ve tahmin; hatalı sıra (hizala, sonra bütünle) peptitte 444 karede bölünmüş molekül bıraktı, ubikitinde GROMACS 896 karede durdu. Defter: işlem kaydı formu. Altı soru, sekiz keşif kartı.
+- Bağımsız denetim (gmx distance, gmx rms, gmx traj) 11 karşılaştırmanın 11'inde en çok 0,005 Å farkla aynı; tarayıcıdaki 47 sayı Python ile aynı. İngilizce tablo 151 çift (`i18n/_work/mdtrj/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-TRJ`, `/en/l/MD-TRJ`.
+
 ## 0.23.0 (4 Ekim 2026) · Yeni modül MD-Q: biyolojik sorudan ölçülebilir MD çalışmasına
 
 - MD-Q 0.1.0 (temel düzey, kitapta CH01): "Bu veri hangi cümleyi taşır? Sorudan niceliğe, nicelikten iddiaya." Yeni simülasyon yok; gerçek veri mdshare ALA2 (Freie Universität Berlin, CC BY 4.0): alanin dipeptidinin 3 × 250 ns φ/ψ açıları ve 1. koşunun susuz 3B kareleri.
