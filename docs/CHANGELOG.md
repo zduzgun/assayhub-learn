@@ -1,5 +1,12 @@
 # Sürüm notları
 
+## 0.22.0 (4 Ekim 2026) · Yeni modül MD-REP: karşılaştırma, tekrar ve kontrol tasarımı
+
+- MD-REP 0.1.0 (temel düzey, kitapta CH06): "Fark gerçek mi? Karşılaştırmayı simülasyondan önce tasarlamak." Deneysel köprü: Western blotta teknik ve biyolojik tekrar (öğretim modeli, aynı koşulda 200 deney). Atölye: çift kuyulu oyuncakla 100'er sanal çalışma; kareyi tekrar saymak, A ile A yanlış pozitif oranı, ölçütü sonradan seçmek ve güç; defter tablosu ve güç grafiği.
+- Tezgâh: yeni GROMACS ızgarası REPGRID (su ve 0,15 M NaCl, 8'er bağımsız tekrar × 2 ns; plan koşulardan önce SHA-256 ile donduruldu). Tekrar noktaları, permütasyon dağılımı, Welch aralıkları ve ±5 puan bandı, A ile A bölmeleri, ilk k tekrar, ikincil ölçütler, tuzlu kutu 3B, sağlık tablosu. Ön kayıtlı hüküm "kararsız" (fark +0,06 puan, %95 aralık −11,19 ile 11,30; ±5 puan için grup başına yaklaşık 69 tekrar tahmini).
+- Defter: karşılaştırma planı formu ve tekrar sayısı tahmini. Proteine dönüş: ubikitin yabanıl tür ile mutant için plan tablosu. Altı soru, sekiz keşif kartı.
+- Birincil sonuç bağımsız bir betikle yeniden üretildi; bir sapma (denetim noktasından sürdürme) künye notunda. İngilizce tablo 222 çift (`i18n/_work/build_MD-REP_en.py` ve `tr_*.py`), `reviewed: false`. Kısa adresler: `/tr/l/MD-REP`, `/en/l/MD-REP`.
+
 ## 0.21.0 (3 Ekim 2026) · Yeni modül MD-CON: soruyu bozmadan simülasyon kontrolü
 
 - MD-CON 0.1.0 (temel düzey, kitapta CH05): "Termostat ve barostat neyi sabit tutar, neyi bozar, ve seçiminizi nasıl kaydedersiniz?" Yeni GROMACS ızgarası (8 termostat koşusu × 4 ns, 6 barostat koşusu × 2 ns, tek tohum; plan sonuçlardan önce SHA-256 ile donduruldu). Deneysel köprü: 160 kopyalı sıcaklık sıçraması canlı oynar, dört termostatın %63 yaklaşma süresi τ ile karşılaştırılır. Atölye 1: anlık sıcaklığın dağılımı ve SD / kuram oranı (V-rescale, Nosé-Hoover, Langevin 0,98 ile 1,00; Berendsen 0,71 ve 0,78), sıcaklık otokorelasyon eğrileri. Atölye 2: iki gerçek kutu yan yana 3B (su rengi 1 ps yer değiştirme), su difüzyonu, ψ geçiş hızı, αR payı, korunan enerji kayması, MSD eğrileri, termostat başına Ramachandran haritası (Langevin su difüzyonu 2,22 ve 4,70, öbürleri 5,34 ile 5,45 ×10⁻⁵ cm²/s). Atölye 3: hacim dağılımı, hacim otokorelasyonu, Berendsen ile Parrinello-Rahman kutularının büyütülmüş hacim değişimi (büyütme ekranda yazılı; grafik ve sayılar büyütmesiz).

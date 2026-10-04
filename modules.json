@@ -569,6 +569,49 @@
       },
       "path": "md/md-con/",
       "source": "sources/MD-CON.html"
+    },
+    {
+      "id": "MD-REP",
+      "app": "md",
+      "level": "temel",
+      "title": "Fark gerçek mi? Karşılaştırma, tekrar ve kontrol tasarımı",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH06",
+      "goals": [
+        "Aynı lizattan üç kuyu: teknik ve biyolojik tekrar",
+        "Kare tekrar mıdır? Aynı koşulda yanlış pozitif oranı",
+        "Ölçütü sonradan seçmek ve gerçek bir farkı kaç tekrarın gördüğü",
+        "Su ve 0,15 M NaCl: önceden yazılmış plan, negatif kontrol ve dört hüküm",
+        "Kendi karşılaştırmanızın planı ve tekrar sayısı tahmini"
+      ],
+      "data": [
+        "GROMACS 2023.3, yeni ızgara (REPGRID, 3 ve 4 Ekim 2026): alanin dipeptidi, 1520 sulu TIP3P kutusu; su ve 0,15 M NaCl koşullarında 8'er bağımsız tekrar × 2 ns; koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu",
+        "Tuzlu tekrarların 3B kareleri 1000 ile 1060 ps arasından, 1 ps aralıkla; birincil sonuç bağımsız bir betikle yeniden hesaplanıp denetlendi",
+        "Başlangıç yapısı: mdshare ALA2 (CC BY 4.0)",
+        "Western blot öğretim modeli ve çift kuyulu oyuncak model tarayıcıda hesaplanır"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Is the difference real? Comparison, replication and control design",
+        "book": "CH06",
+        "goals": [
+          "Three wells from the same lysate: technical and biological replicates",
+          "Is a frame a replicate? The false positive rate in the same condition",
+          "Choosing the measure afterwards, and how many replicates see a real difference",
+          "Water and 0.15 M NaCl: a plan written in advance, a negative control and four verdicts",
+          "The plan of your own comparison and an estimate of the number of replicates"
+        ],
+        "data": [
+          "GROMACS 2023.3, new grid (REPGRID, 3 and 4 October 2026): alanine dipeptide in a TIP3P box with 1520 waters; 8 independent replicates × 2 ns each in water and in 0.15 M NaCl; run and analysis plan frozen with SHA-256 before the runs",
+          "3D frames of the salt replicates between 1000 and 1060 ps at 1 ps intervals; the primary result was recomputed and audited with an independent script",
+          "Starting structure: mdshare ALA2 (CC BY 4.0)",
+          "The Western blot teaching model and the double-well toy model are computed in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-rep/",
+      "source": "sources/MD-REP.html"
     }
   ]
 }
