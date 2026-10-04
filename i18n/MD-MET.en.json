@@ -1,0 +1,643 @@
+{
+ "module": "MD-MET",
+ "lang": "en",
+ "source_sha256": "a466ba612c34f995c661e99438edf37564330c106d09bede8a008b27eb82b402",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-MET 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Yapısal ölçüt neyi ölçer?</title>",
+   "<title>MD: What does a structural measure measure?</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"mproto\">Bu modül üç gerçek ubikitin koşusu ve gerçek bir alanin dipeptidi verisi kullanır. Ubikitin koşularından biri MD-O'nun RMSF2NS koşusudur; ikisi bu modül için aynı hazırlıktan, yalnız başlangıç hız tohumu değiştirilerek yapıldı (her biri 2 ns, GROMACS 2023.3). Alanin dipeptidi verisi mdshare ALA2'dir (CC BY 4.0). Koşu ve analiz planı koşulardan önce yazılıp SHA-256 ile donduruldu; ölçütler MDAnalysis ile hesaplandı ve GROMACS araçlarıyla bağımsız olarak denetlendi. Hücre şekli köprüsü tarayıcınızda hesaplanan bir öğretim modelidir. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye yazılır.</div>",
+   "<div class=\"proto\" id=\"mproto\">This module uses three real ubiquitin runs and a real alanine dipeptide data set. One of the ubiquitin runs is the MD-O RMSF2NS run; two were made for this module from the same preparation, changing only the initial velocity seed (2 ns each, GROMACS 2023.3). The alanine dipeptide data are mdshare ALA2 (CC BY 4.0). The run and analysis plan was written before the runs and frozen with SHA-256; the measures were computed with MDAnalysis and checked independently with GROMACS tools. The cell shape bridge is a teaching model computed in your browser. Everything that was not computed is marked \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-MET · Yapısal ölçüt neyi ölçer?</span>",
+   "<span class=\"eyebrow\">MD-MET · What does a structural measure measure?</span>"
+  ],
+  [
+   "<h1>Bir sayı, bir yapı değildir: RMSD, Rg ve RMSF neyi görür, neyi görmez?</h1>",
+   "<h1>A number is not a structure: what do RMSD, Rg and RMSF see, and what do they miss?</h1>"
+  ],
+  [
+   "<p class=\"lead\">RMSD, dönme yarıçapı (Rg) ve RMSF, bir trajektoriyi birkaç eğriye indirger. Her biri yapının yalnız bir yönüne duyarlıdır: RMSD bir referansa uzaklığı, Rg kütlenin merkezden ortalama uzaklığını, RMSF bir atomun kendi ortalama konumu çevresindeki salınımını ölçer. Bu sayfada aynı ölçünün birbirinden çok farklı yapılara aynı değeri verebildiğini, bir ölçütün sabit kalırken başka bir şeyin değişebildiğini ve tek koşudan hesaplanan bir eğrinin koşudan koşuya ne kadar oynadığını gerçek verilerle göreceksiniz. Ölçüt, sorudan seçilir.</p>",
+   "<p class=\"lead\">RMSD, the radius of gyration (Rg) and RMSF reduce a trajectory to a few curves. Each is sensitive to only one aspect of the structure: RMSD measures the distance to a reference, Rg the mean distance of the mass from its center, RMSF the fluctuation of an atom around its own mean position. On this page you will see with real data that the same measure can give the same value to very different structures, that something else can change while a measure stays constant, and how much a curve computed from a single run varies from run to run. The measure is chosen from the question.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"mprogN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"mprogN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"mh0\">Mikroskopide hücre şekli: alan, çevre, dairesellik</h2>",
+   "<h2 id=\"mh0\">Cell shape in microscopy: area, perimeter, circularity</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Görüntü analizinde bir hücrenin şekli çoğu zaman tek bir sayıyla özetlenir. Aşağıdaki altı hücre öğretim modelidir: dış hatları tarayıcınızda rastgele üretildi ve hepsinin alanı aynı olacak biçimde ölçeklendi. Bir ölçüt seçin ve hücreleri o ölçüte göre sıralayın. Aynı alana sahip hücreler aynı şekle sahip mi? Hangi ölçüt hangi farkı görüyor?</p></div>",
+   "<div class=\"prose\"><p>In image analysis the shape of a cell is often summarized with a single number. The six cells below are a teaching model: their outlines were generated at random in your browser and scaled so that all have the same area. Choose a measure and sort the cells by it. Do cells with the same area have the same shape? Which measure sees which difference?</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Hücre ölçütü\" id=\"mbm\"><button type=\"button\" data-v=\"area\" aria-pressed=\"true\">alan</button><button type=\"button\" data-v=\"per\" aria-pressed=\"false\">çevre</button><button type=\"button\" data-v=\"circ\" aria-pressed=\"false\">dairesellik</button><button type=\"button\" data-v=\"fer\" aria-pressed=\"false\">en uzun çap</button></div><button type=\"button\" class=\"btn\" id=\"mbnew\">Yeni hücreler</button></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Cell measure\" id=\"mbm\"><button type=\"button\" data-v=\"area\" aria-pressed=\"true\">area</button><button type=\"button\" data-v=\"per\" aria-pressed=\"false\">perimeter</button><button type=\"button\" data-v=\"circ\" aria-pressed=\"false\">circularity</button><button type=\"button\" data-v=\"fer\" aria-pressed=\"false\">longest diameter</button></div><button type=\"button\" class=\"btn\" id=\"mbnew\">New cells</button></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"mbridge\" class=\"plot\" aria-label=\"Öğretim modeli: aynı alana sahip altı hücre dış hattı ve seçilen ölçüt\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"mbridge\" class=\"plot\" aria-label=\"Teaching model: six cell outlines with the same area and the selected measure\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc0\"><span class=\"k\">Açık</span><h3>Aynı alan, farklı şekil</h3><p>En az üç ölçüte bakın.</p><div class=\"mine\" id=\"mmc0\"></div></article>",
+   "<article class=\"q\" id=\"mc0\"><span class=\"k\">Open</span><h3>Same area, different shape</h3><p>Look at at least three measures.</p><div class=\"mine\" id=\"mmc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: RMSD neyi söyler?</span>",
+   "<span class=\"step\">1 · Workshop: what does RMSD tell?</span>"
+  ],
+  [
+   "<h2 id=\"mh1\">Aynı RMSD, farklı yapılar</h2>",
+   "<h2 id=\"mh1\">Same RMSD, different structures</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Ubikitin RMSF2NS koşusunun 201 karesi (0 ile 2000 ps, 10 ps aralık) çekirdek Cα'larıyla (kalıntı 1 ile 70) 1UBQ kristal yapısına hizalandı. Üstteki grafik her karenin kristale göre RMSD'sidir: bütün Cα ile ve yalnız çekirdekle. Alttaki matris her kare çiftinin birbirine göre RMSD'sidir; koyu renk birbirine yakın, açık renk uzak demektir. Matristen bir hücreye tıklayın: o iki kare 3B'de üst üste çizilir. Kristale göre RMSD'leri neredeyse aynı olan iki kare birbirine ne kadar benzer?</p></div>",
+   "<div class=\"prose\"><p>201 frames of the ubiquitin RMSF2NS run (0 to 2000 ps, 10 ps apart) were fitted on their core Cα atoms (residues 1 to 70) to the 1UBQ crystal structure. The plot at the top is the RMSD of each frame relative to the crystal: with all Cα atoms and with the core only. The matrix below is the RMSD of every pair of frames relative to each other; dark means close, light means far. Click a cell of the matrix: those two frames are drawn on top of each other in 3D. How similar are two frames whose RMSDs relative to the crystal are almost the same?</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Eğri:</span><div class=\"seg\" role=\"group\" aria-label=\"RMSD eğrisi\" id=\"mws\"><button type=\"button\" data-v=\"A\" aria-pressed=\"true\">bütün Cα</button><button type=\"button\" data-v=\"B\" aria-pressed=\"false\">çekirdek</button><button type=\"button\" data-v=\"AB\" aria-pressed=\"false\">ikisi birlikte</button></div></div>",
+   "<div class=\"selrow\"><span>Curve:</span><div class=\"seg\" role=\"group\" aria-label=\"RMSD curve\" id=\"mws\"><button type=\"button\" data-v=\"A\" aria-pressed=\"true\">all Cα</button><button type=\"button\" data-v=\"B\" aria-pressed=\"false\">core</button><button type=\"button\" data-v=\"AB\" aria-pressed=\"false\">both</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"mser\" class=\"plot\" aria-label=\"Kristale göre Cα RMSD, zamanla\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"mser\" class=\"plot\" aria-label=\"Cα RMSD relative to the crystal over time\"></canvas></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mmat\" class=\"plot\" aria-label=\"Kare çifti RMSD matrisi; tıklayarak çift seçin\"></canvas></div><div class=\"stagebox\"><canvas id=\"mpair\" aria-label=\"Seçilen iki karenin Cα zinciri üst üste; gri kristal yapı\"></canvas></div></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mmat\" class=\"plot\" aria-label=\"Frame-pair RMSD matrix; click to select a pair\"></canvas></div><div class=\"stagebox\"><canvas id=\"mpair\" aria-label=\"Cα chains of the two selected frames on top of each other; gray the crystal structure\"></canvas></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn\" id=\"mbest\">Kristale göre aynı RMSD, birbirine en uzak çifti göster</button></div>",
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn\" id=\"mbest\">Show the pair with the same RMSD to the crystal that is farthest apart</button></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc1\"><span class=\"k\">Açık</span><h3>Referansa uzaklık, birbirine uzaklık değildir</h3><p>Kristale göre RMSD'leri yakın olan bir çifti inceleyin.</p><div class=\"mine\" id=\"mmc1\"></div></article>",
+   "<article class=\"q\" id=\"mc1\"><span class=\"k\">Open</span><h3>Distance to a reference is not distance to each other</h3><p>Examine a pair whose RMSDs relative to the crystal are close.</p><div class=\"mine\" id=\"mmc1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc2\"><span class=\"k\">Açık</span><h3>Altı kalıntı, bütün eğri</h3><p>İki eğriyi birlikte görün.</p><div class=\"mine\" id=\"mmc2\"></div></article>",
+   "<article class=\"q\" id=\"mc2\"><span class=\"k\">Open</span><h3>Six residues, the whole curve</h3><p>View the two curves together.</p><div class=\"mine\" id=\"mmc2\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye ve proteine dönüş: Rg ve RMSF, üç koşu</span>",
+   "<span class=\"step\">2 · Workshop and back to proteins: Rg and RMSF, three runs</span>"
+  ],
+  [
+   "<h2 id=\"mh2\">Kompaktlık ve esneklik: bir koşu yeter mi?</h2>",
+   "<h2 id=\"mh2\">Compactness and flexibility: is one run enough?</h2>"
+  ],
+  [
+   "<div class=\"prose\" id=\"mw2prose\"><p>Üç bağımsız ubikitin koşusu aynı başlangıç yapısından, yalnız başlangıç hızları farklı olarak başladı. Rg proteinin ne kadar kompakt olduğunu, kalıntı başına RMSF ise her Cα'nın ne kadar salındığını özetler. Çözümleme penceresi 200 ile 2000 ps'dir; RMSF için her koşu çekirdekle kristale hizalandı ve kendi ortalama yapısına göre hesaplandı.</p></div>",
+   "<div class=\"prose\" id=\"mw2prose\"><p>Three independent ubiquitin runs started from the same starting structure, differing only in their initial velocities. Rg summarizes how compact the protein is; per-residue RMSF summarizes how much each Cα fluctuates. The analysis window is 200 to 2000 ps; for RMSF each run was fitted on the core to the crystal and computed relative to its own mean structure.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Rg:</span><div class=\"seg\" role=\"group\" aria-label=\"Rg gösterimi\" id=\"mgm\"><button type=\"button\" data-v=\"all\" aria-pressed=\"true\">bütün atomlar</button><button type=\"button\" data-v=\"core\" aria-pressed=\"false\">çekirdek Cα</button></div></div>",
+   "<div class=\"selrow\"><span>Rg:</span><div class=\"seg\" role=\"group\" aria-label=\"Rg view\" id=\"mgm\"><button type=\"button\" data-v=\"all\" aria-pressed=\"true\">all atoms</button><button type=\"button\" data-v=\"core\" aria-pressed=\"false\">core Cα</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"mrg\" class=\"plot\" aria-label=\"Üç koşuda dönme yarıçapı, zamanla\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"mrg\" class=\"plot\" aria-label=\"Radius of gyration in the three runs over time\"></canvas></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mrgsc\" class=\"plot\" aria-label=\"Rg ile kuyruk RMSD'si, her koşu ayrı renk\"></canvas></div><dl class=\"read\" id=\"mgread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mrgsc\" class=\"plot\" aria-label=\"Rg against tail RMSD, each run in its own color\"></canvas></div><dl class=\"read\" id=\"mgread\"></dl></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>RMSF:</span><div class=\"seg\" role=\"group\" aria-label=\"RMSF karşılaştırması\" id=\"mfm\"><button type=\"button\" data-v=\"runs\" aria-pressed=\"true\">üç koşu</button><button type=\"button\" data-v=\"half\" aria-pressed=\"false\">pencere yarıları (koşu 1)</button><button type=\"button\" data-v=\"fit\" aria-pressed=\"false\">hizalama grubu (koşu 1)</button><button type=\"button\" data-v=\"ref\" aria-pressed=\"false\">referans (koşu 1)</button></div></div>",
+   "<div class=\"selrow\"><span>RMSF:</span><div class=\"seg\" role=\"group\" aria-label=\"RMSF comparison\" id=\"mfm\"><button type=\"button\" data-v=\"runs\" aria-pressed=\"true\">three runs</button><button type=\"button\" data-v=\"half\" aria-pressed=\"false\">window halves (run 1)</button><button type=\"button\" data-v=\"fit\" aria-pressed=\"false\">fitting group (run 1)</button><button type=\"button\" data-v=\"ref\" aria-pressed=\"false\">reference (run 1)</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"mrmsf\" class=\"plot\" aria-label=\"Kalıntı başına Cα RMSF\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"mrmsf\" class=\"plot\" aria-label=\"Per-residue Cα RMSF\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc3\"><span class=\"k\">Açık</span><h3>Rg neyi görmez?</h3><p>Rg grafiğine ve Rg ile kuyruk saçılımına bakın.</p><div class=\"mine\" id=\"mmc3\"></div></article>",
+   "<article class=\"q\" id=\"mc3\"><span class=\"k\">Open</span><h3>What does Rg miss?</h3><p>Look at the Rg plot and the Rg against tail scatter.</p><div class=\"mine\" id=\"mmc3\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc4\"><span class=\"k\">Açık</span><h3>RMSF bir tanımdır</h3><p>Pencere, hizalama ve referans karşılaştırmalarını açın.</p><div class=\"mine\" id=\"mmc4\"></div></article>",
+   "<article class=\"q\" id=\"mc4\"><span class=\"k\">Open</span><h3>RMSF is a definition</h3><p>Open the window, fitting and reference comparisons.</p><div class=\"mine\" id=\"mmc4\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc5\"><span class=\"k\">Açık</span><h3>Koşudan koşuya</h3><p>\"Üç koşu\" görünümünde eğrileri karşılaştırın.</p><div class=\"mine\" id=\"mmc5\"></div></article>",
+   "<article class=\"q\" id=\"mc5\"><span class=\"k\">Open</span><h3>From run to run</h3><p>Compare the curves in the \"three runs\" view.</p><div class=\"mine\" id=\"mmc5\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Atölye: ölçüt sorudan gelir</span>",
+   "<span class=\"step\">3 · Workshop: the measure comes from the question</span>"
+  ],
+  [
+   "<h2 id=\"mh3\">Alanin dipeptidi: RMSD durumları ayırabilir mi?</h2>",
+   "<h2 id=\"mh3\">Alanine dipeptide: can RMSD separate the states?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>mdshare ALA2 verisinin 1. koşusundan 25.000 kare (her 10. kare, 250 ns) alındı. Her kare φ/ψ açılarına göre üç duruma ayrıldı (MD-U tanımı: αR, β/PPII, αL). Sonra her karenin 10 ağır atomunun RMSD'si, önceden yazılmış kuralla seçilen bir αR referans karesine ve bir β referans karesine göre hesaplandı. Eşiği kaydırın: tek bir RMSD eşiği αR karelerini öbürlerinden ne kadar iyi ayırıyor? Peki β ile αL'yi?</p></div>",
+   "<div class=\"prose\"><p>25,000 frames (every 10th frame, 250 ns) were taken from run 1 of the mdshare ALA2 data. Each frame was assigned to one of three states by its φ/ψ angles (MD-U definition: αR, β/PPII, αL). Then the RMSD of each frame's 10 heavy atoms was computed relative to an αR reference frame and a β reference frame chosen by a rule written in advance. Move the threshold: how well does a single RMSD threshold separate αR frames from the others? And β from αL?</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><label for=\"mthr\">αR referansına göre RMSD eşiği: <b id=\"mthrv\">0,50</b> Å</label><input type=\"range\" id=\"mthr\" min=\"0\" max=\"200\" step=\"1\" value=\"50\"><button type=\"button\" class=\"btn\" id=\"mthrbest\">En iyi eşik</button></div>",
+   "<div class=\"selrow\"><label for=\"mthr\">RMSD threshold relative to the αR reference: <b id=\"mthrv\">0.50</b> Å</label><input type=\"range\" id=\"mthr\" min=\"0\" max=\"200\" step=\"1\" value=\"50\"><button type=\"button\" class=\"btn\" id=\"mthrbest\">Best threshold</button></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mhist\" class=\"plot\" aria-label=\"αR referansına göre RMSD dağılımı, üç durum\"></canvas></div><div class=\"stagebox\"><canvas id=\"mscat\" class=\"plot\" aria-label=\"İki referansa göre RMSD düzlemi, renk durum\"></canvas></div></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mhist\" class=\"plot\" aria-label=\"RMSD distribution relative to the αR reference, three states\"></canvas></div><div class=\"stagebox\"><canvas id=\"mscat\" class=\"plot\" aria-label=\"RMSD plane relative to two references, colored by state\"></canvas></div></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc6\"><span class=\"k\">Açık</span><h3>Bir referans, iki durum</h3><p>Eşiği deneyin ve iki referanslı düzleme bakın.</p><div class=\"mine\" id=\"mmc6\"></div></article>",
+   "<article class=\"q\" id=\"mc6\"><span class=\"k\">Open</span><h3>One reference, two states</h3><p>Try the threshold and look at the two-reference plane.</p><div class=\"mine\" id=\"mmc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Tezgâh: ölçüt seçici</span>",
+   "<span class=\"step\">4 · Bench: measure selector</span>"
+  ],
+  [
+   "<h2 id=\"mh4\">Altı soru: hangi ölçüt?</h2>",
+   "<h2 id=\"mh4\">Six questions: which measure?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her soru için en uygun ölçütü seçin. Seçiminizden sonra gerekçe ve bu sayfadaki ilgili sonuç görünür.</p></div>",
+   "<div class=\"prose\"><p>For each question choose the most suitable measure. After your choice the reasoning and the related result on this page appear.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"mc7\"><span class=\"k\">Açık</span><h3>Soru ölçütü seçer</h3><p>En az dört soruyu cevaplayın.</p><div class=\"mine\" id=\"mmc7\"></div></article>",
+   "<article class=\"q\" id=\"mc7\"><span class=\"k\">Open</span><h3>The question chooses the measure</h3><p>Answer at least four questions.</p><div class=\"mine\" id=\"mmc7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">5 · Defter: ölçüt kaydı</span>",
+   "<span class=\"step\">5 · Notebook: measure record</span>"
+  ],
+  [
+   "<h2 id=\"mh5\">Ölçümden önce yazılan altı satır</h2>",
+   "<h2 id=\"mh5\">Six lines written before measuring</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bu kayıt, bir eğrinin neyi ölçtüğünü ve neyi göremeyeceğini sonuçtan önce yazmak içindir. Kendi çalışmanız için doldurun; örnekler bu sayfanın ubikitin analizinden alındı. Metin yalnız tarayıcınızda oluşturulur, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>This record is for writing down, before the result, what a curve measures and what it cannot see. Fill it in for your own study; the examples come from this page's ubiquitin analysis. The text is created only in your browser; it is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>Soru<textarea id=\"mfq\" rows=\"2\">Örnek: C-uç kuyruğu (71 ile 76) çekirdeğe göre ne kadar salınıyor?</textarea></label>",
+   "<label>Question<textarea id=\"mfq\" rows=\"2\">Example: How much does the C-terminal tail (71 to 76) fluctuate relative to the core?</textarea></label>"
+  ],
+  [
+   "<label>Ölçüt<textarea id=\"mfm2\" rows=\"2\">Örnek: kalıntı başına Cα RMSF; kuyruk ve çekirdek ortalaması ayrıca.</textarea></label>",
+   "<label>Measure<textarea id=\"mfm2\" rows=\"2\">Example: per-residue Cα RMSF; tail and core averages separately.</textarea></label>"
+  ],
+  [
+   "<label>Seçim ve hizalama<textarea id=\"mfs\" rows=\"2\">Örnek: Cα; hizalama çekirdek Cα 1 ile 70, kristal yapıya.</textarea></label>",
+   "<label>Selection and fitting<textarea id=\"mfs\" rows=\"2\">Example: Cα; fitted on the core Cα 1 to 70, to the crystal structure.</textarea></label>"
+  ],
+  [
+   "<label>Referans ve pencere<textarea id=\"mfr\" rows=\"2\">Örnek: koşunun ortalama yapısı; 200 ile 2000 ps; üç bağımsız koşu ayrı ayrı.</textarea></label>",
+   "<label>Reference and window<textarea id=\"mfr\" rows=\"2\">Example: the run's mean structure; 200 to 2000 ps; three independent runs separately.</textarea></label>"
+  ],
+  [
+   "<label>Bu ölçüt neyi göremez?<textarea id=\"mfn\" rows=\"2\">Örnek: kuyruğun hangi yöne gittiğini ve salınımın zaman ölçeğini göstermez.</textarea></label>",
+   "<label>What can this measure not see?<textarea id=\"mfn\" rows=\"2\">Example: it does not show in which direction the tail moves or the time scale of the fluctuation.</textarea></label>"
+  ],
+  [
+   "<label>Karşılaştırma ve belirsizlik<textarea id=\"mfu\" rows=\"2\">Örnek: koşular arası standart sapma; tek koşudan genelleme yapılmaz.</textarea></label>",
+   "<label>Comparison and uncertainty<textarea id=\"mfu\" rows=\"2\">Example: standard deviation between runs; no generalization from a single run.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"mfcopy\">Metni kopyala</button><span class=\"small\" id=\"mfmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"mfcopy\">Copy text</button><span class=\"small\" id=\"mfmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">6 · Sınav</span>",
+   "<span class=\"step\">6 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"mh6\">Altı soru</h2>",
+   "<h2 id=\"mh6\">Six questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('mprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('mprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== deneysel köprü: hücre şekli (öğretim modeli) ===== */",
+   "/* ===== experimental bridge: cell shape (teaching model) ===== */"
+  ],
+  [
+   "/* model: r(θ) = 1 + Σ a_k cos(kθ + φ_k), k = 2..6; her hücre alanı 300 µm² olacak biçimde ölçeklenir */",
+   "/* model: r(θ) = 1 + Σ a_k cos(kθ + φ_k), k = 2..6; each cell is scaled to an area of 300 µm² */"
+  ],
+  [
+   "var MBL={area:'alan (µm²)',per:'çevre (µm)',circ:'dairesellik (4πA/P²)',fer:'en uzun çap (µm)'};",
+   "var MBL={area:'area (µm²)',per:'perimeter (µm)',circ:'circularity (4πA/P²)',fer:'longest diameter (µm)'};"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('soldan sağa artan '+MBL[m],8,15);",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('increasing from left to right: '+MBL[m],8,15);"
+  ],
+  [
+   "$('mbread').innerHTML=dl('Seçili ölçüt',MBL[m])+dl('Altı hücrede en küçük',fx(arrMin(v),m==='circ'?2:1))+dl('Altı hücrede en büyük',fx(arrMax(v),m==='circ'?2:1))+dl('Alan (her hücre)',fx(arrMin(MB.cells.map(function(c){return c.area;})),1)+' ile '+fx(arrMax(MB.cells.map(function(c){return c.area;})),1)+' µm²');",
+   "$('mbread').innerHTML=dl('Selected measure',MBL[m])+dl('Smallest of the six cells',fx(arrMin(v),m==='circ'?2:1))+dl('Largest of the six cells',fx(arrMax(v),m==='circ'?2:1))+dl('Area (each cell)',fx(arrMin(MB.cells.map(function(c){return c.area;})),1)+' to '+fx(arrMax(MB.cells.map(function(c){return c.area;})),1)+' µm²');"
+  ],
+  [
+   "card('mc0',true,'Altı hücrenin alanı aynı ('+fx(MB.A0,0)+' µm²), ama dairesellik '+fx(arrMin(ci),2)+' ile '+fx(arrMax(ci),2)+', çevre '+fx(arrMin(pe),0)+' ile '+fx(arrMax(pe),0)+' µm, en uzun çap '+fx(arrMin(fe),0)+' ile '+fx(arrMax(fe),0)+' µm arasında. Her ölçüt şeklin başka bir yönünü görür ve hiçbiri tek başına şekli tanımlamaz. MD\\'de de RMSD bir referansa uzaklığı, Rg kompaktlığı, RMSF salınımı ölçer; hangisinin seçileceği sorudan gelir.'); }",
+   "card('mc0',true,'The six cells have the same area ('+fx(MB.A0,0)+' µm²), but circularity ranges from '+fx(arrMin(ci),2)+' to '+fx(arrMax(ci),2)+', perimeter from '+fx(arrMin(pe),0)+' to '+fx(arrMax(pe),0)+' µm and longest diameter from '+fx(arrMin(fe),0)+' to '+fx(arrMax(fe),0)+' µm. Each measure sees a different aspect of the shape and none of them defines the shape on its own. In MD, too, RMSD measures the distance to a reference, Rg compactness and RMSF fluctuation; which one to choose comes from the question.'); }"
+  ],
+  [
+   "else card('mc0',false,'Şimdiye kadar baktığınız ölçüt: '+n+'. En az üçüne bakın.'); }",
+   "else card('mc0',false,'Measures you have looked at so far: '+n+'. Look at at least three.'); }"
+  ],
+  [
+   "/* ===== atölye 1: RMSD'nin dejenereliği (ubikitin R1) ===== */",
+   "/* ===== workshop 1: degeneracy of RMSD (ubiquitin R1) ===== */"
+  ],
+  [
+   "/* kristale göre RMSD'leri 0,1 Å'dan az farklı çiftler; birbirine en uzak olanı */",
+   "/* pairs whose RMSDs relative to the crystal differ by less than 0.1 Å; the one farthest apart */"
+  ],
+  [
+   "var p=plot(g,50,12,W-64,H-56,[0,2000],[0,ym],{ylabPad:35,xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'kristale göre RMSD (Å)'});",
+   "var p=plot(g,50,12,W-64,H-56,[0,2000],[0,ym],{ylabPad:35,xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'time (ps)',ylab:'RMSD relative to the crystal (Å)'});"
+  ],
+  [
+   "$('msleg').innerHTML=ks.map(function(k){ return '<span>'+lin(col[k])+(k==='A'?'bütün Cα (76 kalıntı)':'çekirdek Cα (1 ile 70)')+': ortalama '+fx(arrMean(W1[k]),2)+' Å</span>'; }).join('')+'<span>kesikli çizgiler: seçili iki kare</span>';",
+   "$('msleg').innerHTML=ks.map(function(k){ return '<span>'+lin(col[k])+(k==='A'?'all Cα (76 residues)':'core Cα (1 to 70)')+': mean '+fx(arrMean(W1[k]),2)+' Å</span>'; }).join('')+'<span>dashed lines: the two selected frames</span>';"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText('kare (×10 ps)',pad+S/2,4+S+24); g.save(); g.translate(12,4+S/2); g.rotate(-Math.PI/2); g.fillText('kare (×10 ps)',0,0); g.restore();",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText('frame (×10 ps)',pad+S/2,4+S+24); g.save(); g.translate(12,4+S/2); g.rotate(-Math.PI/2); g.fillText('frame (×10 ps)',0,0); g.restore();"
+  ],
+  [
+   "pill(g,String(W1.i*10)+' ps ile '+String(W1.j*10)+' ps',W/2,18,css('--paper'),rstr(rgbA(css('--navy')),0.9));",
+   "pill(g,String(W1.i*10)+' ps and '+String(W1.j*10)+' ps',W/2,18,css('--paper'),rstr(rgbA(css('--navy')),0.9));"
+  ],
+  [
+   "$('mpread').innerHTML=dl('Kare 1 (lacivert)',String(W1.i*10)+' ps; kristale göre '+fx(W1.A[W1.i],2)+' Å')+dl('Kare 2 (kızıl)',String(W1.j*10)+' ps; kristale göre '+fx(W1.A[W1.j],2)+' Å')+dl('İki karenin birbirine göre RMSD\\'si',fx(m,2)+' Å')+dl('Kristale göre RMSD farkı 0,1 Å\\'dan az olan çift',fmtI(W1.np)+' (20.100 çiftten)')+dl('Renkler','gri kristal yapı; kalın kısım kuyruk 71 ile 76; bütün kareler çekirdekle kristale hizalı');",
+   "$('mpread').innerHTML=dl('Frame 1 (navy)',String(W1.i*10)+' ps; relative to the crystal '+fx(W1.A[W1.i],2)+' Å')+dl('Frame 2 (red)',String(W1.j*10)+' ps; relative to the crystal '+fx(W1.A[W1.j],2)+' Å')+dl('RMSD of the two frames relative to each other',fx(m,2)+' Å')+dl('Pairs whose RMSDs relative to the crystal differ by less than 0.1 Å',fmtI(W1.np)+' (of 20,100 pairs)')+dl('Colors','gray the crystal structure; thick part the tail 71 to 76; all frames fitted on the core to the crystal');"
+  ],
+  [
+   "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
+   "function fmtI(n){ return new Intl.NumberFormat('en-US').format(n); }"
+  ],
+  [
+   "function w1Cards(){ if(W1.pairSeen) card('mc1',true,'Kristale göre RMSD\\'leri 0,1 Å\\'dan az farklı '+fmtI(W1.np)+' kare çifti var. Bunların birbirine en uzak olanı '+String(W1.best[0]*10)+' ve '+String(W1.best[1]*10)+' ps: kristale göre '+fx(W1.A[W1.best[0]],2)+' ve '+fx(W1.A[W1.best[1]],2)+' Å, birbirine göre '+fx(W1.bestM,2)+' Å. Aynı RMSD değeri, referanstan aynı uzaklıkta ama farklı yönlerde duran yapılara karşılık gelebilir. İki yapının benzerliği sorulduğunda kare çifti RMSD\\'si gerekir.');",
+   "function w1Cards(){ if(W1.pairSeen) card('mc1',true,'There are '+fmtI(W1.np)+' frame pairs whose RMSDs relative to the crystal differ by less than 0.1 Å. The pair farthest apart is '+String(W1.best[0]*10)+' and '+String(W1.best[1]*10)+' ps: '+fx(W1.A[W1.best[0]],2)+' and '+fx(W1.A[W1.best[1]],2)+' Å relative to the crystal, '+fx(W1.bestM,2)+' Å relative to each other. The same RMSD value can correspond to structures at the same distance from the reference but in different directions. When the similarity of two structures is asked, the frame-pair RMSD is needed.');"
+  ],
+  [
+   "else card('mc1',false,'Matristen kristale göre RMSD\\'leri birbirine yakın (0,1 Å\\'dan az farklı) ve birbirine göre RMSD\\'si 1 Å\\'dan büyük bir çift seçin ya da düğmeyi kullanın.');",
+   "else card('mc1',false,'From the matrix, choose a pair whose RMSDs relative to the crystal are close (less than 0.1 Å apart) and whose RMSD relative to each other is larger than 1 Å, or use the button.');"
+  ],
+  [
+   "if(W1.seen.AB) card('mc2',true,'Bütün Cα RMSD\\'si ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek RMSD\\'si '+fx(arrMean(W1.B),2)+' Å. 76 kalıntının yalnız 6\\'sı (kuyruk 71 ile 76) dışarıda kalınca değer yarıdan fazla düşüyor: bütün Cα eğrisi çoğunlukla kuyruğun hareketini izliyor. Eğrinin bir anda yükselip sonra yatay seyretmesi, hangi atomların ölçüldüğünü bilmeden \"yapı değişti\" ya da \"denge\" diye okunamaz.'); }",
+   "if(W1.seen.AB) card('mc2',true,'The all-Cα RMSD averages '+fx(arrMean(W1.A),2)+' Å, the core RMSD '+fx(arrMean(W1.B),2)+' Å. Leaving out only 6 of the 76 residues (the tail 71 to 76) more than halves the value: the all-Cα curve mostly follows the motion of the tail. A curve that rises at once and then runs flat cannot be read as \"the structure changed\" or \"equilibrium\" without knowing which atoms were measured.'); }"
+  ],
+  [
+   "/* ===== atölye 2 ve proteine dönüş: Rg ve RMSF, üç koşu ===== */",
+   "/* ===== workshop 2 and back to proteins: Rg and RMSF, three runs ===== */"
+  ],
+  [
+   "var RUNS=['R1','R2','R3'], RNM={R1:'koşu 1 (RMSF2NS)',R2:'koşu 2',R3:'koşu 3'};",
+   "var RUNS=['R1','R2','R3'], RNM={R1:'run 1 (RMSF2NS)',R2:'run 2',R3:'run 3'};"
+  ],
+  [
+   "var p=plot(g,54,12,W-68,H-56,[0,2000],[lo,hi],{ylabPad:39,xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'Rg (Å)',yfmt:function(v){return fx(v,1);}});",
+   "var p=plot(g,54,12,W-68,H-56,[0,2000],[lo,hi],{ylabPad:39,xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'time (ps)',ylab:'Rg (Å)',yfmt:function(v){return fx(v,1);}});"
+  ],
+  [
+   "$('mgleg').innerHTML=RUNS.map(function(r){ var a=win(S[r]); return '<span>'+lin(RCOL[r])+RNM[r]+': '+fx(arrMean(a),2)+' ± '+fx(arrSD(a),2)+' Å</span>'; }).join('')+'<span>gri bant: atılan ilk 200 ps</span>';",
+   "$('mgleg').innerHTML=RUNS.map(function(r){ var a=win(S[r]); return '<span>'+lin(RCOL[r])+RNM[r]+': '+fx(arrMean(a),2)+' ± '+fx(arrSD(a),2)+' Å</span>'; }).join('')+'<span>gray band: the first 200 ps, discarded</span>';"
+  ],
+  [
+   "var p=plot(g,50,12,W-62,H-56,[xl,xh],[yl,yh],{ylabPad:35,xticks:xt,yticks:yt,xlab:'kuyruk RMSD (kristale göre, Å)',ylab:'Rg, bütün atomlar (Å)',yfmt:function(v){return fx(v,1);}});",
+   "var p=plot(g,50,12,W-62,H-56,[xl,xh],[yl,yh],{ylabPad:35,xticks:xt,yticks:yt,xlab:'tail RMSD (relative to the crystal, Å)',ylab:'Rg, all atoms (Å)',yfmt:function(v){return fx(v,1);}});"
+  ],
+  [
+   "$('mgread').innerHTML=RUNS.map(function(r){ var a=win(W2.tail[r]), b=win(W2.rg[r]); return dl(RNM[r],'Rg '+fx(arrMin(b),2)+' ile '+fx(arrMax(b),2)+' Å; kuyruk RMSD '+fx(arrMin(a),1)+' ile '+fx(arrMax(a),1)+' Å; r = '+fx(pear(a,b),2)); }).join('')+dl('Pencere','200 ile 2000 ps, koşu başına 901 kare');",
+   "$('mgread').innerHTML=RUNS.map(function(r){ var a=win(W2.tail[r]), b=win(W2.rg[r]); return dl(RNM[r],'Rg '+fx(arrMin(b),2)+' to '+fx(arrMax(b),2)+' Å; tail RMSD '+fx(arrMin(a),1)+' to '+fx(arrMax(a),1)+' Å; r = '+fx(pear(a,b),2)); }).join('')+dl('Window','200 to 2000 ps, 901 frames per run');"
+  ],
+  [
+   "if(m==='runs'){ L=RUNS.map(function(r){ return [W2.rmsf[r],RCOL[r],RNM[r]]; }); L.push([W2.pool,PAL.navy,'üç koşu birleşik (ortak ortalama yapı)']); }",
+   "if(m==='runs'){ L=RUNS.map(function(r){ return [W2.rmsf[r],RCOL[r],RNM[r]]; }); L.push([W2.pool,PAL.navy,'three runs pooled (common mean structure)']); }"
+  ],
+  [
+   "if(m==='half') L=[[W2.rmsf.R1,PAL.accent,'koşu 1, 200 ile 2000 ps'],[W2.h1,PAL.c3,'200 ile 1100 ps'],[W2.h2,PAL.gold,'1100 ile 2000 ps']];",
+   "if(m==='half') L=[[W2.rmsf.R1,PAL.accent,'run 1, 200 to 2000 ps'],[W2.h1,PAL.c3,'200 to 1100 ps'],[W2.h2,PAL.gold,'1100 to 2000 ps']];"
+  ],
+  [
+   "if(m==='fit') L=[[W2.rmsf.R1,PAL.accent,'hizalama çekirdek Cα'],[W2.fa,PAL.c3,'hizalama bütün Cα']];",
+   "if(m==='fit') L=[[W2.rmsf.R1,PAL.accent,'fitted on the core Cα'],[W2.fa,PAL.c3,'fitted on all Cα']];"
+  ],
+  [
+   "if(m==='ref') L=[[W2.rmsf.R1,PAL.accent,'RMSF (kendi ortalama yapısına göre)'],[W2.xd,PAL.c3,'kristal yapıya göre karekök ortalama sapma']];",
+   "if(m==='ref') L=[[W2.rmsf.R1,PAL.accent,'RMSF (relative to its own mean structure)'],[W2.xd,PAL.c3,'root mean square deviation from the crystal structure']];"
+  ],
+  [
+   "var p=plot(g,50,12,W-62,H-56,[0.5,76.5],[0,ym],{ylabPad:35,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'kalıntı',ylab:'Å',yfmt:function(v){return fx(v,1);}});",
+   "var p=plot(g,50,12,W-62,H-56,[0.5,76.5],[0,ym],{ylabPad:35,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'residue',ylab:'Å',yfmt:function(v){return fx(v,1);}});"
+  ],
+  [
+   "$('mfleg').innerHTML=L.map(function(l){ return '<span>'+lin(l[1])+l[2]+': çekirdek '+fx(cm(l[0]),2)+', kuyruk '+fx(tm(l[0]),2)+' Å</span>'; }).join('')+(m==='runs'?'<span>gri bant: üç koşunun ortalaması ± SD</span>':'')+'<span>sarı bant: kuyruk 71 ile 76</span>';",
+   "$('mfleg').innerHTML=L.map(function(l){ return '<span>'+lin(l[1])+l[2]+': core '+fx(cm(l[0]),2)+', tail '+fx(tm(l[0]),2)+' Å</span>'; }).join('')+(m==='runs'?'<span>gray band: mean of the three runs ± SD</span>':'')+'<span>yellow band: tail 71 to 76</span>';"
+  ],
+  [
+   "var NT={runs:'Her koşu 200 ile 2000 ps, çekirdek Cα ile kristale hizalı, kendi ortalama yapısına göre.',half:'Aynı koşu, iki ayrı pencere; her pencere kendi ortalama yapısına göre.',fit:'Aynı koşu ve pencere; yalnız hizalama grubu değişir.',ref:'RMSF ortalama konum çevresindeki salınımdır; kristale göre sapma ise salınım ile ortalama konumun kristalden uzaklığını birlikte içerir.'};",
+   "var NT={runs:'Each run 200 to 2000 ps, fitted on the core Cα to the crystal, relative to its own mean structure.',half:'The same run, two separate windows; each window relative to its own mean structure.',fit:'The same run and window; only the fitting group changes.',ref:'RMSF is the fluctuation around the mean position; the deviation from the crystal contains both the fluctuation and the distance of the mean position from the crystal.'};"
+  ],
+  [
+   "card('mc3',true,'Pencere içinde Rg bir koşuda en çok '+fx(arrMax(mr),2)+' Å oynuyor; aynı sürede kuyruğun kristale göre RMSD\\'si bir koşu içinde, koşulara göre, en az '+fx(arrMin(tr),1)+', en çok '+fx(arrMax(tr),1)+' Å değişiyor. Rg ile kuyruk RMSD\\'si arasındaki r koşulara göre '+rs.map(function(v){return fx(v,2);}).join(', ')+': ilişki koşudan koşuya değişiyor. Rg kütlenin merkezden ortalama uzaklığını özetler: bir kuyruğun yön değiştirmesi ya da çekirdek içinde yer değiştiren halkalar Rg\\'de küçük ya da hiç iz bırakmayabilir. \"Kompaktlık değişti mi?\" sorusu için uygundur, \"kuyruk nerede?\" sorusu için değil.'); }",
+   "card('mc3',true,'Within the window Rg moves at most '+fx(arrMax(mr),2)+' Å in a run; over the same time the tail RMSD relative to the crystal changes within a run by at least '+fx(arrMin(tr),1)+' and at most '+fx(arrMax(tr),1)+' Å, depending on the run. The r between Rg and tail RMSD is '+rs.map(function(v){return fx(v,2);}).join(', ')+' across the runs: the relation changes from run to run. Rg summarizes the mean distance of the mass from the center: a tail changing direction, or loops shifting inside the core, may leave little or no trace in Rg. It suits the question \"did the compactness change?\", not \"where is the tail?\".'); }"
+  ],
+  [
+   "card('mc4',true,'Koşu 1\\'de iki pencere yarısı arasında kalıntı başına RMSF farkı en çok '+fx(d,2)+' Å (kalıntı '+dk+'). Hizalama grubu çekirdekten bütün Cα\\'ya geçince çekirdek ortalaması '+fx(cm(W2.rmsf.R1),2)+' → '+fx(cm(W2.fa),2)+', kuyruk '+fx(tm(W2.rmsf.R1),2)+' → '+fx(tm(W2.fa),2)+' Å. Kristale göre sapma çekirdekte ortalama '+fx(cm(W2.xd),2)+' Å, yani RMSF\\'den ('+fx(cm(W2.rmsf.R1),2)+') büyük: o eğri salınımı değil uzaklığı da içerir. RMSF\\'nin sayısı pencere, hizalama ve referans yazılmadan okunamaz.'); }",
+   "card('mc4',true,'In run 1 the per-residue RMSF differs by up to '+fx(d,2)+' Å between the two window halves (residue '+dk+'). When the fitting group changes from the core to all Cα, the core average goes '+fx(cm(W2.rmsf.R1),2)+' → '+fx(cm(W2.fa),2)+' and the tail '+fx(tm(W2.rmsf.R1),2)+' → '+fx(tm(W2.fa),2)+' Å. The deviation from the crystal averages '+fx(cm(W2.xd),2)+' Å in the core, larger than the RMSF ('+fx(cm(W2.rmsf.R1),2)+'): that curve contains distance, not only fluctuation. The RMSF number cannot be read without writing down the window, the fit and the reference.'); }"
+  ],
+  [
+   "card('mc5',true,'Çekirdek ortalama RMSF\\'si koşulara göre '+cmr.map(function(v){return fx(v,2);}).join(', ')+' Å; kuyruk '+tmr.map(function(v){return fx(v,2);}).join(', ')+' Å. Çekirdekte kalıntı başına profillerin koşu çiftleri arasındaki r değerleri '+pr.map(function(v){return fx(v,2);}).join(', ')+'. Koşular arası SD\\'nin en büyüğü: kalıntı '+mk+', '+fx(ms,2)+' Å. Üç koşu birleştirilip ortak bir ortalama yapıya göre hesaplanınca kuyruk RMSF\\'si '+fx(arrMean(sl(W2.pool,70,76)),2)+' Å\\'a çıkıyor: koşular kuyruğu farklı ortalama konumlarda tutuyor ve birleşik RMSF bu farkı salınım gibi gösteriyor. Tek bir 2 ns koşunun RMSF eğrisi bir sonraki koşuda aynı çıkmayabilir: iki durumu karşılaştırmak için tekrarlar arası değişkenlik gerekir (MD-REP).'); } }",
+   "card('mc5',true,'The core average RMSF is '+cmr.map(function(v){return fx(v,2);}).join(', ')+' Å across the runs; the tail '+tmr.map(function(v){return fx(v,2);}).join(', ')+' Å. In the core, the r values of the per-residue profiles between run pairs are '+pr.map(function(v){return fx(v,2);}).join(', ')+'. The largest SD between runs: residue '+mk+', '+fx(ms,2)+' Å. When the three runs are pooled and computed relative to one common mean structure, the tail RMSF rises to '+fx(arrMean(sl(W2.pool,70,76)),2)+' Å: the runs hold the tail at different mean positions, and the pooled RMSF shows this difference as if it were fluctuation. The RMSF curve of a single 2 ns run may not come out the same in the next run: comparing two conditions needs the variability between replicates (MD-REP).'); } }"
+  ],
+  [
+   "if(!MDD.w2){ $('mw2prose').innerHTML+='<p><b>Bu senaryo hesaplanmadı:</b> yeni koşular henüz yok.</p>'; return; }",
+   "if(!MDD.w2){ $('mw2prose').innerHTML+='<p><b>This scenario was not computed:</b> the new runs are not available yet.</p>'; return; }"
+  ],
+  [
+   "/* ===== atölye 3: ölçüt sorudan gelir (ALA2) ===== */",
+   "/* ===== workshop 3: the measure comes from the question (ALA2) ===== */"
+  ],
+  [
+   "/* en iyi tek eşik: αR ile öbürleri (0,01 Å adım) */",
+   "/* best single threshold: αR against the others (0.01 Å steps) */"
+  ],
+  [
+   "var p=plot(g,46,12,W-58,H-56,[0,xm],[0,ym],{ylabPad:31,xticks:[0,0.5,1,1.5,2],yticks:[0,Math.round(ym/2),ym],xlab:'αR referansına göre ağır atom RMSD (Å)',ylab:'yoğunluk',xfmt:function(v){return fx(v,1);}});",
+   "var p=plot(g,46,12,W-58,H-56,[0,xm],[0,ym],{ylabPad:31,xticks:[0,0.5,1,1.5,2],yticks:[0,Math.round(ym/2),ym],xlab:'heavy-atom RMSD relative to the αR reference (Å)',ylab:'density',xfmt:function(v){return fx(v,1);}});"
+  ],
+  [
+   "var p=plot(g,46,12,W-58,H-56,[0,2],[0,2],{ylabPad:31,xticks:[0,0.5,1,1.5,2],yticks:[0,0.5,1,1.5,2],xlab:'αR referansına göre (Å)',ylab:'β referansına göre (Å)',xfmt:function(v){return fx(v,1);},yfmt:function(v){return fx(v,1);}});",
+   "var p=plot(g,46,12,W-58,H-56,[0,2],[0,2],{ylabPad:31,xticks:[0,0.5,1,1.5,2],yticks:[0,0.5,1,1.5,2],xlab:'relative to the αR reference (Å)',ylab:'relative to the β reference (Å)',xfmt:function(v){return fx(v,1);},yfmt:function(v){return fx(v,1);}});"
+  ],
+  [
+   "$('mhread').innerHTML=[0,1,2].map(function(s){ var v=W3.by[s], w=W3.byb[s]; return dl(SN[s]+' ('+fmtI(v.length)+' kare)','αR ref.: '+fx(quant(v,0.5),2)+' ('+fx(quant(v,0.25),2)+' ile '+fx(quant(v,0.75),2)+'); β ref.: '+fx(quant(w,0.5),2)+' ('+fx(quant(w,0.25),2)+' ile '+fx(quant(w,0.75),2)+') Å'); }).join('')+dl('Bu eşikle αR ile öbürlerini ayırma doğruluğu',pct(a,1))+dl('En iyi tek eşik',fx(W3.bt,2)+' Å, doğruluk '+pct(W3.ba,1))+dl('αL karelerinden β/PPII çeyrekler arası aralığına düşen',pct(W3.ov,1))+dl('Referans kareleri','αR: φ '+fx(MDD.w3.ref_aR_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_aR_ang[1],0)+'°; β: φ '+fx(MDD.w3.ref_b_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_b_ang[1],0)+'°');",
+   "$('mhread').innerHTML=[0,1,2].map(function(s){ var v=W3.by[s], w=W3.byb[s]; return dl(SN[s]+' ('+fmtI(v.length)+' frames)','αR ref.: '+fx(quant(v,0.5),2)+' ('+fx(quant(v,0.25),2)+' to '+fx(quant(v,0.75),2)+'); β ref.: '+fx(quant(w,0.5),2)+' ('+fx(quant(w,0.25),2)+' to '+fx(quant(w,0.75),2)+') Å'); }).join('')+dl('Accuracy of separating αR from the others with this threshold',pct(a,1))+dl('Best single threshold',fx(W3.bt,2)+' Å, accuracy '+pct(W3.ba,1))+dl('αL frames within the β/PPII interquartile range',pct(W3.ov,1))+dl('Reference frames','αR: φ '+fx(MDD.w3.ref_aR_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_aR_ang[1],0)+'°; β: φ '+fx(MDD.w3.ref_b_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_b_ang[1],0)+'°');"
+  ],
+  [
+   "function w3Cards(){ if(W3.seen.thr&&W3.seen.scat) card('mc6',true,'αR referansına göre tek bir eşik ('+fx(W3.bt,2)+' Å) αR karelerini öbürlerinden '+pct(W3.ba,1)+' doğrulukla ayırıyor. Ama aynı RMSD β/PPII ile αL\\'yi ayıramıyor: ortancalar '+fx(quant(W3.by[1],0.5),2)+' ve '+fx(quant(W3.by[2],0.5),2)+' Å, αL karelerinin '+nPoss(pct(W3.ov,1))+' β/PPII\\'nin çeyrekler arası aralığında. İkinci bir referans eklenince αL kareleri düzlemde ayrı bir bölgede toplanıyor: β referansına göre ortanca αL için '+fx(quant(W3.byb[2],0.5),2)+' Å, β/PPII için '+fx(quant(W3.byb[1],0.5),2)+' Å. Soru \"hangi durumda?\" ise ölçüt φ/ψ ile yazılmış bir durum tanımıdır; tek referanslı RMSD iki farklı durumu aynı sayıya indirger.'); }",
+   "function w3Cards(){ if(W3.seen.thr&&W3.seen.scat) card('mc6',true,'A single threshold relative to the αR reference ('+fx(W3.bt,2)+' Å) separates αR frames from the others with '+pct(W3.ba,1)+' accuracy. But the same RMSD cannot separate β/PPII from αL: the medians are '+fx(quant(W3.by[1],0.5),2)+' and '+fx(quant(W3.by[2],0.5),2)+' Å, and '+nPoss(pct(W3.ov,1))+' of the αL frames lie within the β/PPII interquartile range. With a second reference added, the αL frames gather in a separate region of the plane: the median relative to the β reference is '+fx(quant(W3.byb[2],0.5),2)+' Å for αL and '+fx(quant(W3.byb[1],0.5),2)+' Å for β/PPII. If the question is \"in which state?\", the measure is a state definition written with φ/ψ; a single-reference RMSD reduces two different states to the same number.'); }"
+  ],
+  [
+   "$('mhleg').innerHTML=[0,1,2].map(function(s){ return '<span>'+dot(SCOL[s])+SN[s]+'</span>'; }).join('')+'<span>kesikli çizgi: eşik</span>';",
+   "$('mhleg').innerHTML=[0,1,2].map(function(s){ return '<span>'+dot(SCOL[s])+SN[s]+'</span>'; }).join('')+'<span>dashed line: threshold</span>';"
+  ],
+  [
+   "/* ===== tezgâh: ölçüt seçici ===== */",
+   "/* ===== bench: measure selector ===== */"
+  ],
+  [
+   "var MOPT={rmsd1:'Tek referansa göre bütün Cα RMSD',pair:'Kare çifti RMSD',rg:'Dönme yarıçapı (Rg)',rmsf:'Çekirdekle hizalı kalıntı başına RMSF, tekrarlarla',tail:'Çekirdekle hizalı kuyruk RMSD',state:'φ/ψ ile yazılmış durum tanımı',xcore:'Çekirdek Cα RMSD, kristale göre'};",
+   "var MOPT={rmsd1:'All-Cα RMSD relative to a single reference',pair:'Frame-pair RMSD',rg:'Radius of gyration (Rg)',rmsf:'Per-residue RMSF fitted on the core, with replicates',tail:'Tail RMSD fitted on the core',state:'A state definition written with φ/ψ',xcore:'Core Cα RMSD, relative to the crystal'};"
+  ],
+  [
+   "{q:'Ubikitinin 7 ile 11 halkası, bir nokta mutasyonundan sonra daha mı esnek?', o:['rmsd1','rg','rmsf'], a:'rmsf', w:function(){ return 'Esneklik kalıntı başına salınımdır; karşılaştırma iki durumun bağımsız tekrarlarıyla yapılır. Bu sayfada aynı koşulda bile çekirdek RMSF ortalaması koşudan koşuya değişti (Atölye 2).'; }},",
+   "{q:'Is the 7 to 11 loop of ubiquitin more flexible after a point mutation?', o:['rmsd1','rg','rmsf'], a:'rmsf', w:function(){ return 'Flexibility is a per-residue fluctuation; the comparison is made with independent replicates of both conditions. On this page the core RMSF average changed from run to run even under the same condition (Workshop 2).'; }},"
+  ],
+  [
+   "{q:'Protein çözeltide genişliyor ya da kompaktlaşıyor mu?', o:['rg','rmsd1','tail'], a:'rg', w:function(){ return 'Kompaktlık sorusu için Rg uygundur; yönü olmayan bir boyut ölçüsüdür. Rg\\'nin görmediği değişimler için ayrıca yerel ölçütler gerekir.'; }},",
+   "{q:'Does the protein expand or become more compact in solution?', o:['rg','rmsd1','tail'], a:'rg', w:function(){ return 'Rg suits the compactness question; it is a size measure without direction. Changes Rg does not see need local measures as well.'; }},"
+  ],
+  [
+   "{q:'Simülasyondaki çekirdek yapısı kristal yapıdan ne kadar uzaklaştı?', o:['rmsd1','rg','xcore'], a:'xcore', w:function(){ return 'Kristale göre ve yalnız çekirdekle ölçülen RMSD bu soruyu doğrudan cevaplar. Bütün Cα RMSD\\'si kuyruk yüzünden ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek ise '+fx(arrMean(W1.B),2)+' Å (Atölye 1).'; }},",
+   "{q:'How far did the core structure in the simulation move from the crystal structure?', o:['rmsd1','rg','xcore'], a:'xcore', w:function(){ return 'RMSD relative to the crystal, measured with the core only, answers this question directly. Because of the tail the all-Cα RMSD averages '+fx(arrMean(W1.A),2)+' Å, the core '+fx(arrMean(W1.B),2)+' Å (Workshop 1).'; }},"
+  ],
+  [
+   "{q:'Alanin dipeptidi zamanının ne kadarını αL durumunda geçiriyor?', o:['rmsd1','state','pair'], a:'state', w:function(){ return 'Durum sorusu, φ/ψ ile önceden yazılmış bir tanım ister. αR referansına göre RMSD, αL ile β/PPII\\'yi ayıramadı: αL karelerinin '+nPoss(pct(W3.ov,1))+' β/PPII aralığında (Atölye 3).'; }},",
+   "{q:'How much of its time does alanine dipeptide spend in the αL state?', o:['rmsd1','state','pair'], a:'state', w:function(){ return 'A state question needs a definition written in advance with φ/ψ. RMSD relative to the αR reference could not separate αL from β/PPII: '+nPoss(pct(W3.ov,1))+' of the αL frames lie in the β/PPII range (Workshop 3).'; }},"
+  ],
+  [
+   "{q:'İki farklı zamandaki yapı birbirine benziyor mu?', o:['pair','rmsd1','rg'], a:'pair', w:function(){ return 'Benzerlik iki yapı arasında ölçülür. Kristale göre aynı RMSD\\'yi veren iki kare birbirine göre '+fx(W1.bestM,2)+' Å uzak çıktı (Atölye 1).'; }},",
+   "{q:'Are the structures at two different times similar to each other?', o:['pair','rmsd1','rg'], a:'pair', w:function(){ return 'Similarity is measured between the two structures. Two frames with the same RMSD relative to the crystal turned out '+fx(W1.bestM,2)+' Å apart from each other (Workshop 1).'; }},"
+  ],
+  [
+   "{q:'C-uç kuyruğu çekirdeğe göre ne kadar hareket ediyor?', o:['rg','tail','rmsd1'], a:'tail', w:function(){ return 'Kuyruğun çekirdeğe göre hareketi, çekirdekle hizalanmış koordinatlarda kuyruk atomlarıyla ölçülür (RMSD ya da RMSF). Bütün Cα RMSD\\'si kuyruğu çekirdekle karıştırır; Rg yönü görmez.'; }}",
+   "{q:'How much does the C-terminal tail move relative to the core?', o:['rg','tail','rmsd1'], a:'tail', w:function(){ return 'The motion of the tail relative to the core is measured with the tail atoms in coordinates fitted on the core (RMSD or RMSF). All-Cα RMSD mixes the tail with the core; Rg does not see direction.'; }}"
+  ],
+  [
+   "var fb=$('mq'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Uygun seçim.':'Daha uygun bir ölçüt var.')+'</b> '+q.w();",
+   "var fb=$('mq'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'A suitable choice.':'There is a more suitable measure.')+'</b> '+q.w();"
+  ],
+  [
+   "if(n>=4) card('mc7',true,'Cevapladığınız '+n+' sorunun '+nLoc(r)+' ilk seçiminiz uygundu. Altı soru altı farklı ölçüt istedi; hiçbir ölçüt her soruyu cevaplamıyor. Ölçüt, atom seçimi ve karşılaştırma sorudan önce yazılır.');",
+   "if(n>=4) card('mc7',true,'Your first choice was suitable for '+nLoc(r)+' of the '+n+' questions you answered. Six questions asked for six different measures; no measure answers every question. The measure, the atom selection and the comparison are written down before the question is answered.');"
+  ],
+  [
+   "else card('mc7',false,'Şimdiye kadar '+n+' soru; en az dört soruyu cevaplayın.'); }); }); }",
+   "else card('mc7',false,'So far '+n+' question(s); answer at least four.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: ölçüt kaydı ===== */",
+   "/* ===== notebook: measure record ===== */"
+  ],
+  [
+   "function mfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; }",
+   "function mfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; }"
+  ],
+  [
+   "var L=['ÖLÇÜT KAYDI (MD-MET taslağı)','Soru: '+v('mfq'),'Ölçüt: '+v('mfm2'),'Seçim ve hizalama: '+v('mfs'),'Referans ve pencere: '+v('mfr'),'Neyi göremez: '+v('mfn'),'Karşılaştırma ve belirsizlik: '+v('mfu')];",
+   "var L=['MEASURE RECORD (MD-MET draft)','Question: '+v('mfq'),'Measure: '+v('mfm2'),'Selection and fitting: '+v('mfs'),'Reference and window: '+v('mfr'),'What it cannot see: '+v('mfn'),'Comparison and uncertainty: '+v('mfu')];"
+  ],
+  [
+   "if(/rmsd/.test(m)&&!/referans|kristal|kare/.test(r+m)) wr.push('RMSD geçiyor ama referans yazılmamış (kristal mi, ilk kare mi, ortalama yapı mı?).');",
+   "if(/rmsd/.test(m)&&!/reference|crystal|frame/.test(r+m)) wr.push('RMSD is mentioned but no reference is written (the crystal, the first frame, or a mean structure?).');"
+  ],
+  [
+   "if(/rmsd|rmsf/.test(m)&&!/hizala/.test(s)) wr.push('RMSD ya da RMSF geçiyor ama hizalama grubu yazılmamış.');",
+   "if(/rmsd|rmsf/.test(m)&&!/fit/.test(s)) wr.push('RMSD or RMSF is mentioned but no fitting group is written.');"
+  ],
+  [
+   "if(/rmsf/.test(m)&&!/ps|ns|pencere/.test(r)) wr.push('RMSF geçiyor ama pencere yazılmamış; bu sayfada pencere yarıları farklı sonuç verdi.');",
+   "if(/rmsf/.test(m)&&!/ps|ns|window/.test(r)) wr.push('RMSF is mentioned but no window is written; on this page the window halves gave different results.');"
+  ],
+  [
+   "if(/esnek|karşılaştır|mutant|fark/.test(q)&&!/tekrar|koşu/.test(u+r)) wr.push('Soru bir karşılaştırma içeriyor ama tekrar sayısı ya da koşular arası değişkenlik yazılmamış.');",
+   "if(/flexib|compar|mutant|differ/.test(q)&&!/replicate|run/.test(u+r)) wr.push('The question contains a comparison but the number of replicates or the variability between runs is not written.');"
+  ],
+  [
+   "if(/durum|αl|αr|β/.test(q)&&/rmsd/.test(m)) wr.push('Soru bir durum soruyor, ölçüt RMSD: tek referanslı RMSD iki farklı durumu aynı sayıya indirgeyebilir (Atölye 3).');",
+   "if(/state|αl|αr|β/.test(q)&&/rmsd/.test(m)) wr.push('The question asks about a state and the measure is RMSD: a single-reference RMSD can reduce two different states to the same number (Workshop 3).');"
+  ],
+  [
+   "if(!($('mfn').value||'').trim()) wr.push('\"Neyi göremez?\" satırı boş: her ölçütün kör noktası yazılır.');",
+   "if(!($('mfn').value||'').trim()) wr.push('The \"What can it not see?\" row is empty: every measure has a blind spot to write down.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(e){ L.push('- '+e); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to check:'); wr.forEach(function(e){ L.push('- '+e); }); }"
+  ],
+  [
+   "$('mfcopy').onclick=function(){ var t=$('mfout').textContent, m=$('mfmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('mfcopy').onclick=function(){ var t=$('mfout').textContent, m=$('mfmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'İki kare kristal yapıya göre aynı RMSD\\'yi (2,1 Å) veriyor. Bu iki kare hakkında ne söylenebilir?',",
+   "Q.push({s:'Two frames give the same RMSD (2.1 Å) relative to the crystal structure. What can be said about these two frames?',"
+  ],
+  [
+   "o:[['İkisi de kristalden aynı uzaklıkta; birbirine ne kadar benzedikleri bu sayıdan çıkmaz',1],['İki kare aynı yapıdadır',0],['İkisi arasındaki RMSD de 2,1 Å\\'dur',0]], w:'Bu sayfada kristale göre '+fx(W1.A[W1.best[0]],2)+' ve '+fx(W1.A[W1.best[1]],2)+' Å veren iki kare birbirine göre '+fx(W1.bestM,2)+' Å uzak çıktı. Benzerlik kare çifti RMSD\\'siyle ölçülür.'});",
+   "o:[['Both are at the same distance from the crystal; how similar they are to each other does not follow from this number',1],['The two frames have the same structure',0],['The RMSD between them is also 2.1 Å',0]], w:'On this page two frames giving '+fx(W1.A[W1.best[0]],2)+' and '+fx(W1.A[W1.best[1]],2)+' Å relative to the crystal turned out '+fx(W1.bestM,2)+' Å apart from each other. Similarity is measured with the frame-pair RMSD.'});"
+  ],
+  [
+   "Q.push({s:'Ubikitinde bütün Cα RMSD\\'si ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek (1 ile 70) RMSD\\'si '+fx(arrMean(W1.B),2)+' Å. Farkın en olası nedeni nedir?',",
+   "Q.push({s:'For ubiquitin the all-Cα RMSD averages '+fx(arrMean(W1.A),2)+' Å, the core (1 to 70) RMSD '+fx(arrMean(W1.B),2)+' Å. What is the most likely reason for the difference?',"
+  ],
+  [
+   "o:[['Çekirdek bozuldu',0],['Hizalama başarısız oldu',0],['Esnek C-uç kuyruğu (71 ile 76) bütün Cα RMSD\\'sini büyütüyor',1]], w:'Kuyruk 76 kalıntının yalnız 6\\'sıdır ama çekirdeğe göre çok daha fazla yer değiştirir; RMSD karelerin ortalamasıyla hesaplandığı için büyük sapmalar değeri belirler.'});",
+   "o:[['The core fell apart',0],['The fit failed',0],['The flexible C-terminal tail (71 to 76) inflates the all-Cα RMSD',1]], w:'The tail is only 6 of the 76 residues but moves much more than the core; because RMSD is computed from the mean of squares, large deviations dominate the value.'});"
+  ],
+  [
+   "Q.push({s:'Bir koşuda Rg 2 ns boyunca neredeyse sabit kaldı. Hangi cümle bu veriyle kurulabilir?',",
+   "Q.push({s:'In one run Rg stayed almost constant for 2 ns. Which sentence can be built with these data?',"
+  ],
+  [
+   "o:[['Proteinin kompaktlığı bu sürede belirgin biçimde değişmedi',1],['Proteinin yapısı hiç değişmedi',0],['Kuyruk hareket etmedi',0]], w:'Rg kütlenin merkezden ortalama uzaklığıdır; yön ve yerel düzenleme göremez. Bu sayfada Rg az oynarken kuyruğun RMSD\\'si birkaç Å değişti (Atölye 2).'});",
+   "o:[['The compactness of the protein did not change noticeably over this time',1],['The structure of the protein did not change at all',0],['The tail did not move',0]], w:'Rg is the mean distance of the mass from the center; it cannot see direction or local rearrangement. On this page, while Rg moved little, the tail RMSD changed by several Å (Workshop 2).'});"
+  ],
+  [
+   "Q.push({s:'Bir mutantın yabanıl türe göre \"daha esnek\" olduğunu göstermek için ne gerekir?',",
+   "Q.push({s:'What is needed to show that a mutant is \"more flexible\" than the wild type?',"
+  ],
+  [
+   "o:[['Her biri için tek bir 2 ns koşunun RMSF eğrisi',0],['İki durumun bağımsız tekrarları ve tekrarlar arası değişkenliğe göre karşılaştırma',1],['Daha yüksek bir RMSD değeri',0]], w:'Aynı koşulda bile RMSF profili koşudan koşuya değişir (Atölye 2). Karşılaştırma tekrar birimi olan bağımsız koşularla yapılır (MD-REP).'});",
+   "o:[['The RMSF curve of a single 2 ns run for each',0],['Independent replicates of both conditions and a comparison against the variability between replicates',1],['A higher RMSD value',0]], w:'Even under the same condition the RMSF profile changes from run to run (Workshop 2). The comparison is made with independent runs, the unit of replication (MD-REP).'});"
+  ],
+  [
+   "Q.push({s:'\"Kristal yapıya göre karekök ortalama sapma\" ile RMSF arasındaki fark nedir?',",
+   "Q.push({s:'What is the difference between \"root mean square deviation from the crystal structure\" and RMSF?',"
+  ],
+  [
+   "o:[['İkisi aynı niceliktir',0],['RMSF hizalama gerektirmez',0],['RMSF atomun kendi ortalama konumu çevresindeki salınımdır; kristale göre sapma ortalama konumun kristalden uzaklığını da içerir',1]], w:'RMSF bir referans seçimidir: ortalama yapıya göre hesaplanır. Kristal yapıya göre aynı formül salınım ile kaymayı birlikte ölçer.'});",
+   "o:[['They are the same quantity',0],['RMSF does not require fitting',0],['RMSF is the fluctuation of the atom around its own mean position; the deviation from the crystal also includes the distance of the mean position from the crystal',1]], w:'RMSF is a choice of reference: it is computed relative to the mean structure. Relative to the crystal structure the same formula measures fluctuation and shift together.'});"
+  ],
+  [
+   "Q.push({s:'Alanin dipeptidinde bir αR referans karesine göre ağır atom RMSD\\'si hesaplandı. Bu ölçüt hangi soruyu cevaplayamaz?',",
+   "Q.push({s:'For alanine dipeptide the heavy-atom RMSD was computed relative to an αR reference frame. Which question can this measure not answer?',"
+  ],
+  [
+   "o:[['Kare αR\\'ye yakın mı?',0],['Kare β/PPII mi yoksa αL mi?',1],['Kare αR referansından ne kadar uzak?',0]], w:'αR referansına göre β/PPII ve αL benzer RMSD veriyor (αL karelerinin '+nPoss(pct(W3.ov,1))+' β/PPII aralığında). Durum sorusu φ/ψ ile yazılmış bir tanım ister.'});",
+   "o:[['Is the frame close to αR?',0],['Is the frame β/PPII or αL?',1],['How far is the frame from the αR reference?',0]], w:'Relative to the αR reference, β/PPII and αL give similar RMSDs ('+nPoss(pct(W3.ov,1))+' of the αL frames lie in the β/PPII range). A state question needs a definition written with φ/ψ.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('mnotice').innerHTML='<p><b>Veri.</b> Ubikitin: üç bağımsız 2 ns koşu, 1UBQ (RCSB PDB; Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531), AMBER99SB-ILDN, TIP3P, 5902 su, HIS68 HISE, V-rescale 300 K, C-rescale, 2 fs, GROMACS 2023.3. Koşu 1 MD-O RMSF2NS (prod.xtc '+m.r1_xtc.slice(0,12)+'…); koşu 2 ve 3 aynı hazırlık ve mdp dosyalarıyla, yalnız başlangıç hız tohumu değiştirilerek (26100402, 26100403) bu modül için yapıldı'+(m.r2_xtc?' (prod.xtc '+m.r2_xtc.slice(0,12)+'… ve '+m.r3_xtc.slice(0,12)+'…)':'')+'. Kristal referansı 1UBQ (dosya '+m.xtal.slice(0,12)+'…). Alanin dipeptidi: Computational Molecular Biology Group, Freie Universität Berlin, mdshare ALA2, CC BY 4.0; 1. koşunun susuz xtc dosyası ('+m.ala_xtc.slice(0,12)+'…) ve açılar ('+m.ala_npz.slice(0,12)+'…).</p>'+",
+   "$('mnotice').innerHTML='<p><b>Data.</b> Ubiquitin: three independent 2 ns runs, 1UBQ (RCSB PDB; Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531), AMBER99SB-ILDN, TIP3P, 5902 waters, HIS68 HISE, V-rescale 300 K, C-rescale, 2 fs, GROMACS 2023.3. Run 1 is MD-O RMSF2NS (prod.xtc '+m.r1_xtc.slice(0,12)+'…); runs 2 and 3 were made for this module with the same preparation and mdp files, changing only the initial velocity seed (26100402, 26100403)'+(m.r2_xtc?' (prod.xtc '+m.r2_xtc.slice(0,12)+'… and '+m.r3_xtc.slice(0,12)+'…)':'')+'. Crystal reference 1UBQ (file '+m.xtal.slice(0,12)+'…). Alanine dipeptide: Computational Molecular Biology Group, Freie Universität Berlin, mdshare ALA2, CC BY 4.0; the water-free xtc file of run 1 ('+m.ala_xtc.slice(0,12)+'…) and the angles ('+m.ala_npz.slice(0,12)+'…).</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Koşu ve analiz planı koşulardan önce yazılıp donduruldu (SHA-256 '+m.protocol_sha.slice(0,12)+'…)'+(m.dev?'; '+m.dev:'')+'. Ubikitin koşuları -pbc mol ve -pbc nojump ile hazırlandı; çekirdek Cα 1 ile 70, kuyruk 71 ile 76; Rg ve RMSF için pencere 200 ile 2000 ps. Ölçütler MDAnalysis ile hesaplandı'+(m.audit_n?'; bağımsız denetim (gmx gyrate, gmx rmsf, gmx rms) '+m.audit_n+' karşılaştırmanın '+nLoc(m.audit_ok)+' en çok '+fx(m.audit_max,3)+' Å farkla aynı sonucu verdi':'')+'. Sayfadaki sayıların çoğu tarayıcınızda gömülü dizilerden yeniden hesaplanır.</p>'+",
+   "'<p><b>Analysis.</b> The run and analysis plan was written before the runs and frozen (SHA-256 '+m.protocol_sha.slice(0,12)+'…)'+(m.dev?'; '+m.dev:'')+'. The ubiquitin runs were prepared with -pbc mol and -pbc nojump; core Cα 1 to 70, tail 71 to 76; window 200 to 2000 ps for Rg and RMSF. Measures were computed with MDAnalysis'+(m.audit_n?'; the independent check (gmx gyrate, gmx rmsf, gmx rms) gave the same result in '+nLoc(m.audit_ok)+' of '+m.audit_n+' comparisons, with at most '+fx(m.audit_max,3)+' Å difference':'')+'. Most numbers on the page are recomputed in your browser from the embedded arrays.</p>'+"
+  ],
+  [
+   "'<p><b>Öğretim modeli.</b> Hücre şekilleri tarayıcıda açık bir modelle üretilir (r(θ) = 1 + Σ a<sub>k</sub> cos(kθ + φ<sub>k</sub>), k = 2 ile 6; alan 300 µm²\\'ye ölçeklenir); gerçek ölçüm değildir.</p>'+",
+   "'<p><b>Teaching model.</b> The cell shapes are generated in the browser by an explicit model (r(θ) = 1 + Σ a<sub>k</sub> cos(kθ + φ<sub>k</sub>), k = 2 to 6; scaled to an area of 300 µm²); they are not real measurements.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Üç koşu, her biri 2 ns; ubikitinin esnekliği, dengesi ya da yakınsaması hakkında bir sonuç çıkarılmaz (MD-U, MD-EQ). Koşu 1\\'in ilk iki dengeleme adımı başka bir makinede yapıldı; koşu 2 ve 3\\'ünkiler bu bulutta. SASA ve ikincil yapı gibi başka ölçütler: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> Three runs, 2 ns each; no conclusion is drawn about the flexibility, equilibrium or convergence of ubiquitin (MD-U, MD-EQ). The first two equilibration steps of run 1 were made on a different machine; those of runs 2 and 3 in this cloud. Other measures such as SASA and secondary structure: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('mwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('mwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Right.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('mscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('mscore').textContent='Answered: '+n+' / '+QZ.length+' · right on first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start ---------- */"
+  ],
+  [
+   "['mc0','mc1','mc2','mc3','mc4','mc5','mc6','mc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['mc0','mc1','mc2','mc3','mc4','mc5','mc6','mc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDMET={W1:W1,W2:W2,W3:W3,arrMean:arrMean,arrMax:arrMax,pear:pear,quant:quant}; /* sınama için */",
+   "window.MDMET={W1:W1,W2:W2,W3:W3,arrMean:arrMean,arrMax:arrMax,pear:pear,quant:quant}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "Freie Universität Berlin",
+  "ps",
+  "Rg (Å)",
+  "Å"
+ ]
+}

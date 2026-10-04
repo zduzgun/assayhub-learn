@@ -1,5 +1,14 @@
 # Sürüm notları
 
+## 0.25.0 (4 Ekim 2026) · Yeni modül MD-MET: yapısal ölçüt neyi ölçer?
+
+- MD-MET 0.1.0 (orta düzey, kitapta CH14): "Bir sayı, bir yapı değildir: RMSD, Rg ve RMSF neyi görür, neyi görmez?" Yeni GROMACS koşuları UBQ3: aynı hazırlıktan, yalnız başlangıç hız tohumu farklı iki 2 ns 1UBQ koşusu; MD-O RMSF2NS ile birlikte üç bağımsız koşu. Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu; sapma yok.
+- Deneysel köprü: mikroskopide hücre şekli (öğretim modeli; aynı alanlı altı hücrede çevre, dairesellik, en uzun çap).
+- Atölye 1: kristale göre RMSD eğrileri ve tıklanabilir kare çifti matrisi, iki kare 3B üst üste. Kristale göre 2,05 ve 2,10 Å olan iki kare birbirine 1,55 Å uzak; bütün Cα RMSD'si 1,90, çekirdek 0,73 Å.
+- Atölye 2 ve proteine dönüş: üç koşuda Rg, Rg ile kuyruk RMSD'si, kalıntı başına RMSF (koşular, birleşik, pencere yarıları, hizalama grubu, kristale göre sapma). Kuyruk RMSF'si koşulara göre 1,59, 2,51, 1,51 Å; birleşik 3,51 Å.
+- Atölye 3: mdshare ALA2'de iki referanslı RMSD ile φ/ψ durumları; tek eşik αR'yi %99,3 doğrulukla ayırıyor, αL karelerinin %49,2'si β/PPII aralığında. Tezgâh: altı soru için ölçüt seçici. Defter: ölçüt kaydı. Altı soru, sekiz keşif kartı.
+- Bağımsız denetim (gmx gyrate, gmx rmsf, gmx rms) 12 karşılaştırmanın 12'sinde en çok 0,004 Å farkla aynı; tarayıcıdaki 37 sayı Python ile aynı. Denetimde ALA2 xtc dosyasının zaman damgasının her 1000 karede sıfırlandığı bulundu (kare seçimi sıraya göre yapıldı). İngilizce tablo 157 çift (`i18n/_work/mdmet/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-MET`, `/en/l/MD-MET`.
+
 ## 0.24.0 (4 Ekim 2026) · Yeni modül MD-TRJ: trajektoriyi analize hazırlamak
 
 - MD-TRJ 0.1.0 (orta düzey, kitapta CH13): "Ham dosya ölçüme hazır değildir: PBC, seçim, hizalama ve birim." Yeni simülasyon yok; iki var olan ham trajektori yeniden işlendi: MD-REP REPGRID W1 (su içinde alanin dipeptidi, 2001 kare) ve MD-O RMSF2NS (1UBQ ubikitini, 1001 protein karesi). Analiz planı hesaplardan önce SHA-256 ile donduruldu; sapma yok.

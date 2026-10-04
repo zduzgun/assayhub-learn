@@ -694,6 +694,47 @@
       },
       "path": "md/md-trj/",
       "source": "sources/MD-TRJ.html"
+    },
+    {
+      "id": "MD-MET",
+      "app": "md",
+      "level": "orta",
+      "title": "Bir sayı, bir yapı değildir: yapısal ölçüt neyi ölçer?",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH14",
+      "goals": [
+        "Aynı RMSD, farklı yapılar: kare çifti matrisi ve 3B karşılaştırma",
+        "Altı kalıntı bütün eğriyi taşıyabilir: bütün Cα ile çekirdek RMSD'si",
+        "Rg neyi görmez, RMSF bir tanımdır: pencere, hizalama, referans",
+        "Koşudan koşuya: üç bağımsız ubikitin koşusunda Rg ve RMSF",
+        "Ölçüt sorudan gelir: alanin dipeptidinde RMSD ile durum tanımı"
+      ],
+      "data": [
+        "Üç bağımsız 2 ns 1UBQ ubikitin koşusu: MD-O RMSF2NS ve bu modül için iki yeni koşu (GROMACS 2023.3, yalnız başlangıç hız tohumu farklı)",
+        "mdshare ALA2 (Freie Universität Berlin, CC BY 4.0), 1. koşu, 25.000 kare; kristal referansı PDB 1UBQ (CC0 1.0)",
+        "Koşu ve analiz planı koşulardan önce donduruldu; hücre şekli köprüsü tarayıcıda hesaplanan öğretim modelidir"
+      ],
+      "notice": null,
+      "en": {
+        "title": "A number is not a structure: what does a structural measure measure?",
+        "book": "CH14",
+        "goals": [
+          "Same RMSD, different structures: frame-pair matrix and 3D comparison",
+          "Six residues can carry the whole curve: all-Cα and core RMSD",
+          "What Rg misses, and RMSF as a definition: window, fitting, reference",
+          "From run to run: Rg and RMSF in three independent ubiquitin runs",
+          "The measure comes from the question: RMSD and a state definition in alanine dipeptide"
+        ],
+        "data": [
+          "Three independent 2 ns 1UBQ ubiquitin runs: MD-O RMSF2NS and two new runs for this module (GROMACS 2023.3, only the initial velocity seed differs)",
+          "mdshare ALA2 (Freie Universität Berlin, CC BY 4.0), run 1, 25,000 frames; crystal reference PDB 1UBQ (CC0 1.0)",
+          "The run and analysis plan was frozen before the runs; the cell shape bridge is a teaching model computed in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-met/",
+      "source": "sources/MD-MET.html"
     }
   ]
 }
