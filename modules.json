@@ -612,6 +612,47 @@
       },
       "path": "md/md-rep/",
       "source": "sources/MD-REP.html"
+    },
+    {
+      "id": "MD-Q",
+      "app": "md",
+      "level": "temel",
+      "title": "Bu veri hangi cümleyi taşır? Biyolojik sorudan ölçülebilir MD çalışmasına",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH01",
+      "goals": [
+        "Bir bant, beş cümle: iddia merdiveni",
+        "Niceliği tanımlamak: A bölgesi, pencere ve koşu sayıyı nasıl değiştirir?",
+        "Adım, kare ve koşu: 750.000 kare 750.000 deney değildir",
+        "İddia denetleyici: altı kanıt halkası ve bu veride hangilerinin olduğu",
+        "Kendi soru, model, veri, nicelik ve iddia tablonuz"
+      ],
+      "data": [
+        "mdshare ALA2 (Freie Universität Berlin, CC BY 4.0): alanin dipeptidi, 3 koşu × 250 ns φ/ψ açıları ve 1. koşunun susuz 3B kareleri; yeni simülasyon yok",
+        "Kaynak beyanı (ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K) ile yerel denetim (SHA-256, φ/ψ atom eşlemesi) ayrı yazılır",
+        "Western blot öğretim modeli tarayıcıda hesaplanır"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Which sentence can these data carry? From a biological question to a measurable MD study",
+        "book": "CH01",
+        "goals": [
+          "One band, five sentences: the claim ladder",
+          "Defining the quantity: how do region A, the window and the run change the number?",
+          "Step, frame and run: 750,000 frames are not 750,000 experiments",
+          "Claim checker: six links of evidence and which of them these data have",
+          "Your own question, model, data, quantity and claim table"
+        ],
+        "data": [
+          "mdshare ALA2 (Freie Universität Berlin, CC BY 4.0): alanine dipeptide, φ/ψ angles of 3 runs × 250 ns and water-free 3D frames of run 1; no new simulation",
+          "The source statement (ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K) and the local checks (SHA-256, φ/ψ atom mapping) are written separately",
+          "The Western blot teaching model is computed in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-q/",
+      "source": "sources/MD-Q.html"
     }
   ]
 }

@@ -22,7 +22,7 @@ lt.fails.forEach((f) => fail(`dil testi: ${f}`));
 // 1) kimlikler tekil ve biçimli; yayındaki modülün iki dilde de sayfası var
 const ids = new Set();
 for (const m of M.modules) {
-  if (!/^(DK|MD)-(T|O|U|[A-Z]{2,4})$/.test(m.id)) fail(`Kimlik biçimi: ${m.id}`);
+  if (!/^(DK|MD)-(T|O|U|Q|[A-Z]{2,4})$/.test(m.id)) fail(`Kimlik biçimi: ${m.id}`);
   if (ids.has(m.id)) fail(`Yinelenen kimlik: ${m.id}`);
   ids.add(m.id);
   if (m.status !== 'planned' && !m.path) fail(`${m.id}: yayındaki modülün path alanı yok`);

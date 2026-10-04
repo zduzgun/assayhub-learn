@@ -51,7 +51,7 @@ Yerel sunucu `_redirects` dosyasını ve `functions/` klasörünü uygulamaz. Y�
 
 ## Denetim kuralları (`tools/check.mjs`)
 
-- Modül kimlikleri `DK|MD` ve `T|O|U` biçiminde ve tekil.
+- Modül kimlikleri `DK|MD` ve `T|O|U|Q` ya da 2 ile 4 büyük harf biçiminde ve tekil.
 - Yayındaki her modülün sayfası var; her kısa adres var olan bir sayfaya gider.
 - Hiçbir HTML dosyasında em-dash (U+2014) yok; her sayfada `lang="tr"` ve `<title>` var.
 - Yerel dosya yolu sızıntısı yok.

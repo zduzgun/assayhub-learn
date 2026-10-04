@@ -1,5 +1,14 @@
 # Sürüm notları
 
+## 0.23.0 (4 Ekim 2026) · Yeni modül MD-Q: biyolojik sorudan ölçülebilir MD çalışmasına
+
+- MD-Q 0.1.0 (temel düzey, kitapta CH01): "Bu veri hangi cümleyi taşır? Sorudan niceliğe, nicelikten iddiaya." Yeni simülasyon yok; gerçek veri mdshare ALA2 (Freie Universität Berlin, CC BY 4.0): alanin dipeptidinin 3 × 250 ns φ/ψ açıları ve 1. koşunun susuz 3B kareleri.
+- Deneysel köprü: iddia merdiveni; Western blot öğretim modelinde (p-ERK / toplam ERK, modelde 1,8 kat) beş cümle için destekler, ek kanıt gerekir ya da kurulamaz kararı.
+- Atölye: φ/ψ yoğunluk haritası; bölge tanımı (MD-U, dar ψ < 30, geniş ψ < 70, sürükleyerek okurun dikdörtgeni), koşu ve pencere seçimi, durum şeridi, adım, kare ve koşu sayımları, 1. koşudan 400 karelik hizalı 3B pencere (önceden yazılmış seçim kuralı). Örnek: 1. koşuda αR payı ψ sınırı 30, 50, 70 için %30,6, %32,7, %33,6; ilk 25 ns %40,4, son 100 ns %31,3.
+- Tezgâh: altı halkalı kanıt zinciri (soru, model, üretim, analiz, belirsizlik, dış veri) ve bu veri kümesindeki durumları; altı cümle için "Denetle" ve "Daralt". Defter: soru, model, veri, nicelik, iddia tablosu. Proteine dönüş: ubikitin 7 ile 11 halkası. Altı soru, yedi keşif kartı.
+- Paylar tarayıcıda 10 ps alt örnekten hesaplanır; Python ile tam 1 ps veride yeniden hesaplandı (fark 250 ns'de 0,1, 25 ns bloklarda 0,7, 1 ns pencerelerde 4,6 puana kadar; sayfada yazılı). İngilizce tablo 155 çift (`i18n/_work/mdq/`: `build_MD-Q_en.py`, `tr_*.py`, `body_en.html`), `reviewed: false`. Kısa adresler: `/tr/l/MD-Q`, `/en/l/MD-Q`.
+- Denetim: kimlik kuralına tek harfli Q eklendi (`tools/check.mjs`, README).
+
 ## 0.22.0 (4 Ekim 2026) · Yeni modül MD-REP: karşılaştırma, tekrar ve kontrol tasarımı
 
 - MD-REP 0.1.0 (temel düzey, kitapta CH06): "Fark gerçek mi? Karşılaştırmayı simülasyondan önce tasarlamak." Deneysel köprü: Western blotta teknik ve biyolojik tekrar (öğretim modeli, aynı koşulda 200 deney). Atölye: çift kuyulu oyuncakla 100'er sanal çalışma; kareyi tekrar saymak, A ile A yanlış pozitif oranı, ölçütü sonradan seçmek ve güç; defter tablosu ve güç grafiği.

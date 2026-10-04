@@ -1,0 +1,639 @@
+{
+ "module": "MD-Q",
+ "lang": "en",
+ "source_sha256": "245e1d77081e5fa817d231a83ac24bebf7293065001076790e1021106a99d9ef",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-Q 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Biyolojik sorudan ölçülebilir MD çalışmasına</title>",
+   "<title>MD: From a biological question to a measurable MD study</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"qproto\">Bu modül yeni bir simülasyon koşmaz. Gerçek veri: mdshare ALA2 (Freie Universität Berlin, CC BY 4.0), alanin dipeptidinin 3 koşu × 250 ns φ/ψ açıları ve 1. koşunun susuz 3B kareleri. Kaynağın beyanı ile bizim yerelde denetlediklerimiz sayfada ayrı yazılır. Western blot öğretim modeli tarayıcınızda şimdi hesaplanır; gerçek ölçüm değildir. Hiçbir sonuç uydurulmamıştır; hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" olarak işaretlidir.</div>",
+   "<div class=\"proto\" id=\"qproto\">This module runs no new simulation. Real data: mdshare ALA2 (Freie Universität Berlin, CC BY 4.0), the φ/ψ angles of 3 runs × 250 ns of alanine dipeptide and the water-free 3D frames of run 1. What the source states and what we checked locally are written separately on the page. The Western blot teaching model is computed in your browser now; it is not a real measurement. No result is invented; everything that was not computed is marked \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-Q · Biyolojik sorudan ölçülebilir MD çalışmasına</span>",
+   "<span class=\"eyebrow\">MD-Q · From a biological question to a measurable MD study</span>"
+  ],
+  [
+   "<h1>Bu veri hangi cümleyi taşır? Sorudan niceliğe, nicelikten iddiaya</h1>",
+   "<h1>Which sentence can these data carry? From question to quantity, from quantity to claim</h1>"
+  ],
+  [
+   "<p class=\"lead\">Bir molekülün hareketini görmek ile o hareketten bir sonuç çıkarmak aynı iş değildir. Bir MD çalışması \"hangi programı açacağım?\" sorusuyla değil, \"hangi niceliği, hangi model ve koşullarda ölçerek hangi iddiayı sınayacağım?\" sorusuyla başlar. Bu laboratuvarda gerçek bir peptit verisinde bir niceliği kendiniz tanımlayacak, tanımın ve pencerenin sayıyı nasıl değiştirdiğini görecek, sonra aday cümlelerin hangisini bu verinin taşıdığına kendiniz karar vereceksiniz.</p>",
+   "<p class=\"lead\">Seeing a molecule move and drawing a conclusion from that motion are not the same task. An MD study does not start with \"which program do I open?\" but with \"which quantity will I measure, under which model and conditions, to test which claim?\" In this lab you will define a quantity yourself on real peptide data, see how the definition and the window change the number, and then decide for yourself which of the candidate sentences these data carry.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"qprogN\">0 / 7</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"qprogN\">0 / 7</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"qh0\">Bir bant, beş cümle: iddia merdiveni</h2>",
+   "<h2 id=\"qh0\">One band, five sentences: the claim ladder</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bir Western blotta tedavi edilen üç farenin lizatında fosforlu ERK (p-ERK) bandı, kontrol üç fareye göre daha koyu görünüyor. Aşağıdaki blot bir öğretim modelidir: değerler tarayıcınızda bir modelle üretilir: modelde tedavi, p-ERK / toplam ERK oranını 1,8 kat artırır; hayvanlar arası ve kuyular arası değişkenlik nedeniyle bir blotta ölçülen oran bundan farklı çıkar. Bu tek ölçümden kurulabilecek beş cümle var. Her biri için kararınızı verin: veri bu cümleyi destekliyor mu, ek kanıt mı gerekiyor, yoksa bu veriyle hiç kurulamaz mı?</p></div>",
+   "<div class=\"prose\"><p>On a Western blot the phosphorylated ERK (p-ERK) band in the lysates of three treated mice looks darker than in three control mice. The blot below is a teaching model: the values are generated in your browser by a model in which the treatment raises the p-ERK / total ERK ratio 1.8 times; because of variability between animals and between wells, the ratio measured on one blot comes out different from that. Five sentences can be built from this single measurement. For each, give your decision: do the data support the sentence, is more evidence needed, or can it not be made with these data at all?</p></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"qbnew\">Yeni bir blot üret</button><span class=\"small\" id=\"qbinfo\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"qbnew\">Generate a new blot</button><span class=\"small\" id=\"qbinfo\"></span></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"qbridge\" class=\"plot\" aria-label=\"Öğretim modeli blotu: kontrol ve tedavi gruplarında p-ERK ve toplam ERK bantları\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"qbridge\" class=\"plot\" aria-label=\"Teaching model blot: p-ERK and total ERK bands in the control and treated groups\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"qc0\"><span class=\"k\">Açık</span><h3>Hangi cümle bu bandın sonucudur?</h3><p>Beş cümlenin hepsi için karar verin.</p><div class=\"mine\" id=\"mqc0\"></div></article>",
+   "<article class=\"q\" id=\"qc0\"><span class=\"k\">Open</span><h3>Which sentence is the result of this band?</h3><p>Give a decision for all five sentences.</p><div class=\"mine\" id=\"mqc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: niceliği tanımlamak</span>",
+   "<span class=\"step\">1 · Workshop: defining the quantity</span>"
+  ],
+  [
+   "<h2 id=\"qh1\">Alanin dipeptidi: \"αR'de ne kadar zaman geçiyor?\"</h2>",
+   "<h2 id=\"qh1\">Alanine dipeptide: \"how much time is spent in αR?\"</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Uçları kapatılmış alanin (ACE-ALA-NME) küçük bir peptittir; konformasyonu iki omurga açısıyla, φ ve ψ ile özetlenir. Soru şimdilik dar ve ölçülebilir: \"Kaydedilen koşularda molekül zamanının ne kadarını φ/ψ düzleminin αR bölgesinde geçiriyor?\" Bu sayıyı ölçmek için önce A bölgesini ve analiz penceresini tanımlamanız gerekir. Aşağıda mdshare'in üç koşusunun (her biri 250 ns) açıları var; harita 10 ps aralıklı alt örnekle çizilir. Bölge tanımını, koşuyu ve pencereyi değiştirin; isterseniz haritada sürükleyerek kendi dikdörtgeninizi çizin.</p></div>",
+   "<div class=\"prose\"><p>Capped alanine (ACE-ALA-NME) is a small peptide; its conformation is summarized by two backbone angles, φ and ψ. For now the question is narrow and measurable: \"In the recorded runs, how much of its time does the molecule spend in the αR region of the φ/ψ plane?\" To measure this number you first have to define region A and the analysis window. Below are the angles of the three mdshare runs (250 ns each); the map is drawn from a subsample 10 ps apart. Change the region definition, the run and the window; if you like, drag on the map to draw your own rectangle.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>A bölgesi:</span><div class=\"seg\" role=\"group\" aria-label=\"Bölge tanımı\" id=\"qdef\"><button type=\"button\" data-v=\"mdu\" aria-pressed=\"true\">αR (MD-U tanımı: φ &lt; 0, −120 ≤ ψ &lt; 50)</button><button type=\"button\" data-v=\"dar\" aria-pressed=\"false\">dar: ψ &lt; 30</button><button type=\"button\" data-v=\"genis\" aria-pressed=\"false\">geniş: ψ &lt; 70</button><button type=\"button\" data-v=\"ozel\" aria-pressed=\"false\">kendi dikdörtgeniniz</button></div></div>",
+   "<div class=\"selrow\"><span>Region A:</span><div class=\"seg\" role=\"group\" aria-label=\"Region definition\" id=\"qdef\"><button type=\"button\" data-v=\"mdu\" aria-pressed=\"true\">αR (MD-U definition: φ &lt; 0, −120 ≤ ψ &lt; 50)</button><button type=\"button\" data-v=\"dar\" aria-pressed=\"false\">narrow: ψ &lt; 30</button><button type=\"button\" data-v=\"genis\" aria-pressed=\"false\">wide: ψ &lt; 70</button><button type=\"button\" data-v=\"ozel\" aria-pressed=\"false\">your own rectangle</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Koşu:</span><div class=\"seg\" role=\"group\" aria-label=\"Koşu\" id=\"qrun\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">üçü birlikte</button></div></div>",
+   "<div class=\"selrow\"><span>Run:</span><div class=\"seg\" role=\"group\" aria-label=\"Run\" id=\"qrun\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">all three</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Pencere uzunluğu:</span><div class=\"seg\" role=\"group\" aria-label=\"Pencere uzunluğu\" id=\"qlen\"><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">1 ns</button><button type=\"button\" data-v=\"10\" aria-pressed=\"false\">10 ns</button><button type=\"button\" data-v=\"25\" aria-pressed=\"true\">25 ns</button><button type=\"button\" data-v=\"100\" aria-pressed=\"false\">100 ns</button><button type=\"button\" data-v=\"250\" aria-pressed=\"false\">250 ns</button></div></div>",
+   "<div class=\"selrow\"><span>Window length:</span><div class=\"seg\" role=\"group\" aria-label=\"Window length\" id=\"qlen\"><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">1 ns</button><button type=\"button\" data-v=\"10\" aria-pressed=\"false\">10 ns</button><button type=\"button\" data-v=\"25\" aria-pressed=\"true\">25 ns</button><button type=\"button\" data-v=\"100\" aria-pressed=\"false\">100 ns</button><button type=\"button\" data-v=\"250\" aria-pressed=\"false\">250 ns</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><label for=\"qstart\">Pencere başı: <b id=\"qstartv\">0</b> ns</label><input type=\"range\" id=\"qstart\" min=\"0\" max=\"225\" step=\"1\" value=\"0\"></div>",
+   "<div class=\"selrow\"><label for=\"qstart\">Window start: <b id=\"qstartv\">0</b> ns</label><input type=\"range\" id=\"qstart\" min=\"0\" max=\"225\" step=\"1\" value=\"0\"></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"qmap\" class=\"plot\" aria-label=\"φ ve ψ açılarının seçilen pencerede yoğunluk haritası; A bölgesi çerçeveli\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"qmap\" class=\"plot\" aria-label=\"Density map of the φ and ψ angles in the selected window; region A outlined\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"qtl\" class=\"plot\" aria-label=\"Seçilen koşunun 250 ns boyunca durum şeridi; pencere vurgulu\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"qtl\" class=\"plot\" aria-label=\"State strip of the selected run over 250 ns; the window highlighted\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Kaydedilmiş kareler: 1. koşu, 3B</h3>",
+   "<h3 class=\"sub\">Recorded frames: run 1 in 3D</h3>"
+  ],
+  [
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn primary\" id=\"qplay\">Oynat</button><span class=\"small\" id=\"qboxt\"></span></div>",
+   "<div class=\"selrow\"><button type=\"button\" class=\"btn primary\" id=\"qplay\">Play</button><span class=\"small\" id=\"qboxt\"></span></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"qbox\" aria-label=\"1. koşunun gerçek kareleri: alanin dipeptidi 22 atom, ilk kareye hizalı\"></canvas></div><dl class=\"read\" id=\"qboxread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"qbox\" aria-label=\"Real frames of run 1: alanine dipeptide, 22 atoms, aligned to the first frame\"></canvas></div><dl class=\"read\" id=\"qboxread\"></dl></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"qc1\"><span class=\"k\">Açık</span><h3>Tanım sayıyı değiştirir mi?</h3><p>Aynı koşu ve pencerede en az iki farklı A bölgesi tanımı deneyin.</p><div class=\"mine\" id=\"mqc1\"></div></article>",
+   "<article class=\"q\" id=\"qc1\"><span class=\"k\">Open</span><h3>Does the definition change the number?</h3><p>Try at least two different definitions of region A on the same run and window.</p><div class=\"mine\" id=\"mqc1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"qc2\"><span class=\"k\">Açık</span><h3>Pencere sayıyı değiştirir mi?</h3><p>Aynı tanım ve koşuyla en az iki farklı pencereye bakın (örneğin ilk 25 ns ve son 100 ns).</p><div class=\"mine\" id=\"mqc2\"></div></article>",
+   "<article class=\"q\" id=\"qc2\"><span class=\"k\">Open</span><h3>Does the window change the number?</h3><p>With the same definition and run, look at at least two different windows (for example the first 25 ns and the last 100 ns).</p><div class=\"mine\" id=\"mqc2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"qc3\"><span class=\"k\">Açık</span><h3>Üç koşu aynı sayıyı mı verir?</h3><p>\"Üçü birlikte\" seçeneğiyle aynı pencerede üç koşunun payına bakın.</p><div class=\"mine\" id=\"mqc3\"></div></article>",
+   "<article class=\"q\" id=\"qc3\"><span class=\"k\">Open</span><h3>Do the three runs give the same number?</h3><p>With \"all three\", look at the fraction of the three runs in the same window.</p><div class=\"mine\" id=\"mqc3\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"qc4\"><span class=\"k\">Açık</span><h3>Adım, kare, koşu</h3><p>Üç koşuyu birlikte ve pencereyi 250 ns yapın; okumadaki sayımlara bakın.</p><div class=\"mine\" id=\"mqc4\"></div></article>",
+   "<article class=\"q\" id=\"qc4\"><span class=\"k\">Open</span><h3>Step, frame, run</h3><p>Select all three runs and set the window to 250 ns; look at the counts in the readout.</p><div class=\"mine\" id=\"mqc4\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Tezgâh: iddia denetleyici</span>",
+   "<span class=\"step\">2 · Bench: claim checker</span>"
+  ],
+  [
+   "<h2 id=\"qh2\">Altı cümle: hangi kanıt halkası gerekir, hangisi elimizde?</h2>",
+   "<h2 id=\"qh2\">Six sentences: which links of evidence are needed, and which do we have?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bir MD çalışmasının kanıt zinciri altı halkadan oluşur: soru (ne ölçülecek, önceden yazılı), model (kuvvet alanı, su, sınırlar; parametre ve topoloji dosyalarıyla), üretim (başlangıç, tohum, dengeleme, günlükler), analiz (atom seçimi, durum tanımı, pencere), belirsizlik (bağımsız tekrarlar, örnekleme) ve gerektiğinde dış veri (bu dosyada olmayan bir ölçüm: su koordinatları ya da deney). Aşağıdaki her cümle için hangi halkaların gerektiğini işaretleyin, sonra \"Denetle\" deyin. Sayfa önerisini ve bu veri kümesinde o halkanın durumunu gösterir.</p></div>",
+   "<div class=\"prose\"><p>The chain of evidence of an MD study has six links: question (what will be measured, written in advance), model (force field, water, boundaries; with parameter and topology files), production (start, seed, equilibration, logs), analysis (atom selection, state definition, window), uncertainty (independent replicates, sampling) and, when needed, external data (a measurement not in this file: water coordinates or experiment). For each sentence below, mark which links are needed, then press \"Check\". The page shows its suggestion and the status of that link in this data set.</p></div>"
+  ],
+  [
+   "<div class=\"tw\"><table id=\"qavail\"><thead><tr><th>Halka</th><th>Bu veri kümesinde</th></tr></thead><tbody></tbody></table></div>",
+   "<div class=\"tw\"><table id=\"qavail\"><thead><tr><th>Link</th><th>In this data set</th></tr></thead><tbody></tbody></table></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"qc5\"><span class=\"k\">Açık</span><h3>Hangi cümleler bu veriden çıkar?</h3><p>En az dört cümleyi denetleyin.</p><div class=\"mine\" id=\"mqc5\"></div></article>",
+   "<article class=\"q\" id=\"qc5\"><span class=\"k\">Open</span><h3>Which sentences follow from these data?</h3><p>Check at least four sentences.</p><div class=\"mine\" id=\"mqc5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"qc6\"><span class=\"k\">Açık</span><h3>Geniş cümleyi daraltmak</h3><p>Denetlediğiniz bir cümlede \"Daralt\" düğmesine basın.</p><div class=\"mine\" id=\"mqc6\"></div></article>",
+   "<article class=\"q\" id=\"qc6\"><span class=\"k\">Open</span><h3>Narrowing a broad sentence</h3><p>Press \"Narrow\" on a sentence you checked.</p><div class=\"mine\" id=\"mqc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Defter: sizin tablonuz</span>",
+   "<span class=\"step\">3 · Notebook: your table</span>"
+  ],
+  [
+   "<h2 id=\"qh3\">Soru, model, veri, nicelik, iddia</h2>",
+   "<h2 id=\"qh3\">Question, model, data, quantity, claim</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bölümün çıktısı bu tablodur. Kendi çalışmanız için doldurun; nicelik satırı bu sayfada seçtiğiniz tanımla başlar. Metin yalnız tarayıcınızda oluşur; hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>This table is the output of the chapter. Fill it in for your own study; the quantity row starts from the definition you chose on this page. The text is created only in your browser; it is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>Soru (ne öğrenmek istiyorsunuz, hangi karşılaştırmayla?)<textarea id=\"qfq\" rows=\"2\">Örnek: Alanin dipeptidi 300 K'de suda zamanının ne kadarını αR bölgesinde geçiriyor?</textarea></label>",
+   "<label>Question (what do you want to learn, with which comparison?)<textarea id=\"qfq\" rows=\"2\">Example: How much of its time does alanine dipeptide spend in the αR region in water at 300 K?</textarea></label>"
+  ],
+  [
+   "<label>Model (kuvvet alanı, su, sınırlar, sıcaklık; dosyalarıyla)<textarea id=\"qfm\" rows=\"2\">Örnek: kaynak beyanı ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; parametre ve topoloji dosyaları elimizde yok.</textarea></label>",
+   "<label>Model (force field, water, boundaries, temperature; with files)<textarea id=\"qfm\" rows=\"2\">Example: source statement ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; we do not have the parameter and topology files.</textarea></label>"
+  ],
+  [
+   "<label>Veri (koşular, süre, kayıt aralığı, köken)<textarea id=\"qfd\" rows=\"2\">Örnek: mdshare ALA2, 3 koşu × 250 ns, 1 ps kare; yalnız φ/ψ ve 1. koşunun susuz kareleri.</textarea></label>",
+   "<label>Data (runs, length, recording interval, origin)<textarea id=\"qfd\" rows=\"2\">Example: mdshare ALA2, 3 runs × 250 ns, 1 ps frames; only φ/ψ and the water-free frames of run 1.</textarea></label>"
+  ],
+  [
+   "<label>İddia (verinin taşıyabileceği cümle)<textarea id=\"qfc\" rows=\"2\"></textarea></label>",
+   "<label>Claim (the sentence the data can carry)<textarea id=\"qfc\" rows=\"2\"></textarea></label>"
+  ],
+  [
+   "<label>Neyi denetlemedim?<textarea id=\"qfn\" rows=\"2\"></textarea></label>",
+   "<label>What did I not check?<textarea id=\"qfn\" rows=\"2\"></textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"qfcopy\">Metni kopyala</button><span class=\"small\" id=\"qfmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"qfcopy\">Copy text</button><span class=\"small\" id=\"qfmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">4 · Proteine dönüş</span>",
+   "<span class=\"step\">4 · Back to proteins</span>"
+  ],
+  [
+   "<h2 id=\"qh4\">Ubikitinde bir halka: aynı zincir, gerçek bir protein</h2>",
+   "<h2 id=\"qh4\">A loop in ubiquitin: the same chain, a real protein</h2>"
+  ],
+  [
+   "<div class=\"tw\"><table id=\"qprot\"><thead><tr><th>Halka</th><th>Ubikitin örneği</th><th>Bu sitede</th></tr></thead><tbody></tbody></table></div>",
+   "<div class=\"tw\"><table id=\"qprot\"><thead><tr><th>Link</th><th>Ubiquitin example</th><th>On this site</th></tr></thead><tbody></tbody></table></div>"
+  ],
+  [
+   "<span class=\"step\">5 · Sınav</span>",
+   "<span class=\"step\">5 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"qh5\">Altı soru</h2>",
+   "<h2 id=\"qh5\">Six questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('qprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('qprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "{id:'b1', s:function(){ return 'Bu blotta tedavi edilen 3 farede p-ERK / toplam ERK oranının ortalaması, kontrol 3 fareninkinin '+fx(QB.d.ratio,2)+' katı.'; }, ref:'d',",
+   "{id:'b1', s:function(){ return 'In this blot the mean p-ERK / total ERK ratio of the 3 treated mice is '+fx(QB.d.ratio,2)+' times that of the 3 control mice.'; }, ref:'d',"
+  ],
+  [
+   "why:'Cümle yalnız bu blotta ölçülen sayıyı söylüyor ve kapsamını bu altı fareyle sınırlıyor; veri bunu taşır. Yine de Welch p = '+'{p}'+' ve üç hayvanla aralık geniştir.'},",
+   "why:'The sentence states only the number measured on this blot and limits its scope to these six mice; the data carry it. Still, Welch p = '+'{p}'+' and with three animals the interval is wide.'},"
+  ],
+  [
+   "{id:'b2', s:function(){ return 'Tedavi ERK fosforilasyonunu artırır.'; }, ref:'e',",
+   "{id:'b2', s:function(){ return 'The treatment increases ERK phosphorylation.'; }, ref:'e',"
+  ],
+  [
+   "why:'Genel bir neden-sonuç cümlesi: bağımsız bir deney tekrarı, doz ya da zaman bağımlılığı ve önceden yazılmış bir karşılaştırma gerektirir. Bu tek blot aynı yönde bir gözlemdir, kanıtın tamamı değildir.'},",
+   "why:'A general cause and effect sentence: it needs an independent repeat of the experiment, a dose or time dependence and a comparison written in advance. This single blot is an observation in the same direction, not the whole evidence.'},"
+  ],
+  [
+   "{id:'b3', s:function(){ return 'Fark, kuyulara farklı miktarda protein yüklenmesinden kaynaklanmıyor.'; }, ref:'e',",
+   "{id:'b3', s:function(){ return 'The difference is not caused by loading different amounts of protein into the wells.'; }, ref:'e',"
+  ],
+  [
+   "why:'Toplam ERK'+\"'\"+'e oranlamak yükleme farkını kısmen düzeltir, ama bağımsız bir yükleme kontrolü (ör. toplam protein boyası) ve bantların doğrusal aralıkta olduğunun gösterilmesi gerekir. Bu blotta ikisi de yok.'},",
+   "why:'Normalizing to total ERK partly corrects for loading, but an independent loading control (e.g. a total protein stain) and a demonstration that the bands are in the linear range are needed. This blot has neither.'},"
+  ],
+  [
+   "{id:'b4', s:function(){ return 'Tedavi ERK yolu üzerinden hücre çoğalmasını artırır.'; }, ref:'n',",
+   "{id:'b4', s:function(){ return 'The treatment increases cell proliferation through the ERK pathway.'; }, ref:'n',"
+  ],
+  [
+   "why:'Hücre çoğalması bu deneyde hiç ölçülmedi; mekanizma iddiası (ERK aracılığıyla) için yolun engellenmesi gibi ayrı deneyler gerekir. Bu veriyle kurulamaz.'},",
+   "why:'Cell proliferation was not measured in this experiment at all; a mechanism claim (through ERK) needs separate experiments such as blocking the pathway. It cannot be made with these data.'},"
+  ],
+  [
+   "{id:'b5', s:function(){ return 'Tedavi, ERK yolunun aşırı aktif olduğu tümörlerde zararlıdır.'; }, ref:'n',",
+   "{id:'b5', s:function(){ return 'The treatment is harmful in tumours with an overactive ERK pathway.'; }, ref:'n',"
+  ],
+  [
+   "why:'Ne tümör ne de zarar ölçüldü; cümle ölçülen nicelikten çok uzak bir sonuca sıçrıyor. Bu veriyle kurulamaz.'}",
+   "why:'Neither tumours nor harm were measured; the sentence jumps to a conclusion far from the measured quantity. It cannot be made with these data.'}"
+  ],
+  [
+   "var CAT={d:'veri destekler',e:'ek kanıt gerekir',n:'bu veriyle kurulamaz'};",
+   "var CAT={d:'data support it',e:'more evidence needed',n:'cannot be made with these data'};"
+  ],
+  [
+   "g.font='600 13px '+css('--sans'); g.fillStyle=PAL.ink; g.textAlign='center'; g.fillText('Kontrol',left+half/2,18); g.fillText('Tedavi',left+half+gap+half/2,18); g.textAlign='left';",
+   "g.font='600 13px '+css('--sans'); g.fillStyle=PAL.ink; g.textAlign='center'; g.fillText('Control',left+half/2,18); g.fillText('Treated',left+half+gap+half/2,18); g.textAlign='left';"
+  ],
+  [
+   "[['p-ERK','p'],['toplam ERK','t']].forEach(function(row,ri){ var y0=top+ri*(rowH+10); g.fillStyle=PAL.muted; g.font='12.5px '+css('--sans'); g.fillText(row[0],8,y0+rowH/2+4);",
+   "[['p-ERK','p'],['total ERK','t']].forEach(function(row,ri){ var y0=top+ri*(rowH+10); g.fillStyle=PAL.muted; g.font='12.5px '+css('--sans'); g.fillText(row[0],8,y0+rowH/2+4);"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; for(var k=0;k<3;k++){ g.fillText('F'+(k+1),left+k*lane+lane/2,top+2*rowH+28); g.fillText('F'+(k+4),left+half+gap+k*lane+lane/2,top+2*rowH+28); } g.textAlign='left'; }",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; for(var k=0;k<3;k++){ g.fillText('M'+(k+1),left+k*lane+lane/2,top+2*rowH+28); g.fillText('M'+(k+4),left+half+gap+k*lane+lane/2,top+2*rowH+28); } g.textAlign='left'; }"
+  ],
+  [
+   "function qbRead(){ var D=QB.d; $('qbread').innerHTML=dl('p-ERK / toplam ERK, kontrol (F1 ile F3)',D.rc.map(function(v){return fx(v,2);}).join(' · '))+dl('p-ERK / toplam ERK, tedavi (F4 ile F6)',D.rt.map(function(v){return fx(v,2);}).join(' · '))+dl('Ortalamalar oranı',fx(D.ratio,2)+' kat')+dl('Welch p (3 ile 3)',fx(D.p,3)); }",
+   "function qbRead(){ var D=QB.d; $('qbread').innerHTML=dl('p-ERK / total ERK, control (M1 to M3)',D.rc.map(function(v){return fx(v,2);}).join(' · '))+dl('p-ERK / total ERK, treated (M4 to M6)',D.rt.map(function(v){return fx(v,2);}).join(' · '))+dl('Ratio of means',fx(D.ratio,2)+' times')+dl('Welch p (3 versus 3)',fx(D.p,3)); }"
+  ],
+  [
+   "return '<div class=\"claim\" data-c=\"'+c.id+'\"><p class=\"s\">'+c.s()+'</p><div class=\"seg\" role=\"group\" aria-label=\"Karar\">'+['d','e','n'].map(function(k){ return '<button type=\"button\" data-v=\"'+k+'\" aria-pressed=\"'+(a===k)+'\">'+CAT[k]+'</button>'; }).join('')+'</div>'+(a?'<p class=\"fb '+(a===c.ref?'ok':'no')+'\">'+(a===c.ref?'Sayfanın önerisiyle aynı: ':'Sayfanın önerisi \"'+CAT[c.ref]+'\": ')+c.why.replace('{p}',fx(QB.d.p,3))+'</p>':'')+'</div>'; }).join('');",
+   "return '<div class=\"claim\" data-c=\"'+c.id+'\"><p class=\"s\">'+c.s()+'</p><div class=\"seg\" role=\"group\" aria-label=\"Decision\">'+['d','e','n'].map(function(k){ return '<button type=\"button\" data-v=\"'+k+'\" aria-pressed=\"'+(a===k)+'\">'+CAT[k]+'</button>'; }).join('')+'</div>'+(a?'<p class=\"fb '+(a===c.ref?'ok':'no')+'\">'+(a===c.ref?'Same as the page\\'s suggestion: ':'The page suggests \"'+CAT[c.ref]+'\": ')+c.why.replace('{p}',fx(QB.d.p,3))+'</p>':'')+'</div>'; }).join('');"
+  ],
+  [
+   "card('qc0',true,'Beş cümlenin '+m+' tanesinde kararınız sayfanın önerisiyle aynı.'+(wide?' '+wide+' cümleyi \"veri destekler\" saydınız, oysa o cümleler ölçülen bandın ötesine geçiyor.':'')+' Aynı bant oranı ('+fx(QB.d.ratio,2)+' kat) dar bir ölçüm cümlesini taşır; genel neden-sonuç, mekanizma ve klinik cümleleri taşımaz. MD\\'de de durum aynıdır: bir trajektoriden çıkan sayı, ancak onu üreten model ve analiz kadar geniş bir cümleyi taşır.'); }",
+   "card('qc0',true,'For '+m+' of the five sentences your decision matches the page\\'s suggestion.'+(wide?' You counted '+wide+' sentence(s) as \"data support it\", although they go beyond the measured band.':'')+' The same band ratio ('+fx(QB.d.ratio,2)+' times) carries a narrow measurement sentence; it does not carry general cause and effect, mechanism or clinical sentences. The same holds in MD: a number from a trajectory carries a sentence only as broad as the model and analysis that produced it.'); }"
+  ],
+  [
+   "$('qbnew').onclick=function(){ QB.seed+=1; qbGen(); qbDraw(); qbRead(); qbClaims(); $('qbinfo').textContent='Yeni blot (tohum '+QB.seed+'): aynı model, başka hayvanlar.'; };",
+   "$('qbnew').onclick=function(){ QB.seed+=1; qbGen(); qbDraw(); qbRead(); qbClaims(); $('qbinfo').textContent='New blot (seed '+QB.seed+'): same model, other animals.'; };"
+  ],
+  [
+   "var DEFN={mdu:'αR (ψ < 50)',dar:'dar (ψ < 30)',genis:'geniş (ψ < 70)',ozel:'kendi dikdörtgeniniz'};",
+   "var DEFN={mdu:'αR (ψ < 50)',dar:'narrow (ψ < 30)',genis:'wide (ψ < 70)',ozel:'your own rectangle'};"
+  ],
+  [
+   "var P=plot(g,46,10,W-56,H-46,[-180,180],[-180,180],{xticks:[-180,-90,0,90,180],yticks:[-180,-90,0,90,180],xlab:'φ (derece)',ylab:'ψ (derece)',ylabPad:36});",
+   "var P=plot(g,46,10,W-56,H-46,[-180,180],[-180,180],{xticks:[-180,-90,0,90,180],yticks:[-180,-90,0,90,180],xlab:'φ (degrees)',ylab:'ψ (degrees)',ylabPad:36});"
+  ],
+  [
+   "rs.forEach(function(ri,j){ var A=QW.R[ri], y=top+j*(rh+4); g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('koşu '+(ri+1),6,y+rh-5);",
+   "rs.forEach(function(ri,j){ var A=QW.R[ri], y=top+j*(rh+4); g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('run '+(ri+1),6,y+rh-5);"
+  ],
+  [
+   "var h=rs.map(function(ri,j){ return dl('A payı, koşu '+(ri+1),pct(ps[j],1)); }).join('');",
+   "var h=rs.map(function(ri,j){ return dl('A fraction, run '+(ri+1),pct(ps[j],1)); }).join('');"
+  ],
+  [
+   "if(rs.length>1) h+=dl('Üç koşunun ortalaması (aralık)',pct(mean(ps),1)+' ('+pct(Math.min.apply(null,ps),1)+' ile '+pct(Math.max.apply(null,ps),1)+')');",
+   "if(rs.length>1) h+=dl('Mean of the three runs (range)',pct(mean(ps),1)+' ('+pct(Math.min.apply(null,ps),1)+' to '+pct(Math.max.apply(null,ps),1)+')');"
+  ],
+  [
+   "h+=dl('Pencere',fx(QW.start,0)+' ile '+fx(QW.start+QW.len,0)+' ns')+dl('Kaynakta kayıtlı kare (1 ps)',fmtInt(QW.len*1000*rs.length))+dl('Bu sayfadaki alt örnek (10 ps)',fmtInt(nfr*rs.length))+dl('Entegrasyon adımı (2 fs, kaynak beyanı)',fmtInt(QW.len*1e6/2*rs.length))+dl('Koşu (kaynak: bağımsız)',String(rs.length));",
+   "h+=dl('Window',fx(QW.start,0)+' to '+fx(QW.start+QW.len,0)+' ns')+dl('Frames recorded in the source (1 ps)',fmtInt(QW.len*1000*rs.length))+dl('Subsample on this page (10 ps)',fmtInt(nfr*rs.length))+dl('Integration steps (2 fs, source statement)',fmtInt(QW.len*1e6/2*rs.length))+dl('Runs (source: independent)',String(rs.length));"
+  ],
+  [
+   "function fmtInt(n){ return new Intl.NumberFormat('tr-TR').format(Math.round(n)); }",
+   "function fmtInt(n){ return new Intl.NumberFormat('en-US').format(Math.round(n)); }"
+  ],
+  [
+   "function wtxt(s){ return fx(s.start,0)+' ile '+fx(s.start+s.len,0)+' ns'; }",
+   "function wtxt(s){ return fx(s.start,0)+' to '+fx(s.start+s.len,0)+' ns'; }"
+  ],
+  [
+   "card('qc1',true,'Koşu '+(+c1[0].run+1)+', '+wtxt(c1[0])+': '+grp.map(function(s){ return DEFN[s.def]+' '+pct(s.ps[0],1); }).join('; ')+'. Aynı kareler, farklı tanım: pay '+fx(100*(Math.max.apply(null,vals)-Math.min.apply(null,vals)),1)+' puan oynadı. Bu yüzden \"αR payı\" bir sayıdan önce bir tanımdır; tanım sonuca bakmadan yazılır ve duyarlılığı (ψ sınırı 30 ve 70) ayrıca raporlanır.'); } else card('qc1',false);",
+   "card('qc1',true,'Run '+(+c1[0].run+1)+', '+wtxt(c1[0])+': '+grp.map(function(s){ return DEFN[s.def]+' '+pct(s.ps[0],1); }).join('; ')+'. Same frames, different definition: the fraction moved by '+fx(100*(Math.max.apply(null,vals)-Math.min.apply(null,vals)),1)+' points. This is why \"the αR fraction\" is a definition before it is a number; the definition is written without looking at the result, and its sensitivity (ψ bound 30 and 70) is reported separately.'); } else card('qc1',false);"
+  ],
+  [
+   "card('qc2',true,'Koşu '+(+c2[0].run+1)+', '+DEFN[c2[0].def]+': '+g2.map(function(s){ return wtxt(s)+' '+pct(s.ps[0],1); }).join('; ')+'. Aynı koşunun farklı pencereleri farklı sayılar veriyor. İki pencerenin birbirine yakın ya da uzak olması tek başına \"denge\" kanıtı değildir: pencere de tanım gibi önceden yazılır.'); } else card('qc2',false);",
+   "card('qc2',true,'Run '+(+c2[0].run+1)+', '+DEFN[c2[0].def]+': '+g2.map(function(s){ return wtxt(s)+' '+pct(s.ps[0],1); }).join('; ')+'. Different windows of the same run give different numbers. Two windows being close or far apart is not by itself evidence of \"equilibrium\": the window, like the definition, is written down in advance.'); } else card('qc2',false);"
+  ],
+  [
+   "if(c3){ card('qc3',true,DEFN[c3.def]+', '+wtxt(c3)+': koşu 1 '+pct(c3.ps[0],1)+', koşu 2 '+pct(c3.ps[1],1)+', koşu 3 '+pct(c3.ps[2],1)+' (aralık '+fx(100*(Math.max.apply(null,c3.ps)-Math.min.apply(null,c3.ps)),1)+' puan). Koşu, karelerin değil tekrarın birimidir; bu sayfada üç koşunun bağımsızlığı yalnız kaynağın beyanıdır, üretim kayıtları elimizde yok. Koşular arası farkın nasıl test edileceği MD-REP\\'te, örnekleme belirsizliği MD-U\\'da.'); } else card('qc3',false);",
+   "if(c3){ card('qc3',true,DEFN[c3.def]+', '+wtxt(c3)+': run 1 '+pct(c3.ps[0],1)+', run 2 '+pct(c3.ps[1],1)+', run 3 '+pct(c3.ps[2],1)+' (range '+fx(100*(Math.max.apply(null,c3.ps)-Math.min.apply(null,c3.ps)),1)+' points). The run, not the frame, is the unit of replication; on this page the independence of the three runs is only the source\\'s statement, and we do not have the production records. How to test differences between runs is in MD-REP, sampling uncertainty in MD-U.'); } else card('qc3',false);"
+  ],
+  [
+   "if(c4){ card('qc4',true,'Üç koşu × 250 ns: kaynakta '+fmtInt(750000)+' kayıtlı kare (1 ps) ve beyan edilen 2 fs adımla '+fmtInt(375000000)+' entegrasyon adımı; iki kayıtlı kare arasında 1 ps / 2 fs = 500 adım. Bu sayfa haritayı 10 ps aralıklı '+fmtInt(75000)+' kareyle çizer. Ama bağımsız tekrar sayısı 3\\'tür: 750.000 kare 750.000 deney değildir.'); } else card('qc4',false); }",
+   "if(c4){ card('qc4',true,'Three runs × 250 ns: '+fmtInt(750000)+' frames recorded in the source (1 ps) and, with the stated 2 fs step, '+fmtInt(375000000)+' integration steps; between two recorded frames there are 1 ps / 2 fs = 500 steps. This page draws the map with '+fmtInt(75000)+' frames 10 ps apart. But the number of independent replicates is 3: 750,000 frames are not 750,000 experiments.'); } else card('qc4',false); }"
+  ],
+  [
+   "function qbox(){ var V=QD.viz, cv=$('qbox'); if(!V){ $('qboxnote').textContent='Bu senaryo hesaplanmadı: kare verisi yok.'; return; }",
+   "function qbox(){ var V=QD.viz, cv=$('qbox'); if(!V){ $('qboxnote').textContent='This scenario was not computed: no frame data.'; return; }"
+  ],
+  [
+   "$('qboxt').textContent='kare '+(k2+1)+' / '+V.n;",
+   "$('qboxt').textContent='frame '+(k2+1)+' / '+V.n;"
+  ],
+  [
+   "$('qboxread').innerHTML=dl('Zaman (koşu 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('Durum (MD-U tanımı)',stn)+dl('Bu 400 ps\\'deki αR↔β geçişi',String(V.trans)); }",
+   "$('qboxread').innerHTML=dl('Time (run 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('State (MD-U definition)',stn)+dl('αR↔β crossings in these 400 ps',String(V.trans)); }"
+  ],
+  [
+   "function setPlay(on){ QW.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
+   "function setPlay(on){ QW.play=on; btn.textContent=on?'Pause':'Play'; btn.classList.toggle('primary',!on); if(on) aniKick(); }"
+  ],
+  [
+   "$('qboxnote').textContent='1. koşunun '+V.start_ps+' ile '+(V.start_ps+V.n-1)+' ps arasındaki 400 karesi (1 ps aralık). Seçim kuralı sayfa yazılmadan önce belirlendi: 250 ns içinde en az iki αR↔β geçişi içeren ilk 400 ps\\'lik pencere. 22 atom her karede ilk kareye hizalandı (molekülün dönmesi çıkarıldı); kareler arası geçiş görüntüde doğrusal ara değerlemeyle yumuşatılır. Kırmızı nokta ve iz, aynı karenin φ/ψ değerini haritada gösterir. Suyun koordinatları bu dosyada yoktur. Sürükleyerek döndürebilirsiniz.';",
+   "$('qboxnote').textContent='The 400 frames of run 1 between '+V.start_ps+' and '+(V.start_ps+V.n-1)+' ps (1 ps apart). The selection rule was set before the page was written: the first 400 ps window within the 250 ns that contains at least two αR↔β crossings. The 22 atoms were aligned to the first frame in every frame (the rotation of the molecule removed); transitions between frames are smoothed on screen by linear interpolation. The red dot and trail show the φ/ψ value of the same frame on the map. This file has no water coordinates. Drag to rotate.';"
+  ],
+  [
+   "var SC=[css('--accent'),css('--pale'),css('--gold')]; $('qtlleg').innerHTML='<span>'+dot(SC[0])+'αR</span><span>'+dot(SC[1])+'β/PPII</span><span>'+dot(SC[2])+'αL</span><span>çerçeve: seçtiğiniz pencere</span>';",
+   "var SC=[css('--accent'),css('--pale'),css('--gold')]; $('qtlleg').innerHTML='<span>'+dot(SC[0])+'αR</span><span>'+dot(SC[1])+'β/PPII</span><span>'+dot(SC[2])+'αL</span><span>frame: your chosen window</span>';"
+  ],
+  [
+   "$('qnote').textContent='Harita ve paylar 10 ps aralıklı alt örnekten hesaplanır; tam 1 ps veriyle karşılaştırıldığında fark 250 ns\\'lik paylarda 0,1, 25 ns\\'lik bloklarda 0,7, 1 ns\\'lik pencerelerde 4,6 puana kadar çıkar (Python denetimi); kısa pencerede alt örnek daha kaba bir tahmindir. Durum renkleri MD-U tanımıyla (ψ < 50); A bölgesi sizin seçtiğiniz tanımdır.';",
+   "$('qnote').textContent='The map and the fractions are computed from a subsample 10 ps apart; compared with the full 1 ps data the difference reaches 0.1 points for 250 ns fractions, 0.7 for 25 ns blocks and 4.6 for 1 ns windows (Python check); in a short window the subsample is a coarser estimate. State colours use the MD-U definition (ψ < 50); region A is the definition you chose.';"
+  ],
+  [
+   "var LINKS=[['soru','Soru'],['model','Model'],['uretim','Üretim'],['analiz','Analiz'],['belirsiz','Belirsizlik'],['dis','Dış veri']];",
+   "var LINKS=[['soru','Question'],['model','Model'],['uretim','Production'],['analiz','Analysis'],['belirsiz','Uncertainty'],['dis','External data']];"
+  ],
+  [
+   "var AVAIL={soru:['v','Bölge ve pencere bu sayfada sizin seçiminiz; tanım sayıdan önce yazılabilir.'],",
+   "var AVAIL={soru:['v','Region and window are your choice on this page; the definition can be written before the number.'],"
+  ],
+  [
+   "model:['k','Kaynak beyanı var (ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs); parametre, topoloji ve hazırlık dosyaları elimizde yok.'],",
+   "model:['k','The source statement exists (ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs); we do not have the parameter, topology and preparation files.'],"
+  ],
+  [
+   "uretim:['y','Başlangıç yapıları, hızlar, tohumlar ve günlükler elimizde yok; üç koşunun bağımsızlığı yalnız kaynağın beyanı.'],",
+   "uretim:['y','We do not have the starting structures, velocities, seeds or logs; the independence of the three runs is only the source\\'s statement.'],"
+  ],
+  [
+   "analiz:['v','φ ve ψ atom eşlemesi 1. koşunun XTC dosyasıyla yerelde denetlendi (T08); durum tanımları MD-U ile aynı.'],",
+   "analiz:['v','The φ and ψ atom mapping was checked locally against the XTC file of run 1 (T08); state definitions as in MD-U.'],"
+  ],
+  [
+   "belirsiz:['k','Üç koşu var, ama bağımsızlıkları belgelenmedi; otokorelasyon ve blok analizi bu sayfada yapılmadı (MD-U).'],",
+   "belirsiz:['k','There are three runs, but their independence is not documented; autocorrelation and block analysis were not done on this page (MD-U).'],"
+  ],
+  [
+   "dis:['y','Susuz dosyalar: su koordinatları yok; bu sayfada deneysel bir karşılaştırma verisi de yok.']};",
+   "dis:['y','Files without water: no water coordinates; this page has no experimental comparison data either.']};"
+  ],
+  [
+   "var STX={v:'var',k:'kısmi',y:'yok'};",
+   "var STX={v:'present',k:'partial',y:'absent'};"
+  ],
+  [
+   "{id:'s1', s:function(){ return 'Alanin dipeptidi suda αR durumunu tercih eder.'; }, req:['soru','model','analiz','belirsiz'], v:'Veri bu cümleyi desteklemiyor: üç koşuda da zamanın çoğu β/PPII bölgesinde geçiyor. Ayrıca \"suda\" genellemesi modele (kuvvet alanı, su modeli) bağlıdır ve model dosyaları elimizde yok.',",
+   "{id:'s1', s:function(){ return 'Alanine dipeptide prefers the αR state in water.'; }, req:['soru','model','analiz','belirsiz'], v:'The data do not support this sentence: in all three runs most of the time is spent in the β/PPII region. Moreover, the generalization \"in water\" depends on the model (force field, water model), and we do not have the model files.',"
+  ],
+  [
+   "nar:function(){ var a=[0,1,2].map(function(ri){ return curP(ri); }); return 'Kaynak beyanına göre ff99SB-ILDN ve TIP3P ile 300 K\\'de koşulmuş üç koşuda, '+fx(QW.start,0)+' ile '+fx(QW.start+QW.len,0)+' ns penceresinde karelerin '+a.map(function(x){return pct(x.aR,1);}).join(', ')+' kadarı MD-U αR tanımına, '+a.map(function(x){return pct(x.b,1);}).join(', ')+' kadarı β/PPII bölgesine düştü.'; }},",
+   "nar:function(){ var a=[0,1,2].map(function(ri){ return curP(ri); }); return 'In three runs performed, according to the source statement, with ff99SB-ILDN and TIP3P at 300 K, in the '+fx(QW.start,0)+' to '+fx(QW.start+QW.len,0)+' ns window, '+a.map(function(x){return pct(x.aR,1);}).join(', ')+' of the frames fell within the MD-U αR definition and '+a.map(function(x){return pct(x.b,1);}).join(', ')+' within the β/PPII region.'; }},"
+  ],
+  [
+   "{id:'s2', s:function(){ return '1. koşunun '+fx(QW.start,0)+' ile '+fx(QW.start+QW.len,0)+' ns penceresinde karelerin '+pct(curP(0).aR,1)+' kadarı MD-U αR tanımına düşüyor.'; }, req:['soru','analiz'], v:'Veri bu cümleyi taşır: tanımı ve penceresi yazılı, betimleyici bir ölçüm cümlesidir. Bir denge popülasyonu iddiası değildir.', nar:null},",
+   "{id:'s2', s:function(){ return 'In the '+fx(QW.start,0)+' to '+fx(QW.start+QW.len,0)+' ns window of run 1, '+pct(curP(0).aR,1)+' of the frames fall within the MD-U αR definition.'; }, req:['soru','analiz'], v:'The data carry this sentence: it is a descriptive measurement sentence with its definition and window written down. It is not a claim about an equilibrium population.', nar:null},"
+  ],
+  [
+   "{id:'s3', s:function(){ return 'Molekül dengeye ulaştı.'; }, req:['soru','uretim','analiz','belirsiz'], v:'Bu veriyle kurulamaz: denge iddiası önceden yazılmış bir ölçüt, başlangıç bilgisi ve belirsizlik analizi ister. Pencerelerin birbirine benzemesi tek başına denge kanıtı değildir.',",
+   "{id:'s3', s:function(){ return 'The molecule reached equilibrium.'; }, req:['soru','uretim','analiz','belirsiz'], v:'It cannot be made with these data: an equilibrium claim needs a criterion written in advance, information about the start and an uncertainty analysis. Windows resembling each other is not by itself evidence of equilibrium.',"
+  ],
+  [
+   "nar:function(){ var b=blocks25(0); return '1. koşunun on adet 25 ns\\'lik bloğunda αR payı '+pct(Math.min.apply(null,b),1)+' ile '+pct(Math.max.apply(null,b),1)+' arasında değişti; bu betimlemedir, denge kanıtı değildir.'; }},",
+   "nar:function(){ var b=blocks25(0); return 'Over the ten 25 ns blocks of run 1, the αR fraction varied between '+pct(Math.min.apply(null,b),1)+' and '+pct(Math.max.apply(null,b),1)+'; this is a description, not evidence of equilibrium.'; }},"
+  ],
+  [
+   "{id:'s4', s:function(){ return 'Üç koşu birbirinden bağımsız üç deneydir.'; }, req:['uretim'], v:'Bu veriyle doğrulanamaz: bağımsızlık üretim kayıtlarıyla (başlangıçlar, hızlar, tohumlar) gösterilir; elimizde yalnız kaynağın beyanı var.',",
+   "{id:'s4', s:function(){ return 'The three runs are three independent experiments.'; }, req:['uretim'], v:'It cannot be verified with these data: independence is shown with production records (starts, velocities, seeds); we have only the source\\'s statement.',"
+  ],
+  [
+   "nar:function(){ return 'Kaynak, üç koşuyu bağımsız simülasyonlar olarak tanımlıyor; bu beyan yerel üretim kayıtlarıyla doğrulanmadı.'; }},",
+   "nar:function(){ return 'The source describes the three runs as independent simulations; this statement was not verified with local production records.'; }},"
+  ],
+  [
+   "{id:'s5', s:function(){ return 'Su molekülleri αR durumunu kararlı kılar.'; }, req:['soru','model','analiz','dis'], v:'Bu veriyle kurulamaz: su koordinatları dosyada yok, suyun rolü ölçülemez.',",
+   "{id:'s5', s:function(){ return 'Water molecules stabilize the αR state.'; }, req:['soru','model','analiz','dis'], v:'It cannot be made with these data: the file has no water coordinates, so the role of water cannot be measured.',"
+  ],
+  [
+   "nar:function(){ return 'Bu dosyalarda su koordinatları yok; suyun αR durumuna etkisi bu veriyle incelenemez (Bu senaryo hesaplanmadı).'; }},",
+   "nar:function(){ return 'These files have no water coordinates; the effect of water on the αR state cannot be studied with these data (This scenario was not computed).'; }},"
+  ],
+  [
+   "{id:'s6', s:function(){ return 'Bu veri, ff99SB-ILDN ile TIP3P\\'nin alanin dipeptidi için deneyle uyumlu olduğunu gösterir.'; }, req:['soru','model','analiz','belirsiz','dis'], v:'Bu veriyle kurulamaz: deneyle uyum iddiası, aynı niceliğin deneysel bir ölçümüyle (ör. NMR J-eşleşmeleri) karşılaştırmayı gerektirir; bu sayfada deney verisi yok.',",
+   "{id:'s6', s:function(){ return 'These data show that ff99SB-ILDN with TIP3P agrees with experiment for alanine dipeptide.'; }, req:['soru','model','analiz','belirsiz','dis'], v:'It cannot be made with these data: a claim of agreement with experiment needs a comparison with an experimental measurement of the same quantity (e.g. NMR J couplings); this page has no experimental data.',"
+  ],
+  [
+   "nar:function(){ return 'Bu veri bir modelin ürettiği φ/ψ dağılımını verir; deneyle karşılaştırma yapılmadı (Bu senaryo hesaplanmadı).'; }}",
+   "nar:function(){ return 'These data give the φ/ψ distribution produced by a model; no comparison with experiment was made (This scenario was not computed).'; }}"
+  ],
+  [
+   "var chips='<div class=\"chips\" role=\"group\" aria-label=\"Gereken halkalar\">'+LINKS.map(function(L){ var req=d&&S.req.indexOf(L[0])>=0; return '<button type=\"button\" class=\"chip'+(req?' req':'')+'\" data-l=\"'+L[0]+'\" aria-pressed=\"'+(!!p[L[0]])+'\">'+L[1]+'</button>'; }).join('')+'</div>';",
+   "var chips='<div class=\"chips\" role=\"group\" aria-label=\"Links needed\">'+LINKS.map(function(L){ var req=d&&S.req.indexOf(L[0])>=0; return '<button type=\"button\" class=\"chip'+(req?' req':'')+'\" data-l=\"'+L[0]+'\" aria-pressed=\"'+(!!p[L[0]])+'\">'+L[1]+'</button>'; }).join('')+'</div>';"
+  ],
+  [
+   "fb='<p class=\"fb '+(miss.length||extra.length?'no':'ok')+'\">Sayfanın önerisi (kesikli çerçeve): '+S.req.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]; }).join(', ')+'.'+(miss.length?' İşaretlemediğiniz: '+miss.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]; }).join(', ')+'.':'')+(extra.length?' Fazladan: '+extra.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]; }).join(', ')+'.':'')+' Bu veri kümesinde eksik ya da kısmi olan gerekli halka: '+(lack.length?lack.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]+' ('+STX[AVAIL[k][0]]+')'; }).join(', '):'yok')+'. '+S.v+'</p>'; }",
+   "fb='<p class=\"fb '+(miss.length||extra.length?'no':'ok')+'\">The page suggests (dashed outline): '+S.req.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]; }).join(', ')+'.'+(miss.length?' You did not mark: '+miss.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]; }).join(', ')+'.':'')+(extra.length?' Extra: '+extra.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]; }).join(', ')+'.':'')+' Needed links that are absent or partial in this data set: '+(lack.length?lack.map(function(k){ return LINKS.filter(function(L){return L[0]===k;})[0][1]+' ('+STX[AVAIL[k][0]]+')'; }).join(', '):'none')+'. '+S.v+'</p>'; }"
+  ],
+  [
+   "var btns='<div class=\"btns\"><button type=\"button\" class=\"btn\" data-a=\"chk\">Denetle</button>'+(d&&S.nar?'<button type=\"button\" class=\"btn\" data-a=\"nar\">Daralt</button>':'')+'</div>';",
+   "var btns='<div class=\"btns\"><button type=\"button\" class=\"btn\" data-a=\"chk\">Check</button>'+(d&&S.nar?'<button type=\"button\" class=\"btn\" data-a=\"nar\">Narrow</button>':'')+'</div>';"
+  ],
+  [
+   "var nar=QK.nar[S.id]?'<p class=\"fb ok\">Daha dar cümle: '+QK.nar[S.id]+'</p>':'';",
+   "var nar=QK.nar[S.id]?'<p class=\"fb ok\">Narrower sentence: '+QK.nar[S.id]+'</p>':'';"
+  ],
+  [
+   "card('qc5',true,'Denetlediğiniz '+ids.length+' cümlede sayfanın önerdiği '+tot+' gerekli halkanın '+ok+' tanesini işaretlediniz. Bu veri kümesinde soru ve analiz halkaları var; model kısmi, belirsizlik kısmi, üretim ve dış veri yok. Bu yüzden altı cümleden yalnız tanımı ve penceresi yazılı betimleyici ölçüm cümlesi (1. koşunun pencere payı) olduğu gibi taşınır'+(carry?'':'; bu cümleyi de denetleyip karşılaştırın')+'. Öteki cümleler ya daraltılmalı ya da başka veri gerektirir.'); } else card('qc5',false);",
+   "card('qc5',true,'In the '+ids.length+' sentences you checked, you marked '+ok+' of the '+tot+' needed links suggested by the page. In this data set the question and analysis links are present; the model is partial, uncertainty partial, production and external data absent. So of the six sentences only the descriptive measurement sentence with its definition and window written down (the window fraction of run 1) is carried as it stands'+(carry?'':'; check that sentence too and compare')+'. The other sentences must either be narrowed or need other data.'); } else card('qc5',false);"
+  ],
+  [
+   "card('qc6',true,'\"'+S.s()+'\" yerine: '+QK.nar[id]+' Daraltılmış cümle sayının tanımını, penceresini ve kaynağını taşır; verinin göstermediği şeyi (denge, bağımsızlık, suyun rolü, deneyle uyum) söylemez.'); } else card('qc6',false); }",
+   "card('qc6',true,'Instead of \"'+S.s()+'\": '+QK.nar[id]+' The narrowed sentence carries the definition, window and source of the number; it does not state what the data do not show (equilibrium, independence, the role of water, agreement with experiment).'); } else card('qc6',false); }"
+  ],
+  [
+   "var t=DEFN[QW.def]+(QW.def==='ozel'?' (φ '+QW.rect.p0+' ile '+QW.rect.p1+', ψ '+QW.rect.s0+' ile '+QW.rect.s1+' derece)':'')+' bölgesinde geçirilen kare payı; pencere '+fx(QW.start,0)+' ile '+fx(QW.start+QW.len,0)+' ns; '+(rs.length>1?'üç koşu ayrı ayrı':'koşu '+(rs[0]+1))+'. Bu sayfadaki değer: '+ps.map(function(p){return pct(p,1);}).join(', ')+'.';",
+   "var t='Fraction of frames spent in the '+DEFN[QW.def]+(QW.def==='ozel'?' (φ '+QW.rect.p0+' to '+QW.rect.p1+', ψ '+QW.rect.s0+' to '+QW.rect.s1+' degrees)':'')+' region; window '+fx(QW.start,0)+' to '+fx(QW.start+QW.len,0)+' ns; '+(rs.length>1?'the three runs separately':'run '+(rs[0]+1))+'. Value on this page: '+ps.map(function(p){return pct(p,1);}).join(', ')+'.';"
+  ],
+  [
+   "function qfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; }",
+   "function qfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; }"
+  ],
+  [
+   "var L=['SORU, MODEL, VERİ, NİCELİK, İDDİA (MD-Q taslağı)','Soru: '+v('qfq'),'Model: '+v('qfm'),'Veri: '+v('qfd'),'Nicelik: '+qfNicelik(),'İddia: '+v('qfc'),'Neyi denetlemedim: '+v('qfn')];",
+   "var L=['QUESTION, MODEL, DATA, QUANTITY, CLAIM (MD-Q draft)','Question: '+v('qfq'),'Model: '+v('qfm'),'Data: '+v('qfd'),'Quantity: '+qfNicelik(),'Claim: '+v('qfc'),'What I did not check: '+v('qfn')];"
+  ],
+  [
+   "if(/denge/.test(c)) wr.push('İddiada \"denge\" geçiyor: önceden yazılmış bir denge ölçütü ve belirsizlik analizi gerekir (MD-EQ, MD-U).');",
+   "if(/equilibri/.test(c)) wr.push('The claim mentions \"equilibrium\": it needs an equilibrium criterion written in advance and an uncertainty analysis (MD-EQ, MD-U).');"
+  ],
+  [
+   "if(/bağımsız/.test(c)) wr.push('İddiada \"bağımsız\" geçiyor: bağımsızlık üretim kayıtlarıyla (başlangıç, tohum) gösterilir.');",
+   "if(/independen/.test(c)) wr.push('The claim mentions \"independent\": independence is shown with production records (start, seed).');"
+  ],
+  [
+   "if(/\\bsu\\b|suyun|çözücü/.test(c)) wr.push('İddiada su ya da çözücü geçiyor: su koordinatları elinizde mi?');",
+   "if(/\\bwater\\b|solvent/.test(c)) wr.push('The claim mentions water or solvent: do you have the water coordinates?');"
+  ],
+  [
+   "if(/deney/.test(c)) wr.push('İddiada deney geçiyor: aynı niceliğin deneysel ölçümü ve karşılaştırma yöntemi yazılı mı?');",
+   "if(/experiment/.test(c)) wr.push('The claim mentions experiment: are the experimental measurement of the same quantity and the comparison method written down?');"
+  ],
+  [
+   "if(!($('qfc').value||'').trim()) wr.push('İddia satırı boş: verinin taşıyabileceği en dar cümleyi yazın; tezgâhtaki \"Daralt\" önerileri yol gösterebilir.');",
+   "if(!($('qfc').value||'').trim()) wr.push('The claim row is empty: write the narrowest sentence the data can carry; the \"Narrow\" suggestions on the bench can guide you.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(e){ L.push('- '+e); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to watch:'); wr.forEach(function(e){ L.push('- '+e); }); }"
+  ],
+  [
+   "$('qfcopy').onclick=function(){ var t=$('qfout').textContent, m=$('qfmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('qfcopy').onclick=function(){ var t=$('qfout').textContent, m=$('qfmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "$('qprose').innerHTML='<p>Aynı zincir gerçek bir proteinde de kurulur. Örnek soru: \"Ubikitinde 7 ile 11 arasındaki halka (β1/β2 dönemeci) ne kadar esnek, ve bir nokta mutasyonu bunu değiştirir mi?\" Aşağıdaki tablo bu soruyu halkalara böler ve her halkanın bu sitede nerede çalışıldığını gösterir. Bu modülde ubikitin koşusu yapılmadı: sağ sütundaki modüller kendi verileriyle çalışır, buradaki satırlar bir plan önerisidir (Bu senaryo hesaplanmadı).</p>';",
+   "$('qprose').innerHTML='<p>The same chain is built for a real protein. Example question: \"How flexible is the loop between residues 7 and 11 of ubiquitin (the β1/β2 turn), and does a point mutation change it?\" The table below splits this question into links and shows where each link is worked on in this site. No ubiquitin run was done in this module: the modules in the right column work with their own data, and the rows here are a proposed plan (This scenario was not computed).</p>';"
+  ],
+  [
+   "['Soru','Hangi kalıntılar, hangi nicelik (ör. Cα RMSF), hangi karşılaştırma (yabanıl tür ile mutant); sonuca bakmadan yazılır.','MD-REP (karşılaştırma planı)'],",
+   "['Question','Which residues, which quantity (e.g. Cα RMSF), which comparison (wild type versus mutant); written without looking at the result.','MD-REP (comparison plan)'],"
+  ],
+  [
+   "['Model','Başlangıç yapısı ve eksik bilgi, protonasyon, kuvvet alanı ve su modeli, kutu ve iyonlar.','MD-O, MD-PDB, MD-PBC, MD-ELEC'],",
+   "['Model','Starting structure and missing information, protonation, force field and water model, box and ions.','MD-O, MD-PDB, MD-PBC, MD-ELEC'],"
+  ],
+  [
+   "['Üretim','Minimizasyon ve dengeleme, termostat ve barostat, zaman adımı; her tekrarın kendi tohumu ve günlükleri.','MD-EQ, MD-CON, MD-DT'],",
+   "['Production','Minimization and equilibration, thermostat and barostat, time step; each replicate with its own seed and logs.','MD-EQ, MD-CON, MD-DT'],"
+  ],
+  [
+   "['Analiz','Hizalama ve atom seçimi, RMSF\\'nin hangi pencerede hesaplandığı; tanımlar önceden.','MD-PDB'],",
+   "['Analysis','Alignment and atom selection, the window in which the RMSF is computed; definitions in advance.','MD-PDB'],"
+  ],
+  [
+   "['Belirsizlik','Bağımsız tekrarlar, koşular arası aralık, otokorelasyon; negatif kontrol (yabanıl tür kendi içinde).','MD-REP, MD-U'],",
+   "['Uncertainty','Independent replicates, interval between runs, autocorrelation; negative control (wild type within itself).','MD-REP, MD-U'],"
+  ],
+  [
+   "['Dış veri','Deneysel karşılık (ör. kristal B faktörleri ya da NMR düzen parametreleri) ile karşılaştırma yöntemi.','MD-PDB'],",
+   "['External data','Comparison method with an experimental counterpart (e.g. crystal B factors or NMR order parameters).','MD-PDB'],"
+  ],
+  [
+   "['İddia','\"Bu modelde ve bu koşullarda, n tekrarda halkanın RMSF\\'si ... (aralık ...)\"; mekanizma ya da işlev cümlesi ayrı kanıt ister.','Bu modül']",
+   "['Claim','\"In this model and these conditions, over n replicates the RMSF of the loop is ... (interval ...)\"; a mechanism or function sentence needs separate evidence.','This module']"
+  ],
+  [
+   "Q.push({s:'Kaynak 2 fs entegrasyon adımı ve 1 ps kayıt aralığı bildiriyor. İki kayıtlı kare arasında kaç entegrasyon adımı vardır?',",
+   "Q.push({s:'The source states a 2 fs integration step and a 1 ps recording interval. How many integration steps are there between two recorded frames?',"
+  ],
+  [
+   "o:[['2',0],['500',1],['1000',0]], w:'1 ps / 2 fs = 1000 fs / 2 fs = 500 adım. Kaydedilen kare, hesaplanan adımların küçük bir alt kümesidir.'});",
+   "o:[['2',0],['500',1],['1000',0]], w:'1 ps / 2 fs = 1000 fs / 2 fs = 500 steps. The recorded frame is a small subset of the computed steps.'});"
+  ],
+  [
+   "Q.push({s:'Tek bir 250 ns koşunun 250.000 karesi bir karşılaştırmada kaç bağımsız tekrar sayılır?',",
+   "Q.push({s:'In a comparison, how many independent replicates do the 250,000 frames of a single 250 ns run count as?',"
+  ],
+  [
+   "o:[['250.000',0],['250',0],['1',1]], w:'Kareler aynı dinamik yolun ardışık parçalarıdır; bağımsız tekrar birimi koşudur. Bir koşunun içindeki örnekleme belirsizliği ayrıca ele alınır (MD-U).'});",
+   "o:[['250,000',0],['250',0],['1',1]], w:'The frames are consecutive parts of the same dynamical path; the unit of independent replication is the run. Sampling uncertainty within a run is handled separately (MD-U).'});"
+  ],
+  [
+   "Q.push({s:'1. koşunun tamamında αR payı ψ sınırı 30 iken '+pct(r0.p_aR_up30,1)+', 50 iken '+pct(r0.p_aR_up50,1)+', 70 iken '+pct(r0.p_aR_up70,1)+' çıktı. Raporlamada ne yapılmalı?',",
+   "Q.push({s:'Over the whole of run 1 the αR fraction was '+pct(r0.p_aR_up30,1)+' with a ψ bound of 30, '+pct(r0.p_aR_up50,1)+' with 50 and '+pct(r0.p_aR_up70,1)+' with 70. What should the report do?',"
+  ],
+  [
+   "o:[['Tanımı önceden yazmak, ana değeri vermek ve sınır duyarlılığını ayrıca göstermek',1],['En yüksek değeri raporlamak',0],['Sınırı sonuca göre seçmek',0]],",
+   "o:[['Write the definition in advance, give the main value and show the sensitivity to the bound separately',1],['Report the highest value',0],['Choose the bound according to the result',0]],"
+  ],
+  [
+   "w:'Pay bir tanımın sonucudur; tanım sonuca bakmadan yazılır, duyarlılık (burada '+fx(100*(r0.p_aR_up70-r0.p_aR_up30),1)+' puan) ayrıca raporlanır.'});",
+   "w:'The fraction is the result of a definition; the definition is written without looking at the result, and the sensitivity (here '+fx(100*(r0.p_aR_up70-r0.p_aR_up30),1)+' points) is reported separately.'});"
+  ],
+  [
+   "Q.push({s:'1. koşuda αR payı ilk 25 ns\\'de '+pct(r0.p_aR_first25,1)+', son 100 ns\\'de '+pct(r0.p_aR_last100,1)+'. Bu iki sayıdan hangi sonuç çıkar?',",
+   "Q.push({s:'In run 1 the αR fraction is '+pct(r0.p_aR_first25,1)+' in the first 25 ns and '+pct(r0.p_aR_last100,1)+' in the last 100 ns. What follows from these two numbers?',"
+  ],
+  [
+   "o:[['Molekül ilk 25 ns\\'den sonra dengeye ulaştı',0],['Pencere seçimi sayıyı değiştiriyor; bu iki pencere tek başına denge hakkında hüküm vermez',1],['Son 100 ns her zaman doğru değerdir',0]],",
+   "o:[['The molecule reached equilibrium after the first 25 ns',0],['The choice of window changes the number; these two windows alone do not decide anything about equilibrium',1],['The last 100 ns is always the right value',0]],"
+  ],
+  [
+   "w:'Eşit olmayan iki pencerenin farkı ya da benzerliği denge kanıtı değildir. Pencere önceden yazılır; denge iddiası ayrı bir ölçüt ve belirsizlik analizi ister.'}); }",
+   "w:'The difference or similarity of two unequal windows is not evidence of equilibrium. The window is written in advance; an equilibrium claim needs a separate criterion and an uncertainty analysis.'}); }"
+  ],
+  [
+   "Q.push({s:'Bu veri kümesinde su koordinatları yok. Aşağıdaki cümlelerden hangisi bu veriyle kurulamaz?',",
+   "Q.push({s:'This data set has no water coordinates. Which of the following sentences cannot be made with these data?',"
+  ],
+  [
+   "o:[['1. koşuda karelerin bir kısmı αR tanımına düşüyor',0],['Üç koşunun φ/ψ dağılımları birbirine benziyor',0],['Su köprüleri αR durumunu kararlı kılıyor',1]],",
+   "o:[['In run 1 some of the frames fall within the αR definition',0],['The φ/ψ distributions of the three runs resemble each other',0],['Water bridges stabilize the αR state',1]],"
+  ],
+  [
+   "w:'Suyun rolü hakkında bir cümle için su koordinatları (ya da başka bir dış veri) gerekir. Elimizdeki dosyalar susuzdur.'});",
+   "w:'A sentence about the role of water needs water coordinates (or other external data). The files we have contain no water.'});"
+  ],
+  [
+   "Q.push({s:'\"Molekül kararlıydı\" cümlesinin bu veriyle savunulabilir daha dar biçimi hangisidir?',",
+   "Q.push({s:'Which is the narrower version of \"the molecule was stable\" that these data can defend?',"
+  ],
+  [
+   "o:[['Bu modelde (kaynak beyanı) 1. koşunun 25 ns\\'lik bloklarında αR payı belirli bir aralıkta değişti; bu betimlemedir',1],['Molekül her koşulda kararlıdır',0],['Molekül dengeye ulaştığı için kararlıdır',0]],",
+   "o:[['In this model (source statement), the αR fraction in the 25 ns blocks of run 1 varied within a certain range; this is a description',1],['The molecule is stable under all conditions',0],['The molecule is stable because it reached equilibrium',0]],"
+  ],
+  [
+   "w:'Dar cümle niceliği, tanımı, pencereyi ve kaynağı söyler; \"kararlı\" ve \"denge\" sözcüklerini ölçülmüş bir ölçüte bağlamadan kullanmaz.'});",
+   "w:'The narrow sentence states the quantity, the definition, the window and the source; it does not use the words \"stable\" and \"equilibrium\" without tying them to a measured criterion.'});"
+  ],
+  [
+   "$('qnotice').innerHTML='<p><b>Veri.</b> Computational Molecular Biology Group, Freie Universität Berlin, \"Alanine dipeptide\", mdshare, https://markovmodel.github.io/mdshare/ALA2/ (erişim 23 Eylül 2026), CC BY 4.0. Kullanılan dosyalar: alanine-dipeptide-3x250ns-backbone-dihedrals.npz (SHA-256 '+m.npz_sha.slice(0,12)+'…), alanine-dipeptide-nowater.pdb ('+m.pdb_sha.slice(0,12)+'…), alanine-dipeptide-0-250ns-nowater.xtc ('+m.xtc_sha.slice(0,12)+'…). Açılar radyandan dereceye çevrildi ve 10 ps aralıkla alt örneklendi; 3B kareler 1. koşudan seçilip hizalandı. Özgün veri değiştirilmedi.</p>'+",
+   "$('qnotice').innerHTML='<p><b>Data.</b> Computational Molecular Biology Group, Freie Universität Berlin, \"Alanine dipeptide\", mdshare, https://markovmodel.github.io/mdshare/ALA2/ (accessed 23 September 2026), CC BY 4.0. Files used: alanine-dipeptide-3x250ns-backbone-dihedrals.npz (SHA-256 '+m.npz_sha.slice(0,12)+'…), alanine-dipeptide-nowater.pdb ('+m.pdb_sha.slice(0,12)+'…), alanine-dipeptide-0-250ns-nowater.xtc ('+m.xtc_sha.slice(0,12)+'…). The angles were converted from radians to degrees and subsampled every 10 ps; the 3D frames were selected from run 1 and aligned. The original data were not changed.</p>'+"
+  ],
+  [
+   "'<p><b>Kaynak beyanı ve yerel denetim.</b> Kaynak sayfası ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs, 1 ps kayıt ve üç bağımsız 250 ns koşu bildirir; bunlar kaynağın beyanıdır. Yerelde dosya kimlikleri SHA-256 ile ve φ/ψ atom eşlemesi 1. koşunun XTC dosyasıyla denetlendi (bu sayfanın 3B penceresinde en büyük fark 1° altında). Parametre, topoloji, hazırlık ve üretim kayıtları elimizde yok.</p>'+",
+   "'<p><b>Source statement and local checks.</b> The source page states ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs, 1 ps recording and three independent 250 ns runs; these are the source\\'s statements. Locally, the file identities were checked with SHA-256 and the φ/ψ atom mapping against the XTC file of run 1 (largest difference below 1° in the 3D window of this page). We do not have the parameter, topology, preparation or production records.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Durum tanımları MD-U ile aynı (αL: 0 ≤ φ &lt; 180; αR: φ &lt; 0 ve −120 ≤ ψ &lt; 50; β/PPII: kalan). Paylar tarayıcınızda hesaplanır; Python ile tam 1 ps veride yeniden hesaplandı (alt örnek ile tam veri arasındaki fark 250 ns\\'lik paylarda 0,1, 25 ns\\'lik bloklarda 0,7, 1 ns\\'lik pencerelerde 4,6 puana kadar). Western blot öğretim modelindeki değerler tarayıcıda, açık bir modelle üretilir; gerçek ölçüm değildir.</p>'+",
+   "'<p><b>Analysis.</b> State definitions as in MD-U (αL: 0 ≤ φ &lt; 180; αR: φ &lt; 0 and −120 ≤ ψ &lt; 50; β/PPII: the rest). The fractions are computed in your browser; they were recomputed in Python on the full 1 ps data (the difference between subsample and full data is up to 0.1 points for 250 ns fractions, 0.7 for 25 ns blocks and 4.6 for 1 ns windows). The values in the Western blot teaching model are generated in the browser with an explicit model; they are not real measurements.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Model peptit, protein değildir; bu veri biyolojik işlev, denge popülasyonu ya da deneyle uyum hakkında bir sonuç vermez. Su, belirsizlik analizi ve deneysel karşılaştırma: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> A model peptide, not a protein; these data give no conclusion about biological function, equilibrium populations or agreement with experiment. Water, uncertainty analysis and experimental comparison: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('qwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('qwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('qscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('qscore').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+rr; }); }); }"
+  ],
+  [
+   "['qc0','qc1','qc2','qc3','qc4','qc5','qc6'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['qc0','qc1','qc2','qc3','qc4','qc5','qc6'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ]
+ ],
+ "keep": [
+  "Freie Universität Berlin",
+  "Model",
+  "none",
+  "run",
+  "frame",
+  "Welch p",
+  "…), alanine-dipeptide-nowater.pdb (",
+  "…), alanine-dipeptide-0-250ns-nowater.xtc ("
+ ]
+}
