@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.28.0 (5 Ekim 2026) · Yeni modül MD-FAIL: simülasyon başarısız olduğunda
+
+- MD-FAIL 0.1.0 (orta düzey, kitapta CH12): "Koşu durdu mu, yoksa sessizce yanlış mı bitti?" Yeni GROMACS koşuları: MD-MET'in ikinci ubikitin hazırlığı (1UBQ) her seferinde tek bir yerinden bozuldu. Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu; hiçbir adımda -maxwarn kullanılmadı.
+- Deneysel köprü: western blot, "bant yok" belirtisinin dört nedeni ve üç denetim (kurallı öğretim modeli, dört panelli blot çizimi).
+- Atölye 1, gürültülü vakalar (gerçek mesajlar ve çıkış kodları): eksik su (grompp 1; 18.934 ile 18.937 atom), 2,0 nm kutu (grompp 1, kesme), His68 HIP net yükü (grompp 1, Ewald uyarısı), SEP65 (pdb2gmx 1), Lys48 NZ'ye 0,05 nm su (grompp 0, mdrun 0. adımda LINCS ve "can not be settled", çıkış 139; minimizasyondan sonra 5 ps, 0 LINCS). Her birinin düzeltmesi 0 ile bitti.
+- Atölye 2, sessiz vakalar (200 ps): S1 define = -DPOSRES grompp tarafından durduruldu (basınç denetimi ile mutlak konum kısıtı uyarısı) ve plan gereği yeniden denenmedi; S2 ref_t = 30 uyarısız bitti (32,7 K, çekirdek RMSF 0,08 Å, H-bağı 52,5; doğru koşularda 299,8 ile 300,4 K, 0,39 ile 0,41 Å, 41,3 ile 42,3); S3 çözücüsüz uyarısız bitti, sıcaklık doğru (302,0 K) ama çekirdek RMSD 1,47 Å, Rg 11,38 Å. Tezgâh: altı gerçek günlük parçası. Defter: koşu sağlık kaydı. Altı soru, sekiz keşif kartı.
+- Bağımsız denetim 13 karşılaştırmanın 12'sinde önceden yazılmış eşikle geçti; L5 çökme karelerinin MDAnalysis ile ikinci hesabı uygulanamadı (taşmış PDB koordinat alanları). Tarayıcıdaki 40 sayı Python ile aynı. İngilizce tablo 161 çift (`i18n/_work/mdfail/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-FAIL`, `/en/l/MD-FAIL`.
+
 ## 0.27.0 (5 Ekim 2026) · Yeni modül MD-INT: temas, solvatasyon, etkileşim
 
 - MD-INT 0.1.0 (orta düzey, kitapta CH15): "Etkileşim bir eşik tanımıdır." Yeni GROMACS koşuları UBQW: MD-MET'in üç ubikitin koşusu son durumlarından 200'er ps sürdürüldü, bütün atomlar 0,5 ps'de bir kaydedildi. Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu; tek sapma, planda SASA kare sayısının yanlış hesaplanması (91 yerine 181).

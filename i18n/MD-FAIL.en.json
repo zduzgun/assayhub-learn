@@ -1,0 +1,664 @@
+{
+ "module": "MD-FAIL",
+ "lang": "en",
+ "source_sha256": "eca39b154a6e26648035e3105e7ce55ab5ebf64a8b534dcf6c8a1d753eae7d2f",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-FAIL 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Simülasyon başarısız olduğunda</title>",
+   "<title>MD: When a simulation fails</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"fproto\">Bu modül için ubikitin sistemi bilerek, her seferinde tek bir yerinden bozuldu ve bulutta GROMACS ile çalıştırıldı: beş \"gürültülü\" vaka (grompp ya da mdrun durur) ve üç \"sessiz\" vaka (koşu biter ama kurulum yanlıştır). Sayfadaki mesajlar ve sayılar bu koşulardan olduğu gibi alındı. Koşu ve analiz planı koşulardan önce yazılıp SHA-256 ile donduruldu; sonuçlar GROMACS araçlarıyla bağımsız olarak denetlendi. Western blot köprüsü tarayıcınızda çalışan kurallı bir öğretim modelidir. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye yazılır.</div>",
+   "<div class=\"proto\" id=\"fproto\">For this module the ubiquitin system was deliberately broken, one thing at a time, and run with GROMACS in the cloud: five \"loud\" cases (grompp or mdrun stops) and three \"silent\" cases (the run finishes but the setup is wrong). The messages and numbers on the page are taken verbatim from these runs. The run and analysis plan was written before the runs and frozen with SHA-256; the results were independently checked with GROMACS tools. The western blot bridge is a rule-based teaching model running in your browser. Anything not computed is labelled \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-FAIL · Simülasyon başarısız olduğunda</span>",
+   "<span class=\"eyebrow\">MD-FAIL · When a simulation fails</span>"
+  ],
+  [
+   "<h1>Koşu durdu mu, yoksa sessizce yanlış mı bitti?</h1>",
+   "<h1>Did the run stop, or did it silently finish wrong?</h1>"
+  ],
+  [
+   "<p class=\"lead\">Bir simülasyon iki biçimde başarısız olur. Gürültülü olanda grompp ya da mdrun durur ve bir mesaj yazar; mesajın işaret ettiği yer çoğu zaman belirtidir, neden daha önceki bir adımdadır. Sessiz olanda koşu hatasız biter, günlükte tek bir uyarı yoktur, ama hedef sıcaklık yanlış yazılmış ya da çözücü unutulmuştur. Bu sayfada ikisini de gerçek koşularla göreceksiniz.</p>",
+   "<p class=\"lead\">A simulation fails in two ways. In a loud failure grompp or mdrun stops and writes a message; where the message points is often the symptom, and the cause sits at an earlier step. In a silent failure the run finishes without errors and the log has not a single warning, but the target temperature was mistyped or the solvent was forgotten. On this page you will see both with real runs.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"fprogN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"fprogN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"fh0\">Western blot: bant yok. Neden?</h2>",
+   "<h2 id=\"fh0\">Western blot: no band. Why?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Örnek şeridinde hedef proteinin bandı görünmüyor. Bunun dört olası nedeni var: aktarım başarısız olmuş, birincil antikor bozuk, hedef protein bu örnekte gerçekten yok ya da algılama reaktifi bozuk. Belirti dördünde de aynı. Denetimleri seçin, sonuçlarına bakın ve nedene karar verin. Her yeni vakada gizli neden yeniden seçilir.</p></div>",
+   "<div class=\"prose\"><p>The band of the target protein does not appear in the sample lane. There are four possible causes: the transfer failed, the primary antibody is degraded, the target protein really is absent from this sample, or the detection reagent is degraded. The symptom is the same in all four. Choose checks, look at their results and decide on the cause. Each new case picks the hidden cause again.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"fbridge\" class=\"plot\" aria-label=\"Öğretim modeli: western blot filmi ve seçilen denetimler\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"fbridge\" class=\"plot\" aria-label=\"Teaching model: western blot film and the chosen checks\"></canvas></div>"
+  ],
+  [
+   "<p class=\"small\"><b>Neden hangisi?</b></p>",
+   "<p class=\"small\"><b>Which cause?</b></p>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"fbnew\">Yeni vaka</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"fbnew\">New case</button></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc0\"><span class=\"k\">Açık</span><h3>Belirti ile neden</h3><p>En az iki vakayı çözün.</p><div class=\"mine\" id=\"mfc0\"></div></article>",
+   "<article class=\"q\" id=\"fc0\"><span class=\"k\">Open</span><h3>Symptom and cause</h3><p>Solve at least two cases.</p><div class=\"mine\" id=\"mfc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: gürültülü başarısızlıklar</span>",
+   "<span class=\"step\">1 · Workshop: loud failures</span>"
+  ],
+  [
+   "<h2 id=\"fh1\">Beş bozulma, beş gerçek GROMACS mesajı</h2>",
+   "<h2 id=\"fh1\">Five corruptions, five real GROMACS messages</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her vakada sistemin tek bir yeri bozuldu ve komut çalıştırıldı. Aşağıda komut, çıkış kodu ve GROMACS'ın yazdığı mesajın ilgili bölümü var. Mesajı okuyun ve asıl sorunun ne olduğuna karar verin; ardından düzeltme ve düzeltilmiş komutun sonucu görünür. Çıkış kodu 0 başarı, 0'dan farklı her değer durma demektir.</p></div>",
+   "<div class=\"prose\"><p>In each case one thing in the system was broken and the command was run. Below are the command, the exit code and the relevant part of the message GROMACS wrote. Read the message and decide what the real problem is; then the fix and the result of the fixed command appear. Exit code 0 means success; any other value means the program stopped.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc1\"><span class=\"k\">Açık</span><h3>Mesajın ilk satırı</h3><p>1 ve 2. vakaları cevaplayın.</p><div class=\"mine\" id=\"mfc1\"></div></article>",
+   "<article class=\"q\" id=\"fc1\"><span class=\"k\">Open</span><h3>The first line of the message</h3><p>Answer cases 1 and 2.</p><div class=\"mine\" id=\"mfc1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc2\"><span class=\"k\">Açık</span><h3>Uyarı ve belirti</h3><p>3 ve 4. vakaları cevaplayın.</p><div class=\"mine\" id=\"mfc2\"></div></article>",
+   "<article class=\"q\" id=\"fc2\"><span class=\"k\">Open</span><h3>Warning and symptom</h3><p>Answer cases 3 and 4.</p><div class=\"mine\" id=\"mfc2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc3\"><span class=\"k\">Açık</span><h3>0. adımda çökme</h3><p>5. vakayı cevaplayın.</p><div class=\"mine\" id=\"mfc3\"></div></article>",
+   "<article class=\"q\" id=\"fc3\"><span class=\"k\">Open</span><h3>A crash at step 0</h3><p>Answer case 5.</p><div class=\"mine\" id=\"mfc3\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye: sessiz başarısızlıklar</span>",
+   "<span class=\"step\">2 · Workshop: silent failures</span>"
+  ],
+  [
+   "<h2 id=\"fh2\">Koşu bitti, günlük temiz. Kurulum doğru mu?</h2>",
+   "<h2 id=\"fh2\">The run finished, the log is clean. Is the setup right?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Üretim ayarlarında her seferinde tek bir değişiklik yapıldı ve aynı dengelenmiş durumdan 200 ps koşuldu. S1'de dengelemeden kalan konum kısıtı açık bırakıldı (<code>define = -DPOSRES</code>), S2'de hedef sıcaklık 300 yerine 30 yazıldı (<code>ref_t = 30</code>), S3'te su topolojiden ve koordinatlardan çıkarıldı. Gri çizgiler aynı sistemin üç doğru koşusu (MD-MET, 0 ile 200 ps). Bir vaka ve bir ölçüt seçin.</p></div>",
+   "<div class=\"prose\"><p>One change was made to the production settings each time, and 200 ps were run from the same equilibrated state. In S1 the position restraint left over from equilibration was kept on (<code>define = -DPOSRES</code>), in S2 the target temperature was typed as 30 instead of 300 (<code>ref_t = 30</code>), in S3 the water was removed from the topology and the coordinates. The grey lines are three correct runs of the same system (MD-MET, 0 to 200 ps). Choose a case and a measure.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Vaka:</span><div class=\"seg\" role=\"group\" aria-label=\"Sessiz vaka\" id=\"fsc\"><button type=\"button\" data-v=\"S1\" aria-pressed=\"false\">S1 · konum kısıtı</button><button type=\"button\" data-v=\"S2\" aria-pressed=\"true\">S2 · ref_t = 30</button><button type=\"button\" data-v=\"S3\" aria-pressed=\"false\">S3 · çözücüsüz</button></div></div>",
+   "<div class=\"selrow\"><span>Case:</span><div class=\"seg\" role=\"group\" aria-label=\"Silent case\" id=\"fsc\"><button type=\"button\" data-v=\"S1\" aria-pressed=\"false\">S1 · position restraint</button><button type=\"button\" data-v=\"S2\" aria-pressed=\"true\">S2 · ref_t = 30</button><button type=\"button\" data-v=\"S3\" aria-pressed=\"false\">S3 · no solvent</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Ölçüt\" id=\"fsm\"><button type=\"button\" data-v=\"T\" aria-pressed=\"true\">Sıcaklık</button><button type=\"button\" data-v=\"rmsd\" aria-pressed=\"false\">Çekirdek RMSD</button><button type=\"button\" data-v=\"rg\" aria-pressed=\"false\">Rg</button><button type=\"button\" data-v=\"V\" aria-pressed=\"false\">Kutu hacmi</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Measure\" id=\"fsm\"><button type=\"button\" data-v=\"T\" aria-pressed=\"true\">Temperature</button><button type=\"button\" data-v=\"rmsd\" aria-pressed=\"false\">Core RMSD</button><button type=\"button\" data-v=\"rg\" aria-pressed=\"false\">Rg</button><button type=\"button\" data-v=\"V\" aria-pressed=\"false\">Box volume</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"fsil\" class=\"plot\" aria-label=\"Seçili ölçüt zamanla: üç doğru koşu ve seçili sessiz vaka\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"fsil\" class=\"plot\" aria-label=\"The chosen measure over time: three correct runs and the chosen silent case\"></canvas></div>"
+  ],
+  [
+   "<div id=\"fs1\" hidden><p><b>S1: grompp durdurdu.</b> Planlanan sessiz vaka sessiz kalmadı. Mesaj:</p><pre class=\"msg\" id=\"fs1msg\"></pre></div>",
+   "<div id=\"fs1\" hidden><p><b>S1: grompp stopped it.</b> The planned silent case did not stay silent. Message:</p><pre class=\"msg\" id=\"fs1msg\"></pre></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Kalıntı başına salınım (100 ile 200 ps)</h3>",
+   "<h3 class=\"sub\">Fluctuation per residue (100 to 200 ps)</h3>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"fprof\" class=\"plot\" aria-label=\"Kalıntı başına Cα RMSF: üç doğru koşu ve seçili sessiz vaka\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"fprof\" class=\"plot\" aria-label=\"Cα RMSF per residue: three correct runs and the chosen silent case\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc4\"><span class=\"k\">Açık</span><h3>Sessiz olmayan \"sessiz\" vaka</h3><p>S1'i açın.</p><div class=\"mine\" id=\"mfc4\"></div></article>",
+   "<article class=\"q\" id=\"fc4\"><span class=\"k\">Open</span><h3>A \"silent\" case that was not silent</h3><p>Open S1.</p><div class=\"mine\" id=\"mfc4\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc5\"><span class=\"k\">Açık</span><h3>30 K'de \"daha kararlı\" bir protein</h3><p>S2'yi açın ve sıcaklığa bakın.</p><div class=\"mine\" id=\"mfc5\"></div></article>",
+   "<article class=\"q\" id=\"fc5\"><span class=\"k\">Open</span><h3>A \"more stable\" protein at 30 K</h3><p>Open S2 and look at the temperature.</p><div class=\"mine\" id=\"mfc5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc6\"><span class=\"k\">Açık</span><h3>Su olmadan</h3><p>S3'ü açın ve en az üç ölçüte bakın.</p><div class=\"mine\" id=\"mfc6\"></div></article>",
+   "<article class=\"q\" id=\"fc6\"><span class=\"k\">Open</span><h3>Without water</h3><p>Open S3 and look at at least three measures.</p><div class=\"mine\" id=\"mfc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Tezgâh: günlük okuma</span>",
+   "<span class=\"step\">3 · Bench: reading logs</span>"
+  ],
+  [
+   "<h2 id=\"fh3\">Altı gerçek parça: ne söylüyor?</h2>",
+   "<h2 id=\"fh3\">Six real fragments: what do they say?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her parça bu sayfadaki koşuların dosyalarından alındı: md.log sonları, topoloji, grompp ve mdrun çıktıları. Her biri için en doğru okumayı seçin; ardından gerekçe görünür.</p></div>",
+   "<div class=\"prose\"><p>Each fragment was taken from the files of the runs on this page: ends of md.log, the topology, grompp and mdrun output. Choose the best reading for each; then the reasoning appears.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"fc7\"><span class=\"k\">Açık</span><h3>Bitti demek doğru demek değil</h3><p>En az dört parçaya karar verin.</p><div class=\"mine\" id=\"mfc7\"></div></article>",
+   "<article class=\"q\" id=\"fc7\"><span class=\"k\">Open</span><h3>Finished does not mean right</h3><p>Judge at least four fragments.</p><div class=\"mine\" id=\"mfc7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Defter: koşu sağlık kaydı</span>",
+   "<span class=\"step\">4 · Notebook: run health record</span>"
+  ],
+  [
+   "<h2 id=\"fh4\">Sonuçlara bakmadan önce yazılan altı satır</h2>",
+   "<h2 id=\"fh4\">Six lines written before looking at the results</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her üretim koşusundan sonra, yapı ya da enerji yorumlanmadan önce doldurun; örnekler bu sayfadan. Eksik satırlar için altta uyarı çıkar. Metin yalnız tarayıcınızda oluşturulur, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>Fill this in after every production run, before interpreting structure or energy; the examples are from this page. Missing lines trigger notes at the bottom. The text is generated only in your browser and is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>Sıcaklık (beklenen ve gözlenen)<textarea id=\"ffT\" rows=\"2\">Örnek: beklenen 300 K (ref_t, tek sıcaklık grubu: System); gözlenen ortalama 300,0 K, SD 2,1 K.</textarea></label>",
+   "<label>Temperature (expected and observed)<textarea id=\"ffT\" rows=\"2\">Example: expected 300 K (ref_t, a single temperature group: System); observed mean 300.0 K, SD 2.1 K.</textarea></label>"
+  ],
+  [
+   "<label>Kısıtlar ve define satırı<textarea id=\"ffR\" rows=\"2\">Örnek: posres yalnız dengelemede; üretim mdp'sinde define satırı yok.</textarea></label>",
+   "<label>Restraints and define line<textarea id=\"ffR\" rows=\"2\">Example: posres only in equilibration; no define line in the production mdp.</textarea></label>"
+  ],
+  [
+   "<label>Sistem bileşimi (molekül sayıları, net yük)<textarea id=\"ffS\" rows=\"2\">Örnek: ubikitin 1 zincir, 5902 SOL (TIP3P), iyon yok; net yük 0 (His68 HIE).</textarea></label>",
+   "<label>System composition (molecule counts, net charge)<textarea id=\"ffS\" rows=\"2\">Example: ubiquitin, 1 chain, 5902 SOL (TIP3P), no ions; net charge 0 (His68 HIE).</textarea></label>"
+  ],
+  [
+   "<label>Uyarılar (grompp, md.log, LINCS)<textarea id=\"ffW\" rows=\"2\">Örnek: grompp 0 uyarı, -maxwarn kullanılmadı; md.log 0 LINCS uyarısı.</textarea></label>",
+   "<label>Warnings (grompp, md.log, LINCS)<textarea id=\"ffW\" rows=\"2\">Example: grompp 0 warnings, -maxwarn not used; md.log 0 LINCS warnings.</textarea></label>"
+  ],
+  [
+   "<label>Doğru bir kurulumla ya da bağımsız koşularla karşılaştırma<textarea id=\"ffC\" rows=\"2\">Örnek: sıcaklık, hacim, çekirdek RMSD ve Rg üç bağımsız koşunun aralığıyla karşılaştırıldı.</textarea></label>",
+   "<label>Comparison with a correct setup or independent runs<textarea id=\"ffC\" rows=\"2\">Example: temperature, volume, core RMSD and Rg compared with the range of three independent runs.</textarea></label>"
+  ],
+  [
+   "<label>Hata ve düzeltme günlüğü<textarea id=\"ffN\" rows=\"2\">Örnek: ilk deneme 0. adımda çöktü (çıkış kodu 139); minimizasyon eklendi, aynı ayarlarla yeniden koşuldu.</textarea></label>",
+   "<label>Error and fix log<textarea id=\"ffN\" rows=\"2\">Example: the first attempt crashed at step 0 (exit code 139); minimization added, rerun with the same settings.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"ffcopy\">Metni kopyala</button><span class=\"small\" id=\"ffmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"ffcopy\">Copy text</button><span class=\"small\" id=\"ffmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">5 · Sınav</span>",
+   "<span class=\"step\">5 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"fh5\">Altı soru</h2>",
+   "<h2 id=\"fh5\">Six questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('fprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('fprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== deneysel köprü: western blot teşhisi (öğretim modeli) ===== */",
+   "/* ===== experimental bridge: western blot diagnosis (teaching model) ===== */"
+  ],
+  [
+   "/* model: belirti hep aynı (örnek şeridinde hedef bandı yok); gizli neden dört taneden biri; her denetimin sonucu nedene göre kuralla belirlenir */",
+   "/* model: the symptom is always the same (no target band in the sample lane); the hidden cause is one of four; each check's outcome follows a fixed rule for that cause */"
+  ],
+  [
+   "var WCAUSE=['Membrana aktarım başarısız','Birincil antikor bozuk ya da yanlış','Hedef protein bu örnekte yok','Algılama (ECL) reaktifi bozuk'];",
+   "var WCAUSE=['Transfer to the membrane failed','Primary antibody degraded or wrong','Target protein absent from this sample','Detection (ECL) reagent degraded'];"
+  ],
+  [
+   "var WCHK={pon:'Membranı Ponceau ile boya (aktarım)',act:'Yükleme kontrolü: β-aktin bandı (ayrı birincil antikor, aynı ikincil ve ECL)',pos:'Pozitif kontrol lizatını aynı antikorla yürüt'};",
+   "var WCHK={pon:'Stain the membrane with Ponceau (transfer)',act:'Loading control: β-actin band (separate primary antibody, same secondary and ECL)',pos:'Run a positive control lysate with the same antibody'};"
+  ],
+  [
+   "var P=[{k:'film',t:'Film: hedef antikor',s:'Film',run:true},{k:'pon',t:'Ponceau S: bütün proteinler',s:'Ponceau S',run:!!WB.done.pon},{k:'act',t:'β-aktin: yükleme kontrolü',s:'β-aktin',run:!!WB.done.act},{k:'pos',t:'Pozitif kontrol',s:'Pozitif kontrol',run:!!WB.done.pos}];",
+   "var P=[{k:'film',t:'Film: target antibody',s:'Film',run:true},{k:'pon',t:'Ponceau S: all proteins',s:'Ponceau S',run:!!WB.done.pon},{k:'act',t:'β-actin: loading control',s:'β-actin',run:!!WB.done.act},{k:'pos',t:'Positive control',s:'Positive control',run:!!WB.done.pos}];"
+  ],
+  [
+   "if(!p.run){ g.save(); g.setLineDash([5,4]); g.strokeStyle=PAL.line; g.lineWidth=1.5; g.strokeRect(mx+1,my,mw-2,mh); g.restore(); g.fillStyle=PAL.muted; g.font='13px '+sans; g.fillText('henüz yapılmadı',cx+cw/2,my+mh/2-4); g.font='11px '+sans; g.fillText('yukarıdan denetimi seçin',cx+cw/2,my+mh/2+14); g.textAlign='left'; return; }",
+   "if(!p.run){ g.save(); g.setLineDash([5,4]); g.strokeStyle=PAL.line; g.lineWidth=1.5; g.strokeRect(mx+1,my,mw-2,mh); g.restore(); g.fillStyle=PAL.muted; g.font='13px '+sans; g.fillText('not done yet',cx+cw/2,my+mh/2-4); g.font='11px '+sans; g.fillText('choose the check above',cx+cw/2,my+mh/2+14); g.textAlign='left'; return; }"
+  ],
+  [
+   "var lanes=p.k==='pos'?['örnek',cols===2?'kontrol':'poz. kontrol']:['örnek'], lw=Math.min(64,mw/(lanes.length+1)), yT=my+mh*0.38, yA=my+mh*0.58, bh=Math.max(5,mh*0.045);",
+   "var lanes=p.k==='pos'?['sample',cols===2?'control':'pos. control']:['sample'], lw=Math.min(64,mw/(lanes.length+1)), yT=my+mh*0.38, yA=my+mh*0.58, bh=Math.max(5,mh*0.045);"
+  ],
+  [
+   "if(p.k==='film') wbGhost(g,lx,yT-bh/2,lw,bh,'beklenen bant');",
+   "if(p.k==='film') wbGhost(g,lx,yT-bh/2,lw,bh,'expected band');"
+  ],
+  [
+   "else if(pon){ if(wbOutcome('pon',WB.cause)){ var rr=mulberry32(5); for(var b=0;b<16;b++){ var yb=my+10+b*(mh-24)/16+rr()*4; wbBand(g,lx+2,yb,lw-4,2+rr()*3,'#b0402e',0.25+0.55*rr()); } } else { g.fillStyle=PAL.muted; g.font='11px '+sans; g.fillText('boya yok',lc,my+mh/2); } }",
+   "else if(pon){ if(wbOutcome('pon',WB.cause)){ var rr=mulberry32(5); for(var b=0;b<16;b++){ var yb=my+10+b*(mh-24)/16+rr()*4; wbBand(g,lx+2,yb,lw-4,2+rr()*3,'#b0402e',0.25+0.55*rr()); } } else { g.fillStyle=PAL.muted; g.font='11px '+sans; g.fillText('no stain',lc,my+mh/2); } }"
+  ],
+  [
+   "var sig=p.k==='film'?false:wbOutcome(p.k,WB.cause), txt=p.k==='film'?(cols===2?'bant yok':'belirti: bant yok'):(p.k==='pos'?(sig?(cols===2?'kontrolde var':'kontrolde bant var'):(cols===2?'kontrolde yok':'kontrolde de bant yok')):(sig?'sinyal var':'sinyal yok'));",
+   "var sig=p.k==='film'?false:wbOutcome(p.k,WB.cause), txt=p.k==='film'?(cols===2?'no band':'symptom: no band'):(p.k==='pos'?(sig?(cols===2?'control: band':'band in the control'):(cols===2?'control: none':'no band in the control')):(sig?'signal':'no signal'));"
+  ],
+  [
+   "$('fbread').innerHTML=dl('Belirti','örnek şeridinde hedef bandı yok')+dl('Yapılan denetim',n?Object.keys(WB.done).map(function(k){ return WCHK[k].split(' (')[0]+': '+(wbOutcome(k,WB.cause)?'sinyal var':'sinyal yok'); }).join('; '):'henüz yok')+dl('Çözülen vaka',String(WB.solved)+' (ortalama denetim sayısı '+(WB.solved?fx(WB.checksTotal/WB.solved,1):'-')+')'); }",
+   "$('fbread').innerHTML=dl('Symptom','no target band in the sample lane')+dl('Checks done',n?Object.keys(WB.done).map(function(k){ return WCHK[k].split(' (')[0]+': '+(wbOutcome(k,WB.cause)?'signal':'no signal'); }).join('; '):'none yet')+dl('Cases solved',String(WB.solved)+' (mean number of checks '+(WB.solved?fx(WB.checksTotal/WB.solved,1):'-')+')'); }"
+  ],
+  [
+   "function wbCards(){ if(WB.solved>=2) card('fc0',true,'Dört farklı neden aynı belirtiyi veriyor: örnek şeridinde bant yok. Ayırt etmek için zincirin başından başlanır: önce aktarım (Ponceau), sonra algılama (aynı ikincil ve ECL ile yükleme kontrolü), en son antikor ile örnek (pozitif kontrol). '+WB.solved+' vakayı ortalama '+fx(WB.checksTotal/WB.solved,1)+' denetimle çözdünüz. Simülasyonda da ilk görünen hata mesajı çoğu zaman belirtidir; neden, zincirin daha önceki bir adımındadır.');",
+   "function wbCards(){ if(WB.solved>=2) card('fc0',true,'Four different causes give the same symptom: no band in the sample lane. To tell them apart you start at the beginning of the chain: first transfer (Ponceau), then detection (loading control with the same secondary and ECL), and last the antibody and the sample (positive control). You solved '+WB.solved+' cases with a mean of '+fx(WB.checksTotal/WB.solved,1)+' checks. In a simulation, too, the first error message is often the symptom; the cause sits at an earlier step of the chain.');"
+  ],
+  [
+   "else card('fc0',false,'Çözülen vaka: '+WB.solved+'. En az iki vakayı çözün.'); }",
+   "else card('fc0',false,'Cases solved: '+WB.solved+'. Solve at least two cases.'); }"
+  ],
+  [
+   "if(ok){ WB.answered=true; WB.solved++; WB.checksTotal+=n; $('fbfb').innerHTML='<b>Doğru.</b> Neden: '+WCAUSE[WB.cause]+'. '+n+' denetim kullandınız.'+(n<[1,2,1,2][WB.cause]?' Şanslı bir tahmin: bu nedeni öbürlerinden ayırmak için en az '+[1,2,1,2][WB.cause]+' denetim gerekir.':''); }",
+   "if(ok){ WB.answered=true; WB.solved++; WB.checksTotal+=n; $('fbfb').innerHTML='<b>Correct.</b> Cause: '+WCAUSE[WB.cause]+'. You used '+n+' check'+(n===1?'':'s')+'.'+(n<[1,2,1,2][WB.cause]?' A lucky guess: telling this cause apart from the others takes at least '+[1,2,1,2][WB.cause]+' check'+([1,2,1,2][WB.cause]===1?'':'s')+'.':''); }"
+  ],
+  [
+   "else $('fbfb').innerHTML='<b>Henüz değil.</b> Bu nedenle uyuşmayan bir denetim sonucu var ya da henüz ayırt edecek denetim yapılmadı.';",
+   "else $('fbfb').innerHTML='<b>Not yet.</b> A check result contradicts this cause, or no check that tells it apart has been done yet.';"
+  ],
+  [
+   "/* ===== atölye 1: gürültülü başarısızlıklar (gerçek GROMACS çıktıları) ===== */",
+   "/* ===== workshop 1: loud failures (real GROMACS output) ===== */"
+  ],
+  [
+   "function hlmsg(s){ return esc(s).replace(/(Fatal error:|ERROR \\d+|WARNING \\d+|LINCS WARNING|can not be settled|Can not fix pbc\\.|Segmentation fault|Too many warnings \\(\\d+\\)\\.)/g,'<span class=\"hl\">$1</span>'); }",
+   "function hlmsg(s){ return esc(s.replace(/\\u00e7\\u0131k\\u0131\\u015f kodu/g,'exit code').replace('hata ya da uyar\\u0131 yok','no errors or warnings')).replace(/(Fatal error:|ERROR \\d+|WARNING \\d+|LINCS WARNING|can not be settled|Can not fix pbc\\.|Segmentation fault|Too many warnings \\(\\d+\\)\\.)/g,'<span class=\"hl\">$1</span>'); }"
+  ],
+  [
+   "{k:'L1', t:'1 · Bir su molekülü eksik', d:'npt.gro dosyasından son su molekülü (3 atom) silindi; topol.top değişmedi.', o:['Topolojideki molekül sayıları ile koordinat dosyasındaki atom sayısı uyuşmuyor','Kuvvet alanı dosyası bulunamıyor','mdp dosyasında zaman adımı çok büyük'], a:0, fix:'L1fix', fx:'Topolojide SOL sayısı 5902 yerine 5901 yazıldı.', w:'grompp atomları sırayla eşler: topoloji 18.937 atom bekliyor, dosyada 18.934 var. Hangi dosyanın doğru olduğuna kullanıcı karar verir; çoğu zaman eksik olan, topolojiye yazılmamış bir değişikliktir (su silme, iyon ekleme).'},",
+   "{k:'L1', t:'1 · One water molecule missing', d:'The last water molecule (3 atoms) was deleted from npt.gro; topol.top was not changed.', o:['The molecule counts in the topology do not match the atom count in the coordinate file','The force field file cannot be found','The time step in the mdp file is too large'], a:0, fix:'L1fix', fx:'The SOL count in the topology was set to 5901 instead of 5902.', w:'grompp matches atoms in order: the topology expects 18,937 atoms, the file has 18,934. The user decides which file is right; usually what is missing is a change that was never written into the topology (deleting water, adding ions).'},"
+  ],
+  [
+   "{k:'L2', t:'2 · Kutu çok küçük', d:'Sudan arındırılmış protein, kenarı 2,0 nm olan kübik kutuya kondu (editconf -box 2.0); kesme 1,0 nm.', o:['Protein kutudan taşıyor, bu yüzden atomlar kayboluyor','Kesme mesafesi kutu vektörünün yarısından uzun; en küçük görüntü kuralı bozulur','PME için ızgara aralığı eksik'], a:1, fix:'L2fix', fx:'editconf -d 1.0 -bt dodecahedron: protein ile kutu kenarı arasında 1,0 nm.', w:'Periyodik sınırda bir atom, komşusunun yalnız tek bir görüntüsünü görmelidir. Kesme 1,0 nm iken kutunun en kısa vektörü 2,0 nm\\'den büyük olmalıdır; pratikte molekül ile kutu kenarı arasında da yeterli boşluk bırakılır (MD-PBC).'},",
+   "{k:'L2', t:'2 · Box too small', d:'The protein, stripped of water, was put in a cubic box with 2.0 nm edges (editconf -box 2.0); cut-off 1.0 nm.', o:['The protein sticks out of the box, so atoms get lost','The cut-off is longer than half the box vector; the minimum image convention breaks','The PME grid spacing is missing'], a:1, fix:'L2fix', fx:'editconf -d 1.0 -bt dodecahedron: 1.0 nm between the protein and the box edge.', w:'Under periodic boundaries an atom must see only one image of each neighbour. With a 1.0 nm cut-off the shortest box vector must be longer than 2.0 nm; in practice you also leave enough space between the molecule and the box edge (MD-PBC).'},"
+  ],
+  [
+   "{k:'L3', t:'3 · Net yük ve \"uyarı\"', d:'pdb2gmx ile His68 çift protonlu (HIP) seçildi; sistem iyonsuz, vakumda minimizasyon için grompp.', o:['Bu yalnız bir uyarıdır, -maxwarn 1 ile geçilir','Kuvvet alanı HIP\\'i tanımıyor','Sistemin net yükü var; iyonla nötrlenir ya da protonasyon kararı gözden geçirilir'], a:2, fix:'L3fix', fx:'Aynı yapı His68 HIE (tek protonlu) ile; toplam yük 0.', w:'GROMACS bu durumu uyarı olarak verir ve uyarı sayısı izin verilenden (0) fazla olduğu için durur. -maxwarn uyarıyı susturur, sorunu çözmez: PME ile net yüklü sistemde homojen bir zıt yük arka planı varsayılır. Doğru adım protonasyonu kararlaştırmak (MD-O) ve gerekiyorsa iyon eklemektir.'},",
+   "{k:'L3', t:'3 · Net charge and a \"warning\"', d:'In pdb2gmx His68 was chosen doubly protonated (HIP); the system has no ions; grompp for a vacuum minimization.', o:['It is only a warning; pass it with -maxwarn 1','The force field does not know HIP','The system carries a net charge; neutralize it with ions or revisit the protonation choice'], a:2, fix:'L3fix', fx:'The same structure with His68 as HIE (singly protonated); total charge 0.', w:'GROMACS reports this as a warning and stops because the number of warnings exceeds the allowed number (0). -maxwarn silences the warning but does not fix the problem: with PME a net-charged system is given a uniform neutralizing background. The right step is to decide the protonation (MD-O) and add ions if needed.'},"
+  ],
+  [
+   "{k:'L4', t:'4 · Tanınmayan kalıntı', d:'1UBQ dosyasında Ser65 kalıntısının adı SEP (fosfoserin) yapıldı; pdb2gmx.', o:['SEP adı kuvvet alanının kalıntı tanımlarında yok; parametre gerekir','Zincir 65. kalıntıda kopuk','His68 protonasyonu seçilmedi'], a:0, fix:'L4fix', fx:'Kalıntı adı SER\\'e geri döndürüldü (fosforilasyon böylece kaybolur; gerçek çözüm parametrizasyondur).', w:'pdb2gmx bilmediği kalıntıyı \"Other\" türünde sayar ve zinciri tutarsız bulur. Mesaj zincirden söz eder ama neden kalıntı adıdır. Fosfoserin için uygun kuvvet alanı parametreleri eklenmeden sistem kurulamaz; bu sayfada parametrizasyon yapılmadı.'},",
+   "{k:'L4', t:'4 · Unknown residue', d:'In the 1UBQ file residue Ser65 was renamed SEP (phosphoserine); pdb2gmx.', o:['SEP is not among the force field residue definitions; parameters are needed','The chain is broken at residue 65','No protonation was chosen for His68'], a:0, fix:'L4fix', fx:'The residue name was set back to SER (the phosphorylation is lost; the real fix is parametrization).', w:'pdb2gmx counts a residue it does not know as type \"Other\" and finds the chain inconsistent. The message talks about the chain, but the cause is the residue name. The system cannot be built without suitable force field parameters for phosphoserine; no parametrization was done on this page.'},"
+  ],
+  [
+   "{k:'L5', t:'5 · Çakışık atomlar, minimizasyon atlandı', d:'Dengelenmiş sistemde Lys48 NZ\\'ye en yakın su, oksijeni NZ\\'den 0,05 nm uzakta kalacak biçimde taşındı; minimizasyon yapılmadan üretim ayarlarıyla mdrun.', o:['Zaman adımı çok büyük','Atomlar üst üste; ilk adımda dev kuvvetler kısıtları ve suyu bozuyor; minimizasyon gerekir','Termostat zaman sabiti çok kısa'], a:1, fix:'L5fix', fx:'Aynı yapı önce steep ile minimize edildi, sonra 5 ps koşuldu.', w:'grompp bu yapıyı reddetmedi (hata ya da uyarı vermedi): koordinatların fiziksel olarak makul olup olmadığına bakmaz. mdrun ilk adımda LINCS uyarısı ve \"can not be settled\" verdi, öncesi ve sonrası koordinatları stepN.pdb dosyalarına yazdı ve çıkış kodu 139 ile (segmentation fault) durdu. Asıl neden mesajlarda adı geçen atomlar değil, onları iten çakışık sudur.'}",
+   "{k:'L5', t:'5 · Overlapping atoms, minimization skipped', d:'In the equilibrated system the water closest to Lys48 NZ was moved so that its oxygen sat 0.05 nm from NZ; mdrun with production settings, without minimization.', o:['The time step is too large','Atoms overlap; huge forces at the first step break the constraints and the water; minimization is needed','The thermostat time constant is too short'], a:1, fix:'L5fix', fx:'The same structure was first minimized with steep, then run for 5 ps.', w:'grompp did not reject this structure (no error or warning): it does not check whether coordinates are physically reasonable. At the first step mdrun gave a LINCS warning and \"can not be settled\", wrote the coordinates before and after to stepN.pdb files and stopped with exit code 139 (segmentation fault). The real cause is not the atoms named in the messages but the overlapping water pushing them.'}"
+  ],
+  [
+   "return '<div class=\"case\" id=\"fcase'+i+'\"><h3>'+c.t+'</h3><p class=\"small\">'+c.d+'</p><div class=\"cmd\">'+esc(D.cmd)+' → çıkış kodu '+D.code+'</div><pre class=\"msg\">'+hlmsg(D.msg)+'</pre>'+extra+'<p class=\"small\"><b>Soru:</b> asıl sorun nedir?</p><div class=\"opts\">'+c.o.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-c=\"'+i+'\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"fcfb'+i+'\" hidden></p></div>'; }",
+   "return '<div class=\"case\" id=\"fcase'+i+'\"><h3>'+c.t+'</h3><p class=\"small\">'+c.d+'</p><div class=\"cmd\">'+esc(D.cmd)+' → exit code '+D.code+'</div><pre class=\"msg\">'+hlmsg(D.msg)+'</pre>'+extra+'<p class=\"small\"><b>Question:</b> what is the real problem?</p><div class=\"opts\">'+c.o.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-c=\"'+i+'\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"fcfb'+i+'\" hidden></p></div>'; }"
+  ],
+  [
+   "$('ftread').innerHTML=dl('GROMACS\\'ın yazdığı kareler','step'+k0+'b.pdb (önce) ve step'+k0+'c.pdb (sonra); '+fmtI(T.natoms)+' atom')+dl('Tek adımda en çok yer değiştiren atomlar',T.top.slice(0,4).map(function(t){ return t[0]+' '+fx(t[1],2)+' Å'; }).join('; '))+dl('Ortanca yer değiştirme',fx(T.median,3)+' Å; NaN olan koordinat: '+T.nan)+dl('Taşınan su',L.L5info_tr); }",
+   "$('ftread').innerHTML=dl('Frames written by GROMACS','step'+k0+'b.pdb (before) and step'+k0+'c.pdb (after); '+fmtI(T.natoms)+' atoms')+dl('Atoms displaced most in one step',T.top.slice(0,4).map(function(t){ return t[0]+' '+fx(t[1],2)+' Å'; }).join('; '))+dl('Median displacement',fx(T.median,3)+' Å; coordinates that are NaN: '+T.nan)+dl('Moved water',L.L5info_tr.replace(/^(\\S+) \\(O atomu (\\d+)\\); NZ'ye ilk uzakl\\u0131\\u011f\\u0131 ([\\d,]+) nm, ta\\u015f\\u0131nd\\u0131ktan sonra ([\\d,]+) nm$/,function(m,a,b,c,d){ return a+' (O atom '+b+'); initial distance to NZ '+c.replace(',','.')+' nm, after the move '+d.replace(',','.')+' nm'; })); }"
+  ],
+  [
+   "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
+   "function fmtI(n){ return new Intl.NumberFormat('en-US').format(n); }"
+  ],
+  [
+   "fb.innerHTML='<b>'+(ok?'Doğru teşhis.':'Asıl sorun başka.')+'</b> '+c.w+' <br><b>Düzeltme:</b> '+c.fx+' → '+esc(F.cmd)+': çıkış kodu '+F.code+(c.k==='L5'?'; minimizasyon: '+FDD.loud.L5em_lines.join('; ')+'; ardından 5 ps koşu çıkış kodu '+F.code+', LINCS uyarısı '+FDD.loud.L5fix_lincs:'')+'.';",
+   "fb.innerHTML='<b>'+(ok?'Correct diagnosis.':'The real problem is elsewhere.')+'</b> '+c.w+' <br><b>Fix:</b> '+c.fx+' → '+esc(F.cmd)+': exit code '+F.code+(c.k==='L5'?'; minimization: '+FDD.loud.L5em_lines.join('; ')+'; then the 5 ps run exit code '+F.code+', LINCS warnings '+FDD.loud.L5fix_lincs:'')+'.';"
+  ],
+  [
+   "if(('L1' in g)&&('L2' in g)) card('fc1',true,'İki grompp hatası iki farklı dosyayı işaret ediyor: atom sayısı uyuşmazlığında koordinat ile topoloji ('+fmtI(18934)+' ile '+fmtI(18937)+'), kutu hatasında kutu boyutu ile kesme mesafesi. Mesajın ilk satırı hangi girdinin sorumlu olduğunu söyler; düzeltmeden sonra ikisinde de grompp çıkış kodu '+L.L1fix.code+' ve '+L.L2fix.code+'. Hata mesajı aşağıdan yukarı değil, \"Fatal error\" ya da \"ERROR\" bloğundan okunur.');",
+   "if(('L1' in g)&&('L2' in g)) card('fc1',true,'The two grompp errors point at two different inputs: in the atom count mismatch the coordinates and the topology ('+fmtI(18934)+' versus '+fmtI(18937)+'), in the box error the box size and the cut-off. The first line of the message says which input is responsible; after the fix grompp exit codes were '+L.L1fix.code+' and '+L.L2fix.code+'. Read an error message from the \"Fatal error\" or \"ERROR\" block, not from the bottom up.');"
+  ],
+  [
+   "else card('fc1',false,'1 ve 2. vakaları cevaplayın.');",
+   "else card('fc1',false,'Answer cases 1 and 2.');"
+  ],
+  [
+   "if(('L3' in g)&&('L4' in g)) card('fc2',true,'Net yük bir \"uyarı\"dır ama -maxwarn 0 ile koşunun durmasına yeter; pdb2gmx toplam yükü HIP ile +'+fx(L.L3q[0],0)+' e, HIE ile '+fx(L.L3q[1],0)+' e olarak yazdı. Uyarıyı -maxwarn ile susturmak sorunu ortadan kaldırmaz. Tanınmayan kalıntıda ise mesaj zincirin \"tutarlı türde olmadığını\" söylüyor: belirti zincirde, neden kalıntı adında. Mesajın söylediği yer ile asıl neden her zaman aynı değildir.');",
+   "if(('L3' in g)&&('L4' in g)) card('fc2',true,'A net charge is a \"warning\", but with -maxwarn 0 it is enough to stop the run; pdb2gmx reported a total charge of +'+fx(L.L3q[0],0)+' e with HIP and '+fx(L.L3q[1],0)+' e with HIE. Silencing the warning with -maxwarn does not remove the problem. For the unknown residue the message says the chain \"does not have a consistent type\": the symptom is in the chain, the cause is in the residue name. Where a message points and where the cause lies are not always the same.');"
+  ],
+  [
+   "else card('fc2',false,'3 ve 4. vakaları cevaplayın.');",
+   "else card('fc2',false,'Answer cases 3 and 4.');"
+  ],
+  [
+   "if('L5' in g){ var S=L.L5steps, k0=Object.keys(S)[0], T=S[k0]; card('fc3',true,'grompp çakışık yapıyı geçirdi; mdrun '+k0+'. adımda LINCS uyarısı ve \"can not be settled\" verdi ve çıkış kodu '+L.L5mdrun.code+' ile durdu. Tek adımda en çok kayan atom '+T.top[0][0]+' ('+fx(T.top[0][1],1)+' Å); ortanca kayma '+fx(T.median,3)+' Å. Minimizasyondan ('+L.L5em_lines[0]+') sonra aynı sistem 5 ps\\'yi '+L.L5fix_lincs+' LINCS uyarısıyla tamamladı. Çökme ilk adımdaysa önce başlangıç yapısına ve minimizasyona bakılır. MD-DT ızgarasında çok büyük zaman adımları bile en erken 2. adımda çöktü (kısıtsız, 5 fs); kısıtlı düzenlerde 5 fs çökmesi 163. ve 177. adımlarda geldi.'); }",
+   "if('L5' in g){ var S=L.L5steps, k0=Object.keys(S)[0], T=S[k0]; card('fc3',true,'grompp let the overlapping structure through; at step '+k0+' mdrun gave a LINCS warning and \"can not be settled\" and stopped with exit code '+L.L5mdrun.code+'. The atom displaced most in one step was '+T.top[0][0]+' ('+fx(T.top[0][1],1)+' Å); median displacement '+fx(T.median,3)+' Å. After minimization ('+L.L5em_lines[0]+') the same system completed 5 ps with '+L.L5fix_lincs+' LINCS warnings. If the crash is at the first step, look at the starting structure and the minimization first. In the MD-DT grid even very large time steps crashed at step 2 at the earliest (unconstrained, 5 fs); with constraints the 5 fs crashes came at steps 163 and 177.'); }"
+  ],
+  [
+   "else card('fc3',false,'5. vakayı cevaplayın.'); }",
+   "else card('fc3',false,'Answer case 5.'); }"
+  ],
+  [
+   "/* ===== atölye 2: sessiz başarısızlıklar (200 ps koşular) ===== */",
+   "/* ===== workshop 2: silent failures (200 ps runs) ===== */"
+  ],
+  [
+   "var SREF=['R1','R2','R3'], SNAME={R1:'doğru koşu 1',R2:'doğru koşu 2 (aynı başlangıç)',R3:'doğru koşu 3',S2:'S2 · ref_t = 30',S3:'S3 · çözücüsüz'}, SCOL;",
+   "var SREF=['R1','R2','R3'], SNAME={R1:'correct run 1',R2:'correct run 2 (same start)',R3:'correct run 3',S2:'S2 · ref_t = 30',S3:'S3 · no solvent'}, SCOL;"
+  ],
+  [
+   "var SM={T:['sıcaklık (K)','T','et',10,10],rmsd:['çekirdek Cα RMSD (Å)','rmsd','t',1000,10],rg:['Rg (Å)','rg','t',1000,10],V:['kutu hacmi (nm³)','V','et',100,10]};",
+   "var SM={T:['temperature (K)','T','et',10,10],rmsd:['core Cα RMSD (Å)','rmsd','t',1000,10],rg:['Rg (Å)','rg','t',1000,10],V:['box volume (nm³)','V','et',100,10]};"
+  ],
+  [
+   "if(SI.c==='S1'){ g.fillStyle=PAL.muted; g.font='14px '+css('--sans'); g.textAlign='center'; g.fillText('S1 koşulmadı: grompp durdurdu (aşağıdaki mesaj)',W/2,H/2); g.textAlign='left'; return; }",
+   "if(SI.c==='S1'){ g.fillStyle=PAL.muted; g.font='14px '+css('--sans'); g.textAlign='center'; g.fillText('S1 was not run: grompp stopped it (message below)',W/2,H/2); g.textAlign='left'; return; }"
+  ],
+  [
+   "var p=plot(g,56,12,W-76,H-56,[0,200],[lo,hi],{ylabPad:41,xticks:[0,50,100,150,200],yticks:yt,xlab:'zaman (ps)',ylab:M[0],yfmt:function(v){ return fx(v,st<1?(st<0.1?2:1):0); }});",
+   "var p=plot(g,56,12,W-76,H-56,[0,200],[lo,hi],{ylabPad:41,xticks:[0,50,100,150,200],yticks:yt,xlab:'time (ps)',ylab:M[0],yfmt:function(v){ return fx(v,st<1?(st<0.1?2:1):0); }});"
+  ],
+  [
+   "$('fsleg').innerHTML='<span>'+lin(PAL.muted)+'üç doğru koşu</span><span>'+lin(PAL.accent)+SNAME[SI.c]+'</span>';",
+   "$('fsleg').innerHTML='<span>'+lin(PAL.muted)+'three correct runs</span><span>'+lin(PAL.accent)+SNAME[SI.c]+'</span>';"
+  ],
+  [
+   "var p=plot(g,52,12,W-72,H-56,[0.5,76.5],[0,ym],{ylabPad:37,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'kalıntı',ylab:'Cα RMSF (Å)',yfmt:function(v){ return fx(v,1); }});",
+   "var p=plot(g,52,12,W-72,H-56,[0.5,76.5],[0,ym],{ylabPad:37,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'residue',ylab:'Cα RMSF (Å)',yfmt:function(v){ return fx(v,1); }});"
+  ],
+  [
+   "var rows=[['Ortalama sıcaklık (K)',function(d){ return fx(d.T_mean,1); }],['Sıcaklık SD (K)',function(d){ return fx(d.T_sd,1); }],['İlk 10 ps sıcaklık (K)',function(d){ return fx(d.T_first10,1); }],",
+   "var rows=[['Mean temperature (K)',function(d){ return fx(d.T_mean,1); }],['Temperature SD (K)',function(d){ return fx(d.T_sd,1); }],['Temperature, first 10 ps (K)',function(d){ return fx(d.T_first10,1); }],"
+  ],
+  [
+   "['Kutu hacmi, başlangıç → son (nm³)',function(d){ return fx(d.V_first,1)+' → '+fx(d.V_last,1); }],['Çekirdek Cα RMSD, son 100 ps (Å)',function(d){ return fx(d.rmsd_last100,2); }],",
+   "['Box volume, start → end (nm³)',function(d){ return fx(d.V_first,1)+' → '+fx(d.V_last,1); }],['Core Cα RMSD, last 100 ps (Å)',function(d){ return fx(d.rmsd_last100,2); }],"
+  ],
+  [
+   "['Rg, son 100 ps (Å)',function(d){ return fx(d.rg_last100,2); }],['Çekirdek RMSF (Å)',function(d){ return fx(d.rmsf_core,2); }],['Kuyruk RMSF (Å)',function(d){ return fx(d.rmsf_tail,2); }],",
+   "['Rg, last 100 ps (Å)',function(d){ return fx(d.rg_last100,2); }],['Core RMSF (Å)',function(d){ return fx(d.rmsf_core,2); }],['Tail RMSF (Å)',function(d){ return fx(d.rmsf_tail,2); }],"
+  ],
+  [
+   "['Protein içi H-bağı (3,5 Å, 150°)',function(d){ return fx(d.hb_mean,1); }],['md.log NOTE / WARNING / LINCS',function(d){ return d.log_counts?d.log_counts.NOTE+' / '+d.log_counts.WARNING+' / '+d.log_counts.LINCS:'-'; }]];",
+   "['Intra-protein H-bonds (3.5 Å, 150°)',function(d){ return fx(d.hb_mean,1); }],['md.log NOTE / WARNING / LINCS',function(d){ return d.log_counts?d.log_counts.NOTE+' / '+d.log_counts.WARNING+' / '+d.log_counts.LINCS:'-'; }]];"
+  ],
+  [
+   "var h='<table class=\"st\"><thead><tr><th>Ölçüt (0 ile 200 ps)</th>'+cols.map(function(k){ return '<th>'+{R1:'Doğru 1',R2:'Doğru 2',R3:'Doğru 3',S2:'S2',S3:'S3'}[k]+'</th>'; }).join('')+'</tr></thead><tbody>';",
+   "var h='<table class=\"st\"><thead><tr><th>Measure (0 to 200 ps)</th>'+cols.map(function(k){ return '<th>'+{R1:'Correct 1',R2:'Correct 2',R3:'Correct 3',S2:'S2',S3:'S3'}[k]+'</th>'; }).join('')+'</tr></thead><tbody>';"
+  ],
+  [
+   "h+='</tbody></table><p class=\"small\">Doğru 2 ile S2 aynı başlangıç durumundan (npt.cpt) çıkar; S3 su olmadan yeni hızlarla başlar. md.log sayımları R1 ve R3 için hesaplanmadı. Eşik ve hüküm önceden yazılmadı; tablo yalnız karşılaştırmadır.</p>';",
+   "h+='</tbody></table><p class=\"small\">Correct 2 and S2 start from the same state (npt.cpt); S3 starts without water and with new velocities. md.log counts were not computed for R1 and R3. No threshold or verdict was written in advance; the table is only a comparison.</p>';"
+  ],
+  [
+   "$('fsread').innerHTML=dl('Değişen mdp satırları (prod.mdp ile)',mdp.length?mdp.map(function(r){ return r[0]+': '+r[1]+' → '+r[2]; }).join('; '):'-')+dl('grompp ve mdrun',c==='S1'?'grompp çıkış kodu '+FDD.codes.S1grompp+'; koşu yapılmadı':'grompp '+FDD.codes[c+'grompp']+', mdrun '+FDD.codes[c+'mdrun']+' (hatasız bitti)')+(c==='S3'?dl('Not','çözücüsüz sistem: hızlar su olmadan devralınamadığı için yeniden üretildi; hacim boş kutunun hacmidir'):'');",
+   "$('fsread').innerHTML=dl('Changed mdp lines (versus prod.mdp)',mdp.length?mdp.map(function(r){ return r[0]+': '+r[1].replace('(yok)','(none)')+' → '+r[2]; }).join('; '):'-')+dl('grompp and mdrun',c==='S1'?'grompp exit code '+FDD.codes.S1grompp+'; not run':'grompp '+FDD.codes[c+'grompp']+', mdrun '+FDD.codes[c+'mdrun']+' (finished without errors)')+(c==='S3'?dl('Note','system without solvent: velocities were generated anew because they cannot be inherited without the water; the volume is that of the empty box'):'');"
+  ],
+  [
+   "function siCards(){ var S=FDD.silent, R=['R1','R2','R3'], rng=function(q,d){ var v=R.map(function(k){ return S[k][q]; }); return fx(arrMin(v),d)+' ile '+fx(arrMax(v),d); };",
+   "function siCards(){ var S=FDD.silent, R=['R1','R2','R3'], rng=function(q,d){ var v=R.map(function(k){ return S[k][q]; }); return fx(arrMin(v),d)+' to '+fx(arrMax(v),d); };"
+  ],
+  [
+   "if(SI.seenC.S1) card('fc4',true,'Planlanan \"sessiz\" vaka sessiz kalmadı: üretim mdp\\'sine define = -DPOSRES eklenince grompp, basınç denetimiyle mutlak konum kısıtının birlikte kullanıldığını uyardı ve durdu (çıkış kodu '+FDD.codes.S1grompp+'). Plan gereği ayar değiştirilip yeniden denenmedi. Dengeleme mdp\\'sinde refcoord_scaling = com satırı var ve MD-MET\\'in NPT dengelemesi aynı kısıt ve basınç denetimiyle grompp\\'tan -maxwarn olmadan geçmişti. Dengeleme dosyasından kopyalanmış bir üretim mdp\\'sinde bu uyarı çıkmaz ve kısıt sessizce açık kalır; böyle bir üretim koşusu için: Bu senaryo hesaplanmadı. Uyarıyı -maxwarn ile susturmak tam da bu sessiz hatayı üretir.');",
+   "if(SI.seenC.S1) card('fc4',true,'The planned \"silent\" case did not stay silent: when define = -DPOSRES was added to the production mdp, grompp warned that pressure coupling was being used with absolute position restraints and stopped (exit code '+FDD.codes.S1grompp+'). As planned, no setting was changed and it was not retried. The equilibration mdp has the line refcoord_scaling = com, and the MD-MET NPT equilibration had passed grompp with the same restraints and pressure coupling without -maxwarn. In a production mdp copied from the equilibration file this warning does not appear and the restraint silently stays on; for such a production run: This scenario was not computed. Silencing the warning with -maxwarn produces exactly this silent error.');"
+  ],
+  [
+   "else card('fc4',false,'S1\\'i açın.');",
+   "else card('fc4',false,'Open S1.');"
+  ],
+  [
+   "if(SI.seenM.S2.T) card('fc5',true,'ref_t = 30 yazım hatasıyla koşu hatasız bitti. Ortalama sıcaklık '+fx(S.S2.T_mean,1)+' K (ilk 10 ps '+fx(S.S2.T_first10,1)+' K, son 100 ps '+fx(S.S2.T_last100,1)+' K); doğru koşularda '+rng('T_mean',1)+' K. Soğuyan sistemde çekirdek RMSF '+fx(S.S2.rmsf_core,2)+' Å (doğru koşularda '+rng('rmsf_core',2)+'), protein içi H-bağı '+fx(S.S2.hb_mean,1)+' ('+rng('hb_mean',1)+'), kutu '+fx(S.S2.V_first,1)+' nm³\\'ten '+fx(S.S2.V_last,1)+' nm³\\'e küçüldü. md.log\\'da hiçbir uyarı yok. Bu hatayı yakalayan, beklenen değerle karşılaştırılan sıcaklık ve mdp satırının kendisi; \"daha kararlı yapı\" diye okunabilecek düşük RMSF ve fazla H-bağı ise hatanın sonucu.');",
+   "if(SI.seenM.S2.T) card('fc5',true,'With the typo ref_t = 30 the run finished without errors. Mean temperature '+fx(S.S2.T_mean,1)+' K (first 10 ps '+fx(S.S2.T_first10,1)+' K, last 100 ps '+fx(S.S2.T_last100,1)+' K); in the correct runs '+rng('T_mean',1)+' K. In the cooling system the core RMSF was '+fx(S.S2.rmsf_core,2)+' Å (correct runs '+rng('rmsf_core',2)+'), intra-protein H-bonds '+fx(S.S2.hb_mean,1)+' ('+rng('hb_mean',1)+'), and the box shrank from '+fx(S.S2.V_first,1)+' nm³ to '+fx(S.S2.V_last,1)+' nm³. md.log has no warning at all. What catches this error is the temperature compared with the expected value, and the mdp line itself; the low RMSF and extra H-bonds, which could be read as \"a more stable structure\", are consequences of the error.');"
+  ],
+  [
+   "else card('fc5',false,'S2\\'yi açın ve sıcaklığa bakın.');",
+   "else card('fc5',false,'Open S2 and look at the temperature.');"
+  ],
+  [
+   "if(m3>=3) card('fc6',true,'Çözücüsüz koşu da hatasız bitti ve sıcaklık doğru: '+fx(S.S3.T_mean,1)+' K (dalgalanma daha büyük: SD '+fx(S.S3.T_sd,1)+' K, doğru koşularda '+rng('T_sd',1)+'). Kutu hacmi dalgalanıyor ama başlangıçla sonda neredeyse aynı ('+fx(S.S3.V_first,1)+' → '+fx(S.S3.V_last,1)+' nm³): su olmayan kutuda hacim ve basınç sistemin yoğunluğu hakkında bir şey söylemez. Yapı ise farklı: çekirdek RMSD '+fx(S.S3.rmsd_last100,2)+' Å (doğru koşularda '+rng('rmsd_last100',2)+'), Rg '+fx(S.S3.rg_last100,2)+' Å ('+rng('rg_last100',2)+'), protein içi H-bağı '+fx(S.S3.hb_mean,1)+' ('+rng('hb_mean',1)+'). Sıcaklık ve uyarı sayısı bu hatayı yakalamaz; atom sayısı, topolojideki molekül listesi ve yapısal ölçütlerin doğru koşularla karşılaştırması yakalar.');",
+   "if(m3>=3) card('fc6',true,'The run without solvent also finished without errors, and the temperature is right: '+fx(S.S3.T_mean,1)+' K (larger fluctuations: SD '+fx(S.S3.T_sd,1)+' K, correct runs '+rng('T_sd',1)+'). The box volume fluctuates but is nearly the same at the start and the end ('+fx(S.S3.V_first,1)+' → '+fx(S.S3.V_last,1)+' nm³): in a box without water, volume and pressure say nothing about the density of the system. The structure is different: core RMSD '+fx(S.S3.rmsd_last100,2)+' Å (correct runs '+rng('rmsd_last100',2)+'), Rg '+fx(S.S3.rg_last100,2)+' Å ('+rng('rg_last100',2)+'), intra-protein H-bonds '+fx(S.S3.hb_mean,1)+' ('+rng('hb_mean',1)+'). Temperature and warning counts do not catch this error; the atom count, the molecule list in the topology and a comparison of structural measures with correct runs do.');"
+  ],
+  [
+   "else card('fc6',false,'S3\\'ü açın ve en az üç ölçüte bakın (şimdiye kadar '+m3+').'); }",
+   "else card('fc6',false,'Open S3 and look at at least three measures (so far '+m3+').'); }"
+  ],
+  [
+   "/* ===== tezgâh: altı gerçek günlük parçası ===== */",
+   "/* ===== bench: six real log fragments ===== */"
+  ],
+  [
+   "{t:'md.log sonu, ortalamalar (mdp\\'de ref_t = 300 beklendi)', m:Fr.S2avg, o:['Sorun yok: koşu uyarısız bitti','Sıcaklık hedeften çok uzak: mdp\\'de hedef sıcaklık yanlış yazılmış','Enerji korunmuyor: zaman adımı büyük'], a:1, w:'Son sütun Temperature: 3,05e+01 = 30,5 K. Koşu uyarısız bitti; hatayı beklenen değerle karşılaştırma yakalar (S2).'},",
+   "{t:'End of md.log, averages (ref_t = 300 was expected in the mdp)', m:Fr.S2avg, o:['No problem: the run finished without warnings','The temperature is far from the target: the target temperature in the mdp was mistyped','Energy is not conserved: the time step is large'], a:1, w:'Last column, Temperature: 3.05e+01 = 30.5 K. The run finished without warnings; comparison with the expected value catches the error (S2).'},"
+  ],
+  [
+   "{t:'topol.top sonu, [ molecules ] bölümü', m:Fr.S3top, o:['Çözücü yok: protein vakumda koşulacak','Sorun yok: iyon gerekmiyor','Protein zinciri eksik'], a:0, w:'Doğru sistemde ikinci satır SOL 5902; burada yalnız protein var. grompp bunu hata saymaz; koşu biter ve sıcaklık bile doğru görünür (S3).'},",
+   "{t:'End of topol.top, the [ molecules ] section', m:Fr.S3top, o:['No solvent: the protein will run in vacuum','No problem: no ions are needed','The protein chain is missing'], a:0, w:'In the correct system the second line is SOL 5902; here there is only the protein. grompp does not count this as an error; the run finishes and even the temperature looks right (S3).'},"
+  ],
+  [
+   "{t:'Doğru koşunun md.log sonu, ortalamalar', m:Fr.R2avg, o:['Sıcaklık yüksek, termostat çalışmıyor','Kinetik enerji çok küçük','Sorun görünmüyor: sıcaklık hedefte'], a:2, w:'3,00045e+02 = 300,0 K; günlükte uyarı yok. Bu tek başına kurulumun doğru olduğunu kanıtlamaz, ama bu ölçütte bir sorun göstermez.'},",
+   "{t:'End of md.log of a correct run, averages', m:Fr.R2avg, o:['The temperature is high; the thermostat is not working','The kinetic energy is too small','No problem visible: the temperature is on target'], a:2, w:'3.00045e+02 = 300.0 K; no warning in the log. On its own this does not prove the setup is right, but it shows no problem on this measure.'},"
+  ],
+  [
+   "{t:'mdrun çıktısı, ilk satırlar', m:L.L5.msg.split('\\n').slice(2,16).join('\\n'), o:['İlk adımda bağlar 90° dönüyor ve su kısıtı sağlanamıyor: başlangıç yapısında çakışma var','Termostat zaman sabiti çok kısa','Kutu çok büyük'], a:0, w:'Çökme 0. adımda: zaman adımı ya da termostat değil, başlangıç koordinatları. Adı geçen atomlar (771 ile 774: Lys48 NZ ve hidrojenleri) çakışık suyun komşuları. GROMACS\\'ın önerisi (temasları denetle ya da zaman adımını küçült) iki olasılığı birlikte sayar; 0. adımda çökmesi ve minimizasyondan sonra aynı zaman adımıyla sorunsuz koşması çakışmayı gösterir (L5).'},",
+   "{t:'mdrun output, first lines', m:L.L5.msg.split('\\n').slice(2,16).join('\\n'), o:['At the first step bonds rotate by 90° and the water constraint cannot be satisfied: the starting structure has an overlap','The thermostat time constant is too short','The box is too large'], a:0, w:'The crash is at step 0: not the time step or the thermostat, but the starting coordinates. The atoms named (771 to 774: Lys48 NZ and its hydrogens) are neighbours of the overlapping water. GROMACS\\'s advice (check for bad contacts or reduce the time step) lists both possibilities; the crash at step 0 and the clean run with the same time step after minimization point to the overlap (L5).'},"
+  ],
+  [
+   "{t:'grompp çıktısı', m:FDD.s1.msg, o:['Basınç denetimi kapatılmalı','Üretimde konum kısıtı açık kalmış (define = -DPOSRES) ve basınç denetimiyle çakışıyor','Uyarı zararsızdır, -maxwarn 1 eklenir'], a:1, w:'Uyarının nedeni mdp\\'de unutulmuş define = -DPOSRES satırı. -maxwarn ile geçmek kısıtlı bir \"üretim\" koşusu üretir (S1).'},",
+   "{t:'grompp output', m:FDD.s1.msg, o:['Pressure coupling should be switched off','The position restraint was left on in production (define = -DPOSRES) and clashes with pressure coupling','The warning is harmless; add -maxwarn 1'], a:1, w:'The cause of the warning is a forgotten define = -DPOSRES line in the mdp. Passing it with -maxwarn produces a restrained \"production\" run (S1).'},"
+  ],
+  [
+   "{t:'grompp çıktısı (vakumda minimizasyon)', m:L.L3.msg, o:['PME ayarı yanlış','Kesme mesafesi kısa','Sistemin net yükü var: protonasyon ya da iyon kararı'], a:2, w:'pdb2gmx toplam yükü +1 yazmıştı (His68 HIP). Uyarı sayısı izin verilenden fazla olduğu için grompp durdu (L3).'}",
+   "{t:'grompp output (vacuum minimization)', m:L.L3.msg, o:['The PME setting is wrong','The cut-off is short','The system has a net charge: a protonation or ion decision'], a:2, w:'pdb2gmx had reported a total charge of +1 (His68 HIP). grompp stopped because the number of warnings exceeded the allowed number (L3).'}"
+  ],
+  [
+   "var fb=$('fbq'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
+   "var fb=$('fbq'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+q.w;"
+  ],
+  [
+   "if(n>=4) card('fc7',true,'Karar verdiğiniz '+n+' parçanın '+nLoc(r)+' ilk seçiminiz doğruydu. Gürültülü parçalar (çökme, grompp uyarısı) kendini ilk satırda belli ediyor; sessiz parçalar (30 K, eksik çözücü) ise yalnız beklenen değerle ya da doğru bir kurulumla karşılaştırınca görünüyor. Bir koşu \"bitti\" diye doğru sayılmaz: mdp, topoloji ve günlük sonu, sonuçtan önce okunur.');",
+   "if(n>=4) card('fc7',true,'Of the '+n+' fragments you judged, your first choice was right for '+nLoc(r)+'. Loud fragments (a crash, a grompp warning) give themselves away in the first line; silent ones (30 K, missing solvent) show only when compared with an expected value or a correct setup. A run is not right because it \"finished\": read the mdp, the topology and the end of the log before the results.');"
+  ],
+  [
+   "else card('fc7',false,'Şimdiye kadar '+n+' parça; en az dördüne karar verin.'); }); }); }",
+   "else card('fc7',false,'So far '+n+' fragment'+(n===1?'':'s')+'; judge at least four.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: koşu sağlık kaydı ===== */",
+   "/* ===== notebook: run health record ===== */"
+  ],
+  [
+   "function ffBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }",
+   "function ffBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }"
+  ],
+  [
+   "var L=['KOŞU SAĞLIK KAYDI (MD-FAIL taslağı)','Sıcaklık (beklenen, gözlenen): '+v('ffT'),'Kısıtlar ve define satırı: '+v('ffR'),'Sistem bileşimi: '+v('ffS'),'Uyarılar: '+v('ffW'),'Doğru kurulumla karşılaştırma: '+v('ffC'),'Hata ve düzeltme günlüğü: '+v('ffN')];",
+   "var L=['RUN HEALTH RECORD (MD-FAIL template)','Temperature (expected, observed): '+v('ffT'),'Restraints and define line: '+v('ffR'),'System composition: '+v('ffS'),'Warnings: '+v('ffW'),'Comparison with a correct setup: '+v('ffC'),'Error and fix log: '+v('ffN')];"
+  ],
+  [
+   "if(!/beklen/.test(t)||!/gözlen/.test(t)) wr.push('Sıcaklık satırında beklenen ve gözlenen değer birlikte yok; ref_t yazım hatası ancak böyle görünür (S2).');",
+   "if(!/expect/.test(t)||!/observ/.test(t)) wr.push('The temperature line does not give both the expected and the observed value; a ref_t typo shows only this way (S2).');"
+  ],
+  [
+   "if(/posres|kısıt/.test(r)&&!/dengele|yalnız|yok|kapalı/.test(r)) wr.push('Konum kısıtı geçiyor ama üretimde kapalı olduğu yazılmamış; dengeleme mdp\\'sinden kopyalanan define satırı sessiz kalabilir (S1).');",
+   "if(/posres|restrain/.test(r)&&!/equilibr|only|no |off/.test(r)) wr.push('Position restraints are mentioned but it is not written that they are off in production; a define line copied from the equilibration mdp can stay silent (S1).');"
+  ],
+  [
+   "if(!/sol|su /.test(s+' ')) wr.push('Sistem bileşiminde çözücü yazılmamış; topolojinin [ molecules ] bölümü okunur (S3).');",
+   "if(!/sol|water/.test(s+' ')) wr.push('No solvent is written in the system composition; read the [ molecules ] section of the topology (S3).');"
+  ],
+  [
+   "if(!/yük/.test(s)) wr.push('Net yük yazılmamış (L3).');",
+   "if(!/charge/.test(s)) wr.push('The net charge is not written (L3).');"
+  ],
+  [
+   "if(/maxwarn\\s*[1-9]/.test(w)) wr.push('-maxwarn kullanılmış: susturulan her uyarının nedeni ayrıca yazılmalı.');",
+   "if(/maxwarn\\s*[1-9]/.test(w)) wr.push('-maxwarn was used: write down the cause of every silenced warning.');"
+  ],
+  [
+   "if(!/lincs/.test(w)) wr.push('md.log LINCS uyarı sayısı yazılmamış.');",
+   "if(!/lincs/.test(w)) wr.push('The number of LINCS warnings in md.log is not written.');"
+  ],
+  [
+   "if(!/koşu|referans|aralık/.test(c)) wr.push('Doğru bir kurulum ya da bağımsız koşularla karşılaştırma yok; sessiz hatalar ancak karşılaştırmada görünür.');",
+   "if(!/run|reference|range/.test(c)) wr.push('No comparison with a correct setup or independent runs; silent errors show only in a comparison.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(e){ L.push('- '+e); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to check:'); wr.forEach(function(e){ L.push('- '+e); }); }"
+  ],
+  [
+   "$('ffcopy').onclick=function(){ var t=$('ffout').textContent, m=$('ffmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('ffcopy').onclick=function(){ var t=$('ffout').textContent, m=$('ffmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'grompp \"number of coordinates in coordinate file does not match topology\" diyerek durdu. İlk bakılacak yer neresi?',",
+   "Q.push({s:'grompp stopped with \"number of coordinates in coordinate file does not match topology\". Where do you look first?',"
+  ],
+  [
+   "o:[['mdp dosyasındaki zaman adımı',0],['Koordinat dosyası ile topolojinin [ molecules ] bölümündeki molekül sayıları',1],['Kuvvet alanı sürümü',0]], w:'Mesaj iki dosyayı adıyla söylüyor: koordinat dosyasında 18.934, topolojide 18.937 atom. Çoğu zaman topolojiye yazılmamış bir değişiklik (su silme, iyon ekleme) vardır.'});",
+   "o:[['The time step in the mdp file',0],['The coordinate file and the molecule counts in the [ molecules ] section of the topology',1],['The force field version',0]], w:'The message names both files: 18,934 atoms in the coordinate file, 18,937 in the topology. Usually a change (deleting water, adding ions) was never written into the topology.'});"
+  ],
+  [
+   "Q.push({s:'grompp net yük için bir uyarı verdi ve \"Too many warnings (1)\" ile durdu. Doğru yaklaşım hangisi?',",
+   "Q.push({s:'grompp gave a warning about the net charge and stopped with \"Too many warnings (1)\". What is the right approach?',"
+  ],
+  [
+   "o:[['-maxwarn 1 ekleyip devam etmek',0],['Kesme mesafesini artırmak',0],['Yükün nedenini (protonasyon) gözden geçirmek ve gerekiyorsa iyonla nötrlemek',1]], w:'-maxwarn uyarıyı susturur, nedeni değiştirmez. Bu sayfada yük His68\\'in çift protonlu seçilmesinden geldi (+'+fx(L.L3q[0],0)+' e).'});",
+   "o:[['Add -maxwarn 1 and carry on',0],['Increase the cut-off',0],['Review the cause of the charge (protonation) and neutralize with ions if needed',1]], w:'-maxwarn silences the warning; it does not change the cause. On this page the charge came from choosing His68 doubly protonated (+'+fx(L.L3q[0],0)+' e).'});"
+  ],
+  [
+   "Q.push({s:'mdrun 0. adımda LINCS uyarısı ve \"can not be settled\" verip durdu. En olası neden nedir?',",
+   "Q.push({s:'mdrun gave a LINCS warning and \"can not be settled\" at step 0 and stopped. What is the most likely cause?',"
+  ],
+  [
+   "o:[['Başlangıç yapısında çakışık atomlar var; minimizasyon atlanmış ya da yetmemiş',1],['Zaman adımı çok büyük',0],['Termostat zaman sabiti çok kısa',0]], w:'0. adımdaki çökme başlangıç koordinatlarını gösterir. MD-DT ızgarasında zaman adımı kaynaklı çökmeler en erken 2. adımda (kısıtsız, 5 fs), kısıtlı düzenlerde ise 163. ve 177. adımlarda geldi. Bu sayfada minimizasyondan sonra aynı sistem aynı zaman adımıyla sorunsuz koştu.'});",
+   "o:[['The starting structure has overlapping atoms; minimization was skipped or was not enough',1],['The time step is too large',0],['The thermostat time constant is too short',0]], w:'A crash at step 0 points to the starting coordinates. In the MD-DT grid time-step crashes came at step 2 at the earliest (unconstrained, 5 fs), and at steps 163 and 177 with constraints. On this page the same system ran cleanly with the same time step after minimization.'});"
+  ],
+  [
+   "Q.push({s:'Bir koşu hatasız bitti; md.log\\'da hiçbir uyarı yok. Bu, kurulumun doğru olduğunu gösterir mi?',",
+   "Q.push({s:'A run finished without errors; md.log has no warnings at all. Does this show that the setup is right?',"
+  ],
+  [
+   "o:[['Evet, GROMACS her yanlış ayarı uyarır',0],['Evet, LINCS uyarısı yoksa sistem doğrudur',0],['Hayır; ref_t = 30 ya da eksik çözücü gibi hatalar uyarısız biter, beklenen değerlerle ve doğru kurulumla karşılaştırma gerekir',1]], w:'S2 ('+fx(S.S2.T_mean,1)+' K) ve S3 (çözücüsüz) uyarısız bitti. S3\\'te sıcaklık bile doğruydu ('+fx(S.S3.T_mean,1)+' K).'});",
+   "o:[['Yes, GROMACS warns about every wrong setting',0],['Yes, without LINCS warnings the system is right',0],['No; errors such as ref_t = 30 or missing solvent finish without warnings, so a comparison with expected values and a correct setup is needed',1]], w:'S2 ('+fx(S.S2.T_mean,1)+' K) and S3 (no solvent) finished without warnings. In S3 even the temperature was right ('+fx(S.S3.T_mean,1)+' K).'});"
+  ],
+  [
+   "Q.push({s:'ref_t = 30 ile koşan sistemde çekirdek RMSF '+fx(S.S2.rmsf_core,2)+' Å ve protein içi H-bağı sayısı '+fx(S.S2.hb_mean,1)+' çıktı (doğru koşularda yaklaşık '+fx(S.R2.rmsf_core,2)+' Å ve '+fx(S.R2.hb_mean,1)+'). Doğru okuma hangisi?',",
+   "Q.push({s:'In the system run with ref_t = 30 the core RMSF was '+fx(S.S2.rmsf_core,2)+' Å and the number of intra-protein H-bonds '+fx(S.S2.hb_mean,1)+' (about '+fx(S.R2.rmsf_core,2)+' Å and '+fx(S.R2.hb_mean,1)+' in the correct runs). Which reading is right?',"
+  ],
+  [
+   "o:[['Mutasyon ya da ligand yapıyı kararlı kılmış',0],['Bunlar sıcaklık hatasının sonuçlarıdır; önce sıcaklık ve mdp denetlenir',1],['Daha uzun koşu gerekir',0]], w:'Soğuk sistemde salınım azalır ve H-bağları kopmaz. Bir \"kararlılık\" bulgusu yorumlanmadan önce kurulumun doğru olduğu gösterilir.'});",
+   "o:[['A mutation or a ligand has stabilized the structure',0],['These are consequences of the temperature error; check the temperature and the mdp first',1],['A longer run is needed',0]], w:'In a cold system fluctuations shrink and H-bonds do not break. Before a \"stability\" finding is interpreted, the setup is shown to be right.'});"
+  ],
+  [
+   "Q.push({s:'Hata mesajı zincirin \"tutarlı türde olmadığını\" söylüyor; asıl neden SEP adlı bir kalıntı. Bundan çıkan genel ders nedir?',",
+   "Q.push({s:'The error message says the chain \"does not have a consistent type\"; the real cause is a residue named SEP. What is the general lesson?',"
+  ],
+  [
+   "o:[['Mesajın işaret ettiği yer belirtidir; neden daha önceki bir adımda (burada kalıntı adı ve parametre eksikliği) olabilir',1],['Mesajlar güvenilmezdir, okunmasına gerek yoktur',0],['Zincir her zaman kalıntı 1\\'den başlamalıdır',0]], w:'Western blot köprüsündeki gibi: aynı belirti farklı nedenlerden gelebilir; teşhis zincirin başından başlar.'});",
+   "o:[['Where the message points is the symptom; the cause can be at an earlier step (here, the residue name and missing parameters)',1],['Messages are unreliable and need not be read',0],['A chain must always start at residue 1',0]], w:'As in the western blot bridge: the same symptom can come from different causes; diagnosis starts at the beginning of the chain.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('fnotice').innerHTML='<p><b>Veri.</b> Bütün vakalar MD-MET\\'in ikinci ubikitin hazırlığından türetildi (1UBQ, RCSB PDB; Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531; AMBER99SB-ILDN, TIP3P, 5902 su, iyon yok; GROMACS 2023.3). Gürültülü vakalarda (L1 ile L5) her biri tek bir bozulma ve onun düzeltmesi bulutta çalıştırıldı; sayfadaki mesajlar GROMACS çıktısından olduğu gibi alınmış parçalardır. Sessiz vakalar (S1 ile S3) aynı dengelenmiş durumdan 200 ps\\'lik koşulardır; karşılaştırma için MD-MET\\'in üç bağımsız koşusunun 0 ile 200 ps arası kullanıldı. Hiçbir adımda -maxwarn kullanılmadı.</p>'+",
+   "$('fnotice').innerHTML='<p><b>Data.</b> All cases were derived from the second ubiquitin preparation of MD-MET (1UBQ, RCSB PDB; Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531; AMBER99SB-ILDN, TIP3P, 5902 waters, no ions; GROMACS 2023.3). In the loud cases (L1 to L5) each single corruption and its fix was run in the cloud; the messages on the page are excerpts taken verbatim from GROMACS output. The silent cases (S1 to S3) are 200 ps runs from the same equilibrated state; for comparison, 0 to 200 ps of three independent MD-MET runs were used. -maxwarn was not used at any step.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Koşu ve analiz planı koşulardan ve hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…). S1 planlandığı gibi koşulmadı: grompp mutlak konum kısıtı ile basınç denetiminin birlikte kullanılmasını uyardı ve durdu (çıkış kodu '+FDD.codes.S1grompp+'); plan gereği ayar değiştirilip yeniden denenmedi, bu sonuç olduğu gibi gösterilir. md.log satır sayımları yalnız doğru koşu 2, S2 ve S3 için yapıldı. Sıcaklık ve hacim gmx energy ile, denetimde gmx dump -e ile; RMSD ve Rg MDAnalysis ile, denetimde gmx rms ve gmx gyrate ile hesaplandı; H-bağları MD-INT tanımıyla (3,5 Å, 150°). Bağımsız denetim: '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti. Uygulanamayan karşılaştırma: L5 çökme karelerinde en çok yer değiştiren atomların MDAnalysis ile ikinci hesabı; dev yer değiştirmeler PDB dosyasının sabit genişlikli koordinat alanlarını taşırdığı için (\"4.500-11\" gibi bitişik sayılar) MDAnalysis dosyayı okuyamadı. Bu değerler yalnız numpy ile, satırlar düzenli ifadeyle ayrıştırılarak hesaplandı. Analiz kodunda sonuçlar kesinleşmeden önce bulunan üç hata düzeltildi (yörüngenin döngü içinde başa sarılması, enerji sütunlarının sırası, eğik kutuda en küçük görüntü); ayrıntı DEVIATIONS.md dosyasındadır.</p>'+",
+   "'<p><b>Analysis.</b> The run and analysis plan was written and frozen before the runs and computations (SHA-256 '+m.plan_sha.slice(0,12)+'…). S1 was not run as planned: grompp warned that absolute position restraints were being used together with pressure coupling and stopped (exit code '+FDD.codes.S1grompp+'); as planned, no setting was changed and it was not retried, and the result is shown as it is. md.log line counts were made only for correct run 2, S2 and S3. Temperature and volume were computed with gmx energy, and checked with gmx dump -e; RMSD and Rg with MDAnalysis, checked with gmx rms and gmx gyrate; H-bonds with the MD-INT definition (3.5 Å, 150°). Independent audit: '+nPoss(String(m.audit_ok))+' of '+m.audit_n+' comparisons passed thresholds written in advance. Comparison that could not be done: a second computation, with MDAnalysis, of the atoms displaced most in the L5 crash frames; the huge displacements overflowed the fixed-width coordinate fields of the PDB file (run-together numbers such as \"4.500-11\") and MDAnalysis could not read the file. These values were computed only with numpy, parsing the lines with a regular expression. Three bugs found in the analysis code before the results were final were fixed (the trajectory rewinding inside a loop, the order of energy columns, the minimum image in a triclinic box); details are in DEVIATIONS.md.</p>'+"
+  ],
+  [
+   "'<p><b>Öğretim modeli.</b> Western blot köprüsü tarayıcıda çalışan kurallı bir modeldir: dört gizli nedenden biri rastgele seçilir ve her denetimin sonucu nedene göre önceden yazılmış bir kuralla belirlenir. Gerçek bir deney ya da ölçüm değildir.</p>'+",
+   "'<p><b>Teaching model.</b> The western blot bridge is a rule-based model running in the browser: one of four hidden causes is chosen at random, and the outcome of each check follows a rule written in advance for that cause. It is not a real experiment or measurement.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Her bozulma bir kez, tek bir sistemde denendi; aynı hata başka bir sistemde başka bir mesajla görünebilir. Sessiz vakalarda karar eşiği önceden yazılmadı; tablo yalnız karşılaştırmadır. Dengeleme mdp\\'sinden kopyalanmış (refcoord_scaling içeren) bir üretim dosyasında konum kısıtının sessizce açık kalması, zaman adımı kaynaklı çökme (MD-DT\\'nin konusu), daha uzun koşular, fosfoserin parametrizasyonu, HIP sisteminin iyonla nötrlenmesi, GPU ve paralel çalışma hataları, dosya sistemi ve kesinti hataları: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> Each corruption was tried once, in a single system; the same error may appear with a different message in another system. No decision threshold was written in advance for the silent cases; the table is only a comparison. A position restraint silently left on in a production file copied from the equilibration mdp (with refcoord_scaling), a time-step crash (the subject of MD-DT), longer runs, phosphoserine parametrization, neutralizing the HIP system with ions, GPU and parallel-run errors, file system and interruption errors: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('fwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('fwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('fscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('fscore').textContent='Answered: '+n+' / '+QZ.length+' · right on the first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start-up ---------- */"
+  ],
+  [
+   "['fc0','fc1','fc2','fc3','fc4','fc5','fc6','fc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['fc0','fc1','fc2','fc3','fc4','fc5','fc6','fc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDFAIL={SI:SI,LQ:LQ,BQ:BQ,WB:WB,LC:LC,FOUND:FOUND,i16:i16,arrMean:arrMean,arrSD:arrSD,wbOutcome:wbOutcome}; /* sınama için */",
+   "window.MDFAIL={SI:SI,LQ:LQ,BQ:BQ,WB:WB,LC:LC,FOUND:FOUND,i16:i16,arrMean:arrMean,arrSD:arrSD,wbOutcome:wbOutcome}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "ps",
+  "Å",
+  "Rg",
+  "RMSD",
+  "RMSF",
+  "(yok)",
+  "Film",
+  "Ponceau S",
+  "S2 · ref_t = 30"
+ ]
+}

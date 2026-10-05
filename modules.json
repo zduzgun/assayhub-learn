@@ -817,6 +817,45 @@
       },
       "path": "md/md-int/",
       "source": "sources/MD-INT.html"
+    },
+    {
+      "id": "MD-FAIL",
+      "app": "md",
+      "level": "orta",
+      "title": "Koşu durdu mu, sessizce yanlış mı bitti: simülasyon başarısız olduğunda",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH12",
+      "goals": [
+        "Hata mesajını okumak: belirti ile neden (beş gerçek grompp ve mdrun hatası)",
+        "Uyarıyı susturmak sorunu çözmez: net yük ve -maxwarn",
+        "0. adımda çökme: çakışık atomlar ve minimizasyon",
+        "Sessiz hatalar: ref_t yazım hatası ve eksik çözücü uyarısız biter",
+        "Bitti demek doğru demek değil: beklenen değerle ve doğru kurulumla karşılaştırma"
+      ],
+      "data": [
+        "Bu modül için GROMACS 2023.3 koşuları: MD-MET'in 1UBQ ubikitin hazırlığından beş gürültülü bozulma ve düzeltmeleri, üç 200 ps sessiz vaka; karşılaştırma için MD-MET'in üç bağımsız koşusu (0 ile 200 ps). Kristal yapı PDB 1UBQ (CC0 1.0)",
+        "Koşu ve analiz planı koşulardan önce donduruldu; western blot köprüsü tarayıcıda çalışan kurallı öğretim modelidir"
+      ],
+      "notice": null,
+      "en": {
+        "title": "Did the run stop, or silently finish wrong: when a simulation fails",
+        "book": "CH12",
+        "goals": [
+          "Reading an error message: symptom and cause (five real grompp and mdrun errors)",
+          "Silencing a warning does not fix the problem: net charge and -maxwarn",
+          "A crash at step 0: overlapping atoms and minimization",
+          "Silent errors: a ref_t typo and missing solvent finish without warnings",
+          "Finished does not mean right: comparison with expected values and a correct setup"
+        ],
+        "data": [
+          "GROMACS 2023.3 runs made for this module: five loud corruptions of the MD-MET 1UBQ ubiquitin preparation with their fixes, three 200 ps silent cases; for comparison three independent MD-MET runs (0 to 200 ps). Crystal structure PDB 1UBQ (CC0 1.0)",
+          "The run and analysis plan was frozen before the runs; the western blot bridge is a rule-based teaching model running in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-fail/",
+      "source": "sources/MD-FAIL.html"
     }
   ]
 }
