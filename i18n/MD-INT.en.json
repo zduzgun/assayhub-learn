@@ -1,0 +1,712 @@
+{
+ "module": "MD-INT",
+ "lang": "en",
+ "source_sha256": "2340e3f5651febaaf3748e0c72c3928b53bf3b092c89c9a3b62ac83ca53f63aa",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-INT 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Temas, solvatasyon, etkileşim</title>",
+   "<title>MD: Contacts, solvation, interactions</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"iproto\">Bu modül için üç yeni kısa ubikitin koşusu yapıldı: MD-MET'in üç bağımsız koşusunun her biri 200 ps sürdürüldü ve bu kez su dahil bütün atomlar 0,5 ps'de bir kaydedildi. Ayrıca MD-MET'in yalnız protein kaydeden üç 2 ns koşusu ve MD-REP'in su içindeki sekiz alanin dipeptidi tekrarı kullanıldı. Koşu ve analiz planı koşulardan ve hesaplardan önce yazılıp SHA-256 ile donduruldu; sonuçlar GROMACS araçlarıyla ve ikinci uygulamalarla bağımsız olarak denetlendi. NOE köprüsü tarayıcınızda hesaplanan bir öğretim modelidir. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye yazılır.</div>",
+   "<div class=\"proto\" id=\"iproto\">Three new short ubiquitin runs were made for this module: each of the three independent MD-MET runs was continued for 200 ps, this time saving all atoms including water every 0.5 ps. The three protein-only 2 ns runs of MD-MET and the eight MD-REP replicas of alanine dipeptide in water were also used. The run and analysis plan was written before the runs and computations and frozen with SHA-256; the results were checked independently with GROMACS tools and second implementations. The NOE bridge is a teaching model computed in your browser. Everything that was not computed is marked \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-INT · Temas, solvatasyon, etkileşim</span>",
+   "<span class=\"eyebrow\">MD-INT · Contacts, solvation, interactions</span>"
+  ],
+  [
+   "<h1>Etkileşim bir eşik tanımıdır</h1>",
+   "<h1>An interaction is a threshold definition</h1>"
+  ],
+  [
+   "<p class=\"lead\">\"Bu iki kalıntı arasında bir hidrojen bağı var\", \"bu tuz köprüsü korunuyor\", \"bu kalıntı gömülü\", \"karbonilin çevresinde iki su var\". Bu cümlelerin her biri bir mesafe, bir açı, bir kesme ya da bir sonda yarıçapıyla yazılmış bir tanıma dayanır ve sayı bu tanımla değişir. Bir etkileşimin ömrü de kayıt aralığına bağlıdır. Temas enerji değildir; sık görülen bir temas da kendi başına kararlılık ya da işlev göstermez. Bu sayfada bu tanımları gerçek koşularla sınayacaksınız.</p>",
+   "<p class=\"lead\">\"There is a hydrogen bond between these two residues\", \"this salt bridge is maintained\", \"this residue is buried\", \"there are two waters around the carbonyl\". Each of these sentences rests on a definition written with a distance, an angle, a cutoff or a probe radius, and the number changes with that definition. The lifetime of an interaction also depends on the saving interval. A contact is not an energy; a frequently seen contact does not by itself show stability or function. On this page you will test these definitions with real runs.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"iprogN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"iprogN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"ih0\">NMR NOE: hangi mesafeyi görür?</h2>",
+   "<h2 id=\"ih0\">NMR NOE: which distance does it see?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>NOE şiddeti iki proton arasındaki uzaklığın altıncı kuvvetiyle ters orantılıdır ve zaman içinde ⟨r⁻⁶⟩ olarak ortalanır. Bir çift zamanının çoğunu uzakta, küçük bir kısmını yakında geçiriyorsa ne olur? Aşağıdaki model iki uzaklık arasında gidip gelen bir çifti tarayıcınızda üretir: yakın durum 3,0 Å, uzak durumun uzaklığını ve yakın durumda geçen payı siz seçersiniz. Ortalama uzaklık ile NOE'nin \"gördüğü\" etkin uzaklık r<sub>etkin</sub> = ⟨r⁻⁶⟩<sup>−1/6</sup> karşılaştırılır; NOE genellikle 5 Å'un altında ölçülebilir kabul edilir.</p></div>",
+   "<div class=\"prose\"><p>The NOE intensity is inversely proportional to the sixth power of the distance between two protons and is averaged over time as ⟨r⁻⁶⟩. What happens if a pair spends most of its time far apart and a small part of it close together? The model below generates, in your browser, a pair that switches between two distances: the near state is 3.0 Å, and you choose the distance of the far state and the fraction of time spent in the near state. The mean distance is compared with the effective distance the NOE \"sees\", r<sub>eff</sub> = ⟨r⁻⁶⟩<sup>−1/6</sup>; NOEs are generally considered measurable below 5 Å.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><label for=\"ibf\">Yakın durumda geçen pay: <b id=\"ibfv\">%10</b></label><input type=\"range\" id=\"ibf\" min=\"0\" max=\"50\" step=\"1\" value=\"10\"><label for=\"ibr\">Uzak durum: <b id=\"ibrv\">7,0</b> Å</label><input type=\"range\" id=\"ibr\" min=\"40\" max=\"100\" step=\"5\" value=\"70\"><button type=\"button\" class=\"btn\" id=\"ibnew\">Yeni iz</button></div>",
+   "<div class=\"selrow\"><label for=\"ibf\">Fraction of time in the near state: <b id=\"ibfv\">10%</b></label><input type=\"range\" id=\"ibf\" min=\"0\" max=\"50\" step=\"1\" value=\"10\"><label for=\"ibr\">Far state: <b id=\"ibrv\">7.0</b> Å</label><input type=\"range\" id=\"ibr\" min=\"40\" max=\"100\" step=\"5\" value=\"70\"><button type=\"button\" class=\"btn\" id=\"ibnew\">New trace</button></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ibridge\" class=\"plot\" aria-label=\"Öğretim modeli: iki uzaklık arasında gidip gelen proton çifti\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"ibridge\" class=\"plot\" aria-label=\"Teaching model: a proton pair switching between two distances\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic0\"><span class=\"k\">Açık</span><h3>Ortalama hangi ortalama?</h3><p>Yakın durum payını en az üç değerde deneyin.</p><div class=\"mine\" id=\"mic0\"></div></article>",
+   "<article class=\"q\" id=\"ic0\"><span class=\"k\">Open</span><h3>Which average is the average?</h3><p>Try the near-state fraction at three values or more.</p><div class=\"mine\" id=\"mic0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: hidrojen bağı ve tuz köprüsü</span>",
+   "<span class=\"step\">1 · Workshop: hydrogen bonds and salt bridges</span>"
+  ],
+  [
+   "<h2 id=\"ih1\">Ubikitin: aynı koşu, dört H-bağı tanımı</h2>",
+   "<h2 id=\"ih1\">Ubiquitin: the same run, four H-bond definitions</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>MD-MET'in üç bağımsız ubikitin koşusunda (200 ile 2000 ps, koşu başına 901 kare) bütün protein içi hidrojen bağları dört tanımla sayıldı: verici ile alıcı arası uzaklık en çok 3,0 ya da 3,5 Å, verici-H···alıcı açısı en az 150° ya da 120°. Bir çiftin \"kararlı\" sayılması için kullanılan oluşma sıklığı eşiği (%50 ya da %90) de bir tanımdır.</p></div>",
+   "<div class=\"prose\"><p>In the three independent ubiquitin runs of MD-MET (200 to 2000 ps, 901 frames per run) all intra-protein hydrogen bonds were counted with four definitions: donor-acceptor distance at most 3.0 or 3.5 Å, donor-H···acceptor angle at least 150° or 120°. The occupancy threshold used to call a pair \"stable\" (50% or 90%) is also a definition.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Tanım:</span><div class=\"seg\" role=\"group\" aria-label=\"H-bağı tanımı\" id=\"ihd\"><button type=\"button\" data-v=\"3.0_150\" aria-pressed=\"true\">3,0 Å · 150°</button><button type=\"button\" data-v=\"3.0_120\" aria-pressed=\"false\">3,0 Å · 120°</button><button type=\"button\" data-v=\"3.5_150\" aria-pressed=\"false\">3,5 Å · 150°</button><button type=\"button\" data-v=\"3.5_120\" aria-pressed=\"false\">3,5 Å · 120°</button></div></div>",
+   "<div class=\"selrow\"><span>Definition:</span><div class=\"seg\" role=\"group\" aria-label=\"H-bond definition\" id=\"ihd\"><button type=\"button\" data-v=\"3.0_150\" aria-pressed=\"true\">3.0 Å · 150°</button><button type=\"button\" data-v=\"3.0_120\" aria-pressed=\"false\">3.0 Å · 120°</button><button type=\"button\" data-v=\"3.5_150\" aria-pressed=\"false\">3.5 Å · 150°</button><button type=\"button\" data-v=\"3.5_120\" aria-pressed=\"false\">3.5 Å · 120°</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ihbt\" class=\"plot\" aria-label=\"Kare başına H-bağı sayısı, üç koşu\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"ihbt\" class=\"plot\" aria-label=\"Number of H-bonds per frame, three runs\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Tuz köprüleri: eşik ve koşu</h3>",
+   "<h3 class=\"sub\">Salt bridges: threshold and run</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her katyon ile anyon kalıntısı çifti için kare başına en küçük N···O uzaklığı hesaplandı (Lys NZ, Arg NE/NH1/NH2, N-uç; Asp ve Glu karboksil oksijenleri, C-uç). Listede 4,0 Å eşiğinde herhangi bir koşuda zamanın en az %10'unda oluşan çiftler var. Eşiği kaydırın; sıklık tarayıcınızda yeniden hesaplanır.</p></div>",
+   "<div class=\"prose\"><p>For each pair of cationic and anionic residues the minimum N···O distance per frame was computed (Lys NZ, Arg NE/NH1/NH2, N-terminus; Asp and Glu carboxyl oxygens, C-terminus). The list contains the pairs present at least 10% of the time in any run at a 4.0 Å threshold. Move the threshold; the occupancy is recomputed in your browser.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><label for=\"isbp\">Çift:</label><select id=\"isbp\" class=\"pick\"></select><label for=\"isbc\">Eşik: <b id=\"isbcv\">4,0</b> Å</label><input type=\"range\" id=\"isbc\" min=\"25\" max=\"80\" step=\"1\" value=\"40\"></div>",
+   "<div class=\"selrow\"><label for=\"isbp\">Pair:</label><select id=\"isbp\" class=\"pick\"></select><label for=\"isbc\">Threshold: <b id=\"isbcv\">4.0</b> Å</label><input type=\"range\" id=\"isbc\" min=\"25\" max=\"80\" step=\"1\" value=\"40\"></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"isbt\" class=\"plot\" aria-label=\"Seçili tuz köprüsünün en küçük N···O uzaklığı, üç koşu\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"isbt\" class=\"plot\" aria-label=\"Minimum N···O distance of the selected salt bridge, three runs\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic1\"><span class=\"k\">Açık</span><h3>Kaç H-bağı var?</h3><p>Dört tanımın hepsine bakın.</p><div class=\"mine\" id=\"mic1\"></div></article>",
+   "<article class=\"q\" id=\"ic1\"><span class=\"k\">Open</span><h3>How many H-bonds are there?</h3><p>Look at all four definitions.</p><div class=\"mine\" id=\"mic1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic2\"><span class=\"k\">Açık</span><h3>Bir tuz köprüsü \"korunuyor\" mu?</h3><p>En az üç çifte ve iki eşiğe bakın.</p><div class=\"mine\" id=\"mic2\"></div></article>",
+   "<article class=\"q\" id=\"ic2\"><span class=\"k\">Open</span><h3>Is a salt bridge \"maintained\"?</h3><p>Look at at least three pairs and two thresholds.</p><div class=\"mine\" id=\"mic2\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye: temas, doğal temas oranı ve SASA</span>",
+   "<span class=\"step\">2 · Workshop: contacts, fraction of native contacts and SASA</span>"
+  ],
+  [
+   "<h2 id=\"ih2\">Doğal yapının ne kadarı korunuyor? Hangi kalıntı gömülü?</h2>",
+   "<h2 id=\"ih2\">How much of the native structure is maintained? Which residues are buried?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>İki temas tanımı: herhangi iki ağır atom arasında en çok 4,5 Å (C1) ya da Cα ile Cα arasında en çok 8,0 Å (C2); ikisinde de dizide en az üç kalıntı aralık. Doğal temaslar kristal 1UBQ yapısından aynı tanımla çıkarıldı. Haritanın üst üçgeni seçili koşuda temas sıklığını, alt üçgeni kristaldeki doğal temasları gösterir. Doğal temas oranı Q için ayrıca yumuşak bir tanım kullanıldı (Best, Hummer, Eaton 2013).</p></div>",
+   "<div class=\"prose\"><p>Two contact definitions: at most 4.5 Å between any two heavy atoms (C1) or at most 8.0 Å between Cα atoms (C2); in both, at least three residues apart in sequence. Native contacts were extracted from the 1UBQ crystal structure with the same definition. The upper triangle of the map shows contact occupancy in the selected run, the lower triangle the native contacts in the crystal. A soft definition was also used for the fraction of native contacts Q (Best, Hummer, Eaton 2013).</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Tanım:</span><div class=\"seg\" role=\"group\" aria-label=\"Temas tanımı\" id=\"icd\"><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">C1 · ağır atom 4,5 Å</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">C2 · Cα 8,0 Å</button></div><span>Koşu:</span><div class=\"seg\" role=\"group\" aria-label=\"Koşu\" id=\"icr\"><button type=\"button\" data-v=\"R1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"R2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"R3\" aria-pressed=\"false\">3</button></div></div>",
+   "<div class=\"selrow\"><span>Definition:</span><div class=\"seg\" role=\"group\" aria-label=\"Contact definition\" id=\"icd\"><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">C1 · heavy atom 4.5 Å</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">C2 · Cα 8.0 Å</button></div><span>Run:</span><div class=\"seg\" role=\"group\" aria-label=\"Run\" id=\"icr\"><button type=\"button\" data-v=\"R1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"R2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"R3\" aria-pressed=\"false\">3</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"icmap\" class=\"plot\" aria-label=\"76 × 76 temas haritası; üstte koşudaki sıklık, altta kristal\"></canvas></div><dl class=\"read\" id=\"icread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"icmap\" class=\"plot\" aria-label=\"76 × 76 contact map; occupancy in the run above, crystal below\"></canvas></div><dl class=\"read\" id=\"icread\"></dl></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"iqt\" class=\"plot\" aria-label=\"Seçili koşuda üç Q tanımı zamanla\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"iqt\" class=\"plot\" aria-label=\"Three Q definitions over time in the selected run\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Çözücüye açık yüzey alanı (SASA)</h3>",
+   "<h3 class=\"sub\">Solvent accessible surface area (SASA)</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kalıntı başına SASA <code>gmx sasa</code> ile üç sonda yarıçapında, her koşuda her 10 ps'de bir hesaplandı; kristal yapı (pdb2gmx hidrojenleriyle) da aynı biçimde. \"Gömülü\" demek için mutlak bir eşik seçin.</p></div>",
+   "<div class=\"prose\"><p>Per-residue SASA was computed with <code>gmx sasa</code> at three probe radii, every 10 ps in each run; the crystal structure (with pdb2gmx hydrogens) in the same way. Choose an absolute threshold for calling a residue \"buried\".</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Sonda:</span><div class=\"seg\" role=\"group\" aria-label=\"Sonda yarıçapı\" id=\"isp\"><button type=\"button\" data-v=\"0.1\" aria-pressed=\"false\">0,10 nm</button><button type=\"button\" data-v=\"0.14\" aria-pressed=\"true\">0,14 nm</button><button type=\"button\" data-v=\"0.2\" aria-pressed=\"false\">0,20 nm</button></div><label for=\"isat\">Gömülü eşiği: <b id=\"isatv\">10</b> Å²</label><input type=\"range\" id=\"isat\" min=\"2\" max=\"30\" step=\"1\" value=\"10\"></div>",
+   "<div class=\"selrow\"><span>Probe:</span><div class=\"seg\" role=\"group\" aria-label=\"Probe radius\" id=\"isp\"><button type=\"button\" data-v=\"0.1\" aria-pressed=\"false\">0.10 nm</button><button type=\"button\" data-v=\"0.14\" aria-pressed=\"true\">0.14 nm</button><button type=\"button\" data-v=\"0.2\" aria-pressed=\"false\">0.20 nm</button></div><label for=\"isat\">Buried threshold: <b id=\"isatv\">10</b> Å²</label><input type=\"range\" id=\"isat\" min=\"2\" max=\"30\" step=\"1\" value=\"10\"></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"isasa\" class=\"plot\" aria-label=\"Kalıntı başına SASA, üç koşu ve kristal\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"isasa\" class=\"plot\" aria-label=\"Per-residue SASA, three runs and the crystal\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic3\"><span class=\"k\">Açık</span><h3>Q bir tanımdır</h3><p>İki temas tanımına ve en az iki koşuya bakın.</p><div class=\"mine\" id=\"mic3\"></div></article>",
+   "<article class=\"q\" id=\"ic3\"><span class=\"k\">Open</span><h3>Q is a definition</h3><p>Look at both contact definitions and at least two runs.</p><div class=\"mine\" id=\"mic3\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic4\"><span class=\"k\">Açık</span><h3>Gömülü kalıntı sayısı</h3><p>En az iki sonda ve iki eşik deneyin.</p><div class=\"mine\" id=\"mic4\"></div></article>",
+   "<article class=\"q\" id=\"ic4\"><span class=\"k\">Open</span><h3>Number of buried residues</h3><p>Try at least two probes and two thresholds.</p><div class=\"mine\" id=\"mic4\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Atölye: çözücü kabuğu</span>",
+   "<span class=\"step\">3 · Workshop: solvation shell</span>"
+  ],
+  [
+   "<h2 id=\"ih3\">Kaç su \"yakında\"? Bir su bağı ne kadar yaşar?</h2>",
+   "<h2 id=\"ih3\">How many waters are \"nearby\"? How long does a water bond live?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Su içindeki alanin dipeptidinin sekiz bağımsız tekrarında (MD-REP, 200 ile 2000 ps, 1 ps kayıt) iki karbonil oksijeni ile su oksijenleri arasındaki radyal dağılım fonksiyonu g(r) hesaplandı. İlk kabuktaki su sayısı seçtiğiniz kesme mesafesine bağlıdır; g(r)'nin ilk minimumu yaygın bir seçimdir ama o da bir tanımdır.</p></div>",
+   "<div class=\"prose\"><p>In eight independent replicas of alanine dipeptide in water (MD-REP, 200 to 2000 ps, 1 ps saving) the radial distribution function g(r) between the two carbonyl oxygens and the water oxygens was computed. The number of waters in the first shell depends on the cutoff you choose; the first minimum of g(r) is a common choice, but it is also a definition.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><label for=\"irc\">Kesme: <b id=\"ircv\">3,3</b> Å</label><input type=\"range\" id=\"irc\" min=\"25\" max=\"50\" step=\"1\" value=\"33\"></div>",
+   "<div class=\"selrow\"><label for=\"irc\">Cutoff: <b id=\"ircv\">3.3</b> Å</label><input type=\"range\" id=\"irc\" min=\"25\" max=\"50\" step=\"1\" value=\"33\"></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"irdf\" class=\"plot\" aria-label=\"Karbonil O ile su O arası g(r), sekiz tekrar\"></canvas></div><dl class=\"read\" id=\"irread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"irdf\" class=\"plot\" aria-label=\"g(r) between carbonyl O and water O, eight replicas\"></canvas></div><dl class=\"read\" id=\"irread\"></dl></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Su ile kurulan H-bağının ömrü</h3>",
+   "<h3 class=\"sub\">Lifetime of the hydrogen bond with water</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Su O-H vericisi ile karbonil O alıcısı arasındaki H-bağları Atölye 1'in dört tanımıyla sayıldı. Sürekli yaşam fonksiyonu C<sub>c</sub>(τ) aynı bağın τ boyunca hiç kopmadan sürme olasılığıdır; aralıklı C<sub>i</sub>(τ) bağın τ sonra yeniden var olma olasılığıdır. Ömür, eğrinin 0 ile 50 ps arasındaki alanıdır. Aynı veriyi 1, 2 ve 5 ps'de bir okuyarak kayıt aralığının etkisini görün.</p></div>",
+   "<div class=\"prose\"><p>H-bonds between a water O-H donor and a carbonyl O acceptor were counted with the four definitions of Workshop 1. The continuous survival function C<sub>c</sub>(τ) is the probability that the same bond lasts for τ without breaking; the intermittent C<sub>i</sub>(τ) is the probability that the bond exists again after τ. The lifetime is the area under the curve between 0 and 50 ps. Read the same data every 1, 2 and 5 ps to see the effect of the saving interval.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Tanım:</span><div class=\"seg\" role=\"group\" aria-label=\"H-bağı tanımı\" id=\"ild\"><button type=\"button\" data-v=\"3.0_150\" aria-pressed=\"false\">3,0 Å · 150°</button><button type=\"button\" data-v=\"3.0_120\" aria-pressed=\"false\">3,0 Å · 120°</button><button type=\"button\" data-v=\"3.5_150\" aria-pressed=\"true\">3,5 Å · 150°</button><button type=\"button\" data-v=\"3.5_120\" aria-pressed=\"false\">3,5 Å · 120°</button></div><span>Okuma aralığı:</span><div class=\"seg\" role=\"group\" aria-label=\"Okuma aralığı\" id=\"ilk\"><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">1 ps</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">2 ps</button><button type=\"button\" data-v=\"5\" aria-pressed=\"false\">5 ps</button></div></div>",
+   "<div class=\"selrow\"><span>Definition:</span><div class=\"seg\" role=\"group\" aria-label=\"H-bond definition\" id=\"ild\"><button type=\"button\" data-v=\"3.0_150\" aria-pressed=\"false\">3.0 Å · 150°</button><button type=\"button\" data-v=\"3.0_120\" aria-pressed=\"false\">3.0 Å · 120°</button><button type=\"button\" data-v=\"3.5_150\" aria-pressed=\"true\">3.5 Å · 150°</button><button type=\"button\" data-v=\"3.5_120\" aria-pressed=\"false\">3.5 Å · 120°</button></div><span>Reading interval:</span><div class=\"seg\" role=\"group\" aria-label=\"Reading interval\" id=\"ilk\"><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">1 ps</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">2 ps</button><button type=\"button\" data-v=\"5\" aria-pressed=\"false\">5 ps</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ilife\" class=\"plot\" aria-label=\"Sürekli ve aralıklı yaşam fonksiyonları\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"ilife\" class=\"plot\" aria-label=\"Continuous and intermittent survival functions\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Proteine dönüş: ubikitinin hidrasyonu ve su köprüleri</h3>",
+   "<h3 class=\"sub\">Return to the protein: hydration and water bridges of ubiquitin</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Üç yeni 200 ps ubikitin koşusunda (0,5 ps kayıt, su dahil) kalıntı başına ilk kabuk suyu (su O'su kalıntının bir ağır atomuna en çok 3,5 Å) ve aynı karelerde SASA hesaplandı. Bir su molekülü aynı karede iki farklı kalıntıyla H-bağı kuruyorsa (3,5 Å, 150°) bu iki kalıntı arasında su köprüsü sayıldı.</p></div>",
+   "<div class=\"prose\"><p>In the three new 200 ps ubiquitin runs (0.5 ps saving, water included) the first-shell waters per residue (water O within 3.5 Å of a heavy atom of the residue) and the SASA in the same frames were computed. When a water molecule forms H-bonds with two different residues in the same frame (3.5 Å, 150°), a water bridge was counted between those two residues.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Koşu:</span><div class=\"seg\" role=\"group\" aria-label=\"Su koşusu\" id=\"iwr\"><button type=\"button\" data-v=\"W1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"W2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"W3\" aria-pressed=\"false\">3</button></div></div>",
+   "<div class=\"selrow\"><span>Run:</span><div class=\"seg\" role=\"group\" aria-label=\"Water run\" id=\"iwr\"><button type=\"button\" data-v=\"W1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"W2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"W3\" aria-pressed=\"false\">3</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"ishell\" class=\"plot\" aria-label=\"Kalıntı başına ilk kabuk suyu ile SASA\"></canvas></div><dl class=\"read\" id=\"iwread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"ishell\" class=\"plot\" aria-label=\"First-shell waters per residue against SASA\"></canvas></div><dl class=\"read\" id=\"iwread\"></dl></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic5\"><span class=\"k\">Açık</span><h3>Kabuk kesmeyle büyür</h3><p>En az üç kesme mesafesi deneyin ve ubikitin görünümüne bakın.</p><div class=\"mine\" id=\"mic5\"></div></article>",
+   "<article class=\"q\" id=\"ic5\"><span class=\"k\">Open</span><h3>The shell grows with the cutoff</h3><p>Try at least three cutoff distances and look at the ubiquitin view.</p><div class=\"mine\" id=\"mic5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic6\"><span class=\"k\">Açık</span><h3>Ömür kayıt aralığına bağlı</h3><p>Üç okuma aralığını ve iki tanımı karşılaştırın.</p><div class=\"mine\" id=\"mic6\"></div></article>",
+   "<article class=\"q\" id=\"ic6\"><span class=\"k\">Open</span><h3>The lifetime depends on the saving interval</h3><p>Compare the three reading intervals and two definitions.</p><div class=\"mine\" id=\"mic6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Tezgâh: iddia denetleyici</span>",
+   "<span class=\"step\">4 · Bench: claim checker</span>"
+  ],
+  [
+   "<h2 id=\"ih4\">Altı cümle: bu veriyle kurulabilir mi?</h2>",
+   "<h2 id=\"ih4\">Six sentences: do these data support them?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Seçiminizden sonra gerekçe ve ilgili sonuç görünür.</p></div>",
+   "<div class=\"prose\"><p>Decide for each sentence: supported by the data on this page, needs more evidence, or not supported by these data. After your choice the rationale and the relevant result appear.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ic7\"><span class=\"k\">Açık</span><h3>Temastan kararlılığa</h3><p>En az dört cümle için karar verin.</p><div class=\"mine\" id=\"mic7\"></div></article>",
+   "<article class=\"q\" id=\"ic7\"><span class=\"k\">Open</span><h3>From contact to stability</h3><p>Decide on at least four sentences.</p><div class=\"mine\" id=\"mic7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">5 · Defter: etkileşim tanımı kaydı</span>",
+   "<span class=\"step\">5 · Notebook: interaction definition record</span>"
+  ],
+  [
+   "<h2 id=\"ih5\">Sonuçtan önce yazılan altı satır</h2>",
+   "<h2 id=\"ih5\">Six lines written before the results</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Etkileşim tanımları sonuçlar görülmeden yazılır. Kendi çalışmanız için doldurun; örnekler bu sayfadan. Metin yalnız tarayıcınızda oluşturulur, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>Interaction definitions are written before the results are seen. Fill them in for your own study; the examples come from this page. The text is created only in your browser and is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>H-bağı tanımı (uzaklık, açı, verici ve alıcılar)<textarea id=\"ifd\" rows=\"2\">Örnek: verici ile alıcı arası en çok 3,5 Å, verici-H···alıcı açısı en az 150°; vericiler H taşıyan N ve O, alıcılar bütün O.</textarea></label>",
+   "<label>H-bond definition (distance, angle, donors and acceptors)<textarea id=\"ifd\" rows=\"2\">Example: donor-acceptor distance at most 3.5 Å, donor-H···acceptor angle at least 150°; donors N and O carrying H, acceptors all O.</textarea></label>"
+  ],
+  [
+   "<label>Tuz köprüsü ve temas tanımı (atomlar, eşik)<textarea id=\"ifc\" rows=\"2\">Örnek: Lys NZ, Arg NE/NH1/NH2 ile Asp/Glu karboksil O arasında en küçük uzaklık en çok 4,0 Å; temas: ağır atomlar en çok 4,5 Å, |i − j| ≥ 3.</textarea></label>",
+   "<label>Salt-bridge and contact definition (atoms, threshold)<textarea id=\"ifc\" rows=\"2\">Example: minimum distance between Lys NZ, Arg NE/NH1/NH2 and Asp/Glu carboxyl O at most 4.0 Å; contact: heavy atoms at most 4.5 Å, |i − j| ≥ 3.</textarea></label>"
+  ],
+  [
+   "<label>\"Kararlı\" ya da \"korunuyor\" eşiği ve tekrarlar<textarea id=\"ifk\" rows=\"2\">Örnek: oluşma sıklığı en az %50; üç bağımsız koşunun her biri ayrı raporlanır.</textarea></label>",
+   "<label>\"Stable\" or \"maintained\" threshold and replicas<textarea id=\"ifk\" rows=\"2\">Example: occupancy at least 50%; each of three independent runs reported separately.</textarea></label>"
+  ],
+  [
+   "<label>SASA ve gömülülük (sonda, eşik)<textarea id=\"ifs\" rows=\"2\">Örnek: gmx sasa, sonda 0,14 nm; gömülü: kalıntı SASA'sı 10 Å²'den küçük.</textarea></label>",
+   "<label>SASA and burial (probe, threshold)<textarea id=\"ifs\" rows=\"2\">Example: gmx sasa, probe 0.14 nm; buried: residue SASA below 10 Å².</textarea></label>"
+  ],
+  [
+   "<label>Çözücü kabuğu ve ömür (kesme, kayıt aralığı, ömür tanımı)<textarea id=\"ifw\" rows=\"2\">Örnek: kesme g(r)'nin ilk minimumu; kayıt aralığı 0,5 ps; sürekli ve aralıklı ömür ikisi birden.</textarea></label>",
+   "<label>Solvation shell and lifetime (cutoff, saving interval, lifetime definition)<textarea id=\"ifw\" rows=\"2\">Example: cutoff at the first minimum of g(r); saving interval 0.5 ps; continuous and intermittent lifetime both.</textarea></label>"
+  ],
+  [
+   "<label>Kurulmayacak cümleler<textarea id=\"ifn\" rows=\"2\">Örnek: sık görülen bir teması \"kararlı kılar\" ya da \"işlev için gerekli\" diye adlandırmak; bunlar enerji, mutasyon ya da deney ister.</textarea></label>",
+   "<label>Sentences not to be made<textarea id=\"ifn\" rows=\"2\">Example: calling a frequent contact \"stabilising\" or \"required for function\"; these need energies, mutations or experiments.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"ifcopy\">Metni kopyala</button><span class=\"small\" id=\"ifmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"ifcopy\">Copy text</button><span class=\"small\" id=\"ifmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">6 · Sınav</span>",
+   "<span class=\"step\">6 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"ih6\">Altı soru</h2>",
+   "<h2 id=\"ih6\">Six questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('iprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('iprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== deneysel köprü: NMR NOE (öğretim modeli) ===== */",
+   "/* ===== experimental bridge: NMR NOE (teaching model) ===== */"
+  ],
+  [
+   "/* model: iki durumlu Markov süreci; yakın durum 3,0 Å, uzak durum r_uzak; yakından çıkış olasılığı adım başına 0,05; durağan yakın payı f; üstüne 0,2 Å Gauss oynaması */",
+   "/* model: two-state Markov process; near state 3.0 Å, far state r_far; probability of leaving the near state 0.05 per step; stationary near fraction f; 0.2 Å Gaussian jitter on top */"
+  ],
+  [
+   "var p=plot(g,48,12,W-68,H-56,[0,NB.N],[2,10.5],{ylabPad:33,xticks:[0,500,1000,1500,2000],yticks:[2,4,6,8,10],xlab:'zaman (adım)',ylab:'uzaklık (Å)'});",
+   "var p=plot(g,48,12,W-68,H-56,[0,NB.N],[2,10.5],{ylabPad:33,xticks:[0,500,1000,1500,2000],yticks:[2,4,6,8,10],xlab:'time (step)',ylab:'distance (Å)'});"
+  ],
+  [
+   "$('ibread').innerHTML=dl('Ortalama uzaklık ⟨r⟩ (siyah kesikli)',fx(S.mean,2)+' Å')+dl('NOE etkin uzaklığı ⟨r⁻⁶⟩<sup>−1/6</sup> (kızıl)',fx(S.eff,2)+' Å')+dl('Bu izde 4 Å\\'dan yakın geçen pay',pct(S.fc,1))+dl('NOE ölçülebilir mi? (etkin uzaklık 5 Å\\'un altında, yeşil bant)',S.eff<5?'evet':'hayır');",
+   "$('ibread').innerHTML=dl('Mean distance ⟨r⟩ (black dashed)',fx(S.mean,2)+' Å')+dl('NOE effective distance ⟨r⁻⁶⟩<sup>−1/6</sup> (red)',fx(S.eff,2)+' Å')+dl('Fraction of this trace closer than 4 Å',pct(S.fc,1))+dl('Is an NOE measurable? (effective distance below 5 Å, green band)',S.eff<5?'yes':'no');"
+  ],
+  [
+   "card('ic0',true,'Denediğiniz paylarda (yakın durumda geçen zaman → ortalama uzaklık, NOE etkin uzaklığı): '+sel.map(function(f){ var S=NB.seen[f.toFixed(2)]; return pct(f,0)+' → '+fx(S.mean,1)+' Å, '+fx(S.eff,1)+' Å'; }).join('; ')+'. r⁻⁶ ortalaması kısa uzaklıklara çok büyük ağırlık verir: zamanın küçük bir kısmında yakın duran bir çiftin etkin uzaklığı ortalama uzaklığından çok daha kısadır ve NOE verebilir. \"Ortalama yapıda yakın mı?\", \"ne kadar zaman yakın?\" ve \"NOE verir mi?\" üç farklı sorudur ve üç farklı ortalama ister. MD\\'de bir etkileşimin oluşma sıklığı da ortalama uzaklıktan farklı bir bilgidir.'); }",
+   "card('ic0',true,'For the fractions you tried (time spent in the near state → mean distance, NOE effective distance): '+sel.map(function(f){ var S=NB.seen[f.toFixed(2)]; return pct(f,0)+' → '+fx(S.mean,1)+' Å, '+fx(S.eff,1)+' Å'; }).join('; ')+'. The r⁻⁶ average gives very large weight to short distances: a pair that is close for a small part of the time has an effective distance much shorter than its mean distance and can give an NOE. \"Is it close in the average structure?\", \"how much of the time is it close?\" and \"does it give an NOE?\" are three different questions and need three different averages. In MD, too, how often an interaction is present is different information from the mean distance.'); }"
+  ],
+  [
+   "else card('ic0',false,'Şimdiye kadar denediğiniz pay sayısı: '+k.length+'. En az üç değer deneyin.'); }",
+   "else card('ic0',false,'Fractions you have tried so far: '+k.length+'. Try at least three values.'); }"
+  ],
+  [
+   "/* ===== atölye 1: H-bağı ve tuz köprüsü (ubikitin, U1) ===== */",
+   "/* ===== workshop 1: hydrogen bonds and salt bridges (ubiquitin, U1) ===== */"
+  ],
+  [
+   "var RUNS=['R1','R2','R3'], RUNL={R1:'koşu 1',R2:'koşu 2',R3:'koşu 3'}, RCOL, DEFL={'3.0_150':'3,0 Å · 150°','3.0_120':'3,0 Å · 120°','3.5_150':'3,5 Å · 150°','3.5_120':'3,5 Å · 120°'}, DEFS=['3.0_150','3.0_120','3.5_150','3.5_120'];",
+   "var RUNS=['R1','R2','R3'], RUNL={R1:'run 1',R2:'run 2',R3:'run 3'}, RCOL, DEFL={'3.0_150':'3.0 Å · 150°','3.0_120':'3.0 Å · 120°','3.5_150':'3.5 Å · 150°','3.5_120':'3.5 Å · 120°'}, DEFS=['3.0_150','3.0_120','3.5_150','3.5_120'];"
+  ],
+  [
+   "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
+   "function fmtI(n){ return new Intl.NumberFormat('en-US').format(n); } function lab(k){ return k.replace('(C-uç)','(C-term)').replace('(N-uç)','(N-term)').replace(' ile ',' and '); }"
+  ],
+  [
+   "var p=plot(g,48,12,W-68,H-56,[200,2000],[0,ym],{ylabPad:33,xticks:[200,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'H-bağı sayısı'});",
+   "var p=plot(g,48,12,W-68,H-56,[200,2000],[0,ym],{ylabPad:33,xticks:[200,500,1000,1500,2000],yticks:yt,xlab:'time (ps)',ylab:'number of H-bonds'});"
+  ],
+  [
+   "$('ihleg').innerHTML=RUNS.map(function(r,k){ return '<span>'+lin(RCOL[k])+RUNL[r]+': ortalama '+fx(IDD.hb.runs[r][HB.def].mean,1)+'</span>'; }).join('')+'<span>tanım '+DEFL[HB.def]+'</span>';",
+   "$('ihleg').innerHTML=RUNS.map(function(r,k){ return '<span>'+lin(RCOL[k])+RUNL[r]+': mean '+fx(IDD.hb.runs[r][HB.def].mean,1)+'</span>'; }).join('')+'<span>definition '+DEFL[HB.def]+'</span>';"
+  ],
+  [
+   "var h='<table class=\"st\"><thead><tr><th>Tanım</th><th>Kare başına ortalama (koşu 1 / 2 / 3)</th><th>Sıklığı ≥ %50 çift</th><th>Sıklığı ≥ %90 çift</th><th>Omurga NH···O, ≥ %50</th></tr></thead><tbody>';",
+   "var h='<table class=\"st\"><thead><tr><th>Definition</th><th>Mean per frame (run 1 / 2 / 3)</th><th>Pairs present ≥ 50%</th><th>Pairs present ≥ 90%</th><th>Backbone NH···O, ≥ 50%</th></tr></thead><tbody>';"
+  ],
+  [
+   "if(n>=4) card('ic1',true,'Koşu 1\\'de kare başına H-bağı sayısı en sıkı tanımla (3,0 Å, 150°) ortalama '+fx(R.R1['3.0_150'].mean,1)+', en gevşek tanımla (3,5 Å, 120°) '+fx(R.R1['3.5_120'].mean,1)+'. Zamanın en az %90\\'ında var olan \"kararlı\" çift sayısı aynı koşuda '+R.R1['3.0_150'].n90+' ile '+R.R1['3.5_120'].n90+' arasında değişiyor; %50 eşiğiyle '+R.R1['3.0_150'].n50+' ile '+R.R1['3.5_120'].n50+'. Aynı tanımla üç koşu birbirine yakın. \"Proteinde N tane H-bağı var\" cümlesi tanım ve sıklık eşiği yazılmadan bir anlam taşımaz.');",
+   "if(n>=4) card('ic1',true,'In run 1 the number of H-bonds per frame averages '+fx(R.R1['3.0_150'].mean,1)+' with the strictest definition (3.0 Å, 150°) and '+fx(R.R1['3.5_120'].mean,1)+' with the loosest (3.5 Å, 120°). The number of \"stable\" pairs present at least 90% of the time ranges from '+R.R1['3.0_150'].n90+' to '+R.R1['3.5_120'].n90+' in the same run; with a 50% threshold, from '+R.R1['3.0_150'].n50+' to '+R.R1['3.5_120'].n50+'. With the same definition the three runs are close. The sentence \"the protein has N hydrogen bonds\" means nothing until the definition and the occupancy threshold are written down.');"
+  ],
+  [
+   "else card('ic1',false,'Şimdiye kadar baktığınız tanım: '+n+' / 4.'); }",
+   "else card('ic1',false,'Definitions you have looked at so far: '+n+' / 4.'); }"
+  ],
+  [
+   "var p=plot(g,48,12,W-68,H-56,[200,2000],[2,12],{ylabPad:33,xticks:[200,500,1000,1500,2000],yticks:[2,4,6,8,10,12],xlab:'zaman (ps)',ylab:'en küçük N···O (Å)'});",
+   "var p=plot(g,48,12,W-68,H-56,[200,2000],[2,12],{ylabPad:33,xticks:[200,500,1000,1500,2000],yticks:[2,4,6,8,10,12],xlab:'time (ps)',ylab:'minimum N···O (Å)'});"
+  ],
+  [
+   "$('isread').innerHTML=dl('Seçili çift',HB.pair)+dl('Eşik '+fx(HB.thr,1)+' Å ile oluşma sıklığı (koşu 1 / 2 / 3)',occ.map(function(v){ return pct(v,0); }).join(' / '))+dl('Önceden hesaplanan (3,2 / 4,0 / 6,0 Å)',RUNS.map(function(r){ return ['3.2','4.0','6.0'].map(function(t){ return pct(O[r][t],0); }).join(', '); }).join(' · '))+dl('Renkler',RUNS.map(function(r,k){ return RUNL[r]; }).join(', ')+' (lacivert, kızıl, yeşil); yeşil bant eşiğin altı');",
+   "$('isread').innerHTML=dl('Selected pair',lab(HB.pair))+dl('Occupancy with a '+fx(HB.thr,1)+' Å threshold (run 1 / 2 / 3)',occ.map(function(v){ return pct(v,0); }).join(' / '))+dl('Precomputed (3.2 / 4.0 / 6.0 Å)',RUNS.map(function(r){ return ['3.2','4.0','6.0'].map(function(t){ return pct(O[r][t],0); }).join(', '); }).join(' · '))+dl('Colours',RUNS.map(function(r,k){ return RUNL[r]; }).join(', ')+' (navy, red, green); green band below the threshold');"
+  ],
+  [
+   "if(nP>=3&&nT>=2) card('ic2',true,'4,0 Å eşiğinde K27-D52 üç koşuda da zamanın neredeyse tamamında var ('+s('K27-D52')+'). K11-E34 '+s('K11-E34')+', R42 ile C-uç '+s('R42-G76(C-uç)')+', R74-D39 '+s('R74-D39')+' (koşu 1 / 2 / 3): aynı protein, aynı hazırlık, farklı başlangıç hızları. Eşik 3,2 Å\\'dan 6,0 Å\\'a çıkınca sıklıklar da değişiyor. \"Bu tuz köprüsü korunuyor\" demek için eşik, sıklık ölçütü ve tekrarlar arası yayılım birlikte yazılır; tek koşu yetmez.');",
+   "if(nP>=3&&nT>=2) card('ic2',true,'With a 4.0 Å threshold K27-D52 is present almost all the time in all three runs ('+s('K27-D52')+'). K11-E34 '+s('K11-E34')+', R42 with the C-terminus '+s('R42-G76(C-uç)')+', R74-D39 '+s('R74-D39')+' (run 1 / 2 / 3): same protein, same preparation, different initial velocities. Occupancies also change when the threshold moves from 3.2 Å to 6.0 Å. To say \"this salt bridge is maintained\", the threshold, the occupancy criterion and the spread between replicas are written together; one run is not enough.');"
+  ],
+  [
+   "else card('ic2',false,'Şimdiye kadar: '+nP+' çift, '+nT+' eşik. En az üç çifte ve iki eşiğe bakın.'); }",
+   "else card('ic2',false,'So far: '+nP+' pairs, '+nT+' thresholds. Look at at least three pairs and two thresholds.'); }"
+  ],
+  [
+   "var sel=$('isbp'); sel.innerHTML=IDD.sb.pairs.map(function(k){ return '<option value=\"'+k+'\">'+k+'</option>'; }).join('');",
+   "var sel=$('isbp'); sel.innerHTML=IDD.sb.pairs.map(function(k){ return '<option value=\"'+k+'\">'+lab(k)+'</option>'; }).join('');"
+  ],
+  [
+   "/* ===== atölye 2: temas, Q ve SASA (ubikitin, U1) ===== */",
+   "/* ===== workshop 2: contacts, Q and SASA (ubiquitin, U1) ===== */"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; [1,20,40,60,76].forEach(function(v){ g.fillText(String(v),pad+(v-0.5)*cs,4+S+13); }); g.fillText('kalıntı',pad+S/2,4+S+27);",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; [1,20,40,60,76].forEach(function(v){ g.fillText(String(v),pad+(v-0.5)*cs,4+S+13); }); g.fillText('residue',pad+S/2,4+S+27);"
+  ],
+  [
+   "$('icread').innerHTML=dl('Kristaldeki doğal temas (alt üçgen, altın)',String(IDD.ct.native['C'+d]))+dl('Kare başına ortalama temas',fx(R['ncon'+d],1))+dl('Ortalama Q (bu tanım)',fx(R['Q'+d],3))+dl('Ortalama yumuşak Q',fx(R.Qs,3))+dl('Sıklığı < %50 kalan doğal temas',String(R['lost50_C'+d]))+dl('Sıklığı ≥ %50 doğal olmayan temas',String(R['nonnative50_C'+d]))+dl('Üst üçgen','seçili koşuda temas sıklığı (açık: seyrek, koyu: hep)');",
+   "$('icread').innerHTML=dl('Native contacts in the crystal (lower triangle, gold)',String(IDD.ct.native['C'+d]))+dl('Mean contacts per frame',fx(R['ncon'+d],1))+dl('Mean Q (this definition)',fx(R['Q'+d],3))+dl('Mean soft Q',fx(R.Qs,3))+dl('Native contacts present < 50%',String(R['lost50_C'+d]))+dl('Non-native contacts present ≥ 50%',String(R['nonnative50_C'+d]))+dl('Upper triangle','contact occupancy in the selected run (light: rare, dark: always)');"
+  ],
+  [
+   "var p=plot(g,52,12,W-72,H-56,[200,2000],[0.8,1.0],{ylabPad:37,xticks:[200,500,1000,1500,2000],yticks:[0.8,0.85,0.9,0.95,1.0],xlab:'zaman (ps)',ylab:'Q',yfmt:function(v){ return fx(v,2); }});",
+   "var p=plot(g,52,12,W-72,H-56,[200,2000],[0.8,1.0],{ylabPad:37,xticks:[200,500,1000,1500,2000],yticks:[0.8,0.85,0.9,0.95,1.0],xlab:'time (ps)',ylab:'Q',yfmt:function(v){ return fx(v,2); }});"
+  ],
+  [
+   "var Q=CT.Q[CT.run], L=[['q1',PAL.navy,'C1 (ağır atom 4,5 Å)'],['q2',PAL.accent,'C2 (Cα 8,0 Å)'],['qs',PAL.good,'yumuşak Q (Best ve ark. 2013)']];",
+   "var Q=CT.Q[CT.run], L=[['q1',PAL.navy,'C1 (heavy atom 4.5 Å)'],['q2',PAL.accent,'C2 (Cα 8.0 Å)'],['qs',PAL.good,'soft Q (Best et al. 2013)']];"
+  ],
+  [
+   "$('iqleg').innerHTML=L.map(function(l){ return '<span>'+lin(l[1])+l[2]+': ortalama '+fx(arrMean(Q[l[0]]),3)+'</span>'; }).join('')+'<span>'+RUNL[CT.run]+'</span>'; }",
+   "$('iqleg').innerHTML=L.map(function(l){ return '<span>'+lin(l[1])+l[2]+': mean '+fx(arrMean(Q[l[0]]),3)+'</span>'; }).join('')+'<span>'+RUNL[CT.run]+'</span>'; }"
+  ],
+  [
+   "var p=plot(g,52,12,W-72,H-56,[0.5,76.5],[0,ym],{ylabPad:37,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'kalıntı',ylab:'SASA (Å²)'});",
+   "var p=plot(g,52,12,W-72,H-56,[0.5,76.5],[0,ym],{ylabPad:37,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'residue',ylab:'SASA (Å²)'});"
+  ],
+  [
+   "$('iaread').innerHTML=dl('Gömülü kalıntı sayısı (koşu 1 / 2 / 3 / kristal)',nb.join(' / '))+dl('Toplam SASA, Å² (koşu 1 / 2 / 3 / kristal)',['R1','R2','R3','xtal'].map(function(r){ return fmtI(Math.round(T[CT.probe+'|'+r])); }).join(' / '))+dl('Çizgiler ve noktalar','üç koşunun kalıntı ortalaması; altın noktalar kristal; kesikli çizgi eşik');",
+   "$('iaread').innerHTML=dl('Number of buried residues (run 1 / 2 / 3 / crystal)',nb.join(' / '))+dl('Total SASA, Å² (run 1 / 2 / 3 / crystal)',['R1','R2','R3','xtal'].map(function(r){ return fmtI(Math.round(T[CT.probe+'|'+r])); }).join(' / '))+dl('Lines and dots','per-residue means of the three runs; gold dots the crystal; dashed line the threshold');"
+  ],
+  [
+   "if(CT.seenD['1']&&CT.seenD['2']&&nR>=2) card('ic3',true,'Aynı koşularda ortalama doğal temas oranı C1 tanımıyla '+RUNS.map(function(r){ return fx(R[r].Q1,2); }).join(' / ')+', C2 ile '+RUNS.map(function(r){ return fx(R[r].Q2,2); }).join(' / ')+', yumuşak tanımla '+RUNS.map(function(r){ return fx(R[r].Qs,2); }).join(' / ')+'. Kristalde C1 '+IDD.ct.native.C1+', C2 '+IDD.ct.native.C2+' doğal temas veriyor; C1 ile '+RUNS.map(function(r){ return R[r].nonnative50_C1; }).join(' / ')+' doğal olmayan temas zamanın yarısından fazlasında var. \"Yapının yüzde kaçı korunuyor?\" sorusunun cevabı temas tanımıyla birlikte yazılır.');",
+   "if(CT.seenD['1']&&CT.seenD['2']&&nR>=2) card('ic3',true,'In the same runs the mean fraction of native contacts is '+RUNS.map(function(r){ return fx(R[r].Q1,2); }).join(' / ')+' with C1, '+RUNS.map(function(r){ return fx(R[r].Q2,2); }).join(' / ')+' with C2 and '+RUNS.map(function(r){ return fx(R[r].Qs,2); }).join(' / ')+' with the soft definition. The crystal gives '+IDD.ct.native.C1+' native contacts with C1 and '+IDD.ct.native.C2+' with C2; with C1, '+RUNS.map(function(r){ return R[r].nonnative50_C1; }).join(' / ')+' non-native contacts are present more than half of the time. The answer to \"what percentage of the structure is maintained?\" is written together with the contact definition.');"
+  ],
+  [
+   "else card('ic3',false,'Şimdiye kadar: '+Object.keys(CT.seenD).length+' tanım, '+nR+' koşu. İki tanıma ve en az iki koşuya bakın.');",
+   "else card('ic3',false,'So far: '+Object.keys(CT.seenD).length+' definitions, '+nR+' runs. Look at both definitions and at least two runs.');"
+  ],
+  [
+   "if(nP>=2&&nT>=2) card('ic4',true,'0,14 nm sondayla gömülü kalıntı sayısı (koşu 1 / 2 / 3 / kristal) 5 Å² eşiğinde '+B['5'].join(' / ')+', 10 Å²\\'de '+B['10'].join(' / ')+', 20 Å²\\'de '+B['20'].join(' / ')+'. Toplam SASA koşularda kristalden yüksek ('+['R1','R2','R3','xtal'].map(function(r){ return fmtI(Math.round(IDD.sasa.tot['0.14|'+r])); }).join(' / ')+' Å²) ve sonda yarıçapıyla değişiyor. \"Gömülü\" bir eşik kararıdır; eşik, sonda ve hangi yapının (kristal mi, koşu ortalaması mı) kullanıldığı birlikte yazılır.');",
+   "if(nP>=2&&nT>=2) card('ic4',true,'With a 0.14 nm probe the number of buried residues (run 1 / 2 / 3 / crystal) is '+B['5'].join(' / ')+' at a 5 Å² threshold, '+B['10'].join(' / ')+' at 10 Å² and '+B['20'].join(' / ')+' at 20 Å². Total SASA is higher in the runs than in the crystal ('+['R1','R2','R3','xtal'].map(function(r){ return fmtI(Math.round(IDD.sasa.tot['0.14|'+r])); }).join(' / ')+' Å²) and changes with the probe radius. \"Buried\" is a threshold decision; the threshold, the probe and which structure is used (the crystal or a run average) are written together.');"
+  ],
+  [
+   "else card('ic4',false,'Şimdiye kadar: '+nP+' sonda, '+nT+' eşik. En az iki sonda ve iki eşik deneyin.'); }",
+   "else card('ic4',false,'So far: '+nP+' probes, '+nT+' thresholds. Try at least two probes and two thresholds.'); }"
+  ],
+  [
+   "/* ===== atölye 3: çözücü kabuğu (ALA2 + su, A; ubikitin + su, U2) ===== */",
+   "/* ===== workshop 3: solvation shell (ALA2 + water, A; ubiquitin + water, U2) ===== */"
+  ],
+  [
+   "$('irread').innerHTML=dl('Kesme '+fx(SO.rc,1)+' Å ile karbonil O başına su',fx(m,2)+' (8 tekrarda en az '+fx(arrMin(ns),2)+', en çok '+fx(arrMax(ns),2)+')')+dl('Birleşik g(r) ilk tepe',fx(IDD.rdf.peak[0],2)+' Å, yükseklik '+fx(IDD.rdf.peak[1],2))+dl('Birleşik g(r) ilk minimum (kesikli çizgi)',fx(IDD.rdf.rmin,2)+' Å')+dl('Kesme 3,0 / 3,5 / 4,0 Å ile',[3.0,3.5,4.0].map(function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }).join(' / '))+dl('Çizgiler','ince: sekiz tekrar; kalın: ortalama; dikey kızıl çizgi: kesme');",
+   "$('irread').innerHTML=dl('Waters per carbonyl O with a '+fx(SO.rc,1)+' Å cutoff',fx(m,2)+' (across 8 replicas, min '+fx(arrMin(ns),2)+', max '+fx(arrMax(ns),2)+')')+dl('Pooled g(r) first peak',fx(IDD.rdf.peak[0],2)+' Å, height '+fx(IDD.rdf.peak[1],2))+dl('Pooled g(r) first minimum (dashed line)',fx(IDD.rdf.rmin,2)+' Å')+dl('With 3.0 / 3.5 / 4.0 Å cutoffs',[3.0,3.5,4.0].map(function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }).join(' / '))+dl('Lines','thin: eight replicas; thick: mean; vertical red line: cutoff');"
+  ],
+  [
+   "$('ilread').innerHTML=dl('Sürekli ömür (kızıl), 8 tekrar',fx(arrMean(Tc),2)+' ps (en az '+fx(arrMin(Tc),2)+', en çok '+fx(arrMax(Tc),2)+')')+dl('Aralıklı ömür (lacivert)',fx(arrMean(Ti),2)+' ps (en az '+fx(arrMin(Ti),2)+', en çok '+fx(arrMax(Ti),2)+')')+dl('Kare başına su H-bağı (iki karbonil)',fx(IDD.hbw[SO.def],2))+dl('Seçim','tanım '+DEFL[SO.def]+', okuma aralığı '+SO.k+' ps');",
+   "$('ilread').innerHTML=dl('Continuous lifetime (red), 8 replicas',fx(arrMean(Tc),2)+' ps (min '+fx(arrMin(Tc),2)+', max '+fx(arrMax(Tc),2)+')')+dl('Intermittent lifetime (navy)',fx(arrMean(Ti),2)+' ps (min '+fx(arrMin(Ti),2)+', max '+fx(arrMax(Ti),2)+')')+dl('Water H-bonds per frame (two carbonyls)',fx(IDD.hbw[SO.def],2))+dl('Selection','definition '+DEFL[SO.def]+', reading interval '+SO.k+' ps');"
+  ],
+  [
+   "var p=plot(g,46,12,W-60,H-56,[0,xm],[0,ym],{ylabPad:31,xticks:xt.filter(function(_,i){ return i%2===0; }),yticks:yt,xlab:'kalıntı SASA (Å²)',ylab:'ilk kabuk suyu'});",
+   "var p=plot(g,46,12,W-60,H-56,[0,xm],[0,ym],{ylabPad:31,xticks:xt.filter(function(_,i){ return i%2===0; }),yticks:yt,xlab:'residue SASA (Å²)',ylab:'first-shell waters'});"
+  ],
+  [
+   "$('iwread').innerHTML=dl('İlk kabuk suyu ile SASA arasında Pearson r',fx(U.r,2)+' (76 kalıntı)')+dl('Kalıntı başına ilk kabuk suyu toplamı',fx(U.shell_total,0))+dl('Kare başına su köprüsü (ortalama)',fx(U.bridges_mean,1))+dl('Zamanın en az yarısında köprülenen kalıntı çifti',String(U.n50)+' (herhangi bir anda köprülenen: '+U.nany+')')+dl('Aynı suyun aynı çifti kesintisiz köprüleme süresi (0,5 / 1 / 2 ps okuma)',[R['0.5'],R['1.0'],R['2.0']].map(function(v){ return fx(v,2); }).join(' / ')+' ps');",
+   "$('iwread').innerHTML=dl('Pearson r between first-shell waters and SASA',fx(U.r,2)+' (76 residues)')+dl('Sum of first-shell waters over residues',fx(U.shell_total,0))+dl('Water bridges per frame (mean)',fx(U.bridges_mean,1))+dl('Residue pairs bridged at least half of the time',String(U.n50)+' (bridged at any moment: '+U.nany+')')+dl('Time the same water bridges the same pair without a break (0.5 / 1 / 2 ps reading)',[R['0.5'],R['1.0'],R['2.0']].map(function(v){ return fx(v,2); }).join(' / ')+' ps');"
+  ],
+  [
+   "var h='<table class=\"st\"><thead><tr><th>En sık su köprüleri ('+SO.wr.replace('W','koşu ')+')</th><th>Sıklık</th></tr></thead><tbody>'+U.top.slice(0,8).map(function(t){ return '<tr><td>'+t[0]+'</td><td>'+pct(t[1],0)+'</td></tr>'; }).join('')+'</tbody></table>';",
+   "var h='<table class=\"st\"><thead><tr><th>Most frequent water bridges ('+SO.wr.replace('W','run ')+')</th><th>Occupancy</th></tr></thead><tbody>'+U.top.slice(0,8).map(function(t){ return '<tr><td>'+lab(t[0])+'</td><td>'+pct(t[1],0)+'</td></tr>'; }).join('')+'</tbody></table>';"
+  ],
+  [
+   "h+='<table class=\"st\"><thead><tr><th>Tuz köprüsü çifti</th><th>Doğrudan (≤ 4,0 Å)</th><th>Su köprüsüyle</th></tr></thead><tbody>'+Object.keys(U.sb).map(function(k){ return '<tr><td>'+k+'</td><td>'+pct(U.sb[k].direct,0)+'</td><td>'+pct(U.sb[k].water,0)+'</td></tr>'; }).join('')+'</tbody></table><p class=\"small\">Su köprüsü sütunu: iki kalıntının herhangi atomları arasında aynı karede en az bir köprüleyen su. Koşu başına 401 kare (200 ps).</p>';",
+   "h+='<table class=\"st\"><thead><tr><th>Salt-bridge pair</th><th>Direct (≤ 4.0 Å)</th><th>Via a water bridge</th></tr></thead><tbody>'+Object.keys(U.sb).map(function(k){ return '<tr><td>'+lab(k)+'</td><td>'+pct(U.sb[k].direct,0)+'</td><td>'+pct(U.sb[k].water,0)+'</td></tr>'; }).join('')+'</tbody></table><p class=\"small\">Water-bridge column: at least one bridging water between any atoms of the two residues in the same frame. 401 frames per run (200 ps).</p>';"
+  ],
+  [
+   "card('ic5',true,'Karbonil O başına \"yakındaki\" su sayısı 3,0 Å kesmeyle '+n(3.0)+', g(r)\\'nin ilk minimumunda ('+fx(IDD.rdf.rmin,2)+' Å) '+n(IDD.rdf.rmin)+', 4,0 Å ile '+n(4.0)+'. Sekiz tekrar birbirine çok yakın: belirsizliğin asıl kaynağı tanım. Ubikitinde kalıntı başına ilk kabuk suyu SASA ile ilişkili (Pearson r '+['W1','W2','W3'].map(function(w){ return fx(U[w].r,2); }).join(' / ')+') ama aynı şey değil: biri çevredeki su moleküllerini sayar, öbürü bir sondanın değebildiği alanı.'); }",
+   "card('ic5',true,'The number of \"nearby\" waters per carbonyl O is '+n(3.0)+' with a 3.0 Å cutoff, '+n(IDD.rdf.rmin)+' at the first minimum of g(r) ('+fx(IDD.rdf.rmin,2)+' Å) and '+n(4.0)+' with 4.0 Å. The eight replicas are very close: the main source of uncertainty is the definition. In ubiquitin the first-shell waters per residue correlate with SASA (Pearson r '+['W1','W2','W3'].map(function(w){ return fx(U[w].r,2); }).join(' / ')+') but are not the same thing: one counts the surrounding water molecules, the other the area a probe can touch.'); }"
+  ],
+  [
+   "else card('ic5',false,'Şimdiye kadar: '+nRc+' kesme mesafesi'+(Object.keys(SO.seenW).length?'':', ubikitin görünümüne de bakın')+'. En az üç kesme deneyin.');",
+   "else card('ic5',false,'So far: '+nRc+' cutoff distances'+(Object.keys(SO.seenW).length?'':', also look at the ubiquitin view')+'. Try at least three cutoffs.');"
+  ],
+  [
+   "card('ic6',true,'Aynı su-karbonil H-bağının sürekli ömrü (3,5 Å, 150°) 1 ps okumayla '+t('3.5_150','1','Tc')+' ps, 2 ps ile '+t('3.5_150','2','Tc')+', 5 ps ile '+t('3.5_150','5','Tc')+' ps; aralıklı ömür '+t('3.5_150','1','Ti')+' ps. Kareler seyreldikçe aradaki kısa kopmalar görünmez olur ve \"sürekli\" bağ uzar. Tanım da değiştiriyor: 3,0 Å ve 150° ile sürekli ömür '+t('3.0_150','1','Tc')+' ps, 3,5 Å ve 120° ile '+t('3.5_120','1','Tc')+' ps. Ubikitinde aynı suyun aynı çifti köprüleme süresi 0,5 ps okumayla '+fx(R['0.5'],2)+', 2 ps ile '+fx(R['2.0'],2)+' ps (koşu 1). Ömür, tanım ve kayıt aralığıyla birlikte raporlanan bir sayıdır.'); }",
+   "card('ic6',true,'The continuous lifetime of the same water-carbonyl H-bond (3.5 Å, 150°) is '+t('3.5_150','1','Tc')+' ps with 1 ps reading, '+t('3.5_150','2','Tc')+' with 2 ps and '+t('3.5_150','5','Tc')+' ps with 5 ps; the intermittent lifetime is '+t('3.5_150','1','Ti')+' ps. As frames thin out, short breaks in between become invisible and the \"continuous\" bond gets longer. The definition matters too: with 3.0 Å and 150° the continuous lifetime is '+t('3.0_150','1','Tc')+' ps, with 3.5 Å and 120° it is '+t('3.5_120','1','Tc')+' ps. In ubiquitin the time the same water bridges the same pair is '+fx(R['0.5'],2)+' ps with 0.5 ps reading and '+fx(R['2.0'],2)+' ps with 2 ps (run 1). A lifetime is a number reported together with its definition and saving interval.'); }"
+  ],
+  [
+   "else card('ic6',false,'Şimdiye kadar: '+nK+' okuma aralığı, '+nD+' tanım. Üç okuma aralığını ve iki tanımı deneyin.'); }",
+   "else card('ic6',false,'So far: '+nK+' reading intervals, '+nD+' definitions. Try the three reading intervals and two definitions.'); }"
+  ],
+  [
+   "/* ===== tezgâh: iddia denetleyici ===== */",
+   "/* ===== bench: claim checker ===== */"
+  ],
+  [
+   "var CV={kur:'Bu veriyle kurulabilir',ek:'Ek kanıt gerekir',yok:'Bu veriyle kurulamaz'};",
+   "var CV={kur:'Supported by these data',ek:'Needs more evidence',yok:'Not supported by these data'};"
+  ],
+  [
+   "{s:'Bu üç koşuda K27-D52 tuz köprüsü, 4,0 Å eşiğiyle, zamanın neredeyse tamamında var.', a:'kur', w:function(){ return '4,0 Å eşiğiyle oluşma sıklığı '+occs('K27-D52')+' (koşu 1 / 2 / 3); 3,2 Å ile '+occs('K27-D52','3.2')+'. Cümle eşiği, koşuları ve süreyi söylüyor; veri bunu doğrudan gösteriyor.'; }},",
+   "{s:'In these three runs the K27-D52 salt bridge, with a 4.0 Å threshold, is present almost all the time.', a:'kur', w:function(){ return 'Occupancy with a 4.0 Å threshold is '+occs('K27-D52')+' (run 1 / 2 / 3); with 3.2 Å, '+occs('K27-D52','3.2')+'. The sentence states the threshold, the runs and the duration; the data show it directly.'; }},"
+  ],
+  [
+   "{s:'Ubikitinde kare başına H-bağı sayısı, yalnız tanım değiştirilerek aynı koşuda iki katından fazla değişebilir.', a:'kur', w:function(){ var R=IDD.hb.runs.R1; return 'Koşu 1\\'de ortalama '+fx(R['3.0_150'].mean,1)+' (3,0 Å, 150°) ile '+fx(R['3.5_120'].mean,1)+' (3,5 Å, 120°) arasında (Atölye 1).'; }},",
+   "{s:'In ubiquitin the number of H-bonds per frame can more than double in the same run just by changing the definition.', a:'kur', w:function(){ var R=IDD.hb.runs.R1; return 'In run 1 the mean is between '+fx(R['3.0_150'].mean,1)+' (3.0 Å, 150°) and '+fx(R['3.5_120'].mean,1)+' (3.5 Å, 120°) (Workshop 1).'; }},"
+  ],
+  [
+   "{s:'K27-D52 tuz köprüsü ubikitinin katlanmış yapısını kararlı kılar.', a:'ek', w:function(){ return 'Sık görülen bir temas kararlılık katkısını göstermez. Bunun için örneğin mutasyon deneyi (K27 ya da D52 değişimiyle kararlılık ölçümü) ya da serbest enerji hesabı gerekir; bu sayfada etkileşim enerjisi hesaplanmadı.'; }},",
+   "{s:'The K27-D52 salt bridge stabilises the folded structure of ubiquitin.', a:'ek', w:function(){ return 'A frequently seen contact does not show a contribution to stability. That needs, for example, a mutation experiment (stability measurement after changing K27 or D52) or a free energy calculation; interaction energies were not computed on this page.'; }},"
+  ],
+  [
+   "{s:'Ubikitin yüzeyinde en sık köprülenen kalıntı çiftleri, işlev için gerekli bir su ağıdır.', a:'ek', w:function(){ var U=IDD.u2; return 'Su köprülerinin sıklığı ölçüldü (kare başına ortalama '+['W1','W2','W3'].map(function(w){ return fx(U[w].bridges_mean,1); }).join(' / ')+'), ama işlevle ilişki ek kanıt ister: deneysel su yapısı, mutasyon ya da bağlanma verisi. Üç 200 ps koşu yalnız bu koşullarda görülen köprüleri gösterir.'; }},",
+   "{s:'The most frequently bridged residue pairs on the ubiquitin surface form a water network required for function.', a:'ek', w:function(){ var U=IDD.u2; return 'The frequency of water bridges was measured (mean per frame '+['W1','W2','W3'].map(function(w){ return fx(U[w].bridges_mean,1); }).join(' / ')+'), but a link to function needs more evidence: experimental water structure, mutations or binding data. Three 200 ps runs show only the bridges seen under these conditions.'; }},"
+  ],
+  [
+   "{s:'K11-E34 tuz köprüsü kalıcıdır: ubikitinin her koşusunda ve her anında bulunur.', a:'yok', w:function(){ return '4,0 Å eşiğiyle oluşma sıklığı '+occs('K11-E34')+'. Bir koşuda çift zamanın çoğunda ayrı duruyor; veri cümleyle çelişiyor.'; }},",
+   "{s:'The K11-E34 salt bridge is permanent: it is present in every run of ubiquitin and at every moment.', a:'yok', w:function(){ return 'Occupancy with a 4.0 Å threshold is '+occs('K11-E34')+'. In one run the pair is apart most of the time; the data contradict the sentence.'; }},"
+  ],
+  [
+   "{s:'Su içindeki alanin dipeptidinde her karbonil oksijeninin çevresinde iki su molekülü vardır.', a:'yok', w:function(){ var n=function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }; return 'Sayı kesmeye bağlı: 3,0 Å ile '+n(3.0)+', ilk minimumda ('+fx(IDD.rdf.rmin,2)+' Å) '+n(IDD.rdf.rmin)+', 4,0 Å ile '+n(4.0)+'. Tanımı yazılmamış bir \"iki su\" bu veriyle kurulamaz.'; }}",
+   "{s:'In alanine dipeptide in water there are two water molecules around each carbonyl oxygen.', a:'yok', w:function(){ var n=function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }; return 'The number depends on the cutoff: '+n(3.0)+' with 3.0 Å, '+n(IDD.rdf.rmin)+' at the first minimum ('+fx(IDD.rdf.rmin,2)+' Å), '+n(4.0)+' with 4.0 Å. A \"two waters\" without a written definition is not supported by these data.'; }}"
+  ],
+  [
+   "if(n>=4) card('ic7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz gerekçeyle örtüştü. Kurulabilen cümleler bir tanımı, bir eşiği ve belirli koşuları söylüyor. Kararlılık ve işlev, oluşma sıklığından çıkmaz; enerji, mutasyon ya da deney ister. Tanımı yazılmamış bir sayı ise (\"iki su\", \"kalıcı köprü\") bu veriyle kurulamaz.');",
+   "if(n>=4) card('ic7',true,'For '+nLoc(r)+' of the '+n+' sentences you decided on, your first choice matched the rationale. The supported sentences state a definition, a threshold and specific runs. Stability and function do not follow from occupancy; they need energies, mutations or experiments. A number without a written definition (\"two waters\", \"a permanent bridge\") is not supported by these data.');"
+  ],
+  [
+   "else card('ic7',false,'Şimdiye kadar '+n+' cümle; en az dördüne karar verin.'); }); }); }",
+   "else card('ic7',false,'So far '+n+' sentences; decide on at least four.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: etkileşim tanımı kaydı ===== */",
+   "/* ===== notebook: interaction definition record ===== */"
+  ],
+  [
+   "function ifBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }",
+   "function ifBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }"
+  ],
+  [
+   "var L=['ETKİLEŞİM TANIMI KAYDI (MD-INT taslağı)','H-bağı tanımı: '+v('ifd'),'Tuz köprüsü ve temas: '+v('ifc'),'Kararlılık eşiği ve tekrarlar: '+v('ifk'),'SASA ve gömülülük: '+v('ifs'),'Çözücü kabuğu ve ömür: '+v('ifw'),'Kurulmayacak cümleler: '+v('ifn')];",
+   "var L=['INTERACTION DEFINITION RECORD (MD-INT draft)','H-bond definition: '+v('ifd'),'Salt bridges and contacts: '+v('ifc'),'Stability threshold and replicas: '+v('ifk'),'SASA and burial: '+v('ifs'),'Solvation shell and lifetime: '+v('ifw'),'Sentences not to be made: '+v('ifn')];"
+  ],
+  [
+   "if(d.trim()&&!/å|nm/.test(d)) wr.push('H-bağı tanımında uzaklık eşiği yok.');",
+   "if(d.trim()&&!/å|nm/.test(d)) wr.push('The H-bond definition has no distance threshold.');"
+  ],
+  [
+   "if(d.trim()&&!/°|açı/.test(d)) wr.push('H-bağı tanımında açı eşiği yok; açı ölçütü sayıyı belirgin biçimde değiştirir (Atölye 1).');",
+   "if(d.trim()&&!/°|angle/.test(d)) wr.push('The H-bond definition has no angle threshold; the angle criterion changes the count markedly (Workshop 1).');"
+  ],
+  [
+   "if(c.trim()&&!/\\d/.test(c)) wr.push('Tuz köprüsü ya da temas tanımında sayısal eşik yok.');",
+   "if(c.trim()&&!/\\d/.test(c)) wr.push('The salt-bridge or contact definition has no numeric threshold.');"
+  ],
+  [
+   "if(!/%|sıklık/.test(k)) wr.push('\"Kararlı\" ya da \"korunuyor\" için oluşma sıklığı eşiği yazılmamış.');",
+   "if(!/%|occupancy/.test(k)) wr.push('No occupancy threshold is written for \"stable\" or \"maintained\".');"
+  ],
+  [
+   "if(!/tekrar|koşu/.test(k)) wr.push('Tekrar sayısı yazılmamış; aynı tuz köprüsü koşudan koşuya çok farklı çıkabilir (Atölye 1).');",
+   "if(!/replica|run/.test(k)) wr.push('The number of replicas is not written; the same salt bridge can differ greatly from run to run (Workshop 1).');"
+  ],
+  [
+   "if(s.trim()&&!/sonda|probe|nm/.test(s)) wr.push('SASA için sonda yarıçapı yazılmamış.');",
+   "if(s.trim()&&!/probe|nm/.test(s)) wr.push('No probe radius is written for SASA.');"
+  ],
+  [
+   "if(/gömülü/.test(s)&&!/å²|a2|eşik/.test(s)) wr.push('\"Gömülü\" denmiş ama eşik yazılmamış.');",
+   "if(/buried/.test(s)&&!/å²|a2|threshold/.test(s)) wr.push('\"Buried\" is used but no threshold is written.');"
+  ],
+  [
+   "if(/ömür|yaşam/.test(w)&&!/ps|aralık/.test(w)) wr.push('Ömür hesaplanacak ama kayıt aralığı yazılmamış; sürekli ömür okuma aralığıyla uzar (Atölye 3).');",
+   "if(/lifetime/.test(w)&&!/ps|interval/.test(w)) wr.push('A lifetime will be computed but the saving interval is not written; the continuous lifetime grows with the reading interval (Workshop 3).');"
+  ],
+  [
+   "if(/ömür|yaşam/.test(w)&&!/sürekli|aralıklı/.test(w)) wr.push('Ömür tanımı (sürekli mi, aralıklı mı) yazılmamış.');",
+   "if(/lifetime/.test(w)&&!/continuous|intermittent/.test(w)) wr.push('The lifetime definition (continuous or intermittent) is not written.');"
+  ],
+  [
+   "if(!($('ifn').value||'').trim()) wr.push('\"Kurulmayacak cümleler\" satırı boş: temasın kararlılık ya da işlev diye adlandırılmayacağı önceden yazılır.');",
+   "if(!($('ifn').value||'').trim()) wr.push('The \"sentences not to be made\" line is empty: it is written in advance that a contact will not be called stability or function.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(e){ L.push('- '+e); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to watch:'); wr.forEach(function(e){ L.push('- '+e); }); }"
+  ],
+  [
+   "$('ifcopy').onclick=function(){ var t=$('ifout').textContent, m=$('ifmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('ifcopy').onclick=function(){ var t=$('ifout').textContent, m=$('ifmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'Koşu 1\\'de kare başına H-bağı sayısı bir tanımla '+fx(H['3.0_150'].mean,1)+', başka bir tanımla '+fx(H['3.5_120'].mean,1)+' çıktı. Bunun en olası nedeni nedir?',",
+   "Q.push({s:'In run 1 the number of H-bonds per frame was '+fx(H['3.0_150'].mean,1)+' with one definition and '+fx(H['3.5_120'].mean,1)+' with another. What is the most likely reason?',"
+  ],
+  [
+   "o:[['Koşu kararsızdır',0],['Uzaklık ve açı eşikleri gevşedikçe daha çok çift H-bağı sayılır',1],['İkinci hesapta su da sayılmıştır',0]], w:'Aynı kareler iki tanımla sayıldı: 3,0 Å ve 150° ile 3,5 Å ve 120°. Veri aynı; değişen yalnız tanım.'});",
+   "o:[['The run is unstable',0],['As the distance and angle thresholds loosen, more pairs are counted as H-bonds',1],['Water was also counted in the second calculation',0]], w:'The same frames were counted with two definitions: 3.0 Å and 150°, and 3.5 Å and 120°. The data are the same; only the definition changed.'});"
+  ],
+  [
+   "Q.push({s:'K11-E34 tuz köprüsünün 4,0 Å eşiğiyle oluşma sıklığı üç koşuda '+occs('K11-E34')+'. Doğru okuma hangisi?',",
+   "Q.push({s:'The occupancy of the K11-E34 salt bridge with a 4.0 Å threshold is '+occs('K11-E34')+' in the three runs. Which reading is correct?',"
+  ],
+  [
+   "o:[['Köprü kalıcıdır; 3. koşu hatalıdır',0],['Ortalama alınırsa köprü zamanın yarısından fazlasında vardır',0],['Bağımsız koşular farklı alt durumlar örnekleyebilir; tek koşudan genel bir sonuç çıkmaz',1]], w:'Üç koşu aynı hazırlıktan, yalnız başlangıç hızlarıyla ayrılıyor. Yayılım, 2 ns\\'lik bir koşunun bu köprünün açılıp kapanmasını yeterince örneklemediğini gösterir (MD-U, MD-REP).'});",
+   "o:[['The bridge is permanent; run 3 is wrong',0],['On average the bridge is present more than half of the time',0],['Independent runs can sample different substates; no general conclusion follows from one run',1]], w:'The three runs come from the same preparation and differ only in their initial velocities. The spread shows that a 2 ns run does not sample the opening and closing of this bridge sufficiently (MD-U, MD-REP).'});"
+  ],
+  [
+   "Q.push({s:'Bir proton çifti zamanının %10\\'unu 3 Å\\'da, kalanını 7 Å\\'da geçiriyor. NOE ölçümü için ne beklenir?',",
+   "Q.push({s:'A proton pair spends 10% of its time at 3 Å and the rest at 7 Å. What is expected for an NOE measurement?',"
+  ],
+  [
+   "o:[['Güçlü bir NOE; ⟨r⁻⁶⟩ ortalaması kısa uzaklıklara büyük ağırlık verir',1],['NOE görülmez, çünkü ortalama uzaklık 5 Å\\'dan büyüktür',0],['NOE, ortalama uzaklığa (6,6 Å) karşılık gelir',0]], w:'Etkin uzaklık ⟨r⁻⁶⟩^(−1/6) = (0,1 × 3⁻⁶ + 0,9 × 7⁻⁶)^(−1/6) = '+fx(Math.pow(0.1/729+0.9/117649,-1/6),1)+' Å; ortalama uzaklık 0,1 × 3 + 0,9 × 7 = 6,6 Å (Deneysel köprü).'});",
+   "o:[['A strong NOE; the ⟨r⁻⁶⟩ average gives large weight to short distances',1],['No NOE, because the mean distance is larger than 5 Å',0],['The NOE corresponds to the mean distance (6.6 Å)',0]], w:'Effective distance ⟨r⁻⁶⟩^(−1/6) = (0.1 × 3⁻⁶ + 0.9 × 7⁻⁶)^(−1/6) = '+fx(Math.pow(0.1/729+0.9/117649,-1/6),1)+' Å; mean distance 0.1 × 3 + 0.9 × 7 = 6.6 Å (Experimental bridge).'});"
+  ],
+  [
+   "Q.push({s:'Aynı su-karbonil H-bağının sürekli ömrü 1 ps\\'de bir okunan verilerle '+fx(arrMean(IDD.life['3.5_150|1'].Tc),2)+' ps, 5 ps\\'de bir okunanlarla '+fx(arrMean(IDD.life['3.5_150|5'].Tc),2)+' ps çıktı. Neden?',",
+   "Q.push({s:'The continuous lifetime of the same water-carbonyl H-bond was '+fx(arrMean(IDD.life['3.5_150|1'].Tc),2)+' ps with data read every 1 ps and '+fx(arrMean(IDD.life['3.5_150|5'].Tc),2)+' ps with data read every 5 ps. Why?',"
+  ],
+  [
+   "o:[['5 ps verisi daha doğrudur',0],['Seyrek okumada su daha yavaş hareket eder',0],['Kareler arasındaki kısa kopmalar görünmez olur ve bağ kesintisiz sayılır',1]], w:'Sürekli ömür kayıt aralığına bağlıdır; aralıklı ömür bu etkiye daha az duyarlıdır. Ömür, tanım ve aralıkla birlikte yazılır.'});",
+   "o:[['The 5 ps data are more accurate',0],['Water moves more slowly in sparse reading',0],['Short breaks between frames become invisible and the bond is counted as uninterrupted',1]], w:'The continuous lifetime depends on the saving interval; the intermittent lifetime is less sensitive to this effect. A lifetime is written together with its definition and interval.'});"
+  ],
+  [
+   "Q.push({s:'Ortalama doğal temas oranı Q, C1 tanımıyla '+fx(C.R1.Q1,2)+', C2 ile '+fx(C.R1.Q2,2)+', yumuşak tanımla '+fx(C.R1.Qs,2)+' (koşu 1). Hangisi doğrudur?',",
+   "Q.push({s:'The mean fraction of native contacts Q is '+fx(C.R1.Q1,2)+' with C1, '+fx(C.R1.Q2,2)+' with C2 and '+fx(C.R1.Qs,2)+' with the soft definition (run 1). Which is correct?',"
+  ],
+  [
+   "o:[['Yumuşak Q en doğrusudur, öbürleri hatalıdır',0],['Üçü de aynı yapıyı farklı tanımlarla özetler; hangi tanımın kullanıldığı yazılmalıdır',1],['Fark koşudan koşuya değişkenlikten gelir',0]], w:'Üç Q aynı karelerden hesaplandı. Farkı tanım yaratıyor; aynı tanımla üç koşu birbirine çok yakın.'});",
+   "o:[['The soft Q is the most correct; the others are wrong',0],['All three summarise the same structure with different definitions; which definition was used must be written',1],['The difference comes from run-to-run variability',0]], w:'The three Q values were computed from the same frames. The definition creates the difference; with the same definition the three runs are very close.'});"
+  ],
+  [
+   "Q.push({s:'0,14 nm sondayla \"gömülü\" kalıntı sayısı eşik 5, 10 ve 20 Å² iken koşu 1\\'de '+B['5'][0]+', '+B['10'][0]+' ve '+B['20'][0]+'. Bu ne gösterir?',",
+   "Q.push({s:'With a 0.14 nm probe the number of \"buried\" residues in run 1 is '+B['5'][0]+', '+B['10'][0]+' and '+B['20'][0]+' for thresholds of 5, 10 and 20 Å². What does this show?',"
+  ],
+  [
+   "o:[['\"Gömülü\" bir eşik kararıdır; eşik ve sonda raporla birlikte verilir',1],['SASA hesabı güvenilmezdir',0],['Kristal yapı kullanılmalıdır, çünkü tek doğru odur',0]], w:'Aynı SASA değerleri farklı eşiklerle farklı sayıda gömülü kalıntı verir; sonda yarıçapı ve yapı seçimi (kristal ya da koşu ortalaması) de sonucu değiştirir.'});",
+   "o:[['\"Buried\" is a threshold decision; the threshold and the probe are reported with it',1],['The SASA calculation is unreliable',0],['The crystal structure must be used, because it is the only correct one',0]], w:'The same SASA values give different numbers of buried residues with different thresholds; the probe radius and the choice of structure (crystal or run average) also change the result.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('inotice').innerHTML='<p><b>Veri.</b> Ubikitin: MD-MET\\'in üç bağımsız 2 ns koşusu (1UBQ, RCSB PDB; Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531; AMBER99SB-ILDN, TIP3P, GROMACS 2023.3), yalnız protein, 2 ps kayıt, pencere 200 ile 2000 ps. Yeni koşular UBQW: bu üç koşunun her biri son durumundan 200 ps sürdürüldü, bütün atomlar 0,5 ps\\'de bir kaydedildi (koşu başına 401 kare; '+m.uw.map(function(s){ return s.slice(0,12)+'…'; }).join(', ')+'). Su içinde alanin dipeptidi: MD-REP REPGRID su tekrarları W1 ile W8 (başlangıç yapısı mdshare ALA2, Computational Molecular Biology Group, Freie Universität Berlin, CC BY 4.0; 1520 TIP3P), 200 ile 2000 ps, 1 ps kayıt.</p>'+",
+   "$('inotice').innerHTML='<p><b>Data.</b> Ubiquitin: the three independent 2 ns runs of MD-MET (1UBQ, RCSB PDB; Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531; AMBER99SB-ILDN, TIP3P, GROMACS 2023.3), protein only, 2 ps saving, window 200 to 2000 ps. New runs UBQW: each of these three runs was continued for 200 ps from its final state, all atoms saved every 0.5 ps (401 frames per run; '+m.uw.map(function(s){ return s.slice(0,12)+'…'; }).join(', ')+'). Alanine dipeptide in water: MD-REP REPGRID water replicas W1 to W8 (starting structure mdshare ALA2, Computational Molecular Biology Group, Freie Universität Berlin, CC BY 4.0; 1520 TIP3P), 200 to 2000 ps, 1 ps saving.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Koşu ve analiz planı koşulardan ve hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…)'+(m.dev?'; '+m.dev:'; sapma yok')+'. H-bağları MDAnalysis HydrogenBondAnalysis ile (verici ve alıcı arası uzaklık, verici-H···alıcı açısı); tuz köprüleri en küçük N···O uzaklığıyla; temaslar ve Q kristal 1UBQ\\'ya göre, yumuşak Q Best, Hummer, Eaton 2013 (Proc Natl Acad Sci U S A 110:17874, doi 10.1073/pnas.1311599110) tanımıyla; SASA gmx sasa ile (Shrake ve Rupley 1973, J Mol Biol 79:351, doi 10.1016/0022-2836(73)90011-9 yaklaşımı); g(r) MDAnalysis InterRDF ile. Bağımsız denetim (ikinci uygulamalar; gmx hbond, gmx pairdist, gmx rdf): '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_note?'; '+m.audit_note:'')+'. Sayfadaki bazı sayılar (tuz köprüsü sıklığı, gömülü kalıntı sayısı, kesme ile su sayısı) tarayıcınızda gömülü dizilerden yeniden hesaplanır.</p>'+",
+   "'<p><b>Analysis.</b> The run and analysis plan was written and frozen before the runs and computations (SHA-256 '+m.plan_sha.slice(0,12)+'…); one deviation: the plan said \"every 10 ps (91 frames)\" for SASA, but every 10 ps from 200 to 2000 ps gives 181 frames, and that rule was followed. H-bonds with MDAnalysis HydrogenBondAnalysis (donor-acceptor distance, donor-H···acceptor angle); salt bridges by the minimum N···O distance; contacts and Q relative to the 1UBQ crystal, soft Q with the definition of Best, Hummer, Eaton 2013 (Proc Natl Acad Sci U S A 110:17874, doi 10.1073/pnas.1311599110); SASA with gmx sasa (the approach of Shrake and Rupley 1973, J Mol Biol 79:351, doi 10.1016/0022-2836(73)90011-9); g(r) with MDAnalysis InterRDF. Independent audit (second implementations; gmx hbond, gmx pairdist, gmx rdf): '+m.audit_ok+' of '+m.audit_n+' comparisons passed their pre-written thresholds; the one that did not is the W1 g(r) first peak height, relative difference from gmx rdf 4.9% (threshold 3%), caused by the bin edges of the two tools being offset by half a bin; with aligned bins the difference is 0.001. Some numbers on the page (salt-bridge occupancy, number of buried residues, waters within a cutoff) are recomputed in your browser from embedded arrays.</p>'+"
+  ],
+  [
+   "'<p><b>Öğretim modeli.</b> NOE izi tarayıcıda açık bir modelle üretilir (iki durumlu Markov süreci, yakın durum 3,0 Å, yakından çıkış olasılığı adım başına 0,05, 0,2 Å Gauss oynaması); gerçek ölçüm değildir. NOE\\'nin yalnız ⟨r⁻⁶⟩ ortalaması gösterilir; spin difüzyonu ve dönme dinamiği modelde yoktur.</p>'+",
+   "'<p><b>Teaching model.</b> The NOE trace is generated in the browser by an explicit model (two-state Markov process, near state 3.0 Å, probability of leaving the near state 0.05 per step, 0.2 Å Gaussian jitter); it is not a real measurement. Only the ⟨r⁻⁶⟩ average of the NOE is shown; spin diffusion and rotational dynamics are not in the model.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Üç kısa ubikitin koşusu ve üç 200 ps su koşusu: oluşma sıklıkları bu koşullara aittir; ubikitinin dengesi ya da yakınsaması hakkında bir sonuç çıkarılmaz (MD-U, MD-REP). Etkileşim enerjisi (LIE, MM/PBSA, MM/GBSA), serbest enerji, mutasyon, iyonlu sistemler ve göreli SASA: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> Three short ubiquitin runs and three 200 ps water runs: the occupancies belong to these conditions; no conclusion is drawn about the equilibrium or convergence of ubiquitin (MD-U, MD-REP). Interaction energies (LIE, MM/PBSA, MM/GBSA), free energies, mutations, systems with ions and relative SASA: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('iwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('iwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('iscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('iscore').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start-up ---------- */"
+  ],
+  [
+   "['ic0','ic1','ic2','ic3','ic4','ic5','ic6','ic7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['ic0','ic1','ic2','ic3','ic4','ic5','ic6','ic7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDINT={HB:HB,CT:CT,SO:SO,NB:NB,nAt:nAt,nbStats:nbStats,arrMean:arrMean,FOUND:FOUND}; /* sınama için */",
+   "window.MDINT={HB:HB,CT:CT,SO:SO,NB:NB,nAt:nAt,nbStats:nbStats,arrMean:arrMean,FOUND:FOUND}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "Freie Universität Berlin",
+  "ps",
+  "Å",
+  "SASA",
+  "Q",
+  "g(r)",
+  "C(τ)",
+  "r (Å)",
+  "τ (ps)",
+  "(C-uç)",
+  "(N-uç)",
+  "R42-G76(C-uç)",
+  " ile "
+ ]
+}

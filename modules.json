@@ -776,6 +776,47 @@
       },
       "path": "md/md-pca/",
       "source": "sources/MD-PCA.html"
+    },
+    {
+      "id": "MD-INT",
+      "app": "md",
+      "level": "orta",
+      "title": "Etkileşim bir eşik tanımıdır: temas, solvatasyon, etkileşim",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH15",
+      "goals": [
+        "Kaç H-bağı var? Dört uzaklık ve açı tanımı",
+        "Bir tuz köprüsü korunuyor mu? Eşik ve bağımsız koşular",
+        "Doğal temas oranı Q ve gömülülük: temas tanımı, sonda ve eşik",
+        "Çözücü kabuğu kesmeyle büyür: g(r) ve ilk kabuk",
+        "Ömür kayıt aralığına bağlı: sürekli ve aralıklı H-bağı ömrü, su köprüleri"
+      ],
+      "data": [
+        "MD-MET'in üç bağımsız 2 ns 1UBQ ubikitin koşusu ve bu modül için üç 200 ps devam koşusu (bütün atomlar, 0,5 ps; GROMACS 2023.3)",
+        "MD-REP su tekrarları: su içinde alanin dipeptidi, 8 × 2 ns (başlangıç yapısı mdshare ALA2, Freie Universität Berlin, CC BY 4.0); kristal referansı PDB 1UBQ (CC0 1.0)",
+        "Koşu ve analiz planı koşulardan önce donduruldu; NOE köprüsü tarayıcıda hesaplanan öğretim modelidir"
+      ],
+      "notice": null,
+      "en": {
+        "title": "An interaction is a threshold definition: contacts, solvation, interactions",
+        "book": "CH15",
+        "goals": [
+          "How many H-bonds are there? Four distance and angle definitions",
+          "Is a salt bridge maintained? Threshold and independent runs",
+          "Fraction of native contacts Q and burial: contact definition, probe and threshold",
+          "The solvation shell grows with the cutoff: g(r) and the first shell",
+          "Lifetime depends on the saving interval: continuous and intermittent H-bond lifetimes, water bridges"
+        ],
+        "data": [
+          "The three independent 2 ns 1UBQ ubiquitin runs of MD-MET and three 200 ps continuations made for this module (all atoms, 0.5 ps; GROMACS 2023.3)",
+          "MD-REP water replicas: alanine dipeptide in water, 8 × 2 ns (starting structure mdshare ALA2, Freie Universität Berlin, CC BY 4.0); crystal reference PDB 1UBQ (CC0 1.0)",
+          "The run and analysis plan was frozen before the runs; the NOE bridge is a teaching model computed in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-int/",
+      "source": "sources/MD-INT.html"
     }
   ]
 }

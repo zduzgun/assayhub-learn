@@ -1,5 +1,14 @@
 # Sürüm notları
 
+## 0.27.0 (5 Ekim 2026) · Yeni modül MD-INT: temas, solvatasyon, etkileşim
+
+- MD-INT 0.1.0 (orta düzey, kitapta CH15): "Etkileşim bir eşik tanımıdır." Yeni GROMACS koşuları UBQW: MD-MET'in üç ubikitin koşusu son durumlarından 200'er ps sürdürüldü, bütün atomlar 0,5 ps'de bir kaydedildi. Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu; tek sapma, planda SASA kare sayısının yanlış hesaplanması (91 yerine 181).
+- Deneysel köprü: NMR NOE (öğretim modeli; ⟨r⁻⁶⟩ ile ortalama uzaklık).
+- Atölye 1: ubikitinde dört H-bağı tanımı; kare başına ortalama koşu 1'de 29,5 ile 73,6. Tuz köprüleri ve tarayıcıda kaydırılan eşik; K27-D52 üç koşuda %100, %100, %95, K11-E34 %91, %85, %15 (4,0 Å).
+- Atölye 2: iki temas tanımı ve yumuşak Q (0,90, 0,94, 0,97); kalıntı başına SASA, üç sonda; gömülü kalıntı sayısı eşikle 12 ile 20.
+- Atölye 3: su içinde alanin dipeptidinde g(r) ve ilk kabuk (3,0 Å ile 1,61, 4,0 Å ile 4,35 su); su-karbonil H-bağının sürekli ömrü 1 ps okumayla 1,51 ps, 5 ps ile 3,74 ps. Ubikitinde ilk kabuk suyu ile SASA (r 0,86 ile 0,90), su köprüleri ve tuz köprülerinin su aracılı karşılığı. Tezgâh: altı iddia. Defter: etkileşim tanımı kaydı. Altı soru, sekiz keşif kartı.
+- Bağımsız denetim 14 karşılaştırmanın 13'ünde önceden yazılmış eşikle geçti; geçmeyen g(r) ilk tepe yüksekliği (%4,9, eşik %3) kutu hizalamasından, hizalanınca 0,001. Tarayıcıdaki 156 sayı Python ile aynı. İngilizce tablo 172 çift (`i18n/_work/mdint/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-INT`, `/en/l/MD-INT`.
+
 ## 0.26.0 (5 Ekim 2026) · Yeni modül MD-PCA: durumlar ve kolektif hareketler
 
 - MD-PCA 0.1.0 (orta düzey, kitapta CH16): "Durum bir tanımdır, bileşen bir yöntem sonucudur." Yeni simülasyon yok; veri mdshare ALA2 (3 × 250 ns) ve MD-MET'in üç bağımsız ubikitin koşusu. Analiz planı hesaplardan önce SHA-256 ile donduruldu; sapma yok.

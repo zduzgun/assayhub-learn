@@ -51,6 +51,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | MD-TRJ | MD | Orta | CH13 (trajektoriyi analize hazırlamak: PBC, seçim, hizalama, birim) | Yayında (0.1.0, 4 Ekim 2026) |
 | MD-MET | MD | Orta | CH14 (yapısal ölçüt neyi ölçer: RMSD, Rg, RMSF ve yorum sınırı) | Yayında (0.1.0, 4 Ekim 2026) |
 | MD-PCA | MD | Orta | CH16 (durumlar ve kolektif hareketler: durum tanımı, PCA, korelasyon) | Yayında (0.1.0, 5 Ekim 2026) |
+| MD-INT | MD | Orta | CH15 (temas, solvatasyon, etkileşim: H-bağı, tuz köprüsü, temas, SASA, çözücü kabuğu) | Yayında (0.1.0, 5 Ekim 2026) |
 
 Kimlikler değişmez; içerik sürümlenir (DK-T v1, v2 ...). Bir modülün adresi kimliğe bağlıdır, sürüme değil.
 
