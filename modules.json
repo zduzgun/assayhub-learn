@@ -735,6 +735,47 @@
       },
       "path": "md/md-met/",
       "source": "sources/MD-MET.html"
+    },
+    {
+      "id": "MD-PCA",
+      "app": "md",
+      "level": "orta",
+      "title": "Durum bir tanımdır, bileşen bir yöntem sonucudur: durumlar ve kolektif hareketler",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH16",
+      "goals": [
+        "Geçiş sayısı bir tanımdır: kutu tanımı ile çekirdek kümeleri",
+        "Pay aynı, kinetik farklı: yaşam süresi ve geçiş sayısı sınıra duyarlı",
+        "Algoritma neyi durum sayar: k-ortalamalar ve küme sayısı",
+        "PC1 kimin hareketi: atom kümesi, kosinüs içeriği ve koşular arası örtüşme",
+        "Korelasyon bir çerçevede hesaplanır: iki hizalamayla DCCM"
+      ],
+      "data": [
+        "mdshare ALA2 (Freie Universität Berlin, CC BY 4.0), üç bağımsız 250 ns koşu, 1 ps aralık",
+        "MD-MET'in üç bağımsız 2 ns 1UBQ ubikitin koşusu; kristal referansı PDB 1UBQ (CC0 1.0)",
+        "Analiz planı hesaplardan önce donduruldu; FRET köprüsü tarayıcıda hesaplanan öğretim modelidir"
+      ],
+      "notice": null,
+      "en": {
+        "title": "A state is a definition, a component is the result of a method: states and collective motions",
+        "book": "CH16",
+        "goals": [
+          "The transition count is a definition: box definition and core sets",
+          "Same fractions, different kinetics: lifetime and transition count are sensitive to the boundary",
+          "What does the algorithm count as a state: k-means and the number of clusters",
+          "Whose motion is PC1: atom set, cosine content and overlap between runs",
+          "Correlation is computed in a frame: DCCM with two fits"
+        ],
+        "data": [
+          "mdshare ALA2 (Freie Universität Berlin, CC BY 4.0), three independent 250 ns runs, 1 ps spacing",
+          "The three independent 2 ns 1UBQ ubiquitin runs of MD-MET; crystal reference PDB 1UBQ (CC0 1.0)",
+          "The analysis plan was frozen before the computations; the FRET bridge is a teaching model computed in the browser"
+        ],
+        "notice": null
+      },
+      "path": "md/md-pca/",
+      "source": "sources/MD-PCA.html"
     }
   ]
 }

@@ -1,5 +1,14 @@
 # Sürüm notları
 
+## 0.26.0 (5 Ekim 2026) · Yeni modül MD-PCA: durumlar ve kolektif hareketler
+
+- MD-PCA 0.1.0 (orta düzey, kitapta CH16): "Durum bir tanımdır, bileşen bir yöntem sonucudur." Yeni simülasyon yok; veri mdshare ALA2 (3 × 250 ns) ve MD-MET'in üç bağımsız ubikitin koşusu. Analiz planı hesaplardan önce SHA-256 ile donduruldu; sapma yok.
+- Deneysel köprü: tek molekül FRET izi (öğretim modeli; iki durumlu Markov süreci, tek eşik ile bantlı iki eşik sayımı).
+- Atölye 1: ALA2'de kutu tanımı ile çekirdek kümeleri (r 10° ile 60°). Koşu başına αR ↔ β/PPII geçişi kutu tanımıyla 4704, 4713, 4532; r = 10° çekirdeklerle 1002, 1086, 1061. Koşu 1'de αR payı %32,7 ile %32,8, αR yaşam süresi 35 ile 116 ps. k-ortalamalar k = 3'te β/PPII'yi ikiye bölüyor, αL ancak k = 4'te ayrı küme.
+- Atölye 2 ve proteine dönüş: ubikitin Cα PCA (bütün Cα ve çekirdek), 3B PC1 hareketi, varyans payları, kalıntı payı, izdüşüm ve kosinüs içeriği, birleşik PCA, RMSIP. Bütün Cα PC1 payı %29,5, %51,7, %32,8 ve bunun %92,0, %98,9, %70,3'ü kuyruktan; PC1 kosinüs içeriği 0,00, 0,37, 0,53; birleşik PC1 varyansının %85,4'ü koşular arası fark.
+- Atölye 3: DCCM iki hizalamayla; halka 7 ile 11 ve kuyruk arasında ortalama korelasyon çekirdek hizalamasında −0,05, −0,04, +0,02, bütün Cα hizalamasında −0,16, −0,24, −0,08. Tezgâh: altı iddia için denetleyici. Defter: durum ve bileşen kaydı. Altı soru, sekiz keşif kartı.
+- Bağımsız denetim (gmx covar, gmx anaeig, gmx analyze -cc) 12 karşılaştırmanın 12'sinde aynı; durum atamaları ikinci bir uygulamayla 21'in 21'inde birebir aynı; tarayıcıdaki 25 sayı Python ile aynı. İngilizce tablo 184 çift (`i18n/_work/mdpca/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-PCA`, `/en/l/MD-PCA`.
+
 ## 0.25.0 (4 Ekim 2026) · Yeni modül MD-MET: yapısal ölçüt neyi ölçer?
 
 - MD-MET 0.1.0 (orta düzey, kitapta CH14): "Bir sayı, bir yapı değildir: RMSD, Rg ve RMSF neyi görür, neyi görmez?" Yeni GROMACS koşuları UBQ3: aynı hazırlıktan, yalnız başlangıç hız tohumu farklı iki 2 ns 1UBQ koşusu; MD-O RMSF2NS ile birlikte üç bağımsız koşu. Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu; sapma yok.
