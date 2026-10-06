@@ -1,0 +1,647 @@
+{
+ "module": "MD-FF",
+ "lang": "en",
+ "source_sha256": "0cc6e006a23e44bd48fd47e72054e0f5820ca09208957caf9b361ca2237881b6",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-FF 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Kuvvet alanı ve model uyumu</title>",
+   "<title>MD: Force field and model compatibility</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"vproto\">Bu modül için su içindeki alanin dipeptidi üç kuvvet alanında (amber03, charmm27, OPLS-AA) dörder bağımsız 2 ns tekrarla yeniden koşuldu; amber99sb-ildn için MD-REP'in sekiz su tekrarı kullanıldı. Ayrıca üç saf su kutusu ve üç uyumsuz birleşim (yalnız grompp) çalıştırıldı. Koşu ve analiz planı koşulardan önce yazılıp SHA-256 ile donduruldu; sonuçlar GROMACS araçlarıyla ve ikinci uygulamalarla bağımsız olarak denetlendi. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye yazılır.</div>",
+   "<div class=\"proto\" id=\"vproto\">For this module alanine dipeptide in water was run again in three force fields (amber03, charmm27, OPLS-AA) with four independent 2 ns replicas each; for amber99sb-ildn the eight MD-REP water replicas were used. Three pure water boxes and three incompatible combinations (grompp only) were also run. The run and analysis plan was written before the runs and frozen with SHA-256; the results were checked independently with GROMACS tools and second implementations. Anything not computed is labelled \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-FF · Kuvvet alanı ve model uyumu</span>",
+   "<span class=\"eyebrow\">MD-FF · Force field and model compatibility</span>"
+  ],
+  [
+   "<h1>Kuvvet alanı bir modeldir</h1>",
+   "<h1>A force field is a model</h1>"
+  ],
+  [
+   "<p class=\"lead\">Aynı molekül, aynı kutu, aynı sıcaklık ve aynı protokol; değişen yalnız kuvvet alanı ve onunla gelen su modeli. Konformasyon dağılımı değişir mi, ne kadar? Bu fark, aynı kuvvet alanındaki bağımsız tekrarlar arasındaki farkla birlikte okunur. Su modeli de kuvvet alanının bir parçasıdır: kendi başına deneysel su özelliklerini ne kadar verir, başka bir kuvvet alanıyla birleştirildiğinde ne olur? Hangi kuvvet alanının doğru olduğunu simülasyonun kendisi söyleyemez.</p>",
+   "<p class=\"lead\">Same molecule, same box, same temperature and same protocol; only the force field and the water model that comes with it change. Does the conformational distribution change, and by how much? That difference is read together with the difference between independent replicas of the same force field. The water model is part of the force field too: how well does it reproduce experimental water properties on its own, and what happens when it is combined with another force field? The simulation itself cannot say which force field is right.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"vprogN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"vprogN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"vh0\">NMR ³J(HN,Hα): simülasyonu deneyle karşılaştırmak da bir model ister</h2>",
+   "<h2 id=\"vh0\">NMR ³J(HN,Hα): comparing simulation with experiment also needs a model</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Amit protonu ile Hα arasındaki üç bağ eşleşmesi ³J(HN,Hα), omurga açısı φ'ye Karplus denklemiyle bağlanır: J = A cos²θ + B cosθ + C, θ = φ − 60°. A, B ve C katsayıları bilinen yapılardan uydurulur ve farklı çalışmalar farklı değerler bulmuştur. Bir simülasyonun \"J tahmini\" her karede φ'den J hesaplanıp ortalanarak bulunur. Aşağıda dört kuvvet alanının φ dağılımı ile üç yayımlanmış parametre seti var; ortalama J tarayıcınızda gömülü açılardan yeniden hesaplanır.</p></div>",
+   "<div class=\"prose\"><p>The three-bond coupling between the amide proton and Hα, ³J(HN,Hα), is linked to the backbone angle φ by the Karplus equation: J = A cos²θ + B cosθ + C, θ = φ − 60°. The coefficients A, B and C are fitted to known structures, and different studies have found different values. A simulation's \"J prediction\" is found by computing J from φ in every frame and averaging. Below are the φ distributions of four force fields and three published parameter sets; the mean J is recomputed in your browser from the embedded angles.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Parametre seti:</span><div class=\"seg\" role=\"group\" aria-label=\"Karplus parametre seti\" id=\"vbs\"><button type=\"button\" data-v=\"VB93\" aria-pressed=\"false\">Vuister ve Bax 1993</button><button type=\"button\" data-v=\"HB97\" aria-pressed=\"false\">Hu ve Bax 1997</button><button type=\"button\" data-v=\"V07\" aria-pressed=\"true\">Vögeli ve ark. 2007</button></div></div>",
+   "<div class=\"selrow\"><span>Parameter set:</span><div class=\"seg\" role=\"group\" aria-label=\"Karplus parameter set\" id=\"vbs\"><button type=\"button\" data-v=\"VB93\" aria-pressed=\"false\">Vuister and Bax 1993</button><button type=\"button\" data-v=\"HB97\" aria-pressed=\"false\">Hu and Bax 1997</button><button type=\"button\" data-v=\"V07\" aria-pressed=\"true\">Vögeli et al. 2007</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Kuvvet alanı:</span><div class=\"seg\" role=\"group\" aria-label=\"Kuvvet alanı\" id=\"vbf\"><button type=\"button\" data-v=\"A99\" aria-pressed=\"true\">amber99sb-ildn</button><button type=\"button\" data-v=\"A03\" aria-pressed=\"false\">amber03</button><button type=\"button\" data-v=\"C27\" aria-pressed=\"false\">charmm27</button><button type=\"button\" data-v=\"OPL\" aria-pressed=\"false\">OPLS-AA</button></div></div>",
+   "<div class=\"selrow\"><span>Force field:</span><div class=\"seg\" role=\"group\" aria-label=\"Force field\" id=\"vbf\"><button type=\"button\" data-v=\"A99\" aria-pressed=\"true\">amber99sb-ildn</button><button type=\"button\" data-v=\"A03\" aria-pressed=\"false\">amber03</button><button type=\"button\" data-v=\"C27\" aria-pressed=\"false\">charmm27</button><button type=\"button\" data-v=\"OPL\" aria-pressed=\"false\">OPLS-AA</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"vbridge\" class=\"plot\" aria-label=\"Üç Karplus eğrisi ve seçili kuvvet alanının φ dağılımı\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"vbridge\" class=\"plot\" aria-label=\"Three Karplus curves and the φ distribution of the chosen force field\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc0\"><span class=\"k\">Açık</span><h3>Denklem de bir model</h3><p>En az iki parametre seti ve iki kuvvet alanı deneyin.</p><div class=\"mine\" id=\"mvc0\"></div></article>",
+   "<article class=\"q\" id=\"vc0\"><span class=\"k\">Open</span><h3>The equation is a model too</h3><p>Try at least two parameter sets and two force fields.</p><div class=\"mine\" id=\"mvc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: aynı molekül, dört kuvvet alanı</span>",
+   "<span class=\"step\">1 · Workshop: same molecule, four force fields</span>"
+  ],
+  [
+   "<h2 id=\"vh1\">Ramachandran haritası kuvvet alanıyla değişir mi?</h2>",
+   "<h2 id=\"vh1\">Does the Ramachandran map change with the force field?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her kuvvet alanında 200 ile 2000 ps arasındaki kareler (tekrar başına 1801) üç duruma ayrıldı (MD-U ve MD-REP ile aynı tanım): αR (φ &lt; 0, −120 ≤ ψ &lt; 50), αL (φ ≥ 0) ve kalan β/PPII; β/PPII ayrıca φ = −120°'de PPII ve β diye bölündü. Kesikli çizgiler bu sınırlar. Bir kuvvet alanı ve bir tekrar seçin.</p></div>",
+   "<div class=\"prose\"><p>In each force field the frames between 200 and 2000 ps (1801 per replica) were split into three states (same definition as MD-U and MD-REP): αR (φ &lt; 0, −120 ≤ ψ &lt; 50), αL (φ ≥ 0) and the rest, β/PPII; β/PPII was further split at φ = −120° into PPII and β. The dashed lines are these boundaries. Choose a force field and a replica.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Kuvvet alanı:</span><div class=\"seg\" role=\"group\" aria-label=\"Kuvvet alanı\" id=\"vrf\"><button type=\"button\" data-v=\"A99\" aria-pressed=\"true\">amber99sb-ildn</button><button type=\"button\" data-v=\"A03\" aria-pressed=\"false\">amber03</button><button type=\"button\" data-v=\"C27\" aria-pressed=\"false\">charmm27</button><button type=\"button\" data-v=\"OPL\" aria-pressed=\"false\">OPLS-AA</button></div></div>",
+   "<div class=\"selrow\"><span>Force field:</span><div class=\"seg\" role=\"group\" aria-label=\"Force field\" id=\"vrf\"><button type=\"button\" data-v=\"A99\" aria-pressed=\"true\">amber99sb-ildn</button><button type=\"button\" data-v=\"A03\" aria-pressed=\"false\">amber03</button><button type=\"button\" data-v=\"C27\" aria-pressed=\"false\">charmm27</button><button type=\"button\" data-v=\"OPL\" aria-pressed=\"false\">OPLS-AA</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Tekrar:</span><div class=\"seg\" role=\"group\" aria-label=\"Tekrar\" id=\"vrr\"></div></div>",
+   "<div class=\"selrow\"><span>Replica:</span><div class=\"seg\" role=\"group\" aria-label=\"Replica\" id=\"vrr\"></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"vrama\" class=\"plot\" aria-label=\"φ ve ψ yoğunluk haritası\"></canvas></div><dl class=\"read\" id=\"vrread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"vrama\" class=\"plot\" aria-label=\"φ and ψ density map\"></canvas></div><dl class=\"read\" id=\"vrread\"></dl></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Tekrarlar ve kuvvet alanları</h3>",
+   "<h3 class=\"sub\">Replicas and force fields</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her nokta bir tekrar, yatay çizgi kuvvet alanının ortalaması. amber99sb-ildn'de 8, diğerlerinde 4 tekrar var. αR için altın bant, başvuru ortalamasının ±5 puanı: koşulardan önce seçilen \"önemli fark\" eşiği.</p></div>",
+   "<div class=\"prose\"><p>Each dot is a replica, the horizontal line the force field mean. amber99sb-ildn has 8 replicas, the others 4. For αR the gold band is ±5 points around the reference mean: the \"important difference\" threshold chosen before the runs.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Ölçüt\" id=\"vdm\"><button type=\"button\" data-v=\"p_aR\" aria-pressed=\"true\">αR</button><button type=\"button\" data-v=\"p_bp\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-v=\"p_aL\" aria-pressed=\"false\">αL</button><button type=\"button\" data-v=\"trans_per_ns\" aria-pressed=\"false\">Geçiş/ns</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Measure\" id=\"vdm\"><button type=\"button\" data-v=\"p_aR\" aria-pressed=\"true\">αR</button><button type=\"button\" data-v=\"p_bp\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-v=\"p_aL\" aria-pressed=\"false\">αL</button><button type=\"button\" data-v=\"trans_per_ns\" aria-pressed=\"false\">Transitions/ns</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"vdots\" class=\"plot\" aria-label=\"Kuvvet alanı başına tekrar değerleri\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"vdots\" class=\"plot\" aria-label=\"Replica values per force field\"></canvas></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"vcomp\">Önceden yazılmış hükümleri göster</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"vcomp\">Show the verdicts written in advance</button></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc1\"><span class=\"k\">Açık</span><h3>Dört harita</h3><p>Dört kuvvet alanının haritasına bakın.</p><div class=\"mine\" id=\"mvc1\"></div></article>",
+   "<article class=\"q\" id=\"vc1\"><span class=\"k\">Open</span><h3>Four maps</h3><p>Look at the maps of all four force fields.</p><div class=\"mine\" id=\"mvc1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc2\"><span class=\"k\">Açık</span><h3>Tekrar farkı ve kuvvet alanı farkı</h3><p>Aynı kuvvet alanının en az iki tekrarını tek tek açın.</p><div class=\"mine\" id=\"mvc2\"></div></article>",
+   "<article class=\"q\" id=\"vc2\"><span class=\"k\">Open</span><h3>Replica difference and force field difference</h3><p>Open at least two replicas of the same force field one by one.</p><div class=\"mine\" id=\"mvc2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc3\"><span class=\"k\">Açık</span><h3>Hüküm neyi söyler?</h3><p>Hüküm tablosunu açın.</p><div class=\"mine\" id=\"mvc3\"></div></article>",
+   "<article class=\"q\" id=\"vc3\"><span class=\"k\">Open</span><h3>What does a verdict say?</h3><p>Open the verdict table.</p><div class=\"mine\" id=\"mvc3\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye: su modeli ve model uyumu</span>",
+   "<span class=\"step\">2 · Workshop: water model and model compatibility</span>"
+  ],
+  [
+   "<h2 id=\"vh2\">Su modeli kendi başına ne verir, başka bir kuvvet alanıyla ne olur?</h2>",
+   "<h2 id=\"vh2\">What does a water model give on its own, and what happens with another force field?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Üç su modeli (amber99sb-ildn dosyalarındaki TIP3P, SPC/E ve TIP4P) 3 nm'lik saf su kutularında 298,15 K ve 1 bar'da 1 ns koşuldu. Yoğunluk ve öz difüzyon deneysel değerlerle karşılaştırılıyor. Eşik yazılmadı; yalnız karşılaştırma.</p></div>",
+   "<div class=\"prose\"><p>Three water models (TIP3P, SPC/E and TIP4P from the amber99sb-ildn files) were run for 1 ns in 3 nm pure water boxes at 298.15 K and 1 bar. Density and self-diffusion are compared with experimental values. No threshold was written; this is only a comparison.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Su ölçütü\" id=\"vwm\"><button type=\"button\" data-v=\"rho\" aria-pressed=\"true\">Yoğunluk</button><button type=\"button\" data-v=\"D\" aria-pressed=\"false\">Öz difüzyon</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Water measure\" id=\"vwm\"><button type=\"button\" data-v=\"rho\" aria-pressed=\"true\">Density</button><button type=\"button\" data-v=\"D\" aria-pressed=\"false\">Self-diffusion</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"vwat\" class=\"plot\" aria-label=\"Su modellerinde seçili özellik ve deneysel değer\"></canvas></div><dl class=\"read\" id=\"vwread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"vwat\" class=\"plot\" aria-label=\"Chosen property of the water models and the experimental value\"></canvas></div><dl class=\"read\" id=\"vwread\"></dl></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Uyumsuz birleşimler: gerçek grompp çıktıları</h3>",
+   "<h3 class=\"sub\">Incompatible combinations: real grompp output</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Üç birleşim yalnız grompp ile denendi; çıkış kodu 0 başarı, 0'dan farklı her değer durma demektir.</p></div>",
+   "<div class=\"prose\"><p>Three combinations were tried with grompp only; exit code 0 means success, any other value means the program stopped.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc4\"><span class=\"k\">Açık</span><h3>Su da bir model</h3><p>Yoğunluğa ve öz difüzyona bakın.</p><div class=\"mine\" id=\"mvc4\"></div></article>",
+   "<article class=\"q\" id=\"vc4\"><span class=\"k\">Open</span><h3>Water is a model too</h3><p>Look at density and self-diffusion.</p><div class=\"mine\" id=\"mvc4\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc5\"><span class=\"k\">Açık</span><h3>Gürültülü uyumsuzluk</h3><p>M1 ve M2'yi cevaplayın.</p><div class=\"mine\" id=\"mvc5\"></div></article>",
+   "<article class=\"q\" id=\"vc5\"><span class=\"k\">Open</span><h3>Loud mismatch</h3><p>Answer M1 and M2.</p><div class=\"mine\" id=\"mvc5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc6\"><span class=\"k\">Açık</span><h3>Sessiz uyumsuzluk</h3><p>M3'ü cevaplayın.</p><div class=\"mine\" id=\"mvc6\"></div></article>",
+   "<article class=\"q\" id=\"vc6\"><span class=\"k\">Open</span><h3>Silent mismatch</h3><p>Answer M3.</p><div class=\"mine\" id=\"mvc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Tezgâh: iddia denetleyici</span>",
+   "<span class=\"step\">3 · Bench: claim checker</span>"
+  ],
+  [
+   "<h2 id=\"vh3\">Altı cümle: bu veriyle kurulabilir mi?</h2>",
+   "<h2 id=\"vh3\">Six sentences: do these data support them?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Seçiminizden sonra gerekçe görünür.</p></div>",
+   "<div class=\"prose\"><p>For each sentence decide: supported by the data on this page, needs more evidence, or not supported by these data. The reasoning appears after your choice.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"vc7\"><span class=\"k\">Açık</span><h3>Kuvvet alanı seçimi bir iddia değildir</h3><p>En az dört cümle için karar verin.</p><div class=\"mine\" id=\"mvc7\"></div></article>",
+   "<article class=\"q\" id=\"vc7\"><span class=\"k\">Open</span><h3>Choosing a force field is not a claim</h3><p>Judge at least four sentences.</p><div class=\"mine\" id=\"mvc7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Defter: kuvvet alanı seçim kaydı</span>",
+   "<span class=\"step\">4 · Notebook: force field choice record</span>"
+  ],
+  [
+   "<h2 id=\"vh4\">Koşudan önce yazılan altı satır</h2>",
+   "<h2 id=\"vh4\">Six lines written before the run</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kendi çalışmanız için doldurun; örnekler bu sayfadan. Eksik satırlar için altta uyarı çıkar. Metin yalnız tarayıcınızda oluşturulur, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>Fill this in for your own work; the examples are from this page. Missing lines trigger notes at the bottom. The text is generated only in your browser and is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>Kuvvet alanı ve sürümü, gerekçe<textarea id=\"vfF\" rows=\"2\">Örnek: amber99sb-ildn (GROMACS 2023.3 dağıtımı); gerekçe: önceki modüllerle aynı kuvvet alanı; seçimin kaynağı ve sınırları burada yazılır.</textarea></label>",
+   "<label>Force field and version, reasons<textarea id=\"vfF\" rows=\"2\">Example: amber99sb-ildn (GROMACS 2023.3 distribution); reason: the same force field as the earlier modules; the source and limits of the choice are written here.</textarea></label>"
+  ],
+  [
+   "<label>Su modeli ve kuvvet alanıyla uyumu<textarea id=\"vfW\" rows=\"2\">Örnek: TIP3P; kuvvet alanının birlikte kullanıldığı model; başka kuvvet alanından su dosyası alınmadı.</textarea></label>",
+   "<label>Water model and its compatibility with the force field<textarea id=\"vfW\" rows=\"2\">Example: TIP3P; the model used with this force field; no water file taken from another force field.</textarea></label>"
+  ],
+  [
+   "<label>Bağsız ayarlar (kesme, geçiş, uzun menzil düzeltmesi)<textarea id=\"vfN\" rows=\"2\">Örnek: kesme 1,0 nm, PME, DispCorr EnerPres; CHARMM için 1,2 nm ve kuvvet geçişi 1,0 nm.</textarea></label>",
+   "<label>Nonbonded settings (cut-off, switching, long-range correction)<textarea id=\"vfN\" rows=\"2\">Example: cut-off 1.0 nm, PME, DispCorr EnerPres; for CHARMM 1.2 nm and force switch from 1.0 nm.</textarea></label>"
+  ],
+  [
+   "<label>Kalıntı ve uç adları, eksik parametreler<textarea id=\"vfR\" rows=\"2\">Örnek: uçlar ACE ve NME; charmm27'de CT3, OPLS-AA'da NAC adı, uçlar \"None\"; eksik parametre yok.</textarea></label>",
+   "<label>Residue and terminal names, missing parameters<textarea id=\"vfR\" rows=\"2\">Example: termini ACE and NME; named CT3 in charmm27 and NAC in OPLS-AA, termini \"None\"; no missing parameters.</textarea></label>"
+  ],
+  [
+   "<label>Tekrarlar ve karşılaştırma<textarea id=\"vfC\" rows=\"2\">Örnek: kuvvet alanı başına 4 bağımsız tekrar; tekrarlar arası dağılım kuvvet alanı farkıyla birlikte raporlanır.</textarea></label>",
+   "<label>Replicas and comparison<textarea id=\"vfC\" rows=\"2\">Example: 4 independent replicas per force field; the spread between replicas is reported together with the force field difference.</textarea></label>"
+  ],
+  [
+   "<label>Deneyle karşılaştırma ve onun modeli<textarea id=\"vfE\" rows=\"2\">Örnek: ³J(HN,Hα); Karplus parametre seti adıyla yazılır ve en az bir başka setle de verilir.</textarea></label>",
+   "<label>Comparison with experiment and its model<textarea id=\"vfE\" rows=\"2\">Example: ³J(HN,Hα); the Karplus parameter set is named and results are also given with at least one other set.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"vfcopy\">Metni kopyala</button><span class=\"small\" id=\"vfmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"vfcopy\">Copy text</button><span class=\"small\" id=\"vfmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">5 · Sınav</span>",
+   "<span class=\"step\">5 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"vh5\">Altı soru</h2>",
+   "<h2 id=\"vh5\">Six questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('vprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('vprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== deneysel köprü: ³J(HN,Hα) ve Karplus denklemi ===== */",
+   "/* ===== experimental bridge: 3J(HN,Ha) and the Karplus equation ===== */"
+  ],
+  [
+   "var KAR={VB93:['Vuister ve Bax 1993',6.51,-1.76,1.60],HB97:['Hu ve Bax 1997',7.09,-1.42,1.55],V07:['Vögeli ve ark. 2007',7.97,-1.26,0.63]};",
+   "var KAR={VB93:['Vuister and Bax 1993',6.51,-1.76,1.60],HB97:['Hu and Bax 1997',7.09,-1.42,1.55],V07:['Vögeli et al. 2007',7.97,-1.26,0.63]};"
+  ],
+  [
+   "$('vbleg').innerHTML='<span>'+lin(PAL.accent)+KAR[BR.k][0]+'</span><span>'+lin(PAL.muted)+'öbür iki parametre seti</span><span><i style=\"background:'+hexA(PAL.navy,0.35)+'\"></i>φ dağılımı: '+FFN[BR.ff]+'</span><span>'+lin(PAL.accent)+'kesikli: ⟨J⟩</span>'; }",
+   "$('vbleg').innerHTML='<span>'+lin(PAL.accent)+KAR[BR.k][0]+'</span><span>'+lin(PAL.muted)+'the other two parameter sets</span><span><i style=\"background:'+hexA(PAL.navy,0.35)+'\"></i>φ distribution: '+FFN[BR.ff]+'</span><span>'+lin(PAL.accent)+'dashed: ⟨J⟩</span>'; }"
+  ],
+  [
+   "$('vbread').innerHTML=dl('Parametre seti',KAR[k][0]+': A '+fx(KAR[k][1],2)+', B '+fx(KAR[k][2],2)+', C '+fx(KAR[k][3],2)+' Hz; θ = φ − 60°')+dl('⟨J⟩, '+FFN[BR.ff],fx(J[0],2)+' Hz (tekrarlar arası SD '+fx(J[1],2)+'; '+J[2].length+' tekrar)')+dl('Aynı kuvvet alanında yalnız αR / PPII / β kareleri',fx(stJ(BR.ff,k,'aR'),2)+' / '+fx(stJ(BR.ff,k,'pp'),2)+' / '+fx(stJ(BR.ff,k,'be'),2)+' Hz');",
+   "$('vbread').innerHTML=dl('Parameter set',KAR[k][0]+': A '+fx(KAR[k][1],2)+', B '+fx(KAR[k][2],2)+', C '+fx(KAR[k][3],2)+' Hz; θ = φ − 60°')+dl('⟨J⟩, '+FFN[BR.ff],fx(J[0],2)+' Hz (SD between replicas '+fx(J[1],2)+'; '+J[2].length+' replicas)')+dl('Same force field, αR / PPII / β frames only',fx(stJ(BR.ff,k,'aR'),2)+' / '+fx(stJ(BR.ff,k,'pp'),2)+' / '+fx(stJ(BR.ff,k,'be'),2)+' Hz');"
+  ],
+  [
+   "$('vbtab').innerHTML=h+'</tbody></table><p class=\"small\">Ortalama ± tekrarlar arası SD; her tekrarın ⟨J⟩ değeri 200 ile 2000 ps arasındaki 1801 karenin ortalamasıdır. Tablo tarayıcınızda gömülü φ dizilerinden hesaplanır.</p>'; }",
+   "$('vbtab').innerHTML=h+'</tbody></table><p class=\"small\">Mean ± SD between replicas; the ⟨J⟩ of each replica is the mean over its 1801 frames between 200 and 2000 ps. The table is computed in your browser from the embedded φ arrays.</p>'; }"
+  ],
+  [
+   "card('vc0',true,'Aynı φ dağılımından üç parametre seti farklı J veriyor: bir kuvvet alanında setler arası fark '+fx(arrMin(setR),2)+' ile '+fx(arrMax(setR),2)+' Hz. Aynı set içinde dört kuvvet alanı arasındaki fark ise '+fx(arrMin(ffR),2)+' ile '+fx(arrMax(ffR),2)+' Hz; bu, aynı kuvvet alanındaki tekrarlar arası SD\\'den (en çok '+fx(sdMax,2)+' Hz) büyük. αR payında tekrarlar arası dağılım kuvvet alanı farkını örterken (Atölye 1, hükümler), ⟨J⟩\\'de en yüksek ve en düşük kuvvet alanı tekrarlar arası dağılımdan büyük bir farkla ayrışıyor; bu karşılaştırma betimleyicidir, önceden yazılmış bir test değildir. J yalnız φ\\'ye bağlıdır, ψ denklemde yoktur: '+FFN[BR.ff]+' ve '+KAR[BR.k][0]+' ile αR karelerinin ortalaması '+fx(stJ(BR.ff,BR.k,'aR'),2)+' Hz, PPII karelerinin '+fx(stJ(BR.ff,BR.k,'pp'),2)+' Hz, β karelerinin '+fx(stJ(BR.ff,BR.k,'be'),2)+' Hz; bu farklar yalnız durumların φ dağılımlarından gelir. Simülasyonu deneyle karşılaştırmak için kullanılan denklem de bir modeldir; bu sayfada deneysel bir alanin dipeptidi J değeriyle karşılaştırma yapılmadı.'); }",
+   "card('vc0',true,'From the same φ distribution the three parameter sets give different J: within one force field the difference between sets is '+fx(arrMin(setR),2)+' to '+fx(arrMax(setR),2)+' Hz. With one set, the difference between the four force fields is '+fx(arrMin(ffR),2)+' to '+fx(arrMax(ffR),2)+' Hz, larger than the SD between replicas of one force field (at most '+fx(sdMax,2)+' Hz). While in the αR fraction the spread between replicas covers the force field difference (Workshop 1, verdicts), in ⟨J⟩ the highest and lowest force fields separate by more than the spread between replicas; this comparison is descriptive, not a test written in advance. J depends only on φ; ψ does not appear in the equation: with '+FFN[BR.ff]+' and '+KAR[BR.k][0]+' the mean over αR frames is '+fx(stJ(BR.ff,BR.k,'aR'),2)+' Hz, over PPII frames '+fx(stJ(BR.ff,BR.k,'pp'),2)+' Hz and over β frames '+fx(stJ(BR.ff,BR.k,'be'),2)+' Hz; these differences come only from the φ distributions of the states. The equation used to compare simulation with experiment is itself a model; no experimental alanine dipeptide J value was compared on this page.'); }"
+  ],
+  [
+   "else card('vc0',false,'Şimdiye kadar '+nk+' parametre seti ve '+nf+' kuvvet alanı; en az ikişer tane deneyin.'); }",
+   "else card('vc0',false,'So far '+nk+' parameter set(s) and '+nf+' force field(s); try at least two of each.'); }"
+  ],
+  [
+   "/* ===== atölye 1: aynı molekül, dört kuvvet alanı (Ramachandran) ===== */",
+   "/* ===== workshop 1: same molecule, four force fields (Ramachandran) ===== */"
+  ],
+  [
+   "var MET={p_aR:['αR payı (%)','αR',' %'],p_bp:['β/PPII payı (%)','β/PPII',' %'],p_aL:['αL payı (%)','αL',' %'],trans_per_ns:['αR↔β/PPII geçişi (/ns)','geçiş/ns','/ns']};",
+   "var VEN=function(v){ return {'fark var':'difference','fark var ama \\u00f6nemli e\\u015fi\\u011fin alt\\u0131nda':'difference below the important threshold','e\\u015fde\\u011fer (\\u00b15 puan i\\u00e7inde)':'equivalent (within ±5 points)','karars\\u0131z':'inconclusive'}[v]||v; }; var MET={p_aR:['αR fraction (%)','αR',' %'],p_bp:['β/PPII fraction (%)','β/PPII',' %'],p_aL:['αL fraction (%)','αL',' %'],trans_per_ns:['αR↔β/PPII transitions (/ns)','transitions/ns','/ns']};"
+  ],
+  [
+   "function raRead(){ var s=stFrac(raNames()), nm=RA.rep<0?'bütün tekrarlar ('+VDD.reps[RA.ff].length+')':'tekrar '+(RA.rep+1);",
+   "function raRead(){ var s=stFrac(raNames()), nm=RA.rep<0?'all replicas ('+VDD.reps[RA.ff].length+')':'replica '+(RA.rep+1);"
+  ],
+  [
+   "$('vrread').innerHTML=dl('Seçim',FFN[RA.ff]+', '+nm+'; '+fmtI(s.n)+' kare')+dl('αR',fx(s.aR,1)+' %')+dl('β/PPII (PPII + β)',fx(s.bp,1)+' % ('+fx(s.pp,1)+' + '+fx(s.be,1)+')')+dl('αL',fx(s.aL,1)+' %'); }",
+   "$('vrread').innerHTML=dl('Selection',FFN[RA.ff]+', '+nm+'; '+fmtI(s.n)+' frames')+dl('αR',fx(s.aR,1)+' %')+dl('β/PPII (PPII + β)',fx(s.bp,1)+' % ('+fx(s.pp,1)+' + '+fx(s.be,1)+')')+dl('αL',fx(s.aL,1)+' %'); }"
+  ],
+  [
+   "function raReps(){ $('vrr').innerHTML='<button type=\"button\" data-v=\"-1\" aria-pressed=\"'+(RA.rep<0)+'\">Tümü</button>'+VDD.reps[RA.ff].map(function(n,i){ return '<button type=\"button\" data-v=\"'+i+'\" aria-pressed=\"'+(RA.rep===i)+'\">'+(i+1)+'</button>'; }).join(''); segWire('vrr',function(v){ RA.rep=+v; raAll(); }); }",
+   "function raReps(){ $('vrr').innerHTML='<button type=\"button\" data-v=\"-1\" aria-pressed=\"'+(RA.rep<0)+'\">All</button>'+VDD.reps[RA.ff].map(function(n,i){ return '<button type=\"button\" data-v=\"'+i+'\" aria-pressed=\"'+(RA.rep===i)+'\">'+(i+1)+'</button>'; }).join(''); segWire('vrr',function(v){ RA.rep=+v; raAll(); }); }"
+  ],
+  [
+   "$('vdread').innerHTML=dl('Kuvvet alanı ortalamaları ('+MET[m][1]+')',FFS.map(function(ff,j){ return ff+' '+fx(means[j],1); }).join('; ')+MET[m][2])+dl('Ortalamaların aralığı',fx(arrMax(means)-arrMin(means),1)+(m==='trans_per_ns'?' /ns':' puan'))+dl('Tekrarlar arası SD',FFS.map(function(ff,j){ return ff+' '+fx(sds[j],1); }).join('; ')+(m==='trans_per_ns'?' /ns':' puan'))+(m==='trans_per_ns'?dl('Not','keşif ölçütü (önceden yazılmış hükme katılmaz); yeni durum en az 5 kare sürerse geçiş sayılır'):'')+(m==='p_aR'?dl('Altın bant','A99 ortalamasının ±5 puanı (önceden seçilen önemli fark eşiği)'):''); }",
+   "$('vdread').innerHTML=dl('Force field means ('+MET[m][1]+')',FFS.map(function(ff,j){ return ff+' '+fx(means[j],1); }).join('; ')+MET[m][2])+dl('Range of means',fx(arrMax(means)-arrMin(means),1)+(m==='trans_per_ns'?' /ns':' points'))+dl('SD between replicas',FFS.map(function(ff,j){ return ff+' '+fx(sds[j],1); }).join('; ')+(m==='trans_per_ns'?' /ns':' points'))+(m==='trans_per_ns'?dl('Note','exploratory measure (not part of the verdict written in advance); a transition counts if the new state lasts at least 5 frames'):'')+(m==='p_aR'?dl('Gold band','±5 points around the A99 mean (important-difference threshold chosen in advance)'):''); }"
+  ],
+  [
+   "function raComp(){ var C=VDD.res.comp, h='<table class=\"st\"><thead><tr><th>A99 ile karşılaştırma (αR, puan)</th><th>Δ</th><th>Welch %95</th><th>Welch %90</th><th>p (permütasyon)</th><th>p (Holm)</th><th>Hüküm</th></tr></thead><tbody>';",
+   "function raComp(){ var C=VDD.res.comp, h='<table class=\"st\"><thead><tr><th>Comparison with A99 (αR, points)</th><th>Δ</th><th>Welch 95%</th><th>Welch 90%</th><th>p (permutation)</th><th>p (Holm)</th><th>Verdict</th></tr></thead><tbody>';"
+  ],
+  [
+   "['A03','C27','OPL'].forEach(function(ff){ var c=C[ff]; if(!c) return; h+='<tr><td>'+FFN[ff]+' (n = '+VDD.res.ff[ff].n+')</td><td>'+fx(c.delta,1)+'</td><td>'+fx(c.ci95[0],1)+' ile '+fx(c.ci95[1],1)+'</td><td>'+fx(c.ci90[0],1)+' ile '+fx(c.ci90[1],1)+'</td><td>'+fx(c.p,4)+' ('+c.count+' / '+c.total+')</td><td>'+fx(c.p_holm,4)+'</td><td><span class=\"vtag\">'+c.verdict+'</span></td></tr>'; });",
+   "['A03','C27','OPL'].forEach(function(ff){ var c=C[ff]; if(!c) return; h+='<tr><td>'+FFN[ff]+' (n = '+VDD.res.ff[ff].n+')</td><td>'+fx(c.delta,1)+'</td><td>'+fx(c.ci95[0],1)+' to '+fx(c.ci95[1],1)+'</td><td>'+fx(c.ci90[0],1)+' to '+fx(c.ci90[1],1)+'</td><td>'+fx(c.p,4)+' ('+c.count+' / '+c.total+')</td><td>'+fx(c.p_holm,4)+'</td><td><span class=\"vtag\">'+VEN(c.verdict)+'</span></td></tr>'; });"
+  ],
+  [
+   "$('vctab').innerHTML=h+'</tbody></table><p class=\"small\">A99 n = '+VDD.res.ff.A99.n+' (MD-REP su tekrarları). Hüküm etiketleri ve ±5 puan eşiği koşulardan önce yazıldı; Holm düzeltmesi üç karşılaştırma içindir.</p>'; RA.comp=true; raCards(); }",
+   "$('vctab').innerHTML=h+'</tbody></table><p class=\"small\">A99 n = '+VDD.res.ff.A99.n+' (MD-REP water replicas). The verdict labels and the ±5 point threshold were written before the runs; the Holm correction covers the three comparisons.</p>'; RA.comp=true; raCards(); }"
+  ],
+  [
+   "if(Object.keys(RA.seenF).length>=4) card('vc1',true,'Ortalama αR payı: '+FFS.map(function(ff,j){ return ff+' '+fx(F[j].mean,1)+' %'; }).join(', ')+'. Aynı molekül, aynı kutu ve aynı protokolle kuvvet alanı ortalamaları arasında '+fx(R.spread.range_of_means,1)+' puan fark var. Havzaların ağırlığı kuvvet alanına bağlı olabilir, ama bu farkın ne kadarının kuvvet alanından, ne kadarının tekrarlar arası değişkenlikten geldiği tek bir haritadan okunamaz (sonraki kart). Hangi kuvvet alanının doğru olduğunu simülasyonun kendisi söyleyemez; bunun için deneysel bir ölçüt gerekir.');",
+   "if(Object.keys(RA.seenF).length>=4) card('vc1',true,'Mean αR fraction: '+FFS.map(function(ff,j){ return ff+' '+fx(F[j].mean,1)+' %'; }).join(', ')+'. With the same molecule, box and protocol, the force field means differ by '+fx(R.spread.range_of_means,1)+' points. The weight of the basins may depend on the force field, but how much of this difference comes from the force field and how much from variability between replicas cannot be read from a single map (next card). The simulation itself cannot say which force field is right; that needs an experimental measure.');"
+  ],
+  [
+   "else card('vc1',false,'Dört kuvvet alanının haritasına bakın (şimdiye kadar '+Object.keys(RA.seenF).length+').');",
+   "else card('vc1',false,'Look at the maps of all four force fields (so far '+Object.keys(RA.seenF).length+').');"
+  ],
+  [
+   "if(nr>=2){ var a=R.ff.A99.p_aR.vals; card('vc2',true,'Aynı kuvvet alanında tekrarlar da farklı: A99\\'un 8 tekrarında αR payı '+fx(arrMin(a),1)+' ile '+fx(arrMax(a),1)+' % (SD '+fx(R.ff.A99.p_aR.sd,1)+' puan). Tekrarlar arası SD\\'ler '+FFS.map(function(ff){ return ff+' '+fx(R.ff[ff].p_aR.sd,1); }).join(', ')+'; kuvvet alanı ortalamalarının aralığı '+fx(R.spread.range_of_means,1)+' puan. Tekrarlar arası dağılımın bir nedeni geçiş hızı (keşif ölçütü): αR↔β/PPII geçişi '+FFS.map(function(ff){ return ff+' '+fx(R.ff[ff].trans_per_ns.mean,1); }).join(', ')+' /ns. Geçişin seyrek olduğu kuvvet alanında 2 ns\\'lik bir tekrar uzun süre tek havzada kalabilir ve tekrarlar birbirinden çok farklı paylar verir. 2 ns\\'lik tek bir koşu, iki kuvvet alanı arasındaki farkı göstermeye de gizlemeye de yetebilir; karşılaştırma tekrarların dağılımıyla yapılır.'); }",
+   "if(nr>=2){ var a=R.ff.A99.p_aR.vals; card('vc2',true,'Replicas of the same force field differ too: in the 8 A99 replicas the αR fraction is '+fx(arrMin(a),1)+' to '+fx(arrMax(a),1)+' % (SD '+fx(R.ff.A99.p_aR.sd,1)+' points). SDs between replicas: '+FFS.map(function(ff){ return ff+' '+fx(R.ff[ff].p_aR.sd,1); }).join(', ')+'; range of the force field means '+fx(R.spread.range_of_means,1)+' points. One reason for the spread between replicas is the transition rate (exploratory measure): αR↔β/PPII transitions '+FFS.map(function(ff){ return ff+' '+fx(R.ff[ff].trans_per_ns.mean,1); }).join(', ')+' /ns. In a force field where transitions are rare, a 2 ns replica can stay in one basin for a long time, and replicas give very different fractions. A single 2 ns run may be enough either to show or to hide a difference between two force fields; the comparison is made with the spread of replicas.'); }"
+  ],
+  [
+   "else card('vc2',false,'Aynı kuvvet alanının en az iki tekrarını tek tek açın (şimdiye kadar '+nr+').');",
+   "else card('vc2',false,'Open at least two replicas of the same force field one by one (so far '+nr+').');"
+  ],
+  [
+   "if(RA.comp){ var C=R.comp; card('vc3',true,'Önceden yazılmış kurala göre hükümler: '+['A03','C27','OPL'].filter(function(ff){ return C[ff]; }).map(function(ff){ return ff+' \"'+C[ff].verdict+'\" (Δ '+fx(C[ff].delta,1)+' puan, Holm p '+fx(C[ff].p_holm,3)+')'; }).join('; ')+'. Hüküm yalnız αR payı ve bu tekrar sayısı için geçerlidir; \"fark var\" bir kuvvet alanının daha iyi olduğunu söylemez, \"kararsız\" ise farkın olmadığını söylemez.'); }",
+   "if(RA.comp){ var C=R.comp; card('vc3',true,'Verdicts by the rule written in advance: '+['A03','C27','OPL'].filter(function(ff){ return C[ff]; }).map(function(ff){ return ff+' \"'+VEN(C[ff].verdict)+'\" (Δ '+fx(C[ff].delta,1)+' points, Holm p '+fx(C[ff].p_holm,3)+')'; }).join('; ')+'. A verdict holds only for the αR fraction and this number of replicas; \"difference\" does not say that a force field is better, and \"inconclusive\" does not say that there is no difference.'); }"
+  ],
+  [
+   "else card('vc3',false,'Hüküm tablosunu açın.'); }",
+   "else card('vc3',false,'Open the verdict table.'); }"
+  ],
+  [
+   "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
+   "function fmtI(n){ return new Intl.NumberFormat('en-US').format(n); }"
+  ],
+  [
+   "/* ===== atölye 2: su modeli ve model uyumu ===== */",
+   "/* ===== workshop 2: water model and model compatibility ===== */"
+  ],
+  [
+   "var WEXP={rho:[0.99705,'g/cm³','yoğunluk','Kell 1975'],D:[2.299,'10⁻⁵ cm²/s','öz difüzyon','Mills 1973']};",
+   "var WEXP={rho:[0.99705,'g/cm³','density','Kell 1975'],D:[2.299,'10⁻⁵ cm²/s','self-diffusion','Mills 1973']};"
+  ],
+  [
+   "g.fillStyle=PAL.accent; g.font='600 12px '+css('--sans'); g.textAlign='right'; g.fillText('kesikli çizgi: deney, 25 °C ('+fx(ex,m==='rho'?3:2)+')',p.X(3.6)-4,26); g.textAlign='left'; }",
+   "g.fillStyle=PAL.accent; g.font='600 12px '+css('--sans'); g.textAlign='right'; g.fillText('dashed line: experiment, 25 °C ('+fx(ex,m==='rho'?3:2)+')',p.X(3.6)-4,26); g.textAlign='left'; }"
+  ],
+  [
+   "$('vwread').innerHTML=dl('Ölçüt',WEXP[m][2]+' ('+WEXP[m][1]+'); deney '+fx(WEXP[m][0],m==='rho'?5:3)+' ('+WEXP[m][3]+')')+WK.map(function(k){ var v=X[k][m]; return dl(WN[k]+' ('+X[k].nmol+' su)',fx(v,m==='rho'?3:2)+(m==='rho'?' ± '+fx(X[k].rho_sd,3)+' (kare SD)':' ± '+fx(X[k].D_err,2)+' (gmx hata tahmini)')+'; deneyden '+(v>=WEXP[m][0]?'+':'−')+fx(Math.abs(100*(v/WEXP[m][0]-1)),0)+' %'); }).join('')+dl('Koşul','298,15 K, 1 bar, 1 ns NPT; yoğunluk 100 ile 1000 ps; D, OW atomlarının MSD eğimi (50 ile 400 ps gecikme), sonlu boyut düzeltmesi yok'); }",
+   "$('vwread').innerHTML=dl('Measure',WEXP[m][2]+' ('+WEXP[m][1]+'); experiment '+fx(WEXP[m][0],m==='rho'?5:3)+' ('+WEXP[m][3]+')')+WK.map(function(k){ var v=X[k][m]; return dl(WN[k]+' ('+X[k].nmol+' waters)',fx(v,m==='rho'?3:2)+(m==='rho'?' ± '+fx(X[k].rho_sd,3)+' (frame SD)':' ± '+fx(X[k].D_err,2)+' (gmx error estimate)')+'; versus experiment '+(v>=WEXP[m][0]?'+':'−')+fx(Math.abs(100*(v/WEXP[m][0]-1)),0)+' %'); }).join('')+dl('Conditions','298.15 K, 1 bar, 1 ns NPT; density 100 to 1000 ps; D from the MSD slope of the OW atoms (50 to 400 ps lag), no finite-size correction'); }"
+  ],
+  [
+   "if(WA.seen.rho&&WA.seen.D) card('vc4',true,'Üç su modeli 298,15 K\\'de: yoğunluk '+WK.map(function(k){ return WN[k]+' '+fx(X[k].rho,3); }).join(', ')+' g/cm³ (deney 0,997); öz difüzyon '+WK.map(function(k){ return WN[k]+' '+fx(X[k].D,2); }).join(', ')+' × 10⁻⁵ cm²/s (deney 2,30). Her model kendi parametreleriyle bazı özellikleri iyi, bazılarını kötü verir; su modeli kuvvet alanının bir parçası olarak, onunla birlikte parametrize edilir. Bu nedenle bir kuvvet alanı genellikle belirli bir su modeliyle kullanılır. D değerlerine sonlu kutu düzeltmesi uygulanmadı.');",
+   "if(WA.seen.rho&&WA.seen.D) card('vc4',true,'Three water models at 298.15 K: density '+WK.map(function(k){ return WN[k]+' '+fx(X[k].rho,3); }).join(', ')+' g/cm³ (experiment 0.997); self-diffusion '+WK.map(function(k){ return WN[k]+' '+fx(X[k].D,2); }).join(', ')+' × 10⁻⁵ cm²/s (experiment 2.30). Each model reproduces some properties well and others poorly with its own parameters; the water model is part of the force field and is parametrized together with it. This is why a force field is usually used with a particular water model. No finite-box correction was applied to D.');"
+  ],
+  [
+   "else card('vc4',false,'Yoğunluğa ve öz difüzyona bakın.'); }",
+   "else card('vc4',false,'Look at density and self-diffusion.'); }"
+  ],
+  [
+   "{k:'M1', t:'M1 · Peptit amber99sb-ildn, su CHARMM TIP3P', d:'MD-REP\\'in amber99sb-ildn topolojisinde su satırı \"charmm27.ff/tips3p.itp\" yapıldı; koordinatlar aynı.', cmd:'gmx grompp -f em.mdp -c start.gro -p topol.top', o:['Su dosyası bulunamadı','CHARMM su tanımının atom türleri (OT) AMBER kuvvet alanında tanımlı değil','Su molekülü sayısı yanlış'], a:1, w:'Her kuvvet alanının atom türleri ve parametre tabloları kendine özgüdür. Bir su topolojisi başka bir kuvvet alanından \"ödünç\" alınamaz; grompp tanımadığı atom türünde durur. Burada hata gürültülü: grompp\\'un yakaladığı bir uyumsuzluk.'},",
+   "{k:'M1', t:'M1 · Peptide amber99sb-ildn, water CHARMM TIP3P', d:'In the MD-REP amber99sb-ildn topology the water line was changed to \"charmm27.ff/tips3p.itp\"; the coordinates are the same.', cmd:'gmx grompp -f em.mdp -c start.gro -p topol.top', o:['The water file was not found','The atom types of the CHARMM water definition (OT) are not defined in the AMBER force field','The number of water molecules is wrong'], a:1, w:'Each force field has its own atom types and parameter tables. A water topology cannot be \"borrowed\" from another force field; grompp stops at the atom type it does not know. Here the error is loud: a mismatch grompp catches.'},"
+  ],
+  [
+   "{k:'M2', t:'M2 · OPLS-AA topolojisi, 3 noktalı su koordinatları', d:'OPLS-AA topolojisi TIP4P (4 nokta) tanımlıyor; kutu ise 3 noktalı spc216.gro ile dolduruldu.', cmd:'gmx solvate -cs spc216.gro; gmx grompp -f em.mdp -c start.gro -p topol.top', o:['Topoloji molekül başına 4, koordinat dosyası 3 nokta bekliyor; atom sayıları tutmuyor','Kutu çok küçük','OPLS-AA su kullanılamaz'], a:0, w:'TIP4P\\'de yükü taşıyan dördüncü, kütlesiz bir nokta (MW) vardır. Topoloji 1520 × 4 + 22, dosya 1520 × 3 + 22 atom içeriyor. Koordinatlar seçilen su modeliyle üretilmelidir (TIP4P için tip4p.gro).'},",
+   "{k:'M2', t:'M2 · OPLS-AA topology, 3-site water coordinates', d:'The OPLS-AA topology defines TIP4P (4 sites); the box was filled with the 3-site spc216.gro.', cmd:'gmx solvate -cs spc216.gro; gmx grompp -f em.mdp -c start.gro -p topol.top', o:['The topology expects 4 sites per molecule, the coordinate file has 3; the atom counts do not match','The box is too small','OPLS-AA cannot be used with water'], a:0, w:'TIP4P has a fourth, massless site (MW) that carries the charge. The topology contains 1520 × 4 + 22 atoms, the file 1520 × 3 + 22. Coordinates must be generated with the chosen water model (tip4p.gro for TIP4P).'},"
+  ],
+  [
+   "{k:'M3', t:'M3 · charmm27, AMBER ayarlarıyla', d:'charmm27 topolojisi, CHARMM için önerilen kuvvet geçişi (1,0 ile 1,2 nm) yerine AMBER koşularının ortak ayarlarıyla (1,0 nm kesme, DispCorr EnerPres).', cmd:'gmx grompp -f em.mdp (common.mdp) -c start.gro -p topol.top', o:['grompp bunu reddeder','grompp kabul eder; kuvvet alanının parametrize edildiği bağsız ayarlar kullanıcının sorumluluğundadır','grompp ayarları kendiliğinden CHARMM önerisine çevirir'], a:1, w:'grompp kesme ve geçiş ayarlarının bir kuvvet alanına uygun olup olmadığını denetlemez. Bu uyumsuzluk sessizdir (MD-FAIL). Bu sayfada C27 koşuları önerilen ayarlarla yapıldı; AMBER ayarlarıyla koşulan bir C27: Bu senaryo hesaplanmadı.'}",
+   "{k:'M3', t:'M3 · charmm27 with AMBER settings', d:'The charmm27 topology with the common settings of the AMBER runs (1.0 nm cut-off, DispCorr EnerPres) instead of the force switch recommended for CHARMM (1.0 to 1.2 nm).', cmd:'gmx grompp -f em.mdp (common.mdp) -c start.gro -p topol.top', o:['grompp rejects it','grompp accepts it; the nonbonded settings the force field was parametrized with are the user\\'s responsibility','grompp converts the settings to the CHARMM recommendation by itself'], a:1, w:'grompp does not check whether cut-off and switching settings suit a force field. This mismatch is silent (MD-FAIL). On this page the C27 runs used the recommended settings; a C27 run with AMBER settings: This scenario was not computed.'}"
+  ],
+  [
+   "function hlmsg(s){ return esc(s).replace(/(Fatal error:|ERROR \\d+|WARNING \\d+|NOTE \\d+)/g,'<span class=\"hl\">$1</span>'); }",
+   "function hlmsg(s){ return esc(s.replace('(hata, uyar\\u0131 ya da not yok)','(no error, warning or note)')).replace(/(Fatal error:|ERROR \\d+|WARNING \\d+|NOTE \\d+)/g,'<span class=\"hl\">$1</span>'); }"
+  ],
+  [
+   "$('vmis').innerHTML=MC.map(function(c,i){ var D=M[c.k]; return '<div class=\"case\"><h3>'+c.t+'</h3><p class=\"small\">'+c.d+'</p><div class=\"cmd\">'+esc(c.cmd)+' → çıkış kodu '+D.code+'</div><pre class=\"msg\">'+hlmsg(D.msg)+'</pre><p class=\"small\"><b>Soru:</b> ne oldu?</p><div class=\"opts\">'+c.o.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-c=\"'+i+'\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"vmfb'+i+'\" hidden></p></div>'; }).join('');",
+   "$('vmis').innerHTML=MC.map(function(c,i){ var D=M[c.k]; return '<div class=\"case\"><h3>'+c.t+'</h3><p class=\"small\">'+c.d+'</p><div class=\"cmd\">'+esc(c.cmd)+' → exit code '+D.code+'</div><pre class=\"msg\">'+hlmsg(D.msg)+'</pre><p class=\"small\"><b>Question:</b> what happened?</p><div class=\"opts\">'+c.o.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-c=\"'+i+'\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"vmfb'+i+'\" hidden></p></div>'; }).join('');"
+  ],
+  [
+   "var fb=$('vmfb'+i); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+c.w; if(!(c.k in MQ.got)) MQ.got[c.k]=ok; misCards(); }); }); }",
+   "var fb=$('vmfb'+i); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+c.w; if(!(c.k in MQ.got)) MQ.got[c.k]=ok; misCards(); }); }); }"
+  ],
+  [
+   "if(('M1' in g)&&('M2' in g)) card('vc5',true,'İki uyumsuzluk grompp\\'ta durdu (çıkış kodları '+M.M1.code+' ve '+M.M2.code+'): başka kuvvet alanının su tanımı tanınmayan atom türü verdi; 3 noktalı koordinatlar 4 noktalı su topolojisiyle atom sayısında uyuşmadı. Bunlar gürültülü uyumsuzluklardır: program durur ve nedeni söyler.');",
+   "if(('M1' in g)&&('M2' in g)) card('vc5',true,'Two mismatches stopped in grompp (exit codes '+M.M1.code+' and '+M.M2.code+'): the water definition of another force field gave an unknown atom type; 3-site coordinates did not match a 4-site water topology in atom count. These are loud mismatches: the program stops and says why.');"
+  ],
+  [
+   "else card('vc5',false,'M1 ve M2\\'yi cevaplayın.');",
+   "else card('vc5',false,'Answer M1 and M2.');"
+  ],
+  [
+   "if('M3' in g) card('vc6',true,'charmm27 topolojisi AMBER bağsız ayarlarıyla grompp\\'tan çıkış kodu '+M.M3.code+' ile, hiçbir not ya da uyarı olmadan geçti. Kuvvet alanı yalnız parametre dosyası değildir; parametrize edildiği kesme, geçiş, uzun menzil düzeltmesi ve su modeli de modelin parçasıdır. Bunları denetleyen program değil kullanıcıdır.');",
+   "if('M3' in g) card('vc6',true,'The charmm27 topology with AMBER nonbonded settings passed grompp with exit code '+M.M3.code+', without a single note or warning. A force field is not only a parameter file; the cut-off, switching, long-range correction and water model it was parametrized with are part of the model too. The user, not the program, checks them.');"
+  ],
+  [
+   "else card('vc6',false,'M3\\'ü cevaplayın.'); }",
+   "else card('vc6',false,'Answer M3.'); }"
+  ],
+  [
+   "/* ===== tezgâh: iddia denetleyici ===== */",
+   "/* ===== bench: claim checker ===== */"
+  ],
+  [
+   "var BQ={got:{}}, OPTS=['Bu veriyle kurulabilir','Ek kanıt gerekir','Bu veriyle kurulamaz'];",
+   "var BQ={got:{}}, OPTS=['Supported by these data','Needs more evidence','Not supported by these data'];"
+  ],
+  [
+   "var a1=C.verdict==='fark var'?0:(C.verdict==='kararsız'?1:2);",
+   "var a1=C.verdict==='fark var'?0:(C.verdict==='karars\\u0131z'?1:2);"
+  ],
+  [
+   "{s:'\"amber03 ile alanin dipeptidinin αR payı amber99sb-ildn\\'dekinden farklıdır.\"', a:a1, w:'Önceden yazılmış kurala göre hüküm \"'+C.verdict+'\" (Δ '+fx(C.delta,1)+' puan, Welch %90 '+fx(C.ci90[0],1)+' ile '+fx(C.ci90[1],1)+', Holm p '+fx(C.p_holm,3)+'). '+(a1===0?'Bu cümle bu tanım, bu tekrar sayısı ve ±5 puan eşiği için kurulabilir; başka bir ölçüt ya da sistem için ayrıca gösterilmesi gerekir.':(a1===1?'Bu tekrar sayısıyla ne fark ne eşdeğerlik gösterilebiliyor; daha fazla tekrar gerekir.':'Veri eşdeğerliği destekliyor; \"farklıdır\" cümlesi kurulamaz.'))},",
+   "{s:'\"With amber03 the αR fraction of alanine dipeptide differs from that with amber99sb-ildn.\"', a:a1, w:'By the rule written in advance the verdict is \"'+VEN(C.verdict)+'\" (Δ '+fx(C.delta,1)+' points, Welch 90% '+fx(C.ci90[0],1)+' to '+fx(C.ci90[1],1)+', Holm p '+fx(C.p_holm,3)+'). '+(a1===0?'The sentence holds for this definition, this number of replicas and the ±5 point threshold; it must be shown separately for another measure or system.':(a1===1?'With this number of replicas neither a difference nor equivalence can be shown; more replicas are needed.':'The data support equivalence; the sentence \"differs\" is not supported.'))},"
+  ],
+  [
+   "{s:'\"charmm27, alanin dipeptidini amber99sb-ildn\\'den daha doğru verir.\"', a:2, w:'\"Doğru\" bir deneysel ölçütle karşılaştırma ister. Bu sayfada alanin dipeptidi için deneysel bir değerle karşılaştırma yapılmadı; kuvvet alanları yalnız birbirleriyle karşılaştırıldı.'},",
+   "{s:'\"charmm27 describes alanine dipeptide more accurately than amber99sb-ildn.\"', a:2, w:'\"Accurate\" requires a comparison with an experimental measure. No comparison with an experimental value for alanine dipeptide was made on this page; the force fields were compared only with each other.'},"
+  ],
+  [
+   "{s:'\"Bu koşullarda TIP3P suyun öz difüzyonunu deneyden yüksek verir.\"', a:0, w:'TIP3P '+fx(X.WT3.D,2)+' × 10⁻⁵ cm²/s, deney 2,30 (25 °C). Sonlu kutu düzeltmesi D\\'yi büyütür (Yeh ve Hummer 2004), yani düzeltme bu yönü değiştirmez. Cümle bu kutu, sıcaklık ve kuvvet alanı dosyası için kurulabilir.'},",
+   "{s:'\"Under these conditions TIP3P gives a higher self-diffusion of water than experiment.\"', a:0, w:'TIP3P '+fx(X.WT3.D,2)+' × 10⁻⁵ cm²/s, experiment 2.30 (25 °C). The finite-box correction increases D (Yeh and Hummer 2004), so the correction does not change the direction. The sentence holds for this box, temperature and force field file.'},"
+  ],
+  [
+   "{s:'\"³J(HN,Hα) ölçülürse hangi kuvvet alanının doğru olduğu kesin anlaşılır.\"', a:2, w:'Aynı φ dağılımı için Karplus setleri arasındaki fark '+fx(arrMin(jr),2)+' ile '+fx(arrMax(jr),2)+' Hz; aynı setle kuvvet alanları arasındaki fark '+fx(arrMin(jf),2)+' ile '+fx(arrMax(jf),2)+' Hz. J yalnız φ\\'yi görür, ψ\\'yi görmez. Tek bir J değeri kuvvet alanlarını sıralamaya yetmez; birden çok gözlenen ve parametre belirsizliği birlikte değerlendirilir.'},",
+   "{s:'\"If ³J(HN,Hα) is measured, it will be clear which force field is right.\"', a:2, w:'For the same φ distribution the Karplus sets differ by '+fx(arrMin(jr),2)+' to '+fx(arrMax(jr),2)+' Hz; with one set the force fields differ by '+fx(arrMin(jf),2)+' to '+fx(arrMax(jf),2)+' Hz. J sees only φ, not ψ. A single J value is not enough to rank force fields; several observables and the parameter uncertainty are evaluated together.'},"
+  ],
+  [
+   "{s:'\"Bir kuvvet alanında 2 ns\\'lik tek bir koşu, αR payını birkaç puanlık doğrulukla verir.\"', a:2, w:'amber99sb-ildn\\'in 8 tekrarında αR payı '+fx(arrMin(a),1)+' ile '+fx(arrMax(a),1)+' % (SD '+fx(R.ff.A99.p_aR.sd,1)+' puan). Tek koşunun sonucu bu aralığın herhangi bir yerine düşebilir.'},",
+   "{s:'\"A single 2 ns run gives the αR fraction of a force field to within a few points.\"', a:2, w:'In the 8 amber99sb-ildn replicas the αR fraction is '+fx(arrMin(a),1)+' to '+fx(arrMax(a),1)+' % (SD '+fx(R.ff.A99.p_aR.sd,1)+' points). The result of one run can fall anywhere in this range.'},"
+  ],
+  [
+   "{s:'\"grompp uyarı vermediyse kuvvet alanı ile mdp ayarları uyumludur.\"', a:2, w:'M3: charmm27 topolojisi AMBER ayarlarıyla grompp\\'tan uyarısız geçti. grompp kesme ve geçiş ayarlarının kuvvet alanına uygunluğunu denetlemez.'}",
+   "{s:'\"If grompp gave no warning, the force field and the mdp settings are compatible.\"', a:2, w:'M3: the charmm27 topology with AMBER settings passed grompp without warnings. grompp does not check whether cut-off and switching settings suit the force field.'}"
+  ],
+  [
+   "var fb=$('vcl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
+   "var fb=$('vcl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+q.w;"
+  ],
+  [
+   "if(n>=4) card('vc7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Kuvvet alanları arasındaki bir fark ancak tanımı, tekrar sayısı ve önceden seçilmiş eşiğiyle birlikte söylenir; \"daha doğru\" demek için deneysel bir ölçüt ve o ölçütün kendi modeli (Karplus parametreleri gibi) gerekir. Kuvvet alanı ve su modeli seçimi raporun başında, gerekçesiyle yazılır.');",
+   "if(n>=4) card('vc7',true,'Of the '+n+' sentences you judged, your first choice was right for '+nLoc(r)+'. A difference between force fields is stated only together with its definition, number of replicas and a threshold chosen in advance; \"more accurate\" needs an experimental measure and that measure\\'s own model (such as the Karplus parameters). The choice of force field and water model is written at the start of the report, with its reasons.');"
+  ],
+  [
+   "else card('vc7',false,'Şimdiye kadar '+n+' cümle; en az dördüne karar verin.'); }); }); }",
+   "else card('vc7',false,'So far '+n+' sentence(s); judge at least four.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: kuvvet alanı seçim kaydı ===== */",
+   "/* ===== notebook: force field choice record ===== */"
+  ],
+  [
+   "function vfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }",
+   "function vfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }"
+  ],
+  [
+   "var L=['KUVVET ALANI SEÇİM KAYDI (MD-FF taslağı)','Kuvvet alanı ve gerekçe: '+v('vfF'),'Su modeli: '+v('vfW'),'Bağsız ayarlar: '+v('vfN'),'Kalıntı ve uç adları: '+v('vfR'),'Tekrarlar ve karşılaştırma: '+v('vfC'),'Deneyle karşılaştırma: '+v('vfE')];",
+   "var L=['FORCE FIELD CHOICE RECORD (MD-FF template)','Force field and reasons: '+v('vfF'),'Water model: '+v('vfW'),'Nonbonded settings: '+v('vfN'),'Residue and terminal names: '+v('vfR'),'Replicas and comparison: '+v('vfC'),'Comparison with experiment: '+v('vfE')];"
+  ],
+  [
+   "if(!/\\d/.test(f)&&!/sürüm|dağıtım/.test(f)) wr.push('Kuvvet alanının sürümü ya da kaynağı yazılmamış; aynı adla farklı sürümler dolaşır.');",
+   "if(!/\\d/.test(f)&&!/version|distribution/.test(f)) wr.push('The version or source of the force field is not written; different versions circulate under the same name.');"
+  ],
+  [
+   "if(!/tip3p|tip4p|spc|tips3p|su modeli/.test(w)) wr.push('Su modeli adıyla yazılmamış; su modeli kuvvet alanının parçasıdır (M1, M2).');",
+   "if(!/tip3p|tip4p|spc|tips3p|water model/.test(w)) wr.push('The water model is not named; the water model is part of the force field (M1, M2).');"
+  ],
+  [
+   "if(!/kesme|cutoff|nm/.test(n)) wr.push('Kesme ve geçiş ayarları yazılmamış; grompp bunları kuvvet alanına göre denetlemez (M3).');",
+   "if(!/cut-off|cutoff|nm/.test(n)) wr.push('Cut-off and switching settings are not written; grompp does not check them against the force field (M3).');"
+  ],
+  [
+   "if(!/uç|ace|nme|ad/.test(r)) wr.push('Uç ve kalıntı adları yazılmamış; aynı molekül farklı kuvvet alanlarında farklı adlar ister.');",
+   "if(!/termin|ace|nme|name/.test(r)) wr.push('Terminal and residue names are not written; the same molecule needs different names in different force fields.');"
+  ],
+  [
+   "if(!/tekrar/.test(c)) wr.push('Tekrar sayısı yok; kuvvet alanı farkı tekrarlar arası dağılımla birlikte okunur.');",
+   "if(!/replica/.test(c)) wr.push('No number of replicas; a force field difference is read together with the spread between replicas.');"
+  ],
+  [
+   "if(!/karplus|parametre|set/.test(e)) wr.push('Deneyle karşılaştırmanın kendi modeli (örneğin Karplus parametre seti) yazılmamış.');",
+   "if(!/karplus|parameter|set/.test(e)) wr.push('The model behind the comparison with experiment (for example the Karplus parameter set) is not written.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(x){ L.push('- '+x); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to check:'); wr.forEach(function(x){ L.push('- '+x); }); }"
+  ],
+  [
+   "$('vfcopy').onclick=function(){ var t=$('vfout').textContent, m=$('vfmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('vfcopy').onclick=function(){ var t=$('vfout').textContent, m=$('vfmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'AMBER kuvvet alanıyla kurulmuş bir topolojiye su olarak charmm27.ff/tips3p.itp eklendi. Ne olur ve neden?',",
+   "Q.push({s:'charmm27.ff/tips3p.itp was added as the water to a topology built with an AMBER force field. What happens and why?',"
+  ],
+  [
+   "o:[['Sorun olmaz, su suyu',0],['grompp tanımadığı atom türünde durur; su tanımı kendi kuvvet alanının atom türlerini kullanır',1],['grompp suyu kendiliğinden TIP3P\\'ye çevirir',0]], w:'M1\\'de grompp \"Atomtype OT not found\" ile durdu (çıkış kodu '+M.M1.code+'). Su modeli kuvvet alanının parçasıdır.'});",
+   "o:[['No problem, water is water',0],['grompp stops at an atom type it does not know; a water definition uses the atom types of its own force field',1],['grompp converts the water to TIP3P by itself',0]], w:'In M1 grompp stopped with \"Atomtype OT not found\" (exit code '+M.M1.code+'). The water model is part of the force field.'});"
+  ],
+  [
+   "Q.push({s:'TIP4P tanımlı bir topoloji, spc216.gro ile çözülmüş koordinatlarla kullanıldı. grompp neden durur?',",
+   "Q.push({s:'A topology defining TIP4P was used with coordinates solvated with spc216.gro. Why does grompp stop?',"
+  ],
+  [
+   "o:[['Kutu küçüktür',0],['Su molekülü sayısı farklıdır',0],['TIP4P molekül başına dört nokta (kütlesiz MW dahil) içerir; dosyadaki 3 noktalı sularla atom sayısı tutmaz',1]], w:'M2: koordinat dosyasında 4.582, topolojide 6.102 atom. Koordinatlar su modelinin kendi dosyasıyla (tip4p.gro) üretilir.'});",
+   "o:[['The box is small',0],['The number of water molecules differs',0],['TIP4P has four sites per molecule (including the massless MW); the atom count does not match the 3-site waters in the file',1]], w:'M2: 4,582 atoms in the coordinate file, 6,102 in the topology. Coordinates are generated with the water model\\'s own file (tip4p.gro).'});"
+  ],
+  [
+   "Q.push({s:'charmm27 topolojisi AMBER için kullanılan kesme ayarlarıyla grompp\\'a verildi ve uyarısız geçti. Bundan ne çıkar?',",
+   "Q.push({s:'A charmm27 topology was given to grompp with the cut-off settings used for AMBER and passed without warnings. What follows?',"
+  ],
+  [
+   "o:[['Ayarlar uygundur',0],['grompp bağsız ayarların kuvvet alanına uygunluğunu denetlemez; önerilen ayarlar kuvvet alanının belgelerinden alınır',1],['CHARMM kesme ayarlarına duyarsızdır',0]], w:'M3 sessiz bir uyumsuzluktur (çıkış kodu '+M.M3.code+'). Bu sayfadaki C27 koşuları GROMACS kılavuzunun CHARMM önerisiyle yapıldı.'});",
+   "o:[['The settings are appropriate',0],['grompp does not check whether nonbonded settings suit the force field; the recommended settings come from the force field\\'s documentation',1],['CHARMM is insensitive to cut-off settings',0]], w:'M3 is a silent mismatch (exit code '+M.M3.code+'). The C27 runs on this page used the CHARMM recommendation of the GROMACS manual.'});"
+  ],
+  [
+   "Q.push({s:'Karplus denklemiyle hesaplanan ³J(HN,Hα) hangi açıya bağlıdır ve bu neyi sınırlar?',",
+   "Q.push({s:'On which angle does ³J(HN,Hα) computed with the Karplus equation depend, and what does this limit?',"
+  ],
+  [
+   "o:[['Yalnız φ\\'ye; ψ\\'de ayrılan durumlar, φ dağılımları benzer olduğu ölçüde J ile ayırt edilemez',1],['φ ve ψ\\'ye birlikte; her durumu ayırır',0],['Yalnız ψ\\'ye',0]], w:'Denklemde yalnız θ = φ − 60° vardır. Köprüde αR, PPII ve β karelerinin ortalama J değerleri arasındaki farklar yalnız bu durumların φ dağılımlarından gelir.'});",
+   "o:[['Only on φ; states that differ in ψ cannot be told apart by J to the extent that their φ distributions are similar',1],['On φ and ψ together; it separates every state',0],['Only on ψ',0]], w:'The equation contains only θ = φ − 60°. In the bridge, the differences between the mean J of αR, PPII and β frames come only from the φ distributions of these states.'});"
+  ],
+  [
+   "Q.push({s:'İki kuvvet alanının αR payı arasında 8 puanlık fark gözlendi. Bunu yorumlamak için önce neye bakılır?',",
+   "Q.push({s:'An 8 point difference in the αR fraction was observed between two force fields. What do you look at first to interpret it?',"
+  ],
+  [
+   "o:[['Hangi kuvvet alanının daha yeni olduğuna',0],['Daha uzun tek bir koşuya',0],['Aynı kuvvet alanındaki bağımsız tekrarların dağılımına ve önceden seçilmiş eşiğe',1]], w:'amber99sb-ildn\\'in 8 tekrarında tekrarlar arası SD '+fx(R.ff.A99.p_aR.sd,1)+' puan. Fark bu dağılımla birlikte değerlendirilir.'});",
+   "o:[['Which force field is newer',0],['A single longer run',0],['The spread of independent replicas of the same force field and a threshold chosen in advance',1]], w:'In the 8 amber99sb-ildn replicas the SD between replicas is '+fx(R.ff.A99.p_aR.sd,1)+' points. The difference is evaluated together with this spread.'});"
+  ],
+  [
+   "Q.push({s:'TIP3P bu kutuda öz difüzyonu '+fx(X.WT3.D,2)+' × 10⁻⁵ cm²/s verdi (deney 2,30). Bu ne anlama gelir?',",
+   "Q.push({s:'In this box TIP3P gave a self-diffusion of '+fx(X.WT3.D,2)+' × 10⁻⁵ cm²/s (experiment 2.30). What does this mean?',"
+  ],
+  [
+   "o:[['Simülasyon hatalıdır, koşu tekrarlanmalıdır',0],['Su modelinin dinamik özellikleri deneyden farklıdır; zamana bağlı nicelikler deneyle karşılaştırılırken bu göz önüne alınır',1],['Sıcaklık yanlış ayarlanmıştır',0]], w:'Sıcaklık '+fx(X.WT3.T,2)+' K ile hedefteydi. Her su modeli bazı özellikleri iyi, bazılarını kötü verir; SPC/E bu kutuda '+fx(X.WSPCE.D,2)+' verdi.'});",
+   "o:[['The simulation is wrong and must be repeated',0],['The dynamic properties of the water model differ from experiment; this is taken into account when time-dependent quantities are compared with experiment',1],['The temperature was set wrongly',0]], w:'The temperature was on target at '+fx(X.WT3.T,2)+' K. Each water model reproduces some properties well and others poorly; SPC/E gave '+fx(X.WSPCE.D,2)+' in this box.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('vnotice').innerHTML='<p><b>Veri.</b> Su içinde alanin dipeptidi (ACE-ALA-NME; başlangıç yapısı mdshare ALA2, Computational Molecular Biology Group, Freie Universität Berlin, CC BY 4.0), MD-REP kutusu (onikiyüzlü, -d 1,6 nm), 300 K, 1 bar, 2 ns NPT üretim, 1 ps kayıt; analiz 200 ile 2000 ps. amber99sb-ildn + TIP3P: MD-REP\\'in 8 su tekrarı. amber03 + TIP3P, charmm27 (GROMACS dağıtımındaki CHARMM22/CMAP) + CHARMM TIP3P ve OPLS-AA + TIP4P: bu modül için '+R.ff.A03.n+', '+R.ff.C27.n+' ve '+R.ff.OPL.n+' tekrar. charmm27\\'de uç kalıntı NME yerine CT3, OPLS-AA\\'da NAC adıyla kuruldu. A03 ve OPL MD-REP\\'in ortak bağsız ayarlarıyla (1,0 nm, PME, DispCorr EnerPres), C27 GROMACS 2023.3 kullanıcı kılavuzunun CHARMM önerisiyle (1,2 nm, kuvvet geçişi 1,0 nm, DispCorr yok) koşuldu. Saf su: amber99sb-ildn dosyalarındaki TIP3P, SPC/E, TIP4P; 3 nm kübik kutu, 298,15 K, 1 ns. GROMACS 2023.3; hiçbir adımda -maxwarn kullanılmadı.</p>'+",
+   "$('vnotice').innerHTML='<p><b>Data.</b> Alanine dipeptide in water (ACE-ALA-NME; starting structure mdshare ALA2, Computational Molecular Biology Group, Freie Universität Berlin, CC BY 4.0), MD-REP box (dodecahedron, -d 1.6 nm), 300 K, 1 bar, 2 ns NPT production, 1 ps saving; analysis 200 to 2000 ps. amber99sb-ildn + TIP3P: the 8 MD-REP water replicas. amber03 + TIP3P, charmm27 (CHARMM22/CMAP from the GROMACS distribution) + CHARMM TIP3P and OPLS-AA + TIP4P: '+R.ff.A03.n+', '+R.ff.C27.n+' and '+R.ff.OPL.n+' replicas made for this module. In charmm27 the terminal residue was built as CT3 instead of NME, in OPLS-AA as NAC. A03 and OPL were run with the common MD-REP nonbonded settings (1.0 nm, PME, DispCorr EnerPres), C27 with the CHARMM recommendation of the GROMACS 2023.3 user guide (1.2 nm, force switch from 1.0 nm, no DispCorr). Pure water: TIP3P, SPC/E and TIP4P from the amber99sb-ildn files; 3 nm cubic box, 298.15 K, 1 ns. GROMACS 2023.3; -maxwarn was not used at any step.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Koşu ve analiz planı koşulardan ve hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…). Açılar MDAnalysis ile; durum tanımları MD-U ve MD-REP ile aynı. Karşılaştırma: tam permütasyon testi, Welch aralıkları, üç karşılaştırma için Holm düzeltmesi, MD-REP\\'in dört hüküm etiketi ve ±5 puan eşiği. Karplus parametreleri: Vuister ve Bax 1993 (J Am Chem Soc 115:7772), Hu ve Bax 1997 (J Am Chem Soc 119:6360; çözelti φ değerleriyle uydurulan set), Vögeli, Ying, Grishaev, Bax 2007 (J Am Chem Soc 129:9377, doi 10.1021/ja070324o). Su deney değerleri: yoğunluk 0,99705 g/cm³ (Kell 1975, J Chem Eng Data 20:97), öz difüzyon 2,299 × 10⁻⁹ m²/s (Mills 1973, J Phys Chem 77:685). Öz difüzyon gmx msd ile; GROMACS 2023.3\\'te 0,5 ps aralıklı karelerle program çöktüğü için kareler 1 ps aralıkla okundu (plandan sapma). Bulut ortamı bir kez yeniden başladı; o sırada üretimde olan C27_1 ve OPL_1 plan gereği denetim noktasından sürdürüldü. Bağımsız denetim: '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'. Sayfadaki J değerleri ve durum payları tarayıcınızda gömülü açılardan yeniden hesaplanır.</p>'+",
+   "'<p><b>Analysis.</b> The run and analysis plan was written and frozen before the runs and computations (SHA-256 '+m.plan_sha.slice(0,12)+'…). Angles with MDAnalysis; state definitions as in MD-U and MD-REP. Comparison: exact permutation test, Welch intervals, Holm correction for the three comparisons, the four MD-REP verdict labels and a ±5 point threshold. Karplus parameters: Vuister and Bax 1993 (J Am Chem Soc 115:7772), Hu and Bax 1997 (J Am Chem Soc 119:6360; the set fitted with solution φ values), V\\u00f6geli, Ying, Grishaev, Bax 2007 (J Am Chem Soc 129:9377, doi 10.1021/ja070324o). Experimental water values: density 0.99705 g/cm³ (Kell 1975, J Chem Eng Data 20:97), self-diffusion 2.299 × 10⁻⁹ m²/s (Mills 1973, J Phys Chem 77:685). Self-diffusion with gmx msd; because the program crashed with frames 0.5 ps apart in GROMACS 2023.3, frames were read 1 ps apart (deviation from the plan). The cloud environment restarted once; C27_1 and OPL_1, in production at the time, were continued from their checkpoints as planned. Independent audit: '+nPoss(String(m.audit_ok))+' of '+m.audit_n+' comparisons passed thresholds written in advance'+(m.audit_fail.length?'; failed: '+m.audit_fail.join('; '):'')+'. The J values and state fractions on the page are recomputed in your browser from the embedded angles.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Tek bir küçük molekül, kuvvet alanı başına 4 (başvuruda 8) kısa tekrar ve tek bir sıcaklık: sonuçlar bu sisteme ve bu tekrar sayısına aittir; hiçbir kuvvet alanının genel olarak daha iyi ya da kötü olduğu sonucu çıkmaz. Deneysel bir alanin dipeptidi J değeriyle karşılaştırma, daha uzun koşular, başka kuvvet alanları (CHARMM36, GROMOS, diğer AMBER sürümleri), kuvvet alanı parametrizasyonu, polarizlenebilir modeller, protein ölçeğinde karşılaştırma, charmm27\\'nin AMBER ayarlarıyla koşulması ve su difüzyonunun sonlu kutu düzeltmesi (Yeh ve Hummer 2004): Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> One small molecule, 4 short replicas per force field (8 for the reference) and one temperature: the results belong to this system and this number of replicas; no conclusion follows that any force field is better or worse in general. Comparison with an experimental alanine dipeptide J value, longer runs, other force fields (CHARMM36, GROMOS, other AMBER versions), force field parametrization, polarizable models, comparison at protein scale, charmm27 run with AMBER settings, and the finite-box correction of water diffusion (Yeh and Hummer 2004): This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('vwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('vwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('vscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('vscore').textContent='Answered: '+n+' / '+QZ.length+' · right on the first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start-up ---------- */"
+  ],
+  [
+   "['vc0','vc1','vc2','vc3','vc4','vc5','vc6','vc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['vc0','vc1','vc2','vc3','vc4','vc5','vc6','vc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDFF={ANG:ANG,BR:BR,RA:RA,WA:WA,MQ:MQ,BQ:BQ,FOUND:FOUND,stFrac:stFrac,ffJ:ffJ,repJ:repJ,meanJ:meanJ,kJ:kJ}; /* sınama için */",
+   "window.MDFF={ANG:ANG,BR:BR,RA:RA,WA:WA,MQ:MQ,BQ:BQ,FOUND:FOUND,stFrac:stFrac,ffJ:ffJ,repJ:repJ,meanJ:meanJ,kJ:kJ}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "Vögeli",
+  "Vögeli et al. 2007",
+  "fark var",
+  "Kell 1975",
+  "Mills 1973",
+  "gmx grompp -f em.mdp -c start.gro -p topol.top",
+  "gmx grompp -f em.mdp (common.mdp) -c start.gro -p topol.top",
+  "ps",
+  "Rg",
+  "αR",
+  "αL",
+  "β/PPII",
+  "PPII",
+  "TIP3P",
+  "TIP4P",
+  "SPC/E",
+  "A99",
+  "A03",
+  "C27",
+  "OPL",
+  "amber99sb-ildn",
+  "amber03",
+  "charmm27",
+  "OPLS-AA"
+ ]
+}

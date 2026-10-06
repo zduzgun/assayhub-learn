@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.29.0 (6 Ekim 2026) · Yeni modül MD-FF: kuvvet alanı ve model uyumu
+
+- MD-FF 0.1.0 (orta düzey, kitapta CH08): "Kuvvet alanı bir modeldir." Yeni GROMACS koşuları FFGRID: su içinde alanin dipeptidi amber03 + TIP3P, charmm27 + CHARMM TIP3P (CHARMM önerili bağsız ayarlar) ve OPLS-AA + TIP4P ile dörder 2 ns tekrar; başvuru amber99sb-ildn için MD-REP'in 8 su tekrarı. Saf su kutuları (TIP3P, SPC/E, TIP4P) ve üç uyumsuz birleşim (yalnız grompp). Plan koşulardan önce SHA-256 ile donduruldu; sapmalar: gmx msd 0,5 ps karelerle çöktü (-dt 1 ile çalıştı), bulut ortamı bir kez yeniden başladı (iki koşu denetim noktasından sürdürüldü).
+- Deneysel köprü: ³J(HN,Hα) ve üç Karplus parametre seti (Vuister ve Bax 1993, Hu ve Bax 1997, Vögeli ve ark. 2007); setler arası fark 0,45 ile 0,52 Hz, aynı setle kuvvet alanları arası 0,63 ile 0,72 Hz.
+- Atölye 1: αR payı A99 32,8 ± 11,3, A03 42,8 ± 21,0, C27 44,2 ± 23,5, OPL 31,0 ± 5,7 %; ön kayıtlı hüküm üç karşılaştırmada da "kararsız" (Holm p 0,788). Geçiş/ns (keşif) 1,0 ile 10,4.
+- Atölye 2: saf su yoğunluğu 0,986, 0,999, 0,995 g/cm³; öz difüzyon 5,44, 2,46, 3,58 × 10⁻⁵ cm²/s (deney 0,997 ve 2,30). Uyumsuzluk: M1 "Atomtype OT not found" (1), M2 atom sayısı (1), M3 uyarısız geçti (0). Tezgâh: altı iddia. Defter: kuvvet alanı seçim kaydı. Altı soru, sekiz keşif kartı.
+- Bağımsız denetim 14 karşılaştırmanın 14'ünde geçti. Tarayıcıdaki 160 sayı Python ile aynı. İngilizce tablo 153 çift (`i18n/_work/mdff/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-FF`, `/en/l/MD-FF`.
+
 ## 0.28.0 (5 Ekim 2026) · Yeni modül MD-FAIL: simülasyon başarısız olduğunda
 
 - MD-FAIL 0.1.0 (orta düzey, kitapta CH12): "Koşu durdu mu, yoksa sessizce yanlış mı bitti?" Yeni GROMACS koşuları: MD-MET'in ikinci ubikitin hazırlığı (1UBQ) her seferinde tek bir yerinden bozuldu. Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu; hiçbir adımda -maxwarn kullanılmadı.

@@ -53,6 +53,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | MD-PCA | MD | Orta | CH16 (durumlar ve kolektif hareketler: durum tanımı, PCA, korelasyon) | Yayında (0.1.0, 5 Ekim 2026) |
 | MD-INT | MD | Orta | CH15 (temas, solvatasyon, etkileşim: H-bağı, tuz köprüsü, temas, SASA, çözücü kabuğu) | Yayında (0.1.0, 5 Ekim 2026) |
 | MD-FAIL | MD | Orta | CH12 (simülasyon başarısız olduğunda: grompp ve mdrun hata mesajları, sessiz kurulum hataları, koşu sağlık denetimi) | Yayında (0.1.0, 5 Ekim 2026) |
+| MD-FF | MD | Orta | CH08 (kuvvet alanı ve model uyumu: dört kuvvet alanında konformasyon dağılımı, Karplus ile J, su modelleri, uyumsuz birleşimler) | Yayında (0.1.0, 6 Ekim 2026) |
 
 Kimlikler değişmez; içerik sürümlenir (DK-T v1, v2 ...). Bir modülün adresi kimliğe bağlıdır, sürüme değil.
 

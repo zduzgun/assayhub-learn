@@ -856,6 +856,45 @@
       },
       "path": "md/md-fail/",
       "source": "sources/MD-FAIL.html"
+    },
+    {
+      "id": "MD-FF",
+      "app": "md",
+      "level": "orta",
+      "title": "Kuvvet alanı bir modeldir: kuvvet alanı ve model uyumu",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH08",
+      "goals": [
+        "Simülasyonu deneyle karşılaştırmak da bir model ister: ³J(HN,Hα) ve Karplus parametre setleri",
+        "Aynı molekül, dört kuvvet alanı: Ramachandran dağılımı ve tekrarlar arası değişkenlik",
+        "Önceden yazılmış hüküm: fark, eşdeğerlik ya da kararsızlık",
+        "Su modeli de bir model: yoğunluk ve öz difüzyon",
+        "Model uyumu: gürültülü ve sessiz uyumsuz birleşimler"
+      ],
+      "data": [
+        "Su içinde alanin dipeptidi: MD-REP'in 8 amber99sb-ildn tekrarı ve bu modül için amber03, charmm27, OPLS-AA ile dörder 2 ns tekrar (başlangıç yapısı mdshare ALA2, Freie Universität Berlin, CC BY 4.0; GROMACS 2023.3)",
+        "Saf su kutuları (TIP3P, SPC/E, TIP4P) ve üç uyumsuz birleşim (yalnız grompp); koşu ve analiz planı koşulardan önce donduruldu"
+      ],
+      "notice": null,
+      "en": {
+        "title": "A force field is a model: force field and model compatibility",
+        "book": "CH08",
+        "goals": [
+          "Comparing simulation with experiment also needs a model: ³J(HN,Hα) and Karplus parameter sets",
+          "Same molecule, four force fields: Ramachandran distribution and variability between replicas",
+          "A verdict written in advance: difference, equivalence or inconclusive",
+          "The water model is a model too: density and self-diffusion",
+          "Model compatibility: loud and silent incompatible combinations"
+        ],
+        "data": [
+          "Alanine dipeptide in water: the 8 amber99sb-ildn MD-REP replicas and four 2 ns replicas each with amber03, charmm27 and OPLS-AA made for this module (starting structure mdshare ALA2, Freie Universität Berlin, CC BY 4.0; GROMACS 2023.3)",
+          "Pure water boxes (TIP3P, SPC/E, TIP4P) and three incompatible combinations (grompp only); the run and analysis plan was frozen before the runs"
+        ],
+        "notice": null
+      },
+      "path": "md/md-ff/",
+      "source": "sources/MD-FF.html"
     }
   ]
 }
