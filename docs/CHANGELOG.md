@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.30.0 (6 Ekim 2026) · Yeni modül MD-SOLV: iyonlar ve yardımcı çözgen
+
+- MD-SOLV 0.1.0 (orta düzey, kitapta CH10): "Çözgen de modelin parçası." Yeni GROMACS koşuları SOLVGRID (amber99sb-ildn, TIP3P): beş kutuda genion 0,15 M sayımı; tek üre molekülünde dağıtımdaki urea.itp ile açıları eklenmiş kopya; 4 nm kutuda 0,15, 0,5, 1,0 ve 2,0 M NaCl (birer 2 ns NPT); MD-REP kutusunda 8 M üre içinde alanin dipeptidi, dört 2 ns tekrar; başvuru MD-REP'in 8 su tekrarı. Plan koşulardan önce SHA-256 ile donduruldu; plandan sapma yok.
+- Deneysel köprü: doğrusal ekstrapolasyon modeli tarayıcıda (Santoro ve Bolen 1988; Myers, Pace ve Scholtz 1995); ölçülebilir pencere ve 0 M uzatması.
+- Atölye 1: "0,15 M" 3, 4, 6, 8 nm küplerde ve MD-REP kutusunda 2, 6, 20, 46, 4 çift. Gerçekleşen molarite 0,152, 0,483, 0,996 mol/L; temas iyon çifti %4,3, %33,7, %54,7. 2,0 M hedefi genion'da durdu ("No more replaceable solvent!", 77 Na⁺ ve 55 Cl⁻ yerleştirildikten sonra); plan gereği yeniden denenmedi.
+- Atölye 2: dağıtımdaki urea.itp'de açı terimi yok, grompp uyarısız; tek ürede N-C-N 180°. 8 M hedefi NPT sonrası 9,15 ile 9,38 mol/L; peptit çevresinde R = 1,51 ± 0,61 (dört tekrarda da > 1). αR farkı −2,9 puan, permütasyon p 0,745: önceden yazılmış hüküm "kararsız". Tezgâh: altı iddia. Defter: çözgen ortamı kaydı. Altı soru, sekiz keşif kartı.
+- Bağımsız denetim 20 karşılaştırmanın 20'sinde geçti. Tarayıcıdaki 42 sayı Python ile aynı. İngilizce tablo 198 çift (`i18n/_work/mdsolv/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-SOLV`, `/en/l/MD-SOLV`.
+
 ## 0.29.0 (6 Ekim 2026) · Yeni modül MD-FF: kuvvet alanı ve model uyumu
 
 - MD-FF 0.1.0 (orta düzey, kitapta CH08): "Kuvvet alanı bir modeldir." Yeni GROMACS koşuları FFGRID: su içinde alanin dipeptidi amber03 + TIP3P, charmm27 + CHARMM TIP3P (CHARMM önerili bağsız ayarlar) ve OPLS-AA + TIP4P ile dörder 2 ns tekrar; başvuru amber99sb-ildn için MD-REP'in 8 su tekrarı. Saf su kutuları (TIP3P, SPC/E, TIP4P) ve üç uyumsuz birleşim (yalnız grompp). Plan koşulardan önce SHA-256 ile donduruldu; sapmalar: gmx msd 0,5 ps karelerle çöktü (-dt 1 ile çalıştı), bulut ortamı bir kez yeniden başladı (iki koşu denetim noktasından sürdürüldü).

@@ -895,6 +895,47 @@
       },
       "path": "md/md-ff/",
       "source": "sources/MD-FF.html"
+    },
+    {
+      "id": "MD-SOLV",
+      "app": "md",
+      "level": "orta",
+      "title": "Çözgen de modelin parçası: iyonlar ve yardımcı çözgen",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH10",
+      "goals": [
+        "Deneyde 0 M kararlılık bir uzatmadır: doğrusal ekstrapolasyon modeli",
+        "\"0,15 M\" kutuda kaç iyon eder: genion sayımı ve derişim basamakları",
+        "Hedef ile gerçekleşen derişim: molarite, molalite ve NPT hacmi",
+        "İyon düzeni: g(r), temas iyon çifti ve Na⁺ çevresindeki su",
+        "Yardımcı çözgen dosyası da denetlenir: açısız urea.itp",
+        "8 M üre ile su: peptit çevresinde göreli birikim ve önceden yazılmış konformasyon hükmü"
+      ],
+      "data": [
+        "NaCl çözeltileri: 4 nm kutu, 0,15, 0,5 ve 1,0 M birer 2 ns NPT koşusu; 2,0 M hedefi genion adımında durdu (GROMACS 2023.3, amber99sb-ildn, TIP3P)",
+        "8 M üre içinde alanin dipeptidi: dört 2 ns tekrar ve MD-REP'in 8 su tekrarı (başlangıç yapısı mdshare ALA2, Freie Universität Berlin, CC BY 4.0); beş kutuda genion sayımı ve tek üre topoloji denetimi; koşu ve analiz planı koşulardan önce donduruldu"
+      ],
+      "notice": null,
+      "en": {
+        "title": "The solvent is part of the model too: ions and co-solvent",
+        "book": "CH10",
+        "goals": [
+          "In experiments stability at 0 M is an extrapolation: the linear extrapolation model",
+          "How many ions is \"0.15 M\" in a box: genion counts and concentration steps",
+          "Target and realized concentration: molarity, molality and NPT volume",
+          "Ion arrangement: g(r), contact ion pairs and water around Na⁺",
+          "The co-solvent file must be checked too: an angle-less urea.itp",
+          "8 M urea and water: relative enrichment around the peptide and a conformation verdict written in advance"
+        ],
+        "data": [
+          "NaCl solutions: 4 nm box, one 2 ns NPT run each at 0.15, 0.5 and 1.0 M; the 2.0 M target stopped at the genion step (GROMACS 2023.3, amber99sb-ildn, TIP3P)",
+          "Alanine dipeptide in 8 M urea: four 2 ns replicas and the 8 MD-REP water replicas (starting structure mdshare ALA2, Freie Universität Berlin, CC BY 4.0); genion counts in five boxes and a single-urea topology check; the run and analysis plan was frozen before the runs"
+        ],
+        "notice": null
+      },
+      "path": "md/md-solv/",
+      "source": "sources/MD-SOLV.html"
     }
   ]
 }

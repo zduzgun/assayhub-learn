@@ -1,0 +1,828 @@
+{
+ "module": "MD-SOLV",
+ "lang": "en",
+ "source_sha256": "a9dbf3b5c3432e849839e7ca4e481d1a1fd2780273fbc36ffdba8308571efd78",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-SOLV 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: İyonlar ve yardımcı çözgen</title>",
+   "<title>MD: Ions and co-solvent</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"yproto\">Bu modül için dört NaCl derişimi denendi (0,15, 0,5, 1,0 ve 2,0 M); 2,0 M kutusu genion adımında durdu, öbür üçü birer 2 ns koşu olarak tamamlandı. 8 M üre içinde alanin dipeptidi (dört bağımsız 2 ns tekrar) koşuldu; 0 M başvurusu MD-REP'in sekiz su tekrarıdır. Beş kutuda genion sayımı ve tek bir üre molekülünün topoloji denetimi de yapıldı. Koşu ve analiz planı koşulardan önce yazılıp SHA-256 ile donduruldu; sonuçlar GROMACS araçları ve ikinci uygulamalarla bağımsız olarak denetlendi. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye işaretlidir.</div>",
+   "<div class=\"proto\" id=\"yproto\">For this module four NaCl concentrations were tried (0.15, 0.5, 1.0 and 2.0 M); the 2.0 M box stopped at the genion step, the other three were completed as one 2 ns run each. Alanine dipeptide was run in 8 M urea (four independent 2 ns replicas); the 0 M reference is the eight MD-REP water replicas. genion counts in five boxes and a topology check of a single urea molecule were also done. The run and analysis plan was written before the runs and frozen with SHA-256; the results were checked independently with GROMACS tools and second implementations. Anything not computed is labelled \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-SOLV · Çözgen ortamı: iyonlar ve yardımcı çözgen</span>",
+   "<span class=\"eyebrow\">MD-SOLV · Solvent environment: ions and co-solvent</span>"
+  ],
+  [
+   "<h1>Çözgen de modelin parçası</h1>",
+   "<h1>The solvent is part of the model too</h1>"
+  ],
+  [
+   "<p class=\"lead\">\"0,15 M NaCl\" ya da \"8 M üre\" bir deney protokolünde tek satırdır. Simülasyonda ise belirli sayıda molekül, belirli bir kutu ve her birinin kendi topoloji dosyası demektir. Bu sayfada derişimin kutuda kaç moleküle karşılık geldiği, gerçekleşen derişimin ne olduğu, iyonların derişimle nasıl düzenlendiği ve 8 M ürenin alanin dipeptidinin çevresini ve konformasyonlarını nasıl değiştirdiği gerçek koşularla incelenir. Bir yardımcı çözgen dosyasının kendisinin de denetlenmesi gerektiği ayrıca gösterilir.</p>",
+   "<p class=\"lead\">\"0.15 M NaCl\" or \"8 M urea\" is a single line in an experimental protocol. In a simulation it means a definite number of molecules, a definite box and a topology file for each of them. This page uses real runs to examine how many molecules a concentration means in a box, what the realized concentration is, how ions arrange themselves with concentration, and how 8 M urea changes the surroundings and conformations of alanine dipeptide. It also shows that the co-solvent file itself must be checked.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"yprogN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"yprogN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"yh0\">Üre titrasyonu: kararlılık ölçülmez, dışarı doğru uzatılır</h2>",
+   "<h2 id=\"yh0\">Urea titration: stability is not measured, it is extrapolated</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Deneyde bir proteinin kararlılığı çoğu kez artan üre derişiminde açılmış payın (örneğin dairesel dikroizm ya da floresansla) ölçülmesiyle bulunur. Doğrusal ekstrapolasyon modeli (LEM) açılma serbest enerjisinin derişimle doğrusal azaldığını varsayar: ΔG([D]) = ΔG(H₂O) − m·[D] (Santoro ve Bolen 1988). Açılmış pay f = 1 / (1 + exp(ΔG/RT)) yalnız geçiş bölgesinde ölçülebilir; suda (0 M) ΔG değeri bu bölgeden doğruyla geriye uzatılarak elde edilir. m değeri açılmada çözgene açılan yüzeyle ilişkilidir (Myers, Pace ve Scholtz 1995). Aşağıdaki iki sürgüyle modelin kendisi tarayıcınızda hesaplanır; 25 °C.</p></div>",
+   "<div class=\"prose\"><p>In experiments the stability of a protein is often found by measuring the fraction unfolded at increasing urea concentration (for example by circular dichroism or fluorescence). The linear extrapolation model (LEM) assumes that the unfolding free energy falls linearly with concentration: ΔG([D]) = ΔG(H₂O) − m·[D] (Santoro and Bolen 1988). The fraction unfolded f = 1 / (1 + exp(ΔG/RT)) can be measured only in the transition region; the value of ΔG in water (0 M) is obtained by extending the line back from this region. The m value is related to the surface exposed to solvent on unfolding (Myers, Pace and Scholtz 1995). With the two sliders below the model itself is computed in your browser; 25 °C.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><label for=\"ybg\">ΔG(H₂O): <b id=\"ybgv\">25</b> kJ/mol</label><input type=\"range\" id=\"ybg\" min=\"5\" max=\"60\" step=\"1\" value=\"25\"><label for=\"ybm\">m: <b id=\"ybmv\">6,0</b> kJ/mol/M</label><input type=\"range\" id=\"ybm\" min=\"2\" max=\"12\" step=\"0.5\" value=\"6\"></div>",
+   "<div class=\"selrow\"><label for=\"ybg\">ΔG(H₂O): <b id=\"ybgv\">25</b> kJ/mol</label><input type=\"range\" id=\"ybg\" min=\"5\" max=\"60\" step=\"1\" value=\"25\"><label for=\"ybm\">m: <b id=\"ybmv\">6.0</b> kJ/mol/M</label><input type=\"range\" id=\"ybm\" min=\"2\" max=\"12\" step=\"0.5\" value=\"6\"></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ybridge\" class=\"plot\" aria-label=\"Doğrusal ekstrapolasyon modeli: ΔG ve açılmış pay üre derişimine karşı\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"ybridge\" class=\"plot\" aria-label=\"Linear extrapolation model: ΔG and fraction unfolded against urea concentration\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc0\"><span class=\"k\">Açık</span><h3>0 M değeri bir uzatmadır</h3><p>En az iki ΔG(H₂O) ve iki m değeri deneyin.</p><div class=\"mine\" id=\"myc0\"></div></article>",
+   "<article class=\"q\" id=\"yc0\"><span class=\"k\">Open</span><h3>The 0 M value is an extrapolation</h3><p>Try at least two ΔG(H₂O) values and two m values.</p><div class=\"mine\" id=\"myc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: iyonlar</span>",
+   "<span class=\"step\">1 · Workshop: ions</span>"
+  ],
+  [
+   "<h2 id=\"yh1\">\"0,15 M NaCl\" kaç iyon eder ve iyonlar nasıl düzenlenir?</h2>",
+   "<h2 id=\"yh1\">How many ions is \"0.15 M NaCl\", and how do the ions arrange themselves?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p><code>gmx genion -conc 0.15 -neutral</code> beş farklı kutuda çalıştırıldı: 3, 4, 6 ve 8 nm kenarlı saf su küpleri ve MD-REP'in alanin dipeptidi kutusu. Her kutuda eklenen iyon çifti sayısı ve bu sayının karşılık geldiği derişim aşağıdadır.</p></div>",
+   "<div class=\"prose\"><p><code>gmx genion -conc 0.15 -neutral</code> was run in five different boxes: pure water cubes with 3, 4, 6 and 8 nm edges, and the MD-REP alanine dipeptide box. The number of ion pairs added in each box and the concentration it corresponds to are shown below.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Kutu:</span><div class=\"seg\" role=\"group\" aria-label=\"Kutu\" id=\"ybx\"></div></div>",
+   "<div class=\"selrow\"><span>Box:</span><div class=\"seg\" role=\"group\" aria-label=\"Box\" id=\"ybx\"></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"ybox\" class=\"plot\" aria-label=\"Her kutuda eklenen iyon çiftinin karşılık geldiği derişim\"></canvas></div><dl class=\"read w\" id=\"yxread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"ybox\" class=\"plot\" aria-label=\"Concentration corresponding to the ion pairs added in each box\"></canvas></div><dl class=\"read w\" id=\"yxread\"></dl></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Dört derişim: iyonların birbirine ve suya göre dağılımı</h3>",
+   "<h3 class=\"sub\">Four concentrations: how ions are distributed relative to each other and to water</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>4 nm kutuda 0,15, 0,5 ve 1,0 M NaCl için birer 2 ns NPT koşusu (300 K, 1 bar) yapıldı (2,0 M hedefi kurulamadı, aşağıda); 200 ile 2000 ps arası analiz edildi. Radyal dağılım fonksiyonu g(r), bir iyondan r uzaklıkta ötekinin bulunma yoğunluğunun kutu ortalamasına oranıdır.</p></div>",
+   "<div class=\"prose\"><p>In the 4 nm box one 2 ns NPT run (300 K, 1 bar) was done for each of 0.15, 0.5 and 1.0 M NaCl (the 2.0 M target could not be built, see below); 200 to 2000 ps was analysed. The radial distribution function g(r) is the density of one species at distance r from an ion divided by its box average.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Çift:</span><div class=\"seg\" role=\"group\" aria-label=\"Çift\" id=\"yrp\"><button type=\"button\" data-v=\"NaCl\" aria-pressed=\"true\">Na⁺-Cl⁻</button><button type=\"button\" data-v=\"NaNa\" aria-pressed=\"false\">Na⁺-Na⁺</button><button type=\"button\" data-v=\"ClCl\" aria-pressed=\"false\">Cl⁻-Cl⁻</button><button type=\"button\" data-v=\"NaOW\" aria-pressed=\"false\">Na⁺-su O</button></div></div>",
+   "<div class=\"selrow\"><span>Pair:</span><div class=\"seg\" role=\"group\" aria-label=\"Pair\" id=\"yrp\"><button type=\"button\" data-v=\"NaCl\" aria-pressed=\"true\">Na⁺-Cl⁻</button><button type=\"button\" data-v=\"NaNa\" aria-pressed=\"false\">Na⁺-Na⁺</button><button type=\"button\" data-v=\"ClCl\" aria-pressed=\"false\">Cl⁻-Cl⁻</button><button type=\"button\" data-v=\"NaOW\" aria-pressed=\"false\">Na⁺-water O</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Derişim:</span><div class=\"seg\" role=\"group\" aria-label=\"Derişim\" id=\"yrc\"></div></div>",
+   "<div class=\"selrow\"><span>Concentration:</span><div class=\"seg\" role=\"group\" aria-label=\"Concentration\" id=\"yrc\"></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"yrdf\" class=\"plot\" aria-label=\"Seçilen çiftin g(r) eğrisi\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"yrdf\" class=\"plot\" aria-label=\"g(r) curve of the chosen pair\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Hedef ile gerçekleşen</h3>",
+   "<h3 class=\"sub\">Target and realized</h3>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Ölçüt\" id=\"ycm\"><button type=\"button\" data-v=\"conc\" aria-pressed=\"true\">Derişim</button><button type=\"button\" data-v=\"cip\" aria-pressed=\"false\">Temas iyon çifti</button><button type=\"button\" data-v=\"coord\" aria-pressed=\"false\">Na⁺ çevresindeki su</button><button type=\"button\" data-v=\"rho\" aria-pressed=\"false\">Yoğunluk</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Measure\" id=\"ycm\"><button type=\"button\" data-v=\"conc\" aria-pressed=\"true\">Concentration</button><button type=\"button\" data-v=\"cip\" aria-pressed=\"false\">Contact ion pair</button><button type=\"button\" data-v=\"coord\" aria-pressed=\"false\">Water around Na⁺</button><button type=\"button\" data-v=\"rho\" aria-pressed=\"false\">Density</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"yconc\" class=\"plot\" aria-label=\"Seçilen ölçütün hedef derişime karşı değeri\"></canvas></div><dl class=\"read w\" id=\"ycread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"yconc\" class=\"plot\" aria-label=\"Value of the chosen measure against the target concentration\"></canvas></div><dl class=\"read w\" id=\"ycread\"></dl></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc1\"><span class=\"k\">Açık</span><h3>Derişimin basamakları</h3><p>En az üç kutuya bakın.</p><div class=\"mine\" id=\"myc1\"></div></article>",
+   "<article class=\"q\" id=\"yc1\"><span class=\"k\">Open</span><h3>Steps in concentration</h3><p>Look at at least three boxes.</p><div class=\"mine\" id=\"myc1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc2\"><span class=\"k\">Açık</span><h3>İyon düzeni</h3><p>En az üç derişimi ve iki çifti açın.</p><div class=\"mine\" id=\"myc2\"></div></article>",
+   "<article class=\"q\" id=\"yc2\"><span class=\"k\">Open</span><h3>Ion arrangement</h3><p>Open at least three concentrations and two pairs.</p><div class=\"mine\" id=\"myc2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc3\"><span class=\"k\">Açık</span><h3>Yazılan ile gerçekleşen</h3><p>En az üç ölçüte bakın ve 2,0 M sorusunu cevaplayın.</p><div class=\"mine\" id=\"myc3\"></div></article>",
+   "<article class=\"q\" id=\"yc3\"><span class=\"k\">Open</span><h3>Written and realized</h3><p>Look at at least three measures and answer the 2.0 M question.</p><div class=\"mine\" id=\"myc3\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye: 8 M üre</span>",
+   "<span class=\"step\">2 · Workshop: 8 M urea</span>"
+  ],
+  [
+   "<h2 id=\"yh2\">Yardımcı çözgen: önce dosyası, sonra etkisi</h2>",
+   "<h2 id=\"yh2\">Co-solvent: first its file, then its effect</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Üre için GROMACS 2023.3 dağıtımındaki <code>amber99sb-ildn.ff/urea.itp</code> dosyası kullanılmak istendi. Önce tek bir üre molekülü bu dosyayla ve eksik bir bölümü tamamlanmış kopyasıyla vakumda minimize edildi.</p></div>",
+   "<div class=\"prose\"><p>For urea the plan was to use <code>amber99sb-ildn.ff/urea.itp</code> from the GROMACS 2023.3 distribution. First a single urea molecule was minimized in vacuum with this file and with a copy in which a missing section was completed.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"yurea\" class=\"plot\" aria-label=\"İki topolojiyle minimize edilmiş üre molekülü\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"yurea\" class=\"plot\" aria-label=\"Urea molecule minimized with the two topologies\"></canvas></div>"
+  ],
+  [
+   "<details><summary>Tamamlanmış kopyada eklenen bölüm</summary><pre class=\"itp\" id=\"yitp\"></pre></details>",
+   "<details><summary>Section added in the completed copy</summary><pre class=\"itp\" id=\"yitp\"></pre></details>"
+  ],
+  [
+   "<div class=\"case\"><p class=\"small\"><b>Soru:</b> dağıtımdaki dosyayla <code>gmx grompp</code> ne dedi?</p><div class=\"opts\" id=\"yuq\"></div><p class=\"fb\" id=\"yufb\" hidden></p></div>",
+   "<div class=\"case\"><p class=\"small\"><b>Question:</b> what did <code>gmx grompp</code> say with the distributed file?</p><div class=\"opts\" id=\"yuq\"></div><p class=\"fb\" id=\"yufb\" hidden></p></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Peptidin çevresi</h3>",
+   "<h3 class=\"sub\">Around the peptide</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Tamamlanmış dosyayla MD-REP kutusuna 224 üre eklendi (8 mol/L × 46,43 nm³), boşluk suyla dolduruldu ve MD-REP protokolü dört bağımsız tekrarla uygulandı. Her karede peptitin ağır atomlarına 0,5 nm içindeki üre karbonu ve su oksijeni sayıldı. R = (yerel üre / yerel su) / (kutudaki üre / kutudaki su); R &gt; 1 peptit çevresinde ürenin göreli birikimi demektir.</p></div>",
+   "<div class=\"prose\"><p>With the completed file 224 urea molecules were added to the MD-REP box (8 mol/L × 46.43 nm³), the space was filled with water, and the MD-REP protocol was applied with four independent replicas. In every frame the urea carbons and water oxygens within 0.5 nm of the peptide heavy atoms were counted. R = (local urea / local water) / (urea in the box / water in the box); R &gt; 1 means relative enrichment of urea around the peptide.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Yerel ölçüt\" id=\"ylm\"><button type=\"button\" data-v=\"R\" aria-pressed=\"true\">R</button><button type=\"button\" data-v=\"local_u\" aria-pressed=\"false\">Yerel üre</button><button type=\"button\" data-v=\"local_w\" aria-pressed=\"false\">Yerel su</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Local measure\" id=\"ylm\"><button type=\"button\" data-v=\"R\" aria-pressed=\"true\">R</button><button type=\"button\" data-v=\"local_u\" aria-pressed=\"false\">Local urea</button><button type=\"button\" data-v=\"local_w\" aria-pressed=\"false\">Local water</button></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"yloc\" class=\"plot\" aria-label=\"Tekrar başına yerel ölçüt\"></canvas></div><dl class=\"read w\" id=\"ylread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"yloc\" class=\"plot\" aria-label=\"Local measure per replica\"></canvas></div><dl class=\"read w\" id=\"ylread\"></dl></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Konformasyonlar: 8 M üre ile su</h3>",
+   "<h3 class=\"sub\">Conformations: 8 M urea and water</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Durumlar MD-U ve MD-REP ile aynı: αR (φ &lt; 0, −120 ≤ ψ &lt; 50), αL (φ ≥ 0), kalanı β/PPII. Birincil ölçüt αR payı; altın bant su ortalamasının ±5 puanıdır (koşulardan önce seçilen önemli fark eşiği).</p></div>",
+   "<div class=\"prose\"><p>The states are as in MD-U and MD-REP: αR (φ &lt; 0, −120 ≤ ψ &lt; 50), αL (φ ≥ 0), the rest β/PPII. The primary measure is the αR fraction; the gold band is ±5 points around the water mean (the important-difference threshold chosen before the runs).</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ortam:</span><div class=\"seg\" role=\"group\" aria-label=\"Ortam\" id=\"yrs\"><button type=\"button\" data-v=\"W\" aria-pressed=\"true\">Su (0 M)</button><button type=\"button\" data-v=\"U\" aria-pressed=\"false\">8 M üre</button></div></div>",
+   "<div class=\"selrow\"><span>Environment:</span><div class=\"seg\" role=\"group\" aria-label=\"Environment\" id=\"yrs\"><button type=\"button\" data-v=\"W\" aria-pressed=\"true\">Water (0 M)</button><button type=\"button\" data-v=\"U\" aria-pressed=\"false\">8 M urea</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Tekrar:</span><div class=\"seg\" role=\"group\" aria-label=\"Tekrar\" id=\"yrr\"></div></div>",
+   "<div class=\"selrow\"><span>Replica:</span><div class=\"seg\" role=\"group\" aria-label=\"Replica\" id=\"yrr\"></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"yrama\" class=\"plot\" aria-label=\"φ ve ψ yoğunluk haritası\"></canvas></div><dl class=\"read w\" id=\"yaread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"yrama\" class=\"plot\" aria-label=\"φ and ψ density map\"></canvas></div><dl class=\"read w\" id=\"yaread\"></dl></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Ölçüt\" id=\"ydm\"><button type=\"button\" data-v=\"p_aR\" aria-pressed=\"true\">αR</button><button type=\"button\" data-v=\"p_bp\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-v=\"p_aL\" aria-pressed=\"false\">αL</button><button type=\"button\" data-v=\"trans_per_ns\" aria-pressed=\"false\">Geçiş/ns</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Measure\" id=\"ydm\"><button type=\"button\" data-v=\"p_aR\" aria-pressed=\"true\">αR</button><button type=\"button\" data-v=\"p_bp\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-v=\"p_aL\" aria-pressed=\"false\">αL</button><button type=\"button\" data-v=\"trans_per_ns\" aria-pressed=\"false\">Transitions/ns</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ydots\" class=\"plot\" aria-label=\"Tekrar değerleri, su ve üre\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"ydots\" class=\"plot\" aria-label=\"Replica values, water and urea\"></canvas></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"ycomp\">Önceden yazılmış hükmü göster</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"ycomp\">Show the verdict written in advance</button></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc4\"><span class=\"k\">Açık</span><h3>Sessiz dosya hatası</h3><p>Soruyu cevaplayın.</p><div class=\"mine\" id=\"myc4\"></div></article>",
+   "<article class=\"q\" id=\"yc4\"><span class=\"k\">Open</span><h3>Silent file error</h3><p>Answer the question.</p><div class=\"mine\" id=\"myc4\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc5\"><span class=\"k\">Açık</span><h3>Peptidin çevresi</h3><p>En az iki ölçüte bakın.</p><div class=\"mine\" id=\"myc5\"></div></article>",
+   "<article class=\"q\" id=\"yc5\"><span class=\"k\">Open</span><h3>Around the peptide</h3><p>Look at at least two measures.</p><div class=\"mine\" id=\"myc5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc6\"><span class=\"k\">Açık</span><h3>Üre konformasyonu değiştirdi mi?</h3><p>Her iki ortamdan birer tekrar açın ve hükmü gösterin.</p><div class=\"mine\" id=\"myc6\"></div></article>",
+   "<article class=\"q\" id=\"yc6\"><span class=\"k\">Open</span><h3>Did urea change the conformation?</h3><p>Open one replica from each environment and show the verdict.</p><div class=\"mine\" id=\"myc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Tezgâh: iddia denetleyici</span>",
+   "<span class=\"step\">3 · Bench: claim checker</span>"
+  ],
+  [
+   "<h2 id=\"yh3\">Altı cümle: bu veri bunları taşır mı?</h2>",
+   "<h2 id=\"yh3\">Six sentences: do these data support them?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>",
+   "<div class=\"prose\"><p>For each sentence decide: supported by the data on this page, needs more evidence, or not supported by these data. The reasoning appears after your choice.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"yc7\"><span class=\"k\">Açık</span><h3>Derişim bir sayı, ortam bir model</h3><p>En az dört cümleye karar verin.</p><div class=\"mine\" id=\"myc7\"></div></article>",
+   "<article class=\"q\" id=\"yc7\"><span class=\"k\">Open</span><h3>A concentration is a number, an environment is a model</h3><p>Judge at least four sentences.</p><div class=\"mine\" id=\"myc7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Defter: çözgen ortamı kaydı</span>",
+   "<span class=\"step\">4 · Notebook: solvent environment record</span>"
+  ],
+  [
+   "<h2 id=\"yh4\">Koşudan önce yazılan altı satır</h2>",
+   "<h2 id=\"yh4\">Six lines written before the run</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kendi çalışmanız için doldurun; örnekler bu sayfadandır. Eksik satırlar altta not üretir. Metin yalnız tarayıcınızda üretilir, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>Fill this in for your own work; the examples are from this page. Missing lines trigger notes at the bottom. The text is generated only in your browser and is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>İyonlar: tür, sayı ve nasıl hesaplandığı<textarea id=\"yfI\" rows=\"2\">Örnek: NaCl, 4 nm kutuda 6 çift; genion -conc 0.15 -neutral (sayı kutu hacminden).</textarea></label>",
+   "<label>Ions: type, number and how it was computed<textarea id=\"yfI\" rows=\"2\">Example: NaCl, 6 pairs in a 4 nm box; genion -conc 0.15 -neutral (number from the box volume).</textarea></label>"
+  ],
+  [
+   "<label>Gerçekleşen derişim<textarea id=\"yfC\" rows=\"2\">Örnek: molarite NPT ortalama hacmiyle, molalite su sayısıyla; hedefle yan yana raporlanır.</textarea></label>",
+   "<label>Realized concentration<textarea id=\"yfC\" rows=\"2\">Example: molarity with the mean NPT volume, molality with the number of waters; reported next to the target.</textarea></label>"
+  ],
+  [
+   "<label>Yardımcı çözgen dosyası ve denetimi<textarea id=\"yfT\" rows=\"2\">Örnek: urea.itp (GROMACS 2023.3 amber99sb-ildn.ff); gmx dump ile bağ ve açı sayısı, tek molekül minimizasyonunda geometri denetlendi.</textarea></label>",
+   "<label>Co-solvent file and its check<textarea id=\"yfT\" rows=\"2\">Example: urea.itp (GROMACS 2023.3 amber99sb-ildn.ff); bond and angle counts with gmx dump, geometry checked in a single-molecule minimization.</textarea></label>"
+  ],
+  [
+   "<label>Ekleme yöntemi<textarea id=\"yfM\" rows=\"2\">Örnek: insert-molecules -nmol 224, her tekrar kendi tohumuyla; ardından solvate.</textarea></label>",
+   "<label>Insertion method<textarea id=\"yfM\" rows=\"2\">Example: insert-molecules -nmol 224, each replica with its own seed; then solvate.</textarea></label>"
+  ],
+  [
+   "<label>Kuvvet alanı uyumu<textarea id=\"yfF\" rows=\"2\">Örnek: iyonlar ve üre amber99sb-ildn.ff dosyalarından; su TIP3P.</textarea></label>",
+   "<label>Force field compatibility<textarea id=\"yfF\" rows=\"2\">Example: ions and urea from the amber99sb-ildn.ff files; water TIP3P.</textarea></label>"
+  ],
+  [
+   "<label>Tekrarlar ve başvuru<textarea id=\"yfR\" rows=\"2\">Örnek: 4 tekrar 8 M üre, başvuru 8 su tekrarı; aynı protokol.</textarea></label>",
+   "<label>Replicas and reference<textarea id=\"yfR\" rows=\"2\">Example: 4 replicas in 8 M urea, reference 8 water replicas; same protocol.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"yfcopy\">Metni kopyala</button><span class=\"small\" id=\"yfmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"yfcopy\">Copy text</button><span class=\"small\" id=\"yfmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">5 · Sınav</span>",
+   "<span class=\"step\">5 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"yh5\">Altı soru</h2>",
+   "<h2 id=\"yh5\">Six questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('yprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('yprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== deneysel köprü: doğrusal ekstrapolasyon modeli (öğretim modeli, tarayıcıda) ===== */",
+   "/* ===== experimental bridge: linear extrapolation model (teaching model, in the browser) ===== */"
+  ],
+  [
+   "var p=plot(g,50,12,w1,h1,[0,10],[lo,hi],{ylabPad:36,xticks:[0,2,4,6,8,10],yticks:yt,xlab:'[üre] (M)',ylab:'ΔG (kJ/mol)',yfmt:function(v){ return fx(v,0); }});",
+   "var p=plot(g,50,12,w1,h1,[0,10],[lo,hi],{ylabPad:36,xticks:[0,2,4,6,8,10],yticks:yt,xlab:'[urea] (M)',ylab:'ΔG (kJ/mol)',yfmt:function(v){ return fx(v,0); }});"
+  ],
+  [
+   "var q=plot(g,L2,T2,narrow?w1:w1,h1,[0,10],[0,1],{ylabPad:36,xticks:[0,2,4,6,8,10],yticks:[0,0.25,0.5,0.75,1],xlab:'[üre] (M)',ylab:'açılmış pay',yfmt:function(v){ return fx(v,2); }});",
+   "var q=plot(g,L2,T2,narrow?w1:w1,h1,[0,10],[0,1],{ylabPad:36,xticks:[0,2,4,6,8,10],yticks:[0,0.25,0.5,0.75,1],xlab:'[urea] (M)',ylab:'fraction unfolded',yfmt:function(v){ return fx(v,2); }});"
+  ],
+  [
+   "$('ybleg').innerHTML='<span>'+lin(PAL.accent)+'ΔG = ΔG(H₂O) − m·[D] (kesikli: ölçülemeyen bölgede uzatma)</span><span><i style=\"background:'+hexA(PAL.gold,0.5)+'\"></i>ölçülebilir pencere (açılmış pay %5 ile %95)</span><span>'+lin(PAL.navy)+'açılmış pay</span>'; }",
+   "$('ybleg').innerHTML='<span>'+lin(PAL.accent)+'ΔG = ΔG(H₂O) − m·[D] (dashed: extrapolation where it cannot be measured)</span><span><i style=\"background:'+hexA(PAL.gold,0.5)+'\"></i>measurable window (fraction unfolded 5% to 95%)</span><span>'+lin(PAL.navy)+'fraction unfolded</span>'; }"
+  ],
+  [
+   "dl('Geçiş orta noktası Cm = ΔG(H₂O)/m',fx(cm,2)+' M')+",
+   "dl('Transition midpoint Cm = ΔG(H₂O)/m',fx(cm,2)+' M')+"
+  ],
+  [
+   "dl('Ölçülebilir pencere',fx(wn[0],2)+' ile '+fx(wn[1],2)+' M'+(inR?'':' (bir kısmı 0 ile 10 M dışında)'))+",
+   "dl('Measurable window',fx(wn[0],2)+' to '+fx(wn[1],2)+' M'+(inR?'':' (partly outside 0 to 10 M)'))+"
+  ],
+  [
+   "dl('0 M değerine uzatma',wn[0]>0?fx(wn[0],2)+' M geriye (pencerenin alt kenarından)':'pencere 0 M\\'ye uzanıyor; uzatma gerekmiyor')+",
+   "dl('Extrapolation to 0 M',wn[0]>0?fx(wn[0],2)+' M back (from the lower edge of the window)':'the window reaches 0 M; no extrapolation needed')+"
+  ],
+  [
+   "dl('Geçiş genişliği (%10 ile %90)',fx(w,2)+' M = 2·RT·ln 9 / m')+",
+   "dl('Transition width (10% to 90%)',fx(w,2)+' M = 2·RT·ln 9 / m')+"
+  ],
+  [
+   "dl('8 M\\'de açılmış pay',fx(lemF(8),3))+",
+   "dl('Fraction unfolded at 8 M',fx(lemF(8),3))+"
+  ],
+  [
+   "dl('m\\'de %10 hata','ΔG(H₂O) = m·Cm olduğundan Cm aynı kalırsa ± '+fx(0.1*BR.g,1)+' kJ/mol'); }",
+   "dl('10% error in m','since ΔG(H₂O) = m·Cm, with Cm unchanged ± '+fx(0.1*BR.g,1)+' kJ/mol'); }"
+  ],
+  [
+   "if(ng>=2&&nm>=2) card('yc0',true,'Şu anki ayarda açılmış pay yalnız '+fx(wn[0],2)+' ile '+fx(wn[1],2)+' M arasında %5 ile %95 aralığındadır; deneyde güvenilir ölçüm bu penceredendir. Suyun içindeki kararlılık ΔG(H₂O) bu pencereden '+(wn[0]>0?fx(wn[0],2)+' M':'hiç')+' geriye doğru, doğrusallık varsayımıyla uzatılarak bulunur. m büyüdükçe geçiş daralır (genişlik 2·RT·ln 9 / m), ΔG(H₂O) büyüdükçe pencere yüksek derişime kayar. ΔG(H₂O) = m·Cm olduğundan m\\'deki bir hata doğrudan ΔG(H₂O)\\'ya geçer. Bu köprü bir öğretim modelidir: belirli bir proteinin ölçülmüş değerleri kullanılmadı. Alanin dipeptidinin iki durumlu, işbirlikçi bir açılma geçişi yoktur; bu sayfadaki 8 M simülasyonu bir m değeri vermez ve LEM\\'i sınamaz.');",
+   "if(ng>=2&&nm>=2) card('yc0',true,'At the current setting the fraction unfolded lies between 5% and 95% only from '+fx(wn[0],2)+' to '+fx(wn[1],2)+' M; reliable measurement in an experiment comes from this window. The stability in water, ΔG(H₂O), is found by extending '+(wn[0]>0?fx(wn[0],2)+' M':'no distance')+' back from this window under the assumption of linearity. As m grows the transition narrows (width 2·RT·ln 9 / m); as ΔG(H₂O) grows the window moves to higher concentration. Since ΔG(H₂O) = m·Cm, an error in m passes directly into ΔG(H₂O). This bridge is a teaching model: no measured values of a particular protein were used. Alanine dipeptide has no two-state, cooperative unfolding transition; the 8 M simulation on this page gives no m value and does not test the LEM.');"
+  ],
+  [
+   "else card('yc0',false,'Şimdiye kadar '+ng+' ΔG(H₂O) ve '+nm+' m değeri; en az ikişer tane deneyin.'); }",
+   "else card('yc0',false,'So far '+ng+' ΔG(H₂O) value(s) and '+nm+' m value(s); try at least two of each.'); }"
+  ],
+  [
+   "/* ===== atölye 1: iyonlar ===== */",
+   "/* ===== workshop 1: ions ===== */"
+  ],
+  [
+   "var NA=6.02214076e23, SK=['N015','N05','N10','N20'], SN={N015:'0,15 M',N05:'0,5 M',N10:'1,0 M',N20:'2,0 M'};",
+   "var NA=6.02214076e23, SK=['N015','N05','N10','N20'], SN={N015:'0.15 M',N05:'0.5 M',N10:'1.0 M',N20:'2.0 M'};"
+  ],
+  [
+   "var BXN={'3.0':'3 nm küp','4.0':'4 nm küp','6.0':'6 nm küp','8.0':'8 nm küp','REP':'MD-REP kutusu'};",
+   "var BXN={'3.0':'3 nm cube','4.0':'4 nm cube','6.0':'6 nm cube','8.0':'8 nm cube','REP':'MD-REP box'};"
+  ],
+  [
+   "var p=plot(g,52,12,W-66,H-50,[0.4,n+0.6],[0,0.24],{ylabPad:38,xticks:[],yticks:[0,0.05,0.1,0.15,0.2],ylab:'derişim (mol/L)',yfmt:function(v){ return fx(v,2); }});",
+   "var p=plot(g,52,12,W-66,H-50,[0.4,n+0.6],[0,0.24],{ylabPad:38,xticks:[],yticks:[0,0.05,0.1,0.15,0.2],ylab:'concentration (mol/L)',yfmt:function(v){ return fx(v,2); }});"
+  ],
+  [
+   "g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(W<560?(b.box==='REP'?'REP':fx(+b.box,0)+' nm'):BXN[b.box],X,p.Y(0)+16); g.fillText(b.na+' çift',X,p.Y(Math.min(0.235,molar(b.na+2,b.V)))-6>p.T+10?p.Y(Math.min(0.235,molar(b.na+2,b.V)))-6:p.T+12); g.textAlign='left'; });",
+   "g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(W<560?(b.box==='REP'?'REP':fx(+b.box,0)+' nm'):BXN[b.box],X,p.Y(0)+16); g.fillText(b.na+' pairs',X,p.Y(Math.min(0.235,molar(b.na+2,b.V)))-6>p.T+10?p.Y(Math.min(0.235,molar(b.na+2,b.V)))-6:p.T+12); g.textAlign='left'; });"
+  ],
+  [
+   "g.fillStyle=PAL.accent; g.font='600 12px '+css('--sans'); g.fillText('hedef 0,15 M',p.X(0.4)+4,p.Y(0.15)+15); }",
+   "g.fillStyle=PAL.accent; g.font='600 12px '+css('--sans'); g.fillText('target 0.15 M',p.X(0.4)+4,p.Y(0.15)+15); }"
+  ],
+  [
+   "$('yxread').innerHTML=dl('Kutu',BXN[b.box]+', hacim '+fx(b.V,2)+' nm³, '+fmtI(b.nsol)+' su'+(b.box==='REP'?' + alanin dipeptidi':''))+",
+   "$('yxread').innerHTML=dl('Box',BXN[b.box]+', volume '+fx(b.V,2)+' nm³, '+fmtI(b.nsol)+' waters'+(b.box==='REP'?' + alanine dipeptide':''))+"
+  ],
+  [
+   "dl('0,15 mol/L × hacim × N_A',fx(ex,2)+' çift')+dl('genion\\'un eklediği',b.na+' Na⁺ + '+b.cl+' Cl⁻ (yerlerine '+(2*b.na)+' su çıkarıldı)')+",
+   "dl('0.15 mol/L × volume × N_A',fx(ex,2)+' pairs')+dl('Added by genion',b.na+' Na⁺ + '+b.cl+' Cl⁻ ('+(2*b.na)+' waters removed in their place)')+"
+  ],
+  [
+   "dl('Bu sayının derişimi',fx(molar(b.na,b.V),3)+' mol/L (kutu hacmiyle); molalite '+fx(b.na/(nw*18.015e-3),3)+' mol/kg')+",
+   "dl('Concentration of this number',fx(molar(b.na,b.V),3)+' mol/L (with the box volume); molality '+fx(b.na/(nw*18.015e-3),3)+' mol/kg')+"
+  ],
+  [
+   "dl('Bir çiftin karşılığı',fx(molar(1,b.V),4)+' mol/L')+dl('Çizgiler','kalın: eklenen sayının derişimi; ince: bir ve iki çift eksik ya da fazla'); }",
+   "dl('Worth of one pair',fx(molar(1,b.V),4)+' mol/L')+dl('Lines','thick: concentration of the number added; thin: one and two pairs fewer or more'); }"
+  ],
+  [
+   "$('yrleg').innerHTML=ks.map(function(k){ return '<span>'+lin(SC(k))+SN[k]+'</span>'; }).join('')+(cut?'<span>'+lin(PAL.accent)+'kesikli: '+(IO.pair==='NaCl'?'temas çifti eşiği 0,35 nm':'koordinasyon eşiği 0,32 nm')+'</span>':''); }",
+   "$('yrleg').innerHTML=ks.map(function(k){ return '<span>'+lin(SC(k))+SN[k]+'</span>'; }).join('')+(cut?'<span>'+lin(PAL.accent)+'dashed: '+(IO.pair==='NaCl'?'contact pair threshold 0.35 nm':'coordination threshold 0.32 nm')+'</span>':''); }"
+  ],
+  [
+   "var PN={NaCl:'Na⁺-Cl⁻',NaNa:'Na⁺-Na⁺',ClCl:'Cl⁻-Cl⁻',NaOW:'Na⁺-su O'};",
+   "var PN={NaCl:'Na⁺-Cl⁻',NaNa:'Na⁺-Na⁺',ClCl:'Cl⁻-Cl⁻',NaOW:'Na⁺-water O'};"
+  ],
+  [
+   "$('yrread').innerHTML=dl('Çift',PN[IO.pair]+'; 0,005 nm kutu, 200 ile 2000 ps')+ks.map(function(k){ var s=VDD.salt[k], gg=s.rdf[IO.pair], q=firstPk(gg), extra='';",
+   "$('yrread').innerHTML=dl('Pair',PN[IO.pair]+'; 0.005 nm bins, 200 to 2000 ps')+ks.map(function(k){ var s=VDD.salt[k], gg=s.rdf[IO.pair], q=firstPk(gg), extra='';"
+  ],
+  [
+   "if(IO.pair==='NaCl') extra='; temas çifti payı '+fx(100*s.cip,1)+' %'; if(IO.pair==='NaOW') extra='; 0,32 nm içinde '+fx(s.coord,2)+' su';",
+   "if(IO.pair==='NaCl') extra='; contact pair fraction '+fx(100*s.cip,1)+' %'; if(IO.pair==='NaOW') extra='; '+fx(s.coord,2)+' waters within 0.32 nm';"
+  ],
+  [
+   "return dl(SN[k]+' ('+s.npair+' çift)','ilk tepe '+fx(r[q[0]],3)+' nm, g '+fx(gg[q[0]],1)+'; ilk minimum '+fx(r[q[1]],3)+' nm'+extra); }).join(''); }",
+   "return dl(SN[k]+' ('+s.npair+' pairs)','first peak '+fx(r[q[0]],3)+' nm, g '+fx(gg[q[0]],1)+'; first minimum '+fx(r[q[1]],3)+' nm'+extra); }).join(''); }"
+  ],
+  [
+   "card('yc2',true,'Na⁺-Cl⁻ ilk tepesi '+fx(arrMin(pk),3)+' ile '+fx(arrMax(pk),3)+' nm\\'de, Na⁺-su O tepesi '+fx(arrMin(po),3)+' ile '+fx(arrMax(po),3)+' nm\\'de; tepe yerleri derişimle pek az oynuyor. Temas çifti payı (0,35 nm içinde bir Cl⁻ bulunan Na⁺ oranı) '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+'; Na⁺ çevresindeki su sayısı (0,32 nm) '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) kutu ortalamasına bölünür: tepe yüksekliği o çiftin kaç kez temas ettiğini değil, ortalamaya göre ne kadar yoğunlaştığını söyler; 6 çiftlik kutuda eğri az sayıda iyondan gelir. Her derişimde tek koşu yapıldı; eğilim betimleyicidir, belirsizliği hesaplanmadı. İyon düzeni iyon parametrelerine bağlıdır; başka iyon parametreleriyle: Bu senaryo hesaplanmadı.'); }",
+   "card('yc2',true,'The first Na⁺-Cl⁻ peak lies at '+fx(arrMin(pk),3)+' to '+fx(arrMax(pk),3)+' nm and the Na⁺-water O peak at '+fx(arrMin(po),3)+' to '+fx(arrMax(po),3)+' nm; the peak positions barely move with concentration. Contact pair fraction (fraction of Na⁺ with a Cl⁻ within 0.35 nm): '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+'; waters around Na⁺ (0.32 nm): '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) is divided by the box average: the peak height tells how strongly the pair is concentrated relative to the average, not how often it is in contact; in the 6-pair box the curve comes from few ions. Each concentration was run once; the trend is descriptive and its uncertainty was not computed. The ion arrangement depends on the ion parameters; with other ion parameters: This scenario was not computed.'); }"
+  ],
+  [
+   "else card('yc2',false,'Şimdiye kadar '+nc+' derişim ve '+np+' çift; en az üç derişim ve iki çift açın.'); }",
+   "else card('yc2',false,'So far '+nc+' concentration(s) and '+np+' pair(s); open at least three concentrations and two pairs.'); }"
+  ],
+  [
+   "var CMM={conc:['derişim','mol/L ya da mol/kg'],cip:['temas iyon çifti payı (%)',''],coord:['Na⁺ çevresindeki su (0,32 nm)',''],rho:['yoğunluk (g/cm³)','']};",
+   "var CMM={conc:['concentration','mol/L or mol/kg'],cip:['contact ion pair fraction (%)',''],coord:['waters around Na⁺ (0.32 nm)',''],rho:['density (g/cm³)','']};"
+  ],
+  [
+   "var p=plot(g,54,12,W-68,H-50,[0,2.2],[lo,hi],{ylabPad:40,xticks:[0,0.5,1,1.5,2],yticks:yt,xlab:'hedef (genion -conc, mol/L)',ylab:CMM[m][0],xfmt:function(v){ return fx(v,1); },yfmt:function(v){ return fx(v,d); }});",
+   "var p=plot(g,54,12,W-68,H-50,[0,2.2],[lo,hi],{ylabPad:40,xticks:[0,0.5,1,1.5,2],yticks:yt,xlab:'target (genion -conc, mol/L)',ylab:CMM[m][0],xfmt:function(v){ return fx(v,1); },yfmt:function(v){ return fx(v,d); }});"
+  ],
+  [
+   "Object.keys(VDD.salt_fail).forEach(function(k){ var X=p.X(VDD.salt_fail[k].target), Y=p.Y(lo)-14; g.strokeStyle=PAL.bad; g.lineWidth=2; g.beginPath(); g.moveTo(X-6,Y-6); g.lineTo(X+6,Y+6); g.moveTo(X+6,Y-6); g.lineTo(X-6,Y+6); g.stroke(); g.fillStyle=PAL.bad; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText(SN[k]+': genion durdu',X-10,Y+4); g.textAlign='left'; });",
+   "Object.keys(VDD.salt_fail).forEach(function(k){ var X=p.X(VDD.salt_fail[k].target), Y=p.Y(lo)-14; g.strokeStyle=PAL.bad; g.lineWidth=2; g.beginPath(); g.moveTo(X-6,Y-6); g.lineTo(X+6,Y+6); g.moveTo(X+6,Y-6); g.lineTo(X-6,Y+6); g.stroke(); g.fillStyle=PAL.bad; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText(SN[k]+': genion stopped',X-10,Y+4); g.textAlign='left'; });"
+  ],
+  [
+   "if(m==='conc'){ g.font='12px '+css('--sans'); g.fillStyle=PAL.navy; g.fillText('● molarite (NPT ortalama hacmi)',p.L+8,p.T+16); g.fillStyle=PAL.gold; g.fillText('■ molalite',p.L+8,p.T+32); g.fillStyle=PAL.muted; g.fillText('kesikli: hedef = gerçekleşen',p.L+8,p.T+48); } }",
+   "if(m==='conc'){ g.font='12px '+css('--sans'); g.fillStyle=PAL.navy; g.fillText('● molarity (mean NPT volume)',p.L+8,p.T+16); g.fillStyle=PAL.gold; g.fillText('■ molality',p.L+8,p.T+32); g.fillStyle=PAL.muted; g.fillText('dashed: target = realized',p.L+8,p.T+48); } }"
+  ],
+  [
+   "if(m==='conc') t=s.npair+' çift, '+fmtI(s.nsol)+' su; molarite '+fx(s.molarity,3)+' mol/L (⟨V⟩ '+fx(h.V,2)+' nm³), molalite '+fx(s.molality,3)+' mol/kg';",
+   "if(m==='conc') t=s.npair+' pairs, '+fmtI(s.nsol)+' waters; molarity '+fx(s.molarity,3)+' mol/L (⟨V⟩ '+fx(h.V,2)+' nm³), molality '+fx(s.molality,3)+' mol/kg';"
+  ],
+  [
+   "else if(m==='coord') t=fx(s.coord,2)+' su';",
+   "else if(m==='coord') t=fx(s.coord,2)+' waters';"
+  ],
+  [
+   "else t=fx(h.rho,4)+' g/cm³; T '+fx(h.T,2)+' K, P '+fx(h.P,1)+' bar'+(h.flag?' (sağlık eşiği aşıldı)':'');",
+   "else t=fx(h.rho,4)+' g/cm³; T '+fx(h.T,2)+' K, P '+fx(h.P,1)+' bar'+(h.flag?' (health threshold exceeded)':'');"
+  ],
+  [
+   "return dl('Hedef '+SN[k],t); }).join('')+(m==='conc'?dl('Tanım','molarite = çift / (N_A × ⟨V⟩); molalite = çift / (su sayısı × 18,015 g/mol)'):''); }",
+   "return dl('Target '+SN[k],t); }).join('')+(m==='conc'?dl('Definition','molarity = pairs / (N_A × ⟨V⟩); molality = pairs / (number of waters × 18.015 g/mol)'):''); }"
+  ],
+  [
+   "card('yc3',true,'genion\\'a yazılan derişim, NPT dengesinden sonra kutunun gerçek hacmiyle aynı kalmaz: hedef '+ks.map(function(k){ return SN[k]+' → '+fx(S[k].molarity,3); }).join(', ')+' mol/L. Molalite yalnız iyon ve su sayısına bağlıdır, hacme bağlı değildir: '+ks.map(function(k){ return fx(S[k].molality,3); }).join(', ')+' mol/kg; derişim arttıkça molarite ile molalite birbirinden ayrılır. Küçük kutuda sayı tam sayıya yuvarlandığı için hedef zaten basamaklıdır. Yoğunluk '+fx(a.health.rho,3)+' g/cm³\\'ten '+fx(z.health.rho,3)+' g/cm³\\'e çıktı. '+(fk.length?fk.map(function(k){ var f=F[k]; return SN[k]+' hedefi ise hiç kurulamadı: genion '+f.na+' Na⁺ ve '+f.cl+' Cl⁻ yerleştirdikten sonra (hedef '+f.want+' çift) \"No more replaceable solvent!\" ile durdu, çıkış kodu '+f.code+'. Kutuda hâlâ '+fmtI(f.left)+' su vardı; durma nedeni, yeni iyonun çözgen olmayan atomlara -rmin (varsayılan '+fx(f.rmin,1)+' nm) uzaklık koşulunu sağlayan su kalmamasıdır. Plan gereği parametre değiştirilip yeniden denenmedi; 2,0 M koşusu analizden düştü. Teknik denemede yalnız genion\\'un \"Will try to add\" satırı okunmuştu; bu sorun ancak planlı koşuda görüldü. '; }).join(''):'')+'Raporda hedef değil gerçekleşen derişim, tanımı ve molekül sayıları birlikte yazılır. Bu koşuların deneysel NaCl yoğunluklarıyla karşılaştırılması: Bu senaryo hesaplanmadı.'); }",
+   "card('yc3',true,'The concentration given to genion does not stay the same with the real box volume after NPT equilibration: target '+ks.map(function(k){ return SN[k]+' → '+fx(S[k].molarity,3); }).join(', ')+' mol/L. Molality depends only on the numbers of ions and waters, not on the volume: '+ks.map(function(k){ return fx(S[k].molality,3); }).join(', ')+' mol/kg; molarity and molality move apart as the concentration rises. In a small box the target is already stepped because the number is rounded to an integer. Density rose from '+fx(a.health.rho,3)+' to '+fx(z.health.rho,3)+' g/cm³. '+(fk.length?fk.map(function(k){ var f=F[k]; return 'The '+SN[k]+' target could not be built at all: after placing '+f.na+' Na⁺ and '+f.cl+' Cl⁻ (target '+f.want+' pairs) genion stopped with \"No more replaceable solvent!\", exit code '+f.code+'. The box still held '+fmtI(f.left)+' waters; it stopped because no water was left that satisfied the -rmin distance condition (default '+fx(f.rmin,1)+' nm) between a new ion and non-solvent atoms. As the plan requires, it was not retried with changed parameters; the 2.0 M run dropped out of the analysis. In the technical trial only genion\\'s \"Will try to add\" line had been read; the problem appeared only in the planned run. '; }).join(''):'')+'A report gives the realized concentration, not the target, together with its definition and the molecule counts. Comparison of these runs with experimental NaCl densities: This scenario was not computed.'); }"
+  ],
+  [
+   "else card('yc3',false,'Şimdiye kadar '+n+' ölçüt; en az üçüne bakın'+(fk.length&&IO.failAns==null?' ve 2,0 M sorusunu cevaplayın':'')+'.'); }",
+   "else card('yc3',false,'So far '+n+' measure(s); look at at least three'+(fk.length&&IO.failAns==null?' and answer the 2.0 M question':'')+'.'); }"
+  ],
+  [
+   "var FOPT=['Kutuda su kalmadı','Yeni iyon için -rmin uzaklık koşulunu sağlayan su kalmadı','2,0 M NaCl suda çözünmez'];",
+   "var FOPT=['No water was left in the box','No water was left that satisfied the -rmin distance condition for a new ion','2.0 M NaCl does not dissolve in water'];"
+  ],
+  [
+   "$('yfail').innerHTML='<div class=\"case\"><h3>'+SN[k]+' hedefi: koşu kurulamadı</h3><p class=\"small\">4 nm kutu, '+fmtI(f.nsol)+' su; genion '+f.want+' Na⁺ ve '+f.want+' Cl⁻ eklemeye çalıştı.</p><div class=\"cmd\">gmx genion -conc 2.0 -neutral → çıkış kodu '+f.code+'</div><pre class=\"msg\">'+esc(f.msg).replace(/(Fatal error:)/,'<span class=\"hl\">$1</span>')+'</pre><p class=\"small\"><b>Soru:</b> '+fmtI(f.left)+' su dururken genion neden durdu?</p><div class=\"opts\">'+FOPT.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"yffb\" hidden></p></div>';",
+   "$('yfail').innerHTML='<div class=\"case\"><h3>'+SN[k]+' target: the run could not be built</h3><p class=\"small\">4 nm box, '+fmtI(f.nsol)+' waters; genion tried to add '+f.want+' Na⁺ and '+f.want+' Cl⁻.</p><div class=\"cmd\">gmx genion -conc 2.0 -neutral → exit code '+f.code+'</div><pre class=\"msg\">'+esc(f.msg).replace(/(Fatal error:)/,'<span class=\"hl\">$1</span>')+'</pre><p class=\"small\"><b>Question:</b> why did genion stop with '+fmtI(f.left)+' waters still in the box?</p><div class=\"opts\">'+FOPT.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"yffb\" hidden></p></div>';"
+  ],
+  [
+   "var fb=$('yffb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+f.na+' Na⁺ ve '+f.cl+' Cl⁻ yerleştirildi; genion -h: \"-rmin (0.6) Minimum distance between ions and non-solvent\". Yerleştirilen her iyon artık çözgen değildir; çevresindeki sular aday olmaktan çıkar. Daha büyük kutu ya da daha küçük -rmin bir çözümdür, ama plan gereği denenmedi: Bu senaryo hesaplanmadı.';",
+   "var fb=$('yffb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+f.na+' Na⁺ and '+f.cl+' Cl⁻ were placed; genion -h: \"-rmin (0.6) Minimum distance between ions and non-solvent\". Each placed ion is no longer solvent; the waters around it stop being candidates. A larger box or a smaller -rmin is a remedy, but as the plan requires it was not tried: This scenario was not computed.';"
+  ],
+  [
+   "card('yc1',true,'\"0,15 M\" beş kutuda '+B.map(function(b){ return BXN[b.box]+' '+b.na; }).join(', ')+' iyon çifti oldu'+(nearest?'; her kutuda sayı, 0,15 mol/L × kutu hacmi × N_A çarpımının en yakın tam sayısına eşit':'')+'. Derişim ancak bir çiftlik basamaklarla ayarlanabilir: bir çift '+BXN[sm.box]+' için '+fx(molar(1,sm.V),3)+' mol/L, '+BXN[lg.box]+' için '+fx(molar(1,lg.V),4)+' mol/L eder. \"0,15 M\" '+BXN[sm.box]+' için gerçekte '+fx(molar(sm.na,sm.V),3)+' mol/L demektir. -neutral seçeneği önce yükü sıfırlar; alanin dipeptidi yüksüz olduğu için burada eşit sayıda Na⁺ ve Cl⁻ eklendi. Raporda derişimle birlikte iyon sayısı ve kutu da yazılır.'); }",
+   "card('yc1',true,'In the five boxes \"0.15 M\" became '+B.map(function(b){ return BXN[b.box]+' '+b.na; }).join(', ')+' ion pairs'+(nearest?'; in every box the number equals 0.15 mol/L × box volume × N_A rounded to the nearest integer':'')+'. The concentration can only be set in steps of one pair: one pair is worth '+fx(molar(1,sm.V),3)+' mol/L in the '+BXN[sm.box]+' and '+fx(molar(1,lg.V),4)+' mol/L in the '+BXN[lg.box]+'. In the '+BXN[sm.box]+', \"0.15 M\" really means '+fx(molar(sm.na,sm.V),3)+' mol/L. The -neutral option first brings the charge to zero; alanine dipeptide is neutral, so equal numbers of Na⁺ and Cl⁻ were added here. A report gives the number of ions and the box together with the concentration.'); }"
+  ],
+  [
+   "else card('yc1',false,'Şimdiye kadar '+n+' kutu; en az üçüne bakın.'); }",
+   "else card('yc1',false,'So far '+n+' box(es); look at at least three.'); }"
+  ],
+  [
+   "$('yrc').innerHTML='<button type=\"button\" data-v=\"all\" aria-pressed=\"true\">Tümü</button>'+SK.filter(function(k){ return VDD.salt[k]; }).map(function(k){ return '<button type=\"button\" data-v=\"'+k+'\" aria-pressed=\"false\">'+SN[k]+'</button>'; }).join('');",
+   "$('yrc').innerHTML='<button type=\"button\" data-v=\"all\" aria-pressed=\"true\">All</button>'+SK.filter(function(k){ return VDD.salt[k]; }).map(function(k){ return '<button type=\"button\" data-v=\"'+k+'\" aria-pressed=\"false\">'+SN[k]+'</button>'; }).join('');"
+  ],
+  [
+   "/* ===== atölye 2: 8 M üre ===== */",
+   "/* ===== workshop 2: 8 M urea ===== */"
+  ],
+  [
+   "g.fillStyle=PAL.ink; g.font=(narrow?'600 11.5px ':'600 13px ')+css('--sans'); g.fillText(v==='orig'?'Dağıtımdaki urea.itp: '+U.orig.n_angles+' açı terimi':'Açıları eklenmiş kopya: '+U.fixed.n_angles+' açı terimi',ox+14,oy+24);",
+   "g.fillStyle=PAL.ink; g.font=(narrow?'600 11.5px ':'600 13px ')+css('--sans'); g.fillText(v==='orig'?'Distributed urea.itp: '+U.orig.n_angles+' angle terms':'Copy with angles added: '+U.fixed.n_angles+' angle terms',ox+14,oy+24);"
+  ],
+  [
+   "$('yuread').innerHTML=dl('Açı terimi (gmx dump)',o.n_angles+' / '+x.n_angles)+dl('N-C-N','%s° / %s°'.replace('%s',fx(o.NCN,1)).replace('%s',fx(x.NCN,1)))+dl('O-C-N',fx(o.OCN,1)+'° / '+fx(x.OCN,1)+'°')+dl('H-N-H',fx(o.HNH,1)+'° / '+fx(x.HNH,1)+'°')+dl('C-N-H',fx(o.CNH,1)+'° / '+fx(x.CNH,1)+'°')+dl('Minimizasyon (steep, Fmax &lt; 10)',o.em_steps+' / '+x.em_steps+' adımda yakınsadı')+dl('grompp','uyarı '+o.warnings+' / '+x.warnings+'; not '+o.notes+' / '+x.notes+' (PME ızgarası hakkında genel not)')+dl('Okuma','dağıtımdaki dosya / açıları eklenmiş kopya; vakum, 3 nm kutu; gri C, mavi N, kırmızı O, açık renkli H'); }",
+   "$('yuread').innerHTML=dl('Angle terms (gmx dump)',o.n_angles+' / '+x.n_angles)+dl('N-C-N','%s° / %s°'.replace('%s',fx(o.NCN,1)).replace('%s',fx(x.NCN,1)))+dl('O-C-N',fx(o.OCN,1)+'° / '+fx(x.OCN,1)+'°')+dl('H-N-H',fx(o.HNH,1)+'° / '+fx(x.HNH,1)+'°')+dl('C-N-H',fx(o.CNH,1)+'° / '+fx(x.CNH,1)+'°')+dl('Minimization (steep, Fmax &lt; 10)','converged in '+o.em_steps+' / '+x.em_steps+' steps')+dl('grompp','warnings '+o.warnings+' / '+x.warnings+'; notes '+o.notes+' / '+x.notes+' (general note on the PME grid)')+dl('Reading','distributed file / copy with angles added; vacuum, 3 nm box; grey C, blue N, red O, light H'); }"
+  ],
+  [
+   "var UOPT=['grompp durdu: açı bölümü eksik','grompp uyarı verdi; -maxwarn olmadan geçmedi','grompp hata ya da uyarı vermedi; minimizasyon da yakınsadı'];",
+   "var UOPT=['grompp stopped: the angle section is missing','grompp gave a warning; it did not pass without -maxwarn','grompp gave no error or warning; the minimization converged as well'];"
+  ],
+  [
+   "var fb=$('yufb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> grompp çıkış kodu 0, '+o.warnings+' uyarı; minimizasyon '+o.em_steps+' adımda yakınsadı. Bir molekül tanımında [ angles ] bölümünün bulunmaması sözdizimi hatası değildir; grompp bir molekülün hangi terimleri içermesi gerektiğini bilemez.';",
+   "var fb=$('yufb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> grompp exit code 0, '+o.warnings+' warnings; the minimization converged in '+o.em_steps+' steps. A molecule definition without an [ angles ] section is not a syntax error; grompp cannot know which terms a molecule should contain.';"
+  ],
+  [
+   "if(UQ.ans!=null) card('yc4',true,'Dağıtımdaki urea.itp dosyasında [ angles ] bölümü yok: gmx dump açı terimi sayısını '+U.orig.n_angles+' gösteriyor. grompp hata ya da uyarı vermedi, minimizasyon yakınsadı; ama tek ürenin geometrisi bozuldu: N-C-N '+fx(U.orig.NCN,1)+'°, O-C-N '+fx(U.orig.OCN,1)+'°, iki amit hidrojeni arasında '+fx(uDist(U.orig.xyz,3,4),3)+' nm (1-3 çiftleri bağsız etkileşimden dışlandığı için birbirini itmiyorlar). Eksik dokuz açı, amber99sb-ildn ffbonded.itp\\'deki parametrelerle eklendiğinde N-C-N '+fx(U.fixed.NCN,1)+'°, H-N-H '+fx(U.fixed.HNH,1)+'° oldu. Bu sayfadaki 8 M koşuları plan gereği açıları eklenmiş kopyayla yapıldı; dağıtımdaki dosyayla 8 M koşusu: Bu senaryo hesaplanmadı. Program çalıştı diye model doğru değildir; yardımcı çözgen dosyası terim sayısı ve tek molekül geometrisiyle denetlenir.');",
+   "if(UQ.ans!=null) card('yc4',true,'The distributed urea.itp has no [ angles ] section: gmx dump shows '+U.orig.n_angles+' angle terms. grompp gave no error or warning and the minimization converged; but the geometry of the single urea broke: N-C-N '+fx(U.orig.NCN,1)+'°, O-C-N '+fx(U.orig.OCN,1)+'°, '+fx(uDist(U.orig.xyz,3,4),3)+' nm between two amide hydrogens (1-3 pairs are excluded from nonbonded interaction, so they do not repel each other). With the nine missing angles added from the amber99sb-ildn ffbonded.itp parameters, N-C-N became '+fx(U.fixed.NCN,1)+'° and H-N-H '+fx(U.fixed.HNH,1)+'°. As planned, the 8 M runs on this page used the copy with angles added; an 8 M run with the distributed file: This scenario was not computed. A program that runs does not make the model right; a co-solvent file is checked by its number of terms and the geometry of a single molecule.');"
+  ],
+  [
+   "else card('yc4',false,'Soruyu cevaplayın.'); }",
+   "else card('yc4',false,'Answer the question.'); }"
+  ],
+  [
+   "/* --- peptidin çevresi --- */",
+   "/* --- around the peptide --- */"
+  ],
+  [
+   "var LMN={R:['R (göreli birikim)',''],local_u:['yerel üre (0,5 nm)',''],local_w:['yerel su (0,5 nm)','']};",
+   "var LMN={R:['R (relative enrichment)',''],local_u:['local urea (0.5 nm)',''],local_w:['local water (0.5 nm)','']};"
+  ],
+  [
+   "if(m==='R'){ g.setLineDash([6,4]); g.strokeStyle=PAL.accent; g.lineWidth=1.4; g.beginPath(); g.moveTo(p.X(0.4),p.Y(1)); g.lineTo(p.X(ks.length+0.6),p.Y(1)); g.stroke(); g.setLineDash([]); g.fillStyle=PAL.accent; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText('R = 1: kutu ortalaması',p.X(ks.length+0.6)-4,p.Y(1)-6); g.textAlign='left'; }",
+   "if(m==='R'){ g.setLineDash([6,4]); g.strokeStyle=PAL.accent; g.lineWidth=1.4; g.beginPath(); g.moveTo(p.X(0.4),p.Y(1)); g.lineTo(p.X(ks.length+0.6),p.Y(1)); g.stroke(); g.setLineDash([]); g.fillStyle=PAL.accent; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText('R = 1: box average',p.X(ks.length+0.6)-4,p.Y(1)-6); g.textAlign='left'; }"
+  ],
+  [
+   "$('ylread').innerHTML=dl(LMN[m][0],ks.map(function(k,j){ return k+' '+fx(v[j],m==='R'?3:2); }).join('; '))+dl('Ortalama ± SD',fx(arrMean(v),m==='R'?3:2)+' ± '+fx(arrSD(v),m==='R'?3:2)+' (n = '+ks.length+')')+",
+   "$('ylread').innerHTML=dl(LMN[m][0],ks.map(function(k,j){ return k+' '+fx(v[j],m==='R'?3:2); }).join('; '))+dl('Mean ± SD',fx(arrMean(v),m==='R'?3:2)+' ± '+fx(arrSD(v),m==='R'?3:2)+' (n = '+ks.length+')')+"
+  ],
+  [
+   "dl('Kutu',u.nure+' üre, '+ks.map(function(k){ return fmtI(VDD.urea[k].nsol); }).join(' / ')+' su; kutudaki oran '+fx(u.nure/u.nsol,4))+dl('Gerçekleşen derişim',ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L (⟨V⟩ ile)'); }",
+   "dl('Box',u.nure+' urea, '+ks.map(function(k){ return fmtI(VDD.urea[k].nsol); }).join(' / ')+' waters; ratio in the box '+fx(u.nure/u.nsol,4))+dl('Realized concentration',ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L (with ⟨V⟩)'); }"
+  ],
+  [
+   "if(Object.keys(LO.seen).length>=2) card('yc5',true,'Peptit ağır atomlarının 0,5 nm çevresinde ortalama '+fx(arrMean(ks.map(function(k){ return VDD.urea[k].local_u; })),1)+' üre ve '+fx(arrMean(ks.map(function(k){ return VDD.urea[k].local_w; })),1)+' su bulundu. R = '+fx(arrMean(R),2)+' ± '+fx(arrSD(R),2)+' (tekrarlar '+fx(arrMin(R),2)+' ile '+fx(arrMax(R),2)+')'+(all1?'; dört tekrarın hepsinde R 1\\'in üstünde: peptidin çevresinde üre/su oranı kutu ortalamasından yüksek.':'; tekrarlar R = 1 çizgisinin iki yanına düşüyor.')+' Hedef 8 mol/L başlangıç kutusunun hacmiyle (224 üre, '+fx(VDD.boxes.filter(function(b){ return b.box==='REP'; })[0].V,2)+' nm³) hesaplanmıştı; NPT dengesinden sonra ⟨V⟩ '+ks.map(function(k){ return fx(VDD.urea[k].health.V,2); }).join(' / ')+' nm³ ve gerçekleşen derişim '+ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L oldu: R bu gerçekleşen kutu oranına göre hesaplandı. Bu bir betimlemedir; plan R için hüküm öngörmedi. R ürenin peptitle doğrudan mı, suyun yapısı üzerinden mi etkilediğini söylemez; 0,5 nm eşiği ve \"ağır atom\" seçimi de sonucu etkiler. Başka eşiklerle: Bu senaryo hesaplanmadı.');",
+   "if(Object.keys(LO.seen).length>=2) card('yc5',true,'On average '+fx(arrMean(ks.map(function(k){ return VDD.urea[k].local_u; })),1)+' urea and '+fx(arrMean(ks.map(function(k){ return VDD.urea[k].local_w; })),1)+' waters were found within 0.5 nm of the peptide heavy atoms. R = '+fx(arrMean(R),2)+' ± '+fx(arrSD(R),2)+' (replicas '+fx(arrMin(R),2)+' to '+fx(arrMax(R),2)+')'+(all1?'; R is above 1 in all four replicas: around the peptide the urea/water ratio is higher than the box average.':'; the replicas fall on both sides of the R = 1 line.')+' The 8 mol/L target was computed with the starting box volume (224 urea, '+fx(VDD.boxes.filter(function(b){ return b.box==='REP'; })[0].V,2)+' nm³); after NPT equilibration ⟨V⟩ was '+ks.map(function(k){ return fx(VDD.urea[k].health.V,2); }).join(' / ')+' nm³ and the realized concentration '+ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L: R was computed against this realized box ratio. This is a description; the plan set no verdict for R. R does not tell whether urea acts on the peptide directly or through the structure of water; the 0.5 nm threshold and the choice of \"heavy atoms\" also affect the result. With other thresholds: This scenario was not computed.');"
+  ],
+  [
+   "else card('yc5',false,'Şimdiye kadar '+Object.keys(LO.seen).length+' ölçüt; en az ikisine bakın.'); }",
+   "else card('yc5',false,'So far '+Object.keys(LO.seen).length+' measure(s); look at at least two.'); }"
+  ],
+  [
+   "/* --- konformasyonlar --- */",
+   "/* --- conformations --- */"
+  ],
+  [
+   "var MET={p_aR:['αR payı (%)','αR',' %'],p_bp:['β/PPII payı (%)','β/PPII',' %'],p_aL:['αL payı (%)','αL',' %'],trans_per_ns:['αR↔β/PPII geçişi (/ns)','geçiş/ns','/ns']};",
+   "var VEN=function(v){ return {'fark var':'difference','fark var ama \\u00f6nemli e\\u015fi\\u011fin alt\\u0131nda':'difference below the important threshold','e\\u015fde\\u011fer (\\u00b15 puan i\\u00e7inde)':'equivalent (within ±5 points)','karars\\u0131z':'inconclusive'}[v]||v; }; var MET={p_aR:['αR fraction (%)','αR',' %'],p_bp:['β/PPII fraction (%)','β/PPII',' %'],p_aL:['αL fraction (%)','αL',' %'],trans_per_ns:['αR↔β/PPII transitions (/ns)','transitions/ns','/ns']};"
+  ],
+  [
+   "var ENV={W:'su (0 M)',U:'8 M üre'};",
+   "var ENV={W:'water (0 M)',U:'8 M urea'};"
+  ],
+  [
+   "function raRead(){ var s=stFrac(raNames()), nm=RA.rep<0?'bütün tekrarlar ('+envNames(RA.env).length+')':envNames(RA.env)[RA.rep];",
+   "function raRead(){ var s=stFrac(raNames()), nm=RA.rep<0?'all replicas ('+envNames(RA.env).length+')':envNames(RA.env)[RA.rep];"
+  ],
+  [
+   "$('yaread').innerHTML=dl('Seçim',ENV[RA.env]+', '+nm+'; '+fmtI(s.n)+' kare')+dl('αR',fx(s.aR,1)+' %')+dl('β/PPII',fx(s.bp,1)+' %')+dl('αL',fx(s.aL,1)+' %'); }",
+   "$('yaread').innerHTML=dl('Selection',ENV[RA.env]+', '+nm+'; '+fmtI(s.n)+' frames')+dl('αR',fx(s.aR,1)+' %')+dl('β/PPII',fx(s.bp,1)+' %')+dl('αL',fx(s.aL,1)+' %'); }"
+  ],
+  [
+   "function raReps(){ $('yrr').innerHTML='<button type=\"button\" data-v=\"-1\" aria-pressed=\"'+(RA.rep<0)+'\">Tümü</button>'+envNames(RA.env).map(function(n,i){ return '<button type=\"button\" data-v=\"'+i+'\" aria-pressed=\"'+(RA.rep===i)+'\">'+(i+1)+'</button>'; }).join(''); segWire('yrr',function(v){ RA.rep=+v; raAll(); }); }",
+   "function raReps(){ $('yrr').innerHTML='<button type=\"button\" data-v=\"-1\" aria-pressed=\"'+(RA.rep<0)+'\">All</button>'+envNames(RA.env).map(function(n,i){ return '<button type=\"button\" data-v=\"'+i+'\" aria-pressed=\"'+(RA.rep===i)+'\">'+(i+1)+'</button>'; }).join(''); segWire('yrr',function(v){ RA.rep=+v; raAll(); }); }"
+  ],
+  [
+   "function raDread(){ var m=RA.met, w=grp('W',m), u=grp('U',m), un=m==='trans_per_ns'?' /ns':' puan', fl=VDD.ureps.filter(function(k){ return VDD.urea[k].health.flag; });",
+   "function raDread(){ var m=RA.met, w=grp('W',m), u=grp('U',m), un=m==='trans_per_ns'?' /ns':' points', fl=VDD.ureps.filter(function(k){ return VDD.urea[k].health.flag; });"
+  ],
+  [
+   "$('ydread').innerHTML=dl(MET[m][1]+': su',fx(arrMean(w),1)+' ± '+fx(arrSD(w),1)+un+' (ortalama ± SD)')+dl(MET[m][1]+': 8 M üre',fx(arrMean(u),1)+' ± '+fx(u.length>1?arrSD(u):0,1)+un)+dl('Fark (üre − su)',fx(arrMean(u)-arrMean(w),1)+un)+(m==='p_aR'?dl('Altın bant','su ortalamasının ±5 puanı (önceden seçilen eşik)'):'')+(m==='trans_per_ns'||m==='p_bp'||m==='p_aL'?dl('Not','keşif ölçütü; önceden yazılmış hükme katılmaz'):'')+dl('Sağlık','üre koşularında eşiği aşan: '+(fl.length?fl.join(', '):'yok')); }",
+   "$('ydread').innerHTML=dl(MET[m][1]+': water',fx(arrMean(w),1)+' ± '+fx(arrSD(w),1)+un+' (mean ± SD)')+dl(MET[m][1]+': 8 M urea',fx(arrMean(u),1)+' ± '+fx(u.length>1?arrSD(u):0,1)+un)+dl('Difference (urea − water)',fx(arrMean(u)-arrMean(w),1)+un)+(m==='p_aR'?dl('Gold band','±5 points around the water mean (threshold chosen in advance)'):'')+(m==='trans_per_ns'||m==='p_bp'||m==='p_aL'?dl('Note','exploratory measure; not part of the verdict written in advance'):'')+dl('Health','urea runs above a threshold: '+(fl.length?fl.join(', '):'none')); }"
+  ],
+  [
+   "function raComp(){ var c=VDD.comp; if(!c){ $('yctab').innerHTML='<p class=\"small\">Karşılaştırma için en az iki üre tekrarı gerekir.</p>'; return; }",
+   "function raComp(){ var c=VDD.comp; if(!c){ $('yctab').innerHTML='<p class=\"small\">The comparison needs at least two urea replicas.</p>'; return; }"
+  ],
+  [
+   "$('yctab').innerHTML='<table class=\"st\"><thead><tr><th>8 M üre ile su (αR, puan)</th><th>Δ</th><th>Welch %95</th><th>Welch %90</th><th>p (permütasyon)</th><th>Hüküm</th></tr></thead><tbody><tr><td>n = '+VDD.ureps.length+' ile '+VDD.wreps.length+'</td><td>'+fx(c.delta,1)+'</td><td>'+fx(c.ci95[0],1)+' ile '+fx(c.ci95[1],1)+'</td><td>'+fx(c.ci90[0],1)+' ile '+fx(c.ci90[1],1)+'</td><td>'+fx(c.p,4)+' ('+c.count+' / '+c.total+')</td><td><span class=\"vtag\">'+c.verdict+'</span></td></tr></tbody></table><p class=\"small\">Hüküm etiketleri ve ±5 puan eşiği koşulardan önce yazıldı; tek karşılaştırma, düzeltme yok. Su tekrarları MD-REP\\'in W1 ile W8 koşularıdır.</p>'; RA.comp=true; raCards(); }",
+   "$('yctab').innerHTML='<table class=\"st\"><thead><tr><th>8 M urea vs water (αR, points)</th><th>Δ</th><th>Welch 95%</th><th>Welch 90%</th><th>p (permutation)</th><th>Verdict</th></tr></thead><tbody><tr><td>n = '+VDD.ureps.length+' and '+VDD.wreps.length+'</td><td>'+fx(c.delta,1)+'</td><td>'+fx(c.ci95[0],1)+' to '+fx(c.ci95[1],1)+'</td><td>'+fx(c.ci90[0],1)+' to '+fx(c.ci90[1],1)+'</td><td>'+fx(c.p,4)+' ('+c.count+' / '+c.total+')</td><td><span class=\"vtag\">'+VEN(c.verdict)+'</span></td></tr></tbody></table><p class=\"small\">The verdict labels and the ±5 point threshold were written before the runs; one comparison, no correction. The water replicas are the MD-REP runs W1 to W8.</p>'; RA.comp=true; raCards(); }"
+  ],
+  [
+   "card('yc6',true,'Önceden yazılmış kurala göre hüküm: \"'+c.verdict+'\" (αR farkı '+fx(c.delta,1)+' puan, Welch %90 '+fx(c.ci90[0],1)+' ile '+fx(c.ci90[1],1)+', permütasyon p '+fx(c.p,3)+'). Keşif ölçütleri: β/PPII su '+fx(b[0],1)+' %, üre '+fx(b[1],1)+' %; geçiş su '+fx(t[0],1)+', üre '+fx(t[1],1)+' /ns. Hüküm yalnız alanin dipeptidinin αR payı, bu kuvvet alanı ile üre dosyası, 2 ns\\'lik tekrarlar ve bu tekrar sayısı için geçerlidir. Alanin dipeptidinin katlanmış bir durumu yoktur; bu sonuç bir proteinin üreyle açılması hakkında doğrudan bir şey söylemez.'); }",
+   "card('yc6',true,'Verdict by the rule written in advance: \"'+VEN(c.verdict)+'\" (αR difference '+fx(c.delta,1)+' points, Welch 90% '+fx(c.ci90[0],1)+' to '+fx(c.ci90[1],1)+', permutation p '+fx(c.p,3)+'). Exploratory measures: β/PPII water '+fx(b[0],1)+' %, urea '+fx(b[1],1)+' %; transitions water '+fx(t[0],1)+', urea '+fx(t[1],1)+' /ns. The verdict holds only for the αR fraction of alanine dipeptide, this force field and urea file, 2 ns replicas and this number of replicas. Alanine dipeptide has no folded state; this result says nothing directly about the unfolding of a protein by urea.'); }"
+  ],
+  [
+   "else card('yc6',false,'Her iki ortamdan en az bir harita açın ('+ne+' / 2) ve hükmü gösterin.'); }",
+   "else card('yc6',false,'Open at least one map from each environment ('+ne+' / 2) and show the verdict.'); }"
+  ],
+  [
+   "function w2(){ ureaDraw(); ureaRead(); $('yitp').innerHTML=esc(VDD.u0.itp_angles).replace(/^(\\s+\\d.*)$/gm,'<span class=\"add\">$1</span>'); ureaQ(); ureaCard();",
+   "function w2(){ ureaDraw(); ureaRead(); $('yitp').innerHTML=esc(VDD.u0.itp_angles.replace(/^;.*$/m,';  ai    aj    ak funct   (parameters from amber99sb-ildn ffbonded.itp by atom type)')).replace(/^(\\s+\\d.*)$/gm,'<span class=\"add\">$1</span>'); ureaQ(); ureaCard();"
+  ],
+  [
+   "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
+   "function fmtI(n){ return new Intl.NumberFormat('en-US').format(n); }"
+  ],
+  [
+   "/* ===== tezgâh: iddia denetleyici ===== */",
+   "/* ===== bench: claim checker ===== */"
+  ],
+  [
+   "var BQ={got:{}}, OPTS=['Bu veriyle kurulabilir','Ek kanıt gerekir','Bu veriyle kurulamaz'];",
+   "var BQ={got:{}}, OPTS=['Supported by these data','Needs more evidence','Not supported by these data'];"
+  ],
+  [
+   "var a1=!c?1:(c.verdict==='fark var'?0:(c.verdict==='kararsız'?1:2));",
+   "var a1=!c?1:(c.verdict==='fark var'?0:(c.verdict==='karars\\u0131z'?1:2));"
+  ],
+  [
+   "{s:'\"8 M üre alanin dipeptidinin αR payını değiştirir.\"', a:a1, w:!c?'Karşılaştırma yapılamadı.':'Önceden yazılmış kurala göre hüküm \"'+c.verdict+'\" (Δ '+fx(c.delta,1)+' puan, Welch %90 '+fx(c.ci90[0],1)+' ile '+fx(c.ci90[1],1)+', p '+fx(c.p,3)+'). '+(a1===0?'Cümle bu tanım, bu kuvvet alanı ve üre dosyası, bu tekrar sayısı ve ±5 puan eşiği için kurulabilir.':(a1===1?'Bu tekrar sayısıyla ne fark ne eşdeğerlik gösterilebiliyor; daha fazla tekrar gerekir.':'Veri ±5 puan içinde eşdeğerliği ya da önemsiz bir farkı destekliyor; \"değiştirir\" cümlesi bu eşikle kurulamaz.'))},",
+   "{s:'\"8 M urea changes the αR fraction of alanine dipeptide.\"', a:a1, w:!c?'The comparison could not be made.':'Verdict by the rule written in advance: \"'+VEN(c.verdict)+'\" (Δ '+fx(c.delta,1)+' points, Welch 90% '+fx(c.ci90[0],1)+' to '+fx(c.ci90[1],1)+', p '+fx(c.p,3)+'). '+(a1===0?'The sentence holds for this definition, this force field and urea file, this number of replicas and the ±5 point threshold.':(a1===1?'With this number of replicas neither a difference nor equivalence can be shown; more replicas are needed.':'The data support equivalence within ±5 points or an unimportant difference; \"changes\" cannot be claimed with this threshold.'))},"
+  ],
+  [
+   "{s:'\"genion -conc 0.15 yazıldıysa kutudaki derişim 0,15 M\\'dir.\"', a:2, w:'4 nm kutuda 0,15 M hedefi '+N.npair+' çift oldu ve NPT hacmiyle gerçekleşen molarite '+fx(N.molarity,3)+' mol/L. 3 nm küpte bir çift '+fx(molar(1,b3.V),3)+' mol/L eder. 8 M üre hedefi de NPT sonrası '+VDD.ureps.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L oldu. Gerçekleşen derişim molekül sayısı ve ortalama hacimle ayrıca hesaplanır.'},",
+   "{s:'\"If genion -conc 0.15 was given, the concentration in the box is 0.15 M.\"', a:2, w:'In the 4 nm box the 0.15 M target became '+N.npair+' pairs and the realized molarity with the NPT volume is '+fx(N.molarity,3)+' mol/L. In the 3 nm cube one pair is worth '+fx(molar(1,b3.V),3)+' mol/L. The 8 M urea target also became '+VDD.ureps.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L after NPT. The realized concentration is computed separately from the molecule count and the mean volume.'},"
+  ],
+  [
+   "{s:'\"Büyük kutuda hedef derişime küçük kutudakinden daha ince ayarla yaklaşılır.\"', a:0, w:'Bir çiftin karşılığı 3 nm küpte '+fx(molar(1,b3.V),3)+', 8 nm küpte '+fx(molar(1,b8.V),4)+' mol/L. Bu bir sayım sonucudur; bedeli daha çok su ve daha uzun hesaptır.'},",
+   "{s:'\"In a large box the target concentration can be approached more finely than in a small box.\"', a:0, w:'One pair is worth '+fx(molar(1,b3.V),3)+' mol/L in the 3 nm cube and '+fx(molar(1,b8.V),4)+' mol/L in the 8 nm cube. This is a counting result; the price is more water and longer computation.'},"
+  ],
+  [
+   "{s:'\"grompp uyarı vermediyse yardımcı çözgen topolojisi eksiksizdir.\"', a:2, w:'U0: dağıtımdaki urea.itp '+U.orig.n_angles+' açı terimiyle grompp\\'tan '+U.orig.warnings+' uyarıyla geçti; tek molekülde N-C-N '+fx(U.orig.NCN,1)+'° oldu. grompp eksik bir bölümü bilemez.'},",
+   "{s:'\"If grompp gave no warning, the co-solvent topology is complete.\"', a:2, w:'U0: the distributed urea.itp with '+U.orig.n_angles+' angle terms passed grompp with '+U.orig.warnings+' warnings; in a single molecule N-C-N became '+fx(U.orig.NCN,1)+'°. grompp cannot know about a missing section.'},"
+  ],
+  [
+   "{s:'\"Üre alanin dipeptidiyle doğrudan bağ kurarak etki eder.\"', a:2, w:'R (= '+fx(arrMean(VDD.ureps.map(function(k){ return VDD.urea[k].R; })),2)+') yalnız 0,5 nm içindeki göreli bolluğu betimler; doğrudan etkileşim ile dolaylı (su üzerinden) etkiyi ayırmaz. Hidrojen bağı ya da enerji ayrıştırması bu sayfada hesaplanmadı.'},",
+   "{s:'\"Urea acts by forming direct bonds with alanine dipeptide.\"', a:2, w:'R (= '+fx(arrMean(VDD.ureps.map(function(k){ return VDD.urea[k].R; })),2)+') only describes relative abundance within 0.5 nm; it does not separate direct interaction from an indirect effect (through water). Hydrogen bonds or an energy decomposition were not computed on this page.'},"
+  ],
+  [
+   "{s:'\"Gerçek NaCl çözeltilerinde temas iyon çifti payı bu sayfadaki değerlerdedir.\"', a:2, w:'Temas payı ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+') bu iyon parametrelerine, su modeline ve 0,35 nm eşiğine bağlıdır; her derişimde tek koşu var ve deneysel bir ölçümle karşılaştırma yapılmadı.'}",
+   "{s:'\"In real NaCl solutions the contact ion pair fraction has the values on this page.\"', a:2, w:'The contact fraction ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+') depends on these ion parameters, the water model and the 0.35 nm threshold; each concentration has a single run and no comparison with an experimental measurement was made.'}"
+  ],
+  [
+   "var fb=$('ycl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
+   "var fb=$('ycl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+q.w;"
+  ],
+  [
+   "if(n>=4) card('yc7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Çözgen ortamı raporda bir derişim sayısıyla değil, molekül sayıları, kutu, gerçekleşen derişim ve kullanılan topoloji dosyalarıyla birlikte tanımlanır. Bir ortam etkisi, önceden seçilmiş ölçüt ve eşikle ve aynı protokolle koşulmuş bir başvuruya karşı söylenir; mekanizma için ayrıca kanıt gerekir.');",
+   "if(n>=4) card('yc7',true,'Your first choice was correct for '+nLoc(r)+' of the '+n+' sentences you judged. In a report the solvent environment is defined not by a concentration number but by the molecule counts, the box, the realized concentration and the topology files used. An effect of the environment is stated with a measure and threshold chosen in advance, against a reference run with the same protocol; a mechanism needs further evidence.');"
+  ],
+  [
+   "else card('yc7',false,'Şimdiye kadar '+n+' cümle; en az dördüne karar verin.'); }); }); }",
+   "else card('yc7',false,'So far '+n+' sentence(s); judge at least four.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: çözgen ortamı kaydı ===== */",
+   "/* ===== notebook: solvent environment record ===== */"
+  ],
+  [
+   "function yfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }",
+   "function yfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }"
+  ],
+  [
+   "var L=['ÇÖZGEN ORTAMI KAYDI (MD-SOLV taslağı)','İyonlar: '+v('yfI'),'Gerçekleşen derişim: '+v('yfC'),'Yardımcı çözgen dosyası ve denetimi: '+v('yfT'),'Ekleme yöntemi: '+v('yfM'),'Kuvvet alanı uyumu: '+v('yfF'),'Tekrarlar ve başvuru: '+v('yfR')];",
+   "var L=['SOLVENT ENVIRONMENT RECORD (MD-SOLV template)','Ions: '+v('yfI'),'Realized concentration: '+v('yfC'),'Co-solvent file and its check: '+v('yfT'),'Insertion method: '+v('yfM'),'Force field compatibility: '+v('yfF'),'Replicas and reference: '+v('yfR')];"
+  ],
+  [
+   "if(!/\\d/.test(i)) wr.push('İyon sayısı yazılmamış; derişim kutuda tam sayıda iyona yuvarlanır.');",
+   "if(!/\\d/.test(i)) wr.push('No ion count is given; in a box the concentration is rounded to a whole number of ions.');"
+  ],
+  [
+   "if(!/hacim|molarite|molalite|mol\\/l|mol\\/kg/.test(c)) wr.push('Gerçekleşen derişimin nasıl hesaplandığı yazılmamış; genion\\'a yazılan hedef NPT sonrası hacimle aynı kalmaz.');",
+   "if(!/volume|molarity|molality|mol\\/l|mol\\/kg/.test(c)) wr.push('How the realized concentration was computed is not given; the target given to genion does not stay the same with the volume after NPT.');"
+  ],
+  [
+   "if(!/dump|açı|denet|minimiz|geometri/.test(t)) wr.push('Yardımcı çözgen topolojisinin denetimi yazılmamış; eksik bir bölüm grompp\\'tan uyarısız geçebilir (U0).');",
+   "if(!/dump|angle|check|minimi|geometr/.test(t)) wr.push('No check of the co-solvent topology is given; a missing section can pass grompp without a warning (U0).');"
+  ],
+  [
+   "if(!/tohum|seed|insert|solvate/.test(m)) wr.push('Ekleme yöntemi ya da tohum yazılmamış; başlangıç yerleşimi tekrarlanabilir olmalı.');",
+   "if(!/seed|insert|solvate/.test(m)) wr.push('No insertion method or seed is given; the starting placement should be reproducible.');"
+  ],
+  [
+   "if(!/amber|charmm|opls|gromos|kuvvet alanı|\\.ff/.test(f)) wr.push('İyon ve yardımcı çözgen parametrelerinin hangi kuvvet alanından geldiği yazılmamış (MD-FF).');",
+   "if(!/amber|charmm|opls|gromos|force field|\\.ff/.test(f)) wr.push('Which force field the ion and co-solvent parameters come from is not given (MD-FF).');"
+  ],
+  [
+   "if(!/tekrar|başvuru/.test(r)) wr.push('Tekrar sayısı ya da başvuru (çözgensiz ya da 0 M) koşusu yazılmamış.');",
+   "if(!/replica|reference/.test(r)) wr.push('No number of replicas or reference run (without co-solvent, or 0 M) is given.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(x){ L.push('- '+x); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to watch:'); wr.forEach(function(x){ L.push('- '+x); }); }"
+  ],
+  [
+   "$('yfcopy').onclick=function(){ var t=$('yfout').textContent, m=$('yfmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('yfcopy').onclick=function(){ var t=$('yfout').textContent, m=$('yfmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'3 nm kenarlı bir su küpünde genion 0,15 M için '+b3.na+' iyon çifti ekledi. Bir çift fazla ya da eksik olsaydı derişim ne kadar değişirdi?',",
+   "Q.push({s:'In a 3 nm water cube genion added '+b3.na+' ion pairs for 0.15 M. How much would the concentration change with one pair more or fewer?',"
+  ],
+  [
+   "o:[['Yaklaşık 0,001 mol/L',0],['Yaklaşık '+fx(molar(1,b3.V),2)+' mol/L',1],['Değişmezdi; derişim kutudan bağımsızdır',0]], w:'1 / (N_A × '+fx(b3.V,0)+' nm³) = '+fx(molar(1,b3.V),3)+' mol/L. Küçük kutuda derişim kaba basamaklarla ayarlanır.'});",
+   "o:[['About 0.001 mol/L',0],['About '+fx(molar(1,b3.V),2)+' mol/L',1],['It would not change; concentration does not depend on the box',0]], w:'1 / (N_A × '+fx(b3.V,0)+' nm³) = '+fx(molar(1,b3.V),3)+' mol/L. In a small box the concentration is set in coarse steps.'});"
+  ],
+  [
+   "Q.push({s:'4 nm kutuda \"0,15 M\" ile başlayan koşunun NPT ortalama hacmiyle hesaplanan molaritesi '+fx(N.molarity,3)+' mol/L çıktı. Neden?',",
+   "Q.push({s:'In the 4 nm box, the run started as \"0.15 M\" has a molarity of '+fx(N.molarity,3)+' mol/L with the mean NPT volume. Why?',"
+  ],
+  [
+   "o:[['genion yanlış saydı',0],['Sayı başlangıç kutusunun hacminden ve tam sayıya yuvarlanarak belirlendi; denge hacmi farklıdır',1],['İyonlar koşu sırasında kayboldu',0]], w:N.npair+' çift, ⟨V⟩ '+fx(N.health.V,2)+' nm³. Gerçekleşen derişim bu iki sayıdan hesaplanır ve raporda hedefle birlikte verilir.'});",
+   "o:[['genion counted wrongly',0],['The number was set from the starting box volume and rounded to an integer; the equilibrium volume is different',1],['Ions were lost during the run',0]], w:N.npair+' pairs, ⟨V⟩ '+fx(N.health.V,2)+' nm³. The realized concentration is computed from these two numbers and reported together with the target.'});"
+  ],
+  [
+   "Q.push({s:'Derişim arttıkça hangi nicelik kutu hacmindeki değişimden etkilenmez?',",
+   "Q.push({s:'As the concentration rises, which quantity is not affected by the change in box volume?',"
+  ],
+  [
+   "o:[['Molalite (mol/kg çözgen)',1],['Molarite (mol/L çözelti)',0],['İkisi de etkilenir',0]], w:'Molalite yalnız çözünen ve su sayısından hesaplanır. '+SN[hk]+' hedefinde molarite '+fx(S[hk].molarity,3)+', molalite '+fx(S[hk].molality,3)+' oldu; 8 M ürede bu fark çok daha büyük: '+fx(VDD.urea[VDD.ureps[0]].molarity,2)+' mol/L ile '+fx(VDD.urea[VDD.ureps[0]].nure/(VDD.urea[VDD.ureps[0]].nsol*18.015e-3),1)+' mol/kg.'});",
+   "o:[['Molality (mol/kg solvent)',1],['Molarity (mol/L solution)',0],['Both are affected',0]], w:'Molality is computed only from the numbers of solute and water. At the '+SN[hk]+' target the molarity was '+fx(S[hk].molarity,3)+' and the molality '+fx(S[hk].molality,3)+'; in 8 M urea the gap is much larger: '+fx(VDD.urea[VDD.ureps[0]].molarity,2)+' mol/L and '+fx(VDD.urea[VDD.ureps[0]].nure/(VDD.urea[VDD.ureps[0]].nsol*18.015e-3),1)+' mol/kg.'});"
+  ],
+  [
+   "Q.push({s:'Dağıtımdaki urea.itp ile grompp hata ya da uyarı vermedi. Topolojinin eksik olduğu nasıl anlaşıldı?',",
+   "Q.push({s:'With the distributed urea.itp grompp gave no error or warning. How was the topology found to be incomplete?',"
+  ],
+  [
+   "o:[['grompp günlüğündeki bir notla',0],['gmx dump ile açı terimi sayısına ('+U.orig.n_angles+') ve tek molekülün minimize geometrisine bakarak',1],['Koşu çöktüğü için',0]], w:'Tek ürede N-C-N '+fx(U.orig.NCN,1)+'° oldu; açılar eklenince '+fx(U.fixed.NCN,1)+'°. Program hata vermeden yanlış bir modeli çalıştırabilir.'});",
+   "o:[['From a note in the grompp log',0],['By looking at the number of angle terms with gmx dump ('+U.orig.n_angles+') and at the minimized geometry of a single molecule',1],['Because the run crashed',0]], w:'In a single urea N-C-N became '+fx(U.orig.NCN,1)+'°; with the angles added, '+fx(U.fixed.NCN,1)+'°. A program can run a wrong model without an error.'});"
+  ],
+  [
+   "Q.push({s:'Na⁺-Cl⁻ temas çifti payı, bir Cl⁻\\'ye 0,35 nm\\'den yakın olan Na⁺ oranı olarak tanımlandı. Bu sayı neye bağlıdır?',",
+   "Q.push({s:'The Na⁺-Cl⁻ contact pair fraction was defined as the fraction of Na⁺ closer than 0.35 nm to a Cl⁻. What does this number depend on?',"
+  ],
+  [
+   "o:[['Yalnız derişime',0],['Derişime, iyon parametrelerine ve seçilen eşiğe; eşik genellikle g(r)\\'nin ilk minimumuna göre seçilir',1],['Kutu boyutuna bağlı değildir ve evrenseldir',0]], w:'Bu koşularda Na⁺-Cl⁻ g(r) ilk minimumu '+fx(S.N015?VDD.rdf_r[firstPk(S.N015.rdf.NaCl)[1]]:NaN,3)+' nm (0,15 M) civarında. Başka iyon parametreleriyle: Bu senaryo hesaplanmadı.'});",
+   "o:[['Only on the concentration',0],['On the concentration, the ion parameters and the chosen threshold; the threshold is usually chosen from the first minimum of g(r)',1],['It does not depend on the box size and is universal',0]], w:'In these runs the first minimum of the Na⁺-Cl⁻ g(r) is near '+fx(S.N015?VDD.rdf_r[firstPk(S.N015.rdf.NaCl)[1]]:NaN,3)+' nm (0.15 M). With other ion parameters: This scenario was not computed.'});"
+  ],
+  [
+   "Q.push({s:'8 M ürede peptidin çevresinde R = '+fx(arrMean(R),2)+' bulundu. Bu ne söyler?',",
+   "Q.push({s:'In 8 M urea R = '+fx(arrMean(R),2)+' was found around the peptide. What does this say?',"
+  ],
+  [
+   "o:[['Ürenin peptidi nasıl açtığını',0],['Peptidin 0,5 nm çevresinde üre/su oranının kutu ortalamasına göre ne kadar farklı olduğunu',1],['Peptidin üreyle kovalent bağ kurduğunu',0]], w:'R bir bolluk oranıdır. Mekanizma (doğrudan etkileşim ya da suyun yapısı üzerinden etki) için ayrı ölçütler gerekir; bu sayfada hesaplanmadı.'});",
+   "o:[['How urea unfolds the peptide',0],['How much the urea/water ratio within 0.5 nm of the peptide differs from the box average',1],['That the peptide forms a covalent bond with urea',0]], w:'R is an abundance ratio. A mechanism (direct interaction or an effect through the structure of water) needs separate measures; they were not computed on this page.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('ynotice').innerHTML='<p><b>Veri.</b> GROMACS 2023.3, amber99sb-ildn ve TIP3P; iyonlar ve üre bu kuvvet alanının dağıtım dosyalarından (<code>ions.itp</code>, <code>urea.itp</code>). NaCl: kübik 4 nm kutu (2165 su), genion ile '+ks.map(function(k){ return SN[k]; }).join(', ')+' hedefleri; minimizasyon, NVT 100 ps, NPT 100 ps, üretim NPT 2 ns, 300 K, 1 bar, 1 ps kayıt; her derişimde 1 koşu'+(Object.keys(VDD.salt_fail).length?'; '+Object.keys(VDD.salt_fail).map(function(k){ return SN[k]; }).join(', ')+' hedefi genion adımında durdu ve plan gereği yeniden denenmedi':'')+'. 8 M üre: alanin dipeptidi (ACE-ALA-NME; başlangıç yapısı mdshare ALA2, Computational Molecular Biology Group, Freie Universität Berlin, CC BY 4.0) MD-REP kutusunda (onikiyüzlü, -d 1,6 nm), insert-molecules ile 224 üre, ardından solvate; MD-REP protokolü (konum kısıtlı NVT ve NPT, üretim NPT 2 ns), '+VDD.ureps.length+' bağımsız tekrar. 0 M başvurusu MD-REP\\'in '+VDD.wreps.length+' su tekrarı. Dağıtımdaki urea.itp [ angles ] bölümü içermediği için koşularda dokuz açısı ffbonded.itp parametreleriyle eklenmiş kopyası kullanıldı (plan, U0). Hiçbir adımda -maxwarn kullanılmadı.</p>'+",
+   "$('ynotice').innerHTML='<p><b>Data.</b> GROMACS 2023.3, amber99sb-ildn and TIP3P; ions and urea from the distribution files of this force field (<code>ions.itp</code>, <code>urea.itp</code>). NaCl: cubic 4 nm box (2165 waters), genion targets '+ks.map(function(k){ return SN[k]; }).join(', ')+'; minimization, NVT 100 ps, NPT 100 ps, production NPT 2 ns, 300 K, 1 bar, saved every 1 ps; 1 run per concentration'+(Object.keys(VDD.salt_fail).length?'; the '+Object.keys(VDD.salt_fail).map(function(k){ return SN[k]; }).join(', ')+' target stopped at the genion step and, as the plan requires, was not retried':'')+'. 8 M urea: alanine dipeptide (ACE-ALA-NME; starting structure mdshare ALA2, Computational Molecular Biology Group, Freie Universität Berlin, CC BY 4.0) in the MD-REP box (dodecahedron, -d 1.6 nm), 224 urea with insert-molecules, then solvate; MD-REP protocol (position-restrained NVT and NPT, production NPT 2 ns), '+VDD.ureps.length+' independent replicas. 0 M reference: the '+VDD.wreps.length+' MD-REP water replicas. Because the distributed urea.itp has no [ angles ] section, the runs used a copy with its nine angles added from ffbonded.itp parameters (plan, U0). -maxwarn was not used at any step.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Koşu ve analiz planı koşulardan ve hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…). Pencere 200 ile 2000 ps. g(r) ve açılar MDAnalysis ile; durum tanımları MD-U ve MD-REP ile aynı. Karşılaştırma: tam permütasyon testi, Welch aralıkları, MD-REP\\'in dört hüküm etiketi ve ±5 puan eşiği (tek karşılaştırma). Bağımsız denetim: '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'.'+(m.deviations.length?' Plandan sapmalar: '+m.deviations.join(' ')+'':' Plandan sapma yok.')+' Köprüdeki doğrusal ekstrapolasyon modeli tarayıcıda hesaplanan bir öğretim modelidir: Santoro MM, Bolen DW 1988, Biochemistry 27:8063 (doi 10.1021/bi00421a014); Myers JK, Pace CN, Scholtz JM 1995, Protein Science 4:2138 (doi 10.1002/pro.5560041020). Belirli bir proteinin ölçülmüş değerleri kullanılmadı.</p>'+",
+   "'<p><b>Analysis.</b> The run and analysis plan was written and frozen before the runs and computations (SHA-256 '+m.plan_sha.slice(0,12)+'…). Window 200 to 2000 ps. g(r) and angles with MDAnalysis; state definitions as in MD-U and MD-REP. Comparison: exact permutation test, Welch intervals, the four MD-REP verdict labels and the ±5 point threshold (one comparison). Independent audit: '+nPoss(String(m.audit_ok))+' of '+m.audit_n+' comparisons passed thresholds written in advance'+(m.audit_fail.length?'; failed: '+m.audit_fail.join('; '):'')+'.'+(m.deviations.length?' Deviations from the plan: '+m.deviations.join(' ')+'':' No deviations from the plan.')+' The linear extrapolation model in the bridge is a teaching model computed in the browser: Santoro MM, Bolen DW 1988, Biochemistry 27:8063 (doi 10.1021/bi00421a014); Myers JK, Pace CN, Scholtz JM 1995, Protein Science 4:2138 (doi 10.1002/pro.5560041020). No measured values of a particular protein were used.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Tek kuvvet alanı ve tek su modeli; NaCl derişimlerinde tekrar yok; üre için 4 kısa tekrar ve tek sıcaklık. Ara yüzler (su/yağ, zar), protein ölçeğinde denatürasyon, başka iyon ya da üre parametreleri, dağıtımdaki açısız dosyayla 8 M koşusu, daha uzun koşular, deneysel NaCl yoğunlukları ya da bir alanin dipeptidi ölçümüyle karşılaştırma: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> One force field and one water model; no replicas for the NaCl concentrations; 4 short replicas and one temperature for urea. Interfaces (water/oil, membrane), denaturation at protein scale, other ion or urea parameters, an 8 M run with the distributed angle-less file, longer runs, comparison with experimental NaCl densities or with a measurement of alanine dipeptide: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('ywhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('ywhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('yscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('yscore').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start ---------- */"
+  ],
+  [
+   "['yc0','yc1','yc2','yc3','yc4','yc5','yc6','yc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['yc0','yc1','yc2','yc3','yc4','yc5','yc6','yc7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDSOLV={ANG:ANG,BR:BR,IO:IO,LO:LO,RA:RA,UQ:UQ,BQ:BQ,FOUND:FOUND,stFrac:stFrac,firstPk:firstPk,lemF:lemF,molar:molar}; /* sınama için */",
+   "window.MDSOLV={ANG:ANG,BR:BR,IO:IO,LO:LO,RA:RA,UQ:UQ,BQ:BQ,FOUND:FOUND,stFrac:stFrac,firstPk:firstPk,lemF:lemF,molar:molar}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "fark var",
+  "ΔG(H₂O): <b id=\"ybgv\">25</b> kJ/mol",
+  "R",
+  "αR",
+  "αL",
+  "β/PPII",
+  "Δ",
+  "Model",
+  "grompp",
+  "g(r)",
+  "ΔG(H₂O)",
+  "N-C-N",
+  "O-C-N",
+  "H-N-H",
+  "C-N-H",
+  "TIP3P",
+  "amber99sb-ildn",
+  "U1",
+  "U2",
+  "U3",
+  "U4"
+ ]
+}
