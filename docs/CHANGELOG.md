@@ -1,5 +1,15 @@
 # Sürüm notları
 
+## 0.31.0 (7 Ekim 2026) · Yeni modül MD-LIG: ligand parametreleri ve kökeni
+
+- MD-LIG 0.1.0 (orta düzey, kitapta CH09): "Ligandın parametresi bir karardır." Yeni GROMACS koşuları LIGGRID ve ek LIGGRID2 (tripsin-benzamidin, PDB 3PTB; amber99sb-ildn, GAFF2, TIP3P, 0,15 M NaCl, kristal Ca²⁺): altı ligand modeli (L1 AM1-BCC katyon, L2a acpype Gasteiger, L2b RDKit Gasteiger, L3 AM1-BCC nötr, L4 RESP HF/6-31G*, L5 EspalomaCharge), her biri aynı kristal pozdan ikişer 0,5 ns kompleks ve birer 1 ns su koşusu. İki plan da koşulardan önce SHA-256 ile donduruldu. Sapmalar: bulut ortamı bir kez yeniden başladı (iki koşu denetim noktasından sürdürüldü); planlı `gmx lie` denetimi geçmedi (aşağıda).
+- Deneysel köprü: ChEMBL'deki altı benzamidin Ki değeri, ΔG −6,46 ile −6,01 kcal/mol; kristal tuz köprüsü uzaklıkları.
+- Atölye 1: acpype çıktıları; eşdeğer amidin azotlarına AM1-BCC'nin farklı yükleri; parmchk2 ceza puanları (ca-ca-ce-nv 237). Sessiz hata: acpype `-c gas -n 1` "charge set to 1" yazdı, toplam 0 (L2a).
+- Atölye 2: RESP (PySCF, MK 5778 nokta, a 0,0005, b 0,1; N −0,908) ve Espaloma (N −0,383 / −0,393); ESP RRMS L4 0,011, L1 0,027, L5 0,102. Espaloma paketinin varsayılan çağrısı toplam yükü 0 verdi (P4); çift bağ öbür azota yazılınca yükler yer değiştirdi (P5).
+- Atölye 3: altı modelde cepte kalma, Asp189 tuz köprüsü (L2a %17,5 / %18,6, öbürleri %90 üstü), çift dişli köprü, halka-amidin bükümü (komplekste 14 ile 20°, suda 23 ile 47°).
+- Atölye 4: LIE (α 0,181, β 0,5 ya da nötr için 0,43): L1 −10,3 / −10,7, L2a −3,1 / −2,8, L2b −9,8 / −9,6, L3 −3,2 / −3,2, L4 −11,6 / −11,7, L5 −9,1 / −9,0 kcal/mol; hiçbir tekrar ölçülmüş aralıkta değil, hüküm yazılmadı. Cα B-faktörü korelasyonu r 0,42 ile 0,67; ligand tek grup B taşıdığı için yalnız ligand / cep oranı karşılaştırıldı.
+- Bağımsız denetim: LIGGRID 44/44; LIGGRID2 planlı 64/76 (geçmeyen 12 satırın hepsi `gmx lie`: GROMACS 2023.3 sistemin geri kalanının 1-4 enerjisini Coul-14:MOL-rest olarak etiketliyor ve `gmx lie` bunu topluyor; gerçek-uzay terimleri koordinatlardan doğrudan hesapla doğrulandı), plan dışı ek denetim 12/12. Tarayıcıdaki 90 sayı Python ile aynı. Tezgâh: sekiz iddia. Defter: ligand parametre kökeni kaydı. Sekiz soru, on bir keşif kartı. İngilizce tablo 245 çift (`i18n/_work/mdlig/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-LIG`, `/en/l/MD-LIG`.
+
 ## 0.30.0 (6 Ekim 2026) · Yeni modül MD-SOLV: iyonlar ve yardımcı çözgen
 
 - MD-SOLV 0.1.0 (orta düzey, kitapta CH10): "Çözgen de modelin parçası." Yeni GROMACS koşuları SOLVGRID (amber99sb-ildn, TIP3P): beş kutuda genion 0,15 M sayımı; tek üre molekülünde dağıtımdaki urea.itp ile açıları eklenmiş kopya; 4 nm kutuda 0,15, 0,5, 1,0 ve 2,0 M NaCl (birer 2 ns NPT); MD-REP kutusunda 8 M üre içinde alanin dipeptidi, dört 2 ns tekrar; başvuru MD-REP'in 8 su tekrarı. Plan koşulardan önce SHA-256 ile donduruldu; plandan sapma yok.

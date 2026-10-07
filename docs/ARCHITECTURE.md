@@ -55,6 +55,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | MD-FAIL | MD | Orta | CH12 (simülasyon başarısız olduğunda: grompp ve mdrun hata mesajları, sessiz kurulum hataları, koşu sağlık denetimi) | Yayında (0.1.0, 5 Ekim 2026) |
 | MD-FF | MD | Orta | CH08 (kuvvet alanı ve model uyumu: dört kuvvet alanında konformasyon dağılımı, Karplus ile J, su modelleri, uyumsuz birleşimler) | Yayında (0.1.0, 6 Ekim 2026) |
 | MD-SOLV | MD | Orta | CH10 (çözgen ortamı: genion sayımı ve derişim basamakları, hedef ile gerçekleşen derişim, NaCl g(r) ve temas iyon çifti, açısız urea.itp, 8 M ürede peptit çevresi ve konformasyon hükmü) | Yayında (0.1.0, 6 Ekim 2026) |
+| MD-LIG | MD | Orta | CH09 (ligand parametreleri ve kökeni: atom türleri, yük yöntemi, net yük denetimi, parmchk2 ceza puanları, RESP ve EspalomaCharge, altı modelle kompleks MD, LIE ve B-faktörüyle deney karşılaştırması) | Yayında (0.1.0, 7 Ekim 2026) |
 
 Kimlikler değişmez; içerik sürümlenir (DK-T v1, v2 ...). Bir modülün adresi kimliğe bağlıdır, sürüme değil.
 

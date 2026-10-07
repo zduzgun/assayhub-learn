@@ -936,6 +936,47 @@
       },
       "path": "md/md-solv/",
       "source": "sources/MD-SOLV.html"
+    },
+    {
+      "id": "MD-LIG",
+      "app": "md",
+      "level": "orta",
+      "title": "Ligandın parametresi bir karardır: ligand parametreleri ve kökeni",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH09",
+      "goals": [
+        "Ölçülen bağlanma ile kısa bir koşunun gösterdiği: Ki, ΔG ve kristal tuz köprüsü",
+        "Parametre kökeni: atom türleri, yük yöntemi, eşdeğer atomlar ve parmchk2 ceza puanları",
+        "Sessiz net yük hatası: \"charge set to 1\" ama toplam 0",
+        "Yeni nesil yükler: RESP HF/6-31G* ve EspalomaCharge, ESP uyumu ve varsayılan çağrıda sıfır toplam",
+        "Aynı kristal pozdan altı yük ve protonasyon modeliyle cepteki temaslar ve halka-amidin bükümü",
+        "Deneyle karşılaştırma: LIE kestirimi ile ölçülmüş ΔG, kristal B-faktörü ile RMSF"
+      ],
+      "data": [
+        "Tripsin-benzamidin kompleksi (PDB 3PTB, Marquart ve ark. 1983, CC0): altı ligand modeliyle ikişer 0,5 ns kompleks ve birer 1 ns su koşusu (GROMACS 2023.3, amber99sb-ildn, GAFF2, TIP3P); koşu ve analiz planları koşulardan önce donduruldu",
+        "Benzamidin Ki değerleri: ChEMBL (CHEMBL20936, sığır tripsini CHEMBL3769; CC BY-SA 3.0); yükler acpype 2023.10.27 (AM1-BCC, Gasteiger), PySCF 2.14.0 (RESP) ve EspalomaCharge 0.0.8 ile"
+      ],
+      "notice": "Bu sayfadaki benzamidin Ki değerleri ChEMBL'den alınmıştır ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.",
+      "en": {
+        "title": "A ligand's parameters are a decision: ligand parameters and their provenance",
+        "book": "CH09",
+        "goals": [
+          "Measured binding and what a short run shows: Ki, ΔG and the crystal salt bridge",
+          "Parameter provenance: atom types, charge method, equivalent atoms and parmchk2 penalty scores",
+          "A silent net charge error: \"charge set to 1\" but a total of 0",
+          "Next-generation charges: RESP HF/6-31G* and EspalomaCharge, ESP fit and a zero total in the default call",
+          "Contacts in the pocket and the ring-amidine twist with six charge and protonation models from the same crystal pose",
+          "Comparison with experiment: LIE estimate against measured ΔG, crystal B-factor against RMSF"
+        ],
+        "data": [
+          "Trypsin-benzamidine complex (PDB 3PTB, Marquart et al. 1983, CC0): two 0.5 ns complex runs and one 1 ns water run for each of six ligand models (GROMACS 2023.3, amber99sb-ildn, GAFF2, TIP3P); the run and analysis plans were frozen before the runs",
+          "Benzamidine Ki values: ChEMBL (CHEMBL20936, bovine trypsin CHEMBL3769; CC BY-SA 3.0); charges with acpype 2023.10.27 (AM1-BCC, Gasteiger), PySCF 2.14.0 (RESP) and EspalomaCharge 0.0.8"
+        ],
+        "notice": "The benzamidine Ki values on this page are taken from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
+      },
+      "path": "md/md-lig/",
+      "source": "sources/MD-LIG.html"
     }
   ]
 }

@@ -1,0 +1,1012 @@
+{
+ "module": "MD-LIG",
+ "lang": "en",
+ "source_sha256": "53f6a4bdbafbf1db0cd7b77c34424ad322c839f19e485c1a9ad83832341ecb3f",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-LIG 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Ligand parametreleri ve kökeni</title>",
+   "<title>MD: Ligand parameters and their provenance</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"jproto\">Bu modül için tripsin-benzamidin kompleksi (PDB 3PTB) aynı kristal pozdan altı ligand modeliyle ikişer 0,5 ns koşuldu; her model ayrıca suda 1 ns koşuldu. Ligand parametreleri acpype (GAFF2) ile üretildi; ekte iki yeni yük modeli (RESP HF/6-31G* ve EspalomaCharge) eklendi ve altı model ölçülmüş bağlanma enerjisi (LIE ile) ve kristal B-faktörleriyle karşılaştırıldı. Her iki koşu ve analiz planı da koşulardan önce yazılıp SHA-256 ile donduruldu; sonuçlar GROMACS araçlarıyla bağımsız olarak denetlendi. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye işaretlidir.</div>",
+   "<div class=\"proto\" id=\"jproto\">For this module the trypsin-benzamidine complex (PDB 3PTB) was run from the same crystal pose with six ligand models, twice for 0.5 ns each; each model was also run for 1 ns in water. The ligand parameters were generated with acpype (GAFF2); an addendum added two new charge models (RESP HF/6-31G* and EspalomaCharge) and compared the six models with the measured binding energy (via LIE) and the crystal B-factors. Both run and analysis plans were written before the runs and frozen with SHA-256; the results were checked independently with GROMACS tools. Everything not computed is marked \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-LIG · Ligand parametreleri ve kökeni</span>",
+   "<span class=\"eyebrow\">MD-LIG · Ligand parameters and their provenance</span>"
+  ],
+  [
+   "<h1>Ligandın parametresi bir karardır</h1>",
+   "<h1>A ligand's parameters are a decision</h1>"
+  ],
+  [
+   "<p class=\"lead\">Protein kuvvet alanı yıllarca sınanmış hazır bir dosyadır; ligandın parametreleri ise çoğu kez o gün, bir programla üretilir. Hangi atom türü, hangi yük yöntemi, hangi protonasyon, hangi benzetme parametresi? Bu sayfada benzamidin için gerçek araç çıktıları incelenir ve aynı kristal pozdan başlayan kısa koşularda bu kararların cepteki davranışı nasıl değiştirdiği gösterilir. Parametrenin kökeni kayda geçirilir; bazı noktalarda uzman gerekir.</p>",
+   "<p class=\"lead\">A protein force field is a ready-made file tested for years; a ligand's parameters are often generated that same day by a program. Which atom types, which charge method, which protonation, which analogy parameters? On this page the real tool outputs for benzamidine are examined, and short runs starting from the same crystal pose show how these decisions change the behavior in the pocket. The provenance of the parameters is recorded; at some points an expert is needed.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"jprogN\">0 / 11</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"jprogN\">0 / 11</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"jh0\">Ölçülen bağlanma ile kısa bir koşunun gösterdiği</h2>",
+   "<h2 id=\"jh0\">Measured binding and what a short run shows</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Benzamidinin sığır tripsinine bağlanması için ChEMBL'de altı inhibisyon sabiti (Ki) kayıtlı (DK-T ile aynı kayıtlar). Bağlanma serbest enerjisi ΔG = RT ln Ki ile hesaplanır (Ki mol/L cinsinden, 25 °C). Kristal yapıda amidin grubu cebin dibindeki Asp189 ile çift dişli bir tuz köprüsü kurar. Bir kaydı seçin.</p></div>",
+   "<div class=\"prose\"><p>ChEMBL lists six inhibition constants (Ki) for benzamidine binding to bovine trypsin (the same records as in DK-T). The binding free energy is computed as ΔG = RT ln Ki (Ki in mol/L, 25 °C). In the crystal structure the amidine group forms a bidentate salt bridge with Asp189 at the bottom of the pocket. Select a record.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Kayıt:</span><div class=\"seg\" role=\"group\" aria-label=\"ChEMBL kaydı\" id=\"jks\"></div></div>",
+   "<div class=\"selrow\"><span>Record:</span><div class=\"seg\" role=\"group\" aria-label=\"ChEMBL record\" id=\"jks\"></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"jbridge\" class=\"plot\" aria-label=\"Ki ve ΔG değerleri\"></canvas></div><dl class=\"read w\" id=\"jbread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"jbridge\" class=\"plot\" aria-label=\"Ki and ΔG values\"></canvas></div><dl class=\"read w\" id=\"jbread\"></dl></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc0\"><span class=\"k\">Açık</span><h3>MD neyi ölçmez?</h3><p>En az üç kayda bakın.</p><div class=\"mine\" id=\"mjc0\"></div></article>",
+   "<article class=\"q\" id=\"jc0\"><span class=\"k\">Open</span><h3>What does MD not measure?</h3><p>Look at at least three records.</p><div class=\"mine\" id=\"mjc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: parametre kökeni</span>",
+   "<span class=\"step\">1 · Workshop: parameter provenance</span>"
+  ],
+  [
+   "<h2 id=\"jh1\">Program ne üretti, nereden aldı?</h2>",
+   "<h2 id=\"jh1\">What did the program produce, and where did it take it from?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Ligand kristaldeki dokuz ağır atomdan kuruldu, hidrojenler eklendi ve <code>acpype</code> (antechamber, sqm, parmchk2) ile GAFF2 parametreleri üretildi. Dört model (L1 ile L3) ilk planda MD'de koşuldu; L4 ve L5 ekte eklendi (atölye 2). İki ek denetim (P2, P3) yalnız yükleri karşılaştırmak için yapıldı. Atomların rengi yükü gösterir.</p></div>",
+   "<div class=\"prose\"><p>The ligand was built from the nine heavy atoms in the crystal, hydrogens were added and GAFF2 parameters were generated with <code>acpype</code> (antechamber, sqm, parmchk2). Four models (L1 to L3) were run in MD in the first plan; L4 and L5 were added in the addendum (workshop 2). Two extra checks (P2, P3) were made only to compare charges. Atom color shows the charge.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"Ligand modeli\" id=\"jpm\"></div></div>",
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"Ligand model\" id=\"jpm\"></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"jmol\" class=\"plot\" aria-label=\"Seçilen modelde atom yükleri\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"jmol\" class=\"plot\" aria-label=\"Atom charges in the selected model\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Net yük: günlük ne dedi, dosya ne diyor?</h3>",
+   "<h3 class=\"sub\">Net charge: what did the log say, what does the file say?</h3>"
+  ],
+  [
+   "<h3 class=\"sub\">Benzetme parametreleri ve ceza puanları</h3>",
+   "<h3 class=\"sub\">Analogy parameters and penalty scores</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>GAFF2'de karşılığı bulunmayan terimler için parmchk2 en yakın benzer terimi kopyalar ve bir ceza puanı yazar; puan büyüdükçe benzetme zayıflar. Bir satıra tıklayın.</p></div>",
+   "<div class=\"prose\"><p>For terms that have no match in GAFF2, parmchk2 copies the closest similar term and writes a penalty score; the larger the score, the weaker the analogy. Click a row.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc1\"><span class=\"k\">Açık</span><h3>Eşdeğer atomlar, farklı yükler</h3><p>En az üç modelin yüklerine bakın.</p><div class=\"mine\" id=\"mjc1\"></div></article>",
+   "<article class=\"q\" id=\"jc1\"><span class=\"k\">Open</span><h3>Equivalent atoms, different charges</h3><p>Look at the charges of at least three models.</p><div class=\"mine\" id=\"mjc1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc2\"><span class=\"k\">Açık</span><h3>\"charge set to 1\"</h3><p>Soruyu cevaplayın.</p><div class=\"mine\" id=\"mjc2\"></div></article>",
+   "<article class=\"q\" id=\"jc2\"><span class=\"k\">Open</span><h3>\"charge set to 1\"</h3><p>Answer the question.</p><div class=\"mine\" id=\"mjc2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc3\"><span class=\"k\">Açık</span><h3>Ceza puanı ne der?</h3><p>En az iki terime tıklayın.</p><div class=\"mine\" id=\"mjc3\"></div></article>",
+   "<article class=\"q\" id=\"jc3\"><span class=\"k\">Open</span><h3>What does a penalty score say?</h3><p>Click at least two terms.</p><div class=\"mine\" id=\"mjc3\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye: yeni nesil yükler</span>",
+   "<span class=\"step\">2 · Workshop: next-generation charges</span>"
+  ],
+  [
+   "<h2 id=\"jh7\">Kuantum ESP'ye uydurulmuş yük ve öğrenilmiş yük</h2>",
+   "<h2 id=\"jh7\">Charges fitted to the quantum ESP and learned charges</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>İki yöntem daha eklendi. <b>L4 RESP</b>: ligand gaz fazında HF/6-31G* ile optimize edildi, molekülün çevresindeki 5778 noktada elektrostatik potansiyel (ESP) hesaplandı ve yükler bu potansiyeli en iyi üretecek biçimde uyduruldu; eşdeğer atomlar eşitlendi, ağır atomlara hafif bir kısıt uygulandı. <b>L5 Espaloma</b>: bir grafik sinir ağı, AM1-BCC yüklerini taklit etmek üzere eğitilmiş; molekülün yalnız bağ grafiğini kullanır, geometriyi kullanmaz. İkisi de L1'in topolojisine yalnız yükleri değiştirilerek konuldu. Bir model seçin.</p></div>",
+   "<div class=\"prose\"><p>Two more methods were added. <b>L4 RESP</b>: the ligand was optimized in the gas phase at HF/6-31G*, the electrostatic potential (ESP) was computed at 5778 points around the molecule, and the charges were fitted to reproduce this potential best; equivalent atoms were made equal and a weak restraint was applied to heavy atoms. <b>L5 Espaloma</b>: a graph neural network trained to mimic AM1-BCC charges; it uses only the bond graph of the molecule, not its geometry. Both were placed in the L1 topology with only the charges changed. Select a model.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"Yük modeli\" id=\"jnm\"></div></div>",
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"Charge model\" id=\"jnm\"></div></div>"
+  ],
+  [
+   "<h3 class=\"sub\">ESP uyumu: yükler kuantum potansiyelini ne kadar üretiyor?</h3>",
+   "<h3 class=\"sub\">ESP fit: how well do the charges reproduce the quantum potential?</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her modelin yükleriyle aynı 5778 noktada hesaplanan potansiyel, HF/6-31G* potansiyeliyle karşılaştırıldı: RRMS = √(Σ(V_QM − V_q)² / ΣV_QM²). Küçük değer daha iyi uyum demektir. Bu bir gaz fazı ölçüsüdür; \"doğru yük\" ölçüsü değildir.</p></div>",
+   "<div class=\"prose\"><p>The potential computed with each model's charges at the same 5778 points was compared with the HF/6-31G* potential: RRMS = √(Σ(V_QM − V_q)² / ΣV_QM²). A smaller value means a better fit. This is a gas-phase measure; it is not a measure of the \"correct charge\".</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"jrr\" class=\"plot\" aria-label=\"Yük modellerinin ESP RRMS değerleri\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"jrr\" class=\"plot\" aria-label=\"ESP RRMS values of the charge models\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc8\"><span class=\"k\">Açık</span><h3>Yeni nesil yük, yeni nesil hata</h3><p>En az üç modele bakın.</p><div class=\"mine\" id=\"mjc8\"></div></article>",
+   "<article class=\"q\" id=\"jc8\"><span class=\"k\">Open</span><h3>Next-generation charge, next-generation error</h3><p>Look at at least three models.</p><div class=\"mine\" id=\"mjc8\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Atölye: kompleks MD</span>",
+   "<span class=\"step\">3 · Workshop: complex MD</span>"
+  ],
+  [
+   "<h2 id=\"jh2\">Aynı kristal poz, altı ligand modeli</h2>",
+   "<h2 id=\"jh2\">Same crystal pose, six ligand models</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her model için aynı başlangıç sistemi (Ca²⁺ korunmuş, 0,15 M NaCl, yaklaşık 26.090 atom) iki bağımsız hız tohumuyla 0,5 ns koşuldu; 50 ile 500 ps analiz edildi. Her karede cebin 32 Cα atomu kristale hizalandı. Model başına iki tekrar olduğu için istatistik test ve hüküm yazılmadı; her tekrar ayrı gösterilir.</p></div>",
+   "<div class=\"prose\"><p>For each model the same starting system (Ca²⁺ kept, 0.15 M NaCl, about 26,090 atoms) was run for 0.5 ns with two independent velocity seeds; 50 to 500 ps were analyzed. In each frame the 32 Cα atoms of the pocket were aligned to the crystal. With two replicas per model no statistical test or verdict was written; each replica is shown separately.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Zaman serisi ölçütü\" id=\"jtm\"><button type=\"button\" data-v=\"dmin\" aria-pressed=\"true\">Asp189 uzaklığı</button><button type=\"button\" data-v=\"rmsd\" aria-pressed=\"false\">Ligand RMSD</button><button type=\"button\" data-v=\"com\" aria-pressed=\"false\">Merkez kayması</button></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Time series measure\" id=\"jtm\"><button type=\"button\" data-v=\"dmin\" aria-pressed=\"true\">Asp189 distance</button><button type=\"button\" data-v=\"rmsd\" aria-pressed=\"false\">Ligand RMSD</button><button type=\"button\" data-v=\"com\" aria-pressed=\"false\">Center shift</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"jts\" class=\"plot\" aria-label=\"Seçilen ölçütün zamana göre değişimi\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"jts\" class=\"plot\" aria-label=\"Change of the selected measure over time\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Cepteki temaslar</h3>",
+   "<h3 class=\"sub\">Contacts in the pocket</h3>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Temas:</span><div class=\"seg\" role=\"group\" aria-label=\"Temas\" id=\"jsm\"><button type=\"button\" data-v=\"sb\" aria-pressed=\"true\">Asp189 tuz köprüsü</button><button type=\"button\" data-v=\"bi\" aria-pressed=\"false\">Çift dişli</button><button type=\"button\" data-v=\"g219\" aria-pressed=\"false\">Gly219 O</button><button type=\"button\" data-v=\"s190\" aria-pressed=\"false\">Ser190 OG</button><button type=\"button\" data-v=\"in_pocket\" aria-pressed=\"false\">Cepte (0,3 nm)</button></div></div>",
+   "<div class=\"selrow\"><span>Contact:</span><div class=\"seg\" role=\"group\" aria-label=\"Contact\" id=\"jsm\"><button type=\"button\" data-v=\"sb\" aria-pressed=\"true\">Asp189 salt bridge</button><button type=\"button\" data-v=\"bi\" aria-pressed=\"false\">Bidentate</button><button type=\"button\" data-v=\"g219\" aria-pressed=\"false\">Gly219 O</button><button type=\"button\" data-v=\"s190\" aria-pressed=\"false\">Ser190 OG</button><button type=\"button\" data-v=\"in_pocket\" aria-pressed=\"false\">In pocket (0.3 nm)</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"jsb\" class=\"plot\" aria-label=\"Tekrar başına temas payı\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"jsb\" class=\"plot\" aria-label=\"Contact fraction per replica\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Halka ile amidin arasındaki büküm</h3>",
+   "<h3 class=\"sub\">Twist between the ring and the amidine</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bu dihedral (C2-C1-C-N1) parmchk2'nin benzetme parametresiyle tanımlı. Büküm 0° düzlemsel, 90° dik demektir; kristalde 2,1°.</p></div>",
+   "<div class=\"prose\"><p>This dihedral (C2-C1-C-N1) is defined by a parmchk2 analogy parameter. A twist of 0° means planar, 90° perpendicular; 2.1° in the crystal.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"jdih\" class=\"plot\" aria-label=\"Büküm açısı dağılımı, kompleks ve su\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"jdih\" class=\"plot\" aria-label=\"Twist angle distribution, complex and water\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc4\"><span class=\"k\">Açık</span><h3>Ligand cepte kaldı mı?</h3><p>En az üç modelin zaman serisine bakın.</p><div class=\"mine\" id=\"mjc4\"></div></article>",
+   "<article class=\"q\" id=\"jc4\"><span class=\"k\">Open</span><h3>Did the ligand stay in the pocket?</h3><p>Look at the time series of at least three models.</p><div class=\"mine\" id=\"mjc4\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc5\"><span class=\"k\">Açık</span><h3>Tuz köprüsü ve protonasyon</h3><p>En az üç temas ölçütüne bakın.</p><div class=\"mine\" id=\"mjc5\"></div></article>",
+   "<article class=\"q\" id=\"jc5\"><span class=\"k\">Open</span><h3>Salt bridge and protonation</h3><p>Look at at least three contact measures.</p><div class=\"mine\" id=\"mjc5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc6\"><span class=\"k\">Açık</span><h3>Cezalı dihedral nasıl davrandı?</h3><p>En az iki modelin dağılımına bakın.</p><div class=\"mine\" id=\"mjc6\"></div></article>",
+   "<article class=\"q\" id=\"jc6\"><span class=\"k\">Open</span><h3>How did the penalized dihedral behave?</h3><p>Look at the distribution of at least two models.</p><div class=\"mine\" id=\"mjc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Atölye: deneyle karşılaştırma</span>",
+   "<span class=\"step\">4 · Workshop: comparison with experiment</span>"
+  ],
+  [
+   "<h2 id=\"jh8\">Ölçülmüş bağlanma ve kristal dalgalanması ile karşılaştırma</h2>",
+   "<h2 id=\"jh8\">Comparison with measured binding and crystal fluctuation</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p><b>Doğrusal etkileşim enerjisi (LIE).</b> Ligandın çevresiyle etkileşim enerjisi kompleks ve su koşularında ortalanır; bağlanma serbest enerjisi ΔG ≈ α·Δ⟨V_vdW⟩ + β·Δ⟨V_el⟩ ile kestirilir (Δ: kompleks eksi su). α ve β deneysel verilere kalibre edilmiş katsayılardır (α 0,181; β yüklü ligand 0,5, nötr ligand 0,43). Ölçülmüş aralık köprüdeki ChEMBL kayıtlarından gelir. Bir model seçin.</p></div>",
+   "<div class=\"prose\"><p><b>Linear interaction energy (LIE).</b> The interaction energy of the ligand with its surroundings is averaged in the complex and water runs; the binding free energy is estimated as ΔG ≈ α·Δ⟨V_vdW⟩ + β·Δ⟨V_el⟩ (Δ: complex minus water). α and β are coefficients calibrated to experimental data (α 0.181; β 0.5 for a charged ligand, 0.43 for a neutral ligand). The measured range comes from the ChEMBL records in the bridge. Select a model.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"LIE modeli\" id=\"jlm\"></div></div>",
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"LIE model\" id=\"jlm\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>L3 için β:</span><div class=\"seg\" role=\"group\" aria-label=\"Nötr model için beta\" id=\"jlb\"><button type=\"button\" data-v=\"0.43\" aria-pressed=\"true\">0,43 (nötr)</button><button type=\"button\" data-v=\"0.5\" aria-pressed=\"false\">0,5 (yüklü gibi)</button></div></div>",
+   "<div class=\"selrow\"><span>β for L3:</span><div class=\"seg\" role=\"group\" aria-label=\"Beta for the neutral model\" id=\"jlb\"><button type=\"button\" data-v=\"0.43\" aria-pressed=\"true\">0.43 (neutral)</button><button type=\"button\" data-v=\"0.5\" aria-pressed=\"false\">0.5 (as if charged)</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"jlie\" class=\"plot\" aria-label=\"LIE kestirimleri ve ölçülmüş aralık\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"jlie\" class=\"plot\" aria-label=\"LIE estimates and the measured range\"></canvas></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Kristal B-faktörü ile MD dalgalanması</h3>",
+   "<h3 class=\"sub\">Crystal B-factor and MD fluctuation</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bir atomun kristaldeki B-faktörü, konumundaki belirsizliğin ölçüsüdür; MD'de karşılığı B = (8π²/3)·RMSF². 3PTB'de protein Cα atomlarının B değerleri ayrı ayrı inceltilmiş; benzamidinin dokuz atomu ise tek bir ortak B değeri taşıyor, bu yüzden ligand için atom başına karşılaştırma yapılamaz. Bir model ve tekrar seçin.</p></div>",
+   "<div class=\"prose\"><p>The B-factor of an atom in a crystal measures the uncertainty in its position; its MD counterpart is B = (8π²/3)·RMSF². In 3PTB the B values of the protein Cα atoms were refined individually; the nine atoms of benzamidine carry a single shared B value, so an atom-by-atom comparison is not possible for the ligand. Select a model and a replica.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"B-faktörü modeli\" id=\"jbm\"></div></div>",
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"B-factor model\" id=\"jbm\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Tekrar:</span><div class=\"seg\" role=\"group\" aria-label=\"Tekrar\" id=\"jbk\"><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">2</button></div></div>",
+   "<div class=\"selrow\"><span>Replica:</span><div class=\"seg\" role=\"group\" aria-label=\"Replica\" id=\"jbk\"><button type=\"button\" data-v=\"1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">2</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"jbf\" class=\"plot\" aria-label=\"Cα B-faktörü, MD ile kristal\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"jbf\" class=\"plot\" aria-label=\"Cα B-factor, MD versus crystal\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc9\"><span class=\"k\">Açık</span><h3>LIE hangi yükü seçti?</h3><p>En az üç modele bakın.</p><div class=\"mine\" id=\"mjc9\"></div></article>",
+   "<article class=\"q\" id=\"jc9\"><span class=\"k\">Open</span><h3>Which charge did LIE pick?</h3><p>Look at at least three models.</p><div class=\"mine\" id=\"mjc9\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc10\"><span class=\"k\">Açık</span><h3>B-faktörü neyi doğrular?</h3><p>En az üç koşuya bakın.</p><div class=\"mine\" id=\"mjc10\"></div></article>",
+   "<article class=\"q\" id=\"jc10\"><span class=\"k\">Open</span><h3>What does a B-factor validate?</h3><p>Look at at least three runs.</p><div class=\"mine\" id=\"mjc10\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">5 · Tezgâh: iddia denetleyici</span>",
+   "<span class=\"step\">5 · Bench: claim checker</span>"
+  ],
+  [
+   "<h2 id=\"jh3\">Sekiz cümle: bu veri bunları taşır mı?</h2>",
+   "<h2 id=\"jh3\">Eight sentences: does this data carry them?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>",
+   "<div class=\"prose\"><p>Decide for each sentence: it can be established with the data on this page, it needs more evidence, or it cannot be established with this data. The reasoning appears after your choice.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"jc7\"><span class=\"k\">Açık</span><h3>Parametre kökeni bir kayıttır</h3><p>En az dört cümleye karar verin.</p><div class=\"mine\" id=\"mjc7\"></div></article>",
+   "<article class=\"q\" id=\"jc7\"><span class=\"k\">Open</span><h3>Parameter provenance is a record</h3><p>Decide on at least four sentences.</p><div class=\"mine\" id=\"mjc7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">6 · Defter: ligand parametre kökeni kaydı</span>",
+   "<span class=\"step\">6 · Notebook: ligand parameter provenance record</span>"
+  ],
+  [
+   "<h2 id=\"jh4\">Koşudan önce yazılan yedi satır</h2>",
+   "<h2 id=\"jh4\">Seven lines written before the run</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kendi ligandınız için doldurun; örnekler bu sayfadandır. Eksik satırlar altta not üretir. Metin yalnız tarayıcınızda üretilir, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>Fill this in for your own ligand; the examples are from this page. Missing lines produce notes below. The text is generated only in your browser and is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>Başlangıç yapısı ve hidrojenler<textarea id=\"jfS\" rows=\"2\">Örnek: PDB 3PTB'deki dokuz ağır atom; hidrojenler RDKit ile eklendi.</textarea></label>",
+   "<label>Starting structure and hydrogens<textarea id=\"jfS\" rows=\"2\">Example: the nine heavy atoms in PDB 3PTB; hydrogens added with RDKit.</textarea></label>"
+  ],
+  [
+   "<label>Protonasyon ve gerekçesi<textarea id=\"jfP\" rows=\"2\">Örnek: amidinyum katyonu (+1); pH 7'de amidin protonlu kabul edildi, kaynağı yazılır.</textarea></label>",
+   "<label>Protonation and its justification<textarea id=\"jfP\" rows=\"2\">Example: amidinium cation (+1); the amidine was taken as protonated at pH 7, with the source written down.</textarea></label>"
+  ],
+  [
+   "<label>Atom türleri, yük yöntemi ve araç sürümü<textarea id=\"jfQ\" rows=\"2\">Örnek: GAFF2, AM1-BCC; acpype 2023.10.27 (antechamber, sqm).</textarea></label>",
+   "<label>Atom types, charge method and tool version<textarea id=\"jfQ\" rows=\"2\">Example: GAFF2, AM1-BCC; acpype 2023.10.27 (antechamber, sqm).</textarea></label>"
+  ],
+  [
+   "<label>Net yük denetimi<textarea id=\"jfN\" rows=\"2\">Örnek: itp'deki yüklerin toplamı +1,000000; tpr'de de aynı; genion'un eklediği iyon sayısı beklenene uyuyor.</textarea></label>",
+   "<label>Net charge check<textarea id=\"jfN\" rows=\"2\">Example: the sum of the charges in the itp is +1.000000; the same in the tpr; the number of ions added by genion matches the expectation.</textarea></label>"
+  ],
+  [
+   "<label>Eşdeğer atomlar<textarea id=\"jfE\" rows=\"2\">Örnek: iki amidin azotu −0,469 ve −0,453 aldı; simetrileştirilmedi, bu sayfada olduğu gibi kullanıldı.</textarea></label>",
+   "<label>Equivalent atoms<textarea id=\"jfE\" rows=\"2\">Example: the two amidine nitrogens got −0.469 and −0.453; not symmetrized, used as is on this page.</textarea></label>"
+  ],
+  [
+   "<label>Benzetme parametreleri ve ceza puanları<textarea id=\"jfT\" rows=\"2\">Örnek: ca-ca-ce-nv ceza 237; QM torsiyon taramasıyla doğrulanmadı.</textarea></label>",
+   "<label>Analogy parameters and penalty scores<textarea id=\"jfT\" rows=\"2\">Example: ca-ca-ce-nv penalty 237; not validated with a QM torsion scan.</textarea></label>"
+  ],
+  [
+   "<label>Protein kuvvet alanıyla uyum<textarea id=\"jfF\" rows=\"2\">Örnek: protein amber99sb-ildn, ligand GAFF2; aynı birleştirme kuralı ve 1-4 ölçekleri.</textarea></label>",
+   "<label>Compatibility with the protein force field<textarea id=\"jfF\" rows=\"2\">Example: protein amber99sb-ildn, ligand GAFF2; same combination rule and 1-4 scaling.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"jfcopy\">Metni kopyala</button><span class=\"small\" id=\"jfmsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"jfcopy\">Copy text</button><span class=\"small\" id=\"jfmsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">7 · Sınav</span>",
+   "<span class=\"step\">7 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"jh5\">Sekiz soru</h2>",
+   "<h2 id=\"jh5\">Eight questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "/* ===== ev yardımcıları (DK-T/DK-O/DK-U ile aynı) ===== */",
+   "/* ===== page helpers (same as DK-T/DK-O/DK-U) ===== */"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('jprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('jprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak animasyon altyapısı ===== */",
+   "/* ===== shared animation infrastructure ===== */"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== deneysel köprü: ölçülmüş Ki ve kristal tuz köprüsü ===== */",
+   "/* ===== experimental bridge: measured Ki and the crystal salt bridge ===== */"
+  ],
+  [
+   "$('jbread').innerHTML=dl('Kayıt',k[0]+': Ki '+fx(k[1],k[1]%1?1:0)+' µM')+dl('ΔG',fx(dG(k[1]),2)+' kcal/mol ('+fx(4.184*dG(k[1]),1)+' kJ/mol)')+dl('Altı kaydın aralığı',fx(arrMin(v),2)+' ile '+fx(arrMax(v),2)+' kcal/mol')+",
+   "$('jbread').innerHTML=dl('Record',k[0]+': Ki '+fx(k[1],k[1]%1?1:0)+' µM')+dl('ΔG',fx(dG(k[1]),2)+' kcal/mol ('+fx(4.184*dG(k[1]),1)+' kJ/mol)')+dl('Range of the six records',fx(arrMin(v),2)+' to '+fx(arrMax(v),2)+' kcal/mol')+"
+  ],
+  [
+   "dl('Kristal (3PTB)','N1-Asp189 OD1 '+fx(C.N1_OD1,2)+' Å, N2-Asp189 OD2 '+fx(C.N2_OD2,2)+' Å, N1-Gly219 O '+fx(C.N1_G219,2)+' Å, N2-Ser190 OG '+fx(C.N2_S190,2)+' Å'); }",
+   "dl('Crystal (3PTB)','N1-Asp189 OD1 '+fx(C.N1_OD1,2)+' Å, N2-Asp189 OD2 '+fx(C.N2_OD2,2)+' Å, N1-Gly219 O '+fx(C.N1_G219,2)+' Å, N2-Ser190 OG '+fx(C.N2_S190,2)+' Å'); }"
+  ],
+  [
+   "if(n>=3) card('jc0',true,'Altı ölçüm ΔG\\'yi '+fx(arrMin(v),2)+' ile '+fx(arrMax(v),2)+' kcal/mol arasına koyuyor; ölçümler arasındaki fark '+fx(arrMax(v)-arrMin(v),2)+' kcal/mol. Bu sayfadaki koşular bağlanma serbest enerjisi hesaplamaz: 0,5 ns\\'lik bir koşu yalnız, verilen parametrelerle kristal pozun ve tuz köprüsünün bu süre içinde korunup korunmadığını gösterir. Atölye 4\\'teki LIE kestirimi kalibre edilmiş katsayılarla yapılan ampirik bir yaklaşıklıktır, serbest enerji hesabı değildir. ΔG hesabı (serbest enerji pertürbasyonu, MM/PBSA ya da bağlanma-ayrılma örneklemesi): Bu senaryo hesaplanmadı. Simülasyonla deney arasındaki köprü burada kristal yapıdır: amidin azotları Asp189\\'un iki oksijenine '+fx(VDD.crystal.N1_OD1,2)+' ve '+fx(VDD.crystal.N2_OD2,2)+' Å uzaklıkta.');",
+   "if(n>=3) card('jc0',true,'The six measurements place ΔG between '+fx(arrMin(v),2)+' and '+fx(arrMax(v),2)+' kcal/mol; the spread between measurements is '+fx(arrMax(v)-arrMin(v),2)+' kcal/mol. The MD runs on this page do not compute a binding free energy: a 0.5 ns run only shows whether, with the given parameters, the crystal pose and the salt bridge are kept over that time. The LIE estimate in workshop 4 is an empirical approximation with calibrated coefficients, not a free energy calculation. A ΔG calculation (free energy perturbation, MM/PBSA or binding-unbinding sampling): This scenario was not computed. The bridge between simulation and experiment here is the crystal structure: the amidine nitrogens sit '+fx(VDD.crystal.N1_OD1,2)+' and '+fx(VDD.crystal.N2_OD2,2)+' Å from the two oxygens of Asp189.');"
+  ],
+  [
+   "else card('jc0',false,'Şimdiye kadar '+n+' kayıt; en az üçüne bakın.'); }",
+   "else card('jc0',false,'So far '+n+' record(s); look at at least three.'); }"
+  ],
+  [
+   "/* ===== atölye 1: parametre kökeni ===== */",
+   "/* ===== workshop 1: parameter provenance ===== */"
+  ],
+  [
+   "var MN={L1:'L1 · AM1-BCC katyon',L2a:'L2a · Gasteiger, acpype',L2b:'L2b · Gasteiger, RDKit',L3:'L3 · AM1-BCC nötr',P2:'P2 · çift bağ öbür azotta',P3:'P3 · ETKDG konformeri',L4:'L4 · RESP HF/6-31G*',L5:'L5 · Espaloma',P4:'P4 · Espaloma, varsayılan çağrı',P5:'P5 · Espaloma, çift bağ öbür azotta'};",
+   "var MN={L1:'L1 · AM1-BCC cation',L2a:'L2a · Gasteiger, acpype',L2b:'L2b · Gasteiger, RDKit',L3:'L3 · AM1-BCC neutral',P2:'P2 · double bond on the other N',P3:'P3 · ETKDG conformer',L4:'L4 · RESP HF/6-31G*',L5:'L5 · Espaloma',P4:'P4 · Espaloma, default call',P5:'P5 · Espaloma, double bond on the other N'};"
+  ],
+  [
+   "/* amidin sağda olsun */ var ci=at.map(function(a){ return a.type; }).indexOf('ce'); if(ci>=0&&Q[ci][0]<0) Q=Q.map(function(q){ return [-q[0],q[1]]; });",
+   "/* amidine on the right */ var ci=at.map(function(a){ return a.type; }).indexOf('ce'); if(ci>=0&&Q[ci][0]<0) Q=Q.map(function(q){ return [-q[0],q[1]]; });"
+  ],
+  [
+   "g.font='600 13px '+css('--sans'); g.fillStyle=PAL.ink; g.fillText(MN[PA.m]+' · net yük '+fmtNet(P.net),12,20);",
+   "g.font='600 13px '+css('--sans'); g.fillStyle=PAL.ink; g.fillText(MN[PA.m]+' · net charge '+fmtNet(P.net),12,20);"
+  ],
+  [
+   "$('jmleg').innerHTML='<span><i style=\"background:'+qcol(-0.6)+'\"></i>−0,6 e ve altı</span><span><i style=\"background:'+qcol(0)+';border:1px solid '+PAL.line+'\"></i>0</span><span><i style=\"background:'+qcol(0.6)+'\"></i>+0,6 e ve üstü</span><span>sayı: kısmi yük (e); yalnız ağır atomlar ve amidin hidrojenleri yazıldı</span>'; }",
+   "$('jmleg').innerHTML='<span><i style=\"background:'+qcol(-0.6)+'\"></i>−0.6 e and below</span><span><i style=\"background:'+qcol(0)+';border:1px solid '+PAL.line+'\"></i>0</span><span><i style=\"background:'+qcol(0.6)+'\"></i>+0.6 e and above</span><span>number: partial charge (e); only heavy atoms and amidine hydrogens are labeled</span>'; }"
+  ],
+  [
+   "function fmtNet(q){ if(Math.abs(q)<5e-4){ if(q!==0&&Math.abs(q)<5e-7){ var e=q.toExponential(1).split('e'); return '0,000 ('+e[0].replace('.',',').replace('-','−')+'·10'+e[1].replace('-','⁻').replace('+','').replace(/[0-9]/g,function(d){ return '⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]; })+')'; } return '0,000 ('+fx(q,6)+')'; } return fmtQ(q); }",
+   "function fmtNet(q){ if(Math.abs(q)<5e-4){ if(q!==0&&Math.abs(q)<5e-7){ var e=q.toExponential(1).split('e'); return '0.000 ('+e[0].replace('-','−')+'·10'+e[1].replace('-','⁻').replace('+','').replace(/[0-9]/g,function(d){ return '⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]; })+')'; } return '0.000 ('+fx(q,6)+')'; } return fmtQ(q); }"
+  ],
+  [
+   "h+='<tr><td><b>Toplam</b></td>'+M.map(function(k){ return '<td><b>'+fmtNet(A[k].net)+'</b></td>'; }).join('')+'</tr></tbody></table>';",
+   "h+='<tr><td><b>Total</b></td>'+M.map(function(k){ return '<td><b>'+fmtNet(A[k].net)+'</b></td>'; }).join('')+'</tr></tbody></table>';"
+  ],
+  [
+   "h+='<p class=\"small\">P3 (kristalden bağımsız ETKDG konformeri, atom sırası farklı): iki amidin azotu '+n3.map(function(a){ return a.name+' '+fmtQ(a.q); }).join(', ')+'; toplam '+fmtNet(A.P3.net)+'. Atom türleri GAFF2 (ca aromatik C, ce amidin C, nv amidin N, n2 imin N, ha ve hn hidrojen).</p>';",
+   "h+='<p class=\"small\">P3 (ETKDG conformer independent of the crystal, different atom order): the two amidine nitrogens '+n3.map(function(a){ return a.name+' '+fmtQ(a.q); }).join(', ')+'; total '+fmtNet(A.P3.net)+'. Atom types GAFF2 (ca aromatic C, ce amidine C, nv amidine N, n2 imine N, ha and hn hydrogen).</p>';"
+  ],
+  [
+   "if(n>=3) card('jc1',true,'L1\\'de birbirinin eşdeğeri olan iki amidin azotu farklı yük aldı: N1 '+fmtQ(N('L1','N1'))+', N2 '+fmtQ(N('L1','N2'))+'. '+(same?'Çift bağı öbür azota yazmak (P2) ya da kristalden bağımsız bir konformerle başlamak (P3) aynı iki değeri verdi; fark girişte yazılan bağ düzenine ya da başlangıç geometrisine bağlı değil, programın kendi hesabından geliyor.':'P2 ve P3 farklı değerler verdi.')+' Gasteiger\\'de iki azot eşit: L2a '+fmtQ(N('L2a','N1'))+', L2b '+fmtQ(N('L2b','N1'))+'; ama L2a\\'nın toplamı '+fmtNet(A.L2a.net)+'. Nötr modelde (L3) amin azotu '+fmtQ(N('L3','N1'))+', imin azotu '+fmtQ(N('L3','N2'))+'. Eşdeğer atomların eşitlenip eşitlenmediği kayda geçirilir; bu sayfada yükler programın verdiği gibi kullanıldı.');",
+   "if(n>=3) card('jc1',true,'In L1 the two mutually equivalent amidine nitrogens got different charges: N1 '+fmtQ(N('L1','N1'))+', N2 '+fmtQ(N('L1','N2'))+'. '+(same?'Writing the double bond on the other nitrogen (P2) or starting from a conformer independent of the crystal (P3) gave the same two values; the difference does not depend on the bond pattern written in the input or on the starting geometry, it comes from the program\\'s own calculation.':'P2 and P3 gave different values.')+' In Gasteiger the two nitrogens are equal: L2a '+fmtQ(N('L2a','N1'))+', L2b '+fmtQ(N('L2b','N1'))+'; but the total of L2a is '+fmtNet(A.L2a.net)+'. In the neutral model (L3) the amine nitrogen is '+fmtQ(N('L3','N1'))+', the imine nitrogen '+fmtQ(N('L3','N2'))+'. Whether equivalent atoms were made equal is recorded; on this page the charges were used as the program gave them.');"
+  ],
+  [
+   "else card('jc1',false,'Şimdiye kadar '+n+' model; en az üçüne bakın.'); }",
+   "else card('jc1',false,'So far '+n+' model(s); look at at least three.'); }"
+  ],
+  [
+   "/* --- net yük vakası --- */",
+   "/* --- net charge case --- */"
+  ],
+  [
+   "var NOPT=['acpype günlüğünde bir uyarıyla','grompp\\'un net yük uyarısıyla','itp\\'deki yüklerin toplamını ve genion\\'un eklediği iyon sayısını beklenenle karşılaştırarak'];",
+   "var NOPT=['with a warning in the acpype log','with the net charge warning of grompp','by comparing the sum of the charges in the itp and the number of ions added by genion with the expectation'];"
+  ],
+  [
+   "$('jnet').innerHTML='<div class=\"case\"><h3>L2a · acpype -c gas -n 1</h3><p class=\"small\">Gasteiger yükleri, net yük +1 istenerek üretildi.</p><div class=\"cmd\">acpype -i lig.mol -c gas -n 1 -a gaff2 -b BEN -o gmx</div><pre class=\"msg\">'+esc(A.L2a_log.join('\\n')).replace(/(charge set to 1)/,'<span class=\"hl\">$1</span>')+'</pre>'+",
+   "$('jnet').innerHTML='<div class=\"case\"><h3>L2a · acpype -c gas -n 1</h3><p class=\"small\">Gasteiger charges, generated with a net charge of +1 requested.</p><div class=\"cmd\">acpype -i lig.mol -c gas -n 1 -a gaff2 -b BEN -o gmx</div><pre class=\"msg\">'+esc(A.L2a_log.join('\\n')).replace(/(charge set to 1)/,'<span class=\"hl\">$1</span>')+'</pre>'+"
+  ],
+  [
+   "'<div class=\"tw\"><table class=\"st\"><thead><tr><th></th><th>L1 (AM1-BCC)</th><th>L2a (acpype Gasteiger)</th><th>L2b (RDKit Gasteiger)</th></tr></thead><tbody><tr><td>itp yük toplamı</td><td>'+fmtNet(A.L1.net)+'</td><td>'+fmtNet(A.L2a.net)+'</td><td>'+fmtNet(A.L2b.net)+'</td></tr><tr><td>Kompleks: genion</td><td>'+G.L1.na+' Na⁺, '+G.L1.cl+' Cl⁻</td><td>'+G.L2a.na+' Na⁺, '+G.L2a.cl+' Cl⁻</td><td>'+G.L2b.na+' Na⁺, '+G.L2b.cl+' Cl⁻</td></tr><tr><td>Su kutusu: genion</td><td>'+wion(G.L1.water)+'</td><td>'+wion(G.L2a.water)+'</td><td>'+wion(G.L2b.water)+'</td></tr></tbody></table></div>'+",
+   "'<div class=\"tw\"><table class=\"st\"><thead><tr><th></th><th>L1 (AM1-BCC)</th><th>L2a (acpype Gasteiger)</th><th>L2b (RDKit Gasteiger)</th></tr></thead><tbody><tr><td>itp charge sum</td><td>'+fmtNet(A.L1.net)+'</td><td>'+fmtNet(A.L2a.net)+'</td><td>'+fmtNet(A.L2b.net)+'</td></tr><tr><td>Complex: genion</td><td>'+G.L1.na+' Na⁺, '+G.L1.cl+' Cl⁻</td><td>'+G.L2a.na+' Na⁺, '+G.L2a.cl+' Cl⁻</td><td>'+G.L2b.na+' Na⁺, '+G.L2b.cl+' Cl⁻</td></tr><tr><td>Water box: genion</td><td>'+wion(G.L1.water)+'</td><td>'+wion(G.L2a.water)+'</td><td>'+wion(G.L2b.water)+'</td></tr></tbody></table></div>'+"
+  ],
+  [
+   "'<p class=\"small\"><b>Soru:</b> bu hatayı ilk nerede yakalardınız?</p><div class=\"opts\">'+NOPT.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"jnfb\" hidden></p></div>';",
+   "'<p class=\"small\"><b>Question:</b> where would you first catch this error?</p><div class=\"opts\">'+NOPT.map(function(o,j){ return '<button type=\"button\" class=\"opt\" data-j=\"'+j+'\">'+o+'</button>'; }).join('')+'</div><p class=\"fb\" id=\"jnfb\" hidden></p></div>';"
+  ],
+  [
+   "var fb=$('jnfb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> acpype \"charge set to 1\" yazdı ve her adımı OK bildirdi. grompp uyarmadı: genion sistemi zaten nötrleştirdiği için toplam yük sıfırdı. İz yalnız sayılarda: yük toplamı '+fmtNet(VDD.params.L2a.net)+' ve komplekste bir Cl⁻ eksik ('+G.L2a.cl+' yerine '+G.L1.cl+' beklenirdi), su kutusunda genion hiç iyon eklemedi.';",
+   "var fb=$('jnfb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> acpype wrote \"charge set to 1\" and reported every step OK. grompp did not warn: genion had already neutralized the system, so the total charge was zero. The trace is only in the numbers: the charge sum is '+fmtNet(VDD.params.L2a.net)+' and one Cl⁻ is missing in the complex ('+G.L2a.cl+' instead of the expected '+G.L1.cl+'); in the water box genion added no ions at all.';"
+  ],
+  [
+   "function wion(w){ return w==='no ions'?'iyon eklenmedi':(w?w.na+' Na⁺, '+w.cl+' Cl⁻':'genion yok (nötr)'); }",
+   "function wion(w){ return w==='no ions'?'no ions added':(w?w.na+' Na⁺, '+w.cl+' Cl⁻':'no genion (neutral)'); }"
+  ],
+  [
+   "function netCard(){ if(PA.netAns!=null) card('jc2',true,'Program \"charge set to 1\" yazdı ama ürettiği yüklerin toplamı '+fmtNet(VDD.params.L2a.net)+'. Hiçbir adım hata ya da uyarı vermedi; genion sistemi bu yanlış toplamla nötrleştirdi. Bu sayfada L2a olduğu gibi koşuldu (sessiz hata vakası), L2b aynı topolojiye RDKit\\'in toplamı +1 olan Gasteiger yükleriyle kuruldu. Net yük, ligandın topoloji dosyasından toplanarak ve tpr\\'den okunarak denetlenir; günlükteki \"OK\" yeterli değildir.');",
+   "function netCard(){ if(PA.netAns!=null) card('jc2',true,'The program wrote \"charge set to 1\", but the charges it produced sum to '+fmtNet(VDD.params.L2a.net)+'. No step gave an error or warning; genion neutralized the system with this wrong total. On this page L2a was run as is (a silent error case), and L2b was built on the same topology with RDKit\\'s Gasteiger charges, which sum to +1. The net charge is checked by summing the ligand\\'s topology file and by reading the tpr; \"OK\" in the log is not enough.');"
+  ],
+  [
+   "else card('jc2',false,'Soruyu cevaplayın.'); }",
+   "else card('jc2',false,'Answer the question.'); }"
+  ],
+  [
+   "/* --- ceza puanları --- */",
+   "/* --- penalty scores --- */"
+  ],
+  [
+   "var PEXP={'ca-ca-ce-nv':'Halka ile amidin karbonu arasındaki bağ etrafında dönme (büküm): halkanın amidin grubuna göre düzlemselliğini belirler. Atölye 3\\'te MD\\'de ölçüldü.','ca-ce-nv-hn':'Amidin C-N bağı etrafında dönme; NH₂ gruplarının düzlemselliği.','nv-ce-nv-hn':'Amidin C-N bağı etrafında dönme, öbür azot üzerinden.','ca-ca-ca-ha':'Halka hidrojeninin düzlem dışı (improper) terimi.','ca-ce-n2-hn':'Nötr modelde imin C=N bağı etrafında dönme.','ca-ca-ce-n2':'Nötr modelde halka-amidin bükümü (imin azotu üzerinden).','nv-ce-n2-hn':'Nötr modelde imin C=N etrafında dönme.','n2-ce-nv-hn':'Nötr modelde amin C-N etrafında dönme.'};",
+   "var PEXP={'ca-ca-ce-nv':'Rotation about the bond between the ring and the amidine carbon (twist): sets how planar the ring is relative to the amidine group. Measured in MD in workshop 3.','ca-ce-nv-hn':'Rotation about the amidine C-N bond; planarity of the NH₂ groups.','nv-ce-nv-hn':'Rotation about the amidine C-N bond, via the other nitrogen.','ca-ca-ca-ha':'Out-of-plane (improper) term of a ring hydrogen.','ca-ce-n2-hn':'Rotation about the imine C=N bond in the neutral model.','ca-ca-ce-n2':'Ring-amidine twist in the neutral model (via the imine nitrogen).','nv-ce-n2-hn':'Rotation about the imine C=N in the neutral model.','n2-ce-nv-hn':'Rotation about the amine C-N in the neutral model.'};"
+  ],
+  [
+   "$('jpen').innerHTML='<table class=\"st\"><thead><tr><th>Terim (atom türleri)</th><th>Bölüm</th><th>Ceza</th><th>Kopyalanan kaynak</th><th>Modeller</th></tr></thead><tbody>'+rows.map(function(r,i){ var src=(r.note.match(/same as ([^,]*)/)||r.note.match(/Using ([^,]*)/)||['',''])[1]; return '<tr class=\"pen\" data-i=\"'+i+'\" tabindex=\"0\"><td>'+r.term+'</td><td>'+r.sec+'</td><td>'+fx(r.score,1)+'</td><td>'+esc(src.trim())+'</td><td>'+r.models.join(', ')+'</td></tr>'; }).join('')+'</tbody></table><p class=\"small\">Ayrıca L1\\'de '+A.L1.defaults.length+', L3\\'te '+A.L3.defaults.length+' improper terim için parmchk2 \"Using the default value\" yazdı: benzer bir terim de bulunamadı, genel varsayılan değer kullanıldı. MD\\'de koşulan bütün katyon modellerinde (L1, L2a, L2b, L4, L5) aynı bağlı parametreler kullanılır; yalnız yükler farklıdır.</p>';",
+   "$('jpen').innerHTML='<table class=\"st\"><thead><tr><th>Term (atom types)</th><th>Section</th><th>Penalty</th><th>Copied source</th><th>Models</th></tr></thead><tbody>'+rows.map(function(r,i){ var src=(r.note.match(/same as ([^,]*)/)||r.note.match(/Using ([^,]*)/)||['',''])[1]; return '<tr class=\"pen\" data-i=\"'+i+'\" tabindex=\"0\"><td>'+r.term+'</td><td>'+r.sec+'</td><td>'+fx(r.score,1)+'</td><td>'+esc(src.trim())+'</td><td>'+r.models.join(', ')+'</td></tr>'; }).join('')+'</tbody></table><p class=\"small\">In addition, parmchk2 wrote \"Using the default value\" for '+A.L1.defaults.length+' improper terms in L1 and '+A.L3.defaults.length+' in L3: no similar term was found either, and a generic default value was used. All cation models run in MD (L1, L2a, L2b, L4, L5) use the same bonded parameters; only the charges differ.</p>';"
+  ],
+  [
+   "function penRead(i){ var r=PA.rows[i]; $('jpread').innerHTML=dl('Terim',r.term+' ('+r.sec+')')+dl('parmchk2 satırı',esc(r.note))+dl('Ne yapar?',PEXP[r.term]||'-')+dl('Ceza',fx(r.score,1)+(r.score>=200?': benzetme zayıf, doğrulama gerekir':(r.score>=100?': benzetme orta, kayda geçirilir':': küçük'))); }",
+   "function penRead(i){ var r=PA.rows[i]; $('jpread').innerHTML=dl('Term',r.term+' ('+r.sec+')')+dl('parmchk2 line',esc(r.note))+dl('What does it do?',PEXP[r.term]||'-')+dl('Penalty',fx(r.score,1)+(r.score>=200?': weak analogy, validation needed':(r.score>=100?': moderate analogy, recorded':': small'))); }"
+  ],
+  [
+   "if(n>=2) card('jc3',true,'En yüksek ceza '+top.term+' teriminde ('+fx(top.score,1)+', '+top.models.join(', ')+'). Katyon modelinde halka-amidin bükümü (ca-ca-ce-nv) 237 puanla başka bir atom türü çiftinden kopyalandı; GAFF2\\'de bu terimin kendi parametresi yok. parmchk2 bir uyarı ya da hata vermez, yalnız puanı frcmod dosyasına yazar. Bu sayfada benzetme parametreleri kuantum mekaniksel bir torsiyon taramasıyla doğrulanmadı: Bu senaryo hesaplanmadı. Yüksek cezalı bir terim, sonucun o terime bağlı olduğu durumlarda bir uzmanın ya da doğrulama hesabının gerektiği yerdir; puan ve kaynak kayda geçirilir.');",
+   "if(n>=2) card('jc3',true,'The highest penalty is in the '+top.term+' term ('+fx(top.score,1)+', '+top.models.join(', ')+'). In the cation model the ring-amidine twist (ca-ca-ce-nv) was copied from another atom type pair with a score of 237; this term has no parameter of its own in GAFF2. parmchk2 gives no warning or error; it only writes the score into the frcmod file. On this page the analogy parameters were not validated with a quantum mechanical torsion scan: This scenario was not computed. A highly penalized term is where an expert or a validation calculation is needed when the result depends on that term; the score and the source are recorded.');"
+  ],
+  [
+   "else card('jc3',false,'Şimdiye kadar '+n+' terim; en az ikisine tıklayın.'); }",
+   "else card('jc3',false,'So far '+n+' term(s); click at least two.'); }"
+  ],
+  [
+   "/* ===== atölye 2 (ek): yeni nesil yükler ===== */",
+   "/* ===== workshop 2 (addendum): next-generation charges ===== */"
+  ],
+  [
+   "var NGD={L4:'RESP: HF/6-31G* gaz fazı optimize yapıda Merz-Kollman ızgarası (5778 nokta), tek aşama, hiperbolik kısıt a = 0,0005, b = 0,1 (yalnız ağır atomlara), topolojik eşdeğerlik, toplam +1 (Bayly ve ark. 1993).',",
+   "var NGD={L4:'RESP: Merz-Kollman grid (5778 points) on the gas-phase HF/6-31G* optimized structure, single stage, hyperbolic restraint a = 0.0005, b = 0.1 (heavy atoms only), topological equivalence, total +1 (Bayly et al. 1993).',"
+  ],
+  [
+   "L5:'EspalomaCharge 0.0.8: grafik sinir ağı ve yük dengelemesi; AM1-BCC\\'yi taklit etmek üzere eğitilmiş (Wang ve ark. 2024). Toplam yük modele açıkça +1 verildi.',",
+   "L5:'EspalomaCharge 0.0.8: graph neural network and charge equilibration; trained to mimic AM1-BCC (Wang et al. 2024). The total charge of +1 was given to the model explicitly.',"
+  ],
+  [
+   "P4:'Aynı Espaloma modeli, paketin varsayılan çağrısıyla: işlev molekülün toplam yükünü hesaplıyor ama modele geçirmiyor. Yalnız kayıt, MD yok.',",
+   "P4:'The same Espaloma model with the package\\'s default call: the function computes the molecule\\'s total charge but does not pass it to the model. Record only, no MD.',"
+  ],
+  [
+   "P5:'Espaloma, girişte çift bağ ve formal yük öbür azota yazılmış (P2 yapısı), toplam +1. Yalnız kayıt, MD yok.',",
+   "P5:'Espaloma with the double bond and formal charge written on the other nitrogen in the input (P2 structure), total +1. Record only, no MD.',"
+  ],
+  [
+   "L1:'Başvuru: AM1-BCC (acpype, sqm). İlk planın modeli.'};",
+   "L1:'Reference: AM1-BCC (acpype, sqm). The model of the first plan.'};"
+  ],
+  [
+   "var RRL={ESP_serbest:'kısıtsız ESP uydurması',L4:'L4 RESP',L1:'L1 AM1-BCC',L5:'L5 Espaloma',L2b:'L2b Gasteiger (RDKit)',L2a:'L2a Gasteiger (acpype)',P4:'P4 Espaloma varsayılan'};",
+   "var RRL={ESP_serbest:'unrestrained ESP fit',L4:'L4 RESP',L1:'L1 AM1-BCC',L5:'L5 Espaloma',L2b:'L2b Gasteiger (RDKit)',L2a:'L2a Gasteiger (acpype)',P4:'P4 Espaloma default'};"
+  ],
+  [
+   "h+='<tr><td><b>Toplam</b></td>'+M.map(function(k){ return '<td><b>'+fmtNet(A[k].net)+'</b></td>'; }).join('')+'</tr>';",
+   "h+='<tr><td><b>Total</b></td>'+M.map(function(k){ return '<td><b>'+fmtNet(A[k].net)+'</b></td>'; }).join('')+'</tr>';"
+  ],
+  [
+   "h+='<tr><td><b>ESP RRMS</b></td>'+M.map(function(k){ return '<td>'+(RR[k]?fx(RR[k].rrms,3):'hesaplanmadı')+'</td>'; }).join('')+'</tr></tbody></table>';",
+   "h+='<tr><td><b>ESP RRMS</b></td>'+M.map(function(k){ return '<td>'+(RR[k]?fx(RR[k].rrms,3):'not computed')+'</td>'; }).join('')+'</tr></tbody></table>';"
+  ],
+  [
+   "h+='<p class=\"small\">C7 amidin karbonu, N1 ve N2 amidin azotları; H6 ile H9 amidinyum hidrojenleri (H6, H7 N1\\'e; H8, H9 N2\\'ye bağlı). P5\\'in ESP RRMS\\'i hesaplanmadı. Yükler e biriminde, üç ondalığa yuvarlı.</p>';",
+   "h+='<p class=\"small\">C7 is the amidine carbon, N1 and N2 the amidine nitrogens; H6 to H9 the amidinium hydrogens (H6, H7 on N1; H8, H9 on N2). The ESP RRMS of P5 was not computed. Charges in units of e, rounded to three decimals.</p>';"
+  ],
+  [
+   "function LB(k){ return narrow?({ESP_serbest:'kısıtsız ESP',L4:'L4 RESP',L1:'L1 AM1-BCC',L5:'L5 Espaloma',L2b:'L2b Gast.',L2a:'L2a Gast.',P4:'P4 Esp. vars.'})[k]:RRL[k]; }",
+   "function LB(k){ return narrow?({ESP_serbest:'unrestr. ESP',L4:'L4 RESP',L1:'L1 AM1-BCC',L5:'L5 Espaloma',L2b:'L2b Gast.',L2a:'L2a Gast.',P4:'P4 Esp. def.'})[k]:RRL[k]; }"
+  ],
+  [
+   "var p=plot(g,padL,10,W-padL-14,H-48,[lo,hi],[0,K.length],{xticks:ticks.map(function(t){ return Math.log10(t); }),yticks:[],xlab:'ESP RRMS (log ölçek)',xfmt:function(v){ return fx(Math.pow(10,v),Math.pow(10,v)<0.1?2:1); }});",
+   "var p=plot(g,padL,10,W-padL-14,H-48,[lo,hi],[0,K.length],{xticks:ticks.map(function(t){ return Math.log10(t); }),yticks:[],xlab:'ESP RRMS (log scale)',xfmt:function(v){ return fx(Math.pow(10,v),Math.pow(10,v)<0.1?2:1); }});"
+  ],
+  [
+   "$('jnread').innerHTML=dl('Model',MN[m])+dl('Yöntem',NGD[m])+dl('Amidin','C7 '+fmtQ(qOf(m,'C7'))+'; N1 '+fmtQ(qOf(m,'N1'))+', N2 '+fmtQ(qOf(m,'N2'))+'; amidinyum H '+hn)+dl('Toplam',fmtNet(P.net))+dl('ESP RRMS',RR[m]?fx(RR[m].rrms,3)+' (karekök ortalama sapma, birim yük için '+fx(RR[m].rms,1)+' kcal/mol)':'hesaplanmadı')+(m==='L4'||m==='L5'?dl('MD','komplekste iki tekrar, suda bir koşu (atölye 3 ve 4)'):dl('MD','yok')); }",
+   "$('jnread').innerHTML=dl('Model',MN[m])+dl('Method',NGD[m])+dl('Amidine','C7 '+fmtQ(qOf(m,'C7'))+'; N1 '+fmtQ(qOf(m,'N1'))+', N2 '+fmtQ(qOf(m,'N2'))+'; amidinium H '+hn)+dl('Total',fmtNet(P.net))+dl('ESP RRMS',RR[m]?fx(RR[m].rrms,3)+' (root mean square deviation, per unit charge '+fx(RR[m].rms,1)+' kcal/mol)':'not computed')+(m==='L4'||m==='L5'?dl('MD','two replicas in the complex, one run in water (workshops 3 and 4)'):dl('MD','none')); }"
+  ],
+  [
+   "$('jp4').innerHTML='<div class=\"case\"><h3>P4 · Espaloma, varsayılan çağrı</h3><p class=\"small\">Molekül +1 formal yükle verildi; paketin belgelenen kullanımı:</p><div class=\"cmd\">from espaloma_charge import charge<br>q = charge(mol)</div><div class=\"tw\"><table class=\"st\"><thead><tr><th></th><th>P4 (varsayılan)</th><th>L5 (toplam +1 açıkça)</th><th>L2a (acpype Gasteiger)</th></tr></thead><tbody><tr><td>Yük toplamı</td><td>'+fmtNet(A.P4.net)+'</td><td>'+fmtNet(A.L5.net)+'</td><td>'+fmtNet(A.L2a.net)+'</td></tr><tr><td>N1 / N2</td><td>'+fmtQ(qOf('P4','N1'))+' / '+fmtQ(qOf('P4','N2'))+'</td><td>'+fmtQ(qOf('L5','N1'))+' / '+fmtQ(qOf('L5','N2'))+'</td><td>'+fmtQ(qOf('L2a','N1'))+' / '+fmtQ(qOf('L2a','N2'))+'</td></tr><tr><td>Uyarı</td><td>yok</td><td>-</td><td>yok (\"charge set to 1\")</td></tr></tbody></table></div>'+",
+   "$('jp4').innerHTML='<div class=\"case\"><h3>P4 · Espaloma, default call</h3><p class=\"small\">The molecule was given with a formal charge of +1; the package\\'s documented usage:</p><div class=\"cmd\">from espaloma_charge import charge<br>q = charge(mol)</div><div class=\"tw\"><table class=\"st\"><thead><tr><th></th><th>P4 (default)</th><th>L5 (total +1 explicit)</th><th>L2a (acpype Gasteiger)</th></tr></thead><tbody><tr><td>Charge sum</td><td>'+fmtNet(A.P4.net)+'</td><td>'+fmtNet(A.L5.net)+'</td><td>'+fmtNet(A.L2a.net)+'</td></tr><tr><td>N1 / N2</td><td>'+fmtQ(qOf('P4','N1'))+' / '+fmtQ(qOf('P4','N2'))+'</td><td>'+fmtQ(qOf('L5','N1'))+' / '+fmtQ(qOf('L5','N2'))+'</td><td>'+fmtQ(qOf('L2a','N1'))+' / '+fmtQ(qOf('L2a','N2'))+'</td></tr><tr><td>Warning</td><td>none</td><td>-</td><td>none (\"charge set to 1\")</td></tr></tbody></table></div>'+"
+  ],
+  [
+   "'<p class=\"small\">İşlev molekülün toplam yükünü hesaplıyor ama bu değeri modele geçirmiyor; model her molekülü nötr kabul ediyor. Teknik denemede yalnız yük toplamı denetlenerek bulundu. L5\\'te modelin katmanları elle çağrıldı ve toplam yük açıkça +1 verildi.</p></div>'; }",
+   "'<p class=\"small\">The function computes the molecule\\'s total charge but does not pass this value to the model; the model treats every molecule as neutral. In the technical trial this was found only by checking the charge sum. In L5 the model\\'s layers were called by hand and the total charge of +1 was given explicitly.</p></div>'; }"
+  ],
+  [
+   "if(n<3){ card('jc8',false,'Şimdiye kadar '+n+' model; en az üçüne bakın.'); return; }",
+   "if(n<3){ card('jc8',false,'So far '+n+' model(s); look at at least three.'); return; }"
+  ],
+  [
+   "card('jc8',true,'RESP (L4) iki amidin azotuna eşit yük verdi ('+fmtQ(qOf('L4','N1'))+'; eşdeğerlik uydurmada kısıt olarak konuldu) ve amidin karbonuna '+fmtQ(qOf('L4','C7'))+(Math.abs(qOf('L4','N1'))>Math.abs(qOf('L1','N1'))&&qOf('L4','C7')>qOf('L1','C7')?'; amidin grubunun yükleri AM1-BCC\\'den (L1) daha büyük':'')+'. Espaloma (L5) iki azota '+fmtQ(qOf('L5','N1'))+' ve '+fmtQ(qOf('L5','N2'))+', hidrojenlerine '+fmtQ(qOf('L5','H6'))+' ve '+fmtQ(qOf('L5','H8'))+' verdi'+(sw?'; çift bağ öbür azota yazılınca (P5) bu değerler yer değiştirdi: sonuç girişte yazılan rezonans yapısına bağlı':'')+'. Espaloma AM1-BCC\\'yi taklit etmek üzere eğitildi, ama bu molekülde L1\\'den en çok '+dif.n+' atomunda ayrıldı ('+fmtQ(dif.d)+' e). ESP RRMS: L4 '+fx(RR.L4.rrms,3)+' (kısıtsız uydurma '+fx(RR.ESP_serbest.rrms,3)+'), L1 '+fx(RR.L1.rrms,3)+', L5 '+fx(RR.L5.rrms,3)+', L2b '+fx(RR.L2b.rrms,3)+'. RESP\\'in bu ölçüde önde olması beklenir: yükleri tam bu potansiyele uydurulmuştur; ölçü gaz fazındadır ve cepteki doğruluğu tek başına göstermez. Paketin varsayılan çağrısı (P4) toplam yükü '+fmtNet(VDD.params.P4.net)+' yaptı ve uyarı vermedi: L2a\\'daki sessiz hatanın yeni nesil eşi. Yeni bir yöntem eski denetimleri gereksiz kılmaz: toplam yük, eşdeğer atomlar ve yöntemin neye uydurulduğu kayda geçirilir.'); }",
+   "card('jc8',true,'RESP (L4) gave the two amidine nitrogens equal charges ('+fmtQ(qOf('L4','N1'))+'; equivalence was imposed as a constraint in the fit) and the amidine carbon '+fmtQ(qOf('L4','C7'))+(Math.abs(qOf('L4','N1'))>Math.abs(qOf('L1','N1'))&&qOf('L4','C7')>qOf('L1','C7')?'; the charges of the amidine group are larger than with AM1-BCC (L1)':'')+'. Espaloma (L5) gave the two nitrogens '+fmtQ(qOf('L5','N1'))+' and '+fmtQ(qOf('L5','N2'))+' and their hydrogens '+fmtQ(qOf('L5','H6'))+' and '+fmtQ(qOf('L5','H8'))+(sw?'; with the double bond written on the other nitrogen (P5) these values swapped: the result depends on the resonance structure written in the input':'')+'. Espaloma was trained to mimic AM1-BCC, but for this molecule it differed from L1 most at atom '+dif.n+' ('+fmtQ(dif.d)+' e). ESP RRMS: L4 '+fx(RR.L4.rrms,3)+' (unrestrained fit '+fx(RR.ESP_serbest.rrms,3)+'), L1 '+fx(RR.L1.rrms,3)+', L5 '+fx(RR.L5.rrms,3)+', L2b '+fx(RR.L2b.rrms,3)+'. RESP leading on this measure is expected: its charges were fitted to exactly this potential; the measure is in the gas phase and does not by itself show accuracy in the pocket. The package\\'s default call (P4) made the total charge '+fmtNet(VDD.params.P4.net)+' and gave no warning: the next-generation counterpart of the silent error in L2a. A new method does not make the old checks unnecessary: the total charge, the equivalent atoms and what the method was fitted to are recorded.'); }"
+  ],
+  [
+   "/* ===== atölye 3: kompleks MD ===== */",
+   "/* ===== workshop 3: complex MD ===== */"
+  ],
+  [
+   "var TMN={dmin:['amidin N - Asp189 O en küçük uzaklık (nm)',0.32,'tuz köprüsü eşiği 0,32 nm'],rmsd:['ligand RMSD, cep hizalı (nm)',null,''],com:['ligand merkez kayması (nm)',0.3,'cepte eşiği 0,3 nm']};",
+   "var TMN={dmin:['minimum amidine N - Asp189 O distance (nm)',0.32,'salt bridge threshold 0.32 nm'],rmsd:['ligand RMSD, pocket-aligned (nm)',null,''],com:['ligand center shift (nm)',0.3,'in-pocket threshold 0.3 nm']};"
+  ],
+  [
+   "var SMN={sb:'Asp189 tuz köprüsü (< 0,32 nm)',bi:'çift dişli tuz köprüsü',g219:'Gly219 O teması',s190:'Ser190 OG teması',in_pocket:'cepte (merkez kayması < 0,3 nm)'};",
+   "var SMN={sb:'Asp189 salt bridge (< 0.32 nm)',bi:'bidentate salt bridge',g219:'Gly219 O contact',s190:'Ser190 OG contact',in_pocket:'in pocket (center shift < 0.3 nm)'};"
+  ],
+  [
+   "$('jtleg').innerHTML=R.map(function(n,j){ return '<span>'+lin(RCOL(j))+n+'</span>'; }).join('')+(thr?'<span>'+lin(PAL.gold)+'kesikli: '+TMN[m][2]+'</span>':'')+(m==='com'?'<span>'+lin(PAL.bad)+'noktalı: 0,6 nm (ilk aşma zamanı)</span>':''); }",
+   "$('jtleg').innerHTML=R.map(function(n,j){ return '<span>'+lin(RCOL(j))+n+'</span>'; }).join('')+(thr?'<span>'+lin(PAL.gold)+'dashed: '+TMN[m][2]+'</span>':'')+(m==='com'?'<span>'+lin(PAL.bad)+'dotted: 0.6 nm (first crossing time)</span>':''); }"
+  ],
+  [
+   "if(m==='dmin') t='ortalama '+fx(arrMean(a),3)+' nm; tuz köprüsü '+pctS(s.sb)+', çift dişli '+pctS(s.bi);",
+   "if(m==='dmin') t='mean '+fx(arrMean(a),3)+' nm; salt bridge '+pctS(s.sb)+', bidentate '+pctS(s.bi);"
+  ],
+  [
+   "else if(m==='rmsd') t='ortalama '+fx(s.rmsd_mean,3)+' nm, en büyük '+fx(s.rmsd_max,3)+' nm';",
+   "else if(m==='rmsd') t='mean '+fx(s.rmsd_mean,3)+' nm, maximum '+fx(s.rmsd_max,3)+' nm';"
+  ],
+  [
+   "else t='ortalama '+fx(arrMean(a),3)+' nm; cepte '+pctS(s.in_pocket)+'; 0,6 nm\\'yi '+(s.first_exit==null?'aşmadı':fx(s.first_exit,0)+' ps\\'de aştı');",
+   "else t='mean '+fx(arrMean(a),3)+' nm; in pocket '+pctS(s.in_pocket)+'; 0.6 nm '+(s.first_exit==null?'not crossed':'crossed at '+fx(s.first_exit,0)+' ps');"
+  ],
+  [
+   "function pctS(v){ return '%'+fx(100*v,1); }",
+   "function pctS(v){ return fx(100*v,1)+'%'; }"
+  ],
+  [
+   "if(n>=3){ var t=MDM.map(function(m){ var R=reps(m); return MS[m]+': cepte '+R.map(function(r){ return pctS(C[r].in_pocket); }).join(' / ')+', RMSD '+R.map(function(r){ return fx(C[r].rmsd_mean,3); }).join(' / ')+' nm'+(R.some(function(r){ return C[r].first_exit!=null; })?' (0,6 nm aşıldı: '+R.filter(function(r){ return C[r].first_exit!=null; }).map(function(r){ return r+' '+fx(C[r].first_exit,0)+' ps'; }).join(', ')+')':''); }).join('; ');",
+   "if(n>=3){ var t=MDM.map(function(m){ var R=reps(m); return MS[m]+': in pocket '+R.map(function(r){ return pctS(C[r].in_pocket); }).join(' / ')+', RMSD '+R.map(function(r){ return fx(C[r].rmsd_mean,3); }).join(' / ')+' nm'+(R.some(function(r){ return C[r].first_exit!=null; })?' (0.6 nm crossed: '+R.filter(function(r){ return C[r].first_exit!=null; }).map(function(r){ return r+' '+fx(C[r].first_exit,0)+' ps'; }).join(', ')+')':''); }).join('; ');"
+  ],
+  [
+   "card('jc4',true,'Kristal pozdan başlayan iki tekrarın her birinde: '+t+'. Bu sayılar 450 ps\\'lik bir pencereye ve model başına iki tekrara aittir; ligandın daha uzun sürede cepte kalıp kalmayacağı ya da bağlanma gücü buradan okunmaz. Aynı modelin iki tekrarı arasındaki fark, modeller arasındaki farkla birlikte okunur.'); }",
+   "card('jc4',true,'In each of the two replicas starting from the crystal pose: '+t+'. These numbers belong to a 450 ps window and two replicas per model; whether the ligand would stay in the pocket for longer, or how strongly it binds, cannot be read from them. The difference between two replicas of the same model is read together with the difference between models.'); }"
+  ],
+  [
+   "else card('jc4',false,'Şimdiye kadar '+n+' model; en az üçüne bakın.'); }",
+   "else card('jc4',false,'So far '+n+' model(s); look at at least three.'); }"
+  ],
+  [
+   "var p=plot(g,48,12,W-62,H-50,[0.4,MDM.length+0.6],[0,105],{ylabPad:34,xticks:[],yticks:[0,25,50,75,100],ylab:'kare payı (%)',yfmt:function(v){ return fx(v,0); }});",
+   "var p=plot(g,48,12,W-62,H-50,[0.4,MDM.length+0.6],[0,105],{ylabPad:34,xticks:[],yticks:[0,25,50,75,100],ylab:'fraction of frames (%)',yfmt:function(v){ return fx(v,0); }});"
+  ],
+  [
+   "MDM.forEach(function(m,j){ var X=p.X(j+1), R=reps(m); g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(W<760?MS[m]:MN[m].split(' · ')[0]+' '+MN[m].split(' · ')[1].split(',')[0].replace(' HF/6-31G*','').replace(' katyon',''),X,p.Y(0)+16); g.textAlign='left';",
+   "MDM.forEach(function(m,j){ var X=p.X(j+1), R=reps(m); g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(W<760?MS[m]:MN[m].split(' · ')[0]+' '+MN[m].split(' · ')[1].split(',')[0].replace(' HF/6-31G*','').replace(' cation',''),X,p.Y(0)+16); g.textAlign='left';"
+  ],
+  [
+   "function sbRead(){ var s=MM.sm, C=VDD.cplx; $('jsread').innerHTML=dl('Ölçüt',SMN[s])+MDM.map(function(m){ return dl(MN[m],reps(m).map(function(r){ return r+' '+pctS(C[r][s]); }).join('; ')); }).join('')+dl('Renk','lacivert birinci, turuncu ikinci tekrar; çizgi ortalama'); }",
+   "function sbRead(){ var s=MM.sm, C=VDD.cplx; $('jsread').innerHTML=dl('Measure',SMN[s])+MDM.map(function(m){ return dl(MN[m],reps(m).map(function(r){ return r+' '+pctS(C[r][s]); }).join('; ')); }).join('')+dl('Color','navy first, orange second replica; line is the mean'); }"
+  ],
+  [
+   "if(n>=3){ var t=MDM.map(function(m){ var R=reps(m); return MS[m]+' '+R.map(function(r){ return pctS(C[r].sb); }).join(' / ')+' (çift dişli '+R.map(function(r){ return pctS(C[r].bi); }).join(' / ')+')'; }).join('; ');",
+   "if(n>=3){ var t=MDM.map(function(m){ var R=reps(m); return MS[m]+' '+R.map(function(r){ return pctS(C[r].sb); }).join(' / ')+' (bidentate '+R.map(function(r){ return pctS(C[r].bi); }).join(' / ')+')'; }).join('; ');"
+  ],
+  [
+   "card('jc5',true,'Asp189 tuz köprüsü kare payı: '+t+'. Kristalde iki azot da Asp189\\'a bağlı (çift dişli). '+(function(){ var a=reps('L2a').map(function(r){ return C[r].sb; }), b=reps('L2b').map(function(r){ return C[r].sb; }); return (a.length&&b.length&&arrMax(a)<arrMin(b))?'L2a ile L2b aynı Gasteiger yöntemidir ve yalnız net yükleri farklıdır (0 ve +1); L2a\\'nın iki tekrarı da L2b\\'nin iki tekrarından daha az tuz köprüsü kurdu. ':''; })()+'Nötr amidin (L3) tek bir protonasyon kararının, yük toplamı 0 olan Gasteiger (L2a) ise sessiz bir araç hatasının modelidir; ikisinde de cebin dibindeki eksi yüklü Asp189 ile ligand arasındaki elektrostatik çekim değişir. Model başına iki tekrar ve 450 ps ile bu fark için bir hüküm yazılmadı; daha fazla tekrar ve daha uzun koşu: Bu senaryo hesaplanmadı. Protonasyon kararı ligandın pKa\\'sına ve ortama dayanır, programın varsayılanına değil.'); }",
+   "card('jc5',true,'Fraction of frames with the Asp189 salt bridge: '+t+'. In the crystal both nitrogens bind Asp189 (bidentate). '+(function(){ var a=reps('L2a').map(function(r){ return C[r].sb; }), b=reps('L2b').map(function(r){ return C[r].sb; }); return (a.length&&b.length&&arrMax(a)<arrMin(b))?'L2a and L2b use the same Gasteiger method and differ only in net charge (0 and +1); both replicas of L2a formed the salt bridge less often than both replicas of L2b. ':''; })()+'The neutral amidine (L3) models a single protonation decision, and the Gasteiger model with a charge sum of 0 (L2a) models a silent tool error; in both, the electrostatic attraction between the ligand and the negatively charged Asp189 at the bottom of the pocket changes. With two replicas per model and 450 ps no verdict was written for this difference; more replicas and longer runs: This scenario was not computed. The protonation decision rests on the ligand\\'s pKa and the environment, not on the program default.'); }"
+  ],
+  [
+   "else card('jc5',false,'Şimdiye kadar '+n+' ölçüt; en az üçüne bakın.'); }",
+   "else card('jc5',false,'So far '+n+' measure(s); look at at least three.'); }"
+  ],
+  [
+   "var p=plot(g,48,12,W-62,H-50,[0,90],[0,hi],{ylabPad:34,xticks:[0,15,30,45,60,75,90],yticks:yt,xlab:'büküm (°): 0 düzlemsel, 90 dik',ylab:'kare payı (%)',yfmt:function(v){ return fx(v,0); }});",
+   "var p=plot(g,48,12,W-62,H-50,[0,90],[0,hi],{ylabPad:34,xticks:[0,15,30,45,60,75,90],yticks:yt,xlab:'twist (°): 0 planar, 90 perpendicular',ylab:'fraction of frames (%)',yfmt:function(v){ return fx(v,0); }});"
+  ],
+  [
+   "$('jdleg').innerHTML='<span><i style=\"background:'+hexA(PAL.navy,0.7)+'\"></i>kompleks (iki tekrar)</span><span><i style=\"background:'+hexA(PAL.good,0.8)+'\"></i>suda tek ligand</span><span>'+lin(PAL.accent)+'kesikli: kristal ('+fx(tx,1)+'°)</span>'; }",
+   "$('jdleg').innerHTML='<span><i style=\"background:'+hexA(PAL.navy,0.7)+'\"></i>complex (two replicas)</span><span><i style=\"background:'+hexA(PAL.good,0.8)+'\"></i>single ligand in water</span><span>'+lin(PAL.accent)+'dashed: crystal ('+fx(tx,1)+'°)</span>'; }"
+  ],
+  [
+   "$('jdread').innerHTML=dl('Model',MN[m])+R.map(function(r){ return dl(r+' (kompleks)','ortalama büküm '+fx(VDD.cplx[r].twist_mean,1)+'°'); }).join('')+dl('W_'+m+' (su, 100 ile 1000 ps)','ortalama büküm '+fx(w.twist_mean,1)+'°')+dl('Terim','ca-ca-ce-nv, parmchk2 ceza puanı 237 (benzetme parametresi)'); }",
+   "$('jdread').innerHTML=dl('Model',MN[m])+R.map(function(r){ return dl(r+' (complex)','mean twist '+fx(VDD.cplx[r].twist_mean,1)+'°'); }).join('')+dl('W_'+m+' (water, 100 to 1000 ps)','mean twist '+fx(w.twist_mean,1)+'°')+dl('Term','ca-ca-ce-nv, parmchk2 penalty score 237 (analogy parameter)'); }"
+  ],
+  [
+   "if(n>=2) card('jc6',true,'Ortalama büküm: '+MDM.map(function(m){ return MS[m]+' kompleks '+reps(m).map(function(r){ return fx(VDD.cplx[r].twist_mean,1); }).join(' / ')+'°, su '+fx(VDD.water['W_'+m].twist_mean,1)+'°'; }).join('; ')+'; kristalde '+fx(Math.min(Math.abs(VDD.tau_crystal),180-Math.abs(VDD.tau_crystal)),1)+'°. '+(MDM.every(function(m){ var w=VDD.water['W_'+m].twist_mean; return reps(m).every(function(r){ return VDD.cplx[r].twist_mean<w; }); })?'Her modelde suda ortalama büküm kompleksteki iki tekrardan da büyük: cep, ligandı düzleme daha yakın tutuyor. ':'')+'Bu dağılım, 237 cezalı benzetme parametresinin ve yüklerin birlikte ürettiği bir sonuçtur; terimin kendisi doğrulanmadığı için dağılımın gerçekçi olup olmadığını MD tek başına söyleyemez. Bunu sınamak için kuantum mekaniksel bir torsiyon taraması ya da deneysel bir yapısal ölçüt gerekir: Bu senaryo hesaplanmadı.');",
+   "if(n>=2) card('jc6',true,'Mean twist: '+MDM.map(function(m){ return MS[m]+' complex '+reps(m).map(function(r){ return fx(VDD.cplx[r].twist_mean,1); }).join(' / ')+'°, water '+fx(VDD.water['W_'+m].twist_mean,1)+'°'; }).join('; ')+'; '+fx(Math.min(Math.abs(VDD.tau_crystal),180-Math.abs(VDD.tau_crystal)),1)+'° in the crystal. '+(MDM.every(function(m){ var w=VDD.water['W_'+m].twist_mean; return reps(m).every(function(r){ return VDD.cplx[r].twist_mean<w; }); })?'In every model the mean twist in water is larger than in both complex replicas: the pocket holds the ligand closer to planar. ':'')+'This distribution is a joint product of the analogy parameter with penalty 237 and the charges; since the term itself was not validated, MD alone cannot say whether the distribution is realistic. Testing that needs a quantum mechanical torsion scan or an experimental structural measure: This scenario was not computed.');"
+  ],
+  [
+   "else card('jc6',false,'Şimdiye kadar '+n+' model; en az ikisine bakın.'); }",
+   "else card('jc6',false,'So far '+n+' model(s); look at at least two.'); }"
+  ],
+  [
+   "function sumTab(){ var C=VDD.cplx, h='<table class=\"st\"><thead><tr><th>Koşu</th><th>RMSD (nm)</th><th>Cepte</th><th>0,6 nm</th><th>Asp189</th><th>Çift dişli</th><th>Gly219</th><th>Ser190</th><th>Büküm</th><th>Cα RMSD</th><th>T (K)</th><th>P (bar)</th></tr></thead><tbody>';",
+   "function sumTab(){ var C=VDD.cplx, h='<table class=\"st\"><thead><tr><th>Run</th><th>RMSD (nm)</th><th>In pocket</th><th>0.6 nm</th><th>Asp189</th><th>Bidentate</th><th>Gly219</th><th>Ser190</th><th>Twist</th><th>Cα RMSD</th><th>T (K)</th><th>P (bar)</th></tr></thead><tbody>';"
+  ],
+  [
+   "Object.keys(C).sort().forEach(function(n){ var s=C[n], hh=s.health; h+='<tr><td>'+n+'</td><td>'+fx(s.rmsd_mean,3)+'</td><td>'+pctS(s.in_pocket)+'</td><td>'+(s.first_exit==null?'aşmadı':fx(s.first_exit,0)+' ps')+'</td><td>'+pctS(s.sb)+'</td><td>'+pctS(s.bi)+'</td><td>'+pctS(s.g219)+'</td><td>'+pctS(s.s190)+'</td><td>'+fx(s.twist_mean,1)+'°</td><td>'+fx(s.ca_rmsd,3)+'</td><td>'+fx(hh.T,2)+'</td><td>'+fx(hh.P,1)+(hh.flag?' ⚑':'')+'</td></tr>'; });",
+   "Object.keys(C).sort().forEach(function(n){ var s=C[n], hh=s.health; h+='<tr><td>'+n+'</td><td>'+fx(s.rmsd_mean,3)+'</td><td>'+pctS(s.in_pocket)+'</td><td>'+(s.first_exit==null?'not crossed':fx(s.first_exit,0)+' ps')+'</td><td>'+pctS(s.sb)+'</td><td>'+pctS(s.bi)+'</td><td>'+pctS(s.g219)+'</td><td>'+pctS(s.s190)+'</td><td>'+fx(s.twist_mean,1)+'°</td><td>'+fx(s.ca_rmsd,3)+'</td><td>'+fx(hh.T,2)+'</td><td>'+fx(hh.P,1)+(hh.flag?' ⚑':'')+'</td></tr>'; });"
+  ],
+  [
+   "$('jsum').innerHTML=h+'</tbody></table><p class=\"small\">Pencere 50 ile 500 ps (451 kare). Eksik koşu: '+(VDD.missing.length?VDD.missing.join(', '):'yok')+'. ⚑ sağlık eşiğini aşan koşu.</p>'; }",
+   "$('jsum').innerHTML=h+'</tbody></table><p class=\"small\">Window 50 to 500 ps (451 frames). Missing run: '+(VDD.missing.length?VDD.missing.join(', '):'none')+'. ⚑ run exceeding a health threshold.</p>'; }"
+  ],
+  [
+   "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
+   "function fmtI(n){ return new Intl.NumberFormat('en-US').format(n); }"
+  ],
+  [
+   "/* ===== atölye 4: deneyle karşılaştırma ===== */",
+   "/* ===== workshop 4: comparison with experiment ===== */"
+  ],
+  [
+   "var p=plot(g,padL,10,W-padL-14,H-48,[x0,x1],[0,M.length],{xticks:xt,yticks:[],xlab:narrow?'ΔG (kcal/mol)':'ΔG (kcal/mol); daha negatif daha güçlü bağlanma',xfmt:function(v){ return fmtNum(v); }});",
+   "var p=plot(g,padL,10,W-padL-14,H-48,[x0,x1],[0,M.length],{xticks:xt,yticks:[],xlab:narrow?'ΔG (kcal/mol)':'ΔG (kcal/mol); more negative means stronger binding',xfmt:function(v){ return fmtNum(v); }});"
+  ],
+  [
+   "$('jlleg').innerHTML='<span><i style=\"background:'+hexA(PAL.gold,0.5)+'\"></i>ölçülmüş aralık (ChEMBL Ki, '+fx(e[0],2)+' ile '+fx(e[1],2)+' kcal/mol)</span><span>'+dot(PAL.navy)+'birinci tekrar</span><span>'+dot(PAL.accent)+'ikinci tekrar</span><span>yatay çizgi: blok standart hatası</span><span>dikey çizgi: model ortalaması</span>'; }",
+   "$('jlleg').innerHTML='<span><i style=\"background:'+hexA(PAL.gold,0.5)+'\"></i>measured range (ChEMBL Ki, '+fx(e[0],2)+' to '+fx(e[1],2)+' kcal/mol)</span><span>'+dot(PAL.navy)+'first replica</span><span>'+dot(PAL.accent)+'second replica</span><span>horizontal line: block standard error</span><span>vertical line: model mean</span>'; }"
+  ],
+  [
+   "if(!R.length){ $('jlread').innerHTML=dl('Model',MN[m])+dl('LIE','Bu senaryo hesaplanmadı (eksik koşu)'); return; }",
+   "if(!R.length){ $('jlread').innerHTML=dl('Model',MN[m])+dl('LIE','This scenario was not computed (missing run)'); return; }"
+  ],
+  [
+   "$('jlread').innerHTML=dl('Model',MN[m])+dl('Katsayılar','α '+fx(VDD.x2.alpha,3)+', β '+fx(b,2)+(m==='L3'?' (nötr model; üstteki düğmeyle değiştirilebilir)':(m==='L2a'?' (kimyasal olarak katyon istendiği için; topolojideki toplam 0)':'')))+",
+   "$('jlread').innerHTML=dl('Model',MN[m])+dl('Coefficients','α '+fx(VDD.x2.alpha,3)+', β '+fx(b,2)+(m==='L3'?' (neutral model; can be changed with the button above)':(m==='L2a'?' (because a cation was requested chemically; the total in the topology is 0)':'')))+"
+  ],
+  [
+   "dl('Su (W_'+m+', 100 ile 1000 ps)','⟨V_el⟩ '+fx(w.el,1)+', ⟨V_vdW⟩ '+fx(w.vdw,1)+' kJ/mol')+",
+   "dl('Water (W_'+m+', 100 to 1000 ps)','⟨V_el⟩ '+fx(w.el,1)+', ⟨V_vdW⟩ '+fx(w.vdw,1)+' kJ/mol')+"
+  ],
+  [
+   "R.map(function(n){ var r=VDD.x2.lie[n], bb=(m==='L3'&&EX.b3===0.5)?0.5:r.beta, gel=bb*r.d_el/4.184, gv=VDD.x2.alpha*r.d_vdw/4.184; return dl(n,'⟨V_el⟩ '+fx(r.el,1)+', ⟨V_vdW⟩ '+fx(r.vdw,1)+' kJ/mol; elektrostatik katkı '+fx(gel,2)+', van der Waals katkısı '+fx(gv,2)+'; ΔG '+fx(lieDG(n),2)+' ± '+fx(r.se_block,2)+' kcal/mol'); }).join('')+",
+   "R.map(function(n){ var r=VDD.x2.lie[n], bb=(m==='L3'&&EX.b3===0.5)?0.5:r.beta, gel=bb*r.d_el/4.184, gv=VDD.x2.alpha*r.d_vdw/4.184; return dl(n,'⟨V_el⟩ '+fx(r.el,1)+', ⟨V_vdW⟩ '+fx(r.vdw,1)+' kJ/mol; electrostatic contribution '+fx(gel,2)+', van der Waals contribution '+fx(gv,2)+'; ΔG '+fx(lieDG(n),2)+' ± '+fx(r.se_block,2)+' kcal/mol'); }).join('')+"
+  ],
+  [
+   "dl('Ölçülmüş aralığa uzaklık',fx(lieDist(lieMean(m)),2)+' kcal/mol (model ortalaması '+fx(lieMean(m),2)+')'); }",
+   "dl('Distance from the measured range',fx(lieDist(lieMean(m)),2)+' kcal/mol (model mean '+fx(lieMean(m),2)+')'); }"
+  ],
+  [
+   "function lieTab(){ var X=VDD.x2, h='<table class=\"st\"><thead><tr><th>Koşu</th><th>β</th><th>⟨V_el⟩</th><th>⟨V_vdW⟩</th><th>Δ⟨V_el⟩</th><th>Δ⟨V_vdW⟩</th><th>ΔG</th><th>blok SH</th></tr></thead><tbody>';",
+   "function lieTab(){ var X=VDD.x2, h='<table class=\"st\"><thead><tr><th>Run</th><th>β</th><th>⟨V_el⟩</th><th>⟨V_vdW⟩</th><th>Δ⟨V_el⟩</th><th>Δ⟨V_vdW⟩</th><th>ΔG</th><th>block SE</th></tr></thead><tbody>';"
+  ],
+  [
+   "$('jltab').innerHTML=h+'</tbody></table><p class=\"small\">Enerjiler kJ/mol, ΔG kcal/mol. Kompleks 50 ile 500 ps (451 kare), su 100 ile 1000 ps (901 kare). Terimler gerçek-uzay Coulomb (PME\\'nin ters uzay kısmı gruplara ayrılmaz) ve 1,0 nm kesmeli Lennard-Jones; γ = 0. Blok SH: kompleks penceresinin 5 bloğundan; su ortalamasının belirsizliğini içermez.</p>'; }",
+   "$('jltab').innerHTML=h+'</tbody></table><p class=\"small\">Energies in kJ/mol, ΔG in kcal/mol. Complex 50 to 500 ps (451 frames), water 100 to 1000 ps (901 frames). The terms are real-space Coulomb (the reciprocal-space part of PME is not split into groups) and Lennard-Jones with a 1.0 nm cutoff; γ = 0. Block SE: from 5 blocks of the complex window; it does not include the uncertainty of the water average.</p>'; }"
+  ],
+  [
+   "function lieCard(){ var n=Object.keys(EX.seen).length; if(n<3){ card('jc9',false,'Şimdiye kadar '+n+' model; en az üçüne bakın.'); return; }",
+   "function lieCard(){ var n=Object.keys(EX.seen).length; if(n<3){ card('jc9',false,'So far '+n+' model(s); look at at least three.'); return; }"
+  ],
+  [
+   "card('jc9',true,'LIE kestirimleri (kcal/mol, iki tekrar): '+t+'; ölçülmüş aralık '+fx(e[0],2)+' ile '+fx(e[1],2)+'. '+(inn.length?'Aralığın içine düşen tekrar: '+inn.map(function(m){ return MS[m]; }).join(', ')+'. ':'Hiçbir tekrar aralığın içine düşmedi. ')+'Model ortalaması aralığa en yakın: '+MS[srt[0]]+' ('+fx(lieDist(lieMean(srt[0])),2)+' kcal/mol uzakta), en uzak: '+MS[srt[srt.length-1]]+' ('+fx(lieDist(lieMean(srt[srt.length-1])),2)+'). '+",
+   "card('jc9',true,'LIE estimates (kcal/mol, two replicas): '+t+'; measured range '+fx(e[0],2)+' to '+fx(e[1],2)+'. '+(inn.length?'Replicas falling inside the range: '+inn.map(function(m){ return MS[m]; }).join(', ')+'. ':'No replica fell inside the range. ')+'Model mean closest to the range: '+MS[srt[0]]+' ('+fx(lieDist(lieMean(srt[0])),2)+' kcal/mol away), farthest: '+MS[srt[srt.length-1]]+' ('+fx(lieDist(lieMean(srt[srt.length-1])),2)+'). '+"
+  ],
+  [
+   "(lieDist(lieMean('L2a'))<lieDist(lieMean('L1'))?'Toplam yükü yanlış olan L2a, doğru toplamlı L1\\'den aralığa daha yakın düştü: yakınlık yükün doğruluğunu göstermez. ':'')+",
+   "(lieDist(lieMean('L2a'))<lieDist(lieMean('L1'))?'L2a, whose total charge is wrong, fell closer to the range than L1, whose total is correct: closeness does not show that a charge is correct. ':'')+"
+  ],
+  [
+   "(srt[srt.length-1]==='L4'&&VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L1.rrms?'Gaz fazı ESP\\'yi en iyi üreten RESP (L4) ise aralıktan en uzak düştü: bir ölçütte iyi olmak öbüründe iyi olmayı getirmez. ':'')+",
+   "(srt[srt.length-1]==='L4'&&VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L1.rrms?'RESP (L4), which reproduces the gas-phase ESP best, fell farthest from the range: being good on one criterion does not bring being good on another. ':'')+"
+  ],
+  [
+   "'Bu sayı tek bir ligand için, deneyle karşılaştırılan tek bir değerdir; α ve β başka bir kuvvet alanı ve programla birçok ligand üzerinden kalibre edilmiş katsayılardır, PME\\'nin ters uzay katkısı hesaba girmez ve ortalamalar 450 ile 900 ps\\'liktir. Hangi yükün doğru olduğu buradan seçilmez; bunun için çok sayıda ligandın ölçülmüş değerleriyle karşılaştırma ya da serbest enerji pertürbasyonu gerekir: Bu senaryo hesaplanmadı.'); }",
+   "'This is a single value for a single ligand compared with experiment; α and β are coefficients calibrated over many ligands with another force field and program, the reciprocal-space contribution of PME is not included, and the averages cover 450 and 900 ps. Which charge is correct is not chosen from this; that needs comparison with measured values for many ligands, or free energy perturbation: This scenario was not computed.'); }"
+  ],
+  [
+   "/* --- B-faktörü --- */",
+   "/* --- B-factor --- */"
+  ],
+  [
+   "if(!b){ g.fillStyle=PAL.muted; g.font='13px '+css('--sans'); g.fillText('Bu senaryo hesaplanmadı (eksik koşu).',16,30); return; }",
+   "if(!b){ g.fillStyle=PAL.muted; g.font='13px '+css('--sans'); g.fillText('This scenario was not computed (missing run).',16,30); return; }"
+  ],
+  [
+   "var p=plot(g,52,12,W-66,H-50,[0,hi],[0,hi],{ylabPad:38,xticks:t,yticks:t,xlab:'kristal B, Cα (Å²)',ylab:'MD B, Cα (Å²)'});",
+   "var p=plot(g,52,12,W-66,H-50,[0,hi],[0,hi],{ylabPad:38,xticks:t,yticks:t,xlab:'crystal B, Cα (Å²)',ylab:'MD B, Cα (Å²)'});"
+  ],
+  [
+   "if(!b){ $('jbread2').innerHTML=dl('Koşu',n)+dl('B-faktörü','Bu senaryo hesaplanmadı (eksik koşu)'); return; }",
+   "if(!b){ $('jbread2').innerHTML=dl('Run',n)+dl('B-factor','This scenario was not computed (missing run)'); return; }"
+  ],
+  [
+   "$('jbread2').innerHTML=dl('Koşu',n+' ('+MN[b.model]+')')+dl('Cα (223)','Pearson r '+fx(b.r,3)+'; ortalama B oranı MD / kristal '+fx(b.ratio,2))+dl('Ligand (9 ağır atom)','MD ortalama B '+fx(b.Blm,1)+' Å²; kristal grup B '+fx(X.Bx_lig,2)+' Å² (atom başına karşılaştırma yapılamaz)')+dl('Ligand / cep Cα oranı','MD '+fx(b.lpr,2)+'; kristal '+fx(X.x_lpr,2))+dl('Renk','turuncu: cebin 32 Cα\\'sı; kesikli çizgi B_MD = B_kristal'); }",
+   "$('jbread2').innerHTML=dl('Run',n+' ('+MN[b.model]+')')+dl('Cα (223)','Pearson r '+fx(b.r,3)+'; ratio of mean B, MD / crystal '+fx(b.ratio,2))+dl('Ligand (9 heavy atoms)','MD mean B '+fx(b.Blm,1)+' Å²; crystal group B '+fx(X.Bx_lig,2)+' Å² (no atom-by-atom comparison possible)')+dl('Ligand / pocket Cα ratio','MD '+fx(b.lpr,2)+'; crystal '+fx(X.x_lpr,2))+dl('Color','orange: the 32 Cα of the pocket; dashed line B_MD = B_crystal'); }"
+  ],
+  [
+   "function bfTab(){ var X=VDD.x2, h='<table class=\"st\"><thead><tr><th>Koşu</th><th>r (Cα)</th><th>B oranı (Cα)</th><th>Ligand B (Å²)</th><th>Ligand / cep</th></tr></thead><tbody>';",
+   "function bfTab(){ var X=VDD.x2, h='<table class=\"st\"><thead><tr><th>Run</th><th>r (Cα)</th><th>B ratio (Cα)</th><th>Ligand B (Å²)</th><th>Ligand / pocket</th></tr></thead><tbody>';"
+  ],
+  [
+   "h+='<tr><td><b>Kristal (3PTB)</b></td><td>-</td><td>1</td><td>'+fx(X.Bx_lig,2)+' (grup)</td><td>'+fx(X.x_lpr,2)+'</td></tr>';",
+   "h+='<tr><td><b>Crystal (3PTB)</b></td><td>-</td><td>1</td><td>'+fx(X.Bx_lig,2)+' (group)</td><td>'+fx(X.x_lpr,2)+'</td></tr>';"
+  ],
+  [
+   "$('jbtab').innerHTML=h+'</tbody></table><p class=\"small\">B = (8π²/3)·RMSF², 50 ile 500 ps. Cα: bütün Cα\\'larla kristale hizalama; ligand ve cep: cebin 32 Cα\\'sıyla hizalama. Cep Cα kristal B ortalaması '+fx(X.Bx_pocket,2)+' Å².</p>'; }",
+   "$('jbtab').innerHTML=h+'</tbody></table><p class=\"small\">B = (8π²/3)·RMSF², 50 to 500 ps. Cα: aligned to the crystal with all Cα; ligand and pocket: aligned with the 32 Cα of the pocket. Mean crystal B of the pocket Cα '+fx(X.Bx_pocket,2)+' Å².</p>'; }"
+  ],
+  [
+   "function bfCard(){ var n=Object.keys(EX.seenB).length, X=VDD.x2, K=Object.keys(X.bfac); if(n<3){ card('jc10',false,'Şimdiye kadar '+n+' koşu; en az üçüne bakın.'); return; }",
+   "function bfCard(){ var n=Object.keys(EX.seenB).length, X=VDD.x2, K=Object.keys(X.bfac); if(n<3){ card('jc10',false,'So far '+n+' run(s); look at at least three.'); return; }"
+  ],
+  [
+   "card('jc10',true,'Cα B-faktörü korelasyonu '+K.length+' koşuda r = '+fx(arrMin(rs),2)+' ile '+fx(arrMax(rs),2)+' arasında; MD B ortalaması kristalinkinin '+fx(arrMin(ra),2)+' ile '+fx(arrMax(ra),2)+' katı. Protein dalgalanmasının deseni yük modelinden çok proteinin kendisinden gelir; 450 ps yavaş hareketleri örneklemez ve kristal B örgü düzensizliğini de içerir. Ligandın MD B\\'si '+fx(arrMin(bl),1)+' ile '+fx(arrMax(bl),1)+' Å² arasında, kristalde tek bir grup değeri var ('+fx(X.Bx_lig,2)+'). Ölçekten bağımsız oran (ligand / cep Cα) kristalde '+fx(X.x_lpr,2)+', MD\\'de '+fx(arrMin(lp),2)+' ile '+fx(arrMax(lp),2)+'; en yüksek '+top+' ('+fx(X.bfac[top].lpr,2)+'). Aynı modelin iki tekrarı arasındaki fark da büyük olabilir. B-faktörü yük modelini doğrulamaz; ligandın cepte ne kadar hareketli kaldığını kristalle kaba bir ölçekte karşılaştırır.'); }",
+   "card('jc10',true,'The Cα B-factor correlation over '+K.length+' runs is r = '+fx(arrMin(rs),2)+' to '+fx(arrMax(rs),2)+'; the mean MD B is '+fx(arrMin(ra),2)+' to '+fx(arrMax(ra),2)+' times the crystal value. The pattern of protein fluctuation comes from the protein itself more than from the charge model; 450 ps does not sample slow motions, and the crystal B also contains lattice disorder. The MD B of the ligand lies between '+fx(arrMin(bl),1)+' and '+fx(arrMax(bl),1)+' Å², while the crystal has a single group value ('+fx(X.Bx_lig,2)+'). The scale-free ratio (ligand / pocket Cα) is '+fx(X.x_lpr,2)+' in the crystal and '+fx(arrMin(lp),2)+' to '+fx(arrMax(lp),2)+' in MD; highest '+top+' ('+fx(X.bfac[top].lpr,2)+'). The difference between two replicas of the same model can also be large. A B-factor does not validate a charge model; it compares on a rough scale how mobile the ligand stayed in the pocket with the crystal.'); }"
+  ],
+  [
+   "/* ===== tezgâh: iddia denetleyici ===== */",
+   "/* ===== bench: claim checker ===== */"
+  ],
+  [
+   "var BQ={got:{}}, OPTS=['Bu veriyle kurulabilir','Ek kanıt gerekir','Bu veriyle kurulamaz'];",
+   "var BQ={got:{}}, OPTS=['Can be established with this data','Needs more evidence','Cannot be established with this data'];"
+  ],
+  [
+   "{s:'\"acpype günlüğünde her adım OK görünüyorsa ligandın net yükü istenen değerdedir.\"', a:2, w:'L2a: günlükte \"charge set to 1\" ve her adım OK; yüklerin toplamı '+fmtNet(A.L2a.net)+'. Net yük ancak topoloji dosyasındaki yükler toplanarak denetlenir.'},",
+   "{s:'\"If every step looks OK in the acpype log, the ligand\\'s net charge has the requested value.\"', a:2, w:'L2a: \"charge set to 1\" in the log and every step OK; the charges sum to '+fmtNet(A.L2a.net)+'. The net charge is checked only by summing the charges in the topology file.'},"
+  ],
+  [
+   "{s:'\"AM1-BCC eşdeğer iki amidin azotuna aynı yükü verir.\"', a:2, w:'L1: N1 '+fmtQ(N('L1','N1'))+', N2 '+fmtQ(N('L1','N2'))+'; P2 ve P3 aynı iki değeri verdi. Eşdeğer atomların eşitlenip eşitlenmediği kayda geçirilir.'},",
+   "{s:'\"AM1-BCC gives the same charge to the two equivalent amidine nitrogens.\"', a:2, w:'L1: N1 '+fmtQ(N('L1','N1'))+', N2 '+fmtQ(N('L1','N2'))+'; P2 and P3 gave the same two values. Whether equivalent atoms were made equal is recorded.'},"
+  ],
+  [
+   "{s:'\"Halka-amidin bükümünün GAFF2\\'de kendi parametresi vardır.\"', a:2, w:'parmchk2 ca-ca-ce-nv terimini başka bir atom türü çiftinden kopyaladı (ceza puanı 237).'},",
+   "{s:'\"The ring-amidine twist has its own parameter in GAFF2.\"', a:2, w:'parmchk2 copied the ca-ca-ce-nv term from another atom type pair (penalty score 237).'},"
+  ],
+  [
+   "{s:'\"Kristal pozdan başlayan iki 0,5 ns\\'lik koşuda L1 ligandı cepte kaldı.\"', a:stay?0:2, w:'L1 tekrarları: cepte '+r1.map(function(r){ return pctS(C[r].in_pocket); }).join(' / ')+', 0,6 nm '+r1.map(function(r){ return C[r].first_exit==null?'aşılmadı':'aşıldı ('+fx(C[r].first_exit,0)+' ps)'; }).join(' / ')+'. '+(stay?'Cümle bu iki tekrar ve bu süre için kurulabilir; daha uzun süre ya da başka koşullar için ayrıca gösterilmesi gerekir.':'Tekrarlardan en az birinde ligand cepte kalmadı.')},",
+   "{s:'\"In two 0.5 ns runs starting from the crystal pose, the L1 ligand stayed in the pocket.\"', a:stay?0:2, w:'L1 replicas: in pocket '+r1.map(function(r){ return pctS(C[r].in_pocket); }).join(' / ')+', 0.6 nm '+r1.map(function(r){ return C[r].first_exit==null?'not crossed':'crossed ('+fx(C[r].first_exit,0)+' ps)'; }).join(' / ')+'. '+(stay?'The sentence can be established for these two replicas and this length of time; longer times or other conditions need to be shown separately.':'In at least one replica the ligand did not stay in the pocket.')},"
+  ],
+  [
+   "{s:'\"Bu koşular nötr amidinin tripsine daha zayıf bağlandığını gösterir.\"', a:2, w:'Bağlanma serbest enerjisi hesaplanmadı; 450 ps\\'lik iki tekrar temas paylarını betimler (L3 tuz köprüsü '+reps('L3').map(function(r){ return pctS(C[r].sb); }).join(' / ')+'), bağlanma gücünü ölçmez. Atölye 4\\'teki LIE kestirimi L3 için daha az negatif çıktı, ama katsayıları başka bir kuvvet alanıyla kalibre edildi ve nötr modelde β farklıdır; bu kestirim bir kanıt yerine geçmez.'},",
+   "{s:'\"These runs show that the neutral amidine binds trypsin more weakly.\"', a:2, w:'No binding free energy was computed; two 450 ps replicas describe contact fractions (L3 salt bridge '+reps('L3').map(function(r){ return pctS(C[r].sb); }).join(' / ')+'), they do not measure binding strength. The LIE estimate in workshop 4 came out less negative for L3, but its coefficients were calibrated with another force field and β differs for the neutral model; this estimate is no substitute for evidence.'},"
+  ],
+  [
+   "{s:'\"LIE kestirimi ölçülmüş ΔG aralığına en yakın düşen model, yükleri en doğru olan modeldir.\"', a:2, w:'Yakınlık sırası: '+MDM.filter(function(m){ return lieRuns(m).length; }).slice().sort(function(a,b){ return lieDist(lieMean(a))-lieDist(lieMean(b)); }).map(function(m){ return MS[m]+' '+fx(lieDist(lieMean(m)),2); }).join(', ')+' kcal/mol. α ve β başka bir kuvvet alanıyla kalibre edilmiş katsayılardır, tek bir ligandın tek bir ölçülmüş değeri vardır ve yakınlık katsayılarla, ters uzay katkısının eksikliğiyle ve örneklemeyle birlikte değişir. '+(lieDist(lieMean('L2a'))<lieDist(lieMean('L1'))?'Toplam yükü yanlış olan L2a, L1\\'den aralığa daha yakın düştü. ':'')+'Bu cümle bu veriyle kurulamaz.'},",
+   "{s:'\"The model whose LIE estimate falls closest to the measured ΔG range is the model with the most correct charges.\"', a:2, w:'Order of closeness: '+MDM.filter(function(m){ return lieRuns(m).length; }).slice().sort(function(a,b){ return lieDist(lieMean(a))-lieDist(lieMean(b)); }).map(function(m){ return MS[m]+' '+fx(lieDist(lieMean(m)),2); }).join(', ')+' kcal/mol. α and β are coefficients calibrated with another force field, a single ligand has a single measured value, and the closeness changes with the coefficients, with the missing reciprocal-space contribution and with sampling. '+(lieDist(lieMean('L2a'))<lieDist(lieMean('L1'))?'L2a, whose total charge is wrong, fell closer to the range than L1. ':'')+'This sentence cannot be established with this data.'},"
+  ],
+  [
+   "{s:'\"Bu molekülde RESP yükleri gaz fazı HF/6-31G* potansiyelini AM1-BCC ve Espaloma yüklerinden daha iyi üretir.\"', a:(VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L1.rrms&&VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L5.rrms)?0:2, w:'ESP RRMS: L4 '+fx(VDD.x2.rrms.L4.rrms,3)+', L1 '+fx(VDD.x2.rrms.L1.rrms,3)+', L5 '+fx(VDD.x2.rrms.L5.rrms,3)+' (aynı 5778 nokta, aynı optimize yapı). Cümle bu molekül, bu yapı ve bu ölçü için kurulabilir; RESP yükleri tam bu potansiyele uydurulduğu için sonuç beklenendir ve sudaki ya da cepteki doğruluk hakkında bir şey söylemez.'},",
+   "{s:'\"For this molecule, RESP charges reproduce the gas-phase HF/6-31G* potential better than AM1-BCC and Espaloma charges.\"', a:(VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L1.rrms&&VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L5.rrms)?0:2, w:'ESP RRMS: L4 '+fx(VDD.x2.rrms.L4.rrms,3)+', L1 '+fx(VDD.x2.rrms.L1.rrms,3)+', L5 '+fx(VDD.x2.rrms.L5.rrms,3)+' (the same 5778 points, the same optimized structure). The sentence can be established for this molecule, this structure and this measure; since the RESP charges were fitted to exactly this potential the result is expected, and it says nothing about accuracy in water or in the pocket.'},"
+  ],
+  [
+   "{s:'\"GAFF2 ile amber99sb-ildn aynı topolojide kullanılabilir, çünkü atom türü adları çakışmıyor.\"', a:1, w:'Adlar birebir çakışmıyor, ama yalnız büyük-küçük harfle ayrılan türler var ('+A.L1.case_clash.join(', ')+' ile '+A.L1.case_clash.map(function(t){ return t.toUpperCase(); }).join(', ')+'); GROMACS bunları ayrı türler sayar. Ad çakışmaması gerekli ama yeterli değildir: birleştirme kuralı, 1-4 ölçekleri ve iki kuvvet alanının birlikte doğrulanmış olması ayrıca denetlenir.'}",
+   "{s:'\"GAFF2 and amber99sb-ildn can be used in the same topology because their atom type names do not clash.\"', a:1, w:'The names do not clash exactly, but some types differ only in letter case ('+A.L1.case_clash.join(', ')+' versus '+A.L1.case_clash.map(function(t){ return t.toUpperCase(); }).join(', ')+'); GROMACS treats them as separate types. No name clash is necessary but not sufficient: the combination rule, the 1-4 scaling and whether the two force fields were validated together are checked separately.'}"
+  ],
+  [
+   "var fb=$('jcl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
+   "var fb=$('jcl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+q.w;"
+  ],
+  [
+   "if(n>=4) card('jc7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Ligand parametresi bir dosya değil, bir karar zinciridir: başlangıç yapısı, protonasyon, atom türleri, yük yöntemi, net yük, eşdeğer atomlar ve benzetme parametreleri. Her halka kayda geçirilir; ceza puanı yüksek ya da sonucun bağlı olduğu bir terim varsa uzman görüşü ya da doğrulama hesabı gerekir.');",
+   "if(n>=4) card('jc7',true,'Of the '+n+' sentences you decided on, your first choice was correct in '+nLoc(r)+'. A ligand parameter set is not a file but a chain of decisions: starting structure, protonation, atom types, charge method, net charge, equivalent atoms and analogy parameters. Each link is recorded; if a penalty score is high or the result depends on a term, an expert opinion or a validation calculation is needed.');"
+  ],
+  [
+   "else card('jc7',false,'Şimdiye kadar '+n+' cümle; en az dördüne karar verin.'); }); }); }",
+   "else card('jc7',false,'So far '+n+' sentence(s); decide on at least four.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: ligand parametre kökeni kaydı ===== */",
+   "/* ===== notebook: ligand parameter provenance record ===== */"
+  ],
+  [
+   "function jfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }",
+   "function jfBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }"
+  ],
+  [
+   "var L=['LİGAND PARAMETRE KÖKENİ KAYDI (MD-LIG taslağı)','Başlangıç yapısı ve hidrojenler: '+v('jfS'),'Protonasyon ve gerekçesi: '+v('jfP'),'Atom türleri, yük yöntemi, araç sürümü: '+v('jfQ'),'Net yük denetimi: '+v('jfN'),'Eşdeğer atomlar: '+v('jfE'),'Benzetme parametreleri ve ceza puanları: '+v('jfT'),'Protein kuvvet alanıyla uyum: '+v('jfF')];",
+   "var L=['LIGAND PARAMETER PROVENANCE RECORD (MD-LIG draft)','Starting structure and hydrogens: '+v('jfS'),'Protonation and its justification: '+v('jfP'),'Atom types, charge method, tool version: '+v('jfQ'),'Net charge check: '+v('jfN'),'Equivalent atoms: '+v('jfE'),'Analogy parameters and penalty scores: '+v('jfT'),'Compatibility with the protein force field: '+v('jfF')];"
+  ],
+  [
+   "if(!/pdb|kristal|yapı|smiles|konformer/.test(s)) wr.push('Başlangıç yapısının kaynağı yazılmamış.');",
+   "if(!/pdb|crystal|structure|smiles|conformer/.test(s)) wr.push('The source of the starting structure is not written.');"
+  ],
+  [
+   "if(!/pka|ph|gerekçe|kaynak/.test(p)) wr.push('Protonasyonun gerekçesi (pKa, pH, kaynak) yazılmamış; programın varsayılanı bir gerekçe değildir.');",
+   "if(!/pka|ph|justif|source|reason/.test(p)) wr.push('The justification for the protonation (pKa, pH, source) is not written; the program default is not a justification.');"
+  ],
+  [
+   "if(!/\\d/.test(q)) wr.push('Araç sürümü yazılmamış; aynı komut farklı sürümlerde farklı parametre verebilir.');",
+   "if(!/\\d/.test(q)) wr.push('The tool version is not written; the same command can give different parameters in different versions.');"
+  ],
+  [
+   "if(!/toplam|tpr|itp|sum/.test(n)) wr.push('Net yük, topoloji dosyasındaki yükler toplanarak denetlenmemiş (L2a vakası).');",
+   "if(!/total|tpr|itp|sum/.test(n)) wr.push('The net charge was not checked by summing the charges in the topology file (the L2a case).');"
+  ],
+  [
+   "if(!/eşdeğer|simetri|eşit|azot/.test(e)) wr.push('Eşdeğer atomların yükleri denetlenmemiş.');",
+   "if(!/equivalen|symmetr|equal|nitrogen/.test(e)) wr.push('The charges of equivalent atoms were not checked.');"
+  ],
+  [
+   "if(!/ceza|penalty|frcmod|doğrula/.test(t)) wr.push('Benzetme parametreleri ve ceza puanları yazılmamış.');",
+   "if(!/penalty|frcmod|validat/.test(t)) wr.push('Analogy parameters and penalty scores are not written.');"
+  ],
+  [
+   "if(!/kural|1-4|birleştir|fudge|uyum/.test(f)) wr.push('Protein ve ligand kuvvet alanlarının uyumu (birleştirme kuralı, 1-4 ölçekleri) yazılmamış.');",
+   "if(!/rule|1-4|combin|fudge|compat/.test(f)) wr.push('Compatibility of the protein and ligand force fields (combination rule, 1-4 scaling) is not written.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(x){ L.push('- '+x); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to address:'); wr.forEach(function(x){ L.push('- '+x); }); }"
+  ],
+  [
+   "$('jfcopy').onclick=function(){ var t=$('jfout').textContent, m=$('jfmsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('jfcopy').onclick=function(){ var t=$('jfout').textContent, m=$('jfmsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'Bir ligand topolojisinin net yükü en güvenilir nasıl denetlenir?',",
+   "Q.push({s:'What is the most reliable way to check the net charge of a ligand topology?',"
+  ],
+  [
+   "o:[['Parametre programının günlüğünde \"OK\" yazıp yazmadığına bakarak',0],['itp\\'deki kısmi yükleri toplayıp istenen değerle, ayrıca tpr\\'deki toplamla karşılaştırarak',1],['grompp uyarı vermediyse yük doğrudur',0]], w:'L2a\\'da günlük \"charge set to 1\" dedi, toplam '+fmtNet(A.L2a.net)+' çıktı; genion kompleksi '+G.L2a.cl+' Cl⁻ ile nötrleştirdi ve grompp uyarmadı.'});",
+   "o:[['By checking whether the parameter program\\'s log says \"OK\"',0],['By summing the partial charges in the itp and comparing with the requested value, and also with the total in the tpr',1],['If grompp gave no warning, the charge is correct',0]], w:'In L2a the log said \"charge set to 1\" and the total came out as '+fmtNet(A.L2a.net)+'; genion neutralized the complex with '+G.L2a.cl+' Cl⁻ and grompp did not warn.'});"
+  ],
+  [
+   "Q.push({s:'parmchk2 bir dihedral için \"penalty score=237\" yazdı. Bu ne demektir?',",
+   "Q.push({s:'parmchk2 wrote \"penalty score=237\" for a dihedral. What does this mean?',"
+  ],
+  [
+   "o:[['Terim hatalıdır, koşu çalışmaz',0],['Terim GAFF2\\'de yok; parmchk2 benzer bir terimi kopyaladı ve benzetmenin zayıf olduğunu puanla bildiriyor',1],['Terimin enerjisi 237 kJ/mol\\'dür',0]], w:'Program çalışır ve uyarı vermez; puan yalnız frcmod dosyasında yazar. Sonuç bu terime bağlıysa doğrulama (örneğin kuantum mekaniksel torsiyon taraması) ya da uzman görüşü gerekir.'});",
+   "o:[['The term is wrong and the run will not work',0],['The term is not in GAFF2; parmchk2 copied a similar term and reports with a score that the analogy is weak',1],['The energy of the term is 237 kJ/mol',0]], w:'The program runs and gives no warning; the score is written only in the frcmod file. If the result depends on this term, validation (for example a quantum mechanical torsion scan) or an expert opinion is needed.'});"
+  ],
+  [
+   "Q.push({s:'AM1-BCC ile birbirinin eşdeğeri iki amidin azotu '+fmtQ(N('L1','N1'))+' ve '+fmtQ(N('L1','N2'))+' aldı. Ne yapılır?',",
+   "Q.push({s:'With AM1-BCC the two mutually equivalent amidine nitrogens got '+fmtQ(N('L1','N1'))+' and '+fmtQ(N('L1','N2'))+'. What is done?',"
+  ],
+  [
+   "o:[['Hiçbir şey; program her zaman doğrudur',0],['Durum kayda geçirilir; eşdeğer atomların yükleri gerekçesiyle eşitlenir ya da olduğu gibi kullanıldığı yazılır',1],['Gasteiger yüklerine geçilir, çünkü azotları eşit veriyor',0]], w:'Gasteiger azotları eşit verdi ama L2a\\'da toplam yük yanlıştı; bir yöntemin bir özelliği doğru diye bütünü doğru olmaz. Bu sayfada AM1-BCC yükleri olduğu gibi kullanıldı ve bu yazıldı.'});",
+   "o:[['Nothing; the program is always right',0],['The situation is recorded; the charges of equivalent atoms are made equal with a justification, or it is written that they were used as is',1],['Switch to Gasteiger charges, because they give equal nitrogens',0]], w:'Gasteiger gave equal nitrogens, but in L2a the total charge was wrong; one correct feature of a method does not make the whole correct. On this page the AM1-BCC charges were used as is, and this was written down.'});"
+  ],
+  [
+   "Q.push({s:'Ligandın protonasyon durumu neye göre seçilir?',",
+   "Q.push({s:'How is the protonation state of a ligand chosen?',"
+  ],
+  [
+   "o:[['Parametre programının varsayılanına göre',0],['Ligandın pKa değerine ve ortamın pH\\'ına göre; seçim ve kaynağı kayda geçirilir',1],['Hangisi daha kararlı bir koşu verirse ona göre',0]], w:'Bu sayfada katyon (L1) ile nötr amidin (L3) aynı kristal pozdan koşuldu; protonasyon seçimi cepteki elektrostatik etkileşimi doğrudan değiştirir. Sonuca bakıp model seçmek, sonucu modele yazdırmaktır.'});",
+   "o:[['By the parameter program\\'s default',0],['By the ligand\\'s pKa and the pH of the environment; the choice and its source are recorded',1],['By whichever gives a more stable run',0]], w:'On this page the cation (L1) and the neutral amidine (L3) were run from the same crystal pose; the protonation choice directly changes the electrostatic interaction in the pocket. Choosing a model after looking at the result means letting the result write the model.'});"
+  ],
+  [
+   "Q.push({s:'Kristal pozdan başlayan 0,5 ns\\'lik iki koşuda ligand cepte kaldı. Bu neyi gösterir?',",
+   "Q.push({s:'In two 0.5 ns runs starting from the crystal pose the ligand stayed in the pocket. What does this show?',"
+  ],
+  [
+   "o:[['Bağlanma serbest enerjisinin deneyle uyumlu olduğunu',0],['Bu parametrelerle kristal pozun ve temasların bu süre içinde korunduğunu; bağlanma gücünü değil',1],['Ligandın başka bir pozda bağlanmadığını',0]], w:'ChEMBL Ki değerleri ΔG\\'yi yaklaşık −6,0 ile −6,5 kcal/mol arasına koyar; bu sayfada ΔG bir serbest enerji yöntemiyle hesaplanmadı (atölye 4\\'teki LIE kalibre katsayılı bir kestirimdir).'});",
+   "o:[['That the binding free energy agrees with experiment',0],['That with these parameters the crystal pose and the contacts were kept over this time; not the binding strength',1],['That the ligand does not bind in another pose',0]], w:'The ChEMBL Ki values place ΔG at about −6.0 to −6.5 kcal/mol; on this page ΔG was not computed with a free energy method (the LIE in workshop 4 is an estimate with calibrated coefficients).'});"
+  ],
+  [
+   "Q.push({s:'GAFF2 ligand ile amber99sb-ildn protein aynı topolojide birleştirilirken neye bakılır?',",
+   "Q.push({s:'What is checked when a GAFF2 ligand and an amber99sb-ildn protein are combined in the same topology?',"
+  ],
+  [
+   "o:[['Yalnız dosyaların aynı klasörde olmasına',0],['Atom türü adlarının çakışmamasına (büyük-küçük harf dahil), birleştirme kuralının ve 1-4 ölçeklerinin aynı olmasına',1],['Ligandın atom sayısının proteinden az olmasına',0]], w:'GAFF2 türleri küçük harfle (ca, ha), AMBER türleri büyük harfle (CA, HA) yazılır; GROMACS bunları ayrı türler sayar. İki kuvvet alanı da Lorentz-Berthelot birleştirmesi ve 0,5 / 0,8333 1-4 ölçekleri kullanır.'});",
+   "o:[['Only that the files are in the same folder',0],['That atom type names do not clash (including letter case), and that the combination rule and the 1-4 scaling are the same',1],['That the ligand has fewer atoms than the protein',0]], w:'GAFF2 types are written in lower case (ca, ha), AMBER types in upper case (CA, HA); GROMACS treats them as separate types. Both force fields use Lorentz-Berthelot combination and 0.5 / 0.8333 1-4 scaling.'});"
+  ],
+  [
+   "Q.push({s:'LIE denklemindeki α ve β katsayıları nereden gelir?',",
+   "Q.push({s:'Where do the α and β coefficients in the LIE equation come from?',"
+  ],
+  [
+   "o:[['Kuvvet alanının ilk ilkelerinden türetilir',0],['Bir dizi ligandın ölçülmüş bağlanma enerjilerine kalibre edilir; kuvvet alanına ve protokole bağlıdır',1],['Her koşuda ligand için yeniden hesaplanır',0]], w:'Bu sayfada α 0,181 ve β 0,5 (nötr model için 0,43) kullanıldı (Hansson, Marelius, Åqvist 1998). Katsayılar başka bir kuvvet alanı ve programla kalibre edildiği için tek bir ligandda deneyle uyum ya da uyumsuzluk, yük modelinin doğruluğunu tek başına göstermez.'});",
+   "o:[['They are derived from first principles of the force field',0],['They are calibrated to the measured binding energies of a set of ligands; they depend on the force field and the protocol',1],['They are recomputed for the ligand in every run',0]], w:'On this page α 0.181 and β 0.5 (0.43 for the neutral model) were used (Hansson, Marelius, Åqvist 1998). Because the coefficients were calibrated with another force field and program, agreement or disagreement with experiment for a single ligand does not by itself show whether a charge model is correct.'});"
+  ],
+  [
+   "Q.push({s:'3PTB\\'de benzamidinin dokuz ağır atomunun B değeri aynı ('+fx(VDD.x2.Bx_lig,2)+' Å²). Bu ne demektir?',",
+   "Q.push({s:'In 3PTB the nine heavy atoms of benzamidine have the same B value ('+fx(VDD.x2.Bx_lig,2)+' Å²). What does this mean?',"
+  ],
+  [
+   "o:[['Ligand kristalde hiç hareket etmiyor',0],['İnceltmede ligand için tek bir grup B değeri kullanılmış; atom başına dalgalanma bu veriden okunamaz',1],['MD ile atom başına güçlü bir korelasyon beklenir',0]], w:'Aynı yapıda protein Cα atomlarının B değerleri ayrı ayrı inceltilmiş (223 Cα\\'da 207 farklı değer). Bu yüzden ligand için yalnız ortalama ve ligand / cep oranı karşılaştırıldı; korelasyon Cα atomlarında hesaplandı.'});",
+   "o:[['The ligand does not move at all in the crystal',0],['A single group B value was used for the ligand in refinement; per-atom fluctuation cannot be read from this data',1],['A strong per-atom correlation with MD is expected',0]], w:'In the same structure the B values of the protein Cα atoms were refined individually (207 different values for 223 Cα). So for the ligand only the mean and the ligand / pocket ratio were compared; the correlation was computed for the Cα atoms.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('jnotice').innerHTML='<p><b>Veri.</b> Sığır β-tripsini ve benzamidin, PDB 3PTB (Marquart M, Walter J, Deisenhofer J, Bode W, Huber R 1983, Acta Crystallographica B 39:480; 1,7 Å); zincir A (223 kalıntı, kimotripsin numaralaması, 184A, 188A ve 221A ekleme kodlarıyla), kristaldeki Ca²⁺ korundu, kristal suları kullanılmadı. Protein amber99sb-ildn (pdb2gmx; His40 ve His57 HISD, His91 HISE; 6 disülfit köprüsü), su TIP3P, 0,15 M NaCl, onikiyüzlü kutu -d 1,0 nm. Ligand: kristaldeki dokuz ağır atom, hidrojenler RDKit ile; acpype 2023.10.27 (Sousa da Silva ve Vranken 2012, BMC Research Notes 5:367) ile GAFF2 atom türleri, AM1-BCC (Jakalian, Jack, Bayly 2002, J Comput Chem 23:1623, doi 10.1002/jcc.10128) ya da Gasteiger yükleri; L2b\\'de Gasteiger yükleri RDKit ile. Protokol: minimizasyon, NVT 50 ps ve NPT 50 ps konum kısıtlı, üretim NPT 500 ps (su koşularında 1 ns), 300 K, 1 bar, 2 fs; model başına '+reps('L1').length+' tekrar. GROMACS 2023.3; hiçbir adımda -maxwarn kullanılmadı. Ölçülmüş Ki değerleri: ChEMBL (benzamidin CHEMBL20936, sığır tripsini CHEMBL3769; DK-T ile aynı kayıtlar).</p>'+",
+   "$('jnotice').innerHTML='<p><b>Data.</b> Bovine β-trypsin and benzamidine, PDB 3PTB (Marquart M, Walter J, Deisenhofer J, Bode W, Huber R 1983, Acta Crystallographica B 39:480; 1.7 Å); chain A (223 residues, chymotrypsin numbering, with insertion codes 184A, 188A and 221A), the crystal Ca²⁺ kept, crystal waters not used. Protein amber99sb-ildn (pdb2gmx; His40 and His57 HISD, His91 HISE; 6 disulfide bridges), water TIP3P, 0.15 M NaCl, dodecahedral box -d 1.0 nm. Ligand: the nine heavy atoms in the crystal, hydrogens with RDKit; GAFF2 atom types with acpype 2023.10.27 (Sousa da Silva and Vranken 2012, BMC Research Notes 5:367), AM1-BCC (Jakalian, Jack, Bayly 2002, J Comput Chem 23:1623, doi 10.1002/jcc.10128) or Gasteiger charges; in L2b the Gasteiger charges from RDKit. Protocol: minimization, NVT 50 ps and NPT 50 ps with position restraints, production NPT 500 ps (1 ns in the water runs), 300 K, 1 bar, 2 fs; '+reps('L1').length+' replicas per model. GROMACS 2023.3; -maxwarn was not used at any step. Measured Ki values: ChEMBL (benzamidine CHEMBL20936, bovine trypsin CHEMBL3769; the same records as in DK-T).</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Koşu ve analiz planı koşulardan ve hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…). Pencere 50 ile 500 ps; her kare cebin 32 Cα atomuyla kristale hizalandı; temas eşiği 0,32 nm. Model başına iki tekrar olduğu için istatistik test ve hüküm yazılmadı. Bağımsız denetim: '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'.'+(m.deviations.length?' Plandan sapmalar: '+m.deviations.join(' '):' Plandan sapma yok.')+' Teknik denemede acpype ile gelen sqm ve teLeap için eksik paylaşılan kütüphaneler eklendi; acpype\\'ın Gasteiger seçeneğinin net yükü sessizce 0 yaptığı da bu denemede görüldü ve L2a ile L2b modelleri proje sahibinin kararıyla plana alındı.</p>'+",
+   "'<p><b>Analysis.</b> The run and analysis plan was written and frozen before the runs and calculations (SHA-256 '+m.plan_sha.slice(0,12)+'…). Window 50 to 500 ps; each frame aligned to the crystal with the 32 Cα atoms of the pocket; contact threshold 0.32 nm. With two replicas per model no statistical test or verdict was written. Independent check: '+nPoss(String(m.audit_ok))+' of '+m.audit_n+' comparisons passed thresholds written in advance'+(m.audit_fail.length?'; failed: '+m.audit_fail.length:'')+'.'+(m.deviations.length?' Deviations from the plan: the cloud environment restarted once; C_L1_2 and C_L3_2, in production at that time, were continued from their checkpoints as the plan required.':' No deviations from the plan.')+' In the technical trial, missing shared libraries were added for the sqm and teLeap shipped with acpype; the trial also showed that acpype\\'s Gasteiger option silently set the net charge to 0, and the L2a and L2b models were added to the plan by decision of the project owner.</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Tek bir ligand, tek kristal poz, model başına iki kısa tekrar. Mutlak ya da göreli bağlanma serbest enerjisi (FEP, MM/PBSA), kuantum mekaniksel torsiyon taraması, ABCG2 ve OpenFF NAGL yükleri (bu ortamda kurulamadı), L3 için kuantum ESP, çok konformerli RESP, AM1-BCC yüklerinde eşdeğer azotların simetrileştirilmesi, polarize edilebilir kuvvet alanı, Espaloma\\'nın bağlı terimleri, başka atom türü setleri, histidin protonasyon seçenekleri, kristal sularıyla ya da Ca²⁺ olmadan koşu, daha uzun koşular: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> A single ligand, a single crystal pose, two short replicas per model. Absolute or relative binding free energy (FEP, MM/PBSA), a quantum mechanical torsion scan, ABCG2 and OpenFF NAGL charges (could not be installed in this environment), quantum ESP for L3, multi-conformer RESP, symmetrizing the equivalent nitrogens in the AM1-BCC charges, a polarizable force field, Espaloma\\'s bonded terms, other atom type sets, histidine protonation alternatives, runs with crystal waters or without Ca²⁺, longer runs: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "function notice2(){ var x=VDD.x2.meta, F={}; x.audit_fail.forEach(function(n){ var k=n.split(': ').slice(1).join(': '); F[k]=(F[k]||0)+1; });",
+   "function notice2(){ var x=VDD.x2.meta, F={}; x.audit_fail.forEach(function(n){ var k=/gmx lie/.test(n)?'the gmx lie comparison':'other'; F[k]=(F[k]||0)+1; });"
+  ],
+  [
+   "var fl=Object.keys(F).map(function(k){ return k+' ('+F[k]+' koşu)'; });",
+   "var fl=Object.keys(F).map(function(k){ return k+' ('+F[k]+' runs)'; });"
+  ],
+  [
+   "return '<p><b>Ek (LIGGRID2, 7 Ekim 2026).</b> İki yeni yük modeli: L4 RESP HF/6-31G* (PySCF 2.14.0 ve pyberny; gaz fazı optimizasyonu, Merz-Kollman ızgarası '+fmtI(x.resp.n)+' nokta, tek aşama, a = 0,0005, b = 0,1; Bayly, Cieplak, Cornell, Kollman 1993, J Phys Chem 97:10269) ve L5 EspalomaCharge 0.0.8 (Wang ve ark. 2024, J Phys Chem A 128:4160, doi 10.1021/acs.jpca.4c01287; toplam yük açıkça +1). İkisi de L1 topolojisine yalnız yükleri değiştirilerek konuldu ve L1 ile aynı başlangıç sisteminden aynı protokolle koşuldu. LIE: gmx mdrun -rerun ile ligand ve sistemin geri kalanı arasındaki gerçek-uzay Coulomb ve Lennard-Jones enerjileri; α 0,181, β 0,5 (nötr L3 için 0,43; Hansson, Marelius, Åqvist 1998, J Comput Aided Mol Des 12:27, doi 10.1023/a:1007930623000; makalenin tam metni bu çalışmada okunamadı, 0,43 değeri ikincil bilgiye dayanır), γ = 0; ölçülmüş aralık ChEMBL Ki değerlerinden. Kristal B-faktörleri 3PTB\\'den; B = (8π²/3)·RMSF². Ek plan da koşulardan önce yazılıp donduruldu (SHA-256 '+x.plan_sha.slice(0,12)+'…). Bağımsız denetim: planlı '+x.audit_n+' karşılaştırmadan '+nPoss(String(x.audit_ok))+' eşikle geçti'+(fl.length?'; geçmeyen: '+fl.join('; '):'')+'. Plan dışı ek denetim: '+x.extra_n+' karşılaştırmadan '+nPoss(String(x.extra_ok))+' geçti.'+(x.deviations.length?' Plandan sapmalar: '+x.deviations.join(' '):' Plandan sapma yok.')+'</p>'; }",
+   "return '<p><b>Addendum (LIGGRID2, 7 October 2026).</b> Two new charge models: L4 RESP HF/6-31G* (PySCF 2.14.0 and pyberny; gas-phase optimization, Merz-Kollman grid of '+fmtI(x.resp.n)+' points, single stage, a = 0.0005, b = 0.1; Bayly, Cieplak, Cornell, Kollman 1993, J Phys Chem 97:10269) and L5 EspalomaCharge 0.0.8 (Wang et al. 2024, J Phys Chem A 128:4160, doi 10.1021/acs.jpca.4c01287; total charge +1 given explicitly). Both were placed in the L1 topology with only the charges changed and run from the same starting system as L1 with the same protocol. LIE: real-space Coulomb and Lennard-Jones energies between the ligand and the rest of the system from gmx mdrun -rerun; α 0.181, β 0.5 (0.43 for the neutral L3; Hansson, Marelius, Åqvist 1998, J Comput Aided Mol Des 12:27, doi 10.1023/a:1007930623000; the full text of the paper could not be read in this work, and the value 0.43 rests on secondary information), γ = 0; the measured range from the ChEMBL Ki values. Crystal B-factors from 3PTB; B = (8π²/3)·RMSF². The addendum plan was also written and frozen before the runs (SHA-256 '+x.plan_sha.slice(0,12)+'…). Independent check: '+nPoss(String(x.audit_ok))+' of '+x.audit_n+' planned comparisons passed their thresholds'+(fl.length?'; failed: '+fl.join('; '):'')+'. Extra check outside the plan: '+nPoss(String(x.extra_ok))+' of '+x.extra_n+' passed.'+(x.deviations.length?' Deviations from the plan: the planned gmx lie check failed because gmx lie also sums the energy-group 1-4 terms, and in these edr files GROMACS 2023.3 labels the 1-4 energies of the rest of the system as a ligand-environment term; the real-space terms were verified by a direct calculation, and ΔG was rebuilt from gmx energy averages in an extra check outside the plan. An index file error in the RMSF check script was seen on the first try and fixed; the analysis and the threshold did not change.':' No deviations from the plan.')+'</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('jwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('jwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('jscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('jscore').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start-up ---------- */"
+  ],
+  [
+   "['jc0','jc1','jc2','jc3','jc4','jc5','jc6','jc7','jc8','jc9','jc10'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "['jc0','jc1','jc2','jc3','jc4','jc5','jc6','jc7','jc8','jc9','jc10'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDLIG={RUN:RUN,WAT:WAT,PA:PA,MM:MM,BQ:BQ,FOUND:FOUND,twistOf:twistOf,dG:dG,NG:NG,EX:EX,BCA:BCA,lieDG:lieDG,lieMean:lieMean,MDM:MDM,BX:BX}; /* sınama için */",
+   "window.MDLIG={RUN:RUN,WAT:WAT,PA:PA,MM:MM,BQ:BQ,FOUND:FOUND,twistOf:twistOf,dG:dG,NG:NG,EX:EX,BCA:BCA,lieDG:lieDG,lieMean:lieMean,MDM:MDM,BX:BX}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "<span>Model:</span>",
+  "\"charge set to 1\"",
+  "Ligand RMSD",
+  "Model",
+  "ΔG = RT ln Ki (kcal/mol, 25 °C)",
+  "kcal/mol (",
+  "kcal/mol",
+  "L2a · Gasteiger, acpype",
+  "L2b · Gasteiger, RDKit",
+  "L5 · Espaloma",
+  "<table class=\"st\"><thead><tr><th>Atom</th>",
+  "Enter",
+  "L5 Espaloma",
+  "L2b Gasteiger (RDKit)",
+  "L2a Gasteiger (acpype)",
+  "L2b Gast.",
+  "L2a Gast.",
+  "kcal/mol)",
+  "ΔG (kcal/mol)",
+  "kcal/mol)</span><span>",
+  "Pearson r"
+ ]
+}
