@@ -1,5 +1,14 @@
 # Sürüm notları
 
+## 0.32.0 (8 Ekim 2026) · Yeni modül MD-ERR: hata çubuğu ve dürüst karşılaştırma
+
+- MD-ERR 0.1.0 (uzman düzey, kitapta CH18): "Hata çubuğu neyin belirsizliği?" Yeni koşu yok: MD-REP (16 tekrar), MD-FF (12 koşu) ve MD-LIG (18 koşu) yeniden analiz edildi. Analiz planı hesaplardan önce SHA-256 ile donduruldu; plandan sapma yok.
+- Deneysel köprü: qPCR ΔΔCt öğretim modeli (Livak ve Schmittgen 2001). Aralık dansı: deneyler tek tek akar, üç hesap yan yana (doğru, teknik tekrarları n sayan, eşleştirmesiz), ıskalayan aralık kırmızı. Başlangıç ayarında 2.000 deneyde kapsama %95,2, %77,1, %99,4; bağımsız numpy benzetimi %95,1, %76,2, %99,3.
+- Atölye 1: aynı koşulun tekrarlarında saf SE ile 28 çiftin 22'sinin aralığı çakışmıyor, blok SE ile hiçbiri; SD arası / SE blok W 1,07, S 0,94, kuvvet alanı grupları 0,58 ile 1,59. Blok gezgini: kare şeridi, bloklar ve blok ortalamaları; SE eğrisi birlikte hareket eder. LIE iki tekrar z 0,03 ile 2,27.
+- Atölye 2: LIE ΔG bütçesi şelale grafiğiyle; varyans terimlerinin %76 ile %99'u elektrostatik, kovaryans 12 tekrarın 9'unda eksi. Koşu içi ve tekrarlar arası (t = 12,706) aralıkların hiçbiri ölçülmüş aralıkla örtüşmüyor; ikisi de yalnız örnekleme belirsizliğidir.
+- Atölye 3: W'nin 35 dörde dört bölmesinde kare düzeyi testlerin 245'te 162'si p < 0,05 (35 bölmenin 35'inde en az biri), tekrar düzeyi permütasyonda 280'de 6, Holm ile 0. Izgara gezgini ve seçili bölmenin 70 ayrımlık permütasyon dağılımı tarayıcıda yeniden hesaplanır. 18 analiz birleşiminin spesifikasyon eğrisi: Δ −5,64 ile +1,69 puan, en küçük p 0,614; önceden yazılmış birincil birleşim MD-REP'in sonucunu verir.
+- Bağımsız denetim 37/37. Tarayıcıda yeniden hesaplanan 364 blok SE ve 280 permütasyon p Python ile aynı (yalnız yuvarlama farkı). Tezgâh: dokuz iddia. Defter: belirsizlik kaydı. Dokuz soru, sekiz keşif kartı. Hareketli öğeler durdurulabilir; "hareketi azalt" ayarında kendiliğinden başlamaz. İngilizce tablo 255 çift (`i18n/_work/mderr/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-ERR`, `/en/l/MD-ERR`.
+
 ## 0.31.1 (8 Ekim 2026) · DK-U düzeltmesi: bilgi balonları
 
 - DK-U 0.2.1: saçılım, ROC, histogram ve ridge R2 grafiklerinin bilgi balonu öğesi sayfada yoktu; fare grafiğin üstünde her kıpırdadığında `TypeError` veriyor ve balon hiç görünmüyordu. Dört grafiğe balon öğesi eklendi; iki dilde de hata yok, balonlar açılıyor. İngilizce tabloya balon metinlerinin eksik dört parçası eklendi ("skor", "evet", "etkin", "tuzak"; 173 çift, `reviewed: false`). Veri, hesap ve metin değişmedi.

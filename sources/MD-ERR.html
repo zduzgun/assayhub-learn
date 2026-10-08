@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MD: Hata çubuğu ve dürüst karşılaştırma</title>
+</head>
+<body>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f5f4ef; --paper:#fffefb; --ink:#1f2f3b; --muted:#5d6872; --line:#d8d6cc; --soft:#ecebe4; --stage:#f1f0ea;
+  --navy:#243744; --accent:#934b3c; --good:#2e7658; --bad:#b0402e; --gold:#b98a1f;
+  --c1:#b0402e; --c3:#2f6b8f; --s1:#2f6fb0; --s2:#b98a1f; --s3:#934b3c;
+  --ball:#c4553a; --deep:#1d4a6b; --mid:#3f7fa6; --pale:#a9cadb; --warm:#e2b25a; --prot:#6f8f3e;
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+.proto{font-size:12.5px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:8px 12px;background:var(--paper)}
+header{display:grid;gap:8px}
+.eyebrow{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1,.h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0;text-wrap:balance}
+.lead{font-family:var(--serif);font-size:19px;line-height:1.5;margin:0;max-width:66ch}
+.small{font-size:13px;color:var(--muted);max-width:78ch;margin:0}
+h2{font-family:var(--serif);font-weight:400;font-size:24px;margin:0;text-wrap:balance}
+.step{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px}
+.prog{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.prog b{font-family:var(--mono);color:var(--ink);font-weight:500}
+.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px}
+.stagebox{position:relative;min-width:0}
+canvas{width:100%;display:block;border-radius:12px;touch-action:none}
+canvas.plot{background:var(--soft);border-radius:12px}
+.lbl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ctl{display:grid;gap:16px;align-content:start}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--paper)}
+.seg button{all:unset;cursor:pointer;padding:7px 14px;font-size:13.5px;color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--navy);color:var(--paper)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{all:unset;cursor:pointer;padding:7px 13px;border-radius:8px;border:1px solid var(--line);font-size:13.5px;color:var(--ink);background:var(--paper)}
+.btn.primary{background:var(--navy);color:var(--paper);border-color:var(--navy)}
+.seg button:focus-visible,.btn:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13.5px}
+.selrow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;font-size:13.5px}
+select{font:inherit;font-size:13.5px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);max-width:100%}
+.read{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:14px;margin:0}
+.read dt{color:var(--muted)}
+.read dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.prose{display:grid;gap:10px;max-width:70ch}
+.prose p{margin:0}
+.legend{display:flex;gap:10px 14px;flex-wrap:wrap;font-size:13px;color:var(--muted);align-items:center}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend .lin{display:inline-block;width:16px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+.legend .cbar{display:inline-block;height:11px;width:104px;border-radius:5px;border:1px solid var(--line);vertical-align:-1px;margin:0 5px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.big{font-family:var(--mono);font-size:26px;font-variant-numeric:tabular-nums}
+.big small{font-size:13px;color:var(--muted)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+.minis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:8px;align-content:start;background:var(--paper)}
+.q .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.q.done{border-color:var(--good)} .q.done .k{color:var(--good)}
+.q h3{margin:0;font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.3}
+.q p{margin:0;font-size:14px}
+.q .mine{font-size:14px;border-left:3px solid var(--gold);padding:4px 10px}
+.q.done .mine{border-color:var(--good)}
+.tip{position:absolute;pointer-events:none;background:rgba(31,47,59,.95);color:#fff;font:12px/1.4 var(--sans);padding:6px 9px;border-radius:7px;max-width:230px;z-index:6;box-shadow:0 3px 10px rgba(0,0,0,.2);display:none}
+.tip b{color:#9fe0b4;font-weight:600}
+.quiz{display:grid;gap:14px}
+.qq{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px;background:var(--paper)}
+.qq p.stem{margin:0;font-weight:600}
+.opts{display:grid;gap:8px}
+.opt{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px;color:var(--ink);background:var(--paper)}
+.opt .qb{display:inline-block;min-width:1.4em;height:1.4em;line-height:1.4em;text-align:center;border-radius:4px;background:var(--soft);color:var(--muted);font-weight:600;margin-right:9px}
+.opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,var(--paper))} .opt.right .qb{background:var(--good);color:#fff}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--paper))} .opt.wrong .qb{background:var(--bad);color:#fff}
+.why{font-size:14px;border-left:3px solid var(--line);padding:4px 10px;margin:0}
+.score{font-weight:600;margin:0}
+@media (max-width:820px){.two,.minis{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{all:unset;cursor:pointer;padding:6px 11px;border-radius:999px;border:1px solid var(--line);font-size:13.5px;color:var(--ink);background:var(--paper)}
+.chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn[disabled]{opacity:.5;cursor:default}
+.btn:active,.seg button:active,.chip:active{transform:scale(.97)}
+.stale{font-size:12.5px;color:var(--accent);min-height:1.2em;margin:0}
+.q .mine:empty{display:none}
+th{text-transform:none;letter-spacing:0;font-size:13px}
+.row .btn,.btns .btn{white-space:nowrap}
+@media (prefers-reduced-motion: reduce){.btn:active,.seg button:active,.chip:active{transform:none}}
+.fgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 14px}
+.fgrid.one{grid-template-columns:1fr}
+.fgrid label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.fgrid select,.fgrid textarea{font:inherit;font-size:14px;color:var(--ink);padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--paper);width:100%}
+.fgrid textarea{resize:vertical}
+pre.rec{margin:0;white-space:pre-wrap;word-break:break-word;font:13px/1.55 var(--mono);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto}
+@media (max-width:820px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.fgrid{grid-template-columns:1fr}}
+.btns .btn.wrapb{white-space:normal;text-align:left}
+@media (max-width:560px){.read dd{white-space:normal;overflow-wrap:anywhere}.read{gap:5px 10px}}
+.box3{aspect-ratio:1/1;background:var(--stage);cursor:grab}
+h3.sub{font-size:16px;margin:22px 0 6px}
+.bigtag{font-weight:600;font-size:15px;color:var(--accent);text-align:center;border:1.5px dashed var(--accent);border-radius:10px;padding:7px 10px;margin:6px 0 10px}
+.dleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12.5px;color:var(--muted)}
+.dleg .grad{display:inline-block;width:140px;height:10px;border-radius:5px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.cleg{margin:6px 0 4px}
+.lchip[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--ink)}
+.lchip[aria-pressed="false"]{opacity:.45;text-decoration:line-through}
+input[type=range]{width:min(320px,100%);accent-color:var(--navy)}
+.two.eq{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:620px){.two.eq{grid-template-columns:1fr}}
+
+.verdict{font-family:var(--serif);font-size:20px;line-height:1.35;border-left:4px solid var(--gold);padding:6px 14px;margin:0;background:var(--paper)}
+.verdict.pending{border-color:var(--line);color:var(--muted);font-size:16px}
+.rate{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:4px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy);width:0}
+td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;border-radius:5px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.tag.exp{background:var(--soft);color:var(--muted)}
+.tag.pre{background:color-mix(in srgb,var(--good) 16%,var(--paper));color:var(--good)}
+.card>*{min-width:0}
+.seg button{white-space:normal}
+
+#ebridge{aspect-ratio:16/8}
+#ewr{aspect-ratio:16/7}
+#eblk{aspect-ratio:16/6}
+#ets{aspect-ratio:16/5}
+#esplit{aspect-ratio:16/6}
+#ebud{aspect-ratio:16/7}
+#elie{aspect-ratio:16/7}
+#enull{aspect-ratio:16/7}
+#efork{aspect-ratio:16/9}
+@media (max-width:560px){#ebridge{aspect-ratio:4/4.6}#ewr,#eblk,#ebud,#elie{aspect-ratio:4/3.8}#efork{aspect-ratio:4/5.2}#ets{aspect-ratio:4/3}#esplit{aspect-ratio:4/4.2}#enull{aspect-ratio:4/4.4}}
+table.st td.neg{color:var(--navy)} table.st td.pos{color:var(--accent)}
+table.st tr.sel td{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
+.pen{cursor:pointer}
+.two.eq>.read{align-content:start}
+.read.w{grid-template-columns:minmax(0,2fr) minmax(0,3fr)}
+.read.w dd{white-space:normal;overflow-wrap:anywhere}
+@media (max-width:560px){.read.w{grid-template-columns:1fr;gap:2px}.read.w dd{text-align:left;margin-bottom:6px}}
+pre.itp{font-family:var(--mono);font-size:12.5px;line-height:1.45;background:#1f2a33;color:#e8e6dc;border-radius:10px;padding:10px 12px;margin:0;white-space:pre;max-height:260px;overflow:auto}
+pre.itp .add{color:#9fd49a}
+pre.msg{font-family:var(--mono);font-size:12.5px;line-height:1.45;background:#1f2a33;color:#e8e6dc;border-radius:10px;padding:10px 12px;margin:0;white-space:pre;max-height:320px;overflow:auto}
+pre.msg .hl{color:#f2c46d}
+.case{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:10px;background:var(--paper)}
+.case h3{margin:0;font-size:17px;font-family:var(--serif);font-weight:400}
+.case .cmd{font-family:var(--mono);font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+.case .opts{display:flex;flex-wrap:wrap;gap:6px}
+.case .opt{font-size:13.5px;padding:7px 10px}
+.case .fb{font-size:14px;border-left:3px solid var(--line);padding:3px 10px;margin:0}
+.case .fb.ok{border-color:var(--good)} .case .fb.no{border-color:var(--gold)}
+.cases{display:grid;gap:12px}
+table.st{border-collapse:collapse;font-size:13.5px;width:100%}
+table.st th,table.st td{border-bottom:1px solid var(--line);padding:5px 8px;text-align:right}
+table.st th:first-child,table.st td:first-child{text-align:left}
+td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
+.claims{display:grid;gap:10px}
+.cl{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;background:var(--paper)}
+.cl p.s{margin:0;font-family:var(--serif);font-size:16.5px}
+.cl .opts{display:flex;flex-wrap:wrap;gap:6px}
+.cl .opt{font-size:13.5px;padding:7px 10px}
+.cl .fb{font-size:14px;border-left:3px solid var(--line);padding:3px 10px;margin:0}
+.cl .fb.ok{border-color:var(--good)} .cl .fb.no{border-color:var(--gold)}
+.vtag{display:inline-block;font-size:12px;font-weight:600;border-radius:6px;padding:1px 7px;background:var(--soft)}
+details{border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--paper)}
+details summary{cursor:pointer;font-size:14px;color:var(--muted)}
+details[open] summary{margin-bottom:8px}
+code{font-family:var(--mono);font-size:.92em;overflow-wrap:anywhere}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--paper);display:grid;gap:2px;align-content:start}
+.stat .nm{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.stat .nm i{display:inline-block;width:14px;height:0;border-top:3px solid;border-radius:2px}
+.stat .v{font-size:26px;line-height:1.15;font-weight:600;color:var(--ink)}
+.stat .sub{font-size:12.5px;color:var(--muted)}
+@media (max-width:560px){.stats{gap:6px}.stat{padding:8px}.stat .v{font-size:20px}.stat .nm,.stat .sub{font-size:11.5px}}
+.btn.play{min-width:5.5em;text-align:center}
+.btn[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)}
+.slrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:13.5px}
+.slrow input[type=range]{flex:1 1 220px;width:auto;max-width:420px}
+.slrow output{font-family:var(--mono);font-variant-numeric:tabular-nums;min-width:9em}
+.hint{font-size:12.5px;color:var(--muted);margin:0}
+canvas.click{cursor:pointer}
+</style>
+<div class="wrap">
+  <div class="proto" id="eproto">Bu modülde yeni MD koşusu yapılmadı. Daha önce kendi donmuş planlarıyla üretilmiş üç koşu ızgarası yeniden analiz edildi: alanin dipeptidinin 16 tekrarı (MD-REP), aynı peptidin üç kuvvet alanıyla 12 koşusu (MD-FF) ve tripsin-benzamidin kompleksinin altı ligand modeliyle 18 koşusu (MD-LIG). Analiz planı hesaplardan önce yazılıp SHA-256 ile donduruldu; sonuçlar ayrı yazılmış betiklerle ve GROMACS araçlarıyla bağımsız olarak denetlendi. qPCR bölümü tarayıcıda çalışan bir öğretim modelidir, ölçülmüş veri değildir. Hesaplanmayan her şey "Bu senaryo hesaplanmadı" diye işaretlidir.</div>
+
+  <header>
+    <span class="eyebrow">MD-ERR · Hata çubuğu ve dürüst karşılaştırma</span>
+    <h1>Hata çubuğu neyin belirsizliği?</h1>
+    <p class="lead">Bir sayının yanına "±" yazmak kolaydır; zor olan, o çubuğun neyi temsil ettiğini söylemektir. Bir koşunun kendi karelerinden mi hesaplandı, bağımsız tekrarlardan mı? Türetilmiş bir niceliğin hangi bileşenlerinden geldi? Kaç karşılaştırmanın içinden seçildi? Bu sayfada aynı sorular önce bir qPCR deneyinde, sonra gerçek MD koşularında sorulur.</p>
+    <div class="prog" aria-live="polite">Keşifler: <b id="eprogN">0 / 8</b></div>
+  </header>
+
+  <section class="card" aria-labelledby="eh0">
+    <span class="step">Deneysel köprü</span>
+    <h2 id="eh0">qPCR'de ΔΔCt: n kaçtır, hata nereden gelir?</h2>
+    <div class="prose"><p>Göreli gen ifadesi çoğu kez ΔΔCt yöntemiyle hesaplanır: her örnekte ΔCt = Ct(hedef) − Ct(referans), sonra ΔΔCt = ort(ΔCt, uygulama) − ort(ΔCt, kontrol) ve kat değişimi 2^−ΔΔCt. Bu bir öğretim modelidir: Ct değerleri tarayıcıda benzetilir. Aşağıda deneyler tek tek akar; her deneyden aynı veriyle üç ayrı %95 aralığı hesaplanır. Doğru bir %95 aralığı, deneylerin yaklaşık %95'inde gerçek değeri kapsamalıdır. Kutulardaki sayaçlar şimdiye kadarki kapsamayı, alt satır aynı ayarla 2.000 deneylik sonucu verir. Ayarları değiştirin; her değişiklik dansı baştan başlatır.</p></div>
+    <div class="selrow"><span>Biyolojik örnek (grup başına):</span><div class="seg" role="group" aria-label="Biyolojik örnek sayısı" id="eqn"></div></div>
+    <div class="selrow"><span>Teknik tekrar (örnek başına):</span><div class="seg" role="group" aria-label="Teknik tekrar sayısı" id="eqk"></div></div>
+    <div class="selrow"><span>Biyolojik SD (Ct, döngü):</span><div class="seg" role="group" aria-label="Biyolojik SD" id="eqsb"></div></div>
+    <div class="selrow"><span>Teknik SD (kuyu, döngü):</span><div class="seg" role="group" aria-label="Teknik SD" id="eqst"></div></div>
+    <div class="selrow"><span>Hedef ile referans arasındaki biyolojik korelasyon:</span><div class="seg" role="group" aria-label="Korelasyon" id="eqr"></div></div>
+    <div class="selrow"><span>Gerçek ΔΔCt:</span><div class="seg" role="group" aria-label="Gerçek ΔΔCt" id="eqd"></div></div>
+    <div class="btns"><button type="button" class="btn play" id="eqplay" aria-pressed="false">Oynat</button><button type="button" class="btn" id="eqstep">+1 deney</button><button type="button" class="btn" id="eqfast">+100 deney</button><button type="button" class="btn" id="eqreset">Baştan başlat</button></div>
+    <div class="stats" aria-live="off">
+      <div class="stat" id="eqs_ok"><span class="nm">Doğru hesap</span><span class="v">·</span><span class="sub cnt"></span><span class="sub ref"></span></div>
+      <div class="stat" id="eqs_tech"><span class="nm">Yanlış n (kuyular n)</span><span class="v">·</span><span class="sub cnt"></span><span class="sub ref"></span></div>
+      <div class="stat" id="eqs_unp"><span class="nm">Eşleştirmesiz</span><span class="v">·</span><span class="sub cnt"></span><span class="sub ref"></span></div>
+    </div>
+    <div class="stagebox"><canvas id="ebridge" class="plot" aria-label="Son 40 deneyin üç hesapla %95 aralıkları; gerçek değeri ıskalayanlar kırmızı"></canvas></div>
+    <div class="legend"><span><span class="lin" style="border-color:var(--s1)"></span>aralık gerçek değeri kapsıyor</span><span><span class="lin" style="border-color:var(--bad)"></span>kapsamıyor</span><span><span class="lin" style="border-color:var(--ink);border-top-width:2px"></span>gerçek kat değişimi</span><span>en yeni deney en üstte, halkalı nokta kestirim</span></div>
+    <dl class="read w" id="ebread"></dl>
+    <article class="q" id="ec0"><span class="k">Açık</span><h3>Teknik tekrar n değildir</h3><p>En az üç ayara bakın.</p><div class="mine" id="mec0"></div></article>
+  </section>
+
+  <section class="card" aria-labelledby="eh1">
+    <span class="step">1 · Atölye: koşu içi ile tekrarlar arası</span>
+    <h2 id="eh1">Bir koşunun hata çubuğu, tekrarın nereye düşeceğini söyler mi?</h2>
+    <div class="prose"><p>Her nokta bir MD koşusunun αR payıdır (200 ile 2000 ps, 1801 kare); çubuk ±1,96 × SE. <b>Saf SE</b> kareleri bağımsız sayar: √(p(1−p)/1801). <b>Blok SE</b> ilk 1800 kareyi 200 karelik 9 bloğa böler ve blok ortalamalarının SD'sini √9'a böler. Sarı bant aynı koşulun tekrarları arasındaki yayılımdır. Tekrarlar yalnız hız tohumuyla ayrılır; gerçek fark yoktur. Bir koşu seçin: aralığı seçili koşununkiyle çakışmayan tekrarlar kırmızı olur.</p></div>
+    <div class="selrow"><span>Koşul:</span><div class="seg" role="group" aria-label="Koşul" id="ewg"></div></div>
+    <div class="selrow"><span>Hata:</span><div class="seg" role="group" aria-label="Hata türü" id="ewse"><button type="button" data-v="sn" aria-pressed="true">Saf (kareler bağımsız)</button><button type="button" data-v="sb" aria-pressed="false">Blok (B = 200)</button></div></div>
+    <div class="selrow"><span>Koşu:</span><div class="seg" role="group" aria-label="Seçili koşu" id="ewrun"></div></div>
+    <div class="stagebox"><canvas id="ewr" class="plot click" aria-label="Koşu başına αR payı ve hata çubukları"></canvas><div class="tip"></div></div>
+    <div class="legend"><span><i style="background:var(--ink)"></i>seçili koşu</span><span><i style="background:var(--s1)"></i>aralığı çakışan tekrar</span><span><i style="background:var(--bad)"></i>çakışmayan tekrar ("anlamlı farklı" görünür)</span><span><i style="background:var(--s2);opacity:.45;border-radius:2px"></i>tekrarlar arası yayılım (ort. ± 1,96·SD)</span></div>
+    <dl class="read w" id="ewread"></dl>
+    <h3 class="sub">Blok gezgini: seçili koşu</h3>
+    <div class="prose"><p>Üstteki şerit seçili koşunun her karesidir: αR'deki kareler mavi. Altında kareler B uzunluğunda bloklara bölünür; mavi basamaklar blok ortalamaları, siyah çizgi koşunun ortalaması. B küçükken blok ortalamaları 0 ile 1 arasında sıçrar ama kaç tane olduğu için SE küçük çıkar; ardışık kareler aynı durumda kaldığı için bu küçüklük yanıltıcıdır. Kaydırıcıyla B'yi büyütün ya da oynatın.</p></div>
+    <div class="slrow"><button type="button" class="btn play" id="ebplay" aria-pressed="false">Oynat</button><label for="ebsl">Blok boyu</label><input type="range" id="ebsl" min="0" max="12" step="1" value="9"><output id="ebsv"></output></div>
+    <div class="stagebox"><canvas id="ets" class="plot" aria-label="Seçili koşunun kare dizisi ve blok ortalamaları"></canvas></div>
+    <div class="stagebox"><canvas id="eblk" class="plot" aria-label="Blok boyuna göre SE; seçili koşu mavi, aynı koşulun öteki tekrarları gri"></canvas></div>
+    <div class="legend"><span><span class="lin" style="border-color:var(--s1)"></span>seçili koşunun SE eğrisi</span><span><span class="lin" style="border-color:var(--muted);opacity:.5"></span>aynı koşulun öteki tekrarları</span><span><span class="lin" style="border-color:var(--s2)"></span>tekrarlar arası SD</span></div>
+    <dl class="read w" id="ebkread"></dl>
+    <h3 class="sub">Aynı soru LIE'de: iki tekrar ne kadar uyuşuyor?</h3>
+    <div class="prose"><p>MD-LIG'de her ligand modeli iki kez koşuldu ve her tekrarın LIE ΔG'sine 5 bloklu bir koşu içi hata yazıldı (yalnız kompleks koşusundan). Koşu içi hata doğruysa z = |ΔG₁ − ΔG₂| / √(SE₁² + SE₂²) çoğu modelde 2'nin altında kalmalıdır. Betimleyicidir; hüküm yazılmaz.</p></div>
+    <div class="tw" id="elz"></div>
+    <div class="minis">
+      <article class="q" id="ec1"><span class="k">Açık</span><h3>Saf hata çubuğu</h3><p>Her iki hata türüne de bakın.</p><div class="mine" id="mec1"></div></article>
+      <article class="q" id="ec2"><span class="k">Açık</span><h3>Blok hatası tekrarı öngörür mü?</h3><p>Blok boyunu en az dört değere getirin ve en az iki koşula bakın.</p><div class="mine" id="mec2"></div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="eh2">
+    <span class="step">2 · Atölye: türetilmiş niceliğin hatası</span>
+    <h2 id="eh2">LIE ΔG'nin belirsizlik bütçesi</h2>
+    <div class="prose"><p>LIE kestirimi dört ortalamadan türetilir: ΔG = α(⟨V_vdW⟩ₖ − ⟨V_vdW⟩ₛ) + β(⟨V_el⟩ₖ − ⟨V_el⟩ₛ), k kompleks, s su koşusu. Bir tekrarın koşu içi hatası: SE² = [α²(SE²_vdW,k + SE²_vdW,s) + β²(SE²_el,k + SE²_el,s) + 2αβ(cov_k + cov_s)] / 4,184². Kompleks 5 blok (50 ile 500 ps), su 9 blok (100 ile 999 ps); kovaryans aynı blokların el ve vdW ortalamalarından. Şelalede her terim SE²'ye eklenir; kovaryans eksiyse toplam düşer. İnce çizgi, kovaryans yok sayılsaydı bulunacak değerdir. Bir model ve tekrar seçin.</p></div>
+    <div class="selrow"><span>Model:</span><div class="seg" role="group" aria-label="Ligand modeli" id="ebm"></div></div>
+    <div class="selrow"><span>Tekrar:</span><div class="seg" role="group" aria-label="Tekrar" id="ebk"><button type="button" data-v="0" aria-pressed="true">1</button><button type="button" data-v="1" aria-pressed="false">2</button></div></div>
+    <div class="stagebox"><canvas id="ebud" class="plot" aria-label="Seçili tekrarın SE² bileşenleri, şelale grafiği"></canvas><div class="tip"></div></div>
+    <div class="legend"><span><i style="background:var(--s1);border-radius:2px"></i>elektrostatik (açık ton: su koşusu)</span><span><i style="background:var(--s2);border-radius:2px"></i>van der Waals (açık ton: su)</span><span><i style="background:var(--s3);border-radius:2px"></i>kovaryans</span><span><i style="background:var(--ink);border-radius:2px"></i>toplam SE²</span><span><span class="lin" style="border-color:var(--ink);border-top-width:1px"></span>kovaryans yok sayılsaydı</span></div>
+    <dl class="read w" id="eburead"></dl>
+    <details><summary>12 tekrarın tablosu</summary><div class="tw" id="ebtab"></div></details>
+    <h3 class="sub">Model düzeyi: iki tür aralık</h3>
+    <div class="prose"><p>Model kestirimi iki tekrarın ortalamasıdır. <b>Koşu içi</b>: SE_iç = √(SE₁² + SE₂²) / 2, aralık ±1,96 × SE_iç. <b>Tekrarlar arası</b>: SE_arası = |ΔG₁ − ΔG₂| / 2, iki değerden kestirildiği için aralık ±t(0,975; 1) × SE_arası. Yeşil bant ChEMBL Ki değerlerinden ölçülmüş aralıktır.</p></div>
+    <div class="selrow"><span>Aralık:</span><div class="seg" role="group" aria-label="Aralık türü" id="eiv"><button type="button" data-v="both" aria-pressed="true">İkisi</button><button type="button" data-v="in" aria-pressed="false">Koşu içi</button><button type="button" data-v="ar" aria-pressed="false">Tekrarlar arası</button></div></div>
+    <div class="stagebox"><canvas id="elie" class="plot" aria-label="Model başına LIE aralıkları ve ölçülmüş aralık"></canvas></div>
+    <div class="legend"><span><span class="lin" style="border-color:var(--s1);border-top-width:5px"></span>koşu içi ±1,96 × SE_iç</span><span><span class="lin" style="border-color:var(--s3)"></span>tekrarlar arası ±12,706 × SE_arası</span><span><i style="background:var(--ink);opacity:.55"></i>tekrarlar</span><span><i style="background:var(--good);opacity:.4;border-radius:2px"></i>ölçülmüş aralık</span></div>
+    <dl class="read w" id="eivread"></dl>
+    <div class="minis">
+      <article class="q" id="ec3"><span class="k">Açık</span><h3>Belirsizliğin kaynağı</h3><p>En az üç modelin bütçesine bakın.</p><div class="mine" id="mec3"></div></article>
+      <article class="q" id="ec4"><span class="k">Açık</span><h3>İki tekrarla aralık</h3><p>İki aralık türüne ayrı ayrı bakın.</p><div class="mine" id="mec4"></div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="eh3">
+    <span class="step">3 · Atölye: kaç karşılaştırma yaptınız?</span>
+    <h2 id="eh3">Aynıyla aynının farkı ve analiz seçenekleri</h2>
+    <div class="prose"><p>W'nin sekiz tekrarı dörde dört, bütün farklı biçimlerde bölündü (35 bölme). İki yarı aynı koşuldandır; gerçek fark yoktur. Her bölmede sekiz ölçüt üç yolla test edildi: <b>kare düzeyi</b> (bütün kareler bağımsız sayılır; paylar için oran z testi, sürekli ölçütler için Welch t testi; geçiş sayısı için bu test yoktur), <b>tekrar düzeyi</b> (dört değere karşı dört değer, 70 ayrımlı tam permütasyon) ve <b>tekrar düzeyi + Holm</b> (bölme içinde sekiz ölçüt için düzeltme). Kırmızı hücre p &lt; 0,05 demektir.</p></div>
+    <div class="selrow"><span>Test:</span><div class="seg" role="group" aria-label="Test türü" id="ent"><button type="button" data-v="frame" aria-pressed="true">Kare düzeyi</button><button type="button" data-v="perm" aria-pressed="false">Tekrar düzeyi</button><button type="button" data-v="holm" aria-pressed="false">Tekrar düzeyi + Holm</button></div></div>
+    <div class="stagebox"><canvas id="enull" class="plot click" aria-label="35 bölme (sütunlar) ve 8 ölçüt (satırlar) için p &lt; 0,05 hücreleri"></canvas><div class="tip"></div></div>
+    <div class="legend"><span><i style="background:var(--bad);border-radius:2px"></i>p &lt; 0,05</span><span><i style="background:var(--s1);opacity:.25;border-radius:2px"></i>p ≥ 0,05</span><span><i style="background:var(--soft);border:1px solid var(--line);border-radius:2px"></i>test yok (çizgili)</span><span>siyah çerçeve: seçili bölme ve ölçüt</span></div>
+    <p class="hint">Bir hücreye tıklayın ya da bölmeleri sırayla oynatın; aşağıda o bölmenin sekiz koşusu ve tekrar düzeyindeki testin nasıl kurulduğu görünür.</p>
+    <div class="slrow"><button type="button" class="btn play" id="enplay" aria-pressed="false">Oynat</button><label for="esp">Bölme</label><select id="esp"></select></div>
+    <div class="selrow"><span>Ölçüt:</span><div class="seg" role="group" aria-label="Ölçüt" id="enm"></div></div>
+    <div class="stagebox"><canvas id="esplit" class="plot" aria-label="Seçili bölmede iki grubun koşu değerleri ve 70 ayrımlık permütasyon dağılımı"></canvas></div>
+    <div class="legend"><span><i style="background:var(--s1)"></i>A grubu koşuları</span><span><i style="background:var(--s2)"></i>B grubu koşuları</span><span><i style="background:var(--muted);opacity:.55"></i>bir ayrımın farkı</span><span><i style="background:var(--bad)"></i>en az bu bölme kadar uç ayrımlar</span></div>
+    <dl class="read w" id="enread"></dl>
+    <h3 class="sub">Aynı veri, on sekiz analiz</h3>
+    <div class="prose"><p>MD-REP'in sorusu (su ile 0,15 M NaCl, αR payı) üç makul seçenekle yeniden hesaplandı: αR ile β arasındaki ψ sınırı, atılan baş ve pencere sonu. Her sütun bir birleşimdir; üstte Δ = ort(S) − ort(W), altta o birleşimde hangi seçeneklerin kullanıldığı. Sütunlar Δ'ya göre sıralı. Halkalı siyah nokta önceden yazılmış birincil birleşimdir. Bir sütuna tıklayın ya da seçenekleri değiştirin.</p></div>
+    <div class="selrow"><span>ψ üst sınırı:</span><div class="seg" role="group" aria-label="psi üst sınırı" id="efu"><button type="button" data-v="30" aria-pressed="false">30°</button><button type="button" data-v="50" aria-pressed="true">50°</button><button type="button" data-v="70" aria-pressed="false">70°</button></div></div>
+    <div class="selrow"><span>Atılan baş:</span><div class="seg" role="group" aria-label="Atılan baş" id="efd"><button type="button" data-v="0" aria-pressed="false">0 ps</button><button type="button" data-v="200" aria-pressed="true">200 ps</button><button type="button" data-v="500" aria-pressed="false">500 ps</button></div></div>
+    <div class="selrow"><span>Pencere sonu:</span><div class="seg" role="group" aria-label="Pencere sonu" id="efe"><button type="button" data-v="1000" aria-pressed="false">1000 ps</button><button type="button" data-v="2000" aria-pressed="true">2000 ps</button></div></div>
+    <div class="stagebox"><canvas id="efork" class="plot click" aria-label="Spesifikasyon eğrisi: 18 analiz birleşiminde Δ ve kullanılan seçenekler"></canvas><div class="tip"></div></div>
+    <div class="legend"><span><i style="background:var(--s1)"></i>bir birleşimin Δ'sı</span><span><i style="background:var(--ink)"></i>önceden yazılmış birincil</span><span><i style="background:var(--s2);opacity:.4;border-radius:2px"></i>seçili sütun</span><span>alt satırlar: dolu nokta, seçenek o birleşimde kullanıldı</span></div>
+    <dl class="read w" id="efread"></dl>
+    <div class="minis">
+      <article class="q" id="ec5"><span class="k">Açık</span><h3>Aynıyla aynı "farklı" çıkınca</h3><p>Üç test türüne de bakın.</p><div class="mine" id="mec5"></div></article>
+      <article class="q" id="ec6"><span class="k">Açık</span><h3>Kaç yol denendi?</h3><p>En az dört birleşime bakın.</p><div class="mine" id="mec6"></div></article>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="eh4">
+    <span class="step">4 · Tezgâh: iddia denetleyici</span>
+    <h2 id="eh4">Dokuz cümle: bu veri bunları taşır mı?</h2>
+    <div class="prose"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>
+    <div class="claims" id="eclaims"></div>
+    <article class="q" id="ec7"><span class="k">Açık</span><h3>Çubuk neyi söylüyor?</h3><p>En az dört cümleye karar verin.</p><div class="mine" id="mec7"></div></article>
+  </section>
+
+  <section class="card" aria-labelledby="eh5">
+    <span class="step">5 · Defter: belirsizlik kaydı</span>
+    <h2 id="eh5">Raporlamadan önce yazılan yedi satır</h2>
+    <div class="prose"><p>Kendi çalışmanız için doldurun; örnekler bu sayfadandır. Eksik satırlar altta not üretir. Metin yalnız tarayıcınızda üretilir, hiçbir yere gönderilmez.</p></div>
+    <div class="fgrid one">
+      <label>Bağımsız birim ve n<textarea id="eoU" rows="2">Örnek: bağımsız birim koşudur (farklı hız tohumu); koşul başına n = 8 koşu. Kareler n değildir.</textarea></label>
+      <label>Hata çubuğunun tanımı<textarea id="eoB" rows="2">Örnek: %95 güven aralığı, tekrarlar arası SD'den; t(0,975; 7) = 2,365.</textarea></label>
+      <label>Koşu içi hata yöntemi<textarea id="eoK" rows="2">Örnek: blok ortalaması, B = 200 kare (200 ps), 9 blok; blok eğrisi ekte, tekrarlarla karşılaştırıldı.</textarea></label>
+      <label>Türetilmiş nicelik ve yayılma<textarea id="eoD" rows="2">Örnek: LIE ΔG; vdW ve el terimlerinin varyansları ve kovaryansı, kompleks ve su koşusu ayrı ayrı yayıldı.</textarea></label>
+      <label>Karşılaştırma sayısı ve düzeltme<textarea id="eoM" rows="2">Örnek: birincil ölçüt αR payı, önceden yazıldı; 8 ikincil ölçüt Holm düzeltmesiyle.</textarea></label>
+      <label>Analiz seçenekleri<textarea id="eoA" rows="2">Örnek: ψ sınırı 50°, atılan baş 200 ps, pencere sonu 2000 ps plan dosyasında önceden yazıldı; denenen 18 birleşimin hepsi ekte.</textarea></label>
+      <label>Sistematik belirsizlik<textarea id="eoS" rows="2">Örnek: kuvvet alanı seçimi örneklemeyle küçülmez; bu sayfadaki üç kuvvet alanı grubunda (MD-FF koşuları) ortalama αR payı %31,0 ile %44,2 arasında.</textarea></label>
+    </div>
+    <div class="btns"><button type="button" class="btn" id="eocopy">Metni kopyala</button><span class="small" id="eomsg"></span></div>
+    <pre class="rec" id="eoout"></pre>
+  </section>
+
+  <section class="card" aria-labelledby="eh6">
+    <span class="step">6 · Sınav</span>
+    <h2 id="eh6">Dokuz soru</h2>
+    <div class="quiz" id="equiz"></div>
+    <p class="score" id="escore"></p>
+  </section>
+
+  <section class="card" aria-labelledby="eh7">
+    <span class="step">Kaynaklar ve sınırlar</span>
+    <div class="prose small" id="enotice"></div>
+  </section>
+</div>
+
+<script type="application/json" id="edd">{"meta":{"plan_sha":"f888d8bd8fa2832c363d6542c13412eebb26340c961c9a08cb988f32a9a4e232","audit_n":37,"audit_ok":37,"audit_fail":[]},"BLK":[1,2,4,5,10,20,25,50,100,200,300,450,600],"A1":{"W":{"runs":[{"n":"W1","p":0.226541,"sn":0.009864,"sb":0.095131,"cv":[0.009871,0.013763,0.019267,0.021414,0.029966,0.040918,0.044798,0.057321,0.077227,0.095131,0.079447,0.096792,0.034211]},{"n":"W2","p":0.387562,"sn":0.01148,"sb":0.105347,"cv":[0.011488,0.016098,0.022519,0.025217,0.035196,0.049139,0.053746,0.073684,0.092752,0.105347,0.11672,0.153624,0.122143]},{"n":"W3","p":0.415325,"sn":0.011612,"sb":0.122716,"cv":[0.011619,0.016228,0.022678,0.025359,0.035391,0.048785,0.054892,0.076619,0.098893,0.122716,0.165296,0.146045,0.193894]},{"n":"W4","p":0.353137,"sn":0.011262,"sb":0.121106,"cv":[0.01127,0.015708,0.022017,0.024468,0.03421,0.047574,0.051712,0.070364,0.095572,0.121106,0.138087,0.081032,0.067966]},{"n":"W5","p":0.263742,"sn":0.010384,"sb":0.088682,"cv":[0.010391,0.014562,0.020341,0.022682,0.031787,0.043612,0.04826,0.065832,0.079097,0.088682,0.074443,0.08932,0.026393]},{"n":"W6","p":0.469739,"sn":0.01176,"sb":0.131639,"cv":[0.011766,0.016411,0.02296,0.025601,0.035786,0.049998,0.055247,0.074567,0.097741,0.131639,0.129453,0.186623,0.135381]},{"n":"W7","p":0.128262,"sn":0.007879,"sb":0.071044,"cv":[0.007886,0.011085,0.015517,0.017352,0.024249,0.033974,0.0366,0.048432,0.057047,0.071044,0.059228,0.089582,0.067419]},{"n":"W8","p":0.381455,"sn":0.011446,"sb":0.093778,"cv":[0.01145,0.016006,0.022456,0.025033,0.035091,0.048694,0.054281,0.075441,0.090989,0.093778,0.112077,0.088371,0.059786]}],"sd":0.112802,"rb":0.105421,"rn":0.010782,"Rb":1.07,"Rn":10.4624,"nb":[0,28],"nn":[22,28],"mean":0.32822},"S":{"runs":[{"n":"S1","p":0.329817,"sn":0.011078,"sb":0.117397,"cv":[0.011086,0.015444,0.021669,0.024147,0.03385,0.047099,0.051383,0.071866,0.097414,0.117397,0.069223,0.124171,0.076974]},{"n":"S2","p":0.523043,"sn":0.011769,"sb":0.108886,"cv":[0.011776,0.016434,0.023053,0.025646,0.035673,0.049707,0.055512,0.074814,0.103951,0.108886,0.175988,0.150949,0.05827]},{"n":"S3","p":0.388673,"sn":0.011486,"sb":0.119108,"cv":[0.011491,0.016092,0.022532,0.025175,0.034927,0.048498,0.05343,0.071671,0.091684,0.119108,0.134981,0.187749,0.170109]},{"n":"S4","p":0.260966,"sn":0.010348,"sb":0.104979,"cv":[0.010356,0.014416,0.020154,0.022642,0.031242,0.042961,0.047668,0.065644,0.079877,0.104979,0.084084,0.082604,0.125736]},{"n":"S5","p":0.217657,"sn":0.009724,"sb":0.0666,"cv":[0.009731,0.013493,0.018783,0.020913,0.029025,0.03953,0.044784,0.059055,0.071641,0.0666,0.075913,0.086766,0.108736]},{"n":"S6","p":0.298168,"sn":0.010779,"sb":0.105968,"cv":[0.010781,0.01517,0.021335,0.02372,0.033249,0.046386,0.05136,0.071032,0.089079,0.105968,0.110981,0.071601,0.032862]},{"n":"S7","p":0.261521,"sn":0.010355,"sb":0.090247,"cv":[0.010363,0.014522,0.020375,0.02259,0.031419,0.043368,0.047662,0.063772,0.085092,0.090247,0.069803,0.106405,0.089665]},{"n":"S8","p":0.350361,"sn":0.011242,"sb":0.094547,"cv":[0.01125,0.015708,0.02194,0.024459,0.034002,0.047526,0.052221,0.066478,0.083017,0.094547,0.095197,0.106196,0.106355]}],"sd":0.095768,"rb":0.102222,"rn":0.010866,"Rb":0.9369,"Rn":8.8132,"nb":[0,28],"nn":[22,28],"mean":0.328776},"A03":{"runs":[{"n":"A03_1","p":0.682399,"sn":0.01097,"sb":0.129904,"cv":[0.010973,0.015432,0.021758,0.024335,0.034286,0.047994,0.053499,0.074036,0.100667,0.129904,0.121593,0.130785,0.100583]},{"n":"A03_2","p":0.217657,"sn":0.009724,"sb":0.120295,"cv":[0.009731,0.013698,0.019303,0.021526,0.030311,0.042321,0.046746,0.063239,0.086556,0.120295,0.079123,0.092291,0.060448]},{"n":"A03_3","p":0.300389,"sn":0.010802,"sb":0.144493,"cv":[0.01081,0.015221,0.021458,0.024045,0.033919,0.04767,0.053269,0.074542,0.105218,0.144493,0.184229,0.23261,0.154813]},{"n":"A03_4","p":0.510272,"sn":0.011779,"sb":0.157343,"cv":[0.011786,0.016542,0.023262,0.02597,0.036567,0.051228,0.057249,0.080232,0.111754,0.157343,0.169328,0.162515,0.103149]}],"sd":0.209774,"rb":0.138727,"rn":0.010844,"Rb":1.5121,"Rn":19.3456,"nb":[0,6],"nn":[6,6],"mean":0.427679},"C27":{"runs":[{"n":"C27_1","p":0.606885,"sn":0.011509,"sb":0.155539,"cv":[0.011517,0.016235,0.022905,0.025589,0.036075,0.051021,0.057048,0.081143,0.110723,0.155539,0.184417,0.227668,0.217181]},{"n":"C27_2","p":0.679622,"sn":0.010995,"sb":0.157594,"cv":[0.011003,0.015495,0.021848,0.024467,0.03461,0.048735,0.054198,0.076139,0.108488,0.157594,0.167693,0.187119,0.187738]},{"n":"C27_3","p":0.210994,"sn":0.009614,"sb":0.139544,"cv":[0.009612,0.013586,0.019217,0.021489,0.030427,0.043148,0.048113,0.067497,0.096102,0.139544,0.16364,0.210556,0.210556]},{"n":"C27_4","p":0.272071,"sn":0.010486,"sb":0.138329,"cv":[0.010494,0.014803,0.020858,0.023346,0.033025,0.046474,0.052132,0.07414,0.09975,0.138329,0.171669,0.209686,0.271389]}],"sd":0.235153,"rb":0.148016,"rn":0.010674,"Rb":1.5887,"Rn":22.0297,"nb":[0,6],"nn":[6,6],"mean":0.442393},"OPL":{"runs":[{"n":"OPL_1","p":0.344253,"sn":0.011196,"sb":0.123753,"cv":[0.011203,0.015493,0.021611,0.023956,0.033289,0.045362,0.050136,0.067345,0.088341,0.123753,0.124453,0.120773,0.087651]},{"n":"OPL_2","p":0.369239,"sn":0.011372,"sb":0.081906,"cv":[0.011379,0.01564,0.021427,0.024049,0.033016,0.043817,0.048801,0.065366,0.077512,0.081906,0.103041,0.096666,0.093642]},{"n":"OPL_3","p":0.280955,"sn":0.010591,"sb":0.10308,"cv":[0.010599,0.014681,0.020443,0.022686,0.031374,0.042822,0.047173,0.06371,0.085286,0.10308,0.110315,0.138557,0.021308]},{"n":"OPL_4","p":0.245419,"sn":0.01014,"sb":0.079835,"cv":[0.01014,0.014028,0.019449,0.021523,0.029408,0.039433,0.042007,0.050271,0.06628,0.079835,0.087058,0.031977,0.034654]}],"sd":0.056853,"rb":0.098771,"rn":0.010836,"Rb":0.5756,"Rn":5.2468,"nb":[0,6],"nn":[4,6],"mean":0.309967}},"LZ":{"L1":{"diff":0.3685,"z":1.561},"L2a":{"diff":0.2665,"z":2.024},"L2b":{"diff":0.2634,"z":2.271},"L3":{"diff":0.013,"z":0.028},"L4":{"diff":0.0875,"z":0.496},"L5":{"diff":0.1358,"z":0.65}},"A2":{"L1":{"beta":0.5,"mean":-10.4708,"sw":0.1268,"sa":0.1842,"reps":[{"n":"C_L1_1","dG":-10.2865,"se":0.2017,"seo":0.1907,"comp":{"c_vdw":0.001072,"w_vdw":0.000343,"c_el":0.031205,"w_el":0.005832,"cov":0.002225},"rc":0.355},{"n":"C_L1_2","dG":-10.655,"se":0.1538,"seo":0.1392,"comp":{"c_vdw":0.001533,"w_vdw":0.000343,"c_el":0.013438,"w_el":0.005832,"cov":0.002521},"rc":0.485}],"wr":-0.665},"L2a":{"beta":0.5,"mean":-2.9373,"sw":0.0691,"sa":0.1332,"reps":[{"n":"C_L2a_1","dG":-3.0705,"se":0.0813,"seo":0.0757,"comp":{"c_vdw":0.001434,"w_vdw":0.00016,"c_el":0.004235,"w_el":0.000855,"cov":-7.8e-05},"rc":0.013},{"n":"C_L2a_2","dG":-2.8041,"se":0.1117,"seo":0.1077,"comp":{"c_vdw":0.001083,"w_vdw":0.00016,"c_el":0.016712,"w_el":0.000855,"cov":-0.006339},"rc":-0.729}],"wr":-0.191},"L2b":{"beta":0.5,"mean":-9.7042,"sw":0.0632,"sa":0.1317,"reps":[{"n":"C_L2b_1","dG":-9.8359,"se":0.0911,"seo":0.0839,"comp":{"c_vdw":0.001976,"w_vdw":0.000346,"c_el":0.014259,"w_el":0.002531,"cov":-0.010808},"rc":-0.867},{"n":"C_L2b_2","dG":-9.5725,"se":0.0877,"seo":0.0801,"comp":{"c_vdw":7.6e-05,"w_vdw":0.000346,"c_el":0.006522,"w_el":0.002531,"cov":-0.001785},"rc":-0.127}],"wr":-0.859},"L3":{"beta":0.43,"mean":-3.2431,"sw":0.231,"sa":0.0065,"reps":[{"n":"C_L3_1","dG":-3.2366,"se":0.2027,"seo":0.1958,"comp":{"c_vdw":0.002626,"w_vdw":0.000262,"c_el":0.059443,"w_el":0.002407,"cov":-0.023631},"rc":-0.949},{"n":"C_L3_2","dG":-3.2496,"se":0.4152,"seo":0.4118,"comp":{"c_vdw":0.00767,"w_vdw":0.000262,"c_el":0.243614,"w_el":0.002407,"cov":-0.081577},"rc":-0.945}],"wr":0.06},"L4":{"beta":0.5,"mean":-11.6146,"sw":0.1196,"sa":0.0437,"reps":[{"n":"C_L4_1","dG":-11.5709,"se":0.1845,"seo":0.145,"comp":{"c_vdw":0.001295,"w_vdw":0.000335,"c_el":0.022888,"w_el":0.016528,"cov":-0.007011},"rc":-0.291},{"n":"C_L4_2","dG":-11.6584,"se":0.1522,"seo":0.1008,"comp":{"c_vdw":0.000922,"w_vdw":0.000335,"c_el":0.014828,"w_el":0.016528,"cov":-0.009436},"rc":-0.757}],"wr":-0.816},"L5":{"beta":0.5,"mean":-9.0654,"sw":0.1281,"sa":0.0679,"reps":[{"n":"C_L5_1","dG":-9.1333,"se":0.1525,"seo":0.1108,"comp":{"c_vdw":0.000609,"w_vdw":0.000301,"c_el":0.013102,"w_el":0.012748,"cov":-0.003516},"rc":-0.253},{"n":"C_L5_2","dG":-8.9975,"se":0.2059,"seo":0.1773,"comp":{"c_vdw":0.000145,"w_vdw":0.000301,"c_el":0.027596,"w_el":0.012748,"cov":0.001612},"rc":0.924}],"wr":-0.533}},"dG_exp":[-6.45995730034851,-6.014876157670048],"MET":["p_aR","p_b","p_aL","trans","psi","T","P","V"],"SP":[{"a":["W1","W2","W3","W4"],"b":["W5","W6","W7","W8"],"p":[[8.459e-06,0.71429,1.0],[1.42e-16,0.48571,1.0],[1.63e-50,0.42857,1.0],[null,0.05714,0.45714],[8.04e-08,0.74286,1.0],[0.1649,0.28571,1.0],[0.07806,0.31429,1.0],[3.145e-15,0.05714,0.45714]]},{"a":["W1","W2","W3","W5"],"b":["W4","W6","W7","W8"],"p":[[0.2078,0.97143,1.0],[3.976e-07,0.74286,1.0],[1.242e-49,1.0,1.0],[null,0.51429,1.0],[0.001814,0.4,1.0],[0.6876,0.8,1.0],[0.6384,0.71429,1.0],[1.23e-05,0.17143,1.0]]},{"a":["W1","W2","W3","W6"],"b":["W4","W5","W7","W8"],"p":[[1.116e-32,0.28571,1.0],[1.906e-15,0.54286,1.0],[1.242e-49,1.0,1.0],[null,0.68571,1.0],[1.036e-14,0.45714,1.0],[0.5332,0.62857,1.0],[0.9935,1.0,1.0],[0.1273,0.77143,1.0]]},{"a":["W1","W2","W3","W7"],"b":["W4","W5","W6","W8"],"p":[[3.485e-23,0.37143,1.0],[2.604e-42,0.22857,1.0],[1.242e-49,1.0,1.0],[null,0.88571,1.0],[2.777e-22,0.28571,1.0],[0.2692,0.4,1.0],[0.8161,0.82857,1.0],[0.008204,0.51429,1.0]]},{"a":["W1","W2","W3","W8"],"b":["W4","W5","W6","W7"],"p":[[3.778e-10,0.6,1.0],[0.01787,0.82857,1.0],[1.242e-49,1.0,1.0],[null,0.68571,1.0],[0.003346,0.71429,1.0],[0.4279,0.51429,1.0],[0.9374,0.94286,1.0],[0.000644,0.37143,1.0]]},{"a":["W1","W2","W4","W5"],"b":["W3","W6","W7","W8"],"p":[[1.66e-07,0.65714,1.0],[0.1882,0.94286,1.0],[1.63e-50,0.42857,1.0],[null,0.05714,0.45714],[0.01259,0.6,1.0],[0.05655,0.11429,0.8],[0.5316,0.68571,1.0],[2.987e-05,0.22857,1.0]]},{"a":["W1","W2","W4","W6"],"b":["W3","W5","W7","W8"],"p":[[2.18e-15,0.48571,1.0],[1.25e-31,0.28571,1.0],[1.63e-50,0.42857,1.0],[null,0.11429,0.8],[6.248e-17,0.25714,1.0],[0.03335,0.05714,0.45714],[0.8827,0.88571,1.0],[0.1844,0.82857,1.0]]},{"a":["W1","W2","W4","W7"],"b":["W3","W5","W6","W8"],"p":[[7.086e-44,0.2,1.0],[5.233e-23,0.42857,1.0],[1.63e-50,0.42857,1.0],[null,0.51429,1.0],[1.067e-19,0.48571,1.0],[0.009066,0.02857,0.22857],[0.9387,0.97143,1.0],[0.01445,0.6,1.0]]},{"a":["W1","W2","W4","W8"],"b":["W3","W5","W6","W7"],"p":[[0.0221,0.85714,1.0],[9.198e-10,0.65714,1.0],[1.63e-50,0.42857,1.0],[null,0.11429,0.91429],[0.0003738,1.0,1.0],[0.4766,0.54286,1.0],[0.8148,0.8,1.0],[0.001306,0.42857,1.0]]},{"a":["W1","W2","W5","W6"],"b":["W3","W4","W7","W8"],"p":[[0.02657,0.88571,1.0],[0.1028,0.91429,1.0],[1.242e-49,1.0,1.0],[null,0.68571,1.0],[0.8952,0.94286,1.0],[0.2538,0.37143,1.0],[0.2524,0.62857,1.0],[0.02895,0.71429,1.0]]},{"a":["W1","W2","W5","W7"],"b":["W3","W4","W6","W8"],"p":[[1.405e-85,0.08571,0.51429],[3.585e-119,0.05714,0.45714],[1.242e-49,1.0,1.0],[null,0.88571,1.0],[1.094e-69,0.05714,0.45714],[0.1046,0.22857,1.0],[0.171,0.54286,1.0],[0.2866,0.91429,1.0]]},{"a":["W1","W2","W5","W8"],"b":["W3","W4","W6","W7"],"p":[[0.0006166,0.82857,1.0],[5.577e-13,0.62857,1.0],[1.242e-49,1.0,1.0],[null,0.68571,1.0],[8.348e-07,0.2,1.0],[0.7835,0.85714,1.0],[0.2901,0.65714,1.0],[0.7666,1.0,1.0]]},{"a":["W1","W2","W6","W7"],"b":["W3","W4","W5","W8"],"p":[[1.192e-10,0.57143,1.0],[2.134e-24,0.4,1.0],[1.242e-49,1.0,1.0],[null,0.68571,1.0],[1.933e-11,0.82857,1.0],[0.06518,0.14286,1.0],[0.06474,0.28571,1.0],[9.126e-05,0.31429,1.0]]},{"a":["W1","W2","W6","W8"],"b":["W3","W4","W5","W7"],"p":[[2.029e-22,0.4,1.0],[6.362e-09,0.68571,1.0],[1.242e-49,1.0,1.0],[null,0.88571,1.0],[3.143e-09,0.65714,1.0],[0.9572,0.97143,1.0],[0.1246,0.42857,1.0],[0.001667,0.45714,1.0]]},{"a":["W1","W2","W7","W8"],"b":["W3","W4","W5","W6"],"p":[[1.31e-33,0.25714,1.0],[4.867e-56,0.17143,1.0],[1.242e-49,1.0,1.0],[null,0.68571,1.0],[9.819e-31,0.11429,0.91429],[0.6686,0.74286,1.0],[0.07835,0.34286,1.0],[0.04284,0.74286,1.0]]},{"a":["W1","W3","W4","W5"],"b":["W2","W6","W7","W8"],"p":[[0.0005408,0.8,1.0],[0.6866,0.97143,1.0],[1.242e-49,1.0,1.0],[null,0.17143,1.0],[0.6704,0.8,1.0],[0.6271,0.68571,1.0],[0.0002244,0.02857,0.22857],[1.009e-18,0.02857,0.22857]]},{"a":["W1","W3","W4","W6"],"b":["W2","W5","W7","W8"],"p":[[2.875e-22,0.42857,1.0],[4.561e-41,0.25714,1.0],[1.242e-49,1.0,1.0],[null,0.4,1.0],[1.639e-25,0.14286,1.0],[0.4797,0.6,1.0],[0.001319,0.08571,0.68571],[2.156e-09,0.14286,1.0]]},{"a":["W1","W3","W4","W7"],"b":["W2","W5","W6","W8"],"p":[[8.504e-34,0.22857,1.0],[3.412e-16,0.51429,1.0],[1.242e-49,1.0,1.0],[null,0.88571,1.0],[2.459e-12,0.62857,1.0],[0.2346,0.34286,1.0],[0.002815,0.11429,0.91429],[1.207e-12,0.11429,0.91429]]},{"a":["W1","W3","W4","W8"],"b":["W2","W5","W6","W7"],"p":[[4.846e-05,0.74286,1.0],[4.434e-15,0.57143,1.0],[1.242e-49,1.0,1.0],[null,0.4,1.0],[1.807e-08,0.85714,1.0],[0.4783,0.57143,1.0],[0.0009723,0.05714,0.45714],[3.44e-15,0.08571,0.6]]},{"a":["W1","W3","W5","W6"],"b":["W2","W4","W7","W8"],"p":[[6.553e-05,0.77143,1.0],[0.9301,1.0,1.0],[1.63e-50,0.42857,1.0],[null,1.0,1.0],[0.05266,0.88571,1.0],[0.7797,0.82857,1.0],[0.05493,0.22857,1.0],[0.01338,0.57143,1.0]]},{"a":["W1","W3","W5","W7"],"b":["W2","W4","W6","W8"],"p":[[4.084e-71,0.11429,0.68571],[1.89e-102,0.08571,0.68571],[1.63e-50,0.42857,1.0],[null,0.51429,1.0],[1.675e-54,0.08571,0.68571],[0.8399,0.91429,1.0],[0.09006,0.37143,1.0],[0.0003281,0.34286,1.0]]},{"a":["W1","W3","W5","W8"],"b":["W2","W4","W6","W7"],"p":[[0.09894,0.94286,1.0],[3.993e-08,0.71429,1.0],[1.63e-50,0.42857,1.0],[null,1.0,1.0],[0.00429,0.34286,1.0],[0.08995,0.2,1.0],[0.04484,0.2,1.0],[1.295e-05,0.2,1.0]]},{"a":["W1","W3","W6","W7"],"b":["W2","W4","W5","W8"],"p":[[3.069e-06,0.68571,1.0],[2.379e-17,0.45714,1.0],[1.63e-50,0.42857,1.0],[null,0.4,1.0],[3.515e-06,0.97143,1.0],[0.6722,0.77143,1.0],[0.2236,0.6,1.0],[0.4563,0.94286,1.0]]},{"a":["W1","W3","W6","W8"],"b":["W2","W4","W5","W7"],"p":[[1.115e-30,0.31429,1.0],[5.222e-14,0.6,1.0],[1.63e-50,0.42857,1.0],[null,0.88571,1.0],[1.259e-15,0.51429,1.0],[0.1403,0.25714,1.0],[0.1265,0.45714,1.0],[0.1301,0.8,1.0]]},{"a":["W1","W3","W7","W8"],"b":["W2","W4","W5","W6"],"p":[[6.478e-25,0.34286,1.0],[7.438e-45,0.2,1.0],[1.63e-50,0.42857,1.0],[null,0.4,1.0],[3.581e-21,0.22857,1.0],[0.3208,0.42857,1.0],[0.1923,0.57143,1.0],[0.00848,0.54286,1.0]]},{"a":["W1","W4","W5","W6"],"b":["W2","W3","W7","W8"],"p":[[0.9858,1.0,1.0],[0.000122,0.8,1.0],[1.242e-49,1.0,1.0],[null,0.4,1.0],[0.01043,0.57143,1.0],[0.2206,0.31429,1.0],[0.03797,0.17143,1.0],[0.02286,0.65714,1.0]]},{"a":["W1","W4","W5","W7"],"b":["W2","W3","W6","W8"],"p":[[2.085e-105,0.02857,0.22857],[2.186e-70,0.14286,1.0],[1.242e-49,1.0,1.0],[null,0.88571,1.0],[2.612e-50,0.17143,1.0],[0.08789,0.17143,1.0],[0.0642,0.25714,1.0],[0.0006879,0.4,1.0]]},{"a":["W1","W4","W5","W8"],"b":["W2","W3","W6","W7"],"p":[[1.864e-08,0.62857,1.0],[0.08242,0.88571,1.0],[1.242e-49,1.0,1.0],[null,0.4,1.0],[0.0256,0.54286,1.0],[0.8485,0.94286,1.0],[0.03063,0.14286,1.0],[3.138e-05,0.25714,1.0]]},{"a":["W1","W4","W6","W7"],"b":["W2","W3","W5","W8"],"p":[[5.605e-18,0.45714,1.0],[2.367e-06,0.77143,1.0],[1.242e-49,1.0,1.0],[null,1.0,1.0],[5.97e-05,0.77143,1.0],[0.05389,0.08571,0.68571],[0.1698,0.51429,1.0],[0.5841,0.97143,1.0]]},{"a":["W1","W4","W6","W8"],"b":["W2","W3","W5","W7"],"p":[[4.688e-14,0.51429,1.0],[1.637e-29,0.31429,1.0],[1.242e-49,1.0,1.0],[null,0.51429,1.0],[6.446e-18,0.31429,1.0],[0.9761,1.0,1.0],[0.09221,0.4,1.0],[0.1881,0.85714,1.0]]},{"a":["W1","W4","W7","W8"],"b":["W2","W3","W5","W6"],"p":[[2.822e-46,0.17143,1.0],[7.184e-25,0.37143,1.0],[1.242e-49,1.0,1.0],[null,1.0,1.0],[1.166e-18,0.42857,1.0],[0.6089,0.65714,1.0],[0.1444,0.48571,1.0],[0.01491,0.62857,1.0]]},{"a":["W1","W5","W6","W7"],"b":["W2","W3","W4","W8"],"p":[[1.016e-46,0.14286,1.0],[7.548e-73,0.11429,0.91429],[1.63e-50,0.42857,1.0],[null,0.4,1.0],[5.181e-36,0.37143,1.0],[0.3466,0.48571,1.0],[0.9358,0.91429,1.0],[0.003035,0.48571,1.0]]},{"a":["W1","W5","W6","W8"],"b":["W2","W3","W4","W7"],"p":[[0.06764,0.91429,1.0],[0.04011,0.85714,1.0],[1.63e-50,0.42857,1.0],[null,0.88571,1.0],[0.8957,0.91429,1.0],[0.3388,0.45714,1.0],[0.6953,0.74286,1.0],[0.02814,0.68571,1.0]]},{"a":["W1","W5","W7","W8"],"b":["W2","W3","W4","W6"],"p":[[6.063e-89,0.05714,0.34286],[1.837e-123,0.02857,0.22857],[1.63e-50,0.42857,1.0],[null,0.4,1.0],[1.194e-67,0.02857,0.22857],[0.6349,0.71429,1.0],[0.8672,0.85714,1.0],[0.2815,0.88571,1.0]]},{"a":["W1","W6","W7","W8"],"b":["W2","W3","W4","W5"],"p":[[8.452e-12,0.54286,1.0],[2.567e-26,0.34286,1.0],[1.63e-50,0.42857,1.0],[null,0.17143,1.0],[1.137e-10,0.68571,1.0],[0.7997,0.88571,1.0],[0.756,0.77143,1.0],[8.712e-05,0.28571,1.0]]}],"VAL":{"W1":{"p_aR":0.22654081066074402,"p_b":0.773459189339256,"p_aL":0.0,"trans":6.666666666666666,"psi":142.6799532267344,"T":299.94563571469837,"P":11.673589460504386,"V":46.37697989434507},"W2":{"p_aR":0.3875624652970572,"p_b":0.61188228761799,"p_aL":0.000555247084952804,"trans":6.666666666666666,"psi":121.39380854018006,"T":299.9609239326741,"P":-4.54076084501722,"V":46.40429891278747},"W3":{"p_aR":0.4153248195446974,"p_b":0.5846751804553026,"p_aL":0.0,"trans":5.555555555555555,"psi":114.37998907758386,"T":300.0545441115431,"P":10.162879704699476,"V":46.378374038884566},"W4":{"p_aR":0.35313714602998336,"p_b":0.5252637423653526,"p_aL":0.12159911160466408,"trans":7.777777777777778,"psi":102.61725999970498,"T":299.9554117993556,"P":10.910004058326853,"V":46.379474361515385},"W5":{"p_aR":0.2637423653525819,"p_b":0.7362576346474181,"p_aL":0.0,"trans":5.555555555555555,"psi":142.0876091394448,"T":300.0204116233752,"P":4.709271278413511,"V":46.39901982290856},"W6":{"p_aR":0.4697390338700722,"p_b":0.5302609661299278,"p_aL":0.0,"trans":5.0,"psi":87.35714768512717,"T":300.0058480988779,"P":2.4153416338184654,"V":46.414866053994004},"W7":{"p_aR":0.12826207662409772,"p_b":0.8717379233759023,"p_aL":0.0,"trans":3.333333333333333,"psi":148.68369741174075,"T":299.97410786545936,"P":1.338569950005556,"V":46.408640347628044},"W8":{"p_aR":0.38145474736257634,"p_b":0.6185452526374237,"p_aL":0.0,"trans":5.0,"psi":124.64505879003997,"T":300.09914166592597,"P":2.8314269132318626,"V":46.40436123164093}},"GR":[{"up":30,"disc":0,"end":1000,"d":-0.3497,"p":0.95866,"pr":false},{"up":30,"disc":0,"end":2000,"d":1.3931,"p":0.76037,"pr":false},{"up":30,"disc":200,"end":1000,"d":-4.2135,"p":0.61352,"pr":false},{"up":30,"disc":200,"end":2000,"d":-0.1319,"p":0.97747,"pr":false},{"up":30,"disc":500,"end":1000,"d":-5.6387,"p":0.66076,"pr":false},{"up":30,"disc":500,"end":2000,"d":0.2082,"p":0.97483,"pr":false},{"up":50,"disc":0,"end":1000,"d":-0.1249,"p":0.98695,"pr":false},{"up":50,"disc":0,"end":2000,"d":1.6804,"p":0.72774,"pr":false},{"up":50,"disc":200,"end":1000,"d":-4.2291,"p":0.64165,"pr":false},{"up":50,"disc":200,"end":2000,"d":0.0555,"p":0.99114,"pr":true},{"up":50,"disc":500,"end":1000,"d":-5.4391,"p":0.69635,"pr":false},{"up":50,"disc":500,"end":2000,"d":0.508,"p":0.93846,"pr":false},{"up":70,"disc":0,"end":1000,"d":-0.1623,"p":0.98399,"pr":false},{"up":70,"disc":0,"end":2000,"d":1.6867,"p":0.73473,"pr":false},{"up":70,"disc":200,"end":1000,"d":-4.2291,"p":0.64973,"pr":false},{"up":70,"disc":200,"end":2000,"d":0.0833,"p":0.98772,"pr":false},{"up":70,"disc":500,"end":1000,"d":-5.3643,"p":0.70847,"pr":false},{"up":70,"disc":500,"end":2000,"d":0.5663,"p":0.93209,"pr":false}],"summary":{"frame":{"pairs_sig":162,"pairs":245,"splits_any":35,"splits":35},"perm":{"pairs_sig":6,"pairs":280,"splits_any":4,"splits":35},"holm":{"pairs_sig":0,"pairs":280,"splits_any":0,"splits":35}},"per_metric":{"p_aR":{"frame":31,"perm":1,"holm":0},"p_b":{"frame":30,"perm":1,"holm":0},"p_aL":{"frame":35,"perm":0,"holm":0},"trans":{"frame":0,"perm":0,"holm":0},"psi":{"frame":31,"perm":1,"holm":0},"T":{"frame":2,"perm":1,"holm":0},"P":{"frame":7,"perm":1,"holm":0},"V":{"frame":26,"perm":1,"holm":0}},"ST":{"W1":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHf9___gAAAAAAAAAAAAAAAAAAAP_9____-__4AAAAO_-__-______________3_3___________wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP_____4AAAAAAAAAAAAAH_________7_sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_eAAAAAAAAAAAAAAAAAAAA","W2":"AAAAAAAAAAAAAAAB_____7____wAAAAAAAAAAAAAAAAP_________________b___-AAAAAAAAAf______-f____3_______________3r__7__7________AAAAAAAP_8AAAAAAAAAD_____________________8wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB_____________7_8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","W3":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB___-_____________3v__________-P3___-f_____wAAADf__7____n4AAAEAAAAAA_________________-_____3f________wAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_________________33__7____________-AAP______wAAAAAAA","W4":"AAAAAAAAAAAAAAAAH____fAAAAAH_5__gAAAH___________-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC________9___f_______f________gDr______9__wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD____-g_737____v_3____3________________________8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","W5":"AAAAAAAAAAAAAAAAAAAAn_-AAAAAAAP________9_________f_______-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAD___v_f______________8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAP______wAAAAAAAAAAAAAAAAAAAP3____7______________8AAAAAAAAAAAA","W6":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD_____________________-___8AAAAAABv5____-gAAAAAAAAAAAAAAAAAAAAH___5________________5__f_____v________z8AAT__-9___X_______f__3__________________9____________________-AAAAAAAAAAAIAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA___________gA","W7":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD___-f____________AAAAAAAAAAAAAAAAAAAAAAAAAA_____-AAAAAAAAAAAAAAH_______________gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","W8":"AAAAAAAAP________wAAAAAAAAAAAAAf____-_________-f__9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB_________-n_f__9-f________________________-__6____wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_________2_______-__________8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD___3_____gA","S1":"AAAAAAAAAAAAAAAAAAAAAAAAAAAPv-QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB____-AAH____________7_______-_-f____7____f___-QAAAAAAAAAAAAAAAAAAAAAP_______________-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP____________9____v_____________f__yAAb_9YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","S2":"AAAAAAAAAAAfv______AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv______-__n_P__9__5P______6_____________________________________v______8AAAAABPr___9____________-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP____________4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf____e___3_____________________________v_________4AA","S3":"AAAAAAAAAAAAAB_______________07_n______v______wAAAAAAAAAAAB________________8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL_wAAAAP_r_4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH__4AAAAAAAAAAAPwAAAAAAAAAAH__________________f___4AAAAP___________________________________gA","S4":"__6gAf_YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHn_________v_____________1___n__________4AAAAAAAAAAAAAAAAAAAAADP__f___-___3______4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB________AAAH__3_____AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","S5":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB_4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH_________fX_gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOA5W__________-__3___AAAAAAAAAAAAAAOf_______IAAAAAAAAAAAAAAAAAAAAAAAAAP__3________gAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf____7______vAAAAAAAAAAA","S6":"_____v____9gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD_____8AAAAAAAAAAAAAAAAAB___v_______wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD_________w_-___-_________-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA____________________________________gA","S7":"____-gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH___AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD7__________vP_-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA__9_________________-___________________P7___gAAAAAAAAAAAAAAAAAAAAAAAAD__v____gAAAAAAAAAAAAAAAAAAAAAAA___-AAAAAAAAAAAAAA","S8":"AAAAAAAAAAAAAAAAAAAAAAB____________________wAAAAAAAAAAAAAAAAP9_________AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH_-AAAAAAAAAAAAAAAAAAAAAAAAABAAAAABOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_______8D_______7C____________________9__9_vf__3__v7____-AAAAAAAAAAAAAB________-AAAAAAAAf_______0AAAAAAAAAAAAAAAAAAAAAA","A03_1":"_6f_________________________________-AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAP_______________________f________________-_______________________________________8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH_________________________________________________________________________v_____________AAAAAAA","A03_2":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH_________8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA________________________wgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf_______________9_____________-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","A03_3":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH_____7-_____f___________________________________________v_______________7_________________wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","A03_4":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD_-___________________________9_____________________________7_________________f_______-v_______4AAAAAAAAAAAAAAAAAAAAgAAgAAAAAAAAHv_wAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA__________________________________________9_____________gA","C27_1":"________________________AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_9__________________________________________________________3_______9_3____f___9_______________________________________________________________________________gA","C27_2":"_______f___________________________AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_________t_________________f_______f9___________________________________________________________________9_________________________________________________________________gA","C27_3":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB_______________________________________________________________gA","C27_4":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD_____7___________________________________________________v______________9________8AAAAAAAAAA","OPL_1":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf___74AAAAAAAAAAAD_-AAAAAAAAEAfof___-AAAAAAAAFgAAAD____H__-HvgAAAAAAAABP_E___4________________0a7___v________H___________9___-kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf_____v___5__________________wAAAAAA","OPL_2":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAABf_w___AAAAAAAAAAAAAAAAAAAD___-P9_________7__9____AAAEAAAAAAAAAAAACf__8AAflAAAAAAAAA________AAAAAAAAAAAAAAAP__3__v_z____________n__j2_3_7f_7-3gH9_________wAAAAAAAAAAAAAAAAAAAAAAAf___vr_7___wD__w_____AAAAAAAAAAE_AAAAAAAAAAAAAAAAAAf_n2QAAAAAAgV___vAAAAAAAAAAAAAAA","OPL_3":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH__gAL____-AB____f___________f_______4AAAAAAAAAAAAAAP________3__vP_v__3_cAAAAAAAAAH___b___QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA___1__9Dd_L9_____________5wAAAAAAAAAAAAAAAfCHIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","OPL_4":"AB___-AAAAAAAAAAAAAAAA__wH___4AAAAAAAAAAAAAAAAF______wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_AAH4AAfv________wAAAAAAAAAAAAAAAAAAAAAD9___3gB________dAAAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD____AAAAAf__97_f______3v__8G______AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH8O7gA"}}</script>
+<script>
+var VDD=JSON.parse(document.getElementById('edd').textContent);
+(function(){
+/* ===== ev yardımcıları (DK-T/DK-O/DK-U ile aynı) ===== */
+var $=function(id){return document.getElementById(id);};
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }
+function fit(c){ var r=c.getBoundingClientRect(), d=Math.min(2,window.devicePixelRatio||1), w=Math.max(1,Math.round(r.width*d)), h=Math.max(1,Math.round(r.height*d)); if(c.width!==w||c.height!==h){c.width=w;c.height=h;} var g=c.getContext('2d'); g.setTransform(d,0,0,d,0,0); return {g:g,W:r.width,H:r.height}; }
+var FOUND={}, CH={}, NCARD=8, PAL={}, CHARTS=[];
+function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('eprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }
+function segWire(id,cb){ var el=$(id); if(!el) return; el.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ el.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); cb(b.getAttribute('data-v')); }); }); }
+function fmtNum(v){ if(Math.abs(v-Math.round(v))<1e-9){ var r=Math.round(v); return (r<0?'−':'')+Math.abs(r); } return fx(v,1); }
+function plot(g,L,T,W,H,xr,yr,o){ o=o||{};
+  g.fillStyle=o.bg||css('--paper'); g.fillRect(L,T,W,H);
+  var xt=o.xticks, yt=o.yticks; g.font='12px '+css('--sans'); g.lineWidth=1;
+  g.strokeStyle=css('--line');
+  if(xt) xt.forEach(function(t){ var x=L+(t-xr[0])/(xr[1]-xr[0])*W; g.beginPath(); g.moveTo(x,T); g.lineTo(x,T+H); g.stroke(); });
+  if(yt) yt.forEach(function(t){ var y=T+H-(t-yr[0])/(yr[1]-yr[0])*H; g.beginPath(); g.moveTo(L,y); g.lineTo(L+W,y); g.stroke(); });
+  g.fillStyle=css('--muted');
+  if(xt){ g.textAlign='center'; xt.forEach(function(t){ var x=L+(t-xr[0])/(xr[1]-xr[0])*W; g.fillText(o.xfmt?o.xfmt(t):fmtNum(t),x,T+H+15); }); }
+  if(yt && !o.noylab){ g.textAlign='right'; yt.forEach(function(t){ var y=T+H-(t-yr[0])/(yr[1]-yr[0])*H; g.fillText(o.yfmt?o.yfmt(t):fmtNum(t),L-7,y+4); }); }
+  g.strokeStyle=css('--line'); g.strokeRect(L,T,W,H);
+  if(o.xlab){ g.fillStyle=css('--muted'); g.textAlign='center'; g.fillText(o.xlab,L+W/2,T+H+33); }
+  if(o.ylab){ var ylx=L-(o.ylabPad!=null?o.ylabPad:40); g.save(); g.fillStyle=css('--muted'); g.textAlign='center'; g.translate(ylx,T+H/2); g.rotate(-Math.PI/2); g.fillText(o.ylab,0,0); g.restore(); }
+  g.textAlign='left';
+  return { X:function(v){return L+(v-xr[0])/(xr[1]-xr[0])*W;}, Y:function(v){return T+H-(v-yr[0])/(yr[1]-yr[0])*H;}, L:L,T:T,W:W,H:H };
+}
+function tipShow(tip,boxW,x,y,html){ if(!tip) return; tip.innerHTML=html; tip.style.display='block'; var tw=tip.offsetWidth, th=tip.offsetHeight; var px=x+14; if(px+tw>boxW) px=x-tw-14; if(px<2) px=2; var py=y-th-10; if(py<2) py=y+18; tip.style.left=px+'px'; tip.style.top=py+'px'; }
+function tipHide(tip){ if(tip) tip.style.display='none'; }
+function dot(c){ return '<i style="background:'+c+'"></i>'; }
+function lin(c){ return '<span class="lin" style="border-color:'+c+'"></span>'; }
+function dl(k,v){ return '<dt>'+k+'</dt><dd>'+v+'</dd>'; }
+function hexRGB(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
+function hexA(h,a){ var c=hexRGB(h); return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')'; }
+/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */
+function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';
+  var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);
+  return String(n)+'\''+(end?'s':'')+V+(back?'nda':'nde'); }
+/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */
+function nPoss(s){ var t=String(s).replace(/[%\s]/g,''), p=t.split(','), w;
+  if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }
+  else { var n=+p[0].replace(/\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }
+  var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];
+  return s+'\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }
+function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }
+
+/* ===== ortak animasyon altyapısı ===== */
+var REDUCE=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+var ANI={items:[],raf:null,last:null};
+function aniAdd(it){ ANI.items.push(it); }
+function aniFrame(ts){ ANI.raf=null; var dt=ANI.last==null?0.016:Math.min(0.05,(ts-ANI.last)/1000); ANI.last=ts; var go=false; ANI.items.forEach(function(it){ if(it.active()){ it.tick(dt); go=true; } }); if(go) ANI.raf=requestAnimationFrame(aniFrame); else ANI.last=null; }
+function aniKick(){ if(!ANI.raf) ANI.raf=requestAnimationFrame(aniFrame); }
+function watchVis(el,obj,onFirst){ obj.vis=true; var first=true; if(!('IntersectionObserver' in window)){ if(onFirst&&!REDUCE) setTimeout(onFirst,0); return; } obj.vis=false; new IntersectionObserver(function(es){ obj.vis=es[es.length-1].isIntersecting; if(obj.vis){ if(first){ first=false; if(onFirst&&!REDUCE) onFirst(); } aniKick(); } }).observe(el); }
+function rgbA(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
+function mixA(a,b,t){ return a.map(function(v,i){return Math.round(v+(b[i]-v)*t);}); }
+function rstr(a,al){ return al==null?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')'; }
+function sprite(hex,rPx){ var d=Math.min(2,window.devicePixelRatio||1), pad=Math.ceil(rPx*0.6), S=Math.ceil((2*rPx+2*pad)*d); var c=document.createElement('canvas'); c.width=c.height=S; var g=c.getContext('2d'); g.scale(d,d);
+  var m=S/d/2, base=rgbA(hex), hi=mixA(base,[255,255,255],0.55), lo=mixA(base,[0,0,0],0.38);
+  g.fillStyle='rgba(40,40,30,0.18)'; g.beginPath(); g.ellipse(m+rPx*0.16,m+rPx*0.3,rPx*0.98,rPx*0.82,0,0,Math.PI*2); g.fill();
+  var gr=g.createRadialGradient(m-rPx*0.38,m-rPx*0.42,rPx*0.06,m,m,rPx); gr.addColorStop(0,rstr(hi)); gr.addColorStop(0.5,rstr(base)); gr.addColorStop(1,rstr(lo));
+  g.fillStyle=gr; g.beginPath(); g.arc(m,m,rPx,0,Math.PI*2); g.fill(); g.strokeStyle=rstr(lo,0.55); g.lineWidth=0.8; g.stroke(); return {c:c,s:S/d}; }
+var SPR={};
+function ball(key,hex,rPx){ var k=key+'|'+Math.round(rPx*2)+'|'+(window.devicePixelRatio||1); if(SPR[k]) return SPR[k]; SPR[k]=sprite(hex,rPx); return SPR[k]; }
+function blit(g,sp,x,y,al){ if(al!=null) g.globalAlpha=al; g.drawImage(sp.c,x-sp.s/2,y-sp.s/2,sp.s,sp.s); if(al!=null) g.globalAlpha=1; }
+function pill(g,txt,x,y,fg,bg){ g.font='600 12.5px '+css('--sans'); var w=g.measureText(txt).width+14; g.fillStyle=bg; g.beginPath(); if(g.roundRect) g.roundRect(x-w/2,y-11,w,22,11); else g.rect(x-w/2,y-11,w,22); g.fill(); g.fillStyle=fg; g.textAlign='center'; g.textBaseline='middle'; g.fillText(txt,x,y+0.5); g.textAlign='left'; g.textBaseline='alphabetic'; }
+function b64i16(s){ s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4) s+='='; var b=atob(s), n=b.length/2, a=new Int16Array(n); for(var i=0;i<n;i++){ var v=b.charCodeAt(2*i)|(b.charCodeAt(2*i+1)<<8); a[i]=v>32767?v-65536:v; } return a; }
+
+/* ===== ortak yardımcılar ===== */
+function i16(s,sc){ var a=b64i16(s), o=new Float32Array(a.length); for(var i=0;i<a.length;i++) o[i]=a[i]/sc; return o; }
+function u8(s){ s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4) s+='='; var b=atob(s), a=new Uint8Array(b.length); for(var i=0;i<b.length;i++) a[i]=b.charCodeAt(i); return a; }
+function arrMax(a){ var m=-Infinity; for(var i=0;i<a.length;i++) if(a[i]>m) m=a[i]; return m; }
+function arrMin(a){ var m=Infinity; for(var i=0;i<a.length;i++) if(a[i]<m) m=a[i]; return m; }
+function arrMean(a){ var s=0; for(var i=0;i<a.length;i++) s+=a[i]; return s/a.length; }
+function arrSD(a){ var m=arrMean(a), s=0; for(var i=0;i<a.length;i++) s+=(a[i]-m)*(a[i]-m); return Math.sqrt(s/(a.length-1)); }
+function pear(a,b){ var ma=arrMean(a), mb=arrMean(b), sab=0, saa=0, sbb=0; for(var i=0;i<a.length;i++){ var x=a[i]-ma, y=b[i]-mb; sab+=x*y; saa+=x*x; sbb+=y*y; } return sab/Math.sqrt(saa*sbb); }
+function sl(a,i0,i1){ return Array.prototype.slice.call(a,i0,i1); }
+function quant(a,q){ var s=sl(a,0,a.length).sort(function(x,y){return x-y;}), p=(s.length-1)*q, lo=Math.floor(p), hi=Math.ceil(p); return s[lo]+(s[hi]-s[lo])*(p-lo); }
+function proj(V,W,H,bb){ var cx=(bb.lo[0]+bb.hi[0])/2, cy=(bb.lo[1]+bb.hi[1])/2, cz=(bb.lo[2]+bb.hi[2])/2, R=0.5*Math.hypot(bb.hi[0]-bb.lo[0],bb.hi[1]-bb.lo[1],bb.hi[2]-bb.lo[2]);
+  var ya=Math.cos(V.yaw), sy=Math.sin(V.yaw), cp=Math.cos(V.pitch), sp=Math.sin(V.pitch), sc=Math.min(W,H)*0.46/R, D=4*R;
+  return function(p){ var x=p[0]-cx, y=p[1]-cy, z=p[2]-cz, x1=ya*x+sy*z, z1=-sy*x+ya*z, y1=cp*y-sp*z1, z2=sp*y+cp*z1, k=D/(D-z2); return [W/2+x1*sc*k, H/2-y1*sc*k, z2, k, sc*k]; }; }
+function dragRot(cv,V,draw){ var drag=null; cv.addEventListener('pointerdown',function(e){ drag={x:e.clientX,y:e.clientY,yaw:V.yaw,pitch:V.pitch}; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove',function(e){ if(!drag) return; V.yaw=drag.yaw+(e.clientX-drag.x)*0.01; V.pitch=Math.max(-1.3,Math.min(1.3,drag.pitch+(e.clientY-drag.y)*0.01)); draw(); });
+  cv.addEventListener('pointerup',function(){ drag=null; }); cv.addEventListener('pointercancel',function(){ drag=null; }); }
+/* ===== MD-ERR ortak sabitler ===== */
+var GR=['W','S','A03','C27','OPL'], GN={W:'Su (W)',S:'0,15 M NaCl (S)',A03:'amber03',C27:'charmm27',OPL:'OPLS-AA'}, GSRC={W:'MD-REP',S:'MD-REP',A03:'MD-FF',C27:'MD-FF',OPL:'MD-FF'};
+var MDM=['L1','L2a','L2b','L3','L4','L5'], MN={L1:'L1 AM1-BCC',L2a:'L2a Gasteiger (net yük 0)',L2b:'L2b Gasteiger (RDKit, +1)',L3:'L3 nötr amidin',L4:'L4 RESP',L5:'L5 Espaloma'};
+var MNS={L1:'L1 AM1-BCC',L2a:'L2a Gasteiger 0',L2b:'L2b Gasteiger +1',L3:'L3 nötr',L4:'L4 RESP',L5:'L5 Espaloma'};
+var METN={p_aR:'αR payı',p_b:'β/PPII payı',p_aL:'αL payı',trans:'geçiş/ns',psi:'ortalama ψ',T:'sıcaklık',P:'basınç',V:'hacim'};
+var TESTN={frame:'Kare düzeyi',perm:'Tekrar düzeyi',holm:'Tekrar düzeyi + Holm'};
+function pp(v,d){ return fx(v*100,d==null?1:d); }
+/* tohumlu rastgele sayı ve normal dağılım */
+function rng(seed){ var a=seed>>>0; return function(){ a=(a+0x6D2B79F5)>>>0; var t=a; t=Math.imul(t^(t>>>15),t|1); t^=t+Math.imul(t^(t>>>7),t|61); return ((t^(t>>>14))>>>0)/4294967296; }; }
+function gauss(r){ var u=0, v=0; while(u===0) u=r(); v=r(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+/* Student t: düzenlenmiş eksik beta ile dağılım fonksiyonu, ikiye bölme ile ters */
+function lgam(x){ var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5], y=x, t=x+5.5; t-=(x+0.5)*Math.log(t); var s=1.000000000190015; for(var j=0;j<6;j++) s+=c[j]/++y; return -t+Math.log(2.5066282746310005*s/x); }
+function bcf(a,b,x){ var qab=a+b, qap=a+1, qam=a-1, c=1, d=1-qab*x/qap; if(Math.abs(d)<1e-30) d=1e-30; d=1/d; var h=d;
+  for(var m=1;m<=200;m++){ var m2=2*m, aa=m*(b-m)*x/((qam+m2)*(a+m2)); d=1+aa*d; if(Math.abs(d)<1e-30) d=1e-30; c=1+aa/c; if(Math.abs(c)<1e-30) c=1e-30; d=1/d; h*=d*c;
+    aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2)); d=1+aa*d; if(Math.abs(d)<1e-30) d=1e-30; c=1+aa/c; if(Math.abs(c)<1e-30) c=1e-30; d=1/d; var del=d*c; h*=del; if(Math.abs(del-1)<3e-12) break; } return h; }
+function ibeta(a,b,x){ if(x<=0) return 0; if(x>=1) return 1; var bt=Math.exp(lgam(a+b)-lgam(a)-lgam(b)+a*Math.log(x)+b*Math.log(1-x)); return x<(a+1)/(a+b+2)?bt*bcf(a,b,x)/a:1-bt*bcf(b,a,1-x)/b; }
+function tcdf(t,df){ var x=df/(df+t*t), p=0.5*ibeta(df/2,0.5,x); return t>0?1-p:p; }
+var TQ={}; function tq(p,df){ var k=p+'|'+df; if(TQ[k]!=null) return TQ[k]; var lo=0, hi=1000; for(var i=0;i<100;i++){ var m=(lo+hi)/2; if(tcdf(m,df)<p) lo=m; else hi=m; } return TQ[k]=(lo+hi)/2; }
+function pfmt(p){ if(p==null) return 'test yok'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'·10<sup>'+(e<0?'−':'')+Math.abs(e)+'</sup>'; } return fx(p,p<0.01?4:3); }
+function pfmtT(p){ if(p==null) return 'test yok'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'e'+(e<0?'−':'')+Math.abs(e); } return fx(p,p<0.01?4:3); }
+/* bit paketli dizi: kare başına 0/1 */
+function bits(s,n){ var b=u8(s), o=new Uint8Array(n); for(var i=0;i<n;i++) o[i]=(b[i>>3]>>(7-(i&7)))&1; return o; }
+function blockSE(x,B){ var nb=Math.floor(1800/B), ms=[], i, j; for(i=0;i<nb;i++){ var s=0; for(j=i*B;j<(i+1)*B;j++) s+=x[j]; ms.push(s/B); } var m=arrMean(ms), v=0; for(i=0;i<nb;i++) v+=(ms[i]-m)*(ms[i]-m); return {se:Math.sqrt(v/(nb-1))/Math.sqrt(nb),nb:nb,ms:ms}; }
+/* oynat/duraklat: adım fonksiyonu false dönerse durur */
+function player(id,ms,step,onToggle){ var P={on:false,t:0,last:null}, b=$(id);
+  function loop(ts){ if(!P.on) return; if(P.last==null) P.last=ts; P.t+=ts-P.last; P.last=ts; while(P.t>=ms){ P.t-=ms; if(step()===false){ set(false); return; } } requestAnimationFrame(loop); }
+  function set(on){ P.on=on; P.last=null; P.t=0; b.textContent=on?'Duraklat':'Oynat'; b.setAttribute('aria-pressed',String(on)); if(on) requestAnimationFrame(loop); if(onToggle) onToggle(on); }
+  b.addEventListener('click',function(){ set(!P.on); }); P.set=set; return P; }
+/* kısa geçiş animasyonu: 0'dan 1'e */
+function tween(obj,ms,draw){ if(REDUCE){ obj.k=1; draw(); return; } obj.k=0; var t0=null; obj.id=(obj.id||0)+1; var id=obj.id;
+  function f(ts){ if(id!==obj.id) return; if(t0==null) t0=ts; obj.k=Math.min(1,(ts-t0)/ms); draw(); if(obj.k<1) requestAnimationFrame(f); } requestAnimationFrame(f); }
+function ease(k){ return k<0.5?2*k*k:1-Math.pow(-2*k+2,2)/2; }
+function rrect(g,x,y,w,h,r){ g.beginPath(); if(g.roundRect) g.roundRect(x,y,w,h,r); else g.rect(x,y,w,h); }
+/* ===== deneysel köprü: qPCR ΔΔCt'de belirsizlik (öğretim modeli, ölçülmüş veri değil) ===== */
+var QP={n:3,k:3,sb:0.5,st:0.25,rho:0.5,dd:-1,seed:1,seen:{},kseen:false}, QD={ex:[],N:0,hit:{ok:0,tech:0,unp:0},r:null};
+var QPM=[['ok','Doğru: biyolojik n, eşleştirilmiş ΔCt'],['tech','Yanlış n: teknik tekrarlar n sayıldı'],['unp','Eşleştirme yok: hedef ve referans ayrı ayrı']];
+/* bir deney: iki grup (kontrol, uygulama), her grupta n biyolojik örnek, örnek başına k kuyu */
+function qpExp(r,P){ var g, i, j, out={dc:[[],[]],wd:[[],[]],mt:[[],[]],mr:[[],[]]}, rr=Math.sqrt(1-P.rho*P.rho);
+  for(g=0;g<2;g++) for(i=0;i<P.n;i++){ var z1=gauss(r), z2=gauss(r), bT=P.sb*z1, bR=P.sb*(P.rho*z1+rr*z2), sT=0, sR=0;
+    for(j=0;j<P.k;j++){ var cT=25+g*P.dd+bT+P.st*gauss(r), cR=20+bR+P.st*gauss(r); sT+=cT; sR+=cR; out.wd[g].push(cT-cR); }
+    out.mt[g].push(sT/P.k); out.mr[g].push(sR/P.k); out.dc[g].push(sT/P.k-sR/P.k); }
+  return out; }
+function pooled(a,b){ var ma=arrMean(a), mb=arrMean(b), s=0, i; for(i=0;i<a.length;i++) s+=(a[i]-ma)*(a[i]-ma); for(i=0;i<b.length;i++) s+=(b[i]-mb)*(b[i]-mb); return Math.sqrt(s/(a.length+b.length-2)); }
+function qpEst(o,P){ var est=arrMean(o.dc[1])-arrMean(o.dc[0]), n=P.n, R={};
+  var s1=pooled(o.dc[0],o.dc[1]); R.ok={se:s1*Math.sqrt(2/n),df:2*n-2};
+  var s2=pooled(o.wd[0],o.wd[1]); R.tech={se:s2*Math.sqrt(2/(n*P.k)),df:2*n*P.k-2};
+  var v=0; for(var g=0;g<2;g++){ v+=(Math.pow(arrSD(o.mt[g]),2)+Math.pow(arrSD(o.mr[g]),2))/n; } R.unp={se:Math.sqrt(v),df:2*n-2};
+  QPM.forEach(function(m){ var x=R[m[0]], t=tq(0.975,x.df); x.t=t; x.lo=est-t*x.se; x.hi=est+t*x.se; }); R.est=est; return R; }
+var QCOV={};
+function qpCov(P){ var key=[P.n,P.k,P.sb,P.st,P.rho,P.dd].join('|'); if(QCOV[key]) return QCOV[key]; var r=rng(20261008), N=2000, c={ok:0,tech:0,unp:0}, w={ok:0,tech:0,unp:0};
+  for(var e=0;e<N;e++){ var R=qpEst(qpExp(r,P),P); QPM.forEach(function(m){ var x=R[m[0]]; if(x.lo<=P.dd&&P.dd<=x.hi) c[m[0]]++; w[m[0]]+=x.hi-x.lo; }); }
+  var o={N:N}; QPM.forEach(function(m){ o[m[0]]=c[m[0]]/N; o['w'+m[0]]=w[m[0]]/N; }); return QCOV[key]=o; }
+function fold(d){ return Math.pow(2,-d); }
+function ffmt(v){ return v>=10?fx(v,1):v>=1?fx(v,2):fx(v,3); }
+function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }
+var QSH={ok:'Doğru hesap',tech:'Yanlış n',unp:'Eşleştirmesiz'}, QROWS=40;
+/* aralık dansı: her adım bir deney; en yeni üstte */
+function qpStep(){ if(QD.N>=2000) return false; if(QD.pl&&QD.pl.on&&QD.vo&&QD.vo.vis===false) return false; var R=qpEst(qpExp(QD.r,QP),QP); QD.N++; QPM.forEach(function(m){ var x=R[m[0]]; x.hit=x.lo<=QP.dd&&QP.dd<=x.hi; if(x.hit) QD.hit[m[0]]++; }); QD.ex.unshift(R); if(QD.ex.length>QROWS) QD.ex.pop(); qpDraw(); qpStats(); if(QD.N===1||QD.N%5===0) qpRead(); qpCards(); }
+function qpReset(){ QD.ex=[]; QD.N=0; QD.hit={ok:0,tech:0,unp:0}; QD.r=rng(7000+QP.seed); QP.C=qpCov(QP); var w=Math.max(QP.C.wok,QP.C.wtech,QP.C.wunp); QD.half=Math.max(1.2,Math.ceil(w*0.85*2)/2); qpStep(); }
+function qpDraw(){ var c=$('ebridge'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560; g.clearRect(0,0,W,H);
+  var gap=narrow?8:18, top=24, bot=40, pw=(W-2*gap-12)/3, ph=H-top-bot, c0=-QP.dd, a=c0-QD.half, b=c0+QD.half, rh=ph/QROWS;
+  var tks=[]; for(var t=Math.ceil(a+0.25);t<=Math.floor(b-0.25);t++) tks.push(t); if(tks.length>5&&narrow) tks=tks.filter(function(t){ return (t-Math.ceil(a))%2===0; });
+  QPM.forEach(function(m,mi){ var L=6+mi*(pw+gap), p=plot(g,L,top,pw,ph,[a,b],[0,1],{xticks:tks,yticks:[],xfmt:function(v){ var x=Math.pow(2,v); return x>=1?fmtNum(x):'1/'+fmtNum(1/x); }});
+    QD.ex.forEach(function(R,i){ var x=R[m[0]], y=top+(i+0.5)*rh, lo=Math.max(a,-x.hi), hi=Math.min(b,-x.lo), lw=Math.max(1.5,Math.min(3,rh*0.55));
+      g.globalAlpha=i===0?1:Math.max(0.25,1-i/QROWS*0.75); g.strokeStyle=x.hit?PAL.s1:PAL.bad; g.lineWidth=i===0?lw+1:lw; g.lineCap='round';
+      g.beginPath(); g.moveTo(p.X(lo),y); g.lineTo(p.X(hi),y); g.stroke();
+      if(i===0){ g.fillStyle=PAL.paper; g.strokeStyle=x.hit?PAL.s1:PAL.bad; g.lineWidth=2; g.beginPath(); g.arc(p.X(Math.max(a,Math.min(b,-R.est))),y,4.5,0,7); g.fill(); g.stroke(); }
+      g.globalAlpha=1; });
+    g.strokeStyle=PAL.ink; g.lineWidth=1.5; g.beginPath(); g.moveTo(p.X(c0),top); g.lineTo(p.X(c0),top+ph); g.stroke(); g.lineCap='butt';
+    g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?'kat':'kat değişimi (log₂)',L+pw/2,top+ph+33); g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.fillText(QSH[m[0]],L+pw/2,15); });
+  g.textAlign='left'; }
+function qpStats(){ var C=QP.C; QPM.forEach(function(m){ var h=QD.hit[m[0]], e=$('eqs_'+m[0]); e.querySelector('.v').textContent=QD.N?pct(h/QD.N,1):'·'; e.querySelector('.cnt').textContent=fmtI(h)+' / '+fmtI(QD.N)+' deney kapsadı'; e.querySelector('.ref').textContent='2.000 deneyde '+pct(C[m[0]],1); }); }
+function qpRead(){ var R=QD.ex[0], P=QP; if(!R) return;
+  $('ebread').innerHTML=dl('Tasarım',P.n+' biyolojik örnek × '+P.k+' teknik tekrar, iki grup')+dl('Son deney: ΔΔCt',fx(R.est,2)+' döngü; kat değişimi '+ffmt(fold(R.est))+' (gerçek '+ffmt(fold(P.dd))+')')+
+    QPM.map(function(m){ var x=R[m[0]]; return dl(QSH[m[0]],'SE '+fx(x.se,3)+', sd '+x.df+', t '+fx(x.t,2)+' → '+ffmt(fold(x.hi))+' ile '+ffmt(fold(x.lo))+' kat'); }).join(''); }
+function qpCards(){ var n=Object.keys(QP.seen).length, C=QP.C;
+  if(n>=3&&QP.kseen) card('ec0',true,'Bu ayarda ('+QP.n+' biyolojik örnek, '+QP.k+' teknik tekrar) %95 diye çizilen aralık, 2.000 benzetilmiş deneyde gerçek değeri şu sıklıkla kapsadı: doğru hesap '+pct(C.ok)+', teknik tekrarları n sayan hesap '+pct(C.tech)+', eşleştirmeyi yok sayan hesap '+pct(C.unp)+'. Teknik tekrar ölçümün gürültüsünü azaltır ama yeni bir biyolojik örnek değildir; aynı örneğin kuyuları birbirine bağlıdır. Hedef ve referans aynı örnekten ölçüldüğü için fark örnek içinde alınır; ayrı ayrı hesaplanırsa ortak değişkenlik iki kez sayılır ve aralık gereksiz genişler. Kat değişimi aralığı 2^−(ΔΔCt ± t·SE) olarak üstel ölçeğe taşınır ve kestirimin çevresinde simetrik değildir. MD\'de karşılığı: kareler teknik tekrar gibidir, bağımsız birim koşudur.');
+  else card('ec0',false,'Şimdiye kadar '+n+' ayar'+(QP.kseen?'':'; en az birinde teknik tekrar 2 ya da daha çok olsun')+'. En az üç ayara bakın.'); }
+function qpSet(){ QP.seen[[QP.n,QP.k,QP.sb,QP.st,QP.rho,QP.dd].join('|')]=1; if(QP.k>=2) QP.kseen=true; qpReset(); }
+function bridge(){ var S=[['eqn','n',[2,3,4,6,8]],['eqk','k',[1,2,3,4]],['eqsb','sb',[0.25,0.5,1]],['eqst','st',[0.1,0.25,0.5]],['eqr','rho',[0,0.5,0.9]],['eqd','dd',[0,-1,-2]]];
+  S.forEach(function(s){ $(s[0]).innerHTML=s[2].map(function(v){ var lab=s[1]==='dd'?(v===0?'0 (1 kat)':fx(v,0)+' ('+fmtNum(fold(v))+' kat)'):s[1]==='n'||s[1]==='k'?String(v):fx(v,v===0?0:Math.abs(v*10-Math.round(v*10))>1e-9?2:1); return '<button type="button" data-v="'+v+'" aria-pressed="'+(v===QP[s[1]])+'">'+lab+'</button>'; }).join(''); segWire(s[0],function(v){ QP[s[1]]=+v; qpSet(); }); });
+  QD.pl=player('eqplay',REDUCE?400:220,qpStep);
+  $('eqstep').onclick=function(){ qpStep(); }; $('eqfast').onclick=function(){ for(var i=0;i<100;i++){ if(qpStep()===false) break; } };
+  $('eqreset').onclick=function(){ QP.seed++; qpReset(); };
+  qpSet(); qpRead(); var o=QD.vo={}; watchVis($('ebridge'),o,function(){ if(!QD.pl.on&&QD.N<5) QD.pl.set(true); }); CHARTS.push(qpDraw); }
+/* ===== atölye 1: koşu içi hata ile tekrarlar arası yayılım ===== */
+var WI={se:'sn',g:'W',r:0,seenSE:{},seenG:{},seenB:{},bi:9,pts:[],tw:{k:1},from:'sn'}, XS={};
+function wiRuns(){ return VDD.A1[WI.g].runs; }
+function wiSE(q){ var a=q[WI.from], b=q[WI.se], k=ease(WI.tw.k); return a+(b-a)*k; }
+function wiOver(i,j,k){ var R=wiRuns(), a=R[i], b=R[j], sa=a[k], sb=b[k]; return !(a.p+1.96*sa<b.p-1.96*sb||b.p+1.96*sb<a.p-1.96*sa); }
+function wiDraw(){ var c=$('ewr'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560, R=wiRuns(), A=VDD.A1[WI.g]; g.clearRect(0,0,W,H);
+  var p=plot(g,46,12,W-58,H-52,[-0.6,R.length-0.4],[0,100],{yticks:[0,20,40,60,80,100],ylab:'αR payı (%)',ylabPad:34}); WI.pts=[];
+  var m=A.mean*100, s=1.96*A.sd*100; g.fillStyle=hexA(PAL.s2,0.16); g.fillRect(p.X(-0.6),p.Y(Math.min(100,m+s)),p.W,p.Y(Math.max(0,m-s))-p.Y(Math.min(100,m+s)));
+  g.strokeStyle=PAL.s2; g.lineWidth=2; g.beginPath(); g.moveTo(p.X(-0.6),p.Y(m)); g.lineTo(p.X(R.length-0.4),p.Y(m)); g.stroke();
+  g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText(narrow?'yayılım':'tekrarlar arası yayılım (ort. ± 1,96·SD)',p.X(R.length-0.4)-6,p.Y(Math.min(100,m+s))+14);
+  var done=WI.tw.k>=1;
+  R.forEach(function(q,i){ var x=p.X(i), e=1.96*wiSE(q)*100, y=p.Y(q.p*100), sel=i===WI.r, clash=!sel&&done&&!wiOver(i,WI.r,WI.se), col=sel?PAL.ink:clash?PAL.bad:PAL.s1, cap=narrow?6:9;
+    g.strokeStyle=col; g.lineWidth=2; g.lineCap='round'; var y1=p.Y(Math.min(100,q.p*100+e)), y2=p.Y(Math.max(0,q.p*100-e));
+    g.beginPath(); g.moveTo(x,y1); g.lineTo(x,y2); g.moveTo(x-cap,y1); g.lineTo(x+cap,y1); g.moveTo(x-cap,y2); g.lineTo(x+cap,y2); g.stroke(); g.lineCap='butt';
+    g.fillStyle=col; g.strokeStyle=PAL.paper; g.lineWidth=2; g.beginPath(); g.arc(x,y,sel?6.5:5,0,7); g.fill(); g.stroke();
+    g.fillStyle=sel?PAL.ink:PAL.muted; g.font=(sel?'600 ':'')+'12px '+css('--sans'); g.textAlign='center'; g.fillText(q.n,x,p.T+p.H+16); WI.pts.push({x:x,y:y,i:i}); });
+  g.textAlign='left'; }
+function wiPick(e){ var c=$('ewr'), r=c.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=null, bd=1e9;
+  WI.pts.forEach(function(o){ var d=Math.abs(o.x-mx); if(d<bd){ bd=d; best=o; } }); return bd<40?best:null; }
+function wiTip(e){ var c=$('ewr'), r=c.getBoundingClientRect(), o=wiPick(e), tip=c.parentNode.querySelector('.tip'); if(!o){ tipHide(tip); return; } var q=wiRuns()[o.i];
+  tipShow(tip,r.width,e.clientX-r.left,e.clientY-r.top,'<b>%'+pp(q.p)+'</b> '+q.n+'<br>SE saf '+pp(q.sn,2)+' puan · SE blok '+pp(q.sb,2)+' puan<br>tıklayın: bu koşuyla karşılaştır'); }
+function wiRead(){ var A=VDD.A1[WI.g], k=WI.se, nm=k==='sn'?'saf':'blok', ov=k==='sn'?A.nn:A.nb, R=k==='sn'?A.Rn:A.Rb, rms=k==='sn'?A.rn:A.rb, rs=wiRuns(), cl=0;
+  rs.forEach(function(q,i){ if(i!==WI.r&&!wiOver(i,WI.r,k)) cl++; });
+  $('ewread').innerHTML=dl('Koşul',GN[WI.g]+' · '+rs.length+' tekrar ('+GSRC[WI.g]+')')+dl('Seçili koşu',rs[WI.r].n+': '+(cl?'öteki '+(rs.length-1)+' tekrarın '+nLoc(cl)+' aralıklar çakışmıyor':'aralığı öteki '+(rs.length-1)+' tekrarın hepsiyle çakışıyor'))+dl('Tekrarlar arası SD',pp(A.sd,2)+' puan')+
+    dl('Koşu içi SE ('+nm+'), karesel ortalama',pp(rms,2)+' puan')+dl('Oran: SD arası / SE '+nm,fx(R,2))+dl('%95 aralığı çakışmayan tekrar çifti (hepsi)',ov[0]+' / '+ov[1]); }
+function wiCards(){ var W=VDD.A1.W;
+  if(WI.seenSE.sn&&WI.seenSE.sb) card('ec1',true,'W\'nin 8 tekrarı aynı koşuldan, yalnız hız tohumu farklı. Kareler bağımsız sayılınca (saf SE, yaklaşık '+pp(W.rn,1)+' puan) %95 aralıkları 28 tekrar çiftinin '+nLoc(W.nn[0])+' çakışmıyor; yani her tekrar ötekilerden "anlamlı" farklı görünür. Blok ortalamasıyla (B = 200 kare) SE '+pp(W.rb,1)+' puana çıkıyor ve hiçbir çift ayrışmıyor; tekrarlar arası SD '+pp(W.sd,1)+' puan. Saf hata, ardışık kareler birbirine bağlı olduğu için örneklemeyi olduğundan çok sayar; yaklaşık '+fx(W.Rn,0)+' kat dar çıkar.');
+  else card('ec1',false,'Her iki hata türüne de bakın (saf ve blok).'); }
+/* blok gezgini: seçili koşunun kare dizisi, bloklar ve blok ortalamaları */
+function stOf(n){ if(!XS[n]) XS[n]=bits(VDD.ST[n],1801); return XS[n]; }
+function tsDraw(){ var c=$('ets'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560, q=wiRuns()[WI.r], x=stOf(q.n), B=VDD.BLK[WI.bi], bs=blockSE(x,B); g.clearRect(0,0,W,H);
+  var bar=narrow?12:16, top=22+bar+8, p=plot(g,56,top,W-68,H-top-40,[200,2000],[0,1],{xticks:[200,500,1000,1500,2000],yticks:[0,0.5,1],yfmt:function(v){ return '%'+fmtNum(v*100); },xlab:'zaman (ps)',ylab:'αR payı',ylabPad:46});
+  g.fillStyle=PAL.soft; g.fillRect(p.L,22,p.W,bar); g.fillStyle=PAL.s1; var px=p.W/1801;
+  for(var i=0;i<1801;i++) if(x[i]) g.fillRect(p.L+i*px,22,Math.max(px,0.6),bar);
+  g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('her kare: mavi αR, boş öteki durumlar',p.L,15);
+  if(B>=5){ g.strokeStyle=hexA(PAL.ink,B>=50?0.35:0.15); g.lineWidth=1; for(var k=0;k<=bs.nb;k++){ var xx=p.X(200+k*B); g.beginPath(); g.moveTo(xx,22); g.lineTo(xx,p.T+p.H); g.stroke(); } }
+  var mu=arrMean(bs.ms); g.strokeStyle=PAL.ink; g.lineWidth=1.5; g.beginPath(); g.moveTo(p.X(200),p.Y(mu)); g.lineTo(p.X(2000),p.Y(mu)); g.stroke();
+  g.strokeStyle=PAL.s1; g.lineWidth=B>=5?2.5:1; bs.ms.forEach(function(m,k){ var y=p.Y(m); g.beginPath(); g.moveTo(p.X(200+k*B),y); g.lineTo(p.X(200+(k+1)*B),y); g.stroke(); });
+  if(B>=20){ g.fillStyle=hexA(PAL.s1,0.10); bs.ms.forEach(function(m,k){ var y=p.Y(m); g.fillRect(p.X(200+k*B),Math.min(y,p.Y(mu)),p.X(200+(k+1)*B)-p.X(200+k*B),Math.abs(p.Y(mu)-y)); }); }
+  $('ebsv').textContent='B = '+B+' kare · '+bs.nb+' blok · SE '+pp(bs.se,2)+' puan'; WI.cur=bs; }
+function bkDraw(){ var c=$('eblk'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560, A=VDD.A1[WI.g], Bs=VDD.BLK, lx=function(b){ return Math.log10(b); }, q=wiRuns()[WI.r]; g.clearRect(0,0,W,H);
+  var ymax=Math.max(A.sd*100*1.3,arrMax(A.runs.map(function(r){ return arrMax(r.cv); }))*100*1.08), st=ymax>16?5:2, yt=[]; for(var t=0;t<=ymax;t+=st) yt.push(t);
+  var p=plot(g,46,12,W-58,H-58,[0,lx(600)],[0,ymax],{xticks:[0,1,2,lx(600)],yticks:yt,xfmt:function(v){ return fmtNum(Math.round(Math.pow(10,v))); },xlab:'blok boyu B (kare; log ekseni)',ylab:'SE (puan)',ylabPad:34});
+  A.runs.forEach(function(r){ if(r===q) return; g.strokeStyle=hexA(PAL.muted,0.35); g.lineWidth=1; g.beginPath(); r.cv.forEach(function(v,j){ var x=p.X(lx(Bs[j])), y=p.Y(v*100); if(j) g.lineTo(x,y); else g.moveTo(x,y); }); g.stroke(); });
+  g.strokeStyle=PAL.s2; g.lineWidth=2; g.beginPath(); g.moveTo(p.X(0),p.Y(A.sd*100)); g.lineTo(p.X(lx(600)),p.Y(A.sd*100)); g.stroke();
+  g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('tekrarlar arası SD',p.X(0)+6,p.Y(A.sd*100)-6);
+  g.strokeStyle=PAL.s1; g.lineWidth=2; g.lineJoin='round'; g.beginPath(); q.cv.forEach(function(v,j){ var x=p.X(lx(Bs[j])), y=p.Y(v*100); if(j) g.lineTo(x,y); else g.moveTo(x,y); }); g.stroke();
+  var j=WI.bi, xx=p.X(lx(Bs[j])), yy=p.Y(q.cv[j]*100); g.strokeStyle=hexA(PAL.ink,0.25); g.lineWidth=1; g.beginPath(); g.moveTo(xx,12); g.lineTo(xx,12+p.H); g.stroke();
+  g.fillStyle=PAL.s1; g.strokeStyle=PAL.paper; g.lineWidth=2; g.beginPath(); g.arc(xx,yy,6,0,7); g.fill(); g.stroke();
+  g.fillStyle=PAL.ink; g.textAlign=xx>W*0.7?'right':'left'; g.fillText(q.n+': '+pp(q.cv[j],2),xx+(xx>W*0.7?-10:10),yy-10); g.textAlign='left'; }
+function bkRead(){ var A=VDD.A1[WI.g], i200=VDD.BLK.indexOf(200), m1=arrMean(A.runs.map(function(r){ return r.cv[0]; })), m2=arrMean(A.runs.map(function(r){ return r.cv[i200]; }));
+  $('ebkread').innerHTML=dl('Koşul ortalaması, B = 1 (kareler bağımsız)',pp(m1,2)+' puan')+dl('Koşul ortalaması, B = 200',pp(m2,2)+' puan ('+fx(m2/m1,1)+' kat)')+dl('Tekrarlar arası SD (sarı çizgi)',pp(A.sd,2)+' puan'); }
+function bkCards(){ var nb=Object.keys(WI.seenB).length, ng=Object.keys(WI.seenG).length, s=GR.map(function(k){ return GN[k]+' '+fx(VDD.A1[k].Rb,2); }).join(', '), Z=VDD.LZ, zz=MDM.map(function(m){ return Z[m].z; }), ff=['A03','C27','OPL'].map(function(k){ return VDD.A1[k].Rb; });
+  if(nb>=4&&ng>=2) card('ec2',true,'SD arası / SE blok oranı: '+s+'. Bloklar büyüdükçe blok ortalamaları birbirinden bağımsızlaşır ve SE yükselir; eğrinin düzleştiği yer korelasyon süresinin üstüdür. Blok sayısı azaldıkça (B = 600\'de 3 blok) kestirim gürültülenir. Blok hatası bir koşudan tekrarlar arası yayılımı W ve S\'de 1\'e yakın oranla kestirdi; dört tekrarlı kuvvet alanı gruplarında oran '+fx(arrMin(ff),2)+' ile '+fx(arrMax(ff),2)+' arasında, çünkü dört değerden hesaplanan SD\'nin kendisi de belirsizdir. LIE\'de iki tekrarın farkı, MD-LIG\'in 5 bloklu koşu içi hatasına göre z = '+fx(arrMin(zz),2)+' ile '+fx(arrMax(zz),2)+' arasında; altı modelden '+nLoc(zz.filter(function(z){ return z>1.96; }).length)+' 1,96\'yı aştı. Kısa bir koşuyu 5 bloğa bölmek hatayı kabaca verir; tekrarlar onu sınar.');
+  else card('ec2',false,'Blok boyunu en az dört değere getirin ('+nb+') ve en az iki koşula bakın ('+ng+').'); }
+function lzTab(){ var A=VDD.A2, Z=VDD.LZ;
+  $('elz').innerHTML='<table class="st"><thead><tr><th>Model</th><th>ΔG₁</th><th>ΔG₂</th><th>SE₁</th><th>SE₂</th><th>|ΔG₁ − ΔG₂|</th><th>z</th></tr></thead><tbody>'+MDM.map(function(m){ var r=A[m].reps;
+    return '<tr><td>'+MN[m]+'</td><td>'+fx(r[0].dG,2)+'</td><td>'+fx(r[1].dG,2)+'</td><td>'+fx(r[0].seo,3)+'</td><td>'+fx(r[1].seo,3)+'</td><td>'+fx(Z[m].diff,3)+'</td><td'+(Z[m].z>1.96?' class="hl"':'')+'>'+fx(Z[m].z,2)+'</td></tr>'; }).join('')+'</tbody></table>'; }
+function wiRunSeg(){ $('ewrun').innerHTML=wiRuns().map(function(q,i){ return '<button type="button" data-v="'+i+'" aria-pressed="'+(i===WI.r)+'">'+q.n+'</button>'; }).join(''); segWire('ewrun',function(v){ WI.r=+v; wiAll(); }); }
+function wiSync(){ $('ewrun').querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-v')===WI.r)); }); }
+function bAll(){ WI.seenB[VDD.BLK[WI.bi]]=1; $('ebsl').value=WI.bi; tsDraw(); bkDraw(); bkCards(); }
+function wiAll(){ WI.seenSE[WI.se]=1; WI.seenG[WI.g]=1; wiSync(); wiDraw(); wiRead(); bkRead(); wiCards(); bAll(); }
+function w1(){ $('ewg').innerHTML=GR.map(function(k){ return '<button type="button" data-v="'+k+'" aria-pressed="'+(k===WI.g)+'">'+GN[k]+'</button>'; }).join('');
+  segWire('ewg',function(v){ WI.g=v; WI.r=0; WI.tw.k=1; WI.from=WI.se; wiRunSeg(); wiAll(); });
+  segWire('ewse',function(v){ if(v===WI.se) return; WI.from=WI.se; WI.se=v; WI.seenSE[v]=1; wiRead(); wiCards(); tween(WI.tw,650,wiDraw); });
+  var c=$('ewr'); c.addEventListener('pointermove',wiTip); c.addEventListener('pointerleave',function(){ tipHide(c.parentNode.querySelector('.tip')); });
+  c.addEventListener('click',function(e){ var o=wiPick(e); if(o){ WI.r=o.i; wiAll(); } });
+  var sl=$('ebsl'); sl.max=VDD.BLK.length-1; sl.addEventListener('input',function(){ WI.bi=+sl.value; bAll(); });
+  WI.pl=player('ebplay',REDUCE?900:750,function(){ if(WI.bi>=VDD.BLK.length-1) return false; WI.bi++; bAll(); },function(on){ if(on&&WI.bi>=VDD.BLK.length-1){ WI.bi=0; bAll(); } });
+  wiRunSeg(); lzTab(); wiAll(); CHARTS.push(wiDraw); CHARTS.push(tsDraw); CHARTS.push(bkDraw); }
+/* ===== atölye 2: LIE ΔG belirsizlik bütçesi ===== */
+var BU={m:'L1',k:0,seen:{},iv:'both',ivseen:{},tw:{k:1},hov:-1,bars:[]};
+var BCOMP=[['c_el','el','kompleks'],['w_el','el','su'],['c_vdw','vdW','kompleks'],['w_vdw','vdW','su'],['cov','kovaryans','2αβ']];
+function bcol(k){ return {c_el:PAL.s1,w_el:PAL.s1,c_vdw:PAL.s2,w_vdw:PAL.s2,cov:PAL.s3}[k]; }
+function elSh(r){ var c=r.comp; return (c.c_el+c.w_el)/(c.c_el+c.w_el+c.c_vdw+c.w_vdw); }
+function seTot(r){ var s=0; BCOMP.forEach(function(c){ s+=r.comp[c[0]]; }); return s; }
+function buRows(){ var o=[]; MDM.forEach(function(m){ VDD.A2[m].reps.forEach(function(r,i){ o.push({m:m,i:i,r:r}); }); }); return o; }
+/* şelale: varyans terimleri birikerek yükselir, kovaryans ekler ya da düşer, son çubuk toplam SE² */
+function buDraw(){ var c=$('ebud'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560, r=VDD.A2[BU.m].reps[BU.k], K=1000, k=ease(BU.tw.k); g.clearRect(0,0,W,H);
+  var steps=[], run=0; BCOMP.forEach(function(cc){ var v=r.comp[cc[0]]*K; steps.push({key:cc[0],a:run,b:run+v,v:v,l1:cc[1],l2:cc[2]}); run+=v; });
+  var vsum=steps[3].b, tot=run; steps.push({key:'tot',a:0,b:tot,v:tot,l1:'SE²',l2:'toplam'});
+  var ymax=Math.max(vsum,tot)*1.18, st=ymax>120?50:ymax>60?20:ymax>24?10:ymax>12?5:2, yt=[]; for(var t=0;t<=ymax;t+=st) yt.push(t);
+  var p=plot(g,52,14,W-64,H-64,[0,steps.length],[0,ymax],{yticks:yt,ylab:'SE² (10⁻³ (kcal/mol)²)',ylabPad:40}), bw=Math.min(narrow?30:56,p.W/steps.length*0.62); BU.bars=[];
+  g.strokeStyle=hexA(PAL.ink,0.55); g.lineWidth=1; g.beginPath(); g.moveTo(p.X(0),p.Y(vsum)); g.lineTo(p.X(steps.length),p.Y(vsum)); g.stroke();
+  
+  steps.forEach(function(s,i){ var shown=Math.max(0,Math.min(1,k*steps.length-i)); if(shown<=0) return; var cx=p.X(i+0.5), a=s.a, b=s.a+(s.b-s.a)*shown, y0=p.Y(Math.max(a,b)), y1=p.Y(Math.min(a,b)), hv=BU.hov===i;
+    g.fillStyle=s.key==='tot'?PAL.ink:bcol(s.key); if(s.key==='w_el'||s.key==='w_vdw') g.globalAlpha=0.55; if(hv) g.globalAlpha=Math.min(1,g.globalAlpha+0.25);
+    rrect(g,cx-bw/2,y0,bw,Math.max(1.5,y1-y0),3); g.fill(); g.globalAlpha=1;
+    if(i<steps.length-1&&shown>=1){ g.strokeStyle=hexA(PAL.ink,0.35); g.lineWidth=1; g.beginPath(); g.moveTo(cx+bw/2,p.Y(s.b)); g.lineTo(p.X(i+1.5)-bw/2,p.Y(s.b)); g.stroke(); }
+    if(shown>=1){ g.fillStyle=PAL.ink; g.font='600 12px '+css('--sans'); g.textAlign='center'; g.fillText((s.v<0?'−':s.key==='tot'?'':'+')+fx(Math.abs(s.v),1),cx,y0-6); }
+    g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?{el:'el',vdW:'vdW',kovaryans:'kov.','SE²':'SE²'}[s.l1]:s.l1,cx,p.T+p.H+16); g.fillText(narrow?{kompleks:'komp.',su:'su','2αβ':'','toplam':'top.'}[s.l2]:s.l2,cx,p.T+p.H+30);
+    BU.bars.push({x0:cx-bw/2-6,x1:cx+bw/2+6,i:i,s:s}); });
+  g.textAlign='left'; }
+function buTip(e){ var c=$('ebud'), r=c.getBoundingClientRect(), mx=e.clientX-r.left, tip=c.parentNode.querySelector('.tip'), o=BU.bars.filter(function(b){ return mx>=b.x0&&mx<=b.x1; })[0];
+  var hv=o?o.i:-1; if(hv!==BU.hov){ BU.hov=hv; buDraw(); } if(!o){ tipHide(tip); return; } var s=o.s, tot=BU.bars[BU.bars.length-1].s.v;
+  tipShow(tip,r.width,mx,e.clientY-r.top,'<b>'+(s.v<0?'−':'')+fx(Math.abs(s.v),2)+'</b> ×10⁻³ (kcal/mol)²<br>'+(s.key==='tot'?'toplam SE², SE = '+fx(Math.sqrt(tot/1000),3)+' kcal/mol':s.l1+', '+s.l2+' · toplamın '+pct(s.v/tot,0))); }
+function buRead(){ var A=VDD.A2[BU.m], r=A.reps[BU.k], c=r.comp, vs=c.c_el+c.w_el+c.c_vdw+c.w_vdw;
+  $('eburead').innerHTML=dl('Tekrar',MN[BU.m]+' · '+(BU.k+1)+' (β = '+fx(A.beta,2)+')')+dl('ΔG ve koşu içi SE',fx(r.dG,2)+' ± '+fx(r.se,3)+' kcal/mol')+dl('Kovaryans yok sayılsaydı SE',fx(Math.sqrt(vs),3)+' kcal/mol')+
+    dl('Varyans terimlerinde elektrostatik payı',pct(elSh(r),0))+dl('el ile vdW blok ortalamaları, r',' kompleks '+fx(r.rc,2)+' · su '+fx(A.wr,2)); }
+function buTab(){ $('ebtab').innerHTML='<table class="st"><thead><tr><th>Tekrar</th><th>ΔG</th><th>SE</th><th>SE, kovaryanssız</th><th>el payı</th><th>kovaryans</th></tr></thead><tbody>'+buRows().map(function(o){ var c=o.r.comp, vs=c.c_el+c.w_el+c.c_vdw+c.w_vdw, sel=o.m===BU.m&&o.i===BU.k;
+    return '<tr'+(sel?' class="sel"':'')+'><td>'+MNS[o.m]+' · '+(o.i+1)+'</td><td>'+fx(o.r.dG,2)+'</td><td>'+fx(o.r.se,3)+'</td><td>'+fx(Math.sqrt(vs),3)+'</td><td>'+pct(elSh(o.r),0)+'</td><td>'+(c.cov<0?'eksi':'artı')+'</td></tr>'; }).join('')+'</tbody></table>'; }
+function buCards(){ var rows=buRows(), sh=rows.map(function(o){ return elSh(o.r); }), ng=rows.filter(function(o){ return o.r.comp.cov<0; }).length, n=Object.keys(BU.seen).length;
+  if(n>=3) card('ec3',true,'12 tekrarın her birinde SE²\'deki varyans terimlerinin '+pct(arrMin(sh),0)+' ile '+pct(arrMax(sh),0)+' kadarı elektrostatik terimlerden geldi; van der Waals terimi α = 0,181 ile küçültüldüğü için katkısı azdır. Su koşusunun hatası her iki tekrara da aynen girer; bu yüzden iki tekrarın hataları birbirinden tam bağımsız değildir. Kovaryans 12 tekrarın '+nLoc(ng)+' eksi çıktı: el ve vdW blok ortalamaları ters yönde oynayınca ΔG\'deki dalgalanma kısmen birbirini götürür ve terimlerin hatalarını ayrı ayrı toplamak toplam hatayı abartır. Türetilmiş bir niceliğin hatası, bileşenlerin hatası ve aralarındaki kovaryansla birlikte yayılır.');
+  else card('ec3',false,'Şimdiye kadar '+n+' model; en az üç modelin bütçesine bakın.'); }
+/* model düzeyi aralıklar */
+function ivDraw(){ var c=$('elie'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560, E=VDD.dG_exp, t1=tq(0.975,1); g.clearRect(0,0,W,H);
+  var L=narrow?40:124, p=plot(g,L,22,W-L-12,H-64,[-15,0],[MDM.length+0.5,0.5],{xticks:[-15,-12,-9,-6,-3,0],yticks:[],xlab:'LIE ΔG (kcal/mol)'});
+  g.fillStyle=hexA(PAL.good,0.20); g.fillRect(p.X(E[0]),22,p.X(E[1])-p.X(E[0]),p.H); g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText('ölçülmüş',p.X((E[0]+E[1])/2),15);
+  MDM.forEach(function(m,j){ var A=VDD.A2[m], y=p.Y(j+1), on=m===BU.m, al=on?1:0.45;
+    if(on){ g.fillStyle=hexA(PAL.s2,0.12); g.fillRect(p.L,y-p.H/MDM.length/2,p.W,p.H/MDM.length); }
+    g.globalAlpha=al;
+    if(BU.iv!=='in'){ var a=Math.max(-15,A.mean-t1*A.sa), b=Math.min(0,A.mean+t1*A.sa); g.strokeStyle=PAL.s3; g.lineWidth=2; g.beginPath(); g.moveTo(p.X(a),y+7); g.lineTo(p.X(b),y+7); g.moveTo(p.X(a),y+2); g.lineTo(p.X(a),y+12); g.moveTo(p.X(b),y+2); g.lineTo(p.X(b),y+12); g.stroke(); }
+    if(BU.iv!=='ar'){ g.strokeStyle=PAL.s1; g.lineWidth=6; g.lineCap='round'; g.beginPath(); g.moveTo(p.X(A.mean-1.96*A.sw),y-4); g.lineTo(p.X(A.mean+1.96*A.sw),y-4); g.stroke(); g.lineCap='butt'; }
+    A.reps.forEach(function(r){ g.fillStyle=PAL.ink; g.beginPath(); g.arc(p.X(r.dG),y-4,2.5,0,7); g.fill(); });
+    g.globalAlpha=1; g.fillStyle=on?PAL.ink:PAL.muted; g.font=(on?'600 ':'')+'12px '+css('--sans'); g.textAlign='right'; g.fillText(narrow?m:MNS[m],L-6,y+2);
+    if(on&&!narrow){ g.textAlign='left'; g.fillStyle=PAL.ink; var xr=p.X(Math.min(0,Math.max(A.mean+1.96*A.sw,BU.iv!=='in'?A.mean+t1*A.sa:-15))); g.fillText(fx(A.mean,2),Math.min(xr+8,p.L+p.W-40),y+2); } });
+  g.textAlign='left'; }
+function ivRead(){ var A=VDD.A2[BU.m], t1=tq(0.975,1), E=VDD.dG_exp;
+  $('eivread').innerHTML=dl('Model',MN[BU.m])+dl('İki tekrarın ortalaması',fx(A.mean,2)+' kcal/mol')+dl('Koşu içi: ±1,96 × SE_iç',fx(A.mean-1.96*A.sw,2)+' ile '+fx(A.mean+1.96*A.sw,2)+' (SE '+fx(A.sw,3)+')')+
+    dl('Tekrarlar arası: ±'+fx(t1,3)+' × SE_arası',fx(A.mean-t1*A.sa,2)+' ile '+fx(A.mean+t1*A.sa,2)+' (SE '+fx(A.sa,3)+')')+dl('Ölçülmüş aralık',fx(E[0],2)+' ile '+fx(E[1],2)+' kcal/mol'); }
+function ivCards(){ var t1=tq(0.975,1), E=VDD.dG_exp, A=VDD.A2, big=MDM.filter(function(m){ return A[m].sa>A[m].sw; }), ov=MDM.filter(function(m){ var a=A[m]; return Math.min(a.mean-1.96*a.sw,a.mean-t1*a.sa)<=E[1]&&Math.max(a.mean+1.96*a.sw,a.mean+t1*a.sa)>=E[0]; });
+  if(BU.ivseen.in&&BU.ivseen.ar) card('ec4',true,'İki tekrarla tekrarlar arası SE tek serbestlik dereceli bir kestirimdir; %95 aralık için 1,96 değil t = '+fx(t1,3)+' gerekir. SE_arası, SE_iç\'ten '+big.length+' modelde büyük ('+big.join(', ')+'), '+(MDM.length-big.length)+' modelde küçük çıktı; iki değerin şans eseri yakın düşmesi küçük bir SE verir ama bu güven vermez. Ölçülmüş aralık '+fx(E[1]-E[0],2)+' kcal/mol genişliğinde; aralıklardan biri onunla '+(ov.length?ov.join(', ')+' modelinde örtüşüyor.':'hiçbir modelde örtüşmüyor.')+' Bu aralıkların ikisi de yalnız örnekleme belirsizliğidir: α ve β\'nın başka bir kuvvet alanıyla kalibre edilmesinden, eksik ters uzay katkısından ya da kuvvet alanından gelen sistematik farkı içermez.');
+  else card('ec4',false,'Koşu içi ve tekrarlar arası aralığa ayrı ayrı bakın.'); }
+function buAll(anim){ BU.seen[BU.m]=1; BU.ivseen[BU.iv==='both'?'x':BU.iv]=1; if(anim) tween(BU.tw,900,buDraw); else buDraw(); buRead(); buTab(); ivDraw(); ivRead(); buCards(); ivCards(); }
+function w2(){ $('ebm').innerHTML=MDM.map(function(m){ return '<button type="button" data-v="'+m+'" aria-pressed="'+(m===BU.m)+'">'+MNS[m]+'</button>'; }).join('');
+  segWire('ebm',function(v){ BU.m=v; buAll(true); }); segWire('ebk',function(v){ BU.k=+v; buAll(true); }); segWire('eiv',function(v){ BU.iv=v; buAll(false); });
+  var c=$('ebud'); c.addEventListener('pointermove',buTip); c.addEventListener('pointerleave',function(){ BU.hov=-1; tipHide(c.parentNode.querySelector('.tip')); buDraw(); });
+  buAll(false); var o={}; watchVis(c,o,function(){ tween(BU.tw,1100,buDraw); }); CHARTS.push(buDraw); CHARTS.push(ivDraw); }
+/* ===== atölye 3: kaç karşılaştırma yaptınız? ===== */
+var NU={t:'frame',seen:{},hov:null,si:0,mi:0,geo:null}, FK={up:50,disc:200,end:2000,seen:{},cols:[],hov:-1};
+var MSH={p_aR:'αR',p_b:'β',p_aL:'αL',trans:'geçiş',psi:'ψ',T:'T',P:'P',V:'V'}, MUNIT={p_aR:'%',p_b:'%',p_aL:'%',trans:'/ns',psi:'°',T:'K',P:'bar',V:'nm³'};
+function nuP(s,j){ return s.p[j][{frame:0,perm:1,holm:2}[NU.t]]; }
+function mval(r,m){ var v=VDD.VAL[r][m]; return /^p_/.test(m)?v*100:v; }
+/* tekrar düzeyi tam permütasyon (70 ayrım), sayfada yeniden hesaplanır */
+function permDist(a,b,m){ var all=a.concat(b), v=all.map(function(r){ return VDD.VAL[r][m]; }), N=v.length, K=4, tot=0, out=[], sc=/^p_/.test(m)?100:1, i;
+  for(i=0;i<N;i++) tot+=v[i]; var mb=0, ma=0; for(i=0;i<4;i++){ ma+=v[i]; mb+=v[4+i]; } var obs=Math.abs(mb/4-ma/4), c=0;
+  (function rec(st,idx){ if(idx.length===K){ var s=0; for(var j=0;j<K;j++) s+=v[idx[j]]; var d=s/K-(tot-s)/(N-K); var e=Math.abs(d)>=obs-1e-12; out.push({d:d*sc,e:e}); if(e) c++; return; } for(var j=st;j<N;j++) rec(j+1,idx.concat([j])); })(0,[]);
+  return {d:out,obs:(mb/4-ma/4)*sc,c:c,p:c/out.length}; }
+function nuDraw(){ var c=$('enull'), f=fit(c), g=f.g, W=f.W, H=f.H, M=VDD.MET, S=VDD.SP, narrow=W<560; g.clearRect(0,0,W,H);
+  var L=narrow?36:40, T=22, B=24, cw=(W-L-8)/S.length, ch=(H-T-B)/M.length; g.font=(narrow?'11px ':'12px ')+css('--sans');
+  M.forEach(function(m,j){ g.fillStyle=j===NU.mi?PAL.ink:PAL.muted; g.textAlign='right'; g.fillText(MSH[m],L-5,T+j*ch+ch/2+4);
+    S.forEach(function(s,i){ var p=nuP(s,j), x=L+i*cw, y=T+j*ch;
+      if(p==null){ g.fillStyle=PAL.soft; g.fillRect(x+1,y+1,cw-2,ch-2); g.strokeStyle=hexA(PAL.muted,0.35); g.lineWidth=1; g.beginPath(); g.moveTo(x+2,y+ch-2); g.lineTo(x+cw-2,y+2); g.stroke(); return; }
+      g.fillStyle=p<0.05?PAL.bad:hexA(PAL.s1,0.10); g.fillRect(x+1,y+1,cw-2,ch-2); }); });
+  g.textAlign='center'; g.fillStyle=PAL.muted; S.forEach(function(s,i){ if(i%5===0||i===S.length-1) g.fillText(String(i+1),L+cw*(i+0.5),T-7); });
+  g.strokeStyle=PAL.ink; g.lineWidth=1.5; g.strokeRect(L+NU.si*cw+0.5,T,cw-1,M.length*ch); g.lineWidth=2.5; g.strokeRect(L+NU.si*cw+1,T+NU.mi*ch+1,cw-2,ch-2);
+  if(NU.hov){ g.strokeStyle=hexA(PAL.ink,0.5); g.lineWidth=1.5; g.strokeRect(L+NU.hov[0]*cw+1,T+NU.hov[1]*ch+1,cw-2,ch-2); }
+  var S0=VDD.summary[NU.t]; g.fillStyle=PAL.ink; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText(narrow?S0.pairs_sig+' / '+S0.pairs+' hücre · '+S0.splits_any+' / 35 bölme':TESTN[NU.t]+': '+S0.pairs_sig+' / '+S0.pairs+' hücre p < 0,05 · '+S0.splits_any+' / 35 bölmede en az bir',L,H-6);
+  NU.geo={L:L,T:T,cw:cw,ch:ch}; }
+function nuCell(e){ var c=$('enull'), r=c.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, G=NU.geo; if(!G) return null;
+  var i=Math.floor((mx-G.L)/G.cw), j=Math.floor((my-G.T)/G.ch); if(i<0||i>=VDD.SP.length||j<0||j>=VDD.MET.length) return null; return [i,j,mx,my,r.width]; }
+function nuTip(e){ var q=nuCell(e), tip=$('enull').parentNode.querySelector('.tip'); if(!q){ NU.hov=null; tipHide(tip); nuDraw(); return; } NU.hov=[q[0],q[1]]; var s=VDD.SP[q[0]], m=VDD.MET[q[1]];
+  tipShow(tip,q[4],q[2],q[3],'<b>'+METN[m]+'</b> · bölme '+(q[0]+1)+'<br>kare düzeyi p '+pfmt(s.p[q[1]][0])+'<br>tekrar düzeyi p '+pfmt(s.p[q[1]][1])+' · Holm '+pfmt(s.p[q[1]][2])); nuDraw(); }
+/* seçili bölme: dört koşuya karşı dört koşu ve 70 ayrımlık permütasyon dağılımı */
+function spDraw(){ var c=$('esplit'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560, s=VDD.SP[NU.si], m=VDD.MET[NU.mi], pd=permDist(s.a,s.b,m); g.clearRect(0,0,W,H); NU.pd=pd;
+  var all=s.a.concat(s.b).map(function(r){ return mval(r,m); }), lo=arrMin(all), hi=arrMax(all), pad=(hi-lo)*0.15||1;
+  var w1=narrow?W:W*0.42, h1=narrow?H*0.46:H, yr=[lo-pad,hi+pad], st=niceStep((yr[1]-yr[0])/4), yt=[]; for(var t=Math.ceil(yr[0]/st)*st;t<=yr[1];t+=st) yt.push(+t.toFixed(6));
+  var p=plot(g,52,24,w1-64,h1-58,[-0.5,1.5],yr,{yticks:yt,yfmt:function(v){ return fx(v,st<1?(st<0.1?2:1):0); },ylab:METN[m]+' ('+MUNIT[m]+')',ylabPad:42});
+  g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.textAlign='left'; g.fillText('Bölme '+(NU.si+1)+(narrow?': 4 koşuya karşı 4':': dört koşuya karşı dört koşu'),4,14);
+  [[s.a,PAL.s1,'A'],[s.b,PAL.s2,'B']].forEach(function(q,gi){ var vs=q[0].map(function(r){ return mval(r,m); }), mu=arrMean(vs), cx=p.X(gi);
+    g.strokeStyle=PAL.ink; g.lineWidth=2; g.beginPath(); g.moveTo(cx-26,p.Y(mu)); g.lineTo(cx+26,p.Y(mu)); g.stroke();
+    q[0].forEach(function(r,i){ var x=cx+(i-1.5)*9; g.fillStyle=q[1]; g.strokeStyle=PAL.paper; g.lineWidth=2; g.beginPath(); g.arc(x,p.Y(mval(r,m)),5.5,0,7); g.fill(); g.stroke(); });
+    g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?q[2]+' grubu':q[2]+': '+q[0].join(' '),cx,p.T+p.H+16); });
+  var x0=narrow?0:w1+10, y0=narrow?h1+6:0, w2=narrow?W:W-w1-10, h2=narrow?H-h1-6:H, ds=pd.d.slice().sort(function(a,b){ return a.d-b.d; }), dm=Math.max(Math.abs(ds[0].d),Math.abs(ds[ds.length-1].d))*1.08||1;
+  var q=plot(g,x0+12,y0+24,w2-24,h2-58,[-dm,dm],[0,1],{xticks:[-dm*0.9,0,dm*0.9].map(function(v){ return +v.toPrecision(2); }),yticks:[],xfmt:function(v){ return fx(v,Math.abs(v)<1?2:Math.abs(v)<10?1:0); },xlab:'B − A ('+MUNIT[m]+')'});
+  g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.textAlign='left'; g.fillText(narrow?'70 ayrımın farkları':'Sekiz koşunun 70 farklı dörde dört ayrımı',x0+12,y0+14);
+  var bins={}, bw=dm/14, cnt={}; ds.forEach(function(o){ var k=Math.round(o.d/bw); cnt[k]=(cnt[k]||0)+1; }); var mx=arrMax(Object.keys(cnt).map(function(k){ return cnt[k]; })), sp=Math.min(7,(q.H-10)/Math.max(1,mx-1));
+  ds.forEach(function(o){ var k=Math.round(o.d/bw); bins[k]=(bins[k]||0)+1; var y=q.T+q.H-5-(bins[k]-1)*sp; var ext=o.e;
+    g.fillStyle=ext?PAL.bad:hexA(PAL.muted,0.55); g.beginPath(); g.arc(q.X(k*bw),y,Math.min(3,Math.max(1.6,sp/2)),0,7); g.fill(); });
+  var xo=q.X(pd.obs); g.strokeStyle=PAL.ink; g.lineWidth=2; g.beginPath(); g.moveTo(xo,q.T); g.lineTo(xo,q.T+q.H); g.stroke();
+  g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign=xo>q.X(0)?'right':'left'; g.fillText('bu bölme',xo+(xo>q.X(0)?-5:5),q.T+12); g.textAlign='left'; }
+function niceStep(x){ var e=Math.pow(10,Math.floor(Math.log10(x))), f=x/e; return (f<1.5?1:f<3?2:f<7?5:10)*e; }
+function nuRead(){ var s=VDD.SP[NU.si], m=VDD.MET[NU.mi], j=NU.mi, pd=NU.pd;
+  $('enread').innerHTML=dl('Bölme ve ölçüt',(NU.si+1)+' · '+METN[m])+dl('Kare düzeyi (4 × 1801 kare bağımsız sayılır)',s.p[j][0]==null?'bu ölçüt için test yok':'p = '+pfmt(s.p[j][0]))+
+    dl('Tekrar düzeyi (4 koşuya karşı 4)','70 ayrımın '+nLoc(pd.c)+' fark en az bu kadar büyük: p = '+fx(pd.p,3))+dl('Holm (bölmede 8 ölçüt)','p = '+fx(s.p[j][2],3)); }
+function nuCards(){ var F=VDD.summary.frame, P=VDD.summary.perm, Hm=VDD.summary.holm, n=Object.keys(NU.seen).length;
+  if(n>=3) card('ec5',true,'Bütün karşılaştırmalar aynı koşulun tekrarları arasında; gerçek fark yoktur. Kareler bağımsız sayılınca '+F.pairs+' testin '+nLoc(F.pairs_sig)+' p < 0,05 çıktı ve 35 bölmenin '+nLoc(F.splits_any)+' en az bir "anlamlı" fark var. Bağımsız birim olarak tekrar alınınca (4 değere karşı 4, tam permütasyon) '+P.pairs+' testin '+nLoc(P.pairs_sig)+', bölmelerin '+nLoc(P.splits_any)+' p < 0,05; sekiz ölçüt için Holm düzeltmesiyle '+(Hm.pairs_sig?Hm.pairs_sig+' test.':'hiçbiri.')+' Kare düzeyindeki küçük p\'ler sözde tekrardan gelir (Lazic 2010). Tekrar düzeyinde de sekiz ölçüte bakan biri bazen şans eseri bir "fark" bulur; ölçüt sayısı ve düzeltme önceden yazılır. Bölmeler aynı sekiz koşuyu paylaştığı için bu oranlar betimleyicidir.');
+  else card('ec5',false,'Şimdiye kadar '+n+' test türü; üçüne de bakın.'); }
+function nuSync(){ $('esp').value=String(NU.si); $('enm').querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-v')===NU.mi)); }); }
+function nuSel(){ nuSync(); nuDraw(); spDraw(); nuRead(); }
+function nuAll(){ NU.seen[NU.t]=1; nuDraw(); nuCards(); }
+/* analiz seçenekleri: spesifikasyon eğrisi */
+var FROWS=[['up',30,'ψ < 30°'],['up',50,'ψ < 50°'],['up',70,'ψ < 70°'],['disc',0,'baş 0 ps'],['disc',200,'baş 200 ps'],['disc',500,'baş 500 ps'],['end',1000,'son 1000 ps'],['end',2000,'son 2000 ps']];
+function fkCur(){ return VDD.GR.filter(function(q){ return q.up===FK.up&&q.disc===FK.disc&&q.end===FK.end; })[0]; }
+function fkDraw(){ var c=$('efork'), f=fit(c), g=f.g, W=f.W, H=f.H, narrow=W<560, G=VDD.GR.slice().sort(function(a,b){ return a.d-b.d; }), cur=fkCur(); g.clearRect(0,0,W,H);
+  var L=narrow?88:96, top=12, h1=(H-top)*0.5, rows=FROWS.length, rh=(H-top-h1-26)/rows;
+  var p=plot(g,L,top,W-L-10,h1,[-0.5,G.length-0.5],[-7,3],{yticks:[-6,-4,-2,0,2],ylab:narrow?'Δ (puan)':'Δ = S − W (puan)',ylabPad:narrow?36:40}); FK.cols=[];
+  g.strokeStyle=hexA(PAL.ink,0.6); g.lineWidth=1; g.beginPath(); g.moveTo(p.X(-0.5),p.Y(0)); g.lineTo(p.X(G.length-0.5),p.Y(0)); g.stroke();
+  G.forEach(function(q,i){ var x=p.X(i), on=q===cur, hv=FK.hov===i;
+    if(on||hv){ g.fillStyle=hexA(PAL.s2,on?0.18:0.10); g.fillRect(x-p.W/G.length/2,top,p.W/G.length,H-top-20); }
+    g.strokeStyle=hexA(PAL.s1,0.5); g.lineWidth=2; g.beginPath(); g.moveTo(x,p.Y(0)); g.lineTo(x,p.Y(q.d)); g.stroke();
+    g.fillStyle=q.pr?PAL.ink:PAL.s1; g.strokeStyle=PAL.paper; g.lineWidth=2; g.beginPath(); g.arc(x,p.Y(q.d),on?6.5:5,0,7); g.fill(); g.stroke();
+    if(q.pr){ g.strokeStyle=PAL.ink; g.lineWidth=1.5; g.beginPath(); g.arc(x,p.Y(q.d),10,0,7); g.stroke(); }
+    FROWS.forEach(function(fr,j){ var y=top+h1+20+(j+0.5)*rh, act=q[fr[0]]===fr[1]; g.fillStyle=act?(on?PAL.ink:PAL.s1):hexA(PAL.muted,0.18); g.beginPath(); g.arc(x,y,act?4:2.5,0,7); g.fill(); });
+    FK.cols.push({x:x,i:i,q:q}); });
+  g.font=(narrow?'11px ':'12px ')+css('--sans'); g.textAlign='right'; FROWS.forEach(function(fr,j){ var y=top+h1+20+(j+0.5)*rh; g.fillStyle=PAL.muted; g.fillText(fr[2],L-8,y+4); if(j===3||j===6){ g.strokeStyle=PAL.line; g.lineWidth=1; g.beginPath(); g.moveTo(L,y-rh/2); g.lineTo(W-10,y-rh/2); g.stroke(); } });
+  var pr=G.filter(function(q){ return q.pr; })[0], xi=G.indexOf(pr); g.textAlign=xi>G.length/2?'right':'left'; g.fillStyle=PAL.ink; g.fillText(narrow?'birincil':'önceden yazılmış',p.X(xi)+(xi>G.length/2?-14:14),p.Y(pr.d)-12); g.textAlign='left'; }
+function fkTip(e){ var c=$('efork'), r=c.getBoundingClientRect(), mx=e.clientX-r.left, tip=c.parentNode.querySelector('.tip'), best=null, bd=1e9;
+  FK.cols.forEach(function(o){ var d=Math.abs(o.x-mx); if(d<bd){ bd=d; best=o; } }); var w=FK.cols.length>1?Math.abs(FK.cols[1].x-FK.cols[0].x):30;
+  if(!best||bd>w/2+2){ if(FK.hov!==-1){ FK.hov=-1; fkDraw(); } tipHide(tip); return null; } if(FK.hov!==best.i){ FK.hov=best.i; fkDraw(); } var q=best.q;
+  tipShow(tip,r.width,mx,e.clientY-r.top,'<b>Δ '+fx(q.d,2)+' puan</b> · p '+fx(q.p,3)+'<br>ψ < '+q.up+'°, baş '+q.disc+' ps, son '+q.end+' ps'+(q.pr?'<br>önceden yazılmış birincil':'')); return best; }
+function fkRead(){ var q=fkCur(), G=VDD.GR, ds=G.map(function(x){ return x.d; }), ps=G.map(function(x){ return x.p; }), rk=G.slice().sort(function(a,b){ return Math.abs(b.d)-Math.abs(a.d); }).indexOf(q)+1;
+  $('efread').innerHTML=dl('Seçili birleşim','ψ üst sınırı '+q.up+'°, atılan baş '+q.disc+' ps, pencere sonu '+q.end+' ps'+(q.pr?' (önceden yazılmış birincil)':''))+dl('Δ (S − W)',fx(q.d,2)+' puan; |Δ| sırası '+rk+' / 18')+dl('Permütasyon p (12.870 ayrım)',fx(q.p,3))+
+    dl('18 birleşimde Δ aralığı',fx(arrMin(ds),2)+' ile '+fx(arrMax(ds),2)+' puan')+dl('En küçük p · p < 0,05 çıkan',fx(arrMin(ps),3)+' · '+ps.filter(function(p){ return p<0.05; }).length+' / 18'); }
+function fkCards(){ var G=VDD.GR, ds=G.map(function(x){ return x.d; }), ps=G.map(function(x){ return x.p; }), n=Object.keys(FK.seen).length, pr=G.filter(function(q){ return q.pr; })[0];
+  if(n>=4) card('ec6',true,'Aynı 16 koşudan, üç makul analiz seçeneğinin 18 birleşimiyle Δ '+fx(arrMin(ds),2)+' ile '+fx(arrMax(ds),2)+' puan arasında değişti; en küçük p '+fx(arrMin(ps),3)+', p < 0,05 çıkan birleşim '+ps.filter(function(p){ return p<0.05; }).length+'. Bu veride hüküm seçeneklere göre değişmedi, kestirimin büyüklüğü değişti. Önceden yazılmış birincil birleşim (ψ < 50°, 200 ps atılır, 2000 ps\'ye kadar) MD-REP\'in sonucunu verir: Δ '+fx(pr.d,2)+' puan, p '+fx(pr.p,3)+'. Seçenekler sonuçlara bakılarak seçilseydi, raporlanan sayı en uç birleşim olabilirdi ve okur kaç birleşimin denendiğini bilemezdi (Simmons, Nelson, Simonsohn 2011). Önceden yazmak ve denenen bütün birleşimleri vermek bu yüzdendir.');
+  else card('ec6',false,'Şimdiye kadar '+n+' birleşim; en az dört birleşime bakın.'); }
+function fkSync(){ [['efu','up'],['efd','disc'],['efe','end']].forEach(function(s){ $(s[0]).querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-v')===FK[s[1]])); }); }); }
+function fkAll(){ FK.seen[[FK.up,FK.disc,FK.end].join('|')]=1; fkSync(); fkDraw(); fkRead(); fkCards(); }
+function w3(){ segWire('ent',function(v){ NU.t=v; nuAll(); });
+  $('enm').innerHTML=VDD.MET.map(function(m,j){ return '<button type="button" data-v="'+j+'" aria-pressed="'+(j===NU.mi)+'">'+METN[m]+'</button>'; }).join(''); segWire('enm',function(v){ NU.mi=+v; nuSel(); });
+  $('esp').innerHTML=VDD.SP.map(function(s,i){ return '<option value="'+i+'">'+(i+1)+': '+s.a.join(' ')+' ile '+s.b.join(' ')+'</option>'; }).join(''); $('esp').addEventListener('change',function(){ NU.si=+$('esp').value; nuSel(); });
+  var c=$('enull'); c.addEventListener('pointermove',nuTip); c.addEventListener('pointerleave',function(){ NU.hov=null; tipHide(c.parentNode.querySelector('.tip')); nuDraw(); });
+  c.addEventListener('click',function(e){ var q=nuCell(e); if(!q) return; NU.si=q[0]; NU.mi=q[1]; nuSel(); });
+  NU.pl=player('enplay',REDUCE?900:600,function(){ if(NU.si>=VDD.SP.length-1) return false; NU.si++; nuSel(); },function(on){ if(on&&NU.si>=VDD.SP.length-1){ NU.si=0; nuSel(); } });
+  segWire('efu',function(v){ FK.up=+v; fkAll(); }); segWire('efd',function(v){ FK.disc=+v; fkAll(); }); segWire('efe',function(v){ FK.end=+v; fkAll(); });
+  var d=$('efork'); d.addEventListener('pointermove',fkTip); d.addEventListener('pointerleave',function(){ FK.hov=-1; tipHide(d.parentNode.querySelector('.tip')); fkDraw(); });
+  d.addEventListener('click',function(e){ var o=fkTip(e); if(!o) return; FK.up=o.q.up; FK.disc=o.q.disc; FK.end=o.q.end; fkAll(); });
+  nuAll(); nuSel(); fkAll(); CHARTS.push(nuDraw); CHARTS.push(spDraw); CHARTS.push(fkDraw); }
+/* ===== tezgâh: iddia denetleyici ===== */
+var BQ={got:{}}, OPTS=['Bu veriyle kurulabilir','Ek kanıt gerekir','Bu veriyle kurulamaz'];
+function benchItems(){ var A1=VDD.A1, W=A1.W, S=A1.S, w1=W.runs[0], lo=w1.p-1.96*w1.sn, hi=w1.p+1.96*w1.sn, oth=W.runs.slice(1), inn=oth.filter(function(r){ return r.p>=lo&&r.p<=hi; }).length;
+  var A2=VDD.A2, Z=VDD.LZ, E=VDD.dG_exp, t1=tq(0.975,1), L4=A2.L4, l4hi=Math.max(L4.mean+1.96*L4.sw,L4.mean+t1*L4.sa), pr=VDD.GR.filter(function(q){ return q.pr; })[0], ds=VDD.GR.map(function(q){ return q.d; });
+  var qd=qpCov({n:3,k:3,sb:0.5,st:0.25,rho:0.5,dd:-1}), calib=W.Rb>0.8&&W.Rb<1.25&&S.Rb>0.8&&S.Rb<1.25, far=l4hi<E[0], P=VDD.summary.perm, pa=VDD.SP[0].p[2][0];
+  var aL=Object.keys(VDD.VAL).filter(function(r){ return VDD.VAL[r].p_aL>0.01; }), aLtxt=aL.map(function(r){ return r+' (%'+pp(VDD.VAL[r].p_aL)+')'; }).join(', ')+(aL.length>1?' oldu':'');
+  var psiEff=0; [0,200,500].forEach(function(d){ [1000,2000].forEach(function(e){ var v=VDD.GR.filter(function(q){ return q.disc===d&&q.end===e; }).map(function(q){ return q.d; }); psiEff=Math.max(psiEff,arrMax(v)-arrMin(v)); }); });
+  return [
+    {s:'"W1 koşusunda αR payı %'+pp(w1.p)+' ± '+pp(1.96*w1.sn)+' (%95, kareler bağımsız sayılarak). Aynı koşul tekrarlansa sonuç büyük olasılıkla bu aralıkta çıkar."', a:2, w:'Aralık %'+pp(lo)+' ile %'+pp(hi)+'; aynı koşulun öteki 7 tekrarından '+(inn?nLoc(inn)+' içinde':'hiçbiri içinde değil')+' (%'+pp(arrMin(oth.map(function(r){ return r.p; })))+' ile %'+pp(arrMax(oth.map(function(r){ return r.p; })))+'). Ardışık kareler bağımlı olduğu için saf hata yaklaşık '+fx(W.Rn,0)+' kat dar çıkar; tekrarın nereye düşeceğini tekrarlar arası yayılım söyler.'},
+    {s:'"Su ile 0,15 M NaCl arasında αR payı bakımından fark yoktur."', a:1, w:'Önceden yazılmış birleşimde Δ '+fx(pr.d,2)+' puan, permütasyon p '+fx(pr.p,3)+' (8 tekrara karşı 8). Bu, farkın gösterilemediğini söyler; "fark yok" demek için önceden yazılmış bir eşdeğerlik sınırı ve o sınırın dışını dışlayan bir aralık gerekir (Lakens 2017). Tekrarlar arası SD yaklaşık '+pp(W.sd,0)+' puan olduğu için 8 tekrarla yalnız büyük farklar dışlanabilir.'},
+    {s:'"Bu sistemde ve bu koşu uzunluğunda, B = 200 karelik blok hatası tekrarlar arası yayılımı makul ölçüde öngörüyor."', a:calib?0:1, w:'SD arası / SE blok: W '+fx(W.Rb,2)+', S '+fx(S.Rb,2)+' (8\'er tekrar). '+(calib?'Cümle bu peptit, bu kuvvet alanı ve 2 ns için kurulabilir; başka bir sistemde, daha yavaş bir süreçte ya da tek koşuda bu öngörü ayrıca sınanır.':'Oran 1\'den uzak; öngörü bu veride zayıf.')+' Dört tekrarlı gruplarda oran '+fx(arrMin(['A03','C27','OPL'].map(function(k){ return A1[k].Rb; })),2)+' ile '+fx(arrMax(['A03','C27','OPL'].map(function(k){ return A1[k].Rb; })),2)+' arasında; dört değerden SD\'nin kendisi de belirsizdir.'},
+    {s:'"L2a ile L2b\'nin iki tekrarı arasındaki fark koşu içi hatayla açıklanamıyor; bu iki modelin LIE kestirimi kararsızdır."', a:1, w:'z: L2a '+fx(Z.L2a.z,2)+', L2b '+fx(Z.L2b.z,2)+'; altı modelden ikisi 1,96\'yı aştı. Koşu içi hata 5 bloktan (4 serbestlik derecesi) hesaplandığı için z\'nin kendisi oynaktır ve altı model birlikte bakıldığında ikisinin şans eseri aşması şaşırtıcı değildir. "Kararsız" demek için daha çok tekrar ya da daha uzun koşu gerekir.'},
+    {s:'"L4\'ün LIE kestirimi ile ölçülmüş ΔG arasındaki fark örnekleme belirsizliğiyle açıklanamaz."', a:far?0:2, w:'L4 ortalaması '+fx(L4.mean,2)+' kcal/mol; koşu içi ve tekrarlar arası aralıkların üst ucu en çok '+fx(l4hi,2)+', ölçülmüş aralık '+fx(E[0],2)+' ile '+fx(E[1],2)+'. '+(far?'Cümle kurulabilir; ama farkın nedeni hakkında hiçbir şey söylemez: katsayılar başka bir kuvvet alanıyla kalibre edildi, ters uzay katkısı yok, tek ligand var. Sistematik belirsizlik bu aralıklarda yer almaz.':'Aralık ölçülmüş değere uzanıyor.')},
+    {s:'"W\'nin sekiz tekrarı dörde dört bölündü; sekiz ölçütten birinde permütasyon p < 0,05 çıktı. İki grup bu ölçütte farklıdır."', a:2, w:'İki grup aynı koşuldan; gerçek fark yoktur. 35 bölmenin '+nLoc(P.splits_any)+' en az bir ölçütte p < 0,05 çıktı, Holm düzeltmesiyle hiçbirinde. Birden çok ölçüte bakılınca şans eseri bir "fark" beklenir; birincil ölçüt ve düzeltme önceden yazılır.'},
+    {s:'"Aynı karşılaştırmada kareler tek tek sayıldığında αL payı için p = '+pfmt(pa)+' çıktı; fark çok güçlüdür."', a:2, w:'Bu, sözde tekrardır: 4 × 1801 kare, 4 bağımsız koşudan gelir. Kare düzeyinde αL payı 35 bölmenin '+nLoc(VDD.per_metric.p_aL.frame)+' p < 0,05 verdi, tekrar düzeyinde '+(VDD.per_metric.p_aL.perm?nLoc(VDD.per_metric.p_aL.perm):'hiçbirinde')+'. Sekiz tekrardan αL\'de belirgin süre kalan yalnız '+aLtxt+'; p\'nin küçüklüğü bu tek olayın binlerce karesini binlerce bağımsız gözlem sayar (Lazic 2010).'},
+    {s:'"18 analiz birleşiminin hiçbirinde p < 0,05 çıkmadı; su ile NaCl farkının büyüklüğü analiz seçeneklerinden bağımsızdır."', a:2, w:'Hüküm 18 birleşimde değişmedi, ama Δ '+fx(arrMin(ds),2)+' ile '+fx(arrMax(ds),2)+' puan arasında oynadı; ψ sınırı Δ\'yı en çok '+fx(psiEff,2)+' puan oynattı, oynamanın geri kalanı atılan baş ile pencere sonundan geldi. Hükmün değişmemesi ile büyüklüğün değişmemesi ayrı cümlelerdir.'},
+    {s:'"qPCR deneyinde her grupta 3 biyolojik örnek ve her örnekte 3 teknik tekrar var; dolayısıyla n = 9\'dur."', a:2, w:'Bağımsız birim biyolojik örnektir; n = 3. Teknik tekrarlar örneğin ölçümünü iyileştirir, örnekler arasındaki biyolojik değişkenliği örneklemez. Köprünün başlangıç ayarında (3 örnek, 3 teknik tekrar) teknik tekrarları n sayan "%95" aralığı gerçek değeri benzetilmiş deneylerde '+pct(qd.tech)+' sıklıkla kapsadı; doğru hesap '+pct(qd.ok)+'.'}
+  ]; }
+function bench(){ var Q=benchItems(), LET=['A','B','C'];
+  $('eclaims').innerHTML=Q.map(function(q,i){ return '<div class="cl"><p class="s">'+(i+1)+'. '+q.s+'</p><div class="opts">'+OPTS.map(function(o,j){ return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'"><span class="qb">'+LET[j]+'</span>'+o+'</button>'; }).join('')+'</div><p class="fb" id="ecl'+i+'fb" hidden></p></div>'; }).join('');
+  document.querySelectorAll('#eclaims .opt').forEach(function(b){ b.addEventListener('click',function(){ var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=Q[i], ok=j===q.a;
+    document.querySelectorAll('#eclaims .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); if(+x.getAttribute('data-j')===q.a) x.classList.add('right'); }); if(!ok) b.classList.add('wrong');
+    var fb=$('ecl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;
+    if(!(i in BQ.got)) BQ.got[i]=ok; var n=Object.keys(BQ.got).length, r=Object.keys(BQ.got).filter(function(k){ return BQ.got[k]; }).length;
+    if(n>=4) card('ec7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Bir hata çubuğu üç soruya cevap verir: neyin belirsizliği (bir koşunun ortalaması mı, koşulun kendisi mi), hangi bağımsız birimle (kare mi, koşu mu, biyolojik örnek mi) ve kaç karşılaştırmanın içinden. Bunlar yazılmadıkça çubuk bir süs olur.');
+    else card('ec7',false,'Şimdiye kadar '+n+' cümle; en az dört cümleye karar verin.'); }); }); }
+/* ===== defter: belirsizlik kaydı ===== */
+var EOF_=['eoU','eoB','eoK','eoD','eoM','eoA','eoS'];
+function eoBuild(){ function v(id){ return ($(id).value||'').replace(/\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }
+  var L=['BELİRSİZLİK KAYDI (MD-ERR taslağı)','Bağımsız birim ve n: '+v('eoU'),'Hata çubuğunun tanımı: '+v('eoB'),'Koşu içi hata yöntemi: '+v('eoK'),'Türetilmiş nicelik ve yayılma: '+v('eoD'),'Karşılaştırma sayısı ve düzeltme: '+v('eoM'),'Analiz seçenekleri: '+v('eoA'),'Sistematik belirsizlik: '+v('eoS')];
+  var wr=[], u=lc('eoU'), b=lc('eoB'), k=lc('eoK'), d=lc('eoD'), m=lc('eoM'), a=lc('eoA'), s=lc('eoS');
+  if(!/koşu|tekrar|örnek|birim|tohum/.test(u)||!/\d/.test(u)) wr.push('Bağımsız birim ve sayısı yazılmamış; kareler ya da teknik tekrarlar n değildir.');
+  if(!/\bsd\b|\bse\b|aralık|güven|\bci\b/.test(b)) wr.push('Hata çubuğunun ne olduğu (SD, SE ya da güven aralığı) yazılmamış.');
+  if(/\bse\b|aralık|güven/.test(b)&&!/\bt\b|t\(|serbestlik|1,96|\bz\b/.test(b)) wr.push('Aralık katsayısı (1,96 ya da t ve serbestlik derecesi) yazılmamış; az tekrarda fark büyüktür.');
+  if(!/blok|otokorelasyon|korelasyon|etkin|bağımsız/.test(k)) wr.push('Koşu içi hatanın ardışık karelerin bağımlılığını nasıl hesaba kattığı yazılmamış.');
+  if(!/kovaryans|bileşen|yayıl|terim/.test(d)) wr.push('Türetilmiş niceliğin hatasının bileşenleri ve kovaryansı yazılmamış.');
+  if(!/\d/.test(m)||!/holm|bonferroni|düzelt|birincil|önceden/.test(m)) wr.push('Kaç ölçüte bakıldığı ve çoklu karşılaştırmanın nasıl ele alındığı yazılmamış.');
+  if(!/önceden|plan|birincil|hepsi|bütün/.test(a)) wr.push('Analiz seçeneklerinin önceden yazılıp yazılmadığı ve denenenlerin raporlanıp raporlanmadığı yazılmamış.');
+  if(!/kuvvet alanı|katsayı|model|sistematik|kalibr/.test(s)) wr.push('Örneklemeyle küçülmeyen sistematik belirsizlik (kuvvet alanı, katsayılar, model) yazılmamış.');
+  if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(x){ L.push('- '+x); }); }
+  $('eoout').textContent=L.join('\n'); }
+function form(){ EOF_.forEach(function(id){ $(id).addEventListener('input',eoBuild); });
+  $('eocopy').onclick=function(){ var t=$('eoout').textContent, m=$('eomsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); } else fb(); };
+  eoBuild(); }
+/* ===== sınav soruları ===== */
+function quizItems(){ var Q=[], W=VDD.A1.W, t1=tq(0.975,1), F=VDD.summary.frame, P=VDD.summary.perm;
+  Q.push({s:'Bir qPCR deneyinde her grupta 4 fare var ve her farenin cDNA\'sı 3 kuyuda ölçüldü. Gruplar karşılaştırılırken n kaçtır?',
+    o:[['12, çünkü 12 Ct değeri var',0],['4; teknik tekrarlar önce her fare için ortalanır',1],['3, çünkü teknik tekrar sayısı 3',0]], w:'Bağımsız birim biyolojik örnektir. Kuyular aynı örnekten geldiği için birbirine bağlıdır; onları n saymak hatayı küçültür ve aralığın kapsamasını düşürür (köprüdeki benzetim).'});
+  Q.push({s:'ΔΔCt = −1,0 ve %95 aralığı −1,6 ile −0,4 döngü. Kat değişimi aralığı nasıl yazılır?',
+    o:[['2 ± 0,6 kat',0],['2^0,4 ile 2^1,6, yani yaklaşık 1,32 ile 3,03 kat; kestirim (2 kat) aralığın ortasında değildir',1],['1,4 ile 2,6 kat',0]], w:'Aralık önce ΔΔCt ölçeğinde kurulur, sonra 2^−x ile üstel ölçeğe taşınır (Livak ve Schmittgen 2001). Üstel dönüşüm aralığı kestirimin çevresinde simetrik bırakmaz.'});
+  Q.push({s:'Bir MD koşusunda 1801 kareden αR payı hesaplandı ve SE = √(p(1−p)/1801) yazıldı. Sorun nedir?',
+    o:[['Sorun yok; kare sayısı büyük',0],['Ardışık kareler birbirine bağlıdır; etkin bağımsız örnek sayısı 1801\'den çok küçüktür ve SE olduğundan dar çıkar',1],['Formül yalnız 1000 karenin altında geçerlidir',0]], w:'W\'de saf SE ile tekrarlar arası SD\'nin oranı yaklaşık '+fx(W.Rn,0)+'; blok hatasıyla oran '+fx(W.Rb,2)+'.'});
+  Q.push({s:'Blok ortalamasında blok boyu nasıl seçilir?',
+    o:[['Hep 10 blok olacak şekilde',0],['Blok boyu büyüdükçe SE\'nin düzleştiği bölgeden, ama yeterli blok sayısı kalacak şekilde; mümkünse bağımsız tekrarlarla sınanır',1],['SE\'yi en küçük yapan blok boyu seçilir',0]], w:'Eğri korelasyon süresinin üstünde düzleşir; blok sayısı azaldıkça (B = 600\'de 3 blok) eğri gürültülenir. Bu sayfada B = 200 kare (9 blok) önceden yazıldı.'});
+  Q.push({s:'İki tekrarın ortalamasının tekrarlar arası SE\'si 0,13 kcal/mol. %95 aralığın yarı genişliği yaklaşık kaçtır?',
+    o:[['1,96 × 0,13 ≈ 0,25',0],['t(0,975; 1) × 0,13 ≈ '+fx(t1*0.13,2),1],['0,13',0]], w:'İki değerden hesaplanan SE tek serbestlik dereceli bir kestirimdir; t = '+fx(t1,3)+'. İki tekrarla tekrarlar arası belirsizlik ancak kabaca söylenebilir.'});
+  Q.push({s:'LIE\'de ΔG = α·Δ⟨V_vdW⟩ + β·Δ⟨V_el⟩. ΔG\'nin hatası nasıl hesaplanır?',
+    o:[['İki terimin hataları doğrudan toplanır',0],['α² ve β² ile ağırlıklı varyanslar, kompleks ve su koşularının katkıları ve iki terim arasındaki kovaryans birlikte yayılır',1],['Yalnız elektrostatik terimin hatası alınır, çünkü büyük olan odur',0]], w:'Bu sayfada 12 tekrarın çoğunda kovaryans eksi çıktı; terimleri ayrı ayrı toplamak hatayı abartır. Su koşusunun hatası iki tekrara da aynen girer.'});
+  Q.push({s:'Aynı koşulun 8 tekrarı 4\'e 4 bölündü; kareler bağımsız sayılarak test edilince ölçütlerin çoğunda p < 0,05 çıktı. Bu ne gösterir?',
+    o:[['Tekrarlar arasında gerçek bir fark olduğunu',0],['Sözde tekrarı: test, birkaç bağımsız koşunun binlerce bağımlı karesini bağımsız gözlem saydı',1],['Ölçütlerin yanlış hesaplandığını',0]], w:'Kare düzeyinde '+F.pairs+' testin '+nLoc(F.pairs_sig)+' p < 0,05; tekrar düzeyinde '+P.pairs+' testin '+nLoc(P.pairs_sig)+'.'});
+  Q.push({s:'Sekiz ölçüte baktınız, birinde p = 0,03 çıktı. Ne yazılır?',
+    o:[['"Bu ölçütte anlamlı fark bulundu."',0],['Sekiz ölçüte bakıldığı, birincil ölçütün önceden hangisi olduğu ve düzeltilmiş p (örneğin Holm); tek başına p = 0,03 bir hüküm değildir',1],['Ölçütlerden yalnız bu raporlanır',0]], w:'Aynı koşulun iki yarısı karşılaştırıldığında da 35 bölmenin '+nLoc(P.splits_any)+' en az bir ölçütte p < 0,05 çıktı; Holm ile hiçbirinde.'});
+  Q.push({s:'Analiz seçenekleri (durum sınırı, atılan baş, pencere) için ne yapılır?',
+    o:[['Sonucu en net gösteren birleşim seçilir',0],['Seçenekler sonuçlara bakmadan önce yazılır; denenen başka birleşimler varsa hepsi raporlanır',1],['Seçenekler önemsizdir, çünkü hüküm değişmez',0]], w:'Bu sayfada 18 birleşimde Δ '+fx(arrMin(VDD.GR.map(function(q){ return q.d; })),2)+' ile '+fx(arrMax(VDD.GR.map(function(q){ return q.d; })),2)+' puan arasında oynadı; hüküm değişmedi ama büyüklük değişti (Simmons, Nelson, Simonsohn 2011).'});
+  return Q; }
+/* ---------- kaynaklar ve sınırlar ---------- */
+function notice(){ var m=VDD.meta;
+  $('enotice').innerHTML='<p><b>Veri.</b> Bu modülde yeni MD koşusu yapılmadı; bütün girdiler daha önce kendi donmuş planlarıyla üretilmiş koşulardır. <b>REPGRID</b> (MD-REP): alanin dipeptidi (başlangıç yapısı mdshare ALA2, Freie Universität Berlin, CC BY 4.0), amber99sb-ildn ve TIP3P, saf su (W1 ile W8) ve 0,15 M NaCl (S1 ile S8), her biri 2 ns NPT, 300 K, kayıt 1 ps; φ/ψ gmx rama ile, sıcaklık, basınç ve hacim gmx energy ile (0,2 ps). <b>FFGRID</b> (MD-FF): aynı peptit amber03, charmm27 ve OPLS-AA ile dörder tekrar, 2 ns; ayrıntılar MD-FF sayfasında. <b>LIGGRID ve LIGGRID2</b> (MD-LIG): tripsin ile benzamidin (PDB 3PTB), altı ligand modeli, model başına iki 0,5 ns kompleks koşusu ve bir 1 ns su koşusu; ligand ile sistemin geri kalanı arasındaki gerçek uzay Coulomb ve Lennard-Jones enerjileri gmx mdrun -rerun ile. LIE: α 0,181, β 0,5 (nötr L3 için 0,43), Hansson, Marelius, Åqvist 1998 (J Comput Aided Mol Des 12:27, doi 10.1023/a:1007930623000). Ölçülmüş aralık ChEMBL Ki değerlerinden (benzamidin CHEMBL20936, sığır tripsini CHEMBL3769; MD-LIG ve DK-T ile aynı altı kayıt), ΔG = RT ln Ki, 25 °C. GROMACS 2023.3. Girdilerin 106 dosyasının SHA-256 değerleri planla birlikte kaydedildi.</p>'+
+  '<p><b>Köprü.</b> qPCR bölümü bir öğretim modelidir; ölçülmüş veri kullanılmaz. Ct değerleri tarayıcıda tohumlu bir rastgele sayı üreteciyle benzetilir: her biyolojik örnekte hedef ve referans genin Ct\'si seçilen biyolojik SD ve korelasyonla, her kuyuya ayrıca teknik SD eklenerek. ΔCt, ΔΔCt ve kat değişimi 2^−ΔΔCt Livak ve Schmittgen 2001 (Methods 25:402, doi 10.1006/meth.2001.1262) ve Schmittgen ve Livak 2008 (Nat Protoc 3:1101, doi 10.1038/nprot.2008.73) yöntemine göre; aralık birleşik SD ile t dağılımından (doğru hesapta serbestlik derecesi 2n − 2). Kapsama, aynı ayarla 2.000 benzetilmiş deneyde gerçek ΔΔCt\'yi içeren aralıkların payıdır. Benzetim, amplifikasyon verimini %100 kabul eder ve verim belirsizliğini içermez.</p>'+
+  '<p><b>Analiz.</b> Analiz planı hesaplardan önce yazılıp SHA-256 ile donduruldu ('+m.plan_sha.slice(0,12)+'…). Durumlar: αL 0 ≤ φ < 180; αR φ < 0 ve −120 ≤ ψ < 50; β/PPII kalan. Pencere 200 ile 2000 ps (1801 kare); blok hatası ilk 1800 kareden, B = 200 kare, 9 blok (Flyvbjerg ve Petersen 1989, J Chem Phys 91:461; Grossfield ve ark. 2018, Living J Comput Mol Sci 1:5067). LIE blokları MD-LIG ile aynı: kompleks 50 ile 500 ps, 5 blok; su 100 ile 999 ps, 9 × 100 kare. Boş karşılaştırmalar: W\'nin 35 dörde dört bölmesi (MD-REP ile aynı sıra), 8 ölçüt; kare düzeyinde birleşik iki oran z testi ve Welch t testi, tekrar düzeyinde 70 ayrımlı tam permütasyon, bölme içinde Holm düzeltmesi (Holm 1979, Scand J Stat 6:65). Analiz seçenekleri: 18 birleşim, 12.870 ayrımlı tam permütasyon; 0 ile 200 ps arasındaki φ/ψ md.xtc\'den yeniden hesaplandı ve 200 ile 2000 ps kısmı MD-REP\'in dosyalarıyla aynı çıktı. Bağımsız denetim (MDAnalysis φ/ψ, saf Python blok hatası, gmx energy blok ortalamaları, ayrı permütasyon ve scipy ile kare düzeyi testler): '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'. Plandan sapma yok. Blok gezgini (kare dizisinden blok SE) ve permütasyon dağılımı tarayıcıda aynı veriden yeniden hesaplanır; 364 blok SE değeri ve 280 permütasyon p\'si Python sonuçlarıyla karşılaştırıldı, farklar yalnız yuvarlamadandır (en büyük 5·10⁻⁷ ve 4·10⁻⁶).</p>'+
+  '<p><b>Okuma.</b> Sözde tekrar: Lazic 2010 (BMC Neurosci 11:5, doi 10.1186/1471-2202-11-5). Analiz esnekliği: Simmons, Nelson, Simonsohn 2011 (Psychol Sci 22:1359, doi 10.1177/0956797611417632). Eşdeğerlik testleri: Lakens 2017 (Soc Psychol Personal Sci 8:355, doi 10.1177/1948550617697177). MD\'de tekrarlar: Knapp, Ospina, Deane 2018 (J Chem Theory Comput 14:6127, doi 10.1021/acs.jctc.8b00391).</p>'+
+  '<p><b>Sınırlar.</b> Bölmeler aynı sekiz koşuyu paylaştığı için boş karşılaştırma oranları bağımsız denemeler değildir ve bir yanlış pozitif oranı olarak okunmaz. LIE\'de model başına iki tekrar var; tekrarlar arası SE tek serbestlik derecelidir. Yeni ya da daha uzun koşular, ek tekrarlar, hiyerarşik Bayes modelleri, başka bootstrap türleri, MBAR ve serbest enerji yöntemleri, başka sistemler, qPCR\'de verim belirsizliği ve gerçek qPCR verisi: Bu senaryo hesaplanmadı.</p>'; }
+
+/* ---------- sınav ---------- */
+var QZ=[];
+function renderQuiz(){ var got={}, LET=['A','B','C','D']; QZ=quizItems();
+  $('equiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'"><span class="qb">'+LET[j]+'</span>'+o[0]+'</button>';}).join('')+'</div><p class="why" id="ewhy'+i+'" hidden></p></div>'; }).join('');
+  document.querySelectorAll('#equiz .opt').forEach(function(b){ b.addEventListener('click',function(){
+    var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], okk=q.o[j][1]===1;
+    document.querySelectorAll('#equiz .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); });
+    b.classList.add(okk?'right':'wrong'); var wy=$('ewhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;
+    if(!(i in got)) got[i]=okk; var n=Object.keys(got).length, rr=Object.keys(got).filter(function(k){return got[k];}).length;
+    $('escore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }
+
+/* ---------- başlatma ---------- */
+function init(){
+  PAL={ink:css('--ink'),muted:css('--muted'),line:css('--line'),paper:css('--paper'),soft:css('--soft'),navy:css('--navy'),accent:css('--accent'),good:css('--good'),bad:css('--bad'),gold:css('--gold'),s1:css('--s1'),s2:css('--s2'),s3:css('--s3')};
+  NCARD=8; ['ec0','ec1','ec2','ec3','ec4','ec5','ec6','ec7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });
+  notice(); bridge(); w1(); w2(); w3(); bench(); form(); renderQuiz();
+  window.MDERR={blockSE:blockSE,bits:bits,permDist:permDist,QD:QD,QP:QP,qpExp:qpExp,qpEst:qpEst,qpCov:qpCov,rng:rng,tq:tq,tcdf:tcdf,WI:WI,BU:BU,NU:NU,FK:FK,BQ:BQ,FOUND:FOUND,seTot:seTot}; /* sınama için */
+  var rT=null; window.addEventListener('resize',function(){ clearTimeout(rT); rT=setTimeout(function(){ CHARTS.forEach(function(f){ f(); }); },120); });
+  if('ResizeObserver' in window){ var lastW=0; new ResizeObserver(function(){ var w=document.documentElement.clientWidth; if(w!==lastW){ lastW=w; clearTimeout(rT); rT=setTimeout(function(){ CHARTS.forEach(function(f){ f(); }); },120); } }).observe(document.body); }
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+</body>
+</html>

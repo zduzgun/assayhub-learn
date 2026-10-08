@@ -1,0 +1,1043 @@
+{
+ "module": "MD-ERR",
+ "lang": "en",
+ "source_sha256": "0981cc45fad8f59ac25333b1b17e25b53ea99938c8873d27345e1f64f06cc41d",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-ERR 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Hata çubuğu ve dürüst karşılaştırma</title>",
+   "<title>MD: Error bars and honest comparison</title>"
+  ],
+  [
+   "<div class=\"proto\" id=\"eproto\">Bu modülde yeni MD koşusu yapılmadı. Daha önce kendi donmuş planlarıyla üretilmiş üç koşu ızgarası yeniden analiz edildi: alanin dipeptidinin 16 tekrarı (MD-REP), aynı peptidin üç kuvvet alanıyla 12 koşusu (MD-FF) ve tripsin-benzamidin kompleksinin altı ligand modeliyle 18 koşusu (MD-LIG). Analiz planı hesaplardan önce yazılıp SHA-256 ile donduruldu; sonuçlar ayrı yazılmış betiklerle ve GROMACS araçlarıyla bağımsız olarak denetlendi. qPCR bölümü tarayıcıda çalışan bir öğretim modelidir, ölçülmüş veri değildir. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye işaretlidir.</div>",
+   "<div class=\"proto\" id=\"eproto\">No new MD run was made for this module. Three run grids produced earlier under their own frozen plans were reanalyzed: 16 replicas of alanine dipeptide (MD-REP), 12 runs of the same peptide with three force fields (MD-FF) and 18 runs of the trypsin-benzamidine complex with six ligand models (MD-LIG). The analysis plan was written before any calculation and frozen with SHA-256; the results were audited independently with separately written scripts and GROMACS tools. The qPCR section is a teaching model running in the browser, not measured data. Everything not computed is marked \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-ERR · Hata çubuğu ve dürüst karşılaştırma</span>",
+   "<span class=\"eyebrow\">MD-ERR · Error bars and honest comparison</span>"
+  ],
+  [
+   "<h1>Hata çubuğu neyin belirsizliği?</h1>",
+   "<h1>An error bar is the uncertainty of what?</h1>"
+  ],
+  [
+   "<p class=\"lead\">Bir sayının yanına \"±\" yazmak kolaydır; zor olan, o çubuğun neyi temsil ettiğini söylemektir. Bir koşunun kendi karelerinden mi hesaplandı, bağımsız tekrarlardan mı? Türetilmiş bir niceliğin hangi bileşenlerinden geldi? Kaç karşılaştırmanın içinden seçildi? Bu sayfada aynı sorular önce bir qPCR deneyinde, sonra gerçek MD koşularında sorulur.</p>",
+   "<p class=\"lead\">Writing \"±\" next to a number is easy; the hard part is saying what that bar represents. Was it computed from the frames of one run, or from independent replicas? Which components of a derived quantity did it come from? Out of how many comparisons was it picked? On this page the same questions are asked first of a qPCR experiment, then of real MD runs.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"eprogN\">0 / 8</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"eprogN\">0 / 8</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"eh0\">qPCR'de ΔΔCt: n kaçtır, hata nereden gelir?</h2>",
+   "<h2 id=\"eh0\">ΔΔCt in qPCR: what is n, where does the error come from?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Göreli gen ifadesi çoğu kez ΔΔCt yöntemiyle hesaplanır: her örnekte ΔCt = Ct(hedef) − Ct(referans), sonra ΔΔCt = ort(ΔCt, uygulama) − ort(ΔCt, kontrol) ve kat değişimi 2^−ΔΔCt. Bu bir öğretim modelidir: Ct değerleri tarayıcıda benzetilir. Aşağıda deneyler tek tek akar; her deneyden aynı veriyle üç ayrı %95 aralığı hesaplanır. Doğru bir %95 aralığı, deneylerin yaklaşık %95'inde gerçek değeri kapsamalıdır. Kutulardaki sayaçlar şimdiye kadarki kapsamayı, alt satır aynı ayarla 2.000 deneylik sonucu verir. Ayarları değiştirin; her değişiklik dansı baştan başlatır.</p></div>",
+   "<div class=\"prose\"><p>Relative gene expression is often computed with the ΔΔCt method: in each sample ΔCt = Ct(target) − Ct(reference), then ΔΔCt = mean(ΔCt, treatment) − mean(ΔCt, control) and the fold change is 2^−ΔΔCt. This is a teaching model: the Ct values are simulated in the browser. Below, experiments stream in one by one; from each experiment three different 95% intervals are computed from the same data. A correct 95% interval should cover the true value in about 95% of experiments. The counters in the boxes give the coverage so far; the bottom line gives the result for 2,000 experiments with the same setting. Change the settings; each change restarts the dance.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Biyolojik örnek (grup başına):</span><div class=\"seg\" role=\"group\" aria-label=\"Biyolojik örnek sayısı\" id=\"eqn\"></div></div>",
+   "<div class=\"selrow\"><span>Biological samples (per group):</span><div class=\"seg\" role=\"group\" aria-label=\"Number of biological samples\" id=\"eqn\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Teknik tekrar (örnek başına):</span><div class=\"seg\" role=\"group\" aria-label=\"Teknik tekrar sayısı\" id=\"eqk\"></div></div>",
+   "<div class=\"selrow\"><span>Technical replicates (per sample):</span><div class=\"seg\" role=\"group\" aria-label=\"Number of technical replicates\" id=\"eqk\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Biyolojik SD (Ct, döngü):</span><div class=\"seg\" role=\"group\" aria-label=\"Biyolojik SD\" id=\"eqsb\"></div></div>",
+   "<div class=\"selrow\"><span>Biological SD (Ct, cycles):</span><div class=\"seg\" role=\"group\" aria-label=\"Biological SD\" id=\"eqsb\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Teknik SD (kuyu, döngü):</span><div class=\"seg\" role=\"group\" aria-label=\"Teknik SD\" id=\"eqst\"></div></div>",
+   "<div class=\"selrow\"><span>Technical SD (well, cycles):</span><div class=\"seg\" role=\"group\" aria-label=\"Technical SD\" id=\"eqst\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Hedef ile referans arasındaki biyolojik korelasyon:</span><div class=\"seg\" role=\"group\" aria-label=\"Korelasyon\" id=\"eqr\"></div></div>",
+   "<div class=\"selrow\"><span>Biological correlation between target and reference:</span><div class=\"seg\" role=\"group\" aria-label=\"Correlation\" id=\"eqr\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Gerçek ΔΔCt:</span><div class=\"seg\" role=\"group\" aria-label=\"Gerçek ΔΔCt\" id=\"eqd\"></div></div>",
+   "<div class=\"selrow\"><span>True ΔΔCt:</span><div class=\"seg\" role=\"group\" aria-label=\"True ΔΔCt\" id=\"eqd\"></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn play\" id=\"eqplay\" aria-pressed=\"false\">Oynat</button><button type=\"button\" class=\"btn\" id=\"eqstep\">+1 deney</button><button type=\"button\" class=\"btn\" id=\"eqfast\">+100 deney</button><button type=\"button\" class=\"btn\" id=\"eqreset\">Baştan başlat</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn play\" id=\"eqplay\" aria-pressed=\"false\">Play</button><button type=\"button\" class=\"btn\" id=\"eqstep\">+1 experiment</button><button type=\"button\" class=\"btn\" id=\"eqfast\">+100 experiments</button><button type=\"button\" class=\"btn\" id=\"eqreset\">Start over</button></div>"
+  ],
+  [
+   "<div class=\"stat\" id=\"eqs_ok\"><span class=\"nm\">Doğru hesap</span><span class=\"v\">·</span><span class=\"sub cnt\"></span><span class=\"sub ref\"></span></div>",
+   "<div class=\"stat\" id=\"eqs_ok\"><span class=\"nm\">Correct calculation</span><span class=\"v\">·</span><span class=\"sub cnt\"></span><span class=\"sub ref\"></span></div>"
+  ],
+  [
+   "<div class=\"stat\" id=\"eqs_tech\"><span class=\"nm\">Yanlış n (kuyular n)</span><span class=\"v\">·</span><span class=\"sub cnt\"></span><span class=\"sub ref\"></span></div>",
+   "<div class=\"stat\" id=\"eqs_tech\"><span class=\"nm\">Wrong n (wells as n)</span><span class=\"v\">·</span><span class=\"sub cnt\"></span><span class=\"sub ref\"></span></div>"
+  ],
+  [
+   "<div class=\"stat\" id=\"eqs_unp\"><span class=\"nm\">Eşleştirmesiz</span><span class=\"v\">·</span><span class=\"sub cnt\"></span><span class=\"sub ref\"></span></div>",
+   "<div class=\"stat\" id=\"eqs_unp\"><span class=\"nm\">Unpaired</span><span class=\"v\">·</span><span class=\"sub cnt\"></span><span class=\"sub ref\"></span></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ebridge\" class=\"plot\" aria-label=\"Son 40 deneyin üç hesapla %95 aralıkları; gerçek değeri ıskalayanlar kırmızı\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"ebridge\" class=\"plot\" aria-label=\"95% intervals of the last 40 experiments with three calculations; those missing the true value in red\"></canvas></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><span class=\"lin\" style=\"border-color:var(--s1)\"></span>aralık gerçek değeri kapsıyor</span><span><span class=\"lin\" style=\"border-color:var(--bad)\"></span>kapsamıyor</span><span><span class=\"lin\" style=\"border-color:var(--ink);border-top-width:2px\"></span>gerçek kat değişimi</span><span>en yeni deney en üstte, halkalı nokta kestirim</span></div>",
+   "<div class=\"legend\"><span><span class=\"lin\" style=\"border-color:var(--s1)\"></span>interval covers the true value</span><span><span class=\"lin\" style=\"border-color:var(--bad)\"></span>does not cover</span><span><span class=\"lin\" style=\"border-color:var(--ink);border-top-width:2px\"></span>true fold change</span><span>newest experiment on top, ringed dot the estimate</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec0\"><span class=\"k\">Açık</span><h3>Teknik tekrar n değildir</h3><p>En az üç ayara bakın.</p><div class=\"mine\" id=\"mec0\"></div></article>",
+   "<article class=\"q\" id=\"ec0\"><span class=\"k\">Open</span><h3>A technical replicate is not n</h3><p>Look at at least three settings.</p><div class=\"mine\" id=\"mec0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: koşu içi ile tekrarlar arası</span>",
+   "<span class=\"step\">1 · Workshop: within run versus between replicas</span>"
+  ],
+  [
+   "<h2 id=\"eh1\">Bir koşunun hata çubuğu, tekrarın nereye düşeceğini söyler mi?</h2>",
+   "<h2 id=\"eh1\">Does the error bar of one run tell where a replica will land?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her nokta bir MD koşusunun αR payıdır (200 ile 2000 ps, 1801 kare); çubuk ±1,96 × SE. <b>Saf SE</b> kareleri bağımsız sayar: √(p(1−p)/1801). <b>Blok SE</b> ilk 1800 kareyi 200 karelik 9 bloğa böler ve blok ortalamalarının SD'sini √9'a böler. Sarı bant aynı koşulun tekrarları arasındaki yayılımdır. Tekrarlar yalnız hız tohumuyla ayrılır; gerçek fark yoktur. Bir koşu seçin: aralığı seçili koşununkiyle çakışmayan tekrarlar kırmızı olur.</p></div>",
+   "<div class=\"prose\"><p>Each dot is the αR fraction of one MD run (200 to 2000 ps, 1801 frames); the bar is ±1.96 × SE. The <b>naive SE</b> counts frames as independent: √(p(1−p)/1801). The <b>block SE</b> splits the first 1800 frames into 9 blocks of 200 frames and divides the SD of the block means by √9. The yellow band is the spread between replicas of the same condition. Replicas differ only in their velocity seed; there is no real difference. Select a run: the replicas whose interval does not overlap with the selected run's turn red.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Koşul:</span><div class=\"seg\" role=\"group\" aria-label=\"Koşul\" id=\"ewg\"></div></div>",
+   "<div class=\"selrow\"><span>Condition:</span><div class=\"seg\" role=\"group\" aria-label=\"Condition\" id=\"ewg\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Hata:</span><div class=\"seg\" role=\"group\" aria-label=\"Hata türü\" id=\"ewse\"><button type=\"button\" data-v=\"sn\" aria-pressed=\"true\">Saf (kareler bağımsız)</button><button type=\"button\" data-v=\"sb\" aria-pressed=\"false\">Blok (B = 200)</button></div></div>",
+   "<div class=\"selrow\"><span>Error:</span><div class=\"seg\" role=\"group\" aria-label=\"Error type\" id=\"ewse\"><button type=\"button\" data-v=\"sn\" aria-pressed=\"true\">Naive (frames independent)</button><button type=\"button\" data-v=\"sb\" aria-pressed=\"false\">Block (B = 200)</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Koşu:</span><div class=\"seg\" role=\"group\" aria-label=\"Seçili koşu\" id=\"ewrun\"></div></div>",
+   "<div class=\"selrow\"><span>Run:</span><div class=\"seg\" role=\"group\" aria-label=\"Selected run\" id=\"ewrun\"></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ewr\" class=\"plot click\" aria-label=\"Koşu başına αR payı ve hata çubukları\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"ewr\" class=\"plot click\" aria-label=\"αR fraction and error bars per run\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--ink)\"></i>seçili koşu</span><span><i style=\"background:var(--s1)\"></i>aralığı çakışan tekrar</span><span><i style=\"background:var(--bad)\"></i>çakışmayan tekrar (\"anlamlı farklı\" görünür)</span><span><i style=\"background:var(--s2);opacity:.45;border-radius:2px\"></i>tekrarlar arası yayılım (ort. ± 1,96·SD)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--ink)\"></i>selected run</span><span><i style=\"background:var(--s1)\"></i>replica with overlapping interval</span><span><i style=\"background:var(--bad)\"></i>non-overlapping replica (looks \"significantly different\")</span><span><i style=\"background:var(--s2);opacity:.45;border-radius:2px\"></i>spread between replicas (mean ± 1.96·SD)</span></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Blok gezgini: seçili koşu</h3>",
+   "<h3 class=\"sub\">Block explorer: the selected run</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Üstteki şerit seçili koşunun her karesidir: αR'deki kareler mavi. Altında kareler B uzunluğunda bloklara bölünür; mavi basamaklar blok ortalamaları, siyah çizgi koşunun ortalaması. B küçükken blok ortalamaları 0 ile 1 arasında sıçrar ama kaç tane olduğu için SE küçük çıkar; ardışık kareler aynı durumda kaldığı için bu küçüklük yanıltıcıdır. Kaydırıcıyla B'yi büyütün ya da oynatın.</p></div>",
+   "<div class=\"prose\"><p>The strip at the top is every frame of the selected run: frames in αR are blue. Below it the frames are split into blocks of length B; the blue steps are the block means, the black line the mean of the run. When B is small, the block means jump between 0 and 1, but because there are so many of them the SE comes out small; since consecutive frames stay in the same state, this smallness is misleading. Increase B with the slider or press play.</p></div>"
+  ],
+  [
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"ebplay\" aria-pressed=\"false\">Oynat</button><label for=\"ebsl\">Blok boyu</label><input type=\"range\" id=\"ebsl\" min=\"0\" max=\"12\" step=\"1\" value=\"9\"><output id=\"ebsv\"></output></div>",
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"ebplay\" aria-pressed=\"false\">Play</button><label for=\"ebsl\">Block length</label><input type=\"range\" id=\"ebsl\" min=\"0\" max=\"12\" step=\"1\" value=\"9\"><output id=\"ebsv\"></output></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ets\" class=\"plot\" aria-label=\"Seçili koşunun kare dizisi ve blok ortalamaları\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"ets\" class=\"plot\" aria-label=\"Frame sequence and block means of the selected run\"></canvas></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"eblk\" class=\"plot\" aria-label=\"Blok boyuna göre SE; seçili koşu mavi, aynı koşulun öteki tekrarları gri\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"eblk\" class=\"plot\" aria-label=\"SE by block length; the selected run in blue, the other replicas of the same condition in gray\"></canvas></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><span class=\"lin\" style=\"border-color:var(--s1)\"></span>seçili koşunun SE eğrisi</span><span><span class=\"lin\" style=\"border-color:var(--muted);opacity:.5\"></span>aynı koşulun öteki tekrarları</span><span><span class=\"lin\" style=\"border-color:var(--s2)\"></span>tekrarlar arası SD</span></div>",
+   "<div class=\"legend\"><span><span class=\"lin\" style=\"border-color:var(--s1)\"></span>SE curve of the selected run</span><span><span class=\"lin\" style=\"border-color:var(--muted);opacity:.5\"></span>other replicas of the same condition</span><span><span class=\"lin\" style=\"border-color:var(--s2)\"></span>SD between replicas</span></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Aynı soru LIE'de: iki tekrar ne kadar uyuşuyor?</h3>",
+   "<h3 class=\"sub\">The same question in LIE: how well do two replicas agree?</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>MD-LIG'de her ligand modeli iki kez koşuldu ve her tekrarın LIE ΔG'sine 5 bloklu bir koşu içi hata yazıldı (yalnız kompleks koşusundan). Koşu içi hata doğruysa z = |ΔG₁ − ΔG₂| / √(SE₁² + SE₂²) çoğu modelde 2'nin altında kalmalıdır. Betimleyicidir; hüküm yazılmaz.</p></div>",
+   "<div class=\"prose\"><p>In MD-LIG each ligand model was run twice and each replica's LIE ΔG got a 5-block within-run error (from the complex run only). If the within-run error is right, z = |ΔG₁ − ΔG₂| / √(SE₁² + SE₂²) should stay below 2 for most models. Descriptive; no verdict is written.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec1\"><span class=\"k\">Açık</span><h3>Saf hata çubuğu</h3><p>Her iki hata türüne de bakın.</p><div class=\"mine\" id=\"mec1\"></div></article>",
+   "<article class=\"q\" id=\"ec1\"><span class=\"k\">Open</span><h3>The naive error bar</h3><p>Look at both error types.</p><div class=\"mine\" id=\"mec1\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec2\"><span class=\"k\">Açık</span><h3>Blok hatası tekrarı öngörür mü?</h3><p>Blok boyunu en az dört değere getirin ve en az iki koşula bakın.</p><div class=\"mine\" id=\"mec2\"></div></article>",
+   "<article class=\"q\" id=\"ec2\"><span class=\"k\">Open</span><h3>Does the block error predict a replica?</h3><p>Set the block length to at least four values and look at at least two conditions.</p><div class=\"mine\" id=\"mec2\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye: türetilmiş niceliğin hatası</span>",
+   "<span class=\"step\">2 · Workshop: the error of a derived quantity</span>"
+  ],
+  [
+   "<h2 id=\"eh2\">LIE ΔG'nin belirsizlik bütçesi</h2>",
+   "<h2 id=\"eh2\">The uncertainty budget of LIE ΔG</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>LIE kestirimi dört ortalamadan türetilir: ΔG = α(⟨V_vdW⟩ₖ − ⟨V_vdW⟩ₛ) + β(⟨V_el⟩ₖ − ⟨V_el⟩ₛ), k kompleks, s su koşusu. Bir tekrarın koşu içi hatası: SE² = [α²(SE²_vdW,k + SE²_vdW,s) + β²(SE²_el,k + SE²_el,s) + 2αβ(cov_k + cov_s)] / 4,184². Kompleks 5 blok (50 ile 500 ps), su 9 blok (100 ile 999 ps); kovaryans aynı blokların el ve vdW ortalamalarından. Şelalede her terim SE²'ye eklenir; kovaryans eksiyse toplam düşer. İnce çizgi, kovaryans yok sayılsaydı bulunacak değerdir. Bir model ve tekrar seçin.</p></div>",
+   "<div class=\"prose\"><p>The LIE estimate is derived from four means: ΔG = α(⟨V_vdW⟩ₖ − ⟨V_vdW⟩ₛ) + β(⟨V_el⟩ₖ − ⟨V_el⟩ₛ), k the complex run, s the water run. The within-run error of one replica: SE² = [α²(SE²_vdW,k + SE²_vdW,s) + β²(SE²_el,k + SE²_el,s) + 2αβ(cov_k + cov_s)] / 4.184². Complex 5 blocks (50 to 500 ps), water 9 blocks (100 to 999 ps); the covariance from the el and vdW means of the same blocks. In the waterfall each term is added to SE²; a negative covariance lowers the total. The thin line is the value one would get if the covariance were ignored. Select a model and a replica.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"Ligand modeli\" id=\"ebm\"></div></div>",
+   "<div class=\"selrow\"><span>Model:</span><div class=\"seg\" role=\"group\" aria-label=\"Ligand model\" id=\"ebm\"></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Tekrar:</span><div class=\"seg\" role=\"group\" aria-label=\"Tekrar\" id=\"ebk\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button></div></div>",
+   "<div class=\"selrow\"><span>Replica:</span><div class=\"seg\" role=\"group\" aria-label=\"Replica\" id=\"ebk\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"ebud\" class=\"plot\" aria-label=\"Seçili tekrarın SE² bileşenleri, şelale grafiği\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"ebud\" class=\"plot\" aria-label=\"SE² components of the selected replica, waterfall chart\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--s1);border-radius:2px\"></i>elektrostatik (açık ton: su koşusu)</span><span><i style=\"background:var(--s2);border-radius:2px\"></i>van der Waals (açık ton: su)</span><span><i style=\"background:var(--s3);border-radius:2px\"></i>kovaryans</span><span><i style=\"background:var(--ink);border-radius:2px\"></i>toplam SE²</span><span><span class=\"lin\" style=\"border-color:var(--ink);border-top-width:1px\"></span>kovaryans yok sayılsaydı</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--s1);border-radius:2px\"></i>electrostatic (light tone: water run)</span><span><i style=\"background:var(--s2);border-radius:2px\"></i>van der Waals (light tone: water)</span><span><i style=\"background:var(--s3);border-radius:2px\"></i>covariance</span><span><i style=\"background:var(--ink);border-radius:2px\"></i>total SE²</span><span><span class=\"lin\" style=\"border-color:var(--ink);border-top-width:1px\"></span>if the covariance were ignored</span></div>"
+  ],
+  [
+   "<details><summary>12 tekrarın tablosu</summary><div class=\"tw\" id=\"ebtab\"></div></details>",
+   "<details><summary>Table of the 12 replicas</summary><div class=\"tw\" id=\"ebtab\"></div></details>"
+  ],
+  [
+   "<h3 class=\"sub\">Model düzeyi: iki tür aralık</h3>",
+   "<h3 class=\"sub\">Model level: two kinds of interval</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Model kestirimi iki tekrarın ortalamasıdır. <b>Koşu içi</b>: SE_iç = √(SE₁² + SE₂²) / 2, aralık ±1,96 × SE_iç. <b>Tekrarlar arası</b>: SE_arası = |ΔG₁ − ΔG₂| / 2, iki değerden kestirildiği için aralık ±t(0,975; 1) × SE_arası. Yeşil bant ChEMBL Ki değerlerinden ölçülmüş aralıktır.</p></div>",
+   "<div class=\"prose\"><p>The model estimate is the mean of two replicas. <b>Within run</b>: SE_within = √(SE₁² + SE₂²) / 2, interval ±1.96 × SE_within. <b>Between replicas</b>: SE_between = |ΔG₁ − ΔG₂| / 2; because it is estimated from two values, the interval is ±t(0.975; 1) × SE_between. The green band is the range measured from ChEMBL Ki values.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Aralık:</span><div class=\"seg\" role=\"group\" aria-label=\"Aralık türü\" id=\"eiv\"><button type=\"button\" data-v=\"both\" aria-pressed=\"true\">İkisi</button><button type=\"button\" data-v=\"in\" aria-pressed=\"false\">Koşu içi</button><button type=\"button\" data-v=\"ar\" aria-pressed=\"false\">Tekrarlar arası</button></div></div>",
+   "<div class=\"selrow\"><span>Interval:</span><div class=\"seg\" role=\"group\" aria-label=\"Interval type\" id=\"eiv\"><button type=\"button\" data-v=\"both\" aria-pressed=\"true\">Both</button><button type=\"button\" data-v=\"in\" aria-pressed=\"false\">Within run</button><button type=\"button\" data-v=\"ar\" aria-pressed=\"false\">Between replicas</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"elie\" class=\"plot\" aria-label=\"Model başına LIE aralıkları ve ölçülmüş aralık\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"elie\" class=\"plot\" aria-label=\"LIE intervals per model and the measured range\"></canvas></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><span class=\"lin\" style=\"border-color:var(--s1);border-top-width:5px\"></span>koşu içi ±1,96 × SE_iç</span><span><span class=\"lin\" style=\"border-color:var(--s3)\"></span>tekrarlar arası ±12,706 × SE_arası</span><span><i style=\"background:var(--ink);opacity:.55\"></i>tekrarlar</span><span><i style=\"background:var(--good);opacity:.4;border-radius:2px\"></i>ölçülmüş aralık</span></div>",
+   "<div class=\"legend\"><span><span class=\"lin\" style=\"border-color:var(--s1);border-top-width:5px\"></span>within run ±1.96 × SE_within</span><span><span class=\"lin\" style=\"border-color:var(--s3)\"></span>between replicas ±12.706 × SE_between</span><span><i style=\"background:var(--ink);opacity:.55\"></i>replicas</span><span><i style=\"background:var(--good);opacity:.4;border-radius:2px\"></i>measured range</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec3\"><span class=\"k\">Açık</span><h3>Belirsizliğin kaynağı</h3><p>En az üç modelin bütçesine bakın.</p><div class=\"mine\" id=\"mec3\"></div></article>",
+   "<article class=\"q\" id=\"ec3\"><span class=\"k\">Open</span><h3>Where the uncertainty comes from</h3><p>Look at the budget of at least three models.</p><div class=\"mine\" id=\"mec3\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec4\"><span class=\"k\">Açık</span><h3>İki tekrarla aralık</h3><p>İki aralık türüne ayrı ayrı bakın.</p><div class=\"mine\" id=\"mec4\"></div></article>",
+   "<article class=\"q\" id=\"ec4\"><span class=\"k\">Open</span><h3>An interval from two replicas</h3><p>Look at the two kinds of interval separately.</p><div class=\"mine\" id=\"mec4\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Atölye: kaç karşılaştırma yaptınız?</span>",
+   "<span class=\"step\">3 · Workshop: how many comparisons did you make?</span>"
+  ],
+  [
+   "<h2 id=\"eh3\">Aynıyla aynının farkı ve analiz seçenekleri</h2>",
+   "<h2 id=\"eh3\">The difference between same and same, and analysis choices</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>W'nin sekiz tekrarı dörde dört, bütün farklı biçimlerde bölündü (35 bölme). İki yarı aynı koşuldandır; gerçek fark yoktur. Her bölmede sekiz ölçüt üç yolla test edildi: <b>kare düzeyi</b> (bütün kareler bağımsız sayılır; paylar için oran z testi, sürekli ölçütler için Welch t testi; geçiş sayısı için bu test yoktur), <b>tekrar düzeyi</b> (dört değere karşı dört değer, 70 ayrımlı tam permütasyon) ve <b>tekrar düzeyi + Holm</b> (bölme içinde sekiz ölçüt için düzeltme). Kırmızı hücre p &lt; 0,05 demektir.</p></div>",
+   "<div class=\"prose\"><p>The eight replicas of W were split four against four in every distinct way (35 splits). Both halves come from the same condition; there is no real difference. In each split eight measures were tested three ways: <b>frame level</b> (all frames counted as independent; a z test for fractions, a Welch t test for continuous measures; there is no such test for the transition count), <b>replica level</b> (four values against four, exact permutation over 70 splits) and <b>replica level + Holm</b> (correction for eight measures within the split). A red cell means p &lt; 0.05.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Test:</span><div class=\"seg\" role=\"group\" aria-label=\"Test türü\" id=\"ent\"><button type=\"button\" data-v=\"frame\" aria-pressed=\"true\">Kare düzeyi</button><button type=\"button\" data-v=\"perm\" aria-pressed=\"false\">Tekrar düzeyi</button><button type=\"button\" data-v=\"holm\" aria-pressed=\"false\">Tekrar düzeyi + Holm</button></div></div>",
+   "<div class=\"selrow\"><span>Test:</span><div class=\"seg\" role=\"group\" aria-label=\"Test type\" id=\"ent\"><button type=\"button\" data-v=\"frame\" aria-pressed=\"true\">Frame level</button><button type=\"button\" data-v=\"perm\" aria-pressed=\"false\">Replica level</button><button type=\"button\" data-v=\"holm\" aria-pressed=\"false\">Replica level + Holm</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"enull\" class=\"plot click\" aria-label=\"35 bölme (sütunlar) ve 8 ölçüt (satırlar) için p &lt; 0,05 hücreleri\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"enull\" class=\"plot click\" aria-label=\"Cells with p &lt; 0.05 for 35 splits (columns) and 8 measures (rows)\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--bad);border-radius:2px\"></i>p &lt; 0,05</span><span><i style=\"background:var(--s1);opacity:.25;border-radius:2px\"></i>p ≥ 0,05</span><span><i style=\"background:var(--soft);border:1px solid var(--line);border-radius:2px\"></i>test yok (çizgili)</span><span>siyah çerçeve: seçili bölme ve ölçüt</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--bad);border-radius:2px\"></i>p &lt; 0.05</span><span><i style=\"background:var(--s1);opacity:.25;border-radius:2px\"></i>p ≥ 0.05</span><span><i style=\"background:var(--soft);border:1px solid var(--line);border-radius:2px\"></i>no test (hatched)</span><span>black frame: selected split and measure</span></div>"
+  ],
+  [
+   "<p class=\"hint\">Bir hücreye tıklayın ya da bölmeleri sırayla oynatın; aşağıda o bölmenin sekiz koşusu ve tekrar düzeyindeki testin nasıl kurulduğu görünür.</p>",
+   "<p class=\"hint\">Click a cell or play through the splits; below appear the eight runs of that split and how the replica-level test is built.</p>"
+  ],
+  [
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"enplay\" aria-pressed=\"false\">Oynat</button><label for=\"esp\">Bölme</label><select id=\"esp\"></select></div>",
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"enplay\" aria-pressed=\"false\">Play</button><label for=\"esp\">Split</label><select id=\"esp\"></select></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Ölçüt:</span><div class=\"seg\" role=\"group\" aria-label=\"Ölçüt\" id=\"enm\"></div></div>",
+   "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Measure\" id=\"enm\"></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"esplit\" class=\"plot\" aria-label=\"Seçili bölmede iki grubun koşu değerleri ve 70 ayrımlık permütasyon dağılımı\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"esplit\" class=\"plot\" aria-label=\"Run values of the two groups in the selected split and the permutation distribution of 70 splits\"></canvas></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--s1)\"></i>A grubu koşuları</span><span><i style=\"background:var(--s2)\"></i>B grubu koşuları</span><span><i style=\"background:var(--muted);opacity:.55\"></i>bir ayrımın farkı</span><span><i style=\"background:var(--bad)\"></i>en az bu bölme kadar uç ayrımlar</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--s1)\"></i>runs of group A</span><span><i style=\"background:var(--s2)\"></i>runs of group B</span><span><i style=\"background:var(--muted);opacity:.55\"></i>difference of one split</span><span><i style=\"background:var(--bad)\"></i>splits at least as extreme as this one</span></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Aynı veri, on sekiz analiz</h3>",
+   "<h3 class=\"sub\">The same data, eighteen analyses</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>MD-REP'in sorusu (su ile 0,15 M NaCl, αR payı) üç makul seçenekle yeniden hesaplandı: αR ile β arasındaki ψ sınırı, atılan baş ve pencere sonu. Her sütun bir birleşimdir; üstte Δ = ort(S) − ort(W), altta o birleşimde hangi seçeneklerin kullanıldığı. Sütunlar Δ'ya göre sıralı. Halkalı siyah nokta önceden yazılmış birincil birleşimdir. Bir sütuna tıklayın ya da seçenekleri değiştirin.</p></div>",
+   "<div class=\"prose\"><p>The MD-REP question (water versus 0.15 M NaCl, αR fraction) was recomputed with three reasonable choices: the ψ bound between αR and β, the dropped start and the window end. Each column is one combination; at the top Δ = mean(S) − mean(W), below it which choices that combination used. The columns are sorted by Δ. The ringed black dot is the primary combination written in advance. Click a column or change the choices.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>ψ üst sınırı:</span><div class=\"seg\" role=\"group\" aria-label=\"psi üst sınırı\" id=\"efu\"><button type=\"button\" data-v=\"30\" aria-pressed=\"false\">30°</button><button type=\"button\" data-v=\"50\" aria-pressed=\"true\">50°</button><button type=\"button\" data-v=\"70\" aria-pressed=\"false\">70°</button></div></div>",
+   "<div class=\"selrow\"><span>ψ upper bound:</span><div class=\"seg\" role=\"group\" aria-label=\"psi upper bound\" id=\"efu\"><button type=\"button\" data-v=\"30\" aria-pressed=\"false\">30°</button><button type=\"button\" data-v=\"50\" aria-pressed=\"true\">50°</button><button type=\"button\" data-v=\"70\" aria-pressed=\"false\">70°</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Atılan baş:</span><div class=\"seg\" role=\"group\" aria-label=\"Atılan baş\" id=\"efd\"><button type=\"button\" data-v=\"0\" aria-pressed=\"false\">0 ps</button><button type=\"button\" data-v=\"200\" aria-pressed=\"true\">200 ps</button><button type=\"button\" data-v=\"500\" aria-pressed=\"false\">500 ps</button></div></div>",
+   "<div class=\"selrow\"><span>Dropped start:</span><div class=\"seg\" role=\"group\" aria-label=\"Dropped start\" id=\"efd\"><button type=\"button\" data-v=\"0\" aria-pressed=\"false\">0 ps</button><button type=\"button\" data-v=\"200\" aria-pressed=\"true\">200 ps</button><button type=\"button\" data-v=\"500\" aria-pressed=\"false\">500 ps</button></div></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Pencere sonu:</span><div class=\"seg\" role=\"group\" aria-label=\"Pencere sonu\" id=\"efe\"><button type=\"button\" data-v=\"1000\" aria-pressed=\"false\">1000 ps</button><button type=\"button\" data-v=\"2000\" aria-pressed=\"true\">2000 ps</button></div></div>",
+   "<div class=\"selrow\"><span>Window end:</span><div class=\"seg\" role=\"group\" aria-label=\"Window end\" id=\"efe\"><button type=\"button\" data-v=\"1000\" aria-pressed=\"false\">1000 ps</button><button type=\"button\" data-v=\"2000\" aria-pressed=\"true\">2000 ps</button></div></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"efork\" class=\"plot click\" aria-label=\"Spesifikasyon eğrisi: 18 analiz birleşiminde Δ ve kullanılan seçenekler\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"efork\" class=\"plot click\" aria-label=\"Specification curve: Δ and the choices used in 18 analysis combinations\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<div class=\"legend\"><span><i style=\"background:var(--s1)\"></i>bir birleşimin Δ'sı</span><span><i style=\"background:var(--ink)\"></i>önceden yazılmış birincil</span><span><i style=\"background:var(--s2);opacity:.4;border-radius:2px\"></i>seçili sütun</span><span>alt satırlar: dolu nokta, seçenek o birleşimde kullanıldı</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--s1)\"></i>Δ of one combination</span><span><i style=\"background:var(--ink)\"></i>primary, written in advance</span><span><i style=\"background:var(--s2);opacity:.4;border-radius:2px\"></i>selected column</span><span>lower rows: filled dot, the choice was used in that combination</span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec5\"><span class=\"k\">Açık</span><h3>Aynıyla aynı \"farklı\" çıkınca</h3><p>Üç test türüne de bakın.</p><div class=\"mine\" id=\"mec5\"></div></article>",
+   "<article class=\"q\" id=\"ec5\"><span class=\"k\">Open</span><h3>When same and same come out \"different\"</h3><p>Look at all three test types.</p><div class=\"mine\" id=\"mec5\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec6\"><span class=\"k\">Açık</span><h3>Kaç yol denendi?</h3><p>En az dört birleşime bakın.</p><div class=\"mine\" id=\"mec6\"></div></article>",
+   "<article class=\"q\" id=\"ec6\"><span class=\"k\">Open</span><h3>How many paths were tried?</h3><p>Look at at least four combinations.</p><div class=\"mine\" id=\"mec6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Tezgâh: iddia denetleyici</span>",
+   "<span class=\"step\">4 · Bench: claim checker</span>"
+  ],
+  [
+   "<h2 id=\"eh4\">Dokuz cümle: bu veri bunları taşır mı?</h2>",
+   "<h2 id=\"eh4\">Nine sentences: does this data carry them?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>",
+   "<div class=\"prose\"><p>For each sentence decide: it can be established with the data on this page, it needs more evidence, or it cannot be established with this data. The reasoning appears after your choice.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"ec7\"><span class=\"k\">Açık</span><h3>Çubuk neyi söylüyor?</h3><p>En az dört cümleye karar verin.</p><div class=\"mine\" id=\"mec7\"></div></article>",
+   "<article class=\"q\" id=\"ec7\"><span class=\"k\">Open</span><h3>What does the bar say?</h3><p>Decide on at least four sentences.</p><div class=\"mine\" id=\"mec7\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">5 · Defter: belirsizlik kaydı</span>",
+   "<span class=\"step\">5 · Notebook: uncertainty record</span>"
+  ],
+  [
+   "<h2 id=\"eh5\">Raporlamadan önce yazılan yedi satır</h2>",
+   "<h2 id=\"eh5\">Seven lines written before reporting</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kendi çalışmanız için doldurun; örnekler bu sayfadandır. Eksik satırlar altta not üretir. Metin yalnız tarayıcınızda üretilir, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>Fill it in for your own work; the examples come from this page. Missing lines produce notes at the bottom. The text is generated only in your browser and is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>Bağımsız birim ve n<textarea id=\"eoU\" rows=\"2\">Örnek: bağımsız birim koşudur (farklı hız tohumu); koşul başına n = 8 koşu. Kareler n değildir.</textarea></label>",
+   "<label>Independent unit and n<textarea id=\"eoU\" rows=\"2\">Example: the independent unit is the run (different velocity seed); n = 8 runs per condition. Frames are not n.</textarea></label>"
+  ],
+  [
+   "<label>Hata çubuğunun tanımı<textarea id=\"eoB\" rows=\"2\">Örnek: %95 güven aralığı, tekrarlar arası SD'den; t(0,975; 7) = 2,365.</textarea></label>",
+   "<label>Definition of the error bar<textarea id=\"eoB\" rows=\"2\">Example: 95% confidence interval from the SD between replicas; t(0.975; 7) = 2.365.</textarea></label>"
+  ],
+  [
+   "<label>Koşu içi hata yöntemi<textarea id=\"eoK\" rows=\"2\">Örnek: blok ortalaması, B = 200 kare (200 ps), 9 blok; blok eğrisi ekte, tekrarlarla karşılaştırıldı.</textarea></label>",
+   "<label>Within-run error method<textarea id=\"eoK\" rows=\"2\">Example: block averaging, B = 200 frames (200 ps), 9 blocks; block curve in the appendix, compared with the replicas.</textarea></label>"
+  ],
+  [
+   "<label>Türetilmiş nicelik ve yayılma<textarea id=\"eoD\" rows=\"2\">Örnek: LIE ΔG; vdW ve el terimlerinin varyansları ve kovaryansı, kompleks ve su koşusu ayrı ayrı yayıldı.</textarea></label>",
+   "<label>Derived quantity and propagation<textarea id=\"eoD\" rows=\"2\">Example: LIE ΔG; the variances and covariance of the vdW and el terms, propagated separately for the complex and water runs.</textarea></label>"
+  ],
+  [
+   "<label>Karşılaştırma sayısı ve düzeltme<textarea id=\"eoM\" rows=\"2\">Örnek: birincil ölçüt αR payı, önceden yazıldı; 8 ikincil ölçüt Holm düzeltmesiyle.</textarea></label>",
+   "<label>Number of comparisons and correction<textarea id=\"eoM\" rows=\"2\">Example: primary measure αR fraction, written in advance; 8 secondary measures with Holm correction.</textarea></label>"
+  ],
+  [
+   "<label>Analiz seçenekleri<textarea id=\"eoA\" rows=\"2\">Örnek: ψ sınırı 50°, atılan baş 200 ps, pencere sonu 2000 ps plan dosyasında önceden yazıldı; denenen 18 birleşimin hepsi ekte.</textarea></label>",
+   "<label>Analysis choices<textarea id=\"eoA\" rows=\"2\">Example: ψ bound 50°, dropped start 200 ps, window end 2000 ps written in advance in the plan file; all 18 combinations tried are in the appendix.</textarea></label>"
+  ],
+  [
+   "<label>Sistematik belirsizlik<textarea id=\"eoS\" rows=\"2\">Örnek: kuvvet alanı seçimi örneklemeyle küçülmez; bu sayfadaki üç kuvvet alanı grubunda (MD-FF koşuları) ortalama αR payı %31,0 ile %44,2 arasında.</textarea></label>",
+   "<label>Systematic uncertainty<textarea id=\"eoS\" rows=\"2\">Example: the force field choice does not shrink with sampling; in the three force-field groups on this page (MD-FF runs) the mean αR fraction lies between 31.0% and 44.2%.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"eocopy\">Metni kopyala</button><span class=\"small\" id=\"eomsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"eocopy\">Copy text</button><span class=\"small\" id=\"eomsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">6 · Sınav</span>",
+   "<span class=\"step\">6 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"eh6\">Dokuz soru</h2>",
+   "<h2 id=\"eh6\">Nine questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "/* ===== ev yardımcıları (DK-T/DK-O/DK-U ile aynı) ===== */",
+   "/* ===== page helpers (same as DK-T/DK-O/DK-U) ===== */"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('eprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('eprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak animasyon altyapısı ===== */",
+   "/* ===== shared animation infrastructure ===== */"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== MD-ERR ortak sabitler ===== */",
+   "/* ===== MD-ERR shared constants ===== */"
+  ],
+  [
+   "var GR=['W','S','A03','C27','OPL'], GN={W:'Su (W)',S:'0,15 M NaCl (S)',A03:'amber03',C27:'charmm27',OPL:'OPLS-AA'}, GSRC={W:'MD-REP',S:'MD-REP',A03:'MD-FF',C27:'MD-FF',OPL:'MD-FF'};",
+   "var GR=['W','S','A03','C27','OPL'], GN={W:'Water (W)',S:'0.15 M NaCl (S)',A03:'amber03',C27:'charmm27',OPL:'OPLS-AA'}, GSRC={W:'MD-REP',S:'MD-REP',A03:'MD-FF',C27:'MD-FF',OPL:'MD-FF'};"
+  ],
+  [
+   "var MDM=['L1','L2a','L2b','L3','L4','L5'], MN={L1:'L1 AM1-BCC',L2a:'L2a Gasteiger (net yük 0)',L2b:'L2b Gasteiger (RDKit, +1)',L3:'L3 nötr amidin',L4:'L4 RESP',L5:'L5 Espaloma'};",
+   "var MDM=['L1','L2a','L2b','L3','L4','L5'], MN={L1:'L1 AM1-BCC',L2a:'L2a Gasteiger (net charge 0)',L2b:'L2b Gasteiger (RDKit, +1)',L3:'L3 neutral amidine',L4:'L4 RESP',L5:'L5 Espaloma'};"
+  ],
+  [
+   "var MNS={L1:'L1 AM1-BCC',L2a:'L2a Gasteiger 0',L2b:'L2b Gasteiger +1',L3:'L3 nötr',L4:'L4 RESP',L5:'L5 Espaloma'};",
+   "var MNS={L1:'L1 AM1-BCC',L2a:'L2a Gasteiger 0',L2b:'L2b Gasteiger +1',L3:'L3 neutral',L4:'L4 RESP',L5:'L5 Espaloma'};"
+  ],
+  [
+   "var METN={p_aR:'αR payı',p_b:'β/PPII payı',p_aL:'αL payı',trans:'geçiş/ns',psi:'ortalama ψ',T:'sıcaklık',P:'basınç',V:'hacim'};",
+   "var METN={p_aR:'αR fraction',p_b:'β/PPII fraction',p_aL:'αL fraction',trans:'transitions/ns',psi:'mean ψ',T:'temperature',P:'pressure',V:'volume'};"
+  ],
+  [
+   "var TESTN={frame:'Kare düzeyi',perm:'Tekrar düzeyi',holm:'Tekrar düzeyi + Holm'};",
+   "var TESTN={frame:'Frame level',perm:'Replica level',holm:'Replica level + Holm'};"
+  ],
+  [
+   "/* tohumlu rastgele sayı ve normal dağılım */",
+   "/* seeded random numbers and the normal distribution */"
+  ],
+  [
+   "/* Student t: düzenlenmiş eksik beta ile dağılım fonksiyonu, ikiye bölme ile ters */",
+   "/* Student t: distribution function via the regularized incomplete beta, inverse by bisection */"
+  ],
+  [
+   "function pfmt(p){ if(p==null) return 'test yok'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'·10<sup>'+(e<0?'−':'')+Math.abs(e)+'</sup>'; } return fx(p,p<0.01?4:3); }",
+   "function pfmt(p){ if(p==null) return 'no test'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'·10<sup>'+(e<0?'−':'')+Math.abs(e)+'</sup>'; } return fx(p,p<0.01?4:3); }"
+  ],
+  [
+   "function pfmtT(p){ if(p==null) return 'test yok'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'e'+(e<0?'−':'')+Math.abs(e); } return fx(p,p<0.01?4:3); }",
+   "function pfmtT(p){ if(p==null) return 'no test'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'e'+(e<0?'−':'')+Math.abs(e); } return fx(p,p<0.01?4:3); }"
+  ],
+  [
+   "/* bit paketli dizi: kare başına 0/1 */",
+   "/* bit-packed array: 0/1 per frame */"
+  ],
+  [
+   "/* oynat/duraklat: adım fonksiyonu false dönerse durur */",
+   "/* play/pause: stops when the step function returns false */"
+  ],
+  [
+   "function set(on){ P.on=on; P.last=null; P.t=0; b.textContent=on?'Duraklat':'Oynat'; b.setAttribute('aria-pressed',String(on)); if(on) requestAnimationFrame(loop); if(onToggle) onToggle(on); }",
+   "function set(on){ P.on=on; P.last=null; P.t=0; b.textContent=on?'Pause':'Play'; b.setAttribute('aria-pressed',String(on)); if(on) requestAnimationFrame(loop); if(onToggle) onToggle(on); }"
+  ],
+  [
+   "/* kısa geçiş animasyonu: 0'dan 1'e */",
+   "/* short transition animation: 0 to 1 */"
+  ],
+  [
+   "/* ===== deneysel köprü: qPCR ΔΔCt'de belirsizlik (öğretim modeli, ölçülmüş veri değil) ===== */",
+   "/* ===== experimental bridge: uncertainty in qPCR ΔΔCt (teaching model, not measured data) ===== */"
+  ],
+  [
+   "var QPM=[['ok','Doğru: biyolojik n, eşleştirilmiş ΔCt'],['tech','Yanlış n: teknik tekrarlar n sayıldı'],['unp','Eşleştirme yok: hedef ve referans ayrı ayrı']];",
+   "var QPM=[['ok','Correct: biological n, paired ΔCt'],['tech','Wrong n: technical replicates counted as n'],['unp','No pairing: target and reference separately']];"
+  ],
+  [
+   "/* bir deney: iki grup (kontrol, uygulama), her grupta n biyolojik örnek, örnek başına k kuyu */",
+   "/* one experiment: two groups (control, treatment), n biological samples per group, k wells per sample */"
+  ],
+  [
+   "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
+   "function fmtI(n){ return new Intl.NumberFormat('en-US').format(n); }"
+  ],
+  [
+   "var QSH={ok:'Doğru hesap',tech:'Yanlış n',unp:'Eşleştirmesiz'}, QROWS=40;",
+   "var QSH={ok:'Correct',tech:'Wrong n',unp:'Unpaired'}, QROWS=40;"
+  ],
+  [
+   "/* aralık dansı: her adım bir deney; en yeni üstte */",
+   "/* dance of intervals: each step one experiment; newest on top */"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?'kat':'kat değişimi (log₂)',L+pw/2,top+ph+33); g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.fillText(QSH[m[0]],L+pw/2,15); });",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?'fold':'fold change (log₂)',L+pw/2,top+ph+33); g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.fillText(QSH[m[0]],L+pw/2,15); });"
+  ],
+  [
+   "function qpStats(){ var C=QP.C; QPM.forEach(function(m){ var h=QD.hit[m[0]], e=$('eqs_'+m[0]); e.querySelector('.v').textContent=QD.N?pct(h/QD.N,1):'·'; e.querySelector('.cnt').textContent=fmtI(h)+' / '+fmtI(QD.N)+' deney kapsadı'; e.querySelector('.ref').textContent='2.000 deneyde '+pct(C[m[0]],1); }); }",
+   "function qpStats(){ var C=QP.C; QPM.forEach(function(m){ var h=QD.hit[m[0]], e=$('eqs_'+m[0]); e.querySelector('.v').textContent=QD.N?pct(h/QD.N,1):'·'; e.querySelector('.cnt').textContent=fmtI(h)+' / '+fmtI(QD.N)+' experiments covered'; e.querySelector('.ref').textContent='in 2,000 experiments '+pct(C[m[0]],1); }); }"
+  ],
+  [
+   "$('ebread').innerHTML=dl('Tasarım',P.n+' biyolojik örnek × '+P.k+' teknik tekrar, iki grup')+dl('Son deney: ΔΔCt',fx(R.est,2)+' döngü; kat değişimi '+ffmt(fold(R.est))+' (gerçek '+ffmt(fold(P.dd))+')')+",
+   "$('ebread').innerHTML=dl('Design',P.n+' biological samples × '+P.k+' technical replicates, two groups')+dl('Latest experiment: ΔΔCt',fx(R.est,2)+' cycles; fold change '+ffmt(fold(R.est))+' (true '+ffmt(fold(P.dd))+')')+"
+  ],
+  [
+   "QPM.map(function(m){ var x=R[m[0]]; return dl(QSH[m[0]],'SE '+fx(x.se,3)+', sd '+x.df+', t '+fx(x.t,2)+' → '+ffmt(fold(x.hi))+' ile '+ffmt(fold(x.lo))+' kat'); }).join(''); }",
+   "QPM.map(function(m){ var x=R[m[0]]; return dl(QSH[m[0]],'SE '+fx(x.se,3)+', df '+x.df+', t '+fx(x.t,2)+' → '+ffmt(fold(x.hi))+' to '+ffmt(fold(x.lo))+' fold'); }).join(''); }"
+  ],
+  [
+   "if(n>=3&&QP.kseen) card('ec0',true,'Bu ayarda ('+QP.n+' biyolojik örnek, '+QP.k+' teknik tekrar) %95 diye çizilen aralık, 2.000 benzetilmiş deneyde gerçek değeri şu sıklıkla kapsadı: doğru hesap '+pct(C.ok)+', teknik tekrarları n sayan hesap '+pct(C.tech)+', eşleştirmeyi yok sayan hesap '+pct(C.unp)+'. Teknik tekrar ölçümün gürültüsünü azaltır ama yeni bir biyolojik örnek değildir; aynı örneğin kuyuları birbirine bağlıdır. Hedef ve referans aynı örnekten ölçüldüğü için fark örnek içinde alınır; ayrı ayrı hesaplanırsa ortak değişkenlik iki kez sayılır ve aralık gereksiz genişler. Kat değişimi aralığı 2^−(ΔΔCt ± t·SE) olarak üstel ölçeğe taşınır ve kestirimin çevresinde simetrik değildir. MD\\'de karşılığı: kareler teknik tekrar gibidir, bağımsız birim koşudur.');",
+   "if(n>=3&&QP.kseen) card('ec0',true,'With this setting ('+QP.n+' biological samples, '+QP.k+' technical replicates) the interval drawn as 95% covered the true value in 2,000 simulated experiments this often: correct calculation '+pct(C.ok)+', counting technical replicates as n '+pct(C.tech)+', ignoring the pairing '+pct(C.unp)+'. A technical replicate reduces measurement noise but is not a new biological sample; the wells of the same sample are tied to each other. Target and reference are measured on the same sample, so the difference is taken within the sample; computed separately, the shared variation is counted twice and the interval becomes needlessly wide. The fold-change interval is carried to the exponential scale as 2^−(ΔΔCt ± t·SE) and is not symmetric around the estimate. The MD counterpart: frames are like technical replicates, the independent unit is the run.');"
+  ],
+  [
+   "else card('ec0',false,'Şimdiye kadar '+n+' ayar'+(QP.kseen?'':'; en az birinde teknik tekrar 2 ya da daha çok olsun')+'. En az üç ayara bakın.'); }",
+   "else card('ec0',false,'So far '+n+' setting(s)'+(QP.kseen?'':'; in at least one, use 2 or more technical replicates')+'. Look at at least three settings.'); }"
+  ],
+  [
+   "S.forEach(function(s){ $(s[0]).innerHTML=s[2].map(function(v){ var lab=s[1]==='dd'?(v===0?'0 (1 kat)':fx(v,0)+' ('+fmtNum(fold(v))+' kat)'):s[1]==='n'||s[1]==='k'?String(v):fx(v,v===0?0:Math.abs(v*10-Math.round(v*10))>1e-9?2:1); return '<button type=\"button\" data-v=\"'+v+'\" aria-pressed=\"'+(v===QP[s[1]])+'\">'+lab+'</button>'; }).join(''); segWire(s[0],function(v){ QP[s[1]]=+v; qpSet(); }); });",
+   "S.forEach(function(s){ $(s[0]).innerHTML=s[2].map(function(v){ var lab=s[1]==='dd'?(v===0?'0 (1 fold)':fx(v,0)+' ('+fmtNum(fold(v))+' fold)'):s[1]==='n'||s[1]==='k'?String(v):fx(v,v===0?0:Math.abs(v*10-Math.round(v*10))>1e-9?2:1); return '<button type=\"button\" data-v=\"'+v+'\" aria-pressed=\"'+(v===QP[s[1]])+'\">'+lab+'</button>'; }).join(''); segWire(s[0],function(v){ QP[s[1]]=+v; qpSet(); }); });"
+  ],
+  [
+   "/* ===== atölye 1: koşu içi hata ile tekrarlar arası yayılım ===== */",
+   "/* ===== workshop 1: within-run error versus spread between replicas ===== */"
+  ],
+  [
+   "var p=plot(g,46,12,W-58,H-52,[-0.6,R.length-0.4],[0,100],{yticks:[0,20,40,60,80,100],ylab:'αR payı (%)',ylabPad:34}); WI.pts=[];",
+   "var p=plot(g,46,12,W-58,H-52,[-0.6,R.length-0.4],[0,100],{yticks:[0,20,40,60,80,100],ylab:'αR fraction (%)',ylabPad:34}); WI.pts=[];"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText(narrow?'yayılım':'tekrarlar arası yayılım (ort. ± 1,96·SD)',p.X(R.length-0.4)-6,p.Y(Math.min(100,m+s))+14);",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText(narrow?'spread':'spread between replicas (mean ± 1.96·SD)',p.X(R.length-0.4)-6,p.Y(Math.min(100,m+s))+14);"
+  ],
+  [
+   "tipShow(tip,r.width,e.clientX-r.left,e.clientY-r.top,'<b>%'+pp(q.p)+'</b> '+q.n+'<br>SE saf '+pp(q.sn,2)+' puan · SE blok '+pp(q.sb,2)+' puan<br>tıklayın: bu koşuyla karşılaştır'); }",
+   "tipShow(tip,r.width,e.clientX-r.left,e.clientY-r.top,'<b>'+pp(q.p)+'%</b> '+q.n+'<br>naive SE '+pp(q.sn,2)+' points · block SE '+pp(q.sb,2)+' points<br>click: compare with this run'); }"
+  ],
+  [
+   "function wiRead(){ var A=VDD.A1[WI.g], k=WI.se, nm=k==='sn'?'saf':'blok', ov=k==='sn'?A.nn:A.nb, R=k==='sn'?A.Rn:A.Rb, rms=k==='sn'?A.rn:A.rb, rs=wiRuns(), cl=0;",
+   "function wiRead(){ var A=VDD.A1[WI.g], k=WI.se, nm=k==='sn'?'naive':'block', ov=k==='sn'?A.nn:A.nb, R=k==='sn'?A.Rn:A.Rb, rms=k==='sn'?A.rn:A.rb, rs=wiRuns(), cl=0;"
+  ],
+  [
+   "$('ewread').innerHTML=dl('Koşul',GN[WI.g]+' · '+rs.length+' tekrar ('+GSRC[WI.g]+')')+dl('Seçili koşu',rs[WI.r].n+': '+(cl?'öteki '+(rs.length-1)+' tekrarın '+nLoc(cl)+' aralıklar çakışmıyor':'aralığı öteki '+(rs.length-1)+' tekrarın hepsiyle çakışıyor'))+dl('Tekrarlar arası SD',pp(A.sd,2)+' puan')+",
+   "$('ewread').innerHTML=dl('Condition',GN[WI.g]+' · '+rs.length+' replicas ('+GSRC[WI.g]+')')+dl('Selected run',rs[WI.r].n+': '+(cl?'intervals do not overlap with '+nLoc(cl)+' of the other '+(rs.length-1)+' replicas':'its interval overlaps with all '+(rs.length-1)+' other replicas'))+dl('SD between replicas',pp(A.sd,2)+' points')+"
+  ],
+  [
+   "dl('Koşu içi SE ('+nm+'), karesel ortalama',pp(rms,2)+' puan')+dl('Oran: SD arası / SE '+nm,fx(R,2))+dl('%95 aralığı çakışmayan tekrar çifti (hepsi)',ov[0]+' / '+ov[1]); }",
+   "dl('Within-run SE ('+nm+'), root mean square',pp(rms,2)+' points')+dl('Ratio: SD between / SE '+nm,fx(R,2))+dl('Replica pairs whose 95% intervals do not overlap (all)',ov[0]+' / '+ov[1]); }"
+  ],
+  [
+   "if(WI.seenSE.sn&&WI.seenSE.sb) card('ec1',true,'W\\'nin 8 tekrarı aynı koşuldan, yalnız hız tohumu farklı. Kareler bağımsız sayılınca (saf SE, yaklaşık '+pp(W.rn,1)+' puan) %95 aralıkları 28 tekrar çiftinin '+nLoc(W.nn[0])+' çakışmıyor; yani her tekrar ötekilerden \"anlamlı\" farklı görünür. Blok ortalamasıyla (B = 200 kare) SE '+pp(W.rb,1)+' puana çıkıyor ve hiçbir çift ayrışmıyor; tekrarlar arası SD '+pp(W.sd,1)+' puan. Saf hata, ardışık kareler birbirine bağlı olduğu için örneklemeyi olduğundan çok sayar; yaklaşık '+fx(W.Rn,0)+' kat dar çıkar.');",
+   "if(WI.seenSE.sn&&WI.seenSE.sb) card('ec1',true,'The 8 replicas of W come from the same condition; only the velocity seed differs. When frames are counted as independent (naive SE, about '+pp(W.rn,1)+' points) the 95% intervals do not overlap in '+nLoc(W.nn[0])+' of the 28 replica pairs, so every replica looks \"significantly\" different from the others. With block averaging (B = 200 frames) the SE rises to '+pp(W.rb,1)+' points and no pair separates; the SD between replicas is '+pp(W.sd,1)+' points. The naive error counts the sampling as larger than it is, because consecutive frames are tied to each other; it comes out about '+fx(W.Rn,0)+' times too narrow.');"
+  ],
+  [
+   "else card('ec1',false,'Her iki hata türüne de bakın (saf ve blok).'); }",
+   "else card('ec1',false,'Look at both error types (naive and block).'); }"
+  ],
+  [
+   "/* blok gezgini: seçili koşunun kare dizisi, bloklar ve blok ortalamaları */",
+   "/* block explorer: the frame sequence of the selected run, the blocks and the block means */"
+  ],
+  [
+   "var bar=narrow?12:16, top=22+bar+8, p=plot(g,56,top,W-68,H-top-40,[200,2000],[0,1],{xticks:[200,500,1000,1500,2000],yticks:[0,0.5,1],yfmt:function(v){ return '%'+fmtNum(v*100); },xlab:'zaman (ps)',ylab:'αR payı',ylabPad:46});",
+   "var bar=narrow?12:16, top=22+bar+8, p=plot(g,56,top,W-68,H-top-40,[200,2000],[0,1],{xticks:[200,500,1000,1500,2000],yticks:[0,0.5,1],yfmt:function(v){ return fmtNum(v*100)+'%'; },xlab:'time (ps)',ylab:'αR fraction',ylabPad:46});"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('her kare: mavi αR, boş öteki durumlar',p.L,15);",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('each frame: blue αR, empty other states',p.L,15);"
+  ],
+  [
+   "$('ebsv').textContent='B = '+B+' kare · '+bs.nb+' blok · SE '+pp(bs.se,2)+' puan'; WI.cur=bs; }",
+   "$('ebsv').textContent='B = '+B+' frames · '+bs.nb+' blocks · SE '+pp(bs.se,2)+' points'; WI.cur=bs; }"
+  ],
+  [
+   "var p=plot(g,46,12,W-58,H-58,[0,lx(600)],[0,ymax],{xticks:[0,1,2,lx(600)],yticks:yt,xfmt:function(v){ return fmtNum(Math.round(Math.pow(10,v))); },xlab:'blok boyu B (kare; log ekseni)',ylab:'SE (puan)',ylabPad:34});",
+   "var p=plot(g,46,12,W-58,H-58,[0,lx(600)],[0,ymax],{xticks:[0,1,2,lx(600)],yticks:yt,xfmt:function(v){ return fmtNum(Math.round(Math.pow(10,v))); },xlab:'block length B (frames; log axis)',ylab:'SE (points)',ylabPad:34});"
+  ],
+  [
+   "g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('tekrarlar arası SD',p.X(0)+6,p.Y(A.sd*100)-6);",
+   "g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText('SD between replicas',p.X(0)+6,p.Y(A.sd*100)-6);"
+  ],
+  [
+   "$('ebkread').innerHTML=dl('Koşul ortalaması, B = 1 (kareler bağımsız)',pp(m1,2)+' puan')+dl('Koşul ortalaması, B = 200',pp(m2,2)+' puan ('+fx(m2/m1,1)+' kat)')+dl('Tekrarlar arası SD (sarı çizgi)',pp(A.sd,2)+' puan'); }",
+   "$('ebkread').innerHTML=dl('Condition mean, B = 1 (frames independent)',pp(m1,2)+' points')+dl('Condition mean, B = 200',pp(m2,2)+' points ('+fx(m2/m1,1)+' times)')+dl('SD between replicas (yellow line)',pp(A.sd,2)+' points'); }"
+  ],
+  [
+   "if(nb>=4&&ng>=2) card('ec2',true,'SD arası / SE blok oranı: '+s+'. Bloklar büyüdükçe blok ortalamaları birbirinden bağımsızlaşır ve SE yükselir; eğrinin düzleştiği yer korelasyon süresinin üstüdür. Blok sayısı azaldıkça (B = 600\\'de 3 blok) kestirim gürültülenir. Blok hatası bir koşudan tekrarlar arası yayılımı W ve S\\'de 1\\'e yakın oranla kestirdi; dört tekrarlı kuvvet alanı gruplarında oran '+fx(arrMin(ff),2)+' ile '+fx(arrMax(ff),2)+' arasında, çünkü dört değerden hesaplanan SD\\'nin kendisi de belirsizdir. LIE\\'de iki tekrarın farkı, MD-LIG\\'in 5 bloklu koşu içi hatasına göre z = '+fx(arrMin(zz),2)+' ile '+fx(arrMax(zz),2)+' arasında; altı modelden '+nLoc(zz.filter(function(z){ return z>1.96; }).length)+' 1,96\\'yı aştı. Kısa bir koşuyu 5 bloğa bölmek hatayı kabaca verir; tekrarlar onu sınar.');",
+   "if(nb>=4&&ng>=2) card('ec2',true,'Ratio SD between / block SE: '+s+'. As blocks grow, the block means become independent of each other and the SE rises; where the curve levels off is above the correlation time. With fewer blocks (3 blocks at B = 600) the estimate gets noisy. From a single run, the block error predicted the spread between replicas with a ratio near 1 in W and S; in the force-field groups with four replicas the ratio lies between '+fx(arrMin(ff),2)+' and '+fx(arrMax(ff),2)+', because an SD computed from four values is itself uncertain. In LIE, the difference between the two replicas relative to the 5-block within-run error of MD-LIG gives z between '+fx(arrMin(zz),2)+' and '+fx(arrMax(zz),2)+'; '+nLoc(zz.filter(function(z){ return z>1.96; }).length)+' of the six models exceeded 1.96. Splitting a short run into 5 blocks gives the error only roughly; replicas test it.');"
+  ],
+  [
+   "else card('ec2',false,'Blok boyunu en az dört değere getirin ('+nb+') ve en az iki koşula bakın ('+ng+').'); }",
+   "else card('ec2',false,'Set the block length to at least four values ('+nb+') and look at at least two conditions ('+ng+').'); }"
+  ],
+  [
+   "/* ===== atölye 2: LIE ΔG belirsizlik bütçesi ===== */",
+   "/* ===== workshop 2: uncertainty budget of LIE ΔG ===== */"
+  ],
+  [
+   "var BCOMP=[['c_el','el','kompleks'],['w_el','el','su'],['c_vdw','vdW','kompleks'],['w_vdw','vdW','su'],['cov','kovaryans','2αβ']];",
+   "var BCOMP=[['c_el','el','complex'],['w_el','el','water'],['c_vdw','vdW','complex'],['w_vdw','vdW','water'],['cov','covariance','2αβ']];"
+  ],
+  [
+   "/* şelale: varyans terimleri birikerek yükselir, kovaryans ekler ya da düşer, son çubuk toplam SE² */",
+   "/* waterfall: the variance terms accumulate, the covariance adds or subtracts, the last bar is the total SE² */"
+  ],
+  [
+   "var vsum=steps[3].b, tot=run; steps.push({key:'tot',a:0,b:tot,v:tot,l1:'SE²',l2:'toplam'});",
+   "var vsum=steps[3].b, tot=run; steps.push({key:'tot',a:0,b:tot,v:tot,l1:'SE²',l2:'total'});"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?{el:'el',vdW:'vdW',kovaryans:'kov.','SE²':'SE²'}[s.l1]:s.l1,cx,p.T+p.H+16); g.fillText(narrow?{kompleks:'komp.',su:'su','2αβ':'','toplam':'top.'}[s.l2]:s.l2,cx,p.T+p.H+30);",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?{el:'el',vdW:'vdW',covariance:'cov.','SE²':'SE²'}[s.l1]:s.l1,cx,p.T+p.H+16); g.fillText(narrow?{complex:'cplx',water:'water','2αβ':'','total':'tot.'}[s.l2]:s.l2,cx,p.T+p.H+30);"
+  ],
+  [
+   "tipShow(tip,r.width,mx,e.clientY-r.top,'<b>'+(s.v<0?'−':'')+fx(Math.abs(s.v),2)+'</b> ×10⁻³ (kcal/mol)²<br>'+(s.key==='tot'?'toplam SE², SE = '+fx(Math.sqrt(tot/1000),3)+' kcal/mol':s.l1+', '+s.l2+' · toplamın '+pct(s.v/tot,0))); }",
+   "tipShow(tip,r.width,mx,e.clientY-r.top,'<b>'+(s.v<0?'−':'')+fx(Math.abs(s.v),2)+'</b> ×10⁻³ (kcal/mol)²<br>'+(s.key==='tot'?'total SE², SE = '+fx(Math.sqrt(tot/1000),3)+' kcal/mol':s.l1+', '+s.l2+' · '+pct(s.v/tot,0)+' of the total')); }"
+  ],
+  [
+   "$('eburead').innerHTML=dl('Tekrar',MN[BU.m]+' · '+(BU.k+1)+' (β = '+fx(A.beta,2)+')')+dl('ΔG ve koşu içi SE',fx(r.dG,2)+' ± '+fx(r.se,3)+' kcal/mol')+dl('Kovaryans yok sayılsaydı SE',fx(Math.sqrt(vs),3)+' kcal/mol')+",
+   "$('eburead').innerHTML=dl('Replica',MN[BU.m]+' · '+(BU.k+1)+' (β = '+fx(A.beta,2)+')')+dl('ΔG and within-run SE',fx(r.dG,2)+' ± '+fx(r.se,3)+' kcal/mol')+dl('SE if the covariance were ignored',fx(Math.sqrt(vs),3)+' kcal/mol')+"
+  ],
+  [
+   "dl('Varyans terimlerinde elektrostatik payı',pct(elSh(r),0))+dl('el ile vdW blok ortalamaları, r',' kompleks '+fx(r.rc,2)+' · su '+fx(A.wr,2)); }",
+   "dl('Electrostatic share of the variance terms',pct(elSh(r),0))+dl('el and vdW block means, r',' complex '+fx(r.rc,2)+' · water '+fx(A.wr,2)); }"
+  ],
+  [
+   "function buTab(){ $('ebtab').innerHTML='<table class=\"st\"><thead><tr><th>Tekrar</th><th>ΔG</th><th>SE</th><th>SE, kovaryanssız</th><th>el payı</th><th>kovaryans</th></tr></thead><tbody>'+buRows().map(function(o){ var c=o.r.comp, vs=c.c_el+c.w_el+c.c_vdw+c.w_vdw, sel=o.m===BU.m&&o.i===BU.k;",
+   "function buTab(){ $('ebtab').innerHTML='<table class=\"st\"><thead><tr><th>Replica</th><th>ΔG</th><th>SE</th><th>SE, no covariance</th><th>el share</th><th>covariance</th></tr></thead><tbody>'+buRows().map(function(o){ var c=o.r.comp, vs=c.c_el+c.w_el+c.c_vdw+c.w_vdw, sel=o.m===BU.m&&o.i===BU.k;"
+  ],
+  [
+   "return '<tr'+(sel?' class=\"sel\"':'')+'><td>'+MNS[o.m]+' · '+(o.i+1)+'</td><td>'+fx(o.r.dG,2)+'</td><td>'+fx(o.r.se,3)+'</td><td>'+fx(Math.sqrt(vs),3)+'</td><td>'+pct(elSh(o.r),0)+'</td><td>'+(c.cov<0?'eksi':'artı')+'</td></tr>'; }).join('')+'</tbody></table>'; }",
+   "return '<tr'+(sel?' class=\"sel\"':'')+'><td>'+MNS[o.m]+' · '+(o.i+1)+'</td><td>'+fx(o.r.dG,2)+'</td><td>'+fx(o.r.se,3)+'</td><td>'+fx(Math.sqrt(vs),3)+'</td><td>'+pct(elSh(o.r),0)+'</td><td>'+(c.cov<0?'negative':'positive')+'</td></tr>'; }).join('')+'</tbody></table>'; }"
+  ],
+  [
+   "if(n>=3) card('ec3',true,'12 tekrarın her birinde SE²\\'deki varyans terimlerinin '+pct(arrMin(sh),0)+' ile '+pct(arrMax(sh),0)+' kadarı elektrostatik terimlerden geldi; van der Waals terimi α = 0,181 ile küçültüldüğü için katkısı azdır. Su koşusunun hatası her iki tekrara da aynen girer; bu yüzden iki tekrarın hataları birbirinden tam bağımsız değildir. Kovaryans 12 tekrarın '+nLoc(ng)+' eksi çıktı: el ve vdW blok ortalamaları ters yönde oynayınca ΔG\\'deki dalgalanma kısmen birbirini götürür ve terimlerin hatalarını ayrı ayrı toplamak toplam hatayı abartır. Türetilmiş bir niceliğin hatası, bileşenlerin hatası ve aralarındaki kovaryansla birlikte yayılır.');",
+   "if(n>=3) card('ec3',true,'In each of the 12 replicas, '+pct(arrMin(sh),0)+' to '+pct(arrMax(sh),0)+' of the variance terms in SE² came from the electrostatic terms; the van der Waals term is scaled down by α = 0.181, so its contribution is small. The error of the water run enters both replicas identically, so the errors of the two replicas are not fully independent. The covariance was negative in '+nLoc(ng)+' of the 12 replicas: when the el and vdW block means move in opposite directions, the fluctuations in ΔG partly cancel, and adding the errors of the terms separately overstates the total error. The error of a derived quantity propagates with the errors of its components and the covariance between them.');"
+  ],
+  [
+   "else card('ec3',false,'Şimdiye kadar '+n+' model; en az üç modelin bütçesine bakın.'); }",
+   "else card('ec3',false,'So far '+n+' model(s); look at the budget of at least three models.'); }"
+  ],
+  [
+   "/* model düzeyi aralıklar */",
+   "/* model-level intervals */"
+  ],
+  [
+   "g.fillStyle=hexA(PAL.good,0.20); g.fillRect(p.X(E[0]),22,p.X(E[1])-p.X(E[0]),p.H); g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText('ölçülmüş',p.X((E[0]+E[1])/2),15);",
+   "g.fillStyle=hexA(PAL.good,0.20); g.fillRect(p.X(E[0]),22,p.X(E[1])-p.X(E[0]),p.H); g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText('measured',p.X((E[0]+E[1])/2),15);"
+  ],
+  [
+   "$('eivread').innerHTML=dl('Model',MN[BU.m])+dl('İki tekrarın ortalaması',fx(A.mean,2)+' kcal/mol')+dl('Koşu içi: ±1,96 × SE_iç',fx(A.mean-1.96*A.sw,2)+' ile '+fx(A.mean+1.96*A.sw,2)+' (SE '+fx(A.sw,3)+')')+",
+   "$('eivread').innerHTML=dl('Model',MN[BU.m])+dl('Mean of the two replicas',fx(A.mean,2)+' kcal/mol')+dl('Within run: ±1.96 × SE_within',fx(A.mean-1.96*A.sw,2)+' to '+fx(A.mean+1.96*A.sw,2)+' (SE '+fx(A.sw,3)+')')+"
+  ],
+  [
+   "dl('Tekrarlar arası: ±'+fx(t1,3)+' × SE_arası',fx(A.mean-t1*A.sa,2)+' ile '+fx(A.mean+t1*A.sa,2)+' (SE '+fx(A.sa,3)+')')+dl('Ölçülmüş aralık',fx(E[0],2)+' ile '+fx(E[1],2)+' kcal/mol'); }",
+   "dl('Between replicas: ±'+fx(t1,3)+' × SE_between',fx(A.mean-t1*A.sa,2)+' to '+fx(A.mean+t1*A.sa,2)+' (SE '+fx(A.sa,3)+')')+dl('Measured range',fx(E[0],2)+' to '+fx(E[1],2)+' kcal/mol'); }"
+  ],
+  [
+   "if(BU.ivseen.in&&BU.ivseen.ar) card('ec4',true,'İki tekrarla tekrarlar arası SE tek serbestlik dereceli bir kestirimdir; %95 aralık için 1,96 değil t = '+fx(t1,3)+' gerekir. SE_arası, SE_iç\\'ten '+big.length+' modelde büyük ('+big.join(', ')+'), '+(MDM.length-big.length)+' modelde küçük çıktı; iki değerin şans eseri yakın düşmesi küçük bir SE verir ama bu güven vermez. Ölçülmüş aralık '+fx(E[1]-E[0],2)+' kcal/mol genişliğinde; aralıklardan biri onunla '+(ov.length?ov.join(', ')+' modelinde örtüşüyor.':'hiçbir modelde örtüşmüyor.')+' Bu aralıkların ikisi de yalnız örnekleme belirsizliğidir: α ve β\\'nın başka bir kuvvet alanıyla kalibre edilmesinden, eksik ters uzay katkısından ya da kuvvet alanından gelen sistematik farkı içermez.');",
+   "if(BU.ivseen.in&&BU.ivseen.ar) card('ec4',true,'With two replicas, the SE between replicas is an estimate with a single degree of freedom; a 95% interval needs t = '+fx(t1,3)+', not 1.96. SE_between came out larger than SE_within in '+big.length+' models ('+big.join(', ')+') and smaller in '+(MDM.length-big.length)+'; two values falling close together by chance give a small SE, but that is no reason for confidence. The measured range is '+fx(E[1]-E[0],2)+' kcal/mol wide; '+(ov.length?'one of the intervals overlaps it for '+ov.join(', ')+'.':'none of the intervals overlaps it for any model.')+' Both kinds of interval are sampling uncertainty only: they do not include the systematic difference from α and β being calibrated with another force field, from the missing reciprocal-space contribution or from the force field itself.');"
+  ],
+  [
+   "else card('ec4',false,'Koşu içi ve tekrarlar arası aralığa ayrı ayrı bakın.'); }",
+   "else card('ec4',false,'Look at the within-run and the between-replica interval separately.'); }"
+  ],
+  [
+   "/* ===== atölye 3: kaç karşılaştırma yaptınız? ===== */",
+   "/* ===== workshop 3: how many comparisons did you make? ===== */"
+  ],
+  [
+   "var MSH={p_aR:'αR',p_b:'β',p_aL:'αL',trans:'geçiş',psi:'ψ',T:'T',P:'P',V:'V'}, MUNIT={p_aR:'%',p_b:'%',p_aL:'%',trans:'/ns',psi:'°',T:'K',P:'bar',V:'nm³'};",
+   "var MSH={p_aR:'αR',p_b:'β',p_aL:'αL',trans:'trans.',psi:'ψ',T:'T',P:'P',V:'V'}, MUNIT={p_aR:'%',p_b:'%',p_aL:'%',trans:'/ns',psi:'°',T:'K',P:'bar',V:'nm³'};"
+  ],
+  [
+   "/* tekrar düzeyi tam permütasyon (70 ayrım), sayfada yeniden hesaplanır */",
+   "/* replica-level exact permutation (70 splits), recomputed on the page */"
+  ],
+  [
+   "var S0=VDD.summary[NU.t]; g.fillStyle=PAL.ink; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText(narrow?S0.pairs_sig+' / '+S0.pairs+' hücre · '+S0.splits_any+' / 35 bölme':TESTN[NU.t]+': '+S0.pairs_sig+' / '+S0.pairs+' hücre p < 0,05 · '+S0.splits_any+' / 35 bölmede en az bir',L,H-6);",
+   "var S0=VDD.summary[NU.t]; g.fillStyle=PAL.ink; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText(narrow?S0.pairs_sig+' / '+S0.pairs+' cells · '+S0.splits_any+' / 35 splits':TESTN[NU.t]+': '+S0.pairs_sig+' / '+S0.pairs+' cells p < 0.05 · at least one in '+S0.splits_any+' / 35 splits',L,H-6);"
+  ],
+  [
+   "tipShow(tip,q[4],q[2],q[3],'<b>'+METN[m]+'</b> · bölme '+(q[0]+1)+'<br>kare düzeyi p '+pfmt(s.p[q[1]][0])+'<br>tekrar düzeyi p '+pfmt(s.p[q[1]][1])+' · Holm '+pfmt(s.p[q[1]][2])); nuDraw(); }",
+   "tipShow(tip,q[4],q[2],q[3],'<b>'+METN[m]+'</b> · split '+(q[0]+1)+'<br>frame-level p '+pfmt(s.p[q[1]][0])+'<br>replica-level p '+pfmt(s.p[q[1]][1])+' · Holm '+pfmt(s.p[q[1]][2])); nuDraw(); }"
+  ],
+  [
+   "/* seçili bölme: dört koşuya karşı dört koşu ve 70 ayrımlık permütasyon dağılımı */",
+   "/* selected split: four runs against four runs and the permutation distribution of 70 splits */"
+  ],
+  [
+   "g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.textAlign='left'; g.fillText('Bölme '+(NU.si+1)+(narrow?': 4 koşuya karşı 4':': dört koşuya karşı dört koşu'),4,14);",
+   "g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.textAlign='left'; g.fillText('Split '+(NU.si+1)+(narrow?': 4 runs against 4':': four runs against four runs'),4,14);"
+  ],
+  [
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?q[2]+' grubu':q[2]+': '+q[0].join(' '),cx,p.T+p.H+16); });",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText(narrow?'group '+q[2]:q[2]+': '+q[0].join(' '),cx,p.T+p.H+16); });"
+  ],
+  [
+   "g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.textAlign='left'; g.fillText(narrow?'70 ayrımın farkları':'Sekiz koşunun 70 farklı dörde dört ayrımı',x0+12,y0+14);",
+   "g.fillStyle=PAL.ink; g.font='600 12.5px '+css('--sans'); g.textAlign='left'; g.fillText(narrow?'differences of 70 splits':'The 70 different four-against-four splits of the eight runs',x0+12,y0+14);"
+  ],
+  [
+   "g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign=xo>q.X(0)?'right':'left'; g.fillText('bu bölme',xo+(xo>q.X(0)?-5:5),q.T+12); g.textAlign='left'; }",
+   "g.fillStyle=PAL.ink; g.font='12px '+css('--sans'); g.textAlign=xo>q.X(0)?'right':'left'; g.fillText('this split',xo+(xo>q.X(0)?-5:5),q.T+12); g.textAlign='left'; }"
+  ],
+  [
+   "$('enread').innerHTML=dl('Bölme ve ölçüt',(NU.si+1)+' · '+METN[m])+dl('Kare düzeyi (4 × 1801 kare bağımsız sayılır)',s.p[j][0]==null?'bu ölçüt için test yok':'p = '+pfmt(s.p[j][0]))+",
+   "$('enread').innerHTML=dl('Split and measure',(NU.si+1)+' · '+METN[m])+dl('Frame level (4 × 1801 frames counted as independent)',s.p[j][0]==null?'no test for this measure':'p = '+pfmt(s.p[j][0]))+"
+  ],
+  [
+   "dl('Tekrar düzeyi (4 koşuya karşı 4)','70 ayrımın '+nLoc(pd.c)+' fark en az bu kadar büyük: p = '+fx(pd.p,3))+dl('Holm (bölmede 8 ölçüt)','p = '+fx(s.p[j][2],3)); }",
+   "dl('Replica level (4 runs against 4)','in '+nLoc(pd.c)+' of the 70 splits the difference is at least this large: p = '+fx(pd.p,3))+dl('Holm (8 measures per split)','p = '+fx(s.p[j][2],3)); }"
+  ],
+  [
+   "if(n>=3) card('ec5',true,'Bütün karşılaştırmalar aynı koşulun tekrarları arasında; gerçek fark yoktur. Kareler bağımsız sayılınca '+F.pairs+' testin '+nLoc(F.pairs_sig)+' p < 0,05 çıktı ve 35 bölmenin '+nLoc(F.splits_any)+' en az bir \"anlamlı\" fark var. Bağımsız birim olarak tekrar alınınca (4 değere karşı 4, tam permütasyon) '+P.pairs+' testin '+nLoc(P.pairs_sig)+', bölmelerin '+nLoc(P.splits_any)+' p < 0,05; sekiz ölçüt için Holm düzeltmesiyle '+(Hm.pairs_sig?Hm.pairs_sig+' test.':'hiçbiri.')+' Kare düzeyindeki küçük p\\'ler sözde tekrardan gelir (Lazic 2010). Tekrar düzeyinde de sekiz ölçüte bakan biri bazen şans eseri bir \"fark\" bulur; ölçüt sayısı ve düzeltme önceden yazılır. Bölmeler aynı sekiz koşuyu paylaştığı için bu oranlar betimleyicidir.');",
+   "if(n>=3) card('ec5',true,'All comparisons are between replicas of the same condition; there is no real difference. When frames are counted as independent, '+nLoc(F.pairs_sig)+' of '+F.pairs+' tests gave p < 0.05, and '+nLoc(F.splits_any)+' of the 35 splits have at least one \"significant\" difference. With the replica as the independent unit (4 values against 4, exact permutation), '+nLoc(P.pairs_sig)+' of '+P.pairs+' tests and '+nLoc(P.splits_any)+' of the splits gave p < 0.05; with Holm correction for eight measures, '+(Hm.pairs_sig?Hm.pairs_sig+' tests.':'none.')+' The small p values at the frame level come from pseudoreplication (Lazic 2010). At the replica level too, someone looking at eight measures sometimes finds a \"difference\" by chance; the number of measures and the correction are written down beforehand. The splits share the same eight runs, so these rates are descriptive.');"
+  ],
+  [
+   "else card('ec5',false,'Şimdiye kadar '+n+' test türü; üçüne de bakın.'); }",
+   "else card('ec5',false,'So far '+n+' test type(s); look at all three.'); }"
+  ],
+  [
+   "/* analiz seçenekleri: spesifikasyon eğrisi */",
+   "/* analysis choices: specification curve */"
+  ],
+  [
+   "var FROWS=[['up',30,'ψ < 30°'],['up',50,'ψ < 50°'],['up',70,'ψ < 70°'],['disc',0,'baş 0 ps'],['disc',200,'baş 200 ps'],['disc',500,'baş 500 ps'],['end',1000,'son 1000 ps'],['end',2000,'son 2000 ps']];",
+   "var FROWS=[['up',30,'ψ < 30°'],['up',50,'ψ < 50°'],['up',70,'ψ < 70°'],['disc',0,'drop 0 ps'],['disc',200,'drop 200 ps'],['disc',500,'drop 500 ps'],['end',1000,'end 1000 ps'],['end',2000,'end 2000 ps']];"
+  ],
+  [
+   "var p=plot(g,L,top,W-L-10,h1,[-0.5,G.length-0.5],[-7,3],{yticks:[-6,-4,-2,0,2],ylab:narrow?'Δ (puan)':'Δ = S − W (puan)',ylabPad:narrow?36:40}); FK.cols=[];",
+   "var p=plot(g,L,top,W-L-10,h1,[-0.5,G.length-0.5],[-7,3],{yticks:[-6,-4,-2,0,2],ylab:narrow?'Δ (points)':'Δ = S − W (points)',ylabPad:narrow?36:40}); FK.cols=[];"
+  ],
+  [
+   "var pr=G.filter(function(q){ return q.pr; })[0], xi=G.indexOf(pr); g.textAlign=xi>G.length/2?'right':'left'; g.fillStyle=PAL.ink; g.fillText(narrow?'birincil':'önceden yazılmış',p.X(xi)+(xi>G.length/2?-14:14),p.Y(pr.d)-12); g.textAlign='left'; }",
+   "var pr=G.filter(function(q){ return q.pr; })[0], xi=G.indexOf(pr); g.textAlign=xi>G.length/2?'right':'left'; g.fillStyle=PAL.ink; g.fillText(narrow?'primary':'written in advance',p.X(xi)+(xi>G.length/2?-14:14),p.Y(pr.d)-12); g.textAlign='left'; }"
+  ],
+  [
+   "tipShow(tip,r.width,mx,e.clientY-r.top,'<b>Δ '+fx(q.d,2)+' puan</b> · p '+fx(q.p,3)+'<br>ψ < '+q.up+'°, baş '+q.disc+' ps, son '+q.end+' ps'+(q.pr?'<br>önceden yazılmış birincil':'')); return best; }",
+   "tipShow(tip,r.width,mx,e.clientY-r.top,'<b>Δ '+fx(q.d,2)+' points</b> · p '+fx(q.p,3)+'<br>ψ < '+q.up+'°, drop '+q.disc+' ps, end '+q.end+' ps'+(q.pr?'<br>primary, written in advance':'')); return best; }"
+  ],
+  [
+   "$('efread').innerHTML=dl('Seçili birleşim','ψ üst sınırı '+q.up+'°, atılan baş '+q.disc+' ps, pencere sonu '+q.end+' ps'+(q.pr?' (önceden yazılmış birincil)':''))+dl('Δ (S − W)',fx(q.d,2)+' puan; |Δ| sırası '+rk+' / 18')+dl('Permütasyon p (12.870 ayrım)',fx(q.p,3))+",
+   "$('efread').innerHTML=dl('Selected combination','ψ upper bound '+q.up+'°, dropped start '+q.disc+' ps, window end '+q.end+' ps'+(q.pr?' (primary, written in advance)':''))+dl('Δ (S − W)',fx(q.d,2)+' points; rank of |Δ| '+rk+' / 18')+dl('Permutation p (12,870 splits)',fx(q.p,3))+"
+  ],
+  [
+   "dl('18 birleşimde Δ aralığı',fx(arrMin(ds),2)+' ile '+fx(arrMax(ds),2)+' puan')+dl('En küçük p · p < 0,05 çıkan',fx(arrMin(ps),3)+' · '+ps.filter(function(p){ return p<0.05; }).length+' / 18'); }",
+   "dl('Range of Δ over 18 combinations',fx(arrMin(ds),2)+' to '+fx(arrMax(ds),2)+' points')+dl('Smallest p · with p < 0.05',fx(arrMin(ps),3)+' · '+ps.filter(function(p){ return p<0.05; }).length+' / 18'); }"
+  ],
+  [
+   "if(n>=4) card('ec6',true,'Aynı 16 koşudan, üç makul analiz seçeneğinin 18 birleşimiyle Δ '+fx(arrMin(ds),2)+' ile '+fx(arrMax(ds),2)+' puan arasında değişti; en küçük p '+fx(arrMin(ps),3)+', p < 0,05 çıkan birleşim '+ps.filter(function(p){ return p<0.05; }).length+'. Bu veride hüküm seçeneklere göre değişmedi, kestirimin büyüklüğü değişti. Önceden yazılmış birincil birleşim (ψ < 50°, 200 ps atılır, 2000 ps\\'ye kadar) MD-REP\\'in sonucunu verir: Δ '+fx(pr.d,2)+' puan, p '+fx(pr.p,3)+'. Seçenekler sonuçlara bakılarak seçilseydi, raporlanan sayı en uç birleşim olabilirdi ve okur kaç birleşimin denendiğini bilemezdi (Simmons, Nelson, Simonsohn 2011). Önceden yazmak ve denenen bütün birleşimleri vermek bu yüzdendir.');",
+   "if(n>=4) card('ec6',true,'From the same 16 runs, the 18 combinations of three reasonable analysis choices moved Δ between '+fx(arrMin(ds),2)+' and '+fx(arrMax(ds),2)+' points; the smallest p was '+fx(arrMin(ps),3)+', and '+ps.filter(function(p){ return p<0.05; }).length+' combinations gave p < 0.05. In this data the verdict did not change with the choices; the size of the estimate did. The primary combination written in advance (ψ < 50°, 200 ps dropped, up to 2000 ps) gives the MD-REP result: Δ '+fx(pr.d,2)+' points, p '+fx(pr.p,3)+'. Had the choices been made after looking at the results, the reported number could have been the most extreme combination, and the reader could not know how many combinations were tried (Simmons, Nelson, Simonsohn 2011). That is why the choices are written down in advance and all combinations tried are reported.');"
+  ],
+  [
+   "else card('ec6',false,'Şimdiye kadar '+n+' birleşim; en az dört birleşime bakın.'); }",
+   "else card('ec6',false,'So far '+n+' combination(s); look at at least four.'); }"
+  ],
+  [
+   "$('esp').innerHTML=VDD.SP.map(function(s,i){ return '<option value=\"'+i+'\">'+(i+1)+': '+s.a.join(' ')+' ile '+s.b.join(' ')+'</option>'; }).join(''); $('esp').addEventListener('change',function(){ NU.si=+$('esp').value; nuSel(); });",
+   "$('esp').innerHTML=VDD.SP.map(function(s,i){ return '<option value=\"'+i+'\">'+(i+1)+': '+s.a.join(' ')+' vs '+s.b.join(' ')+'</option>'; }).join(''); $('esp').addEventListener('change',function(){ NU.si=+$('esp').value; nuSel(); });"
+  ],
+  [
+   "/* ===== tezgâh: iddia denetleyici ===== */",
+   "/* ===== bench: claim checker ===== */"
+  ],
+  [
+   "var BQ={got:{}}, OPTS=['Bu veriyle kurulabilir','Ek kanıt gerekir','Bu veriyle kurulamaz'];",
+   "var BQ={got:{}}, OPTS=['Can be established with this data','Needs more evidence','Cannot be established with this data'];"
+  ],
+  [
+   "var aL=Object.keys(VDD.VAL).filter(function(r){ return VDD.VAL[r].p_aL>0.01; }), aLtxt=aL.map(function(r){ return r+' (%'+pp(VDD.VAL[r].p_aL)+')'; }).join(', ')+(aL.length>1?' oldu':'');",
+   "var aL=Object.keys(VDD.VAL).filter(function(r){ return VDD.VAL[r].p_aL>0.01; }), aLtxt=aL.map(function(r){ return r+' ('+pp(VDD.VAL[r].p_aL)+'%)'; }).join(', ');"
+  ],
+  [
+   "{s:'\"W1 koşusunda αR payı %'+pp(w1.p)+' ± '+pp(1.96*w1.sn)+' (%95, kareler bağımsız sayılarak). Aynı koşul tekrarlansa sonuç büyük olasılıkla bu aralıkta çıkar.\"', a:2, w:'Aralık %'+pp(lo)+' ile %'+pp(hi)+'; aynı koşulun öteki 7 tekrarından '+(inn?nLoc(inn)+' içinde':'hiçbiri içinde değil')+' (%'+pp(arrMin(oth.map(function(r){ return r.p; })))+' ile %'+pp(arrMax(oth.map(function(r){ return r.p; })))+'). Ardışık kareler bağımlı olduğu için saf hata yaklaşık '+fx(W.Rn,0)+' kat dar çıkar; tekrarın nereye düşeceğini tekrarlar arası yayılım söyler.'},",
+   "{s:'\"In run W1 the αR fraction is '+pp(w1.p)+'% ± '+pp(1.96*w1.sn)+' (95%, counting frames as independent). If the condition were repeated, the result would very likely fall in this interval.\"', a:2, w:'The interval is '+pp(lo)+'% to '+pp(hi)+'%; of the other 7 replicas of the same condition, '+(inn?nLoc(inn)+' fall inside':'none falls inside')+' ('+pp(arrMin(oth.map(function(r){ return r.p; })))+'% to '+pp(arrMax(oth.map(function(r){ return r.p; })))+'%). Because consecutive frames are dependent, the naive error comes out about '+fx(W.Rn,0)+' times too narrow; where a replica will land is told by the spread between replicas.'},"
+  ],
+  [
+   "{s:'\"Su ile 0,15 M NaCl arasında αR payı bakımından fark yoktur.\"', a:1, w:'Önceden yazılmış birleşimde Δ '+fx(pr.d,2)+' puan, permütasyon p '+fx(pr.p,3)+' (8 tekrara karşı 8). Bu, farkın gösterilemediğini söyler; \"fark yok\" demek için önceden yazılmış bir eşdeğerlik sınırı ve o sınırın dışını dışlayan bir aralık gerekir (Lakens 2017). Tekrarlar arası SD yaklaşık '+pp(W.sd,0)+' puan olduğu için 8 tekrarla yalnız büyük farklar dışlanabilir.'},",
+   "{s:'\"There is no difference in αR fraction between water and 0.15 M NaCl.\"', a:1, w:'In the combination written in advance Δ is '+fx(pr.d,2)+' points, permutation p '+fx(pr.p,3)+' (8 replicas against 8). This says the difference could not be shown; to say \"no difference\" one needs an equivalence bound written in advance and an interval that excludes everything outside it (Lakens 2017). The SD between replicas is about '+pp(W.sd,0)+' points, so 8 replicas can rule out only large differences.'},"
+  ],
+  [
+   "{s:'\"Bu sistemde ve bu koşu uzunluğunda, B = 200 karelik blok hatası tekrarlar arası yayılımı makul ölçüde öngörüyor.\"', a:calib?0:1, w:'SD arası / SE blok: W '+fx(W.Rb,2)+', S '+fx(S.Rb,2)+' (8\\'er tekrar). '+(calib?'Cümle bu peptit, bu kuvvet alanı ve 2 ns için kurulabilir; başka bir sistemde, daha yavaş bir süreçte ya da tek koşuda bu öngörü ayrıca sınanır.':'Oran 1\\'den uzak; öngörü bu veride zayıf.')+' Dört tekrarlı gruplarda oran '+fx(arrMin(['A03','C27','OPL'].map(function(k){ return A1[k].Rb; })),2)+' ile '+fx(arrMax(['A03','C27','OPL'].map(function(k){ return A1[k].Rb; })),2)+' arasında; dört değerden SD\\'nin kendisi de belirsizdir.'},",
+   "{s:'\"In this system and at this run length, the block error with B = 200 frames reasonably predicts the spread between replicas.\"', a:calib?0:1, w:'SD between / block SE: W '+fx(W.Rb,2)+', S '+fx(S.Rb,2)+' (8 replicas each). '+(calib?'The sentence can be established for this peptide, this force field and 2 ns; in another system, for a slower process or with a single run, this prediction is tested separately.':'The ratio is far from 1; the prediction is weak in this data.')+' In the groups with four replicas the ratio lies between '+fx(arrMin(['A03','C27','OPL'].map(function(k){ return A1[k].Rb; })),2)+' and '+fx(arrMax(['A03','C27','OPL'].map(function(k){ return A1[k].Rb; })),2)+'; an SD from four values is itself uncertain.'},"
+  ],
+  [
+   "{s:'\"L2a ile L2b\\'nin iki tekrarı arasındaki fark koşu içi hatayla açıklanamıyor; bu iki modelin LIE kestirimi kararsızdır.\"', a:1, w:'z: L2a '+fx(Z.L2a.z,2)+', L2b '+fx(Z.L2b.z,2)+'; altı modelden ikisi 1,96\\'yı aştı. Koşu içi hata 5 bloktan (4 serbestlik derecesi) hesaplandığı için z\\'nin kendisi oynaktır ve altı model birlikte bakıldığında ikisinin şans eseri aşması şaşırtıcı değildir. \"Kararsız\" demek için daha çok tekrar ya da daha uzun koşu gerekir.'},",
+   "{s:'\"The difference between the two replicas of L2a and of L2b cannot be explained by the within-run error; the LIE estimate of these two models is unstable.\"', a:1, w:'z: L2a '+fx(Z.L2a.z,2)+', L2b '+fx(Z.L2b.z,2)+'; two of the six models exceeded 1.96. The within-run error is computed from 5 blocks (4 degrees of freedom), so z itself is volatile, and with six models looked at together it is not surprising that two exceed it by chance. Saying \"unstable\" needs more replicas or longer runs.'},"
+  ],
+  [
+   "{s:'\"L4\\'ün LIE kestirimi ile ölçülmüş ΔG arasındaki fark örnekleme belirsizliğiyle açıklanamaz.\"', a:far?0:2, w:'L4 ortalaması '+fx(L4.mean,2)+' kcal/mol; koşu içi ve tekrarlar arası aralıkların üst ucu en çok '+fx(l4hi,2)+', ölçülmüş aralık '+fx(E[0],2)+' ile '+fx(E[1],2)+'. '+(far?'Cümle kurulabilir; ama farkın nedeni hakkında hiçbir şey söylemez: katsayılar başka bir kuvvet alanıyla kalibre edildi, ters uzay katkısı yok, tek ligand var. Sistematik belirsizlik bu aralıklarda yer almaz.':'Aralık ölçülmüş değere uzanıyor.')},",
+   "{s:'\"The difference between the LIE estimate of L4 and the measured ΔG cannot be explained by sampling uncertainty.\"', a:far?0:2, w:'The L4 mean is '+fx(L4.mean,2)+' kcal/mol; the upper end of the within-run and between-replica intervals is at most '+fx(l4hi,2)+', the measured range '+fx(E[0],2)+' to '+fx(E[1],2)+'. '+(far?'The sentence can be established; but it says nothing about the cause of the difference: the coefficients were calibrated with another force field, there is no reciprocal-space contribution, and there is a single ligand. Systematic uncertainty is not part of these intervals.':'The interval reaches the measured value.')},"
+  ],
+  [
+   "{s:'\"W\\'nin sekiz tekrarı dörde dört bölündü; sekiz ölçütten birinde permütasyon p < 0,05 çıktı. İki grup bu ölçütte farklıdır.\"', a:2, w:'İki grup aynı koşuldan; gerçek fark yoktur. 35 bölmenin '+nLoc(P.splits_any)+' en az bir ölçütte p < 0,05 çıktı, Holm düzeltmesiyle hiçbirinde. Birden çok ölçüte bakılınca şans eseri bir \"fark\" beklenir; birincil ölçüt ve düzeltme önceden yazılır.'},",
+   "{s:'\"The eight replicas of W were split four against four; one of eight measures gave permutation p < 0.05. The two groups differ in this measure.\"', a:2, w:'Both groups come from the same condition; there is no real difference. '+nLoc(P.splits_any)+' of the 35 splits gave p < 0.05 in at least one measure, none after Holm correction. When several measures are examined, a \"difference\" is expected by chance; the primary measure and the correction are written down beforehand.'},"
+  ],
+  [
+   "{s:'\"Aynı karşılaştırmada kareler tek tek sayıldığında αL payı için p = '+pfmt(pa)+' çıktı; fark çok güçlüdür.\"', a:2, w:'Bu, sözde tekrardır: 4 × 1801 kare, 4 bağımsız koşudan gelir. Kare düzeyinde αL payı 35 bölmenin '+nLoc(VDD.per_metric.p_aL.frame)+' p < 0,05 verdi, tekrar düzeyinde '+(VDD.per_metric.p_aL.perm?nLoc(VDD.per_metric.p_aL.perm):'hiçbirinde')+'. Sekiz tekrardan αL\\'de belirgin süre kalan yalnız '+aLtxt+'; p\\'nin küçüklüğü bu tek olayın binlerce karesini binlerce bağımsız gözlem sayar (Lazic 2010).'},",
+   "{s:'\"In the same comparison, counting frames one by one gave p = '+pfmt(pa)+' for the αL fraction; the difference is very strong.\"', a:2, w:'This is pseudoreplication: 4 × 1801 frames come from 4 independent runs. At the frame level the αL fraction gave p < 0.05 in '+nLoc(VDD.per_metric.p_aL.frame)+' of the 35 splits, at the replica level in '+(VDD.per_metric.p_aL.perm?nLoc(VDD.per_metric.p_aL.perm):'none')+'. Of the eight replicas only '+aLtxt+' stayed in αL for a noticeable time; the tiny p counts the thousands of frames of this single event as thousands of independent observations (Lazic 2010).'},"
+  ],
+  [
+   "{s:'\"18 analiz birleşiminin hiçbirinde p < 0,05 çıkmadı; su ile NaCl farkının büyüklüğü analiz seçeneklerinden bağımsızdır.\"', a:2, w:'Hüküm 18 birleşimde değişmedi, ama Δ '+fx(arrMin(ds),2)+' ile '+fx(arrMax(ds),2)+' puan arasında oynadı; ψ sınırı Δ\\'yı en çok '+fx(psiEff,2)+' puan oynattı, oynamanın geri kalanı atılan baş ile pencere sonundan geldi. Hükmün değişmemesi ile büyüklüğün değişmemesi ayrı cümlelerdir.'},",
+   "{s:'\"None of the 18 analysis combinations gave p < 0.05; the size of the water versus NaCl difference does not depend on the analysis choices.\"', a:2, w:'The verdict did not change across 18 combinations, but Δ moved between '+fx(arrMin(ds),2)+' and '+fx(arrMax(ds),2)+' points; the ψ bound moved Δ by at most '+fx(psiEff,2)+' points, the rest came from the dropped start and the window end. An unchanged verdict and an unchanged size are separate sentences.'},"
+  ],
+  [
+   "{s:'\"qPCR deneyinde her grupta 3 biyolojik örnek ve her örnekte 3 teknik tekrar var; dolayısıyla n = 9\\'dur.\"', a:2, w:'Bağımsız birim biyolojik örnektir; n = 3. Teknik tekrarlar örneğin ölçümünü iyileştirir, örnekler arasındaki biyolojik değişkenliği örneklemez. Köprünün başlangıç ayarında (3 örnek, 3 teknik tekrar) teknik tekrarları n sayan \"%95\" aralığı gerçek değeri benzetilmiş deneylerde '+pct(qd.tech)+' sıklıkla kapsadı; doğru hesap '+pct(qd.ok)+'.'}",
+   "{s:'\"The qPCR experiment has 3 biological samples per group and 3 technical replicates per sample; so n = 9.\"', a:2, w:'The independent unit is the biological sample; n = 3. Technical replicates improve the measurement of a sample; they do not sample the biological variation between samples. In the starting setting of the bridge (3 samples, 3 technical replicates), the \"95%\" interval that counts technical replicates as n covered the true value in '+pct(qd.tech)+' of simulated experiments; the correct calculation '+pct(qd.ok)+'.'}"
+  ],
+  [
+   "var fb=$('ecl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
+   "var fb=$('ecl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+q.w;"
+  ],
+  [
+   "if(n>=4) card('ec7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Bir hata çubuğu üç soruya cevap verir: neyin belirsizliği (bir koşunun ortalaması mı, koşulun kendisi mi), hangi bağımsız birimle (kare mi, koşu mu, biyolojik örnek mi) ve kaç karşılaştırmanın içinden. Bunlar yazılmadıkça çubuk bir süs olur.');",
+   "if(n>=4) card('ec7',true,'Of the '+n+' sentences you decided on, your first choice was correct in '+nLoc(r)+'. An error bar answers three questions: uncertainty of what (the mean of one run or the condition itself), with which independent unit (frame, run or biological sample), and chosen from how many comparisons. Unless these are written down, the bar is decoration.');"
+  ],
+  [
+   "else card('ec7',false,'Şimdiye kadar '+n+' cümle; en az dört cümleye karar verin.'); }); }); }",
+   "else card('ec7',false,'So far '+n+' sentence(s); decide on at least four.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: belirsizlik kaydı ===== */",
+   "/* ===== notebook: uncertainty record ===== */"
+  ],
+  [
+   "function eoBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }",
+   "function eoBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }"
+  ],
+  [
+   "var L=['BELİRSİZLİK KAYDI (MD-ERR taslağı)','Bağımsız birim ve n: '+v('eoU'),'Hata çubuğunun tanımı: '+v('eoB'),'Koşu içi hata yöntemi: '+v('eoK'),'Türetilmiş nicelik ve yayılma: '+v('eoD'),'Karşılaştırma sayısı ve düzeltme: '+v('eoM'),'Analiz seçenekleri: '+v('eoA'),'Sistematik belirsizlik: '+v('eoS')];",
+   "var L=['UNCERTAINTY RECORD (MD-ERR draft)','Independent unit and n: '+v('eoU'),'Definition of the error bar: '+v('eoB'),'Within-run error method: '+v('eoK'),'Derived quantity and propagation: '+v('eoD'),'Number of comparisons and correction: '+v('eoM'),'Analysis choices: '+v('eoA'),'Systematic uncertainty: '+v('eoS')];"
+  ],
+  [
+   "if(!/koşu|tekrar|örnek|birim|tohum/.test(u)||!/\\d/.test(u)) wr.push('Bağımsız birim ve sayısı yazılmamış; kareler ya da teknik tekrarlar n değildir.');",
+   "if(!/run|replica|sample|unit|seed/.test(u)||!/\\d/.test(u)) wr.push('The independent unit and its number are not written; frames or technical replicates are not n.');"
+  ],
+  [
+   "if(!/\\bsd\\b|\\bse\\b|aralık|güven|\\bci\\b/.test(b)) wr.push('Hata çubuğunun ne olduğu (SD, SE ya da güven aralığı) yazılmamış.');",
+   "if(!/\\bsd\\b|\\bse\\b|interval|confidence|\\bci\\b/.test(b)) wr.push('What the error bar is (SD, SE or confidence interval) is not written.');"
+  ],
+  [
+   "if(/\\bse\\b|aralık|güven/.test(b)&&!/\\bt\\b|t\\(|serbestlik|1,96|\\bz\\b/.test(b)) wr.push('Aralık katsayısı (1,96 ya da t ve serbestlik derecesi) yazılmamış; az tekrarda fark büyüktür.');",
+   "if(/\\bse\\b|interval|confidence/.test(b)&&!/\\bt\\b|t\\(|degrees? of freedom|\\bdf\\b|1\\.96|\\bz\\b/.test(b)) wr.push('The interval coefficient (1.96, or t and its degrees of freedom) is not written; with few replicas the difference is large.');"
+  ],
+  [
+   "if(!/blok|otokorelasyon|korelasyon|etkin|bağımsız/.test(k)) wr.push('Koşu içi hatanın ardışık karelerin bağımlılığını nasıl hesaba kattığı yazılmamış.');",
+   "if(!/block|autocorrelation|correlation|effective|independent/.test(k)) wr.push('How the within-run error accounts for the dependence of consecutive frames is not written.');"
+  ],
+  [
+   "if(!/kovaryans|bileşen|yayıl|terim/.test(d)) wr.push('Türetilmiş niceliğin hatasının bileşenleri ve kovaryansı yazılmamış.');",
+   "if(!/covariance|component|propagat|term/.test(d)) wr.push('The components of the error of the derived quantity and their covariance are not written.');"
+  ],
+  [
+   "if(!/\\d/.test(m)||!/holm|bonferroni|düzelt|birincil|önceden/.test(m)) wr.push('Kaç ölçüte bakıldığı ve çoklu karşılaştırmanın nasıl ele alındığı yazılmamış.');",
+   "if(!/\\d/.test(m)||!/holm|bonferroni|correct|primary|in advance|beforehand/.test(m)) wr.push('How many measures were examined and how multiple comparisons were handled is not written.');"
+  ],
+  [
+   "if(!/önceden|plan|birincil|hepsi|bütün/.test(a)) wr.push('Analiz seçeneklerinin önceden yazılıp yazılmadığı ve denenenlerin raporlanıp raporlanmadığı yazılmamış.');",
+   "if(!/in advance|beforehand|plan|primary|all/.test(a)) wr.push('Whether the analysis choices were written down in advance and whether the ones tried were reported is not written.');"
+  ],
+  [
+   "if(!/kuvvet alanı|katsayı|model|sistematik|kalibr/.test(s)) wr.push('Örneklemeyle küçülmeyen sistematik belirsizlik (kuvvet alanı, katsayılar, model) yazılmamış.');",
+   "if(!/force field|coefficient|model|systematic|calibrat/.test(s)) wr.push('Systematic uncertainty that does not shrink with sampling (force field, coefficients, model) is not written.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(x){ L.push('- '+x); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to check:'); wr.forEach(function(x){ L.push('- '+x); }); }"
+  ],
+  [
+   "$('eocopy').onclick=function(){ var t=$('eoout').textContent, m=$('eomsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('eocopy').onclick=function(){ var t=$('eoout').textContent, m=$('eomsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'Bir qPCR deneyinde her grupta 4 fare var ve her farenin cDNA\\'sı 3 kuyuda ölçüldü. Gruplar karşılaştırılırken n kaçtır?',",
+   "Q.push({s:'In a qPCR experiment each group has 4 mice and each mouse\\'s cDNA was measured in 3 wells. What is n when the groups are compared?',"
+  ],
+  [
+   "o:[['12, çünkü 12 Ct değeri var',0],['4; teknik tekrarlar önce her fare için ortalanır',1],['3, çünkü teknik tekrar sayısı 3',0]], w:'Bağımsız birim biyolojik örnektir. Kuyular aynı örnekten geldiği için birbirine bağlıdır; onları n saymak hatayı küçültür ve aralığın kapsamasını düşürür (köprüdeki benzetim).'});",
+   "o:[['12, because there are 12 Ct values',0],['4; the technical replicates are first averaged for each mouse',1],['3, because there are 3 technical replicates',0]], w:'The independent unit is the biological sample. The wells come from the same sample and are tied to each other; counting them as n shrinks the error and lowers the coverage of the interval (the simulation in the bridge).'});"
+  ],
+  [
+   "Q.push({s:'ΔΔCt = −1,0 ve %95 aralığı −1,6 ile −0,4 döngü. Kat değişimi aralığı nasıl yazılır?',",
+   "Q.push({s:'ΔΔCt = −1.0 and its 95% interval is −1.6 to −0.4 cycles. How is the fold-change interval written?',"
+  ],
+  [
+   "o:[['2 ± 0,6 kat',0],['2^0,4 ile 2^1,6, yani yaklaşık 1,32 ile 3,03 kat; kestirim (2 kat) aralığın ortasında değildir',1],['1,4 ile 2,6 kat',0]], w:'Aralık önce ΔΔCt ölçeğinde kurulur, sonra 2^−x ile üstel ölçeğe taşınır (Livak ve Schmittgen 2001). Üstel dönüşüm aralığı kestirimin çevresinde simetrik bırakmaz.'});",
+   "o:[['2 ± 0.6 fold',0],['2^0.4 to 2^1.6, that is about 1.32 to 3.03 fold; the estimate (2 fold) is not in the middle of the interval',1],['1.4 to 2.6 fold',0]], w:'The interval is built on the ΔΔCt scale first and then carried to the exponential scale with 2^−x (Livak and Schmittgen 2001). The exponential transformation does not leave the interval symmetric around the estimate.'});"
+  ],
+  [
+   "Q.push({s:'Bir MD koşusunda 1801 kareden αR payı hesaplandı ve SE = √(p(1−p)/1801) yazıldı. Sorun nedir?',",
+   "Q.push({s:'In an MD run the αR fraction was computed from 1801 frames and SE = √(p(1−p)/1801) was reported. What is the problem?',"
+  ],
+  [
+   "o:[['Sorun yok; kare sayısı büyük',0],['Ardışık kareler birbirine bağlıdır; etkin bağımsız örnek sayısı 1801\\'den çok küçüktür ve SE olduğundan dar çıkar',1],['Formül yalnız 1000 karenin altında geçerlidir',0]], w:'W\\'de saf SE ile tekrarlar arası SD\\'nin oranı yaklaşık '+fx(W.Rn,0)+'; blok hatasıyla oran '+fx(W.Rb,2)+'.'});",
+   "o:[['No problem; the number of frames is large',0],['Consecutive frames are tied to each other; the effective number of independent samples is much smaller than 1801 and the SE comes out too narrow',1],['The formula is valid only below 1000 frames',0]], w:'In W the ratio of the SD between replicas to the naive SE is about '+fx(W.Rn,0)+'; with the block error the ratio is '+fx(W.Rb,2)+'.'});"
+  ],
+  [
+   "Q.push({s:'Blok ortalamasında blok boyu nasıl seçilir?',",
+   "Q.push({s:'How is the block length chosen in block averaging?',"
+  ],
+  [
+   "o:[['Hep 10 blok olacak şekilde',0],['Blok boyu büyüdükçe SE\\'nin düzleştiği bölgeden, ama yeterli blok sayısı kalacak şekilde; mümkünse bağımsız tekrarlarla sınanır',1],['SE\\'yi en küçük yapan blok boyu seçilir',0]], w:'Eğri korelasyon süresinin üstünde düzleşir; blok sayısı azaldıkça (B = 600\\'de 3 blok) eğri gürültülenir. Bu sayfada B = 200 kare (9 blok) önceden yazıldı.'});",
+   "o:[['Always so that there are 10 blocks',0],['From the region where the SE levels off as the block length grows, while keeping enough blocks; tested against independent replicas when possible',1],['The block length that gives the smallest SE is chosen',0]], w:'The curve levels off above the correlation time; as the number of blocks falls (3 blocks at B = 600) the curve gets noisy. On this page B = 200 frames (9 blocks) was written down in advance.'});"
+  ],
+  [
+   "Q.push({s:'İki tekrarın ortalamasının tekrarlar arası SE\\'si 0,13 kcal/mol. %95 aralığın yarı genişliği yaklaşık kaçtır?',",
+   "Q.push({s:'The between-replica SE of the mean of two replicas is 0.13 kcal/mol. About how large is the half-width of the 95% interval?',"
+  ],
+  [
+   "o:[['1,96 × 0,13 ≈ 0,25',0],['t(0,975; 1) × 0,13 ≈ '+fx(t1*0.13,2),1],['0,13',0]], w:'İki değerden hesaplanan SE tek serbestlik dereceli bir kestirimdir; t = '+fx(t1,3)+'. İki tekrarla tekrarlar arası belirsizlik ancak kabaca söylenebilir.'});",
+   "o:[['1.96 × 0.13 ≈ 0.25',0],['t(0.975; 1) × 0.13 ≈ '+fx(t1*0.13,2),1],['0.13',0]], w:'An SE computed from two values is an estimate with a single degree of freedom; t = '+fx(t1,3)+'. With two replicas the uncertainty between replicas can be stated only roughly.'});"
+  ],
+  [
+   "Q.push({s:'LIE\\'de ΔG = α·Δ⟨V_vdW⟩ + β·Δ⟨V_el⟩. ΔG\\'nin hatası nasıl hesaplanır?',",
+   "Q.push({s:'In LIE, ΔG = α·Δ⟨V_vdW⟩ + β·Δ⟨V_el⟩. How is the error of ΔG computed?',"
+  ],
+  [
+   "o:[['İki terimin hataları doğrudan toplanır',0],['α² ve β² ile ağırlıklı varyanslar, kompleks ve su koşularının katkıları ve iki terim arasındaki kovaryans birlikte yayılır',1],['Yalnız elektrostatik terimin hatası alınır, çünkü büyük olan odur',0]], w:'Bu sayfada 12 tekrarın çoğunda kovaryans eksi çıktı; terimleri ayrı ayrı toplamak hatayı abartır. Su koşusunun hatası iki tekrara da aynen girer.'});",
+   "o:[['The errors of the two terms are simply added',0],['The variances weighted by α² and β², the contributions of the complex and water runs and the covariance between the two terms propagate together',1],['Only the error of the electrostatic term is taken, because it is the large one',0]], w:'On this page the covariance came out negative in most of the 12 replicas; adding the terms separately overstates the error. The error of the water run enters both replicas identically.'});"
+  ],
+  [
+   "Q.push({s:'Aynı koşulun 8 tekrarı 4\\'e 4 bölündü; kareler bağımsız sayılarak test edilince ölçütlerin çoğunda p < 0,05 çıktı. Bu ne gösterir?',",
+   "Q.push({s:'The 8 replicas of the same condition were split 4 against 4; tested with frames counted as independent, most measures gave p < 0.05. What does this show?',"
+  ],
+  [
+   "o:[['Tekrarlar arasında gerçek bir fark olduğunu',0],['Sözde tekrarı: test, birkaç bağımsız koşunun binlerce bağımlı karesini bağımsız gözlem saydı',1],['Ölçütlerin yanlış hesaplandığını',0]], w:'Kare düzeyinde '+F.pairs+' testin '+nLoc(F.pairs_sig)+' p < 0,05; tekrar düzeyinde '+P.pairs+' testin '+nLoc(P.pairs_sig)+'.'});",
+   "o:[['That there is a real difference between the replicas',0],['Pseudoreplication: the test counted thousands of dependent frames from a few independent runs as independent observations',1],['That the measures were computed wrongly',0]], w:'At the frame level, '+nLoc(F.pairs_sig)+' of '+F.pairs+' tests gave p < 0.05; at the replica level, '+nLoc(P.pairs_sig)+' of '+P.pairs+'.'});"
+  ],
+  [
+   "Q.push({s:'Sekiz ölçüte baktınız, birinde p = 0,03 çıktı. Ne yazılır?',",
+   "Q.push({s:'You looked at eight measures and one gave p = 0.03. What is written?',"
+  ],
+  [
+   "o:[['\"Bu ölçütte anlamlı fark bulundu.\"',0],['Sekiz ölçüte bakıldığı, birincil ölçütün önceden hangisi olduğu ve düzeltilmiş p (örneğin Holm); tek başına p = 0,03 bir hüküm değildir',1],['Ölçütlerden yalnız bu raporlanır',0]], w:'Aynı koşulun iki yarısı karşılaştırıldığında da 35 bölmenin '+nLoc(P.splits_any)+' en az bir ölçütte p < 0,05 çıktı; Holm ile hiçbirinde.'});",
+   "o:[['\"A significant difference was found in this measure.\"',0],['That eight measures were examined, which one was the primary measure in advance, and the corrected p (for example Holm); p = 0.03 on its own is not a verdict',1],['Only this measure is reported',0]], w:'When two halves of the same condition were compared, '+nLoc(P.splits_any)+' of the 35 splits also gave p < 0.05 in at least one measure; none after Holm.'});"
+  ],
+  [
+   "Q.push({s:'Analiz seçenekleri (durum sınırı, atılan baş, pencere) için ne yapılır?',",
+   "Q.push({s:'What is done about analysis choices (state boundary, dropped start, window)?',"
+  ],
+  [
+   "o:[['Sonucu en net gösteren birleşim seçilir',0],['Seçenekler sonuçlara bakmadan önce yazılır; denenen başka birleşimler varsa hepsi raporlanır',1],['Seçenekler önemsizdir, çünkü hüküm değişmez',0]], w:'Bu sayfada 18 birleşimde Δ '+fx(arrMin(VDD.GR.map(function(q){ return q.d; })),2)+' ile '+fx(arrMax(VDD.GR.map(function(q){ return q.d; })),2)+' puan arasında oynadı; hüküm değişmedi ama büyüklük değişti (Simmons, Nelson, Simonsohn 2011).'});",
+   "o:[['The combination that shows the result most clearly is chosen',0],['The choices are written down before looking at the results; if other combinations were tried, all of them are reported',1],['The choices do not matter, because the verdict does not change',0]], w:'On this page Δ moved between '+fx(arrMin(VDD.GR.map(function(q){ return q.d; })),2)+' and '+fx(arrMax(VDD.GR.map(function(q){ return q.d; })),2)+' points over 18 combinations; the verdict did not change but the size did (Simmons, Nelson, Simonsohn 2011).'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('enotice').innerHTML='<p><b>Veri.</b> Bu modülde yeni MD koşusu yapılmadı; bütün girdiler daha önce kendi donmuş planlarıyla üretilmiş koşulardır. <b>REPGRID</b> (MD-REP): alanin dipeptidi (başlangıç yapısı mdshare ALA2, Freie Universität Berlin, CC BY 4.0), amber99sb-ildn ve TIP3P, saf su (W1 ile W8) ve 0,15 M NaCl (S1 ile S8), her biri 2 ns NPT, 300 K, kayıt 1 ps; φ/ψ gmx rama ile, sıcaklık, basınç ve hacim gmx energy ile (0,2 ps). <b>FFGRID</b> (MD-FF): aynı peptit amber03, charmm27 ve OPLS-AA ile dörder tekrar, 2 ns; ayrıntılar MD-FF sayfasında. <b>LIGGRID ve LIGGRID2</b> (MD-LIG): tripsin ile benzamidin (PDB 3PTB), altı ligand modeli, model başına iki 0,5 ns kompleks koşusu ve bir 1 ns su koşusu; ligand ile sistemin geri kalanı arasındaki gerçek uzay Coulomb ve Lennard-Jones enerjileri gmx mdrun -rerun ile. LIE: α 0,181, β 0,5 (nötr L3 için 0,43), Hansson, Marelius, Åqvist 1998 (J Comput Aided Mol Des 12:27, doi 10.1023/a:1007930623000). Ölçülmüş aralık ChEMBL Ki değerlerinden (benzamidin CHEMBL20936, sığır tripsini CHEMBL3769; MD-LIG ve DK-T ile aynı altı kayıt), ΔG = RT ln Ki, 25 °C. GROMACS 2023.3. Girdilerin 106 dosyasının SHA-256 değerleri planla birlikte kaydedildi.</p>'+",
+   "$('enotice').innerHTML='<p><b>Data.</b> No new MD run was made for this module; all inputs are runs produced earlier under their own frozen plans. <b>REPGRID</b> (MD-REP): alanine dipeptide (starting structure mdshare ALA2, Freie Universität Berlin, CC BY 4.0), amber99sb-ildn and TIP3P, pure water (W1 to W8) and 0.15 M NaCl (S1 to S8), each 2 ns NPT, 300 K, output every 1 ps; φ/ψ with gmx rama, temperature, pressure and volume with gmx energy (0.2 ps). <b>FFGRID</b> (MD-FF): the same peptide with amber03, charmm27 and OPLS-AA, four replicas each, 2 ns; details on the MD-FF page. <b>LIGGRID and LIGGRID2</b> (MD-LIG): trypsin with benzamidine (PDB 3PTB), six ligand models, two 0.5 ns complex runs and one 1 ns water run per model; real-space Coulomb and Lennard-Jones energies between the ligand and the rest of the system with gmx mdrun -rerun. LIE: α 0.181, β 0.5 (0.43 for the neutral L3), Hansson, Marelius, Åqvist 1998 (J Comput Aided Mol Des 12:27, doi 10.1023/a:1007930623000). Measured range from ChEMBL Ki values (benzamidine CHEMBL20936, bovine trypsin CHEMBL3769; the same six records as MD-LIG and DK-T), ΔG = RT ln Ki, 25 °C. GROMACS 2023.3. The SHA-256 values of the 106 input files were recorded with the plan.</p>'+"
+  ],
+  [
+   "'<p><b>Köprü.</b> qPCR bölümü bir öğretim modelidir; ölçülmüş veri kullanılmaz. Ct değerleri tarayıcıda tohumlu bir rastgele sayı üreteciyle benzetilir: her biyolojik örnekte hedef ve referans genin Ct\\'si seçilen biyolojik SD ve korelasyonla, her kuyuya ayrıca teknik SD eklenerek. ΔCt, ΔΔCt ve kat değişimi 2^−ΔΔCt Livak ve Schmittgen 2001 (Methods 25:402, doi 10.1006/meth.2001.1262) ve Schmittgen ve Livak 2008 (Nat Protoc 3:1101, doi 10.1038/nprot.2008.73) yöntemine göre; aralık birleşik SD ile t dağılımından (doğru hesapta serbestlik derecesi 2n − 2). Kapsama, aynı ayarla 2.000 benzetilmiş deneyde gerçek ΔΔCt\\'yi içeren aralıkların payıdır. Benzetim, amplifikasyon verimini %100 kabul eder ve verim belirsizliğini içermez.</p>'+",
+   "'<p><b>Bridge.</b> The qPCR section is a teaching model; no measured data are used. Ct values are simulated in the browser with a seeded random number generator: in each biological sample the Ct of the target and reference gene with the chosen biological SD and correlation, plus a technical SD for each well. ΔCt, ΔΔCt and the fold change 2^−ΔΔCt follow Livak and Schmittgen 2001 (Methods 25:402, doi 10.1006/meth.2001.1262) and Schmittgen and Livak 2008 (Nat Protoc 3:1101, doi 10.1038/nprot.2008.73); the interval uses the pooled SD and the t distribution (2n − 2 degrees of freedom in the correct calculation). Coverage is the fraction of intervals containing the true ΔΔCt in 2,000 simulated experiments with the same setting. The simulation assumes 100% amplification efficiency and does not include efficiency uncertainty.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Analiz planı hesaplardan önce yazılıp SHA-256 ile donduruldu ('+m.plan_sha.slice(0,12)+'…). Durumlar: αL 0 ≤ φ < 180; αR φ < 0 ve −120 ≤ ψ < 50; β/PPII kalan. Pencere 200 ile 2000 ps (1801 kare); blok hatası ilk 1800 kareden, B = 200 kare, 9 blok (Flyvbjerg ve Petersen 1989, J Chem Phys 91:461; Grossfield ve ark. 2018, Living J Comput Mol Sci 1:5067). LIE blokları MD-LIG ile aynı: kompleks 50 ile 500 ps, 5 blok; su 100 ile 999 ps, 9 × 100 kare. Boş karşılaştırmalar: W\\'nin 35 dörde dört bölmesi (MD-REP ile aynı sıra), 8 ölçüt; kare düzeyinde birleşik iki oran z testi ve Welch t testi, tekrar düzeyinde 70 ayrımlı tam permütasyon, bölme içinde Holm düzeltmesi (Holm 1979, Scand J Stat 6:65). Analiz seçenekleri: 18 birleşim, 12.870 ayrımlı tam permütasyon; 0 ile 200 ps arasındaki φ/ψ md.xtc\\'den yeniden hesaplandı ve 200 ile 2000 ps kısmı MD-REP\\'in dosyalarıyla aynı çıktı. Bağımsız denetim (MDAnalysis φ/ψ, saf Python blok hatası, gmx energy blok ortalamaları, ayrı permütasyon ve scipy ile kare düzeyi testler): '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'. Plandan sapma yok. Blok gezgini (kare dizisinden blok SE) ve permütasyon dağılımı tarayıcıda aynı veriden yeniden hesaplanır; 364 blok SE değeri ve 280 permütasyon p\\'si Python sonuçlarıyla karşılaştırıldı, farklar yalnız yuvarlamadandır (en büyük 5·10⁻⁷ ve 4·10⁻⁶).</p>'+",
+   "'<p><b>Analysis.</b> The analysis plan was written before any calculation and frozen with SHA-256 ('+m.plan_sha.slice(0,12)+'…). States: αL 0 ≤ φ < 180; αR φ < 0 and −120 ≤ ψ < 50; β/PPII the rest. Window 200 to 2000 ps (1801 frames); block error from the first 1800 frames, B = 200 frames, 9 blocks (Flyvbjerg and Petersen 1989, J Chem Phys 91:461; Grossfield et al. 2018, Living J Comput Mol Sci 1:5067). LIE blocks as in MD-LIG: complex 50 to 500 ps, 5 blocks; water 100 to 999 ps, 9 × 100 frames. Null comparisons: the 35 four-against-four splits of W (same order as MD-REP), 8 measures; at the frame level a pooled two-proportion z test and Welch t test, at the replica level an exact permutation over 70 splits, Holm correction within each split (Holm 1979, Scand J Stat 6:65). Analysis choices: 18 combinations, exact permutation over 12,870 splits; φ/ψ for 0 to 200 ps was recomputed from md.xtc and the 200 to 2000 ps part matched the MD-REP files. Independent audit (MDAnalysis φ/ψ, pure Python block error, gmx energy block means, a separate permutation and frame-level tests with scipy): '+nPoss(String(m.audit_ok))+' of '+m.audit_n+' comparisons passed the thresholds written in advance'+(m.audit_fail.length?'; failed: '+m.audit_fail.join('; '):'')+'. No deviation from the plan. The block explorer (block SE from the frame sequence) and the permutation distribution are recomputed in the browser from the same data; 364 block SE values and 280 permutation p values were compared with the Python results, and the differences come from rounding only (largest 5·10⁻⁷ and 4·10⁻⁶).</p>'+"
+  ],
+  [
+   "'<p><b>Okuma.</b> Sözde tekrar: Lazic 2010 (BMC Neurosci 11:5, doi 10.1186/1471-2202-11-5). Analiz esnekliği: Simmons, Nelson, Simonsohn 2011 (Psychol Sci 22:1359, doi 10.1177/0956797611417632). Eşdeğerlik testleri: Lakens 2017 (Soc Psychol Personal Sci 8:355, doi 10.1177/1948550617697177). MD\\'de tekrarlar: Knapp, Ospina, Deane 2018 (J Chem Theory Comput 14:6127, doi 10.1021/acs.jctc.8b00391).</p>'+",
+   "'<p><b>Reading.</b> Pseudoreplication: Lazic 2010 (BMC Neurosci 11:5, doi 10.1186/1471-2202-11-5). Analytic flexibility: Simmons, Nelson, Simonsohn 2011 (Psychol Sci 22:1359, doi 10.1177/0956797611417632). Equivalence tests: Lakens 2017 (Soc Psychol Personal Sci 8:355, doi 10.1177/1948550617697177). Replicas in MD: Knapp, Ospina, Deane 2018 (J Chem Theory Comput 14:6127, doi 10.1021/acs.jctc.8b00391).</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Bölmeler aynı sekiz koşuyu paylaştığı için boş karşılaştırma oranları bağımsız denemeler değildir ve bir yanlış pozitif oranı olarak okunmaz. LIE\\'de model başına iki tekrar var; tekrarlar arası SE tek serbestlik derecelidir. Yeni ya da daha uzun koşular, ek tekrarlar, hiyerarşik Bayes modelleri, başka bootstrap türleri, MBAR ve serbest enerji yöntemleri, başka sistemler, qPCR\\'de verim belirsizliği ve gerçek qPCR verisi: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> The splits share the same eight runs, so the null-comparison rates are not independent trials and are not read as a false-positive rate. LIE has two replicas per model; the SE between replicas has a single degree of freedom. New or longer runs, additional replicas, hierarchical Bayesian models, other kinds of bootstrap, MBAR and free-energy methods, other systems, efficiency uncertainty in qPCR and real qPCR data: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('ewhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('ewhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('escore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('escore').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start-up ---------- */"
+  ],
+  [
+   "NCARD=8; ['ec0','ec1','ec2','ec3','ec4','ec5','ec6','ec7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "NCARD=8; ['ec0','ec1','ec2','ec3','ec4','ec5','ec6','ec7'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDERR={blockSE:blockSE,bits:bits,permDist:permDist,QD:QD,QP:QP,qpExp:qpExp,qpEst:qpEst,qpCov:qpCov,rng:rng,tq:tq,tcdf:tcdf,WI:WI,BU:BU,NU:NU,FK:FK,BQ:BQ,FOUND:FOUND,seTot:seTot}; /* sınama için */",
+   "window.MDERR={blockSE:blockSE,bits:bits,permDist:permDist,QD:QD,QP:QP,qpExp:qpExp,qpEst:qpEst,qpCov:qpCov,rng:rng,tq:tq,tcdf:tcdf,WI:WI,BU:BU,NU:NU,FK:FK,BQ:BQ,FOUND:FOUND,seTot:seTot}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "</b> ×10⁻³ (kcal/mol)²<br>",
+  "<table class=\"st\"><thead><tr><th>Model</th><th>ΔG₁</th><th>ΔG₂</th><th>SE₁</th><th>SE₂</th><th>|ΔG₁ − ΔG₂|</th><th>z</th></tr></thead><tbody",
+  "L2a Gasteiger 0",
+  "L2b Gasteiger (RDKit, +1)",
+  "L2b Gasteiger +1",
+  "L5 Espaloma",
+  "LIE ΔG (kcal/mol)",
+  "Model",
+  "SE² (10⁻³ (kcal/mol)²)",
+  "kcal/mol",
+  "<span>Model:</span>",
+  "<span>Test:</span>"
+ ]
+}
