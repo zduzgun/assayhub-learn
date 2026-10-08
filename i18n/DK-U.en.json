@@ -1,7 +1,7 @@
 {
  "module": "DK-U",
  "lang": "en",
- "source_sha256": "32c338e9442e122114bd9f942d71c07c4396c5952e4eaeccc5f837705555a460",
+ "source_sha256": "23f8d84ad77b016ca7ee7909392a665258dfaa50494d5639b4d0c1106f882d62",
  "reviewed": false,
  "translator": "Claude (machine translation, needs human review)",
  "pairs": [
@@ -680,6 +680,22 @@
   [
    "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
    "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "' · skor '",
+   "' · score '"
+  ],
+  [
+   "'evet'",
+   "'yes'"
+  ],
+  [
+   "<br>etkin: ",
+   "<br>actives: "
+  ],
+  [
+   " · tuzak: ",
+   " · decoys: "
   ]
  ],
  "keep": [

@@ -1,5 +1,9 @@
 # Sürüm notları
 
+## 0.31.1 (8 Ekim 2026) · DK-U düzeltmesi: bilgi balonları
+
+- DK-U 0.2.1: saçılım, ROC, histogram ve ridge R2 grafiklerinin bilgi balonu öğesi sayfada yoktu; fare grafiğin üstünde her kıpırdadığında `TypeError` veriyor ve balon hiç görünmüyordu. Dört grafiğe balon öğesi eklendi; iki dilde de hata yok, balonlar açılıyor. İngilizce tabloya balon metinlerinin eksik dört parçası eklendi ("skor", "evet", "etkin", "tuzak"; 173 çift, `reviewed: false`). Veri, hesap ve metin değişmedi.
+
 ## 0.31.0 (7 Ekim 2026) · Yeni modül MD-LIG: ligand parametreleri ve kökeni
 
 - MD-LIG 0.1.0 (orta düzey, kitapta CH09): "Ligandın parametresi bir karardır." Yeni GROMACS koşuları LIGGRID ve ek LIGGRID2 (tripsin-benzamidin, PDB 3PTB; amber99sb-ildn, GAFF2, TIP3P, 0,15 M NaCl, kristal Ca²⁺): altı ligand modeli (L1 AM1-BCC katyon, L2a acpype Gasteiger, L2b RDKit Gasteiger, L3 AM1-BCC nötr, L4 RESP HF/6-31G*, L5 EspalomaCharge), her biri aynı kristal pozdan ikişer 0,5 ns kompleks ve birer 1 ns su koşusu. İki plan da koşulardan önce SHA-256 ile donduruldu. Sapmalar: bulut ortamı bir kez yeniden başladı (iki koşu denetim noktasından sürdürüldü); planlı `gmx lie` denetimi geçmedi (aşağıda).
