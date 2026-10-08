@@ -1016,6 +1016,43 @@
       },
       "path": "md/md-err/",
       "source": "sources/MD-ERR.html"
+    },
+    {
+      "id": "MD-REPRO",
+      "app": "md",
+      "level": "uzman",
+      "title": "Başkası aynı dosyalardan aynı cümleye varabilir mi? Yeniden üretim ve savunulabilir çalışma",
+      "version": "0.1.0",
+      "status": "pilot",
+      "book": "CH24",
+      "goals": [
+        "MIQE köprüsü: kurgu bir qPCR yöntem paragrafında 13 öğenin hangisi var, hangisi yok",
+        "İddiadan ölçüte: sitedeki dört gerçek sonucun taşıyabileceği en güçlü cümle",
+        "Yeniden üretim deneyi: aynı md.tpr ile aynı komut, kesintisiz koşu, iki iş parçacığı ve -reprod; kelebek sahnesi, ilk basamak sayacı, kayan nokta laboratuvarı ve Ramachandran yarışı",
+        "Yeniden üretim dosyası: dondurulmuş 14 dosyanın SHA-256 özeti tarayıcıda yeniden hesaplanır, 256 bitlik özet ızgarası",
+        "Haklar: girdi, lisans ve türetilmiş veriye taşınan koşul; iddia denetleyici ve savunulabilir çalışma defteri"
+      ],
+      "data": [
+        "Yeni koşular (REPROGRID): MD-REP'in W1 ve W2 md.tpr dosyaları değiştirilmeden GROMACS 2023.3 ile yeniden koşuldu (R1 ile R5; -nt 1, kesintisiz, -nt 2, -nt 2 -reprod); koşu ve analiz planı koşulardan önce donduruldu, bağımsız denetim 22/22",
+        "Başlangıç yapısı mdshare ALA2 (CC BY 4.0); qPCR yöntem paragrafı kurgudur (MIQE, Bustin ve ark. 2009); kayan nokta bölümündeki sayılar tarayıcıda tohumlu rastgele üretilir"
+      ],
+      "en": {
+        "title": "Can someone else reach the same sentence from the same files? Reproduction and defensible work",
+        "book": "CH24",
+        "goals": [
+          "MIQE bridge: which of 13 items a fictional qPCR methods paragraph gives and which it misses",
+          "From claim to measure: the strongest sentence that four real results from the site can carry",
+          "Reproduction experiment: the same md.tpr with the same command, an uninterrupted run, two threads and -reprod; butterfly scene, first-digit counter, floating-point lab and Ramachandran race",
+          "The reproduction package: SHA-256 digests of 14 frozen files recomputed in the browser, a 256-bit digest grid",
+          "Rights: input, license and the condition carried into derived data; a claim checker and a defensible-work notebook"
+        ],
+        "data": [
+          "New runs (REPROGRID): the md.tpr files of MD-REP's W1 and W2 were rerun unchanged with GROMACS 2023.3 (R1 to R5; -nt 1, uninterrupted, -nt 2, -nt 2 -reprod); the run and analysis plan was frozen before the runs, independent audit 22/22",
+          "Starting structure mdshare ALA2 (CC BY 4.0); the qPCR methods paragraph is fictional (MIQE, Bustin et al. 2009); the numbers in the floating-point section are generated in the browser from a seeded random generator"
+        ]
+      },
+      "path": "md/md-repro/",
+      "source": "sources/MD-REPRO.html"
     }
   ]
 }

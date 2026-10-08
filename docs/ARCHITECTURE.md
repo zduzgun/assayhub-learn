@@ -57,6 +57,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | MD-SOLV | MD | Orta | CH10 (çözgen ortamı: genion sayımı ve derişim basamakları, hedef ile gerçekleşen derişim, NaCl g(r) ve temas iyon çifti, açısız urea.itp, 8 M ürede peptit çevresi ve konformasyon hükmü) | Yayında (0.1.0, 6 Ekim 2026) |
 | MD-LIG | MD | Orta | CH09 (ligand parametreleri ve kökeni: atom türleri, yük yöntemi, net yük denetimi, parmchk2 ceza puanları, RESP ve EspalomaCharge, altı modelle kompleks MD, LIE ve B-faktörüyle deney karşılaştırması) | Yayında (0.1.0, 7 Ekim 2026) |
 | MD-ERR | MD | Uzman | CH18 (hata çubuğu ve dürüst karşılaştırma: qPCR ΔΔCt köprüsü, koşu içi hata ile tekrarlar arası yayılım, blok gezgini, LIE ΔG belirsizlik bütçesi, aynıyla aynı karşılaştırma ve sözde tekrar, analiz seçeneklerinin spesifikasyon eğrisi) | Yayında (0.1.0, 8 Ekim 2026) |
+| MD-REPRO | MD | Uzman | CH24 (yeniden üretim ve savunulabilir çalışma: MIQE köprüsü, iddiadan ölçüte, aynı md.tpr ile yeniden üretim deneyi, kelebek sahnesi, ilk basamak sayacı, kayan nokta laboratuvarı, Ramachandran yarışı, tarayıcıda SHA-256 ve özet ızgarası, haklar akışı) | Yayında (0.1.0, 8 Ekim 2026) |
 
 Kimlikler değişmez; içerik sürümlenir (DK-T v1, v2 ...). Bir modülün adresi kimliğe bağlıdır, sürüme değil.
 

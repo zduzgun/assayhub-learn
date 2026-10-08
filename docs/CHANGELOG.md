@@ -1,5 +1,12 @@
 # Sürüm notları
 
+## 0.33.0 (8 Ekim 2026) · Yeni modül MD-REPRO: yeniden üretim ve savunulabilir çalışma
+
+- MD-REPRO 0.1.0 (uzman düzey, kitapta CH24): "Başkası aynı dosyalardan aynı cümleye varabilir mi?" Yeni koşular (REPROGRID): MD-REP'in W1 ve W2 md.tpr dosyaları değiştirilmeden GROMACS 2023.3 ile, özgün koşularla aynı bulut makine türünde yeniden koşuldu: R1 (W2, -nt 1), R2 (W1, -nt 1, kesintisiz), R3 (W2, -nt 2), R4 ve R5 (W2, -nt 2 -reprod, 200 ps). Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu (431c4091…, 09:43 UTC).
+- Sonuç: aynı tpr ve aynı komut W2'yi yeniden üretmedi (enerjiler 0 ps'den, koordinatlar 1 ps'den farklı; peptitte 0,5 nm farka 8 ps'de ulaşıldı). Denetim noktasından sürdürülmüş W1 ile kesintisiz R2 bit düzeyinde aynı (xtc ve edr SHA-256 aynı); -reprod ile iki koşu aynı. αR payı W2 %38,8, R1 %51,7 (+12,9 puan), R3 %13,8 (−25,0 puan); W'nin tekrarları arası SD 11,3 puan. GROMACS kılavuzu FFTW'nin zaman ölçümüne dayalı algoritma seçimini neden olarak sayar; neden doğrudan sınanmadı (tek iş parçacıklı -reprod koşusu: hesaplanmadı).
+- Görseller: başlık sahnesi ve kelebek sahnesi (gerçek koordinatlar, iki pano ve üst üste, Cα izi), imleçli ayrışma şeridi, gmx energy basamak sayacı, kayan nokta laboratuvarı (tarayıcıda gerçek tek duyarlık toplamı, 1000 sıra histogramı; sayılar simülasyon verisi değil), Ramachandran yarışı (tarayıcıdaki son αR payı planlı analizle aynı), MIQE paragraf vurgusu ve kapsama halkası, 256 bitlik SHA-256 ızgarası, haklar akışı. Animasyonlar görününce bir kez oynar, durdurulabilir; "hareketi azalt" ayarında kendiliğinden başlamaz.
+- Plandan iki sapma (DEVIATIONS.md): en küçük görüntü farkının eklenmesi (ham fark PBC sarılması yüzünden 4 nm'yi aştı; hükümler ham farka dayanır) ve yalnız görselleştirme için R4 ve R5'in φ/ψ açılarının denetimden sonra hesaplanması. Bağımsız denetim 22/22. Tezgâh: sekiz iddia. Defter: savunulabilir çalışma dosyası. Sekiz soru, yedi keşif kartı. NOTICE: GROMACS 2023.3 (LGPL-2.1) yazılım tablosuna eklendi. `tools/check.mjs` kimlik biçimi beş harfli soneki de kabul ediyor (MD-REPRO). İngilizce tablo 324 çift (`i18n/_work/mdrepro/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-REPRO`, `/en/l/MD-REPRO`.
+
 ## 0.32.0 (8 Ekim 2026) · Yeni modül MD-ERR: hata çubuğu ve dürüst karşılaştırma
 
 - MD-ERR 0.1.0 (uzman düzey, kitapta CH18): "Hata çubuğu neyin belirsizliği?" Yeni koşu yok: MD-REP (16 tekrar), MD-FF (12 koşu) ve MD-LIG (18 koşu) yeniden analiz edildi. Analiz planı hesaplardan önce SHA-256 ile donduruldu; plandan sapma yok.

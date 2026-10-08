@@ -1,0 +1,1336 @@
+{
+ "module": "MD-REPRO",
+ "lang": "en",
+ "source_sha256": "a77672fd66389cd9bea3110826d618988f0353a2b71c4bb09550d94ff3c59451",
+ "reviewed": false,
+ "translator": "Claude (AI), MD-REPRO 0.1.0; insan gözden geçirmesi bekliyor",
+ "pairs": [
+  [
+   "<title>MD: Yeniden üretim ve savunulabilir çalışma</title>",
+   "<title>MD: Reproduction and defensible work</title>"
+  ],
+  [
+   "/* ---- görsel sürüm ---- */",
+   "/* ---- visual version ---- */"
+  ],
+  [
+   "/* sayaç */",
+   "/* counter */"
+  ],
+  [
+   "/* kayan nokta tablosu */",
+   "/* floating-point table */"
+  ],
+  [
+   "/* haklar akışı */",
+   "/* rights flow */"
+  ],
+  [
+   "<div class=\"proto\" id=\"xproto\">Bu modül için REPGRID'in (MD-REP) iki tekrarı aynı girdi dosyasından yeniden koşuldu: aynı komutla, kesintisiz, iki iş parçacığıyla ve -reprod ile (REPROGRID, beş koşu). Koşu ve analiz planı koşulardan önce yazılıp SHA-256 ile donduruldu; sonuçlar gmx check, MDAnalysis ve sha256sum ile bağımsız olarak denetlendi. qPCR bölümündeki yöntem paragrafı kurgudur. Hesaplanmayan her şey \"Bu senaryo hesaplanmadı\" diye işaretlidir.</div>",
+   "<div class=\"proto\" id=\"xproto\">For this module, two replicas of REPGRID (MD-REP) were rerun from the same input file: with the same command, without interruption, with two threads and with -reprod (REPROGRID, five runs). The run and analysis plan was written before the runs and frozen with SHA-256; the results were checked independently with gmx check, MDAnalysis and sha256sum. The methods paragraph in the qPCR section is fictional. Anything not computed is marked \"This scenario was not computed\".</div>"
+  ],
+  [
+   "<span class=\"eyebrow\">MD-REPRO · Yeniden üretim ve savunulabilir çalışma</span>",
+   "<span class=\"eyebrow\">MD-REPRO · Reproduction and defensible work</span>"
+  ],
+  [
+   "<h1>Başkası aynı dosyalardan aynı cümleye varabilir mi?</h1>",
+   "<h1>Can someone else reach the same sentence from the same files?</h1>"
+  ],
+  [
+   "<p class=\"lead\">Bir MD sonucu, başka biri onu aynı dosyalardan yeniden üretip aynı sınırlı cümleye varabildiği ölçüde savunulabilirdir. Bunun için dört şey gerekir: ölçülebilir bir iddia, yeniden koşulabilen bir yöntem, değişmediği kanıtlanabilen dosyalar ve kullanma hakkı. Bu sayfada bu dördü sitedeki gerçek çalışmalarla, bir de yeni bir yeniden üretim deneyiyle sınanır.</p>",
+   "<p class=\"lead\">An MD result is defensible to the extent that someone else can reproduce it from the same files and reach the same bounded sentence. That takes four things: a measurable claim, a method that can be rerun, files that can be shown to be unchanged, and the right to use them. On this page the four are tested with real work from this site and with a new reproduction experiment.</p>"
+  ],
+  [
+   "<div class=\"stagebox hero\"><canvas id=\"xhero\" aria-label=\"W2 ve R1 koşularında alanin dipeptidi, aynı başlangıçtan ilk 80 ps; sürükleyerek döndürün\"></canvas></div>",
+   "<div class=\"stagebox hero\"><canvas id=\"xhero\" aria-label=\"Alanine dipeptide in runs W2 and R1, first 80 ps from the same start; drag to rotate\"></canvas></div>"
+  ],
+  [
+   "<p class=\"hint\">Gerçek koordinatlar: aynı md.tpr dosyası ve aynı komutla iki kez koşulan simülasyonun ilk 80 ps'i, iki koşu üst üste. İnce çizgiler merkez karbonun (Cα) izidir. Sürükleyerek döndürün.</p>",
+   "<p class=\"hint\">Real coordinates: the first 80 ps of a simulation run twice from the same md.tpr file with the same command, the two runs overlaid. Thin lines trace the central carbon (Cα). Drag to rotate.</p>"
+  ],
+  [
+   "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"xprogN\">0 / 7</b></div>",
+   "<div class=\"prog\" aria-live=\"polite\">Discoveries: <b id=\"xprogN\">0 / 7</b></div>"
+  ],
+  [
+   "<span class=\"step\">Deneysel köprü</span>",
+   "<span class=\"step\">Experimental bridge</span>"
+  ],
+  [
+   "<h2 id=\"xh0\">Bir qPCR yöntem paragrafı yeniden kurulabilir mi?</h2>",
+   "<h2 id=\"xh0\">Can a qPCR methods paragraph be rebuilt?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>MIQE yönergesi (Bustin ve ark. 2009) bir qPCR deneyinin değerlendirilebilmesi ve yeniden yapılabilmesi için yayımlanması gereken en az bilgiyi listeler. Aşağıdaki paragraf kurgudur; tipik bir yöntem bölümünü taklit eder. Listeden seçilmiş her öğe için paragrafta var mı, kısmen mi var, yok mu, karar verin.</p></div>",
+   "<div class=\"prose\"><p>The MIQE guidelines (Bustin et al. 2009) list the minimum information a qPCR experiment must publish so it can be evaluated and repeated. The paragraph below is fictional; it imitates a typical methods section. For each item selected from the list, decide whether the paragraph gives it, gives it partly, or does not give it.</p></div>"
+  ],
+  [
+   "<div class=\"mtwo\"><div class=\"mpara\"><p class=\"para\" id=\"xpara\"><span class=\"ktag\">Kurgu örnek</span><span data-m=\"bio\">Fare karaciğer dokusundan</span> RNA ticari bir kitle izole edildi. <span data-m=\"qty rt\">1 µg RNA</span><span data-m=\"rt\"> ile cDNA sentezlendi</span>. <span data-m=\"prim\">Hedef gen</span> ve <span data-m=\"ref\">GAPDH</span> için <span data-m=\"spec\">SYBR Green</span> ile qPCR yapıldı. <span data-m=\"tech\">Her örnek üç kuyuda ölçüldü</span>. Göreli ifade <span data-m=\"eff stat\">2^−ΔΔCt yöntemiyle hesaplandı</span><span data-m=\"stat\"> ve gruplar t testiyle karşılaştırıldı (p &lt; 0,05)</span>.</p>",
+   "<div class=\"mtwo\"><div class=\"mpara\"><p class=\"para\" id=\"xpara\"><span class=\"ktag\">Fictional example</span>RNA was isolated <span data-m=\"bio\">from mouse liver tissue</span> with a commercial kit. cDNA was synthesized <span data-m=\"rt\">from</span> <span data-m=\"qty rt\">1 µg RNA</span>. qPCR was performed with <span data-m=\"spec\">SYBR Green</span> for <span data-m=\"prim\">the target gene</span> and <span data-m=\"ref\">GAPDH</span>. <span data-m=\"tech\">Each sample was measured in three wells</span>. Relative expression <span data-m=\"eff stat\">was calculated with the 2^−ΔΔCt method</span><span data-m=\"stat\"> and groups were compared with a t test (p &lt; 0.05)</span>.</p>"
+  ],
+  [
+   "<div class=\"mring\"><canvas id=\"xmring\" aria-label=\"13 öğenin halkası: dışta paragrafın durumu, içte sizin kararınız\"></canvas><div class=\"legend\"><span><i style=\"background:var(--good)\"></i>var</span><span><i style=\"background:var(--gold)\"></i>kısmen</span><span><i style=\"background:var(--bad)\"></i>yok</span></div><p class=\"hint\">Dış halka: paragraf (denetimden sonra). İç halka: sizin kararınız.</p></div></div>",
+   "<div class=\"mring\"><canvas id=\"xmring\" aria-label=\"Ring of the 13 items: outside, the paragraph's status; inside, your decision\"></canvas><div class=\"legend\"><span><i style=\"background:var(--good)\"></i>given</span><span><i style=\"background:var(--gold)\"></i>partly</span><span><i style=\"background:var(--bad)\"></i>missing</span></div><p class=\"hint\">Outer ring: the paragraph (after checking). Inner ring: your decision.</p></div></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"xmqcheck\">Denetle</button><button type=\"button\" class=\"btn\" id=\"xmqreset\">Temizle</button><span class=\"small\" id=\"xmqsc\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"xmqcheck\">Check</button><button type=\"button\" class=\"btn\" id=\"xmqreset\">Clear</button><span class=\"small\" id=\"xmqsc\"></span></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"xc0\"><span class=\"k\">Açık</span><h3>Okunaklı ama yeniden kurulamaz</h3><p>Her öğeye karar verip denetleyin.</p><div class=\"mine\" id=\"mxc0\"></div></article>",
+   "<article class=\"q\" id=\"xc0\"><span class=\"k\">Open</span><h3>Readable but not rebuildable</h3><p>Decide on every item and check.</p><div class=\"mine\" id=\"mxc0\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">1 · Atölye: iddiadan ölçüte</span>",
+   "<span class=\"step\">1 · Workshop: from claim to measure</span>"
+  ],
+  [
+   "<h2 id=\"xh1\">Bu sonuç hangi cümleyi taşır?</h2>",
+   "<h2 id=\"xh1\">Which sentence does this result carry?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Aşağıdaki dört vaka bu sitedeki gerçek çalışmalardan. Her birinde biyolojik soru, ölçülebilir nicelik, kontrol, tasarım, önceden yazılanlar ve sonuç yan yana. Sonucun taşıyabileceği en güçlü cümleyi seçin.</p></div>",
+   "<div class=\"prose\"><p>The four cases below come from real work on this site. Each shows the biological question, the measurable quantity, the control, the design, what was written in advance and the result side by side. Choose the strongest sentence the result can carry.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Vaka:</span><div class=\"seg\" role=\"group\" aria-label=\"Vaka\" id=\"xclc\"></div></div>",
+   "<div class=\"selrow\"><span>Case:</span><div class=\"seg\" role=\"group\" aria-label=\"Case\" id=\"xclc\"></div></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"xc1\"><span class=\"k\">Açık</span><h3>En güçlü kurulabilir cümle</h3><p>En az üç vakada karar verin.</p><div class=\"mine\" id=\"mxc1\"></div></article>",
+   "<article class=\"q\" id=\"xc1\"><span class=\"k\">Open</span><h3>The strongest defensible sentence</h3><p>Decide in at least three cases.</p><div class=\"mine\" id=\"mxc1\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">2 · Atölye: yeniden üretim deneyi</span>",
+   "<span class=\"step\">2 · Workshop: reproduction experiment</span>"
+  ],
+  [
+   "<h2 id=\"xh2\">Aynı girdi dosyası, aynı trajektori mi?</h2>",
+   "<h2 id=\"xh2\">Same input file, same trajectory?</h2>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Karşılaştırma:</span><div class=\"seg\" role=\"group\" aria-label=\"Karşılaştırma\" id=\"xrp\"></div></div>",
+   "<div class=\"selrow\"><span>Comparison:</span><div class=\"seg\" role=\"group\" aria-label=\"Comparison\" id=\"xrp\"></div></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Kelebek sahnesi: iki koşu aynı anda</h3>",
+   "<h3 class=\"sub\">Butterfly scene: two runs at the same moment</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Soldaki iki pano iki koşunun aynı andaki peptidi, sağdaki pano ikisi üst üste. Üç pano aynı koordinat çerçevesindedir, hizalama yapılmaz; ince çizgiler Cα atomunun son 40 ps'lik izidir. Sahne görününce bir kez oynar; durdurup zamanı kaydırabilir, sürükleyerek döndürebilirsiniz.</p></div>",
+   "<div class=\"prose\"><p>The two left panels show each run's peptide at the same moment; the right panel overlays them. All three panels share one coordinate frame and no alignment is done; thin lines trace the Cα atom over the last 40 ps. The scene plays once when it comes into view; you can stop it, scrub the time and drag to rotate.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"xsc\" class=\"scene\" aria-label=\"İki koşunun peptidi yan yana ve üst üste, seçilen zamanda\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"xsc\" class=\"scene\" aria-label=\"The two runs' peptide side by side and overlaid, at the selected time\"></canvas></div>"
+  ],
+  [
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"xscplay\" aria-pressed=\"false\">Oynat</button><label for=\"xpsl\">Zaman</label><input type=\"range\" id=\"xpsl\" min=\"0\" max=\"200\" step=\"1\" value=\"0\"><output id=\"xpsv\"></output></div>",
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"xscplay\" aria-pressed=\"false\">Play</button><label for=\"xpsl\">Time</label><input type=\"range\" id=\"xpsl\" min=\"0\" max=\"200\" step=\"1\" value=\"0\"><output id=\"xpsv\"></output></div>"
+  ],
+  [
+   "<div class=\"slrow\"><span class=\"seg\" role=\"group\" aria-label=\"Hız\" id=\"xscs\"><button type=\"button\" data-v=\"5\" aria-pressed=\"false\">yavaş</button><button type=\"button\" data-v=\"15\" aria-pressed=\"true\">normal</button><button type=\"button\" data-v=\"40\" aria-pressed=\"false\">hızlı</button></span><span class=\"seg\" role=\"group\" aria-label=\"Çerçeve\" id=\"xscm\"><button type=\"button\" data-v=\"lab\" aria-pressed=\"true\">Ortak çerçeve</button><button type=\"button\" data-v=\"fit\" aria-pressed=\"false\">Merkezleri çakıştır</button></span></div>",
+   "<div class=\"slrow\"><span class=\"seg\" role=\"group\" aria-label=\"Speed\" id=\"xscs\"><button type=\"button\" data-v=\"5\" aria-pressed=\"false\">slow</button><button type=\"button\" data-v=\"15\" aria-pressed=\"true\">normal</button><button type=\"button\" data-v=\"40\" aria-pressed=\"false\">fast</button></span><span class=\"seg\" role=\"group\" aria-label=\"Frame\" id=\"xscm\"><button type=\"button\" data-v=\"lab\" aria-pressed=\"true\">Shared frame</button><button type=\"button\" data-v=\"fit\" aria-pressed=\"false\">Superpose centers</button></span></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"xdiv\" class=\"plot click\" aria-label=\"İki koşunun aynı zamandaki kareleri arasındaki en büyük konum farkı; tıklayınca sahne o ana gider\"></canvas><div class=\"tip\"></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"xdiv\" class=\"plot click\" aria-label=\"Largest position difference between the two runs' frames at the same time; click to send the scene to that moment\"></canvas><div class=\"tip\"></div></div>"
+  ],
+  [
+   "<p class=\"hint\">Şerit, iki koşunun aynı zamandaki kareleri arasındaki en büyük konum farkıdır (periyodik kutunun en küçük görüntüsüyle); fark sıfırsa kareler bit düzeyinde aynıdır ve alttaki banda düşer. Aynı / farklı hükmü ham koordinatlardan verilir. Sahnedeki konumlar her koşunun kesintisiz izidir; kutunun yarısını aşan ayrılmalarda şeritteki en küçük görüntü farkından biraz büyük görünebilir.</p>",
+   "<p class=\"hint\">The strip is the largest position difference between the two runs' frames at the same time (minimum image of the periodic box); if the difference is zero the frames are bit-identical and fall into the band at the bottom. The same / different verdict comes from the raw coordinates. Positions in the scene are each run's continuous path; for separations beyond half the box they can look somewhat larger than the minimum-image difference in the strip.</p>"
+  ],
+  [
+   "<h3 class=\"sub\">İlk basamak: fark nerede başlar?</h3>",
+   "<h3 class=\"sub\">First digit: where does the difference start?</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Enerji dosyası koordinatlardan daha sık, 0,2 ps'de bir yazılır. Aşağıda iki koşunun potansiyel enerjisi ve basıncı, gmx energy çıktısındaki basamaklarıyla. Farklı basamaklar kırmızıdır; sayaç ilk 10 ps'i adım adım oynatır.</p></div>",
+   "<div class=\"prose\"><p>The energy file is written more often than the coordinates, once every 0.2 ps. Below are the two runs' potential energy and pressure, digit by digit as gmx energy prints them. Digits that differ are red; the counter steps through the first 10 ps.</p></div>"
+  ],
+  [
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"xodplay\" aria-pressed=\"false\">Oynat</button><label for=\"xodsl\">Kayıt</label><input type=\"range\" id=\"xodsl\" min=\"0\" max=\"50\" step=\"1\" value=\"0\"><output id=\"xodt\"></output></div>",
+   "<div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"xodplay\" aria-pressed=\"false\">Play</button><label for=\"xodsl\">Record</label><input type=\"range\" id=\"xodsl\" min=\"0\" max=\"50\" step=\"1\" value=\"0\"><output id=\"xodt\"></output></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"xen\" class=\"plot\" aria-label=\"İki koşunun potansiyel enerji farkı, ilk 10 ps\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"xen\" class=\"plot\" aria-label=\"Potential energy difference between the two runs, first 10 ps\"></canvas></div>"
+  ],
+  [
+   "<p class=\"hint\">Grafik aynı karşılaştırmada |ΔE<sub>pot</sub>| değeridir (logaritmik eksen, ilk 10 ps); dikey çizgi sayacın gösterdiği kayıttır.</p>",
+   "<p class=\"hint\">The chart shows |ΔE<sub>pot</sub>| for the same comparison (log axis, first 10 ps); the vertical line is the record the counter shows.</p>"
+  ],
+  [
+   "<h3 class=\"sub\">Neden? Toplama sırası son basamağı değiştirir</h3>",
+   "<h3 class=\"sub\">Why? The order of addition changes the last digit</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kayan noktalı toplamada (a + b) + c ile a + (b + c) son basamakta farklı olabilir. Paralel bir program sayıları iş parçacıkları arasında böler; parçalar ayrı toplanıp sonra birleştirilir, yani toplama sırası değişir. Aşağıdaki 16 sayı simülasyon verisi değildir, tarayıcıda tohumlu rastgele üretilir; hesap ise gerçektir: her toplama tek duyarlığa (32 bit) yuvarlanır. GROMACS'ın karma duyarlık derlemesi de hesabın çoğunu tek duyarlıkla yapar.</p></div>",
+   "<div class=\"prose\"><p>In floating-point addition, (a + b) + c and a + (b + c) can differ in the last digit. A parallel program splits the numbers between threads; the parts are summed separately and then combined, so the order of addition changes. The 16 numbers below are not simulation data; they are generated in the browser from a seeded random generator. The arithmetic is real: every addition is rounded to single precision (32 bits). GROMACS's mixed-precision build also does most of its arithmetic in single precision.</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>İş parçacığı:</span><div class=\"seg\" role=\"group\" aria-label=\"İş parçacığı sayısı\" id=\"xflm\"><button type=\"button\" data-v=\"1\">1</button><button type=\"button\" data-v=\"2\">2</button><button type=\"button\" data-v=\"4\">4</button></div><button type=\"button\" class=\"btn\" id=\"xflsh\">Sırayı karıştır</button><button type=\"button\" class=\"btn\" id=\"xflnew\">Yeni sayılar</button></div>",
+   "<div class=\"selrow\"><span>Threads:</span><div class=\"seg\" role=\"group\" aria-label=\"Number of threads\" id=\"xflm\"><button type=\"button\" data-v=\"1\">1</button><button type=\"button\" data-v=\"2\">2</button><button type=\"button\" data-v=\"4\">4</button></div><button type=\"button\" class=\"btn\" id=\"xflsh\">Shuffle the order</button><button type=\"button\" class=\"btn\" id=\"xflnew\">New numbers</button></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"xflc\" class=\"plot flc\" aria-label=\"16 sayının iş parçacıklarına bölünerek toplanması\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"xflc\" class=\"plot flc\" aria-label=\"Summing 16 numbers split across threads\"></canvas></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"xflmany\">1000 farklı sırayla yeniden topla</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"xflmany\">Sum again in 1000 different orders</button></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"xflh\" class=\"plot\" aria-label=\"1000 farklı toplama sırasının verdiği farklı sonuçlar ve kaç sıranın her birini verdiği\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"xflh\" class=\"plot\" aria-label=\"The distinct results from 1000 different summation orders and how many orders gave each\"></canvas></div>"
+  ],
+  [
+   "<p class=\"hint\">Bu, atölyedeki deneyin doğrudan bir sınaması değildir; yalnız mekanizmayı gösterir. Deneyde R1 ile W2 arasında ilk adımda yalnız virial ve basıncın son basamakları farklıydı (yukarıdaki sayaç, adım 0).</p>",
+   "<p class=\"hint\">This is not a direct test of the workshop's experiment; it only shows the mechanism. In the experiment, R1 and W2 differed at the first step only in the last digits of the virial and pressure (counter above, step 0).</p>"
+  ],
+  [
+   "<h3 class=\"sub\">Ayrışan koşunun istatistiği</h3>",
+   "<h3 class=\"sub\">Statistics of a diverged run</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Ayrışan bir yeniden koşu, aynı başlangıçtan başlasa da birkaç pikosaniye sonra kendi yoluna gider. Peki αR payı ne kadar değişir? Ramachandran haritasında iki koşunun φ/ψ açıları kare kare birikir (dolu nokta ilk koşu, halka ikinci); sağdaki grafik 200 ps'den başlayan ölçüt penceresinde αR payının nasıl oturduğunu gösterir. Sarı bant W'nin sekiz tekrarı arasındaki yayılımdır (ortalama ± 1,96 SD, MD-ERR).</p></div>",
+   "<div class=\"prose\"><p>A diverged rerun starts from the same point but goes its own way after a few picoseconds. How much does the αR fraction change? On the Ramachandran map the two runs' φ/ψ angles accumulate frame by frame (filled dot for the first run, ring for the second); the chart on the right shows how the αR fraction settles in the measurement window that starts at 200 ps. The yellow band is the spread among W's eight replicas (mean ± 1.96 SD, MD-ERR).</p></div>"
+  ],
+  [
+   "<div class=\"selrow\"><span>Koşular:</span><div class=\"seg\" role=\"group\" aria-label=\"Ramachandran koşuları\" id=\"xramp\"></div></div>",
+   "<div class=\"selrow\"><span>Runs:</span><div class=\"seg\" role=\"group\" aria-label=\"Ramachandran runs\" id=\"xramp\"></div></div>"
+  ],
+  [
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"xram\" class=\"plot sq\" aria-label=\"İki koşunun φ/ψ açıları, Ramachandran haritası\"></canvas></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"xram\" class=\"plot sq\" aria-label=\"The two runs' φ/ψ angles, Ramachandran map\"></canvas></div>"
+  ],
+  [
+   "<div class=\"ctl\"><div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"xramplay\" aria-pressed=\"false\">Oynat</button><label for=\"xramsl\">Kare</label><input type=\"range\" id=\"xramsl\" min=\"0\" max=\"2000\" step=\"1\" value=\"0\"><output id=\"xramv\"></output></div><div class=\"stats two\" id=\"xramst\"></div><div class=\"stagebox\"><canvas id=\"xramc\" class=\"plot\" aria-label=\"Ölçüt penceresinde biriken αR payı\"></canvas></div></div></div>",
+   "<div class=\"ctl\"><div class=\"slrow\"><button type=\"button\" class=\"btn play\" id=\"xramplay\" aria-pressed=\"false\">Play</button><label for=\"xramsl\">Frame</label><input type=\"range\" id=\"xramsl\" min=\"0\" max=\"2000\" step=\"1\" value=\"0\"><output id=\"xramv\"></output></div><div class=\"stats two\" id=\"xramst\"></div><div class=\"stagebox\"><canvas id=\"xramc\" class=\"plot\" aria-label=\"αR fraction accumulating in the measurement window\"></canvas></div></div></div>"
+  ],
+  [
+   "<h3 class=\"sub\">Beş koşunun αR payı</h3>",
+   "<h3 class=\"sub\">αR fraction of five runs</h3>"
+  ],
+  [
+   "<div class=\"prose\"><p>Özgün koşular ve yeniden koşular, 200 ile 2000 ps; çubuklar ±1,96 × blok SE.</p></div>",
+   "<div class=\"prose\"><p>Original runs and reruns, 200 to 2000 ps; bars are ±1.96 × block SE.</p></div>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"xpa\" class=\"plot\" aria-label=\"Özgün koşular ve yeniden koşuların αR payı\"></canvas></div>",
+   "<div class=\"stagebox\"><canvas id=\"xpa\" class=\"plot\" aria-label=\"αR fraction of the original runs and the reruns\"></canvas></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"xc2\"><span class=\"k\">Açık</span><h3>Aynı komut, aynı sonuç mu?</h3><p>En az dört karşılaştırmaya bakın.</p><div class=\"mine\" id=\"mxc2\"></div></article>",
+   "<article class=\"q\" id=\"xc2\"><span class=\"k\">Open</span><h3>Same command, same result?</h3><p>Look at at least four comparisons.</p><div class=\"mine\" id=\"mxc2\"></div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"xc3\"><span class=\"k\">Açık</span><h3>Ayrışma bir tekrar mıdır?</h3><p>Ayrışan bir karşılaştırmada sahneyi oynatın ya da zamanı kaydırın.</p><div class=\"mine\" id=\"mxc3\"></div></article>",
+   "<article class=\"q\" id=\"xc3\"><span class=\"k\">Open</span><h3>Is divergence a replica?</h3><p>In a diverged comparison, play the scene or scrub the time.</p><div class=\"mine\" id=\"mxc3\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">3 · Atölye: yeniden üretim dosyası</span>",
+   "<span class=\"step\">3 · Workshop: the reproduction package</span>"
+  ],
+  [
+   "<h2 id=\"xh3\">Dosyalar değişmedi mi? SHA-256 ile denetleyin</h2>",
+   "<h2 id=\"xh3\">Are the files unchanged? Check with SHA-256</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>REPGRID'in (MD-REP) protokolü koşulardan önce donduruldu ve 14 dosyanın SHA-256 özeti yazıldı. Aşağıda bu dosyaların gerçek içerikleri var; özetler tarayıcınızda yeniden hesaplanır. Bir dosya seçin, \"Hepsini doğrula\"ya basın, sonra bir metin dosyasında tek bir karakter değiştirip özete bakın. Büyük ikili koşu dosyalarının yalnız kayıtlı özetleri gösterilir.</p></div>",
+   "<div class=\"prose\"><p>The REPGRID (MD-REP) protocol was frozen before the runs and the SHA-256 digests of 14 files were written down. The real contents of those files are below; the digests are recomputed in your browser. Pick a file, press \"Verify all\", then change a single character in a text file and look at the digest. For the large binary run files only the recorded digests are shown.</p></div>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"xfall\">Hepsini doğrula</button><button type=\"button\" class=\"btn\" id=\"xfone\">Tek karakter değiştir</button><button type=\"button\" class=\"btn\" id=\"xfreset\">Bu dosyayı geri al</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"xfall\">Verify all</button><button type=\"button\" class=\"btn\" id=\"xfone\">Change one character</button><button type=\"button\" class=\"btn\" id=\"xfreset\">Revert this file</button></div>"
+  ],
+  [
+   "<div class=\"ftwo\"><div id=\"xftree\"></div><div class=\"fright\"><textarea class=\"fview\" id=\"xfta\" spellcheck=\"false\" aria-label=\"Seçili dosyanın içeriği\"></textarea>",
+   "<div class=\"ftwo\"><div id=\"xftree\"></div><div class=\"fright\"><textarea class=\"fview\" id=\"xfta\" spellcheck=\"false\" aria-label=\"Contents of the selected file\"></textarea>"
+  ],
+  [
+   "<div class=\"stagebox\"><canvas id=\"xbits\" aria-label=\"Seçili dosyanın SHA-256 özetinin 256 biti; kayıtlı özetten farklı bitler kırmızı\"></canvas></div><p class=\"small\" id=\"xbitsr\" aria-live=\"polite\"></p><dl class=\"read w\" id=\"xfread\"></dl></div></div>",
+   "<div class=\"stagebox\"><canvas id=\"xbits\" aria-label=\"The 256 bits of the selected file's SHA-256 digest; bits that differ from the recorded digest are red\"></canvas></div><p class=\"small\" id=\"xbitsr\" aria-live=\"polite\"></p><dl class=\"read w\" id=\"xfread\"></dl></div></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"xc4\"><span class=\"k\">Açık</span><h3>Özet neyi kanıtlar?</h3><p>Hepsini doğrulayın ve bir dosyada bir karakter değiştirin.</p><div class=\"mine\" id=\"mxc4\"></div></article>",
+   "<article class=\"q\" id=\"xc4\"><span class=\"k\">Open</span><h3>What does a digest prove?</h3><p>Verify all and change one character in a file.</p><div class=\"mine\" id=\"mxc4\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">4 · Atölye: haklar</span>",
+   "<span class=\"step\">4 · Workshop: rights</span>"
+  ],
+  [
+   "<h2 id=\"xh4\">Bu girdileri kullanma ve paylaşma hakkı</h2>",
+   "<h2 id=\"xh4\">The right to use and share these inputs</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Bu sitedeki çalışmalar dışarıdan gelen veri ve yazılımlarla kurulur; her birinin lisansı türetilmiş veriye koşul taşıyabilir. Bir satır seçin: girdi, lisansı ve türetilmiş veriye taşıdığı koşul. Veri lisansları sitenin NOTICE dosyasından (25 Eylül 2026'da birincil kaynaklardan doğrulandı), GROMACS lisansı Ubuntu paketinin telif dosyasından; bu bölüm hukuki danışmanlık değildir.</p></div>",
+   "<div class=\"prose\"><p>The work on this site is built from outside data and software; each license can attach conditions to derived data. Pick a row: the input, its license and the condition it carries into derived data. Data licenses are from the site's NOTICE file (verified against primary sources on 25 September 2026), the GROMACS license from the Ubuntu package's copyright file; this section is not legal advice.</p></div>"
+  ],
+  [
+   "<div class=\"flow\" id=\"xflow\" role=\"group\" aria-label=\"Girdi, lisans ve türetilmiş veriye taşınan koşul\"></div>",
+   "<div class=\"flow\" id=\"xflow\" role=\"group\" aria-label=\"Input, license and the condition carried into derived data\"></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"xc5\"><span class=\"k\">Açık</span><h3>Koşul türetilmiş veriye taşınır</h3><p>En az dört girdiye bakın.</p><div class=\"mine\" id=\"mxc5\"></div></article>",
+   "<article class=\"q\" id=\"xc5\"><span class=\"k\">Open</span><h3>Conditions carry into derived data</h3><p>Look at at least four inputs.</p><div class=\"mine\" id=\"mxc5\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">5 · Tezgâh: iddia denetleyici</span>",
+   "<span class=\"step\">5 · Bench: claim checker</span>"
+  ],
+  [
+   "<h2 id=\"xh5\">Sekiz cümle: bu veri bunları taşır mı?</h2>",
+   "<h2 id=\"xh5\">Eight sentences: does this data carry them?</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>",
+   "<div class=\"prose\"><p>Decide for each sentence: defensible with the data on this page, needs more evidence, or not defensible with this data. The reasoning appears after you choose.</p></div>"
+  ],
+  [
+   "<article class=\"q\" id=\"xc6\"><span class=\"k\">Açık</span><h3>Savunulabilir olan cümledir</h3><p>En az dört cümleye karar verin.</p><div class=\"mine\" id=\"mxc6\"></div></article>",
+   "<article class=\"q\" id=\"xc6\"><span class=\"k\">Open</span><h3>What is defensible is the sentence</h3><p>Decide on at least four sentences.</p><div class=\"mine\" id=\"mxc6\"></div></article>"
+  ],
+  [
+   "<span class=\"step\">6 · Defter: savunulabilir çalışma dosyası</span>",
+   "<span class=\"step\">6 · Notebook: the defensible-work file</span>"
+  ],
+  [
+   "<h2 id=\"xh6\">Bir çalışmayı başkasına teslim etmeden önce yazılan sekiz satır</h2>",
+   "<h2 id=\"xh6\">Eight lines to write before handing work to someone else</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Kendi çalışmanız için doldurun; örnekler bu sayfadandır. Eksik satırlar altta not üretir. Metin yalnız tarayıcınızda üretilir, hiçbir yere gönderilmez.</p></div>",
+   "<div class=\"prose\"><p>Fill this in for your own work; the examples are from this page. Missing lines produce notes below. The text is generated only in your browser and is not sent anywhere.</p></div>"
+  ],
+  [
+   "<label>İddia cümlesi ve sınırı<textarea id=\"xoC\" rows=\"2\">Örnek: bu tasarımla (8 tekrara karşı 8, 2 ns) tuzun αR payına etkisi gösterilemedi; %95 aralık yaklaşık ±11 puan.</textarea></label>",
+   "<label>Claim sentence and its limits<textarea id=\"xoC\" rows=\"2\">Example: with this design (8 vs 8 replicas, 2 ns) no effect of salt on the αR fraction could be shown; 95% interval about ±11 points.</textarea></label>"
+  ],
+  [
+   "<label>Ölçülebilir nicelik ve tanımı<textarea id=\"xoQ\" rows=\"2\">Örnek: αR payı; αR: φ &lt; 0 ve −120 ≤ ψ &lt; 50; pencere 200 ile 2000 ps.</textarea></label>",
+   "<label>Measurable quantity and its definition<textarea id=\"xoQ\" rows=\"2\">Example: αR fraction; αR: φ &lt; 0 and −120 ≤ ψ &lt; 50; window 200 to 2000 ps.</textarea></label>"
+  ],
+  [
+   "<label>Kontrol, karşılaştırma ve önceden yazılanlar<textarea id=\"xoK\" rows=\"2\">Örnek: saf su başvurusu, aynı protokol; birincil ölçüt, ±5 puan eşiği ve hüküm etiketleri koşulardan önce plana yazıldı (SHA-256).</textarea></label>",
+   "<label>Control, comparison and what was written in advance<textarea id=\"xoK\" rows=\"2\">Example: pure water reference, same protocol; the primary measure, ±5 point threshold and verdict labels were written into the plan before the runs (SHA-256).</textarea></label>"
+  ],
+  [
+   "<label>Girdi dosyaları ve özetleri<textarea id=\"xoF\" rows=\"2\">Örnek: PROTOCOL.sha256'da 14 dosya; MANIFEST.sha256'da 636 koşu dosyası.</textarea></label>",
+   "<label>Input files and their digests<textarea id=\"xoF\" rows=\"2\">Example: 14 files in PROTOCOL.sha256; 636 run files in MANIFEST.sha256.</textarea></label>"
+  ],
+  [
+   "<label>Program, sürüm ve çevre<textarea id=\"xoE\" rows=\"2\">Örnek: GROMACS 2023.3 (Ubuntu paketi, karma duyarlık, SSE4.1), tek iş parçacığı (-nt 1); işlemci ve md.log kaydı.</textarea></label>",
+   "<label>Program, version and environment<textarea id=\"xoE\" rows=\"2\">Example: GROMACS 2023.3 (Ubuntu package, mixed precision, SSE4.1), one thread (-nt 1); processor and md.log record.</textarea></label>"
+  ],
+  [
+   "<label>Yeniden üretim talimatı<textarea id=\"xoR\" rows=\"2\">Örnek: run_grid.sh tek komutla bütün koşuları üretir; tohumlar betikte yazılı; analiz betikleri ve beklenen çıktıların özetleri ekte.</textarea></label>",
+   "<label>Reproduction instructions<textarea id=\"xoR\" rows=\"2\">Example: run_grid.sh produces all runs with one command; seeds written in the script; analysis scripts and digests of expected outputs attached.</textarea></label>"
+  ],
+  [
+   "<label>Sapmalar<textarea id=\"xoD\" rows=\"2\">Örnek: W1 ve S1 bulut yeniden başlaması nedeniyle denetim noktasından sürdürüldü (DEVIATIONS.md).</textarea></label>",
+   "<label>Deviations<textarea id=\"xoD\" rows=\"2\">Example: W1 and S1 were continued from a checkpoint after a cloud restart (DEVIATIONS.md).</textarea></label>"
+  ],
+  [
+   "<label>Haklar ve lisanslar<textarea id=\"xoL\" rows=\"2\">Örnek: başlangıç yapısı mdshare ALA2 (CC BY 4.0, atıf); kendi koşu dosyalarının lisansı ayrıca seçilecek.</textarea></label>",
+   "<label>Rights and licenses<textarea id=\"xoL\" rows=\"2\">Example: starting structure mdshare ALA2 (CC BY 4.0, attribution); a license for our own run files is still to be chosen.</textarea></label>"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"xocopy\">Metni kopyala</button><span class=\"small\" id=\"xomsg\"></span></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"xocopy\">Copy text</button><span class=\"small\" id=\"xomsg\"></span></div>"
+  ],
+  [
+   "<span class=\"step\">7 · Sınav</span>",
+   "<span class=\"step\">7 · Quiz</span>"
+  ],
+  [
+   "<h2 id=\"xh7\">Sekiz soru</h2>",
+   "<h2 id=\"xh7\">Eight questions</h2>"
+  ],
+  [
+   "<span class=\"step\">Kaynaklar ve sınırlar</span>",
+   "<span class=\"step\">Sources and limits</span>"
+  ],
+  [
+   "/* ===== ev yardımcıları (DK-T/DK-O/DK-U ile aynı) ===== */",
+   "/* ===== page helpers (same as DK-T/DK-O/DK-U) ===== */"
+  ],
+  [
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
+   "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
+  ],
+  [
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('xprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }",
+   "function card(id,done,html){ var q=$(id); if(!q) return; if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('xprogN').textContent=Object.keys(FOUND).length+' / '+NCARD; }"
+  ],
+  [
+   "/* sayıya Türkçe iyelik ve bulunma eki: 554 → 554'ünde, 6 → 6'sında */",
+   "/* number before a phrase: English needs no case suffix */"
+  ],
+  [
+   "function nLoc(n){ n=Math.round(n); var w; if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin';",
+   "function nLoc(n){ return String(Math.round(n)); }"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], end=/[aeıioöuü]$/.test(w), V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv], back=/[aıou]/.test(lv);",
+   "/* (the Turkish page adds a case suffix here) */"
+  ],
+  [
+   "return String(n)+'\\''+(end?'s':'')+V+(back?'nda':'nde'); }",
+   "/* end of nLoc */"
+  ],
+  [
+   "/* biçimlenmiş sayıya Türkçe 3. tekil iyelik eki: %49,2 → %49,2'si, 3.605 → 3.605'i */",
+   "/* formatted number: English needs no possessive suffix */"
+  ],
+  [
+   "function nPoss(s){ var t=String(s).replace(/[%\\s]/g,''), p=t.split(','), w;",
+   "function nPoss(s){ return s; }"
+  ],
+  [
+   "if(p.length>1){ w=['sıfır','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][+p[1].slice(-1)]; }",
+   "/* (the Turkish page picks the spoken last digit here) */"
+  ],
+  [
+   "else { var n=+p[0].replace(/\\./g,''); if(n===0) w='sıfır'; else if(n%10) w=['','bir','iki','üç','dört','beş','altı','yedi','sekiz','dokuz'][n%10]; else if(n%100) w=['','on','yirmi','otuz','kırk','elli','altmış','yetmiş','seksen','doksan'][(n%100)/10]; else if(n%1000) w='yüz'; else w='bin'; }",
+   "/* (and for whole numbers here) */"
+  ],
+  [
+   "var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];",
+   "/* (vowel harmony) */"
+  ],
+  [
+   "return s+'\\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }",
+   "/* end of nPoss */"
+  ],
+  [
+   "function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }",
+   "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
+  ],
+  [
+   "/* ===== ortak animasyon altyapısı ===== */",
+   "/* ===== shared animation infrastructure ===== */"
+  ],
+  [
+   "/* ===== ortak yardımcılar ===== */",
+   "/* ===== shared helpers ===== */"
+  ],
+  [
+   "/* ===== MD-REPRO ortak yardımcılar ===== */",
+   "/* ===== MD-REPRO shared helpers ===== */"
+  ],
+  [
+   "/* tohumlu rastgele sayı ve normal dağılım */",
+   "/* seeded random numbers and the normal distribution */"
+  ],
+  [
+   "/* Student t: düzenlenmiş eksik beta ile dağılım fonksiyonu, ikiye bölme ile ters */",
+   "/* Student t: distribution function via the regularized incomplete beta, inverse by bisection */"
+  ],
+  [
+   "function pfmt(p){ if(p==null) return 'test yok'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'·10<sup>'+(e<0?'−':'')+Math.abs(e)+'</sup>'; } return fx(p,p<0.01?4:3); }",
+   "function pfmt(p){ if(p==null) return 'no test'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'·10<sup>'+(e<0?'−':'')+Math.abs(e)+'</sup>'; } return fx(p,p<0.01?4:3); }"
+  ],
+  [
+   "function pfmtT(p){ if(p==null) return 'test yok'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'e'+(e<0?'−':'')+Math.abs(e); } return fx(p,p<0.01?4:3); }",
+   "function pfmtT(p){ if(p==null) return 'no test'; if(p<1e-4){ var e=Math.floor(Math.log10(p)), m=p/Math.pow(10,e); return fx(m,1)+'e'+(e<0?'−':'')+Math.abs(e); } return fx(p,p<0.01?4:3); }"
+  ],
+  [
+   "/* bit paketli dizi: kare başına 0/1 */",
+   "/* bit-packed array: 0/1 per frame */"
+  ],
+  [
+   "/* oynat/duraklat: adım fonksiyonu false dönerse durur */",
+   "/* play/pause: stops when the step function returns false */"
+  ],
+  [
+   "function set(on){ P.on=on; P.last=null; P.t=0; b.textContent=on?'Duraklat':'Oynat'; b.setAttribute('aria-pressed',String(on)); if(on) requestAnimationFrame(loop); if(onToggle) onToggle(on); }",
+   "function set(on){ P.on=on; P.last=null; P.t=0; b.textContent=on?'Pause':'Play'; b.setAttribute('aria-pressed',String(on)); if(on) requestAnimationFrame(loop); if(onToggle) onToggle(on); }"
+  ],
+  [
+   "/* kısa geçiş animasyonu: 0'dan 1'e */",
+   "/* short transition animation: 0 to 1 */"
+  ],
+  [
+   "/* SHA-256 (FIPS 180-4), bayt dizisi → onaltılık metin; tarayıcıda dosya özeti için */",
+   "/* SHA-256 (FIPS 180-4), byte array → hex text; for file digests in the browser */"
+  ],
+  [
+   "/* ===== deneysel köprü: qPCR raporlaması ve MIQE (kurgu yöntem paragrafı) ===== */",
+   "/* ===== experimental bridge: qPCR reporting and MIQE (fictional methods paragraph) ===== */"
+  ],
+  [
+   "/* durum: 2 var, 1 kısmen, 0 yok (kurgu paragrafa göre) */",
+   "/* status: 2 given, 1 partly, 0 missing (according to the fictional paragraph) */"
+  ],
+  [
+   "['bio','Biyolojik örnek sayısı (grup başına kaç hayvan)',0,'Paragraf yalnız \"her örnek üç kuyuda\" diyor; grup başına kaç fare olduğu yazılmamış. Bağımsız birim belirsiz kalınca n de belirsizdir.','MD: bağımsız koşu sayısı ve tohumlar (MD-REP).'],",
+   "['bio','Number of biological samples (animals per group)',0,'The paragraph only says \"each sample in three wells\"; how many mice per group is not written. When the independent unit is unclear, n is unclear too.','MD: number of independent runs and seeds (MD-REP).'],"
+  ],
+  [
+   "['tech','Teknik tekrar sayısı',2,'\"Her örnek üç kuyuda ölçüldü\" yazıyor.','MD: aynı koşunun kareleri; n değildir (MD-ERR).'],",
+   "['tech','Number of technical replicates',2,'It says \"each sample was measured in three wells\".','MD: frames of the same run; they are not n (MD-ERR).'],"
+  ],
+  [
+   "['qty','RNA miktarı ve saflığı nasıl ölçüldü',0,'\"1 µg RNA\" deniyor ama miktarın ve saflığın nasıl ölçüldüğü yok.','MD: başlangıç yapısının kaynağı ve denetimi (MD-PDB).'],",
+   "['qty','How RNA quantity and purity were measured',0,'It says \"1 µg RNA\" but not how quantity and purity were measured.','MD: source and checking of the starting structure (MD-PDB).'],"
+  ],
+  [
+   "['rin','RNA bütünlüğü',0,'Bütünlük ölçüsü (örneğin elektroforez ya da bütünlük puanı) yok.','MD: yapı dosyasındaki eksik atomlar ve kalıntılar (MD-PDB).'],",
+   "['rin','RNA integrity',0,'No integrity measure (for example electrophoresis or an integrity score).','MD: missing atoms and residues in the structure file (MD-PDB).'],"
+  ],
+  [
+   "['dna','Genomik DNA giderimi ve RT\\'siz kontrol',0,'DNaz işlemi ve ters transkriptazsız kontrol yazılmamış.','MD: boş ve eksi kontroller (MD-CON).'],",
+   "['dna','Genomic DNA removal and no-RT control',0,'DNase treatment and a no-reverse-transcriptase control are not written.','MD: null and negative controls (MD-CON).'],"
+  ],
+  [
+   "['rt','Ters transkripsiyon ayrıntıları (enzim, primer türü, RNA miktarı)',1,'RNA miktarı (1 µg) var; enzim ve primer türü yok.','MD: protokol ve mdp dosyaları (MD-EQ).'],",
+   "['rt','Reverse transcription details (enzyme, primer type, RNA amount)',1,'The RNA amount (1 µg) is given; enzyme and primer type are not.','MD: protocol and mdp files (MD-EQ).'],"
+  ],
+  [
+   "['prim','Primer dizileri ve amplikon boyu',0,'Dizi verilmemiş; başkası aynı ölçümü kuramaz.','MD: topoloji ve kuvvet alanı dosyaları (MD-FF, MD-LIG).'],",
+   "['prim','Primer sequences and amplicon length',0,'No sequence is given; someone else cannot set up the same measurement.','MD: topology and force field files (MD-FF, MD-LIG).'],"
+  ],
+  [
+   "['eff','Amplifikasyon verimi (standart eğri)',0,'2^−ΔΔCt yaklaşık %100 verim varsayar; verim ölçülmediyse varsayım sınanmamıştır.','MD: yöntemin varsayımlarının denetimi (MD-DT, MD-CUT).'],",
+   "['eff','Amplification efficiency (standard curve)',0,'2^−ΔΔCt assumes about 100% efficiency; if efficiency was not measured, the assumption was not tested.','MD: checking the method\\'s assumptions (MD-DT, MD-CUT).'],"
+  ],
+  [
+   "['spec','Özgüllük (SYBR Green ile erime eğrisi)',0,'SYBR Green her çift sarmala bağlanır; tek ürün olduğu gösterilmemiş.','MD: ölçütün gerçekten neyi ölçtüğü (MD-MET).'],",
+   "['spec','Specificity (melt curve with SYBR Green)',0,'SYBR Green binds any double strand; a single product is not shown.','MD: what the measure really measures (MD-MET).'],"
+  ],
+  [
+   "['ntc','Kalıpsız kontrol (NTC)',0,'Kalıpsız kontrol yazılmamış.','MD: negatif kontrol, aynıyla aynı karşılaştırma (MD-ERR).'],",
+   "['ntc','No-template control (NTC)',0,'No no-template control is written.','MD: negative control, comparing like with like (MD-ERR).'],"
+  ],
+  [
+   "['ref','Referans genin kararlılığı',0,'Tek referans gen (GAPDH) kullanılmış, koşullar arasında kararlı olduğu gösterilmemiş.','MD: karşılaştırmanın başvurusu aynı protokolle mi koşuldu (MD-SOLV).'],",
+   "['ref','Stability of the reference gene',0,'A single reference gene (GAPDH) is used; its stability across conditions is not shown.','MD: was the comparison\\'s reference run with the same protocol (MD-SOLV).'],"
+  ],
+  [
+   "['cq','Cq belirleme yöntemi ve dışlama kuralı',0,'Eşik nasıl seçildi, hangi kuyular neden dışlandı yazılmamış.','MD: analiz seçenekleri önceden yazıldı mı (MD-ERR).'],",
+   "['cq','Cq determination method and exclusion rule',0,'How the threshold was chosen and which wells were excluded and why are not written.','MD: were the analysis choices written in advance (MD-ERR).'],"
+  ],
+  [
+   "['stat','Hesap ve istatistik yöntemi',1,'2^−ΔΔCt ve t testi yazılmış; ama t testinin hangi n ile yapıldığı belirsiz.','MD: analiz planı ve test (MD-REP).']];",
+   "['stat','Calculation and statistical method',1,'2^−ΔΔCt and a t test are written; but the n used for the t test is unclear.','MD: analysis plan and test (MD-REP).']];"
+  ],
+  [
+   "function mqDraw(){ var h=MQI.map(function(it,i){ var s=MQ.sel[it[0]], st=MQ.checked?['yok','kısmen','var'][it[2]]:'', ok=MQ.checked?(s==null?0:s)===it[2]:null;",
+   "function mqDraw(){ var h=MQI.map(function(it,i){ var s=MQ.sel[it[0]], st=MQ.checked?['missing','partly','given'][it[2]]:'', ok=MQ.checked?(s==null?0:s)===it[2]:null;"
+  ],
+  [
+   "return '<div class=\"mq'+(MQ.checked?(ok?' ok':' no'):'')+'\"><span class=\"mqn\">'+it[1]+'</span><span class=\"seg mqs\" role=\"group\" aria-label=\"'+it[1]+'\">'+['Yok','Kısmen','Var'].map(function(t,j){ return '<button type=\"button\" data-k=\"'+it[0]+'\" data-v=\"'+j+'\" aria-pressed=\"'+(s===j)+'\">'+t+'</button>'; }).join('')+'</span>'+",
+   "return '<div class=\"mq'+(MQ.checked?(ok?' ok':' no'):'')+'\"><span class=\"mqn\">'+it[1]+'</span><span class=\"seg mqs\" role=\"group\" aria-label=\"'+it[1]+'\">'+['Missing','Partly','Given'].map(function(t,j){ return '<button type=\"button\" data-k=\"'+it[0]+'\" data-v=\"'+j+'\" aria-pressed=\"'+(s===j)+'\">'+t+'</button>'; }).join('')+'</span>'+"
+  ],
+  [
+   "(MQ.checked?'<span class=\"mqr\"><b>Paragrafta: '+st+'.</b> '+it[3]+' <span class=\"mqmd\">'+it[4]+'</span></span>':'')+'</div>'; }).join('');",
+   "(MQ.checked?'<span class=\"mqr\"><b>In the paragraph: '+st+'.</b> '+it[3]+' <span class=\"mqmd\">'+it[4]+'</span></span>':'')+'</div>'; }).join('');"
+  ],
+  [
+   "var it=k?MQI.filter(function(x){ return x[0]===k; })[0]:null; $('xmhint').textContent=it?(any?'Paragrafta karşılığı vurgulandı: '+it[1]+'.':'Paragrafta karşılığı yok: '+it[1]+'.'):'Bir öğenin üzerine gelin ya da sekmeyle odaklanın; paragraftaki karşılığı vurgulanır.'; }",
+   "var it=k?MQI.filter(function(x){ return x[0]===k; })[0]:null; $('xmhint').textContent=it?(any?'Highlighted in the paragraph: '+it[1]+'.':'Not in the paragraph: '+it[1]+'.'):'Hover over an item or focus it with Tab; its counterpart in the paragraph is highlighted.'; }"
+  ],
+  [
+   "$('xmabs').innerHTML=MQ.checked?'<span class=\"lbl\">Paragrafta hiç geçmeyen</span>'+ab.map(function(it,i){ return '<span class=\"gap\" style=\"animation-delay:'+(i*90)+'ms\">'+it[1]+'</span>'; }).join(''):''; }",
+   "$('xmabs').innerHTML=MQ.checked?'<span class=\"lbl\">Never mentioned in the paragraph</span>'+ab.map(function(it,i){ return '<span class=\"gap\" style=\"animation-delay:'+(i*90)+'ms\">'+it[1]+'</span>'; }).join(''):''; }"
+  ],
+  [
+   "g.textAlign='center'; g.fillStyle=PAL.ink; g.font='600 '+Math.round(R*0.24)+'px '+css('--sans'); g.fillText(MQ.checked?full+' / '+n:ans+' / '+n,cx,cy+R*0.05); g.font=Math.round(R*0.11)+'px '+css('--sans'); g.fillStyle=PAL.muted; g.fillText(MQ.checked?'öğe tam':'öğeye karar',cx,cy+R*0.22); g.textAlign='left'; }",
+   "g.textAlign='center'; g.fillStyle=PAL.ink; g.font='600 '+Math.round(R*0.24)+'px '+css('--sans'); g.fillText(MQ.checked?full+' / '+n:ans+' / '+n,cx,cy+R*0.05); g.font=Math.round(R*0.11)+'px '+css('--sans'); g.fillStyle=PAL.muted; g.fillText(MQ.checked?'items given':'items decided',cx,cy+R*0.22); g.textAlign='left'; }"
+  ],
+  [
+   "$('xmqsc').textContent=MQI.length+' öğenin '+nLoc(n)+' paragrafla aynı karar verdiniz. Paragrafta '+(MQI.length-miss-part)+' öğe var, '+part+' öğe kısmen, '+miss+' öğe yok.';",
+   "$('xmqsc').textContent='Your decision matched the paragraph on '+n+' of '+MQI.length+' items. The paragraph gives '+(MQI.length-miss-part)+' item(s), '+part+' partly, and misses '+miss+'.';"
+  ],
+  [
+   "card('xc0',true,'Kurgu paragraf 13 öğeden yalnız '+(MQI.length-miss-part)+' tanesini tam veriyor. Paragraf okunaklı ve kısa; ama başka bir laboratuvar bu paragrafla aynı ölçümü kuramaz, okur da sonucun hangi varsayımlara dayandığını denetleyemez. MIQE (Bustin ve ark. 2009) bir kalite puanı değildir; bir ölçümün yeniden kurulabilmesi ve değerlendirilebilmesi için gereken en az bilgidir. MD çalışmasının karşılığı: yapı ve kaynağı, protokol ve parametre dosyaları, tohumlar, program sürümü, analiz tanımları ve önceden yazılmış karşılaştırma; bu sayfanın öteki atölyeleri bunları sırayla sınar.'); }",
+   "card('xc0',true,'The fictional paragraph fully gives only '+(MQI.length-miss-part)+' of the 13 items. It is readable and short; but another laboratory cannot set up the same measurement from it, and a reader cannot check which assumptions the result rests on. MIQE (Bustin et al. 2009) is not a quality score; it is the minimum information needed for a measurement to be rebuilt and evaluated. The MD counterpart: the structure and its source, protocol and parameter files, seeds, program version, analysis definitions and a comparison written in advance; the other workshops on this page test these in turn.'); }"
+  ],
+  [
+   "function bridge(){ mqDraw(); mqHi(null); CHARTS.push(mqRing); $('xmqcheck').onclick=mqCheck; $('xmqreset').onclick=function(){ MQ.sel={}; MQ.checked=false; $('xmqsc').textContent=''; mqDraw(); }; card('xc0',false,'Her öğe için karar verip \"Denetle\"ye basın.'); }",
+   "function bridge(){ mqDraw(); mqHi(null); CHARTS.push(mqRing); $('xmqcheck').onclick=mqCheck; $('xmqreset').onclick=function(){ MQ.sel={}; MQ.checked=false; $('xmqsc').textContent=''; mqDraw(); }; card('xc0',false,'Decide on every item and press \"Check\".'); }"
+  ],
+  [
+   "/* ===== atölye 1: iddiadan ölçüte (sitedeki gerçek sonuçlar) ===== */",
+   "/* ===== workshop 1: from claim to measure (real results from the site) ===== */"
+  ],
+  [
+   "{id:'rep',tag:'Tuz ve αR',mod:'MD-REP',q:'0,15 M NaCl alanin dipeptidinin αR payını değiştirir mi?',",
+   "{id:'rep',tag:'Salt and αR',mod:'MD-REP',q:'Does 0.15 M NaCl change the αR fraction of alanine dipeptide?',"
+  ],
+  [
+   "rows:[['Nicelik','αR payı, 200 ile 2000 ps (1801 kare)'],['Kontrol','saf su; tek fark tuz; aynı kutu ve protokol'],['Tasarım','8 tekrara karşı 8 tekrar, her biri 2 ns'],['Önceden yazılan','birincil ölçüt, ±5 puanlık eşdeğerlik eşiği, dört hüküm etiketi'],['Sonuç','Δ +0,06 puan; permütasyon p 0,991; Welch %95 aralığı −11,19 ile +11,30 puan; hüküm \"kararsız\"']],",
+   "rows:[['Quantity','αR fraction, 200 to 2000 ps (1801 frames)'],['Control','pure water; the only difference is salt; same box and protocol'],['Design','8 replicas vs 8 replicas, 2 ns each'],['Written in advance','primary measure, ±5 point equivalence threshold, four verdict labels'],['Result','Δ +0.06 points; permutation p 0.991; Welch 95% interval −11.19 to +11.30 points; verdict \"inconclusive\"']],"
+  ],
+  [
+   "o:[['\"Tuz αR payını değiştirmez.\"','aşırı','Aralık ±11 puan genişliğinde; ±5 puanlık önceden yazılmış eşiği aşıyor. \"Değiştirmez\" demek için aralığın bütünüyle eşik içinde kalması gerekirdi.'],",
+   "o:[['\"Salt does not change the αR fraction.\"','overclaim','The interval is ±11 points wide; it exceeds the ±5 point threshold written in advance. To say \"does not change\", the whole interval would have to lie inside the threshold.'],"
+  ],
+  [
+   "['\"Bu tasarımla (8 tekrara karşı 8, 2 ns) fark gösterilemedi; %95 aralık yaklaşık ±11 puan. ±5 puanlık eşdeğerlik için grup başına yaklaşık 69 tekrar gerekirdi.\"','kurulabilir','Sonuç, belirsizliği ve neyin dışlanamadığı birlikte yazılıyor; hüküm önceden yazılmış etiketle aynı (\"kararsız\").'],",
+   "['\"With this design (8 vs 8 replicas, 2 ns) no difference could be shown; 95% interval about ±11 points. Equivalence within ±5 points would have needed about 69 replicas per group.\"','defensible','The result, its uncertainty and what could not be ruled out are written together; the verdict matches the label written in advance (\"inconclusive\").'],"
+  ],
+  [
+   "['\"Tuz αR payını biraz artırır (+0,06 puan).\"','yanlış','+0,06 puan belirsizliğin yanında sıfırdan ayırt edilemez; işaretini yorumlamak gürültüyü okumaktır.'],",
+   "['\"Salt slightly increases the αR fraction (+0.06 points).\"','wrong','Next to its uncertainty, +0.06 points cannot be told apart from zero; reading its sign is reading noise.'],"
+  ],
+  [
+   "['\"Sonuç anlamsız çıktı; raporlanmaz.\"','eksik','Önceden yazılmış bir karşılaştırmanın kararsız sonucu da bir sonuçtur; raporlanmazsa yayımlanan literatür yalnız \"anlamlı\" sonuçlardan oluşur.']]},",
+   "['\"The result was not significant; it is not reported.\"','incomplete','An inconclusive result of a comparison written in advance is still a result; if it is not reported, the published literature is made only of \"significant\" results.']]},"
+  ],
+  [
+   "{id:'solv',tag:'Üre',mod:'MD-SOLV',q:'8 M üre peptidin çevresinde birikir mi, konformasyonu değiştirir mi?',",
+   "{id:'solv',tag:'Urea',mod:'MD-SOLV',q:'Does 8 M urea accumulate around the peptide, and does it change its conformation?',"
+  ],
+  [
+   "rows:[['Nicelik','peptit çevresindeki üre derişiminin yığına oranı R; αR payı'],['Kontrol','MD-REP\\'in 8 su tekrarı, aynı protokol'],['Tasarım','8 M ürede 4 tekrar, her biri 2 ns'],['Önceden yazılan','R için 1 başvurusu; αR için hüküm etiketleri'],['Sonuç','R = 1,51 ± 0,61, dört tekrarda da R > 1; αR farkı −2,9 puan, permütasyon p 0,745; hüküm \"kararsız\"']],",
+   "rows:[['Quantity','ratio R of urea concentration around the peptide to the bulk; αR fraction'],['Control','the 8 water replicas of MD-REP, same protocol'],['Design','4 replicas in 8 M urea, 2 ns each'],['Written in advance','reference 1 for R; verdict labels for αR'],['Result','R = 1.51 ± 0.61, R > 1 in all four replicas; αR difference −2.9 points, permutation p 0.745; verdict \"inconclusive\"']],"
+  ],
+  [
+   "o:[['\"Üre peptidi açar (denatüre eder).\"','aşırı','αR payında fark gösterilemedi; dipeptitte \"açılma\" da tanımlı bir nicelik değil.'],",
+   "o:[['\"Urea unfolds (denatures) the peptide.\"','overclaim','No difference in αR fraction could be shown; \"unfolding\" is not a defined quantity for a dipeptide either.'],"
+  ],
+  [
+   "['\"Üre bu koşullarda peptidin çevresinde yığın derişiminden fazla bulundu (dört tekrarda da R > 1); αR payına etkisi bu tasarımla belirlenemedi.\"','kurulabilir','İki nicelik ayrı ayrı ve kendi belirsizlikleriyle yazılıyor; birinden ötekine neden-sonuç çıkarılmıyor.'],",
+   "['\"Under these conditions urea was found around the peptide above its bulk concentration (R > 1 in all four replicas); its effect on the αR fraction could not be determined with this design.\"','defensible','The two quantities are written separately, each with its own uncertainty; no cause and effect is drawn from one to the other.'],"
+  ],
+  [
+   "['\"Üre peptitle etkileşmez.\"','yanlış','Dört tekrarda da R > 1.'],",
+   "['\"Urea does not interact with the peptide.\"','wrong','R > 1 in all four replicas.'],"
+  ],
+  [
+   "['\"Üre birikir; bu yüzden αR payını düşürür.\"','aşırı','Birikme gözlendi, αR farkı gösterilemedi; \"bu yüzden\" bağlantısı veride yok.']]},",
+   "['\"Urea accumulates and therefore lowers the αR fraction.\"','overclaim','Accumulation was observed, an αR difference was not shown; the \"therefore\" link is not in the data.']]},"
+  ],
+  [
+   "{id:'lig',tag:'Tuz köprüsü',mod:'MD-LIG',q:'Gasteiger yükleri benzamidinin Asp189 tuz köprüsünü bozar mı?',",
+   "{id:'lig',tag:'Salt bridge',mod:'MD-LIG',q:'Do Gasteiger charges break benzamidine\\'s Asp189 salt bridge?',"
+  ],
+  [
+   "rows:[['Nicelik','Asp189 tuz köprüsünün kurulu olduğu kare payı (0,32 nm)'],['Kontrol','aynı kristal pozdan altı yük ve protonasyon modeli'],['Tasarım','model başına iki 0,5 ns tekrar'],['Önceden yazılan','temas tanımı ve eşik; iki tekrar olduğu için hüküm yok'],['Sonuç','L2a (acpype Gasteiger, toplam yük yanlışlıkla 0) %17,5 ve %18,6; L2b (RDKit Gasteiger, +1) dahil öbür modellerde %90\\'ın üstü']],",
+   "rows:[['Quantity','fraction of frames with the Asp189 salt bridge formed (0.32 nm)'],['Control','six charge and protonation models from the same crystal pose'],['Design','two 0.5 ns replicas per model'],['Written in advance','contact definition and threshold; no verdict because there are two replicas'],['Result','L2a (acpype Gasteiger, total charge mistakenly 0) 17.5% and 18.6%; above 90% in the other models, including L2b (RDKit Gasteiger, +1)']],"
+  ],
+  [
+   "o:[['\"Gasteiger yükleri tuz köprüsünü bozar.\"','aşırı','Doğru net yüklü Gasteiger modeli (L2b) köprüyü korudu; fark yük yönteminde değil, net yükte.'],",
+   "o:[['\"Gasteiger charges break the salt bridge.\"','overclaim','The Gasteiger model with the correct net charge (L2b) kept the bridge; the difference lies in the net charge, not the charge method.'],"
+  ],
+  [
+   "['\"Net yükü yanlışlıkla 0 olan topolojide (L2a) iki kısa tekrarda tuz köprüsü karelerin yaklaşık beşte birinde kuruldu; doğru yüklü Gasteiger topolojisinde (L2b) %90\\'ın üstündeydi. Fark net yük hatasıyla uyumludur.\"','kurulabilir','Kontrastı veren iki model aynı yöntemdendir ve yalnız net yükte ayrılır; tekrar sayısı ve süre cümlede yazılıdır, hüküm yazılmaz.'],",
+   "['\"In the topology whose net charge was mistakenly 0 (L2a), the salt bridge formed in about one fifth of the frames in two short replicas; in the Gasteiger topology with the correct charge (L2b) it was above 90%. The difference is consistent with the net charge error.\"','defensible','The two contrasting models come from the same method and differ only in net charge; the number of replicas and the length are in the sentence, and no verdict is written.'],"
+  ],
+  [
+   "['\"Yük yöntemi önemsizdir.\"','yanlış','Altı modelden biri köprüyü büyük ölçüde kaybetti; ayrıca bu tasarım yük yöntemlerinin ince farklarını ölçecek güçte değil.'],",
+   "['\"The charge method does not matter.\"','wrong','One of the six models largely lost the bridge; besides, this design does not have the power to measure fine differences between charge methods.'],"
+  ],
+  [
+   "['\"Koşular kısa olduğu için tuz köprüsü hakkında hiçbir şey söylenemez.\"','eksik','0,5 ns uzun süreli kararlılığı göstermez ama %18 ile %90 arasındaki fark, bu süre için söylenebilir bir gözlemdir.']]},",
+   "['\"Because the runs were short, nothing can be said about the salt bridge.\"','incomplete','0.5 ns does not show long-term stability, but the difference between 18% and 90% is an observation that can be stated for this length.']]},"
+  ],
+  [
+   "{id:'lie',tag:'Bağlanma enerjisi',mod:'MD-LIG ve MD-ERR',q:'Hangi yük modeli benzamidinin bağlanma enerjisini en iyi kestirir?',",
+   "{id:'lie',tag:'Binding energy',mod:'MD-LIG and MD-ERR',q:'Which charge model best estimates the binding energy of benzamidine?',"
+  ],
+  [
+   "rows:[['Nicelik','LIE ΔG (α 0,181, β 0,5 ya da 0,43)'],['Kontrol','ChEMBL\\'deki altı Ki kaydından ölçülmüş aralık −6,46 ile −6,01 kcal/mol'],['Tasarım','altı model, ikişer 0,5 ns kompleks ve birer 1 ns su koşusu'],['Önceden yazılan','LIE tanımı ve katsayılar; hüküm yok'],['Sonuç','hiçbir modelin kestirimi ölçülmüş aralığa düşmedi; koşu içi ve tekrarlar arası aralıkların hiçbiri onunla örtüşmüyor (MD-ERR)']],",
+   "rows:[['Quantity','LIE ΔG (α 0.181, β 0.5 or 0.43)'],['Control','measured range from six Ki records in ChEMBL, −6.46 to −6.01 kcal/mol'],['Design','six models, two 0.5 ns complex runs and one 1 ns water run each'],['Written in advance','LIE definition and coefficients; no verdict'],['Result','no model\\'s estimate fell in the measured range; none of the within-run or between-replica intervals overlaps it (MD-ERR)']],"
+  ],
+  [
+   "o:[['\"RESP yükleri (L4) en doğrusudur, çünkü kuantum potansiyelini en iyi üretir.\"','aşırı','ESP uyumu gaz fazı bir ölçüdür; bağlanma enerjisinde L4 de ölçülmüş aralıktan uzak.'],",
+   "o:[['\"RESP charges (L4) are the most accurate, because they reproduce the quantum potential best.\"','overclaim','ESP fit is a gas-phase measure; for the binding energy L4 is also far from the measured range.'],"
+  ],
+  [
+   "['\"Hiçbir modelin LIE kestirimi ölçülmüş aralığa düşmedi; α ve β başka bir kuvvet alanıyla kalibre edildiği için bu veri hangi yükün bağlanmayı daha iyi kestirdiğini söylemez.\"','kurulabilir','Gözlem ve yöntemin sınırı birlikte yazılıyor.'],",
+   "['\"No model\\'s LIE estimate fell in the measured range; because α and β were calibrated with a different force field, this data does not say which charges estimate binding better.\"','defensible','The observation and the method\\'s limit are written together.'],"
+  ],
+  [
+   "['\"L2a ölçülmüş değere en yakın; en iyi modeldir.\"','yanlış','L2a\\'nın net yükü yanlış; sayısal yakınlık bir doğruluk ölçüsü değil.'],",
+   "['\"L2a is closest to the measured value; it is the best model.\"','wrong','L2a\\'s net charge is wrong; numerical closeness is not a measure of correctness.'],"
+  ],
+  [
+   "['\"LIE yöntemi yanlıştır.\"','aşırı','Tek ligand, tek kuvvet alanı ve kalibre edilmemiş katsayılarla bir yöntem hakkında genel hüküm kurulamaz.']]}];",
+   "['\"The LIE method is wrong.\"','overclaim','A general verdict on a method cannot be drawn from one ligand, one force field and uncalibrated coefficients.']]}];"
+  ],
+  [
+   "var GRC={'kurulabilir':'var(--good)','aşırı':'var(--bad)','yanlış':'var(--bad)','eksik':'var(--gold)'};",
+   "var GRC={'defensible':'var(--good)','overclaim':'var(--bad)','wrong':'var(--bad)','incomplete':'var(--gold)'};"
+  ],
+  [
+   "$('xcltab').innerHTML='<table class=\"st\"><tbody>'+[['Soru',C.q]].concat(C.rows).map(function(r){ return '<tr><td>'+r[0]+'</td><td style=\"text-align:left\">'+r[1]+'</td></tr>'; }).join('')+'<tr><td>Kaynak</td><td style=\"text-align:left\">'+C.mod+'</td></tr></tbody></table>';",
+   "$('xcltab').innerHTML='<table class=\"st\"><tbody>'+[['Question',C.q]].concat(C.rows).map(function(r){ return '<tr><td>'+r[0]+'</td><td style=\"text-align:left\">'+r[1]+'</td></tr>'; }).join('')+'<tr><td>Source</td><td style=\"text-align:left\">'+C.mod+'</td></tr></tbody></table>';"
+  ],
+  [
+   "$('xclopt').innerHTML=C.o.map(function(o,j){ var cls=a==null?'':(o[1]==='kurulabilir'?' right':(a===j?' wrong':'')); return '<button type=\"button\" class=\"opt'+cls+'\" data-j=\"'+j+'\"><span class=\"qb\">'+'ABCD'[j]+'</span>'+o[0]+(a!=null?' <span class=\"vtag\" style=\"color:'+GRC[o[1]]+'\">'+o[1]+'</span>':'')+'</button>'; }).join('');",
+   "$('xclopt').innerHTML=C.o.map(function(o,j){ var cls=a==null?'':(o[1]==='defensible'?' right':(a===j?' wrong':'')); return '<button type=\"button\" class=\"opt'+cls+'\" data-j=\"'+j+'\"><span class=\"qb\">'+'ABCD'[j]+'</span>'+o[0]+(a!=null?' <span class=\"vtag\" style=\"color:'+GRC[o[1]]+'\">'+o[1]+'</span>':'')+'</button>'; }).join('');"
+  ],
+  [
+   "$('xclfb').hidden=a==null; if(a!=null){ var o=C.o[a]; $('xclfb').className='fb '+(o[1]==='kurulabilir'?'ok':'no'); $('xclfb').innerHTML='<b>'+(o[1]==='kurulabilir'?'Doğru.':'Tam değil.')+'</b> '+o[2]+(o[1]==='kurulabilir'?'':' Bu sonuçla kurulabilecek en güçlü cümle: '+C.o.filter(function(x){ return x[1]==='kurulabilir'; })[0][0]); }",
+   "$('xclfb').hidden=a==null; if(a!=null){ var o=C.o[a]; $('xclfb').className='fb '+(o[1]==='defensible'?'ok':'no'); $('xclfb').innerHTML='<b>'+(o[1]==='defensible'?'Correct.':'Not quite.')+'</b> '+o[2]+(o[1]==='defensible'?'':' The strongest sentence this result supports: '+C.o.filter(function(x){ return x[1]==='defensible'; })[0][0]); }"
+  ],
+  [
+   "function clCards(){ var n=Object.keys(CL.ans).length, r=Object.keys(CL.ans).filter(function(k){ var C=CLC.filter(function(c){ return c.id===k; })[0]; return C.o[CL.ans[k]][1]==='kurulabilir'; }).length;",
+   "function clCards(){ var n=Object.keys(CL.ans).length, r=Object.keys(CL.ans).filter(function(k){ var C=CLC.filter(function(c){ return c.id===k; })[0]; return C.o[CL.ans[k]][1]==='defensible'; }).length;"
+  ],
+  [
+   "if(n>=3) card('xc1',true,'Cevapladığınız '+n+' vakanın '+nLoc(r)+' ilk seçiminiz en güçlü kurulabilir cümleydi. Dört vakada da aynı kalıp var: biyolojik soru ölçülebilir bir niceliğe, bir kontrole ve önceden yazılmış bir eşiğe ya da tanıma çevrilmeden kurulabilir cümle belirlenemez. Aşırı iddia çoğu kez nedensellik (\"bu yüzden\"), genelleme (\"Gasteiger yükleri\") ya da yokluk (\"değiştirmez\") olarak gelir; eksik iddia ise sonucun belirsizlikle birlikte söylenebilir kısmını atar. Kurulabilir cümle tasarımı (tekrar, süre) ve belirsizliği içinde taşır.');",
+   "if(n>=3) card('xc1',true,'In '+r+' of the '+n+' cases you answered, your first choice was the strongest defensible sentence. All four cases share the same pattern: until the biological question is turned into a measurable quantity, a control and a threshold or definition written in advance, the defensible sentence cannot be determined. Overclaims usually arrive as causation (\"therefore\"), generalization (\"Gasteiger charges\") or absence (\"does not change\"); an incomplete claim throws away the part of the result that can be stated with its uncertainty. A defensible sentence carries the design (replicas, length) and the uncertainty inside it.');"
+  ],
+  [
+   "else card('xc1',false,'Şimdiye kadar '+n+' vaka; en az üç vakada karar verin.'); }",
+   "else card('xc1',false,'So far '+n+' case(s); decide in at least three cases.'); }"
+  ],
+  [
+   "/* ===== atölye 2: yeniden üretim deneyi (REPROGRID) ===== */",
+   "/* ===== workshop 2: reproduction experiment (REPROGRID) ===== */"
+  ],
+  [
+   "var RPL={'R1|W2':['Aynı komut','R1 ile özgün W2: aynı tpr, aynı komut (-nt 1), aynı program ve makine türü'],",
+   "var RPL={'R1|W2':['Same command','R1 and the original W2: same tpr, same command (-nt 1), same program and machine type'],"
+  ],
+  [
+   "'R2|W1':['Kesintisiz / sürdürülmüş','R2 ile özgün W1: özgün koşu 181,8 ps\\'de kesilip denetim noktasından sürdürülmüştü; R2 kesintisiz'],",
+   "'R2|W1':['Uninterrupted / continued','R2 and the original W1: the original run was interrupted at 181.8 ps and continued from a checkpoint; R2 ran without interruption'],"
+  ],
+  [
+   "'R3|W2':['2 iş parçacığı / 1','R3 ile özgün W2: aynı tpr, iki OpenMP iş parçacığı (-nt 2)'],",
+   "'R3|W2':['2 threads / 1','R3 and the original W2: same tpr, two OpenMP threads (-nt 2)'],"
+  ],
+  [
+   "'R3|R1':['2 iş parçacığı / yeni 1','R3 ile R1: ikisi de bu deneyde koşuldu, iş parçacığı sayısı farklı'],",
+   "'R3|R1':['2 threads / new 1','R3 and R1: both run in this experiment, different thread counts'],"
+  ],
+  [
+   "'R4|R5':['-reprod, iki kez','R4 ile R5: ikisi de -nt 2 -reprod, 200 ps'],",
+   "'R4|R5':['-reprod, twice','R4 and R5: both -nt 2 -reprod, 200 ps'],"
+  ],
+  [
+   "'R4|R3':['-reprod var / yok','R4 ile R3\\'ün ilk 200 ps\\'i: ikisi de -nt 2; biri -reprod ile'],",
+   "'R4|R3':['-reprod with / without','R4 and the first 200 ps of R3: both -nt 2; one with -reprod'],"
+  ],
+  [
+   "'R4|W2':['-reprod 2 / özgün 1','R4 ile özgün W2\\'nin ilk 200 ps\\'i']};",
+   "'R4|W2':['-reprod 2 / original 1','R4 and the first 200 ps of the original W2']};"
+  ],
+  [
+   "var RUNL={W1:'W1 özgün',W2:'W2 özgün',R1:'R1 aynı komut',R2:'R2 kesintisiz',R3:'R3 2 iş parçacığı',R4:'R4 -reprod',R5:'R5 -reprod'};",
+   "var RUNL={W1:'W1 original',W2:'W2 original',R1:'R1 same command',R2:'R2 uninterrupted',R3:'R3 2 threads',R4:'R4 -reprod',R5:'R5 -reprod'};"
+  ],
+  [
+   "/* ---------- veri erişimi ---------- */",
+   "/* ---------- data access ---------- */"
+  ],
+  [
+   "/* ---------- molekül çizimi ---------- */",
+   "/* ---------- molecule drawing ---------- */"
+  ],
+  [
+   "/* ortak kamera: iki koşunun ağırlık merkezlerinin ortası, yumuşak takip */",
+   "/* shared camera: midpoint of the two runs' centers of mass, smooth follow */"
+  ],
+  [
+   "/* ---------- kelebek sahnesi ---------- */",
+   "/* ---------- butterfly scene ---------- */"
+  ],
+  [
+   "panelBg(g,P3[0],P3[1],P3[2],P3[3],'Üst üste',PAL.ink); var Pj=projAt(SC.V,P3[0],P3[1]+10,P3[2],P3[3]-10,SC.cam);",
+   "panelBg(g,P3[0],P3[1],P3[2],P3[3],'Overlaid',PAL.ink); var Pj=projAt(SC.V,P3[0],P3[1]+10,P3[2],P3[3]-10,SC.cam);"
+  ],
+  [
+   "var i=Math.floor(t), dp=VDD.PAIRS[RP.k].x.dp[i], txt=dp>0?'peptitte en büyük |Δx| '+fx(dp,dp<0.01?4:3)+' nm':'iki koşu bu karede bit düzeyinde aynı';",
+   "var i=Math.floor(t), dp=VDD.PAIRS[RP.k].x.dp[i], txt=dp>0?'largest peptide |Δx| '+fx(dp,dp<0.01?4:3)+' nm':'the two runs are bit-identical in this frame';"
+  ],
+  [
+   "$('xplive').innerHTML=tile('Kare',i+' ps','1 ps aralıkla kaydedilmiş')+tile('Peptitte |Δx|<sub>en büyük</sub>',dp>0?fx(dp,dp<0.01?4:3)+' nm':'0','en küçük görüntüyle',dp>0?'bad':'ok')+tile('|ΔE<sub>pot</sub>|',dE>0?fx(dE,dE<1?3:1)+' kJ/mol':'0','iki koşunun aynı karesi',dE>0?'bad':'ok')+",
+   "$('xplive').innerHTML=tile('Frame',i+' ps','recorded every 1 ps')+tile('Peptide |Δx|<sub>max</sub>',dp>0?fx(dp,dp<0.01?4:3)+' nm':'0','minimum image',dp>0?'bad':'ok')+tile('|ΔE<sub>pot</sub>|',dE>0?fx(dE,dE<1?3:1)+' kJ/mol':'0','same frame of both runs',dE>0?'bad':'ok')+"
+  ],
+  [
+   "tile('αR\\'de geçen kare, 0 ile '+i+' ps','<span style=\"color:var(--ink)\">'+pct(nA/(i+1),0)+'</span> · <span style=\"color:var(--s1)\">'+pct(nB/(i+1),0)+'</span>',R.A+' '+ang(rA)+' · '+R.B+' '+ang(rB));",
+   "tile('Frames in αR, 0 to '+i+' ps','<span style=\"color:var(--ink)\">'+pct(nA/(i+1),0)+'</span> · <span style=\"color:var(--s1)\">'+pct(nB/(i+1),0)+'</span>',R.A+' '+ang(rA)+' · '+R.B+' '+ang(rB));"
+  ],
+  [
+   "function scSet(on){ SC.on=on; var b=$('xscplay'); b.textContent=on?'Duraklat':'Oynat'; b.setAttribute('aria-pressed',String(on)); if(on){ if(SC.t>=200) SC.t=0; aniKick(); } else rpCards(); }",
+   "function scSet(on){ SC.on=on; var b=$('xscplay'); b.textContent=on?'Pause':'Play'; b.setAttribute('aria-pressed',String(on)); if(on){ if(SC.t>=200) SC.t=0; aniKick(); } else rpCards(); }"
+  ],
+  [
+   "/* ---------- ayrışma şeridi ---------- */",
+   "/* ---------- divergence strip ---------- */"
+  ],
+  [
+   "var p=plot(g,58,12,W-70,H-12-46,[0,tm],[-3.75,1],{xticks:xt,yticks:[-3,-2,-1,0,1],yfmt:function(v){ return ['0,001','0,01','0,1','1','10'][v+3]; },xlab:'zaman (ps)',ylab:'en büyük |Δx| (nm)',ylabPad:46});",
+   "var p=plot(g,58,12,W-70,H-12-46,[0,tm],[-3.75,1],{xticks:xt,yticks:[-3,-2,-1,0,1],yfmt:function(v){ return ['0.001','0.01','0.1','1','10'][v+3]; },xlab:'time (ps)',ylab:'largest |Δx| (nm)',ylabPad:46});"
+  ],
+  [
+   "var zy=p.Y(-3.5); g.fillStyle=PAL.soft; g.fillRect(p.L+1,p.Y(-3.3),p.W-2,p.Y(-3.7)-p.Y(-3.3)); g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); g.textAlign='right'; g.fillText('0 (aynı)',p.L-6,zy+4);",
+   "var zy=p.Y(-3.5); g.fillStyle=PAL.soft; g.fillRect(p.L+1,p.Y(-3.3),p.W-2,p.Y(-3.7)-p.Y(-3.3)); g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); g.textAlign='right'; g.fillText('0 (identical)',p.L-6,zy+4);"
+  ],
+  [
+   "function v(x){ return x>0?fx(x,x<0.01?4:3)+' nm':'0 (aynı)'; }",
+   "function v(x){ return x>0?fx(x,x<0.01?4:3)+' nm':'0 (identical)'; }"
+  ],
+  [
+   "tipShow(tip,r.width,e.clientX-r.left,e.clientY-r.top,'<b>'+t+' ps</b><br>bütün atomlar '+v(P.da[t])+'<br>peptit '+v(P.dp[t])+(t<=200?'<br>tıklayın: sahne bu ana gider':'')); }",
+   "tipShow(tip,r.width,e.clientX-r.left,e.clientY-r.top,'<b>'+t+' ps</b><br>all atoms '+v(P.da[t])+'<br>peptide '+v(P.dp[t])+(t<=200?'<br>click: the scene jumps to this moment':'')); }"
+  ],
+  [
+   "$('xrstats').innerHTML=tile('Koordinatlar',X.same?'aynı':'farklı',X.same?X.n+' karenin hepsinde bit düzeyinde':'ilk fark '+fx(X.first,0)+' ps',X.same?'ok':'bad')+tile('Enerjiler',E.same?'aynı':'farklı',E.same?'5 terim, '+E.n+' kayıt':'ilk fark '+fx(E.first,1)+' ps',E.same?'ok':'bad')+tile('Peptit 0,1 nm ayrışma',t1==null?'yok':fx(t1,0)+' ps',t1==null?'karşılaştırılan sürede':'aynı zamandaki kareler arası',t1==null?'ok':'bad'); }",
+   "$('xrstats').innerHTML=tile('Coordinates',X.same?'identical':'different',X.same?'bit-identical in all '+X.n+' frames':'first difference at '+fx(X.first,0)+' ps',X.same?'ok':'bad')+tile('Energies',E.same?'identical':'different',E.same?'5 terms, '+E.n+' records':'first difference at '+fx(E.first,1)+' ps',E.same?'ok':'bad')+tile('Peptide 0.1 nm divergence',t1==null?'none':fx(t1,0)+' ps',t1==null?'within the compared time':'between frames at the same time',t1==null?'ok':'bad'); }"
+  ],
+  [
+   "$('xrread').innerHTML=dl('Karşılaştırma',RPL[RP.k][1])+dl('Karşılaştırılan kare',X.n+' (1 ps aralık)')+dl('En büyük konum farkı, bütün atomlar ve kareler','en küçük görüntüyle '+(X.maxm>0?fx(X.maxm,3)+' nm':'0')+'; ham '+(X.max>0?fx(X.max,3)+' nm':'0'))+",
+   "$('xrread').innerHTML=dl('Comparison',RPL[RP.k][1])+dl('Frames compared',X.n+' (1 ps apart)')+dl('Largest position difference, all atoms and frames','minimum image '+(X.maxm>0?fx(X.maxm,3)+' nm':'0')+'; raw '+(X.max>0?fx(X.max,3)+' nm':'0'))+"
+  ],
+  [
+   "dl('Peptitte ilk aşılan eşikler',['0.01','0.1','0.5'].map(function(k){ return fx(+k,k==='0.01'?2:1)+' nm: '+(X.thr[k]==null?'yok':fx(X.thr[k],0)+' ps'); }).join(' · '))+dl('xtc SHA-256 (ilk 12)',a.map(function(k){ return k+' '+VDD.SHA[k].xtc.slice(0,12); }).join(' · ')); }",
+   "dl('Thresholds first exceeded by the peptide',['0.01','0.1','0.5'].map(function(k){ return fx(+k,k==='0.01'?2:1)+' nm: '+(X.thr[k]==null?'none':fx(X.thr[k],0)+' ps'); }).join(' · '))+dl('xtc SHA-256 (first 12)',a.map(function(k){ return k+' '+VDD.SHA[k].xtc.slice(0,12); }).join(' · ')); }"
+  ],
+  [
+   "/* ---------- ilk basamak sayacı (gmx energy çıktısı olduğu gibi) ---------- */",
+   "/* ---------- first-digit counter (gmx energy output as printed) ---------- */"
+  ],
+  [
+   "function odoFirst(a,b){ var L=Math.max(a.length,b.length); a=(' '.repeat(L)+a).slice(-L); b=(' '.repeat(L)+b).slice(-L); var dp=a.indexOf('.'); for(var i=0;i<L;i++) if(a[i]!==b[i]) return i<dp?'tam sayı kısmında':'virgülden sonra '+(i-dp)+'. basamakta'; return null; }",
+   "function odoFirst(a,b){ var L=Math.max(a.length,b.length); a=(' '.repeat(L)+a).slice(-L); b=(' '.repeat(L)+b).slice(-L); var dp=a.indexOf('.'); for(var i=0;i<L;i++) if(a[i]!==b[i]) return i<dp?'in the integer part':'at decimal place '+(i-dp); return null; }"
+  ],
+  [
+   "function odoDraw(){ var R=scRuns(), A=VDD.ODO[R.A][OD.i], B=VDD.ODO[R.B][OD.i], h='', terms=[[1,'Potansiyel enerji (kJ/mol)'],[2,'Basınç (bar)']];",
+   "function odoDraw(){ var R=scRuns(), A=VDD.ODO[R.A][OD.i], B=VDD.ODO[R.B][OD.i], h='', terms=[[1,'Potential energy (kJ/mol)'],[2,'Pressure (bar)']];"
+  ],
+  [
+   "h+='<div class=\"odb\"><div class=\"odh\">'+tm[1]+'<span class=\"'+(fd?'odx bad':'odx ok')+'\">'+(fd?'ilk fark '+fd+' · |Δ| '+fx(d,d<0.01?6:d<1?4:2):'aynı')+'</span></div>'+odoRow(RUNL[R.A],A[j],B[j],PAL.ink,'a'+j)+odoRow(RUNL[R.B],B[j],A[j],PAL.s1,'b'+j)+'</div>'; });",
+   "h+='<div class=\"odb\"><div class=\"odh\">'+tm[1]+'<span class=\"'+(fd?'odx bad':'odx ok')+'\">'+(fd?'first difference '+fd+' · |Δ| '+fx(d,d<0.01?6:d<1?4:2):'identical')+'</span></div>'+odoRow(RUNL[R.A],A[j],B[j],PAL.ink,'a'+j)+odoRow(RUNL[R.B],B[j],A[j],PAL.s1,'b'+j)+'</div>'; });"
+  ],
+  [
+   "$('xodo').innerHTML=h; $('xodt').textContent=fx(+A[0],1)+' ps · adım '+Math.round(+A[0]/0.002); var sl=$('xodsl'); if(+sl.value!==OD.i) sl.value=OD.i; rpEn(); }",
+   "$('xodo').innerHTML=h; $('xodt').textContent=fx(+A[0],1)+' ps · step '+Math.round(+A[0]/0.002); var sl=$('xodsl'); if(+sl.value!==OD.i) sl.value=OD.i; rpEn(); }"
+  ],
+  [
+   "var p=plot(g,58,10,W-70,H-10-44,[0,10],[-2.75,3],{xticks:[0,2,4,6,8,10],yticks:[-2,-1,0,1,2,3],yfmt:function(v){ return ['0,01','0,1','1','10','100','1000'][v+2]; },xlab:'zaman (ps)',ylab:'|ΔE_pot| (kJ/mol)',ylabPad:46});",
+   "var p=plot(g,58,10,W-70,H-10-44,[0,10],[-2.75,3],{xticks:[0,2,4,6,8,10],yticks:[-2,-1,0,1,2,3],yfmt:function(v){ return ['0.01','0.1','1','10','100','1000'][v+2]; },xlab:'time (ps)',ylab:'|ΔE_pot| (kJ/mol)',ylabPad:46});"
+  ],
+  [
+   "var zy=p.Y(-2.5); g.fillStyle=PAL.soft; g.fillRect(p.L+1,p.Y(-2.3),p.W-2,p.Y(-2.7)-p.Y(-2.3)); g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); g.textAlign='right'; g.fillText('0 (aynı)',p.L-6,zy+4); g.textAlign='left';",
+   "var zy=p.Y(-2.5); g.fillStyle=PAL.soft; g.fillRect(p.L+1,p.Y(-2.3),p.W-2,p.Y(-2.7)-p.Y(-2.3)); g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); g.textAlign='right'; g.fillText('0 (identical)',p.L-6,zy+4); g.textAlign='left';"
+  ],
+  [
+   "/* ---------- Ramachandran yarışı ---------- */",
+   "/* ---------- Ramachandran race ---------- */"
+  ],
+  [
+   "var RAO=[['W2|R1','W2 ve R1: aynı komut'],['W1|R2','W1 ve R2: kesintisiz'],['W2|R3','W2 ve R3: 2 iş parçacığı'],['R5|R4','R4 ve R5: -reprod, 200 ps']];",
+   "var RAO=[['W2|R1','W2 and R1: same command'],['W1|R2','W1 and R2: uninterrupted'],['W2|R3','W2 and R3: 2 threads'],['R5|R4','R4 and R5: -reprod, 200 ps']];"
+  ],
+  [
+   "g.font='12px '+css('--sans'); g.fillStyle=PAL.muted; g.textAlign='center'; [-180,-90,0,90,180].forEach(function(v){ g.fillText(fmtNum(v),G.X(v),G.T+G.S+15); }); g.fillText('φ (derece)',G.L+G.S/2,G.T+G.S+31);",
+   "g.font='12px '+css('--sans'); g.fillStyle=PAL.muted; g.textAlign='center'; [-180,-90,0,90,180].forEach(function(v){ g.fillText(fmtNum(v),G.X(v),G.T+G.S+15); }); g.fillText('φ (degrees)',G.L+G.S/2,G.T+G.S+31);"
+  ],
+  [
+   "g.textAlign='right'; [-180,-90,0,90,180].forEach(function(v){ g.fillText(fmtNum(v),G.L-6,G.Y(v)+4); }); g.save(); g.translate(12,G.T+G.S/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('ψ (derece)',0,0); g.restore();",
+   "g.textAlign='right'; [-180,-90,0,90,180].forEach(function(v){ g.fillText(fmtNum(v),G.L-6,G.Y(v)+4); }); g.save(); g.translate(12,G.T+G.S/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('ψ (degrees)',0,0); g.restore();"
+  ],
+  [
+   "g.textAlign='left'; g.font='600 12px '+css('--sans'); g.fillStyle=PAL.s2; g.fillText('αR (plan tanımı)',G.X(-176),G.Y(-112)); }",
+   "g.textAlign='left'; g.font='600 12px '+css('--sans'); g.fillStyle=PAL.s2; g.fillText('αR (plan definition)',G.X(-176),G.Y(-112)); }"
+  ],
+  [
+   "if(R.n<2001){ v='hesaplanmadı'; sub='bu koşu 200 ps; ölçüt penceresi 200 ile 2000 ps'; }",
+   "if(R.n<2001){ v='not computed'; sub='this run is 200 ps; the measurement window is 200 to 2000 ps'; }"
+  ],
+  [
+   "else if(i<200){ v='bekliyor'; sub='ölçüt penceresi 200 ps\\'de açılır'; }",
+   "else if(i<200){ v='waiting'; sub='the measurement window opens at 200 ps'; }"
+  ],
+  [
+   "else { v=pct(raP(k,i),1); sub=(i-199)+' kare'+(i>=2000&&st?' · planlı analiz: '+pct(st.p,1)+(Math.abs(raP(k,2000)-st.p)<1e-12?' ✓':''):''); }",
+   "else { v=pct(raP(k,i),1); sub=(i-199)+' frames'+(i>=2000&&st?' · planned analysis: '+pct(st.p,1)+(Math.abs(raP(k,2000)-st.p)<1e-12?' ✓':''):''); }"
+  ],
+  [
+   "var p=plot(g,46,10,W-58,H-10-44,[200,2000],[0,100],{xticks:[200,800,1400,2000],yticks:[0,25,50,75,100],xlab:'zaman (ps)',ylab:'αR payı, 200 ps\\'den (%)',ylabPad:34});",
+   "var p=plot(g,46,10,W-58,H-10-44,[200,2000],[0,100],{xticks:[200,800,1400,2000],yticks:[0,25,50,75,100],xlab:'time (ps)',ylab:'αR fraction from 200 ps (%)',ylabPad:34});"
+  ],
+  [
+   "if(R.n<2001){ g.fillStyle=PAL.muted; g.font='13px '+css('--sans'); g.textAlign='center'; g.fillText('Bu senaryo hesaplanmadı',p.L+p.W/2,p.T+p.H/2-6); g.fillText('(koşular 200 ps)',p.L+p.W/2,p.T+p.H/2+12); g.textAlign='left'; return; }",
+   "if(R.n<2001){ g.fillStyle=PAL.muted; g.font='13px '+css('--sans'); g.textAlign='center'; g.fillText('This scenario was not computed',p.L+p.W/2,p.T+p.H/2-6); g.fillText('(runs are 200 ps)',p.L+p.W/2,p.T+p.H/2+12); g.textAlign='left'; return; }"
+  ],
+  [
+   "/* ---------- αR payı: özgün ve yeniden koşular ---------- */",
+   "/* ---------- αR fraction: original runs and reruns ---------- */"
+  ],
+  [
+   "function rpPA(){ var c=$('xpa'), f=fit(c), g=f.g, W=f.W, H=f.H, S=VDD.STATS, K=['W1','R2','W2','R1','R3'], NM={W1:'W1 özgün',R2:'R2 kesintisiz',W2:'W2 özgün',R1:'R1 aynı komut',R3:'R3 2 iş parçacığı'}, e0=ease(PA.k); g.clearRect(0,0,W,H);",
+   "function rpPA(){ var c=$('xpa'), f=fit(c), g=f.g, W=f.W, H=f.H, S=VDD.STATS, K=['W1','R2','W2','R1','R3'], NM={W1:'W1 original',R2:'R2 uninterrupted',W2:'W2 original',R1:'R1 same command',R3:'R3 2 threads'}, e0=ease(PA.k); g.clearRect(0,0,W,H);"
+  ],
+  [
+   "var p=plot(g,46,12,W-58,H-52,[-0.6,K.length-0.4],[0,80],{yticks:[0,20,40,60,80],ylab:'αR payı (%)',ylabPad:34}), m=VDD.WMEAN*100, s=1.96*VDD.SD*100;",
+   "var p=plot(g,46,12,W-58,H-52,[-0.6,K.length-0.4],[0,80],{yticks:[0,20,40,60,80],ylab:'αR fraction (%)',ylabPad:34}), m=VDD.WMEAN*100, s=1.96*VDD.SD*100;"
+  ],
+  [
+   "$('xparead').innerHTML=[['R1','W2'],['R2','W1'],['R3','W2']].map(function(q){ var d=S[q[0]].p-S[q[1]].p; return dl(q[0]+' − '+q[1],(d===0?'0':fx(d*100,2))+' puan'); }).join('')+dl('W\\'nin 8 tekrarı arasında SD',pp(VDD.SD,1)+' puan')+dl('Özgün W2\\'nin blok SE\\'si',pp(S.W2.se_block,1)+' puan'); }",
+   "$('xparead').innerHTML=[['R1','W2'],['R2','W1'],['R3','W2']].map(function(q){ var d=S[q[0]].p-S[q[1]].p; return dl(q[0]+' − '+q[1],(d===0?'0':fx(d*100,2))+' points'); }).join('')+dl('SD among W\\'s 8 replicas',pp(VDD.SD,1)+' points')+dl('Block SE of the original W2',pp(S.W2.se_block,1)+' points'); }"
+  ],
+  [
+   "$('xdleg').innerHTML='<span><span class=\"lin\" style=\"border-color:var(--s1)\"></span>bütün atomlar (4.582)</span><span><span class=\"lin\" style=\"border-color:var(--s3)\"></span>peptit (22 atom)</span><span>yatay çizgiler: 0,01, 0,1 ve 0,5 nm</span><span class=\"seg\" role=\"group\" aria-label=\"Zaman aralığı\" id=\"xrx\"><button type=\"button\" data-v=\"20\" aria-pressed=\"false\">ilk 20 ps</button><button type=\"button\" data-v=\"200\" aria-pressed=\"true\">ilk 200 ps</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">tamamı</button></span>';",
+   "$('xdleg').innerHTML='<span><span class=\"lin\" style=\"border-color:var(--s1)\"></span>all atoms (4,582)</span><span><span class=\"lin\" style=\"border-color:var(--s3)\"></span>peptide (22 atoms)</span><span>horizontal lines: 0.01, 0.1 and 0.5 nm</span><span class=\"seg\" role=\"group\" aria-label=\"Time range\" id=\"xrx\"><button type=\"button\" data-v=\"20\" aria-pressed=\"false\">first 20 ps</button><button type=\"button\" data-v=\"200\" aria-pressed=\"true\">first 200 ps</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">all</button></span>';"
+  ],
+  [
+   "/* αR payı grafiği */",
+   "/* αR fraction chart */"
+  ],
+  [
+   "function raSet(on){ RA.on=on; var b=$('xramplay'); b.textContent=on?'Duraklat':'Oynat'; b.setAttribute('aria-pressed',String(on)); if(on){ if(RA.i>=raRuns().n-1) RA.i=0; aniKick(); } }",
+   "function raSet(on){ RA.on=on; var b=$('xramplay'); b.textContent=on?'Pause':'Play'; b.setAttribute('aria-pressed',String(on)); if(on){ if(RA.i>=raRuns().n-1) RA.i=0; aniKick(); } }"
+  ],
+  [
+   "function rpProse(){ return '<p>REPGRID\\'in iki tekrarı aynı md.tpr dosyasından, aynı GROMACS 2023.3 ve aynı bulut makine türünde yeniden koşuldu. tpr dosyası koşuyu bütünüyle tanımlar: topoloji, parametreler, başlangıç koordinatları ve hızlar, termostatın tohumu. Değişen yalnız komut satırıdır: iş parçacığı sayısı, kesinti ve <code>-reprod</code>. Bir karşılaştırma seçin; sahne, ayrışma şeridi, sayaç ve istatistik aynı seçimi izler.</p>'; }",
+   "function rpProse(){ return '<p>Two REPGRID replicas were rerun from the same md.tpr file, with the same GROMACS 2023.3 on the same cloud machine type. The tpr file fully defines the run: topology, parameters, starting coordinates and velocities, the thermostat seed. Only the command line changes: thread count, interruption and <code>-reprod</code>. Pick a comparison; the scene, the divergence strip, the counter and the statistics follow the same choice.</p>'; }"
+  ],
+  [
+   "function st(x){ return x.x.same?'bit düzeyinde aynı':'farklı (koordinatlarda ilk fark '+fx(x.x.first,0)+' ps, enerjide '+fx(x.e.first,1)+' ps)'; }",
+   "function st(x){ return x.x.same?'bit-identical':'different (first difference at '+fx(x.x.first,0)+' ps in coordinates, '+fx(x.e.first,1)+' ps in energies)'; }"
+  ],
+  [
+   "if(n>=4) card('xc2',true,'Aynı tpr ve aynı komut (-nt 1) ile R1 ve özgün W2: '+st(a)+'. Kesintisiz R2 ile 181,8 ps\\'de sürdürülmüş özgün W1: '+st(b)+'; dosyaların SHA-256 özetleri bile aynı. İki iş parçacığı ile tek: '+st(c)+'. -reprod ile iki iş parçacığında iki koşu (R4, R5): '+st(d)+'. Yani aynı komut her seferinde aynı sonucu vermedi, denetim noktasından sürdürme ise trajektoriyi değiştirmedi. GROMACS 2023 kullanım kılavuzu, yeniden üretilebilirliği bozan kaynaklar arasında FFTW\\'nin başlangıçta zaman ölçerek en hızlı algoritmayı seçmesini sayar ve -reprod\\'un bu tür kaynakları kapattığını yazar; bu deneyde R1 ile W2 arasında ilk adımda yalnız virial ve basıncın son basamakları farklıydı, -reprod ile iki koşu aynı çıktı. Bu açıklama veriyle uyumludur ama tek iş parçacıklı -reprod koşusu yapılmadığı için doğrudan sınanmadı (Bu senaryo hesaplanmadı). Fark son basamakta başlar ve kaotik dinamik onu birkaç pikosaniyede büyütür.');",
+   "if(n>=4) card('xc2',true,'R1 and the original W2, with the same tpr and the same command (-nt 1): '+st(a)+'. Uninterrupted R2 and the original W1, continued at 181.8 ps: '+st(b)+'; even the files\\' SHA-256 digests match. Two threads against one: '+st(c)+'. Two runs with -reprod on two threads (R4, R5): '+st(d)+'. So the same command did not give the same result every time, while continuing from a checkpoint did not change the trajectory. The GROMACS 2023 user guide lists, among the sources that break reproducibility, FFTW choosing its fastest algorithm by timing at startup, and states that -reprod removes such sources; in this experiment R1 and W2 differed at the first step only in the last digits of the virial and pressure, and two runs with -reprod came out identical. This explanation is consistent with the data, but it was not tested directly because no single-thread -reprod run was done (This scenario was not computed). The difference starts in the last digit and chaotic dynamics amplify it within a few picoseconds.');"
+  ],
+  [
+   "else card('xc2',false,'Şimdiye kadar '+n+' karşılaştırma; en az dördüne bakın.');",
+   "else card('xc2',false,'So far '+n+' comparison(s); look at at least four.');"
+  ],
+  [
+   "if(mv) card('xc3',true,'Ayrışan koşular aynı başlangıç noktasından aynı tohumla çıkar. R1 ile W2\\'de peptidin en büyük konum farkı 0,01 nm\\'yi '+fx(T['0.01'],0)+' ps\\'de, 0,1 nm\\'yi '+fx(T['0.1'],0)+' ps\\'de, 0,5 nm\\'yi '+fx(T['0.5'],0)+' ps\\'de aşar. 2 ns sonunda αR payı: özgün W2 %'+pp(S.W2.p)+', aynı komutla R1 %'+pp(S.R1.p)+' ('+(d1>0?'+':'')+fx(d1*100,1)+' puan), iki iş parçacığıyla R3 %'+pp(S.R3.p)+' ('+fx(d3*100,1)+' puan). W\\'nin sekiz tekrarı arasındaki SD '+pp(VDD.SD,1)+' puan, W2\\'nin blok SE\\'si '+pp(S.W2.se_block,1)+' puan. Yani sayısal bir ayrışma bile, tek bir 2 ns koşunun αR payını tekrarlar arası yayılım kadar oynatır. Bit düzeyinde eşlik bir hesap denetimidir; bilimsel sonucun yeniden üretimi ise istatistik düzeyinde, bağımsız tekrarlarla gösterilir. Ayrışan koşu yine de bağımsız bir tekrar sayılmaz: başlangıç durumu ve tohum aynıdır; tekrarlar farklı tohumla planlanır (MD-REP).');",
+   "if(mv) card('xc3',true,'Diverged runs leave the same starting point with the same seed. For R1 and W2 the largest peptide position difference exceeds 0.01 nm at '+fx(T['0.01'],0)+' ps, 0.1 nm at '+fx(T['0.1'],0)+' ps and 0.5 nm at '+fx(T['0.5'],0)+' ps. After 2 ns the αR fraction is: original W2 '+pp(S.W2.p)+'%, R1 with the same command '+pp(S.R1.p)+'% ('+(d1>0?'+':'')+fx(d1*100,1)+' points), R3 with two threads '+pp(S.R3.p)+'% ('+fx(d3*100,1)+' points). The SD among W\\'s eight replicas is '+pp(VDD.SD,1)+' points, the block SE of W2 '+pp(S.W2.se_block,1)+' points. So even a numerical divergence moves a single 2 ns run\\'s αR fraction by as much as the spread between replicas. Bit-level agreement is a check of the computation; reproducing a scientific result is shown at the level of statistics, with independent replicas. A diverged run still does not count as an independent replica: the starting state and seed are the same; replicas are planned with different seeds (MD-REP).');"
+  ],
+  [
+   "else card('xc3',false,'Ayrışan bir karşılaştırmada sahneyi oynatın ya da zaman kaydırıcısını oynatın.'); }",
+   "else card('xc3',false,'In a diverged comparison, play the scene or move the time slider.'); }"
+  ],
+  [
+   "/* ===== kayan nokta laboratuvarı: aynı sayılar, farklı toplama sırası (tarayıcıda gerçek tek duyarlık hesabı) ===== */",
+   "/* ===== floating-point lab: same numbers, different order of addition (real single-precision arithmetic in the browser) ===== */"
+  ],
+  [
+   "/* th iş parçacığı: ardışık parçalar ayrı ayrı toplanır, sonra parçalar sırayla birleştirilir */",
+   "/* th threads: consecutive chunks are summed separately, then the chunks are combined in order */"
+  ],
+  [
+   "function g9(x){ return x.toPrecision(9).replace('-','−').replace('.',','); }",
+   "function g9(x){ return x.toPrecision(9).replace('-','−'); }"
+  ],
+  [
+   "function nShort(x){ var a=Math.abs(x); return a>=1000?fx(x,0):a>=10?fx(x,1):a>=1?fx(x,2):a>=0.01?fx(x,3):x.toPrecision(2).replace('-','−').replace('.',','); }",
+   "function nShort(x){ var a=Math.abs(x); return a>=1000?fx(x,0):a>=10?fx(x,1):a>=1?fx(x,2):a>=0.01?fx(x,3):x.toPrecision(2).replace('-','−'); }"
+  ],
+  [
+   "g.fillStyle=PAL.ink; g.font=(tw<70?'11.5px ':'13px ')+css('--mono'); g.textAlign='center'; g.fillText(nShort(v),x+tw/2,y+thH/2+2); g.fillStyle=PAL.muted; g.font='10px '+css('--sans'); g.fillText((j+1)+'. · '+(th>1?'iş '+(t+1):'tek iş'),x+tw/2,y+thH-6); }",
+   "g.fillStyle=PAL.ink; g.font=(tw<70?'11.5px ':'13px ')+css('--mono'); g.textAlign='center'; g.fillText(nShort(v),x+tw/2,y+thH/2+2); g.fillStyle=PAL.muted; g.font='10px '+css('--sans'); g.fillText((j+1)+'. · '+(th>1?'thread '+(t+1):'one thread'),x+tw/2,y+thH-6); }"
+  ],
+  [
+   "for(var t=0;t<th;t++){ var x=gap+t*(bw+gap), k=Math.min(done,ch)-1, val=k>=0?res.run[t][k]:0; g.fillStyle=hexA(C[t],0.14); rrect(g,x,by,bw,26,8); g.fill(); g.fillStyle=C[t]; g.font='600 12px '+css('--sans'); g.fillText(th>1?'İş '+(t+1):'Tek iş',x+8,by+17); g.fillStyle=PAL.ink; g.font='12px '+css('--mono'); g.textAlign='right'; g.fillText(k>=0?g9(val):'0',x+bw-8,by+17); g.textAlign='left'; }",
+   "for(var t=0;t<th;t++){ var x=gap+t*(bw+gap), k=Math.min(done,ch)-1, val=k>=0?res.run[t][k]:0; g.fillStyle=hexA(C[t],0.14); rrect(g,x,by,bw,26,8); g.fill(); g.fillStyle=C[t]; g.font='600 12px '+css('--sans'); g.fillText(th>1?'Thread '+(t+1):'One thread',x+8,by+17); g.fillStyle=PAL.ink; g.font='12px '+css('--mono'); g.textAlign='right'; g.fillText(k>=0?g9(val):'0',x+bw-8,by+17); g.textAlign='left'; }"
+  ],
+  [
+   "var ty=by+34, fin=done>=steps||FL.k>=1; g.fillStyle=fin?PAL.navy:PAL.soft; rrect(g,gap,ty,W-2*gap,26,8); g.fill(); g.fillStyle=fin?PAL.paper:PAL.muted; g.font='600 12.5px '+css('--sans'); g.fillText(th>1?'Birleştirilmiş toplam':'Toplam',gap+10,ty+17); g.font='13px '+css('--mono'); g.textAlign='right'; g.fillText(fin?g9(res.tot):'…',W-gap-10,ty+17); g.textAlign='left';",
+   "var ty=by+34, fin=done>=steps||FL.k>=1; g.fillStyle=fin?PAL.navy:PAL.soft; rrect(g,gap,ty,W-2*gap,26,8); g.fill(); g.fillStyle=fin?PAL.paper:PAL.muted; g.font='600 12.5px '+css('--sans'); g.fillText(th>1?'Combined sum':'Sum',gap+10,ty+17); g.font='13px '+css('--mono'); g.textAlign='right'; g.fillText(fin?g9(res.tot):'…',W-gap-10,ty+17); g.textAlign='left';"
+  ],
+  [
+   "function flTable(){ var ref=flSum(FL.ord,1).tot, ex=0; FL.ord.forEach(function(i){ ex+=FL.nums[i]; }); var rb=bitStr(ref), h='<tr><th>Toplama</th><th class=\"n\">Tek duyarlık sonucu</th><th>32 bit (işaret · üs · kesir)</th></tr>';",
+   "function flTable(){ var ref=flSum(FL.ord,1).tot, ex=0; FL.ord.forEach(function(i){ ex+=FL.nums[i]; }); var rb=bitStr(ref), h='<tr><th>Summation</th><th class=\"n\">Single-precision result</th><th>32 bits (sign · exponent · fraction)</th></tr>';"
+  ],
+  [
+   "h+='<tr class=\"'+(th===FL.m?'sel':'')+'\"><td>'+(th===1?'1 iş parçacığı, sırayla':th+' iş parçacığı')+'</td><td class=\"n\">'+g9(v)+'</td><td><span class=\"bits\">'+bs+'</span>'+(th>1?(nd?' <span class=\"fno\">'+nd+' bit farklı</span>':' <span class=\"fok\">aynı</span>'):'')+'</td></tr>'; });",
+   "h+='<tr class=\"'+(th===FL.m?'sel':'')+'\"><td>'+(th===1?'1 thread, in order':th+' threads')+'</td><td class=\"n\">'+g9(v)+'</td><td><span class=\"bits\">'+bs+'</span>'+(th>1?(nd?' <span class=\"fno\">'+nd+' bit(s) differ</span>':' <span class=\"fok\">identical</span>'):'')+'</td></tr>'; });"
+  ],
+  [
+   "h+='<tr><td>Çift duyarlık (başvuru)</td><td class=\"n\">'+ex.toPrecision(12).replace('.',',').replace('-','−')+'</td><td class=\"small\">aynı 16 sayının 64 bitlik toplamı</td></tr>';",
+   "h+='<tr><td>Double precision (reference)</td><td class=\"n\">'+ex.toPrecision(12).replace('-','−')+'</td><td class=\"small\">64-bit sum of the same 16 numbers</td></tr>';"
+  ],
+  [
+   "var p=plot(g,46,12,W-58,H-12-58,[-0.5,n-0.5],[0,mx*1.12],{yticks:[0,Math.round(mx/2),mx],ylab:'sıra sayısı',ylabPad:34}), bw=Math.min(46,p.W/n*0.7), e=ease(FL.mk);",
+   "var p=plot(g,46,12,W-58,H-12-58,[-0.5,n-0.5],[0,mx*1.12],{yticks:[0,Math.round(mx/2),mx],ylab:'number of orders',ylabPad:34}), bw=Math.min(46,p.W/n*0.7), e=ease(FL.mk);"
+  ],
+  [
+   "g.textAlign='center'; g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('farklı tek duyarlık sonuçları (küçükten büyüğe)',p.L+p.W/2,H-6); g.textAlign='left';",
+   "g.textAlign='center'; g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('distinct single-precision results (smallest to largest)',p.L+p.W/2,H-6); g.textAlign='left';"
+  ],
+  [
+   "var lo=M.vals[0], hi=M.vals[n-1]; $('xflms').innerHTML='1000 farklı sıranın verdiği farklı sonuç sayısı: <b>'+n+'</b>. En küçük ile en büyük arası '+g9(hi-lo)+' (son basamağın yaklaşık '+fx((hi-lo)/M.ulp,0)+' katı; göreli '+(hi===lo?'0':sci((hi-lo)/Math.abs(M.ex)))+').'; }",
+   "var lo=M.vals[0], hi=M.vals[n-1]; $('xflms').innerHTML='Distinct results from 1000 different orders: <b>'+n+'</b>. The spread between the smallest and largest is '+g9(hi-lo)+' (about '+fx((hi-lo)/M.ulp,0)+' times the last digit; relative '+(hi===lo?'0':sci((hi-lo)/Math.abs(M.ex)))+').'; }"
+  ],
+  [
+   "/* ===== başlık sahnesi: W2 ve R1, aynı md.tpr, aynı komut (gerçek koordinatlar, ilk 80 ps) ===== */",
+   "/* ===== header scene: W2 and R1, same md.tpr, same command (real coordinates, first 80 ps) ===== */"
+  ],
+  [
+   "g.font='600 12.5px '+css('--sans'); [[PAL.ink,'W2 · özgün koşu'],[PAL.s1,narrow?'R1 · aynı komutla yeniden':'R1 · aynı tpr, aynı komutla yeniden']].forEach(function(S,j){ var y=20+j*24; g.fillStyle=S[0]; g.beginPath(); g.arc(18,y-4,5,0,7); g.fill(); g.fillStyle=PAL.ink; g.fillText(S[1],30,y); });",
+   "g.font='600 12.5px '+css('--sans'); [[PAL.ink,'W2 · original run'],[PAL.s1,narrow?'R1 · rerun, same command':'R1 · rerun, same tpr, same command']].forEach(function(S,j){ var y=20+j*24; g.fillStyle=S[0]; g.beginPath(); g.arc(18,y-4,5,0,7); g.fill(); g.fillStyle=PAL.ink; g.fillText(S[1],30,y); });"
+  ],
+  [
+   "var msg=dp>0?'peptitte en büyük fark '+fx(dp,dp<0.01?4:3)+' nm':'iki koşu bit düzeyinde aynı'; g.font='12.5px '+css('--sans');",
+   "var msg=dp>0?'largest peptide difference '+fx(dp,dp<0.01?4:3)+' nm':'the two runs are bit-identical'; g.font='12.5px '+css('--sans');"
+  ],
+  [
+   "/* ===== atölye 3: yeniden üretim dosyası (REPGRID paketi, tarayıcıda SHA-256) ===== */",
+   "/* ===== workshop 3: the reproduction package (REPGRID package, SHA-256 in the browser) ===== */"
+  ],
+  [
+   "var FGN={frozen:'Dondurulmuş protokol (koşulardan önce)',after:'Koşulardan sonra yazılanlar',runs:'Koşu dosyaları (W1)'};",
+   "var FGN={frozen:'Frozen protocol (before the runs)',after:'Written after the runs',runs:'Run files (W1)'};"
+  ],
+  [
+   "var FROLE={'PROTOCOL.md':'soru, yöntem, ölçüt, eşik ve hüküm etiketleri','run_grid.sh':'bütün koşuları üreten tek betik; tohumlar burada','mdp/common.mdp':'ortak simülasyon ayarları','mdp/em.mdp':'minimizasyon','mdp/ions.mdp':'iyon ekleme için boş girdi','mdp/nvt_eq.mdp':'NVT dengeleme','mdp/npt_eq.mdp':'NPT dengeleme','mdp/prod.mdp':'üretim','prep/ala.pdb':'başlangıç yapısı (mdshare ALA2, CC BY 4.0)','prep/conf.gro':'pdb2gmx çıktısı','prep/topol.top':'topoloji','prep/posre.itp':'konum kısıtları','prep/box.gro':'kutu','prep/solv.gro':'çözücülü kutu (1520 su)','DEVIATIONS.md':'sapma kaydı: bulut kapsayıcısı yeniden başladı','AUDIT.md':'bağımsız denetim özeti','RESULTS_SUMMARY.md':'sonuç özeti','runs/W1/md.tpr':'koşuyu bütünüyle tanımlayan ikili girdi: topoloji, parametreler, başlangıç koordinatları ve hızlar','runs/W1/md.xtc':'trajektori (1 ps)','runs/W1/md.edr':'enerji dosyası','runs/W1/md.log':'mdrun günlüğü: program, donanım, sürdürme kaydı','runs/W1/md.cpt':'son denetim noktası','runs/W1/md_prev.cpt':'bir önceki denetim noktası'};",
+   "var FROLE={'PROTOCOL.md':'question, method, measure, threshold and verdict labels','run_grid.sh':'the single script that produces all runs; seeds are here','mdp/common.mdp':'shared simulation settings','mdp/em.mdp':'minimization','mdp/ions.mdp':'empty input for adding ions','mdp/nvt_eq.mdp':'NVT equilibration','mdp/npt_eq.mdp':'NPT equilibration','mdp/prod.mdp':'production','prep/ala.pdb':'starting structure (mdshare ALA2, CC BY 4.0)','prep/conf.gro':'pdb2gmx output','prep/topol.top':'topology','prep/posre.itp':'position restraints','prep/box.gro':'box','prep/solv.gro':'solvated box (1520 waters)','DEVIATIONS.md':'deviation record: the cloud container restarted','AUDIT.md':'independent audit summary','RESULTS_SUMMARY.md':'results summary','runs/W1/md.tpr':'binary input that fully defines the run: topology, parameters, starting coordinates and velocities','runs/W1/md.xtc':'trajectory (1 ps)','runs/W1/md.edr':'energy file','runs/W1/md.log':'mdrun log: program, hardware, continuation record','runs/W1/md.cpt':'last checkpoint','runs/W1/md_prev.cpt':'previous checkpoint'};"
+  ],
+  [
+   "['frozen','after','runs'].forEach(function(g){ h+='<div class=\"fg\"><div class=\"fgh\">'+FGN[g]+'</div>'+F.map(function(f,i){ if(f.g!==g) return ''; var v=FI.ver[i], st=v==null?'':v?'<span class=\"fok\">✓ aynı</span>':'<span class=\"fno\">✗ farklı</span>';",
+   "['frozen','after','runs'].forEach(function(g){ h+='<div class=\"fg\"><div class=\"fgh\">'+FGN[g]+'</div>'+F.map(function(f,i){ if(f.g!==g) return ''; var v=FI.ver[i], st=v==null?'':v?'<span class=\"fok\">✓ identical</span>':'<span class=\"fno\">✗ different</span>';"
+  ],
+  [
+   "if(t==null){ ta.value='(Büyük ikili dosya: içerik sayfaya konmadı. Kayıtlı SHA-256 MANIFEST.sha256 dosyasından.)'; ta.disabled=true; } else { ta.value=t.length>60000?t:t; ta.disabled=false; }",
+   "if(t==null){ ta.value='(Large binary file: its content is not on the page. The recorded SHA-256 is from MANIFEST.sha256.)'; ta.disabled=true; } else { ta.value=t.length>60000?t:t; ta.disabled=false; }"
+  ],
+  [
+   "$('xfread').innerHTML=dl('Dosya',f.p+' · '+fsize(f.n))+dl('Görevi',FROLE[f.p]||'')+dl('Kayıtlı SHA-256',rec?'<code>'+rec+'</code>':'kayıt yok (koşulardan sonra yazıldı; dondurulmuş listede değil)')+",
+   "$('xfread').innerHTML=dl('File',f.p+' · '+fsize(f.n))+dl('Role',FROLE[f.p]||'')+dl('Recorded SHA-256',rec?'<code>'+rec+'</code>':'no record (written after the runs; not in the frozen list)')+"
+  ],
+  [
+   "dl('Tarayıcıda hesaplanan',h?'<code>'+h+'</code>':'hesaplanmadı (içerik sayfada yok)')+dl('Sonuç',h==null?'yalnız kayıtlı özet':rec==null?'karşılaştırılacak kayıt yok':same?'<span class=\"fok\">bayt bayt aynı</span>':'<span class=\"fno\">farklı: dosya değişmiş</span>');",
+   "dl('Computed in the browser',h?'<code>'+h+'</code>':'not computed (content not on the page)')+dl('Result',h==null?'recorded digest only':rec==null?'no record to compare':same?'<span class=\"fok\">byte for byte identical</span>':'<span class=\"fno\">different: the file has changed</span>');"
+  ],
+  [
+   "var tr=document.querySelector('#xftree .fbtn[data-i=\"'+FI.sel+'\"]'); if(tr){ var o=tr.querySelector('.fok,.fno'); if(o) o.remove(); if(FI.ver[FI.sel]!=null) tr.insertAdjacentHTML('beforeend',FI.ver[FI.sel]?'<span class=\"fok\">✓ aynı</span>':'<span class=\"fno\">✗ farklı</span>'); }",
+   "var tr=document.querySelector('#xftree .fbtn[data-i=\"'+FI.sel+'\"]'); if(tr){ var o=tr.querySelector('.fok,.fno'); if(o) o.remove(); if(FI.ver[FI.sel]!=null) tr.insertAdjacentHTML('beforeend',FI.ver[FI.sel]?'<span class=\"fok\">✓ identical</span>':'<span class=\"fno\">✗ different</span>'); }"
+  ],
+  [
+   "/* 256 bitlik özet ızgarası: kayıtlı özetten farklı bitler işaretli, değişen bitler döner */",
+   "/* 256-bit digest grid: bits that differ from the recorded digest are marked, changing bits flip */"
+  ],
+  [
+   "$('xbitsr').innerHTML=!cur?'Özet yok.':h==null?'Yalnız kayıtlı özetin bitleri (içerik sayfada yok).':rec==null?'Yalnız hesaplanan özetin bitleri (karşılaştırılacak kayıt yok).':nd?'Kayıtlı özetle karşılaştırma: 256 bitten <b class=\"fno\">'+nd+'</b> farklı (kırmızı çerçeveli hücreler).':'Kayıtlı özetle karşılaştırma: <b class=\"fok\">256 bitin hepsi aynı</b>.';",
+   "$('xbitsr').innerHTML=!cur?'No digest.':h==null?'Bits of the recorded digest only (content not on the page).':rec==null?'Bits of the computed digest only (no record to compare).':nd?'Against the recorded digest: <b class=\"fno\">'+nd+'</b> of 256 bits differ (cells framed in red).':'Against the recorded digest: <b class=\"fok\">all 256 bits identical</b>.';"
+  ],
+  [
+   "FI.all=true; FI.okn=ok; FI.n=n; $('xfsum').textContent='Dondurulmuş protokolün '+n+' dosyasından '+nPoss(String(ok))+' kayıtlı özetle bayt bayt aynı'+(ok<n?'; '+(n-ok)+' dosya farklı.':'.'); fiTree(); fiRead(); }",
+   "FI.all=true; FI.okn=ok; FI.n=n; $('xfsum').textContent=ok+' of the '+n+' files of the frozen protocol are byte for byte identical to the recorded digest'+(ok<n?'; '+(n-ok)+' file(s) differ.':'.'); fiTree(); fiRead(); }"
+  ],
+  [
+   "if(FI.all&&FI.edited) card('xc4',true,'Protokol '+VDD.TL.frozen.replace('T',' ').replace('Z',' UTC')+'\\'de, koşulardan önce donduruldu; 14 dosyanın SHA-256 özeti o an yazıldı. '+(FI.okn===FI.n?'Bugün tarayıcıda yeniden hesaplanan '+FI.n+' özetin hepsi kayıtla aynı: dosyalar o günden beri tek bayt değişmedi.':'Son doğrulamada '+FI.n+' dosyadan '+nPoss(String(FI.okn))+' kayıtla aynı çıktı; farklı çıkanlar sayfada sizin değiştirdiğiniz dosyalar. Sayfaya gömülü özgün içerik sayfa kurulurken kayıtlı özetlerle sınandı; \"Bu dosyayı geri al\" ile özgün metne dönüp yeniden doğrulayabilirsiniz.')+' Tek bir karakter değişince özet bütünüyle başka olur. Özet bir dosyanın doğru olduğunu söylemez, yalnız değişmediğini söyler; neyin önceden yazıldığını ise zaman damgası ve özet birlikte kanıtlar. Sapma kaydı ve denetim koşulardan sonra yazıldı ve dondurulmuş listede yok; bu yüzden ayrı bir sınıftır. Koşunun kendisini md.tpr tanımlar: topoloji, parametreler, başlangıç koordinatları ve hızlar tek dosyadadır; atölye 2 aynı tpr\\'den yeniden koşunca ne olduğunu gösterir.');",
+   "if(FI.all&&FI.edited) card('xc4',true,'The protocol was frozen at '+VDD.TL.frozen.replace('T',' ').replace('Z',' UTC')+', before the runs; the SHA-256 digests of 14 files were written down at that moment. '+(FI.okn===FI.n?'All '+FI.n+' digests recomputed in the browser today match the record: the files have not changed by a single byte since then.':'In the last verification '+FI.okn+' of '+FI.n+' files matched the record; the ones that differ are files you changed on the page. The original content embedded in the page was checked against the recorded digests when the page was built; with \"Revert this file\" you can go back to the original text and verify again.')+' When a single character changes, the digest becomes entirely different. A digest does not say that a file is correct, only that it has not changed; what was written in advance is proven by the timestamp and the digest together. The deviation record and the audit were written after the runs and are not in the frozen list; that is why they are a separate class. The run itself is defined by md.tpr: topology, parameters, starting coordinates and velocities are in one file; workshop 2 shows what happens when the same tpr is rerun.');"
+  ],
+  [
+   "else card('xc4',false,(FI.all?'':'\"Hepsini doğrula\" düğmesine basın. ')+(FI.edited?'':'Bir metin dosyasında tek bir karakter değiştirin.')); }",
+   "else card('xc4',false,(FI.all?'':'Press \"Verify all\". ')+(FI.edited?'':'Change a single character in a text file.')); }"
+  ],
+  [
+   "$('xfone').onclick=function(){ var ta=$('xfta'); if(ta.disabled){ $('xfsum').textContent='Bu dosyanın içeriği sayfada yok; bir metin dosyası seçin.'; return; } var t=ta.value, m=t.search(/[A-Za-z]/); if(m<0) return; var ch=t[m]; t=t.slice(0,m)+(ch===ch.toLowerCase()?ch.toUpperCase():ch.toLowerCase())+t.slice(m+1); ta.value=t; FI.txt[FI.sel]=t; fiRead(); $('xfsum').textContent=(m+1)+'. karakterin büyük ya da küçük harfi değiştirildi; \"Bu dosyayı geri al\" ile dönebilirsiniz.'; };",
+   "$('xfone').onclick=function(){ var ta=$('xfta'); if(ta.disabled){ $('xfsum').textContent='This file\\'s content is not on the page; pick a text file.'; return; } var t=ta.value, m=t.search(/[A-Za-z]/); if(m<0) return; var ch=t[m]; t=t.slice(0,m)+(ch===ch.toLowerCase()?ch.toUpperCase():ch.toLowerCase())+t.slice(m+1); ta.value=t; FI.txt[FI.sel]=t; fiRead(); $('xfsum').textContent='The case of character '+(m+1)+' was changed; you can go back with \"Revert this file\".'; };"
+  ],
+  [
+   "/* ===== atölye 4: haklar (bu sitedeki girdilerin lisansları; hukuki danışmanlık değildir) ===== */",
+   "/* ===== workshop 4: rights (licenses of the inputs on this site; not legal advice) ===== */"
+  ],
+  [
+   "{cond:'koşul yok',cc:'c0',n:'PDB 3PTB (tripsin-benzamidin)',lic:'CC0 1.0 Universal',kind:'veri',att:'Zorunlu değil; özgün yazarlara atıf önerilir (Marquart ve ark. 1983).',chg:'Serbest.',sa:'Yok: türetilmiş veri istenen lisansla paylaşılabilir.',com:'Serbest.',use:'MD-LIG, MD-ERR, DK-T, DK-O, DK-U ve öteki 3PTB sayfaları'},",
+   "{cond:'no condition',cc:'c0',n:'PDB 3PTB (trypsin-benzamidine)',lic:'CC0 1.0 Universal',kind:'data',att:'Not required; attribution to the original authors is recommended (Marquart et al. 1983).',chg:'Free.',sa:'None: derived data can be shared under any license.',com:'Free.',use:'MD-LIG, MD-ERR, DK-T, DK-O, DK-U and the other 3PTB pages'},"
+  ],
+  [
+   "{cond:'atıf',cc:'c1',n:'mdshare ALA2 (alanin dipeptidi başlangıç yapısı)',lic:'CC BY 4.0',kind:'veri',att:'Zorunlu: kaynak (mdshare, Freie Universität Berlin) ve lisans belirtilir.',chg:'Serbest; değiştirildiği belirtilir.',sa:'Yok: türetilmiş veri başka lisansla da paylaşılabilir, atıf korunur.',com:'Serbest.',use:'MD-REP, MD-ERR ve alanin dipeptidi kullanan bütün sayfalar; REPGRID\\'deki prep/ala.pdb'},",
+   "{cond:'attribution',cc:'c1',n:'mdshare ALA2 (alanine dipeptide starting structure)',lic:'CC BY 4.0',kind:'data',att:'Required: the source (mdshare, Freie Universität Berlin) and the license are stated.',chg:'Free; changes are indicated.',sa:'None: derived data can also be shared under another license; attribution is kept.',com:'Free.',use:'MD-REP, MD-ERR and every page that uses alanine dipeptide; prep/ala.pdb in REPGRID'},"
+  ],
+  [
+   "{cond:'atıf + aynı lisansla paylaşım',cc:'c2',n:'ChEMBL benzamidin Ki değerleri',lic:'CC BY-SA 3.0 Unported',kind:'veri',att:'Zorunlu: ChEMBL ve kaynak makale (Zdrazil ve ark. 2024).',chg:'Serbest.',sa:'Var: bu değerlerden türetilen veri (örneğin hesaplanan ΔG aralığı) aynı ya da uyumlu lisansla paylaşılır.',com:'Serbest; aynı lisansla paylaşım koşulu sürer.',use:'MD-LIG, MD-ERR, DK-T; bu yüzden o sayfalarda CC BY-SA 3.0 bildirimi var'},",
+   "{cond:'attribution + share alike',cc:'c2',n:'ChEMBL benzamidine Ki values',lic:'CC BY-SA 3.0 Unported',kind:'data',att:'Required: ChEMBL and the source paper (Zdrazil et al. 2024).',chg:'Free.',sa:'Yes: data derived from these values (for example a computed ΔG range) is shared under the same or a compatible license.',com:'Free; the share-alike condition continues.',use:'MD-LIG, MD-ERR, DK-T; that is why those pages carry a CC BY-SA 3.0 notice'},"
+  ],
+  [
+   "{cond:'veriye koşul yok; program dağıtılırsa LGPL',cc:'c0',n:'GROMACS 2023.3',lic:'LGPL 2.1',kind:'yazılım',att:'Yazılım kullanımı için atıf lisans koşulu değildir; yöntem bölümünde sürüm ve atıf bilimsel gerekliliktir.',chg:'Programı değiştirip dağıtırsanız değiştirilmiş kaynak kod da LGPL ile verilir.',sa:'Lisans programın kendisini ve dağıtımını düzenler; programla ürettiğiniz trajektori bu lisanstan bir koşul almaz.',com:'Serbest.',use:'bütün MD sayfalarının koşuları; sürüm ve derleme ayrıntısı her koşunun md.log dosyasında'},",
+   "{cond:'no condition on data; LGPL if the program is distributed',cc:'c0',n:'GROMACS 2023.3',lic:'LGPL 2.1',kind:'software',att:'Attribution is not a license condition for using the software; the version and a citation in the methods section are a scientific requirement.',chg:'If you modify and distribute the program, the modified source is also provided under the LGPL.',sa:'The license governs the program itself and its distribution; a trajectory you produce with the program takes no condition from this license.',com:'Free.',use:'the runs of every MD page; version and build details are in each run\\'s md.log file'},"
+  ],
+  [
+   "{cond:'belirsiz: lisans seçilmedi',cc:'c3',n:'Bu sitenin kendi koşu dosyaları (REPGRID, REPROGRID ve öbürleri)',lic:'proje sahibinin kararı',kind:'veri',att:'Bu sayfa bir lisans önermez ve varsaymaz.',chg:'Belirsiz: lisans yazılmadıkça başkalarının ne yapabileceği belirsizdir.',sa:'Girdilerden gelen koşullar sürer: ALA2 için atıf, ChEMBL türevleri için aynı lisansla paylaşım.',com:'Belirsiz.',use:'yeniden üretim dosyası (atölye 3); bir veri deposuna konacaksa lisans ayrıca seçilir'}];",
+   "{cond:'unclear: no license chosen',cc:'c3',n:'This site\\'s own run files (REPGRID, REPROGRID and the others)',lic:'the project owner\\'s decision',kind:'data',att:'This page neither proposes nor assumes a license.',chg:'Unclear: until a license is written, what others may do is unclear.',sa:'Conditions from the inputs continue: attribution for ALA2, share alike for ChEMBL derivatives.',com:'Unclear.',use:'the reproduction package (workshop 3); if it goes to a data repository, a license is chosen separately'}];"
+  ],
+  [
+   "$('xrread2').innerHTML=dl('Lisans',a.lic+' ('+a.kind+')')+dl('Atıf',a.att)+dl('Değiştirme',a.chg)+dl('Türetilmiş veri',a.sa)+dl('Ticari kullanım',a.com)+dl('Bu sitede',a.use); }",
+   "$('xrread2').innerHTML=dl('License',a.lic+' ('+a.kind+')')+dl('Attribution',a.att)+dl('Modification',a.chg)+dl('Derived data',a.sa)+dl('Commercial use',a.com)+dl('On this site',a.use); }"
+  ],
+  [
+   "if(n>=4) card('xc5',true,'Bir MD çalışmasının girdileri farklı lisanslarla gelir ve koşullar türetilmiş veriye taşınır. PDB yapıları kamu malıdır (CC0); mdshare ALA2 atıf ister (CC BY 4.0); ChEMBL değerleri atıf ve aynı lisansla paylaşım ister (CC BY-SA 3.0), bu yüzden bu sitede ChEMBL\\'den türetilen her sayfa CC BY-SA bildirimi taşır. GROMACS\\'ın LGPL lisansı programı düzenler, ürettiğiniz veriyi değil. Kendi koşu dosyalarınız için bir lisans seçilmedikçe başkasının onlarla ne yapabileceği belirsizdir; yeniden üretim dosyasına lisans satırı bu yüzden girer. Bu bölüm lisans metinlerinin özetidir, hukuki danışmanlık değildir.');",
+   "if(n>=4) card('xc5',true,'The inputs of an MD study come with different licenses, and their conditions carry into derived data. PDB structures are public domain (CC0); mdshare ALA2 requires attribution (CC BY 4.0); ChEMBL values require attribution and share alike (CC BY-SA 3.0), which is why every page on this site derived from ChEMBL carries a CC BY-SA notice. The GROMACS LGPL governs the program, not the data you produce. Until a license is chosen for your own run files, what others may do with them is unclear; that is why the reproduction file has a license line. This section summarizes license texts; it is not legal advice.');"
+  ],
+  [
+   "else card('xc5',false,'Şimdiye kadar '+n+' girdi; en az dördüne bakın.'); }",
+   "else card('xc5',false,'So far '+n+' input(s); look at at least four.'); }"
+  ],
+  [
+   "function rtFlow(){ $('xflow').innerHTML='<div class=\"fhd\"><span>Girdi</span><span></span><span>Lisans</span><span></span><span>Türetilmiş veriye taşınan</span></div>'+RTA.map(function(a,i){ var nm=a.n.split(' (')[0];",
+   "function rtFlow(){ $('xflow').innerHTML='<div class=\"fhd\"><span>Input</span><span></span><span>License</span><span></span><span>Carried into derived data</span></div>'+RTA.map(function(a,i){ var nm=a.n.split(' (')[0];"
+  ],
+  [
+   "/* ===== tezgâh: iddia denetleyici ===== */",
+   "/* ===== bench: claim checker ===== */"
+  ],
+  [
+   "var BQ={got:{}}, OPTS=['Bu veriyle kurulabilir','Ek kanıt gerekir','Bu veriyle kurulamaz'];",
+   "var BQ={got:{}}, OPTS=['Defensible with this data','Needs more evidence','Not defensible with this data'];"
+  ],
+  [
+   "function st(x){ return x.same?'bit düzeyinde aynı':'ilk fark '+fx(x.first,0)+' ps'; }",
+   "function st(x){ return x.same?'bit-identical':'first difference at '+fx(x.first,0)+' ps'; }"
+  ],
+  [
+   "{s:'\"Aynı tpr dosyası ve aynı komutla yeniden koşulan bir MD koşusu her zaman aynı trajektoriyi verir.\"', a:2, w:'Bu deneyde aynı komut ve aynı çevrede: '+st(a)+'. Ama \"her zaman\" bütün çevreleri kapsar: iş parçacığı sayısı değişince '+st(c)+'; başka program sürümü, derleme, işlemci ya da GPU bu sayfada sınanmadı (Bu senaryo hesaplanmadı).'},",
+   "{s:'\"An MD run rerun from the same tpr file with the same command always gives the same trajectory.\"', a:2, w:'In this experiment, with the same command and the same environment: '+st(a)+'. But \"always\" covers every environment: when the thread count changes, '+st(c)+'; other program versions, builds, processors or GPUs were not tested on this page (This scenario was not computed).'},"
+  ],
+  [
+   "{s:'\"Bu çevrede (GROMACS 2023.3, aynı makine türü, -nt 1) aynı tpr ve aynı komut W2\\'yi bit düzeyinde yeniden üretti.\"', a:a.same?0:2, w:'R1 ile özgün W2: '+st(a)+(a.same?'':'; enerjiler ilk adımdan (0 ps) farklı')+'. '+(a.same?'Cümle bu çevre ve bu koşu için kurulabilir.':'Aynı komut yetmedi. GROMACS kılavuzu FFTW\\'nin zaman ölçümüne dayalı algoritma seçimini bir neden olarak sayar; -reprod ile iki koşu (R4, R5) aynı çıktı. Öte yandan W1\\'in yeniden koşusu (R2) bit düzeyinde aynıydı: aynı komut bazen aynı, bazen farklı sonuç verebilir.')},",
+   "{s:'\"In this environment (GROMACS 2023.3, same machine type, -nt 1) the same tpr and the same command reproduced W2 bit for bit.\"', a:a.same?0:2, w:'R1 and the original W2: '+st(a)+(a.same?'':'; energies differ from the first step (0 ps)')+'. '+(a.same?'The sentence is defensible for this environment and this run.':'The same command was not enough. The GROMACS manual lists FFTW\\'s timing-based algorithm choice as one cause; two runs with -reprod (R4, R5) came out identical. On the other hand, the rerun of W1 (R2) was bit-identical: the same command can give the same result sometimes and a different one at other times.')},"
+  ],
+  [
+   "{s:'\"İş parçacığı sayısı değişince koşu yanlış sonuç verir.\"', a:2, w:'İki iş parçacığıyla koşu ayrıştı ('+st(c)+') ve αR payı '+fx(d3*100,1)+' puan farklı çıktı; ama aynı komutla tek iş parçacıklı R1 de '+fx((S.R1.p-S.W2.p)*100,1)+' puan farklıydı ve W\\'nin tekrarları arasındaki SD '+pp(VDD.SD,1)+' puan. Ayrışma \"yanlış\" değil, kaotik dinamikte beklenen farklı bir yoldur; fark örnekleme belirsizliği içindedir.'},",
+   "{s:'\"When the thread count changes, the run gives a wrong result.\"', a:2, w:'The two-thread run diverged ('+st(c)+') and its αR fraction differed by '+fx(d3*100,1)+' points; but the single-thread R1 with the same command also differed by '+fx((S.R1.p-S.W2.p)*100,1)+' points, and the SD among W\\'s replicas is '+pp(VDD.SD,1)+' points. Divergence is not \"wrong\"; it is a different path, expected in chaotic dynamics, and the difference lies within the sampling uncertainty.'},"
+  ],
+  [
+   "{s:'\"Denetim noktasından sürdürmek W1\\'in trajektorisini değiştirdi.\"', a:b.same?2:1, w:'Kesintisiz R2 ile sürdürülmüş özgün W1: '+st(b)+'. '+(b.same?'Fark yok; bu çevrede sürdürme trajektoriyi değiştirmedi.':'Fark sürdürmenin olduğu 181,8 ps\\'den '+(b.first<181?'önce':'sonra')+' başlıyor. Tek bir koşu ve tek bir sürdürme var; değişikliğin sürdürmeden mi, başka bir nedenden mi geldiğini kesinleştirmek için sürdürmeyi denetimli olarak yineleyen bir koşu gerekir.')},",
+   "{s:'\"Continuing from a checkpoint changed W1\\'s trajectory.\"', a:b.same?2:1, w:'Uninterrupted R2 and the continued original W1: '+st(b)+'. '+(b.same?'No difference; in this environment the continuation did not change the trajectory.':'The difference starts '+(b.first<181?'before':'after')+' the continuation at 181.8 ps. There is one run and one continuation; to establish whether the change came from the continuation or from another cause would take a run that repeats the continuation under control.')},"
+  ],
+  [
+   "{s:'\"-reprod bayrağı farklı iş parçacığı sayıları arasında da aynı sonucu garanti eder.\"', a:2, w:'İki iş parçacığında -reprod ile iki koşu: '+st(d)+'; aynı koşu tek iş parçacıklı özgün W2 ile: '+st(e)+'. -reprod aynı çevrede tekrarlanabilirliği hedefler; farklı paralelleşme arasında eşlik sağlamaz.'},",
+   "{s:'\"The -reprod flag also guarantees the same result across different thread counts.\"', a:2, w:'Two runs with -reprod on two threads: '+st(d)+'; the same run against the single-thread original W2: '+st(e)+'. -reprod aims at repeatability in the same environment; it does not give agreement across different parallelization.'},"
+  ],
+  [
+   "{s:'\"Bir dosyanın SHA-256 özeti kayıtlı özetle aynıysa içeriği doğrudur.\"', a:2, w:'Aynı özet yalnız dosyanın değişmediğini gösterir. Dosyada baştan bir hata varsa (örneğin MD-LIG\\'deki net yükü 0 olan topoloji) özet o hatayı da aynen korur.'},",
+   "{s:'\"If a file\\'s SHA-256 digest matches the recorded digest, its content is correct.\"', a:2, w:'A matching digest shows only that the file has not changed. If the file had an error from the start (for example the topology with net charge 0 in MD-LIG), the digest preserves that error exactly as well.'},"
+  ],
+  [
+   "{s:'\"Ayrışan yeniden koşu (R3) özgün koşudan bağımsız yeni bir tekrar sayılabilir.\"', a:2, w:'R3 aynı başlangıç koordinatları, hızlar ve tohumla başlar; ilk pikosaniyelerde özgün koşuyla neredeyse aynıdır. Tekrar tasarımı farklı tohumlarla ve ayrı dengelemeyle planlanır (MD-REP); ayrışma bir tekrar tasarımı değildir.'},",
+   "{s:'\"The diverged rerun (R3) can count as a new replica independent of the original run.\"', a:2, w:'R3 starts from the same starting coordinates, velocities and seed; in the first picoseconds it is almost the same as the original run. Replicas are planned with different seeds and separate equilibration (MD-REP); divergence is not a replica design.'},"
+  ],
+  [
+   "{s:'\"MD-LIG\\'deki ChEMBL Ki değerlerinden hesaplanan ΔG aralığı bir makalede lisans bildirimi olmadan paylaşılabilir.\"', a:2, w:'ChEMBL verisi CC BY-SA 3.0 ile sunulur; türetilmiş veri atıfla ve aynı ya da uyumlu lisansla paylaşılır. Bu bölüm hukuki danışmanlık değildir.'}",
+   "{s:'\"The ΔG range computed from the ChEMBL Ki values in MD-LIG can be shared in a paper without a license notice.\"', a:2, w:'ChEMBL data is provided under CC BY-SA 3.0; derived data is shared with attribution and under the same or a compatible license. This section is not legal advice.'}"
+  ],
+  [
+   "var fb=$('xcl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
+   "var fb=$('xcl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Correct.':'Not quite.')+'</b> '+q.w;"
+  ],
+  [
+   "if(n>=4) card('xc6',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Savunulabilir olan bir dosya ya da bir koşu değil, bir cümledir: o cümle hangi çevrede, hangi dosyalarla ve hangi belirsizlikle kurulduğunu söylediği ölçüde başkası tarafından denetlenebilir. \"Her zaman\", \"garanti eder\" ve \"doğrudur\" gibi sözcükler çoğu kez verinin taşıdığından fazlasını söyler.');",
+   "if(n>=4) card('xc6',true,'Of the '+n+' sentences you decided on, your first choice was right in '+r+'. What is defensible is not a file or a run but a sentence: someone else can check it to the extent that it says in which environment, with which files and with what uncertainty it was reached. Words like \"always\", \"guarantees\" and \"correct\" usually say more than the data carries.');"
+  ],
+  [
+   "else card('xc6',false,'Şimdiye kadar '+n+' cümle; en az dört cümleye karar verin.'); }); }); }",
+   "else card('xc6',false,'So far '+n+' sentence(s); decide on at least four sentences.'); }); }); }"
+  ],
+  [
+   "/* ===== defter: savunulabilir çalışma dosyası ===== */",
+   "/* ===== notebook: the defensible-work file ===== */"
+  ],
+  [
+   "function xoBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }",
+   "function xoBuild(){ function v(id){ return ($(id).value||'').replace(/\\s+$/,'')||'(empty: not written)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }"
+  ],
+  [
+   "var L=['SAVUNULABİLİR ÇALIŞMA DOSYASI (MD-REPRO taslağı)','İddia cümlesi ve sınırı: '+v('xoC'),'Ölçülebilir nicelik ve tanımı: '+v('xoQ'),'Kontrol, karşılaştırma ve önceden yazılanlar: '+v('xoK'),'Girdi dosyaları ve özetleri: '+v('xoF'),'Program, sürüm ve çevre: '+v('xoE'),'Yeniden üretim talimatı: '+v('xoR'),'Sapmalar: '+v('xoD'),'Haklar ve lisanslar: '+v('xoL')];",
+   "var L=['DEFENSIBLE-WORK FILE (MD-REPRO draft)','Claim sentence and its limits: '+v('xoC'),'Measurable quantity and its definition: '+v('xoQ'),'Control, comparison and what was written in advance: '+v('xoK'),'Input files and their digests: '+v('xoF'),'Program, version and environment: '+v('xoE'),'Reproduction instructions: '+v('xoR'),'Deviations: '+v('xoD'),'Rights and licenses: '+v('xoL')];"
+  ],
+  [
+   "if(!/tekrar|ns|aralık|belirsiz|gösterilemedi|bu tasarım|koşul/.test(c)) wr.push('İddia cümlesi tasarımı (tekrar, süre) ya da belirsizliği içinde taşımıyor.');",
+   "if(!/replica|ns|interval|uncertain|could not|this design|condition/.test(c)) wr.push('The claim sentence does not carry the design (replicas, length) or the uncertainty inside it.');"
+  ],
+  [
+   "if(!/[<≤=]|tanım|eşik|pencere|nm|ps/.test(q)) wr.push('Niceliğin işlemsel tanımı (eşik, pencere, birim) yazılmamış.');",
+   "if(!/[<≤=]|defin|threshold|window|nm|ps/.test(q)) wr.push('No operational definition of the quantity (threshold, window, unit) is written.');"
+  ],
+  [
+   "if(!/kontrol|başvuru|karşı/.test(k)) wr.push('Kontrol ya da başvuru yazılmamış.');",
+   "if(!/control|reference|versus|vs/.test(k)) wr.push('No control or reference is written.');"
+  ],
+  [
+   "if(!/önceden|plan|dondur/.test(k)) wr.push('Neyin sonuçlardan önce yazıldığı belirtilmemiş.');",
+   "if(!/advance|plan|frozen|before/.test(k)) wr.push('It is not stated what was written before the results.');"
+  ],
+  [
+   "if(!/sha|özet|md5|hash/.test(f)) wr.push('Girdi dosyalarının değişmediğini gösterecek özetler (SHA-256) yazılmamış.');",
+   "if(!/sha|digest|md5|hash/.test(f)) wr.push('No digests (SHA-256) are written that would show the input files are unchanged.');"
+  ],
+  [
+   "if(!/\\d/.test(e)||!/gromacs|amber|openmm|namd|lammps|sürüm|version/.test(e)) wr.push('Programın adı ve tam sürümü yazılmamış.');",
+   "if(!/\\d/.test(e)||!/gromacs|amber|openmm|namd|lammps|version/.test(e)) wr.push('The program\\'s name and exact version are not written.');"
+  ],
+  [
+   "if(!/iş parçacığı|thread|-nt|gpu|işlemci|cpu|derleme|simd/.test(e)) wr.push('Çalışma çevresi (iş parçacığı sayısı, işlemci, GPU, derleme) yazılmamış; bit düzeyinde yeniden üretim buna bağlıdır.');",
+   "if(!/thread|-nt|gpu|processor|cpu|build|simd/.test(e)) wr.push('The run environment (number of threads, processor, GPU, build) is not written; bit-level reproduction depends on it.');"
+  ],
+  [
+   "if(!/betik|script|komut|tohum|seed/.test(r)) wr.push('Koşuları ve analizi üreten betik ya da komutlar ve tohumlar yazılmamış.');",
+   "if(!/script|command|seed/.test(r)) wr.push('The scripts or commands that produce the runs and the analysis, and the seeds, are not written.');"
+  ],
+  [
+   "if(!/sapma|yok|sürdür|değiş|deviation/.test(d)) wr.push('Sapma kaydı yazılmamış; sapma yoksa \"yok\" yazılır.');",
+   "if(!/deviat|none|continu|chang/.test(d)) wr.push('No deviation record is written; if there were none, write \"none\".');"
+  ],
+  [
+   "if(!/cc|lisans|licen|kamu|gpl|hak/.test(l)) wr.push('Girdilerin lisansları ve kendi dosyalarınızın lisansı yazılmamış.');",
+   "if(!/cc|licen|public|gpl|right/.test(l)) wr.push('The licenses of the inputs and of your own files are not written.');"
+  ],
+  [
+   "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(x){ L.push('- '+x); }); }",
+   "if(wr.length){ L.push(''); L.push('Points to address:'); wr.forEach(function(x){ L.push('- '+x); }); }"
+  ],
+  [
+   "$('xocopy').onclick=function(){ var t=$('xoout').textContent, m=$('xomsg'); function ok(){ m.textContent='Kopyalandı.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Kopyalanamadı; metni seçip kopyalayın.'; } document.body.removeChild(ta); }",
+   "$('xocopy').onclick=function(){ var t=$('xoout').textContent, m=$('xomsg'); function ok(){ m.textContent='Copied.'; setTimeout(function(){ m.textContent=''; },2500); } function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){ m.textContent='Could not copy; select the text and copy it.'; } document.body.removeChild(ta); }"
+  ],
+  [
+   "/* ===== sınav soruları ===== */",
+   "/* ===== quiz questions ===== */"
+  ],
+  [
+   "Q.push({s:'MIQE yönergesi ne için vardır?',",
+   "Q.push({s:'What are the MIQE guidelines for?',"
+  ],
+  [
+   "o:[['Bir qPCR deneyine kalite puanı vermek için',0],['Bir qPCR deneyinin değerlendirilebilmesi ve yeniden yapılabilmesi için yayımlanması gereken en az bilgiyi listelemek için',1],['qPCR yerine başka bir yöntem önermek için',0]], w:'Bustin ve ark. 2009. Kurgu paragraf okunaklıydı ama 13 öğeden yalnız birini tam veriyordu; aynı ölçüm o paragrafla yeniden kurulamaz.'});",
+   "o:[['To give a qPCR experiment a quality score',0],['To list the minimum information a qPCR experiment must publish so it can be evaluated and repeated',1],['To propose another method instead of qPCR',0]], w:'Bustin et al. 2009. The fictional paragraph was readable but gave only one of the 13 items in full; the same measurement cannot be rebuilt from it.'});"
+  ],
+  [
+   "Q.push({s:'Önceden yazılmış bir karşılaştırmada fark +0,06 puan, %95 aralık −11 ile +11 puan, önceden yazılmış eşdeğerlik eşiği ±5 puan. Hangi cümle kurulabilir?',",
+   "Q.push({s:'In a comparison written in advance the difference is +0.06 points, the 95% interval −11 to +11 points, and the equivalence threshold written in advance ±5 points. Which sentence is defensible?',"
+  ],
+  [
+   "o:[['\"İki koşul arasında fark yoktur.\"',0],['\"Bu tasarımla fark gösterilemedi; aralık ±11 puan, ±5 puanlık eşdeğerlik gösterilemedi.\"',1],['\"Fark +0,06 puandır.\"',0]], w:'MD-REP. Yokluk iddiası için aralığın eşik içinde kalması gerekir; aralık eşikten geniş.'});",
+   "o:[['\"There is no difference between the two conditions.\"',0],['\"No difference could be shown with this design; the interval is ±11 points, and equivalence within ±5 points could not be shown.\"',1],['\"The difference is +0.06 points.\"',0]], w:'MD-REP. A claim of absence requires the interval to lie inside the threshold; the interval is wider than the threshold.'});"
+  ],
+  [
+   "Q.push({s:'Bir dosyanın SHA-256 özeti, koşulardan önce kaydedilmiş özetle aynı. Bu neyi gösterir?',",
+   "Q.push({s:'A file\\'s SHA-256 digest matches the digest recorded before the runs. What does this show?',"
+  ],
+  [
+   "o:[['Dosyanın içeriğinin doğru olduğunu',0],['Dosyanın kayıttan bu yana tek bayt değişmediğini',1],['Dosyanın aynı kişi tarafından yazıldığını',0]], w:'Özet içeriğin parmak izidir; doğruluk değil, değişmezlik kanıtıdır. Bir karakter değişince özet bütünüyle değişir (atölye 3).'});",
+   "o:[['That the file\\'s content is correct',0],['That the file has not changed by a single byte since it was recorded',1],['That the file was written by the same person',0]], w:'A digest is a fingerprint of the content; it is evidence of being unchanged, not of being correct. When one character changes, the digest changes entirely (workshop 3).'});"
+  ],
+  [
+   "Q.push({s:'Aynı tpr dosyası tek ve iki iş parçacığıyla koşulunca trajektoriler ayrıştı. En olası neden nedir?',",
+   "Q.push({s:'When the same tpr file was run with one and with two threads, the trajectories diverged. What is the most likely cause?',"
+  ],
+  [
+   "o:[['Programda bir hata',0],['Kayan noktalı toplamaların sırası paralelleşmeyle değişir; en son basamaktaki fark kaotik dinamikte büyür',1],['tpr dosyasının bozulması',0]], w:'Bu deneyde '+(c.same?'fark çıkmadı.':'ilk fark '+fx(c.first,0)+' ps\\'de görüldü.')+' Kayan noktalı toplama birleşme özelliği taşımaz: (a + b) + c ile a + (b + c) son basamakta farklı olabilir.'});",
+   "o:[['A bug in the program',0],['Parallelization changes the order of floating-point additions; a difference in the last digit grows in chaotic dynamics',1],['A corrupted tpr file',0]], w:'In this experiment '+(c.same?'no difference appeared.':'the first difference appeared at '+fx(c.first,0)+' ps.')+' Floating-point addition is not associative: (a + b) + c and a + (b + c) can differ in the last digit.'});"
+  ],
+  [
+   "Q.push({s:'Bir koşu denetim noktasından sürdürüldü. Yeniden üretim dosyasına ne yazılır?',",
+   "Q.push({s:'A run was continued from a checkpoint. What goes into the reproduction file?',"
+  ],
+  [
+   "o:[['Hiçbir şey; sürdürme sonucu etkilemez',0],['Sürdürmenin olduğu adım ve neden; bu çevrede sürdürmenin trajektoriyi değiştirip değiştirmediği',1],['Koşu atılır ve sayılmaz',0]], w:'REPGRID\\'de W1 181,8 ps\\'de sürdürülmüş ve sapma kaydına yazılmıştı. Kesintisiz yeniden koşu ile karşılaştırma: '+(b.same?'bit düzeyinde aynı.':'ilk fark '+fx(b.first,0)+' ps.')});",
+   "o:[['Nothing; continuation does not affect the result',0],['The step at which it was continued and why; whether continuation changed the trajectory in this environment',1],['The run is discarded and not counted',0]], w:'In REPGRID, W1 was continued at 181.8 ps and this was written into the deviation record. Compared with the uninterrupted rerun: '+(b.same?'bit-identical.':'first difference at '+fx(b.first,0)+' ps.')});"
+  ],
+  [
+   "Q.push({s:'Ayrışan bir yeniden koşu bağımsız bir tekrar mıdır?',",
+   "Q.push({s:'Is a diverged rerun an independent replica?',"
+  ],
+  [
+   "o:[['Evet; trajektori farklı olduğu için',0],['Hayır; aynı başlangıç durumu ve aynı tohumla başlar, ilk pikosaniyelerde özgün koşuyla ilişkilidir',1],['Evet, -reprod kullanılmadıysa',0]], w:'Tekrarlar farklı tohum ve ayrı dengeleme ile planlanır (MD-REP). Ayrışma bir tasarım değil, sayısal bir yan etkidir.'});",
+   "o:[['Yes; because the trajectory is different',0],['No; it starts from the same state and the same seed, and is correlated with the original run in the first picoseconds',1],['Yes, if -reprod was not used',0]], w:'Replicas are planned with different seeds and separate equilibration (MD-REP). Divergence is a numerical side effect, not a design.'});"
+  ],
+  [
+   "Q.push({s:'ChEMBL\\'den alınan Ki değerlerinden bir ΔG aralığı türettiniz ve paylaşacaksınız. Ne gerekir?',",
+   "Q.push({s:'You derived a ΔG range from Ki values taken from ChEMBL and will share it. What is needed?',"
+  ],
+  [
+   "o:[['Hiçbir şey; türetilmiş veri sizindir',0],['ChEMBL ve kaynak makaleye atıf; türetilmiş verinin CC BY-SA 3.0 ya da uyumlu lisansla paylaşılması',1],['Yalnız GROMACS atfı',0]], w:'CC BY-SA \"aynı lisansla paylaşım\" koşulu türetilmiş veriye taşınır. Bu bir lisans özetidir, hukuki danışmanlık değildir.'});",
+   "o:[['Nothing; derived data is yours',0],['Attribution to ChEMBL and the source paper; sharing the derived data under CC BY-SA 3.0 or a compatible license',1],['Only a GROMACS citation',0]], w:'The CC BY-SA \"share alike\" condition carries into derived data. This is a license summary, not legal advice.'});"
+  ],
+  [
+   "Q.push({s:'Bu deneyde W2 aynı tpr, aynı program sürümü, aynı makine türü ve aynı komutla (-nt 1) yeniden koşuldu. Ne oldu?',",
+   "Q.push({s:'In this experiment W2 was rerun with the same tpr, the same program version, the same machine type and the same command (-nt 1). What happened?',"
+  ],
+  [
+   "o:[['Bit düzeyinde aynı trajektori çıktı',0],['Trajektori '+(P['R1|W2'].x.same?'aynı çıktı':'1 ps içinde ayrıştı')+'; -reprod ile iki iş parçacığında iki koşu ise aynıydı',1],['Koşu hata vererek durdu',0]], w:'Aynı tpr ve aynı komut yetmedi; GROMACS kılavuzu FFTW\\'nin zaman ölçümüne dayalı algoritma seçimini nedenler arasında sayar. Bit düzeyinde eşlik çevreye ve çalışma anındaki seçimlere bağlıdır; bilimsel sonucun yeniden üretimi ise tekrarlarla, istatistik düzeyinde gösterilir.'});",
+   "o:[['A bit-identical trajectory came out',0],['The trajectory '+(P['R1|W2'].x.same?'came out identical':'diverged within 1 ps')+'; two runs with -reprod on two threads, however, were identical',1],['The run stopped with an error',0]], w:'The same tpr and the same command were not enough; the GROMACS manual lists FFTW\\'s timing-based algorithm choice among the causes. Bit-level agreement depends on the environment and on choices made at run time; reproducing the scientific result is shown with replicas, at the level of statistics.'});"
+  ],
+  [
+   "/* ---------- kaynaklar ve sınırlar ---------- */",
+   "/* ---------- sources and limits ---------- */"
+  ],
+  [
+   "$('xnotice').innerHTML='<p><b>Veri.</b> REPGRID (MD-REP): alanin dipeptidi (başlangıç yapısı mdshare ALA2, Freie Universität Berlin, CC BY 4.0), amber99sb-ildn ve TIP3P, 1520 su, 2 ns NPT, 300 K; protokol '+VDD.TL.frozen.replace('T',' ').replace('Z',' UTC')+'\\'de koşulardan önce donduruldu (PROTOCOL.sha256, 14 dosya), koşu dosyalarının özetleri MANIFEST.sha256\\'da ('+VDD.TL.nman+' dosya). REPROGRID (bu modül): W1 ve W2\\'nin md.tpr dosyaları değiştirilmeden kopyalandı ve <code>gmx mdrun -deffnm md -nt N -pin off -cpt 10</code> ile yeniden koşuldu: R1 (W2, -nt 1, 2 ns), R2 (W1, -nt 1, kesintisiz, 2 ns), R3 (W2, -nt 2, 2 ns), R4 ve R5 (W2, -nt 2 -reprod, 200 ps). GROMACS 2023.3 (Ubuntu paketi, karma duyarlık, SSE4.1, thread-MPI), özgün koşularla aynı bulut makine türü (Intel Xeon 2,10 GHz, 2 çekirdek). Program ve kütüphane SHA-256 değerleri, işlemci ve çekirdek sürümü koşudan önce kaydedildi.</p>'+",
+   "$('xnotice').innerHTML='<p><b>Data.</b> REPGRID (MD-REP): alanine dipeptide (starting structure mdshare ALA2, Freie Universität Berlin, CC BY 4.0), amber99sb-ildn and TIP3P, 1520 waters, 2 ns NPT, 300 K; the protocol was frozen before the runs at '+VDD.TL.frozen.replace('T',' ').replace('Z',' UTC')+' (PROTOCOL.sha256, 14 files), digests of the run files in MANIFEST.sha256 ('+VDD.TL.nman+' files). REPROGRID (this module): the md.tpr files of W1 and W2 were copied unchanged and rerun with <code>gmx mdrun -deffnm md -nt N -pin off -cpt 10</code>: R1 (W2, -nt 1, 2 ns), R2 (W1, -nt 1, uninterrupted, 2 ns), R3 (W2, -nt 2, 2 ns), R4 and R5 (W2, -nt 2 -reprod, 200 ps). GROMACS 2023.3 (Ubuntu package, mixed precision, SSE4.1, thread-MPI), the same cloud machine type as the original runs (Intel Xeon 2.10 GHz, 2 cores). SHA-256 values of the program and library, the processor and the kernel version were recorded before the runs.</p>'+"
+  ],
+  [
+   "'<p><b>Köprü.</b> MIQE: Bustin SA ve ark. 2009, Clin Chem 55:611 (doi 10.1373/clinchem.2008.112797). Yöntem paragrafı kurgudur; ölçülmüş veri kullanılmaz. Listedeki 13 öğe MIQE kontrol listesinden seçilmiş ve kısaltılmıştır; yönergenin bütünü değildir.</p>'+",
+   "'<p><b>Bridge.</b> MIQE: Bustin SA et al. 2009, Clin Chem 55:611 (doi 10.1373/clinchem.2008.112797). The methods paragraph is fictional; no measured data is used. The 13 items in the list are selected and shortened from the MIQE checklist; they are not the whole guideline.</p>'+"
+  ],
+  [
+   "'<p><b>Analiz.</b> Plan koşulardan önce yazılıp SHA-256 ile donduruldu ('+m.plan_sha.slice(0,12)+'…, '+m.frozen.replace('T',' ').replace('Z',' UTC')+'). Koordinatlar xtc dosyalarından MDAnalysis ile (0,001 nm kodlama duyarlığı), enerjiler gmx energy ile (Potential, Kinetic En., Temperature, Pressure, Volume; 0,2 ps); φ/ψ gmx rama ile; αR: φ &lt; 0 ve −120 ≤ ψ &lt; 50; pencere 200 ile 2000 ps; blok SE, B = 200 kare. Tekrarlar arası SD MD-ERR\\'den. Bağımsız denetim (gmx check ile koordinat ve 46 enerji terimi, MDAnalysis φ/ψ, sha256sum): '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'. '+(VDD.DEVN?'Plandan '+VDD.DEVN+' sapma var (DEVIATIONS.md). Birincisi: ilk okumada ham konum farkı periyodik kutu yüzünden 4 nm\\'yi aştığı için, ham farka ek olarak en küçük görüntü farkı da hesaplandı; hükümler ve ham değerler değişmedi.'+(VDD.DEVN>1?' İkincisi: görsel sürüm için R4 ve R5\\'in φ/ψ açıları analiz ve denetimden sonra aynı gmx rama komutuyla hesaplandı; bu iki koşu için αR payı verilmez, yalnız açılar çizilir.':''):'Plandan sapma yok.')+' Atölye 3\\'teki SHA-256 ve atölye 2\\'deki kayan nokta toplamları tarayıcıda sayfanın kendi koduyla hesaplanır; kayan nokta bölümündeki 16 sayı tohumlu rastgele üretilir, simülasyon verisi değildir. Sahnedeki peptit koordinatları her koşunun xtc dosyasından, molekül bütün tutulup kutu sıçramaları kaldırılarak (yalnız görselleştirme) alındı; sahnedeki ara kareler iki kayıt arasında doğrusal ara değerdir, okumalardaki sayılar kayıtlı karelerdendir.</p>'+",
+   "'<p><b>Analysis.</b> The plan was written before the runs and frozen with SHA-256 ('+m.plan_sha.slice(0,12)+'…, '+m.frozen.replace('T',' ').replace('Z',' UTC')+'). Coordinates from the xtc files with MDAnalysis (0.001 nm encoding precision), energies with gmx energy (Potential, Kinetic En., Temperature, Pressure, Volume; 0.2 ps); φ/ψ with gmx rama; αR: φ &lt; 0 and −120 ≤ ψ &lt; 50; window 200 to 2000 ps; block SE, B = 200 frames. Between-replica SD from MD-ERR. Independent audit (gmx check for coordinates and 46 energy terms, MDAnalysis φ/ψ, sha256sum): '+m.audit_ok+' of '+m.audit_n+' comparisons passed with thresholds written in advance'+(m.audit_fail.length?'; failed: '+m.audit_fail.join('; '):'')+'. '+(VDD.DEVN?'There are '+VDD.DEVN+' deviations from the plan (DEVIATIONS.md). First: because the raw position difference exceeded 4 nm at the first reading due to the periodic box, the minimum-image difference was computed in addition to the raw difference; verdicts and raw values did not change.'+(VDD.DEVN>1?' Second: for the visual version, the φ/ψ angles of R4 and R5 were computed after the analysis and audit with the same gmx rama command; no αR fraction is given for these two runs, only the angles are drawn.':''):'No deviations from the plan.')+' The SHA-256 in workshop 3 and the floating-point sums in workshop 2 are computed in the browser by the page\\'s own code; the 16 numbers in the floating-point section come from a seeded random generator and are not simulation data. The peptide coordinates in the scenes are from each run\\'s xtc file, with the molecule kept whole and box jumps removed (visualization only); in-between frames in the scenes are linear interpolation between two records, and the numbers in the readouts come from recorded frames.</p>'+"
+  ],
+  [
+   "'<p><b>Haklar.</b> Veri lisansları sitenin NOTICE dosyasına göre (25 Eylül 2026\\'da birincil kaynaklardan doğrulandı); GROMACS lisansı (LGPL 2.1) Ubuntu paketinin telif dosyasından. Bu sayfa hukuki danışmanlık değildir.</p>'+",
+   "'<p><b>Rights.</b> Data licenses follow the site\\'s NOTICE file (verified against primary sources on 25 September 2026); the GROMACS license (LGPL 2.1) is from the Ubuntu package\\'s copyright file. This page is not legal advice.</p>'+"
+  ],
+  [
+   "'<p><b>Okuma.</b> Sandve GK, Nekrutenko A, Taylor J, Hovig E 2013, Ten simple rules for reproducible computational research, PLoS Comput Biol 9:e1003285 (doi 10.1371/journal.pcbi.1003285). Wilkinson MD ve ark. 2016, The FAIR guiding principles for scientific data management and stewardship, Sci Data 3:160018 (doi 10.1038/sdata.2016.18). Knapp, Ospina, Deane 2018 (J Chem Theory Comput 14:6127, doi 10.1021/acs.jctc.8b00391).</p>'+",
+   "'<p><b>Reading.</b> Sandve GK, Nekrutenko A, Taylor J, Hovig E 2013, Ten simple rules for reproducible computational research, PLoS Comput Biol 9:e1003285 (doi 10.1371/journal.pcbi.1003285). Wilkinson MD et al. 2016, The FAIR guiding principles for scientific data management and stewardship, Sci Data 3:160018 (doi 10.1038/sdata.2016.18). Knapp, Ospina, Deane 2018 (J Chem Theory Comput 14:6127, doi 10.1021/acs.jctc.8b00391).</p>'+"
+  ],
+  [
+   "'<p><b>Sınırlar.</b> Tek program sürümü, tek derleme, tek makine türü, iki tekrar; bit düzeyinde eşlik yalnız bu çevre için gösterilir. Başka GROMACS sürümleri, başka derleyici ya da SIMD düzeyi, çift duyarlık, GPU, başka işlemci, MPI ile birden çok sıra, OpenMM ya da başka motor, daha uzun koşular ve ek tekrarlar: Bu senaryo hesaplanmadı.</p>'; }",
+   "'<p><b>Limits.</b> One program version, one build, one machine type, two replicas; bit-level agreement is shown only for this environment. Other GROMACS versions, another compiler or SIMD level, double precision, GPU, another processor, several MPI ranks, OpenMM or another engine, longer runs and additional replicas: This scenario was not computed.</p>'; }"
+  ],
+  [
+   "/* ---------- sınav ---------- */",
+   "/* ---------- quiz ---------- */"
+  ],
+  [
+   "b.classList.add(okk?'right':'wrong'); var wy=$('xwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",
+   "b.classList.add(okk?'right':'wrong'); var wy=$('xwhy'+i); wy.hidden=false; wy.innerHTML=(okk?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w;"
+  ],
+  [
+   "$('xscore').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+rr; }); }); }",
+   "$('xscore').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+rr; }); }); }"
+  ],
+  [
+   "/* ---------- başlatma ---------- */",
+   "/* ---------- start-up ---------- */"
+  ],
+  [
+   "NCARD=7; ['xc0','xc1','xc2','xc3','xc4','xc5','xc6'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Açık'; });",
+   "NCARD=7; ['xc0','xc1','xc2','xc3','xc4','xc5','xc6'].forEach(function(id){ var q=$(id); if(q) q.querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "window.MDREPRO={sha256:sha256,utf8:utf8,u8:u8,MQ:MQ,CL:CL,RP:RP,FI:FI,RT:RT,BQ:BQ,FOUND:FOUND}; /* sınama için */",
+   "window.MDREPRO={sha256:sha256,utf8:utf8,u8:u8,MQ:MQ,CL:CL,RP:RP,FI:FI,RT:RT,BQ:BQ,FOUND:FOUND}; /* for testing */"
+  ]
+ ],
+ "keep": [
+  "normal",
+  "|ΔE_pot| (kJ/mol)",
+  "R4 -reprod",
+  "R5 -reprod",
+  "var(--good)",
+  "var(--bad)",
+  "var(--gold)",
+  "|ΔE<sub>pot</sub>|",
+  "odx bad",
+  "mdp/common.mdp",
+  "mdp/em.mdp",
+  "mdp/ions.mdp",
+  "mdp/nvt_eq.mdp",
+  "mdp/npt_eq.mdp",
+  "mdp/prod.mdp",
+  "prep/ala.pdb",
+  "prep/conf.gro",
+  "prep/topol.top",
+  "prep/posre.itp",
+  "prep/box.gro",
+  "prep/solv.gro",
+  "runs/W1/md.tpr",
+  "runs/W1/md.xtc",
+  "runs/W1/md.edr",
+  "runs/W1/md.log",
+  "runs/W1/md.cpt",
+  "runs/W1/md_prev.cpt",
+  "CC0 1.0 Universal",
+  "CC BY-SA 3.0 Unported"
+ ]
+}
