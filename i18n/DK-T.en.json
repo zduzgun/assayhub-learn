@@ -360,7 +360,7 @@
   ],
   [
    "$('t1cl').textContent=C.list.length?(C.list.length+' çift; en derini '+fx(C.list[0].d,2)+' Å'):'yok (hidrojen bağı: '+C.hb.length+')';",
-   "$('t1cl').textContent=C.list.length?(C.list.length+' pairs; deepest '+fx(C.list[0].d,2)+' Å'):'none (hydrogen bonds: '+C.hb.length+')';"
+   "$('t1cl').textContent=C.list.length?(C.list.length+(C.list.length==1?' pair':' pairs')+'; deepest '+fx(C.list[0].d,2)+' Å'):'none (hydrogen bonds: '+C.hb.length+')';"
   ],
   [
    "$('t1tNote').textContent='Kristal poza göre fark: hidrojen bağı '+sg(dh)+', çekim terimleri '+sg(dg)+', itme '+sg(dr)+', hidrofobik '+sg(dy)+' kcal/mol (bölünmeden önce). Pozitif fark, bu pozun o terimde daha kötü olduğunu gösterir.';",

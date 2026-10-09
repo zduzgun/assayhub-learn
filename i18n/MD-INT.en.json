@@ -400,7 +400,7 @@
   ],
   [
    "else card('ic2',false,'Şimdiye kadar: '+nP+' çift, '+nT+' eşik. En az üç çifte ve iki eşiğe bakın.'); }",
-   "else card('ic2',false,'So far: '+nP+' pairs, '+nT+' thresholds. Look at at least three pairs and two thresholds.'); }"
+   "else card('ic2',false,'So far: '+nP+(nP==1?' pair, ':' pairs, ')+nT+(nT==1?' threshold':' thresholds')+'. Look at at least three pairs and two thresholds.'); }"
   ],
   [
    "var sel=$('isbp'); sel.innerHTML=IDD.sb.pairs.map(function(k){ return '<option value=\"'+k+'\">'+k+'</option>'; }).join('');",
@@ -444,7 +444,7 @@
   ],
   [
    "else card('ic3',false,'Şimdiye kadar: '+Object.keys(CT.seenD).length+' tanım, '+nR+' koşu. İki tanıma ve en az iki koşuya bakın.');",
-   "else card('ic3',false,'So far: '+Object.keys(CT.seenD).length+' definitions, '+nR+' runs. Look at both definitions and at least two runs.');"
+   "else card('ic3',false,'So far: definitions '+Object.keys(CT.seenD).length+', runs '+nR+'. Look at both definitions and at least two runs.');"
   ],
   [
    "if(nP>=2&&nT>=2) card('ic4',true,'0,14 nm sondayla gömülü kalıntı sayısı (koşu 1 / 2 / 3 / kristal) 5 Å² eşiğinde '+B['5'].join(' / ')+', 10 Å²\\'de '+B['10'].join(' / ')+', 20 Å²\\'de '+B['20'].join(' / ')+'. Toplam SASA koşularda kristalden yüksek ('+['R1','R2','R3','xtal'].map(function(r){ return fmtI(Math.round(IDD.sasa.tot['0.14|'+r])); }).join(' / ')+' Å²) ve sonda yarıçapıyla değişiyor. \"Gömülü\" bir eşik kararıdır; eşik, sonda ve hangi yapının (kristal mi, koşu ortalaması mı) kullanıldığı birlikte yazılır.');",
@@ -536,7 +536,7 @@
   ],
   [
    "else card('ic7',false,'Şimdiye kadar '+n+' cümle; en az dördüne karar verin.'); }); }); }",
-   "else card('ic7',false,'So far '+n+' sentences; decide on at least four.'); }); }); }"
+   "else card('ic7',false,'So far '+n+(n==1?' sentence':' sentences')+'; decide on at least four.'); }); }); }"
   ],
   [
    "/* ===== defter: etkileşim tanımı kaydı ===== */",

@@ -676,7 +676,7 @@
   ],
   [
    "$('k2nCount').textContent=book.length+' ölçüm';",
-   "$('k2nCount').textContent=book.length+' measurements';"
+   "$('k2nCount').textContent=book.length+(book.length==1?' measurement':' measurements');"
   ],
   [
    "$('k2nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='plain'?'Düz kesme':'Kaydırılmış')+'</td><td class=\"n\">'+fx(p.r,1)+'</td><td class=\"n\">'+sci(p.e)+'</td><td class=\"n\">'+fx(p.np,1)+'</td></tr>';}).join(''):'<tr><td colspan=\"4\" class=\"small\">Henüz ölçüm yok.</td></tr>';",

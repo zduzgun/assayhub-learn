@@ -544,7 +544,7 @@
   ],
   [
    "else if(!FOUND.o2c3&&T3.trials.length) card('o2c3',false,T3.trials.length+' deneme kaydedildi. Aynı kalıntıda, dolulukları en az 0,3 farklı iki denemede tepeyi eşitleyin.'); }",
-   "else if(!FOUND.o2c3&&T3.trials.length) card('o2c3',false,T3.trials.length+' trials recorded. In the same residue, match the peak in two trials whose occupancies differ by at least 0.3.'); }"
+   "else if(!FOUND.o2c3&&T3.trials.length) card('o2c3',false,T3.trials.length+(T3.trials.length==1?' trial':' trials')+' recorded. In the same residue, match the peak in two trials whose occupancies differ by at least 0.3.'); }"
   ],
   [
    "$('o2wn').textContent=n+' / 58'; $('o2wmb').textContent=n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1)+' Å²':'yok'; $('o2wsy').textContent=String(K.filter(function(w){ return w[4]>0; }).length);",

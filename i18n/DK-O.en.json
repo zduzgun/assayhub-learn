@@ -572,7 +572,7 @@
   ],
   [
    "$('o1xhv').textContent=fx(d.rh,3)+(d.miss?' ('+d.miss+' atom eksik)':'');",
-   "$('o1xhv').textContent=fx(d.rh,3)+(d.miss?' ('+d.miss+' atoms missing)':'');"
+   "$('o1xhv').textContent=fx(d.rh,3)+(d.miss?' ('+d.miss+(d.miss==1?' atom missing)':' atoms missing)'):'');"
   ],
   [
    "card('o1c6',true,'Cep Cα RMSD değeri 0,27 Å ve altında olan üç yapıda (2PTN, 1TNH, 2PTC) ilk poz, 20 tohumun hepsinde 2 Å sınırının içindeydi (RMSD medyanları '+fx(a.medR,2)+', '+fx(b.medR,2)+' ve '+fx(cc.medR,2)+' Å). Tripsinojen 1TGN yapısında cep Cα RMSD değeri '+fx(XD['1TGN'].rca,2)+' Å ve 20 tohumun '+t.ok+' tanesinde ilk poz doğruydu (RMSD medyanı '+fx(t.medR,2)+' Å). Ligand, kutu, hazırlık hattı ve arama aynıydı; değişen yalnız kilitti. Redocking tampondaki standarttı, bu ise gerçek numune.'); }",

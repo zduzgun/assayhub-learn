@@ -552,7 +552,7 @@
   ],
   [
    "else card('pc6',false,'Şimdiye kadar: '+Object.keys(DC.seenF).filter(function(k){ return k!=='diff'; }).length+' hizalama, '+nR+' koşu. İki hizalamaya ve en az iki koşuya bakın.'); }",
-   "else card('pc6',false,'So far: '+Object.keys(DC.seenF).filter(function(k){ return k!=='diff'; }).length+' fits, '+nR+' runs. Look at both fits and at least two runs.'); }"
+   "else card('pc6',false,'So far: fits '+Object.keys(DC.seenF).filter(function(k){ return k!=='diff'; }).length+', runs '+nR+'. Look at both fits and at least two runs.'); }"
   ],
   [
    "/* ===== tezgâh: iddia denetleyici ===== */",
@@ -592,7 +592,7 @@
   ],
   [
    "else card('pc7',false,'Şimdiye kadar '+n+' cümle; en az dördüne karar verin.'); }); }); }",
-   "else card('pc7',false,'So far '+n+' sentences; decide on at least four.'); }); }); }"
+   "else card('pc7',false,'So far '+n+(n==1?' sentence':' sentences')+'; decide on at least four.'); }); }); }"
   ],
   [
    "/* ===== defter: durum ve bileşen kaydı ===== */",

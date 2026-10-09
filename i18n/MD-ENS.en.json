@@ -516,7 +516,7 @@
   ],
   [
    "if(A.length&&B.length){ t='Defterde geçişsiz '+A.length+' koşu (ortalama TV <b>'+fx(mtv(A),2)+'</b>) ve beş ve üzeri geçişli '+B.length+' koşu (ortalama TV <b>'+fx(mtv(B),2)+'</b>) var.'; if(done) t+=(mtv(B)<mtv(A)?' <b>Küçük TV, geçiş sayısıyla birlikte geliyor:</b> geçişli koşular Boltzmann dağılımına çok daha yakın.':' Bu defterde geçişli koşular daha yakın çıkmadı; farklı θ ve tohumlarla çoğaltın.'); }",
-   "if(A.length&&B.length){ t='The notebook has '+A.length+' runs with no crossing (mean TV <b>'+fx(mtv(A),2)+'</b>) and '+B.length+' runs with five or more crossings (mean TV <b>'+fx(mtv(B),2)+'</b>).'; if(done) t+=(mtv(B)<mtv(A)?' <b>A small TV comes with the number of crossings:</b> the runs with crossings are much closer to the Boltzmann distribution.':' In this notebook the runs with crossings did not come out closer; repeat with different θ and seeds.'); }"
+   "if(A.length&&B.length){ t='The notebook has '+A.length+(A.length==1?' run':' runs')+' with no crossing (mean TV <b>'+fx(mtv(A),2)+'</b>) and '+B.length+(B.length==1?' run':' runs')+' with five or more crossings (mean TV <b>'+fx(mtv(B),2)+'</b>).'; if(done) t+=(mtv(B)<mtv(A)?' <b>A small TV comes with the number of crossings:</b> the runs with crossings are much closer to the Boltzmann distribution.':' In this notebook the runs with crossings did not come out closer; repeat with different θ and seeds.'); }"
   ],
   [
    "else t='Defterde şimdi: geçişsiz '+A.length+', beş ve üzeri geçişli '+B.length+' koşu. Her gruptan en az ikisi gerekiyor.';",

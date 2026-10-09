@@ -748,7 +748,7 @@
   ],
   [
    "card('w1',true,'Sizin denemeniz: top '+B.bounces+' kez çarptı. İlk çarpmada v'+f[0]+' '+fx(f[1],0)+' → '+fx(-f[1],0)+' m/s oldu; hız '+fx(B.v0,0)+' m/s ve enerji '+fx(KE(B.v0),2)+' kJ/mol hiç değişmedi. Duvar molekülün momentumunu tersine çevirdi, yani onu itti. Bir gazın basıncı, moleküllerin duvara verdiği bu itmedir. Ama çözeltide böyle bir duvar yok: duvarlı kutuda moleküller var olmayan bir yüzeye çarpar.'); }",
-   "card('w1',true,'Your trial: the ball hit a wall '+B.bounces+' times. At the first hit v'+f[0]+' went '+fx(f[1],0)+' → '+fx(-f[1],0)+' m/s; the speed '+fx(B.v0,0)+' m/s and the energy '+fx(KE(B.v0),2)+' kJ/mol did not change at all. The wall reversed the momentum of the molecule, in other words it pushed it. The pressure of a gas is this push that molecules give to the wall. But a solution has no such wall: in a walled box, molecules hit a surface that does not exist.'); }"
+   "card('w1',true,'Your trial: the ball hit a wall '+B.bounces+(B.bounces==1?' time':' times')+'. At the first hit v'+f[0]+' went '+fx(f[1],0)+' → '+fx(-f[1],0)+' m/s; the speed '+fx(B.v0,0)+' m/s and the energy '+fx(KE(B.v0),2)+' kJ/mol did not change at all. The wall reversed the momentum of the molecule, in other words it pushed it. The pressure of a gas is this push that molecules give to the wall. But a solution has no such wall: in a walled box, molecules hit a surface that does not exist.'); }"
   ],
   [
    "card('w2',true,'Sizin denemeniz: top kutudan '+fx(B.v0,0)+' m/s ile çıktı ve '+fx(KE(B.v0),2)+' kJ/mol enerjiyi de götürdü; kutudaki enerji 0\\'a indi. Kalabalık bir sıvıda kenardaki hızlı moleküller de böyle kaçar ve kalan sıvı soğur. Terlemenin serinletmesi aynı olaydır: buharlaşan molekül enerjiyi alıp gider.'); }",
@@ -756,7 +756,7 @@
   ],
   [
    "card('w3',true,'Sizin denemeniz: top sınırı '+B.cross+' kez geçti. Her seferinde çıktığı kenarın karşısından aynı hız ('+fx(B.v0,0)+' m/s) ve aynı yönle girdi; enerji '+fx(KE(B.v0),2)+' kJ/mol\\'de sabit kaldı. Top ışınlanmadı: karşıdan giren, komşu kopyadaki görüntüsüdür. Kutunun kenarı yok, kaybolan molekül ve enerji yok.'); }",
-   "card('w3',true,'Your trial: the ball crossed the boundary '+B.cross+' times. Each time it entered from the edge opposite the one it left, with the same speed ('+fx(B.v0,0)+' m/s) and the same direction; the energy stayed at '+fx(KE(B.v0),2)+' kJ/mol. The ball was not teleported: what enters from the other side is its image from the neighboring copy. The box has no edge, and no molecule or energy is lost.'); }"
+   "card('w3',true,'Your trial: the ball crossed the boundary '+B.cross+(B.cross==1?' time':' times')+'. Each time it entered from the edge opposite the one it left, with the same speed ('+fx(B.v0,0)+' m/s) and the same direction; the energy stayed at '+fx(KE(B.v0),2)+' kJ/mol. The ball was not teleported: what enters from the other side is its image from the neighboring copy. The box has no edge, and no molecule or energy is lost.'); }"
   ],
   [
    "pill(g,'asıl kutu',V.X(B.ox+L/2),V.Y(B.oy)+16,paper,navy);",
@@ -912,7 +912,7 @@
   ],
   [
    "$('nCount').textContent=book.length+' ölçüm';",
-   "$('nCount').textContent=book.length+' measurements';"
+   "$('nCount').textContent=book.length+(book.length==1?' measurement':' measurements');"
   ],
   [
    "$('nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='vac'?'Damla':'Periyodik kutu')+'</td><td class=\"n\">'+p.N+'</td><td class=\"n\">'+fx(p.u,2)+'</td><td class=\"n\">'+pc(100*p.sf,0)+'</td><td class=\"n\">'+fx(1/Math.sqrt(p.N),3)+'</td></tr>';}).join(''):'<tr><td colspan=\"5\" class=\"small\">Henüz ölçüm yok.</td></tr>';",

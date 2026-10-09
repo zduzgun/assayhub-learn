@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.39.0 (9 Ekim 2026) · İngilizcede tekil/çoğul uyumu
+
+- İngilizce sayfalarda sayı 1 olduğunda "1 visits", "1 measurements", "1 times" gibi çıkan 27 yer düzeltildi (14 modül: DK-T, DK-O, MD-T, MD-PBC, MD-CUT, MD-ELEC, MD-ENS, MD-DT, MD-PDB, MD-INT, MD-PCA, MD-U, MD-REPRO, MD-FES). Çoğunda sayıya göre tekil ya da çoğul seçen kısa bir koşul kullanıldı; birkaçında cümle sayı başa gelmeyecek biçimde kuruldu ("So far: definitions 2, runs 3"; MD-FES'te "did so (entries in 2 ns): W1 0, W2 1"). Yalnız İngilizce çeviri çiftleri değişti; Türkçe kaynak, veri ve hesap aynı.
+- Taranan 205 aday içinden sayının hiçbir zaman 1 olamadığı (sabit veri ya da koşulla en az 2) yerler değiştirilmedi.
+
 ## 0.38.0 (9 Ekim 2026) · Türkçe kaynak düzeltmeleri (İngilizce denetimden gelen notlar)
 
 İngilizce denetimde Türkçe kaynakta bulunan notlar tek tek doğrulandı ve iki dilde düzeltildi. Veri, hesap ve sonuç değişmedi.
