@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.42.3 (9 Ekim 2026) · Modül çevirileri yazar tarafından toplu onaylandı
+
+- Yazar 27 modülün İngilizce çevirisini 9 Ekim 2026'da bütün olarak onayladı; İnceleme masasındaki modül paketleri (4.542 metin parçası) madde madde incelenmedi. Yeni `i18n/onay.json` bu onayı modül başına kaydeder (kim: yazar, tür: toplu, tarih). Çeviri tablolarında `reviewed` false kalır.
+- İngilizce modül sayfalarının alt notu "Claude (AI) has checked it, but it has not yet been reviewed by a person" yerine "Claude (AI) has checked it, and the author approved it as a whole on 9 October 2026 without reviewing it item by item" oldu. Metinler değişmedi. `version.json` çeviri bilgisinde `approved` alanı. `tools/check.mjs` 4d onay kayıtlarını ve notu denetler.
+
 ## 0.42.2 (9 Ekim 2026) · Sözlük yazar tarafından gözden geçirildi
 
 - Yazar 90 sözlük terimini İnceleme masasında (claude.ai artifact) madde madde gözden geçirdi: 90 uygun, 0 düzeltme; paket 9 Ekim 2026'da onaylandı. Tanımlar değişmedi.

@@ -13,6 +13,9 @@ const DIST = join(ROOT, 'dist');
 const M = JSON.parse(readFileSync(join(ROOT, 'modules.json'), 'utf8'));
 const BOOK = JSON.parse(readFileSync(join(ROOT, 'book.json'), 'utf8'));
 const GLOS = JSON.parse(readFileSync(join(ROOT, 'glossary.json'), 'utf8'));
+// yazar onayları (i18n/onay.json): toplu onay modül alt notunu değiştirir; reviewed yalnız madde madde incelemede true olur
+const ONAY = existsSync(join(ROOT, 'i18n', 'onay.json')) ? JSON.parse(readFileSync(join(ROOT, 'i18n', 'onay.json'), 'utf8')).onaylar : {};
+const enDate = (t) => { const [y, mo, d] = t.split('-').map(Number); return `${d} ${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mo - 1]} ${y}`; };
 // yazar incelemesi (glossary.json 'inceleme'): sözlük sayfasındaki not buna göre değişir
 const GLREV = GLOS.inceleme && GLOS.inceleme.kim === 'yazar' ? (() => { const [y, mo, d] = GLOS.inceleme.tarih.split('-').map(Number); const ay = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'], mon = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; return { tr: `${d} ${ay[mo - 1]} ${y}`, en: `${d} ${mon[mo - 1]} ${y}` }; })() : null;
 const LANGS = ['tr', 'en'];
@@ -39,7 +42,7 @@ const UI = {
     short: 'Kısa adres', version: 'sürüm', statusW: 'durum',
     preview: 'Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı.', all: 'Bütün modüller',
     mtH: 'Bu modüldeki terimler', mtP: 'Her terimin tanımı ve geçtiği öteki modüller sözlükte.', mtAll: 'Bütün sözlük', seqNav: 'Modüller arası geçiş', prev: 'Önceki modül', next: 'Sonraki modül', allOf: (t) => `Bütün ${t} modülleri`,
-    mt: '', mtChecked: '',
+    mt: '', mtChecked: '', mtBulk: () => '',
     bkTitle: 'Kitap bölümleri', bkEyebrow: 'AssayHub Learn · kitap', bkH1: 'Kitap bölümleri ve modüller',
     bkDeck: 'MD kitabının 20 çalışma birimi ve her birine bağlı etkileşimli modüller. Kitaptaki karekodlar buradaki kısa adreslere gider.',
     bkLevel: { temel: 'Temel düzey', orta: 'Orta düzey', ileri: 'İleri düzey' }, bkRel: { ana: 'ana', ortak: 'ortak', ek: 'ek' },
@@ -70,6 +73,7 @@ const UI = {
     mtH: 'Terms in this module', mtP: 'The definition of each term and the other modules where it appears are in the glossary.', mtAll: 'Whole glossary', seqNav: 'Move between modules', prev: 'Previous module', next: 'Next module', allOf: (t) => `All ${t} modules`,
     mt: 'The English text is a machine translation of the Turkish original and has not yet been reviewed by a person.',
     mtChecked: 'The English text is a machine translation of the Turkish original; Claude (AI) has checked it, but it has not yet been reviewed by a person.',
+    mtBulk: (d) => `The English text is a machine translation of the Turkish original; Claude (AI) has checked it, and the author approved it as a whole on ${d} without reviewing it item by item.`,
     bkTitle: 'Book chapters', bkEyebrow: 'AssayHub Learn · book', bkH1: 'Book chapters and modules',
     bkDeck: 'The 20 working units of the MD book and the interactive modules linked to each. The QR codes in the book lead to the short addresses listed here.',
     bkLevel: { temel: 'Basic level', orta: 'Intermediate level', ileri: 'Advanced level' }, bkRel: { ana: 'main', ortak: 'shared', ek: 'extra' },
@@ -161,7 +165,7 @@ for (const m of M.modules) {
     if (table.source_sha256 && table.source_sha256 !== sha256(trHtml)) console.warn(`${m.id} uyarı: çeviri tablosu farklı bir kaynak sürümü için hazırlanmış`);
     enHtml = r.html; enModules++;
     TXT[m.id] = { tr: trLower(table.pairs.map((p) => p[0].replace(/<[^>]+>/g, ' ')).join(' \n ')), en: table.pairs.map((p) => p[1].replace(/<[^>]+>/g, ' ')).join(' \n ').toLowerCase() };
-    tableInfo[m.id] = { pairs: table.pairs.length, reviewed: !!table.reviewed, checked: table.checked || '' };
+    tableInfo[m.id] = { pairs: table.pairs.length, reviewed: !!table.reviewed, checked: table.checked || '', ...(ONAY[m.id] ? { approved: `${ONAY[m.id].kim}:${ONAY[m.id].tur}:${ONAY[m.id].tarih}` } : {}) };
   } else enMissing.push(m.id);
 
   for (const L of LANGS) {
@@ -181,7 +185,8 @@ ${seqNav}`));
     }
     const bar = `<nav class="ahl-bar" aria-label="${esc(U.nav)}"><span><a href="/${L}/">AssayHub Learn</a> › <a href="/${L}/${app.path}">${esc(T(L, app, 'title'))}</a> › ${esc(m.id)}</span><span class="ahl-r"><span class="ahl-meta">${esc(U.short)}: /${L}/l/${esc(m.id)} · ${esc(U.version)} ${esc(m.version)}</span>${langSwitch(L, m.path, 'ahl-lang')}</span></nav>`;
     const notice = T(L, m, 'notice');
-    const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(tableInfo[m.id].checked === 'claude' ? U.mtChecked : U.mt)}` : '';
+    const ap = ONAY[m.id] && ONAY[m.id].kim === 'yazar' && ONAY[m.id].tur === 'toplu' ? ONAY[m.id] : null;
+    const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(ap ? U.mtBulk(enDate(ap.tarih)) : tableInfo[m.id].checked === 'claude' ? U.mtChecked : U.mt)}` : '';
     const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${esc(U.preview)}${reviewedNote} <a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
     const bOpen = html.indexOf('<body>');
     const bClose = html.lastIndexOf('</body>');

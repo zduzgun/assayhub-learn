@@ -1,0 +1,141 @@
+{
+ "schema": "assayhub-learn-approval/1",
+ "note": "Yazar onayları. 'toplu': yazar modülün İngilizce çevirisini bütün olarak onayladı, madde madde incelemedi (i18n tablolarında reviewed false kalır). Madde madde inceleme İnceleme masasında (claude.ai artifact) yapılır ve tamamlanınca o modülün tablosunda reviewed true olur.",
+ "onaylar": {
+  "DK-T": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "DK-O": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "DK-U": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-T": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-PBC": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-CUT": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-ELEC": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-EQ": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-O": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-PDB": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-DT": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-U": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-ENS": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-CON": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-REP": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-Q": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-TRJ": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-MET": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-PCA": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-INT": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-FAIL": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-FF": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-SOLV": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-LIG": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-ERR": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-REPRO": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  },
+  "MD-FES": {
+   "kim": "yazar",
+   "tur": "toplu",
+   "tarih": "2026-10-09"
+  }
+ }
+}

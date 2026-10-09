@@ -115,6 +115,12 @@ for (const f of files) {
       for (const g of got) if (!ids.has(g)) fail(`${L} ${m.id}: sözlükte olmayan terim ${g}`);
       if (got.slice().sort().join() !== want.join()) fail(`${L} ${m.id}: terim kutusu sözlük bağlantılarıyla uyuşmuyor`); } } }
 
+// 4d) yazar onayları (i18n/onay.json): anahtarlar modül kimliği, tür toplu ya da madde, toplu onaylı İngilizce sayfada not var
+if (existsSync(join(ROOT, 'i18n', 'onay.json'))) { const O = JSON.parse(readFileSync(join(ROOT, 'i18n', 'onay.json'), 'utf8')).onaylar || {};
+  for (const [id, o] of Object.entries(O)) { const m = M.modules.find((x) => x.id === id); if (!m) { fail(`onay.json: bilinmeyen modül ${id}`); continue; }
+    if (o.kim !== 'yazar' || !['toplu', 'madde'].includes(o.tur) || !/^\d{4}-\d\d-\d\d$/.test(o.tarih || '')) fail(`onay.json: ${id} kaydı eksik`);
+    if (o.tur === 'toplu' && m.path && !readFileSync(join(DIST, 'en', m.path, 'index.html'), 'utf8').includes('the author approved it as a whole')) fail(`en ${id}: toplu onay notu yok`); } }
+
 // 5) lisans notu gereken modüller (iki dilde)
 for (const m of M.modules) {
   if (!m.path) continue;
