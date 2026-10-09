@@ -12,6 +12,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
 const M = JSON.parse(readFileSync(join(ROOT, 'modules.json'), 'utf8'));
 const BOOK = JSON.parse(readFileSync(join(ROOT, 'book.json'), 'utf8'));
+const GLOS = JSON.parse(readFileSync(join(ROOT, 'glossary.json'), 'utf8'));
 const LANGS = ['tr', 'en'];
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const BUILD = {
@@ -41,7 +42,12 @@ const UI = {
     bkDeck: 'MD kitabının 20 çalışma birimi ve her birine bağlı etkileşimli modüller. Kitaptaki karekodlar buradaki kısa adreslere gider.',
     bkLevel: { temel: 'Temel düzey', orta: 'Orta düzey', ileri: 'İleri düzey' }, bkRel: { ana: 'ana', ortak: 'ortak', ek: 'ek' },
     bkRelP: '<b>ana</b>: bölümün kendi modülü · <b>ortak</b>: iki bölüme birden bağlı · <b>ek</b>: bölümden sonra ek okuma',
-    bkNote: '', bkLink: 'Bölümlere göre liste: <a href="/tr/book/">kitap bölümleri ve modüller</a>.',
+    bkNote: '', bkLink: 'Bölümlere göre liste: <a href="/tr/book/">kitap bölümleri ve modüller</a>. Terimler: <a href="/tr/glossary/">sözlük</a>.',
+    glTitle: 'Sözlük', glEyebrow: 'AssayHub Learn · sözlük', glH1: 'Terimler sözlüğü',
+    glDeck: (n) => `Kitapta ve modüllerde geçen ${n} temel terim: İngilizce karşılığı, kısa tanımı ve terimin geçtiği modüller.`,
+    glNote: 'Tanımlar Claude (yapay zekâ) tarafından yazıldı ve bağımsız bir denetimden geçti; bir kişi tarafından henüz gözden geçirilmedi. Bir terimin bağlandığı modüller, modüllerin görünür metninde terim aranarak bulunur (en çok beş); kenarı renkli olanlar terimin bağlı olduğu kitap bölümüne aittir. Her terimin kalıcı bir adresi vardır (örneğin <code>/tr/glossary/#kesme</code>).',
+    glSearch: 'Sözlükte ara', glPh: 'Türkçe ya da İngilizce terim yazın', glCount: (k, n) => `${k} / ${n} terim`, glNone: 'Bu aramayla eşleşen terim yok.',
+    glAlso: 'Ayrıca', glMods: 'Modüller', glCh: 'Kitap', glDk: 'Docking modülleri', glIdx: 'Harf dizini', glOtherL: 'İngilizcesi',
     nfTitle: 'Sayfa bulunamadı', nfH: 'Bu adreste bir modül yok',
     nfP: 'Kitaptaki karekoddan geldiyseniz kısa kodu kontrol edin (örneğin <code>/tr/l/DK-T</code>). Bütün modüller <a href="/tr/">ana sayfada</a> listelenir.',
     prepH: 'Bu modülün Türkçesi hazırlanıyor', prepP: (href) => `Şimdilik <a href="${href}">İngilizce sürümü</a> açabilirsiniz.`
@@ -67,7 +73,12 @@ const UI = {
     bkLevel: { temel: 'Basic level', orta: 'Intermediate level', ileri: 'Advanced level' }, bkRel: { ana: 'main', ortak: 'shared', ek: 'extra' },
     bkRelP: '<b>main</b>: the chapter\'s own module · <b>shared</b>: linked to two chapters · <b>extra</b>: further reading after the chapter',
     bkNote: '',
-    bkLink: 'List by chapter: <a href="/en/book/">book chapters and modules</a>.',
+    bkLink: 'List by chapter: <a href="/en/book/">book chapters and modules</a>. Terms: <a href="/en/glossary/">glossary</a>.',
+    glTitle: 'Glossary', glEyebrow: 'AssayHub Learn · glossary', glH1: 'Glossary of terms',
+    glDeck: (n) => `${n} key terms used in the book and the modules: the Turkish equivalent, a short definition and the modules where the term appears.`,
+    glNote: 'The definitions were written by Claude (AI) and went through an independent check; they have not yet been reviewed by a person. The modules linked to a term are found by searching the visible text of the modules for the term (at most five); those with a colored border belong to the book chapter the term is linked to. Every term has a permanent address (for example <code>/en/glossary/#kesme</code>).',
+    glSearch: 'Search the glossary', glPh: 'Type a term in English or Turkish', glCount: (k, n) => `${k} / ${n} terms`, glNone: 'No term matches this search.',
+    glAlso: 'Also', glMods: 'Modules', glCh: 'Book', glDk: 'Docking modules', glIdx: 'Letter index', glOtherL: 'Turkish',
     nfTitle: 'Page not found', nfH: 'There is no module at this address',
     nfP: 'If you came from a QR code in the book, check the short code (for example <code>/en/l/DK-T</code>). All modules are listed on the <a href="/en/">home page</a>.',
     prepH: 'The English version of this module is in preparation', prepP: (href) => `For now you can open the <a href="${href}">Turkish version</a>.`
@@ -119,6 +130,8 @@ const BAR_CSS = `<style id="ahl-bar-css">
 </style>`;
 let enModules = 0, enMissing = [];
 const tableInfo = {};
+const TXT = {};
+const trLower = (x) => String(x).replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
 for (const m of M.modules) {
   if (!m.source) continue;
   const src = join(ROOT, m.source);
@@ -135,6 +148,7 @@ for (const m of M.modules) {
     }
     if (table.source_sha256 && table.source_sha256 !== sha256(trHtml)) console.warn(`${m.id} uyarı: çeviri tablosu farklı bir kaynak sürümü için hazırlanmış`);
     enHtml = r.html; enModules++;
+    TXT[m.id] = { tr: trLower(table.pairs.map((p) => p[0].replace(/<[^>]+>/g, ' ')).join(' \n ')), en: table.pairs.map((p) => p[1].replace(/<[^>]+>/g, ' ')).join(' \n ').toLowerCase() };
     tableInfo[m.id] = { pairs: table.pairs.length, reviewed: !!table.reviewed, checked: table.checked || '' };
   } else enMissing.push(m.id);
 
@@ -209,6 +223,27 @@ function modItem(L, m) {
   return m.path ? `<li><a class="mod" id="${esc(m.id)}" href="/${L}/${m.path}">${inner}</a></li>` : `<li><div class="mod" id="${esc(m.id)}">${inner}</div></li>`;
 }
 
+// sözlük terimlerinin modül bağlantıları: Türkçe görünür metinde (i18n tablolarının Türkçe tarafı) 'match' kalıpları aranır.
+// Aday: en az 2 eşleşme (ya da terimin toplam eşleşmesi 4'ten azsa 1). Sıra: terimin bölümüne (docking terimlerinde docking modüllerine) ait olanlar önce, sonra eşleşme sayısı; en çok 5.
+const GL = {};
+{
+  const B = '(?<![a-zçğıöşüâîû0-9])';
+  for (const e of GLOS.terms) {
+    const counts = {}, enFound = {};
+    for (const [id, t] of Object.entries(TXT)) {
+      let n = 0; for (const p of e.match) n += (t.tr.match(new RegExp(B + '(?:' + p + ')', 'gu')) || []).length;
+      if (n) counts[id] = n;
+      let k = 0; for (const p of e.match_en) k += (t.en.match(new RegExp('(?<![a-z0-9])(?:' + p + ')', 'gu')) || []).length;
+      if (k) enFound[id] = k;
+    }
+    const tot = Object.values(counts).reduce((a, b) => a + b, 0);
+    const own = (id) => { const m = M.modules.find((x) => x.id === id); return e.ch === 'DK' ? m.app === 'docking' : ((m.book || '').match(/CH\d\d/g) || []).includes(e.ch); };
+    const ids = Object.keys(counts).filter((id) => counts[id] >= 2 || tot < 4)
+      .sort((a, b) => (own(a) ? 0 : 1) - (own(b) ? 0 : 1) || counts[b] - counts[a] || (a < b ? -1 : 1)).slice(0, 5);
+    GL[e.id] = { mods: ids.map((id) => ({ id, main: own(id) })), counts, enFound };
+  }
+}
+
 for (const L of LANGS) {
   const U = UI[L];
   const cards = M.apps.map((a) => {
@@ -244,9 +279,40 @@ ${extra}
   }).join('\n');
   write(join(L, 'book', 'index.html'), page(L, 'book/', `${U.bkTitle} · AssayHub Learn`, `<a href="/${L}/">${UI[L].learn}</a> › ${esc(U.bkTitle)}`, `
 <div class="mast"><p class="eyebrow">${esc(U.bkEyebrow)}</p><h1>${esc(U.bkH1)}</h1><p class="deck">${esc(U.bkDeck)}</p></div>
-<div class="box"><h4>${esc(U.bookH)}</h4><p>${U.bookP}</p><p>${U.bkRelP}</p>${U.bkNote ? `<p>${esc(U.bkNote)}</p>` : ''}</div>
+<div class="box"><h4>${esc(U.bookH)}</h4><p>${U.bookP}</p><p>${U.bkRelP}</p>${U.bkNote ? `<p>${esc(U.bkNote)}</p>` : ''}<p>${U.bkLink.replace(/^.*?\. /, '')}</p></div>
 ${secs}
 `));
+  // sözlük sayfası: glossary.json + modül metinlerinde arama (glLinks)
+  {
+    const trm = (e) => (L === 'en' ? e.en.term : e.tr), alt = (e) => (L === 'en' ? e.en.alt : e.alt), def = (e) => (L === 'en' ? e.en.def : e.def), oth = (e) => (L === 'en' ? e.tr : e.en.term);
+    const coll = new Intl.Collator(L, { sensitivity: 'base' });
+    const terms = GLOS.terms.slice().sort((a, b) => coll.compare(trm(a), trm(b)));
+    const letter = (e) => trm(e).trim().charAt(0).toLocaleUpperCase(L);
+    const letters = []; for (const e of terms) { const c = letter(e); if (!letters.includes(c)) letters.push(c); }
+    const modTitle = (id) => { const m = M.modules.find((x) => x.id === id); return m ? T(L, m, 'title') : id; };
+    const chTitle = (id) => { const c = BOOK.chapters.find((x) => x.id === id); return c ? T(L, c, 'title') : id; };
+    let cur = '';
+    const items = terms.map((e) => {
+      const c = letter(e); const head = c !== cur ? `<span class="gl-anc" id="gl-${esc(c)}"></span>` : ''; cur = c;
+      const lk = GL[e.id];
+      const mods = lk.mods.map((x) => `<a class="gl-mod${x.main ? ' main' : ''}" href="/${L}/${M.modules.find((m) => m.id === x.id).path}" title="${esc(modTitle(x.id))}">${esc(x.id)}</a>`).join('');
+      const chl = e.ch === 'DK' ? `<span class="gl-ch">${esc(U.glDk)}</span>` : `<a class="gl-ch" href="/${L}/book/#${esc(e.ch)}">${esc(U.glCh)}: ${esc(e.ch)} · ${esc(chTitle(e.ch))}</a>`;
+      const al = alt(e).length ? `<p class="gl-alt">${esc(U.glAlso)}: ${alt(e).map(esc).join(', ')}</p>` : '';
+      const srch = [e.tr, e.en.term, ...e.alt, ...e.en.alt, e.id].join(' ');
+      return `<li class="gl-e" id="${esc(e.id)}" data-s="${esc(srch)}">${head}<div class="gl-h"><h3 class="gl-t">${esc(trm(e))}</h3><span class="gl-o"><span class="gl-ol">${esc(U.glOtherL)}:</span> <span lang="${other(L)}">${esc(oth(e))}</span></span></div>${al}<p class="gl-d">${esc(def(e))}</p><p class="gl-m"><span class="gl-ml">${esc(U.glMods)}:</span> ${mods} ${chl}</p></li>`;
+    }).join('\n');
+    const idx = letters.map((c) => `<a href="#gl-${esc(c)}">${esc(c)}</a>`).join('');
+    const js = `<script>(function(){var q=document.getElementById('glq'),n=document.getElementById('gln'),z=document.getElementById('glz'),E=[].slice.call(document.querySelectorAll('.gl-e')),N=E.length;var f=function(s){return s.replace(/İ/g,'i').replace(/I/g,'ı').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/ı/g,'i');};var S=E.map(function(e){return f(e.getAttribute('data-s')+' '+e.querySelector('.gl-h').textContent);}),T=E.map(function(e){return f(e.textContent);});var run=function(){var v=f(q.value.trim()),k=0,A=S;if(v&&!S.some(function(s){return s.indexOf(v)>=0;}))A=T;E.forEach(function(e,i){var ok=!v||A[i].indexOf(v)>=0;e.hidden=!ok;if(ok)k++;});n.textContent=${JSON.stringify(U.glCount('§K', '§N'))}.replace('§K',k).replace('§N',N);z.hidden=k>0;};q.addEventListener('input',run);run();})();</script>`;
+    write(join(L, 'glossary', 'index.html'), page(L, 'glossary/', `${U.glTitle} · AssayHub Learn`, `<a href="/${L}/">${UI[L].learn}</a> › ${esc(U.glTitle)}`, `
+<div class="mast"><p class="eyebrow">${esc(U.glEyebrow)}</p><h1>${esc(U.glH1)}</h1><p class="deck">${esc(U.glDeck(GLOS.terms.length))}</p></div>
+<div class="box"><p>${U.glNote}</p><p>${U.bkLink.replace(/ (Terimler|Terms):.*$/, '')}</p></div>
+<div class="gl-bar"><label class="gl-q"><span>${esc(U.glSearch)}</span><input id="glq" type="search" placeholder="${esc(U.glPh)}" autocomplete="off"></label><span id="gln" class="gl-n" aria-live="polite">${esc(U.glCount(GLOS.terms.length, GLOS.terms.length))}</span></div>
+<nav class="gl-idx" aria-label="${esc(U.glIdx)}">${idx}</nav>
+<ul class="gl">${items}</ul>
+<p id="glz" class="gl-z" hidden>${esc(U.glNone)}</p>
+${js}
+`));
+  }
   // dile özgü 404
   write(join(L, '404.html'), page(L, null, `${U.nfTitle} · AssayHub Learn`, esc(U.tagline), `
 <div class="mast"><p class="eyebrow">404</p><h1>${esc(U.nfH)}</h1><p class="deck">${U.nfP}</p><p class="deck">${U.bkLink}</p></div>`));
@@ -263,12 +329,13 @@ for (const L of LANGS) {
     lines.push(`/${L}/l/${m.id.toLowerCase()} ${target} 302`);
   }
   for (const a of M.apps) lines.push(`/${L}/l/${a.id} /${L}/${a.path} 302`);
-  lines.push(`/${L}/l/book /${L}/book/ 302`);
+  lines.push(`/${L}/l/book /${L}/book/ 302`, `/${L}/l/glossary /${L}/glossary/ 302`);
 }
-lines.push('/tr/kitap /tr/book/ 302', '/tr/kitap/ /tr/book/ 302');
+lines.push('/tr/kitap /tr/book/ 302', '/tr/kitap/ /tr/book/ 302', '/tr/sozluk /tr/glossary/ 302', '/tr/sozluk/ /tr/glossary/ 302', '/tr/l/sozluk /tr/glossary/ 302');
 writeFileSync(join(DIST, '_redirects'), lines.join('\n') + '\n');
 writeFileSync(join(DIST, '_routes.json'), JSON.stringify({ version: 1, include: ['/', '/l/*', '/docking', '/docking/*', '/md', '/md/*'], exclude: [] }, null, 2));
 
 writeFileSync(join(DIST, 'modules.json'), JSON.stringify(M, null, 2));
+writeFileSync(join(DIST, 'glossary.json'), JSON.stringify({ schema: GLOS.schema, terms: GLOS.terms.map((e) => ({ id: e.id, ch: e.ch, tr: e.tr, en: e.en.term, mods: GL[e.id].mods, counts: GL[e.id].counts, en_found: GL[e.id].enFound })) }, null, 1));
 writeFileSync(join(DIST, 'version.json'), JSON.stringify({ ...BUILD, languages: LANGS, translations: tableInfo }, null, 2));
 console.log(`dist hazır: ${M.modules.filter((m) => m.source).length} modül x ${LANGS.length} dil (İngilizce çeviri: ${enModules}${enMissing.length ? `, eksik: ${enMissing.join(', ')}` : ''}), ${lines.length - 3} kısa adres, commit ${BUILD.commit}`);

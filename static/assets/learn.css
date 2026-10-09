@@ -61,3 +61,27 @@ code{font-size:.92em;background:var(--panel);padding:1px 5px;border-radius:3px}
 .bk-rel.ortak{background:var(--panel);color:var(--ink)} .bk-rel.ek{background:var(--warn-bg);color:var(--warn)}
 .bk-m code{font-size:12px;color:var(--muted)}
 @media (max-width:760px){.bk-h{grid-template-columns:54px minmax(0,1fr)}.bk-m{margin-left:0}}
+/* sözlük */
+.gl-bar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 18px;margin:0 0 14px;max-width:760px}
+.gl-q{display:flex;flex-direction:column;gap:6px;flex:1 1 320px;min-width:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.gl-q input{font:inherit;font-size:16px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:normal;border:1px solid var(--rule);border-radius:6px;padding:10px 12px;background:#fffefb;width:100%;box-sizing:border-box}
+.gl-q input:focus{border-color:var(--ink);outline:none}
+.gl-n{font-size:13px;color:var(--muted);padding-bottom:10px}
+.gl-idx{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 22px;max-width:760px}
+.gl-idx a{display:inline-block;min-width:28px;text-align:center;padding:4px 6px;border:1px solid var(--rule);border-radius:4px;background:#fffefb;text-decoration:none;font-family:var(--serif);font-size:16px}
+.gl-idx a:hover{border-color:var(--ink)}
+.gl{list-style:none;margin:0 0 30px;padding:0;display:flex;flex-direction:column;gap:10px;max-width:860px}
+.gl-anc{display:block;position:relative;top:-14px;height:0}
+.gl-e{border:1px solid var(--rule);background:#fffefb;border-radius:6px;padding:14px 16px;scroll-margin-top:12px}
+.gl-e:target{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.gl-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.gl-t{font-family:var(--serif);font-weight:normal;font-size:22px;margin:0;color:var(--ink)}
+.gl-o{font-size:14px;color:var(--muted)} .gl-ol{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.gl-alt{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.gl-d{margin:8px 0 10px;font-size:15px;line-height:1.6;max-width:760px}
+.gl-m{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:13px}
+.gl-ml{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.gl-mod{display:inline-block;font-family:var(--serif);font-size:15px;text-decoration:none;color:var(--accent);border:1px solid var(--rule);border-radius:4px;padding:1px 7px;background:var(--paper)}
+.gl-mod.main{border-color:var(--accent)} .gl-mod:hover{background:var(--panel)}
+.gl-ch{font-size:12.5px;color:var(--muted);margin-left:4px} a.gl-ch{color:var(--muted)} a.gl-ch:hover{color:var(--ink)}
+.gl-z{color:var(--muted);font-style:italic}

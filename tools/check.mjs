@@ -91,6 +91,22 @@ for (const f of files) {
   for (const L of LANGS) { const f = join(DIST, L, 'book', 'index.html'); if (!existsSync(f)) { fail(`dist/${L}/book/index.html yok`); continue; }
     const h = readFileSync(f, 'utf8'); for (const c of BK.chapters) if (!h.includes(`id="${c.id}"`)) fail(`${L} kitap sayfasında ${c.id} yok`); } }
 
+// 4c) sözlük: kimlikler tekil, bölümler book.json'da (ya da DK), her terimin en az bir modülü var, metinlerde uzun ya da orta tire yok, sayfa iki dilde bütün terimleri içerir
+{ const G = JSON.parse(readFileSync(join(ROOT, 'glossary.json'), 'utf8')), BK = JSON.parse(readFileSync(join(ROOT, 'book.json'), 'utf8'));
+  const chIds = new Set(BK.chapters.map((c) => c.id)), seen = new Set(), GD = JSON.parse(readFileSync(join(DIST, 'glossary.json'), 'utf8'));
+  for (const e of G.terms) {
+    if (seen.has(e.id)) fail(`sözlük: ${e.id} iki kez`); seen.add(e.id);
+    if (!/^[a-z0-9-]+$/.test(e.id)) fail(`sözlük: kimlik ${e.id} yalnız küçük harf, rakam ve kısa çizgi içermeli`);
+    if (e.ch !== 'DK' && !chIds.has(e.ch)) fail(`sözlük: ${e.id} bölümü ${e.ch} book.json'da yok`);
+    for (const x of [e.tr, e.def, e.en.term, e.en.def, ...e.alt, ...e.en.alt]) if (/[–—]/.test(x)) fail(`sözlük: ${e.id} metninde uzun ya da orta tire`);
+    if (!e.def || !e.en.def) fail(`sözlük: ${e.id} tanımı eksik`);
+    const d = GD.terms.find((x) => x.id === e.id);
+    if (!d || !d.mods.length) fail(`sözlük: ${e.id} hiçbir modülde bulunamadı`);
+    else { const miss = d.mods.filter((x) => !d.en_found[x.id]).map((x) => x.id); if (miss.length) notes.push(`sözlük: ${e.id} İngilizce karşılığı (${e.en.term}) şu modüllerin İngilizce metninde bulunamadı: ${miss.join(', ')}`); }
+  }
+  for (const L of LANGS) { const f = join(DIST, L, 'glossary', 'index.html'); if (!existsSync(f)) { fail(`dist/${L}/glossary/index.html yok`); continue; }
+    const h = readFileSync(f, 'utf8'); for (const e of G.terms) if (!h.includes(`id="${e.id}"`)) fail(`${L} sözlük sayfasında ${e.id} yok`); } }
+
 // 5) lisans notu gereken modüller (iki dilde)
 for (const m of M.modules) {
   if (!m.path) continue;

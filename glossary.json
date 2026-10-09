@@ -1,0 +1,1779 @@
+{
+ "schema": "assayhub-learn-glossary/1",
+ "note": "Kitap ve modüllerdeki temel terimler (TR ve EN). Tanımlar Claude tarafından yazıldı ve bağımsız bir denetimden geçti; bir kişi tarafından henüz gözden geçirilmedi. 'match' Türkçe görünür metinde (i18n tablolarının Türkçe tarafı) aranan küçük harfli düzenli ifadelerdir; terimin bağlandığı modüller yapım sırasında bu aramayla bulunur. 'match_en' yalnız tutarlılık denetimi içindir.",
+ "terms": [
+  {
+   "id": "nicelik",
+   "ch": "CH01",
+   "tr": "nicelik",
+   "en": {
+    "term": "quantity",
+    "alt": [],
+    "def": "The measurement a study will report as a number at the end: a ratio, a distance, a free energy difference. Designing an MD study starts by choosing this quantity, and what it will be compared with, before anything is run."
+   },
+   "alt": [],
+   "def": "Bir çalışmanın sonunda sayı olarak raporlanacak ölçüm: bir oran, bir mesafe, bir serbest enerji farkı. Bir MD çalışmasının tasarımı, hiçbir şey koşulmadan önce bu niceliği ve onun neyle karşılaştırılacağını seçmekle başlar.",
+   "match": [
+    "nicelik"
+   ],
+   "match_en": [
+    "quantit"
+   ]
+  },
+  {
+   "id": "lennard-jones",
+   "ch": "CH02",
+   "tr": "Lennard-Jones potansiyeli",
+   "en": {
+    "term": "Lennard-Jones potential",
+    "alt": [],
+    "def": "A model of the van der Waals interaction between two atoms: strong repulsion at very short range and weak attraction a little further out. It is the basic non-electrostatic term in force fields."
+   },
+   "alt": [],
+   "def": "İki atom arasındaki van der Waals etkileşimini veren model: çok kısa mesafede güçlü itme, biraz daha uzakta zayıf çekme. Kuvvet alanlarındaki elektrostatik olmayan temel bağsız terimdir.",
+   "match": [
+    "lennard"
+   ],
+   "match_en": [
+    "lennard"
+   ]
+  },
+  {
+   "id": "integrator",
+   "ch": "CH02",
+   "tr": "integratör",
+   "en": {
+    "term": "integrator",
+    "alt": [],
+    "def": "The numerical method that uses the forces to move positions and velocities forward by one time step (for example leap-frog or velocity Verlet). Its accuracy depends on the time step."
+   },
+   "alt": [],
+   "def": "Kuvvetlerden yola çıkıp konum ve hızları bir zaman adımı ileri taşıyan sayısal yöntem (örneğin leap-frog ya da hız-Verlet). Doğruluğu zaman adımına bağlıdır.",
+   "match": [
+    "integratör",
+    "leap-frog"
+   ],
+   "match_en": [
+    "integrator",
+    "leap-frog"
+   ]
+  },
+  {
+   "id": "zaman-adimi",
+   "ch": "CH02",
+   "tr": "zaman adımı",
+   "en": {
+    "term": "time step",
+    "alt": [],
+    "def": "The length of time the integrator advances in each step, typically 1 to 2 fs for proteins. It must be well below the period of the fastest vibration (for Verlet-type integrators the stability limit is the period divided by π); constraining bonds allows a longer step."
+   },
+   "alt": [],
+   "def": "İntegratörün her adımda ilerlediği süre, proteinlerde tipik olarak 1 ile 2 fs. En hızlı titreşimin periyodundan belirgin biçimde kısa olmalıdır (Verlet türü integratörlerde kararlılık sınırı periyodun π'de biridir); bağlar kısıtlanırsa daha uzun adım kullanılabilir.",
+   "match": [
+    "zaman adım"
+   ],
+   "match_en": [
+    "time step"
+   ]
+  },
+  {
+   "id": "kisit",
+   "ch": "CH02",
+   "tr": "kısıt (constraint)",
+   "en": {
+    "term": "constraint",
+    "alt": [],
+    "def": "A condition that holds a bond length or angle exactly fixed (for example bonds to hydrogen with LINCS). It differs from a position restraint, which pulls back with a force rather than fixing exactly."
+   },
+   "alt": [],
+   "def": "Bir bağ uzunluğunu ya da açıyı tam olarak sabit tutan koşul (örneğin LINCS ile hidrojen içeren bağlar). Atomları bir kuvvetle geri çeken ama tam sabitlemeyen konum kısıtından (restraint) farklıdır.",
+   "match": [
+    "kısıt(?!lama)",
+    "lincs"
+   ],
+   "match_en": [
+    "constraint",
+    "lincs"
+   ]
+  },
+  {
+   "id": "enerji-kaymasi",
+   "ch": "CH02",
+   "tr": "enerji kayması",
+   "en": {
+    "term": "energy drift",
+    "alt": [],
+    "def": "A steady change over time in the total energy, which should be conserved in a run without a thermostat. It signals numerical error, most often from a time step that is too long or from the cut-off and neighbor list settings."
+   },
+   "alt": [],
+   "def": "Termostatsız bir koşuda korunması gereken toplam enerjinin zamanla düzenli olarak değişmesi. Sayısal hata olduğunu gösterir; nedeni çoğunlukla çok uzun zaman adımı ya da kesme ve komşu listesi ayarlarıdır.",
+   "match": [
+    "enerji kayma",
+    "drift",
+    "enerji korun"
+   ],
+   "match_en": [
+    "drift",
+    "energy conservation"
+   ]
+  },
+  {
+   "id": "topluluk",
+   "ch": "CH03",
+   "tr": "topluluk",
+   "en": {
+    "term": "ensemble",
+    "alt": [],
+    "def": "The statistical framework that states which quantities are held fixed (NVE, NVT, NPT). The averages a run produces belong to that ensemble."
+   },
+   "alt": [],
+   "def": "Hangi büyüklüklerin sabit tutulduğunu belirten istatistiksel çerçeve (NVE, NVT, NPT). Bir koşunun ürettiği ortalamalar bu topluluğa aittir.",
+   "match": [
+    "topluluk",
+    "ensemble"
+   ],
+   "match_en": [
+    "ensemble"
+   ]
+  },
+  {
+   "id": "nvt",
+   "ch": "CH05",
+   "tr": "NVT topluluğu",
+   "en": {
+    "term": "NVT ensemble",
+    "alt": [],
+    "def": "The ensemble in which particle number, volume and temperature are held fixed. A thermostat keeps the temperature; the box volume does not change."
+   },
+   "alt": [],
+   "def": "Parçacık sayısı, hacim ve sıcaklığın sabit tutulduğu topluluk. Sıcaklığı bir termostat korur; kutunun hacmi değişmez.",
+   "match": [
+    "nvt"
+   ],
+   "match_en": [
+    "nvt"
+   ]
+  },
+  {
+   "id": "npt",
+   "ch": "CH05",
+   "tr": "NPT topluluğu",
+   "en": {
+    "term": "NPT ensemble",
+    "alt": [],
+    "def": "The ensemble in which particle number, pressure and temperature are held fixed. A barostat adjusts the box volume; biomolecules in solution are usually run in this ensemble."
+   },
+   "alt": [],
+   "def": "Parçacık sayısı, basınç ve sıcaklığın sabit tutulduğu topluluk. Barostat kutu hacmini ayarlar; çözeltideki biyomoleküller çoğunlukla bu toplulukta koşulur.",
+   "match": [
+    "npt"
+   ],
+   "match_en": [
+    "npt"
+   ]
+  },
+  {
+   "id": "termostat",
+   "ch": "CH05",
+   "tr": "termostat",
+   "en": {
+    "term": "thermostat",
+    "alt": [],
+    "def": "An algorithm that adjusts atomic velocities to keep the system temperature at a target value (for example V-rescale). Its choice and coupling time can affect dynamic properties."
+   },
+   "alt": [],
+   "def": "Sistemin sıcaklığını hedef değerde tutmak için atom hızlarını düzenleyen algoritma (örneğin V-rescale). Seçimi ve bağlanma süresi dinamik özellikleri etkileyebilir.",
+   "match": [
+    "termostat"
+   ],
+   "match_en": [
+    "thermostat"
+   ]
+  },
+  {
+   "id": "barostat",
+   "ch": "CH05",
+   "tr": "barostat",
+   "en": {
+    "term": "barostat",
+    "alt": [],
+    "def": "An algorithm that keeps the pressure at a target value by changing the box dimensions (for example C-rescale, Parrinello-Rahman). Volume and density fluctuate with it."
+   },
+   "alt": [],
+   "def": "Kutu boyutlarını değiştirerek basıncı hedef değerde tutan algoritma (örneğin C-rescale, Parrinello-Rahman). Hacim ve yoğunluk onunla birlikte dalgalanır.",
+   "match": [
+    "barostat"
+   ],
+   "match_en": [
+    "barostat"
+   ]
+  },
+  {
+   "id": "boltzmann",
+   "ch": "CH03",
+   "tr": "Boltzmann dağılımı",
+   "en": {
+    "term": "Boltzmann distribution",
+    "alt": [],
+    "def": "At equilibrium, the probability of a state is proportional to exp(−E/kT). For two states that each contain many structures, the ratio of their populations gives the free energy difference between them."
+   },
+   "alt": [],
+   "def": "Dengede bir durumun olasılığının exp(−E/kT) ile orantılı olması. Birçok yapıyı içeren iki durumun popülasyon oranı, aralarındaki serbest enerji farkını verir.",
+   "match": [
+    "boltzmann"
+   ],
+   "match_en": [
+    "boltzmann"
+   ]
+  },
+  {
+   "id": "kt",
+   "ch": "CH02",
+   "tr": "kT (ısıl enerji)",
+   "en": {
+    "term": "kT (thermal energy)",
+    "alt": [],
+    "def": "The product of the Boltzmann constant and the absolute temperature; about 2.49 kJ/mol at 300 K. Whether an energy difference is large or small is judged against this scale."
+   },
+   "alt": [],
+   "def": "Boltzmann sabiti ile mutlak sıcaklığın çarpımı; 300 K'de yaklaşık 2,49 kJ/mol. Enerji farklarının büyük mü küçük mü olduğu bu ölçekle karşılaştırılarak anlaşılır.",
+   "match": [
+    "kt(?![a-zçğıöşü])"
+   ],
+   "match_en": [
+    "kt(?![a-z])"
+   ]
+  },
+  {
+   "id": "serbest-enerji",
+   "ch": "CH19",
+   "tr": "serbest enerji",
+   "en": {
+    "term": "free energy",
+    "alt": [],
+    "def": "The quantity that sets the probability of a state, combining energy and entropy. The difference between two states can also be computed from populations as ΔG = −kT ln(P₁/P₂)."
+   },
+   "alt": [],
+   "def": "Bir durumun olasılığını belirleyen, enerji ile entropiyi birlikte içeren büyüklük. İki durum arasındaki fark, popülasyonlardan ΔG = −kT ln(P₁/P₂) ile de hesaplanabilir.",
+   "match": [
+    "serbest enerji"
+   ],
+   "match_en": [
+    "free energ"
+   ]
+  },
+  {
+   "id": "pbc",
+   "ch": "CH04",
+   "tr": "periyodik sınır koşulları",
+   "en": {
+    "term": "periodic boundary conditions",
+    "alt": [
+     "PBC"
+    ],
+    "def": "Treating the simulation box as surrounded by copies of itself in every direction; an atom that leaves through one face enters through the opposite one. A small box can then represent a solution without surfaces."
+   },
+   "alt": [
+    "PBC"
+   ],
+   "def": "Simülasyon kutusunun her yönde kopyalarıyla çevrili sayılması; kutudan çıkan atom karşı yüzden girer. Böylece küçük bir kutu, yüzeysiz bir çözeltiyi temsil eder.",
+   "match": [
+    "periyodik sınır",
+    "pbc"
+   ],
+   "match_en": [
+    "periodic boundar",
+    "pbc"
+   ]
+  },
+  {
+   "id": "en-yakin-kopya",
+   "ch": "CH04",
+   "tr": "en yakın kopya kuralı",
+   "en": {
+    "term": "minimum image convention",
+    "alt": [
+     "nearest image"
+    ],
+    "def": "The rule that each pair of atoms interacts through the closest of their periodic copies. It requires the cut-off distance to be less than half the shortest box dimension."
+   },
+   "alt": [
+    "en küçük görüntü"
+   ],
+   "def": "Her atom çiftinin, periyodik kopyalar arasından birbirine en yakın olanlarla etkileştirilmesi kuralı. Kesme mesafesinin kutunun en kısa kenarının yarısından küçük olmasını gerektirir.",
+   "match": [
+    "en yakın kopya",
+    "en küçük görüntü"
+   ],
+   "match_en": [
+    "nearest image",
+    "minimum image"
+   ]
+  },
+  {
+   "id": "kesme",
+   "ch": "CH04",
+   "tr": "kesme mesafesi",
+   "en": {
+    "term": "cut-off distance",
+    "alt": [
+     "cut-off"
+    ],
+    "def": "The distance beyond which an interaction is no longer computed directly (often 1.0 to 1.2 nm). Short-range terms stop here; long-range electrostatics is completed with PME."
+   },
+   "alt": [],
+   "def": "Ötesinde bir etkileşimin artık doğrudan hesaplanmadığı uzaklık (çoğunlukla 1,0 ile 1,2 nm). Kısa erimli terimler burada kesilir; uzun erimli elektrostatik PME ile tamamlanır.",
+   "match": [
+    "kesme mesafe",
+    "kesme yarıçap",
+    "kesme(?![a-zçğıöşü])",
+    "cut-off"
+   ],
+   "match_en": [
+    "cut-off"
+   ]
+  },
+  {
+   "id": "pme",
+   "ch": "CH04",
+   "tr": "PME (parçacık-ağ Ewald)",
+   "en": {
+    "term": "PME (particle mesh Ewald)",
+    "alt": [],
+    "def": "A method that computes electrostatics in a periodic system beyond the cut-off as well, summing the long-range part on a grid with Fourier transforms. It is the standard in biomolecular MD."
+   },
+   "alt": [],
+   "def": "Periyodik sistemde elektrostatik etkileşimi kesme mesafesinin ötesinde de hesaplayan yöntem; uzak kısmı bir ızgara üzerinde Fourier dönüşümüyle toplar. Biyomoleküler MD'de standarttır.",
+   "match": [
+    "pme"
+   ],
+   "match_en": [
+    "pme"
+   ]
+  },
+  {
+   "id": "komsu-listesi",
+   "ch": "CH04",
+   "tr": "komşu listesi",
+   "en": {
+    "term": "neighbor list",
+    "alt": [
+     "pair list"
+    ],
+    "def": "A list, updated at intervals, of the atom pairs that may fall within the cut-off. It avoids scanning all pairs at every step; the update interval and buffer distance affect accuracy."
+   },
+   "alt": [],
+   "def": "Kesme mesafesi içinde kalabilecek atom çiftlerinin belli aralıklarla güncellenen listesi. Her adımda bütün çiftleri taramaktan kurtarır; güncelleme aralığı ve tampon mesafesi doğruluğu etkiler.",
+   "match": [
+    "komşu liste",
+    "verlet liste"
+   ],
+   "match_en": [
+    "neighbor list",
+    "pair list"
+   ]
+  },
+  {
+   "id": "kutu",
+   "ch": "CH04",
+   "tr": "simülasyon kutusu",
+   "en": {
+    "term": "simulation box",
+    "alt": [],
+    "def": "The cell that is repeated periodically (a cube, a rhombic dodecahedron and so on). It must be large enough to leave a water layer wider than the cut-off between the biomolecule and its own copy."
+   },
+   "alt": [],
+   "def": "Periyodik olarak tekrarlanan hücre (küp, eşkenar dörtgen onikiyüzlü gibi). Biyomolekül ile kendi kopyası arasında kesme mesafesinden geniş bir su tabakası kalacak kadar büyük olmalıdır.",
+   "match": [
+    "kutu"
+   ],
+   "match_en": [
+    "box"
+   ]
+  },
+  {
+   "id": "karsi-iyon",
+   "ch": "CH04",
+   "tr": "karşı iyon",
+   "en": {
+    "term": "counterion",
+    "alt": [],
+    "def": "An ion added to bring the net charge of the system to zero (for example Na⁺ or Cl⁻). PME offsets a net charge with a uniform opposite charge spread over the box; because this artificial background can distort results, systems are usually neutralized with ions."
+   },
+   "alt": [],
+   "def": "Sistemin net yükünü sıfırlamak için eklenen iyon (örneğin Na⁺ ya da Cl⁻). PME net yükü kutuya yayılmış düzgün bir zıt yükle dengeler; bu yapay arka plan sonuçları bozabileceği için sistem genellikle iyonlarla nötrleştirilir.",
+   "match": [
+    "karşı iyon",
+    "nötrle"
+   ],
+   "match_en": [
+    "counterion",
+    "neutraliz"
+   ]
+  },
+  {
+   "id": "konum-kisiti",
+   "ch": "CH11",
+   "tr": "konum kısıtı",
+   "en": {
+    "term": "position restraint",
+    "alt": [],
+    "def": "A term that ties selected atoms to their starting positions with a spring force. It is used during equilibration so that the solvent settles without distorting the structure, and removed for the production run."
+   },
+   "alt": [
+    "pozisyon kısıtlaması"
+   ],
+   "def": "Seçilen atomları başlangıç konumlarına bir yay kuvvetiyle bağlayan terim. Dengelemede çözücünün yapıyı bozmadan yerleşmesi için kullanılır; üretim koşusunda kaldırılır.",
+   "match": [
+    "konum kısıt",
+    "pozisyon kısıtla",
+    "posres"
+   ],
+   "match_en": [
+    "position restrain"
+   ]
+  },
+  {
+   "id": "minimizasyon",
+   "ch": "CH11",
+   "tr": "enerji minimizasyonu",
+   "en": {
+    "term": "energy minimization",
+    "alt": [],
+    "def": "A procedure that removes clashes by moving atoms step by step in the direction that lowers the potential energy. It is not dynamics; it has no temperature and no time."
+   },
+   "alt": [],
+   "def": "Atomları potansiyel enerjiyi azaltacak yönde adım adım kaydırarak çakışmaları gideren işlem. Dinamik değildir; sıcaklık ve zaman içermez.",
+   "match": [
+    "minimizasyon"
+   ],
+   "match_en": [
+    "minimi"
+   ]
+  },
+  {
+   "id": "dengeleme",
+   "ch": "CH11",
+   "tr": "dengeleme",
+   "en": {
+    "term": "equilibration",
+    "alt": [],
+    "def": "Short runs before the production run so that temperature, pressure and density settle at their targets (usually NVT first, then NPT). This part is not analyzed."
+   },
+   "alt": [],
+   "def": "Üretim koşusundan önce sıcaklık, basınç ve yoğunluğun hedefe oturması için yapılan kısa koşular (çoğunlukla önce NVT, sonra NPT). Bu kısım analize alınmaz.",
+   "match": [
+    "dengeleme"
+   ],
+   "match_en": [
+    "equilibration"
+   ]
+  },
+  {
+   "id": "uretim",
+   "ch": "CH11",
+   "tr": "üretim koşusu",
+   "en": {
+    "term": "production run",
+    "alt": [],
+    "def": "The main run, recorded for analysis after equilibration. Which measurements will be taken from it and which part will be discarded should be written down before the run."
+   },
+   "alt": [],
+   "def": "Dengelemeden sonra analiz için kaydedilen asıl koşu. Hangi ölçümlerin ondan alınacağı ve hangi kısmının atılacağı koşudan önce yazılmalıdır.",
+   "match": [
+    "üretim"
+   ],
+   "match_en": [
+    "production"
+   ]
+  },
+  {
+   "id": "denetim-noktasi",
+   "ch": "CH24",
+   "tr": "denetim noktası",
+   "en": {
+    "term": "checkpoint",
+    "alt": [],
+    "def": "The full state of a run saved at intervals (positions, velocities, random number state). An interrupted run can be continued from it, picking up where it stopped."
+   },
+   "alt": [],
+   "def": "Koşunun belli aralıklarla kaydedilen tam durumu (konumlar, hızlar, rastgele sayı durumu). Kesilen bir koşu buradan, kaldığı yerden sürdürülebilir.",
+   "match": [
+    "denetim noktas",
+    "checkpoint"
+   ],
+   "match_en": [
+    "checkpoint"
+   ]
+  },
+  {
+   "id": "bagimsiz-kosu",
+   "ch": "CH06",
+   "tr": "bağımsız koşu",
+   "en": {
+    "term": "independent run",
+    "alt": [
+     "replica"
+    ],
+    "def": "A separate run of the same system started from different initial velocities (seeds) or structures. The spread between runs shows uncertainty that cannot be seen from within a single run."
+   },
+   "alt": [],
+   "def": "Aynı sistemin farklı başlangıç hızları (tohum) ya da yapılarıyla ayrı ayrı yürütülen koşusu. Koşular arası fark, tek koşunun içinden görülemeyen belirsizliği gösterir.",
+   "match": [
+    "bağımsız koşu",
+    "replika",
+    "tekrar koşu"
+   ],
+   "match_en": [
+    "independent run",
+    "replica"
+   ]
+  },
+  {
+   "id": "tohum",
+   "ch": "CH06",
+   "tr": "tohum",
+   "en": {
+    "term": "seed",
+    "alt": [],
+    "def": "The starting value of the random number generator; for example, it sets the initial velocities. The same seed gives the same initial velocities, but whether the run is bit-identical also depends on the version, hardware and thread count; a different seed starts an independent run."
+   },
+   "alt": [],
+   "def": "Rastgele sayı üretecinin başlangıç değeri; örneğin başlangıç hızlarını belirler. Aynı tohum aynı başlangıç hızlarını verir, ama koşunun bit düzeyinde aynı çıkması ayrıca sürüme, donanıma ve iş parçacığı sayısına bağlıdır; farklı tohum bağımsız bir koşu başlatır.",
+   "match": [
+    "tohum"
+   ],
+   "match_en": [
+    "seed"
+   ]
+  },
+  {
+   "id": "negatif-kontrol",
+   "ch": "CH06",
+   "tr": "negatif kontrol",
+   "en": {
+    "term": "negative control",
+    "alt": [],
+    "def": "A comparison in which no effect should appear (for example two runs of the same system). The difference seen here shows the smallest difference needed to tell a real effect apart from noise."
+   },
+   "alt": [],
+   "def": "Etkinin olmaması gereken bir karşılaştırma (örneğin aynı sistemin iki koşusu). Burada görülen fark, gerçek bir etkiyi ayırt etmek için gereken en küçük farkı gösterir.",
+   "match": [
+    "negatif kontrol"
+   ],
+   "match_en": [
+    "negative control"
+   ]
+  },
+  {
+   "id": "pozitif-kontrol",
+   "ch": "CH12",
+   "tr": "pozitif kontrol",
+   "en": {
+    "term": "positive control",
+    "alt": [],
+    "def": "A case with a known answer that the method is expected to find (for example recovering a crystal pose). If the method cannot find it, its new results cannot be trusted either."
+   },
+   "alt": [],
+   "def": "Sonucu bilinen ve yöntemin onu bulması beklenen durum (örneğin kristal pozunun yeniden bulunması). Yöntem bunu bulamıyorsa yeni sonuçlarına da güvenilmez.",
+   "match": [
+    "pozitif kontrol"
+   ],
+   "match_en": [
+    "positive control"
+   ]
+  },
+  {
+   "id": "standart-sapma",
+   "ch": "CH06",
+   "tr": "standart sapma",
+   "en": {
+    "term": "standard deviation",
+    "alt": [
+     "SD"
+    ],
+    "def": "The spread of values around their mean. It describes how much individual measurements vary, not how precisely the mean is known (that is the standard error)."
+   },
+   "alt": [
+    "SD"
+   ],
+   "def": "Değerlerin ortalama çevresindeki yayılımı. Tek tek ölçümlerin ne kadar değiştiğini anlatır; ortalamanın ne kadar kesin olduğunu değil (o standart hatadır).",
+   "match": [
+    "standart sapma"
+   ],
+   "match_en": [
+    "standard deviation"
+   ]
+  },
+  {
+   "id": "protonasyon",
+   "ch": "CH07",
+   "tr": "protonasyon durumu",
+   "en": {
+    "term": "protonation state",
+    "alt": [],
+    "def": "Whether acidic and basic groups (for example His, Asp, Glu, Lys) carry a proton. It is usually not visible in a crystal structure; it is chosen according to pH and environment and directly changes the charge distribution."
+   },
+   "alt": [],
+   "def": "Asidik ve bazik grupların (örneğin His, Asp, Glu, Lys) proton taşıyıp taşımadığı. Kristal yapıda genellikle görünmez; pH ve çevreye göre seçilir ve yük dağılımını doğrudan değiştirir.",
+   "match": [
+    "protonasyon",
+    "protonlan"
+   ],
+   "match_en": [
+    "protonat"
+   ]
+  },
+  {
+   "id": "pka",
+   "ch": "CH07",
+   "tr": "pKa",
+   "en": {
+    "term": "pKa",
+    "alt": [],
+    "def": "The pH at which the protonated and deprotonated forms of a group are equally populated. In a protein, nearby charges and burial can shift the pKa away from its value in solution."
+   },
+   "alt": [],
+   "def": "Bir grubun protonlu ve protonsuz hâllerinin eşit oranda bulunduğu pH. Proteinde komşu yükler ve gömülme pKa'yı çözeltideki değerinden kaydırabilir.",
+   "match": [
+    "pka"
+   ],
+   "match_en": [
+    "pka"
+   ]
+  },
+  {
+   "id": "b-faktoru",
+   "ch": "CH07",
+   "tr": "B faktörü",
+   "en": {
+    "term": "B-factor",
+    "alt": [],
+    "def": "A value in a crystal structure that reflects the uncertainty or vibration of each atom's position. A high B-factor suggests the region is flexible or poorly defined."
+   },
+   "alt": [],
+   "def": "Kristal yapıda her atomun konumundaki belirsizliği ya da titreşimi yansıtan değer. Yüksek B faktörü o bölgenin esnek ya da iyi tanımlanmamış olduğunu düşündürür.",
+   "match": [
+    "b faktör"
+   ],
+   "match_en": [
+    "b-factor",
+    "b factor"
+   ]
+  },
+  {
+   "id": "altloc",
+   "ch": "CH07",
+   "tr": "alternatif konum (altloc)",
+   "en": {
+    "term": "alternate location (altloc)",
+    "alt": [],
+    "def": "Separate positions given in the file for an atom or side chain seen in two or more positions in the crystal. For MD, exactly one of them must be chosen."
+   },
+   "alt": [],
+   "def": "Kristalde iki ya da daha çok konumda görülen bir atom ya da yan zincir için dosyada verilen ayrı konumlar. MD için yalnız biri seçilmelidir.",
+   "match": [
+    "alternatif konum",
+    "altloc"
+   ],
+   "match_en": [
+    "alternate location",
+    "altloc"
+   ]
+  },
+  {
+   "id": "kuvvet-alani",
+   "ch": "CH08",
+   "tr": "kuvvet alanı",
+   "en": {
+    "term": "force field",
+    "alt": [],
+    "def": "The set of functions and parameters that gives the energy between atoms (for example AMBER, CHARMM, OPLS). Everything a run says depends on the assumptions of this model."
+   },
+   "alt": [],
+   "def": "Atomlar arası enerjiyi veren fonksiyonlar ve parametreler kümesi (örneğin AMBER, CHARMM, OPLS). Bir koşunun anlattığı her şey bu modelin varsayımlarına bağlıdır.",
+   "match": [
+    "kuvvet alan"
+   ],
+   "match_en": [
+    "force field"
+   ]
+  },
+  {
+   "id": "su-modeli",
+   "ch": "CH08",
+   "tr": "su modeli",
+   "en": {
+    "term": "water model",
+    "alt": [],
+    "def": "A model that defines the geometry and charges of water molecules (for example TIP3P, SPC/E, TIP4P). It should be used with the force field it was parametrized together with."
+   },
+   "alt": [],
+   "def": "Su moleküllerinin geometri ve yüklerini tanımlayan model (örneğin TIP3P, SPC/E, TIP4P). Birlikte parametrize edildiği kuvvet alanıyla kullanılmalıdır.",
+   "match": [
+    "su model",
+    "tip3p",
+    "tip4p"
+   ],
+   "match_en": [
+    "water model",
+    "tip3p",
+    "tip4p"
+   ]
+  },
+  {
+   "id": "topoloji",
+   "ch": "CH08",
+   "tr": "topoloji",
+   "en": {
+    "term": "topology",
+    "alt": [],
+    "def": "The file that lists the atom types, charges, bonds and angles in a system and their force field parameters. The coordinate file says where; the topology says what."
+   },
+   "alt": [],
+   "def": "Bir sistemdeki atom tiplerini, yükleri, bağları, açıları ve bunlara ait kuvvet alanı parametrelerini listeleyen dosya. Koordinat dosyası atomların nerede olduğunu, topoloji ne olduklarını söyler.",
+   "match": [
+    "topoloji"
+   ],
+   "match_en": [
+    "topolog"
+   ]
+  },
+  {
+   "id": "kismi-yuk",
+   "ch": "CH09",
+   "tr": "kısmi yük",
+   "en": {
+    "term": "partial charge",
+    "alt": [],
+    "def": "A non-integer electric charge assigned to an atom. For ligands it is computed with a method (for example AM1-BCC) and determines electrostatic interactions."
+   },
+   "alt": [],
+   "def": "Bir atoma atanan, tam sayı olmayan elektrik yükü. Ligandlarda bir yöntemle (örneğin AM1-BCC) hesaplanır ve elektrostatik etkileşimleri belirler.",
+   "match": [
+    "kısmi yük"
+   ],
+   "match_en": [
+    "partial charge"
+   ]
+  },
+  {
+   "id": "parametrizasyon",
+   "ch": "CH09",
+   "tr": "parametrizasyon",
+   "en": {
+    "term": "parametrization",
+    "alt": [],
+    "def": "Assigning atom types, charges and bonded parameters (for example with GAFF2 or CGenFF) to a molecule that has no ready entry in the force field, usually a ligand. It must be compatible with the protein force field."
+   },
+   "alt": [
+    "parametrelendirme"
+   ],
+   "def": "Kuvvet alanında hazır karşılığı olmayan bir molekül (çoğunlukla ligand) için atom tipleri, yükler ve bağlı parametrelerin atanması (örneğin GAFF2, CGenFF ile). Proteinin kuvvet alanıyla uyumlu olmalıdır.",
+   "match": [
+    "parametriz",
+    "parametrelendir",
+    "gaff",
+    "cgenff"
+   ],
+   "match_en": [
+    "parametriz",
+    "parameteriz",
+    "gaff",
+    "cgenff"
+   ]
+  },
+  {
+   "id": "ligand",
+   "ch": "CH09",
+   "tr": "ligand",
+   "en": {
+    "term": "ligand",
+    "alt": [],
+    "def": "A small molecule or ion that binds to a protein. In MD and docking it is handled separately, with its own topology, protonation and binding pocket."
+   },
+   "alt": [],
+   "def": "Bir proteine bağlanan küçük molekül ya da iyon. MD ve docking'de kendi topolojisi, protonasyonu ve bağlanma cebiyle ayrıca ele alınır.",
+   "match": [
+    "ligand"
+   ],
+   "match_en": [
+    "ligand"
+   ]
+  },
+  {
+   "id": "cozucu",
+   "ch": "CH10",
+   "tr": "çözücü",
+   "en": {
+    "term": "solvent",
+    "alt": [],
+    "def": "The medium around the biomolecule, usually water and ions. In explicit solvent, each water molecule is represented individually; in implicit solvent the medium is represented as a continuum."
+   },
+   "alt": [
+    "çözgen"
+   ],
+   "def": "Biyomolekülü çevreleyen ortam, çoğunlukla su ve iyonlar. Açık çözücüde su molekülleri tek tek bulunur; örtük çözücüde sürekli bir ortam olarak temsil edilir.",
+   "match": [
+    "çözücü",
+    "çözgen"
+   ],
+   "match_en": [
+    "solvent"
+   ]
+  },
+  {
+   "id": "ortuk-cozucu",
+   "ch": "CH19",
+   "tr": "örtük çözücü",
+   "en": {
+    "term": "implicit solvent",
+    "alt": [],
+    "def": "An approach in which water is modeled not molecule by molecule but as a continuous dielectric medium. It is fast but says nothing about water bridges or individual water molecules."
+   },
+   "alt": [],
+   "def": "Suyun molekül molekül değil, sürekli bir dielektrik ortam olarak modellendiği yaklaşım. Hızlıdır ama su köprüleri ve tek tek su molekülleri hakkında bilgi vermez.",
+   "match": [
+    "örtük"
+   ],
+   "match_en": [
+    "implicit solvent"
+   ]
+  },
+  {
+   "id": "uyari",
+   "ch": "CH12",
+   "tr": "uyarı (grompp)",
+   "en": {
+    "term": "warning (grompp)",
+    "alt": [],
+    "def": "A message from the preparation program reporting a possible error. Rather than silencing it (-maxwarn), find and fix its cause; a silenced warning is carried into the result."
+   },
+   "alt": [],
+   "def": "Hazırlık programının olası bir hatayı bildiren iletisi. Uyarıyı susturmak (-maxwarn) yerine nedenini bulup düzeltmek gerekir; susturulan uyarı sonuca taşınır.",
+   "match": [
+    "uyarı"
+   ],
+   "match_en": [
+    "warning"
+   ]
+  },
+  {
+   "id": "trajektori",
+   "ch": "CH13",
+   "tr": "trajektori",
+   "en": {
+    "term": "trajectory",
+    "alt": [],
+    "def": "The time series of coordinates saved at intervals during a run (for example .xtc). The saving interval limits which fast events can be seen."
+   },
+   "alt": [],
+   "def": "Bir koşu boyunca belli aralıklarla kaydedilen koordinatların zaman dizisi (örneğin .xtc). Kayıt aralığı, hangi hızdaki olayların görülebileceğini sınırlar.",
+   "match": [
+    "trajektori"
+   ],
+   "match_en": [
+    "trajector"
+   ]
+  },
+  {
+   "id": "kare",
+   "ch": "CH13",
+   "tr": "kare",
+   "en": {
+    "term": "frame",
+    "alt": [],
+    "def": "The coordinate record for a single time in a trajectory. Consecutive frames are not independent; the precision of an average comes from the number of independent samples, not the number of frames."
+   },
+   "alt": [],
+   "def": "Trajektoride tek bir zamana ait koordinat kaydı. Ardışık kareler birbirinden bağımsız değildir; ortalamanın kesinliği kare sayısından değil, bağımsız örnek sayısından gelir.",
+   "match": [
+    "kare(?!kod)"
+   ],
+   "match_en": [
+    "frame"
+   ]
+  },
+  {
+   "id": "butun-yapma",
+   "ch": "CH13",
+   "tr": "molekülü bütün yapma",
+   "en": {
+    "term": "making molecules whole",
+    "alt": [],
+    "def": "Joining molecules that appear split across the periodic boundary and removing jumps across the box edge (for example gmx trjconv -pbc mol, -pbc nojump). If this is not done before analysis, distances and RMSD come out wrong."
+   },
+   "alt": [],
+   "def": "Periyodik sınırda bölünmüş görünen molekülleri birleştirmek ve kutu kenarındaki sıçramaları gidermek (örneğin gmx trjconv -pbc mol, -pbc nojump). Analizden önce yapılmazsa mesafe ve RMSD yanlış çıkar.",
+   "match": [
+    "pbc mol",
+    "sıçramasız",
+    "nojump",
+    "bütünle",
+    "bölünmüş molekül"
+   ],
+   "match_en": [
+    "whole",
+    "no jump"
+   ]
+  },
+  {
+   "id": "hizalama",
+   "ch": "CH13",
+   "tr": "hizalama",
+   "en": {
+    "term": "fitting",
+    "alt": [
+     "superposition"
+    ],
+    "def": "Superposing each frame on a reference structure in the least-squares sense over selected atoms. It removes overall translation and rotation; which atoms are used for fitting changes the result."
+   },
+   "alt": [],
+   "def": "Her kareyi bir referans yapıya, seçilen atomlar üzerinden en küçük kareler anlamında çakıştırmak. Bütün molekülün öteleme ve dönmesini çıkarır; hangi atomlara hizalandığı sonucu değiştirir.",
+   "match": [
+    "hizala",
+    "uydurma"
+   ],
+   "match_en": [
+    "fit",
+    "superpos",
+    "align"
+   ]
+  },
+  {
+   "id": "rmsd",
+   "ch": "CH14",
+   "tr": "RMSD",
+   "en": {
+    "term": "RMSD",
+    "alt": [
+     "root mean square deviation"
+    ],
+    "def": "The root mean square of the position differences of corresponding atoms between two structures (after fitting). It is a single number; it does not say which region changed."
+   },
+   "alt": [
+    "kök ortalama kare sapma"
+   ],
+   "def": "İki yapı arasında karşılık gelen atomların konum farklarının karekök ortalaması (hizalamadan sonra). Tek bir sayıdır; hangi bölgenin değiştiğini söylemez.",
+   "match": [
+    "rmsd"
+   ],
+   "match_en": [
+    "rmsd"
+   ]
+  },
+  {
+   "id": "rmsf",
+   "ch": "CH14",
+   "tr": "RMSF",
+   "en": {
+    "term": "RMSF",
+    "alt": [
+     "root mean square fluctuation"
+    ],
+    "def": "The root mean square of each atom's or residue's fluctuation around its average position. It shows flexible regions; it can be compared with B-factors but is not the same thing."
+   },
+   "alt": [
+    "kök ortalama kare dalgalanma"
+   ],
+   "def": "Her atomun ya da kalıntının ortalama konumu çevresindeki dalgalanmasının karekök ortalaması. Esnek bölgeleri gösterir; B faktörüyle karşılaştırılabilir ama aynı şey değildir.",
+   "match": [
+    "rmsf"
+   ],
+   "match_en": [
+    "rmsf"
+   ]
+  },
+  {
+   "id": "rg",
+   "ch": "CH14",
+   "tr": "dönme yarıçapı (Rg)",
+   "en": {
+    "term": "radius of gyration (Rg)",
+    "alt": [],
+    "def": "The mass-weighted root mean square distance of the atoms from their center of mass. It summarizes in one number how compact or extended a molecule is."
+   },
+   "alt": [],
+   "def": "Atomların kütle merkezine olan uzaklıklarının kütle ağırlıklı karekök ortalaması. Molekülün ne kadar sıkı ya da açık olduğunu tek sayıyla özetler.",
+   "match": [
+    "dönme yarıçap",
+    "rg(?![a-z])"
+   ],
+   "match_en": [
+    "radius of gyration",
+    "rg(?![a-z])"
+   ]
+  },
+  {
+   "id": "hidrojen-bagi",
+   "ch": "CH15",
+   "tr": "hidrojen bağı",
+   "en": {
+    "term": "hydrogen bond",
+    "alt": [],
+    "def": "An interaction in which a hydrogen bridges two electronegative atoms (usually N or O). In MD it is defined by distance and angle thresholds; if the thresholds change, so does the count."
+   },
+   "alt": [],
+   "def": "Bir hidrojenin iki elektronegatif atom (çoğunlukla N ya da O) arasında köprü kurduğu etkileşim. MD'de mesafe ve açı eşikleriyle tanımlanır; eşik değişirse sayısı da değişir.",
+   "match": [
+    "hidrojen bağ"
+   ],
+   "match_en": [
+    "hydrogen bond"
+   ]
+  },
+  {
+   "id": "temas",
+   "ch": "CH15",
+   "tr": "temas",
+   "en": {
+    "term": "contact",
+    "alt": [],
+    "def": "Two atoms or residues being closer than a chosen distance threshold. Contact maps and fractions depend on the chosen threshold, which must be reported."
+   },
+   "alt": [],
+   "def": "İki atom ya da kalıntının belirli bir mesafe eşiğinin altında olması. Temas haritaları ve oranları seçilen eşiğe bağlıdır; eşik raporlanmalıdır.",
+   "match": [
+    "temas"
+   ],
+   "match_en": [
+    "contact"
+   ]
+  },
+  {
+   "id": "tuz-koprusu",
+   "ch": "CH15",
+   "tr": "tuz köprüsü",
+   "en": {
+    "term": "salt bridge",
+    "alt": [],
+    "def": "An electrostatic interaction formed at short range between two oppositely charged groups (for example Lys and Asp). Its presence depends on protonation states and the chosen distance threshold."
+   },
+   "alt": [],
+   "def": "Zıt yüklü iki grup (örneğin Lys ile Asp) arasında yakın mesafede kurulan elektrostatik etkileşim. Varlığı protonasyon durumuna ve seçilen mesafe eşiğine bağlıdır.",
+   "match": [
+    "tuz köprü"
+   ],
+   "match_en": [
+    "salt bridge"
+   ]
+  },
+  {
+   "id": "sasa",
+   "ch": "CH15",
+   "tr": "çözücüye açık yüzey alanı (SASA)",
+   "en": {
+    "term": "solvent accessible surface area (SASA)",
+    "alt": [],
+    "def": "The area of the surface traced by the center of a spherical solvent probe as it rolls over the van der Waals surface of the molecule. It is used to measure how much surface is buried on folding or binding; it depends on the probe radius."
+   },
+   "alt": [],
+   "def": "Küre biçimli bir çözücü probu molekülün van der Waals yüzeyi üzerinde yuvarlanırken probun merkezinin çizdiği yüzeyin alanı. Katlanma ya da bağlanmada ne kadar yüzeyin gömüldüğünü ölçmekte kullanılır; prob yarıçapına bağlıdır.",
+   "match": [
+    "sasa",
+    "çözücüye açık"
+   ],
+   "match_en": [
+    "sasa",
+    "solvent accessible"
+   ]
+  },
+  {
+   "id": "rdf",
+   "ch": "CH15",
+   "tr": "radyal dağılım fonksiyonu",
+   "en": {
+    "term": "radial distribution function",
+    "alt": [
+     "g(r)"
+    ],
+    "def": "The probability of finding another atom at distance r from a given atom, relative to a uniform density, g(r). The first peak shows the first solvation shell."
+   },
+   "alt": [
+    "g(r)"
+   ],
+   "def": "Bir atomdan r uzaklıkta başka bir atom bulunma olasılığının, yoğunluk düzgün olsaydı beklenecek olasılığa oranı, g(r). İlk tepe ilk çözücü kabuğunu gösterir.",
+   "match": [
+    "radyal dağılım",
+    "rdf"
+   ],
+   "match_en": [
+    "radial distribution",
+    "rdf"
+   ]
+  },
+  {
+   "id": "pca",
+   "ch": "CH16",
+   "tr": "temel bileşen analizi (PCA)",
+   "en": {
+    "term": "principal component analysis (PCA)",
+    "alt": [],
+    "def": "A method that finds the directions of largest collective motion from the covariance matrix of atomic positions. The first components often capture slow, large motions; with insufficient sampling they can mislead."
+   },
+   "alt": [],
+   "def": "Atom konumlarının kovaryans matrisinden en büyük toplu hareket yönlerini bulan yöntem. İlk bileşenler çoğu zaman yavaş ve büyük hareketleri yakalar; örnekleme yetersizse yanıltıcı olabilir.",
+   "match": [
+    "pca",
+    "temel bileşen"
+   ],
+   "match_en": [
+    "pca",
+    "principal component"
+   ]
+  },
+  {
+   "id": "kumeleme",
+   "ch": "CH16",
+   "tr": "kümeleme",
+   "en": {
+    "term": "clustering",
+    "alt": [],
+    "def": "Grouping similar structures (for example with an RMSD threshold). The number and sizes of clusters depend on the chosen threshold and method."
+   },
+   "alt": [],
+   "def": "Benzer yapıları (örneğin RMSD eşiğiyle) gruplara ayırma. Küme sayısı ve büyüklüğü seçilen eşik ve yönteme bağlıdır.",
+   "match": [
+    "kümele"
+   ],
+   "match_en": [
+    "cluster"
+   ]
+  },
+  {
+   "id": "dihedral",
+   "ch": "CH19",
+   "tr": "dihedral açı",
+   "en": {
+    "term": "dihedral angle",
+    "alt": [
+     "torsion angle"
+    ],
+    "def": "The torsion angle defined by four consecutive atoms. The backbone angles φ and ψ determine the conformation of a peptide (for example α-helix, β)."
+   },
+   "alt": [
+    "burulma açısı"
+   ],
+   "def": "Ardışık dört atomun tanımladığı burulma açısı. Omurgadaki φ ve ψ açıları bir peptidin konformasyonunu (örneğin α sarmal, β) belirler.",
+   "match": [
+    "dihedr"
+   ],
+   "match_en": [
+    "dihedral",
+    "torsion"
+   ]
+  },
+  {
+   "id": "kolektif-degisken",
+   "ch": "CH19",
+   "tr": "kolektif değişken",
+   "en": {
+    "term": "collective variable",
+    "alt": [
+     "CV"
+    ],
+    "def": "A measure that summarizes the state of the system in a few dimensions (for example a dihedral angle or the distance between two groups). Bias methods force sampling along it; if it misses the slow motion, the result is wrong."
+   },
+   "alt": [],
+   "def": "Sistemin durumunu az sayıda boyutla özetleyen ölçü (örneğin bir dihedral açı ya da iki grup arası mesafe). Bias yöntemleri bu değişken boyunca örneklemeyi zorlar; değişken yavaş hareketi kaçırırsa sonuç yanlış çıkar.",
+   "match": [
+    "kolektif değişken"
+   ],
+   "match_en": [
+    "collective variable"
+   ]
+  },
+  {
+   "id": "ornekleme",
+   "ch": "CH17",
+   "tr": "örnekleme",
+   "en": {
+    "term": "sampling",
+    "alt": [],
+    "def": "How thoroughly a run visits the relevant states. Insufficient sampling lets a single run give a result that looks stable but depends on where it started."
+   },
+   "alt": [],
+   "def": "Koşunun ilgili durumları ne kadar dolaştığı. Yetersiz örnekleme, tek koşunun kararlı görünen ama başlangıca bağlı bir sonuç vermesine yol açar.",
+   "match": [
+    "örnekleme"
+   ],
+   "match_en": [
+    "sampling"
+   ]
+  },
+  {
+   "id": "otokorelasyon",
+   "ch": "CH17",
+   "tr": "otokorelasyon",
+   "en": {
+    "term": "autocorrelation",
+    "alt": [],
+    "def": "How similar a time series is to a delayed copy of itself. The autocorrelation time shows how far apart in time two values must be before they can be treated as independent."
+   },
+   "alt": [
+    "özilinti"
+   ],
+   "def": "Bir zaman serisinin kendi gecikmeli hâline ne kadar benzediği. Otokorelasyon süresi, iki değerin bağımsız sayılabilmesi için aralarında ne kadar zaman olması gerektiğini gösterir.",
+   "match": [
+    "otokorelasyon",
+    "özilinti"
+   ],
+   "match_en": [
+    "autocorrelation"
+   ]
+  },
+  {
+   "id": "etkin-ornek",
+   "ch": "CH17",
+   "tr": "etkin örnek sayısı",
+   "en": {
+    "term": "effective sample size",
+    "alt": [],
+    "def": "An estimate of the number of independent observations among correlated frames; roughly the number of frames reduced according to the autocorrelation time. The standard error should be computed with it."
+   },
+   "alt": [],
+   "def": "Birbirine bağlı kareler içindeki bağımsız gözlem sayısının tahmini; kabaca kare sayısının otokorelasyon süresine göre küçültülmüş hâli. Standart hata bununla hesaplanmalıdır.",
+   "match": [
+    "etkin örnek",
+    "bağımsız örnek"
+   ],
+   "match_en": [
+    "effective sample",
+    "independent sample"
+   ]
+  },
+  {
+   "id": "blok-ortalama",
+   "ch": "CH17",
+   "tr": "blok ortalaması",
+   "en": {
+    "term": "block averaging",
+    "alt": [],
+    "def": "A method that splits a time series into consecutive blocks and estimates the error from the spread of the block averages. The estimate levels off once the blocks are much longer than the autocorrelation time."
+   },
+   "alt": [],
+   "def": "Zaman serisini ardışık bloklara bölüp blok ortalamalarının dağılımından hata tahmin etme yöntemi. Bloklar otokorelasyon süresinden çok daha uzun olduğunda tahmin sabitlenir.",
+   "match": [
+    "blok ortalam"
+   ],
+   "match_en": [
+    "block averag"
+   ]
+  },
+  {
+   "id": "yakinsama",
+   "ch": "CH19",
+   "tr": "yakınsama",
+   "en": {
+    "term": "convergence",
+    "alt": [],
+    "def": "An estimate no longer changing meaningfully as the run gets longer. A flat curve in one run is not enough; independent runs reaching the same value is stronger evidence."
+   },
+   "alt": [],
+   "def": "Bir tahminin koşu uzadıkça artık anlamlı biçimde değişmemesi. Tek koşuda görülen düzlük yeterli değildir; bağımsız koşuların aynı değere varması daha güçlü kanıttır.",
+   "match": [
+    "yakınsama",
+    "yakınsar(?!ı)"
+   ],
+   "match_en": [
+    "convergen"
+   ]
+  },
+  {
+   "id": "belirsizlik",
+   "ch": "CH18",
+   "tr": "belirsizlik",
+   "en": {
+    "term": "uncertainty",
+    "alt": [],
+    "def": "A measure of how much a reported value could change. An error bar given without its source (the spread of frames, or the difference between independent runs) cannot be interpreted."
+   },
+   "alt": [],
+   "def": "Raporlanan bir değerin ne kadar değişebileceğinin ölçüsü. Kaynağı (karelerin dağılımı mı, bağımsız koşular arası fark mı) belirtilmeden verilen hata çubuğu yorumlanamaz.",
+   "match": [
+    "belirsizli"
+   ],
+   "match_en": [
+    "uncertaint"
+   ]
+  },
+  {
+   "id": "standart-hata",
+   "ch": "CH18",
+   "tr": "standart hata",
+   "en": {
+    "term": "standard error",
+    "alt": [
+     "SEM"
+    ],
+    "def": "The precision of a mean; the standard deviation divided by the square root of the number of independent samples. It comes out too small if consecutive frames are treated as independent."
+   },
+   "alt": [
+    "SEM"
+   ],
+   "def": "Bir ortalamanın kesinliği; standart sapmanın bağımsız örnek sayısının kareköküne bölümü. Ardışık kareler bağımsız sayılırsa olduğundan küçük çıkar.",
+   "match": [
+    "standart hata",
+    "sem(?![a-zçğıöşü])"
+   ],
+   "match_en": [
+    "standard error",
+    "sem(?![a-z])"
+   ]
+  },
+  {
+   "id": "guven-araligi",
+   "ch": "CH18",
+   "tr": "güven aralığı",
+   "en": {
+    "term": "confidence interval",
+    "alt": [],
+    "def": "An interval from a procedure that, if repeated many times, would contain the true value a given fraction of the time (for example 95%). With few independent runs it should be widened using the t distribution."
+   },
+   "alt": [],
+   "def": "Aynı yöntem tekrar tekrar uygulandığında gerçek değeri belirli bir oranda (örneğin %95) kapsayan aralıklar üreten tahmin. Az sayıda bağımsız koşuda t dağılımıyla genişletilmelidir.",
+   "match": [
+    "güven aralığ",
+    "%95"
+   ],
+   "match_en": [
+    "confidence interval",
+    "95%",
+    "95 %"
+   ]
+  },
+  {
+   "id": "bootstrap",
+   "ch": "CH18",
+   "tr": "bootstrap",
+   "en": {
+    "term": "bootstrap",
+    "alt": [],
+    "def": "A method that estimates the distribution of a statistic by repeatedly resampling the data with replacement. It assumes independent samples; for time series it should be done in blocks."
+   },
+   "alt": [],
+   "def": "Veriden yerine koyarak tekrar tekrar örnek çekip bir istatistiğin dağılımını kestirme yöntemi. Örneklerin bağımsız olduğunu varsayar; zaman serisinde blok hâlinde yapılmalıdır.",
+   "match": [
+    "bootstrap"
+   ],
+   "match_en": [
+    "bootstrap"
+   ]
+  },
+  {
+   "id": "hata-cubugu",
+   "ch": "CH18",
+   "tr": "hata çubuğu",
+   "en": {
+    "term": "error bar",
+    "alt": [],
+    "def": "A line around a value that shows its uncertainty. What it represents (standard deviation, standard error, confidence interval) and what it was computed from must be stated."
+   },
+   "alt": [],
+   "def": "Bir değerin çevresinde belirsizliği gösteren çizgi. Neyi gösterdiği (standart sapma, standart hata, güven aralığı) ve neyden hesaplandığı yazılmalıdır.",
+   "match": [
+    "hata çubuğ"
+   ],
+   "match_en": [
+    "error bar"
+   ]
+  },
+  {
+   "id": "bias",
+   "ch": "CH19",
+   "tr": "bias",
+   "en": {
+    "term": "bias (biasing potential)",
+    "alt": [],
+    "def": "An extra potential added to the energy to push sampling into rarely visited regions. Free energies are computed from a biased run by removing the effect of the added potential."
+   },
+   "alt": [],
+   "def": "Örneklemeyi seyrek görülen bölgelere zorlamak için enerjiye eklenen ek potansiyel. Bias'lı koşudan serbest enerji, eklenen potansiyelin etkisi çıkarılarak hesaplanır.",
+   "match": [
+    "bias"
+   ],
+   "match_en": [
+    "bias"
+   ]
+  },
+  {
+   "id": "awh",
+   "ch": "CH19",
+   "tr": "AWH",
+   "en": {
+    "term": "AWH (accelerated weight histogram)",
+    "alt": [],
+    "def": "A method in GROMACS that estimates the free energy profile along a collective variable by adapting the bias during the run. The profile converges over time and should be tested with independent runs."
+   },
+   "alt": [],
+   "def": "GROMACS'ta bir kolektif değişken boyunca bias'ı koşu sırasında uyarlayarak serbest enerji profilini kestiren yöntem. Profil zamanla yakınsar; bağımsız koşularla sınanmalıdır.",
+   "match": [
+    "awh"
+   ],
+   "match_en": [
+    "awh"
+   ]
+  },
+  {
+   "id": "pmf",
+   "ch": "CH19",
+   "tr": "ortalama kuvvet potansiyeli (PMF)",
+   "en": {
+    "term": "potential of mean force (PMF)",
+    "alt": [],
+    "def": "The free energy profile along a collective variable, F(ξ) = −kT ln P(ξ) + constant. Its peaks show barriers and its wells show stable states."
+   },
+   "alt": [],
+   "def": "Bir kolektif değişken boyunca serbest enerji profili, F(ξ) = −kT ln P(ξ) + sabit. Tepeleri engelleri, çukurları kararlı durumları gösterir.",
+   "match": [
+    "pmf",
+    "ortalama kuvvet potansiyel"
+   ],
+   "match_en": [
+    "pmf",
+    "potential of mean force"
+   ]
+  },
+  {
+   "id": "alkemik",
+   "ch": "CH19",
+   "tr": "alkemik dönüşüm",
+   "en": {
+    "term": "alchemical transformation",
+    "alt": [],
+    "def": "Turning one molecule into another (or into nothing) through non-physical intermediate states; it is the basis of methods that compute free energy differences this way (FEP, TI). It is used for relative and absolute binding free energies and for solvation free energies."
+   },
+   "alt": [],
+   "def": "Bir molekülü fiziksel olmayan ara durumlar üzerinden başka bir moleküle (ya da hiçliğe) dönüştürme; serbest enerji farkını bu yolla hesaplayan yöntemlerin (FEP, TI) temelidir. Göreli ve mutlak bağlanma serbest enerjilerinde ve çözünme serbest enerjisinde kullanılır.",
+   "match": [
+    "alkemik",
+    "fep(?![a-z])"
+   ],
+   "match_en": [
+    "alchemical",
+    "fep(?![a-z])"
+   ]
+  },
+  {
+   "id": "uc-nokta",
+   "ch": "CH19",
+   "tr": "uç nokta yöntemleri",
+   "en": {
+    "term": "endpoint methods",
+    "alt": [],
+    "def": "Methods that estimate binding only from frames of the bound and free end states (MM/PBSA, MM/GBSA, LIE). They are fast but use rough approximations for entropy and solvation."
+   },
+   "alt": [],
+   "def": "Bağlanmayı yalnız bağlı ve serbest uç durumların kareleri üzerinden kestiren yöntemler (MM/PBSA, MM/GBSA, LIE). Hızlıdır; entropi ve çözünme için kaba yaklaşımlar içerir.",
+   "match": [
+    "uç nokta",
+    "mm/pbsa",
+    "mm/gbsa"
+   ],
+   "match_en": [
+    "endpoint",
+    "mm/pbsa",
+    "mm/gbsa"
+   ]
+  },
+  {
+   "id": "kaba-taneli",
+   "ch": "CH19",
+   "tr": "kaba taneli model",
+   "en": {
+    "term": "coarse-grained model",
+    "alt": [],
+    "def": "A model in which several atoms are represented by a single particle (for example Martini). It reaches larger systems and longer times but cannot answer questions about atomic detail."
+   },
+   "alt": [
+    "iri taneli model"
+   ],
+   "def": "Birkaç atomun tek bir parçacıkla temsil edildiği model (örneğin Martini). Daha büyük sistemlere ve uzun sürelere ulaşır, ama atom ayrıntısıyla ilgili soruları yanıtlayamaz.",
+   "match": [
+    "kaba taneli"
+   ],
+   "match_en": [
+    "coarse-grained"
+   ]
+  },
+  {
+   "id": "ogrenilmis-potansiyel",
+   "ch": "CH19",
+   "tr": "öğrenilmiş potansiyel",
+   "en": {
+    "term": "learned potential",
+    "alt": [
+     "ML potential"
+    ],
+    "def": "A potential that gives energies and forces from a machine learning model trained on quantum calculations. Its reliability outside the states in its training data must be tested separately."
+   },
+   "alt": [],
+   "def": "Enerji ve kuvvetleri, kuantum hesaplarıyla eğitilmiş bir makine öğrenmesi modeliyle veren potansiyel. Eğitim verisinin dışındaki durumlarda güvenilirliği ayrıca sınanmalıdır.",
+   "match": [
+    "öğrenilmiş potansiyel"
+   ],
+   "match_en": [
+    "learned potential"
+   ]
+  },
+  {
+   "id": "analiz-plani",
+   "ch": "CH24",
+   "tr": "önceden yazılmış analiz planı",
+   "en": {
+    "term": "pre-written analysis plan",
+    "alt": [],
+    "def": "A document written before the runs and before seeing results, containing the question, criteria, thresholds and decision rule. It removes the freedom to choose thresholds after seeing the outcome."
+   },
+   "alt": [],
+   "def": "Koşulardan ve sonuçları görmeden önce yazılan; soruyu, ölçütleri, eşikleri ve karar kuralını içeren belge. Sonuç görüldükten sonra eşik seçme serbestliğini kapatır.",
+   "match": [
+    "analiz plan",
+    "önceden yaz"
+   ],
+   "match_en": [
+    "analysis plan",
+    "written in advance",
+    "written before"
+   ]
+  },
+  {
+   "id": "dondurma",
+   "ch": "CH24",
+   "tr": "planı dondurma",
+   "en": {
+    "term": "freezing the plan",
+    "alt": [],
+    "def": "Recording a hash of the analysis plan (for example SHA-256) before the runs. Any later change alters this value and becomes visible."
+   },
+   "alt": [],
+   "def": "Analiz planının özet değerinin (örneğin SHA-256) koşulardan önce kaydedilmesi. Sonradan yapılan her değişiklik bu değeri değiştirir ve görünür olur.",
+   "match": [
+    "dondurul",
+    "dondur"
+   ],
+   "match_en": [
+    "frozen",
+    "freez"
+   ]
+  },
+  {
+   "id": "sapma-kaydi",
+   "ch": "CH24",
+   "tr": "sapma kaydı",
+   "en": {
+    "term": "deviation log",
+    "alt": [],
+    "def": "A record in which every departure from the plan is written with its date and reason (for example continuing an interrupted run). A deviation is not hidden; it is reported together with the result."
+   },
+   "alt": [],
+   "def": "Plandan her ayrılmanın tarih ve gerekçeyle yazıldığı kayıt (örneğin kesilen bir koşunun sürdürülmesi). Sapma saklanmaz; sonuçla birlikte raporlanır.",
+   "match": [
+    "sapma kayd",
+    "sapmalar"
+   ],
+   "match_en": [
+    "deviation"
+   ]
+  },
+  {
+   "id": "yeniden-uretilebilirlik",
+   "ch": "CH24",
+   "tr": "yeniden üretilebilirlik",
+   "en": {
+    "term": "reproducibility",
+    "alt": [],
+    "def": "The ability of someone else to reach the same result with the same inputs, versions and settings. It requires keeping the input files, version information and hashes (SHA-256)."
+   },
+   "alt": [],
+   "def": "Başka birinin aynı girdiler, sürümler ve ayarlarla aynı sonuca ulaşabilmesi. Girdi dosyalarının, sürüm bilgisinin ve özet değerlerinin (SHA-256) saklanmasını gerektirir.",
+   "match": [
+    "yeniden üretilebil",
+    "yeniden üretilemez",
+    "tekrarlanabil"
+   ],
+   "match_en": [
+    "reproduc"
+   ]
+  },
+  {
+   "id": "poz",
+   "ch": "DK",
+   "tr": "poz",
+   "en": {
+    "term": "pose",
+    "alt": [],
+    "def": "In docking, the position and orientation of the ligand in the pocket. The program generates many poses and ranks them by score; the best-scoring pose is not necessarily the correct one."
+   },
+   "alt": [],
+   "def": "Docking'de ligandın cepteki konumu ve yönelimi. Program birçok poz üretir ve skora göre sıralar; en iyi skorlu poz doğru poz olmak zorunda değildir.",
+   "match": [
+    "poz(?!isyon|itif|lam)"
+   ],
+   "match_en": [
+    "pose"
+   ]
+  },
+  {
+   "id": "skor",
+   "ch": "DK",
+   "tr": "skor (skorlama fonksiyonu)",
+   "en": {
+    "term": "score (scoring function)",
+    "alt": [],
+    "def": "The number a docking program computes to evaluate a pose. It is designed to rank poses; it is not a direct measure of binding affinity."
+   },
+   "alt": [],
+   "def": "Docking programının bir pozu değerlendirmek için hesapladığı sayı. Pozları sıralamak için tasarlanmıştır; bağlanma afinitesinin doğrudan ölçüsü değildir.",
+   "match": [
+    "skor"
+   ],
+   "match_en": [
+    "score",
+    "scoring"
+   ]
+  },
+  {
+   "id": "redocking",
+   "ch": "DK",
+   "tr": "redocking (yeniden yerleştirme)",
+   "en": {
+    "term": "redocking",
+    "alt": [],
+    "def": "Docking the crystal ligand back into the structure of the same protein and measuring the RMSD to the crystal pose. It is the positive control of a docking setup; below 2 Å is usually counted as success."
+   },
+   "alt": [],
+   "def": "Kristal yapıdaki ligandı aynı proteinin yapısına yeniden yerleştirip kristal poza göre RMSD'yi ölçmek. Docking kurulumunun pozitif kontrolüdür; genellikle 2 Å altı başarılı sayılır.",
+   "match": [
+    "redocking",
+    "yeniden yerleştir"
+   ],
+   "match_en": [
+    "redocking"
+   ]
+  },
+  {
+   "id": "cross-docking",
+   "ch": "DK",
+   "tr": "çapraz docking",
+   "en": {
+    "term": "cross-docking",
+    "alt": [],
+    "def": "Docking a ligand into a structure solved with a different ligand. It represents real use, where the protein is not pre-shaped for the ligand, more honestly than redocking."
+   },
+   "alt": [],
+   "def": "Bir ligandı, başka bir ligandla çözülmüş yapıya yerleştirmek. Proteinin ligand için hazır olmayan bir konformasyonda olduğu gerçek kullanımı redocking'den daha dürüst temsil eder.",
+   "match": [
+    "çapraz yerleştir",
+    "cross-docking",
+    "çapraz docking"
+   ],
+   "match_en": [
+    "cross-docking"
+   ]
+  },
+  {
+   "id": "cep",
+   "ch": "DK",
+   "tr": "bağlanma cebi",
+   "en": {
+    "term": "binding pocket",
+    "alt": [],
+    "def": "The cavity on the protein surface where the ligand binds. In docking, the search is usually confined to a box that covers this region."
+   },
+   "alt": [],
+   "def": "Proteinin yüzeyinde ligandın bağlandığı çukur bölge. Docking'de arama genellikle bu bölgeyi kapsayan bir kutuyla sınırlanır.",
+   "match": [
+    "cep(?![a-zçğıöşü])",
+    "cebi",
+    "cebin",
+    "cebe"
+   ],
+   "match_en": [
+    "pocket"
+   ]
+  },
+  {
+   "id": "arama-kutusu",
+   "ch": "DK",
+   "tr": "arama kutusu",
+   "en": {
+    "term": "search box",
+    "alt": [
+     "grid box"
+    ],
+    "def": "The three-dimensional region in which the docking program searches for poses. If it is too small the correct pose falls outside; if it is too large the search gets harder and wrong regions get scored."
+   },
+   "alt": [],
+   "def": "Docking programının pozları aradığı üç boyutlu bölge. Çok küçükse doğru poz dışarıda kalır; çok büyükse arama zorlaşır ve yanlış bölgeler skorlanır.",
+   "match": [
+    "arama kutu",
+    "ızgara kutu"
+   ],
+   "match_en": [
+    "search box",
+    "grid box"
+   ]
+  },
+  {
+   "id": "afinite",
+   "ch": "DK",
+   "tr": "bağlanma afinitesi",
+   "en": {
+    "term": "binding affinity",
+    "alt": [],
+    "def": "How strongly a ligand binds to a protein; expressed experimentally as Kd or Ki, and theoretically as the binding free energy. IC50 depends on assay conditions and reflects affinity only indirectly."
+   },
+   "alt": [],
+   "def": "Bir ligandın proteine ne kadar güçlü bağlandığı; deneysel olarak Kd ya da Ki ile, kuramsal olarak bağlanma serbest enerjisiyle ifade edilir. IC50 deney koşullarına bağlıdır ve afiniteyi yalnız dolaylı olarak yansıtır.",
+   "match": [
+    "afinite",
+    "bağlanma serbest",
+    "bağlanma enerj"
+   ],
+   "match_en": [
+    "affinit",
+    "binding free energ",
+    "binding energ"
+   ]
+  },
+  {
+   "id": "roc",
+   "ch": "DK",
+   "tr": "ROC eğrisi ve AUC",
+   "en": {
+    "term": "ROC curve and AUC",
+    "alt": [],
+    "def": "The curve showing how well a score separates actives from inactives across all thresholds, and the area under it. An AUC of 0.5 is random ranking."
+   },
+   "alt": [],
+   "def": "Bir skorun aktifleri inaktiflerden ayırma gücünü bütün eşikler için gösteren eğri ve altında kalan alan. AUC 0,5 rastgele sıralamadır.",
+   "match": [
+    "roc",
+    "auc"
+   ],
+   "match_en": [
+    "roc",
+    "auc"
+   ]
+  },
+  {
+   "id": "veri-sizintisi",
+   "ch": "DK",
+   "tr": "veri sızıntısı",
+   "en": {
+    "term": "data leakage",
+    "alt": [],
+    "def": "Information from the test data (for example compounds from the same series) slipping into training. It makes performance look better than it is; on a new series the gain disappears."
+   },
+   "alt": [],
+   "def": "Sınama verisindeki bilginin (örneğin aynı seriden bileşikler) eğitime karışması. Başarıyı olduğundan büyük gösterir; yeni bir seride kazanç kaybolur.",
+   "match": [
+    "sızıntı"
+   ],
+   "match_en": [
+    "leak"
+   ]
+  }
+ ]
+}

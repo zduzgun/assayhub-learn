@@ -1,5 +1,12 @@
 # Sürüm notları
 
+## 0.42.0 (9 Ekim 2026) · Terimler sözlüğü
+
+- Yeni sayfalar `/tr/glossary/` ve `/en/glossary/` (ayrıca `/tr/sozluk`, `/tr/l/sozluk`, `/tr/l/glossary`, `/en/l/glossary`): kitapta ve modüllerde geçen 90 temel terim; her biri öteki dildeki karşılığı, eş anlamlıları, bir iki cümlelik tanımı (iki dilde), bağlı modülleri (en çok 5; terimin kitap bölümüne ait olanlar renkli kenarlı) ve kitap bölümüyle. Arama kutusu (iki dilde, önce terim adı), harf dizini, her terim için kalıcı çapa (`#kesme`).
+- Yeni `glossary.json`. Tanımlar Claude tarafından yazıldı; bağımsız bir denetim 41 terimde 60 sorun buldu ve hepsi uygulandı (örneğin SASA'nın tanımı, pKa, güven aralığının yorumu, IC50'nin afinite ölçüsü olmaması, tohumun bit düzeyinde aynılığı garanti etmemesi). Terim adları modüllerdeki kullanımla eşleştirildi (otokorelasyon, konum kısıtı, parametrizasyon, kaba taneli, alkemik, en yakın kopya). Sayfada tanımların bir kişi tarafından henüz gözden geçirilmediği yazılı.
+- Bağlı modüller yapım sırasında modüllerin Türkçe görünür metninde (i18n tablolarının Türkçe tarafı) aranarak bulunur; 295 bağlantı. Anlamı farklı eşleşmeler kalıplarla ayıklandı (örneğin "pozlama", "yeniden üretildi", minimizasyonun "yakınsadı"sı).
+- Ana sayfadaki "Kitaptan mı geldiniz?" kutusuna ve kitap sayfasına sözlük bağlantısı eklendi. `tools/check.mjs` 4c: kimlikler tekil, bölümler `book.json`'da (ya da DK), her terim en az bir modüle bağlı, metinlerde uzun ya da orta tire yok, sayfa iki dilde bütün terimleri içeriyor; İngilizce karşılık bağlı modülün İngilizce metninde yoksa not.
+
 ## 0.41.0 (9 Ekim 2026) · MD-FES 0.2.0: daha uzun AWH izlemesi
 
 - MD-FES'e "3b · İzleme: daha uzun AWH" bölümü eklendi. FESGRID'in iki AWH koşusu (A1, A2) 4 ns'deki denetim noktalarından 12 ns'ye sürdürüldü (FESGRID2); plan koşulardan önce donduruldu, ölçüt ve eşikler 4 ns ile aynı (profil farkı < 2, ΔG₊ farkı < 1 kJ/mol), birincil hüküm 12 ns'de.
