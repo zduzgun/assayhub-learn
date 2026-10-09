@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "38a6eaeb449c0dfe18ab6586188ad138a6c819e1dc89dd2654fc804adf02bde8",
  "reviewed": false,
- "translator": "Claude (AI), MD-U 0.2.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-U 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Örnekleme ve Belirsizlik</title>",
@@ -51,7 +52,7 @@
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"u1bnew\">Yeni 20 deney</button></div>",
-   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"u1bnew\">New 20 experiments</button></div>"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"u1bnew\">20 new experiments</button></div>"
   ],
   [
    "<dt>Deney başına kare, N</dt><dd id=\"u1bN\"></dd>",
@@ -83,7 +84,7 @@
   ],
   [
    "<div class=\"prose\"><p>Alanin dipeptidi 22 atomluk küçük bir moleküldür; bütün esnekliği iki açıdadır: φ ve ψ. Bu projede su içinde beş bağımsız koşusu yapıldı, her biri 10 ns, 1 ps'de bir kare. Durumlar koşulardan önce yazılıp donduruldu: αL (φ ≥ 0), αR (φ &lt; 0 ve −120 ≤ ψ &lt; 50) ve geri kalanı, β/PPII. Bir koşu ve bir zaman penceresi seçin: RMSD ne diyor, açılar ne diyor?</p></div>",
-   "<div class=\"prose\"><p>Alanine dipeptide is a small molecule of 22 atoms; all of its flexibility lies in two angles: φ and ψ. In this project five independent runs of it were made in water, 10 ns each, one frame per ps. The states were written down and frozen before the runs: αL (φ ≥ 0), αR (φ &lt; 0 and −120 ≤ ψ &lt; 50) and the rest, β/PPII. Choose a run and a time window: what does the RMSD say, and what do the angles say?</p></div>"
+   "<div class=\"prose\"><p>Alanine dipeptide is a small molecule of 22 atoms; all of its flexibility lies in two angles: φ and ψ. In this project five independent runs were performed in water, 10 ns each, one frame per ps. The states were written down and frozen before the runs: αL (φ ≥ 0), αR (φ &lt; 0 and −120 ≤ ψ &lt; 50) and the rest, β/PPII. Choose a run and a time window: what does the RMSD say, and what do the angles say?</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"u1mol\" class=\"stage\" aria-label=\"Alanin dipeptidi, seçili zamandaki gerçek kare; φ ve ψ bağları vurgulu; sürükleyerek döndürülebilir\"></canvas></div>",
@@ -155,7 +156,7 @@
   ],
   [
    "<div class=\"prose\"><p>Her kareye bir soru sorun: \"αR'de mi?\" Cevap 1 ya da 0'dır ve 10.000 karelik bir barkod çıkar. Barkodun ortalaması αR payıdır. Kareler bağımsız olsaydı hatası √(p(1 − p) / N) olurdu. Ama barkod uzun şeritlerden oluşur: molekül αR'ye girince onlarca pikosaniye orada kalır. Bu belleği iki yolla ölçün: otokorelasyon (bir kare, k kare sonrasına ne kadar benziyor?) ve blok ortalaması (kareleri bloklara toplayıp blok ortalamalarının ne kadar saçıldığına bakmak). İkisi de aynı sayıyı arar: istatistiksel verimsizlik g, yani kaç karenin bir bağımsız ölçüm ettiği.</p></div>",
-   "<div class=\"prose\"><p>Ask every frame one question: \"is it in αR?\" The answer is 1 or 0, and you get a barcode of 10,000 frames. The mean of the barcode is the αR fraction. If the frames were independent, its error would be √(p(1 − p) / N). But the barcode is made of long stripes: once the molecule enters αR, it stays there for tens of picoseconds. Measure this memory in two ways: autocorrelation (how much does a frame resemble the frame k frames later?) and block averaging (sum the frames into blocks and look at how much the block means scatter). Both look for the same number: the statistical inefficiency g, that is, how many frames make one independent measurement.</p></div>"
+   "<div class=\"prose\"><p>Ask every frame one question: \"is it in αR?\" The answer is 1 or 0, and you get a barcode of 10,000 frames. The mean of the barcode is the αR fraction. If the frames were independent, its error would be √(p(1 − p) / N). But the barcode is made of long stripes: once the molecule enters αR, it stays there for tens of picoseconds. Measure this memory in two ways: autocorrelation (how much does a frame resemble the frame k frames later?) and block averaging (group the frames into blocks and look at how much the block means scatter). Both look for the same number: the statistical inefficiency g, that is, how many frames make one independent measurement.</p></div>"
   ],
   [
    "<canvas id=\"u1bar\" class=\"plot\" aria-label=\"Seçili durumun gösterge dizisi (barkod), 10 ns; seçili blok boyuyla blok ortalamaları\"></canvas>",
@@ -295,7 +296,7 @@
   ],
   [
    "<h2 id=\"u1h4\">Bu projenin sonuçlarından hangisi kaç tekrara dayanıyor?</h2>",
-   "<h2 id=\"u1h4\">Which of this project's results rest on how many repeats?</h2>"
+   "<h2 id=\"u1h4\">How many replicas does each of this project's results rest on?</h2>"
   ],
   [
    "<div class=\"prose\"><p>Alanin dipeptidinde αR'nin belleği 45-115 ps sürdü; 10 ns'lik bir koşuda 126-206 durum değişimi sayıldı ve hata çubuğu yine de genişti. Bir proteinde ilginç hareketler çoğu zaman bundan çok daha yavaştır. Aşağıdaki tablo bu kitabın kendi koşularını aynı gözle okur.</p></div>",
@@ -315,7 +316,7 @@
   ],
   [
    "<tr><td>Ubikitin, zaman adımı ızgarası (MD-DT)</td><td>24 koşu × 20 ps, her ayar tek tohum</td><td>Ayarlar arasındaki küçük farklar için tekrar yok; sayfa bunu \"bu kısa deneyin sonucu\" diye yazar.</td></tr>",
-   "<tr><td>Ubiquitin, time step grid (MD-DT)</td><td>24 runs × 20 ps, one seed per setting</td><td>No repeats for the small differences between settings; the page calls this \"the result of this short experiment\".</td></tr>"
+   "<tr><td>Ubiquitin, time step grid (MD-DT)</td><td>24 runs × 20 ps, one seed per setting</td><td>No replicas for the small differences between settings; the page calls this \"the result of this short experiment\".</td></tr>"
   ],
   [
    "<tr><td>Alanin dipeptidi, üretim (5 × 200 ns)</td><td>Protokolde yazılı</td><td>Bu senaryo hesaplanmadı.</td></tr>",
@@ -323,7 +324,7 @@
   ],
   [
    "<p class=\"small\">Uygulamada: sonucun sayısı kadar, dayandığı bağımsız koşu sayısını ve hatanın nasıl hesaplandığını yazın. Aynı başlangıç yapısından, yalnız hız tohumu değiştirilerek başlatılan koşular bu sayfada \"bağımsız\" sayıldı; bu, farklı başlangıç yapılarından başlamanın yerini tutmaz. Kaynak: Grossfield ve ark. 2018 (Living J Comput Mol Sci 1:5067).</p>",
-   "<p class=\"small\">In practice: along with the number of the result, write down the number of independent runs it rests on and how the error was computed. Runs started from the same starting structure, with only the velocity seed changed, were counted as \"independent\" on this page; this does not replace starting from different starting structures. Source: Grossfield et al. 2018 (Living J Comput Mol Sci 1:5067).</p>"
+   "<p class=\"small\">In practice: along with the value of the result, write down the number of independent runs it rests on and how the error was computed. Runs started from the same starting structure, with only the velocity seed changed, were counted as \"independent\" on this page; this does not replace starting from different starting structures. Source: Grossfield et al. 2018 (Living J Comput Mol Sci 1:5067).</p>"
   ],
   [
    "<span class=\"step\">5 · Kendinizi sınayın</span>",
@@ -379,7 +380,7 @@
   ],
   [
    "$('u1sNote').textContent='Bu koşuda sınır 30° ile 70° arasında kayınca αR payı '+fx(p30,3)+' ile '+fx(p70,3)+' arasında değişir. Sınır veriye bakıldıktan sonra seçilseydi, istenen sonuca göre ayarlanabilirdi; bu yüzden protokolde koşulardan önce yazıldı ve sayfanın bütün sonraki hesapları ψ = 50° ile yapılır.'; }",
-   "$('u1sNote').textContent='In this run, moving the boundary between 30° and 70° changes the αR fraction between '+fx(p30,3)+' and '+fx(p70,3)+'. Had the boundary been chosen after looking at the data, it could have been tuned to the desired result; that is why the protocol wrote it down before the runs, and all later calculations on the page use ψ = 50°.'; }"
+   "$('u1sNote').textContent='In this run, moving the boundary between 30° and 70° makes the αR fraction vary between '+fx(p30,3)+' and '+fx(p70,3)+'. Had the boundary been chosen after looking at the data, it could have been tuned to the desired result; that is why the protocol wrote it down before the runs, and all later calculations on the page use ψ = 50°.'; }"
   ],
   [
    "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText(W<420?'Kalın bağlar: φ ve ψ':'Kalın bağlar φ ve ψ\\'yi tanımlar; 40 ps\\'de bir gerçek kare',10,H-10); }",
@@ -407,7 +408,7 @@
   ],
   [
    "$('u1eNote').textContent=few?SN[T2.st]+' bu koşuda yalnız '+d.v+' kez ziyaret edildi ('+NFI.format(Math.round(d.p*NFR))+' kare). Otokorelasyon ve blok yöntemi, durumun defalarca girilip çıkıldığını varsayar; birkaç ziyaretten ne pay ne de hatası güvenilir hesaplanır. Sayfa bu koşuda '+SN[T2.st]+' için hata çubuğu çizmez.':'Blok boyu büyüdükçe g_B önce B ile birlikte büyür (kareler hâlâ ilişkili), sonra bir düzlüğe yaklaşır. Düzlükteki değer g\\'dir: '+(gs?'otokorelasyonla '+fx(gs,0)+' kare':'')+'. Hata √g kat, yani yaklaşık '+(gs?fx(Math.sqrt(gs),0):'?')+' kat büyür.';",
-   "$('u1eNote').textContent=few?'In this run '+SN[T2.st]+' was visited only '+d.v+' times ('+NFI.format(Math.round(d.p*NFR))+' frames). Autocorrelation and block averaging assume that the state is entered and left many times; from a few visits neither the fraction nor its error can be computed reliably. The page draws no error bar for '+SN[T2.st]+' in this run.':'As the block size grows, g_B first grows along with B (the frames are still correlated), then approaches a flat level. The value on the flat level is g: '+(gs?fx(gs,0)+' frames by autocorrelation':'')+'. The error grows √g times, that is, about '+(gs?fx(Math.sqrt(gs),0):'?')+' times.';"
+   "$('u1eNote').textContent=few?'In this run '+SN[T2.st]+' was visited only '+d.v+' times ('+NFI.format(Math.round(d.p*NFR))+' frames). Autocorrelation and block averaging assume that the state is entered and left many times; from a few visits neither the fraction nor its error can be computed reliably. The page draws no error bar for '+SN[T2.st]+' in this run.':'As the block size grows, g_B first grows along with B (the frames are still correlated), then approaches a flat level. The value on the flat level is g: '+(gs?fx(gs,0)+' frames by autocorrelation':'')+'. The error grows by a factor of √g, that is, about '+(gs?fx(Math.sqrt(gs),0):'?')+' times.';"
   ],
   [
    "if(T2.k>=7&&T2.st!==2&&!few&&gs) card('u1c2',true,'Koşu '+(T2.run+1)+', '+SN[T2.st]+': blok boyu '+NFI.format(1<<Math.min(T2.k,d.gb.gB.length-1))+' karede g_B = '+fx(gB,0)+', otokorelasyonla g = '+fx(gs,0)+'. 10.000 kare yaklaşık '+NFI.format(Math.round(NFR/gs))+' bağımsız ölçüm eder. \"Her kare bağımsız\" hata ± '+fx(nv,4)+', düzeltilmiş hata ± '+fx(Math.sqrt(gs)*nv,3)+': '+fx(Math.sqrt(gs),0)+' kat.');",
@@ -419,7 +420,7 @@
   ],
   [
    "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Barkod: her kare '+SN[T2.st]+'\\'de mi? (renkli: evet)'+(B>1?' · siyah: '+NFI.format(B)+' karelik blok ortalamaları':''),L,16);",
-   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Barcode: is each frame in '+SN[T2.st]+'? (coloured: yes)'+(B>1?' · black: block means of '+NFI.format(B)+' frames':''),L,16);"
+   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Barcode: is each frame in '+SN[T2.st]+'? (colored: yes)'+(B>1?' · black: block means of '+NFI.format(B)+' frames':''),L,16);"
   ],
   [
    "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Otokorelasyon ρ(k)',L,14);",
@@ -459,7 +460,7 @@
   ],
   [
    "$('u1fNote').textContent=(b.lo<0?'Aralık sıfırın altına iniyor: bu veriden '+SN[D3.st]+' payı için bir alt sınır verilemez; pay sıfır olabilir. ':'')+(n<5?'Koşu sayısı azaldıkça t büyür ('+fx(b.t,3)+'): az tekrarla aralık hızla genişler. ':'')+(D3.L<5?'Kısa pencereler her koşunun başından alınır; koşular aynı yapıdan başladığı için ilk nanosaniyeler birbirine daha çok benzeyebilir ya da hep aynı yöne sapabilir.':'');",
-   "$('u1fNote').textContent=(b.lo<0?'The interval drops below zero: from these data no lower bound can be given for the '+SN[D3.st]+' fraction; the fraction could be zero. ':'')+(n<5?'As the number of runs falls, t grows ('+fx(b.t,3)+'): with few repeats the interval widens quickly. ':'')+(D3.L<5?'Short windows are taken from the start of each run; because the runs started from the same structure, the first nanoseconds may resemble each other more, or all drift the same way.':'');"
+   "$('u1fNote').textContent=(b.lo<0?'The interval drops below zero: from these data no lower bound can be given for the '+SN[D3.st]+' fraction; the fraction could be zero. ':'')+(n<5?'As the number of runs falls, t grows ('+fx(b.t,3)+'): with few replicas the interval widens quickly. ':'')+(D3.L<5?'Short windows are taken from the start of each run; because the runs started from the same structure, the first nanoseconds may resemble each other more, or all drift the same way.':'');"
   ],
   [
    "if(w.ce){ g.strokeStyle=col; g.lineWidth=2; g.beginPath(); g.moveTo(x,Y(w.p-1.96*w.ce)); g.lineTo(x,Y(w.p+1.96*w.ce)); g.stroke(); } else { g.fillStyle=css('--bad'); g.fillText('çubuk yok',x-22,Y(w.p)-10); }",
@@ -499,7 +500,7 @@
   ],
   [
    "function useChips(){ $('u1use').innerHTML=D3.use.map(function(u,i){ return '<button type=\"button\" class=\"chip\" data-i=\"'+i+'\" aria-pressed=\"'+(!!u)+'\">'+(i+1)+'. koşu</button>'; }).join('');",
-   "function useChips(){ $('u1use').innerHTML=D3.use.map(function(u,i){ return '<button type=\"button\" class=\"chip\" data-i=\"'+i+'\" aria-pressed=\"'+(!!u)+'\">'+'run '+(i+1)+'</button>'; }).join('');"
+   "function useChips(){ $('u1use').innerHTML=D3.use.map(function(u,i){ return '<button type=\"button\" class=\"chip\" data-i=\"'+i+'\" aria-pressed=\"'+(!!u)+'\">'+'Run '+(i+1)+'</button>'; }).join('');"
   ],
   [
    "{s:'Bir koşu 10.000 kare üretti ve αR göstergesi için g = 200 kare bulundu. Etkin örnek sayısı yaklaşık kaçtır?',o:[['10.000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10.000 / 200 = 50. Hata, kareler bağımsız sayılsaydı bulunacak olanın √200 ≈ 14 katıdır.'},",
@@ -511,7 +512,7 @@
   ],
   [
    "{s:'Aynı lizattan üç kuyu ölçtünüz. Bu, MD\\'de hangisine benzer?',o:[['Beş bağımsız koşu',0],['Tek bir koşunun art arda üç karesi',1],['Farklı kuvvet alanlarıyla üç koşu',0],['Üç farklı protein',0]],w:'Art arda kareler aynı \"örnekten\" gelir ve birbirine bağlıdır; bağımsız tekrar yerine geçmez (sözde tekrar).'},",
-   "{s:'You measured three wells from the same lysate. What does this resemble in MD?',o:[['Five independent runs',0],['Three consecutive frames of a single run',1],['Three runs with different force fields',0],['Three different proteins',0]],w:'Consecutive frames come from the same \"sample\" and are linked to each other; they do not stand in for independent repeats (pseudoreplication).'},"
+   "{s:'You measured three wells from the same lysate. What does this resemble in MD?',o:[['Five independent runs',0],['Three consecutive frames of a single run',1],['Three runs with different force fields',0],['Three different proteins',0]],w:'Consecutive frames come from the same \"sample\" and are linked to each other; they do not stand in for independent replicates (pseudoreplication).'},"
   ],
   [
    "{s:'αL durumu bir koşuda yalnız iki kez ziyaret edildi. Bu koşudan αL payı için hata çubuğu nasıl verilmeli?',o:[['√(p(1 − p)/N) ile',0],['Otokorelasyon düzeltmesiyle',0],['Verilmemeli: birkaç ziyaretten ne pay ne hata güvenilir hesaplanır',1],['Blok boyunu büyüterek',0]],w:'Yöntemler durumun defalarca girilip çıkıldığını varsayar. Bu projede bir koşuda N_eff, N\\'den büyük çıktı: sayı üretildi ama anlamı yok.'},",
@@ -519,7 +520,7 @@
   ],
   [
    "{s:'Beş koşunun αR payları 0,219, 0,347, 0,244, 0,188 ve 0,271. %95 aralığı hesaplarken neden 1,96 yerine 2,776 kullanılır?',o:[['Payların ortalaması küçük olduğu için',0],['Standart sapma yalnız 5 değerden tahmin edildiği için t dağılımı (4 serbestlik) kullanılır',1],['Koşular 10 ns olduğu için',0],['Otokorelasyon yüzünden',0]],w:'Az sayıda tekrarla standart sapmanın kendisi belirsizdir; t dağılımı bunu hesaba katar. Aralık 0,179 ile 0,329 çıkar.'},",
-   "{s:'The αR fractions of the five runs are 0.219, 0.347, 0.244, 0.188 and 0.271. Why is 2.776 used instead of 1.96 when computing the 95% interval?',o:[['Because the mean of the fractions is small',0],['Because the standard deviation is estimated from only 5 values, the t distribution (4 degrees of freedom) is used',1],['Because the runs are 10 ns long',0],['Because of autocorrelation',0]],w:'With few repeats the standard deviation itself is uncertain; the t distribution accounts for this. The interval comes out as 0.179 to 0.329.'},"
+   "{s:'The αR fractions of the five runs are 0.219, 0.347, 0.244, 0.188 and 0.271. Why is 2.776 used instead of 1.96 when computing the 95% interval?',o:[['Because the mean of the fractions is small',0],['Because the standard deviation is estimated from only 5 values, the t distribution (4 degrees of freedom) is used',1],['Because the runs are 10 ns long',0],['Because of autocorrelation',0]],w:'With few replicas the standard deviation itself is uncertain; the t distribution accounts for this. The interval comes out as 0.179 to 0.329.'},"
   ],
   [
    "{s:'αR/β sınırı ψ = 30° seçildiğinde pay düşüyor, 70° seçildiğinde artıyor. Doğru uygulama hangisidir?',o:[['Sonuca bakıp en makul görünen sınırı seçmek',0],['Sınırı koşulardan önce yazmak, başka sınırları yalnız duyarlılık olarak raporlamak',1],['En yüksek payı veren sınırı seçmek',0],['Sınırı her koşu için ayrı ayarlamak',0]],w:'Bu projenin protokolü ψ = 50°\\'yi ana, 30° ve 70°\\'yi duyarlılık sınırı olarak koşulardan önce dondurdu.'}];",

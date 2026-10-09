@@ -1,5 +1,12 @@
 # Sürüm notları
 
+## 0.37.0 (9 Ekim 2026) · İngilizce denetim, 3. tur: uzman düzey; 27 modülün hepsi denetlendi
+
+- Uzman düzeyin 5 modülünün İngilizce tablosu (DK-U, MD-U, MD-ERR, MD-REPRO, MD-FES) Türkçe kaynakla çift çift karşılaştırıldı. 64 düzeltme: 9 anlam ya da dil bilgisi hatası (DK-U'da iki ondalık virgül dahil), 16 tutarlılık (Amerikan yazımı; MD-U'da "repeats" yerine "replicas"; MD-REPRO'da "reproduction file" yerine "reproduction package"), 39 üslup.
+- DK-U'da İngilizce sayfada Türkçe kalan altı parça için yeni çiftler: "Ham skor-pKi Spearman" (iki yerde), sınavda "Yorum?", "Neden fark var?" ve "54 etkinin", histogram göstergesinde "tuzak".
+- Bu turla 27 modülün hepsinde `checked: "claude"`; üç turda toplam 417 düzeltme ve 13 yeni çift. İngilizce alt not her modülde "Claude (AI) has checked it, but it has not yet been reviewed by a person." `reviewed: true` bir kişinin gözden geçirmesini bekliyor.
+- Türkçe kaynak notu: DK-U'da tarama 144 tripsin bileşiği derken veri ve grafik 142 diyor (büyük olasılıkla süzme; metinde belirtilmeli). MD-U, MD-ERR, MD-REPRO ve MD-FES'te sayıların tutarlılığı yeniden denetlendi, not yok. Kodda tekil/çoğul ayrımı olmadığı için sayı 1 olduğunda "1 visits" gibi biçimler görünebilir (MD-U, MD-FES); bu ayrı bir kod düzeltmesi gerektirir.
+
 ## 0.36.0 (9 Ekim 2026) · İngilizce denetim, 2. tur: orta düzey
 
 - Orta düzeyin 13 modülünün İngilizce tablosu (DK-O, MD-EQ, MD-O, MD-PDB, MD-DT, MD-TRJ, MD-MET, MD-PCA, MD-INT, MD-FAIL, MD-FF, MD-SOLV, MD-LIG) Türkçe kaynakla çift çift karşılaştırıldı. 211 düzeltme: 12 anlam ya da dil bilgisi hatası, 136 tutarlılık (Amerikan yazımı; "cutoff" yerine "cut-off"; yüzde işaretinden önce boşluk yok; "ledger" yerine "notebook"; "template" yerine "draft"; MD-EQ, MD-O ve MD-PDB'de "Bridge to the bench" yerine öteki modüllerdeki gibi "Experimental bridge"), 63 üslup. Yalnız görünen metin değişti.

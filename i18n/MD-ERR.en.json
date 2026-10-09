@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "0981cc45fad8f59ac25333b1b17e25b53ea99938c8873d27345e1f64f06cc41d",
  "reviewed": false,
- "translator": "Claude (AI), MD-ERR 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-ERR 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Hata çubuğu ve dürüst karşılaştırma</title>",
@@ -311,7 +312,7 @@
   ],
   [
    "<h2 id=\"eh4\">Dokuz cümle: bu veri bunları taşır mı?</h2>",
-   "<h2 id=\"eh4\">Nine sentences: does this data carry them?</h2>"
+   "<h2 id=\"eh4\">Nine sentences: does this data support them?</h2>"
   ],
   [
    "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>",
@@ -359,7 +360,7 @@
   ],
   [
    "<label>Sistematik belirsizlik<textarea id=\"eoS\" rows=\"2\">Örnek: kuvvet alanı seçimi örneklemeyle küçülmez; bu sayfadaki üç kuvvet alanı grubunda (MD-FF koşuları) ortalama αR payı %31,0 ile %44,2 arasında.</textarea></label>",
-   "<label>Systematic uncertainty<textarea id=\"eoS\" rows=\"2\">Example: the force field choice does not shrink with sampling; in the three force-field groups on this page (MD-FF runs) the mean αR fraction lies between 31.0% and 44.2%.</textarea></label>"
+   "<label>Systematic uncertainty<textarea id=\"eoS\" rows=\"2\">Example: the uncertainty from the force field choice does not shrink with sampling; in the three force-field groups on this page (MD-FF runs) the mean αR fraction lies between 31.0% and 44.2%.</textarea></label>"
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"eocopy\">Metni kopyala</button><span class=\"small\" id=\"eomsg\"></span></div>",
@@ -539,7 +540,7 @@
   ],
   [
    "if(n>=3&&QP.kseen) card('ec0',true,'Bu ayarda ('+QP.n+' biyolojik örnek, '+QP.k+' teknik tekrar) %95 diye çizilen aralık, 2.000 benzetilmiş deneyde gerçek değeri şu sıklıkla kapsadı: doğru hesap '+pct(C.ok)+', teknik tekrarları n sayan hesap '+pct(C.tech)+', eşleştirmeyi yok sayan hesap '+pct(C.unp)+'. Teknik tekrar ölçümün gürültüsünü azaltır ama yeni bir biyolojik örnek değildir; aynı örneğin kuyuları birbirine bağlıdır. Hedef ve referans aynı örnekten ölçüldüğü için fark örnek içinde alınır; ayrı ayrı hesaplanırsa ortak değişkenlik iki kez sayılır ve aralık gereksiz genişler. Kat değişimi aralığı 2^−(ΔΔCt ± t·SE) olarak üstel ölçeğe taşınır ve kestirimin çevresinde simetrik değildir. MD\\'de karşılığı: kareler teknik tekrar gibidir, bağımsız birim koşudur.');",
-   "if(n>=3&&QP.kseen) card('ec0',true,'With this setting ('+QP.n+' biological samples, '+QP.k+' technical replicates) the interval drawn as 95% covered the true value in 2,000 simulated experiments this often: correct calculation '+pct(C.ok)+', counting technical replicates as n '+pct(C.tech)+', ignoring the pairing '+pct(C.unp)+'. A technical replicate reduces measurement noise but is not a new biological sample; the wells of the same sample are tied to each other. Target and reference are measured on the same sample, so the difference is taken within the sample; computed separately, the shared variation is counted twice and the interval becomes needlessly wide. The fold-change interval is carried to the exponential scale as 2^−(ΔΔCt ± t·SE) and is not symmetric around the estimate. The MD counterpart: frames are like technical replicates, the independent unit is the run.');"
+   "if(n>=3&&QP.kseen) card('ec0',true,'With this setting ('+QP.n+' biological samples, '+QP.k+' technical replicates) the interval drawn as 95% covered the true value in 2,000 simulated experiments this often: correct calculation '+pct(C.ok)+', counting technical replicates as n '+pct(C.tech)+', ignoring the pairing '+pct(C.unp)+'. A technical replicate reduces measurement noise but is not a new biological sample; the wells of the same sample are tied to each other. Target and reference are measured on the same sample, so the difference is taken within the sample; if they are computed separately, the shared variation is counted twice and the interval becomes needlessly wide. The fold-change interval is carried to the exponential scale as 2^−(ΔΔCt ± t·SE) and is not symmetric around the estimate. The MD counterpart: frames are like technical replicates, the independent unit is the run.');"
   ],
   [
    "else card('ec0',false,'Şimdiye kadar '+n+' ayar'+(QP.kseen?'':'; en az birinde teknik tekrar 2 ya da daha çok olsun')+'. En az üç ayara bakın.'); }",
@@ -803,7 +804,7 @@
   ],
   [
    "{s:'\"W1 koşusunda αR payı %'+pp(w1.p)+' ± '+pp(1.96*w1.sn)+' (%95, kareler bağımsız sayılarak). Aynı koşul tekrarlansa sonuç büyük olasılıkla bu aralıkta çıkar.\"', a:2, w:'Aralık %'+pp(lo)+' ile %'+pp(hi)+'; aynı koşulun öteki 7 tekrarından '+(inn?nLoc(inn)+' içinde':'hiçbiri içinde değil')+' (%'+pp(arrMin(oth.map(function(r){ return r.p; })))+' ile %'+pp(arrMax(oth.map(function(r){ return r.p; })))+'). Ardışık kareler bağımlı olduğu için saf hata yaklaşık '+fx(W.Rn,0)+' kat dar çıkar; tekrarın nereye düşeceğini tekrarlar arası yayılım söyler.'},",
-   "{s:'\"In run W1 the αR fraction is '+pp(w1.p)+'% ± '+pp(1.96*w1.sn)+' (95%, counting frames as independent). If the condition were repeated, the result would very likely fall in this interval.\"', a:2, w:'The interval is '+pp(lo)+'% to '+pp(hi)+'%; of the other 7 replicas of the same condition, '+(inn?nLoc(inn)+' fall inside':'none falls inside')+' ('+pp(arrMin(oth.map(function(r){ return r.p; })))+'% to '+pp(arrMax(oth.map(function(r){ return r.p; })))+'%). Because consecutive frames are dependent, the naive error comes out about '+fx(W.Rn,0)+' times too narrow; where a replica will land is told by the spread between replicas.'},"
+   "{s:'\"In run W1 the αR fraction is '+pp(w1.p)+'% ± '+pp(1.96*w1.sn)+' (95%, counting frames as independent). If the condition were repeated, the result would very likely fall in this interval.\"', a:2, w:'The interval is '+pp(lo)+'% to '+pp(hi)+'%; of the other 7 replicas of the same condition, '+(inn?nLoc(inn)+' fall inside':'none falls inside')+' ('+pp(arrMin(oth.map(function(r){ return r.p; })))+'% to '+pp(arrMax(oth.map(function(r){ return r.p; })))+'%). Because consecutive frames are dependent, the naive error comes out about '+fx(W.Rn,0)+' times too narrow; the spread between replicas tells where a replica will land.'},"
   ],
   [
    "{s:'\"Su ile 0,15 M NaCl arasında αR payı bakımından fark yoktur.\"', a:1, w:'Önceden yazılmış birleşimde Δ '+fx(pr.d,2)+' puan, permütasyon p '+fx(pr.p,3)+' (8 tekrara karşı 8). Bu, farkın gösterilemediğini söyler; \"fark yok\" demek için önceden yazılmış bir eşdeğerlik sınırı ve o sınırın dışını dışlayan bir aralık gerekir (Lakens 2017). Tekrarlar arası SD yaklaşık '+pp(W.sd,0)+' puan olduğu için 8 tekrarla yalnız büyük farklar dışlanabilir.'},",
@@ -835,7 +836,7 @@
   ],
   [
    "{s:'\"qPCR deneyinde her grupta 3 biyolojik örnek ve her örnekte 3 teknik tekrar var; dolayısıyla n = 9\\'dur.\"', a:2, w:'Bağımsız birim biyolojik örnektir; n = 3. Teknik tekrarlar örneğin ölçümünü iyileştirir, örnekler arasındaki biyolojik değişkenliği örneklemez. Köprünün başlangıç ayarında (3 örnek, 3 teknik tekrar) teknik tekrarları n sayan \"%95\" aralığı gerçek değeri benzetilmiş deneylerde '+pct(qd.tech)+' sıklıkla kapsadı; doğru hesap '+pct(qd.ok)+'.'}",
-   "{s:'\"The qPCR experiment has 3 biological samples per group and 3 technical replicates per sample; so n = 9.\"', a:2, w:'The independent unit is the biological sample; n = 3. Technical replicates improve the measurement of a sample; they do not sample the biological variation between samples. In the starting setting of the bridge (3 samples, 3 technical replicates), the \"95%\" interval that counts technical replicates as n covered the true value in '+pct(qd.tech)+' of simulated experiments; the correct calculation '+pct(qd.ok)+'.'}"
+   "{s:'\"The qPCR experiment has 3 biological samples per group and 3 technical replicates per sample; so n = 9.\"', a:2, w:'The independent unit is the biological sample; n = 3. Technical replicates improve the measurement of a sample; they do not sample the biological variation between samples. In the starting setting of the bridge (3 samples, 3 technical replicates), the \"95%\" interval that counts technical replicates as n covered the true value in '+pct(qd.tech)+' of simulated experiments; the correct calculation covered it in '+pct(qd.ok)+'.'}"
   ],
   [
    "var fb=$('ecl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
@@ -987,7 +988,7 @@
   ],
   [
    "'<p><b>Köprü.</b> qPCR bölümü bir öğretim modelidir; ölçülmüş veri kullanılmaz. Ct değerleri tarayıcıda tohumlu bir rastgele sayı üreteciyle benzetilir: her biyolojik örnekte hedef ve referans genin Ct\\'si seçilen biyolojik SD ve korelasyonla, her kuyuya ayrıca teknik SD eklenerek. ΔCt, ΔΔCt ve kat değişimi 2^−ΔΔCt Livak ve Schmittgen 2001 (Methods 25:402, doi 10.1006/meth.2001.1262) ve Schmittgen ve Livak 2008 (Nat Protoc 3:1101, doi 10.1038/nprot.2008.73) yöntemine göre; aralık birleşik SD ile t dağılımından (doğru hesapta serbestlik derecesi 2n − 2). Kapsama, aynı ayarla 2.000 benzetilmiş deneyde gerçek ΔΔCt\\'yi içeren aralıkların payıdır. Benzetim, amplifikasyon verimini %100 kabul eder ve verim belirsizliğini içermez.</p>'+",
-   "'<p><b>Bridge.</b> The qPCR section is a teaching model; no measured data are used. Ct values are simulated in the browser with a seeded random number generator: in each biological sample the Ct of the target and reference gene with the chosen biological SD and correlation, plus a technical SD for each well. ΔCt, ΔΔCt and the fold change 2^−ΔΔCt follow Livak and Schmittgen 2001 (Methods 25:402, doi 10.1006/meth.2001.1262) and Schmittgen and Livak 2008 (Nat Protoc 3:1101, doi 10.1038/nprot.2008.73); the interval uses the pooled SD and the t distribution (2n − 2 degrees of freedom in the correct calculation). Coverage is the fraction of intervals containing the true ΔΔCt in 2,000 simulated experiments with the same setting. The simulation assumes 100% amplification efficiency and does not include efficiency uncertainty.</p>'+"
+   "'<p><b>Bridge.</b> The qPCR section is a teaching model; no measured data are used. Ct values are simulated in the browser with a seeded random number generator: in each biological sample the Ct values of the target and reference genes are drawn with the chosen biological SD and correlation, and a technical SD is added for each well. ΔCt, ΔΔCt and the fold change 2^−ΔΔCt follow Livak and Schmittgen 2001 (Methods 25:402, doi 10.1006/meth.2001.1262) and Schmittgen and Livak 2008 (Nat Protoc 3:1101, doi 10.1038/nprot.2008.73); the interval uses the pooled SD and the t distribution (2n − 2 degrees of freedom in the correct calculation). Coverage is the fraction of intervals containing the true ΔΔCt in 2,000 simulated experiments with the same setting. The simulation assumes 100% amplification efficiency and does not include efficiency uncertainty.</p>'+"
   ],
   [
    "'<p><b>Analiz.</b> Analiz planı hesaplardan önce yazılıp SHA-256 ile donduruldu ('+m.plan_sha.slice(0,12)+'…). Durumlar: αL 0 ≤ φ < 180; αR φ < 0 ve −120 ≤ ψ < 50; β/PPII kalan. Pencere 200 ile 2000 ps (1801 kare); blok hatası ilk 1800 kareden, B = 200 kare, 9 blok (Flyvbjerg ve Petersen 1989, J Chem Phys 91:461; Grossfield ve ark. 2018, Living J Comput Mol Sci 1:5067). LIE blokları MD-LIG ile aynı: kompleks 50 ile 500 ps, 5 blok; su 100 ile 999 ps, 9 × 100 kare. Boş karşılaştırmalar: W\\'nin 35 dörde dört bölmesi (MD-REP ile aynı sıra), 8 ölçüt; kare düzeyinde birleşik iki oran z testi ve Welch t testi, tekrar düzeyinde 70 ayrımlı tam permütasyon, bölme içinde Holm düzeltmesi (Holm 1979, Scand J Stat 6:65). Analiz seçenekleri: 18 birleşim, 12.870 ayrımlı tam permütasyon; 0 ile 200 ps arasındaki φ/ψ md.xtc\\'den yeniden hesaplandı ve 200 ile 2000 ps kısmı MD-REP\\'in dosyalarıyla aynı çıktı. Bağımsız denetim (MDAnalysis φ/ψ, saf Python blok hatası, gmx energy blok ortalamaları, ayrı permütasyon ve scipy ile kare düzeyi testler): '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'. Plandan sapma yok. Blok gezgini (kare dizisinden blok SE) ve permütasyon dağılımı tarayıcıda aynı veriden yeniden hesaplanır; 364 blok SE değeri ve 280 permütasyon p\\'si Python sonuçlarıyla karşılaştırıldı, farklar yalnız yuvarlamadandır (en büyük 5·10⁻⁷ ve 4·10⁻⁶).</p>'+",
@@ -999,7 +1000,7 @@
   ],
   [
    "'<p><b>Sınırlar.</b> Bölmeler aynı sekiz koşuyu paylaştığı için boş karşılaştırma oranları bağımsız denemeler değildir ve bir yanlış pozitif oranı olarak okunmaz. LIE\\'de model başına iki tekrar var; tekrarlar arası SE tek serbestlik derecelidir. Yeni ya da daha uzun koşular, ek tekrarlar, hiyerarşik Bayes modelleri, başka bootstrap türleri, MBAR ve serbest enerji yöntemleri, başka sistemler, qPCR\\'de verim belirsizliği ve gerçek qPCR verisi: Bu senaryo hesaplanmadı.</p>'; }",
-   "'<p><b>Limits.</b> The splits share the same eight runs, so the null-comparison rates are not independent trials and are not read as a false-positive rate. LIE has two replicas per model; the SE between replicas has a single degree of freedom. New or longer runs, additional replicas, hierarchical Bayesian models, other kinds of bootstrap, MBAR and free-energy methods, other systems, efficiency uncertainty in qPCR and real qPCR data: This scenario was not computed.</p>'; }"
+   "'<p><b>Limits.</b> The splits share the same eight runs, so the null-comparison rates are not independent trials and should not be read as a false-positive rate. LIE has two replicas per model; the SE between replicas has a single degree of freedom. New or longer runs, additional replicas, hierarchical Bayesian models, other kinds of bootstrap, MBAR and free-energy methods, other systems, efficiency uncertainty in qPCR and real qPCR data: This scenario was not computed.</p>'; }"
   ],
   [
    "/* ---------- sınav ---------- */",

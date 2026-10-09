@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "a77672fd66389cd9bea3110826d618988f0353a2b71c4bb09550d94ff3c59451",
  "reviewed": false,
- "translator": "Claude (AI), MD-REPRO 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-REPRO 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Yeniden üretim ve savunulabilir çalışma</title>",
@@ -699,7 +700,7 @@
   ],
   [
    "'R3|R1':['2 iş parçacığı / yeni 1','R3 ile R1: ikisi de bu deneyde koşuldu, iş parçacığı sayısı farklı'],",
-   "'R3|R1':['2 threads / new 1','R3 and R1: both run in this experiment, different thread counts'],"
+   "'R3|R1':['2 threads / new 1','R3 and R1: both were run in this experiment, different thread counts'],"
   ],
   [
    "'R4|R5':['-reprod, iki kez','R4 ile R5: ikisi de -nt 2 -reprod, 200 ps'],",
@@ -1055,7 +1056,7 @@
   ],
   [
    "if(n>=4) card('xc5',true,'Bir MD çalışmasının girdileri farklı lisanslarla gelir ve koşullar türetilmiş veriye taşınır. PDB yapıları kamu malıdır (CC0); mdshare ALA2 atıf ister (CC BY 4.0); ChEMBL değerleri atıf ve aynı lisansla paylaşım ister (CC BY-SA 3.0), bu yüzden bu sitede ChEMBL\\'den türetilen her sayfa CC BY-SA bildirimi taşır. GROMACS\\'ın LGPL lisansı programı düzenler, ürettiğiniz veriyi değil. Kendi koşu dosyalarınız için bir lisans seçilmedikçe başkasının onlarla ne yapabileceği belirsizdir; yeniden üretim dosyasına lisans satırı bu yüzden girer. Bu bölüm lisans metinlerinin özetidir, hukuki danışmanlık değildir.');",
-   "if(n>=4) card('xc5',true,'The inputs of an MD study come with different licenses, and their conditions carry into derived data. PDB structures are public domain (CC0); mdshare ALA2 requires attribution (CC BY 4.0); ChEMBL values require attribution and share alike (CC BY-SA 3.0), which is why every page on this site derived from ChEMBL carries a CC BY-SA notice. The GROMACS LGPL governs the program, not the data you produce. Until a license is chosen for your own run files, what others may do with them is unclear; that is why the reproduction file has a license line. This section summarizes license texts; it is not legal advice.');"
+   "if(n>=4) card('xc5',true,'The inputs of an MD study come with different licenses, and their conditions carry into derived data. PDB structures are public domain (CC0); mdshare ALA2 requires attribution (CC BY 4.0); ChEMBL values require attribution and share alike (CC BY-SA 3.0), which is why every page on this site derived from ChEMBL carries a CC BY-SA notice. The GROMACS LGPL governs the program, not the data you produce. Until a license is chosen for your own run files, what others may do with them is unclear; that is why the reproduction package has a license line. This section summarizes license texts; it is not legal advice.');"
   ],
   [
    "else card('xc5',false,'Şimdiye kadar '+n+' girdi; en az dördüne bakın.'); }",
@@ -1091,11 +1092,11 @@
   ],
   [
    "{s:'\"Denetim noktasından sürdürmek W1\\'in trajektorisini değiştirdi.\"', a:b.same?2:1, w:'Kesintisiz R2 ile sürdürülmüş özgün W1: '+st(b)+'. '+(b.same?'Fark yok; bu çevrede sürdürme trajektoriyi değiştirmedi.':'Fark sürdürmenin olduğu 181,8 ps\\'den '+(b.first<181?'önce':'sonra')+' başlıyor. Tek bir koşu ve tek bir sürdürme var; değişikliğin sürdürmeden mi, başka bir nedenden mi geldiğini kesinleştirmek için sürdürmeyi denetimli olarak yineleyen bir koşu gerekir.')},",
-   "{s:'\"Continuing from a checkpoint changed W1\\'s trajectory.\"', a:b.same?2:1, w:'Uninterrupted R2 and the continued original W1: '+st(b)+'. '+(b.same?'No difference; in this environment the continuation did not change the trajectory.':'The difference starts '+(b.first<181?'before':'after')+' the continuation at 181.8 ps. There is one run and one continuation; to establish whether the change came from the continuation or from another cause would take a run that repeats the continuation under control.')},"
+   "{s:'\"Continuing from a checkpoint changed W1\\'s trajectory.\"', a:b.same?2:1, w:'Uninterrupted R2 and the continued original W1: '+st(b)+'. '+(b.same?'No difference; in this environment the continuation did not change the trajectory.':'The difference starts '+(b.first<181?'before':'after')+' the continuation at 181.8 ps. There is one run and one continuation; to establish whether the change came from the continuation or from another cause would take a run that repeats the continuation in a controlled way.')},"
   ],
   [
    "{s:'\"-reprod bayrağı farklı iş parçacığı sayıları arasında da aynı sonucu garanti eder.\"', a:2, w:'İki iş parçacığında -reprod ile iki koşu: '+st(d)+'; aynı koşu tek iş parçacıklı özgün W2 ile: '+st(e)+'. -reprod aynı çevrede tekrarlanabilirliği hedefler; farklı paralelleşme arasında eşlik sağlamaz.'},",
-   "{s:'\"The -reprod flag also guarantees the same result across different thread counts.\"', a:2, w:'Two runs with -reprod on two threads: '+st(d)+'; the same run against the single-thread original W2: '+st(e)+'. -reprod aims at repeatability in the same environment; it does not give agreement across different parallelization.'},"
+   "{s:'\"The -reprod flag also guarantees the same result across different thread counts.\"', a:2, w:'Two runs with -reprod on two threads: '+st(d)+'; the same run against the single-thread original W2: '+st(e)+'. -reprod aims at repeatability in the same environment; it does not give agreement across different parallelization settings.'},"
   ],
   [
    "{s:'\"Bir dosyanın SHA-256 özeti kayıtlı özetle aynıysa içeriği doğrudur.\"', a:2, w:'Aynı özet yalnız dosyanın değişmediğini gösterir. Dosyada baştan bir hata varsa (örneğin MD-LIG\\'deki net yükü 0 olan topoloji) özet o hatayı da aynen korur.'},",
@@ -1103,7 +1104,7 @@
   ],
   [
    "{s:'\"Ayrışan yeniden koşu (R3) özgün koşudan bağımsız yeni bir tekrar sayılabilir.\"', a:2, w:'R3 aynı başlangıç koordinatları, hızlar ve tohumla başlar; ilk pikosaniyelerde özgün koşuyla neredeyse aynıdır. Tekrar tasarımı farklı tohumlarla ve ayrı dengelemeyle planlanır (MD-REP); ayrışma bir tekrar tasarımı değildir.'},",
-   "{s:'\"The diverged rerun (R3) can count as a new replica independent of the original run.\"', a:2, w:'R3 starts from the same starting coordinates, velocities and seed; in the first picoseconds it is almost the same as the original run. Replicas are planned with different seeds and separate equilibration (MD-REP); divergence is not a replica design.'},"
+   "{s:'\"The diverged rerun (R3) can count as a new replica independent of the original run.\"', a:2, w:'R3 starts from the same coordinates, velocities and seed; in the first picoseconds it is almost the same as the original run. Replicas are planned with different seeds and separate equilibration (MD-REP); divergence is not a replica design.'},"
   ],
   [
    "{s:'\"MD-LIG\\'deki ChEMBL Ki değerlerinden hesaplanan ΔG aralığı bir makalede lisans bildirimi olmadan paylaşılabilir.\"', a:2, w:'ChEMBL verisi CC BY-SA 3.0 ile sunulur; türetilmiş veri atıfla ve aynı ya da uyumlu lisansla paylaşılır. Bu bölüm hukuki danışmanlık değildir.'}",
@@ -1219,7 +1220,7 @@
   ],
   [
    "Q.push({s:'Bir koşu denetim noktasından sürdürüldü. Yeniden üretim dosyasına ne yazılır?',",
-   "Q.push({s:'A run was continued from a checkpoint. What goes into the reproduction file?',"
+   "Q.push({s:'A run was continued from a checkpoint. What goes into the reproduction package?',"
   ],
   [
    "o:[['Hiçbir şey; sürdürme sonucu etkilemez',0],['Sürdürmenin olduğu adım ve neden; bu çevrede sürdürmenin trajektoriyi değiştirip değiştirmediği',1],['Koşu atılır ve sayılmaz',0]], w:'REPGRID\\'de W1 181,8 ps\\'de sürdürülmüş ve sapma kaydına yazılmıştı. Kesintisiz yeniden koşu ile karşılaştırma: '+(b.same?'bit düzeyinde aynı.':'ilk fark '+fx(b.first,0)+' ps.')});",
@@ -1263,7 +1264,7 @@
   ],
   [
    "'<p><b>Analiz.</b> Plan koşulardan önce yazılıp SHA-256 ile donduruldu ('+m.plan_sha.slice(0,12)+'…, '+m.frozen.replace('T',' ').replace('Z',' UTC')+'). Koordinatlar xtc dosyalarından MDAnalysis ile (0,001 nm kodlama duyarlığı), enerjiler gmx energy ile (Potential, Kinetic En., Temperature, Pressure, Volume; 0,2 ps); φ/ψ gmx rama ile; αR: φ &lt; 0 ve −120 ≤ ψ &lt; 50; pencere 200 ile 2000 ps; blok SE, B = 200 kare. Tekrarlar arası SD MD-ERR\\'den. Bağımsız denetim (gmx check ile koordinat ve 46 enerji terimi, MDAnalysis φ/ψ, sha256sum): '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_fail.length?'; geçmeyen: '+m.audit_fail.join('; '):'')+'. '+(VDD.DEVN?'Plandan '+VDD.DEVN+' sapma var (DEVIATIONS.md). Birincisi: ilk okumada ham konum farkı periyodik kutu yüzünden 4 nm\\'yi aştığı için, ham farka ek olarak en küçük görüntü farkı da hesaplandı; hükümler ve ham değerler değişmedi.'+(VDD.DEVN>1?' İkincisi: görsel sürüm için R4 ve R5\\'in φ/ψ açıları analiz ve denetimden sonra aynı gmx rama komutuyla hesaplandı; bu iki koşu için αR payı verilmez, yalnız açılar çizilir.':''):'Plandan sapma yok.')+' Atölye 3\\'teki SHA-256 ve atölye 2\\'deki kayan nokta toplamları tarayıcıda sayfanın kendi koduyla hesaplanır; kayan nokta bölümündeki 16 sayı tohumlu rastgele üretilir, simülasyon verisi değildir. Sahnedeki peptit koordinatları her koşunun xtc dosyasından, molekül bütün tutulup kutu sıçramaları kaldırılarak (yalnız görselleştirme) alındı; sahnedeki ara kareler iki kayıt arasında doğrusal ara değerdir, okumalardaki sayılar kayıtlı karelerdendir.</p>'+",
-   "'<p><b>Analysis.</b> The plan was written before the runs and frozen with SHA-256 ('+m.plan_sha.slice(0,12)+'…, '+m.frozen.replace('T',' ').replace('Z',' UTC')+'). Coordinates from the xtc files with MDAnalysis (0.001 nm encoding precision), energies with gmx energy (Potential, Kinetic En., Temperature, Pressure, Volume; 0.2 ps); φ/ψ with gmx rama; αR: φ &lt; 0 and −120 ≤ ψ &lt; 50; window 200 to 2000 ps; block SE, B = 200 frames. Between-replica SD from MD-ERR. Independent audit (gmx check for coordinates and 46 energy terms, MDAnalysis φ/ψ, sha256sum): '+m.audit_ok+' of '+m.audit_n+' comparisons passed with thresholds written in advance'+(m.audit_fail.length?'; failed: '+m.audit_fail.join('; '):'')+'. '+(VDD.DEVN?'There are '+VDD.DEVN+' deviations from the plan (DEVIATIONS.md). First: because the raw position difference exceeded 4 nm at the first reading due to the periodic box, the minimum-image difference was computed in addition to the raw difference; verdicts and raw values did not change.'+(VDD.DEVN>1?' Second: for the visual version, the φ/ψ angles of R4 and R5 were computed after the analysis and audit with the same gmx rama command; no αR fraction is given for these two runs, only the angles are drawn.':''):'No deviations from the plan.')+' The SHA-256 in workshop 3 and the floating-point sums in workshop 2 are computed in the browser by the page\\'s own code; the 16 numbers in the floating-point section come from a seeded random generator and are not simulation data. The peptide coordinates in the scenes are from each run\\'s xtc file, with the molecule kept whole and box jumps removed (visualization only); in-between frames in the scenes are linear interpolation between two records, and the numbers in the readouts come from recorded frames.</p>'+"
+   "'<p><b>Analysis.</b> The plan was written before the runs and frozen with SHA-256 ('+m.plan_sha.slice(0,12)+'…, '+m.frozen.replace('T',' ').replace('Z',' UTC')+'). Coordinates from the xtc files with MDAnalysis (0.001 nm encoding precision), energies with gmx energy (Potential, Kinetic En., Temperature, Pressure, Volume; 0.2 ps); φ/ψ with gmx rama; αR: φ &lt; 0 and −120 ≤ ψ &lt; 50; window 200 to 2000 ps; block SE, B = 200 frames. Between-replica SD from MD-ERR. Independent audit (gmx check for coordinates and 46 energy terms, MDAnalysis φ/ψ, sha256sum): '+m.audit_ok+' of '+m.audit_n+' comparisons passed the thresholds written in advance'+(m.audit_fail.length?'; failed: '+m.audit_fail.join('; '):'')+'. '+(VDD.DEVN?'There are '+VDD.DEVN+' deviations from the plan (DEVIATIONS.md). First: because the raw position difference exceeded 4 nm at the first reading due to the periodic box, the minimum-image difference was computed in addition to the raw difference; verdicts and raw values did not change.'+(VDD.DEVN>1?' Second: for the visual version, the φ/ψ angles of R4 and R5 were computed after the analysis and audit with the same gmx rama command; no αR fraction is given for these two runs, only the angles are drawn.':''):'No deviations from the plan.')+' The SHA-256 in workshop 3 and the floating-point sums in workshop 2 are computed in the browser by the page\\'s own code; the 16 numbers in the floating-point section come from a seeded random generator and are not simulation data. The peptide coordinates in the scenes are from each run\\'s xtc file, with the molecule kept whole and box jumps removed (visualization only); in-between frames in the scenes are linear interpolation between two records, and the numbers in the readouts come from recorded frames.</p>'+"
   ],
   [
    "'<p><b>Haklar.</b> Veri lisansları sitenin NOTICE dosyasına göre (25 Eylül 2026\\'da birincil kaynaklardan doğrulandı); GROMACS lisansı (LGPL 2.1) Ubuntu paketinin telif dosyasından. Bu sayfa hukuki danışmanlık değildir.</p>'+",

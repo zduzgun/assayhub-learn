@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "23f8d84ad77b016ca7ee7909392a665258dfaa50494d5639b4d0c1106f882d62",
  "reviewed": false,
- "translator": "Claude (machine translation, needs human review)",
+ "checked": "claude",
+ "translator": "Claude (machine translation, needs human review); Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "Docking: Skor neyi sıralar?",
@@ -23,7 +24,7 @@
   ],
   [
    "Bir docking skoru, bir bileşiğin ne kadar sıkı bağlandığını mı söyler, yoksa yalnız bağlananı bağlanmayandan mı ayırır? DK-T'de bir pozu bulmayı, DK-O'da kilidin ayrıntılarını gördük. Burada tripsin için gerçek bir kütüphaneyle tek bir soruyu sınıyoruz: skorun sıraladığı şey afinite mi, ayırma mı?",
-   "Does a docking score tell you how tightly a compound binds, or does it only separate binders from non-binders? In DK-T we found a pose, in DK-O the details of the lock. Here, with a real library for trypsin, we test a single question: is what the score ranks affinity, or separation?"
+   "Does a docking score tell you how tightly a compound binds, or does it only separate binders from non-binders? In DK-T we saw how to find a pose, and in DK-O the details of the lock. Here, with a real library for trypsin, we test a single question: is what the score ranks affinity, or separation?"
   ],
   [
    "Keşifler: <b id=\"s1progN\">0 / 5</b>",
@@ -39,7 +40,7 @@
   ],
   [
    "Bir birincil taramada bileşikler tek bir derişimde ölçülür: o derişimdeki % inhibisyon, etkinleri etkin olmayanlardan ayırmak içindir. Etkinliğin <b>sıralaması</b> ise tam doz-yanıt eğrisinden (IC50, Ki) gelir. Aşağıdaki etiketli öğretim modelinde dört örnek bileşik vardır (gerçek tarama değil): Ki sırayla 3, 30, 300, 3000 nM. Derişimi kaydırın; soldaki çubuklar o tek derişimdeki % inhibisyonu, sağdaki eğriler tam doz-yanıtı gösterir.",
-   "In a primary screen compounds are measured at a single concentration: the % inhibition at that concentration is for separating actives from inactives. The <b>ranking</b> of potency, by contrast, comes from the full dose-response curve (IC50, Ki). The labelled teaching model below has four example compounds (not a real screen): Ki of 3, 30, 300, 3000 nM in order. Slide the concentration; the bars on the left show the % inhibition at that single concentration, the curves on the right show the full dose-response."
+   "In a primary screen compounds are measured at a single concentration: the % inhibition at that concentration is for separating actives from inactives. The <b>ranking</b> of potency, by contrast, comes from the full dose-response curve (IC50, Ki). The labeled teaching model below has four example compounds (not a real screen): Ki of 3, 30, 300, 3000 nM in order. Slide the concentration; the bars on the left show the % inhibition at that single concentration, the curves on the right show the full dose-response."
   ],
   [
    "Solda dört bileşiğin tek bir derişimdeki yüzde inhibisyonu çubuk olarak, sağda aynı bileşiklerin tam doz-yanıt eğrileri; kesikli çizgi seçili derişimi işaretler",
@@ -55,7 +56,7 @@
   ],
   [
    "Tek derişimdeki sinyal \"etkin mi, değil mi\" sorusunu ayırmak içindir; etkinlik <b>sıralaması</b> tam eğriden gelir. Docking skoru da birincil tarama sinyaline benzer: bağlananı ayırmakta işe yarayabilir, ama afiniteyi sıralamak başka bir sorudur. Bu modülün sorusu da budur.",
-   "The single-concentration signal is for separating \"active or not\"; the <b>ranking</b> of potency comes from the full curve. A docking score is like a primary-screen signal too: it may help separate binders, but ranking affinity is a different question. That is this module's question."
+   "The single-concentration signal is for answering \"active or not?\"; the <b>ranking</b> of potency comes from the full curve. A docking score is like a primary-screen signal too: it may help separate binders, but ranking affinity is a different question. That is this module's question."
   ],
   [
    "<span class=\"step\">1 · Atölye</span>",
@@ -67,15 +68,15 @@
   ],
   [
    "142 tripsin bileşiğinin docking skoru (beş tohumun ortancası) ile ölçülen pKi'si. Renklendirmeyi değiştirin, bir yayını süzün, okumaları izleyin. Nokta üstüne gelince bileşik bilgisi çıkar.",
-   "The docking score (median of five seeds) against the measured pKi of 142 trypsin compounds. Change the colouring, filter a publication, watch the readouts. Hover a point for compound details."
+   "The docking score (median of five seeds) against the measured pKi of 142 trypsin compounds. Change the coloring, filter by publication, watch the readouts. Hover a point for compound details."
   ],
   [
    "Renklendirme",
-   "Colouring"
+   "Coloring"
   ],
   [
    "<span>Renk:</span>",
-   "<span>Colour:</span>"
+   "<span>Color:</span>"
   ],
   [
    "ağır atom",
@@ -95,7 +96,7 @@
   ],
   [
    "142 tripsin bileşiğinin docking skoru ile pKi dağılımı; en uygun doğru ve seçilen renklendirme",
-   "Distribution of docking score versus pKi for 142 trypsin compounds; the best-fit line and the chosen colouring"
+   "Distribution of docking score versus pKi for 142 trypsin compounds; the best-fit line and the chosen coloring"
   ],
   [
    "<span class=\"k\">Açık</span>",
@@ -107,7 +108,7 @@
   ],
   [
    "İki bileşik seçin; skor farkları, tohum gürültüsünün kaç katı? Seçtikleriniz grafikte A ve B olarak işaretlenir.",
-   "Pick two compounds; how many times the seed noise is their score difference? Your choices are marked A and B on the plot."
+   "Pick two compounds; how many times larger than the seed noise is their score difference? Your choices are marked A and B on the plot."
   ],
   [
    "Boyut hesaba katılınca",
@@ -115,7 +116,7 @@
   ],
   [
    "Büyük moleküller hem daha güçlü bağlanır hem daha düşük (daha iyi) skor alır. Renklendirmeyi \"ağır atom\" yapıp ilişkinin boyuttan gelen payına bakın.",
-   "Large molecules both bind more strongly and get a lower (better) score. Set the colouring to \"heavy atoms\" and look at the share of the relationship that comes from size."
+   "Large molecules both bind more strongly and get a lower (better) score. Set the coloring to \"heavy atoms\" and look at the share of the relationship that comes from size."
   ],
   [
    "<span class=\"step\">2 · Tezgâh</span>",
@@ -287,7 +288,7 @@
   ],
   [
    "Tek bir yayının bileşikleri genelde: bir seri içinde sıralama çok daha zayıf, bazen ters döner.",
-   "The compounds of a single publication, in general: ranking within a series is much weaker, sometimes reversed."
+   "Compounds of a single publication: ranking within a series is generally much weaker, sometimes reversed."
   ],
   [
    "Bootstrap %95 aralığı tam set için: Spearman [",
@@ -319,15 +320,15 @@
   ],
   [
    "kcal/mol = gürültünün (",
-   "kcal/mol; the seed noise is ("
+   "kcal/mol, compared with the seed noise ("
   ],
   [
    ") yaklaşık",
-   "), about"
+   "): about"
   ],
   [
    "katı.",
-   "times it."
+   "times as large."
   ],
   [
    "<b>Fark gürültüden büyük: anlamlı sayılabilir.</b>",
@@ -339,7 +340,7 @@
   ],
   [
    "Renklendirmeyi \"ağır atom\" yapınca ilişkinin boyuttan gelen payı görünür.",
-   "Setting the colouring to \"heavy atoms\" reveals the share of the relationship that comes from size."
+   "Setting the coloring to \"heavy atoms\" reveals the share of the relationship that comes from size."
   ],
   [
    "yalnız ağır atom",
@@ -355,7 +356,7 @@
   ],
   [
    "<span>kesikli köşegen = rastgele (0,5)</span>",
-   "<span>dashed diagonal = random (0,5)</span>"
+   "<span>dashed diagonal = random (0.5)</span>"
   ],
   [
    "etkin (pKi≥7)",
@@ -423,11 +424,11 @@
   ],
   [
    "</b>. Boyut eşleştiğinde \"cetvel\" çöker (0,5 yakını) ve docking öne geçer. D2 setinde ise yalnız ağır atom",
-   "</b>. When size is matched the \"ruler\" collapses (near 0,5) and docking pulls ahead. On the D2 set, however, heavy atoms alone"
+   "</b>. When size is matched the \"ruler\" collapses (near 0.5) and docking pulls ahead. On the D2 set, however, ranking by heavy atoms alone gives"
   ],
   [
    "ile docking kadar iyidir: o yüksek AUC büyük ölçüde boyut farkıdır.",
-   "rank as well as docking: that high AUC is largely a size difference."
+   "and is as good as docking: that high AUC is largely a size difference."
   ],
   [
    "Tuzak setini D2 yapıp eşleştirilmişle karşılaştırın.",
@@ -459,7 +460,7 @@
   ],
   [
    "</b>, hatta ortalamadan kötü. Rastgele bölmede aynı serinin benzer bileşikleri hem eğitimde hem sınamada bulunur (sızıntı); gerçek bir yeni seride kazanç kaybolur. Yalnız ham skorun gruplu R2",
-   "</b>, even worse than the mean. In the random split, similar compounds of the same series appear in both training and test (leakage); on a genuinely new series the gain vanishes. The grouped R2 of the raw score alone, being"
+   "</b>, even worse than the mean. In the random split, similar compounds of the same series appear in both training and test (leakage); on a genuinely new series the gain vanishes. The fact that the raw score alone has a grouped R2 of"
   ],
   [
    "olması da aynı dersi verir.",
@@ -531,7 +532,7 @@
   ],
   [
    "veriyor. Bu ne demek?",
-   ". What does this mean?"
+   "here. What does this mean?"
   ],
   [
    "Bir cetvel docking kadar iyi; yüksek AUC büyük ölçüde boyut farkı",
@@ -571,11 +572,11 @@
   ],
   [
    "Ağırlıkları veriye uyarlama rastgele bölmede R2",
-   "Fitting weights to the data gives R2, in the random split,"
+   "Fitting weights to the data gives R2 in the random split:"
   ],
   [
    ", gruplu bölmede",
-   ", and in the grouped split"
+   ", and in the grouped split:"
   ],
   [
    "Rastgele bölmede aynı serinin bileşikleri hem eğitimde hem sınamada (sızıntı)",
@@ -599,7 +600,7 @@
   ],
   [
    "kcal/mol, pKi yayılımı",
-   "kcal/mol, the pKi spread is"
+   "kcal/mol; the pKi spread is"
   ],
   [
    ". Sıralamayı asıl sınırlayan nedir?",
@@ -627,7 +628,7 @@
   ],
   [
    "Bu cebe uygun, amidin taşımayan, yük-eşleşen analog nadirdir",
-   "An analogue that fits this pocket, carries no amidine and matches the charge is rare"
+   "An analog that fits this pocket, carries no amidine and matches the charge is rare"
   ],
   [
    "Tuzak havuzu küçüktü",
@@ -675,7 +676,7 @@
   ],
   [
    "Bu sayfadaki bileşik verisi ChEMBL\\'den türetilmiştir ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192. PDB 3PTB (CC0 1.0). AutoDock Vina 1.2.7.",
-   "The compound data on this page are derived from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192. PDB 3PTB (CC0 1.0). AutoDock Vina 1.2.7."
+   "The compound data on this page are derived from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192. PDB 3PTB (CC0 1.0). AutoDock Vina 1.2.7."
   ],
   [
    "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
@@ -696,6 +697,30 @@
   [
    " · tuzak: ",
    " · decoys: "
+  ],
+  [
+   "card('s1c2',true,'Ham skor-pKi Spearman <b>",
+   "card('s1c2',true,'Raw score-pKi Spearman <b>"
+  ],
+  [
+   "{s:'Ham skor-pKi Spearman '",
+   "{s:'Raw score-pKi Spearman '"
+  ],
+  [
+   "'. Yorum?',o:",
+   "'. Interpretation?',o:"
+  ],
+  [
+   "'. Neden fark var?',o:",
+   "'. Why the difference?',o:"
+  ],
+  [
+   "{s:'54 etkinin '",
+   "{s:'Of the 54 actives, '"
+  ],
+  [
+   "dot(PAL.bad)+'tuzak'+",
+   "dot(PAL.bad)+'decoy'+"
   ]
  ],
  "keep": [

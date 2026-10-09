@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "f49c1dcf8018fff6b80318d0c69e6799fdc616b69eddaaf1874a15058ac45a2e",
  "reviewed": false,
- "translator": "Claude (AI), MD-FES 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-FES 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Standart MD'nin ötesine karar vermek</title>",
@@ -103,7 +104,7 @@
   ],
   [
    "<div class=\"prose\"><p>Altı soru, altı yöntem ailesi. Her soru için önce kendi seçiminizi yapın; sonra yöntemin dayandığı varsayım, sınırı ve bu sitedeki karşılığı görünür. Bir soruya birden çok yöntem uyabilir; burada sorunun en doğrudan cevabını veren aranır.</p></div>",
-   "<div class=\"prose\"><p>Six questions, six families of methods. For each question make your own choice first; then the assumption the method rests on, its limit and its counterpart on this site appear. More than one method can fit a question; here the one that answers it most directly is sought.</p></div>"
+   "<div class=\"prose\"><p>Six questions, six families of methods. For each question make your own choice first; then the assumption the method rests on, its limit and its counterpart on this site appear. More than one method can fit a question; here we look for the one that answers it most directly.</p></div>"
   ],
   [
    "<div class=\"selrow\"><span>Soru:</span><div class=\"seg\" role=\"group\" aria-label=\"Soru\" id=\"vmq\"></div></div>",
@@ -211,7 +212,7 @@
   ],
   [
    "<h2 id=\"vh5\">Sekiz cümle: bu veri bunları taşır mı?</h2>",
-   "<h2 id=\"vh5\">Eight sentences: does this data carry them?</h2>"
+   "<h2 id=\"vh5\">Eight sentences: does this data support them?</h2>"
   ],
   [
    "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>",
@@ -239,7 +240,7 @@
   ],
   [
    "<label>Standart MD neden yetmez<textarea id=\"voW\" rows=\"2\">Örnek: 16 ns bias'sız MD'de φ &gt; 0'a yalnız birkaç giriş; sekiz koşunun altısında hiç yok, tahmin birkaç olaya dayanır.</textarea></label>",
-   "<label>Why standard MD is not enough<textarea id=\"voW\" rows=\"2\">Example: in 16 ns of unbiased MD only a few entries into φ &gt; 0; none in six of the eight runs, the estimate rests on a few events.</textarea></label>"
+   "<label>Why standard MD is not enough<textarea id=\"voW\" rows=\"2\">Example: in 16 ns of unbiased MD only a few entries into φ &gt; 0; none in six of the eight runs; the estimate rests on a few events.</textarea></label>"
   ],
   [
    "<label>Seçilen yöntem ve kolektif değişken<textarea id=\"voM\" rows=\"2\">Örnek: AWH, tek boyut, φ dihedrali; ψ bias'lanmaz.</textarea></label>",
@@ -411,7 +412,7 @@
   ],
   [
    "if(BR.runs) h+=dl('Bu sekiz koşu (grafikte noktalar)',(8-un)+' koşuda tahmin var, '+un+' koşuda B hiç görülmedi (tanımsız, kırmızı sütun)');",
-   "if(BR.runs) h+=dl('These eight runs (dots in the chart)',(8-un)+' runs give an estimate, in '+un+' runs B was never seen (undefined, red column)');"
+   "if(BR.runs) h+=dl('These eight runs (dots in the chart)',(8-un)+' runs give an estimate; in '+un+' runs B was never seen (undefined, red column)');"
   ],
   [
    "if(M){ var md=M.e.length?quant(M.e.map(function(v){ return Math.abs(v-BR.dg); }),0.5):null; h+=dl('1000 koşu',pct(M.un/1000,1)+' tanımsız; tanımlı olanlarda gerçek değerden ortanca sapma '+(md==null?'yok':fx(md,2)+' kJ/mol')+'; koşu başına ortalama '+fx(M.nev/2,1)+' giriş'); }",
@@ -451,7 +452,7 @@
   ],
   [
    "{k:'cg',n:'Kaba taneli (Martini benzeri)',ic:'●',as:'Birkaç atom tek bir parçacıkla temsil edilir; enerji yüzeyi düzleşir, zaman adımı büyür ve çok daha büyük sistemler ve uzun süreler erişilir hâle gelir.',lim:'Atomik ayrıntı, hidrojen bağları ve ikincil yapı değişimi çoğu zaman kaybolur ya da dışarıdan sabitlenir; zaman ölçeği doğrudan saniyeye çevrilemez.',site:'Bu sitede koşulmadı; atölye 4\\'te gösterim'},",
-   "{k:'cg',n:'Coarse-grained (Martini-like)',ic:'●',as:'Several atoms are represented by one particle; the energy surface is smoothed, the time step grows, and much larger systems and longer times become reachable.',lim:'Atomic detail, hydrogen bonds and secondary-structure change are often lost or fixed from outside; the time scale cannot be converted directly to seconds.',site:'Not run on this site; shown in workshop 4'},"
+   "{k:'cg',n:'Coarse-grained (Martini-like)',ic:'●',as:'Several atoms are represented by one particle; the energy surface is smoothed, the time step grows, and much larger systems and longer times become reachable.',lim:'Atomic detail, hydrogen bonds and secondary-structure change are often lost or imposed externally; the time scale cannot be converted directly to seconds.',site:'Not run on this site; shown in workshop 4'},"
   ],
   [
    "{k:'ml',n:'Öğrenilmiş potansiyel (ML)',ic:'∿',as:'Kuantum hesaplarından öğrenilmiş bir enerji fonksiyonu, eğitildiği kimyasal bölgede kuantum doğruluğuna yakın sonuç verir.',lim:'Eğitim verisinin dışındaki yapılarda hata görünmez biçimde büyüyebilir; klasik kuvvet alanından çok daha yavaştır ve doğrulama kuantum hesabı ister.',site:'Bu sitede koşulmadı; atölye 4'}];",
@@ -471,7 +472,7 @@
   ],
   [
    "{q:'Yüzlerce peptit bir zar üzerinde mikrosaniyeler boyunca nasıl kümeleşiyor?',g:{cg:2,std:1,bias:0,alc:0,end:0,ml:0},w:'Büyüklük ve süre atomistik MD için çok pahalıdır; kaba taneli modeller bu ölçeğe ulaşır. Bedeli atomik ayrıntı ve ikincil yapının serbestçe değişememesidir; ilginç bir kümelenme bulunursa atomistik ayrıntıya geri dönülür.'},",
-   "{q:'How do hundreds of peptides cluster on a membrane over microseconds?',g:{cg:2,std:1,bias:0,alc:0,end:0,ml:0},w:'The size and length are very expensive for atomistic MD; coarse-grained models reach this scale. The cost is atomic detail and secondary structure that cannot change freely; if an interesting cluster is found, one goes back to atomistic detail.'},"
+   "{q:'How do hundreds of peptides cluster on a membrane over microseconds?',g:{cg:2,std:1,bias:0,alc:0,end:0,ml:0},w:'The size and length are very expensive for atomistic MD; coarse-grained models reach this scale. The cost is the loss of atomic detail and a secondary structure that cannot change freely; if an interesting cluster is found, one goes back to atomistic detail.'},"
   ],
   [
    "{q:'Bir enzimin etkin bölgesinde bir bağ kopuyor ve yenisi oluşuyor. Engel ne kadar yüksek?',g:{ml:2,bias:1,std:0,alc:0,end:0,cg:0},w:'Klasik kuvvet alanları bağ kopmasını tanımlamaz. Kuantum düzeyinde bir enerji gerekir: QM/MM (bu listede yok) ya da o tepkimeye eğitilmiş bir ML potansiyeli; engelin kendisi yine bir bias yöntemiyle örneklenir.'},",
@@ -599,7 +600,7 @@
   ],
   [
    "if(AW.seen.A1&&AW.seen.A2) card('vc4',true,'İki AWH koşusu farklı dengelenmiş yapılardan ve farklı tohumlarla başladı. 4 ns sonunda ΔG₊ A1\\'de '+fx(R.awh.A1.dG,2)+', A2\\'de '+fx(R.awh.A2.dG,2)+' kJ/mol (fark '+fx(A.dG_diff,2)+'; önceden yazılmış eşik 1); profillerde en büyük fark '+fx(A.max_absdiff,2)+' kJ/mol (eşik 2). Önceden yazılmış hüküm: \"'+A.verdict+'\". '+(A.verdict==='uyumlu'?'Bu uyum yalnız φ boyunca örneklemenin iki koşuda tutarlı olduğunu gösterir.':'Yani 4 ns, bu ölçütle yakınsama için yetmedi: ΔG₊ 1 ile 4 ns arasında A1\\'de '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A1.conv[t],1); }).join(', ')+', A2\\'de '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A2.conv[t],1); }).join(', ')+' kJ/mol gezindi. Bias seyrek bölgeyi görünür kıldı ama bir sayıyı kesinleştirmek için yine süre ve bağımsız tekrar gerekir; sonuç iki koşunun farkıyla birlikte raporlanır, parametreler değiştirilip yeniden koşulmaz.')+' Ayrıca bias yalnız φ\\'ye uygulandı: ψ, yan zincir ve su bias\\'lanmadı; onlar da yavaşsa iki koşu aynı yanlış cevaba da varabilirdi. Bias\\'sız MD\\'nin iyi örneklediği bölgede profiller uyumlu: '+R.compare.bins_used+' bölmede RMS '+fx(R.compare.rms,1)+' kJ/mol.');",
-   "if(AW.seen.A1&&AW.seen.A2) card('vc4',true,'The two AWH runs started from different equilibrated structures with different seeds. After 4 ns, ΔG₊ is '+fx(R.awh.A1.dG,2)+' kJ/mol in A1 and '+fx(R.awh.A2.dG,2)+' in A2 (difference '+fx(A.dG_diff,2)+'; threshold written in advance 1); the largest profile difference is '+fx(A.max_absdiff,2)+' kJ/mol (threshold 2). Verdict written in advance: \"'+(A.verdict==='uyumlu'?'consistent':'inconsistent')+'\". '+(A.verdict==='uyumlu'?'This agreement shows only that sampling along φ is consistent between the two runs.':'So 4 ns was not enough for convergence by this criterion: between 1 and 4 ns, ΔG₊ wandered through '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A1.conv[t],1); }).join(', ')+' in A1 and '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A2.conv[t],1); }).join(', ')+' kJ/mol in A2. The bias made the rare region visible, but pinning down a number still needs time and independent replicas; the result is reported together with the difference between the two runs, and the parameters are not changed for a rerun.')+' Moreover, the bias was applied only to φ: ψ, the side chain and the water were not biased; if they were slow too, both runs could arrive at the same wrong answer. In the region unbiased MD samples well, the profiles agree: RMS '+fx(R.compare.rms,1)+' kJ/mol in '+R.compare.bins_used+' bins.');"
+   "if(AW.seen.A1&&AW.seen.A2) card('vc4',true,'The two AWH runs started from different equilibrated structures with different seeds. After 4 ns, ΔG₊ is '+fx(R.awh.A1.dG,2)+' kJ/mol in A1 and '+fx(R.awh.A2.dG,2)+' in A2 (difference '+fx(A.dG_diff,2)+'; threshold written in advance: 1); the largest profile difference is '+fx(A.max_absdiff,2)+' kJ/mol (threshold 2). Verdict written in advance: \"'+(A.verdict==='uyumlu'?'consistent':'inconsistent')+'\". '+(A.verdict==='uyumlu'?'This agreement shows only that sampling along φ is consistent between the two runs.':'So 4 ns was not enough for convergence by this criterion: between 1 and 4 ns, ΔG₊ wandered through '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A1.conv[t],1); }).join(', ')+' in A1 and '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A2.conv[t],1); }).join(', ')+' kJ/mol in A2. The bias made the rare region visible, but pinning down a number still needs time and independent replicas; the result is reported together with the difference between the two runs, and the parameters are not changed for a rerun.')+' Moreover, the bias was applied only to φ: ψ, the side chain and the water were not biased; if they were slow too, both runs could arrive at the same wrong answer. In the region unbiased MD samples well, the profiles agree: RMS '+fx(R.compare.rms,1)+' kJ/mol in '+R.compare.bins_used+' bins.');"
   ],
   [
    "else card('vc4',false,'İki AWH koşusunun da animasyonuna bakın (koşu seçiciden A2\\'yi seçin).'); }",
@@ -631,7 +632,7 @@
   ],
   [
    "{k:'cg',n:'Kaba taneli (Martini benzeri)',gain:'Yaklaşık dört ağır atom bir parçacık olur; su da gruplanır. Parçacık sayısı kabaca beş ile on kat düşer, zaman adımı büyür; zarlar ve büyük kompleksler mikrosaniyelere erişilir.',loss:'φ ve ψ açıları tanımlı değildir: alanin dipeptidinin αR, β ve αL durumları bu modelde ayırt edilemez. Proteinlerde ikincil yapı çoğu zaman dışarıdan sabitlenir.',as:'Kaybedilen ayrıntı sorulan soru için önemsizdir; parametreler hedeflenen özelliklere (örneğin bölümlenme serbest enerjisi) uydurulmuştur.',rel:'Bu modülün sorusu (φ > 0 serbest enerjisi) bu modelde sorulamaz. Bu senaryo hesaplanmadı.'},",
-   "{k:'cg',n:'Coarse-grained (Martini-like)',gain:'About four heavy atoms become one particle; water is grouped too. The particle count drops roughly five- to tenfold and the time step grows; membranes and large complexes reach microseconds.',loss:'The φ and ψ angles are not defined: the αR, β and αL states of alanine dipeptide cannot be told apart in this model. In proteins, secondary structure is often fixed from outside.',as:'The lost detail does not matter for the question asked; the parameters are fitted to target properties (for example partitioning free energies).',rel:'This module\\'s question (the free energy of φ > 0) cannot be asked in this model. This scenario was not computed.'},"
+   "{k:'cg',n:'Coarse-grained (Martini-like)',gain:'About four heavy atoms become one particle; water is grouped too. The particle count drops roughly five- to tenfold and the time step grows; microseconds become reachable for membranes and large complexes.',loss:'The φ and ψ angles are not defined: the αR, β and αL states of alanine dipeptide cannot be told apart in this model. In proteins, secondary structure is often imposed externally.',as:'The lost detail does not matter for the question asked; the parameters are fitted to target properties (for example partitioning free energies).',rel:'This module\\'s question (the free energy of φ > 0) cannot be asked in this model. This scenario was not computed.'},"
   ],
   [
    "{k:'imp',n:'Örtük çözücü',gain:'Su molekülleri kaldırılır, çözücünün ortalama etkisi bir süreklilik modeliyle verilir; atom sayısı 22\\'ye iner ve konformasyon değişimi hızlanır.',loss:'Suyun yapısı ve tek tek hidrojen bağları yoktur; konformasyon dengesi açık sudan belirgin biçimde sapabilir.',as:'Çözücünün etkisi ortalama bir alanla temsil edilebilir.',rel:'Bu sayfada koşulmadı; αL\\'nin serbest enerjisi örtük çözücüde başka çıkabilir. Bu senaryo hesaplanmadı.'},",
@@ -687,7 +688,7 @@
   ],
   [
    "{s:'\"AWH profili bias\\'sız MD\\'nin iyi örneklediği bölgede onunla uyuştuğuna göre her yerde doğrudur.\"', a:2, w:'Uyum (en az 50 karelik '+R.compare.bins_used+' bölmede RMS '+fx(R.compare.rms,1)+' kJ/mol) yalnız iyi örneklenen φ < 0 tarafı içindir; φ > 0 tarafında bias\\'sız bir karşılaştırma yok ve iki AWH koşusu önceden yazılmış ölçütle '+A.verdict+'. Ayrıca bias\\'lanmayan yavaş bir derece (ψ, su) ya da kuvvet alanının kendisi bütün koşuları aynı biçimde yanıltabilir; \"doğru\" demek için bağımsız bir kanıt gerekir.'},",
-   "{s:'\"Because the AWH profile agrees with unbiased MD in the region unbiased MD samples well, it is correct everywhere.\"', a:2, w:'The agreement (RMS '+fx(R.compare.rms,1)+' kJ/mol in '+R.compare.bins_used+' bins with at least 50 frames) holds only for the well-sampled φ < 0 side; on the φ > 0 side there is no unbiased comparison, and the two AWH runs are '+(A.verdict==='uyumlu'?'consistent':'inconsistent')+' by the criterion written in advance. Besides, a slow degree that is not biased (ψ, water) or the force field itself can mislead all runs in the same way; to say \"correct\" needs independent evidence.'},"
+   "{s:'\"Because the AWH profile agrees with unbiased MD in the region unbiased MD samples well, it is correct everywhere.\"', a:2, w:'The agreement (RMS '+fx(R.compare.rms,1)+' kJ/mol in '+R.compare.bins_used+' bins with at least 50 frames) holds only for the well-sampled φ < 0 side; on the φ > 0 side there is no unbiased comparison, and the two AWH runs are '+(A.verdict==='uyumlu'?'consistent':'inconsistent')+' by the criterion written in advance. Besides, a slow degree that is not biased (ψ, water) or the force field itself can mislead all runs in the same way; saying \"correct\" requires independent evidence.'},"
   ],
   [
    "{s:'\"Engel yüksekliği φ = 0 dolayında yaklaşık '+fx((R.awh.A1.barrier0+R.awh.A2.barrier0)/2,0)+' kJ/mol; bu yüzden geçiş yavaştır.\"', a:1, w:'Profil engeli verir (A1 '+fx(R.awh.A1.barrier0,1)+', A2 '+fx(R.awh.A2.barrier0,1)+' kJ/mol). Ama hız yalnız engelden çıkmaz: φ boyunca serbest enerji tek bir koordinatın projeksiyonudur, gerçek geçiş yolu ψ\\'yi de içerebilir ve hız için ayrıca dinamik bilgi gerekir. Bu sayfada hız hesaplanmadı (Bu senaryo hesaplanmadı).'},",
@@ -831,7 +832,7 @@
   ],
   [
    "o:[['İki değerin ortalamasını kesin sonuç olarak yazmak',0],['Sonucu iki koşunun değerleri ve hükümle birlikte raporlamak; gerekiyorsa daha uzun ya da daha çok koşuyu yeni bir planla yapmak',1],['Ölçütü geçene kadar parametreleri değiştirip yeniden koşmak',0]], w:'Önceden yazılmış bir ölçütün sonucu, hangi yönde çıkarsa çıksın sonuçtur. Parametreleri sonuca bakarak değiştirmek, ölçütü sonradan seçmek demektir. Bu deneyde hüküm \"'+R.agree.verdict+'\".'});",
-   "o:[['Write the mean of the two values as a definite result',0],['Report the result with both runs\\' values and the verdict; if needed, run longer or more runs under a new plan',1],['Change the parameters and rerun until the criterion is passed',0]], w:'The outcome of a criterion written in advance is a result, whichever way it goes. Changing parameters after seeing the result means choosing the criterion afterwards. In this experiment the verdict is \"'+VD+'\".'});"
+   "o:[['Write the mean of the two values as a definite result',0],['Report the result with both runs\\' values and the verdict; if needed, do longer or more runs under a new plan',1],['Change the parameters and rerun until the criterion is passed',0]], w:'The outcome of a criterion written in advance is a result, whichever way it goes. Changing parameters after seeing the result means choosing the criterion afterwards. In this experiment the verdict is \"'+VD+'\".'});"
   ],
   [
    "Q.push({s:'Zar üzerinde yüzlerce peptidin mikrosaniyeler boyunca kümelenmesi için hangi model uygundur, ne kaybedilir?',",
