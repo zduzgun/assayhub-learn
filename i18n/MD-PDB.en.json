@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "dc41016ebf933a4f255a0c4c0df2fefcf2d92625cb812848f5aa69e514c5cdc2",
  "reviewed": false,
- "translator": "Claude (AI), MD-PDB 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-PDB 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Yapı Dosyası</title>",
@@ -31,7 +32,7 @@
   ],
   [
    "<span class=\"step\">Deneysel köprü</span>",
-   "<span class=\"step\">Bridge to the bench</span>"
+   "<span class=\"step\">Experimental bridge</span>"
   ],
   [
    "<h2 id=\"o2h0\">Uzun pozlamayla çekilmiş bir fotoğraf</h2>",
@@ -71,7 +72,7 @@
   ],
   [
    "<p class=\"small\">1UBQ: Vijay-Kumar, Bugg ve Cook 1987 (J Mol Biol 194:531), X-ışını, 1,8 Å, R 0,176, çözücü payı %33, uzay grubu P2₁2₁2₁. Canlandırmada her atomun her yöndeki kayması, ortalaması sıfır ve standart sapması u = √(B / 8π²) olan normal dağılımdan çekilir; bu, izotropik B faktörünün tanımıdır. Canlandırma bir öğretim modelidir: gerçek moleküllerde atomlar birbirinden bağımsız titreşmez, komşular birlikte hareket eder. Atom yarıçapları okunabilirlik için küçültülmüştür.</p>",
-   "<p class=\"small\">1UBQ: Vijay-Kumar, Bugg and Cook 1987 (J Mol Biol 194:531), X-ray, 1.8 Å, R 0.176, solvent content 33%, space group P2₁2₁2₁. In the animation, each atom's shift along each direction is drawn from a normal distribution with mean zero and standard deviation u = √(B / 8π²); this is the definition of the isotropic B-factor. The animation is a teaching model: in real molecules atoms do not vibrate independently of one another; neighbours move together. Atom radii are reduced for legibility.</p>"
+   "<p class=\"small\">1UBQ: Vijay-Kumar, Bugg and Cook 1987 (J Mol Biol 194:531), X-ray, 1.8 Å, R 0.176, solvent content 33%, space group P2₁2₁2₁. In the animation, each atom's shift along each direction is drawn from a normal distribution with mean zero and standard deviation u = √(B / 8π²); this is the definition of the isotropic B-factor. The animation is a teaching model: in real molecules atoms do not vibrate independently of one another; neighbors move together. Atom radii are reduced for legibility.</p>"
   ],
   [
    "<span class=\"step\">1 · Atölye</span>",
@@ -83,11 +84,11 @@
   ],
   [
    "<div class=\"prose\"><p>Görünümdeki ubikitin 1UBQ'nun 602 ağır atomu ve 58 kristal suyudur; renk her atomun B değerini gösterir. Kaydırıcıyla bir kalıntı seçin: o kalıntının Cα satırı dosyada nasıl yazılıysa aşağıda öyle görünür. Satırın bir alanına dokunursanız ne anlama geldiği açılır. Proteini sürükleyerek döndürebilirsiniz.</p></div>",
-   "<div class=\"prose\"><p>The ubiquitin in the view is the 602 heavy atoms and 58 crystal waters of 1UBQ; the colour shows each atom's B value. Pick a residue with the slider: the Cα line of that residue appears below exactly as it is written in the file. Touch a field of the line and its meaning opens. You can rotate the protein by dragging.</p></div>"
+   "<div class=\"prose\"><p>The ubiquitin in the view is the 602 heavy atoms and 58 crystal waters of 1UBQ; the color shows each atom's B value. Pick a residue with the slider: the Cα line of that residue appears below exactly as it is written in the file. Touch a field of the line and its meaning opens. You can rotate the protein by dragging.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"o2ubq\" class=\"stage\" aria-label=\"Ubikitin ve kristal suları; renk B faktörünü ya da doluluğu gösterir; seçili kalıntı vurgulanır; sürükleyerek döndürülebilir\"></canvas></div>",
-   "<div class=\"stagebox\"><canvas id=\"o2ubq\" class=\"stage\" aria-label=\"Ubiquitin and crystal waters; colour shows the B-factor or the occupancy; the selected residue is highlighted; rotate by dragging\"></canvas></div>"
+   "<div class=\"stagebox\"><canvas id=\"o2ubq\" class=\"stage\" aria-label=\"Ubiquitin and crystal waters; color shows the B-factor or the occupancy; the selected residue is highlighted; rotate by dragging\"></canvas></div>"
   ],
   [
    "<div><label class=\"lbl\" for=\"o2res\">Kalıntı</label><div class=\"big\" id=\"o2resV\"></div><input type=\"range\" id=\"o2res\" min=\"1\" max=\"76\" step=\"1\" value=\"43\"></div>",
@@ -95,7 +96,7 @@
   ],
   [
    "<div><div class=\"lbl\">Renk</div><div class=\"seg\" role=\"group\" aria-label=\"Renk ölçeği\" id=\"o2col\"><button type=\"button\" data-c=\"b\" aria-pressed=\"true\">B faktörü</button><button type=\"button\" data-c=\"o\" aria-pressed=\"false\">Doluluk</button></div></div>",
-   "<div><div class=\"lbl\">Colour</div><div class=\"seg\" role=\"group\" aria-label=\"Colour scale\" id=\"o2col\"><button type=\"button\" data-c=\"b\" aria-pressed=\"true\">B-factor</button><button type=\"button\" data-c=\"o\" aria-pressed=\"false\">Occupancy</button></div></div>"
+   "<div><div class=\"lbl\">Color</div><div class=\"seg\" role=\"group\" aria-label=\"Color scale\" id=\"o2col\"><button type=\"button\" data-c=\"b\" aria-pressed=\"true\">B-factor</button><button type=\"button\" data-c=\"o\" aria-pressed=\"false\">Occupancy</button></div></div>"
   ],
   [
    "<dt>Cα'nın B değeri</dt><dd id=\"o2rB\"></dd>",
@@ -115,7 +116,7 @@
   ],
   [
    "<dt>Kristalde komşu moleküle değiyor mu? (4 Å)</dt><dd id=\"o2rC\"></dd>",
-   "<dt>Does it touch a neighbouring molecule in the crystal? (4 Å)</dt><dd id=\"o2rC\"></dd>"
+   "<dt>Does it touch a neighboring molecule in the crystal? (4 Å)</dt><dd id=\"o2rC\"></dd>"
   ],
   [
    "<canvas id=\"o2cloud\" class=\"plot\" aria-label=\"Seçili Cα'nın yayılma bulutu, gerçek ölçekte; 1,53 Å'lük C-C bağıyla karşılaştırma\"></canvas>",
@@ -127,15 +128,15 @@
   ],
   [
    "<canvas id=\"o2bplot\" class=\"plot\" aria-label=\"Kalıntı başına Cα B değeri; kristal komşusuna değen kalıntılar işaretli; seçili kalıntı vurgulu\"></canvas>",
-   "<canvas id=\"o2bplot\" class=\"plot\" aria-label=\"Cα B value per residue; residues touching a crystal neighbour are marked; the selected residue is highlighted\"></canvas>"
+   "<canvas id=\"o2bplot\" class=\"plot\" aria-label=\"Cα B value per residue; residues touching a crystal neighbor are marked; the selected residue is highlighted\"></canvas>"
   ],
   [
    "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Cα'nın B değeri</span><span><i style=\"background:var(--gold)\"></i>Kristalde komşu moleküle değen kalıntı (4 Å içinde)</span><span><i style=\"background:var(--accent)\"></i>Doluluğu 1'den küçük kalıntı</span></div>",
-   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>B value of the Cα</span><span><i style=\"background:var(--gold)\"></i>Residue touching a neighbouring molecule in the crystal (within 4 Å)</span><span><i style=\"background:var(--accent)\"></i>Residue with occupancy below 1</span></div>"
+   "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>B value of the Cα</span><span><i style=\"background:var(--gold)\"></i>Residue touching a neighboring molecule in the crystal (within 4 Å)</span><span><i style=\"background:var(--accent)\"></i>Residue with occupancy below 1</span></div>"
   ],
   [
    "<article class=\"q\" id=\"o2c1\"><span class=\"k\">Açık</span><h3>En sabit ve en hareketli kalıntı ne kadar farklı?</h3><p>B değeri çok düşük bir kalıntıyla çok yüksek bir kalıntıyı karşılaştırın.</p><div class=\"mine\" id=\"mo2c1\">Cα B değeri 5 Å²'den düşük bir kalıntı ve 30 Å²'den yüksek bir kalıntı seçin.</div></article>",
-   "<article class=\"q\" id=\"o2c1\"><span class=\"k\">Open</span><h3>How different are the most rigid and the most mobile residue?</h3><p>Compare a residue with a very low B value and one with a very high B value.</p><div class=\"mine\" id=\"mo2c1\">Pick a residue whose Cα B value is below 5 Å² and one whose Cα B value is above 30 Å².</div></article>"
+   "<article class=\"q\" id=\"o2c1\"><span class=\"k\">Open</span><h3>How different are the most rigid and the most mobile residues?</h3><p>Compare a residue with a very low B value and one with a very high B value.</p><div class=\"mine\" id=\"mo2c1\">Pick a residue whose Cα B value is below 5 Å² and one whose Cα B value is above 30 Å².</div></article>"
   ],
   [
    "<span class=\"step\">2 · Tezgâh</span>",
@@ -227,7 +228,7 @@
   ],
   [
    "<p class=\"small\">Model: her atom, elektron sayısı (C 6, N 7, O 8) çarpı doluluk kadar yük taşıyan üç boyutlu bir Gauss bulutudur; bulutun her yöndeki varyansı σ² = σ₀² + B / 8π². σ₀ = 0,45 Å, 1,8 Å çözünürlüğün kendi bulanıklığını temsil eden bir model değişkenidir. Görünen harita, bu bulutların toplamı olan üç boyutlu yoğunluğun, kalıntılara en iyi uyan düzleme dik yönde alınmış en büyük değeridir; bir atomun görünüp görünmediğine ise yoğunluğun o atomun merkezindeki değerine bakılır. Harita yalnız 70-76 kalıntılarını içerir. Bu sayfadaki yoğunluk 1UBQ'nun ölçülmüş haritası değildir; atom koordinatlarından, doluluk ve B değerlerinden tarayıcıda hesaplanan bir öğretim modelidir. Kontur düzeyi, tam dolu ve B değeri 13,41 Å² (1UBQ protein atomlarının ortalaması) olan tek bir karbonun tepe yüksekliğine göre verilir.</p>",
-   "<p class=\"small\">Model: each atom is a three-dimensional Gaussian cloud carrying its electron count (C 6, N 7, O 8) times its occupancy; the cloud's variance along each direction is σ² = σ₀² + B / 8π². σ₀ = 0.45 Å is a model parameter standing for the blur of the 1.8 Å resolution itself. The map shown is the largest value, taken along the direction perpendicular to the plane that best fits the residues, of the three-dimensional density formed by these clouds; whether an atom is visible is decided by the density at that atom's centre. The map contains only residues 70-76. The density on this page is not the measured map of 1UBQ; it is a teaching model computed in the browser from the atomic coordinates, occupancies and B values. The contour level is given relative to the peak height of a single fully occupied carbon with a B value of 13.41 Å² (the mean over 1UBQ protein atoms).</p>"
+   "<p class=\"small\">Model: each atom is a three-dimensional Gaussian cloud carrying its electron count (C 6, N 7, O 8) times its occupancy; the cloud's variance along each direction is σ² = σ₀² + B / 8π². σ₀ = 0.45 Å is a model parameter standing for the blur of the 1.8 Å resolution itself. The map shown is the largest value, taken along the direction perpendicular to the plane that best fits the residues, of the three-dimensional density formed by these clouds; whether an atom is visible is decided by the density at that atom's center. The map contains only residues 70-76. The density on this page is not the measured map of 1UBQ; it is a teaching model computed in the browser from the atomic coordinates, occupancies and B values. The contour level is given relative to the peak height of a single fully occupied carbon with a B value of 13.41 Å² (the mean over 1UBQ protein atoms).</p>"
   ],
   [
    "<article class=\"q\" id=\"o2c2\"><span class=\"k\">Açık</span><h3>Tam dolu bir atom da kaybolabilir mi?</h3><p>Doluluğu 1'e yakın tutun ve yalnız B değerini değiştirin.</p><div class=\"mine\" id=\"mo2c2\">Doluluğu en az 0,90 olan bir kalıntının yan zincirindeki bütün atomları, kontur 0,40'ı aşmadan, konturun altına indirin.</div></article>",
@@ -243,15 +244,15 @@
   ],
   [
    "<h2 id=\"o2h3\">58 suyun kararı</h2>",
-   "<h2 id=\"o2h3\">Deciding on 58 waters</h2>"
+   "<h2 id=\"o2h3\">Deciding on the 58 waters</h2>"
   ],
   [
    "<div class=\"prose\"><p>1UBQ'da 58 kristal suyu var. Bu projede sular girdiden çıkarıldı ve protein yeni bir su kutusuna yerleştirildi. Bazı çalışmalar ise proteine sıkı bağlı suları tutar. Hangi su \"proteinin suyu\", hangisi kristalin? Her nokta bir su: yatay eksende B, dikey eksende 3,5 Å içindeki polar protein komşusu (N ya da O) sayısı; nokta boyu doluluk. Halkalı noktalar kristalde komşu bir ubikitin molekülüne de değiyor. Kendi ölçütünüzü kurun ve kaç suyun kaldığını görün.</p></div>",
-   "<div class=\"prose\"><p>1UBQ contains 58 crystal waters. In this project the waters were removed from the input and the protein was placed into a new water box. Some studies, however, keep waters bound tightly to the protein. Which water is \"the protein's water\" and which belongs to the crystal? Each point is a water: B on the horizontal axis, the number of polar protein neighbours (N or O) within 3.5 Å on the vertical axis; the point size is the occupancy. Ringed points also touch a neighbouring ubiquitin molecule in the crystal. Build your own criterion and see how many waters remain.</p></div>"
+   "<div class=\"prose\"><p>1UBQ contains 58 crystal waters. In this project the waters were removed from the input and the protein was placed into a new water box. Some studies, however, keep waters bound tightly to the protein. Which water is \"the protein's water\" and which belongs to the crystal? Each point is a water: B on the horizontal axis, the number of polar protein neighbors (N or O) within 3.5 Å on the vertical axis; the point size is the occupancy. Ringed points also touch a neighboring ubiquitin molecule in the crystal. Build your own criterion and see how many waters remain.</p></div>"
   ],
   [
    "<canvas id=\"o2ws\" class=\"plot\" aria-label=\"58 kristal suyu: B faktörüne karşı polar protein komşusu sayısı; nokta boyu doluluk; halka kristal komşusu; tutulan sular koyu\"></canvas>",
-   "<canvas id=\"o2ws\" class=\"plot\" aria-label=\"58 crystal waters: B-factor against the number of polar protein neighbours; point size occupancy; ring crystal neighbour; kept waters dark\"></canvas>"
+   "<canvas id=\"o2ws\" class=\"plot\" aria-label=\"58 crystal waters: B-factor against the number of polar protein neighbors; point size occupancy; ring crystal neighbor; kept waters dark\"></canvas>"
   ],
   [
    "<div><label class=\"lbl\" for=\"o2wb\">En yüksek B (Å²)</label><div class=\"big\" id=\"o2wbV\"></div><input type=\"range\" id=\"o2wb\" min=\"5\" max=\"50\" step=\"0.5\" value=\"50\"></div>",
@@ -259,7 +260,7 @@
   ],
   [
    "<div><label class=\"lbl\" for=\"o2wp\">En az polar protein komşusu</label><div class=\"big\" id=\"o2wpV\"></div><input type=\"range\" id=\"o2wp\" min=\"0\" max=\"4\" step=\"1\" value=\"0\"></div>",
-   "<div><label class=\"lbl\" for=\"o2wp\">Fewest polar protein neighbours</label><div class=\"big\" id=\"o2wpV\"></div><input type=\"range\" id=\"o2wp\" min=\"0\" max=\"4\" step=\"1\" value=\"0\"></div>"
+   "<div><label class=\"lbl\" for=\"o2wp\">Fewest polar protein neighbors</label><div class=\"big\" id=\"o2wpV\"></div><input type=\"range\" id=\"o2wp\" min=\"0\" max=\"4\" step=\"1\" value=\"0\"></div>"
   ],
   [
    "<div><label class=\"lbl\" for=\"o2wo\">En az doluluk</label><div class=\"big\" id=\"o2woV\"></div><input type=\"range\" id=\"o2wo\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0\"></div>",
@@ -267,7 +268,7 @@
   ],
   [
    "<label class=\"chk\"><input type=\"checkbox\" id=\"o2wsym\"> Kristalde komşu moleküle değen suları çıkar</label>",
-   "<label class=\"chk\"><input type=\"checkbox\" id=\"o2wsym\"> Remove waters that touch a neighbouring molecule in the crystal</label>"
+   "<label class=\"chk\"><input type=\"checkbox\" id=\"o2wsym\"> Remove waters that touch a neighboring molecule in the crystal</label>"
   ],
   [
    "<dt>Tutulan su</dt><dd id=\"o2wn\"></dd>",
@@ -279,7 +280,7 @@
   ],
   [
    "<dt>Tutulanlardan komşu moleküle de değen</dt><dd id=\"o2wsy\"></dd>",
-   "<dt>Kept waters that also touch a neighbouring molecule</dt><dd id=\"o2wsy\"></dd>"
+   "<dt>Kept waters that also touch a neighboring molecule</dt><dd id=\"o2wsy\"></dd>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"o2wat\" class=\"stage\" aria-label=\"Ubikitinin omurgası ve tutulan kristal suları; sürükleyerek döndürülebilir\"></canvas></div>",
@@ -295,11 +296,11 @@
   ],
   [
    "<p class=\"small\">Komşu sayıları bu sayfa için 1UBQ koordinatlarından hesaplandı: polar protein komşusu, suyun oksijenine 3,5 Å'den yakın N ya da O atomudur. Kristal komşuları, uzay grubunun (P2₁2₁2₁) simetri işlemleri ve birim hücre kaydırmalarıyla üretilen ubikitin kopyalarıdır; bir su bu kopyalardan birinin N ya da O atomuna 3,5 Å'den yakınsa \"komşu moleküle değiyor\" sayılır. 58 suyun 25'i komşu bir moleküle, bunların 16'sı aynı anda proteinin kendisine de değiyor. 9 su ne proteine ne komşu moleküle 3,5 Å içinde polar temas kuruyor; bunlar büyük olasılıkla başka suların oluşturduğu ağda duruyor. Ölçütün doğrusu yoktur: amaç, hangi seçimin hangi soruya uyduğunu görmektir.</p>",
-   "<p class=\"small\">Neighbour counts were computed for this page from the 1UBQ coordinates: a polar protein neighbour is an N or O atom closer than 3.5 Å to the water oxygen. Crystal neighbours are copies of ubiquitin generated with the symmetry operations of the space group (P2₁2₁2₁) and unit-cell translations; a water closer than 3.5 Å to an N or O atom of one of these copies counts as \"touching a neighbouring molecule\". Of the 58 waters, 25 touch a neighbouring molecule, and 16 of those touch the protein itself as well. 9 waters make no polar contact within 3.5 Å with either the protein or a neighbouring molecule; they most likely sit in a network formed by other waters. There is no correct criterion: the point is to see which choice fits which question.</p>"
+   "<p class=\"small\">Neighbor counts were computed for this page from the 1UBQ coordinates: a polar protein neighbor is an N or O atom closer than 3.5 Å to the water oxygen. Crystal neighbors are copies of ubiquitin generated with the symmetry operations of the space group (P2₁2₁2₁) and unit-cell translations; a water closer than 3.5 Å to an N or O atom of one of these copies counts as \"touching a neighboring molecule\". Of the 58 waters, 25 touch a neighboring molecule, and 16 of those touch the protein itself as well. 9 waters make no polar contact within 3.5 Å with either the protein or a neighboring molecule; they most likely sit in a network formed by other waters. There is no correct criterion: the point is to see which choice fits which question.</p>"
   ],
   [
    "<article class=\"q\" id=\"o2c4\"><span class=\"k\">Açık</span><h3>Proteine ait olan sular hangileri?</h3><p>Kristal komşusuna değen suları çıkarın ve proteine en az iki polar temas isteyin.</p><div class=\"mine\" id=\"mo2c4\">Komşu moleküle değenleri çıkarıp en az 2 polar protein komşusu isteyen bir ölçüt kurun.</div></article>",
-   "<article class=\"q\" id=\"o2c4\"><span class=\"k\">Open</span><h3>Which waters belong to the protein?</h3><p>Remove the waters that touch a crystal neighbour and ask for at least two polar contacts with the protein.</p><div class=\"mine\" id=\"mo2c4\">Build a criterion that removes waters touching a neighbouring molecule and asks for at least 2 polar protein neighbours.</div></article>"
+   "<article class=\"q\" id=\"o2c4\"><span class=\"k\">Open</span><h3>Which waters belong to the protein?</h3><p>Remove the waters that touch a crystal neighbor and ask for at least two polar contacts with the protein.</p><div class=\"mine\" id=\"mo2c4\">Build a criterion that removes waters touching a neighboring molecule and asks for at least 2 polar protein neighbors.</div></article>"
   ],
   [
    "<span class=\"step\">4 · Proteine dönüş</span>",
@@ -367,11 +368,11 @@
   ],
   [
    "<div class=\"prose\"><p><b>Ne görülüyor?</b> İki eğri aynı yerlerde yükseliyor: C ucu (72-76) ve 8-10 dönemeci ikisinde de en hareketli bölgeler; 76 kalıntının tamamında r 0,87. Kuyruğu çıkarınca uyum azalıyor (1-72'de r 0,59), çünkü ilk sayıyı büyük ölçüde kuyruk belirliyor. Çekirdekte MD daha düşük: 1-72 kalıntılarının ortanca B değeri kristalde 8,8, MD'de 5,8 Å². Kristal B, ısıl titreşimin yanında moleküller arasındaki küçük konum farklarını ve kristal kusurlarını da içerir; MD'de bunlar yoktur. Kuyrukta ise tersine MD çok daha yüksek (Gly75: kristal 36,1, MD 87,6 Å²). Çözeltide komşu molekül yoktur ve kuyruk serbesttir; kristalde ise Arg72 ve Arg74 komşu bir moleküle değer ve kuyruğun düzensizliğinin bir kısmı B'ye değil düşük doluluğa yazılmıştır. Bunlar olası açıklamalardır; bu karşılaştırma hangisinin ne kadar etkili olduğunu ayırmaz.</p></div>",
-   "<div class=\"prose\"><p><b>What do we see?</b> The two curves rise in the same places: the C-terminus (72-76) and the 8-10 turn are the most mobile regions in both; over all 76 residues r is 0.87. Without the tail the agreement drops (r 0.59 over 1-72), because the first number is set largely by the tail. In the core MD is lower: the median B of residues 1-72 is 8.8 Å² in the crystal and 5.8 Å² in MD. The crystal B contains, besides thermal vibration, small position differences between molecules and crystal defects; MD has none of these. At the tail, by contrast, MD is much higher (Gly75: crystal 36.1, MD 87.6 Å²). In solution there is no neighbouring molecule and the tail is free; in the crystal Arg72 and Arg74 touch a neighbouring molecule, and part of the tail's disorder was written into a low occupancy rather than into B. These are possible explanations; this comparison does not separate how much each one contributes.</p></div>"
+   "<div class=\"prose\"><p><b>What do we see?</b> The two curves rise in the same places: the C-terminus (72-76) and the 8-10 turn are the most mobile regions in both; over all 76 residues r is 0.87. Without the tail the agreement drops (r 0.59 over 1-72), because the first number is set largely by the tail. In the core MD is lower: the median B of residues 1-72 is 8.8 Å² in the crystal and 5.8 Å² in MD. The crystal B contains, besides thermal vibration, small position differences between molecules and crystal defects; MD has none of these. At the tail, by contrast, MD is much higher (Gly75: crystal 36.1, MD 87.6 Å²). In solution there is no neighboring molecule and the tail is free; in the crystal Arg72 and Arg74 touch a neighboring molecule, and part of the tail's disorder was written into a low occupancy rather than into B. These are possible explanations; this comparison does not separate how much each one contributes.</p></div>"
   ],
   [
    "<p class=\"small\" id=\"o2mdN\">Sınırlar: 2 ns kısa bir koşudur ve keşifsel olarak etiketlidir; yakınsama kanıtı değildir. Koşunun iki yarısı (200-1100 ve 1100-2000 ps) arasında r 0,86, ama kuyrukta fark büyük (Arg74'te iki yarı arasında 52 Å²): kuyruğun hareketi bu sürede yeterince örneklenmedi. Kristalin ölçüm sıcaklığı dosyada yazılı değil; koşu 300 K'dedir. Hesap: <code>gmx trjconv -pbc mol -center</code>, omurgaya <code>-fit rot+trans</code>, <code>gmx rmsf</code> (Cα, 200-2000 ps). Koşu bulutta, GROMACS 2023.3, 2 iş parçacığıyla 3 sa 42 dk sürdü (12,98 ns/gün).</p>",
-   "<p class=\"small\" id=\"o2mdN\">Limits: 2 ns is a short run and is labelled exploratory; it is not evidence of convergence. Between the two halves of the run (200-1100 and 1100-2000 ps) r is 0.86, but the difference is large at the tail (52 Å² between the two halves at Arg74): the motion of the tail was not sampled well enough in this time. The crystal's measurement temperature is not given in the file; the run is at 300 K. Computation: <code>gmx trjconv -pbc mol -center</code>, <code>-fit rot+trans</code> on the backbone, <code>gmx rmsf</code> (Cα, 200-2000 ps). The run took 3 h 42 min in the cloud, GROMACS 2023.3, with 2 threads (12.98 ns/day).</p>"
+   "<p class=\"small\" id=\"o2mdN\">Limits: 2 ns is a short run and is labeled exploratory; it is not evidence of convergence. Between the two halves of the run (200-1100 and 1100-2000 ps) r is 0.86, but the difference is large at the tail (52 Å² between the two halves at Arg74): the motion of the tail was not sampled well enough in this time. The crystal's measurement temperature is not given in the file; the run is at 300 K. Computation: <code>gmx trjconv -pbc mol -center</code>, <code>-fit rot+trans</code> on the backbone, <code>gmx rmsf</code> (Cα, 200-2000 ps). The run took 3 h 42 min in the cloud, GROMACS 2023.3, with 2 threads (12.98 ns/day).</p>"
   ],
   [
    "<span class=\"step\">5 · Kendinizi sınayın</span>",
@@ -387,7 +388,7 @@
   ],
   [
    "<p class=\"small\">Model: uzun pozlama canlandırması ve yoğunluk haritası tarayıcıda hesaplanan öğretim modelleridir. Koordinatlar, doluluk ve B değerleri <code>1UBQ.pdb</code> dosyasından (RCSB, 1,8 Å, CC0); su komşuları ve kristal komşuları bu dosyadan hesaplandı; pdb2gmx çıktıları ve MD koşusu bu projede gerçekten koşuldu.</p>",
-   "<p class=\"small\">Model: the long-exposure animation and the density map are teaching models computed in the browser. Coordinates, occupancies and B values come from the <code>1UBQ.pdb</code> file (RCSB, 1.8 Å, CC0); water neighbours and crystal neighbours were computed from this file; the pdb2gmx outputs and the MD run were actually run in this project.</p>"
+   "<p class=\"small\">Model: the long-exposure animation and the density map are teaching models computed in the browser. Coordinates, occupancies and B values come from the <code>1UBQ.pdb</code> file (RCSB, 1.8 Å, CC0); water neighbors and crystal neighbors were computed from this file; the pdb2gmx outputs and the MD run come from runs actually performed in this project.</p>"
   ],
   [
    "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
@@ -447,11 +448,11 @@
   ],
   [
    "x:'<b>Koordinat x</b>, ångström (Å). GROMACS nanometre kullanır (10 Å = 1 nm); pdb2gmx dönüşümü kendisi yapar.', y:'<b>Koordinat y</b>, ångström (Å).', z:'<b>Koordinat z</b>, ångström (Å).',",
-   "x:'<b>Coordinate x</b>, in angstroms (Å). GROMACS uses nanometres (10 Å = 1 nm); pdb2gmx does the conversion itself.', y:'<b>Coordinate y</b>, in angstroms (Å).', z:'<b>Coordinate z</b>, in angstroms (Å).',"
+   "x:'<b>Coordinate x</b>, in angstroms (Å). GROMACS uses nanometers (10 Å = 1 nm); pdb2gmx does the conversion itself.', y:'<b>Coordinate y</b>, in angstroms (Å).', z:'<b>Coordinate z</b>, in angstroms (Å).',"
   ],
   [
    "occ:'<b>Doluluk.</b> Bu atomun bu konumda bulunduğu molekül payı. 1,00: her molekülde burada. 1UBQ\\'da Leu73 ve Arg74 0,45, Gly75 ve Gly76 0,25; model bu atomların moleküllerin yalnız bir kısmında bu konumda olduğunu söyler. Geri kalan moleküllerde neredeler? Dosya bunu söylemez.',",
-   "occ:'<b>Occupancy.</b> The fraction of molecules in which this atom sits at this position. 1.00: here in every molecule. In 1UBQ, Leu73 and Arg74 have 0.45 and Gly75 and Gly76 0.25; the model says these atoms are at this position in only part of the molecules. Where are they in the rest? The file does not say.',"
+   "occ:'<b>Occupancy.</b> The fraction of molecules in which this atom sits at this position. 1.00: here in every molecule. In 1UBQ, Leu73 and Arg74 have 0.45 and Gly75 and Gly76 0.25; the model says these atoms are at this position in only some of the molecules. Where are they in the rest? The file does not say.',"
   ],
   [
    "b:'<b>B faktörü</b> (Å²). Konumun çevresindeki yayılmanın ölçüsü: her yöndeki ortalama kare kayma u² = B / 8π². İçinde ısıl titreşim, moleküller arasındaki küçük konum farkları ve kristal kusurları birlikte vardır; hangisinin payının ne kadar olduğu bu tek sayıdan ayrılamaz.',",
@@ -499,7 +500,7 @@
   ],
   [
    "4:function(){ var a=peakOf(6,1,3.51), b=peakOf(6,0.25,36.19); return 'Kristalograf haritayı bir kontur düzeyinde çizer; yoğunluğu bu düzeyi aşan yer görünür. Düzey '+fx(T2.level,2)+' iken Leu43 Cα ('+fx(a,2)+') açıkça görünür, Gly76 Cα ('+fx(b,2)+') '+(b>=T2.level?'sınırda görünür.':'görünmez. Model kurulurken böyle bir atomun konumu komşularından tahmin edilir, doluluğu ya da B\\'si yükseltilir ya da atom hiç yazılmaz.'); }};",
-   "4:function(){ var a=peakOf(6,1,3.51), b=peakOf(6,0.25,36.19); return 'The crystallographer draws the map at a contour level; wherever the density exceeds this level is visible. At level '+fx(T2.level,2)+' Leu43 Cα ('+fx(a,2)+') is clearly visible and Gly76 Cα ('+fx(b,2)+') '+(b>=T2.level?'is just visible.':'is not. When the model is built, the position of such an atom is guessed from its neighbours, its occupancy or B is raised, or the atom is left out altogether.'); }};"
+   "4:function(){ var a=peakOf(6,1,3.51), b=peakOf(6,0.25,36.19); return 'The crystallographer draws the map at a contour level; wherever the density exceeds this level is visible. At level '+fx(T2.level,2)+' Leu43 Cα ('+fx(a,2)+') is clearly visible and Gly76 Cα ('+fx(b,2)+') '+(b>=T2.level?'is just visible.':'is not. When the model is built, the position of such an atom is guessed from its neighbors, its occupancy or B is raised, or the atom is left out altogether.'); }};"
   ],
   [
    "function setStep(n){ T2.step=n; T2.anT=0; document.querySelectorAll('#o2steps button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-st')===n)); }); $('o2stepT').textContent=STEPT[n](); $('o2next').textContent=n===4?'Haritaya geç':'Sonraki adım'; profDraw(); kick(); }",
@@ -507,7 +508,7 @@
   ],
   [
    "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [-3,-2,-1,0,1,2,3].forEach(function(x){ g.fillText(fx(x,0),X(x),H-12); }); g.fillText('atom merkezinden uzaklık (Å)',X(0),H-1); g.textAlign='left';",
-   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [-3,-2,-1,0,1,2,3].forEach(function(x){ g.fillText(fx(x,0),X(x),H-12); }); g.fillText('distance from the atom centre (Å)',X(0),H-1); g.textAlign='left';"
+   "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [-3,-2,-1,0,1,2,3].forEach(function(x){ g.fillText(fx(x,0),X(x),H-12); }); g.fillText('distance from the atom center (Å)',X(0),H-1); g.textAlign='left';"
   ],
   [
    "if(st===1){ curve(1,13.41,mu,1.2,[4,4],'başvuru (B 13,41)'); curve(1,0,dk,2.6,null,'B = 0'); }",
@@ -531,7 +532,7 @@
   ],
   [
    "if(s.occ>=0.9&&sc.length&&nsv===0&&T3.level<=0.40){ card('o2c2',true,rName(r)+': doluluk '+fx(s.occ,2)+', ortalama B '+fx(s.bs*MB0[r],1)+' Å², kontur '+fx(T3.level,2)+'. Yan zincirin '+sc.length+' atomunun hepsi konturun altında; tam dolu bir kalıntı da yalnız B yeterince büyükse haritadan kaybolur.'+(nv?' Omurganın '+(idx.length-sc.length)+' atomundan '+nv+' tanesi komşu kalıntıların yoğunluğuyla hâlâ görünüyor.':' Omurga da kayboldu.')); }",
-   "if(s.occ>=0.9&&sc.length&&nsv===0&&T3.level<=0.40){ card('o2c2',true,rName(r)+': occupancy '+fx(s.occ,2)+', mean B '+fx(s.bs*MB0[r],1)+' Å², contour '+fx(T3.level,2)+'. All '+sc.length+' side-chain atoms are below the contour; a fully occupied residue also disappears from the map if B alone is large enough.'+(nv?' Of the '+(idx.length-sc.length)+' backbone atoms, '+nv+' are still visible thanks to the density of the neighbouring residues.':' The backbone has disappeared too.')); }"
+   "if(s.occ>=0.9&&sc.length&&nsv===0&&T3.level<=0.40){ card('o2c2',true,rName(r)+': occupancy '+fx(s.occ,2)+', mean B '+fx(s.bs*MB0[r],1)+' Å², contour '+fx(T3.level,2)+'. All '+sc.length+' side-chain atoms are below the contour; a fully occupied residue also disappears from the map if B alone is large enough.'+(nv?' Of the '+(idx.length-sc.length)+' backbone atoms, '+nv+' are still visible thanks to the density of the neighboring residues.':' The backbone has disappeared too.')); }"
   ],
   [
    "else if(!FOUND.o2c2) card('o2c2',false,(s.occ>=0.9&&sc.length)?rName(r)+': yan zincirde '+nsv+' / '+sc.length+' atom hâlâ görünüyor'+(T3.level>0.40?' (kontur 0,40\\'ı aşmamalı)':'')+'.':null); }",
@@ -539,7 +540,7 @@
   ],
   [
    "if(hit){ var lo=hit[0].occ<hit[1].occ?hit[0]:hit[1], hi=lo===hit[0]?hit[1]:hit[0]; card('o2c3',true,rName(lo.r)+': doluluk '+fx(lo.occ,2)+' ve B '+fx(lo.B,1)+' Å² → tepe '+fx(lo.pk,3)+'; doluluk '+fx(hi.occ,2)+' ve B '+fx(hi.B,1)+' Å² → tepe '+fx(hi.pk,3)+'. Tepe yüksekliği ikisinde aynı. Bulutun genişliği farklıdır, ama bu fark komşu atomlarla karışınca kolay ayrılmaz; bu yüzden iyileştirmede doluluk ile B birbirine bağlıdır.'); }",
-   "if(hit){ var lo=hit[0].occ<hit[1].occ?hit[0]:hit[1], hi=lo===hit[0]?hit[1]:hit[0]; card('o2c3',true,rName(lo.r)+': occupancy '+fx(lo.occ,2)+' and B '+fx(lo.B,1)+' Å² → peak '+fx(lo.pk,3)+'; occupancy '+fx(hi.occ,2)+' and B '+fx(hi.B,1)+' Å² → peak '+fx(hi.pk,3)+'. The peak height is the same in both. The width of the cloud differs, but once it mixes with neighbouring atoms the difference is hard to separate; that is why occupancy and B are coupled in refinement.'); }"
+   "if(hit){ var lo=hit[0].occ<hit[1].occ?hit[0]:hit[1], hi=lo===hit[0]?hit[1]:hit[0]; card('o2c3',true,rName(lo.r)+': occupancy '+fx(lo.occ,2)+' and B '+fx(lo.B,1)+' Å² → peak '+fx(lo.pk,3)+'; occupancy '+fx(hi.occ,2)+' and B '+fx(hi.B,1)+' Å² → peak '+fx(hi.pk,3)+'. The peak height is the same in both. The width of the cloud differs, but once it mixes with neighboring atoms the difference is hard to separate; that is why occupancy and B are coupled in refinement.'); }"
   ],
   [
    "else if(!FOUND.o2c3&&T3.trials.length) card('o2c3',false,T3.trials.length+' deneme kaydedildi. Aynı kalıntıda, dolulukları en az 0,3 farklı iki denemede tepeyi eşitleyin.'); }",
@@ -555,11 +556,11 @@
   ],
   [
    "if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Ölçütünüz: komşu moleküle değmeyen, en az '+T4.pmin+' polar protein komşusu olan'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', doluluk ≥ '+fx(T4.omin,2):'')+' sular: '+n+' / 58, ortalama B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'yok')+' Å². Bunlar proteinin kendi yüzeyine bağlı; çözeltide de benzer yerlerde bulunmaları beklenir, ama bu bir beklentidir, kanıt değil.'); }",
-   "if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Your criterion: waters that do not touch a neighbouring molecule and have at least '+T4.pmin+' polar protein neighbours'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', occupancy ≥ '+fx(T4.omin,2):'')+': '+n+' / 58, mean B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'none')+' Å². These are bound to the protein\\'s own surface; they would be expected in similar places in solution too, but that is an expectation, not evidence.'); }"
+   "if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Your criterion: waters that do not touch a neighboring molecule and have at least '+T4.pmin+' polar protein neighbors'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', occupancy ≥ '+fx(T4.omin,2):'')+': '+n+' / 58, mean B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'none')+' Å². These are bound to the protein\\'s own surface; they would be expected in similar places in solution too, but that is an expectation, not evidence.'); }"
   ],
   [
    "else if(!FOUND.o2c4) card('o2c4',false,T4.sym?'Komşu moleküle değenler çıkarıldı. Şimdi en az 2 polar protein komşusu isteyin.':(T4.pmin>=2?'En az '+T4.pmin+' polar komşu istendi. Şimdi komşu moleküle değenleri de çıkarın.':null)); }",
-   "else if(!FOUND.o2c4) card('o2c4',false,T4.sym?'Waters touching a neighbouring molecule were removed. Now ask for at least 2 polar protein neighbours.':(T4.pmin>=2?'At least '+T4.pmin+' polar neighbours requested. Now remove the waters touching a neighbouring molecule as well.':null)); }"
+   "else if(!FOUND.o2c4) card('o2c4',false,T4.sym?'Waters touching a neighboring molecule were removed. Now ask for at least 2 polar protein neighbors.':(T4.pmin>=2?'At least '+T4.pmin+' polar neighbors requested. Now remove the waters touching a neighboring molecule as well.':null)); }"
   ],
   [
    "g.font='12px '+css('--sans'); g.fillStyle=css('--muted'); g.textAlign='center'; [1,10,20,30,40,50,60,70,76].forEach(function(r){ g.fillText(String(r),X(r),H-12); }); g.fillText('kalıntı',X(38),H-1); g.textAlign='left';",
@@ -595,7 +596,7 @@
   ],
   [
    "{s:'Kristal sularını MD\\'ye taşımayı düşünüyorsunuz. Hangi sulara en çok şüpheyle bakmalısınız?',o:[['B\\'si en düşük sulara',0],['Kristalde komşu bir moleküle değen sulara: kristal örgüsünün ürünü olabilirler',1],['Proteine üç polar temas kuran sulara',0],['Doluluğu 1 olan sulara',0]],w:'1UBQ\\'da 58 suyun 25\\'i komşu bir ubikitin molekülüne değiyor. Çözeltide o komşu yoktur; bu suların aynı yerde kalması gerekmez.'}];",
-   "{s:'You are thinking of carrying crystal waters into MD. Which waters deserve the most suspicion?',o:[['The waters with the lowest B',0],['Waters that touch a neighbouring molecule in the crystal: they may be a product of the crystal lattice',1],['Waters that make three polar contacts with the protein',0],['Waters with occupancy 1',0]],w:'In 1UBQ, 25 of the 58 waters touch a neighbouring ubiquitin molecule. In solution that neighbour is absent; these waters need not stay in the same place.'}];"
+   "{s:'You are thinking of carrying crystal waters into MD. Which waters deserve the most suspicion?',o:[['The waters with the lowest B',0],['Waters that touch a neighboring molecule in the crystal: they may be a product of the crystal lattice',1],['Waters that make three polar contacts with the protein',0],['Waters with occupancy 1',0]],w:'In 1UBQ, 25 of the 58 waters touch a neighboring ubiquitin molecule. In solution that neighbor is absent; these waters need not stay in the same place.'}];"
   ],
   [
    "b.classList.add(okk?'right':'wrong'); var w=$('o2why'+i); w.hidden=false; w.innerHTML=(okk?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",

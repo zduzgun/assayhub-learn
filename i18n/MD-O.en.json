@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "f7d7c9dfb569aea3a1df2482b5afdc9d231fcaeab833e72149be55ac9234c055",
  "reviewed": false,
- "translator": "Claude (AI), MD-O 0.2.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-O 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Protonasyon ve Yük</title>",
@@ -31,7 +32,7 @@
   ],
   [
    "<span class=\"step\">Deneysel köprü</span>",
-   "<span class=\"step\">Bridge to the bench</span>"
+   "<span class=\"step\">Experimental bridge</span>"
   ],
   [
    "<h2 id=\"o1h0\">Tampondan tanıdığınız denklem</h2>",
@@ -63,7 +64,7 @@
   ],
   [
    "<p class=\"small\">pK<sub>a</sub> değerleri alanin pentapeptitlerinde, 0,1 M KCl ve 25 °C'de potansiyometrik titrasyonla ölçülmüştür (Thurlkill, Grimsley, Scholtz ve Pace 2006, Protein Sci 15:1214): α-karboksil ve Asp 3,67, Glu 4,25, His 6,54, α-amino 8,00, Tyr 9,84, Lys 10,40. Arginin için 13,8 (Fitch ve ark. 2015, Protein Sci 24:752). Bir proteinin içinde bu değerler komşu gruplara göre kayabilir; atölyede bunu göreceksiniz.</p>",
-   "<p class=\"small\">The pK<sub>a</sub> values were measured by potentiometric titration in alanine pentapeptides in 0.1 M KCl at 25 °C (Thurlkill, Grimsley, Scholtz and Pace 2006, Protein Sci 15:1214): α-carboxyl and Asp 3.67, Glu 4.25, His 6.54, α-amino 8.00, Tyr 9.84, Lys 10.40. For arginine 13.8 (Fitch et al. 2015, Protein Sci 24:752). Inside a protein these values can shift depending on neighbouring groups; you will see this in the workshop.</p>"
+   "<p class=\"small\">The pK<sub>a</sub> values were measured by potentiometric titration in alanine pentapeptides in 0.1 M KCl at 25 °C (Thurlkill, Grimsley, Scholtz and Pace 2006, Protein Sci 15:1214): α-carboxyl and Asp 3.67, Glu 4.25, His 6.54, α-amino 8.00, Tyr 9.84, Lys 10.40. For arginine 13.8 (Fitch et al. 2015, Protein Sci 24:752). Inside a protein these values can shift depending on neighboring groups; you will see this in the workshop.</p>"
   ],
   [
    "<span class=\"step\">1 · Atölye</span>",
@@ -75,11 +76,11 @@
   ],
   [
    "<div class=\"prose\"><p>1UBQ'nun dizisinde 7 Lys, 4 Arg, 1 His, 5 Asp, 6 Glu ve 1 Tyr var; Cys yok. Bunlara iki uç, Met1'in amino grubu ve Gly76'nın karboksil grubu eklenir. Görünümde protein, bu projenin pdb2gmx çıktısındaki (<code>protein.gro</code>) gerçek koordinatlarıyla duruyor. Her iyonlaşabilen grubun çevresinde bir hale var: mavi artı, kırmızı eksi yük. Halenin boyu ve parlaklığı, o pH'da grubun yüklü olma olasılığıdır. pH'yı kaydırın ya da titrasyonu oynatın; proteini sürükleyerek döndürebilirsiniz.</p></div>",
-   "<div class=\"prose\"><p>The sequence of 1UBQ has 7 Lys, 4 Arg, 1 His, 5 Asp, 6 Glu and 1 Tyr; no Cys. Add the two termini, the amino group of Met1 and the carboxyl group of Gly76. The view shows the protein at the real coordinates from this project's pdb2gmx output (<code>protein.gro</code>). Each ionizable group has a halo around it: blue for positive, red for negative charge. The size and brightness of the halo is the probability that the group is charged at that pH. Move the pH slider or play the titration; you can rotate the protein by dragging.</p></div>"
+   "<div class=\"prose\"><p>The sequence of 1UBQ has 7 Lys, 4 Arg, 1 His, 5 Asp, 6 Glu and 1 Tyr; no Cys. To these come the two termini: the amino group of Met1 and the carboxyl group of Gly76. The view shows the protein at the real coordinates from this project's pdb2gmx output (<code>protein.gro</code>). Each ionizable group has a halo around it: blue for positive, red for negative charge. The size and brightness of the halo is the probability that the group is charged at that pH. Move the pH slider or play the titration; you can rotate the protein by dragging.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"o1ubq\" class=\"stage\" aria-label=\"Ubikitin ve iyonlaşabilen grupları: halenin rengi yükün işaretini, boyu yüklü olma olasılığını gösterir; sürükleyerek döndürülebilir\"></canvas></div>",
-   "<div class=\"stagebox\"><canvas id=\"o1ubq\" class=\"stage\" aria-label=\"Ubiquitin and its ionizable groups: the colour of the halo shows the sign of the charge, its size the probability of being charged; can be rotated by dragging\"></canvas></div>"
+   "<div class=\"stagebox\"><canvas id=\"o1ubq\" class=\"stage\" aria-label=\"Ubiquitin and its ionizable groups: the color of the halo shows the sign of the charge, its size the probability of being charged; can be rotated by dragging\"></canvas></div>"
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"o1play\">Titrasyonu oynat (pH 1 → 13)</button></div>",
@@ -127,7 +128,7 @@
   ],
   [
    "<p class=\"small\">Hesap: her grubun yükü Henderson-Hasselbalch ile bulunur ve gruplar birbirinden bağımsız sayılır. \"Ubikitinde ölçülen\" kipinde NMR ile ölçülen değerler kullanılır: beş Asp 3,1 ile 3,8, altı Glu 3,8 ile 4,5 arasında (Sundd ve ark. 2002, Biochemistry 41:7586); eğri bandı bu aralıkların iki ucuyla, görünümdeki haleler aralıkların ortasıyla çizilir. Met1'in amino grubu 9,14 (Oregioni ve ark. 2017, Sci Rep 7:43748; 21,5 °C). Ubikitinde ölçülmüş bir değeri bulunmayan gruplar model değerinde kalır. İzoelektrik nokta bu varsayımlarla hesaplanan bir model sonucudur, ölçüm değildir.</p>",
-   "<p class=\"small\">Calculation: the charge of each group comes from Henderson-Hasselbalch, and the groups are treated as independent of each other. The \"Measured in ubiquitin\" mode uses values measured by NMR: the five Asp between 3.1 and 3.8, the six Glu between 3.8 and 4.5 (Sundd et al. 2002, Biochemistry 41:7586); the band is drawn with the two ends of these ranges, the halos in the view with their middles. The amino group of Met1 9.14 (Oregioni et al. 2017, Sci Rep 7:43748; 21.5 °C). Groups without a value measured in ubiquitin keep the model value. The isoelectric point is a model result computed under these assumptions, not a measurement.</p>"
+   "<p class=\"small\">Calculation: the charge of each group comes from Henderson-Hasselbalch, and the groups are treated as independent of each other. The \"Measured in ubiquitin\" mode uses values measured by NMR: the five Asp between 3.1 and 3.8, the six Glu between 3.8 and 4.5 (Sundd et al. 2002, Biochemistry 41:7586); the band is drawn with the two ends of these ranges, the halos in the view with their middles. For the amino group of Met1, 9.14 (Oregioni et al. 2017, Sci Rep 7:43748; 21.5 °C). Groups without a value measured in ubiquitin keep the model value. The isoelectric point is a model result computed under these assumptions, not a measurement.</p>"
   ],
   [
    "<span class=\"step\">2 · Tezgâh</span>",
@@ -211,7 +212,7 @@
   ],
   [
    "<p class=\"small\">Sonuçlar bu projenin girdisiyle (<code>1UBQ_protein_only.pdb</code> ve kristal sularını da içeren <code>1UBQ.pdb</code>) gerçekten koşulmuş 96 pdb2gmx çalıştırmasından gelir: 8 uzaklık × 6 açı × 2 girdi, GROMACS 2023.3, <code>-ff amber99sb-ildn -water tip3p -ignh</code>. Kural GROMACS 2023 kaynak kodundan (<code>hizzie.cpp</code>): deneme hidrojeni halkanın iki komşu atomundan uzaklaşan yönde 0,1 nm'ye konur; bir oksijen, azota uzaklığı <code>-dist</code>'ten kısa ve hidrojendeki açısı <code>-angle</code>'dan büyükse bağ sayılır. Harita ve akış şeması bu kuralı aynı koordinatlarla tarayıcıda uygular ve kristal susuz 48 çalıştırmanın hepsinde pdb2gmx ile aynı kararı verir. Görünümdeki koni şematiktir (açının ekrana izdüşümü). \"Hidrojen bağı sayısı\", pdb2gmx'in bütün protein için günlüğe yazdığı sayıdır.</p>",
-   "<p class=\"small\">The results come from 96 pdb2gmx runs actually made with this project's input (<code>1UBQ_protein_only.pdb</code> and <code>1UBQ.pdb</code>, which also contains the crystal waters): 8 distances × 6 angles × 2 inputs, GROMACS 2023.3, <code>-ff amber99sb-ildn -water tip3p -ignh</code>. The rule is from the GROMACS 2023 source code (<code>hizzie.cpp</code>): the trial hydrogen is placed 0.1 nm from the nitrogen, pointing away from the two neighbouring ring atoms; an oxygen counts as a bond if its distance to the nitrogen is shorter than <code>-dist</code> and its angle at the hydrogen is larger than <code>-angle</code>. The map and the flow chart apply this rule in the browser with the same coordinates and give the same decision as pdb2gmx in all 48 runs without crystal waters. The cone in the view is schematic (the projection of the angle onto the screen). \"Number of hydrogen bonds\" is the number pdb2gmx writes to its log for the whole protein.</p>"
+   "<p class=\"small\">The results come from 96 pdb2gmx runs actually made with this project's input (<code>1UBQ_protein_only.pdb</code> and <code>1UBQ.pdb</code>, which also contains the crystal waters): 8 distances × 6 angles × 2 inputs, GROMACS 2023.3, <code>-ff amber99sb-ildn -water tip3p -ignh</code>. The rule is from the GROMACS 2023 source code (<code>hizzie.cpp</code>): the trial hydrogen is placed 0.1 nm from the nitrogen, pointing away from the two neighboring ring atoms; an oxygen counts as a bond if its distance to the nitrogen is shorter than <code>-dist</code> and its angle at the hydrogen is larger than <code>-angle</code>. The map and the flow chart apply this rule in the browser with the same coordinates and give the same decision as pdb2gmx in all 48 runs without crystal waters. The cone in the view is schematic (the projection of the angle onto the screen). \"Number of hydrogen bonds\" is the number pdb2gmx writes to its log for the whole protein.</p>"
   ],
   [
    "<article class=\"q\" id=\"o1c1\"><span class=\"k\">Açık</span><h3>Protein hangi pH'da yüksüzdür?</h3><p>Atölyede net yükün sıfır olduğu pH'yı bulun.</p><div class=\"mine\" id=\"mo1c1\">Kaydırıcıyla net yükün 0,1 e'den küçük olduğu bir pH bulun.</div></article>",
@@ -319,7 +320,7 @@
   ],
   [
    "else n='pH, pKa\\'dan '+fx(Math.abs(d),2)+' birim '+(d>0?'yukarıda':'aşağıda')+': protonlu ve protonsuz biçimlerin oranı 1\\'e '+(Math.abs(d)>=3?'1.000\\'den fazla':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Asit gruplar protonunu verince eksi yüklenir.':'Baz gruplar proton alınca artı yüklenir.');",
-   "else n='The pH is '+fx(Math.abs(d),2)+' units '+(d>0?'above':'below')+' the pKa: the ratio of the protonated and deprotonated forms is 1 to '+(Math.abs(d)>=3?'more than 1,000':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Acidic groups become negative when they give up their proton.':'Basic groups become positive when they take up a proton.');"
+   "else n='The pH is '+fx(Math.abs(d),2)+' units '+(d>0?'above':'below')+' the pKa: the protonated and deprotonated forms differ by a factor of '+(Math.abs(d)>=3?'more than 1,000':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Acidic groups become negative when they give up their proton.':'Basic groups become positive when they take up a proton.');"
   ],
   [
    "g.textAlign='left'; g.fillStyle=muted; g.fillText('protonlu kesir',L+4,T+10); }",
@@ -343,7 +344,7 @@
   ],
   [
    "else if(T1.pH<4.5) n+='Karboksil grupları proton aldıkça eksi yükler kayboluyor; artı yükler tam. Protein güçlü artı yüklü.';",
-   "else if(T1.pH<4.5) n+='As the carboxyl groups take up protons the negative charges disappear; the positive charges are complete. The protein is strongly positive.';"
+   "else if(T1.pH<4.5) n+='As the carboxyl groups take up protons the negative charges disappear; all the positive charges are present. The protein is strongly positive.';"
   ],
   [
    "else if(T1.pH>10) n+='Lys\\'ler protonunu veriyor, Tyr eksi yükleniyor; Arg\\'ler hâlâ artı. Protein eksi yüklü.';",
@@ -359,7 +360,7 @@
   ],
   [
    "card('o1c2',true,'Ölçülen pKa\\'larla izoelektrik nokta <b>'+fx(pI(pkSet('ubq',false)),2)+'-'+fx(pI(pkSet('ubq',true)),2)+'</b>, modelde '+fx(pI(M),2)+'. Yalnız N-ucunu 8,00\\'den 9,14\\'e çekmek pI\\'yı '+fx(pI(onlyN),2)+'\\'ye taşır: kaymanın neredeyse tamamı oradan gelir, çünkü pI\\'da karboksiller zaten tamamen yüklüdür. Karboksillerin kayması ise düşük pH\\'da görünür: pH 3,5\\'te net yük modelde '+fx(q3m,1)+', ölçülen aralıkla '+fx(Math.min(q3u,q3v),1)+' ile '+fx(Math.max(q3u,q3v),1)+' arası. Bir proteinin içindeki pKa, komşularına göre değişir.'); } } } }",
-   "card('o1c2',true,'With the measured pKa values the isoelectric point is <b>'+fx(pI(pkSet('ubq',false)),2)+'-'+fx(pI(pkSet('ubq',true)),2)+'</b>, '+fx(pI(M),2)+' in the model. Moving only the N-terminus from 8.00 to 9.14 takes the pI to '+fx(pI(onlyN),2)+': almost the whole shift comes from there, because at the pI the carboxyls are already fully charged. The shift of the carboxyls shows at low pH: at pH 3.5 the net charge is '+fx(q3m,1)+' in the model and between '+fx(Math.min(q3u,q3v),1)+' and '+fx(Math.max(q3u,q3v),1)+' with the measured ranges. The pKa inside a protein changes with its neighbours.'); } } } }"
+   "card('o1c2',true,'With the measured pKa values the isoelectric point is <b>'+fx(pI(pkSet('ubq',false)),2)+'-'+fx(pI(pkSet('ubq',true)),2)+'</b>, '+fx(pI(M),2)+' in the model. Moving only the N-terminus from 8.00 to 9.14 takes the pI to '+fx(pI(onlyN),2)+': almost the whole shift comes from there, because at the pI the carboxyls are already fully charged. The shift of the carboxyls shows at low pH: at pH 3.5 the net charge is '+fx(q3m,1)+' in the model and between '+fx(Math.min(q3u,q3v),1)+' and '+fx(Math.max(q3u,q3v),1)+' with the measured ranges. The pKa inside a protein changes with its neighbors.'); } } } }"
   ],
   [
    "1:'His68\\'in halkasında iki azot var: ND1 ve NE2. Hidrojen hangisinde durur? Üç olasılık var: HID (hidrojen ND1\\'de, yüksüz), HIE (NE2\\'de, yüksüz), HIP (ikisinde birden, +1). Görünüm üçünü sırayla gösteriyor. X-ışını bu hidrojeni görmez; seçimi program yapar.',",

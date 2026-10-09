@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "53f6a4bdbafbf1db0cd7b77c34424ad322c839f19e485c1a9ad83832341ecb3f",
  "reviewed": false,
- "translator": "Claude (AI), MD-LIG 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-LIG 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Ligand parametreleri ve kökeni</title>",
@@ -59,7 +60,7 @@
   ],
   [
    "<h2 id=\"jh1\">Program ne üretti, nereden aldı?</h2>",
-   "<h2 id=\"jh1\">What did the program produce, and where did it take it from?</h2>"
+   "<h2 id=\"jh1\">What did the program produce, and where did it get it from?</h2>"
   ],
   [
    "<div class=\"prose\"><p>Ligand kristaldeki dokuz ağır atomdan kuruldu, hidrojenler eklendi ve <code>acpype</code> (antechamber, sqm, parmchk2) ile GAFF2 parametreleri üretildi. Dört model (L1 ile L3) ilk planda MD'de koşuldu; L4 ve L5 ekte eklendi (atölye 2). İki ek denetim (P2, P3) yalnız yükleri karşılaştırmak için yapıldı. Atomların rengi yükü gösterir.</p></div>",
@@ -243,7 +244,7 @@
   ],
   [
    "<h2 id=\"jh3\">Sekiz cümle: bu veri bunları taşır mı?</h2>",
-   "<h2 id=\"jh3\">Eight sentences: does this data carry them?</h2>"
+   "<h2 id=\"jh3\">Eight sentences: can this data support them?</h2>"
   ],
   [
    "<div class=\"prose\"><p>Her cümle için karar verin: bu sayfadaki veriyle kurulabilir, ek kanıt gerekir ya da bu veriyle kurulamaz. Gerekçe seçimden sonra görünür.</p></div>",
@@ -659,7 +660,7 @@
   ],
   [
    "$('jsum').innerHTML=h+'</tbody></table><p class=\"small\">Pencere 50 ile 500 ps (451 kare). Eksik koşu: '+(VDD.missing.length?VDD.missing.join(', '):'yok')+'. ⚑ sağlık eşiğini aşan koşu.</p>'; }",
-   "$('jsum').innerHTML=h+'</tbody></table><p class=\"small\">Window 50 to 500 ps (451 frames). Missing run: '+(VDD.missing.length?VDD.missing.join(', '):'none')+'. ⚑ run exceeding a health threshold.</p>'; }"
+   "$('jsum').innerHTML=h+'</tbody></table><p class=\"small\">Window 50 to 500 ps (451 frames). Missing runs: '+(VDD.missing.length?VDD.missing.join(', '):'none')+'. ⚑ run exceeding a health threshold.</p>'; }"
   ],
   [
    "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
@@ -703,7 +704,7 @@
   ],
   [
    "$('jltab').innerHTML=h+'</tbody></table><p class=\"small\">Enerjiler kJ/mol, ΔG kcal/mol. Kompleks 50 ile 500 ps (451 kare), su 100 ile 1000 ps (901 kare). Terimler gerçek-uzay Coulomb (PME\\'nin ters uzay kısmı gruplara ayrılmaz) ve 1,0 nm kesmeli Lennard-Jones; γ = 0. Blok SH: kompleks penceresinin 5 bloğundan; su ortalamasının belirsizliğini içermez.</p>'; }",
-   "$('jltab').innerHTML=h+'</tbody></table><p class=\"small\">Energies in kJ/mol, ΔG in kcal/mol. Complex 50 to 500 ps (451 frames), water 100 to 1000 ps (901 frames). The terms are real-space Coulomb (the reciprocal-space part of PME is not split into groups) and Lennard-Jones with a 1.0 nm cutoff; γ = 0. Block SE: from 5 blocks of the complex window; it does not include the uncertainty of the water average.</p>'; }"
+   "$('jltab').innerHTML=h+'</tbody></table><p class=\"small\">Energies in kJ/mol, ΔG in kcal/mol. Complex 50 to 500 ps (451 frames), water 100 to 1000 ps (901 frames). The terms are real-space Coulomb (the reciprocal-space part of PME is not split into groups) and Lennard-Jones with a 1.0 nm cut-off; γ = 0. Block SE: from 5 blocks of the complex window; it does not include the uncertainty of the water average.</p>'; }"
   ],
   [
    "function lieCard(){ var n=Object.keys(EX.seen).length; if(n<3){ card('jc9',false,'Şimdiye kadar '+n+' model; en az üçüne bakın.'); return; }",
@@ -719,11 +720,11 @@
   ],
   [
    "(srt[srt.length-1]==='L4'&&VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L1.rrms?'Gaz fazı ESP\\'yi en iyi üreten RESP (L4) ise aralıktan en uzak düştü: bir ölçütte iyi olmak öbüründe iyi olmayı getirmez. ':'')+",
-   "(srt[srt.length-1]==='L4'&&VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L1.rrms?'RESP (L4), which reproduces the gas-phase ESP best, fell farthest from the range: being good on one criterion does not bring being good on another. ':'')+"
+   "(srt[srt.length-1]==='L4'&&VDD.x2.rrms.L4.rrms<VDD.x2.rrms.L1.rrms?'RESP (L4), which reproduces the gas-phase ESP best, fell farthest from the range: being good on one criterion does not make a model good on another. ':'')+"
   ],
   [
    "'Bu sayı tek bir ligand için, deneyle karşılaştırılan tek bir değerdir; α ve β başka bir kuvvet alanı ve programla birçok ligand üzerinden kalibre edilmiş katsayılardır, PME\\'nin ters uzay katkısı hesaba girmez ve ortalamalar 450 ile 900 ps\\'liktir. Hangi yükün doğru olduğu buradan seçilmez; bunun için çok sayıda ligandın ölçülmüş değerleriyle karşılaştırma ya da serbest enerji pertürbasyonu gerekir: Bu senaryo hesaplanmadı.'); }",
-   "'This is a single value for a single ligand compared with experiment; α and β are coefficients calibrated over many ligands with another force field and program, the reciprocal-space contribution of PME is not included, and the averages cover 450 and 900 ps. Which charge is correct is not chosen from this; that needs comparison with measured values for many ligands, or free energy perturbation: This scenario was not computed.'); }"
+   "'This is a single value for a single ligand compared with experiment; α and β are coefficients calibrated over many ligands with another force field and program, the reciprocal-space contribution of PME is not included, and the averages cover 450 and 900 ps. This does not tell us which charge is correct; that needs comparison with measured values for many ligands, or free energy perturbation: This scenario was not computed.'); }"
   ],
   [
    "/* --- B-faktörü --- */",
@@ -763,7 +764,7 @@
   ],
   [
    "card('jc10',true,'Cα B-faktörü korelasyonu '+K.length+' koşuda r = '+fx(arrMin(rs),2)+' ile '+fx(arrMax(rs),2)+' arasında; MD B ortalaması kristalinkinin '+fx(arrMin(ra),2)+' ile '+fx(arrMax(ra),2)+' katı. Protein dalgalanmasının deseni yük modelinden çok proteinin kendisinden gelir; 450 ps yavaş hareketleri örneklemez ve kristal B örgü düzensizliğini de içerir. Ligandın MD B\\'si '+fx(arrMin(bl),1)+' ile '+fx(arrMax(bl),1)+' Å² arasında, kristalde tek bir grup değeri var ('+fx(X.Bx_lig,2)+'). Ölçekten bağımsız oran (ligand / cep Cα) kristalde '+fx(X.x_lpr,2)+', MD\\'de '+fx(arrMin(lp),2)+' ile '+fx(arrMax(lp),2)+'; en yüksek '+top+' ('+fx(X.bfac[top].lpr,2)+'). Aynı modelin iki tekrarı arasındaki fark da büyük olabilir. B-faktörü yük modelini doğrulamaz; ligandın cepte ne kadar hareketli kaldığını kristalle kaba bir ölçekte karşılaştırır.'); }",
-   "card('jc10',true,'The Cα B-factor correlation over '+K.length+' runs is r = '+fx(arrMin(rs),2)+' to '+fx(arrMax(rs),2)+'; the mean MD B is '+fx(arrMin(ra),2)+' to '+fx(arrMax(ra),2)+' times the crystal value. The pattern of protein fluctuation comes from the protein itself more than from the charge model; 450 ps does not sample slow motions, and the crystal B also contains lattice disorder. The MD B of the ligand lies between '+fx(arrMin(bl),1)+' and '+fx(arrMax(bl),1)+' Å², while the crystal has a single group value ('+fx(X.Bx_lig,2)+'). The scale-free ratio (ligand / pocket Cα) is '+fx(X.x_lpr,2)+' in the crystal and '+fx(arrMin(lp),2)+' to '+fx(arrMax(lp),2)+' in MD; highest '+top+' ('+fx(X.bfac[top].lpr,2)+'). The difference between two replicas of the same model can also be large. A B-factor does not validate a charge model; it compares on a rough scale how mobile the ligand stayed in the pocket with the crystal.'); }"
+   "card('jc10',true,'The Cα B-factor correlation over '+K.length+' runs is r = '+fx(arrMin(rs),2)+' to '+fx(arrMax(rs),2)+'; the mean MD B is '+fx(arrMin(ra),2)+' to '+fx(arrMax(ra),2)+' times the crystal value. The pattern of protein fluctuation comes from the protein itself more than from the charge model; 450 ps does not sample slow motions, and the crystal B also contains lattice disorder. The MD B of the ligand lies between '+fx(arrMin(bl),1)+' and '+fx(arrMax(bl),1)+' Å², while the crystal has a single group value ('+fx(X.Bx_lig,2)+'). The scale-free ratio (ligand / pocket Cα) is '+fx(X.x_lpr,2)+' in the crystal and '+fx(arrMin(lp),2)+' to '+fx(arrMax(lp),2)+' in MD; highest '+top+' ('+fx(X.bfac[top].lpr,2)+'). The difference between two replicas of the same model can also be large. A B-factor does not validate a charge model; it gives a rough comparison with the crystal of how mobile the ligand stayed in the pocket.'); }"
   ],
   [
    "/* ===== tezgâh: iddia denetleyici ===== */",
@@ -803,7 +804,7 @@
   ],
   [
    "{s:'\"GAFF2 ile amber99sb-ildn aynı topolojide kullanılabilir, çünkü atom türü adları çakışmıyor.\"', a:1, w:'Adlar birebir çakışmıyor, ama yalnız büyük-küçük harfle ayrılan türler var ('+A.L1.case_clash.join(', ')+' ile '+A.L1.case_clash.map(function(t){ return t.toUpperCase(); }).join(', ')+'); GROMACS bunları ayrı türler sayar. Ad çakışmaması gerekli ama yeterli değildir: birleştirme kuralı, 1-4 ölçekleri ve iki kuvvet alanının birlikte doğrulanmış olması ayrıca denetlenir.'}",
-   "{s:'\"GAFF2 and amber99sb-ildn can be used in the same topology because their atom type names do not clash.\"', a:1, w:'The names do not clash exactly, but some types differ only in letter case ('+A.L1.case_clash.join(', ')+' versus '+A.L1.case_clash.map(function(t){ return t.toUpperCase(); }).join(', ')+'); GROMACS treats them as separate types. No name clash is necessary but not sufficient: the combination rule, the 1-4 scaling and whether the two force fields were validated together are checked separately.'}"
+   "{s:'\"GAFF2 and amber99sb-ildn can be used in the same topology because their atom type names do not clash.\"', a:1, w:'The names do not clash exactly, but some types differ only in letter case ('+A.L1.case_clash.join(', ')+' versus '+A.L1.case_clash.map(function(t){ return t.toUpperCase(); }).join(', ')+'); GROMACS treats them as separate types. Having no name clash is necessary but not sufficient: the combination rule, the 1-4 scaling and whether the two force fields were validated together are checked separately.'}"
   ],
   [
    "var fb=$('jcl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
@@ -883,11 +884,11 @@
   ],
   [
    "o:[['Terim hatalıdır, koşu çalışmaz',0],['Terim GAFF2\\'de yok; parmchk2 benzer bir terimi kopyaladı ve benzetmenin zayıf olduğunu puanla bildiriyor',1],['Terimin enerjisi 237 kJ/mol\\'dür',0]], w:'Program çalışır ve uyarı vermez; puan yalnız frcmod dosyasında yazar. Sonuç bu terime bağlıysa doğrulama (örneğin kuantum mekaniksel torsiyon taraması) ya da uzman görüşü gerekir.'});",
-   "o:[['The term is wrong and the run will not work',0],['The term is not in GAFF2; parmchk2 copied a similar term and reports with a score that the analogy is weak',1],['The energy of the term is 237 kJ/mol',0]], w:'The program runs and gives no warning; the score is written only in the frcmod file. If the result depends on this term, validation (for example a quantum mechanical torsion scan) or an expert opinion is needed.'});"
+   "o:[['The term is wrong and the run will not work',0],['The term is not in GAFF2; parmchk2 copied a similar term and uses the score to report that the analogy is weak',1],['The energy of the term is 237 kJ/mol',0]], w:'The program runs and gives no warning; the score is written only in the frcmod file. If the result depends on this term, validation (for example a quantum mechanical torsion scan) or an expert opinion is needed.'});"
   ],
   [
    "Q.push({s:'AM1-BCC ile birbirinin eşdeğeri iki amidin azotu '+fmtQ(N('L1','N1'))+' ve '+fmtQ(N('L1','N2'))+' aldı. Ne yapılır?',",
-   "Q.push({s:'With AM1-BCC the two mutually equivalent amidine nitrogens got '+fmtQ(N('L1','N1'))+' and '+fmtQ(N('L1','N2'))+'. What is done?',"
+   "Q.push({s:'With AM1-BCC the two mutually equivalent amidine nitrogens got '+fmtQ(N('L1','N1'))+' and '+fmtQ(N('L1','N2'))+'. What should be done?',"
   ],
   [
    "o:[['Hiçbir şey; program her zaman doğrudur',0],['Durum kayda geçirilir; eşdeğer atomların yükleri gerekçesiyle eşitlenir ya da olduğu gibi kullanıldığı yazılır',1],['Gasteiger yüklerine geçilir, çünkü azotları eşit veriyor',0]], w:'Gasteiger azotları eşit verdi ama L2a\\'da toplam yük yanlıştı; bir yöntemin bir özelliği doğru diye bütünü doğru olmaz. Bu sayfada AM1-BCC yükleri olduğu gibi kullanıldı ve bu yazıldı.'});",
@@ -955,7 +956,7 @@
   ],
   [
    "var fl=Object.keys(F).map(function(k){ return k+' ('+F[k]+' koşu)'; });",
-   "var fl=Object.keys(F).map(function(k){ return k+' ('+F[k]+' runs)'; });"
+   "var fl=Object.keys(F).map(function(k){ return k+' ('+F[k]+' run(s))'; });"
   ],
   [
    "return '<p><b>Ek (LIGGRID2, 7 Ekim 2026).</b> İki yeni yük modeli: L4 RESP HF/6-31G* (PySCF 2.14.0 ve pyberny; gaz fazı optimizasyonu, Merz-Kollman ızgarası '+fmtI(x.resp.n)+' nokta, tek aşama, a = 0,0005, b = 0,1; Bayly, Cieplak, Cornell, Kollman 1993, J Phys Chem 97:10269) ve L5 EspalomaCharge 0.0.8 (Wang ve ark. 2024, J Phys Chem A 128:4160, doi 10.1021/acs.jpca.4c01287; toplam yük açıkça +1). İkisi de L1 topolojisine yalnız yükleri değiştirilerek konuldu ve L1 ile aynı başlangıç sisteminden aynı protokolle koşuldu. LIE: gmx mdrun -rerun ile ligand ve sistemin geri kalanı arasındaki gerçek-uzay Coulomb ve Lennard-Jones enerjileri; α 0,181, β 0,5 (nötr L3 için 0,43; Hansson, Marelius, Åqvist 1998, J Comput Aided Mol Des 12:27, doi 10.1023/a:1007930623000; makalenin tam metni bu çalışmada okunamadı, 0,43 değeri ikincil bilgiye dayanır), γ = 0; ölçülmüş aralık ChEMBL Ki değerlerinden. Kristal B-faktörleri 3PTB\\'den; B = (8π²/3)·RMSF². Ek plan da koşulardan önce yazılıp donduruldu (SHA-256 '+x.plan_sha.slice(0,12)+'…). Bağımsız denetim: planlı '+x.audit_n+' karşılaştırmadan '+nPoss(String(x.audit_ok))+' eşikle geçti'+(fl.length?'; geçmeyen: '+fl.join('; '):'')+'. Plan dışı ek denetim: '+x.extra_n+' karşılaştırmadan '+nPoss(String(x.extra_ok))+' geçti.'+(x.deviations.length?' Plandan sapmalar: '+x.deviations.join(' '):' Plandan sapma yok.')+'</p>'; }",
@@ -984,6 +985,14 @@
   [
    "window.MDLIG={RUN:RUN,WAT:WAT,PA:PA,MM:MM,BQ:BQ,FOUND:FOUND,twistOf:twistOf,dG:dG,NG:NG,EX:EX,BCA:BCA,lieDG:lieDG,lieMean:lieMean,MDM:MDM,BX:BX}; /* sınama için */",
    "window.MDLIG={RUN:RUN,WAT:WAT,PA:PA,MM:MM,BQ:BQ,FOUND:FOUND,twistOf:twistOf,dG:dG,NG:NG,EX:EX,BCA:BCA,lieDG:lieDG,lieMean:lieMean,MDM:MDM,BX:BX}; /* for testing */"
+  ],
+  [
+   "xlab:'zaman (ps)'",
+   "xlab:'time (ps)'"
+  ],
+  [
+   "' <span class=\"small\">(β 0,5: '",
+   "' <span class=\"small\">(β 0.5: '"
   ]
  ],
  "keep": [

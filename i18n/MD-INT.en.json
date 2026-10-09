@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "2340e3f5651febaaf3748e0c72c3928b53bf3b092c89c9a3b62ac83ca53f63aa",
  "reviewed": false,
- "translator": "Claude (AI), MD-INT 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-INT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Temas, solvatasyon, etkileşim</title>",
@@ -23,7 +24,7 @@
   ],
   [
    "<p class=\"lead\">\"Bu iki kalıntı arasında bir hidrojen bağı var\", \"bu tuz köprüsü korunuyor\", \"bu kalıntı gömülü\", \"karbonilin çevresinde iki su var\". Bu cümlelerin her biri bir mesafe, bir açı, bir kesme ya da bir sonda yarıçapıyla yazılmış bir tanıma dayanır ve sayı bu tanımla değişir. Bir etkileşimin ömrü de kayıt aralığına bağlıdır. Temas enerji değildir; sık görülen bir temas da kendi başına kararlılık ya da işlev göstermez. Bu sayfada bu tanımları gerçek koşularla sınayacaksınız.</p>",
-   "<p class=\"lead\">\"There is a hydrogen bond between these two residues\", \"this salt bridge is maintained\", \"this residue is buried\", \"there are two waters around the carbonyl\". Each of these sentences rests on a definition written with a distance, an angle, a cutoff or a probe radius, and the number changes with that definition. The lifetime of an interaction also depends on the saving interval. A contact is not an energy; a frequently seen contact does not by itself show stability or function. On this page you will test these definitions with real runs.</p>"
+   "<p class=\"lead\">\"There is a hydrogen bond between these two residues\", \"this salt bridge is maintained\", \"this residue is buried\", \"there are two waters around the carbonyl\". Each of these sentences rests on a definition written with a distance, an angle, a cut-off or a probe radius, and the number changes with that definition. The lifetime of an interaction also depends on the saving interval. A contact is not an energy; a frequently seen contact does not by itself show stability or function. On this page you will test these definitions with real runs.</p>"
   ],
   [
    "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"iprogN\">0 / 8</b></div>",
@@ -151,15 +152,15 @@
   ],
   [
    "<h2 id=\"ih3\">Kaç su \"yakında\"? Bir su bağı ne kadar yaşar?</h2>",
-   "<h2 id=\"ih3\">How many waters are \"nearby\"? How long does a water bond live?</h2>"
+   "<h2 id=\"ih3\">How many waters are \"nearby\"? How long does a hydrogen bond to water last?</h2>"
   ],
   [
    "<div class=\"prose\"><p>Su içindeki alanin dipeptidinin sekiz bağımsız tekrarında (MD-REP, 200 ile 2000 ps, 1 ps kayıt) iki karbonil oksijeni ile su oksijenleri arasındaki radyal dağılım fonksiyonu g(r) hesaplandı. İlk kabuktaki su sayısı seçtiğiniz kesme mesafesine bağlıdır; g(r)'nin ilk minimumu yaygın bir seçimdir ama o da bir tanımdır.</p></div>",
-   "<div class=\"prose\"><p>In eight independent replicas of alanine dipeptide in water (MD-REP, 200 to 2000 ps, 1 ps saving) the radial distribution function g(r) between the two carbonyl oxygens and the water oxygens was computed. The number of waters in the first shell depends on the cutoff you choose; the first minimum of g(r) is a common choice, but it is also a definition.</p></div>"
+   "<div class=\"prose\"><p>In eight independent replicas of alanine dipeptide in water (MD-REP, 200 to 2000 ps, 1 ps saving) the radial distribution function g(r) between the two carbonyl oxygens and the water oxygens was computed. The number of waters in the first shell depends on the cut-off you choose; the first minimum of g(r) is a common choice, but it is also a definition.</p></div>"
   ],
   [
    "<div class=\"selrow\"><label for=\"irc\">Kesme: <b id=\"ircv\">3,3</b> Å</label><input type=\"range\" id=\"irc\" min=\"25\" max=\"50\" step=\"1\" value=\"33\"></div>",
-   "<div class=\"selrow\"><label for=\"irc\">Cutoff: <b id=\"ircv\">3.3</b> Å</label><input type=\"range\" id=\"irc\" min=\"25\" max=\"50\" step=\"1\" value=\"33\"></div>"
+   "<div class=\"selrow\"><label for=\"irc\">Cut-off: <b id=\"ircv\">3.3</b> Å</label><input type=\"range\" id=\"irc\" min=\"25\" max=\"50\" step=\"1\" value=\"33\"></div>"
   ],
   [
    "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"irdf\" class=\"plot\" aria-label=\"Karbonil O ile su O arası g(r), sekiz tekrar\"></canvas></div><dl class=\"read\" id=\"irread\"></dl></div>",
@@ -199,7 +200,7 @@
   ],
   [
    "<article class=\"q\" id=\"ic5\"><span class=\"k\">Açık</span><h3>Kabuk kesmeyle büyür</h3><p>En az üç kesme mesafesi deneyin ve ubikitin görünümüne bakın.</p><div class=\"mine\" id=\"mic5\"></div></article>",
-   "<article class=\"q\" id=\"ic5\"><span class=\"k\">Open</span><h3>The shell grows with the cutoff</h3><p>Try at least three cutoff distances and look at the ubiquitin view.</p><div class=\"mine\" id=\"mic5\"></div></article>"
+   "<article class=\"q\" id=\"ic5\"><span class=\"k\">Open</span><h3>The shell grows with the cut-off</h3><p>Try at least three cut-off distances and look at the ubiquitin view.</p><div class=\"mine\" id=\"mic5\"></div></article>"
   ],
   [
    "<article class=\"q\" id=\"ic6\"><span class=\"k\">Açık</span><h3>Ömür kayıt aralığına bağlı</h3><p>Üç okuma aralığını ve iki tanımı karşılaştırın.</p><div class=\"mine\" id=\"mic6\"></div></article>",
@@ -251,11 +252,11 @@
   ],
   [
    "<label>Çözücü kabuğu ve ömür (kesme, kayıt aralığı, ömür tanımı)<textarea id=\"ifw\" rows=\"2\">Örnek: kesme g(r)'nin ilk minimumu; kayıt aralığı 0,5 ps; sürekli ve aralıklı ömür ikisi birden.</textarea></label>",
-   "<label>Solvation shell and lifetime (cutoff, saving interval, lifetime definition)<textarea id=\"ifw\" rows=\"2\">Example: cutoff at the first minimum of g(r); saving interval 0.5 ps; continuous and intermittent lifetime both.</textarea></label>"
+   "<label>Solvation shell and lifetime (cut-off, saving interval, lifetime definition)<textarea id=\"ifw\" rows=\"2\">Example: cut-off at the first minimum of g(r); saving interval 0.5 ps; both continuous and intermittent lifetimes.</textarea></label>"
   ],
   [
    "<label>Kurulmayacak cümleler<textarea id=\"ifn\" rows=\"2\">Örnek: sık görülen bir teması \"kararlı kılar\" ya da \"işlev için gerekli\" diye adlandırmak; bunlar enerji, mutasyon ya da deney ister.</textarea></label>",
-   "<label>Sentences not to be made<textarea id=\"ifn\" rows=\"2\">Example: calling a frequent contact \"stabilising\" or \"required for function\"; these need energies, mutations or experiments.</textarea></label>"
+   "<label>Sentences to avoid<textarea id=\"ifn\" rows=\"2\">Example: calling a frequent contact \"stabilizing\" or \"required for function\"; these need energies, mutations or experiments.</textarea></label>"
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"ifcopy\">Metni kopyala</button><span class=\"small\" id=\"ifmsg\"></span></div>",
@@ -391,7 +392,7 @@
   ],
   [
    "$('isread').innerHTML=dl('Seçili çift',HB.pair)+dl('Eşik '+fx(HB.thr,1)+' Å ile oluşma sıklığı (koşu 1 / 2 / 3)',occ.map(function(v){ return pct(v,0); }).join(' / '))+dl('Önceden hesaplanan (3,2 / 4,0 / 6,0 Å)',RUNS.map(function(r){ return ['3.2','4.0','6.0'].map(function(t){ return pct(O[r][t],0); }).join(', '); }).join(' · '))+dl('Renkler',RUNS.map(function(r,k){ return RUNL[r]; }).join(', ')+' (lacivert, kızıl, yeşil); yeşil bant eşiğin altı');",
-   "$('isread').innerHTML=dl('Selected pair',lab(HB.pair))+dl('Occupancy with a '+fx(HB.thr,1)+' Å threshold (run 1 / 2 / 3)',occ.map(function(v){ return pct(v,0); }).join(' / '))+dl('Precomputed (3.2 / 4.0 / 6.0 Å)',RUNS.map(function(r){ return ['3.2','4.0','6.0'].map(function(t){ return pct(O[r][t],0); }).join(', '); }).join(' · '))+dl('Colours',RUNS.map(function(r,k){ return RUNL[r]; }).join(', ')+' (navy, red, green); green band below the threshold');"
+   "$('isread').innerHTML=dl('Selected pair',lab(HB.pair))+dl('Occupancy with a '+fx(HB.thr,1)+' Å threshold (run 1 / 2 / 3)',occ.map(function(v){ return pct(v,0); }).join(' / '))+dl('Precomputed (3.2 / 4.0 / 6.0 Å)',RUNS.map(function(r){ return ['3.2','4.0','6.0'].map(function(t){ return pct(O[r][t],0); }).join(', '); }).join(' · '))+dl('Colors',RUNS.map(function(r,k){ return RUNL[r]; }).join(', ')+' (navy, red, green); green band below the threshold');"
   ],
   [
    "if(nP>=3&&nT>=2) card('ic2',true,'4,0 Å eşiğinde K27-D52 üç koşuda da zamanın neredeyse tamamında var ('+s('K27-D52')+'). K11-E34 '+s('K11-E34')+', R42 ile C-uç '+s('R42-G76(C-uç)')+', R74-D39 '+s('R74-D39')+' (koşu 1 / 2 / 3): aynı protein, aynı hazırlık, farklı başlangıç hızları. Eşik 3,2 Å\\'dan 6,0 Å\\'a çıkınca sıklıklar da değişiyor. \"Bu tuz köprüsü korunuyor\" demek için eşik, sıklık ölçütü ve tekrarlar arası yayılım birlikte yazılır; tek koşu yetmez.');",
@@ -459,7 +460,7 @@
   ],
   [
    "$('irread').innerHTML=dl('Kesme '+fx(SO.rc,1)+' Å ile karbonil O başına su',fx(m,2)+' (8 tekrarda en az '+fx(arrMin(ns),2)+', en çok '+fx(arrMax(ns),2)+')')+dl('Birleşik g(r) ilk tepe',fx(IDD.rdf.peak[0],2)+' Å, yükseklik '+fx(IDD.rdf.peak[1],2))+dl('Birleşik g(r) ilk minimum (kesikli çizgi)',fx(IDD.rdf.rmin,2)+' Å')+dl('Kesme 3,0 / 3,5 / 4,0 Å ile',[3.0,3.5,4.0].map(function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }).join(' / '))+dl('Çizgiler','ince: sekiz tekrar; kalın: ortalama; dikey kızıl çizgi: kesme');",
-   "$('irread').innerHTML=dl('Waters per carbonyl O with a '+fx(SO.rc,1)+' Å cutoff',fx(m,2)+' (across 8 replicas, min '+fx(arrMin(ns),2)+', max '+fx(arrMax(ns),2)+')')+dl('Pooled g(r) first peak',fx(IDD.rdf.peak[0],2)+' Å, height '+fx(IDD.rdf.peak[1],2))+dl('Pooled g(r) first minimum (dashed line)',fx(IDD.rdf.rmin,2)+' Å')+dl('With 3.0 / 3.5 / 4.0 Å cutoffs',[3.0,3.5,4.0].map(function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }).join(' / '))+dl('Lines','thin: eight replicas; thick: mean; vertical red line: cutoff');"
+   "$('irread').innerHTML=dl('Waters per carbonyl O with a '+fx(SO.rc,1)+' Å cut-off',fx(m,2)+' (across 8 replicas, min '+fx(arrMin(ns),2)+', max '+fx(arrMax(ns),2)+')')+dl('Pooled g(r) first peak',fx(IDD.rdf.peak[0],2)+' Å, height '+fx(IDD.rdf.peak[1],2))+dl('Pooled g(r) first minimum (dashed line)',fx(IDD.rdf.rmin,2)+' Å')+dl('With 3.0 / 3.5 / 4.0 Å cut-offs',[3.0,3.5,4.0].map(function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }).join(' / '))+dl('Lines','thin: eight replicas; thick: mean; vertical red line: cut-off');"
   ],
   [
    "$('ilread').innerHTML=dl('Sürekli ömür (kızıl), 8 tekrar',fx(arrMean(Tc),2)+' ps (en az '+fx(arrMin(Tc),2)+', en çok '+fx(arrMax(Tc),2)+')')+dl('Aralıklı ömür (lacivert)',fx(arrMean(Ti),2)+' ps (en az '+fx(arrMin(Ti),2)+', en çok '+fx(arrMax(Ti),2)+')')+dl('Kare başına su H-bağı (iki karbonil)',fx(IDD.hbw[SO.def],2))+dl('Seçim','tanım '+DEFL[SO.def]+', okuma aralığı '+SO.k+' ps');",
@@ -483,11 +484,11 @@
   ],
   [
    "card('ic5',true,'Karbonil O başına \"yakındaki\" su sayısı 3,0 Å kesmeyle '+n(3.0)+', g(r)\\'nin ilk minimumunda ('+fx(IDD.rdf.rmin,2)+' Å) '+n(IDD.rdf.rmin)+', 4,0 Å ile '+n(4.0)+'. Sekiz tekrar birbirine çok yakın: belirsizliğin asıl kaynağı tanım. Ubikitinde kalıntı başına ilk kabuk suyu SASA ile ilişkili (Pearson r '+['W1','W2','W3'].map(function(w){ return fx(U[w].r,2); }).join(' / ')+') ama aynı şey değil: biri çevredeki su moleküllerini sayar, öbürü bir sondanın değebildiği alanı.'); }",
-   "card('ic5',true,'The number of \"nearby\" waters per carbonyl O is '+n(3.0)+' with a 3.0 Å cutoff, '+n(IDD.rdf.rmin)+' at the first minimum of g(r) ('+fx(IDD.rdf.rmin,2)+' Å) and '+n(4.0)+' with 4.0 Å. The eight replicas are very close: the main source of uncertainty is the definition. In ubiquitin the first-shell waters per residue correlate with SASA (Pearson r '+['W1','W2','W3'].map(function(w){ return fx(U[w].r,2); }).join(' / ')+') but are not the same thing: one counts the surrounding water molecules, the other the area a probe can touch.'); }"
+   "card('ic5',true,'The number of \"nearby\" waters per carbonyl O is '+n(3.0)+' with a 3.0 Å cut-off, '+n(IDD.rdf.rmin)+' at the first minimum of g(r) ('+fx(IDD.rdf.rmin,2)+' Å) and '+n(4.0)+' with 4.0 Å. The eight replicas are very close: the main source of uncertainty is the definition. In ubiquitin the first-shell waters per residue correlate with SASA (Pearson r '+['W1','W2','W3'].map(function(w){ return fx(U[w].r,2); }).join(' / ')+') but are not the same thing: one counts the surrounding water molecules, the other the area a probe can touch.'); }"
   ],
   [
    "else card('ic5',false,'Şimdiye kadar: '+nRc+' kesme mesafesi'+(Object.keys(SO.seenW).length?'':', ubikitin görünümüne de bakın')+'. En az üç kesme deneyin.');",
-   "else card('ic5',false,'So far: '+nRc+' cutoff distances'+(Object.keys(SO.seenW).length?'':', also look at the ubiquitin view')+'. Try at least three cutoffs.');"
+   "else card('ic5',false,'So far: '+nRc+' cut-off distances'+(Object.keys(SO.seenW).length?'':', also look at the ubiquitin view')+'. Try at least three cut-offs.');"
   ],
   [
    "card('ic6',true,'Aynı su-karbonil H-bağının sürekli ömrü (3,5 Å, 150°) 1 ps okumayla '+t('3.5_150','1','Tc')+' ps, 2 ps ile '+t('3.5_150','2','Tc')+', 5 ps ile '+t('3.5_150','5','Tc')+' ps; aralıklı ömür '+t('3.5_150','1','Ti')+' ps. Kareler seyreldikçe aradaki kısa kopmalar görünmez olur ve \"sürekli\" bağ uzar. Tanım da değiştiriyor: 3,0 Å ve 150° ile sürekli ömür '+t('3.0_150','1','Tc')+' ps, 3,5 Å ve 120° ile '+t('3.5_120','1','Tc')+' ps. Ubikitinde aynı suyun aynı çifti köprüleme süresi 0,5 ps okumayla '+fx(R['0.5'],2)+', 2 ps ile '+fx(R['2.0'],2)+' ps (koşu 1). Ömür, tanım ve kayıt aralığıyla birlikte raporlanan bir sayıdır.'); }",
@@ -511,11 +512,11 @@
   ],
   [
    "{s:'Ubikitinde kare başına H-bağı sayısı, yalnız tanım değiştirilerek aynı koşuda iki katından fazla değişebilir.', a:'kur', w:function(){ var R=IDD.hb.runs.R1; return 'Koşu 1\\'de ortalama '+fx(R['3.0_150'].mean,1)+' (3,0 Å, 150°) ile '+fx(R['3.5_120'].mean,1)+' (3,5 Å, 120°) arasında (Atölye 1).'; }},",
-   "{s:'In ubiquitin the number of H-bonds per frame can more than double in the same run just by changing the definition.', a:'kur', w:function(){ var R=IDD.hb.runs.R1; return 'In run 1 the mean is between '+fx(R['3.0_150'].mean,1)+' (3.0 Å, 150°) and '+fx(R['3.5_120'].mean,1)+' (3.5 Å, 120°) (Workshop 1).'; }},"
+   "{s:'In ubiquitin the number of H-bonds per frame can more than double in the same run just by changing the definition.', a:'kur', w:function(){ var R=IDD.hb.runs.R1; return 'In run 1 the mean ranges from '+fx(R['3.0_150'].mean,1)+' (3.0 Å, 150°) to '+fx(R['3.5_120'].mean,1)+' (3.5 Å, 120°) (Workshop 1).'; }},"
   ],
   [
    "{s:'K27-D52 tuz köprüsü ubikitinin katlanmış yapısını kararlı kılar.', a:'ek', w:function(){ return 'Sık görülen bir temas kararlılık katkısını göstermez. Bunun için örneğin mutasyon deneyi (K27 ya da D52 değişimiyle kararlılık ölçümü) ya da serbest enerji hesabı gerekir; bu sayfada etkileşim enerjisi hesaplanmadı.'; }},",
-   "{s:'The K27-D52 salt bridge stabilises the folded structure of ubiquitin.', a:'ek', w:function(){ return 'A frequently seen contact does not show a contribution to stability. That needs, for example, a mutation experiment (stability measurement after changing K27 or D52) or a free energy calculation; interaction energies were not computed on this page.'; }},"
+   "{s:'The K27-D52 salt bridge stabilizes the folded structure of ubiquitin.', a:'ek', w:function(){ return 'A frequently seen contact does not show a contribution to stability. That needs, for example, a mutation experiment (stability measurement after changing K27 or D52) or a free energy calculation; interaction energies were not computed on this page.'; }},"
   ],
   [
    "{s:'Ubikitin yüzeyinde en sık köprülenen kalıntı çiftleri, işlev için gerekli bir su ağıdır.', a:'ek', w:function(){ var U=IDD.u2; return 'Su köprülerinin sıklığı ölçüldü (kare başına ortalama '+['W1','W2','W3'].map(function(w){ return fx(U[w].bridges_mean,1); }).join(' / ')+'), ama işlevle ilişki ek kanıt ister: deneysel su yapısı, mutasyon ya da bağlanma verisi. Üç 200 ps koşu yalnız bu koşullarda görülen köprüleri gösterir.'; }},",
@@ -527,7 +528,7 @@
   ],
   [
    "{s:'Su içindeki alanin dipeptidinde her karbonil oksijeninin çevresinde iki su molekülü vardır.', a:'yok', w:function(){ var n=function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }; return 'Sayı kesmeye bağlı: 3,0 Å ile '+n(3.0)+', ilk minimumda ('+fx(IDD.rdf.rmin,2)+' Å) '+n(IDD.rdf.rmin)+', 4,0 Å ile '+n(4.0)+'. Tanımı yazılmamış bir \"iki su\" bu veriyle kurulamaz.'; }}",
-   "{s:'In alanine dipeptide in water there are two water molecules around each carbonyl oxygen.', a:'yok', w:function(){ var n=function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }; return 'The number depends on the cutoff: '+n(3.0)+' with 3.0 Å, '+n(IDD.rdf.rmin)+' at the first minimum ('+fx(IDD.rdf.rmin,2)+' Å), '+n(4.0)+' with 4.0 Å. A \"two waters\" without a written definition is not supported by these data.'; }}"
+   "{s:'In alanine dipeptide in water there are two water molecules around each carbonyl oxygen.', a:'yok', w:function(){ var n=function(rc){ return fx(arrMean(REPS.map(function(w){ return nAt(w,rc); })),2); }; return 'The number depends on the cut-off: '+n(3.0)+' with 3.0 Å, '+n(IDD.rdf.rmin)+' at the first minimum ('+fx(IDD.rdf.rmin,2)+' Å), '+n(4.0)+' with 4.0 Å. A \"two waters\" without a written definition is not supported by these data.'; }}"
   ],
   [
    "if(n>=4) card('ic7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz gerekçeyle örtüştü. Kurulabilen cümleler bir tanımı, bir eşiği ve belirli koşuları söylüyor. Kararlılık ve işlev, oluşma sıklığından çıkmaz; enerji, mutasyon ya da deney ister. Tanımı yazılmamış bir sayı ise (\"iki su\", \"kalıcı köprü\") bu veriyle kurulamaz.');",
@@ -547,7 +548,7 @@
   ],
   [
    "var L=['ETKİLEŞİM TANIMI KAYDI (MD-INT taslağı)','H-bağı tanımı: '+v('ifd'),'Tuz köprüsü ve temas: '+v('ifc'),'Kararlılık eşiği ve tekrarlar: '+v('ifk'),'SASA ve gömülülük: '+v('ifs'),'Çözücü kabuğu ve ömür: '+v('ifw'),'Kurulmayacak cümleler: '+v('ifn')];",
-   "var L=['INTERACTION DEFINITION RECORD (MD-INT draft)','H-bond definition: '+v('ifd'),'Salt bridges and contacts: '+v('ifc'),'Stability threshold and replicas: '+v('ifk'),'SASA and burial: '+v('ifs'),'Solvation shell and lifetime: '+v('ifw'),'Sentences not to be made: '+v('ifn')];"
+   "var L=['INTERACTION DEFINITION RECORD (MD-INT draft)','H-bond definition: '+v('ifd'),'Salt bridges and contacts: '+v('ifc'),'Stability threshold and replicas: '+v('ifk'),'SASA and burial: '+v('ifs'),'Solvation shell and lifetime: '+v('ifw'),'Sentences to avoid: '+v('ifn')];"
   ],
   [
    "if(d.trim()&&!/å|nm/.test(d)) wr.push('H-bağı tanımında uzaklık eşiği yok.');",
@@ -587,7 +588,7 @@
   ],
   [
    "if(!($('ifn').value||'').trim()) wr.push('\"Kurulmayacak cümleler\" satırı boş: temasın kararlılık ya da işlev diye adlandırılmayacağı önceden yazılır.');",
-   "if(!($('ifn').value||'').trim()) wr.push('The \"sentences not to be made\" line is empty: it is written in advance that a contact will not be called stability or function.');"
+   "if(!($('ifn').value||'').trim()) wr.push('The \"sentences to avoid\" line is empty: it is written in advance that a contact will not be described as stabilizing or as required for function.');"
   ],
   [
    "if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(e){ L.push('- '+e); }); }",
@@ -639,7 +640,7 @@
   ],
   [
    "o:[['Yumuşak Q en doğrusudur, öbürleri hatalıdır',0],['Üçü de aynı yapıyı farklı tanımlarla özetler; hangi tanımın kullanıldığı yazılmalıdır',1],['Fark koşudan koşuya değişkenlikten gelir',0]], w:'Üç Q aynı karelerden hesaplandı. Farkı tanım yaratıyor; aynı tanımla üç koşu birbirine çok yakın.'});",
-   "o:[['The soft Q is the most correct; the others are wrong',0],['All three summarise the same structure with different definitions; which definition was used must be written',1],['The difference comes from run-to-run variability',0]], w:'The three Q values were computed from the same frames. The definition creates the difference; with the same definition the three runs are very close.'});"
+   "o:[['The soft Q is the most correct; the others are wrong',0],['All three summarize the same structure with different definitions; which definition was used must be written',1],['The difference comes from run-to-run variability',0]], w:'The three Q values were computed from the same frames. The definition creates the difference; with the same definition the three runs are very close.'});"
   ],
   [
    "Q.push({s:'0,14 nm sondayla \"gömülü\" kalıntı sayısı eşik 5, 10 ve 20 Å² iken koşu 1\\'de '+B['5'][0]+', '+B['10'][0]+' ve '+B['20'][0]+'. Bu ne gösterir?',",
@@ -659,7 +660,7 @@
   ],
   [
    "'<p><b>Analiz.</b> Koşu ve analiz planı koşulardan ve hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…)'+(m.dev?'; '+m.dev:'; sapma yok')+'. H-bağları MDAnalysis HydrogenBondAnalysis ile (verici ve alıcı arası uzaklık, verici-H···alıcı açısı); tuz köprüleri en küçük N···O uzaklığıyla; temaslar ve Q kristal 1UBQ\\'ya göre, yumuşak Q Best, Hummer, Eaton 2013 (Proc Natl Acad Sci U S A 110:17874, doi 10.1073/pnas.1311599110) tanımıyla; SASA gmx sasa ile (Shrake ve Rupley 1973, J Mol Biol 79:351, doi 10.1016/0022-2836(73)90011-9 yaklaşımı); g(r) MDAnalysis InterRDF ile. Bağımsız denetim (ikinci uygulamalar; gmx hbond, gmx pairdist, gmx rdf): '+m.audit_n+' karşılaştırmadan '+nPoss(String(m.audit_ok))+' önceden yazılmış eşikle geçti'+(m.audit_note?'; '+m.audit_note:'')+'. Sayfadaki bazı sayılar (tuz köprüsü sıklığı, gömülü kalıntı sayısı, kesme ile su sayısı) tarayıcınızda gömülü dizilerden yeniden hesaplanır.</p>'+",
-   "'<p><b>Analysis.</b> The run and analysis plan was written and frozen before the runs and computations (SHA-256 '+m.plan_sha.slice(0,12)+'…); one deviation: the plan said \"every 10 ps (91 frames)\" for SASA, but every 10 ps from 200 to 2000 ps gives 181 frames, and that rule was followed. H-bonds with MDAnalysis HydrogenBondAnalysis (donor-acceptor distance, donor-H···acceptor angle); salt bridges by the minimum N···O distance; contacts and Q relative to the 1UBQ crystal, soft Q with the definition of Best, Hummer, Eaton 2013 (Proc Natl Acad Sci U S A 110:17874, doi 10.1073/pnas.1311599110); SASA with gmx sasa (the approach of Shrake and Rupley 1973, J Mol Biol 79:351, doi 10.1016/0022-2836(73)90011-9); g(r) with MDAnalysis InterRDF. Independent audit (second implementations; gmx hbond, gmx pairdist, gmx rdf): '+m.audit_ok+' of '+m.audit_n+' comparisons passed their pre-written thresholds; the one that did not is the W1 g(r) first peak height, relative difference from gmx rdf 4.9% (threshold 3%), caused by the bin edges of the two tools being offset by half a bin; with aligned bins the difference is 0.001. Some numbers on the page (salt-bridge occupancy, number of buried residues, waters within a cutoff) are recomputed in your browser from embedded arrays.</p>'+"
+   "'<p><b>Analysis.</b> The run and analysis plan was written and frozen before the runs and computations (SHA-256 '+m.plan_sha.slice(0,12)+'…); one deviation: the plan said \"every 10 ps (91 frames)\" for SASA, but every 10 ps from 200 to 2000 ps gives 181 frames, and that rule was followed. H-bonds with MDAnalysis HydrogenBondAnalysis (donor-acceptor distance, donor-H···acceptor angle); salt bridges by the minimum N···O distance; contacts and Q relative to the 1UBQ crystal, soft Q with the definition of Best, Hummer, Eaton 2013 (Proc Natl Acad Sci U S A 110:17874, doi 10.1073/pnas.1311599110); SASA with gmx sasa (the approach of Shrake and Rupley 1973, J Mol Biol 79:351, doi 10.1016/0022-2836(73)90011-9); g(r) with MDAnalysis InterRDF. Independent audit (second implementations; gmx hbond, gmx pairdist, gmx rdf): '+m.audit_ok+' of '+m.audit_n+' comparisons passed their pre-written thresholds; the one that did not is the W1 g(r) first peak height, relative difference from gmx rdf 4.9% (threshold 3%), caused by the bin edges of the two tools being offset by half a bin; with aligned bins the difference is 0.001. Some numbers on the page (salt-bridge occupancy, number of buried residues, waters within a cut-off) are recomputed in your browser from embedded arrays.</p>'+"
   ],
   [
    "'<p><b>Öğretim modeli.</b> NOE izi tarayıcıda açık bir modelle üretilir (iki durumlu Markov süreci, yakın durum 3,0 Å, yakından çıkış olasılığı adım başına 0,05, 0,2 Å Gauss oynaması); gerçek ölçüm değildir. NOE\\'nin yalnız ⟨r⁻⁶⟩ ortalaması gösterilir; spin difüzyonu ve dönme dinamiği modelde yoktur.</p>'+",

@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "a466ba612c34f995c661e99438edf37564330c106d09bede8a008b27eb82b402",
  "reviewed": false,
- "translator": "Claude (AI), MD-MET 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-MET 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Yapısal ölçüt neyi ölçer?</title>",
@@ -55,7 +56,7 @@
   ],
   [
    "<span class=\"step\">1 · Atölye: RMSD neyi söyler?</span>",
-   "<span class=\"step\">1 · Workshop: what does RMSD tell?</span>"
+   "<span class=\"step\">1 · Workshop: what does RMSD tell us?</span>"
   ],
   [
    "<h2 id=\"mh1\">Aynı RMSD, farklı yapılar</h2>",
@@ -75,7 +76,7 @@
   ],
   [
    "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mmat\" class=\"plot\" aria-label=\"Kare çifti RMSD matrisi; tıklayarak çift seçin\"></canvas></div><div class=\"stagebox\"><canvas id=\"mpair\" aria-label=\"Seçilen iki karenin Cα zinciri üst üste; gri kristal yapı\"></canvas></div></div>",
-   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mmat\" class=\"plot\" aria-label=\"Frame-pair RMSD matrix; click to select a pair\"></canvas></div><div class=\"stagebox\"><canvas id=\"mpair\" aria-label=\"Cα chains of the two selected frames on top of each other; gray the crystal structure\"></canvas></div></div>"
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"mmat\" class=\"plot\" aria-label=\"Frame-pair RMSD matrix; click to select a pair\"></canvas></div><div class=\"stagebox\"><canvas id=\"mpair\" aria-label=\"Cα chains of the two selected frames on top of each other; the crystal structure in gray\"></canvas></div></div>"
   ],
   [
    "<div class=\"selrow\"><button type=\"button\" class=\"btn\" id=\"mbest\">Kristale göre aynı RMSD, birbirine en uzak çifti göster</button></div>",
@@ -123,7 +124,7 @@
   ],
   [
    "<article class=\"q\" id=\"mc3\"><span class=\"k\">Açık</span><h3>Rg neyi görmez?</h3><p>Rg grafiğine ve Rg ile kuyruk saçılımına bakın.</p><div class=\"mine\" id=\"mmc3\"></div></article>",
-   "<article class=\"q\" id=\"mc3\"><span class=\"k\">Open</span><h3>What does Rg miss?</h3><p>Look at the Rg plot and the Rg against tail scatter.</p><div class=\"mine\" id=\"mmc3\"></div></article>"
+   "<article class=\"q\" id=\"mc3\"><span class=\"k\">Open</span><h3>What does Rg miss?</h3><p>Look at the Rg plot and the scatter plot of Rg against tail RMSD.</p><div class=\"mine\" id=\"mmc3\"></div></article>"
   ],
   [
    "<article class=\"q\" id=\"mc4\"><span class=\"k\">Açık</span><h3>RMSF bir tanımdır</h3><p>Pencere, hizalama ve referans karşılaştırmalarını açın.</p><div class=\"mine\" id=\"mmc4\"></div></article>",
@@ -335,7 +336,7 @@
   ],
   [
    "$('mpread').innerHTML=dl('Kare 1 (lacivert)',String(W1.i*10)+' ps; kristale göre '+fx(W1.A[W1.i],2)+' Å')+dl('Kare 2 (kızıl)',String(W1.j*10)+' ps; kristale göre '+fx(W1.A[W1.j],2)+' Å')+dl('İki karenin birbirine göre RMSD\\'si',fx(m,2)+' Å')+dl('Kristale göre RMSD farkı 0,1 Å\\'dan az olan çift',fmtI(W1.np)+' (20.100 çiftten)')+dl('Renkler','gri kristal yapı; kalın kısım kuyruk 71 ile 76; bütün kareler çekirdekle kristale hizalı');",
-   "$('mpread').innerHTML=dl('Frame 1 (navy)',String(W1.i*10)+' ps; relative to the crystal '+fx(W1.A[W1.i],2)+' Å')+dl('Frame 2 (red)',String(W1.j*10)+' ps; relative to the crystal '+fx(W1.A[W1.j],2)+' Å')+dl('RMSD of the two frames relative to each other',fx(m,2)+' Å')+dl('Pairs whose RMSDs relative to the crystal differ by less than 0.1 Å',fmtI(W1.np)+' (of 20,100 pairs)')+dl('Colors','gray the crystal structure; thick part the tail 71 to 76; all frames fitted on the core to the crystal');"
+   "$('mpread').innerHTML=dl('Frame 1 (navy)',String(W1.i*10)+' ps; relative to the crystal '+fx(W1.A[W1.i],2)+' Å')+dl('Frame 2 (red)',String(W1.j*10)+' ps; relative to the crystal '+fx(W1.A[W1.j],2)+' Å')+dl('RMSD of the two frames relative to each other',fx(m,2)+' Å')+dl('Pairs whose RMSDs relative to the crystal differ by less than 0.1 Å',fmtI(W1.np)+' (of 20,100 pairs)')+dl('Colors','gray: crystal structure; thick part: tail 71 to 76; all frames fitted on the core to the crystal');"
   ],
   [
    "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
@@ -343,7 +344,7 @@
   ],
   [
    "function w1Cards(){ if(W1.pairSeen) card('mc1',true,'Kristale göre RMSD\\'leri 0,1 Å\\'dan az farklı '+fmtI(W1.np)+' kare çifti var. Bunların birbirine en uzak olanı '+String(W1.best[0]*10)+' ve '+String(W1.best[1]*10)+' ps: kristale göre '+fx(W1.A[W1.best[0]],2)+' ve '+fx(W1.A[W1.best[1]],2)+' Å, birbirine göre '+fx(W1.bestM,2)+' Å. Aynı RMSD değeri, referanstan aynı uzaklıkta ama farklı yönlerde duran yapılara karşılık gelebilir. İki yapının benzerliği sorulduğunda kare çifti RMSD\\'si gerekir.');",
-   "function w1Cards(){ if(W1.pairSeen) card('mc1',true,'There are '+fmtI(W1.np)+' frame pairs whose RMSDs relative to the crystal differ by less than 0.1 Å. The pair farthest apart is '+String(W1.best[0]*10)+' and '+String(W1.best[1]*10)+' ps: '+fx(W1.A[W1.best[0]],2)+' and '+fx(W1.A[W1.best[1]],2)+' Å relative to the crystal, '+fx(W1.bestM,2)+' Å relative to each other. The same RMSD value can correspond to structures at the same distance from the reference but in different directions. When the similarity of two structures is asked, the frame-pair RMSD is needed.');"
+   "function w1Cards(){ if(W1.pairSeen) card('mc1',true,'There are '+fmtI(W1.np)+' frame pairs whose RMSDs relative to the crystal differ by less than 0.1 Å. The pair farthest apart is '+String(W1.best[0]*10)+' and '+String(W1.best[1]*10)+' ps: '+fx(W1.A[W1.best[0]],2)+' and '+fx(W1.A[W1.best[1]],2)+' Å relative to the crystal, '+fx(W1.bestM,2)+' Å relative to each other. The same RMSD value can correspond to structures at the same distance from the reference but in different directions. To ask how similar two structures are, you need the frame-pair RMSD.');"
   ],
   [
    "else card('mc1',false,'Matristen kristale göre RMSD\\'leri birbirine yakın (0,1 Å\\'dan az farklı) ve birbirine göre RMSD\\'si 1 Å\\'dan büyük bir çift seçin ya da düğmeyi kullanın.');",
@@ -351,7 +352,7 @@
   ],
   [
    "if(W1.seen.AB) card('mc2',true,'Bütün Cα RMSD\\'si ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek RMSD\\'si '+fx(arrMean(W1.B),2)+' Å. 76 kalıntının yalnız 6\\'sı (kuyruk 71 ile 76) dışarıda kalınca değer yarıdan fazla düşüyor: bütün Cα eğrisi çoğunlukla kuyruğun hareketini izliyor. Eğrinin bir anda yükselip sonra yatay seyretmesi, hangi atomların ölçüldüğünü bilmeden \"yapı değişti\" ya da \"denge\" diye okunamaz.'); }",
-   "if(W1.seen.AB) card('mc2',true,'The all-Cα RMSD averages '+fx(arrMean(W1.A),2)+' Å, the core RMSD '+fx(arrMean(W1.B),2)+' Å. Leaving out only 6 of the 76 residues (the tail 71 to 76) more than halves the value: the all-Cα curve mostly follows the motion of the tail. A curve that rises at once and then runs flat cannot be read as \"the structure changed\" or \"equilibrium\" without knowing which atoms were measured.'); }"
+   "if(W1.seen.AB) card('mc2',true,'The all-Cα RMSD averages '+fx(arrMean(W1.A),2)+' Å, the core RMSD '+fx(arrMean(W1.B),2)+' Å. Leaving out only 6 of the 76 residues (the tail 71 to 76) more than halves the value: the all-Cα curve mostly follows the motion of the tail. A curve that rises abruptly and then runs flat cannot be read as \"the structure changed\" or \"equilibrium\" without knowing which atoms were measured.'); }"
   ],
   [
    "/* ===== atölye 2 ve proteine dönüş: Rg ve RMSF, üç koşu ===== */",
@@ -559,7 +560,7 @@
   ],
   [
    "Q.push({s:'Bir koşuda Rg 2 ns boyunca neredeyse sabit kaldı. Hangi cümle bu veriyle kurulabilir?',",
-   "Q.push({s:'In one run Rg stayed almost constant for 2 ns. Which sentence can be built with these data?',"
+   "Q.push({s:'In one run Rg stayed almost constant for 2 ns. Which statement can be made from these data?',"
   ],
   [
    "o:[['Proteinin kompaktlığı bu sürede belirgin biçimde değişmedi',1],['Proteinin yapısı hiç değişmedi',0],['Kuyruk hareket etmedi',0]], w:'Rg kütlenin merkezden ortalama uzaklığıdır; yön ve yerel düzenleme göremez. Bu sayfada Rg az oynarken kuyruğun RMSD\\'si birkaç Å değişti (Atölye 2).'});",
@@ -607,7 +608,7 @@
   ],
   [
    "'<p><b>Sınırlar.</b> Üç koşu, her biri 2 ns; ubikitinin esnekliği, dengesi ya da yakınsaması hakkında bir sonuç çıkarılmaz (MD-U, MD-EQ). Koşu 1\\'in ilk iki dengeleme adımı başka bir makinede yapıldı; koşu 2 ve 3\\'ünkiler bu bulutta. SASA ve ikincil yapı gibi başka ölçütler: Bu senaryo hesaplanmadı.</p>'; }",
-   "'<p><b>Limits.</b> Three runs, 2 ns each; no conclusion is drawn about the flexibility, equilibrium or convergence of ubiquitin (MD-U, MD-EQ). The first two equilibration steps of run 1 were made on a different machine; those of runs 2 and 3 in this cloud. Other measures such as SASA and secondary structure: This scenario was not computed.</p>'; }"
+   "'<p><b>Limits.</b> Three runs, 2 ns each; no conclusion is drawn about the flexibility, equilibrium or convergence of ubiquitin (MD-U, MD-EQ). The first two equilibration steps of run 1 were run on a different machine; those of runs 2 and 3 in this cloud. Other measures such as SASA and secondary structure: This scenario was not computed.</p>'; }"
   ],
   [
    "/* ---------- sınav ---------- */",

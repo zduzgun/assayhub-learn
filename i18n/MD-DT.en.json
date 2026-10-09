@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "aac64ffada5ffaaf1ad391d6bd0a586a252dfa48e4265c3b29519edcf349d1af",
  "reviewed": false,
- "translator": "Claude (AI), MD-DT 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-DT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Zaman Adımı</title>",
@@ -23,7 +24,7 @@
   ],
   [
    "<p class=\"lead\">MD programı atomları küçük zaman adımlarıyla ilerletir. Adım uzadıkça aynı süre daha az hesapla simüle edilir, ama adımın, sistemdeki en hızlı titreşimi izleyebilecek kadar kısa olması gerekir. Bir proteinde en hızlı titreşimler hidrojenli bağlardadır. Bu laboratuvarda ubikitinin bütün bağlarının \"saatini\" okuyacak, bir bağı kendi elinizle patlatacak ve bu projede koşulmuş 24 gerçek koşuyla adım, kısıt ve kütle seçimlerinin bedelini ölçeceksiniz.</p>",
-   "<p class=\"lead\">An MD program moves atoms forward in small time steps. The longer the step, the less computation it takes to simulate the same stretch of time, but the step must be short enough to follow the fastest vibration in the system. In a protein, the fastest vibrations are in the bonds to hydrogen. In this lab you will read the \"clock\" of every bond in ubiquitin, blow up a bond with your own hands, and use 24 real runs made in this project to measure the cost of choices of step, constraints and mass.</p>"
+   "<p class=\"lead\">An MD program moves atoms forward in small time steps. The longer the step, the less computation it takes to simulate the same stretch of time, but the step must be short enough to follow the fastest vibration in the system. In a protein, the fastest vibrations are in the bonds to hydrogen. In this lab you will read the \"clock\" of every bond in ubiquitin, blow up a bond with your own hands, and use 24 real runs made in this project to measure the cost of your choices of step, constraints and mass.</p>"
   ],
   [
    "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"d1progN\">0 / 4</b></div>",
@@ -87,7 +88,7 @@
   ],
   [
    "<p class=\"small\">Periyot: T = 2π √(μ / k); μ, iki atomun indirgenmiş kütlesi; k, amber99sb-ildn kuvvet alanındaki bağ yay sabiti (bu projenin <code>.tpr</code> dosyasından, <code>gmx dump</code>). Bu hesap Thr7 OG1-HG1 için 8,99 fs verir; grompp'un bu projede aynı bağ için yazdığı tahmin 9,0 fs'dir. Gölgeli bantlar proteinlerin IR spektrumunda ölçülen amid A (N-H gerilmesi, yaklaşık 3.300 cm⁻¹) ve amid I (çoğunlukla C=O gerilmesi, 1.600-1.700 cm⁻¹) bantlarıdır (Barth 2007, Biochim Biophys Acta 1767:1073). Tek bağlı, harmonik hesap gerçek titreşimlerin komşu bağlar ve açılarla karışmasını içermez; bu yüzden C=O için bulunan değer amid I bandından düşüktür. Açı titreşimleri bu şekle girmez.</p>",
-   "<p class=\"small\">Period: T = 2π √(μ / k); μ is the reduced mass of the two atoms; k is the bond spring constant in the amber99sb-ildn force field (from this project's <code>.tpr</code> file, <code>gmx dump</code>). This calculation gives 8.99 fs for Thr7 OG1-HG1; the estimate grompp wrote for the same bond in this project is 9.0 fs. The shaded bands are the amide A (N-H stretch, about 3,300 cm⁻¹) and amide I (mostly C=O stretch, 1,600-1,700 cm⁻¹) bands measured in the IR spectra of proteins (Barth 2007, Biochim Biophys Acta 1767:1073). The single-bond, harmonic calculation leaves out how real vibrations mix with neighbouring bonds and angles; that is why the value found for C=O lies below the amide I band. Angle vibrations are not included in this figure.</p>"
+   "<p class=\"small\">Period: T = 2π √(μ / k); μ is the reduced mass of the two atoms; k is the bond spring constant in the amber99sb-ildn force field (from this project's <code>.tpr</code> file, <code>gmx dump</code>). This calculation gives 8.99 fs for Thr7 OG1-HG1; the estimate grompp wrote for the same bond in this project is 9.0 fs. The shaded bands are the amide A (N-H stretch, about 3,300 cm⁻¹) and amide I (mostly C=O stretch, 1,600-1,700 cm⁻¹) bands measured in the IR spectra of proteins (Barth 2007, Biochim Biophys Acta 1767:1073). The single-bond, harmonic calculation leaves out how real vibrations mix with neighboring bonds and angles; that is why the value found for C=O lies below the amide I band. Angle vibrations are not included in this figure.</p>"
   ],
   [
    "<span class=\"step\">1 · Atölye</span>",
@@ -103,7 +104,7 @@
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"d1ubq\" class=\"stage\" aria-label=\"Ubikitin; seçilen zaman adımında periyodu 5 kat adımdan kısa kalan serbest bağlar kırmızı; kısıtlı bağlar gri; sürükleyerek döndürülebilir\"></canvas></div>",
-   "<div class=\"stagebox\"><canvas id=\"d1ubq\" class=\"stage\" aria-label=\"Ubiquitin; at the chosen time step, free bonds with a period shorter than 5 times the step in red; constrained bonds in grey; can be rotated by dragging\"></canvas></div>"
+   "<div class=\"stagebox\"><canvas id=\"d1ubq\" class=\"stage\" aria-label=\"Ubiquitin; at the chosen time step, free bonds with a period shorter than 5 times the step in red; constrained bonds in gray; can be rotated by dragging\"></canvas></div>"
   ],
   [
    "<div><label class=\"lbl\" for=\"d1dt\">Zaman adımı, Δt</label><div class=\"big\" id=\"d1dtV\"></div><input type=\"range\" id=\"d1dt\" min=\"0.5\" max=\"6\" step=\"0.1\" value=\"2\"></div>",
@@ -139,11 +140,11 @@
   ],
   [
    "<canvas id=\"d1hist\" class=\"plot\" aria-label=\"Bağ periyotlarının dağılımı; 5 · Δt çizgisi; kısıtlı, güvenli ve sınırı aşan bağlar ayrı renkte\"></canvas>",
-   "<canvas id=\"d1hist\" class=\"plot\" aria-label=\"Distribution of bond periods; the 5 · Δt line; constrained, safe and over-the-limit bonds in different colours\"></canvas>"
+   "<canvas id=\"d1hist\" class=\"plot\" aria-label=\"Distribution of bond periods; the 5 · Δt line; constrained, safe and over-the-limit bonds in different colors\"></canvas>"
   ],
   [
    "<p class=\"small\" style=\"margin:0\">İpucu: dağılımdaki bir çubuğa dokunun; o periyot aralığındaki bağlar üç boyutlu görünümde altın rengiyle vurgulanır. Kırmızı bağlar abartılı genlikle titreşir; kısıtlı bağlar kalın, gri ve hareketsizdir.</p>",
-   "<p class=\"small\" style=\"margin:0\">Tip: tap a bar of the distribution; the bonds in that period range are highlighted in gold in the 3D view. Red bonds vibrate with exaggerated amplitude; constrained bonds are thick, grey and still.</p>"
+   "<p class=\"small\" style=\"margin:0\">Tip: tap a bar of the distribution; the bonds in that period range are highlighted in gold in the 3D view. Red bonds vibrate with exaggerated amplitude; constrained bonds are thick, gray and still.</p>"
   ],
   [
    "<canvas id=\"d1res\" class=\"plot\" aria-label=\"Periyodu 5 · Δt'den kısa kalan serbest bağların kalıntı türüne göre sayısı\"></canvas>",
@@ -255,7 +256,7 @@
   ],
   [
    "<article class=\"q\" id=\"d1c3\"><span class=\"k\">Açık</span><h3>Ağır hidrojen neyi değiştirir?</h3><p>Aynı adımla bir kez normal, bir kez HMR ile koşun.</p><div class=\"mine\" id=\"md1c3\">Normal hidrojenle patlayan bir adımı HMR ile kararlı koşun.</div></article>",
-   "<article class=\"q\" id=\"d1c3\"><span class=\"k\">Open</span><h3>What does a heavy hydrogen change?</h3><p>Run the same step once normally and once with HMR.</p><div class=\"mine\" id=\"md1c3\">Run a step that blows up with normal hydrogen stably with HMR.</div></article>"
+   "<article class=\"q\" id=\"d1c3\"><span class=\"k\">Open</span><h3>What does a heavy hydrogen change?</h3><p>Run the same step once normally and once with HMR.</p><div class=\"mine\" id=\"md1c3\">Take a step that blows up with normal hydrogen and run it stably with HMR.</div></article>"
   ],
   [
    "<span class=\"step\">3 · Defter</span>",
@@ -267,7 +268,7 @@
   ],
   [
    "<div class=\"prose\" id=\"d1gP\"><p>Bu projede aynı başlangıçtan (S0'ın NPT sonu; hızlar 300 K'de, aynı tohumla yeniden üretildi) 24 NVE koşusu yapıldı: 6 zaman adımı × 4 kısıt düzeni, her biri 20 ps; protokol koşulardan önce yazılıp donduruldu. NVE'de termostat yoktur, bu yüzden integrasyon hatası doğrudan enerjiye ve sıcaklığa yansır: termometre gibi okuyun. Her hücrede, aynı düzenin 0,5 fs koşusuna göre ortalama sıcaklığın ne kadar yükseldiği ve hız (ns/gün) var. Hücre rengi sizin ölçütünüzdür: ne kadar ısınmaya izin veriyorsunuz? Bir hücreye dokunun; en çok üç koşunun enerji eğrisi aşağıda üst üste çizilir.</p></div>",
-   "<div class=\"prose\" id=\"d1gP\"><p>In this project, 24 NVE runs were made from the same start (the end of S0's NPT; velocities regenerated at 300 K with the same seed): 6 time steps × 4 constraint schemes, 20 ps each; the protocol was written and frozen before the runs. NVE has no thermostat, so the integration error goes straight into the energy and the temperature: read it like a thermometer. Each cell holds how much the mean temperature rose relative to the 0.5 fs run of the same scheme, and the speed (ns/day). The cell colour is your criterion: how much warming do you allow? Tap a cell; the energy curves of up to three runs are drawn on top of each other below.</p></div>"
+   "<div class=\"prose\" id=\"d1gP\"><p>In this project, 24 NVE runs were made from the same start (the end of S0's NPT; velocities regenerated at 300 K with the same seed): 6 time steps × 4 constraint schemes, 20 ps each; the protocol was written and frozen before the runs. NVE has no thermostat, so the integration error goes straight into the energy and the temperature: read it like a thermometer. Each cell holds how much the mean temperature rose relative to the 0.5 fs run of the same scheme, and the speed (ns/day). The cell color is your criterion: how much warming do you allow? Tap a cell; the energy curves of up to three runs are drawn on top of each other below.</p></div>"
   ],
   [
    "<div id=\"d1grid\" class=\"gridtab\" aria-label=\"Zaman adımı ve kısıt düzeni ızgarası; her hücre bir koşu\"></div>",
@@ -303,7 +304,7 @@
   ],
   [
    "<canvas id=\"d1sc\" class=\"plot\" aria-label=\"Hız ve ısınma: her koşu bir nokta; renk kısıt düzeni; kesikli çizgi ısınma sınırı; en iyi takas cephesi\"></canvas>",
-   "<canvas id=\"d1sc\" class=\"plot\" aria-label=\"Speed and warming: each run a dot; colour is the constraint scheme; dashed line the warming limit; the best trade-off front\"></canvas>"
+   "<canvas id=\"d1sc\" class=\"plot\" aria-label=\"Speed and warming: each run a dot; color is the constraint scheme; dashed line the warming limit; the best trade-off front\"></canvas>"
   ],
   [
    "<div class=\"crash\" id=\"d1crB\" hidden><div class=\"lbl\" id=\"d1crH\"></div><canvas id=\"d1cr\" class=\"plot\" aria-label=\"Çöken koşunun son adımında en çok kayan atomlar, logaritmik ölçek; normal bir adımdaki ortanca kayma\"></canvas><p class=\"small\" id=\"d1crN\" style=\"margin:0\"></p></div>",
@@ -319,7 +320,7 @@
   ],
   [
    "<p class=\"small\" id=\"d1gN\">Okuma notları. H bağları kısıtlıyken adım büyüdükçe korunan enerji pozitife döner ve sistem ısınır: ortalama sıcaklık 0,5 fs'de 298,9 K, 4 fs'de 309,1 K. 5 fs'yi grompp reddetti (Glu16 CD-OE1, 22,2 fs); zorla koşulunca 0,3 ps'de LINCS uyarıları başladı ve koşu çöktü. HMR bu düzende kaymayı azaltmadı, artırdı (4 fs'de eğim 1,05, H bağlarında 0,29), ama 5 fs'de çökmeden 20 ps tamamlanan tek düzen o oldu; sıcaklık 315,5 K'e çıktı. HMR ağır atomları hafiflettiği için bazı ağır atom bağları hızlanır (bu projede en yavaş bağın periyodu 42,6'dan 36,4 fs'ye iner); tek tohumlu, 20 ps'lik bu deney kaymanın nedenini ayırmaz. Tüm bağlar kısıtlıyken eğim negatif ve adımla büyüyor (4 fs'de −4,20); koşular LINCS'in varsayılan ayarlarıyla (lincs-order 4, lincs-iter 1) yapıldı ve 5 fs'de 0,35 ps'de LINCS uyarısıyla çöktü. Kısıt yokken 2 fs'yi grompp reddetti (Thr7 OG1-HG1, 9,0 fs); zorla koşulan 2 fs tamamlandı; 3, 4 ve 5 fs'de su molekülleri ilk adımlarda (13., 3. ve 2. adım) SETTLE ile çözülemedi ve koşular çöktü. 0,5 ve 1 fs'de bütün düzenlerde küçük, düzenli bir negatif eğim var; kaynağı bu ızgarada ayrılamaz. Eğim birimi kJ mol⁻¹ ns⁻¹, atom başına (18.937 atom). Hızlar aynı makinede ölçüldü; aynı adımda düzenler arasındaki küçük farklar kısmen ölçüm gürültüsüdür ve hbonds 0,5 fs koşusu sırasında makinede başka işler de çalıştı.</p>",
-   "<p class=\"small\" id=\"d1gN\">Reading notes. With H bonds constrained, the conserved energy turns positive as the step grows and the system warms: the mean temperature is 298.9 K at 0.5 fs and 309.1 K at 4 fs. grompp rejected 5 fs (Glu16 CD-OE1, 22.2 fs); when forced, LINCS warnings began at 0.3 ps and the run crashed. In this scheme HMR did not reduce the drift, it increased it (slope 1.05 at 4 fs, 0.29 with H bonds), but it was the only scheme that completed 20 ps at 5 fs without crashing; the temperature rose to 315.5 K. Because HMR makes the heavy atoms lighter, some heavy-atom bonds become faster (in this project the period of the slowest bond drops from 42.6 to 36.4 fs); this single-seed, 20 ps experiment does not separate the cause of the drift. With all bonds constrained, the slope is negative and grows with the step (−4.20 at 4 fs); the runs were made with the default LINCS settings (lincs-order 4, lincs-iter 1) and at 5 fs crashed at 0.35 ps with a LINCS warning. Without constraints, grompp rejected 2 fs (Thr7 OG1-HG1, 9.0 fs); the forced 2 fs run completed; at 3, 4 and 5 fs, water molecules could not be settled by SETTLE in the first steps (steps 13, 3 and 2) and the runs crashed. At 0.5 and 1 fs there is a small, regular negative slope in every scheme; its source cannot be separated in this grid. The slope unit is kJ mol⁻¹ ns⁻¹ per atom (18,937 atoms). The speeds were measured on the same machine; at the same step, the small differences between schemes are partly measurement noise, and other jobs were also running on the machine during the hbonds 0.5 fs run.</p>"
+   "<p class=\"small\" id=\"d1gN\">Reading notes. With H bonds constrained, the conserved energy turns positive as the step grows and the system warms: the mean temperature is 298.9 K at 0.5 fs and 309.1 K at 4 fs. grompp rejected 5 fs (Glu16 CD-OE1, 22.2 fs); when forced, LINCS warnings began at 0.3 ps and the run crashed. In this scheme HMR did not reduce the drift, it increased it (slope 1.05 at 4 fs, 0.29 with H bonds), but it was the only scheme that completed 20 ps at 5 fs without crashing; the temperature rose to 315.5 K. Because HMR makes the heavy atoms lighter, some heavy-atom bonds become faster (in this project the period of the slowest bond drops from 42.6 to 36.4 fs); this single-seed, 20 ps experiment cannot isolate the cause of the drift. With all bonds constrained, the slope is negative and grows with the step (−4.20 at 4 fs); the runs were made with the default LINCS settings (lincs-order 4, lincs-iter 1) and at 5 fs crashed at 0.35 ps with a LINCS warning. Without constraints, grompp rejected 2 fs (Thr7 OG1-HG1, 9.0 fs); the forced 2 fs run completed; at 3, 4 and 5 fs, water molecules could not be settled by SETTLE in the first steps (steps 13, 3 and 2) and the runs crashed. At 0.5 and 1 fs there is a small, regular negative slope in every scheme; its source cannot be isolated in this grid. The slope unit is kJ mol⁻¹ ns⁻¹ per atom (18,937 atoms). The speeds were measured on the same machine; at the same step, the small differences between schemes are partly measurement noise, and other jobs were also running on the machine during the hbonds 0.5 fs run.</p>"
   ],
   [
    "<article class=\"q\" id=\"d1c4\"><span class=\"k\">Açık</span><h3>Ölçütünüze göre en hızlı ayar hangisi?</h3><p>Bir ısınma sınırı seçin ve sınırın altında kalan koşular arasında en hızlısını bulun.</p><div class=\"mine\" id=\"md1c4\">Sınırı, tamamlanmış en az bir koşuyu dışarıda bırakacak kadar düşürün ve kalanlar arasında en hızlı koşuyu seçin.</div></article>",
@@ -483,7 +484,7 @@
   ],
   [
    "var N={OH:'Bu projedeki en hızlı bağlar: tek bir titreşim 9 fs sürer. Kuvvet alanı bağı serbest bırakırsa zaman adımını bu bağlar belirler.',NH:'Omurganın N-H bağları: hesaplanan dalga sayısı, IR\\'daki amid A bandının (yaklaşık 3.300 cm⁻¹) üstüne düşer.',CH:'485 bağla en kalabalık grup; periyotları 10,9-11,4 fs.',CO:'Hesaplanan değer amid I bandının (1.600-1.700 cm⁻¹) altında kalır: gerçek amid I titreşimi komşu bağlarla ve açılarla karışır, tek bağ modeli bunu içermez.',CN:'Peptit bağı; C=O ile birlikte amid titreşimlerine katılır.',HV:'Ağır atomlar arasındaki bağlar 22-43 fs\\'lik periyotlarla hidrojenli bağlardan iki-dört kat yavaştır.'};",
-   "var N={OH:'The fastest bonds in this project: a single vibration lasts 9 fs. If the force field leaves these bonds free, they set the time step.',NH:'The N-H bonds of the backbone: the computed wavenumber falls on the amide A band of IR (about 3,300 cm⁻¹).',CH:'The largest group, with 485 bonds; periods 10.9-11.4 fs.',CO:'The computed value lies below the amide I band (1,600-1,700 cm⁻¹): the real amide I vibration mixes with neighbouring bonds and angles, which the single-bond model leaves out.',CN:'The peptide bond; together with C=O it takes part in the amide vibrations.',HV:'With periods of 22-43 fs, the bonds between heavy atoms are two to four times slower than the bonds to hydrogen.'};"
+   "var N={OH:'The fastest bonds in this project: a single vibration lasts 9 fs. If the force field leaves these bonds free, they set the time step.',NH:'The N-H bonds of the backbone: the computed wavenumber falls on the amide A band of IR (about 3,300 cm⁻¹).',CH:'The largest group, with 485 bonds; periods 10.9-11.4 fs.',CO:'The computed value lies below the amide I band (1,600-1,700 cm⁻¹): the real amide I vibration mixes with neighboring bonds and angles, which the single-bond model leaves out.',CN:'The peptide bond; together with C=O it takes part in the amide vibrations.',HV:'With periods of 22-43 fs, the bonds between heavy atoms are two to four times slower than the bonds to hydrogen.'};"
   ],
   [
    "band(3250,3350,'amid A'); band(1600,1700,'amid I');",
@@ -587,7 +588,7 @@
   ],
   [
    "if(r&&best===id&&rejDone.length) card('d1c4',true,'Sınır +'+fx(G4.thr,1)+' K: '+acc.length+' koşu kabul, tamamlanmış '+rejDone.length+' koşu dışarıda. En hızlı kabul edilen koşu '+r.lab+': '+fx(r.nsday,1)+' ns/gün, +'+fx(v,1)+' K'+(r.forced?' (grompp reddetmişti; zorla koşuldu)':'')+'. Sınırı siz seçtiniz; başka bir soru başka bir sınır ister.');",
-   "if(r&&best===id&&rejDone.length) card('d1c4',true,'Limit +'+fx(G4.thr,1)+' K: '+acc.length+' runs accepted, '+rejDone.length+' completed runs left out. The fastest accepted run is '+r.lab+': '+fx(r.nsday,1)+' ns/day, +'+fx(v,1)+' K'+(r.forced?' (grompp had rejected it; run forced)':'')+'. You chose the limit; a different question calls for a different limit.');"
+   "if(r&&best===id&&rejDone.length) card('d1c4',true,'Limit +'+fx(G4.thr,1)+' K; runs accepted: '+acc.length+'; completed runs left out: '+rejDone.length+'. The fastest accepted run is '+r.lab+': '+fx(r.nsday,1)+' ns/day, +'+fx(v,1)+' K'+(r.forced?' (grompp had rejected it; run forced)':'')+'. You chose the limit; a different question calls for a different limit.');"
   ],
   [
    "else if(!FOUND.d1c4&&r) card('d1c4',false,!rejDone.length?'Bu sınırda tamamlanan bütün koşular kabul ediliyor; sınırı düşürün.':(best?'Sınırın altındaki en hızlı koşu henüz seçilmedi.':'Bu sınırda hiçbir koşu kabul edilmiyor.')); }",
@@ -751,7 +752,7 @@
   ],
   [
    "$('d1scL').innerHTML=Object.keys(SCH).map(function(s){ return '<span><i style=\"background:var('+SCH[s][1]+')\"></i>'+SCH[s][0]+'</span>'; }).join('')+'<span>Nokta yanındaki sayı: Δt (fs); en soldaki küme 0,5 fs · noktalı çizgi: hızda ve ısınmada daha iyisi olmayan koşular</span>'; }",
-   "$('d1scL').innerHTML=Object.keys(SCH).map(function(s){ return '<span><i style=\"background:var('+SCH[s][1]+')\"></i>'+SCH[s][0]+'</span>'; }).join('')+'<span>Number next to a dot: Δt (fs); the leftmost cluster is 0.5 fs · dotted line: runs with nothing better in both speed and warming</span>'; }"
+   "$('d1scL').innerHTML=Object.keys(SCH).map(function(s){ return '<span><i style=\"background:var('+SCH[s][1]+')\"></i>'+SCH[s][0]+'</span>'; }).join('')+'<span>Number next to a dot: Δt (fs); the leftmost cluster is 0.5 fs · dotted line: runs that no other run beats in both speed and warming</span>'; }"
   ],
   [
    "if(!sets.length){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Sıcaklık eğrisi için tamamlanmış bir koşu seçin.',L,H/2); return; }",

@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "98dab965798a6deb2ec1ba20cccc70b4b044f6b06be4fc6cd888dbdc7068fe55",
  "reviewed": false,
- "translator": "Claude (AI), DK-O 0.3.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), DK-O 0.3.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Docking: Gerçek Kilit</title>",
@@ -51,7 +52,7 @@
   ],
   [
    "<div class=\"prose\"><p>Kristal yapı dosyası doğrudan docking'e girmez. Önce hangi suların kalacağı, hangi kalıntının hangi protonasyonda yazılacağı, doluluğu 0 olan atomlarla ne yapılacağı seçilir; programlar bunların çoğunu sessizce, varsayılan değerle yapar. Aşağıda kararları değiştirin: önce beş olağan hazırlık kararı, sonra sonucu değiştirebilecek üç karar. Her birleşim için sayfadaki bütün sayılar, o hazırlıkla gerçekten çalıştırılmış Vina koşularından gelir: kristal pozun skoru ve beş tohumlu redocking (DKOPREP ve DKOPREP2: 198 farklı hazırlık, 1.080 koşu). Bir kararı değiştirince ligand eski pozundan yenisine kayar; önceki poz gri kesikli olarak kalır. Kararlarla ilgili atomların çevresindeki halka, o atomun kristal pozdaki katkısını gösterir: yeşil çeker, kırmızı iter. Kesit DK-T'deki gibidir: dolu bölge protein yüzeyi, boşluk cep; mavi daireler kristal suları, kırmızı kesikli daireler Gln192'nin doluluğu 0 olan iki atomu.</p></div>",
-   "<div class=\"prose\"><p>A crystal structure file does not go straight into docking. First you choose which waters stay, which residue is written in which protonation state, and what to do with atoms whose occupancy is 0; programs make most of these choices silently, with default values. Change the decisions below: first five routine preparation decisions, then three decisions that might change the result. For every combination, all the numbers on the page come from Vina runs actually carried out with that preparation: the score of the crystal pose and a five-seed redocking (DKOPREP and DKOPREP2: 198 different preparations, 1,080 runs). When you change a decision, the ligand slides from its old pose to the new one; the previous pose stays as a grey dashed outline. The ring around each atom involved in the decisions shows that atom's contribution in the crystal pose: green attracts, red repels. The section is the same as in DK-T: the filled region is the protein surface, the empty space is the pocket; blue circles are crystal waters, red dashed circles are the two atoms of Gln192 with occupancy 0.</p></div>"
+   "<div class=\"prose\"><p>A crystal structure file does not go straight into docking. First you choose which waters stay, which residue is written in which protonation state, and what to do with atoms whose occupancy is 0; programs make most of these choices silently, with default values. Change the decisions below: first five routine preparation decisions, then three decisions that might change the result. For every combination, all the numbers on the page come from Vina runs actually carried out with that preparation: the score of the crystal pose and a five-seed redocking (DKOPREP and DKOPREP2: 198 different preparations, 1,080 runs). When you change a decision, the ligand slides from its old pose to the new one; the previous pose stays as a gray dashed outline. The ring around each atom involved in the decisions shows that atom's contribution in the crystal pose: green attracts, red repels. The section is the same as in DK-T: the filled region is the protein surface, the empty space is the pocket; blue circles are crystal waters, red dashed circles are the two atoms of Gln192 with occupancy 0.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"o1pk\" class=\"stage\" aria-label=\"3PTB cebinin kesiti: protein yüzeyi, kristal suları, doluluğu 0 olan Gln192 atomları, kristal benzamidin ve seçilen hazırlıkla bulunan ilk poz\"></canvas></div>",
@@ -139,7 +140,7 @@
   ],
   [
    "<canvas id=\"o1run\" class=\"plot\" aria-label=\"Seçilen hazırlıkla beş tohumun bütün pozları: RMSD'ye karşı skor; temel hazırlık gri\"></canvas>",
-   "<canvas id=\"o1run\" class=\"plot\" aria-label=\"All poses of the five seeds with the selected preparation: score against RMSD; baseline preparation in grey\"></canvas>"
+   "<canvas id=\"o1run\" class=\"plot\" aria-label=\"All poses of the five seeds with the selected preparation: score against RMSD; baseline preparation in gray\"></canvas>"
   ],
   [
    "<div class=\"prose\"><p>Vina neden bazı kararları hiç görmez? Skor, atom çiftleri arasındaki uzaklığa ve atom türüne bağlıdır; elektrostatik terim yoktur ve hidrojenler yalnız bir atomun verici olup olmadığını belirler. Aşağıdaki tablo, kararlarla ilgili atomların Vina'daki türünü, kristal benzamidine uzaklığını ve kristal pozdaki katkısını gösterir. Seçiminizle türü değişen satırlar vurgulanır.</p></div>",
@@ -207,7 +208,7 @@
   ],
   [
    "<p data-x=\"1TGN\">1TGN: sığır tripsinojeni (tripsinin öncül, etkin olmayan biçimi), 1,65 Å. Cep çevresinin olgun tripsinden ne kadar ayrıldığı aşağıdaki hizalama RMSD'sinde görünür.</p>",
-   "<p data-x=\"1TGN\">1TGN: bovine trypsinogen (the precursor, inactive form of trypsin), 1.65 Å. How far the surroundings of the pocket depart from mature trypsin shows in the alignment RMSD below.</p>"
+   "<p data-x=\"1TGN\">1TGN: bovine trypsinogen (the inactive precursor of trypsin), 1.65 Å. How far the surroundings of the pocket depart from mature trypsin shows in the alignment RMSD below.</p>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"o1xk\" class=\"stage\" aria-label=\"Seçilen yapının cebinin kesiti: protein yüzeyi, 3PTB kristalindeki benzamidin ve seçilen tohumun seçilen sıradaki pozu\"></canvas></div>",
@@ -223,7 +224,7 @@
   ],
   [
    "<div><div class=\"lbl\">Kesit</div><div class=\"seg\" role=\"group\" aria-label=\"Kesit\" id=\"o1xvw\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Yandan: iki duvar</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Üstten: halka yüzü</button></div></div>",
-   "<div><div class=\"lbl\">Section</div><div class=\"seg\" role=\"group\" aria-label=\"Section\" id=\"o1xvw\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Side: two walls</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Top: face of the ring</button></div></div>"
+   "<div><div class=\"lbl\">Section</div><div class=\"seg\" role=\"group\" aria-label=\"Section\" id=\"o1xvw\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Side: two walls</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Top: ring face</button></div></div>"
   ],
   [
    "<label class=\"chk\"><input type=\"checkbox\" id=\"o1xsh\"> 3PTB yüzeyini gölge olarak göster</label>",
@@ -287,7 +288,7 @@
   ],
   [
    "<span class=\"step\">3 · Defter</span>",
-   "<span class=\"step\">3 · Ledger</span>"
+   "<span class=\"step\">3 · Notebook</span>"
   ],
   [
    "<h2 id=\"o1h3\">Sonucu önceden gösteren bir ölçü var mı?</h2>",
@@ -359,7 +360,7 @@
   ],
   [
    "<tr><td>Doluluğu 0 olan Gln192 atomları</td><td>Silinince kristal skor +0,06; redocking aynı.</td></tr>",
-   "<tr><td>Gln192 atoms with occupancy 0</td><td>Deleting them makes the crystal score +0.06; redocking the same.</td></tr>"
+   "<tr><td>Gln192 atoms with occupancy 0</td><td>Deleting them changes the crystal score by +0.06; redocking is unchanged.</td></tr>"
   ],
   [
    "<tr><td>Asp189 yan zinciri kesik</td><td>Kristal skor +0,6; redocking yine 180/180 başarılı, ilk pozlar 1,4 Å'a kadar kayıyor.</td></tr>",
@@ -439,7 +440,7 @@
   ],
   [
    "g.fillText(W<420?'altın: kristal · koyu: docking · gri kesikli: önceki':'altın: kristal poz · koyu: seçilen tohumun ilk pozu · gri kesikli: önceki seçiminiz · mavi: su · halka: atomun katkısı (yeşil çeker, kırmızı iter)',10,H-7); }",
-   "g.fillText(W<420?'gold: crystal · dark: docking · grey dashed: previous':'gold: crystal pose · dark: first pose of the selected seed · grey dashed: your previous choice · blue: water · ring: atom contribution (green attracts, red repels)',10,H-7); }"
+   "g.fillText(W<420?'gold: crystal · dark: docking · gray dashed: previous':'gold: crystal pose · dark: first pose of the selected seed · gray dashed: your previous choice · blue: water · ring: atom contribution (green attracts, red repels)',10,H-7); }"
   ],
   [
    "var EFR=[['W 0→416','HOH416 tutulur','W','416'],['W 0→all','62 suyun hepsi','W','all'],['Q keep→del','Gln192 OE1/NE2 silinir','Q','del'],['D ASP→ASH','Asp189 nötr (ASH)','D','ASH'],['H HIE→HID','His57 HID','H','HID'],['H HIE→HIP','His57 HIP','H','HIP'],['N NH→NH3','Ile16 NH₃⁺','N','NH3'],['L cat→neu','Benzamidin nötr','L','neu'],['A full→cut','Asp189 yan zinciri kesik','A','cut'],['X no→yes','Kristal ligand unutuldu','X','yes']];",
@@ -463,7 +464,7 @@
   ],
   [
    "g.textAlign='left'; g.fillStyle=css('--muted'); g.fillText(W<420?'koyu: sizin · gri: temel':'koyu: sizin hazırlığınız (büyük nokta: her tohumun ilk pozu) · gri: temel hazırlık',L,12); }",
-   "g.textAlign='left'; g.fillStyle=css('--muted'); g.fillText(W<420?'dark: yours · grey: baseline':'dark: your preparation (large dot: first pose of each seed) · grey: baseline preparation',L,12); }"
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.fillText(W<420?'dark: yours · gray: baseline':'dark: your preparation (large dot: first pose of each seed) · gray: baseline preparation',L,12); }"
   ],
   [
    "$('o1js').textContent=Math.abs(run.cr)<50?fx(js,3)+' (Vina '+fx(run.cr,3)+')':'karşılaştırılmadı (derin çakışmada sayfanın hesabı Vina\\'dan ayrılır)';",
@@ -531,7 +532,7 @@
   ],
   [
    "{s:'Cep Cα RMSD değeri 0,27 Å altındaki üç yapıda başarı 20/20, 2,44 Å olan 1TGN yapısında 0/20 oldu. Bu veri, doğru eşiğin 1 Å olduğunu gösterir mi?',o:[['Evet, 1 Å iki grubu ayırdığı için',0],['Hayır: 0,27 ile 2,44 Å arasında yapı yok; o aralıktaki her eşik beş yapıyı aynı doğrulukla ayırır, eşik bu veriyle belirlenemez',1],['Evet, çünkü RMSD her sistemde aynı eşiği verir',0],['Hayır, çünkü RMSD docking sonucuyla hiç ilgili değildir',0]],w:'Başarısız tek yapı olduğundan eşik aralığı çok geniştir. Defterdeki dört ölçünün hepsi bu beş noktayı ayırır; hangisinin gelecekteki bir yapıda ayıracağı bu veriden bilinmez.'},",
-   "{s:'In the three structures with a pocket Cα RMSD below 0.27 Å the success was 20/20, and in 1TGN with 2.44 Å it was 0/20. Does this data show that the right threshold is 1 Å?',o:[['Yes, because 1 Å separates the two groups',0],['No: there is no structure between 0.27 and 2.44 Å; every threshold in that range separates the five structures equally well, so the threshold cannot be determined from this data',1],['Yes, because RMSD gives the same threshold in every system',0],['No, because RMSD has nothing to do with the docking result',0]],w:'Because only one structure failed, the threshold range is very wide. All four measures in the ledger separate these five points; which of them would separate a future structure cannot be known from this data.'},"
+   "{s:'In the three structures with a pocket Cα RMSD below 0.27 Å the success was 20/20, and in 1TGN with 2.44 Å it was 0/20. Does this data show that the right threshold is 1 Å?',o:[['Yes, because 1 Å separates the two groups',0],['No: there is no structure between 0.27 and 2.44 Å; every threshold in that range separates the five structures equally well, so the threshold cannot be determined from this data',1],['Yes, because RMSD gives the same threshold in every system',0],['No, because RMSD has nothing to do with the docking result',0]],w:'Because only one structure failed, the threshold range is very wide. All four measures in the notebook separate these five points; which of them would separate a future structure cannot be known from this data.'},"
   ],
   [
    "{s:'Yirmi tohumun hepsi aynı sonucu verdi. Bu, sonucun her yapı için 20 kez doğrulandığı anlamına gelir mi?',o:[['Evet, 20 bağımsız deney yapıldı',0],['Hayır: tohumlar aynı aramanın tekrarıdır; bağımsız kanıt yapı sayısıdır (beş yapı, bir ligand, bir cep)',1],['Evet, tohum sayısı arttıkça sonuç kesinleşir',0],['Hayır, çünkü tohumlar rastgele değildir',0]],w:'Tohum, aramanın rastgele başlangıcını değiştirir; kilit, ligand ve skor fonksiyonu aynıdır. Tohumlar arası küçük yayılım aramanın kararlı olduğunu gösterir, sonucun başka yapılara taşınacağını göstermez.'}];",
@@ -543,7 +544,7 @@
   ],
   [
    "$('o1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }",
-   "$('o1score').textContent='Answered: '+n+' / '+QZ.length+' · correct at first try: '+r; }); }); }"
+   "$('o1score').textContent='Answered: '+n+' / '+QZ.length+' · correct on first try: '+r; }); }); }"
   ],
   [
    "['o1c1','o1c2','o1c3','o1c4','o1c5','o1c6','o1c7','o1c8'].forEach(function(id){ var e=$(id); if(e) e.querySelector('.k').textContent='Açık'; });",
@@ -563,11 +564,11 @@
   ],
   [
    "g.textAlign='center'; [0,2,4,8,12].forEach(function(v){ g.fillText(v+' Å',X(v),H-B+14); }); g.fillText(W<420?'RMSD; dikey: skor':'pozun 3PTB kristal pozuna olan RMSD değeri; dikey: Vina skoru (kcal/mol)',L+(W-L-R)/2,H-3);",
-   "g.textAlign='center'; [0,2,4,8,12].forEach(function(v){ g.fillText(v+' Å',X(v),H-B+14); }); g.fillText(W<420?'RMSD; dikey: skor':'RMSD of the pose to the 3PTB crystal pose; vertical: Vina score (kcal/mol)',L+(W-L-R)/2,H-3);"
+   "g.textAlign='center'; [0,2,4,8,12].forEach(function(v){ g.fillText(v+' Å',X(v),H-B+14); }); g.fillText(W<420?'RMSD; vertical: score':'RMSD of the pose to the 3PTB crystal pose; vertical: Vina score (kcal/mol)',L+(W-L-R)/2,H-3);"
   ],
   [
    "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='10.5px '+css('--sans'); g.fillText(W<420?'yeşil/kırmızı: ilk poz · halka: çizilen':'yeşil: ilk poz doğru · kırmızı: ilk poz yanlış · mavi: öteki pozlar · halka: çizilen poz'+(XT.all?' · gri: öteki yapıların ilk pozları':''),L,12); }",
-   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='10.5px '+css('--sans'); g.fillText(W<420?'green/red: first pose · ring: drawn':'green: first pose correct · red: first pose wrong · blue: other poses · ring: drawn pose'+(XT.all?' · grey: first poses of the other structures':''),L,12); }"
+   "g.textAlign='left'; g.fillStyle=css('--muted'); g.font='10.5px '+css('--sans'); g.fillText(W<420?'green/red: first pose · ring: drawn':'green: first pose correct · red: first pose wrong · blue: other poses · ring: drawn pose'+(XT.all?' · gray: first poses of the other structures':''),L,12); }"
   ],
   [
    "$('o1xhv').textContent=fx(d.rh,3)+(d.miss?' ('+d.miss+' atom eksik)':'');",
@@ -575,7 +576,7 @@
   ],
   [
    "card('o1c6',true,'Cep Cα RMSD değeri 0,27 Å ve altında olan üç yapıda (2PTN, 1TNH, 2PTC) ilk poz, 20 tohumun hepsinde 2 Å sınırının içindeydi (RMSD medyanları '+fx(a.medR,2)+', '+fx(b.medR,2)+' ve '+fx(cc.medR,2)+' Å). Tripsinojen 1TGN yapısında cep Cα RMSD değeri '+fx(XD['1TGN'].rca,2)+' Å ve 20 tohumun '+t.ok+' tanesinde ilk poz doğruydu (RMSD medyanı '+fx(t.medR,2)+' Å). Ligand, kutu, hazırlık hattı ve arama aynıydı; değişen yalnız kilitti. Redocking tampondaki standarttı, bu ise gerçek numune.'); }",
-   "card('o1c6',true,'With the three structures whose pocket Cα RMSD is 0.27 Å or lower (2PTN, 1TNH, 2PTC), the first pose was within the 2 Å limit in all 20 seeds (RMSD medians '+fx(a.medR,2)+', '+fx(b.medR,2)+' and '+fx(cc.medR,2)+' Å). In trypsinogen 1TGN the pocket Cα RMSD is '+fx(XD['1TGN'].rca,2)+' Å and the first pose was correct in '+t.ok+' of 20 seeds (RMSD median '+fx(t.medR,2)+' Å). The ligand, box, preparation pipeline and search were the same; only the lock changed. Redocking was the standard in buffer; this is the real sample.'); }"
+   "card('o1c6',true,'In the three structures whose pocket Cα RMSD is 0.27 Å or lower (2PTN, 1TNH, 2PTC), the first pose was within the 2 Å limit in all 20 seeds (RMSD medians '+fx(a.medR,2)+', '+fx(b.medR,2)+' and '+fx(cc.medR,2)+' Å). In trypsinogen 1TGN the pocket Cα RMSD is '+fx(XD['1TGN'].rca,2)+' Å and the first pose was correct in '+t.ok+' of 20 seeds (RMSD median '+fx(t.medR,2)+' Å). The ligand, box, preparation pipeline and search were the same; only the lock changed. Redocking was the standard in buffer; this is the real sample.'); }"
   ],
   [
    "card('o1c7',true,'1TGN yapısında doğru poz her tohumda üretildi ama ilk sırada değildi: 2 Å altındaki en iyi skorlu pozun sırası medyan '+fx(med(t2.rk),0)+' ('+Math.min.apply(null,t2.rk)+' ile '+Math.max.apply(null,t2.rk)+' arası), ilk pozdan skor farkı medyan '+fx(med(t2.gp),3)+' kcal/mol ('+fx(Math.min.apply(null,t2.gp),3)+' ile '+fx(Math.max.apply(null,t2.gp),3)+' arası). Bu çok küçük bir fark. Sorun aramada değil sıralamada: doğru poz bulundu, ama skor onu birinci seçmedi. Yalnız ilk pozu alan bir iş akışı bunu görmez.'); }",

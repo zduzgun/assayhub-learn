@@ -1,5 +1,12 @@
 # Sürüm notları
 
+## 0.36.0 (9 Ekim 2026) · İngilizce denetim, 2. tur: orta düzey
+
+- Orta düzeyin 13 modülünün İngilizce tablosu (DK-O, MD-EQ, MD-O, MD-PDB, MD-DT, MD-TRJ, MD-MET, MD-PCA, MD-INT, MD-FAIL, MD-FF, MD-SOLV, MD-LIG) Türkçe kaynakla çift çift karşılaştırıldı. 211 düzeltme: 12 anlam ya da dil bilgisi hatası, 136 tutarlılık (Amerikan yazımı; "cutoff" yerine "cut-off"; yüzde işaretinden önce boşluk yok; "ledger" yerine "notebook"; "template" yerine "draft"; MD-EQ, MD-O ve MD-PDB'de "Bridge to the bench" yerine öteki modüllerdeki gibi "Experimental bridge"), 63 üslup. Yalnız görünen metin değişti.
+- İngilizce sayfada Türkçe kalan parçalar için yeni çiftler: DK-O'da kısa eksen etiketi "dikey: skor" (mevcut çift düzeltildi); MD-LIG'de zaman ekseni "zaman (ps)" ve tablodaki "β 0,5" ondalık virgülü.
+- Bu modüllere `checked: "claude"` eklendi; alt not 1. turdaki gibi.
+- Türkçe kaynakta bulunan ve değiştirilmeyen notlar: DK-O'da aynı üç yapı için "0,27 Å'un altında" ve "0,27 Å ya da daha düşük"; MD-EQ'de suyun "LJ minimumu çevresinde" (yaklaşık 0,35 nm) en rahat durduğu cümlesi (sıvı suda en yakın O-O yaklaşık 0,28 nm); MD-MET'te Rg için "ortalama uzaklık" (kütle ağırlıklı karekök ortalama olmalı) ve "sorudan önce yazılır"; MD-INT sınavında yaklaşık 4,4 Å etkin uzaklık için "güçlü NOE".
+
 ## 0.35.0 (9 Ekim 2026) · İngilizce denetim, 1. tur: temel düzey
 
 - Temel düzeyin 9 modülünün İngilizce tablosu (DK-T, MD-T, MD-PBC, MD-CUT, MD-ELEC, MD-ENS, MD-CON, MD-REP, MD-Q) Türkçe kaynakla çift çift karşılaştırıldı. 142 düzeltme: 20 anlam ya da dil bilgisi hatası, 65 terim ve yazım tutarlılığı (Amerikan yazımı; "ledger" ve "log" yerine "notebook"; "cutoff" yerine "cut-off"), 57 üslup. Yalnız görünen metin değişti; kod, sayı ve veri değişmedi.

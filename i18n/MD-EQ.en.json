@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "234a1061d2e04d3ae1a96fa8bd0bf0c3a6e267ea6c0bc6bd39e6d8decab05183",
  "reviewed": false,
- "translator": "Claude (AI), MD-EQ 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-EQ 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Minimizasyon ve Dengeleme</title>",
@@ -31,7 +32,7 @@
   ],
   [
    "<span class=\"step\">Deneysel köprü</span>",
-   "<span class=\"step\">Bridge to the bench</span>"
+   "<span class=\"step\">Experimental bridge</span>"
   ],
   [
    "<h2 id=\"m1h0\">Ölçmeden önce beklersiniz</h2>",
@@ -79,7 +80,7 @@
   ],
   [
    "<div class=\"prose\"><p>Kutuda 125 katı su molekülü var (TIP3P geometrisi ve yükleri; kırmızı oksijen, beyaz hidrojen). Kutu üç boyutlu bir küptür, kenarı 1,55 nm; fareyle ya da parmağınızla sürükleyerek döndürebilirsiniz. Kutu önceden dengelenmiştir; GROMACS'ın <code>solvate</code> komutu da suyu böyle hazır bir kutudan kopyalar. Çakışma, kutuya sonradan eklenenlerden gelir: proteinin eklenen hidrojenleri, <code>solvate</code>'in yerleştirdiği sular, <code>genion</code>'un koyduğu iyonlar. Burada bunun yerine kutuya birkaç su molekülü sıkıştırılıyor; sıkıştırılanlar koyu halkayla işaretli. Dinamiği önce minimize etmeden başlatın. Dinamik 10 ps sürer (5.000 adım); her molekülün son 0,5 ps'lik yolu ince, üç işaretli molekülün bütün yolu altın renkli çizgiyle çizilir. Sıvı suda bir molekül 10 ps'de ortalama yarım nanometre kadar yol alır; bu, kendi çapının bir buçuk katıdır.</p></div>",
-   "<div class=\"prose\"><p>The box holds 125 rigid water molecules (TIP3P geometry and charges; red oxygen, white hydrogen). The box is a three-dimensional cube with an edge of 1.55 nm; you can rotate it by dragging with the mouse or your finger. The box has been equilibrated beforehand; GROMACS's <code>solvate</code> command also copies water from such a ready-made box. Clashes come from what is added to the box afterwards: the hydrogens added to the protein, the waters placed by <code>solvate</code>, the ions placed by <code>genion</code>. Here, instead, a few water molecules are squeezed into the box; the squeezed ones are marked with a dark ring. Start the dynamics first without minimizing. The dynamics lasts 10 ps (5,000 steps); the last 0.5 ps of each molecule's path is drawn with a thin line, and the whole path of three marked molecules with a gold line. In liquid water a molecule travels about half a nanometre on average in 10 ps, one and a half times its own diameter.</p></div>"
+   "<div class=\"prose\"><p>The box holds 125 rigid water molecules (TIP3P geometry and charges; red oxygen, white hydrogen). The box is a three-dimensional cube with an edge of 1.55 nm; you can rotate it by dragging with the mouse or your finger. The box has been equilibrated beforehand; GROMACS's <code>solvate</code> command also copies water from such a ready-made box. Clashes come from what is added to the box afterwards: the hydrogens added to the protein, the waters placed by <code>solvate</code>, the ions placed by <code>genion</code>. Here, instead, a few water molecules are squeezed into the box; the squeezed ones are marked with a dark ring. Start the dynamics first without minimizing. The dynamics lasts 10 ps (5,000 steps); the last 0.5 ps of each molecule's path is drawn with a thin line, and the whole path of three marked molecules with a gold line. In liquid water a molecule travels about half a nanometer on average in 10 ps, one and a half times its own diameter.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"m1box\" class=\"stage\" aria-label=\"Periyodik kübik kutuda 125 su molekülü ve kutuya sıkıştırılan moleküller; sürükleyerek döndürülebilir\"></canvas></div>",
@@ -195,7 +196,7 @@
   ],
   [
    "<dt>Hedefin ±%5'ine varış (0,13 ps'lik ortalama)</dt><dd id=\"m1reach\"></dd>",
-   "<dt>Reaching ±5% of the target (0.13 ps average)</dt><dd id=\"m1reach\"></dd>"
+   "<dt>Reaching ±5% of the target (averaged over 0.13 ps)</dt><dd id=\"m1reach\"></dd>"
   ],
   [
    "<dt>Son 2,5 ps ortalaması</dt><dd id=\"m1mean\"></dd>",
@@ -283,7 +284,7 @@
   ],
   [
    "<article class=\"q\" id=\"m1c5\"><span class=\"k\">Açık</span><h3>Çöken bağlar nerede?</h3><p>Proteine dönüşte bir yeri önce minimize edin, sonra minimizasyonsuz kipte son kareye kadar ilerleyin.</p><div class=\"mine\" id=\"mm1c5\">Aynı yeri (iki su dışında) bir kez minimizasyonla sona kadar, bir kez minimizasyonsuz kipte son kareye kadar izleyin.</div></article>",
-   "<article class=\"q\" id=\"m1c5\"><span class=\"k\">Open</span><h3>Where are the bonds that broke?</h3><p>In Back to the protein, first minimize one site, then step through to the last frame in the mode without minimization.</p><div class=\"mine\" id=\"mm1c5\">Follow the same site (other than the two waters) once with minimization to the end and once to the last frame in the mode without minimization.</div></article>"
+   "<article class=\"q\" id=\"m1c5\"><span class=\"k\">Open</span><h3>Where are the bonds that broke?</h3><p>In \"Back to the protein\", first minimize one site, then step through to the last frame in the mode without minimization.</p><div class=\"mine\" id=\"mm1c5\">Follow the same site (other than the two waters) once with minimization to the end and once to the last frame in the mode without minimization.</div></article>"
   ],
   [
    "<div style=\"display:grid;gap:4px\"><span class=\"step\">3 · Keşif defteri</span><h2 id=\"m1h3\">Günlükten ölçün: sistem dengede mi?</h2></div>",
@@ -455,7 +456,7 @@
   ],
   [
    "<p class=\"small\">Model: atölye ve tezgâhta üç boyutlu periyodik kutuda 125 katı TIP3P suyu, gerçek birimlerle (nm, ps, kJ/mol; adım 2 fs). Küçük kutu ve basitleştirilmiş kesme yüzünden sayılar büyük bir GROMACS kutusununkini birebir vermez; çakışmanın, minimizasyonun ve termostatın davranışını gerçek ölçeğinde gösterir. Köprüdeki enerji ve kuvvet TIP3P parametreleriyle hesaplanır; proteine dönüş ve defterdeki bütün sayılar bu projenin gerçek koşularından gelir. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
-   "<p class=\"small\">Model: in the workshop and on the bench, 125 rigid TIP3P waters in a three-dimensional periodic box, in real units (nm, ps, kJ/mol; step 2 fs). Because of the small box and the simplified cut-off, the numbers do not match those of a large GROMACS box one to one; they show the behaviour of clashes, minimization and the thermostat at its real scale. The energy and force in the bridge are computed with the TIP3P parameters; all numbers in Back to the protein and in the notebook come from this project's real runs. Your notebook is stored only in this browser.</p>"
+   "<p class=\"small\">Model: in the workshop and on the bench, 125 rigid TIP3P waters in a three-dimensional periodic box, in real units (nm, ps, kJ/mol; step 2 fs). Because of the small box and the simplified cut-off, the numbers do not match those of a large GROMACS box one to one; they show the behavior of clashes, minimization and the thermostat at its real scale. The energy and force in the bridge are computed with the TIP3P parameters; all numbers in \"Back to the protein\" and in the notebook come from this project's real runs. Your notebook is stored only in this browser.</p>"
   ],
   [
    "if(s.maxRot>30){ s.warn++; s.log.push('Step '+step+', time '+s.t.toFixed(3)+' (ps): bir su molekülünün bağı tek adımda '+s.maxRot.toFixed(0)+'° döndü (uyarı sınırı 30°)'); } }",
@@ -571,7 +572,7 @@
   ],
   [
    "if(done) card('m1c1',true,done.k+' su sıkıştırılmış kutu: minimizasyonsuz dinamik '+(done.r.no.crash?'<b>'+NFI.format(done.r.no.step+1)+'. adımda durdu</b>':'sıcaklığı <b>'+NFI.format(Math.round(done.r.no.Tmax))+' K</b>\\'ye fırlattı')+'; minimize edilince '+fx(done.r.em.t,0)+' ps sorunsuz koştu, en yüksek sıcaklık <b>'+NFI.format(Math.round(done.r.em.Tmax))+' K</b>, moleküller ortalama '+fx(done.r.em.msd,2)+' nm yol aldı. Bu projenin minimizasyonsuz koşusu (S1) da aynı yoldan gitti: 0. adımda 1.151 K, 1. adımda LINCS uyarısı ve çökme.');",
-   "if(done) card('m1c1',true,'Box with '+done.k+' waters squeezed in: without minimization the dynamics '+(done.r.no.crash?'<b>stopped at step '+NFI.format(done.r.no.step+1)+'</b>':'shot the temperature up to <b>'+NFI.format(Math.round(done.r.no.Tmax))+' K</b>')+'; after minimization it ran '+fx(done.r.em.t,0)+' ps without trouble, highest temperature <b>'+NFI.format(Math.round(done.r.em.Tmax))+' K</b>, and the molecules travelled '+fx(done.r.em.msd,2)+' nm on average. This project\\'s run without minimization (S1) went the same way: 1,151 K at step 0, a LINCS warning and a crash at step 1.');"
+   "if(done) card('m1c1',true,'Box with '+done.k+' waters squeezed in: without minimization the dynamics '+(done.r.no.crash?'<b>stopped at step '+NFI.format(done.r.no.step+1)+'</b>':'shot the temperature up to <b>'+NFI.format(Math.round(done.r.no.Tmax))+' K</b>')+'; after minimization it ran '+fx(done.r.em.t,0)+' ps without trouble, highest temperature <b>'+NFI.format(Math.round(done.r.em.Tmax))+' K</b>, and the molecules traveled '+fx(done.r.em.msd,2)+' nm on average. This project\\'s run without minimization (S1) went the same way: 1,151 K at step 0, a LINCS warning and a crash at step 1.');"
   ],
   [
    "function rs(r){ return r.st.reach==null?'5 ps\\'de varamadı':fx(r.st.reach,2)+' ps\\'de hedefte'; }",
@@ -651,7 +652,7 @@
   ],
   [
    "card('m1c3',true,'NPT yoğunluğu baştan ölçülünce <b>'+fx(a.m,1)+'</b>, ilk '+fx(d4.d,1)+' ps atılınca <b>'+fx(b.m,1)+' kg/m³</b>. Kalan sürenin iki yarısı '+fx(b.h1,1)+' ve '+fx(b.h2,1)+': yoğunluk hâlâ artıyor, 10 ps\\'lik NPT onu oturtmaya yetmedi. '+q[1]+': ortalama '+fx(p.m,0)+' bar, standart sapma '+fx(p.sd,0)+' bar. Anlık basınç yüzlerce bar oynar; 1 bar\\'lık hedefi tek bir değerden değil, uzun bir ortalamadan okumak gerekir.'); }",
-   "card('m1c3',true,'NPT density measured from the start: <b>'+fx(a.m,1)+'</b>; with the first '+fx(d4.d,1)+' ps discarded: <b>'+fx(b.m,1)+' kg/m³</b>. The two halves of the remaining time: '+fx(b.h1,1)+' and '+fx(b.h2,1)+': the density is still rising, and 10 ps of NPT was not enough to settle it. '+q[1]+': mean '+fx(p.m,0)+' bar, standard deviation '+fx(p.sd,0)+' bar. The instantaneous pressure swings by hundreds of bar; the 1 bar target has to be read not from a single value but from a long average.'); }"
+   "card('m1c3',true,'NPT density measured from the start: <b>'+fx(a.m,1)+'</b>; with the first '+fx(d4.d,1)+' ps discarded: <b>'+fx(b.m,1)+' kg/m³</b>. The two halves of the remaining time give '+fx(b.h1,1)+' and '+fx(b.h2,1)+': the density is still rising, and 10 ps of NPT was not enough to settle it. '+q[1]+': mean '+fx(p.m,0)+' bar, standard deviation '+fx(p.sd,0)+' bar. The instantaneous pressure swings by hundreds of bar; the 1 bar target has to be read not from a single value but from a long average.'); }"
   ],
   [
    "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,100,200,300,400,500,600,700].forEach(function(n){ g.fillText(NFI.format(n),X(n),H-B+16); }); g.fillText('minimizasyon adımı',X(350),H-4);",
@@ -739,7 +740,7 @@
   ],
   [
    "'Bir adım daha. Göreli sapma 2,8 × 10⁹ (atom 1217 ile 1218 arası); birkaç atom yüz milyonlarca nanometre öteye fırladı ve program burada çöktü (segmentation fault).'];",
-   "'One more step. Relative deviation 2.8 × 10⁹ (between atoms 1217 and 1218); several atoms were thrown hundreds of millions of nanometres away and the program crashed here (segmentation fault).'];"
+   "'One more step. Relative deviation 2.8 × 10⁹ (between atoms 1217 and 1218); several atoms were thrown hundreds of millions of nanometers away and the program crashed here (segmentation fault).'];"
   ],
   [
    "var UNOTE={ala46:'Minimizasyon başlamadan önceki en büyük kuvvet buradaydı: GROMACS 196.569 kJ mol⁻¹ nm⁻¹ ile atom 10895\\'i gösterir, yani su 3298\\'in oksijenini. Suyun iki hidrojeni Ala46\\'nın metil hidrojenlerine 0,147 ve 0,148 nm yaklaşmış.',",
