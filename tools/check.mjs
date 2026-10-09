@@ -84,6 +84,13 @@ for (const f of files) {
   if (ext.length) notes.push(`${rel}: dış betik ${ext.join(', ')}`);
 }
 
+// 4b) kitap haritası: her bölümün en az bir modülü var, modüllerin bölümleri book.json'da, sayfa iki dilde
+{ const BK = JSON.parse(readFileSync(join(ROOT, 'book.json'), 'utf8')), chIds = new Set(BK.chapters.map((c) => c.id));
+  for (const m of M.modules) for (const c of ((m.book || '').match(/CH\d\d/g) || [])) if (!chIds.has(c)) fail(`${m.id}: kitap bölümü ${c} book.json'da yok`);
+  for (const c of BK.chapters) if (!M.modules.some((m) => m.path && ((m.book || '').match(/CH\d\d/g) || []).includes(c.id))) fail(`${c.id}: bağlı modül yok`);
+  for (const L of LANGS) { const f = join(DIST, L, 'book', 'index.html'); if (!existsSync(f)) { fail(`dist/${L}/book/index.html yok`); continue; }
+    const h = readFileSync(f, 'utf8'); for (const c of BK.chapters) if (!h.includes(`id="${c.id}"`)) fail(`${L} kitap sayfasında ${c.id} yok`); } }
+
 // 5) lisans notu gereken modüller (iki dilde)
 for (const m of M.modules) {
   if (!m.path) continue;

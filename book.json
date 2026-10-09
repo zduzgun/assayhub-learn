@@ -1,0 +1,166 @@
+{
+  "schema": "assayhub-learn-book/1",
+  "note": "MD kitabının 20 çalışma birimi (BOOK_MAP_TR_2026-09-24.md). Türkçe başlıklar kitap haritasındaki gibidir; İngilizce başlıklar çalışma çevirisidir (yazar onayı bekliyor). Modüllerin bölümle ilişkisi modules.json 'book' alanından üretilir.",
+  "chapters": [
+    {
+      "id": "CH01",
+      "level": "temel",
+      "title": "Biyolojik sorudan ölçülebilir MD çalışmasına",
+      "en": {
+        "title": "From a biological question to a measurable MD study"
+      }
+    },
+    {
+      "id": "CH02",
+      "level": "temel",
+      "title": "Enerji, kuvvetler ve sayısal hareket",
+      "en": {
+        "title": "Energy, forces and numerical motion"
+      }
+    },
+    {
+      "id": "CH03",
+      "level": "temel",
+      "title": "Kullanıcı için istatistiksel mekanik",
+      "en": {
+        "title": "Statistical mechanics for the user"
+      }
+    },
+    {
+      "id": "CH04",
+      "level": "temel",
+      "title": "Simülasyon kutusu evren değildir",
+      "en": {
+        "title": "The simulation box is not the universe"
+      }
+    },
+    {
+      "id": "CH05",
+      "level": "temel",
+      "title": "Soruyu bozmadan simülasyon kontrolü",
+      "en": {
+        "title": "Controlling the simulation without breaking the question"
+      }
+    },
+    {
+      "id": "CH06",
+      "level": "temel",
+      "title": "Karşılaştırma, tekrar ve kontrol tasarımı",
+      "en": {
+        "title": "Comparison, replication and control design"
+      }
+    },
+    {
+      "id": "CH07",
+      "level": "orta",
+      "title": "Yapı, eksik bilgi ve protonasyon",
+      "en": {
+        "title": "Structure, missing information and protonation"
+      }
+    },
+    {
+      "id": "CH08",
+      "level": "orta",
+      "title": "Kuvvet alanı ve model uyumu",
+      "en": {
+        "title": "Force fields and model compatibility"
+      }
+    },
+    {
+      "id": "CH09",
+      "level": "orta",
+      "title": "Ligandlar ve standart dışı bileşenler",
+      "en": {
+        "title": "Ligands and non-standard components"
+      }
+    },
+    {
+      "id": "CH10",
+      "level": "orta",
+      "title": "Çözgenli ve heterojen sistem kurmak",
+      "en": {
+        "title": "Building solvated and heterogeneous systems"
+      }
+    },
+    {
+      "id": "CH11",
+      "level": "orta",
+      "title": "Minimizasyondan üretime",
+      "en": {
+        "title": "From minimization to production"
+      }
+    },
+    {
+      "id": "CH12",
+      "level": "orta",
+      "title": "Simülasyon başarısız olduğunda",
+      "en": {
+        "title": "When a simulation fails"
+      }
+    },
+    {
+      "id": "CH13",
+      "level": "orta",
+      "title": "Trajektoriyi analize hazırlamak",
+      "en": {
+        "title": "Preparing the trajectory for analysis"
+      }
+    },
+    {
+      "id": "CH14",
+      "level": "orta",
+      "title": "Yapısal ölçüt neyi ölçer?",
+      "en": {
+        "title": "What does a structural metric measure?"
+      }
+    },
+    {
+      "id": "CH15",
+      "level": "orta",
+      "title": "Temas, solvatasyon ve etkileşim",
+      "en": {
+        "title": "Contacts, solvation and interactions"
+      }
+    },
+    {
+      "id": "CH16",
+      "level": "orta",
+      "title": "Durumlar ve kolektif hareketler",
+      "en": {
+        "title": "States and collective motions"
+      }
+    },
+    {
+      "id": "CH17",
+      "level": "ileri",
+      "title": "Örnekleme ve kararlılık yanılsaması",
+      "en": {
+        "title": "Sampling and the illusion of stability"
+      }
+    },
+    {
+      "id": "CH18",
+      "level": "ileri",
+      "title": "Belirsizlik ve dürüst karşılaştırma",
+      "en": {
+        "title": "Uncertainty and honest comparison"
+      }
+    },
+    {
+      "id": "CH19",
+      "level": "ileri",
+      "title": "Standart MD'nin ötesine karar vermek",
+      "en": {
+        "title": "Deciding beyond standard MD"
+      }
+    },
+    {
+      "id": "CH24",
+      "level": "ileri",
+      "title": "Simülasyondan savunulabilir çalışmaya",
+      "en": {
+        "title": "From simulation to defensible work"
+      }
+    }
+  ]
+}

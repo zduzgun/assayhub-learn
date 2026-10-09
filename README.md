@@ -23,6 +23,7 @@ Tek doğruluk kaynağı [`modules.json`](modules.json)'dur. Ana sayfa, uygulama 
 
 ```
 modules.json        modül kayıt defteri (kimlik, yol, sürüm, kitap bölümü, veri, lisans notu; `en` alanları İngilizce)
+book.json           kitabın 20 çalışma birimi (kimlik, düzey, TR başlık, EN çalışma çevirisi); /tr/book/ ve /en/book/ sayfaları buradan üretilir
 i18n/               İngilizce çeviri tabloları (<KİMLİK>.en.json) ve ortak sözlük (GLOSSARY.md)
 lib/lang.js         dil kuralı (saf işlev; birim testleri tools/test-lang.mjs)
 functions/          Cloudflare Pages Functions: dil öneksiz adresleri ziyaretçinin diline yönlendirir

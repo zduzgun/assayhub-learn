@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.40.0 (9 Ekim 2026) · Kitap sayfası: bölüm -> modül haritası
+
+- Yeni sayfalar `/tr/book/` ve `/en/book/` (ayrıca `/tr/kitap`, `/tr/l/book`, `/en/l/book` yönlendirmeleri): MD kitabının 20 çalışma birimi temel, orta ve ileri düzeyde; her bölümde bağlı modüller (ana, ortak, ek), modül başlığı ve kısa adres. 29 modül bağlantısı (DK-O ve DK-U iki bölümde).
+- Yeni `book.json`: bölüm kimliği, düzey, Türkçe başlık (kitap haritası) ve İngilizce başlık (çalışma çevirisi; İngilizce sayfada yazar onayı beklediği yazılı). Modül-bölüm ilişkisi `modules.json` `book` alanından üretilir.
+- Ana sayfadaki "Kitaptan mı geldiniz?" kutusuna ve 404 sayfalarına kitap sayfası bağlantısı eklendi. `tools/check.mjs`: her bölümün en az bir modülü var, modüllerin bölümleri `book.json`'da, kitap sayfası iki dilde ve 20 bölümü içeriyor.
+
 ## 0.39.0 (9 Ekim 2026) · İngilizcede tekil/çoğul uyumu
 
 - İngilizce sayfalarda sayı 1 olduğunda "1 visits", "1 measurements", "1 times" gibi çıkan 27 yer düzeltildi (14 modül: DK-T, DK-O, MD-T, MD-PBC, MD-CUT, MD-ELEC, MD-ENS, MD-DT, MD-PDB, MD-INT, MD-PCA, MD-U, MD-REPRO, MD-FES). Çoğunda sayıya göre tekil ya da çoğul seçen kısa bir koşul kullanıldı; birkaçında cümle sayı başa gelmeyecek biçimde kuruldu ("So far: definitions 2, runs 3"; MD-FES'te "did so (entries in 2 ns): W1 0, W2 1"). Yalnız İngilizce çeviri çiftleri değişti; Türkçe kaynak, veri ve hesap aynı.

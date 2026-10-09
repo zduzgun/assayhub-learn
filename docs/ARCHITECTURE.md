@@ -71,6 +71,8 @@ Basılı kitap yıllarca yaşar; bağlantılar kolayca ölür. Bu yüzden kareko
 - **Arşiv (atıf için):** Her modülün her yayımlanan sürümü Zenodo'ya yüklenir ve bir DOI alır. Kitap, karekodun yanında bu DOI'yi de basabilir. Böylece site bir gün kapansa bile modül arşivden erişilebilir ve atıf yapılabilir kalır.
 - **Çevrimdışı yedek:** Her modül tek dosyalık, sunucusuz HTML olarak da dışa aktarılabilir (prototipler zaten böyle). Kitabın ek materyali olarak bir arşivde (Zenodo) tutulursa, internet olmadan da açılır.
 
+- **Kitap sayfası (9 Ekim 2026):** `/tr/book/` ve `/en/book/` (ayrıca `/tr/kitap`, `/tr/l/book`, `/en/l/book`) 20 çalışma birimini düzey düzey ve her birine bağlı modülleri (ana, ortak, ek) kısa adresleriyle listeler. Bölüm listesi `book.json`'da, modül-bölüm ilişkisi `modules.json` `book` alanından üretilir; `tools/check.mjs` her bölümün en az bir modülü olduğunu ve modüllerin bölümlerinin `book.json`'da bulunduğunu denetler.
+
 Kitabın kendisi, site kapansa bile tek başına okunabilir kalmalıdır: karekodlar zenginleştirmedir, önkoşul değil. Her etkileşimli laboratuvarın kitapta metinsel bir karşılığı (şekil, örnek, çözüm) bulunmalıdır.
 
 ## 5. MD simülasyon: rehberli yeniden oynatma ve dürüstlük

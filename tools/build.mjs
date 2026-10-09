@@ -11,6 +11,7 @@ import { loadTable, checkTable, sha256 } from './i18n.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
 const M = JSON.parse(readFileSync(join(ROOT, 'modules.json'), 'utf8'));
+const BOOK = JSON.parse(readFileSync(join(ROOT, 'book.json'), 'utf8'));
 const LANGS = ['tr', 'en'];
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const BUILD = {
@@ -36,6 +37,11 @@ const UI = {
     preview: 'Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı.', all: 'Bütün modüller',
     seqNav: 'Modüller arası geçiş', prev: 'Önceki modül', next: 'Sonraki modül', allOf: (t) => `Bütün ${t} modülleri`,
     mt: '', mtChecked: '',
+    bkTitle: 'Kitap bölümleri', bkEyebrow: 'AssayHub Learn · kitap', bkH1: 'Kitap bölümleri ve modüller',
+    bkDeck: 'MD kitabının 20 çalışma birimi ve her birine bağlı etkileşimli modüller. Kitaptaki karekodlar buradaki kısa adreslere gider.',
+    bkLevel: { temel: 'Temel düzey', orta: 'Orta düzey', ileri: 'İleri düzey' }, bkRel: { ana: 'ana', ortak: 'ortak', ek: 'ek' },
+    bkRelP: '<b>ana</b>: bölümün kendi modülü · <b>ortak</b>: iki bölüme birden bağlı · <b>ek</b>: bölümden sonra ek okuma',
+    bkNote: '', bkLink: 'Bölümlere göre liste: <a href="/tr/book/">kitap bölümleri ve modüller</a>.',
     nfTitle: 'Sayfa bulunamadı', nfH: 'Bu adreste bir modül yok',
     nfP: 'Kitaptaki karekoddan geldiyseniz kısa kodu kontrol edin (örneğin <code>/tr/l/DK-T</code>). Bütün modüller <a href="/tr/">ana sayfada</a> listelenir.',
     prepH: 'Bu modülün Türkçesi hazırlanıyor', prepP: (href) => `Şimdilik <a href="${href}">İngilizce sürümü</a> açabilirsiniz.`
@@ -56,6 +62,12 @@ const UI = {
     seqNav: 'Move between modules', prev: 'Previous module', next: 'Next module', allOf: (t) => `All ${t} modules`,
     mt: 'The English text is a machine translation of the Turkish original and has not yet been reviewed by a person.',
     mtChecked: 'The English text is a machine translation of the Turkish original; Claude (AI) has checked it, but it has not yet been reviewed by a person.',
+    bkTitle: 'Book chapters', bkEyebrow: 'AssayHub Learn · book', bkH1: 'Book chapters and modules',
+    bkDeck: 'The 20 working units of the MD book and the interactive modules linked to each. The QR codes in the book lead to the short addresses listed here.',
+    bkLevel: { temel: 'Basic level', orta: 'Intermediate level', ileri: 'Advanced level' }, bkRel: { ana: 'main', ortak: 'shared', ek: 'extra' },
+    bkRelP: '<b>main</b>: the chapter\'s own module · <b>shared</b>: linked to two chapters · <b>extra</b>: further reading after the chapter',
+    bkNote: 'The book is written in Turkish; the English chapter titles here are working translations and have not yet been approved by the author.',
+    bkLink: 'List by chapter: <a href="/en/book/">book chapters and modules</a>.',
     nfTitle: 'Page not found', nfH: 'There is no module at this address',
     nfP: 'If you came from a QR code in the book, check the short code (for example <code>/en/l/DK-T</code>). All modules are listed on the <a href="/en/">home page</a>.',
     prepH: 'The English version of this module is in preparation', prepP: (href) => `For now you can open the <a href="${href}">Turkish version</a>.`
@@ -157,6 +169,12 @@ ${seqNav}`));
 }
 
 /* ---------- ana sayfa ve uygulama sayfaları ---------- */
+function bookRel(m) { const chs = (m.book || '').match(/CH\d\d/g) || []; return /sonrası/.test(m.book) ? 'ek' : (chs.length > 1 ? 'ortak' : 'ana'); }
+function bookMods(ch) {
+  const order = { ana: 0, ortak: 1, ek: 2 };
+  return M.modules.filter((m) => m.path && ((m.book || '').match(/CH\d\d/g) || []).includes(ch))
+    .map((m) => ({ m, rel: bookRel(m) })).sort((a, b) => order[a.rel] - order[b.rel]);
+}
 function crumbs(L, app, last) {
   if (!app) return esc(UI[L].tagline);
   return `<a href="/${L}/">${UI[L].learn}</a> › ` + (last ? `<a href="/${L}/${app.path}">${esc(T(L, app, 'title'))}</a> › ${esc(last)}` : esc(T(L, app, 'title')));
@@ -202,7 +220,7 @@ for (const L of LANGS) {
 <div class="mast"><p class="eyebrow">${esc(U.eyebrow)}</p><h1>${esc(U.h1)}</h1>
 <p class="deck">${esc(U.deck)}</p></div>
 <div class="apps">${cards}</div>
-<div class="box"><h4>${esc(U.bookH)}</h4><p>${U.bookP}</p></div>
+<div class="box"><h4>${esc(U.bookH)}</h4><p>${U.bookP}</p><p>${U.bkLink}</p></div>
 `));
   for (const a of M.apps) {
     const mods = M.modules.filter((m) => m.app === a.id);
@@ -214,9 +232,24 @@ ${extra}
 <ul class="mods">${mods.map((m) => modItem(L, m)).join('\n')}</ul>
 `));
   }
+  // kitap sayfası: bölüm -> modül haritası (book.json + modules.json 'book' alanı)
+  const lv = ['temel', 'orta', 'ileri'];
+  const secs = lv.map((k) => {
+    const chs = BOOK.chapters.filter((c) => c.level === k);
+    const items = chs.map((c) => {
+      const mods = bookMods(c.id).map(({ m, rel }) => `<li><a href="/${L}/${m.path}"><span class="bk-id">${esc(m.id)}</span><span class="bk-t">${esc(T(L, m, 'title'))}</span></a><span class="bk-rel ${rel}">${esc(U.bkRel[rel])}</span><code>/${L}/l/${esc(m.id)}</code></li>`).join('');
+      return `<li class="bk-ch" id="${esc(c.id)}"><div class="bk-h"><span class="bk-c">${esc(c.id)}</span><span class="bk-ct">${esc(T(L, c, 'title'))}</span></div><ul class="bk-m">${mods}</ul></li>`;
+    }).join('\n');
+    return `<h2><small>${esc(U.bkLevel[k])}</small>${esc(chs[0].id)} ${L === 'tr' ? 'ile' : 'to'} ${esc(chs[chs.length - 1].id)}</h2>\n<ul class="bk">${items}</ul>`;
+  }).join('\n');
+  write(join(L, 'book', 'index.html'), page(L, 'book/', `${U.bkTitle} · AssayHub Learn`, `<a href="/${L}/">${UI[L].learn}</a> › ${esc(U.bkTitle)}`, `
+<div class="mast"><p class="eyebrow">${esc(U.bkEyebrow)}</p><h1>${esc(U.bkH1)}</h1><p class="deck">${esc(U.bkDeck)}</p></div>
+<div class="box"><h4>${esc(U.bookH)}</h4><p>${U.bookP}</p><p>${U.bkRelP}</p>${U.bkNote ? `<p>${esc(U.bkNote)}</p>` : ''}</div>
+${secs}
+`));
   // dile özgü 404
   write(join(L, '404.html'), page(L, null, `${U.nfTitle} · AssayHub Learn`, esc(U.tagline), `
-<div class="mast"><p class="eyebrow">404</p><h1>${esc(U.nfH)}</h1><p class="deck">${U.nfP}</p></div>`));
+<div class="mast"><p class="eyebrow">404</p><h1>${esc(U.nfH)}</h1><p class="deck">${U.nfP}</p><p class="deck">${U.bkLink}</p></div>`));
 }
 // dil öneksiz 404 (iki dilde) static/404.html dosyasındadır.
 
@@ -230,7 +263,9 @@ for (const L of LANGS) {
     lines.push(`/${L}/l/${m.id.toLowerCase()} ${target} 302`);
   }
   for (const a of M.apps) lines.push(`/${L}/l/${a.id} /${L}/${a.path} 302`);
+  lines.push(`/${L}/l/book /${L}/book/ 302`);
 }
+lines.push('/tr/kitap /tr/book/ 302', '/tr/kitap/ /tr/book/ 302');
 writeFileSync(join(DIST, '_redirects'), lines.join('\n') + '\n');
 writeFileSync(join(DIST, '_routes.json'), JSON.stringify({ version: 1, include: ['/', '/l/*', '/docking', '/docking/*', '/md', '/md/*'], exclude: [] }, null, 2));
 
