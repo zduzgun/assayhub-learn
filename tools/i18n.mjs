@@ -5,6 +5,7 @@
 //   node tools/i18n.mjs check              bütün tabloları denetler
 // Tablo biçimi (i18n/<KİMLİK>.en.json):
 //   { "module": "DK-T", "lang": "en", "source_sha256": "...", "reviewed": false,
+//     "checked": "claude" (isteğe bağlı: Claude denetledi, insan gözden geçirmesi bekliyor; alt notu değiştirir),
 //     "pairs": [["Türkçe ham metin", "English raw text"], ...], "keep": ["bilerek Türkçe kalan metin"] }
 // Anahtarlar kaynaktaki HAM alt dizelerdir (HTML etiketleri ve varlıklar dahil). Uygulama tek geçişte yapılır:
 // bütün anahtarlar en uzundan en kısaya sıralanır ve tek bir düzenli ifadeyle değiştirilir; böylece çevrilmiş

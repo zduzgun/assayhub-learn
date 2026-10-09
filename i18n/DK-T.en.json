@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "380735de168bdc621d0cb5b3b731043a2c22a1a72e6f1d1813aaaea7925cb22f",
  "reviewed": false,
- "translator": "Claude (AI), DK-T 0.2.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), DK-T 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Docking: Poz Bulmak</title>",
@@ -63,7 +64,7 @@
   ],
   [
    "<p class=\"small\">Kaynaklar: ChEMBL, benzamidin CHEMBL20936 ile sığır tripsini CHEMBL3769; belgeler CHEMBL1135884 (20 µM), CHEMBL1150979 (35 µM), CHEMBL1135460 (18,4 µM), CHEMBL1131451 (39 µM), CHEMBL4725290 (32 ve 35 µM); 31 nM: CHEMBL1127404, CHEMBL1133610. Yapı: Marquart ve ark. 1983, Acta Crystallogr B 39:480. Bu sayfadaki Ki değerleri ChEMBL'den alınmıştır ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur; kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.</p>",
-   "<p class=\"small\">Sources: ChEMBL, benzamidine CHEMBL20936 with bovine trypsin CHEMBL3769; documents CHEMBL1135884 (20 µM), CHEMBL1150979 (35 µM), CHEMBL1135460 (18.4 µM), CHEMBL1131451 (39 µM), CHEMBL4725290 (32 and 35 µM); 31 nM: CHEMBL1127404, CHEMBL1133610. Structure: Marquart et al. 1983, Acta Crystallogr B 39:480. The Ki values on this page are taken from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0); source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.</p>"
+   "<p class=\"small\">Sources: ChEMBL, benzamidine CHEMBL20936 with bovine trypsin CHEMBL3769; documents CHEMBL1135884 (20 µM), CHEMBL1150979 (35 µM), CHEMBL1135460 (18.4 µM), CHEMBL1131451 (39 µM), CHEMBL4725290 (32 and 35 µM); 31 nM: CHEMBL1127404, CHEMBL1133610. Structure: Marquart et al. 1983, Acta Crystallogr B 39:480. The Ki values on this page are taken from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0); source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.</p>"
   ],
   [
    "<span class=\"step\">1 · Atölye</span>",
@@ -75,7 +76,7 @@
   ],
   [
    "<div class=\"prose\"><p>Benzamidinin pozitif yüklü amidin ucu, cebin dibindeki Asp189'un negatif karboksilatına bakar; yassı halka cebin iki duvarı (190-192 ve 214-216 kalıntıları) arasına, bir anahtarın yuvaya girmesi gibi sıkışır; amidin azotları Asp189, Ser190 ve Gly219 ile hidrojen bağı kurar. Aşağıdaki çizim cebin ligand merkezinden geçen bir kesitidir: dolu bölge proteinin yüzeyi, aradaki boşluk cebin kendisidir. Yüzeyin rengi en yakındaki atomu gösterir: kum rengi karbon, mavi azot, açık kırmızı oksijen; koyu kırmızı leke Asp189'un karboksilatıdır. Benzamidini fareyle ya da parmağınızla sürükleyin, kaydırıcılarla döndürün. Sayfa her pozun Vina skorunu, çizimdeki düzlemle sınırlı kalmadan bütün cep atomlarıyla üç boyutta hesaplar ve beş terime ayırır: iki çekim terimi (gauss), itme (atomlar iç içe girince), hidrofobik temas ve hidrojen bağı. Sıkı bir temasta atom küreleri biraz iç içe girer; kristal pozda bile bazı çiftler 0,5 Å'a kadar iç içedir ve itme terimi orada da sıfır değildir. Çizim bu yüzden yalnız 0,5 Å'dan derin çakışmaları kırmızı çizgiyle gösterir; çizgi kalınlaştıkça çakışma derinleşir. Mavi kesikli çizgiler hidrojen bağlarıdır.</p></div>",
-   "<div class=\"prose\"><p>The positively charged amidine end of benzamidine faces the negative carboxylate of Asp189 at the bottom of the pocket; the flat ring squeezes between the two walls of the pocket (residues 190-192 and 214-216), like a key entering a slot; the amidine nitrogens form hydrogen bonds with Asp189, Ser190 and Gly219. The drawing below is a section through the pocket that passes through the ligand's centre: the filled region is the protein surface, and the space in between is the pocket itself. The colour of the surface shows the nearest atom: sand for carbon, blue for nitrogen, light red for oxygen; the dark red patch is the carboxylate of Asp189. Drag benzamidine with the mouse or your finger, and rotate it with the sliders. For every pose the page computes the Vina score in three dimensions with all pocket atoms, not only those in the drawn plane, and splits it into five terms: two attraction terms (gauss), repulsion (when atoms overlap), hydrophobic contact and hydrogen bonding. In a tight contact the atom spheres overlap a little; even in the crystal pose some pairs overlap by up to 0.5 Å, and the repulsion term is not zero there either. The drawing therefore marks only clashes deeper than 0.5 Å with red lines; the thicker the line, the deeper the clash. Blue dashed lines are hydrogen bonds.</p></div>"
+   "<div class=\"prose\"><p>The positively charged amidine end of benzamidine faces the negative carboxylate of Asp189 at the bottom of the pocket; the flat ring squeezes between the two walls of the pocket (residues 190-192 and 214-216), like a key entering a slot; the amidine nitrogens form hydrogen bonds with Asp189, Ser190 and Gly219. The drawing below is a section through the pocket that passes through the ligand's center: the filled region is the protein surface, and the space in between is the pocket itself. The color of the surface shows the nearest atom: sand for carbon, blue for nitrogen, light red for oxygen; the dark red patch is the carboxylate of Asp189. Drag benzamidine with the mouse or your finger, and rotate it with the sliders. For every pose the page computes the Vina score in three dimensions with all pocket atoms, not only those in the drawn plane, and splits it into five terms: two attraction terms (gauss), repulsion (when atoms overlap), hydrophobic contact and hydrogen bonding. In a tight contact the atom spheres overlap a little; even in the crystal pose some pairs overlap by up to 0.5 Å, and the repulsion term is not zero there either. The drawing therefore marks only clashes deeper than 0.5 Å with red lines; the thicker the line, the deeper the clash. Blue dashed lines are hydrogen bonds.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"t1pk\" class=\"stage\" tabindex=\"0\" aria-label=\"Tripsin cebinin kesiti: protein yüzeyi dolu bölge, cep boşluk olarak, benzamidin okurun pozunda, kristal poz altın gölge; sürükleyerek ya da ok tuşlarıyla ligand kaydırılır; çakışan atom çiftleri kırmızı\"></canvas></div>",
@@ -91,7 +92,7 @@
   ],
   [
    "<div class=\"sl3 wide\"><label>yatay <input type=\"range\" id=\"t1tu\" min=\"-6\" max=\"6\" step=\"0.1\" value=\"0\"></label><label>dikey <input type=\"range\" id=\"t1tv\" min=\"-6\" max=\"6\" step=\"0.1\" value=\"0\"></label><label>derinlik <input type=\"range\" id=\"t1td\" min=\"-3\" max=\"3\" step=\"0.1\" value=\"0\"></label><label>dönüş <input type=\"range\" id=\"t1th\" min=\"-180\" max=\"180\" step=\"1\" value=\"0\"></label></div>",
-   "<div class=\"sl3 wide\"><label>across <input type=\"range\" id=\"t1tu\" min=\"-6\" max=\"6\" step=\"0.1\" value=\"0\"></label><label>up <input type=\"range\" id=\"t1tv\" min=\"-6\" max=\"6\" step=\"0.1\" value=\"0\"></label><label>depth <input type=\"range\" id=\"t1td\" min=\"-3\" max=\"3\" step=\"0.1\" value=\"0\"></label><label>turn <input type=\"range\" id=\"t1th\" min=\"-180\" max=\"180\" step=\"1\" value=\"0\"></label></div>"
+   "<div class=\"sl3 wide\"><label>horizontal <input type=\"range\" id=\"t1tu\" min=\"-6\" max=\"6\" step=\"0.1\" value=\"0\"></label><label>vertical <input type=\"range\" id=\"t1tv\" min=\"-6\" max=\"6\" step=\"0.1\" value=\"0\"></label><label>depth <input type=\"range\" id=\"t1td\" min=\"-3\" max=\"3\" step=\"0.1\" value=\"0\"></label><label>turn <input type=\"range\" id=\"t1th\" min=\"-180\" max=\"180\" step=\"1\" value=\"0\"></label></div>"
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"t1cry\">Kristal poz</button><button type=\"button\" class=\"btn\" id=\"t1flip\">Ters çevir</button><button type=\"button\" class=\"btn\" id=\"t1rand\">Rastgele</button><button type=\"button\" class=\"btn primary\" id=\"t1lmin\">Yerel minimuma indir</button></div>",
@@ -119,11 +120,11 @@
   ],
   [
    "<p class=\"small\" style=\"margin:0\">\"Derinlik\" ligandı çizim düzlemine dik kaydırır; kesit ligandla birlikte ilerler. \"Dönüş\" çizim düzleminde döndürür. Kısayollar: Q saat yönünün tersine, E saat yönünde 5° döndürür (Shift ile 15°); çizime tıkladıktan sonra ok tuşları kaydırır.</p>",
-   "<p class=\"small\" style=\"margin:0\">\"Depth\" moves the ligand perpendicular to the drawing plane; the section moves with the ligand. \"Turn\" rotates it in the drawing plane. Shortcuts: Q turns 5° anticlockwise, E 5° clockwise (15° with Shift); after clicking the drawing, the arrow keys move the ligand.</p>"
+   "<p class=\"small\" style=\"margin:0\">\"Depth\" moves the ligand perpendicular to the drawing plane; the section moves with the ligand. \"Turn\" rotates it in the drawing plane. Shortcuts: Q turns 5° counterclockwise, E 5° clockwise (15° with Shift); after clicking the drawing, the arrow keys move the ligand.</p>"
   ],
   [
    "<canvas id=\"t1terms\" class=\"plot\" aria-label=\"Skor ve beş terimi: okurun pozu ve kristal poz yan yana; sıfırın sağı logaritmik ölçekli, ölçek kesilmez\"></canvas>",
-   "<canvas id=\"t1terms\" class=\"plot\" aria-label=\"The score and its five terms: the reader's pose and the crystal pose side by side; to the right of zero the scale is logarithmic, the scale is never cut off\"></canvas>"
+   "<canvas id=\"t1terms\" class=\"plot\" aria-label=\"The score and its five terms: the reader's pose and the crystal pose side by side; to the right of zero the scale is logarithmic and the scale is never truncated\"></canvas>"
   ],
   [
    "<div class=\"prose\"><p>Ligandı bir duvara itin: skor birkaç ångströmlük kaymada +100 kcal/mol'ün üstüne çıkar. Yine de tek bir çakışmanın cezası şaşırtıcı ölçüde küçüktür. Vina'nın itme terimi karesel bir cezadır: iki atom yüzeyi 1 Å iç içe girerse ceza 0,84 kcal/mol'dür. Moleküler dinamikte kullanılan kuvvet alanlarının Lennard-Jones itmesi ise uzaklığın on ikinci kuvvetiyle büyür ve aynı çakışma derinleştikçe yüzlerce kat sertleşir. Aşağıdaki grafik tek bir karbon-karbon çifti için iki eğriyi yan yana koyar; kırmızı kesikli çizgi, sizin pozunuzdaki en derin çakışmadır (çakışma yoksa en yakın temas). Yumuşak itmenin pratik sonucu şudur: arama algoritması bir duvarın içinden geçen ara pozları küçük bir bedelle deneyebilir ve öbür taraftaki iyi pozu bulabilir. Kuvvet alanıyla yapılan bir simülasyonda aynı adım enerjiyi patlatır; MD-EQ'daki minimizasyon bu yüzden simülasyondan önce gelir.</p></div>",
@@ -135,7 +136,7 @@
   ],
   [
    "<p class=\"small\">Skor: AutoDock Vina skor fonksiyonu (Trott ve Olson 2010, J Comput Chem 31:455), Vina 1.2 varsayılan ağırlıklarıyla bu sayfada yeniden hesaplanır: atom çiftleri arasındaki yüzey uzaklığına bağlı beş terim, 8 Å kesme, son skor = etkileşim / (1 + 0,0585 · dönebilir bağ). Bu hesap, bu projenin reseptörüyle 300 pozda Vina 1.2.7'nin kendisiyle karşılaştırıldı: kristal pozda −5,809'a karşı −5,806; skoru negatif olan 105 pozda ortanca fark 0,011, en büyük fark 0,15 kcal/mol. Ligand katı tutulur (tek dönebilir bağı kristaldeki açısında). Vina skorunda elektrostatik terim yoktur; amidin ile Asp189 arasındaki çekim yalnız hidrojen bağı terimiyle görünür. İtme karşılaştırması: AMBER CT-CT Lennard-Jones parametreleri (Rmin 3,816 Å, ε 0,1094 kcal/mol; Cornell ve ark. 1995, J Am Chem Soc 117:5179), GROMACS amber99sb dosyasındaki σ 0,339967 nm ve ε 0,45773 kJ/mol değerlerinden; Vina eğrisi iki hidrofobik karbon için aynı beş terimle, C-C yarıçap toplamı 3,8 Å.</p>",
-   "<p class=\"small\">Score: the AutoDock Vina scoring function (Trott and Olson 2010, J Comput Chem 31:455), recomputed on this page with the Vina 1.2 default weights: five terms that depend on the surface distance between atom pairs, an 8 Å cutoff, final score = interaction / (1 + 0.0585 · rotatable bonds). This calculation was compared with Vina 1.2.7 itself in 300 poses with this project's receptor: −5.809 against −5.806 in the crystal pose; in the 105 poses with a negative score the median difference is 0.011 and the largest 0.15 kcal/mol. The ligand is kept rigid (its single rotatable bond at the crystal angle). The Vina score has no electrostatic term; the attraction between the amidine and Asp189 appears only through the hydrogen bond term. Repulsion comparison: AMBER CT-CT Lennard-Jones parameters (Rmin 3.816 Å, ε 0.1094 kcal/mol; Cornell et al. 1995, J Am Chem Soc 117:5179), from σ 0.339967 nm and ε 0.45773 kJ/mol in the GROMACS amber99sb file; the Vina curve uses the same five terms for two hydrophobic carbons, C-C radius sum 3.8 Å.</p>"
+   "<p class=\"small\">Score: the AutoDock Vina scoring function (Trott and Olson 2010, J Comput Chem 31:455), recomputed on this page with the Vina 1.2 default weights: five terms that depend on the surface distance between atom pairs, an 8 Å cut-off, final score = interaction / (1 + 0.0585 · rotatable bonds). This calculation was compared with Vina 1.2.7 itself in 300 poses with this project's receptor: −5.809 against −5.806 in the crystal pose; in the 105 poses with a negative score the median difference is 0.011 and the largest 0.15 kcal/mol. The ligand is kept rigid (its single rotatable bond at the crystal angle). The Vina score has no electrostatic term; the attraction between the amidine and Asp189 appears only through the hydrogen bond term. Repulsion comparison: AMBER CT-CT Lennard-Jones parameters (Rmin 3.816 Å, ε 0.1094 kcal/mol; Cornell et al. 1995, J Am Chem Soc 117:5179), from σ 0.339967 nm and ε 0.45773 kJ/mol in the GROMACS amber99sb file; the Vina curve uses the same five terms for two hydrophobic carbons, C-C radius sum 3.8 Å.</p>"
   ],
   [
    "<article class=\"q\" id=\"t1c1\"><span class=\"k\">Açık</span><h3>Doğru pozu elle bulabilir misiniz?</h3><p>Benzamidini kristal poza 2 Å'dan yakın ve iyi bir skorla yerleştirin.</p><div class=\"mine\" id=\"mt1c1\">Sürükleyerek ya da kaydırıcılarla, \"Kristal poz\" düğmesini kullanmadan RMSD'yi 2 Å'un altına ve skoru −5 kcal/mol'ün altına indirin.</div></article>",
@@ -147,7 +148,7 @@
   ],
   [
    "<article class=\"q\" id=\"t1c2\"><span class=\"k\">Açık</span><h3>Ters oturan benzamidin neyi kaybeder?</h3><p>Aynı cepte, amidini dışarı bakan bir poz deneyin.</p><div class=\"mine\" id=\"mt1c2\">\"Ters çevir\" düğmesiyle ya da kendiniz, ağırlık merkezi kristale yakın ama amidini Asp189'dan uzak bir poz kurun.</div></article>",
-   "<article class=\"q\" id=\"t1c2\"><span class=\"k\">Open</span><h3>What does a flipped benzamidine lose?</h3><p>In the same pocket, try a pose with the amidine facing outwards.</p><div class=\"mine\" id=\"mt1c2\">With the \"Flip\" button or by yourself, build a pose whose centre of mass is close to the crystal but whose amidine is far from Asp189.</div></article>"
+   "<article class=\"q\" id=\"t1c2\"><span class=\"k\">Open</span><h3>What does a flipped benzamidine lose?</h3><p>In the same pocket, try a pose with the amidine facing outward.</p><div class=\"mine\" id=\"mt1c2\">With the \"Flip\" button or by yourself, build a pose whose center of mass is close to the crystal but whose amidine is far from Asp189.</div></article>"
   ],
   [
    "<span class=\"step\">2 · Tezgâh</span>",
@@ -159,7 +160,7 @@
   ],
   [
    "<div class=\"prose\"><p>Elle bulmak bir kez olur; program her ligand için binlerce poz dener. Aşağıdaki arama Vina'nın fikrini küçük ölçekte uygular: benzamidini cep çevresindeki 12 Å'luk kutuda rastgele bir yerden başlatır, her adımda pozu biraz değiştirir (sıçra), yakındaki en iyi poza kaydırır (iyileştir) ve yeni skor iyiyse ya da şans izin verirse kabul eder. Adım sayısını ve tekrar sayısını seçin; her tekrar başka bir rastgele başlangıçtan çıkar. Aşağıdaki harita atölyedeki kesittir (yandan ya da üstten), yalnız daha geniş bakar: kesikli çizgi arama kutusunun sınırıdır. Her tekrar çalışırken ligand kırmızı olarak yolunu izler; bitince bulduğu en iyi poz rengini alır: yeşil doğru poz, altın cepte ama ters, gri başka bir yer. Küçük noktalar aramanın denediği pozların merkezleridir. Arama üç boyutludur; çizim düzleminden 2 Å'dan uzak kalan pozlar soluk ve kesikli çizilir, çünkü onlar bu kesitin önünde ya da arkasındadır ve proteinin içinde değildir.</p></div>",
-   "<div class=\"prose\"><p>Finding it by hand happens once; the program tries thousands of poses for every ligand. The search below applies Vina's idea on a small scale: it starts benzamidine at a random place in a 12 Å box around the pocket, changes the pose a little at every step (jump), slides it to the best nearby pose (improve), and accepts it if the new score is better or if chance allows. Choose the number of steps and the number of repeats; every repeat starts from a different random place. The map below is the section from the workshop (side or top), only seen from further away: the dashed line is the edge of the search box. While a repeat runs, the ligand traces its path in red; when it finishes, the best pose it found takes a colour: green for the right pose, gold for in the pocket but flipped, grey for somewhere else. The small dots are the centres of the poses the search tried. The search is three-dimensional; poses more than 2 Å from the drawing plane are drawn faded and dashed, because they lie in front of or behind this section and not inside the protein.</p></div>"
+   "<div class=\"prose\"><p>Finding it by hand happens once; the program tries thousands of poses for every ligand. The search below applies Vina's idea on a small scale: it starts benzamidine at a random place in a 12 Å box around the pocket, changes the pose a little at every step (jump), slides it to the best nearby pose (improve), and accepts it if the new score is better or if chance allows. Choose the number of steps and the number of repeats; every repeat starts from a different random place. The map below is the section from the workshop (side or top), only seen from further away: the dashed line is the edge of the search box. While a repeat runs, the ligand traces its path in red; when it finishes, the best pose it found takes a color: green for the right pose, gold for in the pocket but flipped, gray for somewhere else. The small dots are the centers of the poses the search tried. The search is three-dimensional; poses more than 2 Å from the drawing plane are drawn faded and dashed, because they lie in front of or behind this section and not inside the protein.</p></div>"
   ],
   [
    "<div class=\"smbar\"><span class=\"lbl\">Harita</span><div class=\"seg\" role=\"group\" aria-label=\"Harita kesiti\" id=\"t1smv\"><button type=\"button\" data-v=\"side\" aria-pressed=\"true\">Yandan: iki duvar</button><button type=\"button\" data-v=\"top\" aria-pressed=\"false\">Üstten: halka yüzü</button></div></div>",
@@ -295,7 +296,7 @@
   ],
   [
    "<tr><td>Su, protonasyon ve kutu kararları sonucu değiştiriyor mu?</td><td>DK-O'da: HOH416'yı tutmak ve Asp189'u nötr yazmak bu projenin denemesinde sınandı.</td></tr>",
-   "<tr><td>Do the water, protonation and box decisions change the result?</td><td>In DK-O: keeping HOH416 and writing Asp189 as neutral were tested in this project's trial.</td></tr>"
+   "<tr><td>Do the water, protonation and box decisions change the result?</td><td>In DK-O: keeping HOH416 and treating Asp189 as neutral were tested in this project's trial.</td></tr>"
   ],
   [
    "<span class=\"step\">5 · Kendinizi sınayın</span>",
@@ -375,7 +376,7 @@
   ],
   [
    "if(com<2.5&&ad>6) card('t1c2',true,'Ağırlık merkezi kristale '+fx(com,1)+' Å, ama amidin Asp189\\'dan '+fx(ad,1)+' Å uzakta: skor '+fx(e,2)+' kcal/mol (kristal '+fx(E0,2)+'). Kaybın büyük kısmı hidrojen bağı teriminden: '+sg(dh)+' kcal/mol. Bu projenin gerçek Vina koşularında başarısız pozların çoğu da böyleydi: cepte ama ters. Onlar yerel iyileştirmeden geçtiği için skorları −4,5 ile −5,0 arasındaydı; elle çevrilmiş poz henüz iyileştirilmemiştir.');",
-   "if(com<2.5&&ad>6) card('t1c2',true,'The centre of mass is '+fx(com,1)+' Å from the crystal, but the amidine is '+fx(ad,1)+' Å from Asp189: score '+fx(e,2)+' kcal/mol (crystal '+fx(E0,2)+'). Most of the loss comes from the hydrogen bond term: '+sg(dh)+' kcal/mol. Most of the failed poses in this project\\'s real Vina runs looked like this too: in the pocket but flipped. Because they had gone through local optimization, their scores were between −4.5 and −5.0; a pose flipped by hand has not been optimized yet.');"
+   "if(com<2.5&&ad>6) card('t1c2',true,'The center of mass is '+fx(com,1)+' Å from the crystal, but the amidine is '+fx(ad,1)+' Å from Asp189: score '+fx(e,2)+' kcal/mol (crystal '+fx(E0,2)+'). Most of the loss comes from the hydrogen bond term: '+sg(dh)+' kcal/mol. Most of the failed poses in this project\\'s real Vina runs looked like this too: in the pocket but flipped. Because they had gone through local optimization, their scores were between −4.5 and −5.0; a pose flipped by hand has not been optimized yet.');"
   ],
   [
    "var TS={g1:'çekim 1',g2:'çekim 2',rep:'itme',hyd:'hidrofobik',hb:'H bağı'}, rows=[[W<420?'skor':'Vina skoru',e,E0,1]].concat(TN.map(function(k){ return [W<420?TS[k]:TL[k],VW[k]*s[k],VW[k]*S0[k],0]; })), Wd=W-L-R, X=function(v){ return sX(v,L,Wd); }, rh=(H-T-B)/rows.length;",
@@ -383,11 +384,11 @@
   ],
   [
    "g.fillText(W<420?'renkli: sizin · gri: kristal (kcal/mol)':'renkli: sizin pozunuz · gri: kristal poz (kcal/mol; terimler bölünmeden önce)',8,14);",
-   "g.fillText(W<420?'colour: yours · grey: crystal (kcal/mol)':'colour: your pose · grey: crystal pose (kcal/mol; terms before division)',8,14);"
+   "g.fillText(W<420?'colored: yours · gray: crystal (kcal/mol)':'colored: your pose · gray: crystal pose (kcal/mol; terms before division)',8,14);"
   ],
   [
    "g.textAlign='center'; g.fillStyle=css('--bad'); g.fillText(W<420?'0\\'ın sağı log':'0\\'ın sağı logaritmik: +1, +10, +100',(X(0)+X(SHI))/2,H-4); g.fillStyle=css('--muted'); g.fillText('doğrusal',(L+X(0))/2,H-4); g.textAlign='left'; }",
-   "g.textAlign='center'; g.fillStyle=css('--bad'); g.fillText(W<420?'right of 0: log':'right of 0 logarithmic: +1, +10, +100',(X(0)+X(SHI))/2,H-4); g.fillStyle=css('--muted'); g.fillText('linear',(L+X(0))/2,H-4); g.textAlign='left'; }"
+   "g.textAlign='center'; g.fillStyle=css('--bad'); g.fillText(W<420?'right of 0: log':'logarithmic right of 0: +1, +10, +100',(X(0)+X(SHI))/2,H-4); g.fillStyle=css('--muted'); g.fillText('linear',(L+X(0))/2,H-4); g.textAlign='left'; }"
   ],
   [
    "g.fillStyle=css('--muted'); g.fillText(W<420?(A1.view==='side'?'yandan kesit':'üstten kesit'):V.ad,10,16);",
@@ -399,7 +400,7 @@
   ],
   [
    "if(C.list.length){ g.font='600 12px '+css('--sans'); g.fillStyle=css('--bad'); g.fillText(C.list.length+' çakışan çift'+(C.list.length>12&&W>=420?' (en derin 12 çizili)':''),10,34); } }",
-   "if(C.list.length){ g.font='600 12px '+css('--sans'); g.fillStyle=css('--bad'); g.fillText(C.list.length+' clashing pairs'+(C.list.length>12&&W>=420?' (deepest 12 drawn)':''),10,34); } }"
+   "if(C.list.length){ g.font='600 12px '+css('--sans'); g.fillStyle=css('--bad'); g.fillText(C.list.length+' clashing pairs'+(C.list.length>12&&W>=420?' (12 deepest drawn)':''),10,34); } }"
   ],
   [
    "g.fillText('yüzey uzaklığı d (Å); d < 0: atomlar iç içe',(L+W-R)/2,H-6); g.textAlign='right';",
@@ -471,7 +472,7 @@
   ],
   [
    "var y=H-7; [['halka: başlangıç','--ink'],['nokta: denenen poz','--ink'],['yeşil: doğru','--good'],['altın: cepte ama ters','--gold'],['gri: başka yerde','--muted'],['soluk kesikli: düzlemden 2 Å\\'dan uzak','--muted']].forEach(function(l){ if(W<420&&(l[0].indexOf('halka')===0||l[0].indexOf('soluk')===0||l[0].indexOf('nokta')===0)) return; var tx=W<420?l[0].replace('yeşil: doğru','yeşil doğru').replace('altın: cepte ama ters','altın ters').replace('gri: başka yerde','gri başka'):l[0]; g.fillStyle=css(l[1]); g.fillText(tx,xx,y); l[0]=tx; xx+=g.measureText(l[0]).width+14; }); }",
-   "var y=H-7; [['ring: start','--ink'],['dot: pose tried','--ink'],['green: right','--good'],['gold: in the pocket but flipped','--gold'],['grey: elsewhere','--muted'],['faded dashed: more than 2 Å from the plane','--muted']].forEach(function(l){ if(W<420&&(l[0].indexOf('ring')===0||l[0].indexOf('faded')===0||l[0].indexOf('dot')===0)) return; var tx=W<420?l[0].replace('green: right','green right').replace('gold: in the pocket but flipped','gold flipped').replace('grey: elsewhere','grey elsewhere'):l[0]; g.fillStyle=css(l[1]); g.fillText(tx,xx,y); l[0]=tx; xx+=g.measureText(l[0]).width+14; }); }"
+   "var y=H-7; [['ring: start','--ink'],['dot: pose tried','--ink'],['green: right','--good'],['gold: in the pocket but flipped','--gold'],['gray: elsewhere','--muted'],['faded dashed: more than 2 Å from the plane','--muted']].forEach(function(l){ if(W<420&&(l[0].indexOf('ring')===0||l[0].indexOf('faded')===0||l[0].indexOf('dot')===0)) return; var tx=W<420?l[0].replace('green: right','green right').replace('gold: in the pocket but flipped','gold flipped').replace('gray: elsewhere','gray elsewhere'):l[0]; g.fillStyle=css(l[1]); g.fillText(tx,xx,y); l[0]=tx; xx+=g.measureText(l[0]).width+14; }); }"
   ],
   [
    "function d3Read(){ $('t1thrV').textContent=fx(D3.thr,1)+' Å'; $('t1needV').textContent='%'+D3.need;",
@@ -483,7 +484,7 @@
   ],
   [
    "if(D3.touched) card('t1c4',true,'Ölçütünüz: '+(D3.crit===1?'ilk poz':'ilk '+D3.crit+' pozdan biri')+', '+fx(D3.thr,1)+' Å, en az %'+D3.need+' başarı. '+(ch==null?'Bu ölçütü hiçbir ayar karşılamıyor.':'En ucuz ayar exhaustiveness '+D3.EX[ch]+' (ortalama '+fx(ST[ch].t,2)+' s; exhaustiveness 16\\'nın süresinin '+fx(ST[4].t/ST[ch].t,1)+' kat kısası).')+' Ölçüt gevşedikçe ucuz ayarlar \"başarılı\" görünür; ama ilk pozdan başka pozlara bakmak, doğru pozu seçme işini kullanıcıya bırakır. Hangi ölçütün uygun olduğu sorunuza bağlıdır; bu sayfa birini dayatmaz.');",
-   "if(D3.touched) card('t1c4',true,'Your criterion: '+(D3.crit===1?'first pose':'one of the first '+D3.crit+' poses')+', '+fx(D3.thr,1)+' Å, at least '+D3.need+'% success. '+(ch==null?'No setting meets this criterion.':'The cheapest setting is exhaustiveness '+D3.EX[ch]+' (mean '+fx(ST[ch].t,2)+' s; '+fx(ST[4].t/ST[ch].t,1)+' times shorter than exhaustiveness 16).')+' As the criterion is loosened, cheap settings look \"successful\"; but looking beyond the first pose leaves the job of choosing the right pose to the user. Which criterion is appropriate depends on your question; this page does not impose one.');"
+   "if(D3.touched) card('t1c4',true,'Your criterion: '+(D3.crit===1?'first pose':'one of the first '+D3.crit+' poses')+', '+fx(D3.thr,1)+' Å, at least '+D3.need+'% success. '+(ch==null?'No setting meets this criterion.':'The cheapest setting is exhaustiveness '+D3.EX[ch]+' (mean '+fx(ST[ch].t,2)+' s; '+fx(ST[4].t/ST[ch].t,1)+' times faster than exhaustiveness 16).')+' As the criterion is loosened, cheap settings look \"successful\"; but looking beyond the first pose leaves the job of choosing the right pose to the user. Which criterion is appropriate depends on your question; this page does not impose one.');"
   ],
   [
    "g.font='11px '+css('--sans'); g.fillStyle=css('--muted'); [0,0.5,1].forEach(function(p){ g.textAlign='right'; g.fillText('%'+fx(100*p,0),L-5,Y(p)+4); g.strokeStyle=css('--line'); g.beginPath(); g.moveTo(L,Y(p)); g.lineTo(W-R,Y(p)); g.stroke(); }); g.textAlign='left';",
@@ -535,7 +536,7 @@
   ],
   [
    "$('t1score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); }); }",
-   "$('t1score').textContent='Answered: '+n+' / '+QZ.length+' · correct at first try: '+r; }); }); }"
+   "$('t1score').textContent='Answered: '+n+' / '+QZ.length+' · correct on the first try: '+r; }); }); }"
   ],
   [
    "['t1c1','t1c2','t1c3','t1c4','t1c5'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",

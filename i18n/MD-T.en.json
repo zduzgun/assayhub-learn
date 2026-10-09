@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "1d619cb6836c6c49bbade589128e14c863719448b7359979fe44634de09e8c89",
  "reviewed": false,
- "translator": "Claude (AI), MD-T 0.2.0 keşif sürümü; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-T 0.2.0 keşif sürümü; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "body='Sıcaklık aynı, yalnız kütle değişti: kütle '+sig(Math.max(mr,1/mr))+' kat '+(mr>1?'arttı':'azaldı')+', λ ise '+sig(Math.max(a/b,b/a))+' kat '+(b<a?'küçüldü':'büyüdü')+' (√'+sig(Math.max(mr,1/mr))+' = '+sig(Math.sqrt(Math.max(mr,1/mr)))+'). λ ∝ 1/√m.';",
@@ -11,7 +12,7 @@
   ],
   [
    "$('mw2').innerHTML='Sizin denemeniz, '+fx(P1.T,0)+' K: H için λ = <b>'+sig(lh)+' Å</b>, '+other.l+' için <b>'+sig(lo)+' Å</b>. Kütle '+sig(other.m/1.008)+' kat ama λ yalnız '+sig(lh/lo)+' kat farklı. Bu sıcaklıkta kaba yargı: H '+judge(lh/3).t+', '+other.l+' '+judge(lo/3).t+'. '+(P1.T>=250&&P1.T<=350?'Ağır atomlar komşu uzaklığının küçük bir kesri kadar bulanık, klasik top resmi onlar için iyi. Hidrojen sınırda: tünelleme ve sıfır nokta enerjisi gibi kuantum etkileri gerçektir ve klasik MD bunları içermez.':'Oda sıcaklığında (300 K) ağır atomlar klasik yaklaşım için yeterince keskin, hidrojen ise sınırdadır; soğudukça ikisi de kuantum bölgesine yaklaşır.'); }",
-   "$('mw2').innerHTML='Your trial at '+fx(P1.T,0)+' K: λ = <b>'+sig(lh)+' Å</b> for H, <b>'+sig(lo)+' Å</b> for '+other.l+'. The mass differs by a factor of '+sig(other.m/1.008)+', but λ only by a factor of '+sig(lh/lo)+'. Rough verdict at this temperature: H '+judge(lh/3).t+', '+other.l+' '+judge(lo/3).t+'. '+(P1.T>=250&&P1.T<=350?'Heavy atoms are blurred by only a small fraction of the neighbor distance; the classical ball picture is good for them. Hydrogen is borderline: quantum effects such as tunneling and zero-point energy are real, and classical MD does not include them.':'At room temperature (300 K) heavy atoms are sharp enough for the classical approximation, while hydrogen is borderline; as it gets colder, both move towards the quantum region.'); }"
+   "$('mw2').innerHTML='Your trial at '+fx(P1.T,0)+' K: λ = <b>'+sig(lh)+' Å</b> for H, <b>'+sig(lo)+' Å</b> for '+other.l+'. The mass differs by a factor of '+sig(other.m/1.008)+', but λ only by a factor of '+sig(lh/lo)+'. Rough verdict at this temperature: H '+judge(lh/3).t+', '+other.l+' '+judge(lo/3).t+'. '+(P1.T>=250&&P1.T<=350?'Heavy atoms are blurred by only a small fraction of the neighbor distance; the classical ball picture is good for them. Hydrogen is borderline: quantum effects such as tunneling and zero-point energy are real, and classical MD does not include them.':'At room temperature (300 K) heavy atoms are sharp enough for the classical approximation, while hydrogen is borderline; as it gets colder, both move toward the quantum region.'); }"
   ],
   [
    "body='Parçacık aynı, yalnız sıcaklık değişti: sıcaklık '+sig(Math.max(tr,1/tr))+' kat '+(tr>1?'arttı':'azaldı')+', λ '+sig(Math.max(a/b,b/a))+' kat '+(b<a?'küçüldü':'büyüdü')+'. λ ∝ 1/√T: soğudukça parçacık daha \"dalga gibi\" olur.';",
@@ -63,11 +64,11 @@
   ],
   [
    "$('mk1').innerHTML='Sizin '+book.length+' denemeniz: αR payı 1 ps\\'te '+MDT.pc(fx(R1.pop*100,1))+'. En büyük sapma '+fx(dev*100,1)+' puan ('+tick(w.s)+' ps\\'te '+MDT.pc(fx(w.pop*100,1))+', '+tick(w.n)+' kare). '+(dev<0.05?'Pay neredeyse değişmedi: bir denge ortalaması için seyrek kayıt çoğunlukla yeter; belirleyici olan kare sayısı değil, koşunun toplam süresidir.':'Sapma büyüdü, çünkü o aralıkta yalnız '+tick(w.n)+' kare kaldı: sistemin payı değişmedi, onu ölçen örnek azaldı.'); }",
-   "$('mk1').innerHTML='Your '+book.length+' trials: the αR fraction at 1 ps is '+MDT.pc(fx(R1.pop*100,1))+'. The largest deviation is '+fx(dev*100,1)+' percentage points ('+MDT.pc(fx(w.pop*100,1))+' at '+tick(w.s)+' ps, '+tick(w.n)+' frames). '+(dev<0.05?'The fraction hardly changed: for an equilibrium average sparse saving is usually enough; what matters is not the number of frames but the total length of the run.':'The deviation grew because only '+tick(w.n)+' frames were left at that interval: the fraction of the system did not change, the sample measuring it shrank.'); }"
+   "$('mk1').innerHTML='Your '+book.length+' trials: the αR fraction at 1 ps is '+MDT.pc(fx(R1.pop*100,1))+'. The largest deviation is '+fx(dev*100,1)+' percentage points ('+MDT.pc(fx(w.pop*100,1))+' at '+tick(w.s)+' ps, '+tick(w.n)+' frames). '+(dev<0.05?'The fraction hardly changed: for an equilibrium average sparse saving is usually enough; what matters is not the number of frames but the total length of the run.':'The deviation grew because only '+tick(w.n)+' frames were left at that interval: the fraction itself did not change; only the sample measuring it shrank.'); }"
   ],
   [
    "$('mk2').innerHTML='1 ps\\'te <b>'+tick(R1.trans)+'</b> durum değişimi sayıldı; '+tick(mid.s)+' ps\\'te '+tick(mid.trans)+', '+tick(top.s)+' ps\\'te <b>'+tick(top.trans)+'</b>. Bir durumda ortalama kalma süresi 1 ps verisinden yaklaşık '+fx(dwell,0)+' ps. İki kare arasında gidip gelen her geçiş görünmez olur; bu yüzden geçiş hızı, kalma süresi gibi kinetik nicelikler kayıt aralığına çok duyarlıdır. 1 ps\\'nin kendisi de bir alt sınırdır: ondan kısa süren gidip gelmeleri göremez.'; }",
-   "$('mk2').innerHTML='At 1 ps, <b>'+tick(R1.trans)+'</b> state changes were counted; '+tick(mid.trans)+' at '+tick(mid.s)+' ps, <b>'+tick(top.trans)+'</b> at '+tick(top.s)+' ps. From the 1 ps data, the mean residence time in a state is about '+fx(dwell,0)+' ps. Every transition that goes there and back between two frames becomes invisible; kinetic quantities such as transition rates and residence times are therefore very sensitive to the saving interval. 1 ps is itself a lower limit: it cannot see back-and-forth changes shorter than that.'; }"
+   "$('mk2').innerHTML='At 1 ps, <b>'+tick(R1.trans)+'</b> state changes were counted; '+tick(mid.trans)+' at '+tick(mid.s)+' ps, <b>'+tick(top.trans)+'</b> at '+tick(top.s)+' ps. From the 1 ps data, the mean residence time in a state is about '+fx(dwell,0)+' ps. Every transition that goes there and back between two frames becomes invisible; kinetic quantities such as transition rates and residence times are therefore very sensitive to the saving interval. The 1 ps count is itself only a lower bound: it cannot see back-and-forth changes shorter than 1 ps.'; }"
   ],
   [
    "$('mk3').innerHTML='1 ps: '+tick(b1.n+1)+' kare, '+size(b1.bytes)+'; '+tick(bs.s)+' ps: '+tick(bs.n+1)+' kare, '+size(bs.bytes)+' (t = 0 karesi dahil). Dosya boyutu kare sayısıyla orantılıdır, kare sayısı da kayıt aralığıyla ters orantılı: aralığı '+tick(bs.s)+' katına çıkarmak dosyayı yaklaşık '+tick(bs.s)+'\\'de birine indirir. Burada yalnız 22 atomluk dipeptit kaydedildi; su dahil bütün sistemde aynı oran çok daha büyük sayılara uygulanır.'; }",
@@ -99,7 +100,7 @@
   ],
   [
    "$('mf4').innerHTML='Sizin verinize göre ('+fits[0].m.l+', '+f.n+' nokta): geçiş sayısı bariyerle üstel azalıyor. Sayıyı e kat (2,72 kat) azaltan bariyer artışı <b>'+fx(per,2)+' kJ/mol</b>; 300 K\\'de kT = '+fx(KT300,2)+' kJ/mol. Yani bariyeri kT kadar yükseltmek geçişleri yaklaşık <b>'+fx(fac,1)+' kat</b> seyrekleştiriyor. Bu Arrhenius (Boltzmann) kuralıdır: sıklık ∝ e^(−E_b/kT). Bu yüzeyde beklenen değer kT\\'den biraz büyüktür (bu sayfanın modeliyle 8-17 kJ/mol arasında, bariyer başına 40 ns\\'lik koşulardan kütleye göre '+fx(EXPECT.H,2)+' ile '+fx(EXPECT.C,2)+' kJ/mol): bariyeri yükseltmek kuyuları da dikleştirir, parçacık bariyere daha sık \"çarpar\". Sizin değerinizle aradaki farkın bir kısmı rastlantıdır; n geçişin belirsizliği yaklaşık √n. Birkaç kJ/mol\\'lük bir bariyer farkı, bir MD koşusunun kaç ns sürmesi gerektiğini katlarca değiştirir.';",
-   "$('mf4').innerHTML='According to your data ('+fits[0].m.l+', '+f.n+' points): the number of crossings falls exponentially with the barrier. The barrier increase that reduces the count by a factor of e (2.72) is <b>'+fx(per,2)+' kJ/mol</b>; at 300 K, kT = '+fx(KT300,2)+' kJ/mol. So raising the barrier by kT makes crossings about <b>'+fx(fac,1)+' times</b> rarer. This is the Arrhenius (Boltzmann) rule: rate ∝ e^(−E_b/kT). On this surface the expected value is somewhat larger than kT (with this page\\'s model between 8 and 17 kJ/mol, from 40 ns runs per barrier, '+fx(EXPECT.H,2)+' to '+fx(EXPECT.C,2)+' kJ/mol depending on the mass): raising the barrier also steepens the wells, so the particle \"hits\" the barrier more often. Part of the difference from your value is chance; the uncertainty of n crossings is about √n. A barrier difference of a few kJ/mol changes by several times how many ns an MD run must last.';"
+   "$('mf4').innerHTML='According to your data ('+fits[0].m.l+', '+f.n+' points): the number of crossings falls exponentially with the barrier. The barrier increase that reduces the count by a factor of e (2.72) is <b>'+fx(per,2)+' kJ/mol</b>; at 300 K, kT = '+fx(KT300,2)+' kJ/mol. So raising the barrier by kT makes crossings about <b>'+fx(fac,1)+' times</b> rarer. This is the Arrhenius (Boltzmann) rule: rate ∝ e^(−E_b/kT). On this surface the expected value is somewhat larger than kT (with this page\\'s model, from 40 ns runs per barrier at barriers of 8 to 17 kJ/mol: '+fx(EXPECT.H,2)+' to '+fx(EXPECT.C,2)+' kJ/mol depending on the mass): raising the barrier also steepens the wells, so the particle \"hits\" the barrier more often. Part of the difference from your value is chance; the uncertainty of n crossings is about √n. A barrier difference of a few kJ/mol changes the required length of an MD run several-fold.';"
   ],
   [
    "Enerji, Kuvvetler ve Sayısal Hareket",
@@ -243,7 +244,7 @@
   ],
   [
    "Kuantum mekaniğinde bir titreşim her enerjiyi alamaz: enerji ħω büyüklüğünde basamaklarla artar (ħω = h·c·ν̃, ν̃ IR'deki dalga sayısıdır). Çevreden gelen ısıl enerjinin ölçüsü kT'dir. Basamak kT'den çok büyükse titreşim en alt basamakta donar; çok küçükse basamaklar fark edilmez ve klasik mekanik doğru sonucu verir. Klasik MD ise her titreşime, ne kadar hızlı olursa olsun, ortalama kT kadar enerji verir.",
-   "In quantum mechanics a vibration cannot take any energy: its energy rises in steps of size ħω (ħω = h·c·ν̃, where ν̃ is the wavenumber in the IR). The measure of the thermal energy coming from the surroundings is kT. If the step is much larger than kT, the vibration freezes on the lowest step; if it is much smaller, the steps are not noticeable and classical mechanics gives the right result. Classical MD, however, gives every vibration an average energy of kT, no matter how fast it is."
+   "In quantum mechanics a vibration cannot take just any energy: its energy rises in steps of size ħω (ħω = h·c·ν̃, where ν̃ is the wavenumber in the IR). The measure of the thermal energy coming from the surroundings is kT. If the step is much larger than kT, the vibration freezes on the lowest step; if it is much smaller, the steps are not noticeable and classical mechanics gives the right result. Classical MD, however, gives every vibration an average energy of kT, no matter how fast it is."
   ],
   [
    "Titreşimin enerji basamakları ve ısıl enerji kT",
@@ -763,7 +764,7 @@
   ],
   [
    "Bir MD programı kuvvetleri her zaman adımında hesaplar, ama trajektori dosyasına yalnız belirli aralıklarla bir kare yazar. Kayıt aralığı hesabın doğruluğunu değiştirmez; sonradan neyi görebileceğinizi değiştirir. Bu laboratuvarda önce bir titreşimi, sonra bu kitabın gerçek bir simülasyonunu seyrek kaydedip ne kaybolduğunu ölçeceksiniz.",
-   "An MD program computes the forces at every time step, but writes a frame to the trajectory file only at certain intervals. The saving interval does not change the accuracy of the calculation; it changes what you can see afterwards. In this lab you will first save a vibration, then a real simulation from this book sparsely, and measure what is lost."
+   "An MD program computes the forces at every time step, but writes a frame to the trajectory file only at certain intervals. The saving interval does not change the accuracy of the calculation; it changes what you can see afterwards. In this lab you will save first a vibration and then a real simulation from this book at sparse intervals, and measure what is lost."
   ],
   [
    "<span class=\"lab-tag\">1 · Stroboskop atölyesi</span>",
@@ -855,7 +856,7 @@
   ],
   [
    "Kayıt aralığı",
-   ">Saving interval<"
+   "Saving interval"
   ],
   [
    "Hesap her seçimde 2 fs adımla yapılmış aynı koşudur; değişen yalnız dosyaya yazılan karelerdir.",
@@ -879,7 +880,7 @@
   ],
   [
    "Seyrek kayıt neyi değiştirir, neyi değiştirmez?",
-   "What does sparse saving change, and what not?"
+   "What does sparse saving change, and what does it leave unchanged?"
   ],
   [
    "Tezgâhta seçtiğiniz her aralık buraya bir deneme olarak eklenir. İki nicelik 1 ps'teki değerlerine oranlanmıştır: 1, kaydı seyreltmenin hiçbir şeyi değiştirmediği anlamına gelir.",
@@ -931,7 +932,7 @@
   ],
   [
    "Kayıt aralığı hesabın doğruluğunu değiştirmez: kuvvetler her 2 fs'de hesaplanır, kareler yalnız saklanır. Ama sonradan hangi soruyu sorabileceğinizi belirler; yazılmamış bir kare geri getirilemez. GROMACS'ta ilgili ayarlar <code>nstxout-compressed</code> (kaç adımda bir konum yazılacağı), <code>compressed-x-grps</code> (hangi atomların yazılacağı) ve <code>nstenergy</code> (enerji terimlerinin aralığı) ayarlarıdır. Pilotta konumlar ve enerjiler 500 adımda bir (1 ps) yazıldı; konumlar yalnız dipeptit için.",
-   "The saving interval does not change the accuracy of the calculation: the forces are computed every 2 fs, and the frames are only stored. But it determines which questions you can ask afterwards; a frame that was not written cannot be recovered. In GROMACS the relevant settings are <code>nstxout-compressed</code> (every how many steps positions are written), <code>compressed-x-grps</code> (which atoms are written) and <code>nstenergy</code> (the interval for the energy terms). In the pilot, positions and energies were written every 500 steps (1 ps); positions only for the dipeptide."
+   "The saving interval does not change the accuracy of the calculation: the forces are computed every 2 fs, and the frames are only stored. But it determines which questions you can ask afterwards; a frame that was not written cannot be recovered. In GROMACS the relevant settings are <code>nstxout-compressed</code> (the number of steps between written positions), <code>compressed-x-grps</code> (which atoms are written) and <code>nstenergy</code> (the interval for the energy terms). In the pilot, positions and energies were written every 500 steps (1 ps); positions only for the dipeptide."
   ],
   [
    "Model ve veri: stroboskopta titreşim kosinüs, periyotlar Laboratuvar 2'nin formülüyle; görünen periyot örnekleme kuramından (katlanma) hesaplanır ve periyodun 50 katını aşarsa \"duruyor gibi\" yazılır. Tezgâhtaki veri bu kitabın alanin dipeptit pilotundandır; durum tanımları MD-U'daki gibidir (αL: φ ≥ 0; αR: φ &lt; 0 ve −120° ≤ ψ &lt; 50°; β: diğer). Defteriniz yalnız bu tarayıcıda saklanır.",
@@ -983,7 +984,7 @@
   ],
   [
    "gri: komşu atomlar, 3 Å arayla",
-   "grey: neighboring atoms, 3 Å apart"
+   "gray: neighboring atoms, 3 Å apart"
   ],
   [
    "(bulut ekrandan büyük)",
@@ -1099,7 +1100,7 @@
   ],
   [
    ". Aynı kuvvet ağır cismi daha az hızlandırır (a = F/m): yol aynı, yalnız daha yavaş gidilir. Atomun saatindeki bağ titreşimleriyle aynı kural.",
-   ". The same force accelerates a heavy body less (a = F/m): the path is the same, it is only travelled more slowly. The same rule as for the bond vibrations in the atom\\'s clock."
+   ". The same force accelerates a heavy body less (a = F/m): the path is the same, it is only traveled more slowly. The same rule as for the bond vibrations in the atom\\'s clock."
   ],
   [
    "kJ/mol ile bariyer (",
@@ -1115,7 +1116,7 @@
   ],
   [
    "kJ/mol bariyer) geçti. Yalıtılmış sistemde toplam enerji korunur (mavi kesikli çizgi): parçacık yalnız o çizginin altındaki yerlere gidebilir. Newton\\'un yasası yörüngeyi tamamen belirler; rastlantı yoktur.",
-   "kJ/mol barrier) it crossed. In an isolated system the total energy is conserved (blue dashed line): the particle can only go to places below that line. Newton\\'s law determines the trajectory completely; there is no chance."
+   "kJ/mol barrier) it crossed. In an isolated system the total energy is conserved (blue dashed line): the particle can only go to places below that line. Newton\\'s law determines the trajectory completely; there is no randomness."
   ],
   [
    "Hesaplanıyor…",
@@ -1355,7 +1356,7 @@
   ],
   [
    "Standart (sabit yüklü) bir kuvvet alanıyla yapılan klasik MD aşağıdakilerden hangisini ilke olarak anlatamaz?",
-   "Which of the following can classical MD with a standard (fixed-charge) force field in principle not describe?"
+   "Which of the following is classical MD with a standard (fixed-charge) force field unable, in principle, to describe?"
   ],
   [
    "Bir proteinin yan zincirlerinin konformasyon değiştirmesini",
@@ -2179,7 +2180,7 @@
   ],
   [
    "' periyodu '",
-   "' from '"
+   "': '"
   ],
   [
    "'1 kat'",
@@ -2192,6 +2193,18 @@
   [
    "; kareler <b>'",
    "; the frames show a period of <b>'"
+  ],
+  [
+   "g.fillText('durum',8",
+   "g.fillText('state',8"
+  ],
+  [
+   "fx(dt,1)+' fs\\'de',L,22)",
+   "fx(dt,1)+' fs',L,22)"
+  ],
+  [
+   "w:'ħω kT\\'nin '+",
+   "w:'ħω is '+"
   ]
  ],
  "keep": [

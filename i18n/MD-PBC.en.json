@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "344c66e0cbfd4261d4188dba525b94f1b9f10a0cb88933264e993a948d81eb5f",
  "reviewed": false,
- "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>Kenarsız Kutu: Periyodik Sınır</title>",
@@ -47,7 +48,7 @@
   ],
   [
    "<p><b>Kenar kuyucuk etkisi.</b> 96 kuyucuklu bir plakada dış halkadaki kuyucuklar daha çok buharlaşır ve sıcaklık değişimini daha çabuk hisseder. Bu yüzden çoğu deneyde dış kuyucuklara örnek konmaz. Kenardaki 36 kuyucuk, plakanın %37,5'idir.</p>",
-   "<p><b>The edge-well effect.</b> On a 96-well plate the wells of the outer ring evaporate more and feel temperature changes sooner. This is why many experiments leave the outer wells empty. The 36 edge wells are 37.5% of the plate.</p>"
+   "<p><b>The edge-well effect.</b> On a 96-well plate the wells of the outer ring evaporate more and feel temperature changes sooner. This is why most experiments leave the outer wells empty. The 36 edge wells are 37.5% of the plate.</p>"
   ],
   [
    "<svg id=\"cellSvg\" viewBox=\"0 0 360 250\" role=\"img\" aria-label=\"Kristal: bir birim hücrenin her yöne ötelenerek tekrarı\"></svg>",
@@ -395,7 +396,7 @@
   ],
   [
    "<p><b>Ne görüyorsunuz?</b> Duvarlı kutuyu büyütmek kenar sorununu çözmüyor, yalnız hafifletiyor ve hesabı pahalılaştırıyor. Periyodik kutuda duvar dibi yok; geriye tek soru kalıyor: protein kendi kopyasından ne kadar uzak olmalı? d = 1 nm'de iki kopya arasında en az 2 nm su olur ve proteinin çevresindeki 1 nm'lik su kabukları birbirine değmez. Bu yüzden bu ayarla küçük, küresele yakın proteinlerde genellikle sorun çıkmaz; kutuyu daha da büyütmek sonucu pek değiştirmez ama maliyeti hızla artırır. Uzun, esnek ya da açılıp kapanan proteinlerde d'yi büyütmek ve koşu boyunca kopyalar arası en kısa uzaklığı (<code>gmx mindist -pi</code>) izlemek gerekir.</p>",
-   "<p><b>What do you see?</b> Enlarging a walled box does not solve the edge problem; it only eases it and makes the calculation more expensive. The periodic box has no water next to a wall; one question remains: how far should the protein be from its own copy? At d = 1 nm there are at least 2 nm of water between two copies, and the 1 nm water shells around the protein do not touch. This is why this setting usually causes no problems for small, nearly globular proteins; making the box even larger hardly changes the result but raises the cost quickly. For elongated, flexible or opening and closing proteins, d should be larger and the shortest distance between copies (<code>gmx mindist -pi</code>) should be monitored during the run.</p>"
+   "<p><b>What do you see?</b> Enlarging a walled box does not solve the edge problem; it only eases it and makes the calculation more expensive. The periodic box has no water next to a wall; one question remains: how far should the protein be from its own copy? At d = 1 nm there are at least 2 nm of water between two copies, and the 1 nm water shells around the protein do not touch. This is why this setting usually causes no problems for small, nearly globular proteins; making the box even larger hardly changes the result but raises the cost quickly. For elongated or flexible proteins, or proteins that open and close, d should be larger and the shortest distance between copies (<code>gmx mindist -pi</code>) should be monitored during the run.</p>"
   ],
   [
    "<p><b>Kutu biçimi.</b> Eşkenar dörtgen onikiyüzlü kutuda kopyalar küpteki kadar uzaktadır ama hacim yaklaşık %29 küçüktür; aynı d için daha az su, daha hızlı hesap. Bu projenin ubikitin hazırlığı da böyle kuruldu (<code>editconf -d 1.0 -bt dodecahedron</code>: 5.902 su, 18.937 atom); paneldeki hesap bu sayılarla ayarlandı. Kesit, kolay okunsun diye kare çizilmiştir.</p>",
@@ -443,11 +444,11 @@
   ],
   [
    "<p>Aşağıdaki cetvel derişimi gram/litre olarak gösterir. Atölyedeki kaydırıcıyı oynattıkça \"sizin kutunuz\" işareti de yer değiştirir.</p>",
-   "<p>The ruler below shows the concentration in grams per litre. As you move the slider in the workshop, the \"your box\" mark moves too.</p>"
+   "<p>The ruler below shows the concentration in grams per liter. As you move the slider in the workshop, the \"your box\" mark moves too.</p>"
   ],
   [
    "<canvas id=\"k6ruler\" class=\"plot\" aria-label=\"Protein derişimi cetveli, gram/litre, logaritmik: NMR örneği, bu projenin iki kutusu, sizin kutunuz ve E. coli sitoplazması\"></canvas>",
-   "<canvas id=\"k6ruler\" class=\"plot\" aria-label=\"Protein concentration ruler, grams per litre, logarithmic: NMR sample, this project's two boxes, your box and the E. coli cytoplasm\"></canvas>"
+   "<canvas id=\"k6ruler\" class=\"plot\" aria-label=\"Protein concentration ruler, grams per liter, logarithmic: NMR sample, this project's two boxes, your box and the E. coli cytoplasm\"></canvas>"
   ],
   [
    "<p>Deneyde bir proteinin ne kadar hızlı yayıldığını da ölçersiniz: FRAP'ta ağartılan bölgenin geri dolma hızından, DLS'de saçılan ışığın dalgalanmasından, PFG-NMR'de gradyanla sinyalin sönmesinden. Suda GFP'nin difüzyon katsayısı yaklaşık 87 µm²/s, E. coli sitoplazmasında 7,7 µm²/s ölçülmüştür. Aynı ölçüm ubikitin için 1,539 nm hidrodinamik yarıçap vermiştir; bu, 25 °C'de suda yaklaşık 158 µm²/s demektir (Stokes-Einstein). MD bu sayıyı verebilir mi? Tezgâhta göreceğiniz gibi, cevap kutunun boyuna bağlıdır.</p>",
@@ -463,7 +464,7 @@
   ],
   [
    "<div class=\"prose\"><p><code>gmx editconf -d</code> proteinin en uzak iki atomu arasındaki uzaklığa (ubikitinde 4,49 nm) her iki yandan d ekler; kutu vektörü L = 4,49 + 2d olur. Kesit, merkez kutuyu ve dört komşu kopyayı gösterir. Protein yavaşça döner; kopyalar da tam aynı biçimde döner. Kesikli çizgi proteinin çevresindeki 1,0 nm'lik kesme kuşağıdır: bir kopya bu kuşağa girerse protein kendi kopyasıyla etkileşir.</p></div>",
-   "<div class=\"prose\"><p><code>gmx editconf -d</code> adds d on both sides to the distance between the two most distant atoms of the protein (4.49 nm for ubiquitin); the box vector becomes L = 4.49 + 2d. The section shows the central box and four neighbouring images. The protein turns slowly, and its images turn in exactly the same way. The dashed line is the 1.0 nm cut-off belt around the protein: if an image enters this belt, the protein interacts with its own image.</p></div>"
+   "<div class=\"prose\"><p><code>gmx editconf -d</code> adds d on both sides to the distance between the two most distant atoms of the protein (4.49 nm for ubiquitin); the box vector becomes L = 4.49 + 2d. The section shows the central box and four neighboring images. The protein turns slowly, and its images turn in exactly the same way. The dashed line is the 1.0 nm cut-off belt around the protein: if an image enters this belt, the protein interacts with its own image.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"k6box\" class=\"stage\" aria-label=\"Periyodik kutu kesiti: ubikitin, dört kopyası, kesme kuşağı ve en kısa boşluk\"></canvas></div>",
@@ -575,7 +576,7 @@
   ],
   [
    "<p class=\"small\">Hesap: suyun akışı Stokes denklemleriyle, protein R = 1,539 nm yarıçaplı yumuşak bir kuvvet bulutu (Gauss) olarak, küp kutunun bütün kopyalarıyla birlikte ters uzayda toplanarak bulunur; sayfada hesaplanır. Aynı toplam R/L küçükken Hasimoto (1959) serisini verir: 1 − 2,837297 R/L + (4π/3)(R/L)³. Yeh ve Hummer (2004) bunun ilk iki terimini MD'deki difüzyon düzeltmesi olarak önerdi. Sonsuz sıvı çiziminde yalnız proteinin kendi akışı vardır (düzgünleştirilmiş Stokes akışı); pencere kenarı yalnız çizimin sınırıdır. Çizim, kutunun protein merkezinden geçen kesitidir.</p>",
-   "<p class=\"small\">Calculation: the flow of water follows from the Stokes equations, with the protein as a soft cloud of force (Gaussian) of radius R = 1.539 nm, summed in reciprocal space together with all the images of the cubic box; it is computed on the page. For small R/L the same sum gives the Hasimoto (1959) series: 1 − 2.837297 R/L + (4π/3)(R/L)³. Yeh and Hummer (2004) proposed its first two terms as the diffusion correction for MD. In the infinite-liquid drawing there is only the protein's own flow (regularized Stokes flow); the window edge is only the edge of the drawing. The drawing is the section of the box through the centre of the protein.</p>"
+   "<p class=\"small\">Calculation: the flow of water follows from the Stokes equations, with the protein as a soft cloud of force (Gaussian) of radius R = 1.539 nm, summed in reciprocal space together with all the images of the cubic box; it is computed on the page. For small R/L the same sum gives the Hasimoto (1959) series: 1 − 2.837297 R/L + (4π/3)(R/L)³. Yeh and Hummer (2004) proposed its first two terms as the diffusion correction for MD. In the infinite-liquid drawing there is only the protein's own flow (regularized Stokes flow); the window edge is only the edge of the drawing. The drawing is the section of the box through the center of the protein.</p>"
   ],
   [
    "<article class=\"q\" id=\"k6c1\"><span class=\"k\">Açık</span><h3>Kopya kesmeye girer mi?</h3><p>Atölyede d'yi 0,5 nm ve altına, sonra 1,0 nm ve üstüne getirin.</p><div class=\"mine\" id=\"mk6c1\">d'yi bir kez 0,5 nm ya da daha aza, bir kez 1,0 nm ya da daha fazlaya getirin.</div></article>",
@@ -1071,7 +1072,7 @@
   ],
   [
    "$('score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r;",
-   "$('score').textContent='Answered: '+n+' / '+QZ.length+' · correct at the first try: '+r;"
+   "$('score').textContent='Answered: '+n+' / '+QZ.length+' · correct on the first try: '+r;"
   ],
   [
    "drawBridge(); setMode('wall'); B.vx=420; B.vy=-250; B.user=false; chg('Örnek hareket','Top kendiliğinden hareket ediyor; kendi denemeniz için tutup sürükleyin.');",
@@ -1107,7 +1108,7 @@
   ],
   [
    "$('k6cost').textContent=fx(at/ATOM0,2)+' kat';",
-   "$('k6cost').textContent=fx(at/ATOM0,2)+' ×';"
+   "$('k6cost').textContent=fx(at/ATOM0,2)+'×';"
   ],
   [
    "if(A.gapMin<1.0) note='Kopya, bir tur içinde proteinin 1,0 nm\\'lik kesme kuşağına giriyor: protein kendi kopyasıyla etkileşir. Bu, gerçek bir örnekte olmayan bir etkileşimdir.';",
@@ -1247,7 +1248,7 @@
   ],
   [
    "$('k6score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });",
-   "$('k6score').textContent='Answered: '+n+' / '+QZ.length+' · correct at the first try: '+r; }); });"
+   "$('k6score').textContent='Answered: '+n+' / '+QZ.length+' · correct on the first try: '+r; }); });"
   ],
   [
    "$('k6fPlay').addEventListener('click',function(){ F.play=!F.play; this.textContent=F.play?'Durdur':'Oynat'; kick(); });",

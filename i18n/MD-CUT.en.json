@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "3cad11356d85bd0c14efa379ac806a81043897de7634a1d022d40c125040f27d",
  "reviewed": false,
- "translator": "Claude (AI), MD-CUT 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-CUT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>En Yakın Kopya ve Kesme</title>",
@@ -103,7 +104,7 @@
   ],
   [
    "<p class=\"small\">İki sütun aynıdır, çünkü ikisi de r⁻⁶ ile azalır. Uzaklığı iki katına çıkarmak aktarım hızını da çekimi de 64 kat düşürür; üç katına çıkarmak 729 kat. Kuvvet bu kadar hızlı söndüğü için birkaç molekül çapından uzaktaki komşuların katkısı küçüktür; kesme mesafesi fikri buradan gelir.</p>",
-   "<p class=\"small\">The two columns are identical because both fall as r⁻⁶. Doubling the distance lowers both the transfer rate and the attraction 64 times; tripling it, 729 times. Because the interaction fades this fast, neighbors more than a few molecular diameters away contribute little; this is where the idea of a cut-off comes from.</p>"
+   "<p class=\"small\">The two columns are identical because both fall as r⁻⁶. Doubling the distance lowers both the transfer rate and the attraction 64-fold; tripling it, 729-fold. Because the interaction fades this fast, neighbors more than a few molecular diameters away contribute little; this is where the idea of a cut-off comes from.</p>"
   ],
   [
    "<span class=\"step\">1 · Atölye</span>",
@@ -163,7 +164,7 @@
   ],
   [
    "<dt>Kutunun içinden A–B</dt><dd id=\"k2dIn\"></dd>",
-   "<dt>A–B inside the box</dt><dd id=\"k2dIn\"></dd>"
+   "<dt>A-B inside the box</dt><dd id=\"k2dIn\"></dd>"
   ],
   [
    "<dt>A'ya en yakın B kopyası</dt><dd id=\"k2dMin\"></dd>",
@@ -191,7 +192,7 @@
   ],
   [
    "<div class=\"legend\"><span><i style=\"background:var(--muted)\"></i>Kutunun içinden A–B</span><span><i style=\"background:var(--accent)\"></i>En yakın kopyaya uzaklık</span><span><i style=\"background:var(--navy)\"></i>Toplam enerji değişimi</span></div>",
-   "<div class=\"legend\"><span><i style=\"background:var(--muted)\"></i>A–B inside the box</span><span><i style=\"background:var(--accent)\"></i>Distance to the nearest copy</span><span><i style=\"background:var(--navy)\"></i>Change of total energy</span></div>"
+   "<div class=\"legend\"><span><i style=\"background:var(--muted)\"></i>A-B inside the box</span><span><i style=\"background:var(--accent)\"></i>Distance to the nearest copy</span><span><i style=\"background:var(--navy)\"></i>Change of total energy</span></div>"
   ],
   [
    "<div class=\"change\" id=\"k2miChg\"><span class=\"t\">İki molekül birbirini tutarak ilerliyor</span><span>Kendi denemeniz için kutunun üstünde bir yere basıp geriye çekin ve bırakın ya da \"Çifti fırlat\" düğmesine basın.</span></div>",
@@ -315,7 +316,7 @@
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k2nRun\">Ölç</button><button type=\"button\" class=\"btn\" id=\"k2nAll\">Bu yöntemde tüm seriyi ölç</button></div>",
-   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k2nRun\">Measure</button><button type=\"button\" class=\"btn\" id=\"k2nAll\">Measure the whole series in this method</button></div>"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"k2nRun\">Measure</button><button type=\"button\" class=\"btn\" id=\"k2nAll\">Measure the whole series with this method</button></div>"
   ],
   [
    "<p class=\"busy\" id=\"k2nBusy\" aria-live=\"polite\">Ölçüm yok.</p>",
@@ -483,7 +484,7 @@
   ],
   [
    "function ratioTable(){ $('k2ratio').innerHTML=[1,1.5,2,3].map(function(m){ var v=Math.pow(m,6), t=m===1?'1':'1/'+fx(v,v<20?1:0); return '<tr><td>'+(m===1?'başlangıç':fx(m,1)+' katı')+'</td><td class=\"n\">'+t+'</td><td class=\"n\">'+t+'</td></tr>'; }).join(''); }",
-   "function ratioTable(){ $('k2ratio').innerHTML=[1,1.5,2,3].map(function(m){ var v=Math.pow(m,6), t=m===1?'1':'1/'+fx(v,v<20?1:0); return '<tr><td>'+(m===1?'start':fx(m,1)+' times')+'</td><td class=\"n\">'+t+'</td><td class=\"n\">'+t+'</td></tr>'; }).join(''); }"
+   "function ratioTable(){ $('k2ratio').innerHTML=[1,1.5,2,3].map(function(m){ var v=Math.pow(m,6), t=m===1?'1':'1/'+fx(v,v<20?1:0); return '<tr><td>'+(m===1?'initial':fx(m,1)+' times')+'</td><td class=\"n\">'+t+'</td><td class=\"n\">'+t+'</td></tr>'; }).join(''); }"
   ],
   [
    "var sides=[]; [['A',na],['B',nb]].forEach(function(e){ var p=e[1], s=null; if(p[0]>=M.L) s=['sağ','sol']; else if(p[0]<0) s=['sol','sağ']; else if(p[1]>=M.L) s=['alt','üst']; else if(p[1]<0) s=['üst','alt']; if(s) sides.push([e[0]].concat(s)); });",
@@ -651,7 +652,7 @@
   ],
   [
    "$('k2nAll').onclick=function(){ if(busy) return; queue=RS.filter(function(r){ return !book.some(function(p){return p.m===nMode&&p.r===r;}); }).map(function(r){return [nMode,r];}); if(!queue.length){ $('k2nBusy').textContent='Bu yöntemde bütün kesme mesafeleri zaten ölçüldü.'; return; } runQueue(); };",
-   "$('k2nAll').onclick=function(){ if(busy) return; queue=RS.filter(function(r){ return !book.some(function(p){return p.m===nMode&&p.r===r;}); }).map(function(r){return [nMode,r];}); if(!queue.length){ $('k2nBusy').textContent='All cut-off distances have already been measured in this method.'; return; } runQueue(); };"
+   "$('k2nAll').onclick=function(){ if(busy) return; queue=RS.filter(function(r){ return !book.some(function(p){return p.m===nMode&&p.r===r;}); }).map(function(r){return [nMode,r];}); if(!queue.length){ $('k2nBusy').textContent='All cut-off distances have already been measured with this method.'; return; } runQueue(); };"
   ],
   [
    "$('k2nClr').onclick=function(){ if(busy) return; book=[]; save(); nDraw(); nEval(); $('k2nBusy').textContent='Defter temizlendi.'; };",
@@ -683,11 +684,11 @@
   ],
   [
    "card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi korur; GROMACS da etkileşimi böyle bırakır.');",
-   "card('k2c2',true,'Your measurements: with the plain cut-off the total energy fluctuated by '+sci(p0.e)+' at r<sub>c</sub> = '+fx(r0,1)+' σ and by '+sci(p1.e)+' ε/molecule at '+fx(r1,1)+' σ; with the shifted potential, at the same distances, by '+sci(s0.e)+' and '+sci(s1.e)+'. At the short cut-off the plain cut-off fluctuates '+fx(p0.e/s0.e,0)+' times more. The forces and the trajectory are the same in both methods; the difference is that with the plain cut-off the energy jumps by |u(r<sub>c</sub>)| every time a pair crosses the circle. On the other hand the number of pairs per molecule is '+fx(p0.np,1)+' at '+fx(r0,1)+' σ and '+fx(p1.np,1)+' at '+fx(r1,1)+' σ: a longer cut-off makes the calculation more expensive. The shifted potential conserves energy even with a short cut-off; GROMACS also lets the interaction go this way.');"
+   "card('k2c2',true,'Your measurements: with the plain cut-off the total energy fluctuated by '+sci(p0.e)+' at r<sub>c</sub> = '+fx(r0,1)+' σ and by '+sci(p1.e)+' ε/molecule at '+fx(r1,1)+' σ; with the shifted potential, at the same distances, by '+sci(s0.e)+' and '+sci(s1.e)+'. At the short cut-off the plain cut-off fluctuates '+fx(p0.e/s0.e,0)+' times more. The forces and the trajectory are the same in both methods; the difference is that with the plain cut-off the energy jumps by |u(r<sub>c</sub>)| every time a pair crosses the circle. On the other hand the number of pairs per molecule is '+fx(p0.np,1)+' at '+fx(r0,1)+' σ and '+fx(p1.np,1)+' at '+fx(r1,1)+' σ: a longer cut-off makes the calculation more expensive. The shifted potential conserves energy even with a short cut-off; GROMACS also ends the interaction this way.');"
   ],
   [
    "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('düz kesmede 2,5 σ ya da daha kısa bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }",
-   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('at least two identical cut-off distances in both methods'); if(!okShort) need.push('a plain cut-off measurement at 2.5 σ or shorter'); card('k2c2',false,'Needed: '+need.join('; ')+'.'); }"
+   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('the same two or more cut-off distances in both methods'); if(!okShort) need.push('a plain cut-off measurement at 2.5 σ or shorter'); card('k2c2',false,'Needed: '+need.join('; ')+'.'); }"
   ],
   [
    "P4.ev.forEach(function(e){ var w=P4.w[e.i], f=(P4.clock-e.t)/1.2; g.strokeStyle=str(rgb(bad),1-f); g.lineWidth=3; g.beginPath(); g.arc(X(w.x),Y(w.y),rw+4+f*rw*2.5,0,6.283); g.stroke(); if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,'listede yoktu',X(w.x),Y(w.y)-rw-14,paper,bad); g.globalAlpha=1; } });",
@@ -715,7 +716,7 @@
   ],
   [
    "else if(d&&d.max>P4.buf) t='Son aralıkta bir su molekülü '+fx(d.max,3)+' nm yol aldı; bu, tampondan ('+fx(P4.buf,3)+' nm) uzun. '+(m>0?'Bu aralıkta '+m+' su molekülü listede olmadan kesme çemberine girdi.':'Bu kez tampon kuşağından kesmeye sızan olmadı, ama artık güvence yok: sızmak için yol yetiyor. Üç boyutta çember başına yüzlerce atom olduğu için böyle bir sızıntı sık olur; GROMACS tamponu bu yüzden izin verilen hataya göre seçer.');",
-   "else if(d&&d.max>P4.buf) t='In the last interval a water molecule traveled '+fx(d.max,3)+' nm; this is longer than the buffer ('+fx(P4.buf,3)+' nm). '+(m>0?'In this interval '+m+' water molecules entered the cut-off circle without being on the list.':'This time nothing slipped from the buffer band into the cut-off, but there is no guarantee any more: the path is long enough to slip in. In three dimensions, with hundreds of atoms per sphere, such leaks are frequent; this is why GROMACS chooses the buffer from the allowed error.');"
+   "else if(d&&d.max>P4.buf) t='In the last interval a water molecule traveled '+fx(d.max,3)+' nm; this is longer than the buffer ('+fx(P4.buf,3)+' nm). '+(m>0?'In this interval '+m+' water molecules entered the cut-off circle without being on the list.':'This time nothing slipped from the buffer band into the cut-off, but there is no guarantee anymore: the path is long enough to slip in. In three dimensions, with hundreds of atoms per sphere, such leaks are frequent; this is why GROMACS chooses the buffer from the allowed error.');"
   ],
   [
    "else if(d) t='Son aralıkta bir su molekülü en çok '+fx(d.max,3)+' nm yol aldı; tampon '+fx(P4.buf,3)+' nm. Liste yenilenene kadar hiçbir su molekülü tamponu aşıp kesme çemberine sızamıyor.';",
@@ -811,7 +812,7 @@
   ],
   [
    "$('k2score').textContent='Cevaplanan: '+n+' / '+QZ.length+' · ilk denemede doğru: '+r; }); });",
-   "$('k2score').textContent='Answered: '+n+' / '+QZ.length+' · correct at the first try: '+r; }); });"
+   "$('k2score').textContent='Answered: '+n+' / '+QZ.length+' · correct on the first try: '+r; }); });"
   ],
   [
    "['k2c1','k2c2','k2c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
@@ -820,6 +821,10 @@
   [
    "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Sürdür'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();",
    "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Resume'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Resume'; } p4Draw(); p4Msg(); renderQuiz(); kick();"
+  ],
+  [
+   "fx(st.K,st.K<10?1:0)+' kat'",
+   "fx(st.K,st.K<10?1:0)+' times'"
   ]
  ],
  "keep": [

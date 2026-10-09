@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.35.0 (9 Ekim 2026) · İngilizce denetim, 1. tur: temel düzey
+
+- Temel düzeyin 9 modülünün İngilizce tablosu (DK-T, MD-T, MD-PBC, MD-CUT, MD-ELEC, MD-ENS, MD-CON, MD-REP, MD-Q) Türkçe kaynakla çift çift karşılaştırıldı. 142 düzeltme: 20 anlam ya da dil bilgisi hatası, 65 terim ve yazım tutarlılığı (Amerikan yazımı; "ledger" ve "log" yerine "notebook"; "cutoff" yerine "cut-off"), 57 üslup. Yalnız görünen metin değişti; kod, sayı ve veri değişmedi.
+- İngilizce sayfada Türkçe kalan beş parça için yeni çiftler: MD-T'de "durum" etiketi, "fs'de" eki ve "ħω kT'nin" başlangıcı; MD-CUT'ta "kat"; MD-CON'da τ_T seçeneklerinde ondalık virgül (0,1 yerine 0.1).
+- Yeni tablo alanı `checked: "claude"`: Claude denetledi, insan gözden geçirmesi bekliyor. `reviewed` false kalır. İngilizce alt not bu modüllerde "Claude (AI) has checked it, but it has not yet been reviewed by a person." olur (`tools/build.mjs`, `version.json` translations alanına da yazılır).
+- Terim sözlüğü ve düzeltme listeleri `i18n/_work/review/` altında (gitignore). Not: `i18n/_work/<modül>/` yapım betikleri bu düzeltmeleri içermez; İngilizce yeniden üretilirse düzeltme listeleri yeniden uygulanmalıdır.
+- Türkçe kaynakta bulunan ve değiştirilmeyen notlar (ayrı turda ele alınacak): DK-T'de Lennard-Jones itmesinin "uzaklığın on ikinci kuvvetiyle" büyüdüğü cümlesi (r⁻¹²); MD-ENS'te "topluluğta" yazım hatası ve "uzun saniyeler"; MD-REP'te Welch aralıklarının "altta" değil öteki görünümde olması; MD-CON'da C-rescale için "hacim hızını ölçekler"; MD-PBC'de indirgenmiş birimde T = 0,40 ε (k_BT olmalı); MD-CUT'ta "Laboratuvar 3" göndermesi (MD-ELEC olmalı). MD-T'de bağ adlarındaki orta çizgi (O–H) iki dilde de duruyor.
+
 ## 0.34.0 (9 Ekim 2026) · Yeni modül MD-FES: standart MD'nin ötesine karar vermek
 
 - MD-FES 0.1.0 (uzman düzey, kitapta CH19): "Bu soru için standart MD yeter mi?" Yeni koşular (FESGRID): alanin dipeptidinde φ = C(ACE)-N-CA-C boyunca GROMACS 2023.3 AWH ile iki bağımsız 4 ns koşu (A1, A2; MD-REP'in W1 ve W2 dengelenmiş yapılarından, farklı tohumlarla). Plan koşulardan önce SHA-256 ile donduruldu (0b026ad8…, 8 Ekim 14:27 UTC); plandan sapma yok.

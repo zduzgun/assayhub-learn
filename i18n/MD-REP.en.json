@@ -3,7 +3,8 @@
  "lang": "en",
  "source_sha256": "8fef9365f6ce0a206bc964f5e4b3b1ce69b617d23032d91a790fc57f2bfe4290",
  "reviewed": false,
- "translator": "Claude (AI), MD-REP 0.1.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-REP 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Karşılaştırma, tekrar ve kontrol tasarımı</title>",
@@ -99,7 +100,7 @@
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"rtoy\" class=\"plot\" aria-label=\"Son çalışmanın tekrarları: her şerit bir tekrar, koyu renk parçacığın sol kuyuda olduğu kareler; üstte su grubu, altta tuz grubu\"></canvas></div>",
-   "<div class=\"stagebox\"><canvas id=\"rtoy\" class=\"plot\" aria-label=\"Replicates of the last study: each strip is a replicate, the dark colour marks frames in which the particle is in the left well; water group on top, salt group below\"></canvas></div>"
+   "<div class=\"stagebox\"><canvas id=\"rtoy\" class=\"plot\" aria-label=\"Replicates of the last study: each strip is a replicate, the dark color marks frames in which the particle is in the left well; water group on top, salt group below\"></canvas></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"rph\" class=\"plot\" aria-label=\"Bu ayarla yapılan çalışmaların p değerlerinin dağılımı; kırmızı sütun p küçüktür 0,05\"></canvas></div>",
@@ -167,7 +168,7 @@
   ],
   [
    "<p class=\"small\">Gri sütunlar: 16 tekrarın 8 ile 8'e bütün ayrımlarında ortalamalar farkı (etiketler karıştırılırsa ne çıkacağı). Kırmızı çizgi gözlenen fark. Altta Welch %95 ve %90 aralıkları ile ±5 puanlık eşdeğerlik bandı.</p>",
-   "<p class=\"small\">Grey bars: the difference of means over all 8 by 8 splits of the 16 replicates (what you would get if the labels were shuffled). The red line is the observed difference. In the other view, the Welch 95% and 90% intervals with the ±5 point equivalence band.</p>"
+   "<p class=\"small\">Gray bars: the difference of means over all 8 by 8 splits of the 16 replicates (what you would get if the labels were shuffled). The red line is the observed difference. In the other view, the Welch 95% and 90% intervals with the ±5 point equivalence band.</p>"
   ],
   [
    "<div class=\"selrow\"><span>Gösterim:</span><div class=\"seg\" role=\"group\" aria-label=\"Test gösterimi\" id=\"rpview\"><button type=\"button\" data-v=\"perm\" aria-pressed=\"true\">permütasyon dağılımı</button><button type=\"button\" data-v=\"ci\" aria-pressed=\"false\">aralık ve eşdeğerlik bandı</button></div></div>",
@@ -379,7 +380,7 @@
   ],
   [
    "if(a&&b&&a.N>=100&&b.N>=100) return ' Teknik tekrarda kuyu sayısı 3\\'ten 6\\'ya çıkınca oran %'+fx(100*a.k/a.N,0)+' iken %'+fx(100*b.k/b.N,0)+' oldu: kuyu eklemek hayvanlar arası farkı ölçmeye başlatmaz.';",
-   "if(a&&b&&a.N>=100&&b.N>=100) return ' With technical replicates, going from 3 to 6 wells changed the fraction from '+fx(100*a.k/a.N,0)+'% to '+fx(100*b.k/b.N,0)+'%: adding wells does not start measuring the difference between animals.';"
+   "if(a&&b&&a.N>=100&&b.N>=100) return ' With technical replicates, going from 3 to 6 wells changed the fraction from '+fx(100*a.k/a.N,0)+'% to '+fx(100*b.k/b.N,0)+'%: adding wells does not make the experiment measure the difference between animals.';"
   ],
   [
    "return ' Teknik tekrarı n = 3 ve n = 6 ile karşılaştırarak kuyu eklemenin bunu düzeltip düzeltmediğine de bakabilirsiniz.'; }",
@@ -655,7 +656,7 @@
   ],
   [
    "$('r3note').textContent='Kareler her tuzlu tekrarın '+String(Math.round(r0.t0))+' ile '+String(Math.round(r0.t0+(r0.n-1)*r0.dt))+' ps arasından, '+String(Math.round(r0.dt))+' ps aralıkla alındı (gmx trjconv -pbc mol -ur tric -center: peptit kutunun ortasında, her molekül triklinik birim hücrenin içinde). Çizgiler iyonların son 12 karedeki izidir. Kareler arası geçiş görüntüde doğrusal ara değerlemeyle yumuşatılır; kutu kenarından geçen iyon karşı yüzden girer. Okumadaki temas payları kareler çizilerek değil, bütün üretim kayıtlarından hesaplandı. Kutuyu sürükleyerek döndürebilirsiniz.';",
-   "$('r3note').textContent='Frames were taken from each salt replicate between '+String(Math.round(r0.t0))+' and '+String(Math.round(r0.t0+(r0.n-1)*r0.dt))+' ps, every '+String(Math.round(r0.dt))+' ps (gmx trjconv -pbc mol -ur tric -center: peptide at the centre of the box, every molecule inside the triclinic unit cell). The lines are the tracks of the ions over the last 12 frames. Transitions between frames are smoothed on screen by linear interpolation; an ion that leaves through one face of the box enters through the opposite face. The contact fractions in the readout were computed from the whole production record, not from the drawn frames. Drag the box to rotate it.';"
+   "$('r3note').textContent='Frames were taken from each salt replicate between '+String(Math.round(r0.t0))+' and '+String(Math.round(r0.t0+(r0.n-1)*r0.dt))+' ps, every '+String(Math.round(r0.dt))+' ps (gmx trjconv -pbc mol -ur tric -center: peptide at the center of the box, every molecule inside the triclinic unit cell). The lines are the tracks of the ions over the last 12 frames. Transitions between frames are smoothed on screen by linear interpolation; an ion that leaves through one face of the box enters through the opposite face. The contact fractions in the readout were computed from the whole production record, not from the drawn frames. Drag the box to rotate it.';"
   ],
   [
    "function setPlay(on){ V3.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
@@ -815,7 +816,7 @@
   ],
   [
    "Q.push({s:'Ön kayıtlı kurala göre (α 0,05, önem eşiği ±5 puan): permütasyon p = '+fx(P.p,4)+', Welch %90 aralığı '+fx(P.lo90,2)+' ile '+fx(P.hi90,2)+' puan. Hüküm hangisidir?',",
-   "Q.push({s:'Under the preregistered rule (α 0.05, importance threshold ±5 points): permutation p = '+fx(P.p,4)+', Welch 90% interval '+fx(P.lo90,2)+' to '+fx(P.hi90,2)+' points. Which is the verdict?',"
+   "Q.push({s:'Under the preregistered rule (α 0.05, importance threshold ±5 points): permutation p = '+fx(P.p,4)+', Welch 90% interval '+fx(P.lo90,2)+' to '+fx(P.hi90,2)+' points. What is the verdict?',"
   ],
   [
    "w:'Kural: p &lt; 0,05 ise \"fark var\" (aralık ±5 içindeyse \"önemli eşiğin altında\"); p ≥ 0,05 ve %90 aralık tümüyle ±5 içindeyse \"eşdeğer\"; değilse \"kararsız\". Burada '+(P.p<0.05?'p 0,05\\'ten küçük':'p 0,05\\'ten büyük')+' ve %90 aralık '+((P.lo90>-5&&P.hi90<5)?'±5 puanın içinde':'±5 puanın dışına taşıyor')+'.'}); }",
@@ -839,7 +840,7 @@
   ],
   [
    "o:[['Testin gücünü düşürür ama yanlış pozitifi etkilemez',0],['Gerçek fark yokken \"fark bulundu\" deme olasılığını %5\\'in üstüne çıkarır',1],['Hiçbir şeyi değiştirmez, çünkü her test %5 düzeyindedir',0]],",
-   "o:[['It lowers the power of the test but does not affect false positives',0],['It raises the chance of saying \"difference found\" when there is no real difference above 5%',1],['It changes nothing, because each test is at the 5% level',0]],"
+   "o:[['It lowers the power of the test but does not affect false positives',0],['It raises the chance of saying \"difference found\" above 5% when there is no real difference',1],['It changes nothing, because each test is at the 5% level',0]],"
   ],
   [
    "w:'Her ek ölçüt bir şans daha verir; ölçütler bağlı olsa da oran yükselir (Simmons ve ark. 2011). Birincil ölçüt koşulardan önce yazılır, ötekiler \"keşif amaçlı\" diye raporlanır.'});",

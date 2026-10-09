@@ -3,11 +3,12 @@
  "lang": "en",
  "source_sha256": "c02640216c52dbc872401633a68d1145343784dd5f9ef266c5aac061eaa9e59d",
  "reviewed": false,
- "translator": "Claude (AI), MD-ENS 0.2.0; insan gözden geçirmesi bekliyor",
+ "checked": "claude",
+ "translator": "Claude (AI), MD-ENS 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
  "pairs": [
   [
    "<title>MD: Topluluk, dağılım ve ortalama</title>",
-   "<title>MD: Ensemble, Distribution and Average</title>"
+   "<title>MD: Ensemble, distribution and average</title>"
   ],
   [
    "<div class=\"proto\">Bu modül MD-U'daki alanin dipeptidi pilotunu (5 bağımsız koşu × 10 ns, GROMACS 2026.3) yeniden kullanır; yeni bir simülasyon çalıştırılmadı. Açılar, sıcaklık ve basınç o koşulardan 1 ps aralıkla, 3B kareler 40 ps aralıkla gelir. Çift kuyulu oyuncak model ve bütün istatistikler tarayıcınızda şimdi hesaplanır. Hiçbir sonuç uydurulmamıştır.</div>",
@@ -67,7 +68,7 @@
   ],
   [
    "<div class=\"prose\"><p>Önce koşuyu izleyin. Aşağıdaki oynatıcıda seçtiğiniz koşu zamanla akar: solda gerçek 3B kareler (fareyle döndürebilirsiniz), ortada φ-ψ düzleminde molekülün yeri ve biriken yoğunluk, altta durum çubuğu, sıcaklık ve basınç. Zaman imleci hepsini aynı ana bağlar.</p></div>",
-   "<div class=\"prose\"><p>First watch the run. In the player below, the run you choose unfolds in time: real 3D frames on top (you can rotate them with the mouse), the position of the molecule in the φ-ψ plane with the accumulated density in the middle, and at the bottom the state bar, temperature and pressure. The time cursor ties them all to the same moment.</p></div>"
+   "<div class=\"prose\"><p>First watch the run. In the player below, the run you choose unfolds in time: real 3D frames on the left (you can rotate them with the mouse), the position of the molecule in the φ-ψ plane with the accumulated density in the middle, and at the bottom the state bar, temperature and pressure. The time cursor ties them all to the same moment.</p></div>"
   ],
   [
    "<div class=\"selrow\"><span>Oynatıcı koşusu:</span><div class=\"chips\" role=\"group\" aria-label=\"Oynatıcı koşusu\" id=\"e1plruns\"></div></div>",
@@ -183,7 +184,7 @@
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"e1sim\">Oynat</button><button type=\"button\" class=\"btn\" id=\"e1reset\">Sıfırla</button><button type=\"button\" class=\"btn\" id=\"e1snap\">Deftere yaz</button></div>",
-   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"e1sim\">Play</button><button type=\"button\" class=\"btn\" id=\"e1reset\">Reset</button><button type=\"button\" class=\"btn\" id=\"e1snap\">Write to ledger</button></div>"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"e1sim\">Play</button><button type=\"button\" class=\"btn\" id=\"e1reset\">Reset</button><button type=\"button\" class=\"btn\" id=\"e1snap\">Write to notebook</button></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"e1well\" class=\"plot\" aria-label=\"Çift kuyulu enerji eğrisi üzerinde parçacığın canlı hareketi; kT çubuğu sıcaklığı gösterir\"></canvas></div>",
@@ -199,11 +200,11 @@
   ],
   [
    "<article class=\"q\" id=\"e1c5\"><span class=\"k\">Açık</span><h3>Hiç geçmeyen koşu</h3><p>θ = 0,1 seçip Sıfırla düğmesine basın, sol kuyudan başlayın, Dur seçeneğini 10⁵ ve hızı 10 000× yapıp Oynat düğmesine basın. Koşu 10⁵ adımda durunca Deftere yazın. Koşu bitti; peki topluluğu temsil ediyor mu?</p><div class=\"mine\" id=\"me1c5\"></div></article>",
-   "<article class=\"q\" id=\"e1c5\"><span class=\"k\">Open</span><h3>A run that never crosses</h3><p>Choose θ = 0.1 and press Reset, start from the left well, set Stop to 10⁵ and the speed to 10,000×, and press Play. When the run stops at 10⁵ steps, write it to the ledger. The run is finished; but does it represent the ensemble?</p><div class=\"mine\" id=\"me1c5\"></div></article>"
+   "<article class=\"q\" id=\"e1c5\"><span class=\"k\">Open</span><h3>A run that never crosses</h3><p>Choose θ = 0.1 and press Reset, start from the left well, set Stop to 10⁵ and the speed to 10,000×, and press Play. When the run stops at 10⁵ steps, write it to the notebook. The run is finished; but does it represent the ensemble?</p><div class=\"mine\" id=\"me1c5\"></div></article>"
   ],
   [
    "<article class=\"q\" id=\"e1c6\"><span class=\"k\">Açık</span><h3>Koşuyu uzatmak her zaman yeter mi?</h3><p>Aynı koşuyu Dur = 10⁴ ile durdurup Deftere yazın, sonra Dur = 10⁵ ya da 10⁶ yapıp devam ettirin ve yine yazın. Uzatınca ne değişti?</p><div class=\"mine\" id=\"me1c6\"></div></article>",
-   "<article class=\"q\" id=\"e1c6\"><span class=\"k\">Open</span><h3>Is making the run longer always enough?</h3><p>Stop the same run with Stop = 10⁴ and write it to the ledger, then set Stop = 10⁵ or 10⁶, continue, and write it again. What changed when you extended it?</p><div class=\"mine\" id=\"me1c6\"></div></article>"
+   "<article class=\"q\" id=\"e1c6\"><span class=\"k\">Open</span><h3>Is making the run longer always enough?</h3><p>Stop the same run with Stop = 10⁴ and write it to the notebook, then set Stop = 10⁵ or 10⁶, continue, and write it again. What changed when you extended it?</p><div class=\"mine\" id=\"me1c6\"></div></article>"
   ],
   [
    "<article class=\"q\" id=\"e1c8\"><span class=\"k\">Açık</span><h3>Tek yol ve topluluk aynı şeyi mi söylüyor?</h3><p>Gösterimi \"tek yol + topluluk\" yapın, θ = 0,5 ile 2·10⁴ adım izleyin. Sonra θ = 0,1 ile deneyin. İkisi aynı anda Boltzmann ortalamasına varıyor mu?</p><div class=\"mine\" id=\"me1c8\"></div></article>",
@@ -211,27 +212,27 @@
   ],
   [
    "<span class=\"step\">3 · Defter</span>",
-   "<span class=\"step\">3 · Ledger</span>"
+   "<span class=\"step\">3 · Notebook</span>"
   ],
   [
    "<h2 id=\"e1h3\">Koşularınızın defteri</h2>",
-   "<h2 id=\"e1h3\">The ledger of your runs</h2>"
+   "<h2 id=\"e1h3\">The notebook of your runs</h2>"
   ],
   [
    "<div class=\"prose\"><p>Tezgâhta Deftere yaz düğmesiyle kaydettiğiniz her koşu buraya yazılır (en az 10³ adım). TV mesafesi, koşunun histogramı ile tam Boltzmann dağılımı arasındaki farkın yarısıdır: 0, iki dağılımın aynı olduğu; 1, hiç örtüşmedikleri anlamına gelir. Aynı θ, başlangıç ve tohumla kaydettiğiniz koşular çizgiyle bağlanır; aynı koşuyu birkaç kez yazarak uzunluğun etkisini görürsünüz.</p></div>",
-   "<div class=\"prose\"><p>Every run you record with the Write to ledger button on the bench is written here (at least 10³ steps). The TV distance is half the difference between the histogram of the run and the exact Boltzmann distribution: 0 means the two distributions are identical; 1 means they do not overlap at all. Runs recorded with the same θ, start and seed are joined by a line; by writing the same run several times you can see the effect of length.</p></div>"
+   "<div class=\"prose\"><p>Every run you record with the Write to notebook button on the bench is written here (at least 10³ steps). The TV distance is half the difference between the histogram of the run and the exact Boltzmann distribution: 0 means the two distributions are identical; 1 means they do not overlap at all. Runs recorded with the same θ, start and seed are joined by a line; by writing the same run several times you can see the effect of length.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"e1led\" class=\"plot\" aria-label=\"Koşu uzunluğuna karşı TV mesafesi; geçiş sayısına göre renkli noktalar\"></canvas><div class=\"tip\"></div></div>",
-   "<div class=\"stagebox\"><canvas id=\"e1led\" class=\"plot\" aria-label=\"TV distance against run length; points coloured by the number of crossings\"></canvas><div class=\"tip\"></div></div>"
+   "<div class=\"stagebox\"><canvas id=\"e1led\" class=\"plot\" aria-label=\"TV distance against run length; points colored by the number of crossings\"></canvas><div class=\"tip\"></div></div>"
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"e1clear\">Defteri temizle</button></div>",
-   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"e1clear\">Clear the ledger</button></div>"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"e1clear\">Clear the notebook</button></div>"
   ],
   [
    "<div class=\"minis\"><article class=\"q\" id=\"e1c7\"><span class=\"k\">Açık</span><h3>Küçük TV neye bağlı?</h3><p>Defterinize en az iki geçişsiz ve en az iki (beş ve üzeri geçişli) koşu yazın. İki grubun TV mesafesi nasıl ayrışıyor?</p><div class=\"mine\" id=\"me1c7\"></div></article></div>",
-   "<div class=\"minis\"><article class=\"q\" id=\"e1c7\"><span class=\"k\">Open</span><h3>What does a small TV depend on?</h3><p>Write at least two runs with no crossing and at least two runs with five or more crossings into your ledger. How does the TV distance of the two groups differ?</p><div class=\"mine\" id=\"me1c7\"></div></article></div>"
+   "<div class=\"minis\"><article class=\"q\" id=\"e1c7\"><span class=\"k\">Open</span><h3>What does a small TV depend on?</h3><p>Write at least two runs with no crossing and at least two runs with five or more crossings into your notebook. How does the TV distance of the two groups differ?</p><div class=\"mine\" id=\"me1c7\"></div></article></div>"
   ],
   [
    "<span class=\"step\">4 · Proteine dönüş</span>",
@@ -327,7 +328,7 @@
   ],
   [
    "var notes={psi:'ψ burada −100° ile 260° arasında gösterilir; böylece β bölgesi tek parça olur ve aritmetik ortalama tanımlanır. Ortalama bu pencere seçimine bağlıdır, bu yüzden dağılıma bakmak ortalamadan daha güvenilirdir. Kutu 10°.',",
-   "var notes={psi:'ψ is shown here between −100° and 260°; this keeps the β region in one piece and makes the arithmetic mean defined. The mean depends on this choice of window, so looking at the distribution is more reliable than looking at the mean. Bin 10°.',"
+   "var notes={psi:'ψ is shown here between −100° and 260°; this keeps the β region in one piece and makes the arithmetic mean well defined. The mean depends on this choice of window, so looking at the distribution is more reliable than looking at the mean. Bin 10°.',"
   ],
   [
    "phi:'φ −180° ile 180° arasında gösterilir. Dağılım ψ kadar iki parçaya bölünmediği için ortalamanın kutusundaki pay ile en kalabalık kutudaki payı karşılaştırın. Kutu 10°.',",
@@ -347,7 +348,7 @@
   ],
   [
    "if(shMean<0.25*shMode) t+=' Ortalama iki yığılmanın (αR ve β) arasına düşer: molekül oraya neredeyse hiç uğramaz. <b>Ortalama, tipik yapıyı değil dağılımın ağırlık merkezini verir.</b>';",
-   "if(shMean<0.25*shMode) t+=' The mean falls between the two clusters (αR and β): the molecule almost never goes there. <b>The mean gives the centre of mass of the distribution, not the typical structure.</b>';"
+   "if(shMean<0.25*shMode) t+=' The mean falls between the two clusters (αR and β): the molecule almost never goes there. <b>The mean gives the center of mass of the distribution, not the typical structure.</b>';"
   ],
   [
    "else t+=' Bu seçimde ortalamanın kutusu da kalabalık.';",
@@ -355,7 +356,7 @@
   ],
   [
    "card('e1c2',$('e1theo').checked,'Seçili karelerde sıcaklık: ortalama <b>'+fx(S.mean,2)+' K</b>, SD <b>'+fx(S.sd,2)+' K</b>, en düşük '+fx(S.min,1)+' K, en yüksek '+fx(S.max,1)+' K. Kanonik topluluk için beklenen SD, T·√(2/N) = <b>'+fx(th,2)+' K</b> (N = '+fx(DOF,0)+' serbestlik derecesi). Beş koşunun SD değerleri '+fx(Math.min.apply(null,all),2)+' ile '+fx(Math.max.apply(null,all),2)+' K arasında. <b>Termostat ortalamayı tutar, anlık sıcaklığı değil;</b> dalgalanmanın kuramla aynı büyüklükte olması beklenen davranıştır.');",
-   "card('e1c2',$('e1theo').checked,'Temperature in the selected frames: mean <b>'+fx(S.mean,2)+' K</b>, SD <b>'+fx(S.sd,2)+' K</b>, lowest '+fx(S.min,1)+' K, highest '+fx(S.max,1)+' K. The expected SD for a canonical ensemble is T·√(2/N) = <b>'+fx(th,2)+' K</b> (N = '+fx(DOF,0)+' degrees of freedom). The SD values of the five runs lie between '+fx(Math.min.apply(null,all),2)+' and '+fx(Math.max.apply(null,all),2)+' K. <b>The thermostat holds the mean, not the instantaneous temperature;</b> a fluctuation of the same size as the theory is the expected behaviour.');"
+   "card('e1c2',$('e1theo').checked,'Temperature in the selected frames: mean <b>'+fx(S.mean,2)+' K</b>, SD <b>'+fx(S.sd,2)+' K</b>, lowest '+fx(S.min,1)+' K, highest '+fx(S.max,1)+' K. The expected SD for a canonical ensemble is T·√(2/N) = <b>'+fx(th,2)+' K</b> (N = '+fx(DOF,0)+' degrees of freedom). The SD values of the five runs lie between '+fx(Math.min.apply(null,all),2)+' and '+fx(Math.max.apply(null,all),2)+' K. <b>The thermostat holds the mean, not the instantaneous temperature;</b> a fluctuation of the same size as the theory is the expected behavior.');"
   ],
   [
    "card('e1c3',true,'Seçili karelerde basınç: ortalama <b>'+fx(S.mean,1)+' bar</b>, SD <b>'+fx(S.sd,0)+' bar</b>, en düşük '+fx(S.min,0)+', en yüksek '+fx(S.max,0)+' bar; hedef 1 bar. Beş koşunun ortalamaları <b>'+fx(Math.min.apply(null,rm),1)+' ile '+fx(Math.max.apply(null,rm),1)+' bar</b> arasında (koşular arası SD '+fx(sdr,1)+' bar). Kareler bağımsız olsaydı tek koşunun ortalaması için hata çubuğu '+fx(naive,1)+' bar olurdu; gerçek saçılım '+fx(sdr/naive,1)+' kat büyük, çünkü ardışık kareler bağımsız değil (MD-U). <b>Tek karedeki basınç anlamlı değildir; ortalama anlamlıdır.</b>');",
@@ -435,7 +436,7 @@
   ],
   [
    "if(!S.n) t='Simülasyon henüz başlamadı. Hızı ve sıcaklığı seçip Oynat düğmesine basın; Dur seçeneğiyle belirli bir adımda otomatik durdurabilir, sonra Deftere yazabilirsiniz.';",
-   "if(!S.n) t='The simulation has not started yet. Choose the speed and temperature and press Play; with the Stop option you can stop it automatically at a given step and then write it to the ledger.';"
+   "if(!S.n) t='The simulation has not started yet. Choose the speed and temperature and press Play; with the Stop option you can stop it automatically at a given step and then write it to the notebook.';"
   ],
   [
    "else if(S.cross===0) t='Hiç geçiş yok: parçacık yalnız başladığı kuyuyu görüyor. Zaman ortalaması o kuyunun ortalamasıdır, topluluk ortalaması değil.';",
@@ -455,7 +456,7 @@
   ],
   [
    "if(closeE&&!closeS) t+='<b>Topluluk dengeye vardı, tek yol henüz varmadı:</b> topluluk, her parçacığın engeli aşmasını aynı anda bekler; tek yol bunu bir kez, çok daha uzun sürede yapmak zorunda.';",
-   "if(closeE&&!closeS) t+='<b>The ensemble reached equilibrium, the single path has not yet:</b> the ensemble waits for every particle to cross the barrier at the same time; the single path has to do this once, over a much longer time.';"
+   "if(closeE&&!closeS) t+='<b>The ensemble reached equilibrium, the single path has not yet:</b> the ensemble waits for all its particles to cross the barrier in parallel; the single path has to do this once, over a much longer time.';"
   ],
   [
    "else if(closeE&&closeS) t+='<b>İkisi de Boltzmann ortalamasına yakın:</b> bu sıcaklıkta engel sık aşılıyor, zaman ortalaması topluluk ortalamasına yaklaşabiliyor.';",
@@ -471,15 +472,15 @@
   ],
   [
    "consts(); S.B=boltz(t); if(S.n>0&&!S.flag){ S.flag=true; setStale('Sıcaklık koşu sırasında değişti: bu koşu deftere yazılamaz. Sıfırlayınca yeniden yazılabilir.'); } drawAll(true);",
-   "consts(); S.B=boltz(t); if(S.n>0&&!S.flag){ S.flag=true; setStale('The temperature changed during the run: this run cannot be written to the ledger. After a reset it can be written again.'); } drawAll(true);"
+   "consts(); S.B=boltz(t); if(S.n>0&&!S.flag){ S.flag=true; setStale('The temperature changed during the run: this run cannot be written to the notebook. After a reset it can be written again.'); } drawAll(true);"
   ],
   [
    "if(S.n<1000){ setStale('Deftere yazmak için en az 10³ adım gerekir.'); return; }",
-   "if(S.n<1000){ setStale('At least 10³ steps are needed to write to the ledger.'); return; }"
+   "if(S.n<1000){ setStale('At least 10³ steps are needed to write to the notebook.'); return; }"
   ],
   [
    "if(S.flag){ setStale('Sıcaklık koşu sırasında değişti: bu koşu deftere yazılamaz. Sıfırlayın.'); return; }",
-   "if(S.flag){ setStale('The temperature changed during the run: this run cannot be written to the ledger. Reset it.'); return; }"
+   "if(S.flag){ setStale('The temperature changed during the run: this run cannot be written to the notebook. Reset it.'); return; }"
   ],
   [
    "if(R.cross===0&&R.n>=100000){ card('e1c5',true,'<b>'+nTxt(R.n)+' adımda hiç geçiş yok.</b> Zaman ortalaması '+fx(R.mean,2)+', Boltzmann ortalaması '+fx(R.B.mean,2)+'; sağ kuyuda zaman payı '+pct(R.prt,0)+', denge payı '+pct(R.B.pright,0)+'. Koşu sakin ve kararlı görünür ama topluluğu temsil etmez: parçacık yalnız başladığı kuyuyu örnekledi.'); }",
@@ -515,11 +516,11 @@
   ],
   [
    "if(A.length&&B.length){ t='Defterde geçişsiz '+A.length+' koşu (ortalama TV <b>'+fx(mtv(A),2)+'</b>) ve beş ve üzeri geçişli '+B.length+' koşu (ortalama TV <b>'+fx(mtv(B),2)+'</b>) var.'; if(done) t+=(mtv(B)<mtv(A)?' <b>Küçük TV, geçiş sayısıyla birlikte geliyor:</b> geçişli koşular Boltzmann dağılımına çok daha yakın.':' Bu defterde geçişli koşular daha yakın çıkmadı; farklı θ ve tohumlarla çoğaltın.'); }",
-   "if(A.length&&B.length){ t='The ledger has '+A.length+' runs with no crossing (mean TV <b>'+fx(mtv(A),2)+'</b>) and '+B.length+' runs with five or more crossings (mean TV <b>'+fx(mtv(B),2)+'</b>).'; if(done) t+=(mtv(B)<mtv(A)?' <b>A small TV comes with the number of crossings:</b> the runs with crossings are much closer to the Boltzmann distribution.':' In this ledger the runs with crossings did not come out closer; repeat with different θ and seeds.'); }"
+   "if(A.length&&B.length){ t='The notebook has '+A.length+' runs with no crossing (mean TV <b>'+fx(mtv(A),2)+'</b>) and '+B.length+' runs with five or more crossings (mean TV <b>'+fx(mtv(B),2)+'</b>).'; if(done) t+=(mtv(B)<mtv(A)?' <b>A small TV comes with the number of crossings:</b> the runs with crossings are much closer to the Boltzmann distribution.':' In this notebook the runs with crossings did not come out closer; repeat with different θ and seeds.'); }"
   ],
   [
    "else t='Defterde şimdi: geçişsiz '+A.length+', beş ve üzeri geçişli '+B.length+' koşu. Her gruptan en az ikisi gerekiyor.';",
-   "else t='In the ledger now: '+A.length+' with no crossing, '+B.length+' with five or more crossings. At least two from each group are needed.';"
+   "else t='In the notebook now: '+A.length+' with no crossing, '+B.length+' with five or more crossings. At least two from each group are needed.';"
   ],
   [
    "$('e1tleg').innerHTML=dot(hexA(PAL.mid,0.8))+'tek yol: konum x(t)'+lin(PAL.accent)+'tek yol: kümülatif zaman ortalaması'+lin(PAL.c3)+'topluluk ortalaması (80 parçacık)'+lin(PAL.good)+'Boltzmann ortalaması ve dağılımı';",
@@ -555,7 +556,7 @@
   ],
   [
    "card('e1c7',false,'Defterde şimdi: geçişsiz 0, beş ve üzeri geçişli 0 koşu. Her gruptan en az ikisi gerekiyor.');",
-   "card('e1c7',false,'In the ledger now: 0 with no crossing, 0 with five or more crossings. At least two from each group are needed.');"
+   "card('e1c7',false,'In the notebook now: 0 with no crossing, 0 with five or more crossings. At least two from each group are needed.');"
   ],
   [
    "'<p>Alanin dipeptidinin her koşusu, ayrı bir molekülün 10 ns süren yolculuğudur. Beş koşu aynı yapıdan ve aynı koşullarda başladı; yalnız hız ve termostat tohumu farklıydı. Tablo, hızlı dalgalanan niceliklerin koşular arasında tutarlı, yavaş olaylara bağlı niceliklerin tutarsız olduğunu gösteriyor.</p>'+",
@@ -587,7 +588,7 @@
   ],
   [
    "o:[['Dağılımın zirvesidir; molekül en çok bu açıda bulunur',0],['Molekülün tipik yapısı değil; iki yığılmanın arasına düşen bir ağırlık merkezi',1],['İyi bir temsildir, çünkü standart sapma küçüktür',0]],",
-   "o:[['It is the peak of the distribution; the molecule is found most often at this angle',0],['It is not the typical structure of the molecule; it is a centre of mass falling between two clusters',1],['It is a good representation, because the standard deviation is small',0]],"
+   "o:[['It is the peak of the distribution; the molecule is found most often at this angle',0],['It is not the typical structure of the molecule; it is a center of mass falling between two clusters',1],['It is a good representation, because the standard deviation is small',0]],"
   ],
   [
    "w:'ψ dağılımı iki yerde yığılıyor (αR ve β). Ortalama bu yığılmaların arasına düşer ve molekül oraya neredeyse hiç uğramaz. Ayrıca açılarda ortalama pencere seçimine bağlıdır; dağılıma bakmak daha güvenilirdir.'},",

@@ -35,7 +35,7 @@ const UI = {
     short: 'Kısa adres', version: 'sürüm', statusW: 'durum',
     preview: 'Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı.', all: 'Bütün modüller',
     seqNav: 'Modüller arası geçiş', prev: 'Önceki modül', next: 'Sonraki modül', allOf: (t) => `Bütün ${t} modülleri`,
-    mt: '',
+    mt: '', mtChecked: '',
     nfTitle: 'Sayfa bulunamadı', nfH: 'Bu adreste bir modül yok',
     nfP: 'Kitaptaki karekoddan geldiyseniz kısa kodu kontrol edin (örneğin <code>/tr/l/DK-T</code>). Bütün modüller <a href="/tr/">ana sayfada</a> listelenir.',
     prepH: 'Bu modülün Türkçesi hazırlanıyor', prepP: (href) => `Şimdilik <a href="${href}">İngilizce sürümü</a> açabilirsiniz.`
@@ -55,6 +55,7 @@ const UI = {
     preview: 'Preview release; no scientific or target-reader review has been done yet.', all: 'All modules',
     seqNav: 'Move between modules', prev: 'Previous module', next: 'Next module', allOf: (t) => `All ${t} modules`,
     mt: 'The English text is a machine translation of the Turkish original and has not yet been reviewed by a person.',
+    mtChecked: 'The English text is a machine translation of the Turkish original; Claude (AI) has checked it, but it has not yet been reviewed by a person.',
     nfTitle: 'Page not found', nfH: 'There is no module at this address',
     nfP: 'If you came from a QR code in the book, check the short code (for example <code>/en/l/DK-T</code>). All modules are listed on the <a href="/en/">home page</a>.',
     prepH: 'The English version of this module is in preparation', prepP: (href) => `For now you can open the <a href="${href}">Turkish version</a>.`
@@ -122,7 +123,7 @@ for (const m of M.modules) {
     }
     if (table.source_sha256 && table.source_sha256 !== sha256(trHtml)) console.warn(`${m.id} uyarı: çeviri tablosu farklı bir kaynak sürümü için hazırlanmış`);
     enHtml = r.html; enModules++;
-    tableInfo[m.id] = { pairs: table.pairs.length, reviewed: !!table.reviewed };
+    tableInfo[m.id] = { pairs: table.pairs.length, reviewed: !!table.reviewed, checked: table.checked || '' };
   } else enMissing.push(m.id);
 
   for (const L of LANGS) {
@@ -142,7 +143,7 @@ ${seqNav}`));
     }
     const bar = `<nav class="ahl-bar" aria-label="${esc(U.nav)}"><span><a href="/${L}/">AssayHub Learn</a> › <a href="/${L}/${app.path}">${esc(T(L, app, 'title'))}</a> › ${esc(m.id)}</span><span class="ahl-r"><span class="ahl-meta">${esc(U.short)}: /${L}/l/${esc(m.id)} · ${esc(U.version)} ${esc(m.version)}</span>${langSwitch(L, m.path, 'ahl-lang')}</span></nav>`;
     const notice = T(L, m, 'notice');
-    const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(U.mt)}` : '';
+    const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(tableInfo[m.id].checked === 'claude' ? U.mtChecked : U.mt)}` : '';
     const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${esc(U.preview)}${reviewedNote} <a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
     const bOpen = html.indexOf('<body>');
     const bClose = html.lastIndexOf('</body>');

@@ -50,6 +50,7 @@ Bütün AssayHub arayüzleri: iki dil (tr, en); aynı dil kuralı (3. kısım); 
 - İngilizce sayfa yapım sırasında `i18n/<KİMLİK>.en.json` çeviri tablosundan üretilir. Tablo, kaynaktaki ham alt dizeleri İngilizce karşılıklarına eşler; bütün anahtarlar tek geçişte, en uzundan başlanarak değiştirilir. Kod düzeyindeki farklar da (örneğin `tr-TR` yerine `en-US` sayı biçimi, İngilizce binlik virgülünü doğru okuyan sayı ayrıştırıcı) aynı tabloda tutulur.
 - Ortak terimler `i18n/GLOSSARY.md` sözlüğündedir.
 - Tablolar `reviewed: false` ve "machine translation, needs human review" olarak işaretlidir; insan incelemesi yapılana kadar İngilizce sayfalarda bu bilgi alt bilgide yazar.
+- Ara durum (9 Ekim 2026): Claude'un çift çift denetiminden geçen tablolara `checked: "claude"` eklenir; `reviewed` false kalır ve alt not "Claude (AI) has checked it, but it has not yet been reviewed by a person." olur. `reviewed: true` yalnız bir kişinin gözden geçirmesinden sonra verilir.
 
 ## 7. Denetimler (`tools/i18n.mjs`, `tools/check.mjs`)
 
