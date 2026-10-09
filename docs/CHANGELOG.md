@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.42.2 (9 Ekim 2026) · Sözlük yazar tarafından gözden geçirildi
+
+- Yazar 90 sözlük terimini İnceleme masasında (claude.ai artifact) madde madde gözden geçirdi: 90 uygun, 0 düzeltme; paket 9 Ekim 2026'da onaylandı. Tanımlar değişmedi.
+- `glossary.json`'a `inceleme` alanı eklendi (kim: yazar, tarih, uygun, düzelt, yöntem). Sözlük sayfasındaki not artık "bir kişi tarafından henüz gözden geçirilmedi" yerine "yazar tarafından madde madde gözden geçirildi (9 Ekim 2026)" diyor; `inceleme` alanı yoksa eski not görünür. Modül sayfalarının çeviri notları değişmedi (modül paketleri henüz incelenmedi).
+
 ## 0.42.1 (9 Ekim 2026) · Modül sayfalarında "Bu modüldeki terimler"
 
 - Her modül sayfasının altına, modüller arası geçiş şeridinin üstüne "Bu modüldeki terimler" kutusu eklendi: sözlükte o modüle bağlanan terimler (sözlük bağlantılarının tersi; modül başına 4 ile 26), her biri sözlükteki çapasına gider (`/tr/glossary/#kesme`). Önce modülün kendi kitap bölümüne ait terimler (renkli kenar), sonra modüldeki geçme sayısı. Sonda "Bütün sözlük" bağlantısı.

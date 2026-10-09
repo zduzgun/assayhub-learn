@@ -1,6 +1,13 @@
 {
  "schema": "assayhub-learn-glossary/1",
- "note": "Kitap ve modüllerdeki temel terimler (TR ve EN). Tanımlar Claude tarafından yazıldı ve bağımsız bir denetimden geçti; bir kişi tarafından henüz gözden geçirilmedi. 'match' Türkçe görünür metinde (i18n tablolarının Türkçe tarafı) aranan küçük harfli düzenli ifadelerdir; terimin bağlandığı modüller yapım sırasında bu aramayla bulunur. 'match_en' yalnız tutarlılık denetimi içindir.",
+ "note": "Kitap ve modüllerdeki temel terimler (TR ve EN). Tanımlar Claude tarafından yazıldı, bağımsız bir denetimden geçti ve 9 Ekim 2026'da yazar tarafından madde madde gözden geçirildi ('inceleme'). 'match' Türkçe görünür metinde (i18n tablolarının Türkçe tarafı) aranan küçük harfli düzenli ifadelerdir; terimin bağlandığı modüller yapım sırasında bu aramayla bulunur. 'match_en' yalnız tutarlılık denetimi içindir.",
+ "inceleme": {
+  "kim": "yazar",
+  "tarih": "2026-10-09",
+  "uygun": 90,
+  "duzelt": 0,
+  "yontem": "İnceleme masası (claude.ai artifact), madde başına uygun/düzelt kararı"
+ },
  "terms": [
   {
    "id": "nicelik",
