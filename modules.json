@@ -1059,7 +1059,7 @@
       "app": "md",
       "level": "uzman",
       "title": "Bu soru için standart MD yeter mi? Standart MD'nin ötesine karar vermek",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH19",
       "goals": [
@@ -1067,10 +1067,12 @@
         "Sorudan yönteme: standart MD, uç nokta, alkemik, bias, kaba taneli ve ML için varsayım ve sınır",
         "Seyrek olay: bias'sız 16 ns'de alanin dipeptidinin φ > 0 bölgesi birkaç olaya dayanıyor",
         "Bias: φ boyunca iki AWH koşusu, profilin oluşması, bias'sız tahminle karşılaştırma ve önceden yazılmış uyum ölçütü",
+        "İzleme: aynı iki AWH koşusu 4 ns'den 12 ns'ye sürdürüldü; önceden yazılmış ölçütle 4 ns'de uyumsuz, 8 ve 12 ns'de uyumlu",
         "Kaba taneli, örtük çözücü ve öğrenilmiş modellerin kazanç ve kaybı; iddia denetleyici ve yöntem kararı defteri"
       ],
       "data": [
         "Yeni koşular (FESGRID): MD-REP'in W1 ve W2 dengelenmiş yapılarından GROMACS 2023.3 AWH ile φ boyunca iki bağımsız 4 ns koşu; koşu ve analiz planı koşulardan önce donduruldu, bağımsız denetim 17/17; bias'sız karşılaştırma MD-REP'in W1 ile W8 koşuları",
+        "İzleme koşuları (FESGRID2): A1 ve A2 4 ns denetim noktalarından 12 ns'ye sürdürüldü; plan koşulardan önce donduruldu; bir sapma (bulut ortamı yeniden başlayınca kesinti, denetim noktasından sürdürme); bağımsız denetim 7/9 (geçmeyen iki φ karşılaştırması xtc duyarlığından)",
         "Başlangıç yapısı mdshare ALA2 (CC BY 4.0); köprüdeki iki durumlu model tarayıcıda hesaplanan bir öğretim modelidir; kaba taneli eşleme gösterimdir"
       ],
       "en": {
@@ -1081,10 +1083,12 @@
           "From question to method: assumption and limit for standard MD, endpoint, alchemical, bias, coarse-grained and ML",
           "A rare event: in 16 ns of unbiased MD the φ > 0 region of alanine dipeptide rests on a few events",
           "Bias: two AWH runs along φ, the profile forming, comparison with the unbiased estimate and an agreement criterion written in advance",
+          "Follow-up: the same two AWH runs continued from 4 ns to 12 ns; by the criterion written in advance inconsistent at 4 ns, consistent at 8 and 12 ns",
           "Gains and costs of coarse-grained, implicit-solvent and learned models; a claim checker and a method-decision notebook"
         ],
         "data": [
           "New runs (FESGRID): two independent 4 ns AWH runs along φ with GROMACS 2023.3 from the equilibrated structures of MD-REP's W1 and W2; the run and analysis plan was frozen before the runs, independent audit 17/17; unbiased comparison with MD-REP's runs W1 to W8",
+          "Follow-up runs (FESGRID2): A1 and A2 continued from their 4 ns checkpoints to 12 ns; plan frozen before the runs; one deviation (interruption when the cloud environment restarted, continued from the checkpoint); independent audit 7/9 (the two failed φ comparisons come from xtc precision)",
           "Starting structure mdshare ALA2 (CC BY 4.0); the two-state model in the bridge is a teaching model computed in the browser; the coarse-grained mapping is an illustration"
         ]
       },

@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.41.0 (9 Ekim 2026) · MD-FES 0.2.0: daha uzun AWH izlemesi
+
+- MD-FES'e "3b · İzleme: daha uzun AWH" bölümü eklendi. FESGRID'in iki AWH koşusu (A1, A2) 4 ns'deki denetim noktalarından 12 ns'ye sürdürüldü (FESGRID2); plan koşulardan önce donduruldu, ölçüt ve eşikler 4 ns ile aynı (profil farkı < 2, ΔG₊ farkı < 1 kJ/mol), birincil hüküm 12 ns'de.
+- Sonuç: 12 ns'de ΔG₊ A1 8,81, A2 8,19 kJ/mol (fark 0,62), profillerde en büyük fark 0,93 kJ/mol; hüküm "uyumlu". 8 ns'de de uyumlu (0,69 ve 0,92). 4 ns hükmü "uyumsuz" kayıtta olduğu gibi kalır. 11 ile 12 ns arasında ΔG₊ değişimi A1 0,03, A2 0,08 kJ/mol. φ > 0'a giriş 4 ile 12 ns'de A1 602, A2 544. Bias'sız MD ile RMS farkı 0,67 kJ/mol (4 ns'de 0,80).
+- Görseller: iki profilin ve aralarındaki farkın 4 ile 12 ns animasyonu (oynat, durdur, kaydırıcı); ΔG₊'nin 0,5 ile 12 ns arasındaki seyri ve iki koşunun farkı eşik çizgileriyle. Keşif kartı vc7; ilerleme 8 kart. Atölye 3'teki kart izleme bölümüne gönderme yapıyor.
+- Bir sapma: koşular yaklaşık 4,23 ns'de bulut ortamı yeniden başlayınca kesildi ve yalnız denetim noktasından sürdürüldü. Bağımsız denetim 7/9: iki φ karşılaştırması (xtc ile pull çıktısı) önceden yazılmış 0,1 derece eşiğini geçmedi; fark xtc'nin 0,001 nm duyarlığından (ortalama −0,01, en çok 1,44 derece) ve sonuç "geçmedi" olarak sayfada yazılı.
+- İngilizce tabloya izleme bölümünün çiftleri eklendi (226 çift).
+
 ## 0.40.1 (9 Ekim 2026) · İngilizce bölüm başlıkları onaylandı
 
 - Yazar 20 İngilizce bölüm başlığını onayladı; üçü değişti: CH03 "Statistical mechanics for MD users", CH05 "Controlling a simulation without distorting the question", CH19 "Deciding when to go beyond standard MD". `/en/book/` sayfasındaki "çalışma çevirisi" notu kaldırıldı.

@@ -58,7 +58,7 @@ Kitap ile uygulama arasında sonradan uyumsuzluk çıkmaması için kimlikler ş
 | MD-LIG | MD | Orta | CH09 (ligand parametreleri ve kökeni: atom türleri, yük yöntemi, net yük denetimi, parmchk2 ceza puanları, RESP ve EspalomaCharge, altı modelle kompleks MD, LIE ve B-faktörüyle deney karşılaştırması) | Yayında (0.1.0, 7 Ekim 2026) |
 | MD-ERR | MD | Uzman | CH18 (hata çubuğu ve dürüst karşılaştırma: qPCR ΔΔCt köprüsü, koşu içi hata ile tekrarlar arası yayılım, blok gezgini, LIE ΔG belirsizlik bütçesi, aynıyla aynı karşılaştırma ve sözde tekrar, analiz seçeneklerinin spesifikasyon eğrisi) | Yayında (0.1.0, 8 Ekim 2026) |
 | MD-REPRO | MD | Uzman | CH24 (yeniden üretim ve savunulabilir çalışma: MIQE köprüsü, iddiadan ölçüte, aynı md.tpr ile yeniden üretim deneyi, kelebek sahnesi, ilk basamak sayacı, kayan nokta laboratuvarı, Ramachandran yarışı, tarayıcıda SHA-256 ve özet ızgarası, haklar akışı) | Yayında (0.1.0, 8 Ekim 2026) |
-| MD-FES | MD | Uzman | CH19 (standart MD'nin ötesine karar vermek: nüfus oranı köprüsü, sorudan yönteme kartları, seyrek olay şeritleri, φ boyunca AWH ile bias, profil animasyonu, kaba taneli ve ML karar kartları) | Yayında (0.1.0, 9 Ekim 2026) |
+| MD-FES | MD | Uzman | CH19 (standart MD'nin ötesine karar vermek: nüfus oranı köprüsü, sorudan yönteme kartları, seyrek olay şeritleri, φ boyunca AWH ile bias, profil animasyonu, kaba taneli ve ML karar kartları; 0.2.0'da 12 ns'lik AWH izlemesi) | Yayında (0.2.0, 9 Ekim 2026) |
 
 Kimlikler değişmez; içerik sürümlenir (DK-T v1, v2 ...). Bir modülün adresi kimliğe bağlıdır, sürüme değil.
 
