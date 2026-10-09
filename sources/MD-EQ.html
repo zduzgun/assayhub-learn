@@ -115,7 +115,7 @@ code{font-family:var(--mono);font-size:.92em}
 .gal canvas{aspect-ratio:1/1;background:var(--stage);border-radius:8px}
 .gal .cap{font-size:12px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums;min-height:2.6em}
 
-@media (max-width:820px){ .two,.minis,.bridge{grid-template-columns:1fr} canvas.plot{aspect-ratio:16/10} #book{aspect-ratio:4/3} }
+@media (max-width:820px){ .two,.minis,.bridge{grid-template-columns:minmax(0,1fr)} canvas.plot{aspect-ratio:16/10} #book{aspect-ratio:4/3} }
 /* Laboratuvar 2 */
 .read dd{white-space:nowrap}
 #k2miPlot{aspect-ratio:16/8}
@@ -482,7 +482,7 @@ function ljSet(){ var r=LJR, U=ljU(r), F=ljF(r);
   var n;
   if(F>1000) n='İtme kuvveti bu projenin durma ölçütünün (1.000 kJ mol⁻¹ nm⁻¹) '+fx(F/1000,F>1e4?0:1)+' katı. Minimizasyon bu atom çiftini ayırmadan durmaz.';
   else if(F>0) n='Kuvvet durma ölçütünün altında: minimizasyon bu kadar yakınlığı kabul eder. Kalan küçük çakışmayı dinamik kendisi dağıtır.';
-  else n='σ\'nın yaklaşık 1,12 katından sonra kuvvet çekmeye döner; su molekülleri en rahat bu uzaklık dolayında durur.';
+  else n='σ\'nın yaklaşık 1,12 katından sonra kuvvet çekmeye döner; yalnız bu terim olsaydı su molekülleri en rahat bu uzaklık dolayında dururdu; gerçek suda hidrojen bağları en yakın O-O uzaklığını yaklaşık 0,28 nm\'ye çeker.';
   $('m1rNote').textContent=n; ljDraw(); }
 function ljDraw(){ var c=$('m1lj'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var Lp=46, R=14, T=16, B=36, muted=css('--muted'), line=css('--line'), acc=css('--accent'), deep=css('--deep'), ink=css('--ink'), gold=css('--gold'), paper=css('--paper');

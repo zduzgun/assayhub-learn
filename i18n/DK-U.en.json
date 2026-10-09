@@ -1,7 +1,7 @@
 {
  "module": "DK-U",
  "lang": "en",
- "source_sha256": "23f8d84ad77b016ca7ee7909392a665258dfaa50494d5639b4d0c1106f882d62",
+ "source_sha256": "f63c0426d1840612c343311a10e43299a260dd1b5199e1b82423b65c1e24702c",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (machine translation, needs human review); Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -67,8 +67,8 @@
    "Score and measured affinity"
   ],
   [
-   "142 tripsin bileşiğinin docking skoru (beş tohumun ortancası) ile ölçülen pKi'si. Renklendirmeyi değiştirin, bir yayını süzün, okumaları izleyin. Nokta üstüne gelince bileşik bilgisi çıkar.",
-   "The docking score (median of five seeds) against the measured pKi of 142 trypsin compounds. Change the coloring, filter by publication, watch the readouts. Hover a point for compound details."
+   "142 tripsin bileşiğinin (144 bileşikten, Ki değeri yalnız alt sınır olarak verilen 2 sansürlü kayıt dışarıda) docking skoru (beş tohumun ortancası) ile ölçülen pKi'si. Renklendirmeyi değiştirin, bir yayını süzün, okumaları izleyin. Nokta üstüne gelince bileşik bilgisi çıkar.",
+   "The docking score (median of five seeds) against the measured pKi of 142 trypsin compounds (of the 144, the 2 censored records whose Ki is given only as a lower bound are left out). Change the coloring, filter by publication, watch the readouts. Hover a point for compound details."
   ],
   [
    "Renklendirme",

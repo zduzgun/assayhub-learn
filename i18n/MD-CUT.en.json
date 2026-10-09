@@ -1,7 +1,7 @@
 {
  "module": "MD-CUT",
  "lang": "en",
- "source_sha256": "3cad11356d85bd0c14efa379ac806a81043897de7634a1d022d40c125040f27d",
+ "source_sha256": "6b12b083d8d34b780c16c0135f9405e0d9b33917ae8cf773b574fe119b3ff165",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-CUT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -403,8 +403,8 @@
    "<div class=\"change\" id=\"k4chg\"><span class=\"t\">The list is renewed every 50 steps</span><span>After the first renewal, the path taken by the water molecules will be written here.</span></div>"
   ],
   [
-   "<p class=\"small\">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı Laboratuvar 3'ün konusudur.</p>",
-   "<p class=\"small\">The atom counts are estimates for three dimensions (about 100 atoms/nm³ in water); the canvas shows a two-dimensional slice. The water motion is computed with the Langevin method, matched to the measured diffusion coefficient of water (0.0023 nm²/ps); the protein atoms are held fixed. The van der Waals attraction beyond the cut-off is not thrown away: GROMACS adds its average contribution separately (DispCorr); the long-range part of electrostatics is the topic of Lab 3.</p>"
+   "<p class=\"small\">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı MD-ELEC modülünün konusudur.</p>",
+   "<p class=\"small\">The atom counts are estimates for three dimensions (about 100 atoms/nm³ in water); the canvas shows a two-dimensional slice. The water motion is computed with the Langevin method, matched to the measured diffusion coefficient of water (0.0023 nm²/ps); the protein atoms are held fixed. The van der Waals attraction beyond the cut-off is not thrown away: GROMACS adds its average contribution separately (DispCorr); the long-range part of electrostatics is the topic of the MD-ELEC module.</p>"
   ],
   [
    "<div class=\"tw\"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>",

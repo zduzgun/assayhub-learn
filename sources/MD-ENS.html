@@ -124,7 +124,7 @@ th{text-transform:none;letter-spacing:0;font-size:13px}
   <section class="card" aria-labelledby="e1h0">
     <span class="step">Deneysel köprü</span>
     <h2 id="e1h0">Aynı anda çok molekül, ya da tek molekül uzun süre</h2>
-    <div class="prose"><p>Bir NMR ya da kalorimetre deneyi çok sayıda molekülü <b>aynı anda</b> ölçer ve topluluk ortalamasını verir. Bir MD koşusu ise <b>tek</b> molekülü zaman içinde izler ve onun zaman ortalamasını verir. Aşağıda beş bağımsız koşunun ψ açısı vardır. Oynat düğmesine basın: zaman logaritmik akar, böylece ilk pikosaniyeler de uzun saniyeler de görülür. Sol panel, o anda beş molekülün ψ değerini (küçük bir topluluk); sağ panel, koşu 1'in başından o ana kadarki gidişini ve kümülatif zaman ortalamasını gösterir. Kaydırıcıyla istediğiniz ana atlayabilirsiniz.</p></div>
+    <div class="prose"><p>Bir NMR ya da kalorimetre deneyi çok sayıda molekülü <b>aynı anda</b> ölçer ve topluluk ortalamasını verir. Bir MD koşusu ise <b>tek</b> molekülü zaman içinde izler ve onun zaman ortalamasını verir. Aşağıda beş bağımsız koşunun ψ açısı vardır. Oynat düğmesine basın: zaman logaritmik akar, böylece ilk pikosaniyeler de koşunun sonundaki nanosaniyeler de görülür. Sol panel, o anda beş molekülün ψ değerini (küçük bir topluluk); sağ panel, koşu 1'in başından o ana kadarki gidişini ve kümülatif zaman ortalamasını gösterir. Kaydırıcıyla istediğiniz ana atlayabilirsiniz.</p></div>
     <div class="legend" id="e1bleg"></div>
     <div class="stagebox"><canvas id="e1bridge" class="plot" aria-label="Solda seçilen anda beş koşunun ψ değerleri nokta olarak ve ortalamaları; sağda koşu 1'in ψ gidişi ve kümülatif zaman ortalaması"></canvas></div>
     <div class="row"><button type="button" class="btn primary" id="e1bplay">Oynat</button><label>Zaman: <b id="e1bT" class="big" style="font-size:18px">1</b> ps</label></div>
@@ -399,7 +399,7 @@ function workshop(){
     $('e1read').innerHTML=rows;
     var notes={psi:'ψ burada −100° ile 260° arasında gösterilir; böylece β bölgesi tek parça olur ve aritmetik ortalama tanımlanır. Ortalama bu pencere seçimine bağlıdır, bu yüzden dağılıma bakmak ortalamadan daha güvenilirdir. Kutu 10°.',
       phi:'φ −180° ile 180° arasında gösterilir. Dağılım ψ kadar iki parçaya bölünmediği için ortalamanın kutusundaki pay ile en kalabalık kutudaki payı karşılaştırın. Kutu 10°.',
-      T:'Termostat (V-rescale, tau_t 0,1 ps) ortalamayı 300 K civarında tutar. Tek karenin sıcaklığı kinetik enerjinin anlık değeridir ve dalgalanır. Kutu 2 K.',
+      T:'Termostat (V-rescale, tau_t 0,1 ps) ortalamayı 300 K civarında tutar. Tek karenin sıcaklığı anlık kinetik enerjiden hesaplanır (onunla orantılıdır) ve dalgalanır. Kutu 2 K.',
       P:'Barostat (C-rescale, tau_p 2 ps) ortalamayı 1 bar hedefine çeker. Anlık basınç, bu büyüklükte bir kutuda yüzlerce bar dalgalanır. Kutu 150 bar.'};
     $('e1note').textContent=notes[wk.v];
     $('e1theolab').style.display=wk.v==='T'?'':'none';
@@ -777,7 +777,7 @@ function buildQuiz(){
     w:'ψ dağılımı iki yerde yığılıyor (αR ve β). Ortalama bu yığılmaların arasına düşer ve molekül oraya neredeyse hiç uğramaz. Ayrıca açılarda ortalama pencere seçimine bağlıdır; dağılıma bakmak daha güvenilirdir.'},
    {s:'Anlık sıcaklık, 300 K civarında '+fx(tS.sd,2)+' K standart sapmayla dalgalanıyor; kanonik beklenti '+fx(th,2)+' K. Bu ne demek?',
     o:[['Termostat bozuk, sapma sıfır olmalıydı',0],['Sistemin ortalama sıcaklığı 300 K değil',0],['Dalgalanma kanonik topluluğun doğal dalgalanmasıyla uyumlu; termostat ortalamayı tutuyor',1]],
-    w:'Kanonik topluluğta anlık sıcaklık dalgalanır: SD yaklaşık T√(2/N). Termostat ortalamayı hedefte tutar, anlık değerleri sabitlemez. Serbestlik derecesi azaldıkça dalgalanma büyür.'},
+    w:'Kanonik toplulukta anlık sıcaklık dalgalanır: SD yaklaşık T√(2/N). Termostat ortalamayı hedefte tutar, anlık değerleri sabitlemez. Serbestlik derecesi azaldıkça dalgalanma büyür.'},
    {s:'Hedef basınç 1 bar iken tek karede '+fx(pS.max,0)+' bar görüldü ve basıncın SD değeri '+fx(pS.sd,0)+' bar. Koşu bozuk mu?',
     o:[['Hayır; anlık basınç bu kadar dalgalanır, anlamlı olan zaman ortalamasıdır',1],['Evet, barostat başarısız olmuş',0],['Hayır, ama bu kareler silinmeli',0]],
     w:'Küçük bir sistemde anlık basınç yüzlerce bar dalgalanır. Beş koşunun ortalamaları '+fx(Math.min.apply(null,rm),1)+' ile '+fx(Math.max.apply(null,rm),1)+' bar arasında, yani hedefe yakın.'},

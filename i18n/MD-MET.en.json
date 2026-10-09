@@ -1,7 +1,7 @@
 {
  "module": "MD-MET",
  "lang": "en",
- "source_sha256": "a466ba612c34f995c661e99438edf37564330c106d09bede8a008b27eb82b402",
+ "source_sha256": "9a1ba7893e381a00cd2c1900462e3d6ee56743af8332fcbb079560c567a3a04c",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-MET 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -23,8 +23,8 @@
    "<h1>A number is not a structure: what do RMSD, Rg and RMSF see, and what do they miss?</h1>"
   ],
   [
-   "<p class=\"lead\">RMSD, dönme yarıçapı (Rg) ve RMSF, bir trajektoriyi birkaç eğriye indirger. Her biri yapının yalnız bir yönüne duyarlıdır: RMSD bir referansa uzaklığı, Rg kütlenin merkezden ortalama uzaklığını, RMSF bir atomun kendi ortalama konumu çevresindeki salınımını ölçer. Bu sayfada aynı ölçünün birbirinden çok farklı yapılara aynı değeri verebildiğini, bir ölçütün sabit kalırken başka bir şeyin değişebildiğini ve tek koşudan hesaplanan bir eğrinin koşudan koşuya ne kadar oynadığını gerçek verilerle göreceksiniz. Ölçüt, sorudan seçilir.</p>",
-   "<p class=\"lead\">RMSD, the radius of gyration (Rg) and RMSF reduce a trajectory to a few curves. Each is sensitive to only one aspect of the structure: RMSD measures the distance to a reference, Rg the mean distance of the mass from its center, RMSF the fluctuation of an atom around its own mean position. On this page you will see with real data that the same measure can give the same value to very different structures, that something else can change while a measure stays constant, and how much a curve computed from a single run varies from run to run. The measure is chosen from the question.</p>"
+   "<p class=\"lead\">RMSD, dönme yarıçapı (Rg) ve RMSF, bir trajektoriyi birkaç eğriye indirger. Her biri yapının yalnız bir yönüne duyarlıdır: RMSD bir referansa uzaklığı, Rg atomların kütle merkezine uzaklıklarının kütle ağırlıklı karekök ortalamasını, RMSF bir atomun kendi ortalama konumu çevresindeki salınımını ölçer. Bu sayfada aynı ölçünün birbirinden çok farklı yapılara aynı değeri verebildiğini, bir ölçütün sabit kalırken başka bir şeyin değişebildiğini ve tek koşudan hesaplanan bir eğrinin koşudan koşuya ne kadar oynadığını gerçek verilerle göreceksiniz. Ölçüt, sorudan seçilir.</p>",
+   "<p class=\"lead\">RMSD, the radius of gyration (Rg) and RMSF reduce a trajectory to a few curves. Each is sensitive to only one aspect of the structure: RMSD measures the distance to a reference, Rg the mass-weighted root-mean-square distance of the atoms from the center of mass, RMSF the fluctuation of an atom around its own mean position. On this page you will see with real data that the same measure can give the same value to very different structures, that something else can change while a measure stays constant, and how much a curve computed from a single run varies from run to run. The measure is chosen from the question.</p>"
   ],
   [
    "<div class=\"prog\" aria-live=\"polite\">Keşifler: <b id=\"mprogN\">0 / 8</b></div>",
@@ -407,8 +407,8 @@
    "var NT={runs:'Each run 200 to 2000 ps, fitted on the core Cα to the crystal, relative to its own mean structure.',half:'The same run, two separate windows; each window relative to its own mean structure.',fit:'The same run and window; only the fitting group changes.',ref:'RMSF is the fluctuation around the mean position; the deviation from the crystal contains both the fluctuation and the distance of the mean position from the crystal.'};"
   ],
   [
-   "card('mc3',true,'Pencere içinde Rg bir koşuda en çok '+fx(arrMax(mr),2)+' Å oynuyor; aynı sürede kuyruğun kristale göre RMSD\\'si bir koşu içinde, koşulara göre, en az '+fx(arrMin(tr),1)+', en çok '+fx(arrMax(tr),1)+' Å değişiyor. Rg ile kuyruk RMSD\\'si arasındaki r koşulara göre '+rs.map(function(v){return fx(v,2);}).join(', ')+': ilişki koşudan koşuya değişiyor. Rg kütlenin merkezden ortalama uzaklığını özetler: bir kuyruğun yön değiştirmesi ya da çekirdek içinde yer değiştiren halkalar Rg\\'de küçük ya da hiç iz bırakmayabilir. \"Kompaktlık değişti mi?\" sorusu için uygundur, \"kuyruk nerede?\" sorusu için değil.'); }",
-   "card('mc3',true,'Within the window Rg moves at most '+fx(arrMax(mr),2)+' Å in a run; over the same time the tail RMSD relative to the crystal changes within a run by at least '+fx(arrMin(tr),1)+' and at most '+fx(arrMax(tr),1)+' Å, depending on the run. The r between Rg and tail RMSD is '+rs.map(function(v){return fx(v,2);}).join(', ')+' across the runs: the relation changes from run to run. Rg summarizes the mean distance of the mass from the center: a tail changing direction, or loops shifting inside the core, may leave little or no trace in Rg. It suits the question \"did the compactness change?\", not \"where is the tail?\".'); }"
+   "card('mc3',true,'Pencere içinde Rg bir koşuda en çok '+fx(arrMax(mr),2)+' Å oynuyor; aynı sürede kuyruğun kristale göre RMSD\\'si bir koşu içinde, koşulara göre, en az '+fx(arrMin(tr),1)+', en çok '+fx(arrMax(tr),1)+' Å değişiyor. Rg ile kuyruk RMSD\\'si arasındaki r koşulara göre '+rs.map(function(v){return fx(v,2);}).join(', ')+': ilişki koşudan koşuya değişiyor. Rg atomların kütle merkezine uzaklıklarını tek bir karekök ortalamada özetler: bir kuyruğun yön değiştirmesi ya da çekirdek içinde yer değiştiren halkalar Rg\\'de küçük ya da hiç iz bırakmayabilir. \"Kompaktlık değişti mi?\" sorusu için uygundur, \"kuyruk nerede?\" sorusu için değil.'); }",
+   "card('mc3',true,'Within the window Rg moves at most '+fx(arrMax(mr),2)+' Å in a run; over the same time the tail RMSD relative to the crystal changes within a run by at least '+fx(arrMin(tr),1)+' and at most '+fx(arrMax(tr),1)+' Å, depending on the run. The r between Rg and tail RMSD is '+rs.map(function(v){return fx(v,2);}).join(', ')+' across the runs: the relation changes from run to run. Rg summarizes the distances of the atoms from the center of mass in a single root-mean-square value: a tail changing direction, or loops shifting inside the core, may leave little or no trace in Rg. It suits the question \"did the compactness change?\", not \"where is the tail?\".'); }"
   ],
   [
    "card('mc4',true,'Koşu 1\\'de iki pencere yarısı arasında kalıntı başına RMSF farkı en çok '+fx(d,2)+' Å (kalıntı '+dk+'). Hizalama grubu çekirdekten bütün Cα\\'ya geçince çekirdek ortalaması '+fx(cm(W2.rmsf.R1),2)+' → '+fx(cm(W2.fa),2)+', kuyruk '+fx(tm(W2.rmsf.R1),2)+' → '+fx(tm(W2.fa),2)+' Å. Kristale göre sapma çekirdekte ortalama '+fx(cm(W2.xd),2)+' Å, yani RMSF\\'den ('+fx(cm(W2.rmsf.R1),2)+') büyük: o eğri salınımı değil uzaklığı da içerir. RMSF\\'nin sayısı pencere, hizalama ve referans yazılmadan okunamaz.'); }",
@@ -487,8 +487,8 @@
    "var fb=$('mq'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'A suitable choice.':'There is a more suitable measure.')+'</b> '+q.w();"
   ],
   [
-   "if(n>=4) card('mc7',true,'Cevapladığınız '+n+' sorunun '+nLoc(r)+' ilk seçiminiz uygundu. Altı soru altı farklı ölçüt istedi; hiçbir ölçüt her soruyu cevaplamıyor. Ölçüt, atom seçimi ve karşılaştırma sorudan önce yazılır.');",
-   "if(n>=4) card('mc7',true,'Your first choice was suitable for '+nLoc(r)+' of the '+n+' questions you answered. Six questions asked for six different measures; no measure answers every question. The measure, the atom selection and the comparison are written down before the question is answered.');"
+   "if(n>=4) card('mc7',true,'Cevapladığınız '+n+' sorunun '+nLoc(r)+' ilk seçiminiz uygundu. Altı soru altı farklı ölçüt istedi; hiçbir ölçüt her soruyu cevaplamıyor. Ölçüt, atom seçimi ve karşılaştırma sonuçtan önce yazılır.');",
+   "if(n>=4) card('mc7',true,'Your first choice was suitable for '+nLoc(r)+' of the '+n+' questions you answered. Six questions asked for six different measures; no measure answers every question. The measure, the atom selection and the comparison are written down before the results are seen.');"
   ],
   [
    "else card('mc7',false,'Şimdiye kadar '+n+' soru; en az dört soruyu cevaplayın.'); }); }); }",
@@ -563,8 +563,8 @@
    "Q.push({s:'In one run Rg stayed almost constant for 2 ns. Which statement can be made from these data?',"
   ],
   [
-   "o:[['Proteinin kompaktlığı bu sürede belirgin biçimde değişmedi',1],['Proteinin yapısı hiç değişmedi',0],['Kuyruk hareket etmedi',0]], w:'Rg kütlenin merkezden ortalama uzaklığıdır; yön ve yerel düzenleme göremez. Bu sayfada Rg az oynarken kuyruğun RMSD\\'si birkaç Å değişti (Atölye 2).'});",
-   "o:[['The compactness of the protein did not change noticeably over this time',1],['The structure of the protein did not change at all',0],['The tail did not move',0]], w:'Rg is the mean distance of the mass from the center; it cannot see direction or local rearrangement. On this page, while Rg moved little, the tail RMSD changed by several Å (Workshop 2).'});"
+   "o:[['Proteinin kompaktlığı bu sürede belirgin biçimde değişmedi',1],['Proteinin yapısı hiç değişmedi',0],['Kuyruk hareket etmedi',0]], w:'Rg atomların kütle merkezine uzaklıklarının kütle ağırlıklı karekök ortalamasıdır; yön ve yerel düzenleme göremez. Bu sayfada Rg az oynarken kuyruğun RMSD\\'si birkaç Å değişti (Atölye 2).'});",
+   "o:[['The compactness of the protein did not change noticeably over this time',1],['The structure of the protein did not change at all',0],['The tail did not move',0]], w:'Rg is the mass-weighted root-mean-square distance of the atoms from the center of mass; it cannot see direction or local rearrangement. On this page, while Rg moved little, the tail RMSD changed by several Å (Workshop 2).'});"
   ],
   [
    "Q.push({s:'Bir mutantın yabanıl türe göre \"daha esnek\" olduğunu göstermek için ne gerekir?',",

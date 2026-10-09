@@ -1,7 +1,7 @@
 {
  "module": "MD-EQ",
  "lang": "en",
- "source_sha256": "234a1061d2e04d3ae1a96fa8bd0bf0c3a6e267ea6c0bc6bd39e6d8decab05183",
+ "source_sha256": "6f5aa75eba12cdb3c46c0e5b79d13ce88eb91c042d456d2a4da68e2b65c4a016",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-EQ 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -495,8 +495,8 @@
    "else if(F>0) n='The force is below the stopping criterion: minimization accepts this much closeness. The dynamics itself disperses the small remaining clash.';"
   ],
   [
-   "else n='σ\\'nın yaklaşık 1,12 katından sonra kuvvet çekmeye döner; su molekülleri en rahat bu uzaklık dolayında durur.';",
-   "else n='Beyond about 1.12 times σ the force turns attractive; water molecules sit most comfortably around this distance.';"
+   "else n='σ\\'nın yaklaşık 1,12 katından sonra kuvvet çekmeye döner; yalnız bu terim olsaydı su molekülleri en rahat bu uzaklık dolayında dururdu; gerçek suda hidrojen bağları en yakın O-O uzaklığını yaklaşık 0,28 nm\\'ye çeker.';",
+   "else n='Beyond about 1.12 times σ the force turns attractive; with this term alone, water molecules would sit most comfortably around this distance; in real water, hydrogen bonds pull the nearest O-O distance in to about 0.28 nm.';"
   ],
   [
    "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0.2,0.3,0.4,0.5,0.6].forEach(function(r){ g.fillText(fx(r,1),X(r),H-B+18); }); g.fillText('uzaklık (nm)',X(0.38),H-4);",

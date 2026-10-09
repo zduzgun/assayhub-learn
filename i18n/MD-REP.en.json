@@ -1,7 +1,7 @@
 {
  "module": "MD-REP",
  "lang": "en",
- "source_sha256": "8fef9365f6ce0a206bc964f5e4b3b1ce69b617d23032d91a790fc57f2bfe4290",
+ "source_sha256": "eb16aca1caa502497d984cc0e351a3d727a9fb38cd4718c3de4a2c50522c654b",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-REP 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -167,7 +167,7 @@
    "<h3 class=\"sub\">The preregistered test</h3>"
   ],
   [
-   "<p class=\"small\">Gri sütunlar: 16 tekrarın 8 ile 8'e bütün ayrımlarında ortalamalar farkı (etiketler karıştırılırsa ne çıkacağı). Kırmızı çizgi gözlenen fark. Altta Welch %95 ve %90 aralıkları ile ±5 puanlık eşdeğerlik bandı.</p>",
+   "<p class=\"small\">Gri sütunlar: 16 tekrarın 8 ile 8'e bütün ayrımlarında ortalamalar farkı (etiketler karıştırılırsa ne çıkacağı). Kırmızı çizgi gözlenen fark. Öteki gösterimde Welch %95 ve %90 aralıkları ile ±5 puanlık eşdeğerlik bandı.</p>",
    "<p class=\"small\">Gray bars: the difference of means over all 8 by 8 splits of the 16 replicates (what you would get if the labels were shuffled). The red line is the observed difference. In the other view, the Welch 95% and 90% intervals with the ±5 point equivalence band.</p>"
   ],
   [

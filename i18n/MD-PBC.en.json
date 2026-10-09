@@ -1,7 +1,7 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "344c66e0cbfd4261d4188dba525b94f1b9f10a0cb88933264e993a948d81eb5f",
+ "source_sha256": "9867d9b0959885267dd12a929eed5c03b9888388fce0f9c71a9a7222763e6a20",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -419,8 +419,8 @@
    "<h2 id=\"h5s\">Six questions</h2>"
   ],
   [
-   "<p class=\"small\">Model: atölyede sürtünmesiz tek parçacık (su molekülü kütlesi, 3 nm kutu). Tezgâh ve defterde iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), kesme 2,5 σ, hız-Verlet, Δt = 0,005; yoğunluk ρ = 0,82 (periyodik ve duvarlı kutu); defter ölçümlerinde sıcaklık Langevin ısı banyosuyla sabit tutulur (T = 0,40 ε). İki boyutlu model gerçek suyun sayılarını vermez; yüzey etkisinin yönünü ve büyüklük sırasını gösterir. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
-   "<p class=\"small\">Model: in the workshop, a single frictionless particle (mass of a water molecule, 3 nm box). On the bench and in the notebook, a two-dimensional Lennard-Jones liquid in reduced units (σ, ε, m), cut-off 2.5 σ, velocity Verlet, Δt = 0.005; density ρ = 0.82 (periodic and walled box); in the notebook measurements the temperature is held constant with a Langevin heat bath (T = 0.40 ε). A two-dimensional model does not give the numbers of real water; it shows the direction and order of magnitude of the surface effect. Your notebook is stored only in this browser.</p>"
+   "<p class=\"small\">Model: atölyede sürtünmesiz tek parçacık (su molekülü kütlesi, 3 nm kutu). Tezgâh ve defterde iki boyutlu Lennard-Jones sıvısı, indirgenmiş birimler (σ, ε, m), kesme 2,5 σ, hız-Verlet, Δt = 0,005; yoğunluk ρ = 0,82 (periyodik ve duvarlı kutu); defter ölçümlerinde sıcaklık Langevin ısı banyosuyla sabit tutulur (k_BT = 0,40 ε). İki boyutlu model gerçek suyun sayılarını vermez; yüzey etkisinin yönünü ve büyüklük sırasını gösterir. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Model: in the workshop, a single frictionless particle (mass of a water molecule, 3 nm box). On the bench and in the notebook, a two-dimensional Lennard-Jones liquid in reduced units (σ, ε, m), cut-off 2.5 σ, velocity Verlet, Δt = 0.005; density ρ = 0.82 (periodic and walled box); in the notebook measurements the temperature is held constant with a Langevin heat bath (k_BT = 0.40 ε). A two-dimensional model does not give the numbers of real water; it shows the direction and order of magnitude of the surface effect. Your notebook is stored only in this browser.</p>"
   ],
   [
    "<span class=\"eyebrow\">MD-PBC · Laboratuvar 2 · Kutu boyu</span>",

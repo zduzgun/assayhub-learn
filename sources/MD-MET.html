@@ -154,7 +154,7 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
   <header>
     <span class="eyebrow">MD-MET · Yapısal ölçüt neyi ölçer?</span>
     <h1>Bir sayı, bir yapı değildir: RMSD, Rg ve RMSF neyi görür, neyi görmez?</h1>
-    <p class="lead">RMSD, dönme yarıçapı (Rg) ve RMSF, bir trajektoriyi birkaç eğriye indirger. Her biri yapının yalnız bir yönüne duyarlıdır: RMSD bir referansa uzaklığı, Rg kütlenin merkezden ortalama uzaklığını, RMSF bir atomun kendi ortalama konumu çevresindeki salınımını ölçer. Bu sayfada aynı ölçünün birbirinden çok farklı yapılara aynı değeri verebildiğini, bir ölçütün sabit kalırken başka bir şeyin değişebildiğini ve tek koşudan hesaplanan bir eğrinin koşudan koşuya ne kadar oynadığını gerçek verilerle göreceksiniz. Ölçüt, sorudan seçilir.</p>
+    <p class="lead">RMSD, dönme yarıçapı (Rg) ve RMSF, bir trajektoriyi birkaç eğriye indirger. Her biri yapının yalnız bir yönüne duyarlıdır: RMSD bir referansa uzaklığı, Rg atomların kütle merkezine uzaklıklarının kütle ağırlıklı karekök ortalamasını, RMSF bir atomun kendi ortalama konumu çevresindeki salınımını ölçer. Bu sayfada aynı ölçünün birbirinden çok farklı yapılara aynı değeri verebildiğini, bir ölçütün sabit kalırken başka bir şeyin değişebildiğini ve tek koşudan hesaplanan bir eğrinin koşudan koşuya ne kadar oynadığını gerçek verilerle göreceksiniz. Ölçüt, sorudan seçilir.</p>
     <div class="prog" aria-live="polite">Keşifler: <b id="mprogN">0 / 8</b></div>
   </header>
 
@@ -451,7 +451,7 @@ function w2Rmsf(){ var c=$('mrmsf'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(
   W2.seen['f'+m]=true; w2Cards(); }
 function w2Cards(){ var s=W2.seen; if(!W2.D) return;
   if(s.gall&&s.sc){ var rs=RUNS.map(function(r){ return pear(win(W2.tail[r]),win(W2.rg[r])); }), mr=RUNS.map(function(r){ var b=win(W2.rg[r]); return arrMax(b)-arrMin(b); }), tr=RUNS.map(function(r){ var a=win(W2.tail[r]); return arrMax(a)-arrMin(a); });
-    card('mc3',true,'Pencere içinde Rg bir koşuda en çok '+fx(arrMax(mr),2)+' Å oynuyor; aynı sürede kuyruğun kristale göre RMSD\'si bir koşu içinde, koşulara göre, en az '+fx(arrMin(tr),1)+', en çok '+fx(arrMax(tr),1)+' Å değişiyor. Rg ile kuyruk RMSD\'si arasındaki r koşulara göre '+rs.map(function(v){return fx(v,2);}).join(', ')+': ilişki koşudan koşuya değişiyor. Rg kütlenin merkezden ortalama uzaklığını özetler: bir kuyruğun yön değiştirmesi ya da çekirdek içinde yer değiştiren halkalar Rg\'de küçük ya da hiç iz bırakmayabilir. "Kompaktlık değişti mi?" sorusu için uygundur, "kuyruk nerede?" sorusu için değil.'); }
+    card('mc3',true,'Pencere içinde Rg bir koşuda en çok '+fx(arrMax(mr),2)+' Å oynuyor; aynı sürede kuyruğun kristale göre RMSD\'si bir koşu içinde, koşulara göre, en az '+fx(arrMin(tr),1)+', en çok '+fx(arrMax(tr),1)+' Å değişiyor. Rg ile kuyruk RMSD\'si arasındaki r koşulara göre '+rs.map(function(v){return fx(v,2);}).join(', ')+': ilişki koşudan koşuya değişiyor. Rg atomların kütle merkezine uzaklıklarını tek bir karekök ortalamada özetler: bir kuyruğun yön değiştirmesi ya da çekirdek içinde yer değiştiren halkalar Rg\'de küçük ya da hiç iz bırakmayabilir. "Kompaktlık değişti mi?" sorusu için uygundur, "kuyruk nerede?" sorusu için değil.'); }
   if(s.fhalf&&s.ffit&&s.fref){ var d=0, dk=0; for(var k=0;k<76;k++){ var x=Math.abs(W2.h1[k]-W2.h2[k]); if(x>d){ d=x; dk=k+1; } }
     function cm(a){ return arrMean(sl(a,0,70)); } function tm(a){ return arrMean(sl(a,70,76)); }
     card('mc4',true,'Koşu 1\'de iki pencere yarısı arasında kalıntı başına RMSF farkı en çok '+fx(d,2)+' Å (kalıntı '+dk+'). Hizalama grubu çekirdekten bütün Cα\'ya geçince çekirdek ortalaması '+fx(cm(W2.rmsf.R1),2)+' → '+fx(cm(W2.fa),2)+', kuyruk '+fx(tm(W2.rmsf.R1),2)+' → '+fx(tm(W2.fa),2)+' Å. Kristale göre sapma çekirdekte ortalama '+fx(cm(W2.xd),2)+' Å, yani RMSF\'den ('+fx(cm(W2.rmsf.R1),2)+') büyük: o eğri salınımı değil uzaklığı da içerir. RMSF\'nin sayısı pencere, hizalama ve referans yazılmadan okunamaz.'); }
@@ -511,7 +511,7 @@ function bench(){ var LET=['A','B','C'];
     if(!ok) b.classList.add('wrong');
     var fb=$('mq'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Uygun seçim.':'Daha uygun bir ölçüt var.')+'</b> '+q.w();
     if(!(i in MBQ.got)) MBQ.got[i]=ok; var n=Object.keys(MBQ.got).length, r=Object.keys(MBQ.got).filter(function(k){return MBQ.got[k];}).length;
-    if(n>=4) card('mc7',true,'Cevapladığınız '+n+' sorunun '+nLoc(r)+' ilk seçiminiz uygundu. Altı soru altı farklı ölçüt istedi; hiçbir ölçüt her soruyu cevaplamıyor. Ölçüt, atom seçimi ve karşılaştırma sorudan önce yazılır.');
+    if(n>=4) card('mc7',true,'Cevapladığınız '+n+' sorunun '+nLoc(r)+' ilk seçiminiz uygundu. Altı soru altı farklı ölçüt istedi; hiçbir ölçüt her soruyu cevaplamıyor. Ölçüt, atom seçimi ve karşılaştırma sonuçtan önce yazılır.');
     else card('mc7',false,'Şimdiye kadar '+n+' soru; en az dört soruyu cevaplayın.'); }); }); }
 /* ===== defter: ölçüt kaydı ===== */
 function mfBuild(){ function v(id){ return ($(id).value||'').replace(/\s+$/,'')||'(boş: yazılmadı)'; }
@@ -536,7 +536,7 @@ function quizItems(){ var Q=[];
   Q.push({s:'Ubikitinde bütün Cα RMSD\'si ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek (1 ile 70) RMSD\'si '+fx(arrMean(W1.B),2)+' Å. Farkın en olası nedeni nedir?',
     o:[['Çekirdek bozuldu',0],['Hizalama başarısız oldu',0],['Esnek C-uç kuyruğu (71 ile 76) bütün Cα RMSD\'sini büyütüyor',1]], w:'Kuyruk 76 kalıntının yalnız 6\'sıdır ama çekirdeğe göre çok daha fazla yer değiştirir; RMSD karelerin ortalamasıyla hesaplandığı için büyük sapmalar değeri belirler.'});
   Q.push({s:'Bir koşuda Rg 2 ns boyunca neredeyse sabit kaldı. Hangi cümle bu veriyle kurulabilir?',
-    o:[['Proteinin kompaktlığı bu sürede belirgin biçimde değişmedi',1],['Proteinin yapısı hiç değişmedi',0],['Kuyruk hareket etmedi',0]], w:'Rg kütlenin merkezden ortalama uzaklığıdır; yön ve yerel düzenleme göremez. Bu sayfada Rg az oynarken kuyruğun RMSD\'si birkaç Å değişti (Atölye 2).'});
+    o:[['Proteinin kompaktlığı bu sürede belirgin biçimde değişmedi',1],['Proteinin yapısı hiç değişmedi',0],['Kuyruk hareket etmedi',0]], w:'Rg atomların kütle merkezine uzaklıklarının kütle ağırlıklı karekök ortalamasıdır; yön ve yerel düzenleme göremez. Bu sayfada Rg az oynarken kuyruğun RMSD\'si birkaç Å değişti (Atölye 2).'});
   Q.push({s:'Bir mutantın yabanıl türe göre "daha esnek" olduğunu göstermek için ne gerekir?',
     o:[['Her biri için tek bir 2 ns koşunun RMSF eğrisi',0],['İki durumun bağımsız tekrarları ve tekrarlar arası değişkenliğe göre karşılaştırma',1],['Daha yüksek bir RMSD değeri',0]], w:'Aynı koşulda bile RMSF profili koşudan koşuya değişir (Atölye 2). Karşılaştırma tekrar birimi olan bağımsız koşularla yapılır (MD-REP).'});
   Q.push({s:'"Kristal yapıya göre karekök ortalama sapma" ile RMSF arasındaki fark nedir?',

@@ -1,7 +1,7 @@
 {
  "module": "MD-INT",
  "lang": "en",
- "source_sha256": "2340e3f5651febaaf3748e0c72c3928b53bf3b092c89c9a3b62ac83ca53f63aa",
+ "source_sha256": "fb04dbd6128e1748b055daacca578800d8f5612983765a98a5459bf30f9f6d64",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-INT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -623,8 +623,8 @@
    "Q.push({s:'A proton pair spends 10% of its time at 3 Å and the rest at 7 Å. What is expected for an NOE measurement?',"
   ],
   [
-   "o:[['Güçlü bir NOE; ⟨r⁻⁶⟩ ortalaması kısa uzaklıklara büyük ağırlık verir',1],['NOE görülmez, çünkü ortalama uzaklık 5 Å\\'dan büyüktür',0],['NOE, ortalama uzaklığa (6,6 Å) karşılık gelir',0]], w:'Etkin uzaklık ⟨r⁻⁶⟩^(−1/6) = (0,1 × 3⁻⁶ + 0,9 × 7⁻⁶)^(−1/6) = '+fx(Math.pow(0.1/729+0.9/117649,-1/6),1)+' Å; ortalama uzaklık 0,1 × 3 + 0,9 × 7 = 6,6 Å (Deneysel köprü).'});",
-   "o:[['A strong NOE; the ⟨r⁻⁶⟩ average gives large weight to short distances',1],['No NOE, because the mean distance is larger than 5 Å',0],['The NOE corresponds to the mean distance (6.6 Å)',0]], w:'Effective distance ⟨r⁻⁶⟩^(−1/6) = (0.1 × 3⁻⁶ + 0.9 × 7⁻⁶)^(−1/6) = '+fx(Math.pow(0.1/729+0.9/117649,-1/6),1)+' Å; mean distance 0.1 × 3 + 0.9 × 7 = 6.6 Å (Experimental bridge).'});"
+   "o:[['Gözlenebilir bir NOE (etkin uzaklık yaklaşık 4,4 Å, zayıf sınıfta); ⟨r⁻⁶⟩ ortalaması kısa uzaklıklara büyük ağırlık verir',1],['NOE görülmez, çünkü ortalama uzaklık 5 Å\\'dan büyüktür',0],['NOE, ortalama uzaklığa (6,6 Å) karşılık gelir',0]], w:'Etkin uzaklık ⟨r⁻⁶⟩^(−1/6) = (0,1 × 3⁻⁶ + 0,9 × 7⁻⁶)^(−1/6) = '+fx(Math.pow(0.1/729+0.9/117649,-1/6),1)+' Å; ortalama uzaklık 0,1 × 3 + 0,9 × 7 = 6,6 Å (Deneysel köprü).'});",
+   "o:[['An observable NOE (effective distance about 4.4 Å, in the weak class); the ⟨r⁻⁶⟩ average gives large weight to short distances',1],['No NOE, because the mean distance is larger than 5 Å',0],['The NOE corresponds to the mean distance (6.6 Å)',0]], w:'Effective distance ⟨r⁻⁶⟩^(−1/6) = (0.1 × 3⁻⁶ + 0.9 × 7⁻⁶)^(−1/6) = '+fx(Math.pow(0.1/729+0.9/117649,-1/6),1)+' Å; mean distance 0.1 × 3 + 0.9 × 7 = 6.6 Å (Experimental bridge).'});"
   ],
   [
    "Q.push({s:'Aynı su-karbonil H-bağının sürekli ömrü 1 ps\\'de bir okunan verilerle '+fx(arrMean(IDD.life['3.5_150|1'].Tc),2)+' ps, 5 ps\\'de bir okunanlarla '+fx(arrMean(IDD.life['3.5_150|5'].Tc),2)+' ps çıktı. Neden?',",

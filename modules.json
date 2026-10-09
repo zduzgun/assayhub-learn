@@ -31,7 +31,7 @@
       "title": "Docking: bir pozu bulmak ve doğrulamak",
       "path": "docking/dk-t/",
       "source": "sources/DK-T.html",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "pilot",
       "book": "CH02 sonrası",
       "goals": [
@@ -68,7 +68,7 @@
       "title": "Gerçek kilit: sonuç kilidin hangi ayrıntısına bağlı?",
       "path": "docking/dk-o/",
       "source": "sources/DK-O.html",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "status": "pilot",
       "book": "CH07 ve CH09",
       "goals": [
@@ -113,7 +113,7 @@
       "title": "Skor neyi sıralar?",
       "path": "docking/dk-u/",
       "source": "sources/DK-U.html",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "status": "pilot",
       "book": "CH18 ve CH19",
       "goals": [
@@ -189,7 +189,7 @@
       "title": "Kenarsız kutu: periyodik sınır",
       "path": "md/md-pbc/",
       "source": "sources/MD-PBC.html",
-      "version": "0.6.0",
+      "version": "0.6.1",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -238,7 +238,7 @@
       "title": "En yakın kopya ve kesme",
       "path": "md/md-cut/",
       "source": "sources/MD-CUT.html",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -310,7 +310,7 @@
       "title": "Minimizasyon ve dengeleme",
       "path": "md/md-eq/",
       "source": "sources/MD-EQ.html",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH11",
       "goals": [
@@ -493,7 +493,7 @@
       "app": "md",
       "level": "temel",
       "title": "Topluluk, dağılım ve ortalama: bir MD koşusu neyi temsil eder?",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "pilot",
       "book": "CH03",
       "goals": [
@@ -532,7 +532,7 @@
       "app": "md",
       "level": "temel",
       "title": "Soruyu bozmadan simülasyon kontrolü: termostat ve barostat neyi sabit tutar, neyi bozar?",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH05",
       "goals": [
@@ -575,7 +575,7 @@
       "app": "md",
       "level": "temel",
       "title": "Fark gerçek mi? Karşılaştırma, tekrar ve kontrol tasarımı",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH06",
       "goals": [
@@ -700,7 +700,7 @@
       "app": "md",
       "level": "orta",
       "title": "Bir sayı, bir yapı değildir: yapısal ölçüt neyi ölçer?",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH14",
       "goals": [
@@ -782,7 +782,7 @@
       "app": "md",
       "level": "orta",
       "title": "Etkileşim bir eşik tanımıdır: temas, solvatasyon, etkileşim",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH15",
       "goals": [

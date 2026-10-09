@@ -1,7 +1,7 @@
 {
  "module": "MD-CON",
  "lang": "en",
- "source_sha256": "2ff2c1a4edc5a1ac196989a77299bb5cd09a5f154301db91e49f037f870db751",
+ "source_sha256": "a0827011c999749db8b415462310ab4ee188a47755fae983d2a12e53fa4fc6f7",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-CON 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -635,8 +635,8 @@
    "$('kpread').innerHTML=dl('Run',plabel(wk.pid))+dl('Analysis length',fx(r.n*r.dt/1000,1)+' ns')+dl('Mean volume',fx(S.mean,3)+' nm³')+dl('Volume SD (measured)',fx(S.sd,3)+' nm³')+dl('Volume SD (theory, √(k_B T V κ_T))',fx(th,3)+' nm³')+dl('Measured / theory',fx(S.ratio,2)+'× · '+verdict(S.ratio)+' (theory with mdp κ_T)')+(r.q?dl('Ratio in four consecutive quarters (post hoc)',qrange(r.q)):'')+dl('Volume autocorrelation 1/e time',fx(q.V_acf_tau_ps,1)+' ps')+dl('First dip of the volume autocorrelation',fx(q.V_acf_dip1,3)+' ('+fx(q.V_acf_dip1_ps,1)+' ps; threshold −0.05)')+dl('Volume oscillation period',isFinite(per)&&per>0?fx(per,0)+' ps':'no oscillation')+dl('Mean pressure ± SD',fx(r.sp.mean,1)+' ± '+fx(r.sp.sd,0)+' bar')+(r.pq?dl('Mean pressure in four quarters (post hoc)',fx(Math.min.apply(null,r.pq),0)+' to '+fx(Math.max.apply(null,r.pq),0)+' bar'):'')+dl('Mean T ± SD',fx(q.T_mean,2)+' ± '+fx(q.T_sd,2)+' K');"
   ],
   [
-   "var notes={crescale:'C-rescale, hacim hızını stokastik bir terimle ölçekler ve kanonik hacim dalgalanması vermesi beklenir.',berendsen:'Berendsen barostat, hacmi deterministik olarak ölçekler; GROMACS uyarısı kabul edilerek (-maxwarn 1) koşuldu ve bilerek \"zorla\" etiketiyle gösterilir.',parrinello:'Parrinello-Rahman, kutuyu ek bir serbestlik derecesi gibi evrimleştirir; τ_P salınım dönemiyle ilgilidir. Dengelenmiş bir kutudan sürdürülerek başlatıldı.'};",
-   "var notes={crescale:'C-rescale scales the volume with a stochastic term and is expected to give the canonical volume fluctuation.',berendsen:'The Berendsen barostat scales the volume deterministically; it was run by accepting the GROMACS warning (-maxwarn 1) and is deliberately shown with a \"forced\" label.',parrinello:'Parrinello-Rahman evolves the box like an extra degree of freedom; τ_P is related to the oscillation period. It was started as a continuation from an equilibrated box.'};"
+   "var notes={crescale:'C-rescale, hacmi (koordinatlarla birlikte) stokastik terim içeren birinci dereceden bir kuralla ölçekler ve kanonik hacim dalgalanması vermesi beklenir.',berendsen:'Berendsen barostat, hacmi deterministik olarak ölçekler; GROMACS uyarısı kabul edilerek (-maxwarn 1) koşuldu ve bilerek \"zorla\" etiketiyle gösterilir.',parrinello:'Parrinello-Rahman, kutuyu ek bir serbestlik derecesi gibi evrimleştirir; τ_P salınım dönemiyle ilgilidir. Dengelenmiş bir kutudan sürdürülerek başlatıldı.'};",
+   "var notes={crescale:'C-rescale scales the volume (together with the coordinates) by a first-order rule with a stochastic term and is expected to give the canonical volume fluctuation.',berendsen:'The Berendsen barostat scales the volume deterministically; it was run by accepting the GROMACS warning (-maxwarn 1) and is deliberately shown with a \"forced\" label.',parrinello:'Parrinello-Rahman evolves the box like an extra degree of freedom; τ_P is related to the oscillation period. It was started as a continuation from an equilibrated box.'};"
   ],
   [
    "$('kpnote').textContent=notes[PR[wk.pid].algo]+' κ_T mdp değeridir (4,5×10⁻⁵ bar⁻¹), gerçek TIP3P sıkıştırılabilirliği değil; kuram yalnız referanstır. Basınç, 1546 atomluk kutuda bu ayarlarla bu büyüklükte dalgalanır.';",

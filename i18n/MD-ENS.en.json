@@ -1,7 +1,7 @@
 {
  "module": "MD-ENS",
  "lang": "en",
- "source_sha256": "c02640216c52dbc872401633a68d1145343784dd5f9ef266c5aac061eaa9e59d",
+ "source_sha256": "e56543538406df71eb4f7a52c6651211123ec0a371c3e948c1c145903ac9302e",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-ENS 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -39,8 +39,8 @@
    "<h2 id=\"e1h0\">Many molecules at once, or one molecule for a long time</h2>"
   ],
   [
-   "<div class=\"prose\"><p>Bir NMR ya da kalorimetre deneyi çok sayıda molekülü <b>aynı anda</b> ölçer ve topluluk ortalamasını verir. Bir MD koşusu ise <b>tek</b> molekülü zaman içinde izler ve onun zaman ortalamasını verir. Aşağıda beş bağımsız koşunun ψ açısı vardır. Oynat düğmesine basın: zaman logaritmik akar, böylece ilk pikosaniyeler de uzun saniyeler de görülür. Sol panel, o anda beş molekülün ψ değerini (küçük bir topluluk); sağ panel, koşu 1'in başından o ana kadarki gidişini ve kümülatif zaman ortalamasını gösterir. Kaydırıcıyla istediğiniz ana atlayabilirsiniz.</p></div>",
-   "<div class=\"prose\"><p>An NMR or calorimetry experiment measures a very large number of molecules <b>at the same time</b> and gives the ensemble average. An MD run follows <b>one</b> molecule through time and gives its time average. Below is the ψ angle of five independent runs. Press Play: time runs logarithmically, so both the first picoseconds and the long stretches can be seen. The left panel shows the ψ value of the five molecules at that moment (a small ensemble); the right panel shows the course of run 1 from its start up to that moment, with the cumulative time average. You can jump to any moment with the slider.</p></div>"
+   "<div class=\"prose\"><p>Bir NMR ya da kalorimetre deneyi çok sayıda molekülü <b>aynı anda</b> ölçer ve topluluk ortalamasını verir. Bir MD koşusu ise <b>tek</b> molekülü zaman içinde izler ve onun zaman ortalamasını verir. Aşağıda beş bağımsız koşunun ψ açısı vardır. Oynat düğmesine basın: zaman logaritmik akar, böylece ilk pikosaniyeler de koşunun sonundaki nanosaniyeler de görülür. Sol panel, o anda beş molekülün ψ değerini (küçük bir topluluk); sağ panel, koşu 1'in başından o ana kadarki gidişini ve kümülatif zaman ortalamasını gösterir. Kaydırıcıyla istediğiniz ana atlayabilirsiniz.</p></div>",
+   "<div class=\"prose\"><p>An NMR or calorimetry experiment measures a very large number of molecules <b>at the same time</b> and gives the ensemble average. An MD run follows <b>one</b> molecule through time and gives its time average. Below is the ψ angle of five independent runs. Press Play: time runs logarithmically, so both the first picoseconds and the last nanoseconds of the run can be seen. The left panel shows the ψ value of the five molecules at that moment (a small ensemble); the right panel shows the course of run 1 from its start up to that moment, with the cumulative time average. You can jump to any moment with the slider.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"e1bridge\" class=\"plot\" aria-label=\"Solda seçilen anda beş koşunun ψ değerleri nokta olarak ve ortalamaları; sağda koşu 1'in ψ gidişi ve kümülatif zaman ortalaması\"></canvas></div>",
@@ -335,8 +335,8 @@
    "phi:'φ is shown between −180° and 180°. Because the distribution is not split into two pieces as much as ψ, compare the fraction in the bin of the mean with the fraction in the most populated bin. Bin 10°.',"
   ],
   [
-   "T:'Termostat (V-rescale, tau_t 0,1 ps) ortalamayı 300 K civarında tutar. Tek karenin sıcaklığı kinetik enerjinin anlık değeridir ve dalgalanır. Kutu 2 K.',",
-   "T:'The thermostat (V-rescale, tau_t 0.1 ps) holds the mean near 300 K. The temperature of a single frame is the instantaneous value of the kinetic energy and it fluctuates. Bin 2 K.',"
+   "T:'Termostat (V-rescale, tau_t 0,1 ps) ortalamayı 300 K civarında tutar. Tek karenin sıcaklığı anlık kinetik enerjiden hesaplanır (onunla orantılıdır) ve dalgalanır. Kutu 2 K.',",
+   "T:'The thermostat (V-rescale, tau_t 0.1 ps) holds the mean near 300 K. The temperature of a single frame is computed from the instantaneous kinetic energy (it is proportional to it) and it fluctuates. Bin 2 K.',"
   ],
   [
    "P:'Barostat (C-rescale, tau_p 2 ps) ortalamayı 1 bar hedefine çeker. Anlık basınç, bu büyüklükte bir kutuda yüzlerce bar dalgalanır. Kutu 150 bar.'};",
@@ -603,7 +603,7 @@
    "o:[['The thermostat is broken, the deviation should have been zero',0],['The mean temperature of the system is not 300 K',0],['The fluctuation agrees with the natural fluctuation of the canonical ensemble; the thermostat holds the mean',1]],"
   ],
   [
-   "w:'Kanonik topluluğta anlık sıcaklık dalgalanır: SD yaklaşık T√(2/N). Termostat ortalamayı hedefte tutar, anlık değerleri sabitlemez. Serbestlik derecesi azaldıkça dalgalanma büyür.'},",
+   "w:'Kanonik toplulukta anlık sıcaklık dalgalanır: SD yaklaşık T√(2/N). Termostat ortalamayı hedefte tutar, anlık değerleri sabitlemez. Serbestlik derecesi azaldıkça dalgalanma büyür.'},",
    "w:'In a canonical ensemble the instantaneous temperature fluctuates: the SD is about T√(2/N). The thermostat holds the mean at the target; it does not fix the instantaneous values. The fewer degrees of freedom, the larger the fluctuation.'},"
   ],
   [

@@ -1,5 +1,20 @@
 # Sürüm notları
 
+## 0.38.0 (9 Ekim 2026) · Türkçe kaynak düzeltmeleri (İngilizce denetimden gelen notlar)
+
+İngilizce denetimde Türkçe kaynakta bulunan notlar tek tek doğrulandı ve iki dilde düzeltildi. Veri, hesap ve sonuç değişmedi.
+- DK-T 0.2.1: Lennard-Jones itmesi uzaklığın on ikinci kuvvetiyle "büyür" değil, onunla ters orantılıdır (1/r¹²).
+- DK-O 0.3.1: sınavda cep Cα RMSD için "0,27 Å altındaki" yerine kartla aynı "0,27 Å ve altında olan".
+- DK-U 0.2.2: atölye 1'de 144 tripsin bileşiğinden yalnız alt sınır olarak verilen 2 sansürlü Ki kaydının dışarıda kaldığı (n = 142) yazıldı.
+- MD-ENS 0.2.1: "topluluğta" yazım hatası; "uzun saniyeler" yerine "koşunun sonundaki nanosaniyeler"; tek karenin sıcaklığı kinetik enerjiye eşit değil, ondan hesaplanır (orantılıdır).
+- MD-REP 0.1.1: Welch aralıkları "altta" değil öteki gösterimde.
+- MD-CON 0.1.1: C-rescale "hacim hızını" değil, hacmi (koordinatlarla birlikte) stokastik terimli birinci dereceden bir kuralla ölçekler.
+- MD-PBC 0.6.1: indirgenmiş birimde sıcaklık k_BT = 0,40 ε.
+- MD-CUT 0.1.1: uzak erim elektrostatiğin konusu "Laboratuvar 3" değil, MD-ELEC modülü.
+- MD-EQ 0.1.1: LJ minimumu (yaklaşık 1,12 σ) yalnız bu terim olsaydı geçerli olurdu; gerçek suda hidrojen bağları en yakın O-O uzaklığını yaklaşık 0,28 nm'ye çeker. Ayrıca 375 px'te Türkçe sayfadaki yatay taşma giderildi (dar ekranda ızgara sütunu `1fr` yerine `minmax(0,1fr)`).
+- MD-MET 0.1.1: Rg, atomların kütle merkezine uzaklıklarının kütle ağırlıklı karekök ortalamasıdır (üç yerde "ortalama uzaklık" düzeltildi); ölçüt "sorudan" değil "sonuçtan" önce yazılır.
+- MD-INT 0.1.1: sınavda yaklaşık 4,4 Å etkin uzaklık için "güçlü NOE" yerine "gözlenebilir (zayıf sınıfta) NOE".
+
 ## 0.37.0 (9 Ekim 2026) · İngilizce denetim, 3. tur: uzman düzey; 27 modülün hepsi denetlendi
 
 - Uzman düzeyin 5 modülünün İngilizce tablosu (DK-U, MD-U, MD-ERR, MD-REPRO, MD-FES) Türkçe kaynakla çift çift karşılaştırıldı. 64 düzeltme: 9 anlam ya da dil bilgisi hatası (DK-U'da iki ondalık virgül dahil), 16 tutarlılık (Amerikan yazımı; MD-U'da "repeats" yerine "replicas"; MD-REPRO'da "reproduction file" yerine "reproduction package"), 39 üslup.
