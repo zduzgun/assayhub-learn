@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.34.0 (9 Ekim 2026) · Yeni modül MD-FES: standart MD'nin ötesine karar vermek
+
+- MD-FES 0.1.0 (uzman düzey, kitapta CH19): "Bu soru için standart MD yeter mi?" Yeni koşular (FESGRID): alanin dipeptidinde φ = C(ACE)-N-CA-C boyunca GROMACS 2023.3 AWH ile iki bağımsız 4 ns koşu (A1, A2; MD-REP'in W1 ve W2 dengelenmiş yapılarından, farklı tohumlarla). Plan koşulardan önce SHA-256 ile donduruldu (0b026ad8…, 8 Ekim 14:27 UTC); plandan sapma yok.
+- Bias'sız (MD-REP W1 ile W8, 16 ns): φ > 0'a 3 giriş, ölçüt penceresindeki 220 φ > 0 karesinin 219'u W4'ün tek ziyaretinden; havuz ΔG₊ 10,39 kJ/mol, 8 koşunun 6'sında tanımsız.
+- AWH (4 ns): ΔG₊ A1 8,99, A2 7,44 kJ/mol; φ > 0'a 274 ve 282 giriş; kapsama tam. Önceden yazılmış uyum ölçütü (ΔG₊ farkı < 1, profil farkı < 2 kJ/mol) geçilemedi: farklar 1,55 ve 2,05, hüküm "uyumsuz"; sayfa sonucu bu hükümle raporlar. Bias'sızın iyi örneklediği 15 bölmede iki profil arasında RMS 0,80 kJ/mol.
+- Görseller: φ kadranı (bias'sız W1 ile AWH A1, bias halkası), iki durumlu köprü modeli (tarayıcıda; sekiz koşu şeridi ve 1000 koşunun ΔG dağılımı), altı soru × altı yöntem kartı, sekiz koşunun φ şeritleri, AWH profil ve bias animasyonu (41 kayıt), φ izi, son profiller ve ΔG₊ karşılaştırması, atomistik, kaba taneli (gösterim), örtük çözücü ve ML kartları. Animasyonlar görününce bir kez oynar, durdurulabilir.
+- Bağımsız denetim 17/17. Tezgâh: sekiz iddia. Defter: yöntem kararı. Sekiz soru, yedi keşif kartı. Kaynaklar PubMed'den doğrulandı (Lindahl ve ark. 2014; Mobley ve Gilson 2017; Souza ve ark. 2021). İngilizce tablo 223 çift (`i18n/_work/mdfes/`), `reviewed: false`. Kısa adresler: `/tr/l/MD-FES`, `/en/l/MD-FES`.
+
 ## 0.33.0 (8 Ekim 2026) · Yeni modül MD-REPRO: yeniden üretim ve savunulabilir çalışma
 
 - MD-REPRO 0.1.0 (uzman düzey, kitapta CH24): "Başkası aynı dosyalardan aynı cümleye varabilir mi?" Yeni koşular (REPROGRID): MD-REP'in W1 ve W2 md.tpr dosyaları değiştirilmeden GROMACS 2023.3 ile, özgün koşularla aynı bulut makine türünde yeniden koşuldu: R1 (W2, -nt 1), R2 (W1, -nt 1, kesintisiz), R3 (W2, -nt 2), R4 ve R5 (W2, -nt 2 -reprod, 200 ps). Koşu ve analiz planı koşulardan önce SHA-256 ile donduruldu (431c4091…, 09:43 UTC).

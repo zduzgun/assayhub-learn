@@ -8,7 +8,7 @@ Bu sitedeki modüller aşağıdaki kaynaklardan türetilen veriler içerir. Lisa
 |---|---|---|---|
 | RCSB/wwPDB, PDB 3PTB, 2PTN, 1TNH, 2PTC, 1TGN ve 1UBQ | DK-T, DK-O, DK-U, MD-O, MD-PDB, MD-TRJ, MD-MET, MD-PCA, MD-INT, MD-FAIL, MD-LIG, MD-ERR | CC0 1.0 Universal | Kamu malı. Özgün yazarlara atıf önerilir: 3PTB ve 2PTC için Marquart M ve ark. *Acta Crystallogr B* 1983;39:480; 2PTN için Walter J ve ark. *Acta Crystallogr B* 1982;38:1462; 1TNH için Kurinov IV, Harrison RW. *Nat Struct Biol* 1994;1:735; 1TGN için Kossiakoff AA ve ark. *Biochemistry* 1977;16:654. |
 | ChEMBL (EMBL-EBI), tripsin CHEMBL3769 ve dopamin D2 CHEMBL217 K<sub>i</sub> verisi | DK-T, DK-U, MD-LIG, MD-ERR | CC BY-SA 3.0 Unported | Atıf ve aynı lisansla paylaşım. DK-U sayfasındaki türetilmiş bileşik verisi, DK-T ve MD-LIG sayfalarındaki benzamidin K<sub>i</sub> değerleri ve MD-ERR sayfasında bu değerlerden hesaplanan ölçülmüş ΔG aralığı CC BY-SA 3.0 ile sunulur. Atıf: Zdrazil B ve ark. The ChEMBL Database in 2023. *Nucleic Acids Res* 2024;52(D1):D1180-D1192. |
-| mdshare, alanin dipeptit (ALA2) | MD-U, MD-ENS, MD-CON, MD-REP, MD-Q, MD-TRJ, MD-MET, MD-PCA, MD-INT, MD-FF, MD-SOLV, MD-ERR, MD-REPRO | CC BY 4.0 | Atıf. |
+| mdshare, alanin dipeptit (ALA2) | MD-U, MD-ENS, MD-CON, MD-REP, MD-Q, MD-TRJ, MD-MET, MD-PCA, MD-INT, MD-FF, MD-SOLV, MD-ERR, MD-REPRO, MD-FES | CC BY 4.0 | Atıf. |
 
 ChEMBL, ticari yazılımla hesaplanmış bazı bileşik özelliklerinin ayrıca çıkarılıp model eğitiminde kullanılmamasını ister. DK-U yalnız K<sub>i</sub> değerlerini ve yapıları kullanır; bileşik özellikleri RDKit ile yeniden hesaplanmıştır.
 
