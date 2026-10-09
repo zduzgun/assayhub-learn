@@ -1,5 +1,10 @@
 # Sürüm notları
 
+## 0.42.1 (9 Ekim 2026) · Modül sayfalarında "Bu modüldeki terimler"
+
+- Her modül sayfasının altına, modüller arası geçiş şeridinin üstüne "Bu modüldeki terimler" kutusu eklendi: sözlükte o modüle bağlanan terimler (sözlük bağlantılarının tersi; modül başına 4 ile 26), her biri sözlükteki çapasına gider (`/tr/glossary/#kesme`). Önce modülün kendi kitap bölümüne ait terimler (renkli kenar), sonra modüldeki geçme sayısı. Sonda "Bütün sözlük" bağlantısı.
+- Modül kaynakları ve çeviri tabloları değişmedi; kutu yapım sırasında `tools/build.mjs` tarafından eklenir. `tools/check.mjs` 4c: kutudaki her terim sözlükte var ve kutunun terim kümesi sözlükteki bağlantıların tersiyle iki dilde aynı.
+
 ## 0.42.0 (9 Ekim 2026) · Terimler sözlüğü
 
 - Yeni sayfalar `/tr/glossary/` ve `/en/glossary/` (ayrıca `/tr/sozluk`, `/tr/l/sozluk`, `/tr/l/glossary`, `/en/l/glossary`): kitapta ve modüllerde geçen 90 temel terim; her biri öteki dildeki karşılığı, eş anlamlıları, bir iki cümlelik tanımı (iki dilde), bağlı modülleri (en çok 5; terimin kitap bölümüne ait olanlar renkli kenarlı) ve kitap bölümüyle. Arama kutusu (iki dilde, önce terim adı), harf dizini, her terim için kalıcı çapa (`#kesme`).

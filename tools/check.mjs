@@ -105,7 +105,15 @@ for (const f of files) {
     else { const miss = d.mods.filter((x) => !d.en_found[x.id]).map((x) => x.id); if (miss.length) notes.push(`sözlük: ${e.id} İngilizce karşılığı (${e.en.term}) şu modüllerin İngilizce metninde bulunamadı: ${miss.join(', ')}`); }
   }
   for (const L of LANGS) { const f = join(DIST, L, 'glossary', 'index.html'); if (!existsSync(f)) { fail(`dist/${L}/glossary/index.html yok`); continue; }
-    const h = readFileSync(f, 'utf8'); for (const e of G.terms) if (!h.includes(`id="${e.id}"`)) fail(`${L} sözlük sayfasında ${e.id} yok`); } }
+    const h = readFileSync(f, 'utf8'); for (const e of G.terms) if (!h.includes(`id="${e.id}"`)) fail(`${L} sözlük sayfasında ${e.id} yok`); }
+  // modül sayfalarındaki terim kutusu: her bağlantının sözlükte karşılığı var ve sözlükteki bağlantıların tersiyle aynı küme
+  const ids = new Set(G.terms.map((e) => e.id));
+  for (const m of M.modules) { if (!m.path) continue; const want = GD.terms.filter((t) => t.mods.some((x) => x.id === m.id)).map((t) => t.id).sort();
+    for (const L of LANGS) { const h = readFileSync(join(DIST, L, m.path, 'index.html'), 'utf8');
+      if (h.includes('<!--ahl-terms-->')) fail(`${L} ${m.id}: terim yeri doldurulmamış`);
+      const got = [...h.matchAll(new RegExp(`href="/${L}/glossary/#([a-z0-9-]+)"`, 'g'))].map((x) => x[1]);
+      for (const g of got) if (!ids.has(g)) fail(`${L} ${m.id}: sözlükte olmayan terim ${g}`);
+      if (got.slice().sort().join() !== want.join()) fail(`${L} ${m.id}: terim kutusu sözlük bağlantılarıyla uyuşmuyor`); } } }
 
 // 5) lisans notu gereken modüller (iki dilde)
 for (const m of M.modules) {

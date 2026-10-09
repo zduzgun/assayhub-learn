@@ -36,7 +36,7 @@ const UI = {
     foot: (b) => `Önizleme yayınıdır ve arama motorlarına kapalıdır. Modüller tarayıcıda çalışır; sunucuda hesap yapılmaz. MD laboratuvarlarındaki küçük öğretim simülasyonları tarayıcıda canlı hesaplanır; protein ve koşu verileri önceden koşturulmuş gerçek simülasyonlardan gelir ve her sayfada kaynağıyla belirtilir. Veri lisansları: PDB yapıları CC0 1.0; ChEMBL'den türetilen veri CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Yapı: ${b}.`,
     short: 'Kısa adres', version: 'sürüm', statusW: 'durum',
     preview: 'Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı.', all: 'Bütün modüller',
-    seqNav: 'Modüller arası geçiş', prev: 'Önceki modül', next: 'Sonraki modül', allOf: (t) => `Bütün ${t} modülleri`,
+    mtH: 'Bu modüldeki terimler', mtP: 'Her terimin tanımı ve geçtiği öteki modüller sözlükte.', mtAll: 'Bütün sözlük', seqNav: 'Modüller arası geçiş', prev: 'Önceki modül', next: 'Sonraki modül', allOf: (t) => `Bütün ${t} modülleri`,
     mt: '', mtChecked: '',
     bkTitle: 'Kitap bölümleri', bkEyebrow: 'AssayHub Learn · kitap', bkH1: 'Kitap bölümleri ve modüller',
     bkDeck: 'MD kitabının 20 çalışma birimi ve her birine bağlı etkileşimli modüller. Kitaptaki karekodlar buradaki kısa adreslere gider.',
@@ -65,7 +65,7 @@ const UI = {
     foot: (b) => `This is a preview and is closed to search engines. Modules run in your browser; nothing is computed on the server. The small teaching simulations in the MD labs are computed live in your browser; protein and run data come from real simulations run in advance, and each page states their source. Data licences: PDB structures CC0 1.0; data derived from ChEMBL CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Build: ${b}.`,
     short: 'Short address', version: 'version', statusW: 'status',
     preview: 'Preview release; no scientific or target-reader review has been done yet.', all: 'All modules',
-    seqNav: 'Move between modules', prev: 'Previous module', next: 'Next module', allOf: (t) => `All ${t} modules`,
+    mtH: 'Terms in this module', mtP: 'The definition of each term and the other modules where it appears are in the glossary.', mtAll: 'Whole glossary', seqNav: 'Move between modules', prev: 'Previous module', next: 'Next module', allOf: (t) => `All ${t} modules`,
     mt: 'The English text is a machine translation of the Turkish original and has not yet been reviewed by a person.',
     mtChecked: 'The English text is a machine translation of the Turkish original; Claude (AI) has checked it, but it has not yet been reviewed by a person.',
     bkTitle: 'Book chapters', bkEyebrow: 'AssayHub Learn · book', bkH1: 'Book chapters and modules',
@@ -126,10 +126,20 @@ const BAR_CSS = `<style id="ahl-bar-css">
 .ahl-seq .ahl-gap{visibility:hidden}
 @media (max-width:640px){.ahl-seq{grid-template-columns:1fr;margin-top:36px}.ahl-seq .ahl-next{text-align:left}.ahl-seq .ahl-gap{display:none}.ahl-seq .ahl-hub{order:3}}
 .ahl-foot{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;max-width:1060px;margin:40px auto 0;border-top:1px solid #d6d6cd;padding-top:14px;font-size:12.5px;line-height:1.6;color:#5f6a73}
+.ahl-terms{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;max-width:1060px;margin:48px auto 0;border:1px solid #d6d6cd;border-radius:10px;background:#fffefb;padding:14px 16px;color:#23394a}
+.ahl-terms h2{font:600 11px/1.3 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#934b3c;margin:0 0 4px}
+.ahl-terms p{margin:0 0 10px;font-size:13px;color:#5f6a73;line-height:1.5}
+.ahl-terms ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.ahl-terms li a{display:inline-block;text-decoration:none;color:#23394a;border:1px solid #d6d6cd;border-radius:4px;padding:3px 9px;font-size:14px;background:#faf9f5}
+.ahl-terms li a:hover,.ahl-terms li a:focus-visible{border-color:#23394a}
+.ahl-terms li.own a{border-color:#934b3c}
+.ahl-terms .ahl-tall{font-size:13px;color:#5f6a73;border-style:dashed}
+.ahl-terms + .ahl-seq{margin-top:16px}
 .ahl-notice{background:#f5ecd9;color:#6b4a12;border-left:3px solid #96661c;padding:10px 14px;border-radius:0 4px 4px 0;margin:0 0 10px}
 </style>`;
 let enModules = 0, enMissing = [];
 const tableInfo = {};
+const TERMS_MARK = '<!--ahl-terms-->';
 const TXT = {};
 const trLower = (x) => String(x).replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
 for (const m of M.modules) {
@@ -174,7 +184,7 @@ ${seqNav}`));
     const bOpen = html.indexOf('<body>');
     const bClose = html.lastIndexOf('</body>');
     if (bOpen < 0 || bClose < 0) throw new Error(`${m.id}: <body> etiketi bulunamadı`);
-    html = html.slice(0, bOpen + 6) + '\n' + bar + '\n' + html.slice(bOpen + 6, bClose) + seqNav + '\n' + foot + '\n' + LANG_JS + '\n' + html.slice(bClose);
+    html = html.slice(0, bOpen + 6) + '\n' + bar + '\n' + html.slice(bOpen + 6, bClose) + TERMS_MARK + seqNav + '\n' + foot + '\n' + LANG_JS + '\n' + html.slice(bClose);
     if (!/<html[^>]*\slang="tr"/.test(html)) throw new Error(`${m.id}: kaynakta <html lang="tr"> bekleniyordu`);
     html = html.replace(/(<html[^>]*\s)lang="tr"/, `$1lang="${L}"`);
     html = html.replace('</head>', alternates(m.path) + '\n' + ICON + '\n' + BAR_CSS + '\n</head>');
@@ -335,6 +345,19 @@ lines.push('/tr/kitap /tr/book/ 302', '/tr/kitap/ /tr/book/ 302', '/tr/sozluk /t
 writeFileSync(join(DIST, '_redirects'), lines.join('\n') + '\n');
 writeFileSync(join(DIST, '_routes.json'), JSON.stringify({ version: 1, include: ['/', '/l/*', '/docking', '/docking/*', '/md', '/md/*'], exclude: [] }, null, 2));
 
+// modül sayfalarına "bu modüldeki terimler" kutusu (sözlük bağlantılarının tersi): önce terimin bölümüne ait olanlar, sonra modüldeki eşleşme sayısı
+for (const m of M.modules) {
+  if (!m.path || !TXT[m.id]) continue;
+  for (const L of LANGS) {
+    const f = join(DIST, L, m.path, 'index.html'); let h = readFileSync(f, 'utf8');
+    if (h.split(TERMS_MARK).length !== 2) throw new Error(`${m.id} ${L}: terim yeri bulunamadı`);
+    const U = UI[L], coll = new Intl.Collator(L, { sensitivity: 'base' }), nm = (e) => (L === 'en' ? e.en.term : e.tr);
+    const ts = GLOS.terms.map((e) => ({ e, x: GL[e.id].mods.find((y) => y.id === m.id) })).filter((o) => o.x)
+      .sort((a, b) => (b.x.main - a.x.main) || (GL[b.e.id].counts[m.id] - GL[a.e.id].counts[m.id]) || coll.compare(nm(a.e), nm(b.e)));
+    const box = ts.length ? `<section class="ahl-terms" aria-labelledby="ahl-terms-h"><h2 id="ahl-terms-h">${esc(U.mtH)}</h2><p>${esc(U.mtP)}</p><ul>${ts.map((o) => `<li${o.x.main ? ' class="own"' : ''}><a href="/${L}/glossary/#${esc(o.e.id)}">${esc(nm(o.e))}</a></li>`).join('')}<li><a class="ahl-tall" href="/${L}/glossary/">${esc(U.mtAll)}</a></li></ul></section>\n` : '';
+    writeFileSync(f, h.replace(TERMS_MARK, box));
+  }
+}
 writeFileSync(join(DIST, 'modules.json'), JSON.stringify(M, null, 2));
 writeFileSync(join(DIST, 'glossary.json'), JSON.stringify({ schema: GLOS.schema, terms: GLOS.terms.map((e) => ({ id: e.id, ch: e.ch, tr: e.tr, en: e.en.term, mods: GL[e.id].mods, counts: GL[e.id].counts, en_found: GL[e.id].enFound })) }, null, 1));
 writeFileSync(join(DIST, 'version.json'), JSON.stringify({ ...BUILD, languages: LANGS, translations: tableInfo }, null, 2));
