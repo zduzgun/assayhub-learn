@@ -6,7 +6,8 @@
   "tarih": "2026-10-09",
   "uygun": 90,
   "duzelt": 0,
-  "yontem": "İnceleme masası (claude.ai artifact), madde başına uygun/düzelt kararı"
+  "yontem": "İnceleme masası (claude.ai artifact), madde başına uygun/düzelt kararı",
+  "not": "Yazar incelemesinden sonra, yazarın isteğiyle (9 Ekim 2026) kitapta kullanılan iki yazım eş anlamlı olarak eklendi: entegratör (integratör), enerji sürüklenmesi (enerji kayması). Tanımlar değişmedi."
  },
  "terms": [
   {
@@ -54,11 +55,14 @@
     "alt": [],
     "def": "The numerical method that uses the forces to move positions and velocities forward by one time step (for example leap-frog or velocity Verlet). Its accuracy depends on the time step."
    },
-   "alt": [],
+   "alt": [
+    "entegratör"
+   ],
    "def": "Kuvvetlerden yola çıkıp konum ve hızları bir zaman adımı ileri taşıyan sayısal yöntem (örneğin leap-frog ya da hız-Verlet). Doğruluğu zaman adımına bağlıdır.",
    "match": [
     "integratör",
-    "leap-frog"
+    "leap-frog",
+    "entegrat"
    ],
    "match_en": [
     "integrator",
@@ -112,12 +116,15 @@
     "alt": [],
     "def": "A steady change over time in the total energy, which should be conserved in a run without a thermostat. It signals numerical error, most often from a time step that is too long or from the cut-off and neighbor list settings."
    },
-   "alt": [],
+   "alt": [
+    "enerji sürüklenmesi"
+   ],
    "def": "Termostatsız bir koşuda korunması gereken toplam enerjinin zamanla düzenli olarak değişmesi. Sayısal hata olduğunu gösterir; nedeni çoğunlukla çok uzun zaman adımı ya da kesme ve komşu listesi ayarlarıdır.",
    "match": [
     "enerji kayma",
     "drift",
-    "enerji korun"
+    "enerji korun",
+    "enerji sürüklen"
    ],
    "match_en": [
     "drift",

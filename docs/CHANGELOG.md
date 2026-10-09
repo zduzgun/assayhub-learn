@@ -1,5 +1,9 @@
 # Sürüm notları
 
+## 0.42.4 (9 Ekim 2026) · Sözlüğe kitaptaki yazımlar eklendi
+
+- Kitap taslaklarında sözlük terimleri tarandı (öneri listesi kitap klasöründe, `book/links_2026-10-09_sozluk/`). Yazarın kararıyla kitapta kullanılan iki yazım sözlüğe eş anlamlı olarak eklendi: "entegratör" (integratör) ve "enerji sürüklenmesi" (enerji kayması). Sözlük sayfasında "Ayrıca" satırında görünür ve aramada bulunur; eşleşme kalıplarına da eklendi (modül bağlantıları değişmedi: modüllerde bu yazımlar geçmiyor). Tanımlar değişmedi; `inceleme` alanına not düşüldü.
+
 ## 0.42.3 (9 Ekim 2026) · Modül çevirileri yazar tarafından toplu onaylandı
 
 - Yazar 27 modülün İngilizce çevirisini 9 Ekim 2026'da bütün olarak onayladı; İnceleme masasındaki modül paketleri (4.542 metin parçası) madde madde incelenmedi. Yeni `i18n/onay.json` bu onayı modül başına kaydeder (kim: yazar, tür: toplu, tarih). Çeviri tablolarında `reviewed` false kalır.
