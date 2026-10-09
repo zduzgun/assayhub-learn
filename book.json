@@ -1,6 +1,6 @@
 {
   "schema": "assayhub-learn-book/1",
-  "note": "MD kitabının 20 çalışma birimi (BOOK_MAP_TR_2026-09-24.md). Türkçe başlıklar kitap haritasındaki gibidir; İngilizce başlıklar çalışma çevirisidir (yazar onayı bekliyor). Modüllerin bölümle ilişkisi modules.json 'book' alanından üretilir.",
+  "note": "MD kitabının 20 çalışma birimi (BOOK_MAP_TR_2026-09-24.md). Türkçe başlıklar kitap haritasındaki gibidir; İngilizce başlıklar yazar tarafından 9 Ekim 2026'da onaylandı. Modüllerin bölümle ilişkisi modules.json 'book' alanından üretilir.",
   "chapters": [
     {
       "id": "CH01",
@@ -23,7 +23,7 @@
       "level": "temel",
       "title": "Kullanıcı için istatistiksel mekanik",
       "en": {
-        "title": "Statistical mechanics for the user"
+        "title": "Statistical mechanics for MD users"
       }
     },
     {
@@ -39,7 +39,7 @@
       "level": "temel",
       "title": "Soruyu bozmadan simülasyon kontrolü",
       "en": {
-        "title": "Controlling the simulation without breaking the question"
+        "title": "Controlling a simulation without distorting the question"
       }
     },
     {
@@ -151,7 +151,7 @@
       "level": "ileri",
       "title": "Standart MD'nin ötesine karar vermek",
       "en": {
-        "title": "Deciding beyond standard MD"
+        "title": "Deciding when to go beyond standard MD"
       }
     },
     {

@@ -1,5 +1,9 @@
 # Sürüm notları
 
+## 0.40.1 (9 Ekim 2026) · İngilizce bölüm başlıkları onaylandı
+
+- Yazar 20 İngilizce bölüm başlığını onayladı; üçü değişti: CH03 "Statistical mechanics for MD users", CH05 "Controlling a simulation without distorting the question", CH19 "Deciding when to go beyond standard MD". `/en/book/` sayfasındaki "çalışma çevirisi" notu kaldırıldı.
+
 ## 0.40.0 (9 Ekim 2026) · Kitap sayfası: bölüm -> modül haritası
 
 - Yeni sayfalar `/tr/book/` ve `/en/book/` (ayrıca `/tr/kitap`, `/tr/l/book`, `/en/l/book` yönlendirmeleri): MD kitabının 20 çalışma birimi temel, orta ve ileri düzeyde; her bölümde bağlı modüller (ana, ortak, ek), modül başlığı ve kısa adres. 29 modül bağlantısı (DK-O ve DK-U iki bölümde).

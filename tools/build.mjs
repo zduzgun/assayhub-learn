@@ -66,7 +66,7 @@ const UI = {
     bkDeck: 'The 20 working units of the MD book and the interactive modules linked to each. The QR codes in the book lead to the short addresses listed here.',
     bkLevel: { temel: 'Basic level', orta: 'Intermediate level', ileri: 'Advanced level' }, bkRel: { ana: 'main', ortak: 'shared', ek: 'extra' },
     bkRelP: '<b>main</b>: the chapter\'s own module · <b>shared</b>: linked to two chapters · <b>extra</b>: further reading after the chapter',
-    bkNote: 'The book is written in Turkish; the English chapter titles here are working translations and have not yet been approved by the author.',
+    bkNote: '',
     bkLink: 'List by chapter: <a href="/en/book/">book chapters and modules</a>.',
     nfTitle: 'Page not found', nfH: 'There is no module at this address',
     nfP: 'If you came from a QR code in the book, check the short code (for example <code>/en/l/DK-T</code>). All modules are listed on the <a href="/en/">home page</a>.',
