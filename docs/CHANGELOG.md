@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.42.7 (10 Ekim 2026) · Kitap revizyonunda bulunan iki modül tutarsızlığı
+
+- DK-U 0.2.3: Sıralama atölyesinin açıklaması skorları "beş tohumun ortancası" diye anıyordu; ana tarama tek tohumla yapıldı, tohum gürültüsü 20 bileşikte ayrıca ölçüldü (sayfanın "Proteine dönüş" bölümündeki "tam 5 tohumlu set hesaplanmadı" notuyla da çelişiyordu). Açıklama düzeltildi; veri ve skorlar değişmedi.
+- MD-PCA 0.1.1: Korelasyon kartı, bütün Cα hizalamasındaki zıt korelasyonu molekülün döndürülmesine bağlıyordu. Kitabın CH16 sınamasına göre etkinin büyük kısmı ötelemeden gelir: kuyruk hizalamaya girince molekül ters yöne ötelenir (ve biraz döner). Kart metni buna göre yazıldı; veri değişmedi.
+- İki düzeltme de kitabın dış incelemesinde (GPT revizyon talimatı, R08) işaretlendi ve kitap metniyle karşılaştırılarak doğrulandı. İngilizce tablolarda ilgili iki çift güncellendi.
+
 ## 0.42.6 (10 Ekim 2026) · Türkçe metinde "çözgen" yerine "çözücü"
 
 - MD-SOLV 0.1.1: Türkçe metindeki 21 "çözgen" "çözücü" oldu (başlık, bölüm başlıkları, açıklamalar, Defter kaydı, iddia kartları ve sınama sorusu; ek uyumuyla: çözücüye, çözücüsüz). Modül adı "Çözücü de modelin parçası: iyonlar ve yardımcı çözücü". Gerekçe: TDK Güncel Türkçe Sözlük "çözücü"yü kimya terimi olarak verir, "çözgen" için sonuç vermez; sitenin sözlüğü de "çözücü" kullanır. Sözlükteki "çözgen" eş anlamlısı aramada bulunmak için kaldı.

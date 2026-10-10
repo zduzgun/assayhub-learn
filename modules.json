@@ -113,7 +113,7 @@
       "title": "Skor neyi sıralar?",
       "path": "docking/dk-u/",
       "source": "sources/DK-U.html",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "status": "pilot",
       "book": "CH18 ve CH19",
       "goals": [
@@ -743,7 +743,7 @@
       "app": "md",
       "level": "orta",
       "title": "Durum bir tanımdır, bileşen bir yöntem sonucudur: durumlar ve kolektif hareketler",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH16",
       "goals": [

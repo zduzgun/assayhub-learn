@@ -1,7 +1,7 @@
 {
  "module": "MD-PCA",
  "lang": "en",
- "source_sha256": "e766d5260f9dcbe65e78abe0d96b3bdf5a36a7a3dae84338844a4771d2833189",
+ "source_sha256": "4928009af58cf4ecd886d2d60857d529a789d3b30e0e6886c4cd9d9b604fbcbd",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PCA 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -547,8 +547,8 @@
    "function dcCurTxt(M){ var i=DC.cur[0], j=DC.cur[1]; return 'residues '+(i+1)+' and '+(j+1)+': '+(DC.fit==='diff'?'difference ':'C = ')+fx(M[i*76+j],2); }"
   ],
   [
-   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'Halka 7 ile 11 ve kuyruk arasındaki ortalama korelasyon (koşu 1 / 2 / 3) çekirdekle hizalamada '+lt('core')+', bütün Cα ile hizalamada '+lt('all')+'. |C| > 0,5 olan çiftlerin payı çekirdek hizalamasında '+fs('core')+', bütün Cα hizalamasında '+fs('all')+'. Veri aynı; yalnız hizalama değişti. Kuyruk hizalamaya katılınca onun hareketini dengelemek için bütün molekül döndürülür ve uzak bölgeler arasında zıt korelasyon belirir. Koşular arasında da haritalar farklı. Korelasyon bir hizalama çerçevesinde hesaplanan bir eş hareket ölçüsüdür; tek başına iletişim ya da nedensellik göstermez.');",
-   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'The mean correlation between loop 7 to 11 and the tail (run 1 / 2 / 3) is '+lt('core')+' with the core fit and '+lt('all')+' with the all-Cα fit. The fraction of pairs with |C| > 0.5 is '+fs('core')+' with the core fit and '+fs('all')+' with the all-Cα fit. The data are the same; only the fit changed. When the tail joins the fit, the whole molecule is rotated to compensate for its motion and anticorrelation appears between distant regions. The maps also differ between runs. Correlation is a co-motion measure computed in a fitting frame; on its own it does not show communication or causation.');"
+   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'Halka 7 ile 11 ve kuyruk arasındaki ortalama korelasyon (koşu 1 / 2 / 3) çekirdekle hizalamada '+lt('core')+', bütün Cα ile hizalamada '+lt('all')+'. |C| > 0,5 olan çiftlerin payı çekirdek hizalamasında '+fs('core')+', bütün Cα hizalamasında '+fs('all')+'. Veri aynı; yalnız hizalama değişti. Kuyruk hizalamaya katılınca onun hareketini dengelemek için bütün molekül ters yöne ötelenir (ve biraz döndürülür); uzak bölgeler arasında zıt korelasyon belirir. Koşular arasında da haritalar farklı. Korelasyon bir hizalama çerçevesinde hesaplanan bir eş hareket ölçüsüdür; tek başına iletişim ya da nedensellik göstermez.');",
+   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'The mean correlation between loop 7 to 11 and the tail (run 1 / 2 / 3) is '+lt('core')+' with the core fit and '+lt('all')+' with the all-Cα fit. The fraction of pairs with |C| > 0.5 is '+fs('core')+' with the core fit and '+fs('all')+' with the all-Cα fit. The data are the same; only the fit changed. When the tail joins the fit, the whole molecule is translated the opposite way (and rotated slightly) to compensate for its motion; anticorrelation appears between distant regions. The maps also differ between runs. Correlation is a co-motion measure computed in a fitting frame; on its own it does not show communication or causation.');"
   ],
   [
    "else card('pc6',false,'Şimdiye kadar: '+Object.keys(DC.seenF).filter(function(k){ return k!=='diff'; }).length+' hizalama, '+nR+' koşu. İki hizalamaya ve en az iki koşuya bakın.'); }",
