@@ -272,7 +272,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
       <div class="ctl">
         <div class="btns"><button type="button" class="btn primary" id="k4pProj">Bu projenin ayarı</button><button type="button" class="btn" id="k4pNone">Tampon yok</button><button type="button" class="btn" id="k4pRare">Liste seyrek</button></div>
         <div><label class="lbl" for="k4rc">Kesme mesafesi (rvdw, rcoulomb)</label><div class="big" id="k4rcV"></div><input type="range" id="k4rc" min="80" max="160" step="2" value="100"></div>
-        <div><label class="lbl" for="k4buf">Tampon (rlist − r<sub>c</sub>)</label><div class="big" id="k4bufV"></div><input type="range" id="k4buf" min="0" max="200" step="2" value="104"></div>
+        <div><label class="lbl" for="k4buf">Tampon (rlist − r<sub>c</sub>)</label><div class="big" id="k4bufV"></div><input type="range" id="k4buf" min="0" max="200" step="2" value="106"></div>
         <div><label class="lbl" for="k4nst">Liste yenileme aralığı (nstlist)</label><div class="big" id="k4nstV"></div><input type="range" id="k4nst" min="10" max="400" step="10" value="50"></div>
         <dl class="read">
           <dt>Kesme içindeki atom (3B tahmin)</dt><dd id="k4nC"></dd>
@@ -292,10 +292,10 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
       <tr><td><code>vdw-modifier</code></td><td class="n">Potential-shift-Verlet</td><td>kesmede kaydırılmış potansiyel</td></tr>
       <tr><td><code>DispCorr</code></td><td class="n">EnerPres</td><td>kesmenin dışındaki çekimin ortalama katkısı enerji ve basınca eklenir</td></tr>
       <tr><td><code>coulombtype</code></td><td class="n">PME</td><td>elektrostatiğin uzak kısmı ızgarada (MD-ELEC)</td></tr>
-      <tr><td><code>nstlist</code>, <code>rlist</code></td><td class="n">10 → 50; 1,0 → 1,104 nm</td><td>komşu listesi; mdrun listeyi 50 adımda bir yenileyecek biçimde uzattı</td></tr>
+      <tr><td><code>nstlist</code>, <code>rlist</code></td><td class="n">10 → 50; 1,0 → 1,106 nm</td><td>komşu listesi; mdrun listeyi 50 adımda bir yenileyecek biçimde uzattı</td></tr>
     </tbody></table></div>
     <div class="prose">
-      <p><b>Tablodaki 1,104 nm.</b> Koşu dosyasında nstlist 10 ve rlist 1,0 nm yazıyordu. mdrun hızlanmak için listeyi 50 adımda bir yenilemeye karar verdi ve tamponu, izin verilen enerji hatasına göre 0,104 nm'ye çıkardı. Yukarıdaki "Bu projenin ayarı" düğmesi bu değerlerdir.</p>
+      <p><b>Tablodaki 1,106 nm.</b> Koşu dosyasında nstlist 10 ve rlist 1,0 nm yazıyordu. mdrun hızlanmak için listeyi 50 adımda bir yenilemeye karar verdi ve tamponu, izin verilen enerji hatasına göre 0,106 nm'ye çıkardı (kısıtsız deneme koşusunun günlüğü; daha dar S3 kutusunda aynı hesap 1,104 nm verdi). Yukarıdaki "Bu projenin ayarı" düğmesi bu değerlerdir.</p>
       <p><b>Kutu sınırı.</b> Kesme mesafesi kutu kenarının yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez. Bu projenin 1UBQ kutusunun en kısa kenarı 6,49 nm'dir; yarısı 3,25 nm, kesmenin üç katından fazla.</p>
     </div>
   </section>
@@ -718,7 +718,7 @@ function nEval(){
 /* Protein yüzeyindeki bir atom ve çevresindeki su (ince bir dilim, nm). Su molekülleri Langevin hareketiyle
    ilerler: kT/m = 0,1384 nm²/ps² (300 K, 18 g/mol), sürtünme 60 ps⁻¹ (D ≈ 0,0023 nm²/ps, suyun ölçülen
    difüzyonu), zaman adımı 2 fs. Komşu listesi nstlist adımda bir, r_list = r_c + tampon ile kurulur. */
-var P4={H:2.3, KT:0.1384, G:60, DT:0.002, rc:1.0, buf:0.104, nst:50, spf:1, run:true, w:null, prot:null, list:null, missed:null, ref:null, k:0, step:0, miss:0, missCyc:0, ev:[], clock:0, lastDisp:null, sp:{}, rng:null};
+var P4={H:2.3, KT:0.1384, G:60, DT:0.002, rc:1.0, buf:0.106, nst:50, spf:1, run:true, w:null, prot:null, list:null, missed:null, ref:null, k:0, step:0, miss:0, missCyc:0, ev:[], clock:0, lastDisp:null, sp:{}, rng:null};
 function p4Surf(y){ return -0.28+0.22*Math.sin(1.6*y+0.4)+0.08*Math.sin(3.1*y); }
 function p4Init(){ var r=(function(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; })(11), H=P4.H, i;
   P4.rng=r; P4.prot=[]; var d=0.3;
@@ -786,9 +786,9 @@ function p4Set(rc,buf,nst){ P4.rc=rc; P4.buf=buf; P4.nst=nst; $('k4rc').value=Ma
 $('k4rc').addEventListener('input',function(){ P4.rc=+$('k4rc').value/100; P4.miss=0; p4Refresh(true); p4Draw(); });
 $('k4buf').addEventListener('input',function(){ P4.buf=+$('k4buf').value/1000; P4.miss=0; P4.lastDisp=null; p4Refresh(true); p4Draw(); p4Msg(); });
 $('k4nst').addEventListener('input',function(){ P4.nst=+$('k4nst').value; P4.miss=0; P4.lastDisp=null; p4Refresh(true); p4Draw(); p4Msg(); });
-$('k4pProj').onclick=function(){ p4Set(1.0,0.104,50); };
+$('k4pProj').onclick=function(){ p4Set(1.0,0.106,50); };
 $('k4pNone').onclick=function(){ p4Set(1.0,0,50); };
-$('k4pRare').onclick=function(){ p4Set(1.0,0.104,400); };
+$('k4pRare').onclick=function(){ p4Set(1.0,0.106,400); };
 $('k4pause').onclick=function(){ P4.paused=!P4.paused; $('k4pause').textContent=P4.paused?'Sürdür':'Durdur'; p4Draw(); kick(); };
 $('k4fast').onclick=function(){ P4.spf=P4.spf===1?10:1; $('k4fast').setAttribute('aria-pressed',String(P4.spf===10)); $('k4fast').textContent=P4.spf===10?'Yavaş (1 adım/kare)':'Hızlı (10 adım/kare)'; kick(); };
 
@@ -811,7 +811,7 @@ var QZ=[
    w:'Tezgâhta kesmeyi L/2\'nin üstüne çıkardığınızda kırmızı halkalı kopyaları gördünüz. Bu yüzden kutu, kesmenin en az iki katı genişlikte olmalıdır.'},
   {s:'GROMACS komşu listesini kesmeden biraz uzun bir uzaklıkla (rlist > r_c) kurar. Neden?',
    o:[['Liste yenilenene kadar dışarıdan kesme çemberine girebilecek molekülleri kaçırmamak için',1],['Enerjiyi artırmak için',0],['Kutuyu büyütmek için',0],['Elektrostatiği hesaplamak için',0]],
-   w:'Liste birkaç adımda bir yenilenir; aradaki tampon (bu projenin koşusunda 0,104 nm) o sürede çembere girebilecek molekülleri içerir.'}
+   w:'Liste birkaç adımda bir yenilenir; aradaki tampon (bu projenin koşusunda 0,106 nm) o sürede çembere girebilecek molekülleri içerir.'}
 ];
 function renderQuiz(){
   $('k2quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'">'+o[0]+'</button>';}).join('')+'</div><p class="why" id="k2why'+i+'" hidden></p></div>'; }).join('');

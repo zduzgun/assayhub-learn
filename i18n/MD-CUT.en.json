@@ -1,7 +1,7 @@
 {
  "module": "MD-CUT",
  "lang": "en",
- "source_sha256": "6b12b083d8d34b780c16c0135f9405e0d9b33917ae8cf773b574fe119b3ff165",
+ "source_sha256": "664282e44dcc281451f8c49aebf6d8bc9bd0f526ceefcb143f487d6ddbe0c3f7",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-CUT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -363,8 +363,8 @@
    "<div><label class=\"lbl\" for=\"k4rc\">Cut-off distance (rvdw, rcoulomb)</label><div class=\"big\" id=\"k4rcV\"></div><input type=\"range\" id=\"k4rc\" min=\"80\" max=\"160\" step=\"2\" value=\"100\"></div>"
   ],
   [
-   "<div><label class=\"lbl\" for=\"k4buf\">Tampon (rlist − r<sub>c</sub>)</label><div class=\"big\" id=\"k4bufV\"></div><input type=\"range\" id=\"k4buf\" min=\"0\" max=\"200\" step=\"2\" value=\"104\"></div>",
-   "<div><label class=\"lbl\" for=\"k4buf\">Buffer (rlist − r<sub>c</sub>)</label><div class=\"big\" id=\"k4bufV\"></div><input type=\"range\" id=\"k4buf\" min=\"0\" max=\"200\" step=\"2\" value=\"104\"></div>"
+   "<div><label class=\"lbl\" for=\"k4buf\">Tampon (rlist − r<sub>c</sub>)</label><div class=\"big\" id=\"k4bufV\"></div><input type=\"range\" id=\"k4buf\" min=\"0\" max=\"200\" step=\"2\" value=\"106\"></div>",
+   "<div><label class=\"lbl\" for=\"k4buf\">Buffer (rlist − r<sub>c</sub>)</label><div class=\"big\" id=\"k4bufV\"></div><input type=\"range\" id=\"k4buf\" min=\"0\" max=\"200\" step=\"2\" value=\"106\"></div>"
   ],
   [
    "<div><label class=\"lbl\" for=\"k4nst\">Liste yenileme aralığı (nstlist)</label><div class=\"big\" id=\"k4nstV\"></div><input type=\"range\" id=\"k4nst\" min=\"10\" max=\"400\" step=\"10\" value=\"50\"></div>",
@@ -427,12 +427,12 @@
    "<tr><td><code>coulombtype</code></td><td class=\"n\">PME</td><td>long-range part of electrostatics on a grid (MD-ELEC)</td></tr>"
   ],
   [
-   "<tr><td><code>nstlist</code>, <code>rlist</code></td><td class=\"n\">10 → 50; 1,0 → 1,104 nm</td><td>komşu listesi; mdrun listeyi 50 adımda bir yenileyecek biçimde uzattı</td></tr>",
-   "<tr><td><code>nstlist</code>, <code>rlist</code></td><td class=\"n\">10 → 50; 1.0 → 1.104 nm</td><td>neighbor list; mdrun extended the list so that it is renewed every 50 steps</td></tr>"
+   "<tr><td><code>nstlist</code>, <code>rlist</code></td><td class=\"n\">10 → 50; 1,0 → 1,106 nm</td><td>komşu listesi; mdrun listeyi 50 adımda bir yenileyecek biçimde uzattı</td></tr>",
+   "<tr><td><code>nstlist</code>, <code>rlist</code></td><td class=\"n\">10 → 50; 1.0 → 1.106 nm</td><td>neighbor list; mdrun extended the list so that it is renewed every 50 steps</td></tr>"
   ],
   [
-   "<p><b>Tablodaki 1,104 nm.</b> Koşu dosyasında nstlist 10 ve rlist 1,0 nm yazıyordu. mdrun hızlanmak için listeyi 50 adımda bir yenilemeye karar verdi ve tamponu, izin verilen enerji hatasına göre 0,104 nm'ye çıkardı. Yukarıdaki \"Bu projenin ayarı\" düğmesi bu değerlerdir.</p>",
-   "<p><b>The 1.104 nm in the table.</b> The run file said nstlist 10 and rlist 1.0 nm. To run faster, mdrun decided to renew the list every 50 steps and widened the buffer to 0.104 nm according to the allowed energy error. The \"This project's setting\" button above uses these values.</p>"
+   "<p><b>Tablodaki 1,106 nm.</b> Koşu dosyasında nstlist 10 ve rlist 1,0 nm yazıyordu. mdrun hızlanmak için listeyi 50 adımda bir yenilemeye karar verdi ve tamponu, izin verilen enerji hatasına göre 0,106 nm'ye çıkardı (kısıtsız deneme koşusunun günlüğü; daha dar S3 kutusunda aynı hesap 1,104 nm verdi). Yukarıdaki \"Bu projenin ayarı\" düğmesi bu değerlerdir.</p>",
+   "<p><b>The 1.106 nm in the table.</b> The run file said nstlist 10 and rlist 1.0 nm. To run faster, mdrun decided to renew the list every 50 steps and widened the buffer to 0.106 nm according to the allowed energy error (log of the unrestrained trial run; in the narrower S3 box the same calculation gave 1.104 nm). The \"This project's setting\" button above uses these values.</p>"
   ],
   [
    "<p><b>Kutu sınırı.</b> Kesme mesafesi kutu kenarının yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez. Bu projenin 1UBQ kutusunun en kısa kenarı 6,49 nm'dir; yarısı 3,25 nm, kesmenin üç katından fazla.</p>",
@@ -803,8 +803,8 @@
    "o:[['So as not to miss molecules that could enter the cut-off circle from outside before the list is renewed',1],['To increase the energy',0],['To enlarge the box',0],['To compute electrostatics',0]],"
   ],
   [
-   "w:'Liste birkaç adımda bir yenilenir; aradaki tampon (bu projenin koşusunda 0,104 nm) o sürede çembere girebilecek molekülleri içerir.'}",
-   "w:'The list is renewed every few steps; the buffer in between (0.104 nm in this project\\'s run) contains the molecules that could enter the circle during that time.'}"
+   "w:'Liste birkaç adımda bir yenilenir; aradaki tampon (bu projenin koşusunda 0,106 nm) o sürede çembere girebilecek molekülleri içerir.'}",
+   "w:'The list is renewed every few steps; the buffer in between (0.106 nm in this project\\'s run) contains the molecules that could enter the circle during that time.'}"
   ],
   [
    "b.classList.add(ok?'right':'wrong'); var w=$('k2why'+i); w.hidden=false; w.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tam değil.</b> ')+q.w;",

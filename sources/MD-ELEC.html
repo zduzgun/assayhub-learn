@@ -339,7 +339,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
     <canvas id="k5bar" class="plot" aria-label="Bu projenin 10 ps'lik deneme koşusunda enerji terimlerinin ortalaması"></canvas>
     <div class="prose">
       <p><b>Grafikteki sayılar gerçektir.</b> Bu projenin 10 ps'lik kısıtsız deneme koşusunun (5.001 adım, 51 kare) ortalamalarıdır: <code>Coulomb (SR)</code> yakın kısım, <code>Coul. recip.</code> uzak kısım. Bu bölünme, koşunun β değerine göredir; β değişseydi iki terimin payı değişir, toplam elektrostatik enerji değişmezdi. Tezgâhta bunu kristalde gördünüz.</p>
-      <p><b>Net yük.</b> Ewald toplamı yalnız toplam yük sıfırken tam anlamlıdır; net yük varsa yöntem kutuya yayılmış düzgün bir karşı yük varsayar. Bu yüzden hazırlıkta <code>gmx genion -neutral</code> ile karşı iyon eklenir. Bu projenin ubikitin topolojisinin toplam yükü 0,000 e (pdb2gmx) ve deneme koşusunda iyon eklenmedi; kutu saf sudur.</p>
+      <p><b>Net yük.</b> Ewald toplamı yalnız toplam yük sıfırken tam anlamlıdır; net yük varsa yöntem kutuya yayılmış düzgün bir karşı yük varsayar. Bu yüzden hazırlıkta <code>gmx genion -neutral</code> ile karşı iyon eklenir. Bu projenin ubikitin topolojisinin toplam yükü 0,000 e (pdb2gmx) ve ana deneme koşusunda (S0) iyon eklenmedi; kutu saf sudur.</p>
     </div>
     <div class="two">
       <div style="display:grid;gap:8px"><label class="lbl" for="k5c">Eklenecek tuz (genion -conc)</label><div class="big" id="k5cV"></div><input type="range" id="k5c" min="0" max="300" step="5" value="150"></div>
@@ -349,7 +349,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
         <dt>Karşı iyon (net yük 0)</dt><dd>0</dd>
       </dl>
     </div>
-    <p class="small">Çift sayısı, genion'un tanımına göre kutu hacminden hesaplanır (derişim × hacim × Avogadro sayısı). Bu projede tuzlu bir koşu yapılmadı: <b>bu senaryo hesaplanmadı</b>.</p>
+    <p class="small">Çift sayısı, genion'un tanımına göre kutu hacminden hesaplanır (derişim × hacim × Avogadro sayısı). Bu projenin senaryo protokolündeki S4 hazırlığında 0,15 M istendi: genion 17 Na⁺ ve 17 Cl⁻ ekledi (hesap 17,47) ve 10 ps'lik kısıtsız bir deneme koşusu sorunsuz tamamlandı. Tuzun ubikitin üzerindeki etkisi bu kısa koşuyla ölçülemez: <b>bu senaryo hesaplanmadı</b>.</p>
     <div class="tw"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>
       <tr><td><code>coulombtype</code></td><td class="n">PME</td><td>uzak kısım ızgarada, hızlı Fourier dönüşümüyle</td></tr>
       <tr><td><code>rcoulomb</code></td><td class="n">1,0 nm</td><td>gerçek uzay kesmesi</td></tr>

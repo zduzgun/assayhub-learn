@@ -1,5 +1,12 @@
 # Sürüm notları
 
+## 0.42.5 (10 Ekim 2026) · Kitap denetiminde bulunan üç modül düzeltmesi
+
+- MD-CUT 0.1.2: Proteine dönüş bölümünde komşu listesi yarıçapı 1,104 nm değil 1,106 nm (tampon 0,104 değil 0,106 nm). Değer, ubikitin kısıtsız deneme koşusunun günlüğünden ("Changing nstlist from 10 to 50, rlist from 1 to 1.106"); 1,104 nm daha dar S3 kutusunun değeriydi. Tablo, açıklama, kart metni ve canlı simülasyonun "Bu projenin ayarı" düğmesi düzeltildi.
+- MD-ELEC 0.1.1: "Bu projede tuzlu bir koşu yapılmadı" yanlıştı. Senaryo protokolündeki S4 hazırlığında 0,15 M NaCl istendi: genion 17 Na⁺ ve 17 Cl⁻ ekledi (hesap 17,47) ve 10 ps'lik kısıtsız deneme koşusu tamamlandı. Metin buna göre yazıldı; tuzun ubikitin üzerindeki etkisi için "bu senaryo hesaplanmadı" kaldı. Veri listesine S4 eklendi.
+- MD-REP 0.1.2: Tezgâhtaki hüküm satırının JavaScript'siz yer tutucusu "Bu senaryo henüz hesaplanmadı: koşular sürüyor" idi (koşular 4 Ekim'de bitti). Yerine ön kayıtlı hüküm yazıldı; veri yüklenemezse tuvallerde "Gömülü veri yüklenemedi" görünür.
+- Üç düzeltme de kitap bölümlerinin (CH04, CH06) bağımsız denetiminde bulundu. İngilizce tablolar aynı biçimde güncellendi; çift sayıları değişmedi. Değişen İngilizce cümleler 9 Ekim toplu çeviri onayından sonra yazıldı.
+
 ## 0.42.4 (9 Ekim 2026) · Sözlüğe kitaptaki yazımlar eklendi
 
 - Kitap taslaklarında sözlük terimleri tarandı (öneri listesi kitap klasöründe, `book/links_2026-10-09_sozluk/`). Yazarın kararıyla kitapta kullanılan iki yazım sözlüğe eş anlamlı olarak eklendi: "entegratör" (integratör) ve "enerji sürüklenmesi" (enerji kayması). Sözlük sayfasında "Ayrıca" satırında görünür ve aramada bulunur; eşleşme kalıplarına da eklendi (modül bağlantıları değişmedi: modüllerde bu yazımlar geçmiyor). Tanımlar değişmedi; `inceleme` alanına not düşüldü.

@@ -238,7 +238,7 @@
       "title": "En yakın kopya ve kesme",
       "path": "md/md-cut/",
       "source": "sources/MD-CUT.html",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -273,7 +273,7 @@
       "title": "Tuz, perdeleme ve Ewald",
       "path": "md/md-elec/",
       "source": "sources/MD-ELEC.html",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -284,7 +284,8 @@
       "data": [
         "Tarayıcıda hesaplanan iki boyutlu iyon örgüsü ve Ewald toplamı (öğretim amaçlı)",
         "NaCl örgü enerjisi ve Madelung sabiti; Debye-Hückel ve Malmberg-Maryott bağıntıları; DNA erime sıcaklığı için Schildkraut-Lifson bağıntısı",
-        "Bu projenin ubikitin koşusunun PME ayarları ve Coulomb enerji terimleri (md.log, 10 ps ortalaması)"
+        "Bu projenin ubikitin koşusunun PME ayarları ve Coulomb enerji terimleri (md.log, 10 ps ortalaması)",
+        "Bu projenin S4 hazırlığı (0,15 M NaCl; genion.log: 17 Na⁺, 17 Cl⁻)"
       ],
       "notice": null,
       "en": {
@@ -298,7 +299,8 @@
         "data": [
           "Two-dimensional ion lattice and Ewald sum computed in the browser (for teaching)",
           "NaCl lattice energy and Madelung constant; Debye-Hückel and Malmberg-Maryott relations; Schildkraut-Lifson relation for the DNA melting temperature",
-          "PME settings and Coulomb energy terms of this project's ubiquitin run (md.log, 10 ps average)"
+          "PME settings and Coulomb energy terms of this project's ubiquitin run (md.log, 10 ps average)",
+          "This project's S4 preparation (0.15 M NaCl; genion.log: 17 Na⁺, 17 Cl⁻)"
         ],
         "notice": null
       }
@@ -575,7 +577,7 @@
       "app": "md",
       "level": "temel",
       "title": "Fark gerçek mi? Karşılaştırma, tekrar ve kontrol tasarımı",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "status": "pilot",
       "book": "CH06",
       "goals": [

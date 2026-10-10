@@ -197,7 +197,7 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <h2 id="rh2">Su ve 0,15 M NaCl: önceden yazılmış plan ne diyor?</h2>
     <div class="prose"><p>Aynı soru gerçek bir GROMACS ızgarasında. Plan koşulardan önce yazılıp donduruldu: tekrar birimi bağımsız koşudur (her koşulda 8 tekrar, her biri kendi tohumuyla; tuzlu tekrarlarda iyonların yeri de tohuma bağlıdır), birincil ölçüt 200 ile 2000 ps arasındaki αR payıdır, test tam permütasyon testidir (12.870 ayrım, iki yönlü, α 0,05), en küçük önemli etki ±5 yüzde puanıdır ve dört hüküm cümlesi önceden yazılmıştır. Koşular W1, S1, W2, S2 sırasıyla dönüşümlü koşuldu.</p></div>
     <div id="rbench">
-    <p class="verdict pending" id="rverd">Bu senaryo henüz hesaplanmadı: koşular sürüyor.</p>
+    <p class="verdict pending" id="rverd">Ön kayıtlı hüküm: kararsız (fark +0,06 puan; permütasyon p = 0,9911). Ayrıntılı gösterimler için JavaScript gerekir.</p>
     <div class="stagebox"><canvas id="rdot" class="plot" aria-label="Her tekrarın αR payı: solda su, sağda tuz; yatay çizgiler grup ortalaması"></canvas><div class="tip"></div></div>
     <dl class="read" id="rdread"></dl>
     <h3 class="sub">Önceden kayıtlı test</h3>
@@ -611,7 +611,7 @@ function benchCards(){ if(!RB.ok) return; var P=RB.pr;
     var same=F.filter(function(q){ return q.v===P.v; }).map(function(q){return q.k;}), diff=F.filter(function(q){ return q.v!==P.v; });
     card('rc7',true,F.map(function(q){ return 'k = '+q.k+': fark '+fx(q.d,1)+' puan, aralık '+fx(q.lo95,1)+' ile '+fx(q.hi95,1)+', hüküm '+vText(q.v); }).join('; ')+'. '+(diff.length?'Baktığınız k değerlerinden '+diff.map(function(q){return q.k;}).join(', ')+' ile hüküm 8 tekrarınkinden farklı çıkardı.':'Baktığınız k değerlerinin hepsinde hüküm 8 tekrarınkiyle aynı.')+' Aralığın genişliği tekrar sayısıyla daralır; n\'yi önceden yazmak, "anlamlı çıkınca dur" gibi bir kararın sonucu kaydırmasını önler.'); } }
 function bench(){
-  if(!benchLoad()){ $('rbench').querySelectorAll('canvas').forEach(function(cv){ var f=fit(cv); f.g.fillStyle=css('--muted'); f.g.font='13px '+css('--sans'); f.g.fillText('Bu senaryo henüz hesaplanmadı: koşular sürüyor.',14,24); }); return; }
+  if(!benchLoad()){ $('rbench').querySelectorAll('canvas').forEach(function(cv){ var f=fit(cv); f.g.fillStyle=css('--muted'); f.g.font='13px '+css('--sans'); f.g.fillText('Gömülü veri yüklenemedi.',14,24); }); return; }
   benchVerdict(); benchDot(); benchDotTip(); benchDRead(); benchPerm(); benchPRead(); benchAA(); benchAATip(); benchSec(); benchHealth();
   RB.k=RB.fk.length?RB.fk[RB.fk.length-1].k:8; $('rk').max=String(RB.k); $('rk').value=String(RB.k); $('rkv').textContent=String(RB.k); benchK(); benchKRead();
   segWire('rpview',function(v){ RB.view=v; benchPerm(); });

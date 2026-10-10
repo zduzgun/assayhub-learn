@@ -1,7 +1,7 @@
 {
  "module": "MD-ELEC",
  "lang": "en",
- "source_sha256": "351d6e63bbe2b2108420606e5f94b825d67161b537fc4e0d10c64dcb5c2b06df",
+ "source_sha256": "e623b8d76aaad11d73f2fb8b886a81725a359be09e40bb0cd1aa47017aa9dcb0",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-ELEC 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -503,8 +503,8 @@
    "<p><b>The numbers in the graph are real.</b> They are the averages of this project's 10 ps unrestrained trial run (5,001 steps, 51 frames): <code>Coulomb (SR)</code> is the near part, <code>Coul. recip.</code> the far part. This split follows the run's β; if β were different, the shares of the two terms would change, but not the total electrostatic energy. You saw this for the crystal at the bench.</p>"
   ],
   [
-   "<p><b>Net yük.</b> Ewald toplamı yalnız toplam yük sıfırken tam anlamlıdır; net yük varsa yöntem kutuya yayılmış düzgün bir karşı yük varsayar. Bu yüzden hazırlıkta <code>gmx genion -neutral</code> ile karşı iyon eklenir. Bu projenin ubikitin topolojisinin toplam yükü 0,000 e (pdb2gmx) ve deneme koşusunda iyon eklenmedi; kutu saf sudur.</p>",
-   "<p><b>Net charge.</b> The Ewald sum is fully meaningful only when the total charge is zero; if there is a net charge, the method assumes a uniform compensating charge spread over the box. This is why counterions are added during preparation with <code>gmx genion -neutral</code>. The total charge of this project's ubiquitin topology is 0.000 e (pdb2gmx) and no ions were added in the trial run; the box is pure water.</p>"
+   "<p><b>Net yük.</b> Ewald toplamı yalnız toplam yük sıfırken tam anlamlıdır; net yük varsa yöntem kutuya yayılmış düzgün bir karşı yük varsayar. Bu yüzden hazırlıkta <code>gmx genion -neutral</code> ile karşı iyon eklenir. Bu projenin ubikitin topolojisinin toplam yükü 0,000 e (pdb2gmx) ve ana deneme koşusunda (S0) iyon eklenmedi; kutu saf sudur.</p>",
+   "<p><b>Net charge.</b> The Ewald sum is fully meaningful only when the total charge is zero; if there is a net charge, the method assumes a uniform compensating charge spread over the box. This is why counterions are added during preparation with <code>gmx genion -neutral</code>. The total charge of this project's ubiquitin topology is 0.000 e (pdb2gmx) and no ions were added in the main trial run (S0); the box is pure water.</p>"
   ],
   [
    "<div style=\"display:grid;gap:8px\"><label class=\"lbl\" for=\"k5c\">Eklenecek tuz (genion -conc)</label><div class=\"big\" id=\"k5cV\"></div><input type=\"range\" id=\"k5c\" min=\"0\" max=\"300\" step=\"5\" value=\"150\"></div>",
@@ -523,8 +523,8 @@
    "<dt>Counterions (net charge 0)</dt><dd>0</dd>"
   ],
   [
-   "<p class=\"small\">Çift sayısı, genion'un tanımına göre kutu hacminden hesaplanır (derişim × hacim × Avogadro sayısı). Bu projede tuzlu bir koşu yapılmadı: <b>bu senaryo hesaplanmadı</b>.</p>",
-   "<p class=\"small\">Following genion's definition, the number of pairs is computed from the box volume (concentration × volume × Avogadro's number). No run with salt was made in this project: <b>this scenario was not computed</b>.</p>"
+   "<p class=\"small\">Çift sayısı, genion'un tanımına göre kutu hacminden hesaplanır (derişim × hacim × Avogadro sayısı). Bu projenin senaryo protokolündeki S4 hazırlığında 0,15 M istendi: genion 17 Na⁺ ve 17 Cl⁻ ekledi (hesap 17,47) ve 10 ps'lik kısıtsız bir deneme koşusu sorunsuz tamamlandı. Tuzun ubikitin üzerindeki etkisi bu kısa koşuyla ölçülemez: <b>bu senaryo hesaplanmadı</b>.</p>",
+   "<p class=\"small\">Following genion's definition, the number of pairs is computed from the box volume (concentration × volume × Avogadro's number). In this project's scenario protocol, the S4 preparation asked for 0.15 M: genion added 17 Na⁺ and 17 Cl⁻ (calculated 17.47), and a 10 ps unrestrained trial run completed without problems. The effect of salt on ubiquitin cannot be measured with such a short run: <b>this scenario was not computed</b>.</p>"
   ],
   [
    "<div class=\"tw\"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>",

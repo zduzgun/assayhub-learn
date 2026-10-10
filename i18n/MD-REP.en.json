@@ -1,7 +1,7 @@
 {
  "module": "MD-REP",
  "lang": "en",
- "source_sha256": "eb16aca1caa502497d984cc0e351a3d727a9fb38cd4718c3de4a2c50522c654b",
+ "source_sha256": "319ef9dbe8064369494545eb326c6bd587f2d8c22ae4ce2e8bb169a514ceeba0",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-REP 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -155,8 +155,8 @@
    "<div class=\"prose\"><p>The same question on a real GROMACS grid. The plan was written and frozen before the runs: the replicate unit is an independent run (8 replicates per condition, each with its own seed; in the salt replicates the ion positions also depend on the seed), the primary measure is the αR fraction between 200 and 2000 ps, the test is an exact permutation test (12,870 splits, two-sided, α 0.05), the smallest effect of interest is ±5 percentage points, and four verdict sentences were written in advance. The runs were alternated in the order W1, S1, W2, S2.</p></div>"
   ],
   [
-   "<p class=\"verdict pending\" id=\"rverd\">Bu senaryo henüz hesaplanmadı: koşular sürüyor.</p>",
-   "<p class=\"verdict pending\" id=\"rverd\">This scenario has not been computed yet: the runs are in progress.</p>"
+   "<p class=\"verdict pending\" id=\"rverd\">Ön kayıtlı hüküm: kararsız (fark +0,06 puan; permütasyon p = 0,9911). Ayrıntılı gösterimler için JavaScript gerekir.</p>",
+   "<p class=\"verdict pending\" id=\"rverd\">Preregistered verdict: inconclusive (difference +0.06 points; permutation p = 0.9911). The detailed views need JavaScript.</p>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"rdot\" class=\"plot\" aria-label=\"Her tekrarın αR payı: solda su, sağda tuz; yatay çizgiler grup ortalaması\"></canvas><div class=\"tip\"></div></div>",
@@ -635,8 +635,8 @@
    "card('rc7',true,F.map(function(q){ return 'k = '+q.k+': difference '+fx(q.d,1)+' points, interval '+fx(q.lo95,1)+' to '+fx(q.hi95,1)+', verdict '+vText(q.v); }).join('; ')+'. '+(diff.length?'Of the k values you looked at, '+diff.map(function(q){return q.k;}).join(', ')+' would have given a verdict different from that of 8 replicates.':'All the k values you looked at give the same verdict as 8 replicates.')+' The width of the interval shrinks with the number of replicates; writing n down in advance stops a decision such as \"stop once it is significant\" from shifting the result.'); } }"
   ],
   [
-   "if(!benchLoad()){ $('rbench').querySelectorAll('canvas').forEach(function(cv){ var f=fit(cv); f.g.fillStyle=css('--muted'); f.g.font='13px '+css('--sans'); f.g.fillText('Bu senaryo henüz hesaplanmadı: koşular sürüyor.',14,24); }); return; }",
-   "if(!benchLoad()){ $('rbench').querySelectorAll('canvas').forEach(function(cv){ var f=fit(cv); f.g.fillStyle=css('--muted'); f.g.font='13px '+css('--sans'); f.g.fillText('This scenario has not been computed yet: the runs are in progress.',14,24); }); return; }"
+   "if(!benchLoad()){ $('rbench').querySelectorAll('canvas').forEach(function(cv){ var f=fit(cv); f.g.fillStyle=css('--muted'); f.g.font='13px '+css('--sans'); f.g.fillText('Gömülü veri yüklenemedi.',14,24); }); return; }",
+   "if(!benchLoad()){ $('rbench').querySelectorAll('canvas').forEach(function(cv){ var f=fit(cv); f.g.fillStyle=css('--muted'); f.g.font='13px '+css('--sans'); f.g.fillText('The embedded data could not be loaded.',14,24); }); return; }"
   ],
   [
    "var r=V3.id&&v3Get(V3.id); if(!r){ g.fillStyle=css('--muted'); g.font='13px '+css('--sans'); g.fillText('Bu senaryo hesaplanmadı: kare verisi yok.',14,24); return; }",
