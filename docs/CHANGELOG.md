@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.42.6 (10 Ekim 2026) · Türkçe metinde "çözgen" yerine "çözücü"
+
+- MD-SOLV 0.1.1: Türkçe metindeki 21 "çözgen" "çözücü" oldu (başlık, bölüm başlıkları, açıklamalar, Defter kaydı, iddia kartları ve sınama sorusu; ek uyumuyla: çözücüye, çözücüsüz). Modül adı "Çözücü de modelin parçası: iyonlar ve yardımcı çözücü". Gerekçe: TDK Güncel Türkçe Sözlük "çözücü"yü kimya terimi olarak verir, "çözgen" için sonuç vermez; sitenin sözlüğü de "çözücü" kullanır. Sözlükteki "çözgen" eş anlamlısı aramada bulunmak için kaldı.
+- Kitap sayfası: CH10'un başlığı "Çözücülü ve heterojen sistem kurmak" (book.json). Kitabın CH10 v4 sürümüyle aynı.
+- Karar kitabın kararlar turunda verildi ve yazar onayladı (10 Ekim 2026). İngilizce çeviri tablosunda yalnız Türkçe taraf ve kaynak özeti (`source_sha256`) değişti; İngilizce metin değişmedi (19 çift).
+
 ## 0.42.5 (10 Ekim 2026) · Kitap denetiminde bulunan üç modül düzeltmesi
 
 - MD-CUT 0.1.2: Proteine dönüş bölümünde komşu listesi yarıçapı 1,104 nm değil 1,106 nm (tampon 0,104 değil 0,106 nm). Değer, ubikitin kısıtsız deneme koşusunun günlüğünden ("Changing nstlist from 10 to 50, rlist from 1 to 1.106"); 1,104 nm daha dar S3 kutusunun değeriydi. Tablo, açıklama, kart metni ve canlı simülasyonun "Bu projenin ayarı" düğmesi düzeltildi.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MD: İyonlar ve yardımcı çözgen</title>
+<title>MD: İyonlar ve yardımcı çözücü</title>
 </head>
 <body>
 <style>
@@ -178,16 +178,16 @@ code{font-family:var(--mono);font-size:.92em;overflow-wrap:anywhere}
   <div class="proto" id="yproto">Bu modül için dört NaCl derişimi denendi (0,15, 0,5, 1,0 ve 2,0 M); 2,0 M kutusu genion adımında durdu, öbür üçü birer 2 ns koşu olarak tamamlandı. 8 M üre içinde alanin dipeptidi (dört bağımsız 2 ns tekrar) koşuldu; 0 M başvurusu MD-REP'in sekiz su tekrarıdır. Beş kutuda genion sayımı ve tek bir üre molekülünün topoloji denetimi de yapıldı. Koşu ve analiz planı koşulardan önce yazılıp SHA-256 ile donduruldu; sonuçlar GROMACS araçları ve ikinci uygulamalarla bağımsız olarak denetlendi. Hesaplanmayan her şey "Bu senaryo hesaplanmadı" diye işaretlidir.</div>
 
   <header>
-    <span class="eyebrow">MD-SOLV · Çözgen ortamı: iyonlar ve yardımcı çözgen</span>
-    <h1>Çözgen de modelin parçası</h1>
-    <p class="lead">"0,15 M NaCl" ya da "8 M üre" bir deney protokolünde tek satırdır. Simülasyonda ise belirli sayıda molekül, belirli bir kutu ve her birinin kendi topoloji dosyası demektir. Bu sayfada derişimin kutuda kaç moleküle karşılık geldiği, gerçekleşen derişimin ne olduğu, iyonların derişimle nasıl düzenlendiği ve 8 M ürenin alanin dipeptidinin çevresini ve konformasyonlarını nasıl değiştirdiği gerçek koşularla incelenir. Bir yardımcı çözgen dosyasının kendisinin de denetlenmesi gerektiği ayrıca gösterilir.</p>
+    <span class="eyebrow">MD-SOLV · Çözücü ortamı: iyonlar ve yardımcı çözücü</span>
+    <h1>Çözücü de modelin parçası</h1>
+    <p class="lead">"0,15 M NaCl" ya da "8 M üre" bir deney protokolünde tek satırdır. Simülasyonda ise belirli sayıda molekül, belirli bir kutu ve her birinin kendi topoloji dosyası demektir. Bu sayfada derişimin kutuda kaç moleküle karşılık geldiği, gerçekleşen derişimin ne olduğu, iyonların derişimle nasıl düzenlendiği ve 8 M ürenin alanin dipeptidinin çevresini ve konformasyonlarını nasıl değiştirdiği gerçek koşularla incelenir. Bir yardımcı çözücü dosyasının kendisinin de denetlenmesi gerektiği ayrıca gösterilir.</p>
     <div class="prog" aria-live="polite">Keşifler: <b id="yprogN">0 / 8</b></div>
   </header>
 
   <section class="card" aria-labelledby="yh0">
     <span class="step">Deneysel köprü</span>
     <h2 id="yh0">Üre titrasyonu: kararlılık ölçülmez, dışarı doğru uzatılır</h2>
-    <div class="prose"><p>Deneyde bir proteinin kararlılığı çoğu kez artan üre derişiminde açılmış payın (örneğin dairesel dikroizm ya da floresansla) ölçülmesiyle bulunur. Doğrusal ekstrapolasyon modeli (LEM) açılma serbest enerjisinin derişimle doğrusal azaldığını varsayar: ΔG([D]) = ΔG(H₂O) − m·[D] (Santoro ve Bolen 1988). Açılmış pay f = 1 / (1 + exp(ΔG/RT)) yalnız geçiş bölgesinde ölçülebilir; suda (0 M) ΔG değeri bu bölgeden doğruyla geriye uzatılarak elde edilir. m değeri açılmada çözgene açılan yüzeyle ilişkilidir (Myers, Pace ve Scholtz 1995). Aşağıdaki iki sürgüyle modelin kendisi tarayıcınızda hesaplanır; 25 °C.</p></div>
+    <div class="prose"><p>Deneyde bir proteinin kararlılığı çoğu kez artan üre derişiminde açılmış payın (örneğin dairesel dikroizm ya da floresansla) ölçülmesiyle bulunur. Doğrusal ekstrapolasyon modeli (LEM) açılma serbest enerjisinin derişimle doğrusal azaldığını varsayar: ΔG([D]) = ΔG(H₂O) − m·[D] (Santoro ve Bolen 1988). Açılmış pay f = 1 / (1 + exp(ΔG/RT)) yalnız geçiş bölgesinde ölçülebilir; suda (0 M) ΔG değeri bu bölgeden doğruyla geriye uzatılarak elde edilir. m değeri açılmada çözücüye açılan yüzeyle ilişkilidir (Myers, Pace ve Scholtz 1995). Aşağıdaki iki sürgüyle modelin kendisi tarayıcınızda hesaplanır; 25 °C.</p></div>
     <div class="selrow"><label for="ybg">ΔG(H₂O): <b id="ybgv">25</b> kJ/mol</label><input type="range" id="ybg" min="5" max="60" step="1" value="25"><label for="ybm">m: <b id="ybmv">6,0</b> kJ/mol/M</label><input type="range" id="ybm" min="2" max="12" step="0.5" value="6"></div>
     <div class="stagebox"><canvas id="ybridge" class="plot" aria-label="Doğrusal ekstrapolasyon modeli: ΔG ve açılmış pay üre derişimine karşı"></canvas></div>
     <div class="legend" id="ybleg"></div>
@@ -221,7 +221,7 @@ code{font-family:var(--mono);font-size:.92em;overflow-wrap:anywhere}
 
   <section class="card" aria-labelledby="yh2">
     <span class="step">2 · Atölye: 8 M üre</span>
-    <h2 id="yh2">Yardımcı çözgen: önce dosyası, sonra etkisi</h2>
+    <h2 id="yh2">Yardımcı çözücü: önce dosyası, sonra etkisi</h2>
     <div class="prose"><p>Üre için GROMACS 2023.3 dağıtımındaki <code>amber99sb-ildn.ff/urea.itp</code> dosyası kullanılmak istendi. Önce tek bir üre molekülü bu dosyayla ve eksik bir bölümü tamamlanmış kopyasıyla vakumda minimize edildi.</p></div>
     <div class="stagebox"><canvas id="yurea" class="plot" aria-label="İki topolojiyle minimize edilmiş üre molekülü"></canvas></div>
     <dl class="read w" id="yuread"></dl>
@@ -257,13 +257,13 @@ code{font-family:var(--mono);font-size:.92em;overflow-wrap:anywhere}
   </section>
 
   <section class="card" aria-labelledby="yh4">
-    <span class="step">4 · Defter: çözgen ortamı kaydı</span>
+    <span class="step">4 · Defter: çözücü ortamı kaydı</span>
     <h2 id="yh4">Koşudan önce yazılan altı satır</h2>
     <div class="prose"><p>Kendi çalışmanız için doldurun; örnekler bu sayfadandır. Eksik satırlar altta not üretir. Metin yalnız tarayıcınızda üretilir, hiçbir yere gönderilmez.</p></div>
     <div class="fgrid one">
       <label>İyonlar: tür, sayı ve nasıl hesaplandığı<textarea id="yfI" rows="2">Örnek: NaCl, 4 nm kutuda 6 çift; genion -conc 0.15 -neutral (sayı kutu hacminden).</textarea></label>
       <label>Gerçekleşen derişim<textarea id="yfC" rows="2">Örnek: molarite NPT ortalama hacmiyle, molalite su sayısıyla; hedefle yan yana raporlanır.</textarea></label>
-      <label>Yardımcı çözgen dosyası ve denetimi<textarea id="yfT" rows="2">Örnek: urea.itp (GROMACS 2023.3 amber99sb-ildn.ff); gmx dump ile bağ ve açı sayısı, tek molekül minimizasyonunda geometri denetlendi.</textarea></label>
+      <label>Yardımcı çözücü dosyası ve denetimi<textarea id="yfT" rows="2">Örnek: urea.itp (GROMACS 2023.3 amber99sb-ildn.ff); gmx dump ile bağ ve açı sayısı, tek molekül minimizasyonunda geometri denetlendi.</textarea></label>
       <label>Ekleme yöntemi<textarea id="yfM" rows="2">Örnek: insert-molecules -nmol 224, her tekrar kendi tohumuyla; ardından solvate.</textarea></label>
       <label>Kuvvet alanı uyumu<textarea id="yfF" rows="2">Örnek: iyonlar ve üre amber99sb-ildn.ff dosyalarından; su TIP3P.</textarea></label>
       <label>Tekrarlar ve başvuru<textarea id="yfR" rows="2">Örnek: 4 tekrar 8 M üre, başvuru 8 su tekrarı; aynı protokol.</textarea></label>
@@ -463,14 +463,14 @@ function cxRead(){ var m=IO.cm, ks=SK.filter(function(k){ return VDD.salt[k]; })
     return dl('Hedef '+SN[k],t); }).join('')+(m==='conc'?dl('Tanım','molarite = çift / (N_A × ⟨V⟩); molalite = çift / (su sayısı × 18,015 g/mol)'):''); }
 function cxCards(){ var n=Object.keys(IO.seenM).length, S=VDD.salt, ks=SK.filter(function(k){ return S[k]; }), F=VDD.salt_fail, fk=Object.keys(F);
   if(n>=3&&(!fk.length||IO.failAns!=null)){ var a=S[ks[0]], z=S[ks[ks.length-1]];
-    card('yc3',true,'genion\'a yazılan derişim, NPT dengesinden sonra kutunun gerçek hacmiyle aynı kalmaz: hedef '+ks.map(function(k){ return SN[k]+' → '+fx(S[k].molarity,3); }).join(', ')+' mol/L. Molalite yalnız iyon ve su sayısına bağlıdır, hacme bağlı değildir: '+ks.map(function(k){ return fx(S[k].molality,3); }).join(', ')+' mol/kg; derişim arttıkça molarite ile molalite birbirinden ayrılır. Küçük kutuda sayı tam sayıya yuvarlandığı için hedef zaten basamaklıdır. Yoğunluk '+fx(a.health.rho,3)+' g/cm³\'ten '+fx(z.health.rho,3)+' g/cm³\'e çıktı. '+(fk.length?fk.map(function(k){ var f=F[k]; return SN[k]+' hedefi ise hiç kurulamadı: genion '+f.na+' Na⁺ ve '+f.cl+' Cl⁻ yerleştirdikten sonra (hedef '+f.want+' çift) "No more replaceable solvent!" ile durdu, çıkış kodu '+f.code+'. Kutuda hâlâ '+fmtI(f.left)+' su vardı; durma nedeni, yeni iyonun çözgen olmayan atomlara -rmin (varsayılan '+fx(f.rmin,1)+' nm) uzaklık koşulunu sağlayan su kalmamasıdır. Plan gereği parametre değiştirilip yeniden denenmedi; 2,0 M koşusu analizden düştü. Teknik denemede yalnız genion\'un "Will try to add" satırı okunmuştu; bu sorun ancak planlı koşuda görüldü. '; }).join(''):'')+'Raporda hedef değil gerçekleşen derişim, tanımı ve molekül sayıları birlikte yazılır. Bu koşuların deneysel NaCl yoğunluklarıyla karşılaştırılması: Bu senaryo hesaplanmadı.'); }
+    card('yc3',true,'genion\'a yazılan derişim, NPT dengesinden sonra kutunun gerçek hacmiyle aynı kalmaz: hedef '+ks.map(function(k){ return SN[k]+' → '+fx(S[k].molarity,3); }).join(', ')+' mol/L. Molalite yalnız iyon ve su sayısına bağlıdır, hacme bağlı değildir: '+ks.map(function(k){ return fx(S[k].molality,3); }).join(', ')+' mol/kg; derişim arttıkça molarite ile molalite birbirinden ayrılır. Küçük kutuda sayı tam sayıya yuvarlandığı için hedef zaten basamaklıdır. Yoğunluk '+fx(a.health.rho,3)+' g/cm³\'ten '+fx(z.health.rho,3)+' g/cm³\'e çıktı. '+(fk.length?fk.map(function(k){ var f=F[k]; return SN[k]+' hedefi ise hiç kurulamadı: genion '+f.na+' Na⁺ ve '+f.cl+' Cl⁻ yerleştirdikten sonra (hedef '+f.want+' çift) "No more replaceable solvent!" ile durdu, çıkış kodu '+f.code+'. Kutuda hâlâ '+fmtI(f.left)+' su vardı; durma nedeni, yeni iyonun çözücü olmayan atomlara -rmin (varsayılan '+fx(f.rmin,1)+' nm) uzaklık koşulunu sağlayan su kalmamasıdır. Plan gereği parametre değiştirilip yeniden denenmedi; 2,0 M koşusu analizden düştü. Teknik denemede yalnız genion\'un "Will try to add" satırı okunmuştu; bu sorun ancak planlı koşuda görüldü. '; }).join(''):'')+'Raporda hedef değil gerçekleşen derişim, tanımı ve molekül sayıları birlikte yazılır. Bu koşuların deneysel NaCl yoğunluklarıyla karşılaştırılması: Bu senaryo hesaplanmadı.'); }
   else card('yc3',false,'Şimdiye kadar '+n+' ölçüt; en az üçüne bakın'+(fk.length&&IO.failAns==null?' ve 2,0 M sorusunu cevaplayın':'')+'.'); }
 var FOPT=['Kutuda su kalmadı','Yeni iyon için -rmin uzaklık koşulunu sağlayan su kalmadı','2,0 M NaCl suda çözünmez'];
 function failCase(){ var F=VDD.salt_fail, fk=Object.keys(F); if(!fk.length){ $('yfail').innerHTML=''; return; } var k=fk[0], f=F[k];
   $('yfail').innerHTML='<div class="case"><h3>'+SN[k]+' hedefi: koşu kurulamadı</h3><p class="small">4 nm kutu, '+fmtI(f.nsol)+' su; genion '+f.want+' Na⁺ ve '+f.want+' Cl⁻ eklemeye çalıştı.</p><div class="cmd">gmx genion -conc 2.0 -neutral → çıkış kodu '+f.code+'</div><pre class="msg">'+esc(f.msg).replace(/(Fatal error:)/,'<span class="hl">$1</span>')+'</pre><p class="small"><b>Soru:</b> '+fmtI(f.left)+' su dururken genion neden durdu?</p><div class="opts">'+FOPT.map(function(o,j){ return '<button type="button" class="opt" data-j="'+j+'">'+o+'</button>'; }).join('')+'</div><p class="fb" id="yffb" hidden></p></div>';
   document.querySelectorAll('#yfail .opt').forEach(function(b){ b.addEventListener('click',function(){ var j=+b.getAttribute('data-j'), ok=j===1;
     document.querySelectorAll('#yfail .opt').forEach(function(x){ x.classList.remove('right','wrong'); if(+x.getAttribute('data-j')===1) x.classList.add('right'); }); if(!ok) b.classList.add('wrong');
-    var fb=$('yffb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+f.na+' Na⁺ ve '+f.cl+' Cl⁻ yerleştirildi; genion -h: "-rmin (0.6) Minimum distance between ions and non-solvent". Yerleştirilen her iyon artık çözgen değildir; çevresindeki sular aday olmaktan çıkar. Daha büyük kutu ya da daha küçük -rmin bir çözümdür, ama plan gereği denenmedi: Bu senaryo hesaplanmadı.';
+    var fb=$('yffb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+f.na+' Na⁺ ve '+f.cl+' Cl⁻ yerleştirildi; genion -h: "-rmin (0.6) Minimum distance between ions and non-solvent". Yerleştirilen her iyon artık çözücü değildir; çevresindeki sular aday olmaktan çıkar. Daha büyük kutu ya da daha küçük -rmin bir çözümdür, ama plan gereği denenmedi: Bu senaryo hesaplanmadı.';
     if(IO.failAns==null) IO.failAns=ok; cxCards(); }); }); }
 function bxCards(){ var n=Object.keys(IO.seenB).length, B=VDD.boxes;
   if(n>=3){ var nearest=B.every(function(b){ return Math.round(0.15*NA*b.V*1e-24)===b.na; }), s=B.filter(function(b){ return b.box!=='REP'; }), sm=s[0], lg=s[s.length-1];
@@ -508,7 +508,7 @@ function ureaQ(){ $('yuq').innerHTML=UOPT.map(function(o,j){ return '<button typ
     var fb=$('yufb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> grompp çıkış kodu 0, '+o.warnings+' uyarı; minimizasyon '+o.em_steps+' adımda yakınsadı. Bir molekül tanımında [ angles ] bölümünün bulunmaması sözdizimi hatası değildir; grompp bir molekülün hangi terimleri içermesi gerektiğini bilemez.';
     if(UQ.ans==null) UQ.ans=ok; ureaCard(); }); }); }
 function ureaCard(){ var U=VDD.u0;
-  if(UQ.ans!=null) card('yc4',true,'Dağıtımdaki urea.itp dosyasında [ angles ] bölümü yok: gmx dump açı terimi sayısını '+U.orig.n_angles+' gösteriyor. grompp hata ya da uyarı vermedi, minimizasyon yakınsadı; ama tek ürenin geometrisi bozuldu: N-C-N '+fx(U.orig.NCN,1)+'°, O-C-N '+fx(U.orig.OCN,1)+'°, iki amit hidrojeni arasında '+fx(uDist(U.orig.xyz,3,4),3)+' nm (1-3 çiftleri bağsız etkileşimden dışlandığı için birbirini itmiyorlar). Eksik dokuz açı, amber99sb-ildn ffbonded.itp\'deki parametrelerle eklendiğinde N-C-N '+fx(U.fixed.NCN,1)+'°, H-N-H '+fx(U.fixed.HNH,1)+'° oldu. Bu sayfadaki 8 M koşuları plan gereği açıları eklenmiş kopyayla yapıldı; dağıtımdaki dosyayla 8 M koşusu: Bu senaryo hesaplanmadı. Program çalıştı diye model doğru değildir; yardımcı çözgen dosyası terim sayısı ve tek molekül geometrisiyle denetlenir.');
+  if(UQ.ans!=null) card('yc4',true,'Dağıtımdaki urea.itp dosyasında [ angles ] bölümü yok: gmx dump açı terimi sayısını '+U.orig.n_angles+' gösteriyor. grompp hata ya da uyarı vermedi, minimizasyon yakınsadı; ama tek ürenin geometrisi bozuldu: N-C-N '+fx(U.orig.NCN,1)+'°, O-C-N '+fx(U.orig.OCN,1)+'°, iki amit hidrojeni arasında '+fx(uDist(U.orig.xyz,3,4),3)+' nm (1-3 çiftleri bağsız etkileşimden dışlandığı için birbirini itmiyorlar). Eksik dokuz açı, amber99sb-ildn ffbonded.itp\'deki parametrelerle eklendiğinde N-C-N '+fx(U.fixed.NCN,1)+'°, H-N-H '+fx(U.fixed.HNH,1)+'° oldu. Bu sayfadaki 8 M koşuları plan gereği açıları eklenmiş kopyayla yapıldı; dağıtımdaki dosyayla 8 M koşusu: Bu senaryo hesaplanmadı. Program çalıştı diye model doğru değildir; yardımcı çözücü dosyası terim sayısı ve tek molekül geometrisiyle denetlenir.');
   else card('yc4',false,'Soruyu cevaplayın.'); }
 /* --- peptidin çevresi --- */
 var LMN={R:['R (göreli birikim)',''],local_u:['yerel üre (0,5 nm)',''],local_w:['yerel su (0,5 nm)','']};
@@ -574,7 +574,7 @@ function benchItems(){ var c=VDD.comp, S=VDD.salt, N=S.N015, B=VDD.boxes, b3=B.f
     {s:'"8 M üre alanin dipeptidinin αR payını değiştirir."', a:a1, w:!c?'Karşılaştırma yapılamadı.':'Önceden yazılmış kurala göre hüküm "'+c.verdict+'" (Δ '+fx(c.delta,1)+' puan, Welch %90 '+fx(c.ci90[0],1)+' ile '+fx(c.ci90[1],1)+', p '+fx(c.p,3)+'). '+(a1===0?'Cümle bu tanım, bu kuvvet alanı ve üre dosyası, bu tekrar sayısı ve ±5 puan eşiği için kurulabilir.':(a1===1?'Bu tekrar sayısıyla ne fark ne eşdeğerlik gösterilebiliyor; daha fazla tekrar gerekir.':'Veri ±5 puan içinde eşdeğerliği ya da önemsiz bir farkı destekliyor; "değiştirir" cümlesi bu eşikle kurulamaz.'))},
     {s:'"genion -conc 0.15 yazıldıysa kutudaki derişim 0,15 M\'dir."', a:2, w:'4 nm kutuda 0,15 M hedefi '+N.npair+' çift oldu ve NPT hacmiyle gerçekleşen molarite '+fx(N.molarity,3)+' mol/L. 3 nm küpte bir çift '+fx(molar(1,b3.V),3)+' mol/L eder. 8 M üre hedefi de NPT sonrası '+VDD.ureps.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L oldu. Gerçekleşen derişim molekül sayısı ve ortalama hacimle ayrıca hesaplanır.'},
     {s:'"Büyük kutuda hedef derişime küçük kutudakinden daha ince ayarla yaklaşılır."', a:0, w:'Bir çiftin karşılığı 3 nm küpte '+fx(molar(1,b3.V),3)+', 8 nm küpte '+fx(molar(1,b8.V),4)+' mol/L. Bu bir sayım sonucudur; bedeli daha çok su ve daha uzun hesaptır.'},
-    {s:'"grompp uyarı vermediyse yardımcı çözgen topolojisi eksiksizdir."', a:2, w:'U0: dağıtımdaki urea.itp '+U.orig.n_angles+' açı terimiyle grompp\'tan '+U.orig.warnings+' uyarıyla geçti; tek molekülde N-C-N '+fx(U.orig.NCN,1)+'° oldu. grompp eksik bir bölümü bilemez.'},
+    {s:'"grompp uyarı vermediyse yardımcı çözücü topolojisi eksiksizdir."', a:2, w:'U0: dağıtımdaki urea.itp '+U.orig.n_angles+' açı terimiyle grompp\'tan '+U.orig.warnings+' uyarıyla geçti; tek molekülde N-C-N '+fx(U.orig.NCN,1)+'° oldu. grompp eksik bir bölümü bilemez.'},
     {s:'"Üre alanin dipeptidiyle doğrudan bağ kurarak etki eder."', a:2, w:'R (= '+fx(arrMean(VDD.ureps.map(function(k){ return VDD.urea[k].R; })),2)+') yalnız 0,5 nm içindeki göreli bolluğu betimler; doğrudan etkileşim ile dolaylı (su üzerinden) etkiyi ayırmaz. Hidrojen bağı ya da enerji ayrıştırması bu sayfada hesaplanmadı.'},
     {s:'"Gerçek NaCl çözeltilerinde temas iyon çifti payı bu sayfadaki değerlerdedir."', a:2, w:'Temas payı ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+') bu iyon parametrelerine, su modeline ve 0,35 nm eşiğine bağlıdır; her derişimde tek koşu var ve deneysel bir ölçümle karşılaştırma yapılmadı.'}
   ]; }
@@ -584,18 +584,18 @@ function bench(){ var Q=benchItems(), LET=['A','B','C'];
     document.querySelectorAll('#yclaims .opt[data-q="'+i+'"]').forEach(function(x){ x.classList.remove('right','wrong'); if(+x.getAttribute('data-j')===q.a) x.classList.add('right'); }); if(!ok) b.classList.add('wrong');
     var fb=$('ycl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;
     if(!(i in BQ.got)) BQ.got[i]=ok; var n=Object.keys(BQ.got).length, r=Object.keys(BQ.got).filter(function(k){ return BQ.got[k]; }).length;
-    if(n>=4) card('yc7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Çözgen ortamı raporda bir derişim sayısıyla değil, molekül sayıları, kutu, gerçekleşen derişim ve kullanılan topoloji dosyalarıyla birlikte tanımlanır. Bir ortam etkisi, önceden seçilmiş ölçüt ve eşikle ve aynı protokolle koşulmuş bir başvuruya karşı söylenir; mekanizma için ayrıca kanıt gerekir.');
+    if(n>=4) card('yc7',true,'Karar verdiğiniz '+n+' cümlenin '+nLoc(r)+' ilk seçiminiz doğruydu. Çözücü ortamı raporda bir derişim sayısıyla değil, molekül sayıları, kutu, gerçekleşen derişim ve kullanılan topoloji dosyalarıyla birlikte tanımlanır. Bir ortam etkisi, önceden seçilmiş ölçüt ve eşikle ve aynı protokolle koşulmuş bir başvuruya karşı söylenir; mekanizma için ayrıca kanıt gerekir.');
     else card('yc7',false,'Şimdiye kadar '+n+' cümle; en az dördüne karar verin.'); }); }); }
-/* ===== defter: çözgen ortamı kaydı ===== */
+/* ===== defter: çözücü ortamı kaydı ===== */
 function yfBuild(){ function v(id){ return ($(id).value||'').replace(/\s+$/,'')||'(boş: yazılmadı)'; } function lc(id){ return ($(id).value||'').toLowerCase(); }
-  var L=['ÇÖZGEN ORTAMI KAYDI (MD-SOLV taslağı)','İyonlar: '+v('yfI'),'Gerçekleşen derişim: '+v('yfC'),'Yardımcı çözgen dosyası ve denetimi: '+v('yfT'),'Ekleme yöntemi: '+v('yfM'),'Kuvvet alanı uyumu: '+v('yfF'),'Tekrarlar ve başvuru: '+v('yfR')];
+  var L=['ÇÖZÜCÜ ORTAMI KAYDI (MD-SOLV taslağı)','İyonlar: '+v('yfI'),'Gerçekleşen derişim: '+v('yfC'),'Yardımcı çözücü dosyası ve denetimi: '+v('yfT'),'Ekleme yöntemi: '+v('yfM'),'Kuvvet alanı uyumu: '+v('yfF'),'Tekrarlar ve başvuru: '+v('yfR')];
   var wr=[], i=lc('yfI'), c=lc('yfC'), t=lc('yfT'), m=lc('yfM'), f=lc('yfF'), r=lc('yfR');
   if(!/\d/.test(i)) wr.push('İyon sayısı yazılmamış; derişim kutuda tam sayıda iyona yuvarlanır.');
   if(!/hacim|molarite|molalite|mol\/l|mol\/kg/.test(c)) wr.push('Gerçekleşen derişimin nasıl hesaplandığı yazılmamış; genion\'a yazılan hedef NPT sonrası hacimle aynı kalmaz.');
-  if(!/dump|açı|denet|minimiz|geometri/.test(t)) wr.push('Yardımcı çözgen topolojisinin denetimi yazılmamış; eksik bir bölüm grompp\'tan uyarısız geçebilir (U0).');
+  if(!/dump|açı|denet|minimiz|geometri/.test(t)) wr.push('Yardımcı çözücü topolojisinin denetimi yazılmamış; eksik bir bölüm grompp\'tan uyarısız geçebilir (U0).');
   if(!/tohum|seed|insert|solvate/.test(m)) wr.push('Ekleme yöntemi ya da tohum yazılmamış; başlangıç yerleşimi tekrarlanabilir olmalı.');
-  if(!/amber|charmm|opls|gromos|kuvvet alanı|\.ff/.test(f)) wr.push('İyon ve yardımcı çözgen parametrelerinin hangi kuvvet alanından geldiği yazılmamış (MD-FF).');
-  if(!/tekrar|başvuru/.test(r)) wr.push('Tekrar sayısı ya da başvuru (çözgensiz ya da 0 M) koşusu yazılmamış.');
+  if(!/amber|charmm|opls|gromos|kuvvet alanı|\.ff/.test(f)) wr.push('İyon ve yardımcı çözücü parametrelerinin hangi kuvvet alanından geldiği yazılmamış (MD-FF).');
+  if(!/tekrar|başvuru/.test(r)) wr.push('Tekrar sayısı ya da başvuru (çözücüsüz ya da 0 M) koşusu yazılmamış.');
   if(wr.length){ L.push(''); L.push('Dikkat edilecekler:'); wr.forEach(function(x){ L.push('- '+x); }); }
   $('yfout').textContent=L.join('\n'); }
 function form(){ ['yfI','yfC','yfT','yfM','yfF','yfR'].forEach(function(id){ $(id).addEventListener('input',yfBuild); });
@@ -609,7 +609,7 @@ function quizItems(){ var Q=[], B=VDD.boxes, b3=B.filter(function(x){ return x.b
   Q.push({s:'4 nm kutuda "0,15 M" ile başlayan koşunun NPT ortalama hacmiyle hesaplanan molaritesi '+fx(N.molarity,3)+' mol/L çıktı. Neden?',
     o:[['genion yanlış saydı',0],['Sayı başlangıç kutusunun hacminden ve tam sayıya yuvarlanarak belirlendi; denge hacmi farklıdır',1],['İyonlar koşu sırasında kayboldu',0]], w:N.npair+' çift, ⟨V⟩ '+fx(N.health.V,2)+' nm³. Gerçekleşen derişim bu iki sayıdan hesaplanır ve raporda hedefle birlikte verilir.'});
   Q.push({s:'Derişim arttıkça hangi nicelik kutu hacmindeki değişimden etkilenmez?',
-    o:[['Molalite (mol/kg çözgen)',1],['Molarite (mol/L çözelti)',0],['İkisi de etkilenir',0]], w:'Molalite yalnız çözünen ve su sayısından hesaplanır. '+SN[hk]+' hedefinde molarite '+fx(S[hk].molarity,3)+', molalite '+fx(S[hk].molality,3)+' oldu; 8 M ürede bu fark çok daha büyük: '+fx(VDD.urea[VDD.ureps[0]].molarity,2)+' mol/L ile '+fx(VDD.urea[VDD.ureps[0]].nure/(VDD.urea[VDD.ureps[0]].nsol*18.015e-3),1)+' mol/kg.'});
+    o:[['Molalite (mol/kg çözücü)',1],['Molarite (mol/L çözelti)',0],['İkisi de etkilenir',0]], w:'Molalite yalnız çözünen ve su sayısından hesaplanır. '+SN[hk]+' hedefinde molarite '+fx(S[hk].molarity,3)+', molalite '+fx(S[hk].molality,3)+' oldu; 8 M ürede bu fark çok daha büyük: '+fx(VDD.urea[VDD.ureps[0]].molarity,2)+' mol/L ile '+fx(VDD.urea[VDD.ureps[0]].nure/(VDD.urea[VDD.ureps[0]].nsol*18.015e-3),1)+' mol/kg.'});
   Q.push({s:'Dağıtımdaki urea.itp ile grompp hata ya da uyarı vermedi. Topolojinin eksik olduğu nasıl anlaşıldı?',
     o:[['grompp günlüğündeki bir notla',0],['gmx dump ile açı terimi sayısına ('+U.orig.n_angles+') ve tek molekülün minimize geometrisine bakarak',1],['Koşu çöktüğü için',0]], w:'Tek ürede N-C-N '+fx(U.orig.NCN,1)+'° oldu; açılar eklenince '+fx(U.fixed.NCN,1)+'°. Program hata vermeden yanlış bir modeli çalıştırabilir.'});
   Q.push({s:'Na⁺-Cl⁻ temas çifti payı, bir Cl⁻\'ye 0,35 nm\'den yakın olan Na⁺ oranı olarak tanımlandı. Bu sayı neye bağlıdır?',

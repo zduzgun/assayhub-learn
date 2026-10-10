@@ -902,8 +902,8 @@
       "id": "MD-SOLV",
       "app": "md",
       "level": "orta",
-      "title": "Çözgen de modelin parçası: iyonlar ve yardımcı çözgen",
-      "version": "0.1.0",
+      "title": "Çözücü de modelin parçası: iyonlar ve yardımcı çözücü",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH10",
       "goals": [
@@ -911,7 +911,7 @@
         "\"0,15 M\" kutuda kaç iyon eder: genion sayımı ve derişim basamakları",
         "Hedef ile gerçekleşen derişim: molarite, molalite ve NPT hacmi",
         "İyon düzeni: g(r), temas iyon çifti ve Na⁺ çevresindeki su",
-        "Yardımcı çözgen dosyası da denetlenir: açısız urea.itp",
+        "Yardımcı çözücü dosyası da denetlenir: açısız urea.itp",
         "8 M üre ile su: peptit çevresinde göreli birikim ve önceden yazılmış konformasyon hükmü"
       ],
       "data": [
