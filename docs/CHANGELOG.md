@@ -1,5 +1,11 @@
 # Sürüm notları
 
+## 0.42.8 (11 Ekim 2026) · Kitapla uyum: üç sözlük tanımı ve MD-U sınama sorusu
+
+- Sözlük: "etkin örnek sayısı", "RMSD" ve "RMSF" tanımları kitabın V4 sonrası revizyonuyla (CH17, CH13, CH14) uyumlu yazıldı. Etkin örnek sayısı N_etkin = N/g ile, g boyutsuz olarak tanımlandı; negatif otokorelasyonda kare sayısını aşabileceği ve seyrek durumlarda ayrıca denetim gerektiği eklendi. RMSD'de hizalama zorunlu tanım parçası olmaktan çıktı (docking pozunu reseptör çerçevesinde değerlendirirken ligandı ayrıca hizalamak hatayı siler). RMSF'de sabit referansa göre sapmanın ayrı bir nicelik olduğu yazıldı. İngilizce tanımlar aynı biçimde değişti.
+- Yazar bu üç tanımı henüz gözden geçirmedi; sözlük sayfasının notu bunu adıyla söyler (glossary.json `degisiklikler`, önceki tanımlar kayıtlı). 9 Ekim 2026 yazar incelemesi öbür 87 tanım için geçerli kalır.
+- MD-U 0.2.1: Sınama sorusundaki "g = 200 kare" ifadesi "g = 200 (g boyutsuzdur)" oldu; hesap ve doğru yanıt değişmedi. Etkin örnek sayısı N'den büyük çıktığında gösterilen "anlamsız" notu ve bir sınama açıklaması, kitabın CH17 ayrımına göre yazıldı: N'den büyük bir sayı kendi başına imkânsız değildir; sorun, iki ziyarete dayanan tahminin güvenilir olmamasıdır. İngilizce tabloda ilgili üç çift güncellendi.
+
 ## 0.42.7 (10 Ekim 2026) · Kitap revizyonunda bulunan iki modül tutarsızlığı
 
 - DK-U 0.2.3: Sıralama atölyesinin açıklaması skorları "beş tohumun ortancası" diye anıyordu; ana tarama tek tohumla yapıldı, tohum gürültüsü 20 bileşikte ayrıca ölçüldü (sayfanın "Proteine dönüş" bölümündeki "tam 5 tohumlu set hesaplanmadı" notuyla da çelişiyordu). Açıklama düzeltildi; veri ve skorlar değişmedi.

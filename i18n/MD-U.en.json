@@ -1,7 +1,7 @@
 {
  "module": "MD-U",
  "lang": "en",
- "source_sha256": "38a6eaeb449c0dfe18ab6586188ad138a6c819e1dc89dd2654fc804adf02bde8",
+ "source_sha256": "e83d736c938f39ab61a230d89f16b9f9915031ce4801d5d6193403ef84b5ec06",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-U 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -399,8 +399,8 @@
    "$('u1eGS').textContent=gs==null?'cannot be computed':fx(gs,1)+' (τ_int '+fx(d.gs.tau,1)+' ps)';"
   ],
   [
-   "var ne=gs?NFR/gs:null; $('u1eNe').textContent=ne==null?'hesaplanamaz':NFI.format(Math.round(ne))+(ne>NFR?' (N\\'den büyük: anlamsız)':'');",
-   "var ne=gs?NFR/gs:null; $('u1eNe').textContent=ne==null?'cannot be computed':NFI.format(Math.round(ne))+(ne>NFR?' (larger than N: meaningless)':'');"
+   "var ne=gs?NFR/gs:null; $('u1eNe').textContent=ne==null?'hesaplanamaz':NFI.format(Math.round(ne))+(ne>NFR?' (N\\'den büyük; tahmin güvenilir değil)':'');",
+   "var ne=gs?NFR/gs:null; $('u1eNe').textContent=ne==null?'cannot be computed':NFI.format(Math.round(ne))+(ne>NFR?' (larger than N; the estimate is not reliable)':'');"
   ],
   [
    "$('u1eEn').textContent='± '+fx(nv,4); $('u1eEc').textContent=gs?'± '+fx(Math.sqrt(gs)*nv,4)+(few?' (güvenilmez)':''):'hesaplanamaz';",
@@ -503,8 +503,8 @@
    "function useChips(){ $('u1use').innerHTML=D3.use.map(function(u,i){ return '<button type=\"button\" class=\"chip\" data-i=\"'+i+'\" aria-pressed=\"'+(!!u)+'\">'+'Run '+(i+1)+'</button>'; }).join('');"
   ],
   [
-   "{s:'Bir koşu 10.000 kare üretti ve αR göstergesi için g = 200 kare bulundu. Etkin örnek sayısı yaklaşık kaçtır?',o:[['10.000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10.000 / 200 = 50. Hata, kareler bağımsız sayılsaydı bulunacak olanın √200 ≈ 14 katıdır.'},",
-   "{s:'A run produced 10,000 frames and g = 200 frames was found for the αR indicator. What is the effective sample size, roughly?',o:[['10,000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10,000 / 200 = 50. The error is √200 ≈ 14 times what you would find if the frames were counted as independent.'},"
+   "{s:'Bir koşu 10.000 kare üretti ve αR göstergesi için g = 200 bulundu (g boyutsuzdur). Etkin örnek sayısı yaklaşık kaçtır?',o:[['10.000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10.000 / 200 = 50. Hata, kareler bağımsız sayılsaydı bulunacak olanın √200 ≈ 14 katıdır.'},",
+   "{s:'A run produced 10,000 frames and g = 200 was found for the αR indicator (g is dimensionless). What is the effective sample size, roughly?',o:[['10,000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10,000 / 200 = 50. The error is √200 ≈ 14 times what you would find if the frames were counted as independent.'},"
   ],
   [
    "{s:'RMSD eğrisi koşunun başından sonuna düz ve küçük. Bu ne gösterir?',o:[['Örnekleme tamamlandı',0],['Molekül dengeye ulaştı',0],['Yalnız ortalama atom sapmasının küçük kaldığını; açıların ve durumların nasıl gezdiği ayrıca bakılmadan bilinmez',1],['Hata çubuğu küçüktür',0]],w:'Alanin dipeptidinde RMSD ortanca 0,05 nm civarında kalırken durum 126-206 kez değişti. RMSD, soruyu soran niceliğin (burada durum payının) yerine geçmez.'},",
@@ -515,8 +515,8 @@
    "{s:'You measured three wells from the same lysate. What does this resemble in MD?',o:[['Five independent runs',0],['Three consecutive frames of a single run',1],['Three runs with different force fields',0],['Three different proteins',0]],w:'Consecutive frames come from the same \"sample\" and are linked to each other; they do not stand in for independent replicates (pseudoreplication).'},"
   ],
   [
-   "{s:'αL durumu bir koşuda yalnız iki kez ziyaret edildi. Bu koşudan αL payı için hata çubuğu nasıl verilmeli?',o:[['√(p(1 − p)/N) ile',0],['Otokorelasyon düzeltmesiyle',0],['Verilmemeli: birkaç ziyaretten ne pay ne hata güvenilir hesaplanır',1],['Blok boyunu büyüterek',0]],w:'Yöntemler durumun defalarca girilip çıkıldığını varsayar. Bu projede bir koşuda N_eff, N\\'den büyük çıktı: sayı üretildi ama anlamı yok.'},",
-   "{s:'The αL state was visited only twice in a run. How should an error bar for the αL fraction be given from this run?',o:[['With √(p(1 − p)/N)',0],['With the autocorrelation correction',0],['It should not be given: from a few visits neither the fraction nor the error can be computed reliably',1],['By increasing the block size',0]],w:'The methods assume that the state is entered and left many times. In this project N_eff came out larger than N in one run: a number was produced, but it has no meaning.'},"
+   "{s:'αL durumu bir koşuda yalnız iki kez ziyaret edildi. Bu koşudan αL payı için hata çubuğu nasıl verilmeli?',o:[['√(p(1 − p)/N) ile',0],['Otokorelasyon düzeltmesiyle',0],['Verilmemeli: birkaç ziyaretten ne pay ne hata güvenilir hesaplanır',1],['Blok boyunu büyüterek',0]],w:'Yöntemler durumun defalarca girilip çıkıldığını varsayar. Bu projede bir koşuda N_eff, N\\'den büyük çıktı: sayı üretildi ama yalnız iki ziyarete dayandığı için güvenilir değil.'},",
+   "{s:'The αL state was visited only twice in a run. How should an error bar for the αL fraction be given from this run?',o:[['With √(p(1 − p)/N)',0],['With the autocorrelation correction',0],['It should not be given: from a few visits neither the fraction nor the error can be computed reliably',1],['By increasing the block size',0]],w:'The methods assume that the state is entered and left many times. In this project N_eff came out larger than N in one run: a number was produced, but it rests on only two visits and is not reliable.'},"
   ],
   [
    "{s:'Beş koşunun αR payları 0,219, 0,347, 0,244, 0,188 ve 0,271. %95 aralığı hesaplarken neden 1,96 yerine 2,776 kullanılır?',o:[['Payların ortalaması küçük olduğu için',0],['Standart sapma yalnız 5 değerden tahmin edildiği için t dağılımı (4 serbestlik) kullanılır',1],['Koşular 10 ns olduğu için',0],['Otokorelasyon yüzünden',0]],w:'Az sayıda tekrarla standart sapmanın kendisi belirsizdir; t dağılımı bunu hesaba katar. Aralık 0,179 ile 0,329 çıkar.'},",

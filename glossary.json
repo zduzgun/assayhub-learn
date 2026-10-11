@@ -9,6 +9,31 @@
   "yontem": "İnceleme masası (claude.ai artifact), madde başına uygun/düzelt kararı",
   "not": "Yazar incelemesinden sonra, yazarın isteğiyle (9 Ekim 2026) kitapta kullanılan iki yazım eş anlamlı olarak eklendi: entegratör (integratör), enerji sürüklenmesi (enerji kayması). Tanımlar değişmedi."
  },
+ "degisiklikler": [
+  {
+   "tarih": "2026-10-11",
+   "terimler": [
+    "etkin-ornek",
+    "rmsd",
+    "rmsf"
+   ],
+   "neden": "Kitabın V4 sonrası revizyonu (V4-R03, R04, R05): tanımlar CH17, CH13 ve CH14 ile uyumlu hâle getirildi. Yazar bu üç tanımı henüz gözden geçirmedi; 'inceleme' alanı 9 Ekim 2026 sürümüne aittir.",
+   "onceki": {
+    "rmsd": {
+     "tr": "İki yapı arasında karşılık gelen atomların konum farklarının karekök ortalaması (hizalamadan sonra). Tek bir sayıdır; hangi bölgenin değiştiğini söylemez.",
+     "en": "The root mean square of the position differences of corresponding atoms between two structures (after fitting). It is a single number; it does not say which region changed."
+    },
+    "rmsf": {
+     "tr": "Her atomun ya da kalıntının ortalama konumu çevresindeki dalgalanmasının karekök ortalaması. Esnek bölgeleri gösterir; B faktörüyle karşılaştırılabilir ama aynı şey değildir.",
+     "en": "The root mean square of each atom's or residue's fluctuation around its average position. It shows flexible regions; it can be compared with B-factors but is not the same thing."
+    },
+    "etkin-ornek": {
+     "tr": "Birbirine bağlı kareler içindeki bağımsız gözlem sayısının tahmini; kabaca kare sayısının otokorelasyon süresine göre küçültülmüş hâli. Standart hata bununla hesaplanmalıdır.",
+     "en": "An estimate of the number of independent observations among correlated frames; roughly the number of frames reduced according to the autocorrelation time. The standard error should be computed with it."
+    }
+   }
+  }
+ ],
  "terms": [
   {
    "id": "nicelik",
@@ -963,12 +988,12 @@
     "alt": [
      "root mean square deviation"
     ],
-    "def": "The root mean square of the position differences of corresponding atoms between two structures (after fitting). It is a single number; it does not say which region changed."
+    "def": "The square root of the mean of the squared position differences of corresponding atoms between two coordinate sets. The atom mapping, the measured group and the coordinate frame must be stated. In structural comparison it can be computed after a defined fit; when a docking pose is judged in the receptor frame, fitting the ligand separately erases the position and orientation error. It is a single number; it does not say which region changed."
    },
    "alt": [
     "kök ortalama kare sapma"
    ],
-   "def": "İki yapı arasında karşılık gelen atomların konum farklarının karekök ortalaması (hizalamadan sonra). Tek bir sayıdır; hangi bölgenin değiştiğini söylemez.",
+   "def": "Karşılık gelen atomların iki koordinat kümesindeki konum farklarının karelerinin ortalamasının karekökü. Atom eşlemesi, ölçüm grubu ve koordinat çerçevesi belirtilmelidir. Yapısal karşılaştırmada tanımlı bir hizalamadan sonra hesaplanabilir; docking pozunu reseptör çerçevesinde değerlendirirken ligandı ayrıca hizalamak yer ve yönelim hatasını siler. Tek bir sayıdır; hangi bölgenin değiştiğini söylemez.",
    "match": [
     "rmsd"
    ],
@@ -985,12 +1010,12 @@
     "alt": [
      "root mean square fluctuation"
     ],
-    "def": "The root mean square of each atom's or residue's fluctuation around its average position. It shows flexible regions; it can be compared with B-factors but is not the same thing."
+    "def": "The root mean square of each atom's or residue's fluctuation around its own average position over the analysed window. The window, the atom selection and the fit affect the result. The root mean square deviation from a fixed reference (for example the crystal structure) is a different quantity. It shows flexible regions; it can be compared with B-factors but is not the same thing."
    },
    "alt": [
     "kök ortalama kare dalgalanma"
    ],
-   "def": "Her atomun ya da kalıntının ortalama konumu çevresindeki dalgalanmasının karekök ortalaması. Esnek bölgeleri gösterir; B faktörüyle karşılaştırılabilir ama aynı şey değildir.",
+   "def": "Her atomun ya da kalıntının, incelenen pencere boyunca kendi ortalama konumu çevresindeki dalgalanmasının karekök ortalaması. Pencere, atom seçimi ve hizalama sonucu etkiler. Sabit bir referansa (örneğin kristal yapıya) göre karekök ortalama sapma farklı bir niceliktir. Esnek bölgeleri gösterir; B faktörüyle karşılaştırılabilir ama aynı şey değildir.",
    "match": [
     "rmsf"
    ],
@@ -1243,10 +1268,10 @@
    "en": {
     "term": "effective sample size",
     "alt": [],
-    "def": "An estimate of the number of independent observations among correlated frames; roughly the number of frames reduced according to the autocorrelation time. The standard error should be computed with it."
+    "def": "An estimate that expresses the uncertainty of an average as an equivalent number of independent samples; in the book it is computed as N_eff = N/g (g is the dimensionless statistical inefficiency). Positive autocorrelation reduces the information content; in some negatively autocorrelated series N_eff can exceed the number of frames. For rarely visited states the estimate needs a separate reliability check."
    },
    "alt": [],
-   "def": "Birbirine bağlı kareler içindeki bağımsız gözlem sayısının tahmini; kabaca kare sayısının otokorelasyon süresine göre küçültülmüş hâli. Standart hata bununla hesaplanmalıdır.",
+   "def": "Bir niceliğin ortalamasındaki belirsizliği eşdeğer bağımsız örnek sayısıyla ifade eden tahmin; kitapta N_etkin = N/g ile hesaplanır (g boyutsuz istatistiksel verimsizliktir). Pozitif otokorelasyon bilgi miktarını azaltır; negatif otokorelasyonlu bazı serilerde N_etkin kare sayısını aşabilir. Seyrek görülen durumlarda tahmin ayrıca güvenilirlik denetimi ister.",
    "match": [
     "etkin örnek",
     "bağımsız örnek"
