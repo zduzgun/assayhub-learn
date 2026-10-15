@@ -36,8 +36,12 @@ const UI = {
     deck: 'Moleküler docking ve moleküler dinamiği, gerçek verilerle ve adım adım kendiniz yaparak öğrenin. Her modül bir kitap bölümüne karşılık gelir.',
     bookH: 'Kitaptan mı geldiniz?',
     bookP: 'Kitaptaki her karekod kısa ve kalıcı bir adrese gider: <code>/tr/l/</code> ve ardından modül kimliği (örneğin <code>/tr/l/DK-T</code>). Bu adres modülün güncel sürümüne yönlenir; sayfa yenilense bile karekod değişmez.',
-    ready: (r, n) => `${r} / ${n} modül yayında`, modsSmall: 'Modüller', modsH: 'Temelden uzmana',
-    level: { temel: 'Temel', orta: 'Orta', uzman: 'Uzman' }, status: { pilot: 'pilot', planned: 'planlandı' }, book: 'kitap',
+    ready: (r, n) => `${r} / ${n} modül yayında`, modsSmall: 'Modüller', modsH: 'Temelden ileriye',
+    // 0.43.0: uygulama sayfası kartları; düzeyler kitaptaki adlarla (temel, orta, ileri)
+    lvH: { temel: 'Temel düzey', orta: 'Orta düzey', uzman: 'İleri düzey' },
+    lvD: { temel: 'Kavramı açıklar, basit gerçek veriyi okur.', orta: 'Bütün iş akışını, her adımın nedeniyle birlikte izlenebilir biçimde kurar.', uzman: 'Örnekleme, belirsizlik ve yöntem seçimini savunur.' },
+    nMod: (n) => `${n} modül`, open: 'Modülü aç', chap: (n) => `Bölüm ${n}`, appHint: 'Modüller kitaptaki bölüm sırasıyla dizilidir. Kitapla birlikte okuyorsanız bölümünüzün kartını açın; ilk kez geliyorsanız temel düzeyden başlayın.', ver: 'sürüm',
+    level: { temel: 'Temel', orta: 'Orta', uzman: 'İleri' }, status: { pilot: 'pilot', planned: 'planlandı' }, book: 'kitap',
     mdH: 'Hesaplar nasıl yapılır?',
     mdP: 'Laboratuvarlardaki küçük simülasyonlar (tek bir molekül, iki boyutlu bir sıvı, protein yüzeyindeki birkaç su molekülü) tarayıcınızda o anda, hareket denklemleri çözülerek hesaplanır. Bunlar öğretim amaçlıdır; çoğu iki boyutlu ve indirgenmiş birimlidir. Protein kutusu, koşu ayarları ve trajektori gibi proje verileri ise bu kitap için önceden koşturulmuş gerçek simülasyonlardan gelir; tarayıcıda bir proteinle gerçek MD çalıştırılmaz. Hesaplanmamış bir seçim için sonuç uydurulmaz; sayfa "bu senaryo hesaplanmadı" der. Her sayfanın altında sayıların nereden geldiği yazılıdır.',
     foot: (b) => `Önizleme yayınıdır ve arama motorlarına kapalıdır. Modüller tarayıcıda çalışır; sunucuda hesap yapılmaz. MD laboratuvarlarındaki küçük öğretim simülasyonları tarayıcıda canlı hesaplanır; protein ve koşu verileri önceden koşturulmuş gerçek simülasyonlardan gelir ve her sayfada kaynağıyla belirtilir. Veri lisansları: PDB yapıları CC0 1.0; ChEMBL'den türetilen veri CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Yapı: ${b}.`,
@@ -65,8 +69,11 @@ const UI = {
     deck: 'Learn molecular docking and molecular dynamics step by step with real data, by doing it yourself. Each module corresponds to a chapter of the book.',
     bookH: 'Coming from the book?',
     bookP: 'Every QR code in the book leads to a short, permanent address: <code>/en/l/</code> followed by the module ID (for example <code>/en/l/DK-T</code>). The address always points to the current version of the module, so the QR code never changes even when the page is updated.',
-    ready: (r, n) => `${r} / ${n} modules published`, modsSmall: 'Modules', modsH: 'From basic to expert',
-    level: { temel: 'Basic', orta: 'Intermediate', uzman: 'Expert' }, status: { pilot: 'pilot', planned: 'planned' }, book: 'book',
+    ready: (r, n) => `${r} / ${n} modules published`, modsSmall: 'Modules', modsH: 'From basic to advanced',
+    lvH: { temel: 'Basic level', orta: 'Intermediate level', uzman: 'Advanced level' },
+    lvD: { temel: 'Explains the concept and reads simple real data.', orta: 'Builds the whole workflow traceably, with the reason for each step.', uzman: 'Defends sampling, uncertainty and the choice of method.' },
+    nMod: (n) => `${n} module${n === 1 ? '' : 's'}`, open: 'Open module', chap: (n) => `Chapter ${n}`, appHint: 'Modules follow the chapter order of the book. If you are reading the book, open the card for your chapter; if you are new here, start at the basic level.', ver: 'version',
+    level: { temel: 'Basic', orta: 'Intermediate', uzman: 'Advanced' }, status: { pilot: 'pilot', planned: 'planned' }, book: 'book',
     mdH: 'How are the calculations done?',
     mdP: 'The small simulations in the labs (a single molecule, a two-dimensional liquid, a few water molecules at a protein surface) are computed in your browser as you use them, by solving the equations of motion. They are for teaching; most are two-dimensional and use reduced units. Project data such as the protein box, the run settings and trajectories come from real simulations run in advance for this book; no real MD of a protein runs in the browser. No result is invented for a choice that was not computed; the page says "this scenario was not computed". The bottom of each page states where the numbers come from.',
     foot: (b) => `This is a preview and is closed to search engines. Modules run in your browser; nothing is computed on the server. The small teaching simulations in the MD labs are computed live in your browser; protein and run data come from real simulations run in advance, and each page states their source. Data licences: PDB structures CC0 1.0; data derived from ChEMBL CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Build: ${b}.`,
@@ -277,13 +284,45 @@ for (const L of LANGS) {
 <div class="box"><h4>${esc(U.bookH)}</h4><p>${U.bookP}</p><p>${U.bkLink}</p></div>
 `));
   for (const a of M.apps) {
+    // 0.43.0: modüller düzeye göre üç bölümde, her bölümde kitaptaki bölüm sırasıyla; her modül bir kart ve açık bir düğme
     const mods = M.modules.filter((m) => m.app === a.id);
-    const extra = a.id === 'md' ? `<div class="box"><h4>${esc(U.mdH)}</h4><p>${esc(U.mdP)}</p></div>` : '';
+    const chNum = (m) => { const c = ((m.book || '').match(/CH(\d\d)/) || [])[1]; return c ? +c : 99; };
+    const chLabel = (m) => {
+      const ids = (m.book || '').match(/CH\d\d/g) || [];
+      const nums = ids.map((c) => +c.slice(2));
+      if (!nums.length) return esc(T(L, m, 'book'));
+      const after = /sonrası|after/.test(T(L, m, 'book'));
+      const lab = nums.map((n) => U.chap(n)).join(L === 'tr' ? ' ve ' : ' and ') + (after ? (L === 'tr' ? ' sonrası' : ', after') : '');
+      const one = ids.length === 1 ? BOOK.chapters.find((c) => c.id === ids[0]) : null;
+      return `<b>${esc(lab)}</b>${one && !after ? ` · ${esc(T(L, one, 'title'))}` : ''}`;
+    };
+    // 0.43.0: kartın üstünde modüle özel çizim (static/assets/kart/<id>.svg; üreteci assets-src/kart/kart.py). Çizim yoksa koyu zemin ve modül kimliği.
+    const art = (m) => {
+      const f = `kart/${m.id.toLowerCase()}.svg`;
+      const img = existsSync(join(ROOT, 'static', 'assets', f))
+        ? `<img src="/assets/${f}" alt="" width="600" height="250" loading="lazy" decoding="async">`
+        : `<span class="mc-art-id" aria-hidden="true">${esc(m.id)}</span>`;
+      return `<span class="mc-art${img.startsWith('<img') ? '' : ' mc-art-0'}">${img}<span class="mc-lv">${esc(U.level[m.level])}</span></span>`;
+    };
+    const card = (m) => {
+      const goals = (T(L, m, 'goals') || []).slice(0, 2).map((g) => `<li>${esc(g)}</li>`).join('');
+      const foot = `<span class="mc-id">${esc(m.id)}${m.version ? ` · ${esc(U.ver)} ${esc(m.version)}` : ''}</span>`;
+      if (!m.path) return `<li><div class="mc mc-lv-${esc(m.level)} planned" id="${esc(m.id)}">${art(m)}<div class="mc-b"><p class="mc-ch">${chLabel(m)}</p><h3 class="mc-t">${esc(T(L, m, 'title'))}</h3><ul class="mc-g">${goals}</ul><div class="mc-f">${foot}<span class="tag planned">${esc(U.status.planned)}</span></div></div></div></li>`;
+      return `<li><a class="mc mc-lv-${esc(m.level)}" id="${esc(m.id)}" href="/${L}/${m.path}">${art(m)}<div class="mc-b"><p class="mc-ch">${chLabel(m)}</p><h3 class="mc-t">${esc(T(L, m, 'title'))}</h3><ul class="mc-g">${goals}</ul><div class="mc-f">${foot}<span class="mc-btn">${esc(U.open)} <span aria-hidden="true">→</span></span></div></div></a></li>`;
+    };
+    const levels = ['temel', 'orta', 'uzman'].filter((k) => mods.some((m) => m.level === k));
+    const groups = levels.map((k) => {
+      const g = mods.filter((m) => m.level === k).map((m, i) => [m, i]).sort((x, y) => chNum(x[0]) - chNum(y[0]) || x[1] - y[1]).map((x) => x[0]);
+      return `<section class="lvs lvs-${k}" id="duzey-${k}"><h2><small>${esc(U.lvH[k])} · ${esc(U.nMod(g.length))}</small>${esc(U.lvD[k])}</h2><ul class="mgrid">${g.map(card).join('\n')}</ul></section>`;
+    }).join('\n');
+    const nav = levels.length > 1 ? `<nav class="lv-nav" aria-label="${esc(U.modsSmall)}">${levels.map((k) => `<a class="lvn lvn-${k}" href="#duzey-${k}"><b>${esc(U.lvH[k])}</b><span>${esc(U.nMod(mods.filter((m) => m.level === k).length))}</span></a>`).join('')}</nav>` : '';
+    const extra = a.id === 'md' ? `<details class="box how"><summary>${esc(U.mdH)}</summary><p>${esc(U.mdP)}</p></details>` : '';
     write(join(L, a.path, 'index.html'), page(L, a.path, `${T(L, a, 'title')} · AssayHub Learn`, crumbs(L, a), `
 <div class="mast"><p class="eyebrow">AssayHub Learn · ${esc(T(L, a, 'title'))}</p><h1>${esc(T(L, a, 'title'))}</h1><p class="deck">${esc(T(L, a, 'summary'))}</p></div>
+${nav}
+<p class="lv-hint">${esc(U.appHint)}</p>
 ${extra}
-<h2><small>${esc(U.modsSmall)}</small>${esc(U.modsH)}</h2>
-<ul class="mods">${mods.map((m) => modItem(L, m)).join('\n')}</ul>
+${groups}
 `));
   }
   // kitap sayfası: bölüm -> modül haritası (book.json + modules.json 'book' alanı)

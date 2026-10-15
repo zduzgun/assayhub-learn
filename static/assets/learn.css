@@ -85,3 +85,41 @@ code{font-size:.92em;background:var(--panel);padding:1px 5px;border-radius:3px}
 .gl-mod.main{border-color:var(--accent)} .gl-mod:hover{background:var(--panel)}
 .gl-ch{font-size:12.5px;color:var(--muted);margin-left:4px} a.gl-ch{color:var(--muted)} a.gl-ch:hover{color:var(--ink)}
 .gl-z{color:var(--muted);font-style:italic}
+/* 0.43.0: uygulama sayfası (modül kartları). Düzey renkleri: temel yeşil, orta mavi, ileri kiremit */
+.lv-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.lvn{display:flex;flex-direction:column;gap:2px;text-decoration:none;border:1px solid var(--rule);border-top:4px solid var(--lc);border-radius:6px;background:#fffefb;padding:12px 16px}
+.lvn b{font-family:var(--serif);font-weight:normal;font-size:20px}
+.lvn span{font-size:13px;color:var(--muted)}
+.lvn:hover{border-color:var(--lc)}
+.lvn-temel,.lvs-temel,.mc-lv-temel{--lc:#2f7254}.lvn-orta,.lvs-orta,.mc-lv-orta{--lc:#3f68a6}.lvn-uzman,.lvs-uzman,.mc-lv-uzman{--lc:#934b3c}
+.lv-hint{font-size:15px;line-height:1.6;color:var(--muted);max-width:760px;margin:0 0 22px}
+details.how{padding:14px 20px}
+details.how summary{cursor:pointer;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+details.how p{margin-top:10px}
+.lvs{margin:0 0 46px;scroll-margin-top:16px}
+.lvs h2 small{color:var(--lc)}
+.lvs h2{font-size:clamp(20px,2.4vw,24px);max-width:760px}
+.mgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.mgrid>li{display:flex}
+.mc{flex:1;display:flex;flex-direction:column;text-decoration:none;background:#fffefb;border:1px solid var(--rule);border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(17,37,44,.05);transition:transform .2s,box-shadow .2s,border-color .2s}
+a.mc:hover,a.mc:focus-visible{transform:translateY(-3px);border-color:var(--lc);box-shadow:0 10px 26px rgba(17,37,44,.14)}
+a.mc:focus-visible{outline:3px solid var(--lc);outline-offset:2px}
+.mc-art{position:relative;display:block;aspect-ratio:12/5;background:linear-gradient(135deg,#11252C,#1B3A44);overflow:hidden;border-bottom:3px solid var(--lc)}
+.mc-art img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+a.mc:hover .mc-art img{transform:scale(1.045)}
+.mc-art-0{background:radial-gradient(circle at 75% 30%,rgba(233,196,106,.22),transparent 45%),radial-gradient(rgba(88,196,182,.18) 1.5px,transparent 1.6px) 0 0/18px 18px,linear-gradient(135deg,#11252C,#1B3A44)}
+.mc-art-id{position:absolute;right:16px;bottom:8px;font-family:var(--serif);font-size:42px;line-height:1;color:#58C4B6;opacity:.55;letter-spacing:.02em}
+.mc-lv{position:absolute;left:12px;top:12px;background:var(--lc);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.mc-b{flex:1;display:flex;flex-direction:column;gap:8px;padding:14px 18px 14px}
+.mc-ch{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.mc-ch b{color:var(--lc);font-weight:600;letter-spacing:.02em}
+.mc-t{margin:0;font-family:var(--serif);font-weight:normal;font-size:21px;line-height:1.25;color:var(--ink)}
+.mc-g{margin:0;padding-left:18px;font-size:13.5px;line-height:1.5;color:#4b5760}
+.mc-g li{margin:2px 0}
+.mc-f{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--rule)}
+.mc-id{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.mc-btn{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--paper);font-size:13.5px;font-weight:600;border-radius:5px;padding:7px 14px;white-space:nowrap}
+a.mc:hover .mc-btn{background:var(--lc)}
+.mc.planned{border-style:dashed;background:transparent}.mc.planned .mc-art{filter:grayscale(.6);opacity:.7} .mc.planned .mc-t{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.mc,.mc-art img{transition:none}a.mc:hover{transform:none}a.mc:hover .mc-art img{transform:none}}
+@media (max-width:760px){.mgrid{grid-template-columns:minmax(0,1fr)}.lv-nav{grid-template-columns:minmax(0,1fr)}.lvn{flex-direction:row;justify-content:space-between;align-items:baseline}}

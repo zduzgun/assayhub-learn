@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#11252C"/><stop offset="1" stop-color="#1B3A44"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#E9C46A" stop-opacity=".55"/><stop offset="1" stop-color="#E9C46A" stop-opacity="0"/></radialGradient></defs><rect width="600" height="250" fill="url(#bg)"/><rect x="40" y="26" width="60" height="200" rx="5" fill="#58C4B6" fill-opacity=".08" stroke="#58C4B6" stroke-opacity=".5"/>
+<rect x="48" y="60" width="44" height="9" rx="4" fill="#CFE6E2" fill-opacity="0.5"/>
+<rect x="48" y="98" width="44" height="9" rx="4" fill="#E9C46A" fill-opacity="0.9"/>
+<rect x="48" y="150" width="44" height="9" rx="4" fill="#CFE6E2" fill-opacity="0.3"/>
+<rect x="48" y="188" width="44" height="9" rx="4" fill="#CFE6E2" fill-opacity="0.6"/>
+<path d="M170,210 H250 V172" fill="none" stroke="#58C4B6" stroke-width="2.6"/>
+<rect x="180" y="190" width="60" height="7" rx="3.5" fill="#CFE6E2" fill-opacity=".25"/>
+<path d="M250,172 H330 V134" fill="none" stroke="#58C4B6" stroke-width="2.6"/>
+<rect x="260" y="152" width="60" height="7" rx="3.5" fill="#CFE6E2" fill-opacity=".25"/>
+<path d="M330,134 H410 V96" fill="none" stroke="#58C4B6" stroke-width="2.6"/>
+<rect x="340" y="114" width="60" height="7" rx="3.5" fill="#CFE6E2" fill-opacity=".25"/>
+<path d="M410,96 H490 V58" fill="none" stroke="#58C4B6" stroke-width="2.6"/>
+<rect x="420" y="76" width="60" height="7" rx="3.5" fill="#CFE6E2" fill-opacity=".25"/>
+<path d="M490,58 H570 V20" fill="none" stroke="#58C4B6" stroke-width="2.6"/>
+<rect x="500" y="38" width="60" height="7" rx="3.5" fill="#CFE6E2" fill-opacity=".25"/>
+<path d="M108,102 C140,102 150,185 186,192" fill="none" stroke="#E9C46A" stroke-width="2" stroke-dasharray="3 6" stroke-linecap="round"/>
+<circle cx="290" cy="134" r="26" fill="url(#glow)"/><circle cx="290" cy="128" r="9" fill="#E9C46A" fill-opacity="1"/></svg>

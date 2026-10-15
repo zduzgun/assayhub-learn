@@ -1,5 +1,13 @@
 # Sürüm notları
 
+## 0.43.0 (15 Ekim 2026) · Uygulama sayfaları: düzeylere ayrılmış, görselli modül kartları
+
+- /tr/md/, /en/md/ ve docking sayfaları yeniden düzenlendi. Modüller üç düzeyde (Temel, Orta, İleri) toplandı; her düzeyin içinde kitaptaki bölüm sırasıyla dizildi. Sayfanın üstünde düzeylere götüren üç kart ve kısa bir yönlendirme satırı var; "Hesaplar nasıl yapılır?" kutusu kapalı açılır.
+- Her modül bir kart oldu: üstte modüle özel çizim ve düzey etiketi, altında kitap bölümü, modül adı, ilk iki amaç, modül kimliği ve sürümü, sağ altta "Modülü aç" düğmesi. Kartın tamamı bağlantıdır; üzerine gelince kart hafifçe yükselir. Hareket azaltma tercihi olan tarayıcıda hareket yoktur.
+- Düzey adları kitapla aynı: görünen ad "Uzman" yerine "İleri" (İngilizcede "Advanced"). modules.json'daki `uzman` değeri değişmedi.
+- 27 kart çizimi `static/assets/kart/<kimlik>.svg` dosyalarında; üreteci `assets-src/kart/kart.py` (Python, numpy ve scikit-image). Renkler kitap kapağıyla aynıdır. Çizimler şemadır, veri grafiği değildir: eksen, sayı ya da ölçek taşımaz. Tek istisna MD-PDB'dir: ubikitin zinciri kristal 1UBQ Cα koordinatlarından, kitabın kanonik görüşüyle çizilir (kitabın `ca_ubq3.npz` ve `ubq_kanonik.json` dosyaları; yol üretece argüman olarak verilir). Çevresindeki su noktaları temsilîdir, kristal sularının konumu değildir. Çizimi olmayan bir modülün kartı koyu zemin ve modül kimliğiyle gösterilir.
+- Modül sayfaları, veri ve çeviri tabloları değişmedi.
+
 ## 0.42.8 (11 Ekim 2026) · Kitapla uyum: üç sözlük tanımı ve MD-U sınama sorusu
 
 - Sözlük: "etkin örnek sayısı", "RMSD" ve "RMSF" tanımları kitabın V4 sonrası revizyonuyla (CH17, CH13, CH14) uyumlu yazıldı. Etkin örnek sayısı N_etkin = N/g ile, g boyutsuz olarak tanımlandı; negatif otokorelasyonda kare sayısını aşabileceği ve seyrek durumlarda ayrıca denetim gerektiği eklendi. RMSD'de hizalama zorunlu tanım parçası olmaktan çıktı (docking pozunu reseptör çerçevesinde değerlendirirken ligandı ayrıca hizalamak hatayı siler). RMSF'de sabit referansa göre sapmanın ayrı bir nicelik olduğu yazıldı. İngilizce tanımlar aynı biçimde değişti.
