@@ -1,5 +1,17 @@
 # Sürüm notları
 
+## Yayımlanmamış · Belge düzenlemesi (21 Ekim 2026)
+
+Bu giriş bir sürüm değildir; sürüm numarası, etiket ya da GitHub sürümü verilmedi. Site davranışı, modül kodu, veriler ve çeviri tabloları değişmedi; yalnız depo belgeleri güncellendi.
+
+- `README.md` İngilizce olarak yeniden yazıldı, Türkçe karşılığı `README.tr.md` eklendi; iki dosya birbirine bağlantı verir. Modül tabloları `modules.json`'dan üretildi (27 modül, hepsi `pilot`). Eski README 6 modül gösteriyordu. Hangi hesabın tarayıcıda yapıldığı, hangi sonuçların önceden hesaplanmış GROMACS ve AutoDock Vina koşularından geldiği ayrı ayrı yazıldı. Yerel çalıştırma komutları, sınırlılıklar, lisans durumu (henüz seçilmedi) ve bakım planı eklendi.
+- `CONTRIBUTING.md` eklendi: `sources/` kopyalama kuralı, hata ve bilimsel sorun bildirimi, çeviri tablosu düzeltmeleri, testler. Katkıların lisans koşulunun henüz belirlenmediği yazıldı.
+- `docs/DEPLOY.md`: 21 Ekim 2026 tarihli "Güncel durum" bölümü eklendi (depo herkese açık, etiket ve sürüm yok, etkin GitHub Actions yok). Özel depo kurulumunu anlatan 25 Eylül 2026 metni tarihli kayıt olarak korundu. `docs/ci/check.yml` dosyasının yalnız şablon olduğu ayrı bir bölümde yazıldı.
+- `docs/ARCHITECTURE.md`: başa tarihli bir güncel durum notu eklendi (React taşıması uygulanmadı, site statik HTML, güncel modül listesi `modules.json`'da). 25 Eylül 2026 önerisinin metni değişmedi.
+- `sources/SOURCES.md`: tablonun ilk 12 kopyayı gösterdiğini ve güncel SHA-256 değerlerinin `i18n/<KİMLİK>.en.json` içindeki `source_sha256` alanında olduğunu söyleyen bir not eklendi.
+- `docs/CODEX_OSS_APPLICATION_DRAFT.md` eklendi: OpenAI Codex for Open Source başvurusu için taslak metinler. Başvuru gönderilmedi.
+- `robots.txt`, `noindex` başlıkları, erişim kuralları ve dağıtım ayarları değişmedi.
+
 ## 0.43.0 (15 Ekim 2026) · Uygulama sayfaları: düzeylere ayrılmış, görselli modül kartları
 
 - /tr/md/, /en/md/ ve docking sayfaları yeniden düzenlendi. Modüller üç düzeyde (Temel, Orta, İleri) toplandı; her düzeyin içinde kitaptaki bölüm sırasıyla dizildi. Sayfanın üstünde düzeylere götüren üç kart ve kısa bir yönlendirme satırı var; "Hesaplar nasıl yapılır?" kutusu kapalı açılır.

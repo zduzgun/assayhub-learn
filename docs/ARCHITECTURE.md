@@ -9,6 +9,14 @@ karar_bekleyen: kalıcı adres altyapısı, Zenodo hesabı, depo konumu, MD veri
 
 # AssayHub Learn: mimari ve konumlandırma
 
+> **Güncel durum notu (21 Ekim 2026).** Bu belge 25 Eylül 2026 tarihli bir yazar önerisidir ve tarihsel kayıt olarak korunur; aşağıdaki metin o günün planını anlatır, değiştirilmedi. O tarihten sonra bazı noktalar plandan farklı gelişti:
+>
+> - **Uygulama biçimi.** 7. kısımdaki "React ürününe taşıma" adımı uygulanmadı. Site, `tools/build.mjs` ile `sources/` içindeki tek dosyalık prototiplerden ve `i18n/` çeviri tablolarından üretilen statik HTML'dir; paket bağımlılığı yoktur. Dil öneksiz adresleri bir Cloudflare Pages işlevi (`functions/[[path]].js`) yönlendirir.
+> - **Modül listesi.** 3. kısımdaki tablo o günün durumunu gösterir ve artık güncel değildir. Güncel liste `modules.json`'dadır (27 modül, hepsi `pilot` durumunda) ve `README.md` ile `README.tr.md` içindeki tablolar bu dosyadan üretilir.
+> - **Depo.** Depo GitHub'da herkese açıktır (21 Ekim 2026'da kimlik doğrulamasız klonlanarak doğrulandı). Etiket ve GitHub sürümü yoktur; Zenodo arşivi ve DOI henüz yoktur (4. kısımdaki arşiv adımı plan olarak kalır).
+> - **Lisans.** 6. kısımdaki matris üçüncü taraf kaynakların lisanslarını anlatır. Projenin kendi kodu ve özgün eğitim içeriği için lisans henüz seçilmedi (bkz. `README.md`; üçüncü taraf lisansları `NOTICE.md` dosyasındadır).
+> - **Sürekli tümleştirme.** Etkin bir GitHub Actions iş akışı yoktur; `docs/ci/check.yml` yalnız şablondur (bkz. `docs/DEPLOY.md`).
+
 Bu belge, MD kitabı için üretilen etkileşimli prototipleri (DK-T, DK-O, DK-U) AssayHub içinde ayrı bir "Learn" bölümüne taşımanın planıdır. İki uygulama öngörülür: önce **Docking**, sonra **MD simülasyon**. Kitap en son yazıldığında bölümler karekodlarla bu uygulamalara gönderme yapar. Belge bir yazar taslağıdır; kod veya ürün kararı değildir.
 
 ## 1. Amaç ve konumlandırma

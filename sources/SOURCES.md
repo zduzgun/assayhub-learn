@@ -17,6 +17,8 @@ Bu klasördeki HTML dosyaları MD kitabı deposundaki prototiplerin kopyasıdır
 | `MD-ELEC.html` | `book/prototypes/MD-ELEC_TUZ_EWALD_2026-09-28.html` | `351d6e63bbe2b2108420606e5f94b825d67161b537fc4e0d10c64dcb5c2b06df` |
 | `MD-EQ.html` | `book/prototypes/MD-EQ_MINIMIZASYON_DENGELEME_2026-09-28.html` | `234a1061d2e04d3ae1a96fa8bd0bf0c3a6e267ea6c0bc6bd39e6d8decab05183` |
 
+> **Not (21 Ekim 2026).** Yukarıdaki tablo ilk kopyalanan 12 dosyayı ve kopyalandıkları günkü SHA-256 değerlerini gösterir; bu dosyaların çoğu sonradan güncellendi. Sonra eklenen 15 modül (MD-CON, MD-ENS, MD-ERR, MD-FAIL, MD-FES, MD-FF, MD-INT, MD-LIG, MD-MET, MD-PCA, MD-Q, MD-REP, MD-REPRO, MD-SOLV, MD-TRJ) tabloda yoktur; aşağıdaki paragraflarda anlatılır. Bu klasördeki her kopyanın güncel SHA-256 değeri `i18n/<KİMLİK>.en.json` dosyasının `source_sha256` alanındadır; `tools/build.mjs` her yapıda bu değeri kaynakla karşılaştırır ve eşleşmezse uyarı yazar. Bu not yalnız belgeyi açıklar; tablo ve aşağıdaki geçmiş kayıt değiştirilmedi.
+
 Sürüm geçmişi: 0.1.0 (24 Eylül 2026, `*_2026-09-24.html`); 0.1.1 (25 Eylül 2026, `*_2026-09-25_v2.html`): editör incelemesinde bulunan içerik ve bilim sorunlarının düzeltilmesi (bkz. `docs/i18n-review/2026-09-25_*.cozum.md`). Eski sürümler kitap klasöründe değiştirilmeden durur.
 
 MD-O 0.1.0 (25 Eylül 2026): ilk sürüm (yayımlanan ilk kopya `..._2026-09-25.html`, bağımsız gözden geçirmeden sonra `_v2`: 4 fs kayma anlatımı doğrusal uyumla başlar, S2b'de mdrun çağrısının çıkış kodu doğru anlatılır, konum kısıtı ve bağ kısıtı Türkçede ayrı adlandırılır). Gömülü veri paketi `book/cases/ubiquitin_1ubq/learn/md-o_data.json` dosyasından (çıkarım `extract.py`, doğrulama `verify.py`); koşu dosyaları `book/cases/ubiquitin_1ubq/scenarios/` ve `gromacs_trial/`.

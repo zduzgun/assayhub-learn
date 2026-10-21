@@ -1,12 +1,24 @@
-# Dağıtım: özel GitHub reposu + Cloudflare Pages
+# Dağıtım: GitHub deposu + Cloudflare Pages
 
-Karar (25 Eylül 2026): repo **özel**, yayın **Cloudflare Pages** üzerinden. Kod ve prototipler kitap yayımlanana kadar gizli kalır; site arama motorlarına kapalıdır. Aşağıdaki adımları bir kez kurucu yapar; Claude'un GitHub veya Cloudflare hesabına erişimi yoktur ve parola ya da token girmez.
+## Güncel durum (21 Ekim 2026)
 
-**Durum (25 Eylül 2026):** kurulum tamamlandı. Repo `zduzgun/assayhub-learn` (özel), Cloudflare Pages projesi `assayhub-learn`, kalıcı yayın adresi **https://learn.assayhub.app** (alan adı `assayhub.app`, Cloudflare Registrar, 25 Eylül 2026'da alındı, otomatik yenileme açık); önizleme adresi https://assayhub-learn.pages.dev de çalışmaya devam eder. Cloudflare Pages GitHub uygulamasının erişimi yalnız seçili repolarla sınırlıdır (assayhub-learn, CytoMove, MediCalender).
+- **Depo:** `zduzgun/assayhub-learn`, herkese açık (public). Varsayılan dal `main`. Bu durum 21 Ekim 2026'da depo kimlik doğrulaması olmadan klonlanarak doğrulandı. Depoda git etiketi (tag) ve GitHub release yoktur.
+- **Yayın:** Cloudflare Pages projesi `assayhub-learn`, `main` dalından her push'ta yeniden yapılır. Kalıcı adres **https://learn.assayhub.app** (alan adı `assayhub.app`, Cloudflare Registrar); önizleme adresi https://assayhub-learn.pages.dev de çalışır.
+- **Arama motorları:** site bilerek kapalıdır (`static/robots.txt` her şeyi yasaklar, `static/_headers` her sayfaya `X-Robots-Tag: noindex, nofollow` ekler). Deponun herkese açık olması bu ayarları ve sitenin pilot durumunu değiştirmez.
+- **Lisans:** deponun herkese açık olması kod için bir lisans vermez; kod lisansı henüz seçilmedi (bkz. `README.md`).
+- **GitHub Actions:** etkin bir iş akışı yoktur (depoda `.github/workflows/` klasörü yok). `docs/ci/check.yml` yalnız bir şablondur; bkz. aşağıdaki "GitHub Actions şablonu" kısmı. Yayın öncesi denetimi Cloudflare'in yapı komutu çalıştırır.
+
+## Geçmiş karar ve kurulum kaydı (25 Eylül 2026)
+
+Aşağıdaki 1. ve 2. adımlar ilk kurulumun kaydıdır ve o günkü kararı anlatır; tarihsel olarak korunur.
+
+Karar (25 Eylül 2026): repo **özel**, yayın **Cloudflare Pages** üzerinden. Kod ve prototipler kitap yayımlanana kadar gizli kalacaktı; site arama motorlarına kapalıydı. Adımları kurucu yaptı; Claude'un GitHub veya Cloudflare hesabına erişimi yoktu ve parola ya da token girmedi. Depo daha sonra herkese açık hale getirildi; bunun tarihi bu depoda kayıtlı değildir. Sitenin arama motorlarına kapalı olması değişmedi.
+
+Durum (25 Eylül 2026): kurulum tamamlandı. Repo `zduzgun/assayhub-learn` (o tarihte özel), Cloudflare Pages projesi `assayhub-learn`, kalıcı yayın adresi https://learn.assayhub.app (alan adı `assayhub.app`, 25 Eylül 2026'da alındı, otomatik yenileme açık). Cloudflare Pages GitHub uygulamasının erişimi seçili repolarla sınırlıydı.
 
 Arayüz adları zamanla değişebilir; adımlar 25 Eylül 2026 itibarıyla genel akışı anlatır.
 
-## 1. GitHub'da boş özel repo
+## 1. GitHub'da boş repo (kayıt: özel olarak açıldı)
 
 1. GitHub'da **New repository** → ad `assayhub-learn` → **Private**.
 2. README, .gitignore veya lisans **eklemeyin** (yerel repoda zaten var; ekleseniz ilk itmede çakışır).
@@ -25,7 +37,9 @@ git remote add origin https://github.com/<kullanıcı-adınız>/assayhub-learn.g
 git push -u origin main
 ```
 
-**İsteğe bağlı GitHub denetimi:** `docs/ci/check.yml` hazır bir GitHub Actions iş akışıdır. Kullanmak isterseniz bu dosyayı kendiniz `.github/workflows/check.yml` konumuna kopyalayıp commit edin; o zaman her push'ta yapı ve denetim GitHub'da da çalışır. (Claude'un uzak araçları iş akışı klasörüne yazamaz; bu bir güvenlik önlemidir.) Cloudflare'in yapı komutu denetimi zaten çalıştırdığı için bu adım zorunlu değildir.
+## GitHub Actions şablonu
+
+`docs/ci/check.yml` hazır bir GitHub Actions iş akışı şablonudur ve şu anda **etkin değildir**: GitHub yalnız `.github/workflows/` altındaki dosyaları çalıştırır ve depoda bu klasör yoktur. Etkinleştirmek isteyen proje sahibi dosyayı `.github/workflows/check.yml` konumuna kopyalayıp commit eder; o zaman her push ve pull request'te `node tools/build.mjs` ve `node tools/check.mjs` GitHub'da da çalışır. (Claude'un uzak araçları iş akışı klasörüne yazmaz; bu bir güvenlik önlemidir.) Cloudflare'in yapı komutu denetimi zaten çalıştırdığı için bu adım yayın için zorunlu değildir, ama dışarıdan gelen pull request'leri birleştirmeden önce denetlemeyi kolaylaştırır.
 
 ## 3. Cloudflare Pages'i bağlamak
 
@@ -62,4 +76,4 @@ Karekodlar `pages.dev` adresine değil, denetlediğiniz kalıcı alan adına git
 2. Dosyayı `sources/` altına kopyalayıp `sources/SOURCES.md`'deki SHA-256 değerini güncelleyin.
 3. `modules.json`'da ilgili modülün `version` alanını artırın; `docs/CHANGELOG.md`'ye not düşün.
 4. `node tools/build.mjs && node tools/check.mjs` yerelde geçsin; commit ve push. Cloudflare yeni sürümü yayına alır.
-5. Kitapta atıf yapılacak sürümler için ayrıca Zenodo'ya arşiv (DOI) yükleyin.
+5. Kitapta atıf yapılacak sürümler için ayrıca Zenodo'ya arşiv (DOI) yükleyin. (Planlandı; 21 Ekim 2026 itibarıyla hiçbir sürüm arşivlenmedi ve git etiketi ya da GitHub release oluşturulmadı.)
