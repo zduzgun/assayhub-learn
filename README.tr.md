@@ -2,7 +2,7 @@
 
 [English](README.md) | **Türkçe**
 
-AssayHub Learn, moleküler dinamik (MD) ve moleküler docking üzerine iki dilli (Türkçe ve İngilizce) etkileşimli eğitim modüllerinden oluşur. Modüller tarayıcıda açılan statik web sayfalarıdır. Depo sahibinin hazırladığı Türkçe MD kitabına, *Biyomoleküllerin Moleküler Dinamik Simülasyonu*'na (hazırlık aşamasında, henüz yayımlanmadı) eşlik ederler: her modül bir kitap bölümüne bağlıdır ve kitaptaki karekodlar sitedeki kalıcı kısa adreslere gider.
+AssayHub Learn, moleküler dinamik (MD) ve moleküler docking üzerine iki dilli (Türkçe ve İngilizce) etkileşimli eğitim modüllerinden oluşur. Modüller tarayıcıda açılan statik web sayfalarıdır. Depo sahibinin hazırladığı Türkçe MD kitabına, *Biyomoleküllerin Moleküler Dinamik Simülasyonu*'na (hazırlık aşamasında, henüz yayımlanmadı) eşlik ederler: her modül bir kitap bölümüne bağlıdır ve kitaptaki karekodlar sitedeki kalıcı kısa adreslere gider. AssayHub Learn açık kaynaktır: kod Apache-2.0, özgün eğitim içeriği CC BY 4.0 lisanslıdır (bkz. [Lisans ve kullanım koşulları](#lisans-ve-kullanım-koşulları)).
 
 **Durum: pilot önizleme.** 27 modülün hepsi pilot sürümdür. Bağımsız bilimsel ya da hedef okur incelemesi henüz yapılmadı. Site bilerek arama motorlarına kapalıdır (`robots.txt` ve `X-Robots-Tag: noindex` başlığı). Yayımlanmış bir sürüm (release) henüz yok; bkz. [Sürümler](#sürümler).
 
@@ -130,6 +130,10 @@ tools/              build.mjs, check.mjs, test-lang.mjs, i18n.mjs, sync-engine.m
 tests/              ortak motorun birim testleri (node --test)
 docs/               mimari, dağıtım, sürüm notları, tasarım belgeleri ve planlar, inceleme kayıtları
 dist/               üretilen site (depoya girmez)
+LICENSE             Apache Lisansı 2.0 (kod)
+LICENSES/           CC BY 4.0 hukuki metni (eğitim içeriği)
+LICENSING.md        hangi bölümün hangi lisansa girdiği; atıf; lisans dışında kalanlar
+NOTICE.md           üçüncü taraf veriler ve yazılımlar, lisanslarıyla
 ```
 
 `tools/check.mjs` bir kural bozulduğunda yapıyı durdurur. Örnekler: modül kimlikleri tekil ve biçimli; yayındaki her modülün iki dilde sayfası var; her kısa adres var olan bir sayfaya gidiyor; üretilen HTML'de U+2014 çizgisi yok; çıktıda yerel dosya yolu yok; ChEMBL verisi kullanan sayfalarda lisans notu var; her dosya Cloudflare Pages boyut sınırının altında.
@@ -149,7 +153,9 @@ Hata bildirimleri, bilimsel ya da eğitsel içerik düzeltmeleri, çeviri düzel
 
 ## Lisans ve kullanım koşulları
 
-- **Kod ve özgün eğitim içeriği:** henüz bir lisans seçilmedi. Deponun herkese açık görünmesi bir lisans vermez; sahibi bir lisans seçene kadar bütün hakları saklıdır. Bu yüzden AssayHub Learn, lisans anlamında henüz bir açık kaynak proje değildir.
+- **Kod:** Apache Lisansı 2.0, bkz. [`LICENSE`](LICENSE).
+- **Özgün eğitim içeriği** (modül metinleri, alıştırmalar, şekiller, çeviriler, sözlük, kart çizimleri, belgeler ve yazarın hesapladığı veriler): Creative Commons Atıf 4.0 Uluslararası (CC BY 4.0), bkz. [`LICENSES/CC-BY-4.0.txt`](LICENSES/CC-BY-4.0.txt).
+- Hangi dosyanın hangi lisansa girdiği, nasıl atıf yapılacağı ve lisans dışında kalanlar (AssayHub adları ve simgesi, Ala maskotu, kitap) [`LICENSING.md`](LICENSING.md) dosyasında yazılıdır. Lisanslar 22 Ekim 2026'da seçildi.
 - **Üçüncü taraf veriler** kendi lisanslarına tabidir ve [`NOTICE.md`](NOTICE.md) dosyasında listelenir: PDB yapıları CC0 1.0; ChEMBL'den türetilen veri CC BY-SA 3.0 (DK-T, DK-U, MD-LIG ve MD-ERR sayfalarında kullanılır); mdshare ALA2 CC BY 4.0.
 - Verileri üretmek için kullanılan yazılımlar (GROMACS, AutoDock Vina, RDKit ve öbürleri) sitede çalışmaz; sürümleri ve lisansları `NOTICE.md` dosyasındadır.
 
@@ -168,7 +174,6 @@ Bunlar hedeftir, tarihli taahhüt değildir:
 - Yapı denetimlerinin ve birim testlerinin geçer kalması; gömülü veri için regresyon denetimleri eklenmesi.
 - Öğretim üyeleri için kısa kullanım örnekleri ve daha açık bir katkı akışı.
 - Pilot sürümü deneyen okur ve öğretim elemanlarından gelen geri bildirimlerin toplanması ve kaydedilmesi.
-- Kod ve eğitim içeriği için lisans seçilmesi.
 
 Arka plan: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (25 Eylül 2026 tarihli ilk tasarım önerisi; sonradan değişenler başındaki tarihli notta), [`docs/DEPLOY.md`](docs/DEPLOY.md) (Cloudflare Pages üzerinde barındırma).
 

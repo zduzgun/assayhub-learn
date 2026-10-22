@@ -1,5 +1,7 @@
 # Üçüncü taraf verileri ve yazılımları
 
+AssayHub Learn. Telif hakkı 2026 Zekeriya Düzgün. Kod Apache Lisansı 2.0 (`LICENSE`), özgün eğitim içeriği CC BY 4.0 (`LICENSES/CC-BY-4.0.txt`) ile verilir; kapsam ve istisnalar `LICENSING.md` dosyasındadır. Aşağıdaki üçüncü taraf veriler bu lisanslara değil, kendi lisanslarına tabidir.
+
 Bu sitedeki modüller aşağıdaki kaynaklardan türetilen veriler içerir. Lisanslar 25 Eylül 2026'da birincil kaynaklardan doğrulandı.
 
 ## Veriler

@@ -68,7 +68,7 @@ Please keep pull requests small and focused, and describe what you checked.
 
 ## Licence of contributions
 
-No licence has been chosen yet for the code and the original educational content (see the README). Until the owner decides, the terms under which contributions can be used are also not settled. If you plan a larger contribution, please open an issue first so this can be clarified.
+By submitting a contribution you agree that it is licensed under the licence of the part it changes: code under the Apache License 2.0 (as described in section 5 of [`LICENSE`](LICENSE)) and educational content (text, translations, figures, documentation) under CC BY 4.0. Please submit only work you wrote yourself or are allowed to license this way, and name the source and licence of any third-party material. See [`LICENSING.md`](LICENSING.md) for which part is under which licence.
 
 ---
 
@@ -78,4 +78,4 @@ No licence has been chosen yet for the code and the original educational content
 - `sources/` içindeki dosyalar yazarın kitap projesindeki prototiplerin kopyasıdır ve bu depoda elle düzenlenmez. İçerik düzeltmesini sorun kaydıyla bildirin; proje sahibi asıl prototipe uygular ve buraya kopyalar.
 - İngilizce metin düzeltmeleri `i18n/<KİMLİK>.en.json` tablolarına yapılabilir; sonra `node tools/i18n.mjs check <KİMLİK>`, `node tools/build.mjs`, `node tools/check.mjs` ve `node --test` çalıştırın.
 - Modül kimlikleri kalıcıdır; hesaplanmamış bir senaryo için sonuç uydurulmaz.
-- Kod ve özgün eğitim içeriği için lisans henüz seçilmediğinden katkıların kullanım koşulları da henüz belirlenmedi; büyük bir katkı planlıyorsanız önce sorun kaydı açın.
+- Katkılar değiştirdikleri bölümün lisansıyla kabul edilir: kod Apache-2.0, eğitim içeriği (metin, çeviri, şekil, belge) CC BY 4.0. Yalnız kendi yazdığınız ya da bu koşulla lisanslamaya hakkınız olan içeriği gönderin; üçüncü taraf malzemenin kaynağını ve lisansını belirtin. Ayrıntı: `LICENSING.md`.

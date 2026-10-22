@@ -2,7 +2,7 @@
 
 **English** | [Türkçe](README.tr.md)
 
-AssayHub Learn is a bilingual (English and Turkish) set of interactive teaching modules on molecular dynamics (MD) and molecular docking. The modules run as static web pages in the browser. They accompany a Turkish MD textbook by the repository owner, *Biyomoleküllerin Moleküler Dinamik Simülasyonu* (in preparation, not yet published): each module belongs to a book chapter, and the book's QR codes point to permanent short addresses on the site.
+AssayHub Learn is a bilingual (English and Turkish) set of interactive teaching modules on molecular dynamics (MD) and molecular docking. The modules run as static web pages in the browser. They accompany a Turkish MD textbook by the repository owner, *Biyomoleküllerin Moleküler Dinamik Simülasyonu* (in preparation, not yet published): each module belongs to a book chapter, and the book's QR codes point to permanent short addresses on the site. AssayHub Learn is open source: the code is licensed under Apache-2.0 and the original educational content under CC BY 4.0 (see [Licence and terms of use](#licence-and-terms-of-use)).
 
 **Status: pilot preview.** All 27 modules are pilot versions. No independent scientific or target-reader review has been done yet. The site is deliberately closed to search engines (`robots.txt` and an `X-Robots-Tag: noindex` header). There are no published releases yet; see [Versions and releases](#versions-and-releases).
 
@@ -130,6 +130,10 @@ tools/              build.mjs, check.mjs, test-lang.mjs, i18n.mjs, sync-engine.m
 tests/              unit tests for the shared engine (node --test)
 docs/               architecture, deployment, changelog, design specs and plans, review records
 dist/               generated site (not committed)
+LICENSE             Apache License 2.0 (code)
+LICENSES/           CC BY 4.0 legal code (educational content)
+LICENSING.md        which part is under which licence; attribution; what is not licensed
+NOTICE.md           third-party data and software and their licences
 ```
 
 `tools/check.mjs` stops the build when a rule is broken, for example: unique and well-formed module IDs, every published module has a page in both languages, every short address resolves, no U+2014 dash in generated HTML, no local file paths in the output, a ChEMBL licence notice on pages that use ChEMBL data, and every file under the Cloudflare Pages size limit.
@@ -149,7 +153,9 @@ Bug reports, corrections to scientific or teaching content, translation fixes an
 
 ## Licence and terms of use
 
-- **Code and original educational content:** no licence has been chosen yet. The repository is publicly visible, but that does not grant a licence; until the owner chooses one, all rights are reserved. AssayHub Learn is therefore not yet an open-source project in the licensing sense.
+- **Code:** Apache License 2.0, see [`LICENSE`](LICENSE).
+- **Original educational content** (module text, exercises, figures, translations, glossary, card drawings, documentation and the data the author computed): Creative Commons Attribution 4.0 International (CC BY 4.0), see [`LICENSES/CC-BY-4.0.txt`](LICENSES/CC-BY-4.0.txt).
+- Which file falls under which licence, how to attribute, and what is not licensed (the AssayHub names and icon, the Ala mascot, the companion book) is described in [`LICENSING.md`](LICENSING.md). The licences were chosen on 22 October 2026.
 - **Third-party data** keep their own licences, listed in [`NOTICE.md`](NOTICE.md): PDB structures CC0 1.0; data derived from ChEMBL CC BY-SA 3.0 (used on the DK-T, DK-U, MD-LIG and MD-ERR pages); mdshare ALA2 CC BY 4.0.
 - Software used to produce the data (GROMACS, AutoDock Vina, RDKit and others) does not run on the site; versions and licences are in `NOTICE.md`.
 
@@ -168,7 +174,6 @@ These are intended goals, not commitments with dates:
 - Keeping the build checks and unit tests green, and adding regression checks for embedded data.
 - Short usage examples for teachers and a clearer contribution workflow.
 - Collecting and recording feedback from readers and teachers who try the pilot.
-- Choosing a licence for the code and the educational content.
 
 More background: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) (the original design proposal of 25 September 2026, with a dated note on what changed since), [`docs/DEPLOY.md`](docs/DEPLOY.md) (hosting on Cloudflare Pages).
 

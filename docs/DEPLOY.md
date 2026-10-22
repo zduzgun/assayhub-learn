@@ -5,7 +5,7 @@
 - **Depo:** `zduzgun/assayhub-learn`, herkese açık (public). Varsayılan dal `main`. Bu durum 21 Ekim 2026'da depo kimlik doğrulaması olmadan klonlanarak doğrulandı. Depoda git etiketi (tag) ve GitHub release yoktur.
 - **Yayın:** Cloudflare Pages projesi `assayhub-learn`, `main` dalından her push'ta yeniden yapılır. Kalıcı adres **https://learn.assayhub.app** (alan adı `assayhub.app`, Cloudflare Registrar); önizleme adresi https://assayhub-learn.pages.dev de çalışır.
 - **Arama motorları:** site bilerek kapalıdır (`static/robots.txt` her şeyi yasaklar, `static/_headers` her sayfaya `X-Robots-Tag: noindex, nofollow` ekler). Deponun herkese açık olması bu ayarları ve sitenin pilot durumunu değiştirmez.
-- **Lisans:** deponun herkese açık olması kod için bir lisans vermez; kod lisansı henüz seçilmedi (bkz. `README.md`).
+- **Lisans:** 22 Ekim 2026'dan beri kod Apache-2.0 (`LICENSE`), özgün eğitim içeriği CC BY 4.0 (`LICENSES/CC-BY-4.0.txt`); kapsam `LICENSING.md` dosyasındadır. Bu tarihten önce depo lisanssız olarak herkese açıktı.
 - **GitHub Actions:** etkin bir iş akışı yoktur (depoda `.github/workflows/` klasörü yok). `docs/ci/check.yml` yalnız bir şablondur; bkz. aşağıdaki "GitHub Actions şablonu" kısmı. Yayın öncesi denetimi Cloudflare'in yapı komutu çalıştırır.
 
 ## Geçmiş karar ve kurulum kaydı (25 Eylül 2026)

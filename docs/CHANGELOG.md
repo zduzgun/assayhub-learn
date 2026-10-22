@@ -1,5 +1,14 @@
 # Sürüm notları
 
+## Yayımlanmamış · Lisans (22 Ekim 2026)
+
+Bu giriş bir sürüm değildir; sürüm numarası, etiket ya da GitHub sürümü verilmedi. Site davranışı, modül kodu ve veriler değişmedi.
+
+- Proje sahibi lisansları seçti: kod Apache Lisansı 2.0 (`LICENSE`), özgün eğitim içeriği Creative Commons Atıf 4.0 Uluslararası (`LICENSES/CC-BY-4.0.txt`). Lisans metinleri değiştirilmeden eklendi: Apache-2.0 metni Debian'ın `common-licenses` kopyasından (SPDX metniyle sözcük sözcük aynı), CC BY 4.0 metni Creative Commons'un `cc-legal-tools-data` deposundaki `legalcode.txt` dosyasından.
+- `LICENSING.md` eklendi: hangi dosyanın hangi lisansa girdiği, önerilen atıf biçimi, üçüncü taraf veriler (ChEMBL türevi veri CC BY-SA 3.0 kalır) ve lisans dışında kalanlar ("AssayHub" adları ve `static/assets/icon.svg`, Ala maskotu, kitabın kendisi).
+- `README.md`, `README.tr.md`, `CONTRIBUTING.md`, `NOTICE.md`, `docs/DEPLOY.md`, `docs/ARCHITECTURE.md` ve `docs/CODEX_OSS_APPLICATION_DRAFT.md` buna göre güncellendi. Katkılar değiştirdikleri bölümün lisansıyla kabul edilir.
+- Kaynak dosyalara lisans başlığı (SPDX satırı) eklenmedi; `sources/*.html` kitap prototiplerinin kopyası olduğundan değiştirilmedi.
+
 ## Yayımlanmamış · Belge düzenlemesi (21 Ekim 2026)
 
 Bu giriş bir sürüm değildir; sürüm numarası, etiket ya da GitHub sürümü verilmedi. Site davranışı, modül kodu, veriler ve çeviri tabloları değişmedi; yalnız depo belgeleri güncellendi.
