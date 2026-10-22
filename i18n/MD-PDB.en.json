@@ -1,7 +1,7 @@
 {
  "module": "MD-PDB",
  "lang": "en",
- "source_sha256": "dc41016ebf933a4f255a0c4c0df2fefcf2d92625cb812848f5aa69e514c5cdc2",
+ "source_sha256": "850495357ce8cd492e58bce3b36db340bd1880517d0e1601151c2fcb8a6d5c8b",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PDB 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -215,8 +215,8 @@
    "<dt>Density at the weakest atom / contour</dt><dd id=\"o2mweak\"></dd>"
   ],
   [
-   "<dt>Kalıntının tepe yüksekliği (tam dolu, B 13,41 Å² karbon = 1)</dt><dd id=\"o2mpk\"></dd>",
-   "<dt>Peak height of the residue (fully occupied carbon with B 13.41 Å² = 1)</dt><dd id=\"o2mpk\"></dd>"
+   "<dt>Kalıntının tepe yüksekliği, yalnız atomların kendi katkısı (tam dolu, B 13,41 Å² karbon = 1)</dt><dd id=\"o2mpk\"></dd>\n            <dt>Komşularla birlikte atom yerindeki yoğunluk (kalıntı ortalaması; görünürlüğü bu belirler)</dt><dd id=\"o2mnb\"></dd>",
+   "<dt>Peak height of the residue, the atoms' own contribution only (fully occupied carbon with B 13.41 Å² = 1)</dt><dd id=\"o2mpk\"></dd>\n            <dt>Density at the atom positions including neighbors (residue mean; this sets visibility)</dt><dd id=\"o2mnb\"></dd>"
   ],
   [
    "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Kontur çizgisi</span><span><i style=\"background:var(--good)\"></i>Görünen atom (dolu)</span><span><i style=\"background:var(--bad)\"></i>Konturun altında kalan atom (içi boş)</span><span>Kalın çizilen: seçili kalıntı</span></div>",
@@ -291,8 +291,8 @@
    "<div class=\"lbl\">Waters kept by your criterion</div>"
   ],
   [
-   "<div class=\"tw\"><table><thead><tr><th>Su</th><th>B</th><th>Doluluk</th><th>En yakın protein atomu</th></tr></thead><tbody id=\"o2wtab\"></tbody></table></div>",
-   "<div class=\"tw\"><table><thead><tr><th>Water</th><th>B</th><th>Occupancy</th><th>Nearest protein atom</th></tr></thead><tbody id=\"o2wtab\"></tbody></table></div>"
+   "<div class=\"tw\"><table><thead><tr><th>Su</th><th>B</th><th>Doluluk</th><th>En yakın protein atomu</th></tr></thead><tbody id=\"o2wtab\"></tbody></table></div>\n        <p class=\"small\">Bir suya tıklayın: dağılım grafiğinde ve 3B görünümde işaretlenir. Örneğin HOH 112, MD-O'da His68'in NE2'sinden 0,364 nm uzakta anılan sudur.</p>",
+   "<div class=\"tw\"><table><thead><tr><th>Water</th><th>B</th><th>Occupancy</th><th>Nearest protein atom</th></tr></thead><tbody id=\"o2wtab\"></tbody></table></div>\n        <p class=\"small\">Click a water: it is marked in the scatter plot and in the 3D view. For example HOH 112 is the water mentioned in MD-O, 0.364 nm from the NE2 of His68.</p>"
   ],
   [
    "<p class=\"small\">Komşu sayıları bu sayfa için 1UBQ koordinatlarından hesaplandı: polar protein komşusu, suyun oksijenine 3,5 Å'den yakın N ya da O atomudur. Kristal komşuları, uzay grubunun (P2₁2₁2₁) simetri işlemleri ve birim hücre kaydırmalarıyla üretilen ubikitin kopyalarıdır; bir su bu kopyalardan birinin N ya da O atomuna 3,5 Å'den yakınsa \"komşu moleküle değiyor\" sayılır. 58 suyun 25'i komşu bir moleküle, bunların 16'sı aynı anda proteinin kendisine de değiyor. 9 su ne proteine ne komşu moleküle 3,5 Å içinde polar temas kuruyor; bunlar büyük olasılıkla başka suların oluşturduğu ağda duruyor. Ölçütün doğrusu yoktur: amaç, hangi seçimin hangi soruya uyduğunu görmektir.</p>",
@@ -367,8 +367,8 @@
    "<div class=\"legend\"><span><i style=\"background:var(--deep)\"></i>Crystal, 1UBQ</span><span><i style=\"background:var(--accent)\"></i>MD, 200-2000 ps</span><span><i style=\"background:var(--pale)\"></i>Range between the two halves of the MD run</span></div>"
   ],
   [
-   "<div class=\"prose\"><p><b>Ne görülüyor?</b> İki eğri aynı yerlerde yükseliyor: C ucu (72-76) ve 8-10 dönemeci ikisinde de en hareketli bölgeler; 76 kalıntının tamamında r 0,87. Kuyruğu çıkarınca uyum azalıyor (1-72'de r 0,59), çünkü ilk sayıyı büyük ölçüde kuyruk belirliyor. Çekirdekte MD daha düşük: 1-72 kalıntılarının ortanca B değeri kristalde 8,8, MD'de 5,8 Å². Kristal B, ısıl titreşimin yanında moleküller arasındaki küçük konum farklarını ve kristal kusurlarını da içerir; MD'de bunlar yoktur. Kuyrukta ise tersine MD çok daha yüksek (Gly75: kristal 36,1, MD 87,6 Å²). Çözeltide komşu molekül yoktur ve kuyruk serbesttir; kristalde ise Arg72 ve Arg74 komşu bir moleküle değer ve kuyruğun düzensizliğinin bir kısmı B'ye değil düşük doluluğa yazılmıştır. Bunlar olası açıklamalardır; bu karşılaştırma hangisinin ne kadar etkili olduğunu ayırmaz.</p></div>",
-   "<div class=\"prose\"><p><b>What do we see?</b> The two curves rise in the same places: the C-terminus (72-76) and the 8-10 turn are the most mobile regions in both; over all 76 residues r is 0.87. Without the tail the agreement drops (r 0.59 over 1-72), because the first number is set largely by the tail. In the core MD is lower: the median B of residues 1-72 is 8.8 Å² in the crystal and 5.8 Å² in MD. The crystal B contains, besides thermal vibration, small position differences between molecules and crystal defects; MD has none of these. At the tail, by contrast, MD is much higher (Gly75: crystal 36.1, MD 87.6 Å²). In solution there is no neighboring molecule and the tail is free; in the crystal Arg72 and Arg74 touch a neighboring molecule, and part of the tail's disorder was written into a low occupancy rather than into B. These are possible explanations; this comparison does not separate how much each one contributes.</p></div>"
+   "<div class=\"prose\"><p><b>Ne görülüyor?</b> İki eğri aynı yerlerde yükseliyor: C ucu (72-76) ve 8-10 dönemeci ikisinde de en hareketli bölgeler; 76 kalıntının tamamında r 0,87. Kuyruğu çıkarınca uyum azalıyor (1-72'de r 0,59), çünkü ilk sayıyı büyük ölçüde kuyruk belirliyor. Çekirdekte MD daha düşük: 1-72 kalıntılarının ortanca B değeri kristalde 8,8, MD'de 5,8 Å². Kristal B, ısıl titreşimin yanında moleküller arasındaki küçük konum farklarını ve kristal kusurlarını da içerir; MD'de bunlar yoktur. Kuyrukta ise tersine MD çok daha yüksek (Gly75: kristal 36,1, MD 87,6 Å²). Çözeltide komşu molekül yoktur ve kuyruk serbesttir; kristalde ise Arg72 ve Arg74 komşu bir moleküle değer ve kuyruğun düzensizliğinin bir kısmı B'ye değil düşük doluluğa yazılmıştır. Bunlar olası açıklamalardır; bu karşılaştırma hangisinin ne kadar etkili olduğunu ayırmaz. İkinci bir örnek 46-48 dönemecidir: MD'de en hareketli on kalıntı arasına giriyor (Gly47: MD 25,0, kristal 11,7 Å²), kristalde girmiyor. Bunun kristal örgüsünden mi, 2 ns'lik tek koşudan mı geldiği burada da ayrılmaz.</p></div>",
+   "<div class=\"prose\"><p><b>What do we see?</b> The two curves rise in the same places: the C-terminus (72-76) and the 8-10 turn are the most mobile regions in both; over all 76 residues r is 0.87. Without the tail the agreement drops (r 0.59 over 1-72), because the first number is set largely by the tail. In the core MD is lower: the median B of residues 1-72 is 8.8 Å² in the crystal and 5.8 Å² in MD. The crystal B contains, besides thermal vibration, small position differences between molecules and crystal defects; MD has none of these. At the tail, by contrast, MD is much higher (Gly75: crystal 36.1, MD 87.6 Å²). In solution there is no neighboring molecule and the tail is free; in the crystal Arg72 and Arg74 touch a neighboring molecule, and part of the tail's disorder was written into a low occupancy rather than into B. These are possible explanations; this comparison does not separate how much each one contributes. A second example is the 46-48 turn: in MD it is among the ten most mobile residues (Gly47: MD 25.0, crystal 11.7 Å²), in the crystal it is not. Whether this comes from the crystal lattice or from the single 2 ns run cannot be separated here either.</p></div>"
   ],
   [
    "<p class=\"small\" id=\"o2mdN\">Sınırlar: 2 ns kısa bir koşudur ve keşifsel olarak etiketlidir; yakınsama kanıtı değildir. Koşunun iki yarısı (200-1100 ve 1100-2000 ps) arasında r 0,86, ama kuyrukta fark büyük (Arg74'te iki yarı arasında 52 Å²): kuyruğun hareketi bu sürede yeterince örneklenmedi. Kristalin ölçüm sıcaklığı dosyada yazılı değil; koşu 300 K'dedir. Hesap: <code>gmx trjconv -pbc mol -center</code>, omurgaya <code>-fit rot+trans</code>, <code>gmx rmsf</code> (Cα, 200-2000 ps). Koşu bulutta, GROMACS 2023.3, 2 iş parçacığıyla 3 sa 42 dk sürdü (12,98 ns/gün).</p>",
@@ -491,8 +491,8 @@
    "1:function(){ return 'Even a carbon at rest is not a point in the map: at 1.8 Å resolution the measurement gives each atom as a cloud about σ₀ = 0.45 Å wide. With B = 0 the peak height is '+fx(peakOf(6,1,0),2)+'. Scale: the peak of a fully occupied carbon with the 1UBQ mean B value (13.41 Å²) = 1.'; },"
   ],
   [
-   "2:function(){ return 'B büyüdükçe bulut yayılır, tepe alçalır; eğrinin altındaki alan, yani atomun elektron sayısı değişmez. Leu43 Cα (B 3,51 Å²): tepe '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36,19 Å²): tepe '+fx(peakOf(6,1,36.19),2)+', aynı atom, üçte birinden az yükseklik.'; },",
-   "2:function(){ return 'As B grows, the cloud spreads and the peak drops; the area under the curve, that is the electron count of the atom, does not change. Leu43 Cα (B 3.51 Å²): peak '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36.19 Å²): peak '+fx(peakOf(6,1,36.19),2)+', the same atom at less than a third of the height.'; },"
+   "2:function(){ return 'B büyüdükçe bulut yayılır, tepe alçalır. Değişmeyen, üç boyutlu bulutun toplamıdır, yani atomun elektron sayısı. Burada çizilen eğri bulutun merkezden geçen kesitidir: bulut üç yöne birden yayıldığı için kesitin alanı B ile küçülür. Leu43 Cα (B 3,51 Å²): tepe '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36,19 Å²): tepe '+fx(peakOf(6,1,36.19),2)+', aynı atom, üçte birinden az yükseklik.'; },",
+   "2:function(){ return 'As B grows, the cloud spreads and the peak drops. What stays the same is the total of the three-dimensional cloud, that is the electron count of the atom. The curve drawn here is a slice through the center of the cloud: because the cloud spreads in all three directions at once, the area of the slice shrinks as B grows. Leu43 Cα (B 3.51 Å²): peak '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36.19 Å²): peak '+fx(peakOf(6,1,36.19),2)+', the same atom at less than a third of the height.'; },"
   ],
   [
    "3:function(){ return 'Doluluk eğriyi olduğu gibi küçültür: 0,25 doluluk tepeyi de alanı da dörtte birine indirir. Gly76 Cα\\'nın dosyadaki değerleriyle (doluluk 0,25, B 36,19 Å²) tepe '+fx(peakOf(6,0.25,36.19),2)+'.'; },",
@@ -551,8 +551,8 @@
    "$('o2wn').textContent=n+' / 58'; $('o2wmb').textContent=n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1)+' Å²':'none'; $('o2wsy').textContent=String(K.filter(function(w){ return w[4]>0; }).length);"
   ],
   [
-   "$('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td>HOH '+w[0]+'</td><td class=\"n\">'+fx(w[2],1)+'</td><td class=\"n\">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan=\"4\">Bu ölçütle hiç su kalmadı.</td></tr>';",
-   "$('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td>HOH '+w[0]+'</td><td class=\"n\">'+fx(w[2],1)+'</td><td class=\"n\">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan=\"4\">No water is left with this criterion.</td></tr>';"
+   "$('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td><button type=\"button\" class=\"chip wsel\" data-w=\"'+w[0]+'\" aria-pressed=\"'+(T4.selW===w[0])+'\">HOH '+w[0]+'</button></td><td class=\"n\">'+fx(w[2],1)+'</td><td class=\"n\">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan=\"4\">Bu ölçütle hiç su kalmadı.</td></tr>';",
+   "$('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td><button type=\"button\" class=\"chip wsel\" data-w=\"'+w[0]+'\" aria-pressed=\"'+(T4.selW===w[0])+'\">HOH '+w[0]+'</button></td><td class=\"n\">'+fx(w[2],1)+'</td><td class=\"n\">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan=\"4\">No water is left with this criterion.</td></tr>';"
   ],
   [
    "if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Ölçütünüz: komşu moleküle değmeyen, en az '+T4.pmin+' polar protein komşusu olan'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', doluluk ≥ '+fx(T4.omin,2):'')+' sular: '+n+' / 58, ortalama B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'yok')+' Å². Bunlar proteinin kendi yüzeyine bağlı; çözeltide de benzer yerlerde bulunmaları beklenir, ama bu bir beklentidir, kanıt değil.'); }",
@@ -609,6 +609,14 @@
   [
    "['o2c1','o2c2','o2c3','o2c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
    "['o2c1','o2c2','o2c3','o2c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "var FNAME={rec:'kayıt türü',ser:'atom sıra numarası',name:'atom adı',alt:'alternatif konum',resn:'kalıntı adı',ch:'zincir kimliği',resi:'kalıntı numarası',x:'koordinat x',y:'koordinat y',z:'koordinat z',occ:'doluluk',b:'B faktörü',el:'element'};",
+   "var FNAME={rec:'record type',ser:'atom serial number',name:'atom name',alt:'alternate location',resn:'residue name',ch:'chain identifier',resi:'residue number',x:'coordinate x',y:'coordinate y',z:'coordinate z',occ:'occupancy',b:'B-factor',el:'element'};"
+  ],
+  [
+   "var FEMPTY='boş';",
+   "var FEMPTY='empty';"
   ]
  ],
  "keep": [

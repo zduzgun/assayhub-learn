@@ -130,7 +130,7 @@ p.next a{color:var(--accent)}
 /* Laboratuvar 3 */
 #k3s6Plot{aspect-ratio:16/4}
 <style>.card>*,.sub>*,.two>*,.ctl>*{min-width:0} .sub{display:grid;gap:14px;border-top:1px solid var(--line);padding-top:18px;margin-top:4px} .h3{margin:0;font-size:18px;line-height:1.3} #o1map{aspect-ratio:16/11} .steps{list-style:none;margin:0;padding:0;display:grid;gap:6px;counter-reset:st} .steps li{counter-increment:st} .steps button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:14px;color:var(--ink)} .steps button::before{content:counter(st);display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft);font-weight:600;font-size:12.5px;flex:none} .steps button[aria-pressed="true"]{border-color:var(--navy);box-shadow:inset 3px 0 0 var(--navy)} .steps button[aria-pressed="true"]::before{background:var(--navy);color:var(--paper)} .steps button:focus-visible{outline:2px solid var(--accent);outline-offset:2px} .stepbox{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14.5px;line-height:1.55;min-height:7.5em} .stepbox p{margin:0} .flow svg{width:100%;height:auto;display:block} .flow .fq{fill:var(--paper);stroke:var(--line);stroke-width:1.5} .flow .fq.on{stroke:var(--navy);stroke-width:2} .flow .fr{fill:var(--soft);stroke:var(--line);stroke-width:1.5} .flow .fr.on{fill:var(--navy);stroke:var(--navy)} .flow .fr.on.plus{fill:var(--bad);stroke:var(--bad)} .flow .fl{stroke:var(--line);stroke-width:2} .flow .fl.on{stroke:var(--navy);stroke-width:3} .flow .fa{fill:var(--muted)} .flow .ft{font:600 13px var(--sans);fill:var(--ink);text-anchor:middle} .flow .fr.on+.ft{fill:var(--paper)} .flow .fs{font:12px var(--sans);fill:var(--muted);text-anchor:middle} #o1hh{aspect-ratio:16/10} #o1tit{aspect-ratio:16/6} td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap} .crash{display:grid;gap:8px;border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:8px;padding:12px 14px;background:var(--paper)} .crash.ok{border-left-color:var(--good)} .crash pre{margin:0;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;word-break:break-word;color:var(--ink)} .btn:disabled{opacity:.45;cursor:not-allowed} @media (min-width:821px){ .minis{grid-template-columns:repeat(2,minmax(0,1fr))} } @media (max-width:560px){ #o1map{aspect-ratio:4/3.6} #o1tit{aspect-ratio:4/3.2} #o1hh{aspect-ratio:4/3.4} }</style>
-<style>.pdbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px} .pdbl code{white-space:pre;font-family:var(--mono);font-size:13.5px;line-height:1.9} .pdbl .fld{all:unset;cursor:pointer;border-radius:4px;padding:2px 0;background:var(--soft);box-shadow:inset 0 -2px 0 var(--line)} .pdbl .fld.key{box-shadow:inset 0 -2px 0 var(--gold)} .pdbl .fld[aria-pressed="true"]{background:var(--navy);color:var(--paper);box-shadow:none} .pdbl .fld:focus-visible{outline:2px solid var(--accent);outline-offset:1px} #o2cloud{aspect-ratio:16/7} #o2bplot{aspect-ratio:16/5} #o2prof{aspect-ratio:16/10} #o2map{aspect-ratio:16/11;background:var(--paper)} #o2ws{aspect-ratio:16/11} #o2md{aspect-ratio:16/6} .chips .chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)} @media (max-width:560px){ #o2bplot{aspect-ratio:4/2.2} #o2map{aspect-ratio:4/3.6} #o2md{aspect-ratio:4/2.6} #o2ws{aspect-ratio:4/3.4} }</style>
+<style>.pdbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px} .pdbl code{white-space:pre;font-family:var(--mono);font-size:13.5px;line-height:1.9} .pdbl .fld{all:unset;cursor:pointer;border-radius:4px;padding:2px 0;background:var(--soft);box-shadow:inset 0 -2px 0 var(--line)} .pdbl .fld.key{box-shadow:inset 0 -2px 0 var(--gold)} .pdbl .fld[aria-pressed="true"]{background:var(--navy);color:var(--paper);box-shadow:none} .pdbl .fld:focus-visible{outline:2px solid var(--accent);outline-offset:1px} .pdbl .fld.em{display:inline-block;min-width:24px;text-align:center;color:var(--muted)} .pdbl .fld.em[aria-pressed="true"]{color:var(--paper)} #o2cloud{aspect-ratio:16/7} #o2bplot{aspect-ratio:16/5} #o2prof{aspect-ratio:16/10} #o2map{aspect-ratio:16/11;background:var(--paper)} #o2ws{aspect-ratio:16/11} #o2md{aspect-ratio:16/6} .chips .chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)} @media (max-width:560px){ #o2bplot{aspect-ratio:4/2.2} #o2map{aspect-ratio:4/3.6} #o2md{aspect-ratio:4/2.6} #o2ws{aspect-ratio:4/3.4} }</style>
 <div class="wrap">
   <div class="proto">Bu modül MD-O'dan (protonasyon ve yük) sonra gelir ve aynı ubikitin dosyasını kullanır. Canlandırmalar ve yoğunluk haritası tarayıcınızda şimdi hesaplanır; koordinatlar, doluluk ve B değerleri 1UBQ dosyasının gerçek satırlarından, pdb2gmx çıktıları ve MD karşılaştırması bu projede gerçekten koşulmuş çalıştırmalardan gelir.</div>
 
@@ -223,7 +223,8 @@ p.next a{color:var(--accent)}
           <dl class="read">
             <dt>Seçili kalıntıda görünen atom</dt><dd id="o2mvis"></dd>
             <dt>En zayıf atomun yerindeki yoğunluk / kontur</dt><dd id="o2mweak"></dd>
-            <dt>Kalıntının tepe yüksekliği (tam dolu, B 13,41 Å² karbon = 1)</dt><dd id="o2mpk"></dd>
+            <dt>Kalıntının tepe yüksekliği, yalnız atomların kendi katkısı (tam dolu, B 13,41 Å² karbon = 1)</dt><dd id="o2mpk"></dd>
+            <dt>Komşularla birlikte atom yerindeki yoğunluk (kalıntı ortalaması; görünürlüğü bu belirler)</dt><dd id="o2mnb"></dd>
           </dl>
         </div>
       </div>
@@ -261,6 +262,7 @@ p.next a{color:var(--accent)}
       <div class="ctl">
         <div class="lbl">Seçtiğiniz ölçütle tutulan sular</div>
         <div class="tw"><table><thead><tr><th>Su</th><th>B</th><th>Doluluk</th><th>En yakın protein atomu</th></tr></thead><tbody id="o2wtab"></tbody></table></div>
+        <p class="small">Bir suya tıklayın: dağılım grafiğinde ve 3B görünümde işaretlenir. Örneğin HOH 112, MD-O'da His68'in NE2'sinden 0,364 nm uzakta anılan sudur.</p>
       </div>
     </div>
     <p class="small">Komşu sayıları bu sayfa için 1UBQ koordinatlarından hesaplandı: polar protein komşusu, suyun oksijenine 3,5 Å'den yakın N ya da O atomudur. Kristal komşuları, uzay grubunun (P2₁2₁2₁) simetri işlemleri ve birim hücre kaydırmalarıyla üretilen ubikitin kopyalarıdır; bir su bu kopyalardan birinin N ya da O atomuna 3,5 Å'den yakınsa "komşu moleküle değiyor" sayılır. 58 suyun 25'i komşu bir moleküle, bunların 16'sı aynı anda proteinin kendisine de değiyor. 9 su ne proteine ne komşu moleküle 3,5 Å içinde polar temas kuruyor; bunlar büyük olasılıkla başka suların oluşturduğu ağda duruyor. Ölçütün doğrusu yoktur: amaç, hangi seçimin hangi soruya uyduğunu görmektir.</p>
@@ -293,7 +295,7 @@ Total charge in system 0.000 e</pre></div>
       <canvas id="o2md" class="plot" aria-label="Kalıntı başına Cα B değeri: kristal ve 2 ns MD'den hesaplanan"></canvas>
       <div class="legend"><span><i style="background:var(--deep)"></i>Kristal, 1UBQ</span><span><i style="background:var(--accent)"></i>MD, 200-2000 ps</span><span><i style="background:var(--pale)"></i>MD'nin iki yarısı arasındaki aralık</span></div>
       <dl class="read" id="o2mdR"></dl>
-      <div class="prose"><p><b>Ne görülüyor?</b> İki eğri aynı yerlerde yükseliyor: C ucu (72-76) ve 8-10 dönemeci ikisinde de en hareketli bölgeler; 76 kalıntının tamamında r 0,87. Kuyruğu çıkarınca uyum azalıyor (1-72'de r 0,59), çünkü ilk sayıyı büyük ölçüde kuyruk belirliyor. Çekirdekte MD daha düşük: 1-72 kalıntılarının ortanca B değeri kristalde 8,8, MD'de 5,8 Å². Kristal B, ısıl titreşimin yanında moleküller arasındaki küçük konum farklarını ve kristal kusurlarını da içerir; MD'de bunlar yoktur. Kuyrukta ise tersine MD çok daha yüksek (Gly75: kristal 36,1, MD 87,6 Å²). Çözeltide komşu molekül yoktur ve kuyruk serbesttir; kristalde ise Arg72 ve Arg74 komşu bir moleküle değer ve kuyruğun düzensizliğinin bir kısmı B'ye değil düşük doluluğa yazılmıştır. Bunlar olası açıklamalardır; bu karşılaştırma hangisinin ne kadar etkili olduğunu ayırmaz.</p></div>
+      <div class="prose"><p><b>Ne görülüyor?</b> İki eğri aynı yerlerde yükseliyor: C ucu (72-76) ve 8-10 dönemeci ikisinde de en hareketli bölgeler; 76 kalıntının tamamında r 0,87. Kuyruğu çıkarınca uyum azalıyor (1-72'de r 0,59), çünkü ilk sayıyı büyük ölçüde kuyruk belirliyor. Çekirdekte MD daha düşük: 1-72 kalıntılarının ortanca B değeri kristalde 8,8, MD'de 5,8 Å². Kristal B, ısıl titreşimin yanında moleküller arasındaki küçük konum farklarını ve kristal kusurlarını da içerir; MD'de bunlar yoktur. Kuyrukta ise tersine MD çok daha yüksek (Gly75: kristal 36,1, MD 87,6 Å²). Çözeltide komşu molekül yoktur ve kuyruk serbesttir; kristalde ise Arg72 ve Arg74 komşu bir moleküle değer ve kuyruğun düzensizliğinin bir kısmı B'ye değil düşük doluluğa yazılmıştır. Bunlar olası açıklamalardır; bu karşılaştırma hangisinin ne kadar etkili olduğunu ayırmaz. İkinci bir örnek 46-48 dönemecidir: MD'de en hareketli on kalıntı arasına giriyor (Gly47: MD 25,0, kristal 11,7 Å²), kristalde girmiyor. Bunun kristal örgüsünden mi, 2 ns'lik tek koşudan mı geldiği burada da ayrılmaz.</p></div>
       <p class="small" id="o2mdN">Sınırlar: 2 ns kısa bir koşudur ve keşifsel olarak etiketlidir; yakınsama kanıtı değildir. Koşunun iki yarısı (200-1100 ve 1100-2000 ps) arasında r 0,86, ama kuyrukta fark büyük (Arg74'te iki yarı arasında 52 Å²): kuyruğun hareketi bu sürede yeterince örneklenmedi. Kristalin ölçüm sıcaklığı dosyada yazılı değil; koşu 300 K'dedir. Hesap: <code>gmx trjconv -pbc mol -center</code>, omurgaya <code>-fit rot+trans</code>, <code>gmx rmsf</code> (Cα, 200-2000 ps). Koşu bulutta, GROMACS 2023.3, 2 iş parçacığıyla 3 sa 42 dk sürdü (12,98 ns/gün).</p>
     </div>
   </section>
@@ -410,10 +412,12 @@ var FTXT={rec:'<b>Kayıt türü.</b> ATOM, polimerin (proteinin) atomudur. Su, l
  occ:'<b>Doluluk.</b> Bu atomun bu konumda bulunduğu molekül payı. 1,00: her molekülde burada. 1UBQ\'da Leu73 ve Arg74 0,45, Gly75 ve Gly76 0,25; model bu atomların moleküllerin yalnız bir kısmında bu konumda olduğunu söyler. Geri kalan moleküllerde neredeler? Dosya bunu söylemez.',
  b:'<b>B faktörü</b> (Å²). Konumun çevresindeki yayılmanın ölçüsü: her yöndeki ortalama kare kayma u² = B / 8π². İçinde ısıl titreşim, moleküller arasındaki küçük konum farkları ve kristal kusurları birlikte vardır; hangisinin payının ne kadar olduğu bu tek sayıdan ayrılamaz.',
  el:'<b>Element simgesi.</b>'};
+var FEMPTY='boş';
+var FNAME={rec:'kayıt türü',ser:'atom sıra numarası',name:'atom adı',alt:'alternatif konum',resn:'kalıntı adı',ch:'zincir kimliği',resi:'kalıntı numarası',x:'koordinat x',y:'koordinat y',z:'koordinat z',occ:'doluluk',b:'B faktörü',el:'element'};
 function lineRender(){ var r=A1.res, L=MO2.calines[r-1]; while(L.length<80) L+=' ';
-  var h='', pos=0; FIELDS.forEach(function(fd){ if(fd[1]>pos) h+='<span class="gap">'+L.slice(pos,fd[1])+'</span>'; h+='<button type="button" class="fld'+(fd[0]==='occ'||fd[0]==='b'?' key':'')+'" data-f="'+fd[0]+'" aria-pressed="'+(A1.field===fd[0])+'">'+L.slice(fd[1],fd[2]).replace(/ /g,'&nbsp;')+'</button>'; pos=fd[2]; });
+  var h='', pos=0; FIELDS.forEach(function(fd){ if(fd[1]>pos) h+='<span class="gap">'+L.slice(pos,fd[1])+'</span>'; var tv=L.slice(fd[1],fd[2]), em=!tv.trim(); h+='<button type="button" class="fld'+(fd[0]==='occ'||fd[0]==='b'?' key':'')+(em?' em':'')+'" data-f="'+fd[0]+'" aria-pressed="'+(A1.field===fd[0])+'" aria-label="'+FNAME[fd[0]]+': '+(em?FEMPTY:tv.trim())+'">'+(em?'·':tv.replace(/ /g,'&nbsp;'))+'</button>'; pos=fd[2]; });
   $('o2line').innerHTML='<code>'+h+'</code>';
-  $('o2line').querySelectorAll('.fld').forEach(function(b){ b.addEventListener('click',function(){ A1.field=b.getAttribute('data-f'); lineRender(); }); });
+  $('o2line').querySelectorAll('.fld').forEach(function(b){ b.addEventListener('click',function(){ A1.field=b.getAttribute('data-f'); lineRender(); var nb=$('o2line').querySelector('[data-f="'+A1.field+'"]'); if(nb) nb.focus(); }); });
   $('o2fieldT').innerHTML=FTXT[A1.field]; }
 function resRead(){ var r=A1.res, a=AP[RES[r].ca], B=a[7], u=uOf(B);
   $('o2resV').textContent=rName(r); $('o2rB').textContent=fx(B,2)+' Å²'; $('o2rU').textContent=fx(u,2)+' Å'; $('o2rR').textContent=fx(u*Math.sqrt(3),2)+' Å'; $('o2rO').textContent=fx(a[6],2); $('o2rC').textContent=CC[r]?'evet':'hayır';
@@ -469,7 +473,7 @@ function peakOf(Z,occ,B){ return Z*occ/Math.pow(2*Math.PI*sig2(B),1.5)/CREF; }
 var T2={step:1, anT:0, level:0.25};
 var STEPT={
  1:function(){ return 'Hareketsiz bir karbon bile haritada bir nokta değildir: 1,8 Å çözünürlükte ölçüm her atomu yaklaşık σ₀ = 0,45 Å genişliğinde bir bulut olarak verir. B = 0 iken tepe yüksekliği '+fx(peakOf(6,1,0),2)+'. Ölçek: tam dolu ve B değeri 1UBQ ortalaması (13,41 Å²) olan bir karbonun tepesi = 1.'; },
- 2:function(){ return 'B büyüdükçe bulut yayılır, tepe alçalır; eğrinin altındaki alan, yani atomun elektron sayısı değişmez. Leu43 Cα (B 3,51 Å²): tepe '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36,19 Å²): tepe '+fx(peakOf(6,1,36.19),2)+', aynı atom, üçte birinden az yükseklik.'; },
+ 2:function(){ return 'B büyüdükçe bulut yayılır, tepe alçalır. Değişmeyen, üç boyutlu bulutun toplamıdır, yani atomun elektron sayısı. Burada çizilen eğri bulutun merkezden geçen kesitidir: bulut üç yöne birden yayıldığı için kesitin alanı B ile küçülür. Leu43 Cα (B 3,51 Å²): tepe '+fx(peakOf(6,1,3.51),2)+'. Gly76 Cα (B 36,19 Å²): tepe '+fx(peakOf(6,1,36.19),2)+', aynı atom, üçte birinden az yükseklik.'; },
  3:function(){ return 'Doluluk eğriyi olduğu gibi küçültür: 0,25 doluluk tepeyi de alanı da dörtte birine indirir. Gly76 Cα\'nın dosyadaki değerleriyle (doluluk 0,25, B 36,19 Å²) tepe '+fx(peakOf(6,0.25,36.19),2)+'.'; },
  4:function(){ var a=peakOf(6,1,3.51), b=peakOf(6,0.25,36.19); return 'Kristalograf haritayı bir kontur düzeyinde çizer; yoğunluğu bu düzeyi aşan yer görünür. Düzey '+fx(T2.level,2)+' iken Leu43 Cα ('+fx(a,2)+') açıkça görünür, Gly76 Cα ('+fx(b,2)+') '+(b>=T2.level?'sınırda görünür.':'görünmez. Model kurulurken böyle bir atomun konumu komşularından tahmin edilir, doluluğu ya da B\'si yükseltilir ya da atom hiç yazılmaz.'); }};
 function setStep(n){ T2.step=n; T2.anT=0; document.querySelectorAll('#o2steps button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-st')===n)); }); $('o2stepT').textContent=STEPT[n](); $('o2next').textContent=n===4?'Haritaya geç':'Sonraki adım'; profDraw(); kick(); }
@@ -535,7 +539,7 @@ function mapChips(){ $('o2mres').innerHTML=MR.map(function(r){ return '<button t
 function mapSync(){ var s=MS[T3.res]; $('o2mo').value=s.occ; $('o2mb').value=(s.bs*MB0[T3.res]).toFixed(1); }
 function mapRead(){ var r=T3.res, s=MS[r], idx=RES[r].idx, nv=0, weak=1e9; idx.forEach(function(i){ var v=T3.vis[i]; if(v>=T3.level) nv++; weak=Math.min(weak,v/T3.level); });
   $('o2moV').textContent=fx(s.occ,2); $('o2mbV').textContent=fx(s.bs*MB0[r],1)+' Å² (ortalama)'; $('o2mcV').textContent=fx(T3.level,2);
-  $('o2mvis').textContent=nv+' / '+idx.length; $('o2mweak').textContent=fx(weak,2); $('o2mpk').textContent=fx(resPeak(r),3);
+  $('o2mvis').textContent=nv+' / '+idx.length; $('o2mweak').textContent=fx(weak,2); $('o2mpk').textContent=fx(resPeak(r),3); $('o2mnb').textContent=fx(idx.reduce(function(s,i){ return s+T3.vis[i]; },0)/idx.length,3);
   var fileSame=Math.abs(s.occ-AP[idx[0]][6])<1e-6&&Math.abs(s.bs-1)<1e-6;
   $('o2mnote').textContent=fileSame?rName(r)+': dosyadaki değerler (doluluk '+fx(s.occ,2)+', ortalama B '+fx(MB0[r],1)+' Å²).':'';
   var BB={N:1,CA:1,C:1,O:1,OXT:1}, sc=idx.filter(function(i){ return !BB[AP[i][3]]; }), nsv=sc.filter(function(i){ return T3.vis[i]>=T3.level; }).length;
@@ -549,7 +553,7 @@ function trialAdd(){ var r=T3.res, s=MS[r], pk=resPeak(r); T3.trials.unshift({r:
 function mapAll(){ mapDraw(); mapRead(); }
 
 /* ---------------- defter: sular ---------------- */
-var WT=MO2.wt, T4={bmax:50, pmin:0, omin:0, sym:false, V:new View(0.9,0.3), seen:[]};
+var WT=MO2.wt, T4={bmax:50, pmin:0, omin:0, sym:false, selW:null, V:new View(0.9,0.3), seen:[]};
 function keep(w){ return w[2]<=T4.bmax+1e-9&&w[3]>=T4.pmin&&w[1]>=T4.omin-1e-9&&!(T4.sym&&w[4]>0); }
 function jit(id){ var s=Math.sin(id*12.9898)*43758.5453; return (s-Math.floor(s))-0.5; }
 function wsDraw(){ var c=$('o2ws'), f=fit(c), g=f.g, W=f.W, H=f.H, L=40, R=12, T=12, B=30; g.fillStyle=css('--soft'); g.fillRect(0,0,W,H);
@@ -561,10 +565,11 @@ function wsDraw(){ var c=$('o2ws'), f=fit(c), g=f.g, W=f.W, H=f.H, L=40, R=12, T
   g.strokeStyle=css('--good'); g.setLineDash([5,4]); g.beginPath(); g.moveTo(X(T4.bmax),T); g.lineTo(X(T4.bmax),H-B); g.moveTo(L,Y(T4.pmin-0.5)); g.lineTo(W-R,Y(T4.pmin-0.5)); g.stroke(); g.setLineDash([]);
   WT.forEach(function(w){ var k=keep(w), x=X(w[2]), y=Y(w[3])+jit(w[0])*(H-T-B)/5*0.6, r=2.5+4.5*w[1];
     g.beginPath(); g.arc(x,y,r,0,Math.PI*2); g.fillStyle=k?css('--deep'):str(rgb(css('--muted')),0.35); g.fill();
-    if(w[4]>0){ g.strokeStyle=css('--gold'); g.lineWidth=2; g.beginPath(); g.arc(x,y,r+2.5,0,Math.PI*2); g.stroke(); } }); }
+    if(w[4]>0){ g.strokeStyle=css('--gold'); g.lineWidth=2; g.beginPath(); g.arc(x,y,r+2.5,0,Math.PI*2); g.stroke(); }
+    if(T4.selW===w[0]){ g.strokeStyle=css('--accent'); g.lineWidth=2.5; g.beginPath(); g.arc(x,y,r+6,0,Math.PI*2); g.stroke(); g.fillStyle=css('--accent'); g.font='600 12px '+css('--sans'); g.textAlign=x>W-80?'right':'left'; g.fillText('HOH '+w[0],x+(x>W-80?-(r+9):r+9),y-r-4); g.textAlign='left'; } }); }
 function wRead(){ var K=WT.filter(keep), n=K.length; $('o2wbV').textContent=fx(T4.bmax,1); $('o2wpV').textContent=String(T4.pmin); $('o2woV').textContent=fx(T4.omin,2);
   $('o2wn').textContent=n+' / 58'; $('o2wmb').textContent=n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1)+' Å²':'yok'; $('o2wsy').textContent=String(K.filter(function(w){ return w[4]>0; }).length);
-  $('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td>HOH '+w[0]+'</td><td class="n">'+fx(w[2],1)+'</td><td class="n">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan="4">Bu ölçütle hiç su kalmadı.</td></tr>';
+  $('o2wtab').innerHTML=K.slice().sort(function(a,b){ return a[2]-b[2]; }).map(function(w){ return '<tr><td><button type="button" class="chip wsel" data-w="'+w[0]+'" aria-pressed="'+(T4.selW===w[0])+'">HOH '+w[0]+'</button></td><td class="n">'+fx(w[2],1)+'</td><td class="n">'+fx(w[1],2)+'</td><td>'+w[8].replace(/^([A-Z])([A-Z]{2})/,function(m,a,b){ return a+b.toLowerCase(); })+' ('+fx(w[7],2)+' Å)</td></tr>'; }).join('')||'<tr><td colspan="4">Bu ölçütle hiç su kalmadı.</td></tr>';
   if(T4.sym&&T4.pmin>=2){ card('o2c4',true,'Ölçütünüz: komşu moleküle değmeyen, en az '+T4.pmin+' polar protein komşusu olan'+(T4.bmax<50?', B ≤ '+fx(T4.bmax,1)+' Å²':'')+(T4.omin>0?', doluluk ≥ '+fx(T4.omin,2):'')+' sular: '+n+' / 58, ortalama B '+(n?fx(K.reduce(function(s,w){ return s+w[2]; },0)/n,1):'yok')+' Å². Bunlar proteinin kendi yüzeyine bağlı; çözeltide de benzer yerlerde bulunmaları beklenir, ama bu bir beklentidir, kanıt değil.'); }
   else if(!FOUND.o2c4) card('o2c4',false,T4.sym?'Komşu moleküle değenler çıkarıldı. Şimdi en az 2 polar protein komşusu isteyin.':(T4.pmin>=2?'En az '+T4.pmin+' polar komşu istendi. Şimdi komşu moleküle değenleri de çıkarın.':null)); }
 function watDraw(){ var c=$('o2wat'), f=fit(c), g=f.g; g.fillStyle=css('--stage'); g.fillRect(0,0,f.W,f.H);
@@ -575,7 +580,8 @@ function watDraw(){ var c=$('o2wat'), f=fit(c), g=f.g; g.fillStyle=css('--stage'
   items.forEach(function(it){ var dep=Math.max(0,Math.min(1,0.5+it.z/RAD));
     if(it.k===0){ g.strokeStyle=str(rgb(css('--navy')),0.35+0.5*dep); g.lineWidth=Math.max(2,0.55*it.a[3]); g.lineCap='round'; g.beginPath(); g.moveTo(it.a[0],it.a[1]); g.lineTo(it.b[0],it.b[1]); g.stroke(); return; }
     var k=keep(it.w), hx=k?css('--mid'):'#b9bec3'; blit(g,ball('ww'+hx,hx,Math.max(1.4,(k?0.62:0.4)*it.s[3])),it.s[0],it.s[1],k?0.95:0.35);
-    if(k&&it.w[4]>0){ g.strokeStyle=css('--gold'); g.lineWidth=2; g.beginPath(); g.arc(it.s[0],it.s[1],0.62*it.s[3]+3,0,Math.PI*2); g.stroke(); } }); }
+    if(k&&it.w[4]>0){ g.strokeStyle=css('--gold'); g.lineWidth=2; g.beginPath(); g.arc(it.s[0],it.s[1],0.62*it.s[3]+3,0,Math.PI*2); g.stroke(); }
+    if(T4.selW===it.w[0]){ g.strokeStyle=css('--accent'); g.lineWidth=2.5; g.beginPath(); g.arc(it.s[0],it.s[1],0.62*it.s[3]+7,0,Math.PI*2); g.stroke(); } }); }
 
 /* ---------------- proteine dönüş: kristal B ve MD ---------------- */
 function mdDraw(){ var D=MO2.md; if(!D) return; var c=$('o2md'), f=fit(c), g=f.g, W=f.W, H=f.H, L=40, R=10, T=12, B=30; g.fillStyle=css('--soft'); g.fillRect(0,0,W,H);
@@ -626,6 +632,7 @@ $('o2wp').addEventListener('input',function(){ T4.pmin=+this.value; wAll(); });
 $('o2wo').addEventListener('input',function(){ T4.omin=+this.value; wAll(); });
 $('o2wsym').addEventListener('change',function(){ T4.sym=this.checked; wAll(); });
 function wAll(){ wsDraw(); wRead(); watDraw(); }
+$('o2wtab').addEventListener('click',function(e){ var b=e.target.closest('.wsel'); if(!b) return; var v=+b.getAttribute('data-w'); T4.selW=T4.selW===v?null:v; $('o2wtab').querySelectorAll('.wsel').forEach(function(x){ x.setAttribute('aria-pressed',String(+x.getAttribute('data-w')===T4.selW)); }); wsDraw(); watDraw(); });
 dragRotate('o2ubq',A1.V,function(){ ubqDraw(); });
 dragRotate('o2wat',T4.V,function(){ watDraw(); });
 dragRotate('o2exp',E0.V,function(){ if(E0.mode==='snap') expSnap(); });
