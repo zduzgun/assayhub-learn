@@ -1,7 +1,7 @@
 {
  "module": "MD-EQ",
  "lang": "en",
- "source_sha256": "6f5aa75eba12cdb3c46c0e5b79d13ce88eb91c042d456d2a4da68e2b65c4a016",
+ "source_sha256": "c4cf1aa8a261d1e3c1f152a1316d4252a082e3b8eda7bcd0b347ef330bd81c9d",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-EQ 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -651,8 +651,8 @@
    "$('m1nBusy').textContent=B.length?B.length+(B.length===1?' measurement':' measurements')+' in the notebook.':'No measurements.';"
   ],
   [
-   "card('m1c3',true,'NPT yoğunluğu baştan ölçülünce <b>'+fx(a.m,1)+'</b>, ilk '+fx(d4.d,1)+' ps atılınca <b>'+fx(b.m,1)+' kg/m³</b>. Kalan sürenin iki yarısı '+fx(b.h1,1)+' ve '+fx(b.h2,1)+': yoğunluk hâlâ artıyor, 10 ps\\'lik NPT onu oturtmaya yetmedi. '+q[1]+': ortalama '+fx(p.m,0)+' bar, standart sapma '+fx(p.sd,0)+' bar. Anlık basınç yüzlerce bar oynar; 1 bar\\'lık hedefi tek bir değerden değil, uzun bir ortalamadan okumak gerekir.'); }",
-   "card('m1c3',true,'NPT density measured from the start: <b>'+fx(a.m,1)+'</b>; with the first '+fx(d4.d,1)+' ps discarded: <b>'+fx(b.m,1)+' kg/m³</b>. The two halves of the remaining time give '+fx(b.h1,1)+' and '+fx(b.h2,1)+': the density is still rising, and 10 ps of NPT was not enough to settle it. '+q[1]+': mean '+fx(p.m,0)+' bar, standard deviation '+fx(p.sd,0)+' bar. The instantaneous pressure swings by hundreds of bar; the 1 bar target has to be read not from a single value but from a long average.'); }"
+   "card('m1c3',true,'NPT yoğunluğu baştan ölçülünce <b>'+fx(a.m,1)+'</b>, ilk '+fx(d4.d,1)+' ps atılınca <b>'+fx(b.m,1)+' kg/m³</b>. Kalan sürenin iki yarısı '+fx(b.h1,1)+' ve '+fx(b.h2,1)+': yoğunluk hâlâ artıyor, 10 ps\\'lik NPT onu oturtmaya yetmedi. '+q[1]+': ortalama '+fx(p.m,0)+' bar, standart sapma '+fx(p.sd,0)+' bar.'+(pr.s==='nptP'&&p.m<0?' NPT\\'de ortalamanın negatif olmasının bir karşılığı var: barostat negatif basınca kutuyu küçülterek yanıt verir; bu, yoğunluğun hâlâ artmasıyla aynı şeyi söyler (CH11).':'')+' Anlık basınç yüzlerce bar oynar; 1 bar\\'lık hedefi tek bir değerden değil, uzun bir ortalamadan okumak gerekir.'); }",
+   "card('m1c3',true,'NPT density measured from the start: <b>'+fx(a.m,1)+'</b>; with the first '+fx(d4.d,1)+' ps discarded: <b>'+fx(b.m,1)+' kg/m³</b>. The two halves of the remaining time give '+fx(b.h1,1)+' and '+fx(b.h2,1)+': the density is still rising, and 10 ps of NPT was not enough to settle it. '+q[1]+': mean '+fx(p.m,0)+' bar, standard deviation '+fx(p.sd,0)+' bar.'+(pr.s==='nptP'&&p.m<0?' The negative NPT mean has a counterpart: the barostat answers a negative pressure by shrinking the box, which says the same thing as the still-rising density (CH11).':'')+' The instantaneous pressure swings by hundreds of bar; the 1 bar target has to be read not from a single value but from a long average.'); }"
   ],
   [
    "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='center'; [0,100,200,300,400,500,600,700].forEach(function(n){ g.fillText(NFI.format(n),X(n),H-B+16); }); g.fillText('minimizasyon adımı',X(350),H-4);",
@@ -795,8 +795,8 @@
    "$('m1uF').textContent=h?(NFI.format(h.f0[fk])+' → '+NFI.format(h.f1[fk])+' kJ mol⁻¹ nm⁻¹ ('+UBQ.a[h.atoms[fk]][2]+')'):'196,569 → 755 kJ mol⁻¹ nm⁻¹ (atom 10895 → 1229)';"
   ],
   [
-   "$('m1uFL').textContent=h?'Turuncu oklu atomlarda en büyük kuvvet (yeniden hesaplanan), önce → sonra':'Kutudaki en büyük kuvvet Fmax (GROMACS), önce → sonra';",
-   "$('m1uFL').textContent=h?'Largest force on the atoms with orange arrows (recomputed), before → after':'Largest force in the box, Fmax (GROMACS), before → after';"
+   "$('m1uFL').textContent=h?'Turuncu oklu atomlardan en çok itilen atomdaki kuvvet (yeniden hesaplanan), önce → sonra':'Kutudaki en büyük kuvvet Fmax (GROMACS), önce → sonra';",
+   "$('m1uFL').textContent=h?'Force on the most strongly pushed atom among those with orange arrows (recomputed), before → after':'Largest force in the box, Fmax (GROMACS), before → after';"
   ],
   [
    "if(UB.mode==='s1'&&h){ $('m1uLogW').hidden=false; tb.innerHTML=rows.length?rows.map(function(r){ var cur=UB.fr; function c(v,k){ return '<td class=\"n'+(k<=cur?'':' dim')+'\">'+(v==null?'yok':(v>=1e4?sci(v):fx(v,3)))+'</td>'; } return '<tr><td>'+r[0]+'<br><span class=\"small\">'+r[1]+'</span></td><td class=\"n\">'+fx(r[2],3)+'</td>'+c(r[3],1)+c(r[4],2)+'</tr>'; }).join(''):'<tr><td colspan=\"4\">Su SETTLE ile katı tutulur; LINCS tablosunda yer almaz.</td></tr>'; }",
@@ -819,8 +819,8 @@
    "$('m1uGo').textContent=UB.mode==='s0'?(UB.tT>=1?'Back to the start':'Minimize'):(UB.frT>=2?'From the start':'Next frame');"
   ],
   [
-   "card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: minimizasyondan önce kırmızı çiftin arası '+uDist(hh.d.S)+'. Minimizasyon bunu <b>'+uDist(hh.d.E)+'</b>\\'ye açtı ve buradaki en büyük kuvvet '+NFI.format(Math.max.apply(null,hh.f0))+'\\'den '+NFI.format(Math.max.apply(null,hh.f1))+' kJ mol⁻¹ nm⁻¹\\'ye indi. Minimizasyon yapılmayan S1\\'de aynı yerin '+r[0]+' bağı, olması gereken '+fx(r[2],3)+' nm yerine 1. adımda <b>'+uDist(r[4])+'</b> oldu. Çöken bağlar, minimizasyonun düzelttiği çakışmaların üzerindeydi.'); } }",
-   "card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: before minimization the red pair was '+uDist(hh.d.S)+' apart. Minimization opened this to <b>'+uDist(hh.d.E)+'</b>, and the largest force here fell from '+NFI.format(Math.max.apply(null,hh.f0))+' to '+NFI.format(Math.max.apply(null,hh.f1))+' kJ mol⁻¹ nm⁻¹. In S1, where no minimization was done, the '+r[0]+' bond at the same site became <b>'+uDist(r[4])+'</b> at step 1 instead of the '+fx(r[2],3)+' nm it should be. The bonds that broke sat on the clashes that minimization fixes.'); } }"
+   "card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: minimizasyondan önce kırmızı çiftin arası '+uDist(hh.d.S)+'. Minimizasyon bunu <b>'+uDist(hh.d.E)+'</b>\\'ye açtı ve bu yerde en çok itilen atomdaki ('+UBQ.a[hh.atoms[fk]][2]+') kuvvet '+NFI.format(hh.f0[fk])+' değerinden '+NFI.format(hh.f1[fk])+' kJ mol⁻¹ nm⁻¹ değerine indi'+(fk1!==fk?' (minimizasyondan sonra bu yerdeki en büyük kuvvet '+NFI.format(hh.f1[fk1])+' kJ mol⁻¹ nm⁻¹, başka bir atomda: '+UBQ.a[hh.atoms[fk1]][2]+')':'')+'. Minimizasyon yapılmayan S1\\'de aynı yerin '+r[0]+' bağı, olması gereken '+fx(r[2],3)+' nm yerine 1. adımda <b>'+uDist(r[4])+'</b> oldu. Çöken bağlar, minimizasyonun düzelttiği çakışmaların üzerindeydi.'); } }",
+   "card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: before minimization the red pair was '+uDist(hh.d.S)+' apart. Minimization opened this to <b>'+uDist(hh.d.E)+'</b>, and the force on the most strongly pushed atom at this site ('+UBQ.a[hh.atoms[fk]][2]+') fell from '+NFI.format(hh.f0[fk])+' to '+NFI.format(hh.f1[fk])+' kJ mol⁻¹ nm⁻¹'+(fk1!==fk?' (after minimization the largest force at this site is '+NFI.format(hh.f1[fk1])+' kJ mol⁻¹ nm⁻¹, on another atom: '+UBQ.a[hh.atoms[fk1]][2]+')':'')+'. In S1, where no minimization was done, the '+r[0]+' bond at the same site became <b>'+uDist(r[4])+'</b> at step 1 instead of the '+fx(r[2],3)+' nm it should be. The bonds that broke sat on the clashes that minimization fixes.'); } }"
   ],
   [
    "function uChips(){ var names=['Bütün protein'].concat(UBQ.hs.map(function(h,k){ return (k+1)+' · '+UNAME[h.id]; }));",
