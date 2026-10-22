@@ -3,7 +3,7 @@
 // Tek doğruluk kaynağı modules.json'dur. Her sayfa iki dilde üretilir: /tr/... ve /en/...
 // Türkçe modül sayfası kaynak HTML'dir; İngilizcesi i18n/<KİMLİK>.en.json tablosuyla yapım sırasında üretilir
 // (bkz. docs/superpowers/specs/2026-09-25-iki-dil-design.md). Dil öneksiz adresleri functions/ yönlendirir.
-import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadTable, checkTable, sha256 } from './i18n.mjs';
@@ -32,7 +32,7 @@ const BUILD = {
 const UI = {
   tr: {
     tagline: 'Etkileşimli eğitim modülleri', learn: 'Learn', nav: 'AssayHub Learn gezinti', langNav: 'Dil seçimi',
-    eyebrow: 'AssayHub Learn · önizleme', h1: 'Uygulayarak öğrenmek',
+    eyebrow: 'AssayHub Learn', h1: 'Uygulayarak öğrenmek',
     deck: 'Moleküler docking ve moleküler dinamiği, gerçek verilerle ve adım adım kendiniz yaparak öğrenin. Her modül bir kitap bölümüne karşılık gelir.',
     bookH: 'Kitaptan mı geldiniz?',
     bookP: 'Kitaptaki her karekod kısa ve kalıcı bir adrese gider: <code>/tr/l/</code> ve ardından modül kimliği (örneğin <code>/tr/l/DK-T</code>). Bu adres modülün güncel sürümüne yönlenir; sayfa yenilense bile karekod değişmez.',
@@ -44,9 +44,9 @@ const UI = {
     level: { temel: 'Temel', orta: 'Orta', uzman: 'İleri' }, status: { pilot: 'pilot', planned: 'planlandı' }, book: 'kitap',
     mdH: 'Hesaplar nasıl yapılır?',
     mdP: 'Laboratuvarlardaki küçük simülasyonlar (tek bir molekül, iki boyutlu bir sıvı, protein yüzeyindeki birkaç su molekülü) tarayıcınızda o anda, hareket denklemleri çözülerek hesaplanır. Bunlar öğretim amaçlıdır; çoğu iki boyutlu ve indirgenmiş birimlidir. Protein kutusu, koşu ayarları ve trajektori gibi proje verileri ise bu kitap için önceden koşturulmuş gerçek simülasyonlardan gelir; tarayıcıda bir proteinle gerçek MD çalıştırılmaz. Hesaplanmamış bir seçim için sonuç uydurulmaz; sayfa "bu senaryo hesaplanmadı" der. Her sayfanın altında sayıların nereden geldiği yazılıdır.',
-    foot: (b) => `Önizleme yayınıdır ve arama motorlarına kapalıdır. Modüller tarayıcıda çalışır; sunucuda hesap yapılmaz. MD laboratuvarlarındaki küçük öğretim simülasyonları tarayıcıda canlı hesaplanır; protein ve koşu verileri önceden koşturulmuş gerçek simülasyonlardan gelir ve her sayfada kaynağıyla belirtilir. Veri lisansları: PDB yapıları CC0 1.0; ChEMBL'den türetilen veri CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Yapı: ${b}.`,
+    foot: (b) => `Modüller tarayıcıda çalışır; sunucuda hesap yapılmaz. MD laboratuvarlarındaki küçük öğretim simülasyonları tarayıcıda canlı hesaplanır; protein ve koşu verileri önceden koşturulmuş gerçek simülasyonlardan gelir ve her sayfada kaynağıyla belirtilir. Veri lisansları: PDB yapıları CC0 1.0; ChEMBL'den türetilen veri CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Yapı: ${b}.`,
     short: 'Kısa adres', version: 'sürüm', statusW: 'durum',
-    preview: 'Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı.', all: 'Bütün modüller',
+    all: 'Bütün modüller',
     mtH: 'Bu modüldeki terimler', mtP: 'Her terimin tanımı ve geçtiği öteki modüller sözlükte.', mtAll: 'Bütün sözlük', seqNav: 'Modüller arası geçiş', prev: 'Önceki modül', next: 'Sonraki modül', allOf: (t) => `Bütün ${t} modülleri`,
     mt: '', mtChecked: '', mtBulk: () => '',
     bkTitle: 'Kitap bölümleri', bkEyebrow: 'AssayHub Learn · kitap', bkH1: 'Kitap bölümleri ve modüller',
@@ -65,7 +65,7 @@ const UI = {
   },
   en: {
     tagline: 'Interactive learning modules', learn: 'Learn', nav: 'AssayHub Learn navigation', langNav: 'Language',
-    eyebrow: 'AssayHub Learn · preview', h1: 'Learning by doing',
+    eyebrow: 'AssayHub Learn', h1: 'Learning by doing',
     deck: 'Learn molecular docking and molecular dynamics step by step with real data, by doing it yourself. Each module corresponds to a chapter of the book.',
     bookH: 'Coming from the book?',
     bookP: 'Every QR code in the book leads to a short, permanent address: <code>/en/l/</code> followed by the module ID (for example <code>/en/l/DK-T</code>). The address always points to the current version of the module, so the QR code never changes even when the page is updated.',
@@ -76,9 +76,9 @@ const UI = {
     level: { temel: 'Basic', orta: 'Intermediate', uzman: 'Advanced' }, status: { pilot: 'pilot', planned: 'planned' }, book: 'book',
     mdH: 'How are the calculations done?',
     mdP: 'The small simulations in the labs (a single molecule, a two-dimensional liquid, a few water molecules at a protein surface) are computed in your browser as you use them, by solving the equations of motion. They are for teaching; most are two-dimensional and use reduced units. Project data such as the protein box, the run settings and trajectories come from real simulations run in advance for this book; no real MD of a protein runs in the browser. No result is invented for a choice that was not computed; the page says "this scenario was not computed". The bottom of each page states where the numbers come from.',
-    foot: (b) => `This is a preview and is closed to search engines. Modules run in your browser; nothing is computed on the server. The small teaching simulations in the MD labs are computed live in your browser; protein and run data come from real simulations run in advance, and each page states their source. Data licences: PDB structures CC0 1.0; data derived from ChEMBL CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Build: ${b}.`,
+    foot: (b) => `Modules run in your browser; nothing is computed on the server. The small teaching simulations in the MD labs are computed live in your browser; protein and run data come from real simulations run in advance, and each page states their source. Data licences: PDB structures CC0 1.0; data derived from ChEMBL CC BY-SA 3.0; mdshare ALA2 CC BY 4.0. Build: ${b}.`,
     short: 'Short address', version: 'version', statusW: 'status',
-    preview: 'Preview release; no scientific or target-reader review has been done yet.', all: 'All modules',
+    all: 'All modules',
     mtH: 'Terms in this module', mtP: 'The definition of each term and the other modules where it appears are in the glossary.', mtAll: 'Whole glossary', seqNav: 'Move between modules', prev: 'Previous module', next: 'Next module', allOf: (t) => `All ${t} modules`,
     mt: 'The English text is a machine translation of the Turkish original and has not yet been reviewed by a person.',
     mtChecked: 'The English text is a machine translation of the Turkish original; Claude (AI) has checked it, but it has not yet been reviewed by a person.',
@@ -196,7 +196,7 @@ ${seqNav}`));
     const notice = T(L, m, 'notice');
     const ap = ONAY[m.id] && ONAY[m.id].kim === 'yazar' && ONAY[m.id].tur === 'toplu' ? ONAY[m.id] : null;
     const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(ap ? U.mtBulk(enDate(ap.tarih)) : tableInfo[m.id].checked === 'claude' ? U.mtChecked : U.mt)}` : '';
-    const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} ${m.status && m.status !== 'pilot' ? ` · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)}` : ''} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${esc(U.preview)}${reviewedNote} <a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
+    const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} ${m.status && m.status !== 'pilot' ? ` · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)}` : ''} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${reviewedNote.trim()}${reviewedNote ? ' ' : ''}<a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
     const bOpen = html.indexOf('<body>');
     const bClose = html.lastIndexOf('</body>');
     if (bOpen < 0 || bClose < 0) throw new Error(`${m.id}: <body> etiketi bulunamadı`);
@@ -225,7 +225,6 @@ function page(L, relPath, title, crumbsHtml, body) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
 ${relPath === null ? '' : alternates(relPath)}
 <link rel="stylesheet" href="/assets/learn.css">
@@ -408,5 +407,16 @@ for (const m of M.modules) {
 }
 writeFileSync(join(DIST, 'modules.json'), JSON.stringify(M, null, 2));
 writeFileSync(join(DIST, 'glossary.json'), JSON.stringify({ schema: GLOS.schema, terms: GLOS.terms.map((e) => ({ id: e.id, ch: e.ch, tr: e.tr, en: e.en.term, mods: GL[e.id].mods, counts: GL[e.id].counts, en_found: GL[e.id].enFound })) }, null, 1));
+// 0.45.0: site arama motorlarına açıldı; sitemap.xml dist'teki bütün sayfalardan (404 hariç) dil eşleriyle üretilir
+{
+  const SITE = 'https://learn.assayhub.app';
+  const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]);
+  const rels = new Set(LANGS.flatMap((L) => walk(join(DIST, L)).filter((f) => f.endsWith('index.html')).map((f) => f.slice(join(DIST, L).length + 1).replace(/index\.html$/, ''))));
+  const urls = [...rels].sort().map((r) => {
+    const alt = LANGS.filter((L) => existsSync(join(DIST, L, r, 'index.html'))).map((L) => `<xhtml:link rel="alternate" hreflang="${L}" href="${SITE}/${L}/${r}"/>`).join('');
+    return LANGS.filter((L) => existsSync(join(DIST, L, r, 'index.html'))).map((L) => `<url><loc>${SITE}/${L}/${r}</loc>${alt}</url>`).join('\n');
+  });
+  writeFileSync(join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`);
+}
 writeFileSync(join(DIST, 'version.json'), JSON.stringify({ ...BUILD, languages: LANGS, translations: tableInfo }, null, 2));
 console.log(`dist hazır: ${M.modules.filter((m) => m.source).length} modül x ${LANGS.length} dil (İngilizce çeviri: ${enModules}${enMissing.length ? `, eksik: ${enMissing.join(', ')}` : ''}), ${lines.length - 3} kısa adres, commit ${BUILD.commit}`);

@@ -4,7 +4,7 @@
 
 - **Depo:** `zduzgun/assayhub-learn`, herkese açık (public). Varsayılan dal `main`. Bu durum 21 Ekim 2026'da depo kimlik doğrulaması olmadan klonlanarak doğrulandı. Depoda git etiketi (tag) ve GitHub release yoktur.
 - **Yayın:** Cloudflare Pages projesi `assayhub-learn`, `main` dalından her push'ta yeniden yapılır. Kalıcı adres **https://learn.assayhub.app** (alan adı `assayhub.app`, Cloudflare Registrar); önizleme adresi https://assayhub-learn.pages.dev de çalışır.
-- **Arama motorları:** site bilerek kapalıdır (`static/robots.txt` her şeyi yasaklar, `static/_headers` her sayfaya `X-Robots-Tag: noindex, nofollow` ekler). Deponun herkese açık olması bu ayarları ve sitenin pilot durumunu değiştirmez.
+- **Arama motorları:** 22 Ekim 2026'dan (0.45.0) beri site arama motorlarına açıktır: `static/robots.txt` her şeye izin verir ve `https://learn.assayhub.app/sitemap.xml` adresini gösterir; `sitemap.xml` derlemede `dist`'teki bütün sayfalardan, dil eşleriyle (hreflang) üretilir. Sayfalardaki `noindex` etiketi ve `X-Robots-Tag` başlığı kaldırıldı; yalnız 404 sayfası ve dil yönlendirmesi (`functions/[[path]].js`, 302 yanıtı) `noindex` taşır. Önceki durum (25 Eylül ile 22 Ekim 2026 arası): site bilerek kapalıydı.
 - **Lisans:** 22 Ekim 2026'dan beri kod Apache-2.0 (`LICENSE`), özgün eğitim içeriği CC BY 4.0 (`LICENSES/CC-BY-4.0.txt`); kapsam `LICENSING.md` dosyasındadır. Bu tarihten önce depo lisanssız olarak herkese açıktı.
 - **GitHub Actions:** etkin bir iş akışı yoktur (depoda `.github/workflows/` klasörü yok). `docs/ci/check.yml` yalnız bir şablondur; bkz. aşağıdaki "GitHub Actions şablonu" kısmı. Yayın öncesi denetimi Cloudflare'in yapı komutu çalıştırır.
 
@@ -64,7 +64,7 @@ Denetim (`check.mjs`) başarısız olursa yapı durur ve eski sürüm yayında k
 
 ## 5. Erişimi kısıtlamak (önerilir)
 
-Site şimdilik arama motorlarına kapalıdır, ama adresi bilen herkes açabilir. Kitap yayımlanana kadar yalnız sizin ve seçtiğiniz meslektaşların görmesi için Cloudflare **Zero Trust → Access** ile bir uygulama tanımlayıp e-posta tabanlı bir izin kuralı eklenebilir. Pages proje ayarlarında önizleme dağıtımları için de erişim kuralı açılabilir.
+Bu kısım 22 Ekim 2026'dan önceki kurulumun kaydıdır; site artık herkese ve arama motorlarına açıktır. O tarihe kadar site arama motorlarına kapalıydı, ama adresi bilen herkes açabiliyordu. Kitap yayımlanana kadar yalnız sizin ve seçtiğiniz meslektaşların görmesi için Cloudflare **Zero Trust → Access** ile bir uygulama tanımlayıp e-posta tabanlı bir izin kuralı eklenebilir. Pages proje ayarlarında önizleme dağıtımları için de erişim kuralı açılabilir.
 
 ## 6. Kalıcı alan adı ve karekodlar
 

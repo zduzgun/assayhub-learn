@@ -4,7 +4,7 @@
 
 AssayHub Learn, moleküler dinamik (MD) ve moleküler docking üzerine iki dilli (Türkçe ve İngilizce) etkileşimli eğitim modüllerinden oluşur. Modüller tarayıcıda açılan statik web sayfalarıdır. Depo sahibinin hazırladığı Türkçe MD kitabına, *Biyomoleküler Sistemlerde Moleküler Dinamik Simülasyon*'a (hazırlık aşamasında, henüz yayımlanmadı) eşlik ederler: her modül bir kitap bölümüne bağlıdır ve kitaptaki karekodlar sitedeki kalıcı kısa adreslere gider. AssayHub Learn açık kaynaktır: kod Apache-2.0, özgün eğitim içeriği CC BY 4.0 lisanslıdır (bkz. [Lisans ve kullanım koşulları](#lisans-ve-kullanım-koşulları)).
 
-**Durum: pilot önizleme.** 27 modülün hepsi pilot sürümdür. Bağımsız bilimsel ya da hedef okur incelemesi henüz yapılmadı. Site bilerek arama motorlarına kapalıdır (`robots.txt` ve `X-Robots-Tag: noindex` başlığı). Yayımlanmış bir sürüm (release) henüz yok; bkz. [Sürümler](#sürümler).
+**Durum: yayında.** Site 22 Ekim 2026'dan beri herkese açık ve arama motorlarına açıktır (`robots.txt` taramaya izin verir, `sitemap.xml` iki dildeki bütün sayfaları listeler). 27 modülün hepsi 0.x sürümündedir ve gelişmeye devam eder; bkz. [Sürümler](#sürümler).
 
 - Canlı önizleme: https://learn.assayhub.app (Türkçe `/tr/`, İngilizce `/en/`)
 - Kitap bölümleri haritası: `/tr/book/` ve `/en/book/`
@@ -162,7 +162,7 @@ Hata bildirimleri, bilimsel ya da eğitsel içerik düzeltmeleri, çeviri düzel
 ## Sürümler
 
 - Her modülün `modules.json` içinde kendi içerik sürümü vardır (örneğin MD-PBC 0.6.1).
-- Sitenin bütünü [`docs/CHANGELOG.md`](docs/CHANGELOG.md) dosyasındaki sürüm notlarıyla izlenir; numaralı son kayıt 0.44.0'dır (22 Ekim 2026). "Yayımlanmamış" başlıklı kayıtlar belge değişikliklerini anlatır ve sürüm numarası taşımaz.
+- Sitenin bütünü [`docs/CHANGELOG.md`](docs/CHANGELOG.md) dosyasındaki sürüm notlarıyla izlenir; numaralı son kayıt 0.45.0'dır (22 Ekim 2026). "Yayımlanmamış" başlıklı kayıtlar belge değişikliklerini anlatır ve sürüm numarası taşımaz.
 - Depoda henüz git etiketi (tag) ve GitHub release yoktur. Yayımlanan sürümlerin arşivlenmesi (örneğin Zenodo'da DOI ile) planlandı, ama yapılmadı.
 
 ## Bakım ve sonraki adımlar

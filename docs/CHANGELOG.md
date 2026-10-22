@@ -21,6 +21,16 @@ Bu giriş bir sürüm değildir; sürüm numarası, etiket ya da GitHub sürüm�
 - `docs/CODEX_OSS_APPLICATION_DRAFT.md` eklendi: OpenAI Codex for Open Source başvurusu için taslak metinler. Başvuru gönderilmedi.
 - `robots.txt`, `noindex` başlıkları, erişim kuralları ve dağıtım ayarları değişmedi.
 
+## 0.45.0 (22 Ekim 2026) · Site yayında: arama motorlarına açıldı, önizleme notları kaldırıldı
+
+Proje sahibinin kararıyla site önizlemeden çıkarıldı.
+
+- `static/robots.txt` artık her şeye izin verir ve site haritasını gösterir. `static/_headers` içindeki `X-Robots-Tag: noindex, nofollow` ile sayfalardaki `<meta name="robots" content="noindex, nofollow">` kaldırıldı. 404 sayfası ve dil yönlendirmesi (302) `noindex` taşımaya devam eder.
+- Yeni: `dist/sitemap.xml`, derlemede `dist`'teki bütün sayfalardan (404 hariç) Türkçe ve İngilizce eşleriyle (hreflang) üretilir (`tools/build.mjs`).
+- Ana sayfa etiketi "AssayHub Learn · önizleme" ("· preview") yerine "AssayHub Learn"; ana sayfa alt bilgisindeki "Önizleme yayınıdır ve arama motorlarına kapalıdır." cümlesi kaldırıldı.
+- Modül sayfalarının alt bilgisindeki "Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı." ("Preview release; ...") notu proje sahibinin kararıyla kaldırıldı. İngilizce sayfalardaki çeviri notu (makine çevirisi, Claude denetimi ve yazarın toplu onayı) ile veri kaynağı ve lisans notları değişmedi.
+- `README.md`, `README.tr.md` ve `docs/DEPLOY.md` buna göre güncellendi. Modül kodu, veriler ve çeviri tabloları değişmedi.
+
 ## 0.44.0 (22 Ekim 2026) · Modül incelemesi ve düzeltmeler
 
 27 modül tek tek incelendi (çalışmayan işlev, hesap ve bilim, simülasyon ve animasyon, öğretim, erişilebilirlik ve mobil, İngilizce). Bulgular, kitabın doğrulanmış bölümleri (v13) esas alınarak düzeltildi; yeni sayılar yalnız sayfadaki gömülü veriden ya da kitaptan geldi, hesaplanamayanlar "hesaplanmadı" olarak kaldı. Yeni simülasyon yapılmadı. İnceleme ve düzeltmeler yapay zekâ ajanlarıyla yapıldı; insan bilimsel incelemesi yapılmadı, sayfalardaki önizleme notu bu yüzden korunur.
