@@ -1,7 +1,7 @@
 {
  "module": "MD-O",
  "lang": "en",
- "source_sha256": "61bce6ce3931f0a09f575284b799466ce17ebe4752f2e875df021448f131de3f",
+ "source_sha256": "977bdb51c656d561e9a6e4d3c288b4228e527fb4aed9be27de7e66a2827984b5",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-O 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
