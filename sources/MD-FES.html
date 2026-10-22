@@ -332,7 +332,8 @@ table.st tr.sel td{font-weight:600}
     <h1>Bu soru için standart MD yeter mi?</h1>
     <p class="lead">Bir serbest enerji farkı, bir bağlanma enerjisi ya da yavaş bir geçiş, standart MD'nin göremeyeceği kadar seyrek olabilir. O zaman yöntem değişir: uç nokta, alkemik dönüşüm, bias, kaba taneli model ya da öğrenilmiş potansiyel. Her birinin bir varsayımı ve bir sınırı vardır. Bu sayfada önce sorudan yönteme gidilir, sonra alanin dipeptidinin seyrek bir durumu bias'sız ve bias'lı koşularla ölçülür.</p>
     <div class="stagebox hero"><canvas id="vhero" aria-label="φ kadranı: bias'sız koşu W1 ile bias'lı koşu A1'in φ açısı aynı anda; dış halka AWH'nin biriktirdiği bias"></canvas></div>
-    <p class="hint">Gerçek veri: kadranda φ açısı. Siyah nokta bias'sız koşu (W1), mavi nokta AWH ile bias'lı koşu (A1); dış halka AWH'nin o ana kadar biriktirdiği bias. Sağ yarı (φ &gt; 0) αL bölgesidir.</p>
+    <p class="hint">Gerçek veri: kadranda φ açısı. Siyah nokta bias'sız koşu (W1), mavi nokta AWH ile bias'lı koşu (A1); dış halka AWH'nin o ana kadar biriktirdiği bias. Sağ yarı φ &gt; 0 bölgesidir (αL ve C7ax); β bölgesinin φ = ±180° sınırını aşan kareler de bu yarıya düşer.</p>
+    <div class="btns"><button type="button" class="btn play" id="vheroplay" aria-pressed="false">Oynat</button></div>
     <div class="prog" aria-live="polite">Keşifler: <b id="vprogN">0 / 8</b></div>
   </header>
 
@@ -364,7 +365,7 @@ table.st tr.sel td{font-weight:600}
   <section class="card" aria-labelledby="vh2">
     <span class="step">2 · Atölye: seyrek olay</span>
     <h2 id="vh2">16 ns'lik bias'sız MD φ &gt; 0 bölgesini ne kadar gördü?</h2>
-    <div class="prose"><p>MD-REP'in sekiz su tekrarı (W1 ile W8, her biri 2 ns) aynı protokolle, farklı tohumlarla koşuldu. Her şerit bir koşudur; renk φ açısını, kırmızı çerçeveli bölümler φ &gt; 0 bölgesini (αL) gösterir. Şeritler görününce zaman boyunca taranır.</p></div>
+    <div class="prose"><p>MD-REP'in sekiz su tekrarı (W1 ile W8, her biri 2 ns) aynı protokolle, farklı tohumlarla koşuldu. Her şerit bir koşudur; renk φ açısını, kırmızı çerçeveli bölümler φ &gt; 0 bölgesini (αL ve C7ax) gösterir; β bölgesinin φ = ±180° sınırını aşan tek kareler de bu tanıma girer. Şeritler görününce zaman boyunca taranır.</p></div>
     <div class="stagebox"><canvas id="vstr" class="plot" aria-label="Sekiz bias'sız koşunun φ açısı zaman şeritleri"></canvas><div class="tip"></div></div>
     <div class="legend" id="vstrleg"></div>
     <div class="slrow"><button type="button" class="btn play" id="vstrplay" aria-pressed="false">Oynat</button><label for="vstrsl">Zaman</label><input type="range" id="vstrsl" min="0" max="2000" step="1" value="2000"><output id="vstrv"></output></div>
@@ -497,6 +498,12 @@ function nPoss(s){ var t=String(s).replace(/[%\s]/g,''), p=t.split(','), w;
   var v=w.replace(/[^aeıioöuü]/g,''), lv=v[v.length-1], V={a:'ı',ı:'ı',e:'i',i:'i',o:'u',u:'u',ö:'ü',ü:'ü'}[lv];
   return s+'\''+(/[aeıioöuü]$/.test(w)?'s':'')+V; }
 function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }
+/* belirtme hâli: %3,6'sı → %3,6'sını */
+function nAcc(s){ var p=nPoss(s); return p+'n'+p.slice(-1); }
+/* φ > 0'a girişler: φ ≈ 0 tarafından (kısa açısal yol 0'dan geçer) ve ±180° sınırından (CH19, plan dışı ayrıştırma kuralı) */
+function entSplit(a,n){ var e=0, z=0; for(var i=1;i<Math.min(n,a.length);i++) if(a[i]>0&&a[i-1]<=0){ e++; if(a[i]-a[i-1]<180) z++; } return {e:e,z:z}; }
+/* 0 ile 4 ns'de φ ≈ 0 tarafından giriş, gmx rama ile (CH19 Tablo 19.2) */
+var AZ={A1:110,A2:108};
 
 /* ===== ortak animasyon altyapısı ===== */
 var REDUCE=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -601,7 +608,7 @@ function brDist(){ var c=$('vbdist'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect
 function brRead(){ var tA=BTAU[BR.tau], tB=tA*Math.exp(-BR.dg/KT), L=BLEN[BR.len]*1000, pB=1/(1+Math.exp(BR.dg/KT)), nexp=L/(tA+tB), M=BR.many, est=BR.runs?BR.runs.map(brEst):[], un=est.filter(function(v){ return v==null; }).length;
   var h=dl('B\'nin gerçek payı',pct(pB,pB<0.01?3:1)+' (K = '+(BR.dg>0?'1/'+fx(Math.exp(BR.dg/KT),0):'1')+')')+dl('B\'deki ortalama kalış',fx(tB,tB<10?2:0)+' ps')+dl('Bir koşuda beklenen B\'ye giriş',fx(nexp,nexp<10?1:0));
   if(BR.runs) h+=dl('Bu sekiz koşu (grafikte noktalar)',(8-un)+' koşuda tahmin var, '+un+' koşuda B hiç görülmedi (tanımsız, kırmızı sütun)');
-  if(M){ var md=M.e.length?quant(M.e.map(function(v){ return Math.abs(v-BR.dg); }),0.5):null; h+=dl('1000 koşu',pct(M.un/1000,1)+' tanımsız; tanımlı olanlarda gerçek değerden ortanca sapma '+(md==null?'yok':fx(md,2)+' kJ/mol')+'; koşu başına ortalama '+fx(M.nev/2,1)+' giriş'); }
+  if(M){ var md=M.e.length?quant(M.e.map(function(v){ return Math.abs(v-BR.dg); }),0.5):null; h+=dl('1000 koşu',pct(M.un/1000,1)+' tanımsız; tanımlı olanlarda gerçek değerden ortanca sapma '+(md==null?'yok':fx(md,2)+' kJ/mol')+'; koşu başına ortalama '+fx(M.nev,1)+' giriş (beklenen '+fx(nexp,nexp<10?1:0)+')'); if(nexp>=1) h+=dl('Olay sayısı kuralı','göreli belirsizlik kabaca 1/√n; n = '+fx(nexp,nexp<10?1:0)+' girişle ΔG\'de yaklaşık kT/√n = '+fx(KT/Math.sqrt(nexp),2)+' kJ/mol; yukarıdaki ortanca sapmayla karşılaştırın'); }
   $('vbread').innerHTML=h; }
 function brCards(){ var n=Object.keys(BR.seen).length;
   if(n>=2) card('vc0',true,'Bir koşudan çıkan nüfus oranı, o koşudaki geçiş sayısı kadar kesindir. ΔG büyüdükçe B seyrekleşir ve kısa kalır; koşu B\'ye birkaç kez girmiyorsa tahmin ya tanımsız kalır ya da tek bir olayın uzunluğuna bağlanır. Deneyde aynı oran çok sayıda molekülden ölçülür; MD\'de ise sayıyı ancak süre ya da tekrar artırır. Süre yetmiyorsa yöntem değişir: bias, olayı sık hâle getirip sonra ağırlıklarla geri hesaplar (atölye 3). Bu model öğretim içindir; iki durumlu ve belleksizdir, gerçek bir molekülün yavaş serbestlik derecelerini taşımaz.');
@@ -620,7 +627,7 @@ var MTH=[
   {k:'ml',n:'Öğrenilmiş potansiyel (ML)',ic:'∿',as:'Kuantum hesaplarından öğrenilmiş bir enerji fonksiyonu, eğitildiği kimyasal bölgede kuantum doğruluğuna yakın sonuç verir.',lim:'Eğitim verisinin dışındaki yapılarda hata görünmez biçimde büyüyebilir; klasik kuvvet alanından çok daha yavaştır ve doğrulama kuantum hesabı ister.',site:'Bu sitede koşulmadı; atölye 4'}];
 var MQS=[
   {q:'İki yakın ligand tek bir metil grubuyla ayrılıyor. Hangisi tripsine daha sıkı bağlanır (ΔΔG)?',g:{alc:2,end:1,std:0,bias:1,cg:0,ml:0},w:'Göreli bağlanma serbest enerjisi için en doğrudan yol alkemik dönüşümdür: iki ligand ortak iskeletle birbirine çevrilir. Uç nokta yöntemleri hızlı bir sıralama verebilir ama küçük farkları ayırt etmek için güvenilir değildir; bias ile bağlanma yolu çizilebilir ama iki ligand için ayrı ayrı ve daha pahalıdır.'},
-  {q:'Alanin dipeptidinde φ > 0 bölgesinin (αL) serbest enerjisi nedir?',g:{bias:2,std:1,alc:0,end:0,cg:0,ml:1},w:'Tek bir yavaş açı boyunca serbest enerji profili bias yöntemlerinin tipik işidir; bu modülde AWH ile yapıldı. Standart MD yeterince uzun koşulursa da verir ama 16 ns\'de φ > 0 birkaç olaydan ibaretti (atölye 2). ML potansiyeli kuvvet alanını değiştirir, örnekleme sorununu çözmez.'},
+  {q:'Alanin dipeptidinde φ > 0 bölgesinin (αL ve C7ax) serbest enerjisi nedir?',g:{bias:2,std:1,alc:0,end:0,cg:0,ml:1},w:'Tek bir yavaş açı boyunca serbest enerji profili bias yöntemlerinin tipik işidir; bu modülde AWH ile yapıldı. Standart MD yeterince uzun koşulursa da verir ama 16 ns\'de φ > 0 birkaç olaydan ibaretti (atölye 2). ML potansiyeli kuvvet alanını değiştirir, örnekleme sorununu çözmez.'},
   {q:'Bağlanma cebindeki ligandın çevresinde hangi su molekülleri ve temaslar kalıcı?',g:{std:2,bias:0,alc:0,end:0,cg:0,ml:0},w:'Temaslar ve yerel su düzeni nanosaniyeler içinde defalarca örneklenir; standart MD doğrudan yanıt verir (MD-INT). Kaba taneli model bu ayrıntıyı kaybeder.'},
   {q:'Yüzlerce peptit bir zar üzerinde mikrosaniyeler boyunca nasıl kümeleşiyor?',g:{cg:2,std:1,bias:0,alc:0,end:0,ml:0},w:'Büyüklük ve süre atomistik MD için çok pahalıdır; kaba taneli modeller bu ölçeğe ulaşır. Bedeli atomik ayrıntı ve ikincil yapının serbestçe değişememesidir; ilginç bir kümelenme bulunursa atomistik ayrıntıya geri dönülür.'},
   {q:'Bir enzimin etkin bölgesinde bir bağ kopuyor ve yenisi oluşuyor. Engel ne kadar yüksek?',g:{ml:2,bias:1,std:0,alc:0,end:0,cg:0},w:'Klasik kuvvet alanları bağ kopmasını tanımlamaz. Kuantum düzeyinde bir enerji gerekir: QM/MM (bu listede yok) ya da o tepkimeye eğitilmiş bir ML potansiyeli; engelin kendisi yine bir bias yöntemiyle örneklenir.'},
@@ -650,21 +657,21 @@ function rsDraw(){ var c=$('vstr'), f=fit(c), g=f.g, W=f.W, H=f.H, t=Math.round(
     g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText(k,p.L-7,y+rh/2+4); g.textAlign='left'; });
   if(t<2000){ var x=p.X(t); g.strokeStyle=PAL.navy; g.lineWidth=1.5; g.beginPath(); g.moveTo(x,p.T); g.lineTo(x,p.T+p.H); g.stroke(); }
   RS.geo=p; rsStats(); }
-function rsStats(){ var t=Math.round(RS.t), np=0, nn=0, runs=0, ent=0;
-  WK.forEach(function(k){ var a=phiArr(k), q=0; for(var i=0;i<=t;i++){ if(a[i]>0) q++; if(i&&a[i]>0&&a[i-1]<=0) ent++; } np+=q; nn+=t+1-q; if(q) runs++; });
+function rsStats(){ var t=Math.round(RS.t), np=0, nn=0, runs=0, ent=0, ez=0;
+  WK.forEach(function(k){ var a=phiArr(k), q=0; for(var i=0;i<=t;i++){ if(i>=200){ if(a[i]>0) np++; else nn++; } if(a[i]>0) q++; if(i&&a[i]>0&&a[i-1]<=0){ ent++; if(a[i]-a[i-1]<180) ez++; } } if(q) runs++; });
   function tile(nm,v,sub,cls){ return '<div class="stat'+(cls?' '+cls:'')+'"><span class="nm">'+nm+'</span><span class="v">'+v+'</span><span class="sub">'+sub+'</span></div>'; }
-  var dg=np?-KT*Math.log(np/nn):null;
-  $('vustats').innerHTML=tile('Süre',fx((t+1)*8/1000,1)+' ns','8 koşunun toplamı, 0 ile '+t+' ps')+tile('φ > 0 karesi',np,'toplam '+(np+nn)+' kareden',np?'bad':'')+tile('φ > 0\'a giriş',ent,'koşu: '+runs+' / 8')+tile('ΔG₊ (havuz)',dg==null?'tanımsız':fx(dg,1)+' kJ/mol','yalnız bu karelerden','');
+  var dg=np&&nn?-KT*Math.log(np/nn):null;
+  $('vustats').innerHTML=tile('Süre',fx((t+1)*8/1000,1)+' ns','8 koşunun toplamı, 0 ile '+t+' ps')+tile('φ > 0 karesi',np,t<200?'ölçüt penceresi 200 ps\'de başlar':'200 ile '+t+' ps, toplam '+fx(np+nn,0)+' kareden',np?'bad':'')+tile('φ > 0\'a giriş',ent,'φ ≈ 0 tarafından '+ez+', ±180° sınırından '+(ent-ez)+' · koşu: '+runs+' / 8')+tile('ΔG₊ (havuz)',dg==null?(t<200?'yok':'tanımsız'):fx(dg,1)+' kJ/mol','ölçüt penceresi (200 ile 2000 ps) içinde','');
   $('vstrv').textContent=t+' ps'; var sl=$('vstrsl'); if(+sl.value!==t) sl.value=t; }
 function rsTable(){ var U=VDD.UB.runs, h='<thead><tr><th>Koşu</th><th>φ &gt; 0 karesi (200 ile 2000 ps)</th><th>φ &gt; 0\'a giriş (0 ile 2000 ps)</th><th>en uzun ziyaret</th><th>ΔG₊ (kJ/mol)</th></tr></thead><tbody>';
-  WK.forEach(function(k){ var u=U[k]; h+='<tr><td>'+k+'</td><td>'+u.npos+' / '+(u.npos+u.nneg)+'</td><td>'+u.entries+'</td><td>'+(u.visits.length?arrMax(u.visits)+' ps':'yok')+'</td><td>'+(u.dG==null?'tanımsız':fx(u.dG,1))+'</td></tr>'; });
-  var P=VDD.UB; h+='<tr class="sel"><td>Havuz</td><td>'+P.pooled_npos+' / '+(P.pooled_npos+P.pooled_nneg)+'</td><td>'+WK.reduce(function(s,k){ return s+U[k].entries; },0)+'</td><td></td><td>'+(P.pooled_dG==null?'tanımsız':fx(P.pooled_dG,1))+'</td></tr></tbody>';
+  WK.forEach(function(k){ var u=U[k]; h+='<tr><td>'+k+'</td><td>'+fx(u.npos,0)+' / '+fx(u.npos+u.nneg,0)+'</td><td>'+u.entries+'</td><td>'+(u.visits.length?arrMax(u.visits)+' ps':'yok')+'</td><td>'+(u.dG==null?'tanımsız':fx(u.dG,1))+'</td></tr>'; });
+  var P=VDD.UB; h+='<tr class="sel"><td>Havuz</td><td>'+fx(P.pooled_npos,0)+' / '+fx(P.pooled_npos+P.pooled_nneg,0)+'</td><td>'+WK.reduce(function(s,k){ return s+U[k].entries; },0)+'</td><td></td><td>'+(P.pooled_dG==null?'tanımsız':fx(P.pooled_dG,1))+'</td></tr></tbody>';
   $('vutab').innerHTML=h; }
 function rsTip(e){ var c=$('vstr'), r=c.getBoundingClientRect(), p=RS.geo, tip=c.parentNode.querySelector('.tip'); if(!p) return; var mx=e.clientX-r.left, my=e.clientY-r.top, t=Math.round((mx-p.L)/p.W*2000), row=Math.floor((my-p.T-4)/((p.H-32)/8+4));
   if(t<0||t>2000||row<0||row>7){ tipHide(tip); return; } var a=phiArr(WK[row]); tipShow(tip,r.width,mx,my,'<b>'+WK[row]+' · '+t+' ps</b><br>φ = '+fx(a[t],0)+'°'+(a[t]>0?' (φ &gt; 0)':'')); }
-function rsCards(){ var U=VDD.UB, ent=WK.reduce(function(s,k){ return s+U.runs[k].entries; },0), longest=0, who='';
+function rsCards(){ var U=VDD.UB, ent=WK.reduce(function(s,k){ return s+U.runs[k].entries; },0), zAll=WK.reduce(function(s,k){ return s+entSplit(phiArr(k),2001).z; },0), longest=0, who='';
   WK.forEach(function(k){ U.runs[k].visits.forEach(function(v){ if(v>longest){ longest=v; who=k; } }); });
-  if(RS.moved) card('vc2',true,'Sekiz koşunun toplam 16 ns\'sinde φ > 0 bölgesine '+ent+' giriş var; ölçüt penceresindeki '+U.pooled_npos+' φ > 0 karesinin '+(U.runs[who]?U.runs[who].npos:0)+' tanesi tek bir koşudan ('+who+', en uzun ziyaret '+longest+' ps). Havuzlanmış tahmin ΔG₊ = '+fx(U.pooled_dG,1)+' kJ/mol; ama bu sayı, aslında birkaç olayın uzunluğudur ve sekiz koşunun '+(8-U.n_runs_with_pos)+' tanesinde tahmin tanımsızdır. Köprüdeki modelle aynı durum: oran olay sayısı kadar kesindir. Bu tahmine bir hata çubuğu koymak bile zordur, çünkü bağımsız birim olan olay sayısı ikiye üçe iner.');
+  if(RS.moved) card('vc2',true,'Sekiz koşunun toplam 16 ns\'sinde φ > 0 bölgesine '+ent+' giriş var, ama bunların '+(ent-zAll)+' tanesi αL ziyareti değil, β bölgesinin φ = ±180° sınırını aşan karelerdir; φ ≈ 0 tarafından gerçek ziyaret '+zAll+' tane. Ölçüt penceresindeki '+U.pooled_npos+' φ > 0 karesinin '+(U.runs[who]?U.runs[who].npos:0)+' tanesi tek bir koşudan ('+who+', en uzun ziyaret '+longest+' ps). Havuzlanmış tahmin ΔG₊ = '+fx(U.pooled_dG,1)+' kJ/mol; ama bu sayı, aslında birkaç olayın uzunluğudur ve sekiz koşunun '+(8-U.n_runs_with_pos)+' tanesinde tahmin tanımsızdır. Köprüdeki modelle aynı durum: oran olay sayısı kadar kesindir. Bu tahmine bir hata çubuğu koymak bile zordur, çünkü bağımsız birim olan olay sayısı ikiye üçe iner.');
   else card('vc2',false,'Şeritleri oynatın ya da zaman kaydırıcısını oynatın.'); }
 function w2(){ var leg='<span><i style="background:'+phiCol(-150)+'"></i>φ ≈ −150° (β, PPII)</span><span><i style="background:'+phiCol(-70)+'"></i>φ ≈ −70° (αR, PPII)</span><span><i style="background:'+phiCol(60)+'"></i>φ ≈ +60° (αL)</span><span><span class="box" style="border-color:var(--bad)"></span>φ &gt; 0</span>';
   $('vstrleg').innerHTML=leg; rsTable();
@@ -685,17 +692,18 @@ function dgPmf(phi,F){ var m=arrMin(F), pp=0, pn=0; for(var i=0;i<F.length;i++){
 function aphi(k){ return AW.cache['ph'+k]||(AW.cache['ph'+k]=i16(VDD.APHI[k],100)); }
 function awDraw(){ var c=$('vaw'), f=fit(c), g=f.g, W=f.W, H=f.H, S=awSnap(AW.k,AW.s), phi=agrid(); g.clearRect(0,0,W,H);
   var p=plot(g,52,12,W-64,H-12-46,[-180,180],[0,60],{xticks:[-180,-120,-60,0,60,120,180],yticks:[0,15,30,45,60],xlab:'φ (derece)',ylab:'kJ/mol',ylabPad:40});
-  g.fillStyle=hexA(PAL.bad,0.06); g.fillRect(p.X(0),p.T,p.X(180)-p.X(0),p.H); g.fillStyle=PAL.bad; g.font='600 11.5px '+css('--sans'); g.fillText('φ > 0 (αL)',p.X(0)+6,p.T+14);
+  g.fillStyle=hexA(PAL.bad,0.06); g.fillRect(p.X(0),p.T,p.X(180)-p.X(0),p.H); g.fillStyle=PAL.bad; g.font='600 11.5px '+css('--sans'); g.fillText('φ > 0 (αL ve C7ax)',p.X(0)+6,p.T+14);
   var dm=arrMax(S.dist)||1; g.fillStyle=hexA(PAL.ink,0.13); for(var i=0;i<phi.length;i++){ var h=S.dist[i]/dm*p.H*0.14; g.fillRect(p.X(phi[i])-1,p.Y(0)-h,Math.max(1.5,p.W/phi.length),h); }
   var nb=S.bias.map(function(v){ return -v; }), nm=arrMin(nb); g.strokeStyle=PAL.s2; g.lineWidth=2; g.setLineDash([6,4]); g.beginPath(); phi.forEach(function(x,i){ var y=p.Y(Math.min(60,nb[i]-nm)); if(i) g.lineTo(p.X(x),y); else g.moveTo(p.X(x),y); }); g.stroke(); g.setLineDash([]);
   var pm=arrMin(S.pmf); g.beginPath(); phi.forEach(function(x,i){ var y=p.Y(Math.min(60,S.pmf[i]-pm)); if(i) g.lineTo(p.X(x),y); else g.moveTo(p.X(x),y); }); g.lineTo(p.X(180),p.Y(0)); g.lineTo(p.X(-180),p.Y(0)); g.closePath(); g.fillStyle=hexA(PAL.s1,0.14); g.fill();
   g.strokeStyle=PAL.s1; g.lineWidth=2.5; g.beginPath(); phi.forEach(function(x,i){ var y=p.Y(Math.min(60,S.pmf[i]-pm)); if(i) g.lineTo(p.X(x),y); else g.moveTo(p.X(x),y); }); g.stroke();
   pill(g,fx(S.t/1000,1)+' ns',p.L+40,p.T+16,PAL.paper,PAL.navy);
   awStats(S,phi); awTrace(); }
-function awStats(S,phi){ var t=S.t, a=aphi(AW.k), n=Math.min(a.length-1,Math.round(t)), np=0, ent=0; for(var i=0;i<=n;i++){ if(a[i]>0) np++; if(i&&a[i]>0&&a[i-1]<=0) ent++; }
+function awStats(S,phi){ var t=S.t, a=aphi(AW.k), n=Math.min(a.length-1,Math.round(t)), np=0, ent=0, ez=0; for(var i=0;i<=n;i++){ if(a[i]>0) np++; if(i&&a[i]>0&&a[i-1]<=0){ ent++; if(a[i]-a[i-1]<180) ez++; } }
+  var fin=AW.s>=VDD.AW[AW.k].t.length-1; if(fin){ ent=VDD.AENT[AW.k]; ez=AZ[AW.k]; np=VDD.ANPOS[AW.k]; }
   var cov=S.dist.every(function(v){ return v>0; }), dg=t>0?dgPmf(phi,S.pmf):null;
   function tile(nm,v,sub,cls){ return '<div class="stat'+(cls?' '+cls:'')+'"><span class="nm">'+nm+'</span><span class="v">'+v+'</span><span class="sub">'+sub+'</span></div>'; }
-  $('vawst').innerHTML=tile('AWH zamanı',fx(t/1000,1)+' ns',AW.k+' · '+{A1:'W1\'in',A2:'W2\'nin'}[AW.k]+' dengelenmiş yapısından')+tile('φ > 0\'a giriş',ent,np+' kare, 0 ile '+n+' ps')+tile('ΔG₊ (o anki profil)',dg==null?'yok':fx(dg,1)+' kJ/mol','PMF\'den, φ > 0 / φ < 0')+tile('Kapsama',cov?'tam':'eksik','son 100 ps\'deki örnekleme',cov?'ok':'bad');
+  $('vawst').innerHTML=tile('AWH zamanı',fx(t/1000,1)+' ns',AW.k+' · '+{A1:'W1\'in',A2:'W2\'nin'}[AW.k]+' dengelenmiş yapısından')+tile('φ > 0\'a giriş',ent,'φ ≈ 0 tarafından '+ez+(fin?' (kayıtlı sayım)':'')+' · '+fx(np,0)+' kare, 0 ile '+n+' ps')+tile('ΔG₊ (o anki profil)',dg==null?'yok':fx(dg,1)+' kJ/mol','PMF\'den, φ > 0 / φ < 0')+tile('Kapsama',cov?'tam':'eksik','son 100 ps\'deki örnekleme',cov?'ok':'bad');
   $('vawv').textContent=fx(t/1000,1)+' ns'; var sl=$('vawsl'); if(+sl.value!==AW.s) sl.value=AW.s; }
 function awTrace(){ var c=$('vtrace'), f=fit(c), g=f.g, W=f.W, H=f.H, t=VDD.AW[AW.k].t[AW.s]; g.clearRect(0,0,W,H);
   var p=plot(g,52,10,W-64,H-10-40,[0,4000],[-180,180],{xticks:[0,1000,2000,3000,4000],yticks:[-180,-90,0,90,180],xlab:'zaman (ps)',ylab:'φ (derece)',ylabPad:40});
@@ -725,12 +733,12 @@ function dgDraw(){ var c=$('vdg'), f=fit(c), g=f.g, W=f.W, H=f.H, R=VDD.RES, U=V
     if(q.v==null){ g.fillStyle=PAL.bad; g.beginPath(); g.moveTo(x,p.T+6); g.lineTo(x-5,p.T+15); g.lineTo(x+5,p.T+15); g.closePath(); g.fill(); }
     else { var y=p.Y(Math.min(24,q.v)); g.fillStyle=q.c; g.strokeStyle=PAL.paper; g.lineWidth=2; g.beginPath(); g.arc(x,y,q.big?6.5:5,0,7); g.fill(); g.stroke(); } });
   g.textAlign='left'; g.fillStyle=PAL.bad; g.font='11.5px '+css('--sans'); g.fillText('▲ tanımsız: φ > 0 hiç görülmedi',p.L+6,p.T+p.H-8);
-  $('vdgread').innerHTML=dl('AWH A1, 4 ns',fx(R.awh.A1.dG,2)+' kJ/mol')+dl('AWH A2, 4 ns',fx(R.awh.A2.dG,2)+' kJ/mol')+dl('İki AWH koşusu','ortalama '+fx(R.agree.dG_mean,2)+' ± '+fx(R.agree.dG_halfdiff,2)+' (yarı fark); profillerde en büyük fark '+fx(R.agree.max_absdiff,2)+' kJ/mol; önceden yazılmış hüküm: '+R.agree.verdict)+
+  $('vdgread').innerHTML=dl('AWH A1, 4 ns',fx(R.awh.A1.dG,2)+' kJ/mol ('+fx(R.awh.A1.dG/4.184,2)+' kcal/mol)')+dl('AWH A2, 4 ns',fx(R.awh.A2.dG,2)+' kJ/mol ('+fx(R.awh.A2.dG/4.184,2)+' kcal/mol)')+dl('İki AWH koşusu','ortalama '+fx(R.agree.dG_mean,2)+' ± '+fx(R.agree.dG_halfdiff,2)+' (yarı fark); profillerde en büyük fark '+fx(R.agree.max_absdiff,2)+' kJ/mol; önceden yazılmış hüküm: '+R.agree.verdict)+
     dl('Yakınsama, 1 / 2 / 3 / 4 ns','A1 '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A1.conv[t],1); }).join(' / ')+'; A2 '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A2.conv[t],1); }).join(' / '))+
     dl('Bias\'sız havuz',(U.pooled_dG==null?'tanımsız':fx(U.pooled_dG,2)+' kJ/mol')+'; 8 koşunun '+U.n_runs_with_pos+' tanesinde φ > 0 görüldü')+dl('Profil karşılaştırması','bias\'sızın en az 50 karelik '+R.compare.bins_used+' bölmesinde RMS farkı '+fx(R.compare.rms,2)+' kJ/mol'); }
 function nEnt(a,n){ var e=0; for(var i=1;i<Math.min(n,a.length);i++) if(a[i]>0&&a[i-1]<=0) e++; return e; }
-function awCards(){ var R=VDD.RES, A=R.agree, U=VDD.UB, eA1=VDD.AENT.A1, eA2=VDD.AENT.A2, eW1=nEnt(phiArr('W1'),2001), eW2=nEnt(phiArr('W2'),2001);
-  if(AW.moved) card('vc3',true,'AWH, φ boyunca o ana kadar sık ziyaret edilen açılara bias ekleyerek molekülü az ziyaret edilenlere iter; biriken bias, serbest enerji profilinin tersine yaklaşır. Bias\'lı koşular 4 ns\'de φ > 0 bölgesine A1 '+eA1+', A2 '+eA2+' kez girdi; aynı dengelenmiş yapılardan başlayan bias\'sız W1 ve W2 ise 2 ns\'de '+eW1+' ve '+eW2+' kez. Profil, bias\'ın etkisi ağırlıklarla geri hesaplanarak elde edilir; yani bias örneklemeyi değiştirir, hesaplanan serbest enerji ise bias\'sız topluluğa aittir. Bu deneyde ΔG₊ AWH ile A1\'de '+fx(R.awh.A1.dG,1)+', A2\'de '+fx(R.awh.A2.dG,1)+' kJ/mol, bias\'sız havuzla '+(U.pooled_dG==null?'tanımsız':fx(U.pooled_dG,1)+' kJ/mol')+'.');
+function awCards(){ var R=VDD.RES, A=R.agree, U=VDD.UB, eA1=VDD.AENT.A1, eA2=VDD.AENT.A2, eW1=nEnt(phiArr('W1'),2001), eW2=nEnt(phiArr('W2'),2001), zW1=entSplit(phiArr('W1'),2001).z, zW2=entSplit(phiArr('W2'),2001).z;
+  if(AW.moved) card('vc3',true,'AWH, φ boyunca o ana kadar sık ziyaret edilen açılara bias ekleyerek molekülü az ziyaret edilenlere iter; biriken bias, serbest enerji profilinin tersine yaklaşır. Bias\'lı koşular 4 ns\'de φ > 0 bölgesine A1 '+eA1+', A2 '+eA2+' kez girdi (bunların '+AZ.A1+' ve '+AZ.A2+' tanesi φ ≈ 0 tarafından, kalanı β bölgesinin ±180° sınırını aşan geçişler); aynı dengelenmiş yapılardan başlayan bias\'sız W1 ve W2 ise 2 ns\'de '+eW1+' ve '+eW2+' kez (φ ≈ 0 tarafından '+zW1+' ve '+zW2+'). Profil, bias\'ın etkisi ağırlıklarla geri hesaplanarak elde edilir; yani bias örneklemeyi değiştirir, hesaplanan serbest enerji ise bias\'sız topluluğa aittir. Bu deneyde ΔG₊ AWH ile A1\'de '+fx(R.awh.A1.dG,1)+', A2\'de '+fx(R.awh.A2.dG,1)+' kJ/mol, bias\'sız havuzla '+(U.pooled_dG==null?'tanımsız':fx(U.pooled_dG,1)+' kJ/mol')+'.');
   else card('vc3',false,'AWH animasyonunu oynatın ya da zaman kaydırıcısını oynatın.');
   if(AW.seen.A1&&AW.seen.A2) card('vc4',true,'İki AWH koşusu farklı dengelenmiş yapılardan ve farklı tohumlarla başladı. 4 ns sonunda ΔG₊ A1\'de '+fx(R.awh.A1.dG,2)+', A2\'de '+fx(R.awh.A2.dG,2)+' kJ/mol (fark '+fx(A.dG_diff,2)+'; önceden yazılmış eşik 1); profillerde en büyük fark '+fx(A.max_absdiff,2)+' kJ/mol (eşik 2). Önceden yazılmış hüküm: "'+A.verdict+'". '+(A.verdict==='uyumlu'?'Bu uyum yalnız φ boyunca örneklemenin iki koşuda tutarlı olduğunu gösterir.':'Yani 4 ns, bu ölçütle yakınsama için yetmedi: ΔG₊ 1 ile 4 ns arasında A1\'de '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A1.conv[t],1); }).join(', ')+', A2\'de '+['1000','2000','3000','4000'].map(function(t){ return fx(R.awh.A2.conv[t],1); }).join(', ')+' kJ/mol gezindi. Bias seyrek bölgeyi görünür kıldı ama bir sayıyı kesinleştirmek için yine süre ve bağımsız tekrar gerekir; sonuç iki koşunun farkıyla birlikte raporlanır, parametreler değiştirilip yeniden koşulmaz.')+' Ayrıca bias yalnız φ\'ye uygulandı: ψ, yan zincir ve su bias\'lanmadı; onlar da yavaşsa iki koşu aynı yanlış cevaba da varabilirdi. Bias\'sız MD\'nin iyi örneklediği bölgede profiller uyumlu: '+R.compare.bins_used+' bölmede RMS '+fx(R.compare.rms,1)+' kJ/mol. Aynı iki koşu daha uzun sürdürüldüğünde ne olduğunu izleme bölümü (3b) gösterir.');
   else card('vc4',false,'İki AWH koşusunun da animasyonuna bakın (koşu seçiciden A2\'yi seçin).'); }
@@ -781,12 +789,12 @@ function f2Conv(){ var S=f2Series(), i=F2.s, c=$('vf2c'), f=fit(c), g=f.g, W=f.W
   var x=p.X(S.T[i]); g.strokeStyle=PAL.navy; g.lineWidth=1.5; g.beginPath(); g.moveTo(x,p.T); g.lineTo(x,q.T+q.H); g.stroke(); }
 function f2Verdict(r){ return r.verdict==='uyumlu'?'uyumlu':'uyumsuz'; }
 function f2Read(){ var S=f2Series(), i=F2.s, R=VDD.RES2, t=S.T[i];
-  var h=dl('AWH zamanı',fx(t/1000,1)+' ns'+(t<=4000?' (FESGRID)':' (izleme)'))+dl('ΔG₊ o anki profilden','A1 '+fx(S.D.A1[i],2)+' · A2 '+fx(S.D.A2[i],2)+' kJ/mol')+
+  var h=dl('AWH zamanı',fx(t/1000,1)+' ns'+(t<=4000?' (FESGRID)':' (izleme)'))+dl('ΔG₊ o anki profilden','A1 '+fx(S.D.A1[i],2)+' · A2 '+fx(S.D.A2[i],2)+' kJ/mol (A1 '+fx(S.D.A1[i]/4.184,2)+' · A2 '+fx(S.D.A2[i]/4.184,2)+' kcal/mol)')+
     dl('İki koşunun farkı','ΔG₊ '+fx(S.DD[i],2)+' (eşik 1) · profil en çok '+fx(S.MX[i],2)+' kJ/mol (eşik 2)');
   [['ns8','8 ns (ikincil)'],['ns12','12 ns (birincil)']].forEach(function(q){ var r=R[q[0]]; h+=dl('Önceden yazılmış hüküm, '+q[1],r?('<b>'+f2Verdict(r.agree)+'</b>: ΔG₊ farkı '+fx(r.agree.dG_diff,2)+', profil farkı '+fx(r.agree.max_absdiff,2)+' kJ/mol'):'Bu senaryo hesaplanmadı'); });
   var r12=R.ns12, E=R.entries, C=R.compare;
-  if(r12) h+=dl('12 ns\'de engeller','φ ≈ 0: A1 '+fx(r12.barrier0.A1,1)+', A2 '+fx(r12.barrier0.A2,1)+' · φ ≈ ±180: A1 '+fx(r12.barrier180.A1,1)+', A2 '+fx(r12.barrier180.A2,1)+' kJ/mol; kapsama '+(r12.coverage_all.A1&&r12.coverage_all.A2?'tam':'eksik'));
-  if(E&&E.A1&&E.A2) h+=dl('φ > 0\'a giriş','0 ile 4 ns: A1 '+E.A1.entries_0_4_fesgrid+', A2 '+E.A2.entries_0_4_fesgrid+' · 4 ile 12 ns: A1 '+E.A1.entries_4_12+', A2 '+E.A2.entries_4_12);
+  if(r12) h+=dl('12 ns\'de engeller','φ ≈ 0: A1 '+fx(r12.barrier0.A1,1)+', A2 '+fx(r12.barrier0.A2,1)+' · φ ≈ 130° (120 ile 180° ve −180 ile −120° aralığı): A1 '+fx(r12.barrier180.A1,1)+', A2 '+fx(r12.barrier180.A2,1)+' kJ/mol; kapsama '+(r12.coverage_all.A1&&r12.coverage_all.A2?'tam':'eksik'));
+  if(E&&E.A1&&E.A2) h+=dl('φ > 0\'a giriş','0 ile 4 ns: A1 '+E.A1.entries_0_4_fesgrid+', A2 '+E.A2.entries_0_4_fesgrid+' · 4 ile 12 ns: A1 '+E.A1.entries_4_12+', A2 '+E.A2.entries_4_12+' (φ ≈ 0 tarafından: 0 ile 4 ns\'de A1 '+AZ.A1+', A2 '+AZ.A2+'; 4 ile 12 ns\'de ayrıştırılmadı)');
   if(C) h+=dl('Bias\'sız ile karşılaştırma','RMS '+fx(C.rms,2)+' kJ/mol, '+C.bins_used+' bölme (4 ns\'de '+fx(C.rms_4ns,2)+')');
   $('vf2read').innerHTML=h; $('vf2v').textContent=fx(t/1000,1)+' ns'; var sl=$('vf2sl'); if(+sl.value!==i) sl.value=i; }
 function f2Cards(){ var R=VDD.RES2, S=f2Series(), r12=R.ns12, r8=R.ns8, c=R.conv;
@@ -840,8 +848,8 @@ var BQ={got:{}}, OPTS=['Bu veriyle kurulabilir','Ek kanıt gerekir','Bu veriyle 
 function benchItems(){ var R=VDD.RES, U=VDD.UB, A=R.agree;
   return [
     {s:'"Bias\'sız 16 ns\'lik MD, φ > 0 bölgesinin serbest enerjisini '+fx(U.pooled_dG,1)+' kJ/mol olarak ölçtü."', a:2, w:'Sayı hesaplanabiliyor ama dayandığı olay sayısı birkaç tane: ölçüt penceresindeki '+U.pooled_npos+' φ > 0 karesi esas olarak tek bir ziyaretten geliyor ve sekiz koşunun '+(8-U.n_runs_with_pos)+' tanesinde tahmin tanımsız. "Ölçtü" demek, olay sayısının taşımadığı bir kesinlik söyler.'},
-    {s:'"Bu kuvvet alanında (amber99sb-ildn, TIP3P, 300 K) φ boyunca AWH, φ > 0 bölgesinin serbest enerjisini '+fx(A.dG_mean,1)+' ± '+fx(A.dG_halfdiff,1)+' kJ/mol olarak belirledi (iki bağımsız 4 ns koşu)."', a:A.verdict==='uyumlu'?0:1, w:A.verdict==='uyumlu'?'Cümle yöntemi, kolektif değişkeni, kuvvet alanını, koşu sayısını ve iki koşunun farkını içeriyor; önceden yazılmış uyum hükmü "uyumlu". ± değeri iki koşunun yarı farkıdır, tam bir belirsizlik değildir.':'Cümlenin çerçevesi doğru (yöntem, değişken, kuvvet alanı, koşu sayısı) ama "belirledi" fazla: iki koşu önceden yazılmış uyum ölçütünü geçmedi (ΔG₊ farkı '+fx(A.dG_diff,2)+' kJ/mol, eşik 1). Kurulabilir hâli: "iki koşu '+fx(R.awh.A1.dG,1)+' ve '+fx(R.awh.A2.dG,1)+' kJ/mol verdi; önceden yazılmış ölçütle uyumsuz, yakınsama için daha uzun ya da daha çok koşu gerekir."'},
-    {s:'"Alanin dipeptidi suda αL durumunda zamanın yaklaşık %'+fx(100/(1+Math.exp(A.dG_mean/KT)),1)+'\'ini geçirir."', a:1, w:'Bu oran bu kuvvet alanının ve su modelinin sonucudur; gerçek molekül için deneysel bir karşılaştırma (örneğin NMR J-bağlaşım sabitleri) gerekir. Farklı kuvvet alanları φ > 0 için farklı nüfuslar verir.'},
+    {s:'"Bu kuvvet alanında (amber99sb-ildn, TIP3P, 300 K) φ boyunca AWH, φ > 0 bölgesinin serbest enerjisini '+fx(A.dG_mean,1)+' ± '+fx(A.dG_halfdiff,1)+' kJ/mol olarak belirledi (iki bağımsız 4 ns koşu)."', a:A.verdict==='uyumlu'?0:1, w:A.verdict==='uyumlu'?'Cümle yöntemi, kolektif değişkeni, kuvvet alanını, koşu sayısını ve iki koşunun farkını içeriyor; önceden yazılmış uyum hükmü "uyumlu". ± değeri iki koşunun yarı farkıdır, tam bir belirsizlik değildir.':'Cümlenin çerçevesi doğru (yöntem, değişken, kuvvet alanı, koşu sayısı) ama "belirledi" fazla: iki koşu önceden yazılmış uyum ölçütünü geçmedi (ΔG₊ farkı '+fx(A.dG_diff,2)+' kJ/mol, eşik 1). Kurulabilir hâli: "iki koşu '+fx(R.awh.A1.dG,1)+' ve '+fx(R.awh.A2.dG,1)+' kJ/mol verdi; önceden yazılmış ölçütle uyumsuz, yakınsama için daha uzun ya da daha çok koşu gerekir."'+(VDD.RES2&&VDD.RES2.ns12?' Aynı iki koşu 12 ns\'ye sürdürüldüğünde önceden yazılmış ölçütle '+f2Verdict(VDD.RES2.ns12.agree)+' çıktı ('+fx(VDD.RES2.ns12.dG.A1,2)+' ve '+fx(VDD.RES2.ns12.dG.A2,2)+' kJ/mol; 3b · İzleme); cümle 12 ns verisiyle yeniden kurulur, 4 ns hükmü kayıtta kalır.':'')},
+    {s:'"Alanin dipeptidi suda zamanın yaklaşık '+nAcc('%'+fx(100/(1+Math.exp(A.dG_mean/KT)),1))+' φ > 0 bölgesinde (αL ve C7ax) geçirir."', a:1, w:'Bu oran bu kuvvet alanının ve su modelinin sonucudur; gerçek molekül için deneysel bir karşılaştırma (örneğin NMR J-bağlaşım sabitleri) gerekir. Farklı kuvvet alanları φ > 0 için farklı nüfuslar verir.'},
     {s:'"Bias eklendiği için AWH profili bias\'lı bir topluluğun profilidir; bias\'sız sistem hakkında bir şey söylemez."', a:2, w:'AWH, biası bilinen bir potansiyel olarak ekler ve profili bias\'ın etkisini ağırlıklarla çıkararak hesaplar; sonuç bias\'sız topluluğun φ serbest enerjisidir. Bias\'sız MD\'nin iyi örneklediği bölgede iki profil karşılaştırıldı: RMS farkı '+fx(R.compare.rms,1)+' kJ/mol.'},
     {s:'"AWH profili bias\'sız MD\'nin iyi örneklediği bölgede onunla uyuştuğuna göre her yerde doğrudur."', a:2, w:'Uyum (en az 50 karelik '+R.compare.bins_used+' bölmede RMS '+fx(R.compare.rms,1)+' kJ/mol) yalnız iyi örneklenen φ < 0 tarafı içindir; φ > 0 tarafında bias\'sız bir karşılaştırma yok ve iki AWH koşusu önceden yazılmış ölçütle '+A.verdict+'. Ayrıca bias\'lanmayan yavaş bir derece (ψ, su) ya da kuvvet alanının kendisi bütün koşuları aynı biçimde yanıltabilir; "doğru" demek için bağımsız bir kanıt gerekir.'},
     {s:'"Engel yüksekliği φ = 0 dolayında yaklaşık '+fx((R.awh.A1.barrier0+R.awh.A2.barrier0)/2,0)+' kJ/mol; bu yüzden geçiş yavaştır."', a:1, w:'Profil engeli verir (A1 '+fx(R.awh.A1.barrier0,1)+', A2 '+fx(R.awh.A2.barrier0,1)+' kJ/mol). Ama hız yalnız engelden çıkmaz: φ boyunca serbest enerji tek bir koordinatın projeksiyonudur, gerçek geçiş yolu ψ\'yi de içerebilir ve hız için ayrıca dinamik bilgi gerekir. Bu sayfada hız hesaplanmadı (Bu senaryo hesaplanmadı).'},
@@ -881,7 +889,7 @@ function heroDraw(){ var c=$('vhero'), f=fit(c), g=f.g, W=f.W, H=f.H, t=HE.t, i=
   var narrow=W<560, cx=narrow?W/2:W*0.36, cy=narrow?H*0.42:H/2, R=Math.min(narrow?W*0.28:H*0.36,170);
   function P(phi,r){ var a=phi*Math.PI/180; return [cx+r*Math.sin(a), cy-r*Math.cos(a)]; }
   g.fillStyle=hexA(PAL.bad,0.07); g.beginPath(); g.moveTo(cx,cy); g.arc(cx,cy,R,-Math.PI/2,Math.PI/2); g.closePath(); g.fill();
-  g.strokeStyle=PAL.line; g.lineWidth=1; g.beginPath(); g.arc(cx,cy,R,0,7); g.stroke(); g.beginPath(); g.moveTo(cx,cy-R-6); g.lineTo(cx,cy+R+6); g.stroke(); g.fillStyle=PAL.bad; g.font='600 12px '+css('--sans'); g.fillText('φ > 0 (αL)',cx+R*0.35,cy-R*0.25);
+  g.strokeStyle=PAL.line; g.lineWidth=1; g.beginPath(); g.arc(cx,cy,R,0,7); g.stroke(); g.beginPath(); g.moveTo(cx,cy-R-6); g.lineTo(cx,cy+R+6); g.stroke(); g.fillStyle=PAL.bad; g.font='600 12px '+css('--sans'); g.fillText(narrow?'φ > 0':'φ > 0 (αL ve C7ax)',cx+R*0.35,cy-R*0.25);
   /* dış halka: o ana kadarki AWH biası (A1), kalınlık bias yüksekliği */
   var s=Math.min(VDD.AW.A1.t.length-1,Math.floor(t/100)), S=awSnap('A1',s), phi=agrid(), nb=S.bias, bm=arrMin(nb), bx=arrMax(nb)-bm||1;
   for(var k=0;k<phi.length;k++){ var h=(nb[k]-bm)/bx, a0=phi[k]*Math.PI/180, da=VDD.AG.dphi*Math.PI/180; g.strokeStyle=hexA(PAL.s2,0.25+0.6*h); g.lineWidth=2+16*h; g.beginPath(); g.arc(cx,cy,R+14,a0-Math.PI/2-da/2,a0-Math.PI/2+da/2); g.stroke(); }
@@ -896,10 +904,13 @@ function heroDraw(){ var c=$('vhero'), f=fit(c), g=f.g, W=f.W, H=f.H, t=HE.t, i=
   g.font='600 13px '+css('--sans'); g.fillStyle=PAL.ink; g.fillText('W1 · bias\'sız',x0,y0); g.fillStyle=PAL.s1; g.fillText(narrow?'A1 · AWH ile bias':'A1 · AWH ile φ boyunca bias',x0,y0+(narrow?20:52));
   g.font='12.5px '+css('--sans'); g.fillStyle=PAL.muted; g.fillText('φ > 0\'da '+na+' ps',x0+(narrow?190:0),narrow?y0:y0+20); g.fillText('φ > 0\'da '+nbp+' ps',x0+(narrow?190:0),narrow?y0+20:y0+72);
   pill(g,fx(t/1000,2)+' ns',narrow?W-44:W-50,22,PAL.paper,PAL.navy); }
-function wHero(){ var c=$('vhero');
-  if(REDUCE){ HE.t=2000; heroDraw(); CHARTS.push(heroDraw); return; }
-  aniAdd({active:function(){ return HE.vis; },tick:function(dt){ if(HE.hold>0){ HE.hold-=dt; if(HE.hold<=0) HE.t=0; } else { HE.t+=dt*160; if(HE.t>=2000){ HE.t=2000; HE.hold=3; } } heroDraw(); }});
-  watchVis(c,HE,null); heroDraw(); CHARTS.push(heroDraw); }
+function wHero(){ var c=$('vhero'), b=$('vheroplay'); HE.pass=0;
+  function setH(on){ HE.on=on; b.textContent=on?'Duraklat':'Oynat'; b.setAttribute('aria-pressed',String(on)); if(on) aniKick(); }
+  b.addEventListener('click',function(){ if(!HE.on&&(HE.pass>=2||HE.t>=2000)){ HE.pass=0; HE.t=0; HE.hold=0; } setH(!HE.on); });
+  if(REDUCE){ HE.t=2000; setH(false); heroDraw(); CHARTS.push(heroDraw); return; }
+  /* iki tur oynar ve durur; düğme yeniden başlatır ya da duraklatır */
+  aniAdd({active:function(){ return HE.vis&&HE.on; },tick:function(dt){ if(HE.hold>0){ HE.hold-=dt; if(HE.hold<=0) HE.t=0; } else { HE.t+=dt*160; if(HE.t>=2000){ HE.t=2000; HE.pass++; if(HE.pass>=2) setH(false); else HE.hold=3; } } heroDraw(); }});
+  setH(true); watchVis(c,HE,null); heroDraw(); CHARTS.push(heroDraw); }
 /* ===== sınav soruları ===== */
 function quizItems(){ var Q=[], R=VDD.RES, U=VDD.UB;
   Q.push({s:'İki durumun nüfus oranı K = p(B)/p(A) = 0,01 ise 300 K\'de ΔG yaklaşık kaçtır? (kT ≈ 2,49 kJ/mol)',
@@ -917,7 +928,7 @@ function quizItems(){ var Q=[], R=VDD.RES, U=VDD.UB;
   Q.push({s:'Zar üzerinde yüzlerce peptidin mikrosaniyeler boyunca kümelenmesi için hangi model uygundur, ne kaybedilir?',
     o:[['Kaba taneli; atomik ayrıntı ve serbest ikincil yapı değişimi kaybolur',1],['ML potansiyeli; hiçbir şey kaybolmaz',0],['Örtük çözücü; zar kaybolur',0]], w:'Kaba taneli model ölçeği büyütür; bedeli ayrıntıdır. φ açısı gibi sorular bu modelde sorulamaz.'});
   Q.push({s:'Bu modülde φ > 0 serbest enerjisi için bias\'sız havuz ve AWH ne verdi?',
-    o:[['İkisi de tanımsız kaldı',0],['Bias\'sız '+(U.pooled_dG==null?'tanımsız':fx(U.pooled_dG,1))+' kJ/mol (birkaç olaya dayanarak); AWH A1 '+fx(R.awh.A1.dG,1)+', A2 '+fx(R.awh.A2.dG,1)+' kJ/mol',1],['İkisi tam olarak aynı çıktı',0]], w:'Bias\'sız tahmin birkaç olaya dayandığı için bir sayı olsa da güvenilir değildir. AWH koşuları φ > 0 bölgesine yüzlerce kez girdi ama 4 ns\'de iki koşu önceden yazılmış ölçütle '+R.agree.verdict+' kaldı; sonuç iki değerin aralığıyla raporlanır.'});
+    o:[['İkisi de tanımsız kaldı',0],['Bias\'sız '+(U.pooled_dG==null?'tanımsız':fx(U.pooled_dG,1))+' kJ/mol (birkaç olaya dayanarak); AWH A1 '+fx(R.awh.A1.dG,1)+', A2 '+fx(R.awh.A2.dG,1)+' kJ/mol',1],['İkisi tam olarak aynı çıktı',0]], w:'Bias\'sız tahmin birkaç olaya dayandığı için bir sayı olsa da güvenilir değildir. AWH koşuları φ > 0 bölgesine yüzlerce kez girdi ama 4 ns\'de iki koşu önceden yazılmış ölçütle '+R.agree.verdict+' kaldı; sonuç iki değerin aralığıyla raporlanır.'+(VDD.RES2&&VDD.RES2.ns12?' 12 ns\'ye sürdürülen aynı koşular aynı ölçütle '+f2Verdict(VDD.RES2.ns12.agree)+' çıktı ('+fx(VDD.RES2.ns12.dG.A1,2)+' ve '+fx(VDD.RES2.ns12.dG.A2,2)+' kJ/mol); 4 ns hükmü kayıtta kalır.':'')});
   return Q; }
 /* ---------- kaynaklar ve sınırlar ---------- */
 function notice(){ var m=VDD.meta, R=VDD.RES;
