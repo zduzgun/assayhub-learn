@@ -1,10 +1,10 @@
 {
  "module": "MD-REPRO",
  "lang": "en",
- "source_sha256": "a77672fd66389cd9bea3110826d618988f0353a2b71c4bb09550d94ff3c59451",
+ "source_sha256": "7978707b41e09b58eecf7b123be96c379d6a814e191410e0fc85c35823e3c968",
  "reviewed": false,
  "checked": "claude",
- "translator": "Claude (AI), MD-REPRO 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
+ "translator": "Claude (AI), MD-REPRO 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam); 0.2.0 düzeltmeleri 22 Ekim 2026",
  "pairs": [
   [
    "<title>MD: Yeniden üretim ve savunulabilir çalışma</title>",
@@ -163,16 +163,8 @@
    "<p class=\"hint\">The chart shows |ΔE<sub>pot</sub>| for the same comparison (log axis, first 10 ps); the vertical line is the record the counter shows.</p>"
   ],
   [
-   "<h3 class=\"sub\">Neden? Toplama sırası son basamağı değiştirir</h3>",
-   "<h3 class=\"sub\">Why? The order of addition changes the last digit</h3>"
-  ],
-  [
    "<div class=\"prose\"><p>Kayan noktalı toplamada (a + b) + c ile a + (b + c) son basamakta farklı olabilir. Paralel bir program sayıları iş parçacıkları arasında böler; parçalar ayrı toplanıp sonra birleştirilir, yani toplama sırası değişir. Aşağıdaki 16 sayı simülasyon verisi değildir, tarayıcıda tohumlu rastgele üretilir; hesap ise gerçektir: her toplama tek duyarlığa (32 bit) yuvarlanır. GROMACS'ın karma duyarlık derlemesi de hesabın çoğunu tek duyarlıkla yapar.</p></div>",
    "<div class=\"prose\"><p>In floating-point addition, (a + b) + c and a + (b + c) can differ in the last digit. A parallel program splits the numbers between threads; the parts are summed separately and then combined, so the order of addition changes. The 16 numbers below are not simulation data; they are generated in the browser from a seeded random generator. The arithmetic is real: every addition is rounded to single precision (32 bits). GROMACS's mixed-precision build also does most of its arithmetic in single precision.</p></div>"
-  ],
-  [
-   "<div class=\"selrow\"><span>İş parçacığı:</span><div class=\"seg\" role=\"group\" aria-label=\"İş parçacığı sayısı\" id=\"xflm\"><button type=\"button\" data-v=\"1\">1</button><button type=\"button\" data-v=\"2\">2</button><button type=\"button\" data-v=\"4\">4</button></div><button type=\"button\" class=\"btn\" id=\"xflsh\">Sırayı karıştır</button><button type=\"button\" class=\"btn\" id=\"xflnew\">Yeni sayılar</button></div>",
-   "<div class=\"selrow\"><span>Threads:</span><div class=\"seg\" role=\"group\" aria-label=\"Number of threads\" id=\"xflm\"><button type=\"button\" data-v=\"1\">1</button><button type=\"button\" data-v=\"2\">2</button><button type=\"button\" data-v=\"4\">4</button></div><button type=\"button\" class=\"btn\" id=\"xflsh\">Shuffle the order</button><button type=\"button\" class=\"btn\" id=\"xflnew\">New numbers</button></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"xflc\" class=\"plot flc\" aria-label=\"16 sayının iş parçacıklarına bölünerek toplanması\"></canvas></div>",
@@ -571,10 +563,6 @@
    "o:[['\"Salt does not change the αR fraction.\"','overclaim','The interval is ±11 points wide; it exceeds the ±5 point threshold written in advance. To say \"does not change\", the whole interval would have to lie inside the threshold.'],"
   ],
   [
-   "['\"Bu tasarımla (8 tekrara karşı 8, 2 ns) fark gösterilemedi; %95 aralık yaklaşık ±11 puan. ±5 puanlık eşdeğerlik için grup başına yaklaşık 69 tekrar gerekirdi.\"','kurulabilir','Sonuç, belirsizliği ve neyin dışlanamadığı birlikte yazılıyor; hüküm önceden yazılmış etiketle aynı (\"kararsız\").'],",
-   "['\"With this design (8 vs 8 replicas, 2 ns) no difference could be shown; 95% interval about ±11 points. Equivalence within ±5 points would have needed about 69 replicas per group.\"','defensible','The result, its uncertainty and what could not be ruled out are written together; the verdict matches the label written in advance (\"inconclusive\").'],"
-  ],
-  [
    "['\"Tuz αR payını biraz artırır (+0,06 puan).\"','yanlış','+0,06 puan belirsizliğin yanında sıfırdan ayırt edilemez; işaretini yorumlamak gürültüyü okumaktır.'],",
    "['\"Salt slightly increases the αR fraction (+0.06 points).\"','wrong','Next to its uncertainty, +0.06 points cannot be told apart from zero; reading its sign is reading noise.'],"
   ],
@@ -633,10 +621,6 @@
   [
    "{id:'lie',tag:'Bağlanma enerjisi',mod:'MD-LIG ve MD-ERR',q:'Hangi yük modeli benzamidinin bağlanma enerjisini en iyi kestirir?',",
    "{id:'lie',tag:'Binding energy',mod:'MD-LIG and MD-ERR',q:'Which charge model best estimates the binding energy of benzamidine?',"
-  ],
-  [
-   "rows:[['Nicelik','LIE ΔG (α 0,181, β 0,5 ya da 0,43)'],['Kontrol','ChEMBL\\'deki altı Ki kaydından ölçülmüş aralık −6,46 ile −6,01 kcal/mol'],['Tasarım','altı model, ikişer 0,5 ns kompleks ve birer 1 ns su koşusu'],['Önceden yazılan','LIE tanımı ve katsayılar; hüküm yok'],['Sonuç','hiçbir modelin kestirimi ölçülmüş aralığa düşmedi; koşu içi ve tekrarlar arası aralıkların hiçbiri onunla örtüşmüyor (MD-ERR)']],",
-   "rows:[['Quantity','LIE ΔG (α 0.181, β 0.5 or 0.43)'],['Control','measured range from six Ki records in ChEMBL, −6.46 to −6.01 kcal/mol'],['Design','six models, two 0.5 ns complex runs and one 1 ns water run each'],['Written in advance','LIE definition and coefficients; no verdict'],['Result','no model\\'s estimate fell in the measured range; none of the within-run or between-replica intervals overlaps it (MD-ERR)']],"
   ],
   [
    "o:[['\"RESP yükleri (L4) en doğrusudur, çünkü kuantum potansiyelini en iyi üretir.\"','aşırı','ESP uyumu gaz fazı bir ölçüdür; bağlanma enerjisinde L4 de ölçülmüş aralıktan uzak.'],",
@@ -891,10 +875,6 @@
    "function st(x){ return x.x.same?'bit-identical':'different (first difference at '+fx(x.x.first,0)+' ps in coordinates, '+fx(x.e.first,1)+' ps in energies)'; }"
   ],
   [
-   "if(n>=4) card('xc2',true,'Aynı tpr ve aynı komut (-nt 1) ile R1 ve özgün W2: '+st(a)+'. Kesintisiz R2 ile 181,8 ps\\'de sürdürülmüş özgün W1: '+st(b)+'; dosyaların SHA-256 özetleri bile aynı. İki iş parçacığı ile tek: '+st(c)+'. -reprod ile iki iş parçacığında iki koşu (R4, R5): '+st(d)+'. Yani aynı komut her seferinde aynı sonucu vermedi, denetim noktasından sürdürme ise trajektoriyi değiştirmedi. GROMACS 2023 kullanım kılavuzu, yeniden üretilebilirliği bozan kaynaklar arasında FFTW\\'nin başlangıçta zaman ölçerek en hızlı algoritmayı seçmesini sayar ve -reprod\\'un bu tür kaynakları kapattığını yazar; bu deneyde R1 ile W2 arasında ilk adımda yalnız virial ve basıncın son basamakları farklıydı, -reprod ile iki koşu aynı çıktı. Bu açıklama veriyle uyumludur ama tek iş parçacıklı -reprod koşusu yapılmadığı için doğrudan sınanmadı (Bu senaryo hesaplanmadı). Fark son basamakta başlar ve kaotik dinamik onu birkaç pikosaniyede büyütür.');",
-   "if(n>=4) card('xc2',true,'R1 and the original W2, with the same tpr and the same command (-nt 1): '+st(a)+'. Uninterrupted R2 and the original W1, continued at 181.8 ps: '+st(b)+'; even the files\\' SHA-256 digests match. Two threads against one: '+st(c)+'. Two runs with -reprod on two threads (R4, R5): '+st(d)+'. So the same command did not give the same result every time, while continuing from a checkpoint did not change the trajectory. The GROMACS 2023 user guide lists, among the sources that break reproducibility, FFTW choosing its fastest algorithm by timing at startup, and states that -reprod removes such sources; in this experiment R1 and W2 differed at the first step only in the last digits of the virial and pressure, and two runs with -reprod came out identical. This explanation is consistent with the data, but it was not tested directly because no single-thread -reprod run was done (This scenario was not computed). The difference starts in the last digit and chaotic dynamics amplify it within a few picoseconds.');"
-  ],
-  [
    "else card('xc2',false,'Şimdiye kadar '+n+' karşılaştırma; en az dördüne bakın.');",
    "else card('xc2',false,'So far '+n+' comparison(s); look at at least four.');"
   ],
@@ -953,10 +933,6 @@
   [
    "g.textAlign='center'; g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('farklı tek duyarlık sonuçları (küçükten büyüğe)',p.L+p.W/2,H-6); g.textAlign='left';",
    "g.textAlign='center'; g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('distinct single-precision results (smallest to largest)',p.L+p.W/2,H-6); g.textAlign='left';"
-  ],
-  [
-   "var lo=M.vals[0], hi=M.vals[n-1]; $('xflms').innerHTML='1000 farklı sıranın verdiği farklı sonuç sayısı: <b>'+n+'</b>. En küçük ile en büyük arası '+g9(hi-lo)+' (son basamağın yaklaşık '+fx((hi-lo)/M.ulp,0)+' katı; göreli '+(hi===lo?'0':sci((hi-lo)/Math.abs(M.ex)))+').'; }",
-   "var lo=M.vals[0], hi=M.vals[n-1]; $('xflms').innerHTML='Distinct results from 1000 different orders: <b>'+n+'</b>. The spread between the smallest and largest is '+g9(hi-lo)+' (about '+fx((hi-lo)/M.ulp,0)+' times the last digit; relative '+(hi===lo?'0':sci((hi-lo)/Math.abs(M.ex)))+').'; }"
   ],
   [
    "/* ===== başlık sahnesi: W2 ve R1, aynı md.tpr, aynı komut (gerçek koordinatlar, ilk 80 ps) ===== */",
@@ -1095,10 +1071,6 @@
    "{s:'\"Continuing from a checkpoint changed W1\\'s trajectory.\"', a:b.same?2:1, w:'Uninterrupted R2 and the continued original W1: '+st(b)+'. '+(b.same?'No difference; in this environment the continuation did not change the trajectory.':'The difference starts '+(b.first<181?'before':'after')+' the continuation at 181.8 ps. There is one run and one continuation; to establish whether the change came from the continuation or from another cause would take a run that repeats the continuation in a controlled way.')},"
   ],
   [
-   "{s:'\"-reprod bayrağı farklı iş parçacığı sayıları arasında da aynı sonucu garanti eder.\"', a:2, w:'İki iş parçacığında -reprod ile iki koşu: '+st(d)+'; aynı koşu tek iş parçacıklı özgün W2 ile: '+st(e)+'. -reprod aynı çevrede tekrarlanabilirliği hedefler; farklı paralelleşme arasında eşlik sağlamaz.'},",
-   "{s:'\"The -reprod flag also guarantees the same result across different thread counts.\"', a:2, w:'Two runs with -reprod on two threads: '+st(d)+'; the same run against the single-thread original W2: '+st(e)+'. -reprod aims at repeatability in the same environment; it does not give agreement across different parallelization settings.'},"
-  ],
-  [
    "{s:'\"Bir dosyanın SHA-256 özeti kayıtlı özetle aynıysa içeriği doğrudur.\"', a:2, w:'Aynı özet yalnız dosyanın değişmediğini gösterir. Dosyada baştan bir hata varsa (örneğin MD-LIG\\'deki net yükü 0 olan topoloji) özet o hatayı da aynen korur.'},",
    "{s:'\"If a file\\'s SHA-256 digest matches the recorded digest, its content is correct.\"', a:2, w:'A matching digest shows only that the file has not changed. If the file had an error from the start (for example the topology with net charge 0 in MD-LIG), the digest preserves that error exactly as well.'},"
   ],
@@ -1215,10 +1187,6 @@
    "Q.push({s:'When the same tpr file was run with one and with two threads, the trajectories diverged. What is the most likely cause?',"
   ],
   [
-   "o:[['Programda bir hata',0],['Kayan noktalı toplamaların sırası paralelleşmeyle değişir; en son basamaktaki fark kaotik dinamikte büyür',1],['tpr dosyasının bozulması',0]], w:'Bu deneyde '+(c.same?'fark çıkmadı.':'ilk fark '+fx(c.first,0)+' ps\\'de görüldü.')+' Kayan noktalı toplama birleşme özelliği taşımaz: (a + b) + c ile a + (b + c) son basamakta farklı olabilir.'});",
-   "o:[['A bug in the program',0],['Parallelization changes the order of floating-point additions; a difference in the last digit grows in chaotic dynamics',1],['A corrupted tpr file',0]], w:'In this experiment '+(c.same?'no difference appeared.':'the first difference appeared at '+fx(c.first,0)+' ps.')+' Floating-point addition is not associative: (a + b) + c and a + (b + c) can differ in the last digit.'});"
-  ],
-  [
    "Q.push({s:'Bir koşu denetim noktasından sürdürüldü. Yeniden üretim dosyasına ne yazılır?',",
    "Q.push({s:'A run was continued from a checkpoint. What goes into the reproduction package?',"
   ],
@@ -1301,6 +1269,50 @@
   [
    "window.MDREPRO={sha256:sha256,utf8:utf8,u8:u8,MQ:MQ,CL:CL,RP:RP,FI:FI,RT:RT,BQ:BQ,FOUND:FOUND}; /* sınama için */",
    "window.MDREPRO={sha256:sha256,utf8:utf8,u8:u8,MQ:MQ,CL:CL,RP:RP,FI:FI,RT:RT,BQ:BQ,FOUND:FOUND}; /* for testing */"
+  ],
+  [
+   "<h3 class=\"sub\">Neden? Toplama sırası sonucu değiştirir</h3>",
+   "<h3 class=\"sub\">Why? The order of addition changes the result</h3>"
+  ],
+  [
+   "<div class=\"selrow\"><span>İş parçacığı:</span><div class=\"seg\" role=\"group\" aria-label=\"İş parçacığı sayısı\" id=\"xflm\"><button type=\"button\" data-v=\"1\">1</button><button type=\"button\" data-v=\"2\">2</button><button type=\"button\" data-v=\"4\">4</button></div><button type=\"button\" class=\"btn\" id=\"xflsh\">Sırayı karıştır</button><button type=\"button\" class=\"btn\" id=\"xflfix\" aria-pressed=\"false\">Sırayı sabitle</button><button type=\"button\" class=\"btn\" id=\"xflnew\">Yeni sayılar</button></div>",
+   "<div class=\"selrow\"><span>Threads:</span><div class=\"seg\" role=\"group\" aria-label=\"Number of threads\" id=\"xflm\"><button type=\"button\" data-v=\"1\">1</button><button type=\"button\" data-v=\"2\">2</button><button type=\"button\" data-v=\"4\">4</button></div><button type=\"button\" class=\"btn\" id=\"xflsh\">Shuffle the order</button><button type=\"button\" class=\"btn\" id=\"xflfix\" aria-pressed=\"false\">Fix the order</button><button type=\"button\" class=\"btn\" id=\"xflnew\">New numbers</button></div>"
+  ],
+  [
+   "['\"Bu tasarımla (8 tekrara karşı 8, 2 ns) fark gösterilemedi; %95 aralık yaklaşık ±11 puan. ±5 puanlık bir farkı %80 güçle görmek için grup başına yaklaşık 69, eşdeğerliği göstermek için yaklaşık 75 tekrar gerekirdi.\"','kurulabilir','Sonuç, belirsizliği ve neyin dışlanamadığı birlikte yazılıyor; hüküm önceden yazılmış etiketle aynı (\"kararsız\").'],",
+   "['\"With this design (8 vs 8 replicas, 2 ns) no difference could be shown; 95% interval about ±11 points. Seeing a ±5 point difference with 80% power would have needed about 69 replicas per group, and showing equivalence about 75.\"','defensible','The result, its uncertainty and what could not be ruled out are written together; the verdict matches the label written in advance (\"inconclusive\").'],"
+  ],
+  [
+   "rows:[['Nicelik','LIE ΔG (α 0,181, β 0,5 ya da 0,43)'],['Kontrol','ChEMBL 34\\'teki altı µM Ki kaydından ölçülmüş aralık −6,46 ile −6,01 kcal/mol (sekiz kaydın 31 nM olan ikisi planda kullanılmadı; CH09)'],['Tasarım','altı model, ikişer 0,5 ns kompleks ve birer 1 ns su koşusu'],['Önceden yazılan','LIE tanımı ve katsayılar; hüküm yok'],['Sonuç','hiçbir modelin kestirimi ölçülmüş aralığa düşmedi; koşu içi ve tekrarlar arası aralıkların hiçbiri onunla örtüşmüyor (MD-ERR)']],",
+   "rows:[['Quantity','LIE ΔG (α 0.181, β 0.5 or 0.43)'],['Control','measured range from six µM Ki records in ChEMBL 34, −6.46 to −6.01 kcal/mol (the two 31 nM records among the eight were not used in the plan; CH09)'],['Design','six models, two 0.5 ns complex runs and one 1 ns water run each'],['Written in advance','LIE definition and coefficients; no verdict'],['Result','no model\\'s estimate fell in the measured range; none of the within-run or between-replica intervals overlaps it (MD-ERR)']],"
+  ],
+  [
+   "if(n>=4) card('xc2',true,'Aynı tpr ve aynı komut (-nt 1) ile R1 ve özgün W2: '+st(a)+'. Kesintisiz R2 ile 181,8 ps\\'de sürdürülmüş özgün W1: '+st(b)+'; dosyaların SHA-256 özetleri bile aynı. İki iş parçacığı ile tek: '+st(c)+'. -reprod ile iki iş parçacığında iki koşu (R4, R5): '+st(d)+'. Yani aynı komut her seferinde aynı sonucu vermedi, denetim noktasından sürdürme ise trajektoriyi değiştirmedi. GROMACS 2023 kullanım kılavuzu, yeniden üretilebilirliği bozan kaynaklar arasında FFTW\\'nin başlangıçta zaman ölçerek en hızlı algoritmayı seçmesini sayar ve -reprod\\'un bu tür kaynakları kapattığını yazar; bu deneyde R1 ile W2 arasında ilk adımda yalnız virial ve basıncın son basamakları farklıydı, -reprod ile iki koşu aynı çıktı. Bu açıklama veriyle uyumludur ama tek iş parçacıklı -reprod koşusu yapılmadığı için doğrudan sınanmadı (Bu senaryo hesaplanmadı). R1 ile W2\\'de fark son basamaklarda başlar; iş parçacığı sayısı değişince ise adım 0\\'da potansiyel enerji bile birler basamağında ayrılır (W2 '+fx(+VDD.ODO.W2[0][1],2)+', R3 '+fx(+VDD.ODO.R3[0][1],2)+' kJ/mol). Bu, toplama sırasından da paralel bölüşümün hesap düzenini değiştirmesinden de gelebilir; bu deney ikisini ayırmaz. Kaotik dinamik iki durumda da farkı birkaç pikosaniyede büyütür.');",
+   "if(n>=4) card('xc2',true,'R1 and the original W2, with the same tpr and the same command (-nt 1): '+st(a)+'. Uninterrupted R2 and the original W1, continued at 181.8 ps: '+st(b)+'; even the files\\' SHA-256 digests match. Two threads against one: '+st(c)+'. Two runs with -reprod on two threads (R4, R5): '+st(d)+'. So the same command did not give the same result every time, while continuing from a checkpoint did not change the trajectory. The GROMACS 2023 user guide lists, among the sources that break reproducibility, FFTW choosing its fastest algorithm by timing at startup, and states that -reprod removes such sources; in this experiment R1 and W2 differed at the first step only in the last digits of the virial and pressure, and two runs with -reprod came out identical. This explanation is consistent with the data, but it was not tested directly because no single-thread -reprod run was done (This scenario was not computed). In R1 and W2 the difference starts in the last digits; when the thread count changes, even the potential energy differs in the units digit at step 0 (W2 '+fx(+VDD.ODO.W2[0][1],2)+', R3 '+fx(+VDD.ODO.R3[0][1],2)+' kJ/mol). This can come from the order of addition as well as from the parallel decomposition changing how the calculation is arranged; this experiment does not separate the two. In both cases chaotic dynamics amplify the difference within a few picoseconds.');"
+  ],
+  [
+   "var lo=M.vals[0], hi=M.vals[n-1]; $('xflms').innerHTML='1000 farklı sıranın verdiği farklı sonuç sayısı: <b>'+n+'</b>. En küçük ile en büyük arası '+g9(hi-lo)+' (son basamağın yaklaşık '+fx((hi-lo)/M.ulp,0)+' katı; göreli '+(hi===lo?'0':sci((hi-lo)/Math.abs(M.ex)))+').'+(FL.fix?' Sıra sabitken her karıştırma aynı sıraya geri döner, sonuç tektir. -reprod da buna benzer bir şey yapar: aynı programda ve aynı iş parçacığı sayısında hesap düzenini koşudan koşuya sabitler (R4 ile R5). Bu bir benzetmedir; iş parçacığı sayısı değişince sonuç yine değişebilir (yukarıdaki tablo).':''); }",
+   "var lo=M.vals[0], hi=M.vals[n-1]; $('xflms').innerHTML='Distinct results from 1000 different orders: <b>'+n+'</b>. The spread between the smallest and largest is '+g9(hi-lo)+' (about '+fx((hi-lo)/M.ulp,0)+' times the last digit; relative '+(hi===lo?'0':sci((hi-lo)/Math.abs(M.ex)))+').'+(FL.fix?' With the order fixed, every shuffle returns to the same order and there is a single result. -reprod does something similar: with the same program and the same thread count it keeps the arrangement of the calculation fixed from run to run (R4 and R5). This is an analogy; when the thread count changes the result can still change (the table above).':''); }"
+  ],
+  [
+   "{s:'\"-reprod bayrağı farklı iş parçacığı sayıları arasında da aynı sonucu garanti eder.\"', a:2, w:'İki iş parçacığında -reprod ile iki koşu: '+st(d)+'. Bu deneyde tek iş parçacıklı bir -reprod koşusu yok (Bu senaryo hesaplanmadı); R4 ile özgün W2 ('+st(e)+') iki şeyi birden değiştirir, iş parçacığı sayısını ve -reprod\\'u, bu yüzden iddiayı doğrudan sınamaz. Hüküm belgeye dayanır: GROMACS kılavuzuna göre -reprod aynı program, donanım, kitaplıklar, girdi ve komut satırı ister; iş parçacığı sayısı başka olan bir komut bu koşulu karşılamaz, yani \"garanti\" kurulamaz.'},",
+   "{s:'\"The -reprod flag also guarantees the same result across different thread counts.\"', a:2, w:'Two runs with -reprod on two threads: '+st(d)+'. This experiment has no single-thread -reprod run (This scenario was not computed); R4 against the original W2 ('+st(e)+') changes two things at once, the thread count and -reprod, so it does not test the claim directly. The verdict rests on the documentation: according to the GROMACS manual, -reprod requires the same program, hardware, libraries, input and command line; a command with a different thread count does not meet this condition, so a \"guarantee\" cannot be claimed.'},"
+  ],
+  [
+   "o:[['Programda bir hata',0],['Paralelleşme toplama sırasını ve hesabın bölüşümünü değiştirir; adım 0\\'daki küçük fark kaotik dinamikte büyür',1],['tpr dosyasının bozulması',0]], w:'Bu deneyde '+(c.same?'fark çıkmadı.':'ilk fark '+fx(c.first,0)+' ps\\'de görüldü.')+' Kayan noktalı toplama birleşme özelliği taşımaz: (a + b) + c ile a + (b + c) son basamakta farklı olabilir. Tek ve iki iş parçacığı arasında fark adım 0\\'da potansiyel enerjide yaklaşık '+fx(Math.abs(+VDD.ODO.W2[0][1]-(+VDD.ODO.R3[0][1])),2)+' kJ/mol idi, yani yalnız son basamakta değildi; paralel bölüşüm hesap düzenini de değiştirir.'});",
+   "o:[['A bug in the program',0],['Parallelization changes the order of additions and how the calculation is divided; a small difference at step 0 grows in chaotic dynamics',1],['A corrupted tpr file',0]], w:'In this experiment '+(c.same?'no difference appeared.':'the first difference appeared at '+fx(c.first,0)+' ps.')+' Floating-point addition is not associative: (a + b) + c and a + (b + c) can differ in the last digit. Between one and two threads the potential energy differed by about '+fx(Math.abs(+VDD.ODO.W2[0][1]-(+VDD.ODO.R3[0][1])),2)+' kJ/mol at step 0, so not only in the last digit; the parallel decomposition also changes how the calculation is arranged.'});"
+  ],
+  [
+   "<div class=\"btns\"><button type=\"button\" class=\"btn play\" id=\"xheroplay\" aria-pressed=\"false\">Oynat</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn play\" id=\"xheroplay\" aria-pressed=\"false\">Play</button></div>"
+  ],
+  [
+   "'Duraklat'",
+   "'Pause'"
+  ],
+  [
+   "'Oynat'",
+   "'Play'"
   ]
  ],
  "keep": [
