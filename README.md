@@ -37,58 +37,58 @@ The table below is generated from [`modules.json`](modules.json), which is the s
 
 | ID | Title | Book chapter | Version | Status |
 |---|---|---|---|---|
-| MD-Q | Which sentence can these data carry? From a biological question to a measurable MD study | CH01 | 0.1.0 | pilot |
-| MD-T | Energy, forces and numerical motion | CH02 | 0.2.0 | pilot |
-| MD-ENS | Ensemble, distribution and average: what does an MD run represent? | CH03 | 0.2.1 | pilot |
-| MD-PBC | The box without edges: periodic boundaries | CH04 | 0.6.1 | pilot |
-| MD-CUT | Nearest image and cut-off | CH04 | 0.1.2 | pilot |
-| MD-ELEC | Salt, screening and Ewald | CH04 | 0.1.1 | pilot |
-| MD-CON | Controlling the simulation without spoiling the question: what do thermostats and barostats hold constant, and what do they distort? | CH05 | 0.1.1 | pilot |
-| MD-REP | Is the difference real? Comparison, replication and control design | CH06 | 0.1.2 | pilot |
+| MD-Q | Which sentence can these data carry? From a biological question to a measurable MD study | CH01 | 0.2.0 | pilot |
+| MD-T | Energy, forces and numerical motion | CH02 | 0.3.0 | pilot |
+| MD-ENS | Ensemble, distribution and average: what does an MD run represent? | CH03 | 0.2.2 | pilot |
+| MD-PBC | The box without edges: periodic boundaries | CH04 | 0.7.0 | pilot |
+| MD-CUT | Nearest image and cut-off | CH04 | 0.1.3 | pilot |
+| MD-ELEC | Salt, screening and Ewald | CH04 | 0.2.0 | pilot |
+| MD-CON | Controlling the simulation without spoiling the question: what do thermostats and barostats hold constant, and what do they distort? | CH05 | 0.1.2 | pilot |
+| MD-REP | Is the difference real? Comparison, replication and control design | CH06 | 0.1.3 | pilot |
 
 **Molecular dynamics, intermediate level** (12)
 
 | ID | Title | Book chapter | Version | Status |
 |---|---|---|---|---|
-| MD-DT | The time step in a protein: constraints, mass and speed (1UBQ) | CH02 | 0.1.0 | pilot |
-| MD-O | Preparing a protein for MD: ubiquitin (1UBQ) | CH07 | 0.2.1 | pilot |
-| MD-PDB | The structure file: occupancy, B-factor and crystal waters (1UBQ) | CH07 | 0.1.0 | pilot |
-| MD-FF | A force field is a model: force field and model compatibility | CH08 | 0.1.0 | pilot |
-| MD-LIG | A ligand's parameters are a decision: ligand parameters and their provenance | CH09 | 0.1.0 | pilot |
-| MD-SOLV | The solvent is part of the model too: ions and co-solvent | CH10 | 0.1.1 | pilot |
-| MD-EQ | Minimization and equilibration | CH11 | 0.1.1 | pilot |
-| MD-FAIL | Did the run stop, or silently finish wrong: when a simulation fails | CH12 | 0.1.0 | pilot |
-| MD-TRJ | A raw file is not ready to measure: preparing a trajectory for analysis | CH13 | 0.1.0 | pilot |
-| MD-MET | A number is not a structure: what does a structural measure measure? | CH14 | 0.1.1 | pilot |
-| MD-INT | An interaction is a threshold definition: contacts, solvation, interactions | CH15 | 0.1.1 | pilot |
-| MD-PCA | A state is a definition, a component is the result of a method: states and collective motions | CH16 | 0.1.1 | pilot |
+| MD-DT | The time step in a protein: constraints, mass and speed (1UBQ) | CH02 | 0.2.0 | pilot |
+| MD-O | Preparing a protein for MD: ubiquitin (1UBQ) | CH07 | 0.2.2 | pilot |
+| MD-PDB | The structure file: occupancy, B-factor and crystal waters (1UBQ) | CH07 | 0.2.0 | pilot |
+| MD-FF | A force field is a model: force field and model compatibility | CH08 | 0.1.1 | pilot |
+| MD-LIG | A ligand's parameters are a decision: ligand parameters and their provenance | CH09 | 0.2.0 | pilot |
+| MD-SOLV | The solvent is part of the model too: ions and co-solvent | CH10 | 0.1.2 | pilot |
+| MD-EQ | Minimization and equilibration | CH11 | 0.1.2 | pilot |
+| MD-FAIL | Did the run stop, or silently finish wrong: when a simulation fails | CH12 | 0.1.1 | pilot |
+| MD-TRJ | A raw file is not ready to measure: preparing a trajectory for analysis | CH13 | 0.2.0 | pilot |
+| MD-MET | A number is not a structure: what does a structural measure measure? | CH14 | 0.2.0 | pilot |
+| MD-INT | An interaction is a threshold definition: contacts, solvation, interactions | CH15 | 0.2.0 | pilot |
+| MD-PCA | A state is a definition, a component is the result of a method: states and collective motions | CH16 | 0.2.0 | pilot |
 
 **Molecular dynamics, advanced level** (4)
 
 | ID | Title | Book chapter | Version | Status |
 |---|---|---|---|---|
-| MD-U | Sampling and uncertainty: alanine dipeptide | CH17 | 0.2.1 | pilot |
-| MD-ERR | An error bar is the uncertainty of what? Error bars and honest comparison | CH18 | 0.1.0 | pilot |
-| MD-FES | Is standard MD enough for this question? Deciding beyond standard MD | CH19 | 0.2.0 | pilot |
-| MD-REPRO | Can someone else reach the same sentence from the same files? Reproduction and defensible work | CH24 | 0.1.0 | pilot |
+| MD-U | Sampling and uncertainty: alanine dipeptide | CH17 | 0.3.0 | pilot |
+| MD-ERR | An error bar is the uncertainty of what? Error bars and honest comparison | CH18 | 0.1.1 | pilot |
+| MD-FES | Is standard MD enough for this question? Deciding beyond standard MD | CH19 | 0.3.0 | pilot |
+| MD-REPRO | Can someone else reach the same sentence from the same files? Reproduction and defensible work | CH24 | 0.2.0 | pilot |
 
 **Molecular docking, basic level** (1)
 
 | ID | Title | Book chapter | Version | Status |
 |---|---|---|---|---|
-| DK-T | Docking: finding a pose and checking it | after CH02 | 0.2.1 | pilot |
+| DK-T | Docking: finding a pose and checking it | after CH02 | 0.3.0 | pilot |
 
 **Molecular docking, intermediate level** (1)
 
 | ID | Title | Book chapter | Version | Status |
 |---|---|---|---|---|
-| DK-O | The real lock: which detail of the lock does the result depend on? | CH07 and CH09 | 0.3.1 | pilot |
+| DK-O | The real lock: which detail of the lock does the result depend on? | CH07 and CH09 | 0.4.0 | pilot |
 
 **Molecular docking, advanced level** (1)
 
 | ID | Title | Book chapter | Version | Status |
 |---|---|---|---|---|
-| DK-U | What does the score rank? | CH18 and CH19 | 0.2.3 | pilot |
+| DK-U | What does the score rank? | CH18 and CH19 | 0.3.0 | pilot |
 ## What is computed where
 
 The site has no compute back end. Three kinds of content appear on the pages, and each page says which one it is showing:
@@ -162,7 +162,7 @@ Bug reports, corrections to scientific or teaching content, translation fixes an
 ## Versions and releases
 
 - Each module has its own content version in `modules.json` (for example MD-PBC 0.6.1).
-- The site as a whole is described by the release notes in [`docs/CHANGELOG.md`](docs/CHANGELOG.md); the most recent numbered entry is 0.43.1 (22 October 2026). Entries headed "Yayımlanmamış" (unreleased) record documentation changes and carry no version number.
+- The site as a whole is described by the release notes in [`docs/CHANGELOG.md`](docs/CHANGELOG.md); the most recent numbered entry is 0.44.0 (22 October 2026). Entries headed "Yayımlanmamış" (unreleased) record documentation changes and carry no version number.
 - The repository has no git tags and no GitHub releases yet. Archiving released versions (for example on Zenodo with a DOI) is planned but not done.
 
 ## Maintenance and next steps

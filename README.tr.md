@@ -37,58 +37,58 @@ Aşağıdaki tablo [`modules.json`](modules.json) dosyasından üretildi. Modül
 
 | Kimlik | Başlık | Kitap bölümü | Sürüm | Durum |
 |---|---|---|---|---|
-| MD-Q | Bu veri hangi cümleyi taşır? Biyolojik sorudan ölçülebilir MD çalışmasına | CH01 | 0.1.0 | pilot |
-| MD-T | Enerji, kuvvetler ve sayısal hareket | CH02 | 0.2.0 | pilot |
-| MD-ENS | Topluluk, dağılım ve ortalama: bir MD koşusu neyi temsil eder? | CH03 | 0.2.1 | pilot |
-| MD-PBC | Kenarsız kutu: periyodik sınır | CH04 | 0.6.1 | pilot |
-| MD-CUT | En yakın kopya ve kesme | CH04 | 0.1.2 | pilot |
-| MD-ELEC | Tuz, perdeleme ve Ewald | CH04 | 0.1.1 | pilot |
-| MD-CON | Soruyu bozmadan simülasyon kontrolü: termostat ve barostat neyi sabit tutar, neyi bozar? | CH05 | 0.1.1 | pilot |
-| MD-REP | Fark gerçek mi? Karşılaştırma, tekrar ve kontrol tasarımı | CH06 | 0.1.2 | pilot |
+| MD-Q | Bu veri hangi cümleyi taşır? Biyolojik sorudan ölçülebilir MD çalışmasına | CH01 | 0.2.0 | pilot |
+| MD-T | Enerji, kuvvetler ve sayısal hareket | CH02 | 0.3.0 | pilot |
+| MD-ENS | Topluluk, dağılım ve ortalama: bir MD koşusu neyi temsil eder? | CH03 | 0.2.2 | pilot |
+| MD-PBC | Kenarsız kutu: periyodik sınır | CH04 | 0.7.0 | pilot |
+| MD-CUT | En yakın kopya ve kesme | CH04 | 0.1.3 | pilot |
+| MD-ELEC | Tuz, perdeleme ve Ewald | CH04 | 0.2.0 | pilot |
+| MD-CON | Soruyu bozmadan simülasyon kontrolü: termostat ve barostat neyi sabit tutar, neyi bozar? | CH05 | 0.1.2 | pilot |
+| MD-REP | Fark gerçek mi? Karşılaştırma, tekrar ve kontrol tasarımı | CH06 | 0.1.3 | pilot |
 
 **Moleküler dinamik, orta düzey** (12)
 
 | Kimlik | Başlık | Kitap bölümü | Sürüm | Durum |
 |---|---|---|---|---|
-| MD-DT | Proteinde zaman adımı: kısıtlar, kütle ve hız (1UBQ) | CH02 | 0.1.0 | pilot |
-| MD-O | Bir proteini MD'ye hazırlamak: ubikitin (1UBQ) | CH07 | 0.2.1 | pilot |
-| MD-PDB | Yapı dosyası: doluluk, B faktörü ve kristal suları (1UBQ) | CH07 | 0.1.0 | pilot |
-| MD-FF | Kuvvet alanı bir modeldir: kuvvet alanı ve model uyumu | CH08 | 0.1.0 | pilot |
-| MD-LIG | Ligandın parametresi bir karardır: ligand parametreleri ve kökeni | CH09 | 0.1.0 | pilot |
-| MD-SOLV | Çözücü de modelin parçası: iyonlar ve yardımcı çözücü | CH10 | 0.1.1 | pilot |
-| MD-EQ | Minimizasyon ve dengeleme | CH11 | 0.1.1 | pilot |
-| MD-FAIL | Koşu durdu mu, sessizce yanlış mı bitti: simülasyon başarısız olduğunda | CH12 | 0.1.0 | pilot |
-| MD-TRJ | Ham dosya ölçüme hazır değildir: trajektoriyi analize hazırlamak | CH13 | 0.1.0 | pilot |
-| MD-MET | Bir sayı, bir yapı değildir: yapısal ölçüt neyi ölçer? | CH14 | 0.1.1 | pilot |
-| MD-INT | Etkileşim bir eşik tanımıdır: temas, solvatasyon, etkileşim | CH15 | 0.1.1 | pilot |
-| MD-PCA | Durum bir tanımdır, bileşen bir yöntem sonucudur: durumlar ve kolektif hareketler | CH16 | 0.1.1 | pilot |
+| MD-DT | Proteinde zaman adımı: kısıtlar, kütle ve hız (1UBQ) | CH02 | 0.2.0 | pilot |
+| MD-O | Bir proteini MD'ye hazırlamak: ubikitin (1UBQ) | CH07 | 0.2.2 | pilot |
+| MD-PDB | Yapı dosyası: doluluk, B faktörü ve kristal suları (1UBQ) | CH07 | 0.2.0 | pilot |
+| MD-FF | Kuvvet alanı bir modeldir: kuvvet alanı ve model uyumu | CH08 | 0.1.1 | pilot |
+| MD-LIG | Ligandın parametresi bir karardır: ligand parametreleri ve kökeni | CH09 | 0.2.0 | pilot |
+| MD-SOLV | Çözücü de modelin parçası: iyonlar ve yardımcı çözücü | CH10 | 0.1.2 | pilot |
+| MD-EQ | Minimizasyon ve dengeleme | CH11 | 0.1.2 | pilot |
+| MD-FAIL | Koşu durdu mu, sessizce yanlış mı bitti: simülasyon başarısız olduğunda | CH12 | 0.1.1 | pilot |
+| MD-TRJ | Ham dosya ölçüme hazır değildir: trajektoriyi analize hazırlamak | CH13 | 0.2.0 | pilot |
+| MD-MET | Bir sayı, bir yapı değildir: yapısal ölçüt neyi ölçer? | CH14 | 0.2.0 | pilot |
+| MD-INT | Etkileşim bir eşik tanımıdır: temas, solvatasyon, etkileşim | CH15 | 0.2.0 | pilot |
+| MD-PCA | Durum bir tanımdır, bileşen bir yöntem sonucudur: durumlar ve kolektif hareketler | CH16 | 0.2.0 | pilot |
 
 **Moleküler dinamik, i̇leri düzey** (4)
 
 | Kimlik | Başlık | Kitap bölümü | Sürüm | Durum |
 |---|---|---|---|---|
-| MD-U | Örnekleme ve belirsizlik: alanin dipeptidi | CH17 | 0.2.1 | pilot |
-| MD-ERR | Hata çubuğu neyin belirsizliği? Hata çubuğu ve dürüst karşılaştırma | CH18 | 0.1.0 | pilot |
-| MD-FES | Bu soru için standart MD yeter mi? Standart MD'nin ötesine karar vermek | CH19 | 0.2.0 | pilot |
-| MD-REPRO | Başkası aynı dosyalardan aynı cümleye varabilir mi? Yeniden üretim ve savunulabilir çalışma | CH24 | 0.1.0 | pilot |
+| MD-U | Örnekleme ve belirsizlik: alanin dipeptidi | CH17 | 0.3.0 | pilot |
+| MD-ERR | Hata çubuğu neyin belirsizliği? Hata çubuğu ve dürüst karşılaştırma | CH18 | 0.1.1 | pilot |
+| MD-FES | Bu soru için standart MD yeter mi? Standart MD'nin ötesine karar vermek | CH19 | 0.3.0 | pilot |
+| MD-REPRO | Başkası aynı dosyalardan aynı cümleye varabilir mi? Yeniden üretim ve savunulabilir çalışma | CH24 | 0.2.0 | pilot |
 
 **Moleküler docking, temel düzey** (1)
 
 | Kimlik | Başlık | Kitap bölümü | Sürüm | Durum |
 |---|---|---|---|---|
-| DK-T | Docking: bir pozu bulmak ve doğrulamak | CH02 sonrası | 0.2.1 | pilot |
+| DK-T | Docking: bir pozu bulmak ve doğrulamak | CH02 sonrası | 0.3.0 | pilot |
 
 **Moleküler docking, orta düzey** (1)
 
 | Kimlik | Başlık | Kitap bölümü | Sürüm | Durum |
 |---|---|---|---|---|
-| DK-O | Gerçek kilit: sonuç kilidin hangi ayrıntısına bağlı? | CH07 ve CH09 | 0.3.1 | pilot |
+| DK-O | Gerçek kilit: sonuç kilidin hangi ayrıntısına bağlı? | CH07 ve CH09 | 0.4.0 | pilot |
 
 **Moleküler docking, i̇leri düzey** (1)
 
 | Kimlik | Başlık | Kitap bölümü | Sürüm | Durum |
 |---|---|---|---|---|
-| DK-U | Skor neyi sıralar? | CH18 ve CH19 | 0.2.3 | pilot |
+| DK-U | Skor neyi sıralar? | CH18 ve CH19 | 0.3.0 | pilot |
 ## Ne nerede hesaplanır
 
 Sitenin bir hesaplama sunucusu yoktur. Sayfalarda üç tür içerik bulunur ve her sayfa hangisini gösterdiğini yazar:
@@ -162,7 +162,7 @@ Hata bildirimleri, bilimsel ya da eğitsel içerik düzeltmeleri, çeviri düzel
 ## Sürümler
 
 - Her modülün `modules.json` içinde kendi içerik sürümü vardır (örneğin MD-PBC 0.6.1).
-- Sitenin bütünü [`docs/CHANGELOG.md`](docs/CHANGELOG.md) dosyasındaki sürüm notlarıyla izlenir; numaralı son kayıt 0.43.1'dir (22 Ekim 2026). "Yayımlanmamış" başlıklı kayıtlar belge değişikliklerini anlatır ve sürüm numarası taşımaz.
+- Sitenin bütünü [`docs/CHANGELOG.md`](docs/CHANGELOG.md) dosyasındaki sürüm notlarıyla izlenir; numaralı son kayıt 0.44.0'dır (22 Ekim 2026). "Yayımlanmamış" başlıklı kayıtlar belge değişikliklerini anlatır ve sürüm numarası taşımaz.
 - Depoda henüz git etiketi (tag) ve GitHub release yoktur. Yayımlanan sürümlerin arşivlenmesi (örneğin Zenodo'da DOI ile) planlandı, ama yapılmadı.
 
 ## Bakım ve sonraki adımlar

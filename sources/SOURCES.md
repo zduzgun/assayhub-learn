@@ -1,5 +1,7 @@
 # Kaynak prototipler
 
+> **Not (22 Ekim 2026, 0.44.0).** Bu sürümde 27 dosyanın hepsi, modül incelemesindeki bulguları düzeltmek için bu depoda düzenlendi (bkz. `docs/CHANGELOG.md`, 0.44.0). Güncel kopyalar kitap projesine `book/prototypes/<KİMLİK>_2026-10-22_0.44.0.html` adıyla geri yazıldı; eski prototipler değiştirilmedi. Bir sonraki turda kaynak yine kitap tarafındaki bu dosyalardır.
+
 Bu klasördeki HTML dosyaları MD kitabı deposundaki prototiplerin kopyasıdır (gerçeğin kaynağı: `MD_KİTAP_YAZIMI/book/prototypes/`). Elle düzenlenmez; kitap tarafında güncellenip buraya yeniden kopyalanır. SHA-256 değerleri kopyalandıkları andaki dosyalara aittir.
 
 | Dosya | Kaynak | SHA-256 |

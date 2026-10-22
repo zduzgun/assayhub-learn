@@ -31,7 +31,7 @@
       "title": "Docking: bir pozu bulmak ve doğrulamak",
       "path": "docking/dk-t/",
       "source": "sources/DK-T.html",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "status": "pilot",
       "book": "CH02 sonrası",
       "goals": [
@@ -68,7 +68,7 @@
       "title": "Gerçek kilit: sonuç kilidin hangi ayrıntısına bağlı?",
       "path": "docking/dk-o/",
       "source": "sources/DK-O.html",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "status": "pilot",
       "book": "CH07 ve CH09",
       "goals": [
@@ -113,7 +113,7 @@
       "title": "Skor neyi sıralar?",
       "path": "docking/dk-u/",
       "source": "sources/DK-U.html",
-      "version": "0.2.3",
+      "version": "0.3.0",
       "status": "pilot",
       "book": "CH18 ve CH19",
       "goals": [
@@ -124,7 +124,7 @@
       ],
       "data": [
         "ChEMBL tripsin ve D2 Ki verisi (CC BY-SA 3.0)",
-        "84 eşleştirilmiş tuzak ve 20 bileşiklik tohum örneği",
+        "84 eşleştirilmiş tuzak (ChEMBL 34) ve 20 bileşiklik tohum örneği",
         "PDB 3PTB (CC0 1.0)",
         "AutoDock Vina 1.2.7 taraması"
       ],
@@ -154,7 +154,7 @@
       "title": "Enerji, kuvvetler ve sayısal hareket",
       "path": "md/md-t/",
       "source": "sources/MD-T.html",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "status": "pilot",
       "book": "CH02",
       "goals": [
@@ -189,7 +189,7 @@
       "title": "Kenarsız kutu: periyodik sınır",
       "path": "md/md-pbc/",
       "source": "sources/MD-PBC.html",
-      "version": "0.6.1",
+      "version": "0.7.0",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -238,7 +238,7 @@
       "title": "En yakın kopya ve kesme",
       "path": "md/md-cut/",
       "source": "sources/MD-CUT.html",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -273,7 +273,7 @@
       "title": "Tuz, perdeleme ve Ewald",
       "path": "md/md-elec/",
       "source": "sources/MD-ELEC.html",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -312,7 +312,7 @@
       "title": "Minimizasyon ve dengeleme",
       "path": "md/md-eq/",
       "source": "sources/MD-EQ.html",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "status": "pilot",
       "book": "CH11",
       "goals": [
@@ -347,7 +347,7 @@
       "app": "md",
       "level": "orta",
       "title": "Bir proteini MD'ye hazırlamak: ubikitin (1UBQ)",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "status": "pilot",
       "book": "CH07",
       "goals": [
@@ -382,7 +382,7 @@
       "app": "md",
       "level": "orta",
       "title": "Yapı dosyası: doluluk, B faktörü ve kristal suları (1UBQ)",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH07",
       "goals": [
@@ -421,7 +421,7 @@
       "app": "md",
       "level": "orta",
       "title": "Proteinde zaman adımı: kısıtlar, kütle ve hız (1UBQ)",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH02",
       "goals": [
@@ -458,12 +458,12 @@
       "app": "md",
       "level": "uzman",
       "title": "Örnekleme ve belirsizlik: alanin dipeptidi",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "status": "pilot",
       "book": "CH17",
       "goals": [
         "n kaç? Kare sayısı ile bağımsız ölçüm",
-        "Sakin RMSD, gezen açılar ve önceden yazılmış durumlar",
+        "İki düzeyli RMSD, gezen açılar ve önceden yazılmış durumlar",
         "Otokorelasyon, blok ortalaması ve etkin örnek sayısı",
         "Beş bağımsız koşudan hata çubuğu"
       ],
@@ -477,7 +477,7 @@
         "book": "CH17",
         "goals": [
           "What is n? Number of frames versus independent measurements",
-          "Calm RMSD, wandering angles and states written in advance",
+          "Two-level RMSD, wandering angles and states written in advance",
           "Autocorrelation, block averaging and effective sample size",
           "An error bar from five independent runs"
         ],
@@ -495,7 +495,7 @@
       "app": "md",
       "level": "temel",
       "title": "Topluluk, dağılım ve ortalama: bir MD koşusu neyi temsil eder?",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "status": "pilot",
       "book": "CH03",
       "goals": [
@@ -534,7 +534,7 @@
       "app": "md",
       "level": "temel",
       "title": "Soruyu bozmadan simülasyon kontrolü: termostat ve barostat neyi sabit tutar, neyi bozar?",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "status": "pilot",
       "book": "CH05",
       "goals": [
@@ -577,7 +577,7 @@
       "app": "md",
       "level": "temel",
       "title": "Fark gerçek mi? Karşılaştırma, tekrar ve kontrol tasarımı",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "status": "pilot",
       "book": "CH06",
       "goals": [
@@ -620,7 +620,7 @@
       "app": "md",
       "level": "temel",
       "title": "Bu veri hangi cümleyi taşır? Biyolojik sorudan ölçülebilir MD çalışmasına",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH01",
       "goals": [
@@ -661,7 +661,7 @@
       "app": "md",
       "level": "orta",
       "title": "Ham dosya ölçüme hazır değildir: trajektoriyi analize hazırlamak",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH13",
       "goals": [
@@ -702,7 +702,7 @@
       "app": "md",
       "level": "orta",
       "title": "Bir sayı, bir yapı değildir: yapısal ölçüt neyi ölçer?",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH14",
       "goals": [
@@ -743,7 +743,7 @@
       "app": "md",
       "level": "orta",
       "title": "Durum bir tanımdır, bileşen bir yöntem sonucudur: durumlar ve kolektif hareketler",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH16",
       "goals": [
@@ -784,7 +784,7 @@
       "app": "md",
       "level": "orta",
       "title": "Etkileşim bir eşik tanımıdır: temas, solvatasyon, etkileşim",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH15",
       "goals": [
@@ -825,7 +825,7 @@
       "app": "md",
       "level": "orta",
       "title": "Koşu durdu mu, sessizce yanlış mı bitti: simülasyon başarısız olduğunda",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH12",
       "goals": [
@@ -864,7 +864,7 @@
       "app": "md",
       "level": "orta",
       "title": "Kuvvet alanı bir modeldir: kuvvet alanı ve model uyumu",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH08",
       "goals": [
@@ -903,7 +903,7 @@
       "app": "md",
       "level": "orta",
       "title": "Çözücü de modelin parçası: iyonlar ve yardımcı çözücü",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "status": "pilot",
       "book": "CH10",
       "goals": [
@@ -944,7 +944,7 @@
       "app": "md",
       "level": "orta",
       "title": "Ligandın parametresi bir karardır: ligand parametreleri ve kökeni",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH09",
       "goals": [
@@ -959,7 +959,7 @@
         "Tripsin-benzamidin kompleksi (PDB 3PTB, Marquart ve ark. 1983, CC0): altı ligand modeliyle ikişer 0,5 ns kompleks ve birer 1 ns su koşusu (GROMACS 2023.3, amber99sb-ildn, GAFF2, TIP3P); koşu ve analiz planları koşulardan önce donduruldu",
         "Benzamidin Ki değerleri: ChEMBL (CHEMBL20936, sığır tripsini CHEMBL3769; CC BY-SA 3.0); yükler acpype 2023.10.27 (AM1-BCC, Gasteiger), PySCF 2.14.0 (RESP) ve EspalomaCharge 0.0.8 ile"
       ],
-      "notice": "Bu sayfadaki benzamidin Ki değerleri ChEMBL'den alınmıştır ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.",
+      "notice": "Bu sayfadaki benzamidin Ki değerleri ChEMBL 34'ten alınmıştır (CHEMBL20936, CHEMBL3769); bunlardan hesaplanan ΔG değerleriyle birlikte Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0/) lisansıyla sunulur. Değişiklik: Ki değerleri ΔG = RT ln Ki (25 °C) ile dönüştürüldü. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.",
       "en": {
         "title": "A ligand's parameters are a decision: ligand parameters and their provenance",
         "book": "CH09",
@@ -975,7 +975,7 @@
           "Trypsin-benzamidine complex (PDB 3PTB, Marquart et al. 1983, CC0): two 0.5 ns complex runs and one 1 ns water run for each of six ligand models (GROMACS 2023.3, amber99sb-ildn, GAFF2, TIP3P); the run and analysis plans were frozen before the runs",
           "Benzamidine Ki values: ChEMBL (CHEMBL20936, bovine trypsin CHEMBL3769; CC BY-SA 3.0); charges with acpype 2023.10.27 (AM1-BCC, Gasteiger), PySCF 2.14.0 (RESP) and EspalomaCharge 0.0.8"
         ],
-        "notice": "The benzamidine Ki values on this page are taken from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
+        "notice": "The benzamidine Ki values on this page are taken from ChEMBL 34 (CHEMBL20936, CHEMBL3769); together with the ΔG values computed from them they are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0/). Change: the Ki values were converted with ΔG = RT ln Ki (25 °C). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
       },
       "path": "md/md-lig/",
       "source": "sources/MD-LIG.html"
@@ -985,7 +985,7 @@
       "app": "md",
       "level": "uzman",
       "title": "Hata çubuğu neyin belirsizliği? Hata çubuğu ve dürüst karşılaştırma",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "pilot",
       "book": "CH18",
       "goals": [
@@ -999,7 +999,7 @@
         "Yeni koşu yok: MD-REP (REPGRID, alanin dipeptidi, 16 tekrar), MD-FF (FFGRID, 12 koşu) ve MD-LIG (LIGGRID ve LIGGRID2, tripsin-benzamidin PDB 3PTB, CC0) koşuları yeniden analiz edildi; analiz planı hesaplardan önce donduruldu",
         "Başlangıç yapısı mdshare ALA2 (CC BY 4.0); ölçülmüş ΔG aralığı ChEMBL Ki değerlerinden (CHEMBL20936, CHEMBL3769; CC BY-SA 3.0); qPCR bölümü tarayıcıda öğretim modeli (Livak ve Schmittgen 2001)"
       ],
-      "notice": "Bu sayfadaki ölçülmüş ΔG aralığının dayandığı benzamidin Ki değerleri ChEMBL'den alınmıştır ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.",
+      "notice": "Bu sayfadaki ölçülmüş ΔG aralığının dayandığı benzamidin Ki değerleri ChEMBL'den alınmıştır; Ki değerleri ve bunlardan türetilen ΔG aralığı Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192.",
       "en": {
         "title": "An error bar is the uncertainty of what? Error bars and honest comparison",
         "book": "CH18",
@@ -1014,7 +1014,7 @@
           "No new runs: the runs of MD-REP (REPGRID, alanine dipeptide, 16 replicas), MD-FF (FFGRID, 12 runs) and MD-LIG (LIGGRID and LIGGRID2, trypsin-benzamidine PDB 3PTB, CC0) were reanalyzed; the analysis plan was frozen before any calculation",
           "Starting structure mdshare ALA2 (CC BY 4.0); measured ΔG range from ChEMBL Ki values (CHEMBL20936, CHEMBL3769; CC BY-SA 3.0); the qPCR section is a teaching model in the browser (Livak and Schmittgen 2001)"
         ],
-        "notice": "The benzamidine Ki values behind the measured ΔG range on this page are taken from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
+        "notice": "The benzamidine Ki values behind the measured ΔG range on this page are taken from ChEMBL; the Ki values and the ΔG range derived from them are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported licence (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192."
       },
       "path": "md/md-err/",
       "source": "sources/MD-ERR.html"
@@ -1024,7 +1024,7 @@
       "app": "md",
       "level": "uzman",
       "title": "Başkası aynı dosyalardan aynı cümleye varabilir mi? Yeniden üretim ve savunulabilir çalışma",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "pilot",
       "book": "CH24",
       "goals": [
@@ -1061,7 +1061,7 @@
       "app": "md",
       "level": "uzman",
       "title": "Bu soru için standart MD yeter mi? Standart MD'nin ötesine karar vermek",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "status": "pilot",
       "book": "CH19",
       "goals": [

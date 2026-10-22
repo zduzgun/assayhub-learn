@@ -21,6 +21,425 @@ Bu giriş bir sürüm değildir; sürüm numarası, etiket ya da GitHub sürüm�
 - `docs/CODEX_OSS_APPLICATION_DRAFT.md` eklendi: OpenAI Codex for Open Source başvurusu için taslak metinler. Başvuru gönderilmedi.
 - `robots.txt`, `noindex` başlıkları, erişim kuralları ve dağıtım ayarları değişmedi.
 
+## 0.44.0 (22 Ekim 2026) · Modül incelemesi ve düzeltmeler
+
+27 modül tek tek incelendi (çalışmayan işlev, hesap ve bilim, simülasyon ve animasyon, öğretim, erişilebilirlik ve mobil, İngilizce). Bulgular, kitabın doğrulanmış bölümleri (v13) esas alınarak düzeltildi; yeni sayılar yalnız sayfadaki gömülü veriden ya da kitaptan geldi, hesaplanamayanlar "hesaplanmadı" olarak kaldı. Yeni simülasyon yapılmadı. İnceleme ve düzeltmeler yapay zekâ ajanlarıyla yapıldı; insan bilimsel incelemesi yapılmadı, sayfalardaki önizleme notu bu yüzden korunur.
+
+Düzeltmeler ayrı bir ajanla bağımsız olarak doğrulandı (kritik bulgular ve sınav soruları tek tek; 27 modülün TR ve EN sayfasında 1280 ve 375 px duman testi: konsol hatası, NaN ve yatay taşma yok). Doğrulamada bulunan son kusurlar modül başlıkları altında "Bağımsız doğrulamadan sonra" diye ayrıca yazılıdır. Altı modülün sınavında doğru seçenek hep aynı yerdeydi; yerleri dağıtıldı.
+
+Ortak değişiklikler:
+
+- `modules.json`: 27 modülün sürümü; MD-U ikinci hedefi "İki düzeyli RMSD, gezen açılar ve önceden yazılmış durumlar"; DK-U veri satırına ChEMBL 34; MD-LIG ve MD-ERR lisans notlarına türetilmiş ΔG değerlerinin de CC BY-SA 3.0 ile sunulduğu, MD-LIG notuna ChEMBL 34, lisans adresi ve ΔG = RT ln Ki dönüşümü.
+- `NOTICE.md`: ChEMBL satırı aynı bilgilerle güncellendi.
+- `sources/` dosyaları bu turda bu depoda düzenlendi; kitap projesindeki prototiplere yeni tarihli kopyalar olarak geri yazıldı (bkz. `sources/SOURCES.md`).
+
+### DK-T 0.2.1 → 0.3.0
+
+- Tezgâh: "exhaustiveness her koşunun uzunluğunu da büyütür" yanlışı düzeltildi; Vina 1.2.7'de exhaustiveness yalnız bağımsız arama koşularının sayısıdır (vina.cpp, global_search: num_tasks = exhaustiveness; adım sayısı ligandın büyüklüğünden). Tekrar sayısı artık 1, 2, 4, 8, 16 ("Vina'da exhaustiveness"), tabloda Vina'nın ilk pozunun karşılığı olan "en iyi skorlu poz" sütunu var; kart en az 4 tekrarlı denemelerle açılır.
+- Tezgâh: arama "Durdur" düğmesiyle kesilebilir; boş durum metni dar ekranda satırlara bölünür.
+- Defter: okuma notu amidin karbonuna göre düzeltildi (ters pozlarda 7,6-9,2 Å, doğru pozlarda 4,0 Å, kristalde 3,9 Å).
+- Defter: RMSD eşiği kaydırıcısının yanında veriden üretilen not: ilk pozlar ya en çok 0,41 Å ya en az 3,30 Å; ilk poz ölçütünde 1-3 Å arası her eşik aynı sonucu verir, ilk 3/9 pozda 2 koşuyu değiştirir.
+- Defter: Cα haritası için 1-2-4-8-16 düğmeleri (klavyeyle kullanılabilir); gömülü xyz artık kullanılıyor: her ilk pozda amidin ucunun yönü kısa çizgiyle gösteriliyor.
+- Atölye: "Ters oturan benzamidin" kartı kaybın en büyük kalemini veriden yazar (ör. 150°'de "itme teriminde +9,49"; çakışma varsa yerel minimuma indirmeyi önerir).
+- Atölye: "Yerel minimuma indir" sonucu, poz elle değişince başlangıç metnine döner.
+- Atölye: "Doğru pozu elle bulabilir misiniz?" yalnız kristale 3 Å'dan uzak bir pozdan başlanınca açılır.
+- Köprü: ChEMBL 34 kayıtları kitap CH09 ve ham kayıtla uyumlu: CHEMBL1135460'ın iki 18,4 µM kaydı, CHEMBL4725290 yalnız 32 µM (sayfadaki 2020/35 µM noktası kaldırıldı; aralık değişmedi). 31 nM notu: "600 ile 1.300 kat", 2000 kaydının olası kopya işareti, birim karışıklığı olasılığı (yalnız özgün yayın gösterir) ve "aykırı saymak da bir karardır".
+- Proteine dönüş: çapraz docking satırı DK-O verisine göre (üç olgun tripsin 20/20, tripsinojen 0/20, ilk pozlar 2,49-2,65 Å); su/protonasyon satırı 198 hazırlık, 1.080 koşu; bağlantı adları modules.json başlıklarıyla.
+- Sınav: doğru seçenekler 3, 1, 4, 2, 3, 1, 4. sıralarda; çeldiriciler doğru cevapla benzer uzunlukta.
+- Masaüstünde okuma listelerinde dt sütunu kelime kelime kırılmıyor.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Öneri "ChEMBL sürümü ve erişim tarihi": sürüm (ChEMBL 34, kitapla aynı) yazıldı; erişim tarihi kaynakta yok, uydurulmadı.
+- "Birim hatası" cümlesi kesin iddia olarak değil, olasılık olarak yazıldı (kitapta yok).
+
+### DK-O 0.3.1 → 0.4.0
+
+- Atölye: "Kristal ligand: Unutuldu" seçilince okuma değerleri kartın içinde kalıyor (dd sarılıyor, ızgara minmax); metin "karşılaştırılmadı: derin çakışma". 1280 ve 900 px'te scrollWidth = genişlik.
+- His57 kartı veriye bağlandı: seçili bağlamda ilk poz ortalaması farkı, tohum başına en büyük RMSD oynaması, HIE/HID/HIP başarı sayıları; fark < 0,01 ise "skor ve başarı aynı; yalnız son basamaklar oynadı". Bütün His57 çiftlerinin özeti canlı hesaplanıyor (144 çift; poz listeleri 0'ında birebir aynı, başarı 0'ında değişti, en büyük fark 0,149 kcal/mol). sg() artık −0,000 yerine 0,000 yazıyor. Günlük satırı ve sınav 6 buna göre yumuşatıldı.
+- 1TGN yorumu "3PTB'deki poza göre" diye sınırlandı: kart, günlük ve sınav 8, ilk pozların eşiğin hemen üstünde olduğunu (2,49-2,65 Å), amidin N ile Asp189 O arasının 3,19-3,27 Å olduğunu (tuz köprüsü korunuyor) ve 3 Å eşikle 20/20 olacağını gömülü koordinatlardan yazıyor.
+- Tezgâh: başarı eşiği seçimi 1,5 / 2 / 2,5 / 3 Å (okumalar, tablo, grafik çizgisi ve renkler eşiğe göre; defter 2 Å ile kalıyor).
+- Devre dışı Asp189 ve Ile16 düğmeleri genişletilmiş modda hesapta kullanılan ASP ve NH'yi basılı gösteriyor; temel moda dönünce okurun seçimi geri geliyor.
+- Ekler: "kötüleşti (−5,806 → −5,190)", "Doğru pozu bulan tohum: 0 / 5"; günlükte "0/180 (tam yan zincirli 36 hazırlık; kesikliler dahil 0/360)"; bağlantı adları güncel (DK-T ve DK-U).
+- Sınav: doğru seçenekler 3, 1, 4, 2, 3, 1, 4, 2, 1, 3. sıralarda; çeldiriciler uzatıldı; sınav 4'te kristal skor "yaklaşık +207" (veride 206,987).
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Öneri "sayfa ağırlığını azaltın" (1,01 MB): gömülü koordinatları yuvarlamak ya da ayrı JSON'a almak doğrulanmış veriyi ve hesapları değiştirebilir; veri üreticisinde (kitap projesi build_dko.py) yapılmalı.
+
+### DK-U 0.2.3 → 0.3.0
+
+- Tezgâh (KRİTİK): sıfır model eğrileri okumalarla aynı kuralla çiziliyor (yüksek değer = etkin; köşegenin altı ters ilişki, lejantta yazılı); rocCurve eşit değerleri tek adımda işliyor. Çizilen alan ile okunan AUC 12 durumun hepsinde birebir aynı. Sıfır model AUC'leri artık gösterilen set için canlı hesaplanıyor.
+- s1c4 kartı ve sınav 2 (KRİTİK) CH18'e göre: "docking kadar iyi" olan zayıf settir (ağır atom 0,745, yük 0,776, docking 0,719); D2'de ağır atom 0,747 ile docking'in (0,851) gerisinde ama yüksek AUC'nin önemli kısmı boyut farkı. Sınav 2 zayıf set üzerine kuruldu.
+- "Yalnız S1 pozları" yalnız etkinlere uygulanıyor (planın tanımı; D2'de 0,873, eşleştirilmişte 0,816).
+- Köprü: açılışta çiziliyor (etiket 316 nM, kaydırıcıyla uyumlu); IC50 ≈ Ki varsayımı ([S] ≪ Km) yazıldı; "% inhibisyon" etiketi kesilmiyor ve İngilizcede çevrildi; binlik ayraç.
+- Atölye: iki bileşik kartı her seçimde güncelleniyor; "anlamlı sayılabilir" yerine "başka bir tohumla da büyük olasılıkla korunur; bağlanma farkı anlamına gelmez"; pKi sırasının skor sırasıyla aynı/ters olduğu, seçilen bileşiğin kendi üç tohum sd'si (örnekteyse), bileşik bilgisi (klavyeyle seçilen A/B için) ve CH18'in %34,9 sayımı.
+- Atölye: okumada Pearson/kısmi Pearson ve Spearman/sıra tabanlı kısmi yan yana (−0,36 → −0,12; −0,38 → −0,23); s1c2 kartı, proteine dönüş ve sınav 3 aynı türden karşılaştırıyor; anlaşılmayan ligand verimi cümlesi çıkarıldı.
+- Atölye: yayın notu veriden ("bu yayında n bileşik, seri içi Spearman ..."; 11 yayında −0,90 ile 0,59); n < 10'da kısmi korelasyonlar gösterilmiyor. Saçılım x ekseni −10,5'e genişledi.
+- Proteine dönüş: tohum gürültüsü (0,09 kcal/mol) skor yayılımıyla (1,02 kcal/mol) karşılaştırılıyor; pKi yayılımı (1,36) 298 K'de 1,86 kcal/mol; bağlantılar gerçek bağlantı.
+- Defter: tek kat ataması notu; "200 başka kat ataması dene" düğmesi analyze.py ile aynı ridge'i (λ 1, 5 kat) tarayıcıda koşuyor: rastgele ortanca 0,23 (0,18-0,26), gruplu 0,05 (−0,09-0,16), %24 eksi, 200/200 gruplu < rastgele (kitapla uyumlu); noktalar grafiğe biniyor. Kart "sıfıra yakın, bu atamada eksi".
+- s1c3 kartı: "54 etkinden 12 tanesine dört eşleşmiş tuzak bulundu, 24 tanesine hiç bulunamadı" (veriden sayılıyor). Bildirimde ChEMBL 34 ve 84 eşleştirilmiş tuzağın kapsamı.
+- Sınav: doğru seçenekler 2, 3, 1, 2, 3, 1, 2. sıralarda; çeldiriciler güçlendirildi; 6. soru "tuzak havuzu küçüktü" etkenini doğru cevabın parçası yapıyor; sınav init'ten sonra kuruluyor. İngilizcede kalmış "Cevaplanan" düzeltildi.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Gürültüyü √2 × SD ile hesaplama: uygulanmadı; kitap CH18 eşiği 3 × 0,087 = 0,26 kcal/mol olarak kullanıyor, sayfa kitaba uyuyor.
+- Tohum örneğinin noktalarını grafikte çizme ve tohum çifti Spearman/sıra değişimi: kartta bileşiğin kendi sd'si metin olarak var; ayrı çizim eklenmedi.
+- Tuvallerin (saçılım, ROC, histogram) klavye erişimi: eklenmedi; A/B açılır listeleri ve karttaki bileşik bilgisi klavye yolu sağlıyor.
+- Ortak dosya: NOTICE.md ve modules.json DK-U "data" alanına "84 eşleştirilmiş tuzak: ChEMBL 34" eklenmeli (bana ait değil).
+
+Bağımsız doğrulamadan sonra:
+
+- s1c4 kartı: zayıf tripsin setinde ağır atom (0,745) ve net yük (0,776) docking'in (0,719) "üstünde görünür"; docking'in %95 aralığı (0,598 ile 0,833) ikisini de içerir, aralıklar örtüşür (kitap CH18). Aralık gömülü veriden okunur.
+
+### MD-Q 0.1.0 → 0.2.0
+
+- Dar ekranda okuma tabloları (qread, qbread, qboxread) alt alta; değerler artık harf harf kırılmıyor.
+- Haritadaki kırmızı nokta ve iz yalnız harita 1. koşunun verisini içerdiğinde (koşu 1 ya da üçü birlikte) ve pencere 200 ile 599 ps'yi kapsadığında çiziliyor; 3B notunda bu yazıyor.
+- 3B penceresindeki geçiş sayısının tanımı yazıldı: αR ile β arasında yeni durum en az 5 kare (5 ps) sürünce bir geçiş; αL kareleri atlanır (MD-CON ile aynı). Okuma etiketi "(yeni durum ≥ 5 ps)".
+- "Kendi dikdörtgeniniz" için dört sayı kutusu (φ alt/üst, ψ alt/üst); klavyeyle girilebiliyor, sürüklemeyle eşzamanlı, girince bölge "kendi dikdörtgeniniz"e geçiyor.
+- Durum şeridinin yüksekliği koşu sayısına göre (tek koşuda boş alan kalmıyor); 420 px'ten dar tuvalde zaman etiketleri 0, 100, 200 ns.
+- Defter örnekleri placeholder oldu.
+
+### MD-T 0.2.0 → 0.3.0
+
+- Dar ekranda tuvaller gerilmiyor: her tuvalin çizim boyutu CSS kutusunun en-boy oranına eşitleniyor (mantıksal genişlik 520 ile 960 arası, CSS genişliğinin 1,5 katı; pencere boyutu değişince yeniden çizim). Masaüstündeki tam genişlik tuvaller eskisiyle aynı (960 piksel); iki sütundaki tuvallerde yazılar büyüdü. l1-xt ve l2-tr dar ekranda daha yüksek. Dar tuvalde IR bölge etiketleri iki sıraya, tezgâh başlığı kısaltıldı; dalga boyu, basamak ve "0 geçiş" etiketleri çakışmıyor.
+- Zaman adımı kuralı kitap CH02 §2.4 ile aynı: T/5 (grompp uyarısı), T/π aşılamaz sınır, T/10 daha temkinli pay ("Δt = T/5'te hata T/10'dakinin yaklaşık dört katı"). Bilgi kutusu "grompp sınırı Δt = T/5"; tabloya T/5 sütunu; d3 kartı ve sınav 5 açıklaması buna göre. "Yaklaşık 20 fs" cümlesine bu projenin topolojisindeki sayılar (en hızlı serbest bağ 22,21 fs, T/5 = 4,44 fs) ve tablo notuna O–H 8,99, N–H 10,11, C=O 23,83 fs (≈ 1.400 cm⁻¹) ile MD-DT köprüsü (kitap §2.3).
+- Lab 3 tezgâhı varsayılan olarak durumları ayıran ψ açısını gösteriyor; αR bandı sınırları (−120° ve 50°) kesikli çizgi; "φ" düğmesiyle eski görünüm. Metin ve aria etiketi güncellendi.
+- İngilizce sayfadaki ondalık virgüller giderildi (sınav 1 açıklamasında 3.0 × 10¹⁰, defter ekseninde 0.1).
+- 1 ns Langevin hesabı 100.000 adımlık parçalarda, düğmede ilerleme yüzdesiyle (ana iş parçacığı en uzun 103 ms bloke; önce 382 ms).
+- Enerji hatası grafiği tek yönlü hataya göre ölçekli (sıfır "0", boş üst yarı yok); hatanın neden tek yönlü olduğu notu.
+- Arrhenius sınavı: doğru seçenek "yaklaşık 5 ile 8 kat arasında" (Boltzmann 7,4; tezgâh yüzeyi yaklaşık 6; açıklama ikisini de veriyor).
+- Kaydırıcı dokunma hedefi 28 px.
+
+### MD-DT 0.1.0 → 0.2.0
+
+- Düzeltildi: `[hidden]{display:none!important}`; boş çöküş kutusu artık açılışta görünmüyor.
+- DTGRID ızgarası tam genişlikte (denetimler altında, masaüstünde iki sütun); dar ekranda satır/sütun yer değiştiriyor (adımlar satırda), sabit tablo düzeniyle 375 px'e sığıyor; hücrelerde "ns/gün" yerine tablo altı notu.
+- Sıcaklık dili kitap CH02 §2.5 ile uyumlu: "ısınma / termometre" kaldırıldı; kaydırıcı, okuma ve kart "ortalama sıcaklık farkı" diyor; okuma notlarına kitabın hesabı (1 K ≈ 160 kJ/mol, 612 kJ/mol en çok 3,8 K'yi açıklar, 10,2 K'lik fark doğrudan ısınma değil) ve "iki bedel aynı değil" cümlesi.
+- Çöküş paneli koşuya özgü: en çok kayan üç atom türüyle (hidroksil, N-H, C-H); kısıtsız koşularda Δt'nin hangi X-H sınıfının T/π sınırını aştığı gömülü bağ periyotlarından hesaplanıyor (3 fs yalnız O-H'yi aşar, 4 ve 5 fs N-H ve C-H'yi de); LINCS koşularında ilk uyarı zamanı (0,315 / 0,345 ps) ile yazılan son kare (0,885 / 0,815 ps) ayrı yazılıyor.
+- Periyot dağılımında "5 · Δt" etiketi çubukların üstündeki şeride, kalıntı grafiğinde başlık ile sayı çakışması giderildi.
+- Atölyede "Aynı ayarda HMR ile / olmadan" kırmızı bağ sayısı (H bağları, 5 fs: 209 → 329, kitapla aynı); okuma notunda en yavaş bağ örneği yerine kitabın 497/608 ve 209 → 329 sayıları.
+- Bağ saatleri atölyedeki kısıt düzenine bağlı: kısıtlı bağların kadranı ve şeridi duruyor, not serbest kalan bağın periyot başına örnek sayısını veriyor.
+- Dar ekranda faz uzayı ve kararlılık haritası yan yana; faz uzayı etiketi dar tuvalde küçük.
+- Kaydırıcı ve onay kutusu dokunma hedefleri büyütüldü.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- [ÖNEMLİ, kısmen] Sıcaklık bulgusundaki ek öneri (korunan enerji eğimini ikinci ölçüt olarak seçtirmek): ızgara renklendirmesi, saçılım ekseni ve d1c4 kartının mantığını değiştirir; dil düzeltmesi ve kitabın hesabı uygulandı, ikinci ölçüt eklenmedi (eğim her koşu için okumada zaten var).
+- [ÖNERİ, kısmen] "HMR açıkken ağır bağlar neden kızardı?" keşif kartı eklenmedi: keşif sayısını (4) ve ilerleme göstergesini değiştirir; sayı karşılaştırması satır olarak eklendi.
+- [ÖNERİ, kısmen] Δt kaydırıcısını yapışkan (sticky) yapmak: kaydırıcının üst kutusu kısa olduğu için CSS sticky işe yaramaz; yerine faz uzayı ve harita dar ekranda yan yana alındı.
+
+Bağımsız doğrulamadan sonra:
+
+- "Tüm bağlar" seçilince okuma panelindeki uzun değerler ("yok (bütün bağlar kısıtlı)", "bağlar sınırlamıyor; sınırı açılar ve diğer hareketler belirler") sarılıyor; sayfa 1280 ve 375 px'te TR ve EN'de yatay taşmıyor. Kısa sayılar tek satırda kalıyor.
+
+### MD-ENS 0.2.1 → 0.2.2
+
+- Sıcaklık kartı (e1c2): birleşik SD 8,00 K, kuramın 1,05 katı; "aynı büyüklükte ama yaklaşık %5 büyük" deniyor. Farkın gürültü olmadığı sayfada veriden hesaplanan iki sayıyla gösteriliyor (ardışık sıcaklık otokorelasyonu 0,005 ile 0,025; 50.000 karede SD'nin göreli hatası yaklaşık %0,3). Kaynağın ayrılmadığı ve MD-CON ızgarasının V-rescale ile 0,99 verdiği, iki kurulumun hangi bakımlardan farklı olduğu yazıldı (CH03 satır 111, CH05 satır 80). "Uyumlu" kapanışı kaldırıldı.
+- Sınav 2: doğru seçenek "aynı büyüklükte (yaklaşık %5 fazla; kaynağı ayrılmadı)"; açıklamaya oran ve "kaynağı ayrılmadı" eklendi.
+- Basınç kartı (e1c3): "ardışık kareler bağımsız değil" açıklaması kaldırıldı. Yerine: koşular arası saçılım naif hatanın yaklaşık 2,4 katı; yalnız beş koşu olduğu için koşular arası SD'nin %95 aralığı 7,9 ile 37,9 bar (ki-kare, 4 sd); gecikme-1 otokorelasyonu 0,07 ile 0,09, yani kare korelasyonu farkın küçük bir kısmını açıklayabilir; kaynak bu sayfada ayrılmadı. Bütün sayılar sayfada gömülü veriden hesaplanıyor.
+- Tablo altına αL dipnotu: %0,1'in altındaki αL payları φ = ±180° sınırını aşan tek karelik β etiketleri (CH03 satır 172).
+- "Proteine dönüş" bölümüne ubikitin paragrafı (CH03 3.5'ten; yeni iddia yok, "Bu senaryo hesaplanmadı" notuyla).
+- Dar ekranda okuma tabloları alt alta.
+
+### MD-PBC 0.6.1 → 0.7.0
+
+- Düzeltildi (kritik): Yeh-Hummer keşif kartı artık küçük kutuların noktalarının Yeh-Hummer doğrusunun **üstünde** kaldığını söylüyor; en küçük kutudaki fark ve neden ((4π/3)(R/L)³ terimi, sığ eğim) sayfada hesaplanıyor. Grafiğe noktalı Yeh-Hummer doğrusu eklendi; açıklama legend'de. İngilizce de düzeltildi.
+- Defter tablosuna "Yeh-Hummer ile düzeltilmiş D" sütunu ve küçük kutuda düzeltmenin aşırıya kaçtığı notu (TIP3P, L = 5 nm: 108 → 494 µm²/s, D∞ 442).
+- Lab 1 su ve atom hesabı Lab 2 ile aynı kaynaktan: projenin d = 1,0 ve 0,5 nm hazırlıklarından iki noktalı ayar (33,07 nm⁻³, 14,93 nm³, DIAM 4,491). Panel artık d = 1,0 nm'de 5.902 su / 18.937 atom, d = 0,5 nm'de 3.378 / 11.365 veriyor.
+- Klavye/ekran okuyucu: atölyede "Rastgele fırlat"; tezgâhta "Kenardaki bir molekülü seç", "Ortadaki bir molekülü seç", "Seçili moleküle itme ver" (sürükleme ile aynı kod yolu, lApply). Değişim kutuları aria-live. w1, w2, w3, b1, b2 keşifleri düğmeyle açılabiliyor.
+- Kenar enerjisi tezgâhı: kT = 0,40 ε'de iki boyutlu modelin donmaya yakın olduğu, altıgen yamalar görülebileceği ve dersin yönünü değiştirmediği notu.
+- Akış tezgâhı: 1 nm ölçek çubuğu, "noktaların hızı göreli, çok yavaşlatılmış" notu, proteinin içindeki izleyiciler soluk.
+- Hız tahmini grafiği: GPU'nun dolmadığı (23.558 atom altı) bölüm kesikli, legend ve küçük notta açıklama.
+- Kaydırıcı ve onay kutusu dokunma hedefleri büyütüldü (MD-CUT raporundaki öneri).
+
+Bağımsız doğrulamadan sonra:
+
+- 375 px'te "molecules" galerisi daralıyor (sütunlar minmax(0,1fr), küçük yazı); sütun başlıkları yalnız sayı, birim ilk sütunda "molekül sayısı" etiketiyle. Sayfa EN ve TR'de taşmıyor.
+- Kart ızgaraları ve okuma panelleri dar ekranda `minmax(0,1fr)` ile sınırlandı; "Sonsuz sıvı" bölümündeki okuma değerleri 560 px altında sarılıyor.
+- İki sınavda (12 soru) doğru seçenek yerleri dağıtıldı: D A C B A D ve B C A D C B (A 3, B 3, C 3, D 3).
+
+### MD-CUT 0.1.2 → 0.1.3
+
+- Kutu sınırı paragrafı GROMACS kılavuzunun kuralıyla yeniden yazıldı: kesme, en kısa kutu vektörünün yarısını aşamaz (R_c < ½ min(|a|,|b|,|c|)); kare tezgâh kutusunda bu kenarın yarısıdır; 1UBQ onikiyüzlüsünde üç vektör de 6,49 nm, sınır 3,25 nm. Üçgen olmayan kutularda ızgara araması için ek sınır R_c < min(a_x, b_y, c_z) bu kutuda 4,59 nm ile daha gevşek. Kaynak: GROMACS başvuru kılavuzu, "Periodic boundary conditions" (2022/2023 sürümleri, denklem metni doğrulandı). Not: inceleme raporundaki "yaklaşık 2,29 nm" tahmini yanlıştı (c_z'nin yarısı alınmıştı); kitap CH04'teki "en kısa kutu vektörünün yarısı, 3,25 nm" ifadesi kılavuzla uyumlu, sayfa artık kitapla aynı dili kullanıyor.
+- Atölyede hız birimi σ/s yerine σ/τ; ekranda 1 s = 1 τ olduğu, hızın animasyon hızı olduğu notu.
+- Kaydırılmış potansiyel kartı yumuşatıldı: "çok daha iyi korur ama tam değil"; kalan kaymanın kuvvetin r_c'deki sıçramasından geldiği, ölçümlerden kısa/uzun kesme oranı (ör. 1,5 σ'da 5 σ'dakinin 7,2 katı). Potansiyel grafiğine ikinci büyüteç: kuvvet F = −du/dr, r_c'deki sıçramanın değeri (2,5 σ'da 0,039 ε/σ).
+- Komşu listesi notu: gerçekte iki atom da hareket eder, GROMACS tamponu göreli yola ve verlet-buffer-tolerance = 0,005'e göre seçer (kitap CH04 §4.3).
+- Kaydırıcı yüksekliği 28 px, onay kutusu 20 px ve 32 px'lik etiket alanı.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- [ÖNERİ] Motoru ortak `mdmini.js` ile birleştirme: ortak motor ve `tests/` dosyalarına dokunmayı ve tezgâh/defter kodunu yeniden yazmayı gerektirir (ortak dosya, bu turun yetkisi dışında). Ortak dosya ihtiyacı: LJ2 için `tests/` altına test eklenmesi ya da sayfanın `assets-src/mdmini.js`'e taşınması ayrı bir iş olarak planlanmalı.
+
+### MD-ELEC 0.1.1 → 0.2.0
+
+- Defter göstergesi "hata payı 10⁻⁵" yerine "kesmede kalan pay ewald-rtol = 10⁻⁵"; açıklamaya payın toplamın bağıl hatası olmadığı, hataların aynı büyüklük düzeyinde olduğu notu.
+- PME ızgarası kitap CH04 §4.4 ile aynı: NPT sonundaki 6,47 nm'lik kutu vektörü → en az 54 nokta; grompp 56 seçti (gerçek aralık 0,116 nm); S3 için 48 × 48 × 48 satırı eklendi; "mdrun" yerine kitaptaki gibi "grompp".
+- Protein çözünürlüğü: ileti artık ölçülen paya bağlı (%80 üstü çözünüyor, %40 altı kümeleniyor ya da çöküyor, arası sınırda) ve payı yazıyor; ilk 10 örnek dengelenme sayılmıyor, ölçüm birikene kadar "dengeleniyor" ve "çözünen: ölçülüyor".
+- DNA erime eğrisi canlı benzetimdeki aynı 28 baz çiftlik zincirin tam denge ortalaması (serbest uçlu Ising zinciri, aktarım matrisi); nokta artık eğrinin üstünde dalgalanıyor. Açıklama eklendi.
+- İyon bulutunda nokta sayısı iyonik şiddetle logaritmik artıyor (150 mM'de 90, onluk başına 30; 10 ile 140 arası), temsili olduğu notu.
+- Ewald tezgâhının 5. adımına "ızgara aralığı (PME gibi)" seçimi: bulutların toplamı 0,25 / 0,5 / 1 r₀ aralıklı noktalarda örneklenip doğrusal aradeğerleniyor, en büyük sapma yazılıyor; GROMACS'ın kübik aradeğerleme (pme-order = 4) kullandığı notu.
+- Kaydırıcı ve onay kutusu dokunma hedefleri büyütüldü.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- [ÖNERİ, kısmen] DNA erime genişliği parametresini (w0 = 30) "gerçekçi birkaç °C"ye ayarlamak: kitapta ya da sayfa verisinde dayanağı olan bir genişlik yok; yeni sayı uydurmamak için değiştirilmedi (metin genişliğin temsili olduğunu zaten söylüyor). Eğri/nokta tutarsızlığı giderildi.
+
+Bağımsız doğrulamadan sonra:
+
+- Izgara notunda "aradeğerlendi" yerine "örneklendi ve doğrusal aradeğerleme yapıldı". EN ("sampled ... and linearly interpolated") doğru, değişmedi.
+
+### MD-CON 0.1.1 → 0.1.2
+
+- Dar ekranda bütün okuma tabloları (ktread, kpread, kdread, k3read, k3pread, kbread, kbread2) alt alta; ktread 375 px'te 3.314 px yerine yaklaşık 680 px. Çubuk grafiklerde sütun dar kalınca kısa ad (V-r, Ber, N-H, Lang, C-r); "V-rescale|0,1" üst üste binmesi bitti.
+- Barostat okuması: "kuramdan sapıyor" hükmü kaldırıldı; satır "Ölçülen / kuram (mdp κ_T ile)" oldu, yanına "κ, dalgalanmadan (post hoc)" satırı (C-rescale τ_P 1 ps: 5,79 ×10⁻⁵ bar⁻¹). Not: 0,9 ile 1,1 bandı sıcaklık için seçilmişti, hacim oranına hüküm verilmez; yorumlanabilir olan barostatlar arası fark (CH05 satır 127, Şekil 5.3 alt notu).
+- kc5 kartı: "dışında kalan koşu 6 / 6" kaldırıldı; yerine aynı τ_P'de Berendsen SD'sinin öbürlerinin ortalamasına oranı (τ_P 1 ps'de 0,47, 5 ps'de 0,23; veriden) ve bandın sıcaklık için olduğu cümlesi.
+- Termostat notu: NVT ortalama basıncının (bu koşuda −315 bar) termostattan değil, NPT ortalamasından %1,9 büyük tek bir dengeleme karesinden alınan hacimden geldiği; κ_T ile beklenen fark −274 ile −324 bar (CH05 satır 137-143).
+- Köprü (kc0): Berendsen ve V-rescale'de τ'nun kinetik enerjinin gevşeme süresi olduğu; sıçramada potansiyel enerjinin de ısınması gerektiği için zincirin hedefe τ'dan geç, bu oyuncakta yaklaşık 2τ'da vardığı yazıldı. Grafiğe noktalı "zaman sabiti 2τ" eğrisi, okumaya "2τ olsaydı %63 süresi" satırı.
+- Köprü tuvali yüklemede boş değil: eksenler, hedef ve τ/2τ eğrileriyle durağan bir ilk kare ve "kopyalar grafik görünür olunca ya da Oynat ile hesaplanır" notu.
+- 3B kutular: kendiliğinden dönme oynatma dışında 8 sn sonra duruyor; görünür olunca kendiliğinden başlayan oynatma bir tur sonra duruyor (kullanıcı Oynat'a basarsa döngü sürer). Ölçüm: sürekli yeniden çizim yerine 33 ile 44 sn sonra kare değişimi 0.
+- Sınav 2: "(2,22 ten 4,70 e)" yerine "(2,22 değerinden 4,70 değerine)".
+
+### MD-REP 0.1.2 → 0.1.3
+
+- Sınav 4: dört hükmün dördü seçenek ("eşdeğer" artık her zaman var). Doğru cevap "kararsız" iken açıklama, neden "eşdeğer" denemeyeceğini söylüyor (%90 aralığı ±5 bandının dışına taşıyor; CH06 Soru 4).
+- Plan formundaki örnek metinler placeholder oldu; boş bırakılan alan çıktıda "(boş: yazılmadı)".
+- Oyuncakta ve blot okumasında çok küçük p değeri "p < 0,001" yazılıyor (önce "p = 0,000").
+- 100 çalışmalık kümede "Kalan çalışma: 63 / 100 · yaklaşık 12 sn kaldı" biçiminde ilerleme ve tahmini süre.
+- Hareket azaltma tercihinde 100 çalışma artık eşzamanlı döngüde değil, parça parça hesaplanıyor; sayfa donmuyor (önce n = 16, 2000 karede yaklaşık 20 sn kilitleniyordu) ve Durdur çalışıyor.
+- Dar ekranda (≤ 560 px) okuma tabloları dt üstte, dd altta.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- "Uzun ayarlarda 25 çalışmalık partilere otomatik bölme" uygulanmadı: hesap zaten kare başına 14 ms'lik dilimlerle ilerliyor, Durdur her an çalışıyor; ilerleme ve kalan süre gösterildiği için ayrı bir parti mantığı öğretim yapısını değiştirirdi.
+
+### MD-O 0.2.1 → 0.2.2
+
+- Gizli pdb2gmx çıktı kutusu artık açılışta görünmüyor (.crash[hidden]{display:none}).
+- C-ucu notu kitap CH07 ile aynı: C-ucu karboksili de ölçülmüştür ama hesapta model değerinde (3,67) bırakıldı.
+- "Titrasyonu oynat (pH 1 → 13)" her zaman pH 1'den başlıyor; EN'de düğme metni "Stop".
+- Grup çipleri ve açı düğmeleri seçimden sonra klavye odağını koruyor.
+- Metin: "7,74'e" (sayıya göre ek üreten yardımcı), "pI'yi" (kitapla aynı), aralık "7,74 ile 7,75"; tam 3 birimde oran "1.000" (eşik > 3).
+- Ölçüt haritası etiketleri sağ kenarda sola hizalanıyor; dar pencerede "kabul penceresi" etiketi pencerenin dışına yazılıyor; 3B ubikitin görünümü kırpılmıyor (projeksiyon yarıçapı 3,0 nm; en uzak atom, perspektif ve hale ile 2,96 nm gerekir).
+- Net yük grafiğinde pdb2gmx'in 0 e ataması bütün pH'larda kesikli çizgi; okumaya "simülasyonun sabit yükü ile bu pH'daki ortalama yük farkı".
+- Tezgâh tablosuna "proteinin toplam yükü" sütunu ve not: günlükteki H-bağı sayısı yalnız uzaklıkla değişir (gömülü 48 hücrede doğrulandı), HISH +1 e yapar ve MD-FAIL vaka 3'e bağlantı.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- His68'in ölçülmüş pKa'sı ve deneysel pI işareti: kaynaklı değer kitapta ve gömülü veride yok; uydurulamaz.
+
+Bağımsız doğrulamadan sonra:
+
+- Sınavda doğru seçenek yerleri dağıtıldı: C A D B D A (hepsi B idi).
+
+### MD-PDB 0.1.0 → 0.2.0
+
+- Yoğunluk 2. adım metni düzeltildi: değişmeyen üç boyutlu bulutun toplamı (elektron sayısı); çizilen eğri merkezden geçen kesit ve kesitin alanı B ile küçülür.
+- PDB satırı: her alanın erişilebilir adı (ör. "alternatif konum: boş"), boş alan "·" ile ve en az 24 px; tıklamadan sonra odak korunuyor.
+- Harita okuması: tepe yüksekliğinin "yalnız atomların kendi katkısı" olduğu yazıldı; yeni satır "komşularla birlikte atom yerindeki yoğunluk (kalıntı ortalaması)".
+- MD karşılaştırması: 46-48 dönemeci MD'de en hareketli on kalıntı arasında (Gly47 MD 25,0, kristal 11,7 Å²), kristalde değil (gömülü veriden; (betik)).
+- Su tablosundaki bir suya tıklayınca dağılım grafiğinde ve 3B görünümde işaretleniyor; HOH 112 için MD-O bağlantısı notu.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- "Kristal düzensizliği payı" kaydırıcısı: uzun pozlamada iki bileşen tasarım gereği aynı görüntüyü verir; farkı göstermek için tek molekülün zaman serisi gibi ikinci bir görünüm gerekir, köprünün yapısını değiştirir.
+
+### MD-FF 0.1.0 → 0.1.1
+
+- Ramachandran haritasında αR, αL, PPII ve β etiketleri açık zeminli hap kutularında.
+- Köprü lejantı: "çubuk yüksekliği göreli sıklık, Hz değil".
+- Tekrar grafiğinde durum paylarında nokta büyüklüğü tekrarın geçiş hızı (/ns); açıklama notu eklendi.
+- M3 açıklamasına sessizce değişen bağsız ayarlar (rvdw 1,2 → 1,0 nm; force-switch → yok; DispCorr kapalı → EnerPres; kitap CH08).
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Yeh-Hummer sonlu kutu düzeltmesinin sayısal büyüklüğü: viskozite değerleri kitapta ve gömülü veride yok; kitap düzeltmenin uygulanmadığını yazıyor. Önce kitapta karar verilmeli.
+- Deneysel ³J başvuru çizgisi: doğrulanmış kaynaklı değer yok (inceleme de doğrulamadı).
+
+### MD-LIG 0.1.0 → 0.2.0
+
+- Köprü metni kitap CH09 ile eşitlendi: ChEMBL 34'te sekiz Ki kaydı; beş yayından altı µM kaydı (18,4 ile 39 µM) kullanılır; iki 31 nM kaydı (CHEMBL1133610 olası kopya; CHEMBL1127404) plan dışı ve gerekçesi yazılmadı. "DK-T ile aynı kayıtlar" ifadesi kaldırıldı.
+- Kayıt listesi ChEMBL 34'teki altı kayda göre düzeltildi (ChEMBL MCP ile doğrulandı): CHEMBL1135460'ın iki 18,4 µM kaydı (ikincisi "2. kayıt" olarak işaretli), CHEMBL4725290 için yalnız 32 µM. Planın listesindeki farkı (35 µM fazladan, 18,4 µM eksik) not ediyor; aralık değişmedi (−6,46 ile −6,01 kcal/mol). Okumada aktivite kimliği ve deney açıklamasındaki ölçüm sıcaklığı (25 °C, 30 °C ya da yazılı değil) var.
+- Lisans: köprüde ve kaynaklar notunda ChEMBL 34, CC BY-SA 3.0 bağlantısı (creativecommons.org/licenses/by-sa/3.0/) ve "Ki değerleri ve bunlardan hesaplanan ΔG değerleri bu lisansla paylaşılır; değişiklik: ΔG = RT ln Ki" cümlesi.
+- Atölye 4: "Ölçülmüş başvuru" anahtarı (altı µM kaydı / 31 nM dahil). 31 nM ΔG'si (−10,24 kcal/mol) noktalı çizgi; genişletilince L2b ve L5'in dört koşusu aralığa giriyor (kitap ile aynı). jc9 kartı sonucun dışlama kararına bağlı olduğunu söylüyor.
+- Keşif sayacı ekranda görünen ilk kaydı sayıyor; köprü grafiğinin üst etiketi kırpılmıyor.
+- Büyük-küçük harf iddiası kanıta bağlandı: "bu sayfanın koşularında iki küme -maxwarn olmadan grompp'tan geçti; başka sürümlerde denetlenmedi".
+- Büküm grafiğine kopyalanan ca-ca-ce-nv teriminin enerjisi (frcmod satırından: PK 2,8, IDIVF 4, n 2, faz 180°; tek dihedral, 90°'de 1,4 kcal/mol) ve okumada terimin biçimi.
+- Yük tablosuna N1 − N2 satırı (L1 ve P2'de −0,016 e; Gasteiger'de 0; nötr L3'te verilmez) ve kitap CH09'daki "ilk yazılan azot" notu.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- α, β ve γ kaydırıcıları: tek ligandla katsayı uydurmayı oynanır kılar; modül bunun tersini öğretiyor. Başvuru duyarlılığı yarısı anahtarla uygulandı.
+
+Bağımsız doğrulamadan sonra:
+
+- Sınavda doğru seçenek yerleri dağıtıldı: C A B A C B A C (hepsi B idi).
+
+### MD-SOLV 0.1.1 → 0.1.2
+
+- yc2 kartı, temas çifti okuması ve tezgâh gerekçesi kitap CH10 ile: eski AMBER iyon parametreleri (Na⁺ σ 0,3328 nm, Cl⁻ σ 0,4401 nm), düşük derişimde tuz kristalleşmesi bildirimi (Joung ve Cheatham 2008; Auffinger ve ark. 2007); sonuç "bu parametrelerle 2 ns'de böyle görüldü" diye raporlanır.
+- Keşif sayaçları ekranda görüneni sayıyor: başlangıçta 3 derişim (yalnız verisi olan üç) ve 1 çift; konformasyon kartında "1 / 2".
+- "8 M üre" başlık, düğme ve etiketlerde "8 M üre hedefi"; başlıkta gerçekleşen molarite gömülü veriden (9,15 ile 9,38 mol/L).
+- Peptit çevresi okumasında üre/su oranı dört tekrar için ayrı (0,2818 / 0,2728 / 0,2790 / 0,2705).
+- Üre çiziminde etiketler en boş yöne yerleşiyor; H11-H12 arası kesikli çizgi.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Üre sayısını dengelenmiş hacme göre yeniden ayarlamak (yaklaşık 194 üre): yeni simülasyon gerektirir.
+
+### MD-EQ 0.1.1 → 0.1.2
+
+- Gizli kutu hatasının asıl nedeni bulundu: modül stilinin ortasında kapanmamış ikinci bir `<style>` etiketi vardı; ondan sonraki ilk kural geçersiz sayılıyordu. Etiket kaldırıldı ve `[hidden]{display:none!important}` eklendi. Boş "Program çıktısı" kutusu ve S1'e özgü kare etiketleri artık yalnız gerektiğinde görünüyor. (Önceden düşen #m1box kuralı artık geçerli; kutu boyutu ölçüldü, değişmedi: 588 × 588.)
+- Ubikitin yeri: okuma etiketi "en çok itilen atomdaki kuvvet, önce → sonra" oldu; m1c5 kartı aynı atomu veriyor (Arg72 HG2: 93.697 → 125) ve yerdeki en büyük kuvvetin artık başka bir atomda olduğunu ayrıca yazıyor (294, CG).
+- m1c3 kartı: NPT basınç serisinin ortalaması negatifse, barostatın negatif basınca kutuyu küçülterek yanıt verdiği ve bunun yoğunluk artışıyla aynı şeyi söylediği eklendi (CH11 satır 158).
+- Dinamik ya da minimizasyon sürerken kurulum düğmeleri ve "Kutuyu yeniden kur" devre dışı (önce tıklama sessizce yok sayılıyordu).
+- Sınav seçeneklerine A, B, C, D harfleri.
+- Kullanılmayan nlist() kodu ve "Verlet komşu listesi ... 10 adımda bir" yorumu kaldırıldı; yerine neden kullanılmadığı yazıldı. Dinamikte kare başına iş 40 ms ile sınırlı, konum tamponu her adımda yeniden ayrılmıyor; kuvvet fonksiyonundaki kullanılmayan dizi ayırmaları silindi. Dinamik aynı sonucu veriyor (10 ps sonunda 298 K, en yüksek 365 K).
+
+### MD-FAIL 0.1.0 → 0.1.1
+
+- L2 vakası (kritik): doğru cevap artık "kutu proteinin kendisinden küçük; mesajdaki kesme kuralı yalnız belirti". Çeldirici "rlist küçültülürse sorun çözülür" oldu. Açıklama kitap CH12 ile aynı: en uzak iki atom 4,45 nm, kesmeyi küçültmek mesajı susturur ama sorunu çözmez; düzeltmede kutu vektörü 6,45 nm, hacim 189,9 nm³.
+- "Mesajın ilk satırı" kartı "Mesajın söylediği, asıl neden" oldu; L1 (mesaj nedeni söyler) ile L2 (mesaj belirtiyi söyler) ayrımı yazıldı.
+- S2: tablodaki "İlk 10 ps sıcaklık" satırı yerine "0. kare hariç ortalama" ve "0. kare → 2 ps" satırları (gömülü seriden canlı hesap). fc5 kartı: termostat 2 ps'de 30,8 K'ye indi; 32,7 K ortalamanın nedeni 0. karenin 297,0 K olması (kitap CH12).
+- Atölye 2 S3 ile açılıyor; S2 keşfi okur S2'yi seçmeden kazanılmıyor (taze sayfada 0 / 8).
+- L5: "NaN olan koordinat: 28" yerine "Koordinatı NaN olan atom: 3 (taşınan suyun üç atomu)"; gömülü değer 3 yapıldı ve kaynaklar notuna 28'in ayrıştırma hatası olduğu yazıldı (kitap CH12).
+- S3 kartı: σ_T ≈ T·√(2/N) tahmini (N 3.061 → 7,7 K; N 38.473 → 2,2 K; kitap CH12).
+- L5: en çok yer değiştiren altı atom ve ortanca için logaritmik çubuk grafiği.
+- Western blot denetim düğmeleri aria-pressed alıyor ve sonucu ("sinyal var / yok") düğmede yazıyor; "Yeni vaka" sıfırlıyor.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- L5 için bütün atomların sıralı log-log eğrisi: gömülü veride yalnız ilk altı atom ve ortanca var; tam eğri yeni veri ister. Yerine altı atom + ortanca çizildi, tam eğri için kitap Şekil 12.1a anıldı.
+
+### MD-TRJ 0.1.0 → 0.2.0
+
+- Tezgâh zinciri 4 ve sınav 6: hatalı sıra ("önce hizala, sonra bütünle") ham dosyada bölünmüş 554 karenin hiçbirini birleştirmedi (kitap CH13, bağ uzunluğu denetimi); 15 Å eşiği bunların yalnız 444'ünü yakaladı, kalan 110 karede molekül bölünmüş ama eşiğin altında. 554 ve 444 gömülü seriden canlı sayılır.
+- Kutunun üç gösterimi: en küçük görüntü kuralıyla su sayımı tarayıcıda yapılıyor (27 periyodik kopya); okuma panelinde düz koordinatla 27 / 32 / 22, en küçük görüntüyle üçünde de 48. Haritada lacivert halka (düz koordinatla yakın) ve sarı nokta (yalnız en küçük görüntüyle yakın). "Hesaplanmadı" cümlesi kaldırıldı; sınırlar bölümü güncellendi.
+- Mikroskopi köprüsü kartı veriye bağlandı: kaymanın net yer değiştirmeyi bu izde büyüttüğü ya da küçülttüğü sayıyla yazılıyor; "sıra da önemli" yerine "yalnız kayma düzeltmesi açıkken N sıçrama kalıyor" (ölçülen). Kart başlığı "Hızı ve yolu bozan iki şey".
+- Yeni ölçüt "en uzun bağ" (A0 ile A4, 3B karelerinden tarayıcıda; 3 Å eşik çizgisi). Grafikte uzanım için 15 Å, bağ için 3 Å eşik çizgisi.
+- "En büyük uzanım" notuna dönmeye duyarlılık cümlesi (hizalanmış 8,0 / öbürleri 9,1 Å); ubikitin okumasında etiket "En büyük uzanım (dönmeye duyarlı)".
+- Ubikitin RMSD grafiği: "çekirdekle hizala, bütün Cα ölç" lacivert, hizalamasız eğri kesikli, kuyruk eğrisi noktalı; gösterge çizgileri de kesikli.
+- 3B tuvaller odaklanabilir, ok tuşlarıyla döndürülür.
+- Kart tc3'teki geliştirme notu genel bir görüntüleme cümlesiyle değiştirildi; renk açıklaması okuma panelinden metne alındı.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- "Hatalı sırayı 3B'de gösterin" (A5 koordinatları): A5 koordinatları sayfada gömülü değil; ham koşu dosyaları (xtc) bu ortamda yok, eklemek yeni veri üretimi ister. Bağ ölçütü A0 ile A4 için eklendi; A5'teki bağ sayımı kitaptan (CH13) kaynağıyla anılıyor.
+
+### MD-MET 0.1.1 → 0.2.0
+
+- "Kristale göre aynı RMSD, birbirine en uzak çift" artık çözümleme penceresinden (200 ile 2000 ps) seçiliyor: 290 ve 1590 ps (1,99 ve 2,07 Å, birbirine 1,37 Å), kitap CH14 ile aynı. Kart, bütün koşudaki plan istatistiğini de veriyor (150 ve 1980 ps, 1,55 Å; 150 ps atılan başlangıçta).
+- Sayımlar gösteriliyor: 3.605 çift (pencerede 3.395; pencerede 1 Å'dan uzak 314); çift RMSD'si ortalamayı aşan yalnız 1 çift (10 ve 40 ps, atılan başlangıçta). Dejenerelik "olasıdır ama her çiftte görülmez" diye anlatılıyor; başlık "Aynı RMSD, aynı yapı mı?".
+- RMSD grafiğine atılan 200 ps bandı, matrise 200 ps kesikli sınırı; okuma panelinde ilk 20 kare ile geri kalan arası 1,57 Å, geri kalanlar arası 0,93 Å.
+- Matris: y ekseni sayıları, eksen başlığı tik etiketlerinden ayrıldı; iki kare sayı girişiyle (ps) klavyeden seçilebiliyor.
+- Rg göstergesi "ortalama 11,79 Å (kareler arası SD 0,06)"; mc3 kartında koşular arası fark (11,69 ile 11,85 Å; 0,15 Å) SD ile karşılaştırılıyor.
+- İkincil yapı: kitap CH14.6 sonuçları (DSSP, %93,4 / %95,3 / %94,2; 38 ile 40 sarmal payı %28 / %78 / %70; kuyruk 5 Å giderken atama değişmez) Atölye 2 altında kaynağıyla; sınırlar bölümü düzeltildi.
+- ALA2 okuma paneline taban doğruluk (%67,4) ve "eşik aynı karelerde seçildi, ayrı veride sınanmadı" uyarısı.
+- "bu bulutta" ifadesi açık bir cümleyle değiştirildi.
+- Sınav 1 ve tezgâh 5 metinleri pencere çiftine ve "neredeyse aynı RMSD"ye göre güncellendi.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- İkincil yapı atölyesi (DSSP haritası): gömülü veri yalnız Cα koordinatı içeriyor; DSSP omurga N, C, O ister. Kitaptaki değerler kaynağıyla anıldı.
+- ALA2 eşiğini koşu 2 ya da 3'te sınama: bu koşuların RMSD/durum verisi sayfada yok.
+
+### MD-INT 0.1.1 → 0.2.0
+
+- Sınav 2: B seçeneği gerçekten yanlış bir yoruma çevrildi ("ortalama %64 olduğuna göre köprü korunan bir etkileşimdir; bu tek sayı yeter"); açıklama ortalamanın doğru ama yayılımı (%91 / %85 / %15) gizlediğini söylüyor.
+- H-bağı ömrü (kitap CH15'e uygun): artışın iki kaynağı ayrıldı. Aynı 1 ps eğrisi 5 ps ızgarasında yamuk integraliyle 2,68 ps verir (ızgara etkisi); 2,68 → 3,74 ps kaçırılan kopmalardan; aralıklı ömürdeki artış (3,54 → 4,58) tümüyle ızgaradan (aynı ızgarada 4,60). Atölye metni, ic6 kartı ve sınav 4 (doğru seçenek ve açıklama) güncellendi.
+- Ömür grafiği: 2 ve 5 ps okumada 1 ps eğrisi soluk, seçili ızgarada örneklenmiş hâli kesikli çiziliyor; okuma panelinde "aynı ızgarada 1 ps eğrisiyle ömür" satırları.
+- NOE köprüsü: ⟨r⁻⁶⟩ ortalamasının iç hareket dönmeden yavaşken geçerli olduğu, hızlı iç harekette ⟨r⁻³⟩² kullanıldığı (kitap CH15) metinde; karşılaştırma için ⟨r⁻³⟩^(−1/3) etkin uzaklığı okuma panelinde; sınırlar metni güncellendi.
+- Q grafiğinin alt sınırı veriden (0,05 adım); kırpma kaldırıldı.
+- Tuz köprüsü: seçili çift için üç koşuda oluşma sıklığı eşiğe karşı (2,5 ile 8,0 Å) grafiği, seçili eşik kesikli çizgi.
+
+Bağımsız doğrulamadan sonra:
+
+- Sınav 2 açıklaması: "Üç koşu aynı hazırlıktan" yerine "R2 ve R3 aynı hazırlıktan, yalnız başlangıç hızlarıyla ayrılıyor; R1'in iki dengeleme adımı ise başka bir makinede yapılmıştı" (kitap CH14).
+
+### MD-PCA 0.1.1 → 0.2.0
+
+- Sınav 5 açıklaması ve pc6 kartı: zıt korelasyon ötelemeye bağlandı (ağırlık merkezi ve en küçük kareler kuyruğu izler; molekül ters yöne ötelenir, biraz döner); kitap CH16'daki yeniden merkezleme sınaması (−0,16 / −0,21 / −0,06) kaynağıyla anıldı.
+- PC1 animasyonu: "Duraklat/Oynat" düğmesi ve izdüşüm kaydırıcısı (koşunun izdüşüm aralığı); duraklatınca yapı seçilen değerde durur. Hareket azaltma tercihinde animasyon durmuş başlar, kullanıcı başlatabilir.
+- FRET köprüsü: bant kaydırıcısı tek eşik modunda devre dışı; alt sınır 0,05; kart görünmeyen 0,30 bantla sayım yazmıyor.
+- Okuma paneline "Halka 7 ile 11'in PC1'deki payı" (gömülü genlikten; koşu 3'te %17,7, kitapla aynı).
+- Varyans payı grafiği: koşu göstergesi (sütun ve noktalar), y ekseni başlığı tiklerden ayrıldı. Genlik grafiği: yuvarlak tikler, "halka" ve "kuyruk" etiketleri çubukların üstünde, dar ekranda seyrek x tikleri.
+- DCCM haritası ve 3B görünüm odaklanabilir; ok tuşlarıyla hücre seçimi, seçili değer canlı bölgede okunur.
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- DCCM'ye "yalnız yeniden merkezleme" haritası: bu harita kare başına koordinat ister, sayfada gömülü değil (yeni analiz verisi gerekir). Kitaptaki sonuç kart ve sınavda kaynağıyla verildi.
+
+### MD-U 0.2.1 → 0.3.0
+
+- Atölye 1 kitaba (CH17 v7) uyarlandı: başlık "İki düzeyli RMSD, gezen açılar"; metin RMSD'nin minimize başlangıç yapısından (β/PPII, φ = −88°, ψ = 129°) uzaklık olduğunu söylüyor. Yeni okuma satırı pencerede duruma göre RMSD ortancası (αR / β / αL), yeni grafik pencerede duruma göre renkli RMSD dağılımı. Kart u1c1 artık "RMSD iki düzeylidir, αR'ye geçişi görür ama αR ile αL'yi ayırmaz; küçük kalması örneklemeyi söylemez" diyor ve αL görülmeyen pencerede koşu 1'deki 2,9 ile 3,2 ns ziyaretine yönlendiriyor.
+- Sınav 2: doğru seçenek ve açıklama kitapla aynı (ortanca αR 0,112, β/PPII 0,041, αL 0,113 nm; durum 126 ile 206 kez değişti). Sınav 4: "üç koşuda".
+- Köprü: %95 çubuğu t(N − 1) ile (N = 5'te 2,776); "Her kare bağımsız / √g ile düzeltilmiş" anahtarı (bu OU modelinde g = (1 + ρ)/(1 − ρ), ρ = e^(−Δt/30 s)); sabit tohumlu 1.000 deneylik "uzun dönemde yakalama" satırı; not üç bölgeye ayrıldı (Δt < τ, Δt = τ, Δt > τ), "dürüst" ve "bilgi kare aralığına bağlı değil" iddiaları kaldırıldı. Mobilde taşan grafik başlığı kısaltıldı.
+- Tezgâh: not plato bayrağına bağlı (plato yoksa "g ve hata bir alt sınırdır"); kart u1c2 en büyük blok boyunda (512 kare) açılıyor ve plato durumunu yazıyor; blok grafiği log-log ve g_B = B başvuru çizgisiyle (Şekil 17.2b dili).
+- Defter: hiçbir koşuda görülmeyen durumda sıfır genişlikli aralık yerine "kurulamaz: bütün paylar 0" ve açıklama, "Deftere yaz" devre dışı; aralık 1'i aşınca not; ölçek dışı deneme üçgen ve gerçek ± değeriyle gösteriliyor.
+- Sayı ve yazım: 46 ile 114 ps, 126 ile 206, 0,179 ile 0,329, "1 ile 72 arasındaki kalıntılar", ψ sınırlarında derece işareti, 3B etikette U+2212 eksi, pencere etiketi "X ile Y ns".
+- Yatay taşma: `.read dd` artık kaydırmıyor, okuma ızgarası `minmax(10em,1fr) auto`.
+
+### MD-ERR 0.1.0 → 0.1.1
+
+- LIE model aralıkları: su koşusunun iki tekrarda ortak olduğu metne ve kart ec4'e eklendi (koşu içi aralık su payını yarıya indirir, tekrarlar arası aralık su hatasını hiç görmez). Okumada "Koşu içi, ortak su payıyla" satırı: L4 ve L5 için kitaptaki değerler (SE 0,144 ve 0,148; CH18, plan dışı), öteki modeller için "Bu senaryo hesaplanmadı".
+- Holm: dörde dörtte en küçük p 2/70 = 0,029, ilk eşik 0,05/8 = 0,00625; "sıfır tasarımdan gelir" ızgara notunda, okuma satırında, kart ec5'te, iddia 6 geri bildiriminde ve sınav açıklamasında (CH18 satır 157, Çözüm 6).
+- Köprü kartı ec0 ρ'ya bağlandı (ρ > 0: ortak değişkenlik farktan düşülmez; ρ = 0: fark yok, kapsamanın %95'in üstünde olması 2n − 2 serbestlik sadeleştirmesinden); kaynak notuna Welch-Satterthwaite cümlesi.
+- ChEMBL notu (CH09): ChEMBL 34, bu çift için sekiz Ki kaydı, altısı beş yayından 18,4 ile 39 µM, iki 31 nM kaydı planda kullanılmadı ve gerekçe yazılmadı; türetilmiş ΔG aralığının CC BY-SA 3.0 koşulu.
+- Atölye 1 metni: blok SE 8 serbestlikli, çubuk normal yaklaşımla 1,96 (t(8) = 2,306 ile %18 daha geniş olurdu); iki eşit %95 aralığın çakışmaması kabaca p ≈ 0,006.
+- Kart ec4 cümlesi: "hiçbir modelde iki aralıktan hiçbiri onunla örtüşmüyor".
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Öneri "LIE bölümüne ortak su payıyla anahtarı": tam olarak uygulanmadı. Gömülü bileşenlerde kovaryans terimi kompleks ve su diye ayrılmıyor; gömülü veriden hesap L4'te 0,151, L5'te 0,152 veriyor, kitaptaki 0,144 ve 0,148 ile tutmuyor. Bu yüzden yalnız kitabın verdiği L4 ve L5 için satır eklendi, öteki modeller "hesaplanmadı".
+- Öneri "blok çubuklarını t(8) ile çizmek": çizim değiştirilmedi, çünkü ec1 kartındaki çakışma sayıları (22/28, 0/28) gömülü veride 1,96 ile önceden hesaplı; çubuğu değiştirmek kartla çelişirdi. Reviewer'ın ikinci seçeneği (notta normal yaklaşım ve p ≈ 0,006) uygulandı.
+
+Bağımsız doğrulamadan sonra:
+
+- Sınavda doğru seçenek yerleri dağıtıldı: C A B A C B C A B (A 3, B 3, C 3; hepsi B idi).
+
+### MD-FES 0.2.0 → 0.3.0
+
+- Köprü: "koşu başına ortalama giriş" artık ikiye bölünmüyor (M.nev/2 hatası) ve beklenen değerin yanında; 1000 koşudan sonra "olay sayısı kuralı" satırı (göreli belirsizlik kabaca 1/√n, ΔG'de kT/√n; CH19).
+- φ > 0 bölgesi her yerde "αL ve C7ax" (CH19 Çözüm 7): başlık sahnesi ve ipucu, atölye 2 metni, AWH grafiği etiketi, atölye 1 sorusu, iddia 3.
+- Girişler φ ≈ 0 tarafı ve ±180° sınırı diye ayrıldı (kısa açısal yol kuralı, CH19): şerit kutusu "3 giriş; φ ≈ 0 tarafından 1, ±180° sınırından 2", kart vc2 "2 tanesi αL ziyareti değil", AWH kutusu ve kart vc3 "274 ve 282 (110 ve 108'i φ ≈ 0 tarafından)", izleme satırında 4 ile 12 ns için "ayrıştırılmadı".
+- İkinci engel etiketi "φ ≈ 130° (120 ile 180° ve −180 ile −120° aralığı)".
+- Şerit kutusundaki ΔG₊ ve φ > 0 kare sayısı ölçüt penceresinden (200 ile 2000 ps): sonda 10,4 kJ/mol, tabloyla aynı. AWH kutusu 4 ns'de kayıtlı sayımı gösteriyor (A2 282 giriş, 2.057 kare). İddia 3 "%3,6'sını".
+- İddia 2 geri bildirimi ve sınav 8 açıklamasına 12 ns hükmü ("uyumlu", 8,81 ve 8,19 kJ/mol; 4 ns hükmü kayıtta kalır). ΔG₊ okumalarına kcal/mol.
+- İngilizce: tek başına "undefined" yerine "no estimate" ve tablo hücresinde "n/a". Bin ayracı (1.801, 14.408, 2.057).
+- Başlık sahnesi iki turdan sonra duruyor; Duraklat/Oynat düğmesi (reduced-motion'da başlamaz).
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Öneri "(φ, ψ) haritası": uygulanmadı. Sayfa yalnız φ dizilerini gömüyor; ψ verisi bu modülde yok, haritayı kurmak MD-REP'ten yeni veri gömmeyi gerektirir.
+- A2'nin φ ≈ 0 tarafı sayısı: gömülü 0,01° duyarlıklı açı dizisinden 109 çıkıyor, kitap (gmx rama) 108 diyor; sayfa 4 ns'de kitaptaki kayıtlı sayıyı gösterir, ara zamanlarda gömülü diziden canlı sayar.
+
+Bağımsız doğrulamadan sonra:
+
+- Yöntem seçicinin geri bildirim kutusu (`#vmfb`) `hidden` iken artık görünmüyor.
+- EN iddia 3: "about 3.6% of the time" (TR'de "%3,6'sını" aynen kaldı).
+- "Örtük çözücü" kartı φ > 0 bölgesi (αL ve C7ax) diliyle yazıldı (TR ve EN), kitap CH19 ile uyumlu.
+- EN düzyazıda "undefined" sözcüğü kaldırıldı ("not defined", "undetermined").
+- Sınavda doğru seçenek yerleri dağıtıldı: C A B C A C B A (A 3, B 2, C 3).
+
+### MD-REPRO 0.1.0 → 0.2.0
+
+- Atölye 1, tuz ve αR vakası, "kurulabilir" seçenek: "±5 puanlık bir farkı %80 güçle görmek için grup başına yaklaşık 69, eşdeğerliği göstermek için yaklaşık 75 tekrar gerekirdi" (CH06 v5).
+- Kart xc2: "fark son basamakta başlar" genellemesi kaldırıldı; R1 ile W2'de son basamaklarda, iş parçacığı sayısı değişince adım 0'da potansiyel enerji birler basamağında ayrılıyor (W2 −60.803,72, R3 −60.804,65 kJ/mol; gömülü ODO); toplama sırası ile paralel bölüşüm bu deneyde ayrılmıyor.
+- Sınav 4: doğru seçenek "Paralelleşme toplama sırasını ve hesabın bölüşümünü değiştirir; adım 0'daki küçük fark kaotik dinamikte büyür"; açıklamaya adım 0 farkı (0,93 kJ/mol). Alt başlık "Toplama sırası sonucu değiştirir".
+- İddia 5: gerekçe yeniden yazıldı; tek iş parçacıklı -reprod koşusu yok, R4 ile W2 iki değişkeni birden değiştiriyor; hüküm ("kurulamaz") GROMACS kılavuzunun aynı komut satırı koşuluna dayanıyor.
+- Kayan nokta laboratuvarı: "Sırayı sabitle" anahtarı; açıkken karıştırma toplamı değiştirmez, 1000 sıralık dağılım tek sonuca iner, not -reprod benzetmesini ve iş parçacığı sayısı değişince sonucun yine değişebileceğini söyler.
+- Başlık sahnesi iki turdan sonra duruyor; Duraklat/Oynat düğmesi.
+- LIE vakası: "ChEMBL 34'teki altı µM Ki kaydı; sekiz kaydın 31 nM olan ikisi planda kullanılmadı (CH09)".
+
+Uygulanmayan ya da kısmen uygulanan:
+
+- Öneri "basamak sayacında beş terimin hepsi": uygulanmadı. Sayfa gmx energy çıktısından yalnız zaman, potansiyel enerji ve basıncı gömüyor (VDD.ODO); kinetik enerji, sıcaklık ve hacim için edr dosyalarından yeniden çıkarım gerekir, bu ortamda o dosyalar yok.
+
+Bağımsız doğrulamadan sonra:
+
+- Sınavda doğru seçenek yerleri dağıtıldı: A C B C A B A C (hepsi B idi).
+
 ## 0.43.1 (22 Ekim 2026) · Kitap adı ve modül alt bilgisi
 
 - Kitabın adı belgelerde güncellendi: yazarın 22 Ekim 2026 kararıyla "Biyomoleküler Sistemlerde Moleküler Dinamik Simülasyon" (önceki ad "Biyomoleküllerin Moleküler Dinamik Simülasyonu"). Değişen dosyalar: `README.md`, `README.tr.md`, `LICENSING.md`. Site sayfaları kitabın adını taşımıyordu; bölüm adları (`book.json`) kitaptaki adlarla birebir aynı olduğu denetlendi.
