@@ -135,6 +135,7 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
 #mbridge{aspect-ratio:16/4.4;max-width:900px}
 #mser,#mrg,#mrmsf{aspect-ratio:16/6.5}
 #mmat{aspect-ratio:1/1;max-width:440px;cursor:crosshair}
+input[type=number]{font:inherit;font-size:13.5px;width:6.5em;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
 #mpair{aspect-ratio:1/1;background:var(--stage);cursor:grab}
 #mhist,#mscat{aspect-ratio:4/3}
 #mrgsc{aspect-ratio:4/3}
@@ -170,13 +171,13 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
 
   <section class="card" aria-labelledby="mh1">
     <span class="step">1 · Atölye: RMSD neyi söyler?</span>
-    <h2 id="mh1">Aynı RMSD, farklı yapılar</h2>
+    <h2 id="mh1">Aynı RMSD, aynı yapı mı?</h2>
     <div class="prose"><p>Ubikitin RMSF2NS koşusunun 201 karesi (0 ile 2000 ps, 10 ps aralık) çekirdek Cα'larıyla (kalıntı 1 ile 70) 1UBQ kristal yapısına hizalandı. Üstteki grafik her karenin kristale göre RMSD'sidir: bütün Cα ile ve yalnız çekirdekle. Alttaki matris her kare çiftinin birbirine göre RMSD'sidir; koyu renk birbirine yakın, açık renk uzak demektir. Matristen bir hücreye tıklayın: o iki kare 3B'de üst üste çizilir. Kristale göre RMSD'leri neredeyse aynı olan iki kare birbirine ne kadar benzer?</p></div>
     <div class="selrow"><span>Eğri:</span><div class="seg" role="group" aria-label="RMSD eğrisi" id="mws"><button type="button" data-v="A" aria-pressed="true">bütün Cα</button><button type="button" data-v="B" aria-pressed="false">çekirdek</button><button type="button" data-v="AB" aria-pressed="false">ikisi birlikte</button></div></div>
     <div class="stagebox"><canvas id="mser" class="plot" aria-label="Kristale göre Cα RMSD, zamanla"></canvas></div>
     <div class="legend" id="msleg"></div>
     <div class="two eq"><div class="stagebox"><canvas id="mmat" class="plot" aria-label="Kare çifti RMSD matrisi; tıklayarak çift seçin"></canvas></div><div class="stagebox"><canvas id="mpair" aria-label="Seçilen iki karenin Cα zinciri üst üste; gri kristal yapı"></canvas></div></div>
-    <div class="selrow"><button type="button" class="btn" id="mbest">Kristale göre aynı RMSD, birbirine en uzak çifti göster</button></div>
+    <div class="selrow"><button type="button" class="btn" id="mbest">Kristale göre aynı RMSD, birbirine en uzak çifti göster (çözümleme penceresinde)</button><label class="chk" for="mpi">Kare 1 (ps) <input type="number" id="mpi" min="0" max="2000" step="10" value="0"></label><label class="chk" for="mpj">Kare 2 (ps) <input type="number" id="mpj" min="0" max="2000" step="10" value="1000"></label></div>
     <dl class="read" id="mpread"></dl>
     <div class="minis">
       <article class="q" id="mc1"><span class="k">Açık</span><h3>Referansa uzaklık, birbirine uzaklık değildir</h3><p>Kristale göre RMSD'leri yakın olan bir çifti inceleyin.</p><div class="mine" id="mmc1"></div></article>
@@ -196,6 +197,7 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <div class="stagebox"><canvas id="mrmsf" class="plot" aria-label="Kalıntı başına Cα RMSF"></canvas></div>
     <div class="legend" id="mfleg"></div>
     <p class="small" id="mfnote"></p>
+    <p class="small" id="mdssp"><b>İkincil yapı (kitap CH14.6, gmx dssp; bu sayfada gösterilmez).</b> Aynı üç koşunun 200 ile 2000 ps penceresinde DSSP ataması üç sınıfa (sarmal, iplik, öbürleri) indirilince kristalinkiyle kalıntı ve kare çiftlerinin %93,4, %95,3 ve %94,2'sinde aynıydı; değişkenlik kısa 3₁₀ parçalarındaydı (38 ile 40 arasında sarmal payı koşu 1'de %28, koşu 2'de %78, koşu 3'te %70). Kuyruk kristaldeki konumundan 5 Å'dan fazla uzaklaşırken atama değişmez: bu ölçüt de kuyruğun nerede durduğunu görmez. Gömülü veri yalnız Cα koordinatlarını içerdiği için atama burada yeniden hesaplanamaz.</p>
     <div class="minis">
       <article class="q" id="mc3"><span class="k">Açık</span><h3>Rg neyi görmez?</h3><p>Rg grafiğine ve Rg ile kuyruk saçılımına bakın.</p><div class="mine" id="mmc3"></div></article>
       <article class="q" id="mc4"><span class="k">Açık</span><h3>RMSF bir tanımdır</h3><p>Pencere, hizalama ve referans karşılaştırmalarını açın.</p><div class="mine" id="mmc4"></div></article>
@@ -370,23 +372,28 @@ var W1={s:'A', i:0, j:1, V:{yaw:0.5,pitch:0.3}, seen:{}, pairSeen:false};
 function w1Load(){ var D=MDD.w1, n=D.n; W1.n=n; W1.A=i16(D.A,10000); W1.B=i16(D.B,10000); W1.X=i16(D.xyz,100); W1.XR=i16(D.xtal,100);
   var u=i16(D.M,10000), M=new Float32Array(n*n), k=0; for(var i=0;i<n;i++) for(var j=i+1;j<n;j++){ M[i*n+j]=M[j*n+i]=u[k++]; } W1.M=M; W1.mmax=arrMax(u);
   /* kristale göre RMSD'leri 0,1 Å'dan az farklı çiftler; birbirine en uzak olanı */
-  var np=0, best=-1, bi=0, bj=1, big=0; for(i=0;i<n;i++) for(j=i+1;j<n;j++){ if(Math.abs(W1.A[i]-W1.A[j])<0.1){ np++; var m=M[i*n+j]; if(m>best){ best=m; bi=i; bj=j; } if(m>(W1.A[i]+W1.A[j])/2) big++; } }
-  W1.np=np; W1.best=[bi,bj]; W1.bestM=best; W1.big=big; W1.i=bi; W1.j=bj;
+  /* w0: çözümleme penceresinin ilk karesi (200 ps); plandaki sayım bütün koşu içindir, gösterilen çift pencere içinden seçilir */
+  var w0=Math.round(MDD.w2&&MDD.w2.w0!=null?MDD.w2.w0*2/10:20); W1.w0=w0;
+  var np=0, npw=0, nw1=0, best=-1, bi=0, bj=1, ba=-1, ai=0, aj=1, big=0, bigP=[]; for(i=0;i<n;i++) for(j=i+1;j<n;j++){ if(Math.abs(W1.A[i]-W1.A[j])<0.1){ np++; var m=M[i*n+j]; if(m>ba){ ba=m; ai=i; aj=j; } if(m>(W1.A[i]+W1.A[j])/2){ big++; bigP.push([i,j]); } if(i>=w0){ npw++; if(m>1) nw1++; if(m>best){ best=m; bi=i; bj=j; } } } }
+  W1.np=np; W1.npw=npw; W1.nw1=nw1; W1.best=[bi,bj]; W1.bestM=best; W1.bestAll=[ai,aj]; W1.bestAllM=ba; W1.big=big; W1.bigP=bigP; W1.i=bi; W1.j=bj;
+  var se=0, ne=0, sr=0, nr=0; for(i=0;i<n;i++) for(j=i+1;j<n;j++){ if(i<w0&&j>=w0){ se+=M[i*n+j]; ne++; } else if(i>=w0){ sr+=M[i*n+j]; nr++; } } W1.early=se/ne; W1.rest=sr/nr;
   var lo=[1e9,1e9,1e9], hi=[-1e9,-1e9,-1e9]; for(i=0;i<W1.X.length;i+=3) for(var c=0;c<3;c++){ lo[c]=Math.min(lo[c],W1.X[i+c]); hi[c]=Math.max(hi[c],W1.X[i+c]); } W1.bb={lo:lo,hi:hi}; }
 function w1Ser(){ var c=$('mser'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var ks=W1.s==='AB'?['A','B']:[W1.s], ym=Math.ceil(arrMax(W1.A)), yt=[]; for(var v=0;v<=ym;v++) yt.push(v);
   var p=plot(g,50,12,W-64,H-56,[0,2000],[0,ym],{ylabPad:35,xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'kristale göre RMSD (Å)'});
   var col={A:PAL.accent,B:PAL.good};
+  g.fillStyle=hexA(PAL.muted,0.12); g.fillRect(p.X(0),12,p.X(W1.w0*10)-p.X(0),H-56);
   ks.forEach(function(k){ var a=W1[k]; g.strokeStyle=col[k]; g.lineWidth=1.8; g.beginPath(); for(var i=0;i<a.length;i++){ var x=p.X(i*10), y=p.Y(a[i]); if(i===0) g.moveTo(x,y); else g.lineTo(x,y); } g.stroke(); });
   [W1.i,W1.j].forEach(function(q,ii){ var x=p.X(q*10); g.strokeStyle=ii?PAL.accent:PAL.navy; g.setLineDash([3,3]); g.beginPath(); g.moveTo(x,12); g.lineTo(x,H-44); g.stroke(); g.setLineDash([]); });
-  $('msleg').innerHTML=ks.map(function(k){ return '<span>'+lin(col[k])+(k==='A'?'bütün Cα (76 kalıntı)':'çekirdek Cα (1 ile 70)')+': ortalama '+fx(arrMean(W1[k]),2)+' Å</span>'; }).join('')+'<span>kesikli çizgiler: seçili iki kare</span>';
+  $('msleg').innerHTML=ks.map(function(k){ return '<span>'+lin(col[k])+(k==='A'?'bütün Cα (76 kalıntı)':'çekirdek Cα (1 ile 70)')+': ortalama '+fx(arrMean(W1[k]),2)+' Å</span>'; }).join('')+'<span>kesikli çizgiler: seçili iki kare</span><span>gri bant: atılan ilk 200 ps</span>';
   W1.seen[W1.s]=true; w1Cards(); }
-function w1Mat(){ var c=$('mmat'), f=fit(c), g=f.g, W=f.W, H=f.H, n=W1.n, pad=34, S=Math.min(W,H)-pad-8, cs=S/n; g.clearRect(0,0,W,H); g.fillStyle=PAL.paper; g.fillRect(0,0,W,H);
+function w1Mat(){ var c=$('mmat'), f=fit(c), g=f.g, W=f.W, H=f.H, n=W1.n, pad=44, S=Math.min(W,H)-pad-8, cs=S/n; g.clearRect(0,0,W,H); g.fillStyle=PAL.paper; g.fillRect(0,0,W,H);
   var lo=rgbA(css('--deep')), hi=rgbA('#f3e9c6');
   for(var i=0;i<n;i++) for(var j=0;j<n;j++){ var t=Math.min(1,W1.M[i*n+j]/W1.mmax); g.fillStyle=rstr(mixA(lo,hi,t)); g.fillRect(pad+j*cs,4+i*cs,cs+0.6,cs+0.6); }
+  var wb=W1.w0*cs; g.strokeStyle='rgba(255,255,255,0.85)'; g.lineWidth=1.2; g.setLineDash([4,3]); g.beginPath(); g.moveTo(pad+wb,4); g.lineTo(pad+wb,4+S); g.moveTo(pad,4+wb); g.lineTo(pad+S,4+wb); g.stroke(); g.setLineDash([]);
   g.strokeStyle=PAL.bad; g.lineWidth=2; g.strokeRect(pad+W1.j*cs-3,4+W1.i*cs-3,cs+6,cs+6);
-  g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText('kare (×10 ps)',pad+S/2,4+S+24); g.save(); g.translate(12,4+S/2); g.rotate(-Math.PI/2); g.fillText('kare (×10 ps)',0,0); g.restore();
-  [0,100,200].forEach(function(v){ g.fillText(String(v),pad+v*cs,4+S+12); }); g.textAlign='left';
+  g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.textAlign='center'; g.fillText('kare (×10 ps)',pad+S/2,4+S+30); g.save(); g.translate(9,4+S/2); g.rotate(-Math.PI/2); g.fillText('kare (×10 ps)',0,0); g.restore();
+  [0,100,200].forEach(function(v){ g.fillText(String(v),pad+v*cs,4+S+14); }); g.textAlign='right'; [0,100,200].forEach(function(v){ g.fillText(String(v),pad-4,4+v*cs+4); }); g.textAlign='left';
   W1.mg={pad:pad,cs:cs,S:S}; }
 function w1Pair(){ var cv=$('mpair'), f=fit(cv), g=f.g, W=f.W, H=f.H; g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
   var P=proj(W1.V,W,H,W1.bb), na=76;
@@ -399,15 +406,19 @@ function w1Pair(){ var cv=$('mpair'), f=fit(cv), g=f.g, W=f.W, H=f.H; g.fillStyl
   chain(function(k){ var o=(W1.j*na+k)*3; return [X[o],X[o+1],X[o+2]]; },PAL.accent,2.4,0.95);
   pill(g,String(W1.i*10)+' ps ile '+String(W1.j*10)+' ps',W/2,18,css('--paper'),rstr(rgbA(css('--navy')),0.9));
   var m=W1.M[W1.i*W1.n+W1.j];
-  $('mpread').innerHTML=dl('Kare 1 (lacivert)',String(W1.i*10)+' ps; kristale göre '+fx(W1.A[W1.i],2)+' Å')+dl('Kare 2 (kızıl)',String(W1.j*10)+' ps; kristale göre '+fx(W1.A[W1.j],2)+' Å')+dl('İki karenin birbirine göre RMSD\'si',fx(m,2)+' Å')+dl('Kristale göre RMSD farkı 0,1 Å\'dan az olan çift',fmtI(W1.np)+' (20.100 çiftten)')+dl('Renkler','gri kristal yapı; kalın kısım kuyruk 71 ile 76; bütün kareler çekirdekle kristale hizalı');
+  $('mpread').innerHTML=dl('Kare 1 (lacivert)',String(W1.i*10)+' ps; kristale göre '+fx(W1.A[W1.i],2)+' Å')+dl('Kare 2 (kızıl)',String(W1.j*10)+' ps; kristale göre '+fx(W1.A[W1.j],2)+' Å')+dl('İki karenin birbirine göre RMSD\'si',fx(m,2)+' Å')+dl('Kristale göre RMSD farkı 0,1 Å\'dan az olan çift',fmtI(W1.np)+' (20.100 çiftten); ikisi de pencerede: '+fmtI(W1.npw))+dl('Bu çiftlerden çift RMSD\'si iki karenin kristale göre RMSD ortalamasını aşan',fmtI(W1.big))+dl('İlk 20 kare (0 ile 190 ps) ile geri kalanlar arası ortalama RMSD',fx(W1.early,2)+' Å; geri kalanlar kendi arasında '+fx(W1.rest,2)+' Å')+dl('Renkler','gri kristal yapı; kalın kısım kuyruk 71 ile 76; bütün kareler çekirdekle kristale hizalı');
+  if($('mpi')){ $('mpi').value=String(W1.i*10); $('mpj').value=String(W1.j*10); }
   if(Math.abs(W1.A[W1.i]-W1.A[W1.j])<0.1&&m>1){ W1.pairSeen=true; } w1Cards(); }
 function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }
-function w1Cards(){ if(W1.pairSeen) card('mc1',true,'Kristale göre RMSD\'leri 0,1 Å\'dan az farklı '+fmtI(W1.np)+' kare çifti var. Bunların birbirine en uzak olanı '+String(W1.best[0]*10)+' ve '+String(W1.best[1]*10)+' ps: kristale göre '+fx(W1.A[W1.best[0]],2)+' ve '+fx(W1.A[W1.best[1]],2)+' Å, birbirine göre '+fx(W1.bestM,2)+' Å. Aynı RMSD değeri, referanstan aynı uzaklıkta ama farklı yönlerde duran yapılara karşılık gelebilir. İki yapının benzerliği sorulduğunda kare çifti RMSD\'si gerekir.');
+function w1Cards(){ if(W1.pairSeen){ var bp=W1.bigP.map(function(q){ return String(q[0]*10)+' ve '+String(q[1]*10)+' ps'; }).join('; '), early=W1.bigP.every(function(q){ return q[1]<W1.w0; });
+    card('mc1',true,'Kristale göre RMSD\'leri 0,1 Å\'dan az farklı '+fmtI(W1.np)+' kare çifti var; '+fmtI(W1.npw)+' tanesinde iki kare de çözümleme penceresinde (200 ile 2000 ps). Pencere içinde birbirine en uzak olanı '+String(W1.best[0]*10)+' ve '+String(W1.best[1]*10)+' ps: kristale göre '+fx(W1.A[W1.best[0]],2)+' ve '+fx(W1.A[W1.best[1]],2)+' Å, birbirine göre '+fx(W1.bestM,2)+' Å; birbirine 1 Å\'dan uzak olan '+fmtI(W1.nw1)+' çift var. Bütün koşu içinde arayınca en uzak çift '+String(W1.bestAll[0]*10)+' ve '+String(W1.bestAll[1]*10)+' ps ('+fx(W1.bestAllM,2)+' Å) çıkar, ama '+String(W1.bestAll[0]*10)+' ps karesi atılan başlangıçtadır. Öbür yöne de bakın: '+fmtI(W1.np)+' çiftin yalnız '+fmtI(W1.big)+' tanesinde'+(W1.big?' ('+bp+(early?'; atılan başlangıçta':'')+')':'')+' çift RMSD\'si iki karenin kristale göre RMSD ortalamasını aşıyor; geri kalanında kareler birbirine kristale olduğundan yakın. Aynı RMSD değeri farklı yapılara karşılık gelebilir ama her çiftte bu ölçüde değil, ve hangisinin hangisi olduğu RMSD eğrisinden görülmez: iki yapının benzerliği sorulduğunda kare çifti RMSD\'si gerekir.'); }
   else card('mc1',false,'Matristen kristale göre RMSD\'leri birbirine yakın (0,1 Å\'dan az farklı) ve birbirine göre RMSD\'si 1 Å\'dan büyük bir çift seçin ya da düğmeyi kullanın.');
   if(W1.seen.AB) card('mc2',true,'Bütün Cα RMSD\'si ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek RMSD\'si '+fx(arrMean(W1.B),2)+' Å. 76 kalıntının yalnız 6\'sı (kuyruk 71 ile 76) dışarıda kalınca değer yarıdan fazla düşüyor: bütün Cα eğrisi çoğunlukla kuyruğun hareketini izliyor. Eğrinin bir anda yükselip sonra yatay seyretmesi, hangi atomların ölçüldüğünü bilmeden "yapı değişti" ya da "denge" diye okunamaz.'); }
 function w1(){ w1Load(); segWire('mws',function(v){ W1.s=v; w1Ser(); });
   $('mmat').addEventListener('click',function(e){ var r=this.getBoundingClientRect(), G=W1.mg, x=e.clientX-r.left-G.pad, y=e.clientY-r.top-4; if(x<0||y<0||x>G.S||y>G.S) return; var j=Math.floor(x/G.cs), i=Math.floor(y/G.cs); if(i===j) return; W1.i=Math.min(i,j); W1.j=Math.max(i,j); w1Mat(); w1Pair(); w1Ser(); });
   $('mbest').onclick=function(){ W1.i=W1.best[0]; W1.j=W1.best[1]; w1Mat(); w1Pair(); w1Ser(); };
+  function pairIn(){ var a=Math.max(0,Math.min(W1.n-1,Math.round((+$('mpi').value||0)/10))), b=Math.max(0,Math.min(W1.n-1,Math.round((+$('mpj').value||0)/10))); if(a===b){ w1Pair(); return; } W1.i=Math.min(a,b); W1.j=Math.max(a,b); w1Mat(); w1Pair(); w1Ser(); }
+  $('mpi').addEventListener('change',pairIn); $('mpj').addEventListener('change',pairIn);
   W1.i=0; W1.j=100; dragRot($('mpair'),W1.V,w1Pair); w1Ser(); w1Mat(); w1Pair(); CHARTS.push(w1Ser); CHARTS.push(w1Mat); CHARTS.push(w1Pair); }
 /* ===== atölye 2 ve proteine dönüş: Rg ve RMSF, üç koşu ===== */
 var W2={g:'all', f:'runs', seen:{}};
@@ -424,7 +435,7 @@ function w2Rg(){ var c=$('mrg'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,
   var p=plot(g,54,12,W-68,H-56,[0,2000],[lo,hi],{ylabPad:39,xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'Rg (Å)',yfmt:function(v){return fx(v,1);}});
   g.fillStyle=hexA(PAL.muted,0.12); g.fillRect(p.X(0),12,p.X(200)-p.X(0),H-56);
   RUNS.forEach(function(r){ var a=S[r]; g.strokeStyle=RCOL[r]; g.lineWidth=1.3; g.beginPath(); for(var i=0;i<a.length;i++){ var x=p.X(i*2), y=p.Y(a[i]); if(i===0) g.moveTo(x,y); else g.lineTo(x,y); } g.stroke(); });
-  $('mgleg').innerHTML=RUNS.map(function(r){ var a=win(S[r]); return '<span>'+lin(RCOL[r])+RNM[r]+': '+fx(arrMean(a),2)+' ± '+fx(arrSD(a),2)+' Å</span>'; }).join('')+'<span>gri bant: atılan ilk 200 ps</span>';
+  $('mgleg').innerHTML=RUNS.map(function(r){ var a=win(S[r]); return '<span>'+lin(RCOL[r])+RNM[r]+': ortalama '+fx(arrMean(a),2)+' Å (kareler arası SD '+fx(arrSD(a),2)+')</span>'; }).join('')+'<span>gri bant: atılan ilk 200 ps</span>';
   W2.seen['g'+W2.g]=true; w2Cards(); }
 function w2Sc(){ var c=$('mrgsc'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var xl=Infinity, xh=-Infinity, yl=Infinity, yh=-Infinity; RUNS.forEach(function(r){ var a=win(W2.tail[r]), b=win(W2.rg[r]); xl=Math.min(xl,arrMin(a)); xh=Math.max(xh,arrMax(a)); yl=Math.min(yl,arrMin(b)); yh=Math.max(yh,arrMax(b)); });
@@ -450,8 +461,8 @@ function w2Rmsf(){ var c=$('mrmsf'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(
   $('mfnote').textContent=NT[m];
   W2.seen['f'+m]=true; w2Cards(); }
 function w2Cards(){ var s=W2.seen; if(!W2.D) return;
-  if(s.gall&&s.sc){ var rs=RUNS.map(function(r){ return pear(win(W2.tail[r]),win(W2.rg[r])); }), mr=RUNS.map(function(r){ var b=win(W2.rg[r]); return arrMax(b)-arrMin(b); }), tr=RUNS.map(function(r){ var a=win(W2.tail[r]); return arrMax(a)-arrMin(a); });
-    card('mc3',true,'Pencere içinde Rg bir koşuda en çok '+fx(arrMax(mr),2)+' Å oynuyor; aynı sürede kuyruğun kristale göre RMSD\'si bir koşu içinde, koşulara göre, en az '+fx(arrMin(tr),1)+', en çok '+fx(arrMax(tr),1)+' Å değişiyor. Rg ile kuyruk RMSD\'si arasındaki r koşulara göre '+rs.map(function(v){return fx(v,2);}).join(', ')+': ilişki koşudan koşuya değişiyor. Rg atomların kütle merkezine uzaklıklarını tek bir karekök ortalamada özetler: bir kuyruğun yön değiştirmesi ya da çekirdek içinde yer değiştiren halkalar Rg\'de küçük ya da hiç iz bırakmayabilir. "Kompaktlık değişti mi?" sorusu için uygundur, "kuyruk nerede?" sorusu için değil.'); }
+  if(s.gall&&s.sc){ var gm=RUNS.map(function(r){ return arrMean(win(W2.rg[r])); }), gs=RUNS.map(function(r){ return arrSD(win(W2.rg[r])); }), rs=RUNS.map(function(r){ return pear(win(W2.tail[r]),win(W2.rg[r])); }), mr=RUNS.map(function(r){ var b=win(W2.rg[r]); return arrMax(b)-arrMin(b); }), tr=RUNS.map(function(r){ var a=win(W2.tail[r]); return arrMax(a)-arrMin(a); });
+    card('mc3',true,'Pencere içinde Rg bir koşuda en çok '+fx(arrMax(mr),2)+' Å oynuyor; aynı sürede kuyruğun kristale göre RMSD\'si bir koşu içinde, koşulara göre, en az '+fx(arrMin(tr),1)+', en çok '+fx(arrMax(tr),1)+' Å değişiyor. Rg ile kuyruk RMSD\'si arasındaki r koşulara göre '+rs.map(function(v){return fx(v,2);}).join(', ')+': ilişki koşudan koşuya değişiyor. Rg atomların kütle merkezine uzaklıklarını tek bir karekök ortalamada özetler: bir kuyruğun yön değiştirmesi ya da çekirdek içinde yer değiştiren halkalar Rg\'de küçük ya da hiç iz bırakmayabilir. "Kompaktlık değişti mi?" sorusu için uygundur, "kuyruk nerede?" sorusu için değil. Koşuları da karşılaştırın: Rg ortalamaları '+fx(arrMin(gm),2)+' ile '+fx(arrMax(gm),2)+' Å arasında; bu fark ('+fx(arrMax(gm)-arrMin(gm),2)+' Å), tek bir koşunun kareler arası SD\'sinden ('+fx(arrMin(gs),2)+' ile '+fx(arrMax(gs),2)+' Å) büyük. Tek koşudan "11,79 ± 0,06 Å" yazmak koşular arası farkı gizler.'); }
   if(s.fhalf&&s.ffit&&s.fref){ var d=0, dk=0; for(var k=0;k<76;k++){ var x=Math.abs(W2.h1[k]-W2.h2[k]); if(x>d){ d=x; dk=k+1; } }
     function cm(a){ return arrMean(sl(a,0,70)); } function tm(a){ return arrMean(sl(a,70,76)); }
     card('mc4',true,'Koşu 1\'de iki pencere yarısı arasında kalıntı başına RMSF farkı en çok '+fx(d,2)+' Å (kalıntı '+dk+'). Hizalama grubu çekirdekten bütün Cα\'ya geçince çekirdek ortalaması '+fx(cm(W2.rmsf.R1),2)+' → '+fx(cm(W2.fa),2)+', kuyruk '+fx(tm(W2.rmsf.R1),2)+' → '+fx(tm(W2.fa),2)+' Å. Kristale göre sapma çekirdekte ortalama '+fx(cm(W2.xd),2)+' Å, yani RMSF\'den ('+fx(cm(W2.rmsf.R1),2)+') büyük: o eğri salınımı değil uzaklığı da içerir. RMSF\'nin sayısı pencere, hizalama ve referans yazılmadan okunamaz.'); }
@@ -484,7 +495,7 @@ function w3Scat(){ var c=$('mscat'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(
   W3.seen.scat=true; }
 function w3Read(){ var a=w3Acc(W3.thr);
   $('mthrv').textContent=fx(W3.thr,2);
-  $('mhread').innerHTML=[0,1,2].map(function(s){ var v=W3.by[s], w=W3.byb[s]; return dl(SN[s]+' ('+fmtI(v.length)+' kare)','αR ref.: '+fx(quant(v,0.5),2)+' ('+fx(quant(v,0.25),2)+' ile '+fx(quant(v,0.75),2)+'); β ref.: '+fx(quant(w,0.5),2)+' ('+fx(quant(w,0.25),2)+' ile '+fx(quant(w,0.75),2)+') Å'); }).join('')+dl('Bu eşikle αR ile öbürlerini ayırma doğruluğu',pct(a,1))+dl('En iyi tek eşik',fx(W3.bt,2)+' Å, doğruluk '+pct(W3.ba,1))+dl('αL karelerinden β/PPII çeyrekler arası aralığına düşen',pct(W3.ov,1))+dl('Referans kareleri','αR: φ '+fx(MDD.w3.ref_aR_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_aR_ang[1],0)+'°; β: φ '+fx(MDD.w3.ref_b_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_b_ang[1],0)+'°');
+  $('mhread').innerHTML=[0,1,2].map(function(s){ var v=W3.by[s], w=W3.byb[s]; return dl(SN[s]+' ('+fmtI(v.length)+' kare)','αR ref.: '+fx(quant(v,0.5),2)+' ('+fx(quant(v,0.25),2)+' ile '+fx(quant(v,0.75),2)+'); β ref.: '+fx(quant(w,0.5),2)+' ('+fx(quant(w,0.25),2)+' ile '+fx(quant(w,0.75),2)+') Å'); }).join('')+dl('Bu eşikle αR ile öbürlerini ayırma doğruluğu',pct(a,1))+dl('En iyi tek eşik',fx(W3.bt,2)+' Å, doğruluk '+pct(W3.ba,1)+'; eşik bu karelerde tarandı ve aynı karelerde ölçüldü, ayrı bir veride sınanmadı')+dl('Taban doğruluk (her kareye "αR değil" demek)',pct(Math.max(W3.by[0].length,W3.n-W3.by[0].length)/W3.n,1))+dl('αL karelerinden β/PPII çeyrekler arası aralığına düşen',pct(W3.ov,1))+dl('Referans kareleri','αR: φ '+fx(MDD.w3.ref_aR_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_aR_ang[1],0)+'°; β: φ '+fx(MDD.w3.ref_b_ang[0],0)+'°, ψ '+fx(MDD.w3.ref_b_ang[1],0)+'°');
   W3.seen.thr=W3.seen.thr||W3.thr!==0.5; w3Cards(); }
 function w3Cards(){ if(W3.seen.thr&&W3.seen.scat) card('mc6',true,'αR referansına göre tek bir eşik ('+fx(W3.bt,2)+' Å) αR karelerini öbürlerinden '+pct(W3.ba,1)+' doğrulukla ayırıyor. Ama aynı RMSD β/PPII ile αL\'yi ayıramıyor: ortancalar '+fx(quant(W3.by[1],0.5),2)+' ve '+fx(quant(W3.by[2],0.5),2)+' Å, αL karelerinin '+nPoss(pct(W3.ov,1))+' β/PPII\'nin çeyrekler arası aralığında. İkinci bir referans eklenince αL kareleri düzlemde ayrı bir bölgede toplanıyor: β referansına göre ortanca αL için '+fx(quant(W3.byb[2],0.5),2)+' Å, β/PPII için '+fx(quant(W3.byb[1],0.5),2)+' Å. Soru "hangi durumda?" ise ölçüt φ/ψ ile yazılmış bir durum tanımıdır; tek referanslı RMSD iki farklı durumu aynı sayıya indirger.'); }
 function w3(){ w3Load(); SCOL=[PAL.accent,PAL.c3,PAL.gold];
@@ -499,7 +510,7 @@ var MQ=[
   {q:'Protein çözeltide genişliyor ya da kompaktlaşıyor mu?', o:['rg','rmsd1','tail'], a:'rg', w:function(){ return 'Kompaktlık sorusu için Rg uygundur; yönü olmayan bir boyut ölçüsüdür. Rg\'nin görmediği değişimler için ayrıca yerel ölçütler gerekir.'; }},
   {q:'Simülasyondaki çekirdek yapısı kristal yapıdan ne kadar uzaklaştı?', o:['rmsd1','rg','xcore'], a:'xcore', w:function(){ return 'Kristale göre ve yalnız çekirdekle ölçülen RMSD bu soruyu doğrudan cevaplar. Bütün Cα RMSD\'si kuyruk yüzünden ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek ise '+fx(arrMean(W1.B),2)+' Å (Atölye 1).'; }},
   {q:'Alanin dipeptidi zamanının ne kadarını αL durumunda geçiriyor?', o:['rmsd1','state','pair'], a:'state', w:function(){ return 'Durum sorusu, φ/ψ ile önceden yazılmış bir tanım ister. αR referansına göre RMSD, αL ile β/PPII\'yi ayıramadı: αL karelerinin '+nPoss(pct(W3.ov,1))+' β/PPII aralığında (Atölye 3).'; }},
-  {q:'İki farklı zamandaki yapı birbirine benziyor mu?', o:['pair','rmsd1','rg'], a:'pair', w:function(){ return 'Benzerlik iki yapı arasında ölçülür. Kristale göre aynı RMSD\'yi veren iki kare birbirine göre '+fx(W1.bestM,2)+' Å uzak çıktı (Atölye 1).'; }},
+  {q:'İki farklı zamandaki yapı birbirine benziyor mu?', o:['pair','rmsd1','rg'], a:'pair', w:function(){ return 'Benzerlik iki yapı arasında ölçülür. Kristale göre neredeyse aynı RMSD\'yi veren iki kare birbirine göre '+fx(W1.bestM,2)+' Å uzak çıktı (Atölye 1, pencere içinde en uzak çift). Çoğu çiftte bu uzaklık daha küçüktür, ama hangisinin hangisi olduğu RMSD eğrisinden görülmez.'; }},
   {q:'C-uç kuyruğu çekirdeğe göre ne kadar hareket ediyor?', o:['rg','tail','rmsd1'], a:'tail', w:function(){ return 'Kuyruğun çekirdeğe göre hareketi, çekirdekle hizalanmış koordinatlarda kuyruk atomlarıyla ölçülür (RMSD ya da RMSF). Bütün Cα RMSD\'si kuyruğu çekirdekle karıştırır; Rg yönü görmez.'; }}
 ];
 var MBQ={got:{}};
@@ -531,8 +542,8 @@ function form(){ ['mfq','mfm2','mfs','mfr','mfn','mfu'].forEach(function(id){ $(
   mfBuild(); }
 /* ===== sınav soruları ===== */
 function quizItems(){ var Q=[];
-  Q.push({s:'İki kare kristal yapıya göre aynı RMSD\'yi (2,1 Å) veriyor. Bu iki kare hakkında ne söylenebilir?',
-    o:[['İkisi de kristalden aynı uzaklıkta; birbirine ne kadar benzedikleri bu sayıdan çıkmaz',1],['İki kare aynı yapıdadır',0],['İkisi arasındaki RMSD de 2,1 Å\'dur',0]], w:'Bu sayfada kristale göre '+fx(W1.A[W1.best[0]],2)+' ve '+fx(W1.A[W1.best[1]],2)+' Å veren iki kare birbirine göre '+fx(W1.bestM,2)+' Å uzak çıktı. Benzerlik kare çifti RMSD\'siyle ölçülür.'});
+  Q.push({s:'İki kare kristal yapıya göre neredeyse aynı RMSD\'yi (yaklaşık 2 Å) veriyor. Bu iki kare hakkında ne söylenebilir?',
+    o:[['İkisi de kristalden aynı uzaklıkta; birbirine ne kadar benzedikleri bu sayıdan çıkmaz',1],['İki kare aynı yapıdadır',0],['İkisi arasındaki RMSD de yaklaşık 2 Å\'dur',0]], w:'Bu sayfada kristale göre '+fx(W1.A[W1.best[0]],2)+' ve '+fx(W1.A[W1.best[1]],2)+' Å veren iki kare birbirine göre '+fx(W1.bestM,2)+' Å uzak çıktı. Benzerlik kare çifti RMSD\'siyle ölçülür.'});
   Q.push({s:'Ubikitinde bütün Cα RMSD\'si ortalama '+fx(arrMean(W1.A),2)+' Å, çekirdek (1 ile 70) RMSD\'si '+fx(arrMean(W1.B),2)+' Å. Farkın en olası nedeni nedir?',
     o:[['Çekirdek bozuldu',0],['Hizalama başarısız oldu',0],['Esnek C-uç kuyruğu (71 ile 76) bütün Cα RMSD\'sini büyütüyor',1]], w:'Kuyruk 76 kalıntının yalnız 6\'sıdır ama çekirdeğe göre çok daha fazla yer değiştirir; RMSD karelerin ortalamasıyla hesaplandığı için büyük sapmalar değeri belirler.'});
   Q.push({s:'Bir koşuda Rg 2 ns boyunca neredeyse sabit kaldı. Hangi cümle bu veriyle kurulabilir?',
@@ -549,7 +560,7 @@ function notice(){ var m=MDD.meta;
   $('mnotice').innerHTML='<p><b>Veri.</b> Ubikitin: üç bağımsız 2 ns koşu, 1UBQ (RCSB PDB; Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531), AMBER99SB-ILDN, TIP3P, 5902 su, HIS68 HISE, V-rescale 300 K, C-rescale, 2 fs, GROMACS 2023.3. Koşu 1 MD-O RMSF2NS (prod.xtc '+m.r1_xtc.slice(0,12)+'…); koşu 2 ve 3 aynı hazırlık ve mdp dosyalarıyla, yalnız başlangıç hız tohumu değiştirilerek (26100402, 26100403) bu modül için yapıldı'+(m.r2_xtc?' (prod.xtc '+m.r2_xtc.slice(0,12)+'… ve '+m.r3_xtc.slice(0,12)+'…)':'')+'. Kristal referansı 1UBQ (dosya '+m.xtal.slice(0,12)+'…). Alanin dipeptidi: Computational Molecular Biology Group, Freie Universität Berlin, mdshare ALA2, CC BY 4.0; 1. koşunun susuz xtc dosyası ('+m.ala_xtc.slice(0,12)+'…) ve açılar ('+m.ala_npz.slice(0,12)+'…).</p>'+
   '<p><b>Analiz.</b> Koşu ve analiz planı koşulardan önce yazılıp donduruldu (SHA-256 '+m.protocol_sha.slice(0,12)+'…)'+(m.dev?'; '+m.dev:'')+'. Ubikitin koşuları -pbc mol ve -pbc nojump ile hazırlandı; çekirdek Cα 1 ile 70, kuyruk 71 ile 76; Rg ve RMSF için pencere 200 ile 2000 ps. Ölçütler MDAnalysis ile hesaplandı'+(m.audit_n?'; bağımsız denetim (gmx gyrate, gmx rmsf, gmx rms) '+m.audit_n+' karşılaştırmanın '+nLoc(m.audit_ok)+' en çok '+fx(m.audit_max,3)+' Å farkla aynı sonucu verdi':'')+'. Sayfadaki sayıların çoğu tarayıcınızda gömülü dizilerden yeniden hesaplanır.</p>'+
   '<p><b>Öğretim modeli.</b> Hücre şekilleri tarayıcıda açık bir modelle üretilir (r(θ) = 1 + Σ a<sub>k</sub> cos(kθ + φ<sub>k</sub>), k = 2 ile 6; alan 300 µm²\'ye ölçeklenir); gerçek ölçüm değildir.</p>'+
-  '<p><b>Sınırlar.</b> Üç koşu, her biri 2 ns; ubikitinin esnekliği, dengesi ya da yakınsaması hakkında bir sonuç çıkarılmaz (MD-U, MD-EQ). Koşu 1\'in ilk iki dengeleme adımı başka bir makinede yapıldı; koşu 2 ve 3\'ünkiler bu bulutta. SASA ve ikincil yapı gibi başka ölçütler: Bu senaryo hesaplanmadı.</p>'; }
+  '<p><b>Sınırlar.</b> Üç koşu, her biri 2 ns; ubikitinin esnekliği, dengesi ya da yakınsaması hakkında bir sonuç çıkarılmaz (MD-U, MD-EQ). Koşu 1\'in ilk iki dengeleme adımı başka bir bilgisayarda yapıldı; koşu 2 ve 3\'ünkiler ise bu modül için yapılan öbür adımlarla aynı bilgisayarda. İkincil yapı (DSSP) kitapta (CH14.6) aynı üç koşuda hesaplandı; gömülü veri yalnız Cα içerdiği için bu sayfada yeniden hesaplanmaz, sonuçları Atölye 2\'nin altında kaynağıyla verildi. Kalıntı SASA\'sı MD-INT\'tedir; bu modülde SASA: Bu senaryo hesaplanmadı.</p>'; }
 
 /* ---------- sınav ---------- */
 var QZ=[];
