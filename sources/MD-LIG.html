@@ -730,7 +730,8 @@ function notice2(){ var x=VDD.x2.meta, F={}; x.audit_fail.forEach(function(n){ v
 
 /* ---------- sınav ---------- */
 var QZ=[];
-function renderQuiz(){ var got={}, LET=['A','B','C','D']; QZ=quizItems();
+function qzSpread(T){ QZ.forEach(function(q,i){ var c=q.o.findIndex(function(x){return x[1]===1;}); var it=q.o.splice(c,1)[0]; q.o.splice(T[i],0,it); }); }
+function renderQuiz(){ var got={}, LET=['A','B','C','D']; QZ=quizItems(); qzSpread([2,0,1,0,2,1,0,2]);
   $('jquiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'"><span class="qb">'+LET[j]+'</span>'+o[0]+'</button>';}).join('')+'</div><p class="why" id="jwhy'+i+'" hidden></p></div>'; }).join('');
   document.querySelectorAll('#jquiz .opt').forEach(function(b){ b.addEventListener('click',function(){
     var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], okk=q.o[j][1]===1;
