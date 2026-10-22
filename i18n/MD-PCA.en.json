@@ -1,7 +1,7 @@
 {
  "module": "MD-PCA",
  "lang": "en",
- "source_sha256": "4928009af58cf4ecd886d2d60857d529a789d3b30e0e6886c4cd9d9b604fbcbd",
+ "source_sha256": "bccaef22405574191e39d13ac6ae009295ec84ed7268817592337b4f56a68eb6",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PCA 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -43,8 +43,8 @@
    "<div class=\"prose\"><p>In a single-molecule FRET experiment the two conformations of a molecule give different efficiency values, and the trace jumps between these two levels over time. The measurement is noisy. How do you count the transitions and the dwell time in each state? The trace below is a teaching model: a two-state process is generated in your browser and noise is added on top; the true number of transitions in the model is known. Compare counting with one threshold and with two thresholds (a band in between; points inside the band are assigned to the previous state).</p></div>"
   ],
   [
-   "<div class=\"selrow\"><span>Sayım:</span><div class=\"seg\" role=\"group\" aria-label=\"Sayım yöntemi\" id=\"pbm\"><button type=\"button\" data-v=\"one\" aria-pressed=\"true\">tek eşik</button><button type=\"button\" data-v=\"two\" aria-pressed=\"false\">iki eşik (bant)</button></div><label for=\"pbw\">Bant genişliği: <b id=\"pbwv\">0,20</b></label><input type=\"range\" id=\"pbw\" min=\"0\" max=\"40\" step=\"1\" value=\"20\"><label for=\"pbn\">Gürültü: <b id=\"pbnv\">0,10</b></label><input type=\"range\" id=\"pbn\" min=\"2\" max=\"18\" step=\"1\" value=\"10\"><button type=\"button\" class=\"btn\" id=\"pbnew\">Yeni iz</button></div>",
-   "<div class=\"selrow\"><span>Counting:</span><div class=\"seg\" role=\"group\" aria-label=\"Counting method\" id=\"pbm\"><button type=\"button\" data-v=\"one\" aria-pressed=\"true\">one threshold</button><button type=\"button\" data-v=\"two\" aria-pressed=\"false\">two thresholds (band)</button></div><label for=\"pbw\">Band width: <b id=\"pbwv\">0.20</b></label><input type=\"range\" id=\"pbw\" min=\"0\" max=\"40\" step=\"1\" value=\"20\"><label for=\"pbn\">Noise: <b id=\"pbnv\">0.10</b></label><input type=\"range\" id=\"pbn\" min=\"2\" max=\"18\" step=\"1\" value=\"10\"><button type=\"button\" class=\"btn\" id=\"pbnew\">New trace</button></div>"
+   "<div class=\"selrow\"><span>Sayım:</span><div class=\"seg\" role=\"group\" aria-label=\"Sayım yöntemi\" id=\"pbm\"><button type=\"button\" data-v=\"one\" aria-pressed=\"true\">tek eşik</button><button type=\"button\" data-v=\"two\" aria-pressed=\"false\">iki eşik (bant)</button></div><label for=\"pbw\">Bant genişliği: <b id=\"pbwv\">0,20</b></label><input type=\"range\" id=\"pbw\" min=\"5\" max=\"40\" step=\"1\" value=\"20\" disabled><label for=\"pbn\">Gürültü: <b id=\"pbnv\">0,10</b></label><input type=\"range\" id=\"pbn\" min=\"2\" max=\"18\" step=\"1\" value=\"10\"><button type=\"button\" class=\"btn\" id=\"pbnew\">Yeni iz</button></div>",
+   "<div class=\"selrow\"><span>Counting:</span><div class=\"seg\" role=\"group\" aria-label=\"Counting method\" id=\"pbm\"><button type=\"button\" data-v=\"one\" aria-pressed=\"true\">one threshold</button><button type=\"button\" data-v=\"two\" aria-pressed=\"false\">two thresholds (band)</button></div><label for=\"pbw\">Band width: <b id=\"pbwv\">0.20</b></label><input type=\"range\" id=\"pbw\" min=\"5\" max=\"40\" step=\"1\" value=\"20\" disabled><label for=\"pbn\">Noise: <b id=\"pbnv\">0.10</b></label><input type=\"range\" id=\"pbn\" min=\"2\" max=\"18\" step=\"1\" value=\"10\"><button type=\"button\" class=\"btn\" id=\"pbnew\">New trace</button></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"pbridge\" class=\"plot\" aria-label=\"Öğretim modeli: gürültülü iki durumlu FRET izi ve eşikler\"></canvas></div>",
@@ -111,16 +111,16 @@
    "<h2 id=\"ph2\">Ubiquitin: which motion is the first component?</h2>"
   ],
   [
-   "<div class=\"prose\"><p>MD-MET'in üç bağımsız ubikitin koşusunda (200 ile 2000 ps, koşu başına 901 kare) Cα koordinatları çekirdekle (kalıntı 1 ile 70) kristale hizalandı ve kovaryans matrisinin özvektörleri (temel bileşenler) hesaplandı. İki atom kümesi var: bütün 76 Cα ve yalnız çekirdek. 3B görünüm PC1 boyunca hareketi, koşudaki izdüşüm aralığında gidip gelerek gösterir.</p></div>",
-   "<div class=\"prose\"><p>In the three independent ubiquitin runs of MD-MET (200 to 2000 ps, 901 frames per run) the Cα coordinates were fitted to the crystal on the core (residues 1 to 70) and the eigenvectors of the covariance matrix (principal components) were computed. There are two atom sets: all 76 Cα and the core only. The 3D view shows motion along PC1, moving back and forth over the projection range of the run.</p></div>"
+   "<div class=\"prose\"><p>MD-MET'in üç bağımsız ubikitin koşusunda (200 ile 2000 ps, koşu başına 901 kare) Cα koordinatları çekirdekle (kalıntı 1 ile 70) kristale hizalandı ve kovaryans matrisinin özvektörleri (temel bileşenler) hesaplandı. İki atom kümesi var: bütün 76 Cα ve yalnız çekirdek. 3B görünüm PC1 boyunca hareketi, koşudaki izdüşüm aralığında gidip gelerek gösterir; duraklatıp kaydırıcıyla bir izdüşüm değerinde durabilirsiniz.</p></div>\n    <div class=\"selrow\"><button type=\"button\" class=\"btn\" id=\"pplay\">Duraklat</button><label for=\"pps\">İzdüşüm: <b id=\"ppsv\">0,0</b> Å</label><input type=\"range\" id=\"pps\" min=\"0\" max=\"1000\" step=\"1\" value=\"500\"></div>",
+   "<div class=\"prose\"><p>In the three independent ubiquitin runs of MD-MET (200 to 2000 ps, 901 frames per run) the Cα coordinates were fitted to the crystal on the core (residues 1 to 70) and the eigenvectors of the covariance matrix (principal components) were computed. There are two atom sets: all 76 Cα and the core only. The 3D view shows motion along PC1, moving back and forth over the projection range of the run; you can pause it and stop at a projection value with the slider.</p></div>\n    <div class=\"selrow\"><button type=\"button\" class=\"btn\" id=\"pplay\">Pause</button><label for=\"pps\">Projection: <b id=\"ppsv\">0.0</b> Å</label><input type=\"range\" id=\"pps\" min=\"0\" max=\"1000\" step=\"1\" value=\"500\"></div>"
   ],
   [
    "<div class=\"selrow\"><span>Koşu:</span><div class=\"seg\" role=\"group\" aria-label=\"Koşu\" id=\"prun\"><button type=\"button\" data-v=\"R1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"R2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"R3\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"pool\" aria-pressed=\"false\">birleşik</button></div><span>Atomlar:</span><div class=\"seg\" role=\"group\" aria-label=\"Atom kümesi\" id=\"pset\"><button type=\"button\" data-v=\"A\" aria-pressed=\"true\">bütün Cα</button><button type=\"button\" data-v=\"B\" aria-pressed=\"false\">çekirdek Cα</button></div></div>",
    "<div class=\"selrow\"><span>Run:</span><div class=\"seg\" role=\"group\" aria-label=\"Run\" id=\"prun\"><button type=\"button\" data-v=\"R1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"R2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"R3\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"pool\" aria-pressed=\"false\">pooled</button></div><span>Atoms:</span><div class=\"seg\" role=\"group\" aria-label=\"Atom set\" id=\"pset\"><button type=\"button\" data-v=\"A\" aria-pressed=\"true\">all Cα</button><button type=\"button\" data-v=\"B\" aria-pressed=\"false\">core Cα</button></div></div>"
   ],
   [
-   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pmode\" aria-label=\"PC1 boyunca hareket, 3B Cα zinciri\"></canvas></div><div class=\"stagebox\"><canvas id=\"pscree\" class=\"plot\" aria-label=\"İlk beş bileşenin varyans payı\"></canvas></div></div>",
-   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pmode\" aria-label=\"Motion along PC1, 3D Cα chain\"></canvas></div><div class=\"stagebox\"><canvas id=\"pscree\" class=\"plot\" aria-label=\"Variance fraction of the first five components\"></canvas></div></div>"
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pmode\" tabindex=\"0\" aria-label=\"PC1 boyunca hareket, 3B Cα zinciri; sürükleyerek ya da ok tuşlarıyla döndürülür\"></canvas></div><div class=\"stagebox\"><canvas id=\"pscree\" class=\"plot\" aria-label=\"İlk beş bileşenin varyans payı\"></canvas><div class=\"legend\" id=\"pscleg\"></div></div></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pmode\" tabindex=\"0\" aria-label=\"Motion along PC1, 3D Cα chain; rotate by dragging or with the arrow keys\"></canvas></div><div class=\"stagebox\"><canvas id=\"pscree\" class=\"plot\" aria-label=\"Variance fraction of the first five components\"></canvas><div class=\"legend\" id=\"pscleg\"></div></div></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"pamp\" class=\"plot\" aria-label=\"PC1'in kalıntı başına genliği\"></canvas></div>",
@@ -159,8 +159,8 @@
    "<div class=\"selrow\"><span>Run:</span><div class=\"seg\" role=\"group\" aria-label=\"DCCM run\" id=\"pdr\"><button type=\"button\" data-v=\"R1\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"R2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"R3\" aria-pressed=\"false\">3</button></div><span>Fit:</span><div class=\"seg\" role=\"group\" aria-label=\"DCCM fit\" id=\"pdf\"><button type=\"button\" data-v=\"core\" aria-pressed=\"true\">core Cα</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">all Cα</button><button type=\"button\" data-v=\"diff\" aria-pressed=\"false\">difference (all − core)</button></div></div>"
   ],
   [
-   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pdc\" class=\"plot\" aria-label=\"76 × 76 korelasyon haritası\"></canvas></div><dl class=\"read\" id=\"pdread\"></dl></div>",
-   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pdc\" class=\"plot\" aria-label=\"76 × 76 correlation map\"></canvas></div><dl class=\"read\" id=\"pdread\"></dl></div>"
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pdc\" class=\"plot\" tabindex=\"0\" aria-label=\"76 × 76 korelasyon haritası; ok tuşlarıyla hücre seçilir\"></canvas><span class=\"sr\" id=\"pdlive\" aria-live=\"polite\"></span></div><dl class=\"read\" id=\"pdread\"></dl></div>",
+   "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"pdc\" class=\"plot\" tabindex=\"0\" aria-label=\"76 × 76 correlation map; select a cell with the arrow keys\"></canvas><span class=\"sr\" id=\"pdlive\" aria-live=\"polite\"></span></div><dl class=\"read\" id=\"pdread\"></dl></div>"
   ],
   [
    "<article class=\"q\" id=\"pc6\"><span class=\"k\">Açık</span><h3>Korelasyon bir çerçevede hesaplanır</h3><p>İki hizalamaya ve en az iki koşuya bakın.</p><div class=\"mine\" id=\"mpc6\"></div></article>",
@@ -423,16 +423,16 @@
    "pill(g,'PC1 · '+RUNL[PC.run]+' · projection '+fx(s,1)+' Å',W/2,18,css('--paper'),rstr(rgbA(css('--navy')),0.9)); }"
   ],
   [
-   "var p=plot(g,46,12,W-58,H-56,[0.4,5.6],[0,ym],{ylabPad:33,xticks:[1,2,3,4,5],yticks:yt,xlab:'bileşen',ylab:'varyans payı',yfmt:function(v){return pct(v,0);}});",
-   "var p=plot(g,46,12,W-58,H-56,[0.4,5.6],[0,ym],{ylabPad:33,xticks:[1,2,3,4,5],yticks:yt,xlab:'component',ylab:'variance fraction',yfmt:function(v){return pct(v,0);}});"
+   "var p=plot(g,56,12,W-68,H-56,[0.4,5.6],[0,ym],{ylabPad:43,xticks:[1,2,3,4,5],yticks:yt,xlab:'bileşen',ylab:'varyans payı',yfmt:function(v){return pct(v,0);}});",
+   "var p=plot(g,56,12,W-68,H-56,[0.4,5.6],[0,ym],{ylabPad:43,xticks:[1,2,3,4,5],yticks:yt,xlab:'component',ylab:'variance fraction',yfmt:function(v){return pct(v,0);}});"
   ],
   [
-   "var p=plot(g,50,12,W-62,H-56,[0.5,76.5],[0,ym],{ylabPad:37,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'kalıntı',ylab:'PC1\\'deki pay',yfmt:function(v){return pct(v,0);}});",
-   "var p=plot(g,50,12,W-62,H-56,[0.5,76.5],[0,ym],{ylabPad:37,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'residue',ylab:'share in PC1',yfmt:function(v){return pct(v,0);}});"
+   "var p=plot(g,58,26,W-70,H-70,[0.5,76.5],[0,ym],{ylabPad:45,xticks:W<480?[1,20,40,60,76]:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'kalıntı',ylab:'PC1\\'deki pay',yfmt:function(v){return pct(v,0);}});",
+   "var p=plot(g,58,26,W-70,H-70,[0.5,76.5],[0,ym],{ylabPad:45,xticks:W<480?[1,20,40,60,76]:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'residue',ylab:'share in PC1',yfmt:function(v){return pct(v,0);}});"
   ],
   [
-   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('halka 7 ile 11',p.X(6.8),p.T+14); if(n>70){ g.textAlign='right'; g.fillText('kuyruk',p.X(76.3),p.T+14); g.textAlign='left'; } }",
-   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('loop 7 to 11',p.X(6.8),p.T+14); if(n>70){ g.textAlign='right'; g.fillText('tail',p.X(76.3),p.T+14); g.textAlign='left'; } }"
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('halka 7 ile 11',p.X(6.6),p.T-7); if(n>70){ g.textAlign='right'; g.fillText('kuyruk',p.X(76.5),p.T-7); g.textAlign='left'; } }",
+   "g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('loop 7 to 11',p.X(6.6),p.T-7); if(n>70){ g.textAlign='right'; g.fillText('tail',p.X(76.5),p.T-7); g.textAlign='left'; } }"
   ],
   [
    "var p=plot(g,50,12,W-70,H-56,[200,2000],[lo,hi],{ylabPad:37,xticks:[200,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'PC1 izdüşümü (Å)'});",
@@ -479,8 +479,8 @@
    "dl('Share of the tail (71 to 76) in PC1',tail!=null?pct(tail,1):'the core set has no tail')+"
   ],
   [
-   "dl('Kosinüs içeriği (PC1, PC2, PC3)',r==='pool'?'birleşik izdüşüm bir zaman serisi değil; hesaplanmadı':P.cos[r].map(function(v){ return fx(v,2); }).join(', '))+",
-   "dl('Cosine content (PC1, PC2, PC3)',r==='pool'?'the pooled projection is not a time series; not computed':P.cos[r].map(function(v){ return fx(v,2); }).join(', '))+"
+   "dl('Halka 7 ile 11\\'in PC1\\'deki payı',pct(loopShare(P.amp[r]),1))+\n    dl('Kosinüs içeriği (PC1, PC2, PC3)',r==='pool'?'birleşik izdüşüm bir zaman serisi değil; hesaplanmadı':P.cos[r].map(function(v){ return fx(v,2); }).join(', '))+",
+   "dl('Share of loop 7 to 11 in PC1',pct(loopShare(P.amp[r]),1))+\n    dl('Cosine content (PC1, PC2, PC3)',r==='pool'?'the pooled projection is not a time series; not computed':P.cos[r].map(function(v){ return fx(v,2); }).join(', '))+"
   ],
   [
    "dl('Birleşik PC1 varyansının koşular arası payı',pct(o.btw,1)+'; koşu ortalamaları '+o.rm.map(function(v){ return fx(v,1); }).join(', ')+' Å')+",
@@ -547,8 +547,8 @@
    "function dcCurTxt(M){ var i=DC.cur[0], j=DC.cur[1]; return 'residues '+(i+1)+' and '+(j+1)+': '+(DC.fit==='diff'?'difference ':'C = ')+fx(M[i*76+j],2); }"
   ],
   [
-   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'Halka 7 ile 11 ve kuyruk arasındaki ortalama korelasyon (koşu 1 / 2 / 3) çekirdekle hizalamada '+lt('core')+', bütün Cα ile hizalamada '+lt('all')+'. |C| > 0,5 olan çiftlerin payı çekirdek hizalamasında '+fs('core')+', bütün Cα hizalamasında '+fs('all')+'. Veri aynı; yalnız hizalama değişti. Kuyruk hizalamaya katılınca onun hareketini dengelemek için bütün molekül ters yöne ötelenir (ve biraz döndürülür); uzak bölgeler arasında zıt korelasyon belirir. Koşular arasında da haritalar farklı. Korelasyon bir hizalama çerçevesinde hesaplanan bir eş hareket ölçüsüdür; tek başına iletişim ya da nedensellik göstermez.');",
-   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'The mean correlation between loop 7 to 11 and the tail (run 1 / 2 / 3) is '+lt('core')+' with the core fit and '+lt('all')+' with the all-Cα fit. The fraction of pairs with |C| > 0.5 is '+fs('core')+' with the core fit and '+fs('all')+' with the all-Cα fit. The data are the same; only the fit changed. When the tail joins the fit, the whole molecule is translated the opposite way (and rotated slightly) to compensate for its motion; anticorrelation appears between distant regions. The maps also differ between runs. Correlation is a co-motion measure computed in a fitting frame; on its own it does not show communication or causation.');"
+   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'Halka 7 ile 11 ve kuyruk arasındaki ortalama korelasyon (koşu 1 / 2 / 3) çekirdekle hizalamada '+lt('core')+', bütün Cα ile hizalamada '+lt('all')+'. |C| > 0,5 olan çiftlerin payı çekirdek hizalamasında '+fs('core')+', bütün Cα hizalamasında '+fs('all')+'. Veri aynı; yalnız hizalama değişti. Kuyruk hizalamaya katılınca ağırlık merkezi ve en küçük kareler kuyruğu da izler: bütün molekül kuyrukla ters yöne ötelenir (ve biraz döndürülür), uzak bölgeler arasında zıt korelasyon belirir. Kitapta (CH16) çekirdekle hizalı kareler dönme eklenmeden yalnız her karede ağırlık merkezi çıkarılarak yeniden merkezlenince halka ile kuyruk korelasyonu −0,16, −0,21 ve −0,06 çıktı: etkinin büyük kısmı ötelemeden gelir (bu üçüncü harita sayfaya gömülü değildir). Koşular arasında da haritalar farklı. Korelasyon bir hizalama çerçevesinde hesaplanan bir eş hareket ölçüsüdür; tek başına iletişim ya da nedensellik göstermez.');",
+   "if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'The mean correlation between loop 7 to 11 and the tail (run 1 / 2 / 3) is '+lt('core')+' with the core fit and '+lt('all')+' with the all-Cα fit. The fraction of pairs with |C| > 0.5 is '+fs('core')+' with the core fit and '+fs('all')+' with the all-Cα fit. The data are the same; only the fit changed. When the tail joins the fit, the center of mass and the least-squares fit also follow the tail: the whole molecule is translated opposite to the tail (and rotated slightly), and anticorrelation appears between distant regions. In the book (CH16), when the core-fitted frames were only recentered by subtracting the center of mass in each frame, with no rotation added, the loop to tail correlation came out as −0.16, −0.21 and −0.06: most of the effect comes from translation (this third map is not embedded on the page). The maps also differ between runs. Correlation is a co-motion measure computed in a fitting frame; on its own it does not show communication or causation.');"
   ],
   [
    "else card('pc6',false,'Şimdiye kadar: '+Object.keys(DC.seenF).filter(function(k){ return k!=='diff'; }).length+' hizalama, '+nR+' koşu. İki hizalamaya ve en az iki koşuya bakın.'); }",
@@ -687,8 +687,8 @@
    "Q.push({s:'In the same run the mean correlation between the loop and the tail is '+fx(D.core.loop_tail.R2,2)+' with the core fit and '+fx(D.all.loop_tail.R2,2)+' with the all-Cα fit. Which reading is correct?',"
   ],
   [
-   "o:[['Bütün Cα hizalaması daha doğrudur, iletişim vardır',0],['Korelasyon hizalama çerçevesine bağlıdır; kuyruk hizalamaya katılınca zıt korelasyon belirir',1],['Koşu yetersiz olduğu için iki değer farklıdır',0]], w:'Veri aynı, yalnız hizalama değişti. Kuyruğun hareketi hizalamada bütün molekülün dönmesiyle dengelenir ve uzak bölgeler zıt yönde hareket ediyor görünür.'});",
-   "o:[['The all-Cα fit is more correct, so there is communication',0],['Correlation depends on the fitting frame; anticorrelation appears when the tail joins the fit',1],['The two values differ because the run is too short',0]], w:'The data are the same; only the fit changed. In the fit, the motion of the tail is compensated by rotating the whole molecule and distant regions appear to move in opposite directions.'});"
+   "o:[['Bütün Cα hizalaması daha doğrudur, iletişim vardır',0],['Korelasyon hizalama çerçevesine bağlıdır; kuyruk hizalamaya katılınca zıt korelasyon belirir',1],['Koşu yetersiz olduğu için iki değer farklıdır',0]], w:'Veri aynı, yalnız hizalama değişti. Kuyruk hizalamaya katılınca ağırlık merkezi ve en küçük kareler kuyruğu da izler; bütün molekül kuyrukla ters yöne ötelenir (ve biraz döner), uzak bölgeler zıt yönde hareket ediyor görünür. Kitapta (CH16) dönme eklenmeden yalnız ağırlık merkezi çıkarılınca halka ile kuyruk korelasyonu −0,16, −0,21 ve −0,06 oldu: etkinin büyük kısmı ötelemeden gelir.'});",
+   "o:[['The all-Cα fit is more correct, so there is communication',0],['Correlation depends on the fitting frame; anticorrelation appears when the tail joins the fit',1],['The two values differ because the run is too short',0]], w:'The data are the same; only the fit changed. When the tail joins the fit, the center of mass and the least-squares fit also follow the tail; the whole molecule is translated opposite to the tail (and rotated slightly), and distant regions appear to move in opposite directions. In the book (CH16), subtracting only the center of mass with no rotation added gave a loop to tail correlation of −0.16, −0.21 and −0.06: most of the effect comes from translation.'});"
   ],
   [
    "Q.push({s:'k-ortalamalar k = 3 ile çalıştırıldığında αL ayrı bir küme olmadı, β/PPII bölgesi ikiye bölündü. Neden?',",
@@ -741,6 +741,18 @@
   [
    "window.MDPCA={ST:ST,PC:PC,DC:DC,BR:BR,cosc:cosc,dcStats:dcStats,dcUpper:dcUpper,stCore:stCore,brCount:brCount,arrMean:arrMean,pear:pear,FOUND:FOUND}; /* sınama için */",
    "window.MDPCA={ST:ST,PC:PC,DC:DC,BR:BR,cosc:cosc,dcStats:dcStats,dcUpper:dcUpper,stCore:stCore,brCount:brCount,arrMean:arrMean,pear:pear,FOUND:FOUND}; /* for testing */"
+  ],
+  [
+   "  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Duraklat':'Oynat'; pb.setAttribute('aria-pressed',String(!on)); if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }",
+   "  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Pause':'Play'; pb.setAttribute('aria-pressed',String(!on)); if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }"
+  ],
+  [
+   "  $('pscleg').innerHTML='<span><i style=\"background:'+hexA(PAL.navy,0.75)+';border-radius:2px\"></i>sütun: '+RUNL[PC.run]+'</span>'+['R1','R2','R3','pool'].filter(function(r){ return r!==PC.run; }).map(function(r){ return '<span>'+dot(r==='pool'?PAL.muted:RCOL[RUNS.indexOf(r)])+RUNL[r]+'</span>'; }).join(''); }",
+   "  $('pscleg').innerHTML='<span><i style=\"background:'+hexA(PAL.navy,0.75)+';border-radius:2px\"></i>bar: '+RUNL[PC.run]+'</span>'+['R1','R2','R3','pool'].filter(function(r){ return r!==PC.run; }).map(function(r){ return '<span>'+dot(r==='pool'?PAL.muted:RCOL[RUNS.indexOf(r)])+RUNL[r]+'</span>'; }).join(''); }"
+  ],
+  [
+   "PC.play=!REDUCE; pb.textContent=PC.play?'Duraklat':'Oynat'; pcTab(); pcAll();",
+   "PC.play=!REDUCE; pb.textContent=PC.play?'Pause':'Play'; pcTab(); pcAll();"
   ]
  ],
  "keep": [
