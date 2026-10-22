@@ -1,7 +1,7 @@
 {
  "module": "MD-ELEC",
  "lang": "en",
- "source_sha256": "82c455c4dd435f28a3c897f61310ce4d16a644cc456f1e076419f4fcdba39dda",
+ "source_sha256": "ade735321d4a2c415486a0650233a94bd71c0e1cb3eea6b7d4ea6bd882d51739",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-ELEC 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -943,7 +943,7 @@
    "<button type=\"button\" data-esh=\"0.5\" aria-pressed=\"false\">0.5 r₀</button>"
   ],
   [
-   "' <b>Izgara (yeşil):</b> aralık '+fx(ES.h,2)+' r₀; bulutların toplamı ızgara noktalarında örneklenip doğrusal aradeğerlendi, en büyük sapma '+pc(100*ge,ge<0.01?2:0)+'. Aralık bulut genişliğine (1/β = '+fx(1/BZ.beta,2)+' r₀) yaklaştıkça şekil bozulur. PME\\'de bu aralık <code>fourierspacing</code>\\'dir; GROMACS doğrusal değil kübik aradeğerleme kullanır (<code>pme-order = 4</code>).</span>'",
+   "' <b>Izgara (yeşil):</b> aralık '+fx(ES.h,2)+' r₀; bulutların toplamı ızgara noktalarında örneklendi ve doğrusal aradeğerleme yapıldı, en büyük sapma '+pc(100*ge,ge<0.01?2:0)+'. Aralık bulut genişliğine (1/β = '+fx(1/BZ.beta,2)+' r₀) yaklaştıkça şekil bozulur. PME\\'de bu aralık <code>fourierspacing</code>\\'dir; GROMACS doğrusal değil kübik aradeğerleme kullanır (<code>pme-order = 4</code>).</span>'",
    "' <b>Grid (green):</b> spacing '+fx(ES.h,2)+' r₀; the sum of the clouds was sampled at the grid points and linearly interpolated, largest deviation '+pc(100*ge,ge<0.01?2:0)+'. As the spacing approaches the cloud width (1/β = '+fx(1/BZ.beta,2)+' r₀), the shape is distorted. In PME this spacing is <code>fourierspacing</code>; GROMACS uses cubic rather than linear interpolation (<code>pme-order = 4</code>).</span>'"
   ]
  ],
