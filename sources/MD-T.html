@@ -859,7 +859,7 @@ function drawWav(){
   g.fillStyle=css('--muted'); g.font='19px '+css('--sans'); g.fillText('1 Å',30+s+10,Hh-20);
   g.fillText('gri: komşu atomlar, 3 Å arayla',24,32);
   g.textAlign='right'; g.fillStyle=css('--accent'); g.font='600 21px '+css('--sans');
-  g.fillText(P1.p.l+' · λ = '+sig(L)+' Å'+(R>W/2?' (bulut ekrandan büyük)':''),W-24,32); g.textAlign='left';
+  g.fillText(P1.p.l+' · λ = '+sig(L)+' Å'+(R>W/2?' (bulut ekrandan büyük)':''),W-24,W<700?60:32); g.textAlign='left';
 }
 function compare1(){
   if(!prev1) return;
@@ -942,7 +942,7 @@ function drawLadder(s){
   for(var n=0;n<60;n++){ var En=(n+0.5)*x; if(En>top) break; var pn=p0*Math.exp(-n*x), w=Math.sqrt(En/top)*half;
     g.strokeStyle=css('--accent'); g.globalAlpha=0.15+0.85*Math.min(1,pn/Math.max(p0,1e-9)); g.lineWidth=n===0?3:2;
     g.beginPath(); g.moveTo(cx-w,Y(En)); g.lineTo(cx+w,Y(En)); g.stroke(); g.globalAlpha=1;
-    if(n<3 && x>0.35){ g.fillStyle=css('--muted'); g.font='17px '+css('--sans'); g.fillText('n = '+n+' · '+MDT.pc(fx(pn*100,pn>0.01?1:3)),cx+w+10,Y(En)+6); }
+    if(n<3 && x>0.35){ g.fillStyle=css('--muted'); g.font='17px '+css('--sans'); var lt='n = '+n+' · '+MDT.pc(fx(pn*100,pn>0.01?1:3)); g.fillText(lt,Math.min(cx+w+10,W-6-g.measureText(lt).width),Y(En)+6); }
   }
   if(x<=0.35){ g.fillStyle=css('--muted'); g.font='18px '+css('--sans'); g.fillText('basamaklar birbirine çok yakın: neredeyse sürekli, klasik',cx-half*0.6,T+30); }
   g.fillStyle=css('--muted'); g.font='18px '+css('--sans'); g.fillText('basamak aralığı ħω = '+sig(x)+' kT',L+14,Hh-10);
@@ -1135,7 +1135,7 @@ function drawRate(){
   for(var k=ly0;k<=ly1;k++){ var yy=Y(Math.pow(10,k)); g.beginPath(); g.moveTo(L,yy); g.lineTo(W-R,yy); g.stroke(); g.textAlign='right'; g.fillText(tick(Math.pow(10,k)),L-10,yy+6); }
   [0,5,10,15,20,25,30].forEach(function(e){ g.textAlign='center'; g.fillText(e,X(e),Hh-B+24); });
   g.textAlign='right'; g.fillText('bariyer (kJ/mol)',W-R,Hh-6); g.textAlign='left'; g.fillText('ns başına geçiş',L,24);
-  g.textAlign='right'; g.fillText('0 geçiş',L-10,Hh-B+26); g.textAlign='left';
+  if(W<700){ g.font='14px '+css('--sans'); g.textAlign='left'; g.fillText('0 geçiş',4,Hh-B+26); g.font='18px '+css('--sans'); } else { g.textAlign='right'; g.fillText('0 geçiş',L-10,Hh-B+26); } g.textAlign='left';
   MASSES.forEach(function(ms){ var f=fitRate(ms.id); if(!f || !f.ok) return; g.strokeStyle=css(MCOL[ms.id]); g.setLineDash([7,6]); g.lineWidth=2; g.beginPath();
     var e0=Math.max(1,Math.min.apply(null,f.pts.map(function(p){return p.Eb;}))-2), e1=Math.min(31,Math.max.apply(null,f.pts.map(function(p){return p.Eb;}))+2);
     var r0=Math.exp(f.a+f.s*e0), r1=Math.exp(f.a+f.s*e1); g.moveTo(X(e0),Y(Math.max(0.1,Math.min(1e4,r0)))); g.lineTo(X(e1),Y(Math.max(0.1,Math.min(1e4,r1)))); g.stroke(); g.setLineDash([]); });

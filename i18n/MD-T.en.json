@@ -1,7 +1,7 @@
 {
  "module": "MD-T",
  "lang": "en",
- "source_sha256": "5da5c9c232870accbeec2dfdbfd1b17a29378a5976aef40f4bccbb00f0b14b52",
+ "source_sha256": "de7a0c0285160c1347c2ce68eeafe8293088b13ce9a04ad220d60bd3f2ae3771",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-T 0.2.0 keşif sürümü; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
