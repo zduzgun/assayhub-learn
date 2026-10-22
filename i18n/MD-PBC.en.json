@@ -1,7 +1,7 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "8e2213b7e3a4ff03fb0abbbcaf7a5d54e03afe2fb13ed1b546aa5ecfeb45ddd3",
+ "source_sha256": "77ad3e7a59a5852c3c1de22c8c98c8af60d5245ae4102aea8b80791bd7568413",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
