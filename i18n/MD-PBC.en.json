@@ -1,7 +1,7 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "9867d9b0959885267dd12a929eed5c03b9888388fce0f9c71a9a7222763e6a20",
+ "source_sha256": "8e2213b7e3a4ff03fb0abbbcaf7a5d54e03afe2fb13ed1b546aa5ecfeb45ddd3",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -71,8 +71,8 @@
    "<h2 id=\"h1s\">Launch a molecule and follow where it goes</h2>"
   ],
   [
-   "<p class=\"small\">Kutu 3 nm genişliğinde; içindeki top tek bir su molekülüdür (18 g/mol). Topu tutup geriye doğru sürükleyin: ok, bırakınca alacağı yönü ve hızı gösterir. Oda sıcaklığında bir su molekülünün tipik hızı saniyede birkaç yüz metredir. Üç sınır türünü sırayla deneyin.</p>",
-   "<p class=\"small\">The box is 3 nm wide; the ball inside is a single water molecule (18 g/mol). Grab the ball and drag it backwards: the arrow shows the direction and speed it will take when you let go. At room temperature a typical water molecule moves a few hundred meters per second. Try the three kinds of boundary one after the other.</p>"
+   "<p class=\"small\">Kutu 3 nm genişliğinde; içindeki top tek bir su molekülüdür (18 g/mol). Topu tutup geriye doğru sürükleyin: ok, bırakınca alacağı yönü ve hızı gösterir. Klavyeyle \"Rastgele fırlat\" düğmesini kullanabilirsiniz. Oda sıcaklığında bir su molekülünün tipik hızı saniyede birkaç yüz metredir. Üç sınır türünü sırayla deneyin.</p>",
+   "<p class=\"small\">The box is 3 nm wide; the ball inside is a single water molecule (18 g/mol). Grab the ball and drag it backwards: the arrow shows the direction and speed it will take when you let go. With the keyboard you can use the \"Launch at random\" button. At room temperature a typical water molecule moves a few hundred meters per second. Try the three kinds of boundary one after the other.</p>"
   ],
   [
    "<canvas id=\"ball\" class=\"stage\" aria-label=\"Fırlatma atölyesi: 3 nm'lik kutu ve bir su molekülü\"></canvas>",
@@ -127,16 +127,16 @@
    "<button type=\"button\" class=\"btn\" id=\"bReset\">Put the ball in the middle</button>"
   ],
   [
-   "<button type=\"button\" class=\"btn\" id=\"bPause\">Durdur</button>",
-   "<button type=\"button\" class=\"btn\" id=\"bPause\">Pause</button>"
+   "<button type=\"button\" class=\"btn\" id=\"bPause\">Durdur</button>\n          <button type=\"button\" class=\"btn\" id=\"bThrow\">Rastgele fırlat</button>",
+   "<button type=\"button\" class=\"btn\" id=\"bPause\">Pause</button>\n          <button type=\"button\" class=\"btn\" id=\"bThrow\">Launch at random</button>"
   ],
   [
    "<label class=\"chk\"><input type=\"checkbox\" id=\"bUnwrap\"> Molekülün gerçek yolunu göster (sarılmamış)</label>",
    "<label class=\"chk\"><input type=\"checkbox\" id=\"bUnwrap\"> Show the molecule's real path (unwrapped)</label>"
   ],
   [
-   "<div class=\"change\" id=\"bChg\"><span class=\"t\">Topu fırlatın</span><span>Çarpma, sınırdan geçiş ya da kaçış olduğunda burada ne değiştiği yazılır.</span></div>",
-   "<div class=\"change\" id=\"bChg\"><span class=\"t\">Launch the ball</span><span>When the ball hits a wall, crosses the boundary or escapes, what changed is written here.</span></div>"
+   "<div class=\"change\" id=\"bChg\" aria-live=\"polite\"><span class=\"t\">Topu fırlatın</span><span>Çarpma, sınırdan geçiş ya da kaçış olduğunda burada ne değiştiği yazılır.</span></div>",
+   "<div class=\"change\" id=\"bChg\" aria-live=\"polite\"><span class=\"t\">Launch the ball</span><span>When the ball hits a wall, crosses the boundary or escapes, what changed is written here.</span></div>"
   ],
   [
    "<article class=\"q\" id=\"w1\"><span class=\"k\">Açık</span><h3>Duvar ne yapıyor?</h3><p>Duvarlı kutuda topu fırlatın ve en az iki kez çarpmasını izleyin. Hangi hız bileşeni değişiyor, enerji değişiyor mu?</p><div class=\"mine\" id=\"mw1\">Duvar modunda fırlatın; iki çarpma yeterli.</div></article>",
@@ -159,8 +159,8 @@
    "<h2 id=\"h2s\">In a crowd: why is the energy of a molecule at the edge different?</h2>"
   ],
   [
-   "<p class=\"small\">Şimdi kutuda 100 molekülden oluşan bir sıvı var (Lennard-Jones sıvısı, argon benzeri; iki boyutlu oyuncak model). Her molekülün rengi kendi potansiyel enerjisidir: koyu mavi, çevresindeki komşulardan güçlü çekim alan, yani enerjisi düşük molekül; açık renk, komşusu az, enerjisi yüksek molekül. Bir moleküle dokunursanız komşularını ve enerjisini görürsünüz; tutup sürüklerseniz ona hız verirsiniz. Enerji birimi ε'dur; argon için ε yaklaşık 1 kJ/mol.</p>",
-   "<p class=\"small\">Now the box holds a liquid of 100 molecules (a Lennard-Jones liquid, argon-like; a two-dimensional toy model). The color of each molecule is its own potential energy: dark blue is a molecule strongly attracted by the neighbors around it, so its energy is low; a light color is a molecule with few neighbors and high energy. Tap a molecule to see its neighbors and its energy; grab and drag it to give it speed. The energy unit is ε; for argon ε is about 1 kJ/mol.</p>"
+   "<p class=\"small\">Şimdi kutuda 100 molekülden oluşan bir sıvı var (Lennard-Jones sıvısı, argon benzeri; iki boyutlu oyuncak model). Her molekülün rengi kendi potansiyel enerjisidir: koyu mavi, çevresindeki komşulardan güçlü çekim alan, yani enerjisi düşük molekül; açık renk, komşusu az, enerjisi yüksek molekül. Bir moleküle dokunursanız komşularını ve enerjisini görürsünüz; tutup sürüklerseniz ona hız verirsiniz. Aynı işleri klavyeyle seçim ve itme düğmeleriyle de yapabilirsiniz. Enerji birimi ε'dur; argon için ε yaklaşık 1 kJ/mol. Sıcaklık düşük seçildi (kT = 0,40 ε): bu iki boyutlu model burada donmaya yakındır ve sıvıda yer yer altıgen düzenli, katıya benzeyen yamalar görebilirsiniz. Kenardaki molekülün enerjisinin yüksek olması katıda da aynıdır; sayfanın öğrettiği yön değişmez.</p>",
+   "<p class=\"small\">Now the box holds a liquid of 100 molecules (a Lennard-Jones liquid, argon-like; a two-dimensional toy model). The color of each molecule is its own potential energy: dark blue is a molecule strongly attracted by the neighbors around it, so its energy is low; a light color is a molecule with few neighbors and high energy. Tap a molecule to see its neighbors and its energy; grab and drag it to give it speed. You can do the same with the keyboard using the select and push buttons. The energy unit is ε; for argon ε is about 1 kJ/mol. The temperature is chosen low (kT = 0.40 ε): here this two-dimensional model is close to freezing, and you may see hexagonally ordered, solid-like patches in the liquid. A molecule at the edge has a higher energy in a solid as well; the direction the page teaches does not change.</p>"
   ],
   [
    "<canvas id=\"liq\" class=\"stage\" aria-label=\"Lennard-Jones sıvısı, moleküller potansiyel enerjilerine göre renkli\"></canvas>",
@@ -219,16 +219,16 @@
    "<button type=\"button\" class=\"btn\" id=\"lHeat\">Heat (+25% kinetic energy)</button>"
   ],
   [
-   "<button type=\"button\" class=\"btn\" id=\"lPause\">Durdur</button>",
-   "<button type=\"button\" class=\"btn\" id=\"lPause\">Pause</button>"
+   "<button type=\"button\" class=\"btn\" id=\"lPause\">Durdur</button>\n        </div>\n        <div class=\"btns\">\n          <button type=\"button\" class=\"btn\" id=\"lSelEdge\">Kenardaki bir molekülü seç</button>\n          <button type=\"button\" class=\"btn\" id=\"lSelBulk\">Ortadaki bir molekülü seç</button>\n          <button type=\"button\" class=\"btn\" id=\"lPush\">Seçili moleküle itme ver</button>",
+   "<button type=\"button\" class=\"btn\" id=\"lPause\">Pause</button>\n        </div>\n        <div class=\"btns\">\n          <button type=\"button\" class=\"btn\" id=\"lSelEdge\">Select a molecule at the edge</button>\n          <button type=\"button\" class=\"btn\" id=\"lSelBulk\">Select a molecule in the middle</button>\n          <button type=\"button\" class=\"btn\" id=\"lPush\">Push the selected molecule</button>"
   ],
   [
    "<canvas id=\"lPlot\" class=\"plot\" aria-label=\"Zamana karşı molekül başına potansiyel enerji ve sıcaklık\"></canvas>",
    "<canvas id=\"lPlot\" class=\"plot\" aria-label=\"Potential energy per molecule and temperature against time\"></canvas>"
   ],
   [
-   "<div class=\"change\" id=\"lChg\"><span class=\"t\">Deneyin</span><span>Boşluk modunda kare biçimli sıvının zamanla yuvarlaklaştığını izleyin; sonra duvar ve periyodik modlara geçin.</span></div>",
-   "<div class=\"change\" id=\"lChg\"><span class=\"t\">Try it</span><span>In vacuum mode watch the square-shaped liquid round off over time; then switch to the wall and periodic modes.</span></div>"
+   "<div class=\"change\" id=\"lChg\" aria-live=\"polite\"><span class=\"t\">Deneyin</span><span>Boşluk modunda kare biçimli sıvının zamanla yuvarlaklaştığını izleyin; sonra duvar ve periyodik modlara geçin.</span></div>",
+   "<div class=\"change\" id=\"lChg\" aria-live=\"polite\"><span class=\"t\">Try it</span><span>In vacuum mode watch the square-shaped liquid round off over time; then switch to the wall and periodic modes.</span></div>"
   ],
   [
    "<article class=\"q\" id=\"b1\"><span class=\"k\">Açık</span><h3>Kenardaki ile ortadaki molekül</h3><p>Duvar ya da boşluk modunda önce kenardaki açık renkli bir moleküle, sonra ortadaki koyu bir moleküle dokunun.</p><div class=\"mine\" id=\"mb1\">Komşusu en çok 3 olan bir moleküle ve en az 5 olan bir moleküle dokunun.</div></article>",
@@ -391,24 +391,24 @@
    "<canvas id=\"aPlot\" class=\"plot\" aria-label=\"Share of water next to the wall and time for 100 ns on an RTX 5080 against d\"></canvas>"
   ],
   [
-   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Duvarlı küp kutuda duvar dibindeki su payı (sol eksen)</span><span><i style=\"background:var(--navy)\"></i>RTX 5080'de 100 ns için süre, seçili kutu biçimiyle (sağ eksen)</span></div>",
-   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Share of water next to the wall in a walled cubic box (left axis)</span><span><i style=\"background:var(--navy)\"></i>Time for 100 ns on an RTX 5080 with the selected box shape (right axis)</span></div>"
+   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Duvarlı küp kutuda duvar dibindeki su payı (sol eksen)</span><span><i style=\"background:var(--navy)\"></i>RTX 5080'de 100 ns için süre, seçili kutu biçimiyle (sağ eksen; kesikli bölümde GPU dolmuyor, gerçek süre daha kısa olabilir)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--warm)\"></i>Share of water next to the wall in a walled cubic box (left axis)</span><span><i style=\"background:var(--navy)\"></i>Time for 100 ns on an RTX 5080 with the selected box shape (right axis; on the dashed part the GPU is not fully loaded and the real time may be shorter)</span></div>"
   ],
   [
    "<p><b>Ne görüyorsunuz?</b> Duvarlı kutuyu büyütmek kenar sorununu çözmüyor, yalnız hafifletiyor ve hesabı pahalılaştırıyor. Periyodik kutuda duvar dibi yok; geriye tek soru kalıyor: protein kendi kopyasından ne kadar uzak olmalı? d = 1 nm'de iki kopya arasında en az 2 nm su olur ve proteinin çevresindeki 1 nm'lik su kabukları birbirine değmez. Bu yüzden bu ayarla küçük, küresele yakın proteinlerde genellikle sorun çıkmaz; kutuyu daha da büyütmek sonucu pek değiştirmez ama maliyeti hızla artırır. Uzun, esnek ya da açılıp kapanan proteinlerde d'yi büyütmek ve koşu boyunca kopyalar arası en kısa uzaklığı (<code>gmx mindist -pi</code>) izlemek gerekir.</p>",
    "<p><b>What do you see?</b> Enlarging a walled box does not solve the edge problem; it only eases it and makes the calculation more expensive. The periodic box has no water next to a wall; one question remains: how far should the protein be from its own copy? At d = 1 nm there are at least 2 nm of water between two copies, and the 1 nm water shells around the protein do not touch. This is why this setting usually causes no problems for small, nearly globular proteins; making the box even larger hardly changes the result but raises the cost quickly. For elongated or flexible proteins, or proteins that open and close, d should be larger and the shortest distance between copies (<code>gmx mindist -pi</code>) should be monitored during the run.</p>"
   ],
   [
-   "<p><b>Kutu biçimi.</b> Eşkenar dörtgen onikiyüzlü kutuda kopyalar küpteki kadar uzaktadır ama hacim yaklaşık %29 küçüktür; aynı d için daha az su, daha hızlı hesap. Bu projenin ubikitin hazırlığı da böyle kuruldu (<code>editconf -d 1.0 -bt dodecahedron</code>: 5.902 su, 18.937 atom); paneldeki hesap bu sayılarla ayarlandı. Kesit, kolay okunsun diye kare çizilmiştir.</p>",
-   "<p><b>Box shape.</b> In a rhombic dodecahedron the copies are as far apart as in a cube, but the volume is about 29% smaller; for the same d there is less water and the calculation is faster. This project's ubiquitin preparation was built this way (<code>editconf -d 1.0 -bt dodecahedron</code>: 5,902 waters, 18,937 atoms); the calculation in the panel is calibrated with these numbers. The cross-section is drawn as a square so it is easy to read.</p>"
+   "<p><b>Kutu biçimi.</b> Eşkenar dörtgen onikiyüzlü kutuda kopyalar küpteki kadar uzaktadır ama hacim yaklaşık %29 küçüktür; aynı d için daha az su, daha hızlı hesap. Bu projenin ubikitin hazırlığı da böyle kuruldu (<code>editconf -d 1.0 -bt dodecahedron</code>: 5.902 su, 18.937 atom). Paneldeki hesap bu hazırlıkla ve d = 0,5 nm'lik ikinci hazırlıkla (3.378 su, 11.365 atom) ayarlandı; bu iki d değerinde panel aynı sayıları verir. Kesit, kolay okunsun diye kare çizilmiştir.</p>",
+   "<p><b>Box shape.</b> In a rhombic dodecahedron the copies are as far apart as in a cube, but the volume is about 29% smaller; for the same d there is less water and the calculation is faster. This project's ubiquitin preparation was built this way (<code>editconf -d 1.0 -bt dodecahedron</code>: 5,902 waters, 18,937 atoms). The calculation in the panel is calibrated with this preparation and with the second one at d = 0.5 nm (3,378 waters, 11,365 atoms); at these two values of d the panel gives the same numbers. The cross-section is drawn as a square so it is easy to read.</p>"
   ],
   [
    "<p><b>Bedeli.</b> Periyodik kutuda kopyalar tam olarak aynı hareketi yapar; protein dönerken kopyalarının da aynı anda döndüğünü görüyorsunuz. Kristaldeki paketleme temaslarının bir ilmeği yapay bir konuma itebildiğini biliyorsunuz; kutu fazla küçükse protein de kendi kopyasını hisseder. Kopyalar arasındaki etkileşimin nerede kesileceğini ve uzun erimli elektrostatiği sonraki laboratuvarlarda deneyeceksiniz.</p>",
    "<p><b>The price.</b> In a periodic box the copies make exactly the same motion; as the protein rotates you see its copies rotate at the same moment. You know that crystal packing contacts can push a loop into an artificial position; if the box is too small, the protein also feels its own copy. You will try where to cut off the interaction between copies, and long-range electrostatics, in the next labs.</p>"
   ],
   [
-   "<p class=\"small\">Hız tahmini: Exxact'in RTX 5080 ile AMBER 26 ölçümlerinden (JAC 23.558 atom, 1.468,55 ns/gün, 4 fs; FactorIX 90.906 atom, 365,36 ns/gün, 2 fs; Cellulose 408.609 atom, 99,07 ns/gün, 2 fs; STMV 1.067.095 atom, 63,17 ns/gün, 4 fs) saniyedeki adım sayısı atom sayısına göre ara değerlenmiş, 2 fs zaman adımına çevrilmiştir. 23.558 atomun altında GPU tam dolmaz; bu yüzden küçük sistemlerde gösterilen hız bir alt sınırdır (\"en az\"). GROMACS aynı kartta benzer büyüklükte hız verir, ama sürüm, kesme mesafesi, PME ayarları ve CPU'ya göre değişir; kendi sisteminiz için kısa bir koşunun günlüğündeki \"Performance\" satırı en doğru ölçüdür. Hidrojen kütlesini yeniden dağıtıp (HMR) 4 fs kullanırsanız süreler yaklaşık yarıya iner. Hesap: su = 33,4 nm⁻³ × (kutu hacmi − 16,7 nm³), atom = 1.231 + 3 × su (TIP3P, iyonsuz).</p>",
-   "<p class=\"small\">Speed estimate: from Exxact's AMBER 26 measurements on an RTX 5080 (JAC 23,558 atoms, 1,468.55 ns/day, 4 fs; FactorIX 90,906 atoms, 365.36 ns/day, 2 fs; Cellulose 408,609 atoms, 99.07 ns/day, 2 fs; STMV 1,067,095 atoms, 63.17 ns/day, 4 fs), steps per second are interpolated by atom count and converted to a 2 fs time step. Below 23,558 atoms the GPU is not fully loaded, so the speed shown for small systems is a lower bound (\"at least\"). GROMACS gives speeds of similar size on the same card, but they depend on the version, cut-off distance, PME settings and CPU; for your own system, the \"Performance\" line in the log of a short run is the most accurate measure. With hydrogen mass repartitioning (HMR) and 4 fs, the times roughly halve. Calculation: water = 33.4 nm⁻³ × (box volume − 16.7 nm³), atoms = 1,231 + 3 × water (TIP3P, no ions).</p>"
+   "<p class=\"small\">Hız tahmini: Exxact'in RTX 5080 ile AMBER 26 ölçümlerinden (JAC 23.558 atom, 1.468,55 ns/gün, 4 fs; FactorIX 90.906 atom, 365,36 ns/gün, 2 fs; Cellulose 408.609 atom, 99,07 ns/gün, 2 fs; STMV 1.067.095 atom, 63,17 ns/gün, 4 fs) saniyedeki adım sayısı atom sayısına göre ara değerlenmiş, 2 fs zaman adımına çevrilmiştir. 23.558 atomun altında GPU tam dolmaz; bu yüzden küçük sistemlerde gösterilen hız bir alt sınırdır (\"en az\"). GROMACS aynı kartta benzer büyüklükte hız verir, ama sürüm, kesme mesafesi, PME ayarları ve CPU'ya göre değişir; kendi sisteminiz için kısa bir koşunun günlüğündeki \"Performance\" satırı en doğru ölçüdür. Hidrojen kütlesini yeniden dağıtıp (HMR) 4 fs kullanırsanız süreler yaklaşık yarıya iner. Hesap: su = 33,07 nm⁻³ × (kutu hacmi − 14,93 nm³), atom = 1.231 + 3 × su (TIP3P, iyonsuz); iki sabit, d = 1,0 ve 0,5 nm hazırlıklarının su sayılarından bulundu. Eğrinin kesikli bölümünde sistem 23.558 atomdan küçüktür; orada gösterilen süre bir üst sınırdır.</p>",
+   "<p class=\"small\">Speed estimate: from Exxact's AMBER 26 measurements on an RTX 5080 (JAC 23,558 atoms, 1,468.55 ns/day, 4 fs; FactorIX 90,906 atoms, 365.36 ns/day, 2 fs; Cellulose 408,609 atoms, 99.07 ns/day, 2 fs; STMV 1,067,095 atoms, 63.17 ns/day, 4 fs), steps per second are interpolated by atom count and converted to a 2 fs time step. Below 23,558 atoms the GPU is not fully loaded, so the speed shown for small systems is a lower bound (\"at least\"). GROMACS gives speeds of similar size on the same card, but they depend on the version, cut-off distance, PME settings and CPU; for your own system, the \"Performance\" line in the log of a short run is the most accurate measure. With hydrogen mass repartitioning (HMR) and 4 fs, the times roughly halve. Calculation: water = 33.07 nm⁻³ × (box volume − 14.93 nm³), atoms = 1,231 + 3 × water (TIP3P, no ions); the two constants come from the water counts of the d = 1.0 and 0.5 nm preparations. On the dashed part of the curve the system has fewer than 23,558 atoms; the time shown there is an upper bound.</p>"
   ],
   [
    "<span class=\"step\">5 · Kendinizi sınayın</span>",
@@ -531,8 +531,8 @@
    "<h2 id=\"k6h2\">The protein runs into its own flow: water in a periodic box</h2>"
   ],
   [
-   "<div class=\"prose\"><p>Protein suyun içinde ilerlerken önündeki suyu iter. Sonsuz bir sıvıda bu akış uzakta söner. Periyodik kutuda ise itilen su kutunun öbür yüzünden geri gelir ve kopyaların akışıyla birleşir; kutu hareketsiz kalsın diye bir yerde geriye akmak zorundadır. Aşağıda proteine sabit bir kuvvet uygulanıyor; noktalar suyun nereye gittiğini gösterir. Turuncu çizgiler proteinle aynı yöne, mavi çizgiler geriye akan suyu gösterir. Çizim suyun o anki hızını gösterir; protein yerinde çizildi, kopyaları soluk.</p></div>",
-   "<div class=\"prose\"><p>As the protein moves through water it pushes the water in front of it. In an infinite liquid this flow dies away with distance. In a periodic box, however, the pushed water comes back through the opposite face of the box and joins the flow of the images; for the box as a whole to stay at rest, the water has to flow backwards somewhere. Below, a constant force is applied to the protein; the tracers show where the water goes. Orange streaks show water moving in the same direction as the protein, blue streaks water flowing backwards. The drawing shows the instantaneous velocity of the water; the protein is drawn in place, its images faded.</p></div>"
+   "<div class=\"prose\"><p>Protein suyun içinde ilerlerken önündeki suyu iter. Sonsuz bir sıvıda bu akış uzakta söner. Periyodik kutuda ise itilen su kutunun öbür yüzünden geri gelir ve kopyaların akışıyla birleşir; kutu hareketsiz kalsın diye bir yerde geriye akmak zorundadır. Aşağıda proteine sabit bir kuvvet uygulanıyor; noktalar suyun nereye gittiğini gösterir. Turuncu çizgiler proteinle aynı yöne, mavi çizgiler geriye akan suyu gösterir. Çizim suyun o anki hızını gösterir; protein yerinde çizildi, kopyaları soluk. Noktaların ekrandaki hızı göreli bir ölçektir: gerçek akışla orantılıdır ama çok yavaşlatılmıştır (ölçü için sağ alttaki 1 nm çubuğuna bakın). Proteinin içine düşen noktalar soluk çizildi; modelde protein, suyu kendisiyle sürükleyen yumuşak bir kuvvet bulutudur.</p></div>",
+   "<div class=\"prose\"><p>As the protein moves through water it pushes the water in front of it. In an infinite liquid this flow dies away with distance. In a periodic box, however, the pushed water comes back through the opposite face of the box and joins the flow of the images; for the box as a whole to stay at rest, the water has to flow backwards somewhere. Below, a constant force is applied to the protein; the tracers show where the water goes. Orange streaks show water moving in the same direction as the protein, blue streaks water flowing backwards. The drawing shows the instantaneous velocity of the water; the protein is drawn in place, its images faded. The on-screen speed of the tracers is a relative scale: it is proportional to the real flow but greatly slowed down (for size, see the 1 nm bar at the bottom right). Tracers that fall inside the protein are drawn faded; in the model the protein is a soft cloud of force that drags the water along with it.</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"k6flow\" class=\"stage\" aria-label=\"Kuvvetle itilen proteinin çevresinde suyun akışı: periyodik kutu ya da sonsuz sıvı\"></canvas></div>",
@@ -623,16 +623,16 @@
    "<canvas id=\"k6book\" class=\"plot\" aria-label=\"Diffusion coefficient of ubiquitin against 1/L: measurements, line, infinite-liquid value and experimental value\"></canvas>"
   ],
   [
-   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>TIP3P</span><span><i style=\"background:var(--deep)\"></i>Gerçek su</span><span><i style=\"background:var(--good)\"></i>Deney (PFG-NMR yarıçapından, 158 µm²/s)</span><span>Kesikli çizgi: seçilen suda D<sub>∞</sub>; halka: bu projenin iki onikiyüzlü kutusu</span><span id=\"k6nCount\"></span></div>",
-   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>TIP3P</span><span><i style=\"background:var(--deep)\"></i>Real water</span><span><i style=\"background:var(--good)\"></i>Experiment (from the PFG-NMR radius, 158 µm²/s)</span><span>Dashed line: D<sub>∞</sub> in the chosen water; ring: this project's two dodecahedral boxes</span><span id=\"k6nCount\"></span></div>"
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>TIP3P</span><span><i style=\"background:var(--deep)\"></i>Gerçek su</span><span><i style=\"background:var(--good)\"></i>Deney (PFG-NMR yarıçapından, 158 µm²/s)</span><span>Kesikli çizgi: seçilen suda D<sub>∞</sub>; noktalı çizgi: Yeh-Hummer doğrusu D<sub>∞</sub> − kTξ/(6πηL); halka: bu projenin iki onikiyüzlü kutusu</span><span id=\"k6nCount\"></span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>TIP3P</span><span><i style=\"background:var(--deep)\"></i>Real water</span><span><i style=\"background:var(--good)\"></i>Experiment (from the PFG-NMR radius, 158 µm²/s)</span><span>Dashed line: D<sub>∞</sub> in the chosen water; dotted line: the Yeh-Hummer line D<sub>∞</sub> − kTξ/(6πηL); ring: this project's two dodecahedral boxes</span><span id=\"k6nCount\"></span></div>"
   ],
   [
-   "<div class=\"tw\"><table><thead><tr><th>Su</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Hareketlilik oranı</th><th>D<sub>PBC</sub> (µm²/s)</th></tr></thead><tbody id=\"k6nTab\"></tbody></table></div>",
-   "<div class=\"tw\"><table><thead><tr><th>Water</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Mobility ratio</th><th>D<sub>PBC</sub> (µm²/s)</th></tr></thead><tbody id=\"k6nTab\"></tbody></table></div>"
+   "<div class=\"tw\"><table><thead><tr><th>Su</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Hareketlilik oranı</th><th>D<sub>PBC</sub> (µm²/s)</th><th>Yeh-Hummer ile düzeltilmiş D (µm²/s)</th></tr></thead><tbody id=\"k6nTab\"></tbody></table></div>",
+   "<div class=\"tw\"><table><thead><tr><th>Water</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Mobility ratio</th><th>D<sub>PBC</sub> (µm²/s)</th><th>Yeh-Hummer corrected D (µm²/s)</th></tr></thead><tbody id=\"k6nTab\"></tbody></table></div>"
   ],
   [
-   "<p class=\"small\">Viskozite (298 K, 1 bar): TIP3P 0,321 mPa·s, gerçek su 0,896 mPa·s (González ve Abascal 2010, J Chem Phys 132:096101). TIP3P suyu gerçek sudan yaklaşık üç kat akışkandır; bu yüzden TIP3P'de protein de sonsuz kutuda yaklaşık üç kat hızlı yayılır. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
-   "<p class=\"small\">Viscosity (298 K, 1 bar): TIP3P 0.321 mPa·s, real water 0.896 mPa·s (González and Abascal 2010, J Chem Phys 132:096101). TIP3P water is about three times more fluid than real water; therefore in TIP3P the protein also spreads about three times faster in the infinite box. Your notebook is stored only in this browser.</p>"
+   "<p class=\"small\">Viskozite (298 K, 1 bar): TIP3P 0,321 mPa·s, gerçek su 0,896 mPa·s (González ve Abascal 2010, J Chem Phys 132:096101). TIP3P suyu gerçek sudan yaklaşık üç kat akışkandır; bu yüzden TIP3P'de protein de sonsuz kutuda yaklaşık üç kat hızlı yayılır. Son sütun tek bir kutuya Yeh-Hummer düzeltmesini uygular: D<sub>PBC</sub> + kTξ/(6πηL). Küçük kutuda düzeltilmiş değer D<sub>∞</sub>'u geçer: birinci derece düzeltme orada aşırıya kaçar. Defteriniz yalnız bu tarayıcıda saklanır.</p>",
+   "<p class=\"small\">Viscosity (298 K, 1 bar): TIP3P 0.321 mPa·s, real water 0.896 mPa·s (González and Abascal 2010, J Chem Phys 132:096101). TIP3P water is about three times more fluid than real water; therefore in TIP3P the protein also spreads about three times faster in the infinite box. The last column applies the Yeh-Hummer correction to a single box: D<sub>PBC</sub> + kTξ/(6πηL). In a small box the corrected value exceeds D<sub>∞</sub>: the first-order correction overshoots there. Your notebook is stored only in this browser.</p>"
   ],
   [
    "<h2 id=\"k6h4\">Bu projenin iki kutusu: d = 1,0 nm ve d = 0,5 nm</h2>",
@@ -1147,8 +1147,8 @@
    "g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText(pbc?'periodic box, L = '+fx(L,1)+' nm':'infinite liquid (same scale)',X(-L/2)+6,Y(-L/2)-8);"
   ],
   [
-   "pill(g,'protein hızı '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy')); }",
-   "pill(g,'protein speed '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy')); }"
+   "pill(g,'protein hızı '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy'));\n  var sbx=W-16-s, sby=H-14; g.fillStyle=str(rgb(paper),0.85); g.fillRect(sbx-48,sby-14,s+56,24); g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(sbx,sby); g.lineTo(sbx+s,sby); g.moveTo(sbx,sby-4); g.lineTo(sbx,sby+4); g.moveTo(sbx+s,sby-4); g.lineTo(sbx+s,sby+4); g.stroke(); g.fillStyle=ink; g.textAlign='right'; g.fillText('1 nm',sbx-6,sby+4); g.textAlign='left'; }",
+   "pill(g,'protein speed '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy'));\n  var sbx=W-16-s, sby=H-14; g.fillStyle=str(rgb(paper),0.85); g.fillRect(sbx-48,sby-14,s+56,24); g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(sbx,sby); g.lineTo(sbx+s,sby); g.moveTo(sbx,sby-4); g.lineTo(sbx,sby+4); g.moveTo(sbx+s,sby-4); g.lineTo(sbx+s,sby+4); g.stroke(); g.fillStyle=ink; g.textAlign='right'; g.fillText('1 nm',sbx-6,sby+4); g.textAlign='left'; }"
   ],
   [
    "var P=book6.length; $('k6nCount').textContent=P?P+' ölçüm':'';",
@@ -1159,12 +1159,12 @@
    "$('k6nBusy').textContent=P?'The latest measurements are in the notebook. The line is drawn once a water model has at least two measurements.':'No measurements.';"
   ],
   [
-   "card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Gerçek su')+'</b>, '+got.n+' kutu: doğrunuz 1/L = 0\\'da <b>'+fx(got.f.a,0)+' µm²/s</b> veriyor; sonsuz kutunun değeri '+fx(D,0)+' µm²/s (fark '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; en küçük kutuları çıkarıp daha büyük kutular ekleyince fark küçülür':'')+'). Eğiminiz '+fx(got.f.b,0)+' µm²/s · nm; Yeh-Hummer düzeltmesinin eğimi −kTξ/(6πη) = '+fx(th,0)+'. Küçük kutuların noktaları doğrunun altında kalır: formülün R/L terimleri orada önem kazanır.'); }",
-   "card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Real water')+'</b>, '+got.n+' boxes: your line gives <b>'+fx(got.f.a,0)+' µm²/s</b> at 1/L = 0; the value for the infinite box is '+fx(D,0)+' µm²/s (difference '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; removing the smallest boxes and adding larger ones reduces the difference':'')+'). Your slope is '+fx(got.f.b,0)+' µm²/s · nm; the slope of the Yeh-Hummer correction is −kTξ/(6πη) = '+fx(th,0)+'. The points of the small boxes fall below the line: the higher R/L terms of the formula matter there.'); }"
+   "var Lm=Math.min.apply(null,book6.filter(function(p){return p.w===got.w;}).map(function(p){return p.L;})), dlt=D*rc(Lm)-(D+th/Lm);\n    card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Gerçek su')+'</b>, '+got.n+' kutu: doğrunuz 1/L = 0\\'da <b>'+fx(got.f.a,0)+' µm²/s</b> veriyor; sonsuz kutunun değeri '+fx(D,0)+' µm²/s (fark '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; en küçük kutuları çıkarıp daha büyük kutular ekleyince fark küçülür':'')+'). Eğiminiz '+fx(got.f.b,0)+' µm²/s · nm; Yeh-Hummer düzeltmesinin eğimi −kTξ/(6πη) = '+fx(th,0)+'. Küçük kutuların noktaları Yeh-Hummer doğrusunun (grafikte noktalı) <b>üstünde</b> kalır: en küçük kutunuzda (L = '+NFI.format(Lm)+' nm) fark +'+fx(dlt,1)+' µm²/s. Hasimoto serisindeki (4π/3)(R/L)³ terimi hareketliliği birinci derece tahminden yüksek tutar; bu yüzden eğiminiz Yeh-Hummer eğiminden sığ çıkar.'); }",
+   "var Lm=Math.min.apply(null,book6.filter(function(p){return p.w===got.w;}).map(function(p){return p.L;})), dlt=D*rc(Lm)-(D+th/Lm);\n    card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Real water')+'</b>, '+got.n+' boxes: your line gives <b>'+fx(got.f.a,0)+' µm²/s</b> at 1/L = 0; the value for the infinite box is '+fx(D,0)+' µm²/s (difference '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; removing the smallest boxes and adding larger ones reduces the difference':'')+'). Your slope is '+fx(got.f.b,0)+' µm²/s · nm; the slope of the Yeh-Hummer correction is −kTξ/(6πη) = '+fx(th,0)+'. The points of the small boxes lie <b>above</b> the Yeh-Hummer line (dotted in the plot): for your smallest box (L = '+NFI.format(Lm)+' nm) the difference is +'+fx(dlt,1)+' µm²/s. The (4π/3)(R/L)³ term of the Hasimoto series keeps the mobility above the first-order estimate; this is why your slope comes out shallower than the Yeh-Hummer slope.'); }"
   ],
   [
-   "$('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Gerçek su')+'</td><td class=\"n\">'+NFI.format(p.L)+'</td><td class=\"n\">'+fx(1/p.L,3)+'</td><td class=\"n\">'+fx(r,3)+'</td><td class=\"n\">'+fx(dInf(p.w)*r,0)+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">Henüz ölçüm yok.</td></tr>'; }",
-   "$('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Real water')+'</td><td class=\"n\">'+NFI.format(p.L)+'</td><td class=\"n\">'+fx(1/p.L,3)+'</td><td class=\"n\">'+fx(r,3)+'</td><td class=\"n\">'+fx(dInf(p.w)*r,0)+'</td></tr>'; }).join(''):'<tr><td colspan=\"5\" class=\"small\">No measurements yet.</td></tr>'; }"
+   "$('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Gerçek su')+'</td><td class=\"n\">'+NFI.format(p.L)+'</td><td class=\"n\">'+fx(1/p.L,3)+'</td><td class=\"n\">'+fx(r,3)+'</td><td class=\"n\">'+fx(dInf(p.w)*r,0)+'</td><td class=\"n\">'+fx(dInf(p.w)*r+KT*2.837297/(6*Math.PI*ETA[p.w]*p.L)*1e21,0)+'</td></tr>'; }).join(''):'<tr><td colspan=\"6\" class=\"small\">Henüz ölçüm yok.</td></tr>'; }",
+   "$('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Real water')+'</td><td class=\"n\">'+NFI.format(p.L)+'</td><td class=\"n\">'+fx(1/p.L,3)+'</td><td class=\"n\">'+fx(r,3)+'</td><td class=\"n\">'+fx(dInf(p.w)*r,0)+'</td><td class=\"n\">'+fx(dInf(p.w)*r+KT*2.837297/(6*Math.PI*ETA[p.w]*p.L)*1e21,0)+'</td></tr>'; }).join(''):'<tr><td colspan=\"6\" class=\"small\">No measurements yet.</td></tr>'; }"
   ],
   [
    "g.fillText('1/L (nm⁻¹)   ·   0 = sonsuz kutu',X(xmax/2),H-6);",
@@ -1265,6 +1265,10 @@
   [
    "if(reduce){ F.play=false; $('k6fPlay').textContent='Oynat'; }",
    "if(reduce){ F.play=false; $('k6fPlay').textContent='Play'; }"
+  ],
+  [
+   "$('bPause').textContent='Durdur'; } launch(",
+   "$('bPause').textContent='Pause'; } launch("
   ]
  ],
  "keep": [
