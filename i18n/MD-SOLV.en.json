@@ -1,7 +1,7 @@
 {
  "module": "MD-SOLV",
  "lang": "en",
- "source_sha256": "c5d30ada4255e19a7c985d95a3bf8abd2ad37b3f1ff91a99c5c10ac8e861a006",
+ "source_sha256": "a7057c384e7fc7af2fe45b9265400a06af8884cf0fcb1a395859ad5c2ce248d8",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-SOLV 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -159,16 +159,16 @@
    "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"yloc\" class=\"plot\" aria-label=\"Local measure per replica\"></canvas></div><dl class=\"read w\" id=\"ylread\"></dl></div>"
   ],
   [
-   "<h3 class=\"sub\">Konformasyonlar: 8 M üre ile su</h3>",
-   "<h3 class=\"sub\">Conformations: 8 M urea and water</h3>"
+   "<h3 class=\"sub\">Konformasyonlar: 8 M üre hedefi (gerçekleşen <span id=\"yureal\">9,2 ile 9,4</span> mol/L) ile su</h3>",
+   "<h3 class=\"sub\">Conformations: 8 M urea target (realized <span id=\"yureal\">9.2 to 9.4</span> mol/L) and water</h3>"
   ],
   [
    "<div class=\"prose\"><p>Durumlar MD-U ve MD-REP ile aynı: αR (φ &lt; 0, −120 ≤ ψ &lt; 50), αL (φ ≥ 0), kalanı β/PPII. Birincil ölçüt αR payı; altın bant su ortalamasının ±5 puanıdır (koşulardan önce seçilen önemli fark eşiği).</p></div>",
    "<div class=\"prose\"><p>The states are as in MD-U and MD-REP: αR (φ &lt; 0, −120 ≤ ψ &lt; 50), αL (φ ≥ 0), the rest β/PPII. The primary measure is the αR fraction; the gold band is ±5 points around the water mean (the important-difference threshold chosen before the runs).</p></div>"
   ],
   [
-   "<div class=\"selrow\"><span>Ortam:</span><div class=\"seg\" role=\"group\" aria-label=\"Ortam\" id=\"yrs\"><button type=\"button\" data-v=\"W\" aria-pressed=\"true\">Su (0 M)</button><button type=\"button\" data-v=\"U\" aria-pressed=\"false\">8 M üre</button></div></div>",
-   "<div class=\"selrow\"><span>Environment:</span><div class=\"seg\" role=\"group\" aria-label=\"Environment\" id=\"yrs\"><button type=\"button\" data-v=\"W\" aria-pressed=\"true\">Water (0 M)</button><button type=\"button\" data-v=\"U\" aria-pressed=\"false\">8 M urea</button></div></div>"
+   "<div class=\"selrow\"><span>Ortam:</span><div class=\"seg\" role=\"group\" aria-label=\"Ortam\" id=\"yrs\"><button type=\"button\" data-v=\"W\" aria-pressed=\"true\">Su (0 M)</button><button type=\"button\" data-v=\"U\" aria-pressed=\"false\">8 M üre hedefi</button></div></div>",
+   "<div class=\"selrow\"><span>Environment:</span><div class=\"seg\" role=\"group\" aria-label=\"Environment\" id=\"yrs\"><button type=\"button\" data-v=\"W\" aria-pressed=\"true\">Water (0 M)</button><button type=\"button\" data-v=\"U\" aria-pressed=\"false\">8 M urea target</button></div></div>"
   ],
   [
    "<div class=\"selrow\"><span>Tekrar:</span><div class=\"seg\" role=\"group\" aria-label=\"Tekrar\" id=\"yrr\"></div></div>",
@@ -427,16 +427,16 @@
    "$('yrread').innerHTML=dl('Pair',PN[IO.pair]+'; 0.005 nm bins, 200 to 2000 ps')+ks.map(function(k){ var s=VDD.salt[k], gg=s.rdf[IO.pair], q=firstPk(gg), extra='';"
   ],
   [
-   "if(IO.pair==='NaCl') extra='; temas çifti payı '+fx(100*s.cip,1)+' %'; if(IO.pair==='NaOW') extra='; 0,32 nm içinde '+fx(s.coord,2)+' su';",
-   "if(IO.pair==='NaCl') extra='; contact pair fraction '+fx(100*s.cip,1)+'%'; if(IO.pair==='NaOW') extra='; '+fx(s.coord,2)+' waters within 0.32 nm';"
+   "if(IO.pair==='NaCl') extra='; temas çifti payı '+fx(100*s.cip,1)+' % (bu iyon parametreleriyle)'; if(IO.pair==='NaOW') extra='; 0,32 nm içinde '+fx(s.coord,2)+' su';",
+   "if(IO.pair==='NaCl') extra='; contact pair fraction '+fx(100*s.cip,1)+'% (with these ion parameters)'; if(IO.pair==='NaOW') extra='; '+fx(s.coord,2)+' waters within 0.32 nm';"
   ],
   [
    "return dl(SN[k]+' ('+s.npair+' çift)','ilk tepe '+fx(r[q[0]],3)+' nm, g '+fx(gg[q[0]],1)+'; ilk minimum '+fx(r[q[1]],3)+' nm'+extra); }).join(''); }",
    "return dl(SN[k]+' ('+s.npair+' pairs)','first peak '+fx(r[q[0]],3)+' nm, g '+fx(gg[q[0]],1)+'; first minimum '+fx(r[q[1]],3)+' nm'+extra); }).join(''); }"
   ],
   [
-   "card('yc2',true,'Na⁺-Cl⁻ ilk tepesi '+fx(arrMin(pk),3)+' ile '+fx(arrMax(pk),3)+' nm\\'de, Na⁺-su O tepesi '+fx(arrMin(po),3)+' ile '+fx(arrMax(po),3)+' nm\\'de; tepe yerleri derişimle pek az oynuyor. Temas çifti payı (0,35 nm içinde bir Cl⁻ bulunan Na⁺ oranı) '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+'; Na⁺ çevresindeki su sayısı (0,32 nm) '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) kutu ortalamasına bölünür: tepe yüksekliği o çiftin kaç kez temas ettiğini değil, ortalamaya göre ne kadar yoğunlaştığını söyler; 6 çiftlik kutuda eğri az sayıda iyondan gelir. Her derişimde tek koşu yapıldı; eğilim betimleyicidir, belirsizliği hesaplanmadı. İyon düzeni iyon parametrelerine bağlıdır; başka iyon parametreleriyle: Bu senaryo hesaplanmadı.'); }",
-   "card('yc2',true,'The first Na⁺-Cl⁻ peak lies at '+fx(arrMin(pk),3)+' to '+fx(arrMax(pk),3)+' nm and the Na⁺-water O peak at '+fx(arrMin(po),3)+' to '+fx(arrMax(po),3)+' nm; the peak positions barely move with concentration. Contact pair fraction (fraction of Na⁺ with a Cl⁻ within 0.35 nm): '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+'%'; }).join(', ')+'; waters around Na⁺ (0.32 nm): '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) is divided by the box average: the peak height tells how strongly the pair is concentrated relative to the average, not how often it is in contact; in the 6-pair box the curve comes from few ions. Each concentration was run once; the trend is descriptive and its uncertainty was not computed. The ion arrangement depends on the ion parameters; with other ion parameters: This scenario was not computed.'); }"
+   "card('yc2',true,'Na⁺-Cl⁻ ilk tepesi '+fx(arrMin(pk),3)+' ile '+fx(arrMax(pk),3)+' nm\\'de, Na⁺-su O tepesi '+fx(arrMin(po),3)+' ile '+fx(arrMax(po),3)+' nm\\'de; tepe yerleri derişimle pek az oynuyor. Temas çifti payı (0,35 nm içinde bir Cl⁻ bulunan Na⁺ oranı) '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+'; Na⁺ çevresindeki su sayısı (0,32 nm) '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) kutu ortalamasına bölünür: tepe yüksekliği o çiftin kaç kez temas ettiğini değil, ortalamaya göre ne kadar yoğunlaştığını söyler; 6 çiftlik kutuda eğri az sayıda iyondan gelir. Her derişimde tek koşu yapıldı; eğilim betimleyicidir, belirsizliği hesaplanmadı. Bu sayılar NaCl\\'nin değil, bu modelin özellikleridir. İyonlar amber99sb-ildn dağıtımındaki eski AMBER parametreleridir (Na⁺ σ 0,3328 nm, Cl⁻ σ 0,4401 nm); bu ailenin eski iyon parametreleriyle yapılan uzun koşularda çözünürlük sınırının çok altında tuz kristalleri bildirilmiştir (Joung ve Cheatham 2008; Auffinger ve ark. 2007). Bu yüzden yüksek temas payı \"1 M NaCl\\'de iyonların yarısı çiftlenir\" diye değil, \"bu parametrelerle 2 ns\\'de böyle görüldü\" diye raporlanır. Kristalleşme aranmadı; başka iyon parametreleriyle: Bu senaryo hesaplanmadı.'); }",
+   "card('yc2',true,'The first Na⁺-Cl⁻ peak lies at '+fx(arrMin(pk),3)+' to '+fx(arrMax(pk),3)+' nm and the Na⁺-water O peak at '+fx(arrMin(po),3)+' to '+fx(arrMax(po),3)+' nm; the peak positions barely move with concentration. Contact pair fraction (fraction of Na⁺ with a Cl⁻ within 0.35 nm): '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+'%'; }).join(', ')+'; waters around Na⁺ (0.32 nm): '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) is divided by the box average: the peak height tells how strongly the pair is concentrated relative to the average, not how often it is in contact; in the 6-pair box the curve comes from few ions. Each concentration was run once; the trend is descriptive and its uncertainty was not computed. These numbers are properties of this model, not of NaCl. The ions are the old AMBER parameters in the amber99sb-ildn distribution (Na⁺ σ 0.3328 nm, Cl⁻ σ 0.4401 nm); in long runs with the old ion parameters of this family, salt crystals have been reported far below the solubility limit (Joung and Cheatham 2008; Auffinger et al. 2007). So a high contact fraction is reported not as \"half of the ions pair up in 1 M NaCl\" but as \"this is what was seen with these parameters in 2 ns\". Crystallization was not looked for; with other ion parameters: This scenario was not computed.'); }"
   ],
   [
    "else card('yc2',false,'Şimdiye kadar '+nc+' derişim ve '+np+' çift; en az üç derişim ve iki çift açın.'); }",
@@ -551,8 +551,8 @@
    "$('ylread').innerHTML=dl(LMN[m][0],ks.map(function(k,j){ return k+' '+fx(v[j],m==='R'?3:2); }).join('; '))+dl('Mean ± SD',fx(arrMean(v),m==='R'?3:2)+' ± '+fx(arrSD(v),m==='R'?3:2)+' (n = '+ks.length+')')+"
   ],
   [
-   "dl('Kutu',u.nure+' üre, '+ks.map(function(k){ return fmtI(VDD.urea[k].nsol); }).join(' / ')+' su; kutudaki oran '+fx(u.nure/u.nsol,4))+dl('Gerçekleşen derişim',ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L (⟨V⟩ ile)'); }",
-   "dl('Box',u.nure+' urea, '+ks.map(function(k){ return fmtI(VDD.urea[k].nsol); }).join(' / ')+' waters; ratio in the box '+fx(u.nure/u.nsol,4))+dl('Realized concentration',ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L (with ⟨V⟩)'); }"
+   "dl('Kutu',u.nure+' üre, '+ks.map(function(k){ return fmtI(VDD.urea[k].nsol); }).join(' / ')+' su; kutudaki üre/su oranı '+ks.map(function(k){ return fx(VDD.urea[k].nure/VDD.urea[k].nsol,4); }).join(' / '))+dl('Gerçekleşen derişim',ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L (⟨V⟩ ile)'); }",
+   "dl('Box',u.nure+' urea, '+ks.map(function(k){ return fmtI(VDD.urea[k].nsol); }).join(' / ')+' waters; urea/water ratio in the box '+ks.map(function(k){ return fx(VDD.urea[k].nure/VDD.urea[k].nsol,4); }).join(' / '))+dl('Realized concentration',ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L (with ⟨V⟩)'); }"
   ],
   [
    "if(Object.keys(LO.seen).length>=2) card('yc5',true,'Peptit ağır atomlarının 0,5 nm çevresinde ortalama '+fx(arrMean(ks.map(function(k){ return VDD.urea[k].local_u; })),1)+' üre ve '+fx(arrMean(ks.map(function(k){ return VDD.urea[k].local_w; })),1)+' su bulundu. R = '+fx(arrMean(R),2)+' ± '+fx(arrSD(R),2)+' (tekrarlar '+fx(arrMin(R),2)+' ile '+fx(arrMax(R),2)+')'+(all1?'; dört tekrarın hepsinde R 1\\'in üstünde: peptidin çevresinde üre/su oranı kutu ortalamasından yüksek.':'; tekrarlar R = 1 çizgisinin iki yanına düşüyor.')+' Hedef 8 mol/L başlangıç kutusunun hacmiyle (224 üre, '+fx(VDD.boxes.filter(function(b){ return b.box==='REP'; })[0].V,2)+' nm³) hesaplanmıştı; NPT dengesinden sonra ⟨V⟩ '+ks.map(function(k){ return fx(VDD.urea[k].health.V,2); }).join(' / ')+' nm³ ve gerçekleşen derişim '+ks.map(function(k){ return fx(VDD.urea[k].molarity,2); }).join(' / ')+' mol/L oldu: R bu gerçekleşen kutu oranına göre hesaplandı. Bu bir betimlemedir; plan R için hüküm öngörmedi. R ürenin peptitle doğrudan mı, suyun yapısı üzerinden mi etkilediğini söylemez; 0,5 nm eşiği ve \"ağır atom\" seçimi de sonucu etkiler. Başka eşiklerle: Bu senaryo hesaplanmadı.');",
@@ -571,8 +571,8 @@
    "var VEN=function(v){ return {'fark var':'difference','fark var ama \\u00f6nemli e\\u015fi\\u011fin alt\\u0131nda':'difference below the important threshold','e\\u015fde\\u011fer (\\u00b15 puan i\\u00e7inde)':'equivalent (within ±5 points)','karars\\u0131z':'inconclusive'}[v]||v; }; var MET={p_aR:['αR fraction (%)','αR',' %'],p_bp:['β/PPII fraction (%)','β/PPII',' %'],p_aL:['αL fraction (%)','αL',' %'],trans_per_ns:['αR↔β/PPII transitions (/ns)','transitions/ns','/ns']};"
   ],
   [
-   "var ENV={W:'su (0 M)',U:'8 M üre'};",
-   "var ENV={W:'water (0 M)',U:'8 M urea'};"
+   "var ENV={W:'su (0 M)',U:'8 M üre hedefi'};",
+   "var ENV={W:'water (0 M)',U:'8 M urea target'};"
   ],
   [
    "function raRead(){ var s=stFrac(raNames()), nm=RA.rep<0?'bütün tekrarlar ('+envNames(RA.env).length+')':envNames(RA.env)[RA.rep];",
@@ -611,8 +611,8 @@
    "else card('yc6',false,'Open at least one map from each environment ('+ne+' / 2) and show the verdict.'); }"
   ],
   [
-   "function w2(){ ureaDraw(); ureaRead(); $('yitp').innerHTML=esc(VDD.u0.itp_angles).replace(/^(\\s+\\d.*)$/gm,'<span class=\"add\">$1</span>'); ureaQ(); ureaCard();",
-   "function w2(){ ureaDraw(); ureaRead(); $('yitp').innerHTML=esc(VDD.u0.itp_angles.replace(/^;.*$/m,';  ai    aj    ak funct   (parameters from amber99sb-ildn ffbonded.itp by atom type)')).replace(/^(\\s+\\d.*)$/gm,'<span class=\"add\">$1</span>'); ureaQ(); ureaCard();"
+   "function w2(){ (function(){ var v=VDD.ureps.map(function(k){ return VDD.urea[k].molarity; }); $('yureal').textContent=fx(arrMin(v),2)+RNG+fx(arrMax(v),2); })(); ureaDraw(); ureaRead(); $('yitp').innerHTML=esc(VDD.u0.itp_angles).replace(/^(\\s+\\d.*)$/gm,'<span class=\"add\">$1</span>'); ureaQ(); ureaCard();",
+   "function w2(){ (function(){ var v=VDD.ureps.map(function(k){ return VDD.urea[k].molarity; }); $('yureal').textContent=fx(arrMin(v),2)+RNG+fx(arrMax(v),2); })(); ureaDraw(); ureaRead(); $('yitp').innerHTML=esc(VDD.u0.itp_angles.replace(/^;.*$/m,';  ai    aj    ak funct   (parameters from amber99sb-ildn ffbonded.itp by atom type)')).replace(/^(\\s+\\d.*)$/gm,'<span class=\"add\">$1</span>'); ureaQ(); ureaCard();"
   ],
   [
    "function fmtI(n){ return new Intl.NumberFormat('tr-TR').format(n); }",
@@ -651,8 +651,8 @@
    "{s:'\"Urea acts by forming direct bonds with alanine dipeptide.\"', a:2, w:'R (= '+fx(arrMean(VDD.ureps.map(function(k){ return VDD.urea[k].R; })),2)+') only describes relative abundance within 0.5 nm; it does not separate direct interaction from an indirect effect (through water). Hydrogen bonds or an energy decomposition were not computed on this page.'},"
   ],
   [
-   "{s:'\"Gerçek NaCl çözeltilerinde temas iyon çifti payı bu sayfadaki değerlerdedir.\"', a:2, w:'Temas payı ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+') bu iyon parametrelerine, su modeline ve 0,35 nm eşiğine bağlıdır; her derişimde tek koşu var ve deneysel bir ölçümle karşılaştırma yapılmadı.'}",
-   "{s:'\"In real NaCl solutions the contact ion pair fraction has the values on this page.\"', a:2, w:'The contact fraction ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+'%'; }).join(', ')+') depends on these ion parameters, the water model and the 0.35 nm threshold; each concentration has a single run and no comparison with an experimental measurement was made.'}"
+   "{s:'\"Gerçek NaCl çözeltilerinde temas iyon çifti payı bu sayfadaki değerlerdedir.\"', a:2, w:'Temas payı ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+') bu iyon parametrelerine, su modeline ve 0,35 nm eşiğine bağlıdır; kullanılan eski AMBER iyon setiyle tuz kümeleşmesi bildirilmiştir (Joung ve Cheatham 2008); her derişimde tek koşu var ve deneysel bir ölçümle karşılaştırma yapılmadı.'}",
+   "{s:'\"In real NaCl solutions the contact ion pair fraction has the values on this page.\"', a:2, w:'The contact fraction ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+'%'; }).join(', ')+') depends on these ion parameters, the water model and the 0.35 nm threshold; salt clustering has been reported with the old AMBER ion set used here (Joung and Cheatham 2008); each concentration has a single run and no comparison with an experimental measurement was made.'}"
   ],
   [
    "var fb=$('ycl'+i+'fb'); fb.hidden=false; fb.className='fb '+(ok?'ok':'no'); fb.innerHTML='<b>'+(ok?'Doğru.':'Tam değil.')+'</b> '+q.w;",
@@ -801,6 +801,10 @@
   [
    "window.MDSOLV={ANG:ANG,BR:BR,IO:IO,LO:LO,RA:RA,UQ:UQ,BQ:BQ,FOUND:FOUND,stFrac:stFrac,firstPk:firstPk,lemF:lemF,molar:molar}; /* sınama için */",
    "window.MDSOLV={ANG:ANG,BR:BR,IO:IO,LO:LO,RA:RA,UQ:UQ,BQ:BQ,FOUND:FOUND,stFrac:stFrac,firstPk:firstPk,lemF:lemF,molar:molar}; /* for testing */"
+  ],
+  [
+   "var RNG=' ile ';",
+   "var RNG=' to ';"
   ]
  ],
  "keep": [
