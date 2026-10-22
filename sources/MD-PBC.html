@@ -54,7 +54,8 @@ canvas.plot{background:var(--soft);aspect-ratio:16/6}
 @keyframes flash{0%{background:var(--warm);border-color:var(--gold);box-shadow:0 0 0 6px color-mix(in srgb,var(--warm) 40%,transparent)}100%{background:var(--paper);box-shadow:0 0 0 0 transparent}}
 @media (prefers-reduced-motion: reduce){.btn.flash{animation:none;background:var(--warm)}.btn:active{transform:none}}
 .seg button:focus-visible,.btn:focus-visible,.opt:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.chk{display:flex;gap:8px;align-items:center;font-size:13.5px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13.5px;min-height:32px;cursor:pointer}
+.chk input{width:20px;height:20px;flex:none}
 .read{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:14px;margin:0}
 .read dt{color:var(--muted)}
 .read dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
@@ -82,7 +83,7 @@ canvas.plot{background:var(--soft);aspect-ratio:16/6}
 .chip{all:unset;cursor:pointer;padding:6px 11px;border-radius:999px;border:1px solid var(--line);font-size:13.5px;color:var(--ink);background:var(--paper)}
 .chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)}
 .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-input[type=range]{width:100%;accent-color:var(--accent)}
+input[type=range]{width:100%;height:28px;accent-color:var(--accent)}
 .big{font-family:var(--mono);font-size:28px;font-variant-numeric:tabular-nums}
 .big small{font-size:14px;color:var(--muted)}
 table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
@@ -167,7 +168,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
   <section class="card" aria-labelledby="h1s">
     <span class="step">1 · Atölye</span>
     <h2 id="h1s">Bir molekülü fırlatın, nereye gittiğini izleyin</h2>
-    <p class="small">Kutu 3 nm genişliğinde; içindeki top tek bir su molekülüdür (18 g/mol). Topu tutup geriye doğru sürükleyin: ok, bırakınca alacağı yönü ve hızı gösterir. Oda sıcaklığında bir su molekülünün tipik hızı saniyede birkaç yüz metredir. Üç sınır türünü sırayla deneyin.</p>
+    <p class="small">Kutu 3 nm genişliğinde; içindeki top tek bir su molekülüdür (18 g/mol). Topu tutup geriye doğru sürükleyin: ok, bırakınca alacağı yönü ve hızı gösterir. Klavyeyle "Rastgele fırlat" düğmesini kullanabilirsiniz. Oda sıcaklığında bir su molekülünün tipik hızı saniyede birkaç yüz metredir. Üç sınır türünü sırayla deneyin.</p>
     <div class="two">
       <div class="stagebox">
         <canvas id="ball" class="stage" aria-label="Fırlatma atölyesi: 3 nm'lik kutu ve bir su molekülü"></canvas>
@@ -193,11 +194,12 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
         <div class="btns">
           <button type="button" class="btn" id="bReset">Topu ortaya al</button>
           <button type="button" class="btn" id="bPause">Durdur</button>
+          <button type="button" class="btn" id="bThrow">Rastgele fırlat</button>
         </div>
         <label class="chk"><input type="checkbox" id="bUnwrap"> Molekülün gerçek yolunu göster (sarılmamış)</label>
       </div>
     </div>
-    <div class="change" id="bChg"><span class="t">Topu fırlatın</span><span>Çarpma, sınırdan geçiş ya da kaçış olduğunda burada ne değiştiği yazılır.</span></div>
+    <div class="change" id="bChg" aria-live="polite"><span class="t">Topu fırlatın</span><span>Çarpma, sınırdan geçiş ya da kaçış olduğunda burada ne değiştiği yazılır.</span></div>
     <div class="minis">
       <article class="q" id="w1"><span class="k">Açık</span><h3>Duvar ne yapıyor?</h3><p>Duvarlı kutuda topu fırlatın ve en az iki kez çarpmasını izleyin. Hangi hız bileşeni değişiyor, enerji değişiyor mu?</p><div class="mine" id="mw1">Duvar modunda fırlatın; iki çarpma yeterli.</div></article>
       <article class="q" id="w2"><span class="k">Açık</span><h3>Duvar yoksa ne olur?</h3><p>Boşluk modunda topu fırlatın. Kutudaki enerjiye ne oluyor?</p><div class="mine" id="mw2">Boşluk modunda topu kutunun dışına gönderin.</div></article>
@@ -208,7 +210,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
   <section class="card" aria-labelledby="h2s">
     <span class="step">2 · Tezgâh</span>
     <h2 id="h2s">Kalabalıkta: kenardaki molekülün enerjisi neden farklı?</h2>
-    <p class="small">Şimdi kutuda 100 molekülden oluşan bir sıvı var (Lennard-Jones sıvısı, argon benzeri; iki boyutlu oyuncak model). Her molekülün rengi kendi potansiyel enerjisidir: koyu mavi, çevresindeki komşulardan güçlü çekim alan, yani enerjisi düşük molekül; açık renk, komşusu az, enerjisi yüksek molekül. Bir moleküle dokunursanız komşularını ve enerjisini görürsünüz; tutup sürüklerseniz ona hız verirsiniz. Enerji birimi ε'dur; argon için ε yaklaşık 1 kJ/mol.</p>
+    <p class="small">Şimdi kutuda 100 molekülden oluşan bir sıvı var (Lennard-Jones sıvısı, argon benzeri; iki boyutlu oyuncak model). Her molekülün rengi kendi potansiyel enerjisidir: koyu mavi, çevresindeki komşulardan güçlü çekim alan, yani enerjisi düşük molekül; açık renk, komşusu az, enerjisi yüksek molekül. Bir moleküle dokunursanız komşularını ve enerjisini görürsünüz; tutup sürüklerseniz ona hız verirsiniz. Aynı işleri klavyeyle seçim ve itme düğmeleriyle de yapabilirsiniz. Enerji birimi ε'dur; argon için ε yaklaşık 1 kJ/mol. Sıcaklık düşük seçildi (kT = 0,40 ε): bu iki boyutlu model burada donmaya yakındır ve sıvıda yer yer altıgen düzenli, katıya benzeyen yamalar görebilirsiniz. Kenardaki molekülün enerjisinin yüksek olması katıda da aynıdır; sayfanın öğrettiği yön değişmez.</p>
     <div class="two">
       <div class="stagebox">
         <canvas id="liq" class="stage" aria-label="Lennard-Jones sıvısı, moleküller potansiyel enerjilerine göre renkli"></canvas>
@@ -235,10 +237,15 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
           <button type="button" class="btn" id="lHeat">Isıt (+%25 kinetik enerji)</button>
           <button type="button" class="btn" id="lPause">Durdur</button>
         </div>
+        <div class="btns">
+          <button type="button" class="btn" id="lSelEdge">Kenardaki bir molekülü seç</button>
+          <button type="button" class="btn" id="lSelBulk">Ortadaki bir molekülü seç</button>
+          <button type="button" class="btn" id="lPush">Seçili moleküle itme ver</button>
+        </div>
       </div>
     </div>
     <canvas id="lPlot" class="plot" aria-label="Zamana karşı molekül başına potansiyel enerji ve sıcaklık"></canvas>
-    <div class="change" id="lChg"><span class="t">Deneyin</span><span>Boşluk modunda kare biçimli sıvının zamanla yuvarlaklaştığını izleyin; sonra duvar ve periyodik modlara geçin.</span></div>
+    <div class="change" id="lChg" aria-live="polite"><span class="t">Deneyin</span><span>Boşluk modunda kare biçimli sıvının zamanla yuvarlaklaştığını izleyin; sonra duvar ve periyodik modlara geçin.</span></div>
     <div class="minis">
       <article class="q" id="b1"><span class="k">Açık</span><h3>Kenardaki ile ortadaki molekül</h3><p>Duvar ya da boşluk modunda önce kenardaki açık renkli bir moleküle, sonra ortadaki koyu bir moleküle dokunun.</p><div class="mine" id="mb1">Komşusu en çok 3 olan bir moleküle ve en az 5 olan bir moleküle dokunun.</div></article>
       <article class="q" id="b2"><span class="k">Açık</span><h3>Verdiğiniz enerji nereye gitti?</h3><p>Periyodik modda bir molekülü tutup hızla fırlatın ve biraz bekleyin.</p><div class="mine" id="mb2">Periyodik modda bir moleküle güçlü bir itme verin.</div></article>
@@ -314,12 +321,12 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
       <div class="fact"><span>d = 1 nm'ye göre maliyet</span><b id="fR"></b></div>
     </div>
     <canvas id="aPlot" class="plot" aria-label="d'ye karşı duvar dibindeki su payı ve RTX 5080'de 100 ns süresi"></canvas>
-    <div class="legend"><span><i style="background:var(--warm)"></i>Duvarlı küp kutuda duvar dibindeki su payı (sol eksen)</span><span><i style="background:var(--navy)"></i>RTX 5080'de 100 ns için süre, seçili kutu biçimiyle (sağ eksen)</span></div>
+    <div class="legend"><span><i style="background:var(--warm)"></i>Duvarlı küp kutuda duvar dibindeki su payı (sol eksen)</span><span><i style="background:var(--navy)"></i>RTX 5080'de 100 ns için süre, seçili kutu biçimiyle (sağ eksen; kesikli bölümde GPU dolmuyor, gerçek süre daha kısa olabilir)</span></div>
     <div class="prose">
       <p><b>Ne görüyorsunuz?</b> Duvarlı kutuyu büyütmek kenar sorununu çözmüyor, yalnız hafifletiyor ve hesabı pahalılaştırıyor. Periyodik kutuda duvar dibi yok; geriye tek soru kalıyor: protein kendi kopyasından ne kadar uzak olmalı? d = 1 nm'de iki kopya arasında en az 2 nm su olur ve proteinin çevresindeki 1 nm'lik su kabukları birbirine değmez. Bu yüzden bu ayarla küçük, küresele yakın proteinlerde genellikle sorun çıkmaz; kutuyu daha da büyütmek sonucu pek değiştirmez ama maliyeti hızla artırır. Uzun, esnek ya da açılıp kapanan proteinlerde d'yi büyütmek ve koşu boyunca kopyalar arası en kısa uzaklığı (<code>gmx mindist -pi</code>) izlemek gerekir.</p>
-      <p><b>Kutu biçimi.</b> Eşkenar dörtgen onikiyüzlü kutuda kopyalar küpteki kadar uzaktadır ama hacim yaklaşık %29 küçüktür; aynı d için daha az su, daha hızlı hesap. Bu projenin ubikitin hazırlığı da böyle kuruldu (<code>editconf -d 1.0 -bt dodecahedron</code>: 5.902 su, 18.937 atom); paneldeki hesap bu sayılarla ayarlandı. Kesit, kolay okunsun diye kare çizilmiştir.</p>
+      <p><b>Kutu biçimi.</b> Eşkenar dörtgen onikiyüzlü kutuda kopyalar küpteki kadar uzaktadır ama hacim yaklaşık %29 küçüktür; aynı d için daha az su, daha hızlı hesap. Bu projenin ubikitin hazırlığı da böyle kuruldu (<code>editconf -d 1.0 -bt dodecahedron</code>: 5.902 su, 18.937 atom). Paneldeki hesap bu hazırlıkla ve d = 0,5 nm'lik ikinci hazırlıkla (3.378 su, 11.365 atom) ayarlandı; bu iki d değerinde panel aynı sayıları verir. Kesit, kolay okunsun diye kare çizilmiştir.</p>
       <p><b>Bedeli.</b> Periyodik kutuda kopyalar tam olarak aynı hareketi yapar; protein dönerken kopyalarının da aynı anda döndüğünü görüyorsunuz. Kristaldeki paketleme temaslarının bir ilmeği yapay bir konuma itebildiğini biliyorsunuz; kutu fazla küçükse protein de kendi kopyasını hisseder. Kopyalar arasındaki etkileşimin nerede kesileceğini ve uzun erimli elektrostatiği sonraki laboratuvarlarda deneyeceksiniz.</p>
-      <p class="small">Hız tahmini: Exxact'in RTX 5080 ile AMBER 26 ölçümlerinden (JAC 23.558 atom, 1.468,55 ns/gün, 4 fs; FactorIX 90.906 atom, 365,36 ns/gün, 2 fs; Cellulose 408.609 atom, 99,07 ns/gün, 2 fs; STMV 1.067.095 atom, 63,17 ns/gün, 4 fs) saniyedeki adım sayısı atom sayısına göre ara değerlenmiş, 2 fs zaman adımına çevrilmiştir. 23.558 atomun altında GPU tam dolmaz; bu yüzden küçük sistemlerde gösterilen hız bir alt sınırdır ("en az"). GROMACS aynı kartta benzer büyüklükte hız verir, ama sürüm, kesme mesafesi, PME ayarları ve CPU'ya göre değişir; kendi sisteminiz için kısa bir koşunun günlüğündeki "Performance" satırı en doğru ölçüdür. Hidrojen kütlesini yeniden dağıtıp (HMR) 4 fs kullanırsanız süreler yaklaşık yarıya iner. Hesap: su = 33,4 nm⁻³ × (kutu hacmi − 16,7 nm³), atom = 1.231 + 3 × su (TIP3P, iyonsuz).</p>
+      <p class="small">Hız tahmini: Exxact'in RTX 5080 ile AMBER 26 ölçümlerinden (JAC 23.558 atom, 1.468,55 ns/gün, 4 fs; FactorIX 90.906 atom, 365,36 ns/gün, 2 fs; Cellulose 408.609 atom, 99,07 ns/gün, 2 fs; STMV 1.067.095 atom, 63,17 ns/gün, 4 fs) saniyedeki adım sayısı atom sayısına göre ara değerlenmiş, 2 fs zaman adımına çevrilmiştir. 23.558 atomun altında GPU tam dolmaz; bu yüzden küçük sistemlerde gösterilen hız bir alt sınırdır ("en az"). GROMACS aynı kartta benzer büyüklükte hız verir, ama sürüm, kesme mesafesi, PME ayarları ve CPU'ya göre değişir; kendi sisteminiz için kısa bir koşunun günlüğündeki "Performance" satırı en doğru ölçüdür. Hidrojen kütlesini yeniden dağıtıp (HMR) 4 fs kullanırsanız süreler yaklaşık yarıya iner. Hesap: su = 33,07 nm⁻³ × (kutu hacmi − 14,93 nm³), atom = 1.231 + 3 × su (TIP3P, iyonsuz); iki sabit, d = 1,0 ve 0,5 nm hazırlıklarının su sayılarından bulundu. Eğrinin kesikli bölümünde sistem 23.558 atomdan küçüktür; orada gösterilen süre bir üst sınırdır.</p>
     </div>
   </section>
 
@@ -386,7 +393,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
   <section class="card" aria-labelledby="k6h2">
     <span class="step">2 · Tezgâh</span>
     <h2 id="k6h2">Protein kendi akışına çarpar: periyodik kutuda su</h2>
-    <div class="prose"><p>Protein suyun içinde ilerlerken önündeki suyu iter. Sonsuz bir sıvıda bu akış uzakta söner. Periyodik kutuda ise itilen su kutunun öbür yüzünden geri gelir ve kopyaların akışıyla birleşir; kutu hareketsiz kalsın diye bir yerde geriye akmak zorundadır. Aşağıda proteine sabit bir kuvvet uygulanıyor; noktalar suyun nereye gittiğini gösterir. Turuncu çizgiler proteinle aynı yöne, mavi çizgiler geriye akan suyu gösterir. Çizim suyun o anki hızını gösterir; protein yerinde çizildi, kopyaları soluk.</p></div>
+    <div class="prose"><p>Protein suyun içinde ilerlerken önündeki suyu iter. Sonsuz bir sıvıda bu akış uzakta söner. Periyodik kutuda ise itilen su kutunun öbür yüzünden geri gelir ve kopyaların akışıyla birleşir; kutu hareketsiz kalsın diye bir yerde geriye akmak zorundadır. Aşağıda proteine sabit bir kuvvet uygulanıyor; noktalar suyun nereye gittiğini gösterir. Turuncu çizgiler proteinle aynı yöne, mavi çizgiler geriye akan suyu gösterir. Çizim suyun o anki hızını gösterir; protein yerinde çizildi, kopyaları soluk. Noktaların ekrandaki hızı göreli bir ölçektir: gerçek akışla orantılıdır ama çok yavaşlatılmıştır (ölçü için sağ alttaki 1 nm çubuğuna bakın). Proteinin içine düşen noktalar soluk çizildi; modelde protein, suyu kendisiyle sürükleyen yumuşak bir kuvvet bulutudur.</p></div>
     <div class="two">
       <div class="stagebox"><canvas id="k6flow" class="stage" aria-label="Kuvvetle itilen proteinin çevresinde suyun akışı: periyodik kutu ya da sonsuz sıvı"></canvas></div>
       <div class="ctl">
@@ -425,9 +432,9 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
     </div>
     <p class="busy" id="k6nBusy" aria-live="polite">Ölçüm yok.</p>
     <canvas id="k6book" class="plot" aria-label="1/L'ye karşı ubikitinin difüzyon katsayısı: ölçümler, doğru, sonsuz sıvı değeri ve deneysel değer"></canvas>
-    <div class="legend"><span><i style="background:var(--accent)"></i>TIP3P</span><span><i style="background:var(--deep)"></i>Gerçek su</span><span><i style="background:var(--good)"></i>Deney (PFG-NMR yarıçapından, 158 µm²/s)</span><span>Kesikli çizgi: seçilen suda D<sub>∞</sub>; halka: bu projenin iki onikiyüzlü kutusu</span><span id="k6nCount"></span></div>
-    <div class="tw"><table><thead><tr><th>Su</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Hareketlilik oranı</th><th>D<sub>PBC</sub> (µm²/s)</th></tr></thead><tbody id="k6nTab"></tbody></table></div>
-    <p class="small">Viskozite (298 K, 1 bar): TIP3P 0,321 mPa·s, gerçek su 0,896 mPa·s (González ve Abascal 2010, J Chem Phys 132:096101). TIP3P suyu gerçek sudan yaklaşık üç kat akışkandır; bu yüzden TIP3P'de protein de sonsuz kutuda yaklaşık üç kat hızlı yayılır. Defteriniz yalnız bu tarayıcıda saklanır.</p>
+    <div class="legend"><span><i style="background:var(--accent)"></i>TIP3P</span><span><i style="background:var(--deep)"></i>Gerçek su</span><span><i style="background:var(--good)"></i>Deney (PFG-NMR yarıçapından, 158 µm²/s)</span><span>Kesikli çizgi: seçilen suda D<sub>∞</sub>; noktalı çizgi: Yeh-Hummer doğrusu D<sub>∞</sub> − kTξ/(6πηL); halka: bu projenin iki onikiyüzlü kutusu</span><span id="k6nCount"></span></div>
+    <div class="tw"><table><thead><tr><th>Su</th><th>L (nm)</th><th>1/L (nm⁻¹)</th><th>Hareketlilik oranı</th><th>D<sub>PBC</sub> (µm²/s)</th><th>Yeh-Hummer ile düzeltilmiş D (µm²/s)</th></tr></thead><tbody id="k6nTab"></tbody></table></div>
+    <p class="small">Viskozite (298 K, 1 bar): TIP3P 0,321 mPa·s, gerçek su 0,896 mPa·s (González ve Abascal 2010, J Chem Phys 132:096101). TIP3P suyu gerçek sudan yaklaşık üç kat akışkandır; bu yüzden TIP3P'de protein de sonsuz kutuda yaklaşık üç kat hızlı yayılır. Son sütun tek bir kutuya Yeh-Hummer düzeltmesini uygular: D<sub>PBC</sub> + kTξ/(6πηL). Küçük kutuda düzeltilmiş değer D<sub>∞</sub>'u geçer: birinci derece düzeltme orada aşırıya kaçar. Defteriniz yalnız bu tarayıcıda saklanır.</p>
   </section>
 
   <section class="card" aria-labelledby="k6h4">
@@ -708,6 +715,7 @@ function bRead(){
 })();
 $('bWall').onclick=function(){setMode('wall');}; $('bVac').onclick=function(){setMode('vac');}; $('bPbc').onclick=function(){setMode('pbc');};
 $('bReset').onclick=function(){ resetBall(false); bDraw(); bRead(); };
+$('bThrow').onclick=function(){ var a=Math.random()*2*Math.PI, v=450+Math.random()*450; if(B.paused){ B.paused=false; $('bPause').textContent='Durdur'; } launch(v*Math.cos(a),v*Math.sin(a)); $('ballHint').hidden=true; kickLoop(); };
 $('bPause').onclick=function(){ B.paused=!B.paused; $('bPause').textContent=B.paused?'Sürdür':'Durdur'; kickLoop(); };
 $('bUnwrap').onchange=function(){ bDraw(); };
 
@@ -809,6 +817,10 @@ function lPick(i){
     var i=Q.aim.i, vx=Q.s.vx[i], vy=Q.s.vy[i]; Q.aim.dvx=dvx; Q.aim.dvy=dvy; Q.aim.dE=0.5*((vx+dvx)*(vx+dvx)+(vy+dvy)*(vy+dvy))-0.5*(vx*vx+vy*vy); if(reduce||Q.paused) lDraw(); });
   function up(){ if(!Q.aim) return; var A=Q.aim; Q.aim=null;
     if(!A.moved){ lPick(A.i); lDraw(); return; }
+    lApply(A); }
+  c.addEventListener('pointerup',up); c.addEventListener('pointercancel',up);
+})();
+function lApply(A){
     var S=Q.s, i=A.i, Tb=meanT(); S.vx[i]+=A.dvx; S.vy[i]+=A.dvy; var kA=0.5*(S.vx[i]*S.vx[i]+S.vy[i]*S.vy[i]);
     var Tafter=Tb+A.dE/S.N; Q.sel=i;
     Q.events.push({t:S.t,label:'itme'});
@@ -816,8 +828,12 @@ function lPick(i){
     if(Q.mode==='pbc' && A.dE<1.5) lChg('Daha güçlü bir itme deneyin','Verdiğiniz enerji '+fx(A.dE,1)+' ε; etkisini görmek için en az 1,5 ε verin.');
     else lChg('Moleküle '+fx(A.dE,1)+' ε enerji verdiniz', Q.mode==='pbc'?'Rengine ve komşularına bakın, birkaç saniye izleyin: enerji nereye gidiyor?':Q.mode==='vac'?'Yeterince hızlıysa damladan kopup gider ve enerjisini de götürür.':'Duvara çarpıp geri döner; enerji kutuda kalır ama molekül yine bir duvara çarpar.');
     kickLoop(); }
-  c.addEventListener('pointerup',up); c.addEventListener('pointercancel',up);
-})();
+/* klavye: kenardaki / ortadaki molekülü seç, seçili moleküle itme ver */
+function lFind(edge){ var S=Q.s, best=-1, bs=-1e9; for(var i=0;i<S.N;i++){ if(S.u[i]>-0.05) continue; var sc=edge?(-S.nb[i]*10+S.u[i]):(S.nb[i]*10-S.u[i]); if(sc>bs){ bs=sc; best=i; } } return best; }
+$('lSelEdge').onclick=function(){ var i=lFind(true); if(i>=0){ lPick(i); $('liqHint').hidden=true; lDraw(); } };
+$('lSelBulk').onclick=function(){ var i=lFind(false); if(i>=0){ lPick(i); $('liqHint').hidden=true; lDraw(); } };
+$('lPush').onclick=function(){ var S=Q.s, i=Q.sel>=0?Q.sel:lFind(false); if(i<0) return; var vx=S.vx[i], vy=S.vy[i], v=Math.hypot(vx,vy), a=v>1e-6?Math.atan2(vy,vx):Math.random()*2*Math.PI, dvx=2.6*Math.cos(a), dvy=2.6*Math.sin(a);
+  lApply({i:i,dvx:dvx,dvy:dvy,dE:0.5*((vx+dvx)*(vx+dvx)+(vy+dvy)*(vy+dvy))-0.5*(vx*vx+vy*vy)}); $('liqHint').hidden=true; lDraw(); };
 $('lWall').onclick=function(){lSetMode('wall');}; $('lVac').onclick=function(){lSetMode('vac');}; $('lPbc').onclick=function(){lSetMode('pbc');};
 $('lReset').onclick=function(){ lNew(); lDraw(); };
 $('lHeat').onclick=function(){ var S=Q.s; for(var i=0;i<S.N;i++){ S.vx[i]*=Math.sqrt(1.25); S.vy[i]*=Math.sqrt(1.25); }
@@ -931,13 +947,15 @@ function nEval(){
    4 · PROTEİNE DÖNÜŞ: ubikitin, su ve kutu (editconf -d gibi)
    ===================================================================== */
 var P4={mode:'pbc', shape:'dod', d:1.0, a:6.49, t:0, D:0.31, VIEW:13, dots:null, dotsA:0};
-var DIAM=4.49, PATOM=1231, WATER=33.4, VEX=16.7, LAYER=0.3, DODEC=Math.SQRT1_2;
+var DIAM=4.491, PATOM=1231, LAYER=0.3, DODEC=Math.SQRT1_2;
+/* su yoğunluğu ve protein hacmi bu projenin iki onikiyüzlü hazırlığından: d = 1,0 nm 5.902 su, d = 0,5 nm 3.378 su */
+var VD10=DODEC*Math.pow(DIAM+2,3), VD05=DODEC*Math.pow(DIAM+1,3), WATER=(5902-3378)/(VD10-VD05), VEX=VD10-5902/WATER;
 /* RTX 5080, AMBER 26 ölçümleri (Exxact): [atom, ns/gün, zaman adımı fs] */
 var BENCH=[[23558,1468.55,4],[90906,365.36,2],[408609,99.07,2],[1067095,63.17,4]].map(function(b){ return [b[0], b[1]*1e6/b[2]/86400]; }); // [atom, adım/s]
 function stepsPerSec(N){ if(N<=BENCH[0][0]) return {v:BENCH[0][1],lb:true};
   for(var i=1;i<BENCH.length;i++){ if(N<=BENCH[i][0]){ var a=BENCH[i-1], b=BENCH[i], t=Math.log(N/a[0])/Math.log(b[0]/a[0]); return {v:Math.exp(Math.log(a[1])+t*Math.log(b[1]/a[1])),lb:false}; } }
   var a2=BENCH[BENCH.length-2], b2=BENCH[BENCH.length-1], t2=Math.log(N/a2[0])/Math.log(b2[0]/a2[0]); return {v:Math.exp(Math.log(a2[1])+t2*Math.log(b2[1]/a2[1])),lb:false}; }
-function sys4(d,shape){ var a=DIAM+2*d, V=(shape==='dod'?DODEC:1)*a*a*a, w=Math.max(0,WATER*(V-VEX)), N=PATOM+3*w, sp=stepsPerSec(N), nsd=sp.v*86400*2e-6;
+function sys4(d,shape){ var a=DIAM+2*d, V=(shape==='dod'?DODEC:1)*a*a*a, w=Math.max(0,Math.round(WATER*(V-VEX))), N=PATOM+3*w, sp=stepsPerSec(N), nsd=sp.v*86400*2e-6;
   var Vc=a*a*a, layer=Vc-Math.pow(Math.max(0,a-2*LAYER),3); return {a:a,V:V,w:w,N:N,nsd:nsd,lb:sp.lb,h100:100/nsd*24,d1us:1000/nsd,f:layer/Math.max(1e-9,Vc-VEX)}; }
 function dur(h){ if(h<1) return fx(h*60,0)+' dk'; if(h<48) return fx(h,h<10?1:0)+' saat'; return fx(h/24,1)+' gün'; }
 var NFI=new Intl.NumberFormat('tr-TR');
@@ -1008,7 +1026,13 @@ function aPlot(){
   [0,top/2,top].forEach(function(h){ g.textAlign='left'; g.fillText(fx(h,h<10&&h%1?1:0)+' sa',W-R+6,Yh(h)+4); });
   g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(d){ g.fillText(fx(d,1),X(d),H-B+18); }); g.fillText(W>=560?'proteinden kutu kenarına uzaklık d (nm)':'d (nm)',(L+W-R)/2,H-6);
   function curve(fn,Yfn,col){ g.strokeStyle=col; g.lineWidth=2.4; g.beginPath(); for(var k=0;k<=120;k++){ var d=d0+(d1-d0)*k/120, y=Yfn(fn(d)); if(k) g.lineTo(X(d),y); else g.moveTo(X(d),y); } g.stroke(); }
-  curve(function(d){return sys4(d,'cube').f;},Yf,css('--warm')); curve(function(d){return sys4(d,P4.shape).h100;},Yh,css('--navy'));
+  curve(function(d){return sys4(d,'cube').f;},Yf,css('--warm'));
+  /* süre eğrisi: GPU'nun dolmadığı (23.558 atomun altı) bölüm kesikli, çünkü orada süre bir üst sınırdır */
+  var pts=[]; for(var k=0;k<=120;k++){ var dd=d0+(d1-d0)*k/120, S2=sys4(dd,P4.shape); pts.push([X(dd),Yh(S2.h100),S2.lb]); }
+  g.strokeStyle=css('--navy'); g.lineWidth=2.4; var k0=0;
+  while(k0<pts.length-1){ var lbr=pts[k0][2], k1=k0; while(k1<pts.length-1&&pts[k1+1][2]===lbr) k1++; var kE=Math.min(pts.length-1,k1+1);
+    g.setLineDash(lbr?[7,5]:[]); g.beginPath(); g.moveTo(pts[k0][0],pts[k0][1]); for(var q=k0+1;q<=kE;q++) g.lineTo(pts[q][0],pts[q][1]); g.stroke(); g.setLineDash([]);
+    k0=k1+1; }
   var x1=X(1); g.strokeStyle=css('--good'); g.setLineDash([3,3]); g.lineWidth=1.3; g.beginPath(); g.moveTo(x1,T); g.lineTo(x1,H-B); g.stroke(); g.setLineDash([]); g.fillStyle=css('--good'); g.textAlign='left'; g.fillText('uygulamadaki ayar',x1+4,W>=560?T+14:H-B-8);
   var xa=X(P4.d), S=sys4(P4.d,P4.shape); g.strokeStyle=css('--accent'); g.setLineDash([4,4]); g.lineWidth=1.5; g.beginPath(); g.moveTo(xa,T); g.lineTo(xa,H-B); g.stroke(); g.setLineDash([]);
   [[Yf(sys4(P4.d,'cube').f),css('--warm')],[Yh(S.h100),css('--navy')]].forEach(function(p){ g.fillStyle=p[1]; g.beginPath(); g.arc(xa,p[0],5,0,6.2832); g.fill(); });
@@ -1267,7 +1291,7 @@ function fDraw(){ var c=$('k6flow'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(
   else { g.fillStyle=paper; g.fillRect(0,0,W,H); }
   var reps=pbc?[-1,0,1]:[0], vmax=Math.max(0.05,F.ratio);
   for(var t=0;t<F.tr.length;t++){ var p=F.tr[t], u=p.u||0, k=Math.min(1,Math.abs(u)/((u>=0?0.35:0.12)*vmax)), col=u>=0?mixA(warm,acc,0.25+0.5*k):mixA(mid,deep,0.45+0.55*k), al=Math.min(1,p.a*2,(p.life-p.a)*2)*(0.4+0.6*k);
-    g.strokeStyle=str(col,al); g.lineWidth=2.2; g.lineCap='round'; var tl=Math.max(0.6,Math.min(9,Math.hypot(u,p.v||0)/vmax*9)), ang=Math.atan2(p.v||0,u), dx=-Math.cos(ang)*tl, dy=Math.sin(ang)*tl;
+    if(Math.hypot(wrapL(p.x-F.xp),wrapL(p.y))<RH) al*=0.2; g.strokeStyle=str(col,al); g.lineWidth=2.2; g.lineCap='round'; var tl=Math.max(0.6,Math.min(9,Math.hypot(u,p.v||0)/vmax*9)), ang=Math.atan2(p.v||0,u), dx=-Math.cos(ang)*tl, dy=Math.sin(ang)*tl;
     for(var a=0;a<reps.length;a++) for(var b=0;b<reps.length;b++){ var x=X(p.x+reps[a]*L), y=Y(p.y+reps[b]*L); if(x<-10||x>W+10||y<-10||y>H+10) continue; g.beginPath(); g.moveTo(x+dx,y+dy); g.lineTo(x,y); g.stroke(); } }
   var pcol=rgb(prot);
   for(var a2=0;a2<reps.length;a2++) for(var b2=0;b2<reps.length;b2++){ var x0=X(F.xp+reps[a2]*L), y0=Y(reps[b2]*L), cen2=!reps[a2]&&!reps[b2];
@@ -1275,7 +1299,8 @@ function fDraw(){ var c=$('k6flow'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(
     g.fillStyle=gr; g.beginPath(); g.arc(x0,y0,RH*s,0,Math.PI*2); g.fill();
     if(cen2){ g.strokeStyle=ink; g.lineWidth=2.2; g.beginPath(); g.moveTo(x0-RH*s*0.5,y0); g.lineTo(x0+RH*s*1.6,y0); g.stroke(); g.beginPath(); g.moveTo(x0+RH*s*1.6,y0); g.lineTo(x0+RH*s*1.25,y0-6); g.lineTo(x0+RH*s*1.25,y0+6); g.closePath(); g.fillStyle=ink; g.fill(); } }
   g.fillStyle=muted; g.font='12px '+css('--sans'); g.textAlign='left'; g.fillText(pbc?'periyodik kutu, L = '+fx(L,1)+' nm':'sonsuz sıvı (aynı ölçek)',X(-L/2)+6,Y(-L/2)-8);
-  pill(g,'protein hızı '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy')); }
+  pill(g,'protein hızı '+pc(100*F.ratio,0),X(-L/2)+70,Y(L/2)+18,paper,css('--navy'));
+  var sbx=W-16-s, sby=H-14; g.fillStyle=str(rgb(paper),0.85); g.fillRect(sbx-48,sby-14,s+56,24); g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(sbx,sby); g.lineTo(sbx+s,sby); g.moveTo(sbx,sby-4); g.lineTo(sbx,sby+4); g.moveTo(sbx+s,sby-4); g.lineTo(sbx+s,sby+4); g.stroke(); g.fillStyle=ink; g.textAlign='right'; g.fillText('1 nm',sbx-6,sby+4); g.textAlign='left'; }
 
 /* ---------------- defter ---------------- */
 var LS=[5,6,8,10,12,15,20,30], nW='tip3p', nL=10, KEY6='ahl-mdpbc-lab4-v1', book6=[], RC={};
@@ -1293,10 +1318,11 @@ function nEval(){ var sw=['tip3p','exp'], got=null;
   var P=book6.length; $('k6nCount').textContent=P?P+' ölçüm':'';
   $('k6nBusy').textContent=P?'Son ölçümler defterde. Doğru, her su modelinde en az iki ölçüm olunca çizilir.':'Ölçüm yok.';
   if(got){ var D=dInf(got.w), th=-KT*2.837297/(6*Math.PI*ETA[got.w])*1e21; /* µm²/s · nm */
-    card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Gerçek su')+'</b>, '+got.n+' kutu: doğrunuz 1/L = 0\'da <b>'+fx(got.f.a,0)+' µm²/s</b> veriyor; sonsuz kutunun değeri '+fx(D,0)+' µm²/s (fark '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; en küçük kutuları çıkarıp daha büyük kutular ekleyince fark küçülür':'')+'). Eğiminiz '+fx(got.f.b,0)+' µm²/s · nm; Yeh-Hummer düzeltmesinin eğimi −kTξ/(6πη) = '+fx(th,0)+'. Küçük kutuların noktaları doğrunun altında kalır: formülün R/L terimleri orada önem kazanır.'); }
+    var Lm=Math.min.apply(null,book6.filter(function(p){return p.w===got.w;}).map(function(p){return p.L;})), dlt=D*rc(Lm)-(D+th/Lm);
+    card('k6c3',true,'<b>'+(got.w==='tip3p'?'TIP3P':'Gerçek su')+'</b>, '+got.n+' kutu: doğrunuz 1/L = 0\'da <b>'+fx(got.f.a,0)+' µm²/s</b> veriyor; sonsuz kutunun değeri '+fx(D,0)+' µm²/s (fark '+pc(100*Math.abs(got.f.a/D-1),1)+(Math.abs(got.f.a/D-1)>0.05?'; en küçük kutuları çıkarıp daha büyük kutular ekleyince fark küçülür':'')+'). Eğiminiz '+fx(got.f.b,0)+' µm²/s · nm; Yeh-Hummer düzeltmesinin eğimi −kTξ/(6πη) = '+fx(th,0)+'. Küçük kutuların noktaları Yeh-Hummer doğrusunun (grafikte noktalı) <b>üstünde</b> kalır: en küçük kutunuzda (L = '+NFI.format(Lm)+' nm) fark +'+fx(dlt,1)+' µm²/s. Hasimoto serisindeki (4π/3)(R/L)³ terimi hareketliliği birinci derece tahminden yüksek tutar; bu yüzden eğiminiz Yeh-Hummer eğiminden sığ çıkar.'); }
   nDraw(); nTab(); }
 function nTab(){ var rows=book6.slice().sort(function(a,b){ return a.w===b.w?a.L-b.L:(a.w==='tip3p'?-1:1); });
-  $('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Gerçek su')+'</td><td class="n">'+NFI.format(p.L)+'</td><td class="n">'+fx(1/p.L,3)+'</td><td class="n">'+fx(r,3)+'</td><td class="n">'+fx(dInf(p.w)*r,0)+'</td></tr>'; }).join(''):'<tr><td colspan="5" class="small">Henüz ölçüm yok.</td></tr>'; }
+  $('k6nTab').innerHTML=rows.length?rows.map(function(p){ var r=rc(p.L); return '<tr><td>'+(p.w==='tip3p'?'TIP3P':'Gerçek su')+'</td><td class="n">'+NFI.format(p.L)+'</td><td class="n">'+fx(1/p.L,3)+'</td><td class="n">'+fx(r,3)+'</td><td class="n">'+fx(dInf(p.w)*r,0)+'</td><td class="n">'+fx(dInf(p.w)*r+KT*2.837297/(6*Math.PI*ETA[p.w]*p.L)*1e21,0)+'</td></tr>'; }).join(''):'<tr><td colspan="6" class="small">Henüz ölçüm yok.</td></tr>'; }
 function nDraw(){ var c=$('k6book'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var Lp=58, R=18, T=16, B=40, ink=css('--ink'), muted=css('--muted'), line=css('--line'), paper=css('--paper'), good=css('--good');
   var COL={tip3p:css('--accent'),exp:css('--deep')}, ymax=500, xmax=0.21;
@@ -1309,6 +1335,7 @@ function nDraw(){ var c=$('k6book'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(
   g.strokeStyle=good; g.lineWidth=2; g.beginPath(); g.moveTo(X(0),Y(158.4)); g.lineTo(X(xmax),Y(158.4)); g.stroke();
   ['tip3p','exp'].forEach(function(w){ var P=book6.filter(function(p){return p.w===w;}), col=COL[w], D=dInf(w); if(!P.length&&w!==nW) return;
     g.strokeStyle=col; g.setLineDash([6,5]); g.lineWidth=1.3; g.beginPath(); g.moveTo(X(0),Y(D)); g.lineTo(X(xmax),Y(D)); g.stroke(); g.setLineDash([]);
+    var thw=-KT*2.837297/(6*Math.PI*ETA[w])*1e21; g.setLineDash([2,4]); g.lineWidth=1.6; g.beginPath(); g.moveTo(X(0),Y(D)); g.lineTo(X(xmax),Y(Math.max(0,D+thw*xmax))); g.stroke(); g.setLineDash([]);
     var ft=nFit(w); if(ft){ g.strokeStyle=str(rgb(col),0.8); g.lineWidth=1.8; g.beginPath(); g.moveTo(X(0),Y(ft.a)); g.lineTo(X(xmax),Y(Math.max(0,ft.a+ft.b*xmax))); g.stroke(); g.fillStyle=col; g.beginPath(); g.arc(X(0),Y(ft.a),5,0,Math.PI*2); g.fill(); }
     P.forEach(function(p){ var x=X(1/p.L), y=Y(D*rc(p.L)); g.fillStyle=col; g.beginPath(); g.arc(x,y,5,0,Math.PI*2); g.fill(); g.strokeStyle=paper; g.lineWidth=1.5; g.stroke(); });
     if(w===nW) ['S0','S3'].forEach(function(k){ var m=MD[k], V=m.L1*m.L1*m.L1*Math.SQRT1_2, x=X(1/Math.cbrt(V)), y=Y(D*HY.ratio('dod',m.L1,RH)); g.strokeStyle=col; g.lineWidth=2; g.beginPath(); g.arc(x,y,7,0,Math.PI*2); g.stroke(); g.fillStyle=muted; g.textAlign='left'; g.textAlign=x>W-60?'right':'left'; g.fillText(k,x>W-60?x-10:x+10,y+4); }); });

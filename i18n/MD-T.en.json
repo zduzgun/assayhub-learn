@@ -1,7 +1,7 @@
 {
  "module": "MD-T",
  "lang": "en",
- "source_sha256": "1d619cb6836c6c49bbade589128e14c863719448b7359979fe44634de09e8c89",
+ "source_sha256": "de7a0c0285160c1347c2ce68eeafe8293088b13ce9a04ad220d60bd3f2ae3771",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-T 0.2.0 keşif sürümü; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -599,8 +599,8 @@
    "<span>Vibration period T</span><b id=\"l2-fT\"></b>"
   ],
   [
-   "<span>Önerilen Δt ≈ T/10</span><b id=\"l2-fDt\"></b>",
-   "<span>Suggested Δt ≈ T/10</span><b id=\"l2-fDt\"></b>"
+   "<span>grompp sınırı Δt = T/5</span><b id=\"l2-fDt\"></b>",
+   "<span>grompp limit Δt = T/5</span><b id=\"l2-fDt\"></b>"
   ],
   [
    "<span class=\"t\">Bir şeyi değiştirin</span><span>Atomu, yayı ya da hazır bir bağı değiştirdiğinizde burada öncekiyle karşılaştırma görünür.</span>",
@@ -635,8 +635,8 @@
    "Give hydrogen a fake mass"
   ],
   [
-   "MD'de kullanılan bir hile: hidrojenin kütlesini 3 u yapmak. Titreşim ve önerilen Δt ne olur?",
-   "A trick used in MD: make the mass of hydrogen 3 u. What happens to the vibration and the suggested Δt?"
+   "MD'de kullanılan bir hile: hidrojenin kütlesini 3 u yapmak. Titreşim ve izin verilen Δt ne olur?",
+   "A trick used in MD: make the mass of hydrogen 3 u. What happens to the vibration and the allowed Δt?"
   ],
   [
    "2. atomu \"H (3 u)\" yapın.",
@@ -659,8 +659,8 @@
    "Relative error of the total energy versus time (fs)"
   ],
   [
-   "Üstte: integratörün hesapladığı konumlar, her Δt'de bir nokta. Altta: toplam enerjinin başlangıca göre göreli sapması, 20 titreşim boyunca. Gerçek molekülde bu enerji değişmez; sapmanın tamamı hesaplama aralığından gelen sayısal hatadır.",
-   "Top: the positions computed by the integrator, one dot per Δt. Bottom: the relative deviation of the total energy from its initial value over 20 vibrations. In a real molecule this energy does not change; the whole deviation is numerical error coming from the calculation interval."
+   "Üstte: integratörün hesapladığı konumlar, her Δt'de bir nokta. Altta: toplam enerjinin başlangıca göre göreli sapması, 20 titreşim boyunca. Gerçek molekülde bu enerji değişmez; sapmanın tamamı hesaplama aralığından gelen sayısal hatadır. Kararlı koşuda hata hep sıfırın altında kalır: bağ en uzun ve hareketsiz hâlden bırakılır, hız-Verlet'in enerjisi bu evreden başlayınca yalnız aşağı salınır.",
+   "Top: the positions computed by the integrator, one dot per Δt. Bottom: the relative deviation of the total energy from its initial value over 20 vibrations. In a real molecule this energy does not change; the whole deviation is numerical error coming from the calculation interval. In a stable run the error always stays below zero: the bond is released from its longest, motionless state, and starting from this phase the velocity-Verlet energy only swings downwards."
   ],
   [
    "Zaman adımı Δt",
@@ -723,8 +723,8 @@
    "<span class=\"lab-tag\">4 · Back to the protein</span>"
   ],
   [
-   "Bir proteinde bütün bu bağlar aynı anda vardır ve zaman adımını <b>en hızlı</b> titreşim belirler. Uygulamada kaba kural, en hızlı titreşimin periyodunun yaklaşık onda biridir. Tezgâhta bunun karşılığını görebilirsiniz: Δt = T/10 iken enerji hatası yaklaşık %10'dur.",
-   "In a protein all these bonds are present at once, and the time step is set by the <b>fastest</b> vibration. In practice the rough rule is about one tenth of the period of the fastest vibration. You can see the counterpart of this on the bench: at Δt = T/10 the energy error is about 10%."
+   "Bir proteinde bütün bu bağlar aynı anda vardır ve zaman adımını <b>en hızlı</b> titreşim belirler. Uygulamada sık kullanılan kural, adımı en hızlı titreşimin periyodunun beşte biriyle sınırlamaktır (T/5 kuralı: periyot başına en az beş adım); GROMACS'ın grompp aşaması da bu kuralla uyarır. Bu deneyimle yerleşmiş bir güvenlik payıdır; aşılamayan sınır T/π'dir (çöküş). Tezgâhta karşılığını görebilirsiniz: Δt = T/10 iken enerji hatası yaklaşık %10, T/5'te bunun yaklaşık dört katıdır (hata Δt²'yle büyür). T/5 bir üst sınırdır, rahat bir ayar değildir.",
+   "In a protein all these bonds are present at once, and the time step is set by the <b>fastest</b> vibration. A commonly used rule in practice is to limit the step to one fifth of the period of the fastest vibration (the T/5 rule: at least five steps per period); the grompp stage of GROMACS warns by this rule too. It is a safety margin established by experience; the limit that cannot be crossed is T/π (blow-up). You can see the counterpart on the bench: at Δt = T/10 the energy error is about 10%, at T/5 about four times that (the error grows with Δt²). T/5 is an upper limit, not a comfortable setting."
   ],
   [
    "Çöküş sınırı ≈ T/π (fs)",
@@ -739,16 +739,16 @@
    "Bonds involving H (O–H, N–H, C–H) are the fastest, because hydrogen is very light. A protein computed with them needs Δt ≈ 0.5 to 1 fs. MD programs use two routes:"
   ],
   [
-   "<b>Kısıt:</b> Bu bağların uzunluğu sabitlenir (SHAKE, LINCS, SETTLE). Titreşim hesaptan çıkınca en hızlı kalan titreşimler C=O gibi yaklaşık 20 fs'lik titreşimlerdir ve Δt = 2 fs kullanılabilir.",
-   "<b>Constraints:</b> The lengths of these bonds are fixed (SHAKE, LINCS, SETTLE). Once their vibration is removed from the calculation, the fastest remaining vibrations are those of about 20 fs, such as C=O, and Δt = 2 fs can be used."
+   "<b>Kısıt:</b> Bu bağların uzunluğu sabitlenir (SHAKE, LINCS, SETTLE). Titreşim hesaptan çıkınca en hızlı kalan titreşimler C=O gibi yaklaşık 20 fs'lik titreşimlerdir (bu sayfanın yay sabitiyle; bu projenin ubikitin topolojisinde en hızlı serbest bağ 22,21 fs, T/5 = 4,44 fs) ve Δt = 2 fs rahatça kullanılabilir.",
+   "<b>Constraints:</b> The lengths of these bonds are fixed (SHAKE, LINCS, SETTLE). Once their vibration is removed from the calculation, the fastest remaining vibrations are those of about 20 fs, such as C=O (with this page's spring constant; in this project's ubiquitin topology the fastest free bond is 22.21 fs, T/5 = 4.44 fs), and Δt = 2 fs can be used comfortably."
   ],
   [
    "<b>Hidrojen kütlesini yeniden dağıtmak (HMR):</b> Atölyede denediğiniz hile. Bağlı ağır atomdan kütle alınıp hidrojene verilir (toplam kütle değişmez). Titreşimler yavaşlar; kısıtlarla birlikte 4 fs'ye kadar çıkılabilir. Kütleler yapaydır, bu yüzden dinamiğin hızına dair sonuçlar (difüzyon gibi) dikkatle yorumlanmalıdır.",
    "<b>Hydrogen mass repartitioning (HMR):</b> The trick you tried in the workshop. Mass is taken from the bonded heavy atom and given to the hydrogen (the total mass does not change). The vibrations slow down; together with constraints, up to 4 fs becomes possible. The masses are artificial, so conclusions about the speed of the dynamics (such as diffusion) must be interpreted with care."
   ],
   [
-   "Tablodaki son sütun, sayfadaki harmonik modelle şu anda hesaplanmıştır. Gerçek bağlar anharmoniktir ve bir proteinde titreşimler birbirine bağlıdır; bu yüzden sayılar kural niteliğindedir, bir proteinin enerji hatasının kendisi değildir.",
-   "The last column of the table has just been computed with the harmonic model on this page. Real bonds are anharmonic and vibrations in a protein are coupled to each other; the numbers are therefore rules of thumb, not the energy error of a protein itself."
+   "Tablodaki son sütun, sayfadaki harmonik modelle şu anda hesaplanmıştır. Gerçek bağlar anharmoniktir ve bir proteinde titreşimler birbirine bağlıdır; bu yüzden sayılar kural niteliğindedir, bir proteinin enerji hatasının kendisi değildir. Tablodaki yay sabitleri ders kitabı değerleridir. Bu projenin ubikitin topolojisinde (amber99sb-ildn) periyotlar biraz farklıdır: O–H 8,99 fs, omurga N–H 10,11 fs, omurga C=O 23,83 fs (yaklaşık 1.400 cm⁻¹; bu kuvvet alanının C=O yayı amid I bandını tek başına vermez). Bağ bağ ayrıntı MD-DT modülündedir.",
+   "The last column of the table has just been computed with the harmonic model on this page. Real bonds are anharmonic and vibrations in a protein are coupled to each other; the numbers are therefore rules of thumb, not the energy error of a protein itself. The spring constants in the table are textbook values. In this project's ubiquitin topology (amber99sb-ildn) the periods are somewhat different: O–H 8.99 fs, backbone N–H 10.11 fs, backbone C=O 23.83 fs (about 1,400 cm⁻¹; the C=O spring of this force field does not by itself give the amide I band). The bond-by-bond detail is in the MD-DT module."
   ],
   [
    "<span class=\"lab-tag\">5 · Kendinizi sınayın</span>",
@@ -847,12 +847,12 @@
    "Thin out the saving of a real simulation"
   ],
   [
-   "Bu kitabın alanin dipeptit pilotunun 1. koşusu: GROMACS 2026.3, 2 fs hesap adımı, 10 ns. Program her 500 adımda bir, yani her 1 ps'de bir kare yazdı (<code>nstxout-compressed = 500</code>) ve yalnız dipeptidi kaydetti. Aşağıda dipeptidin φ açısı ve her karedeki konformasyonu var (αR, β, αL; tanımlar MD-U'daki gibi). Daha seyrek kaydetseydik ne görürdük? Bir kayıt aralığı seçin; sayfa aynı veriyi o aralıkla alt örnekler.",
-   "Run 1 of this book's alanine dipeptide pilot: GROMACS 2026.3, 2 fs calculation step, 10 ns. The program wrote a frame every 500 steps, that is every 1 ps (<code>nstxout-compressed = 500</code>), and saved only the dipeptide. Below are the dipeptide's φ angle and its conformation in every frame (αR, β, αL; definitions as in MD-U). What would we have seen if we had saved more sparsely? Choose a saving interval; the page subsamples the same data at that interval."
+   "Bu kitabın alanin dipeptit pilotunun 1. koşusu: GROMACS 2026.3, 2 fs hesap adımı, 10 ns. Program her 500 adımda bir, yani her 1 ps'de bir kare yazdı (<code>nstxout-compressed = 500</code>) ve yalnız dipeptidi kaydetti. Aşağıda dipeptidin ψ açısı (isterseniz φ) ve her karedeki konformasyonu var (αR, β, αL; tanımlar MD-U'daki gibi). αR ile β'yı ψ ayırır: kesikli çizgiler αR bandının sınırlarıdır (−120° ve 50°); alt şeritteki renk değişimleri ψ'nin bu çizgileri geçtiği anlardır. Daha seyrek kaydetseydik ne görürdük? Bir kayıt aralığı seçin; sayfa aynı veriyi o aralıkla alt örnekler.",
+   "Run 1 of this book's alanine dipeptide pilot: GROMACS 2026.3, 2 fs calculation step, 10 ns. The program wrote a frame every 500 steps, that is every 1 ps (<code>nstxout-compressed = 500</code>), and saved only the dipeptide. Below are the dipeptide's ψ angle (or φ, if you like) and its conformation in every frame (αR, β, αL; definitions as in MD-U). ψ separates αR from β: the dashed lines are the edges of the αR band (−120° and 50°); the color changes in the strip below are the moments when ψ crosses these lines. What would we have seen if we had saved more sparsely? Choose a saving interval; the page subsamples the same data at that interval."
   ],
   [
-   "φ açısının zamanla değişimi ve her karedeki konformasyon",
-   "The φ angle over time and the conformation in each frame"
+   "ψ (ya da φ) açısının zamanla değişimi, αR bandının sınırları ve her karedeki konformasyon",
+   "The ψ (or φ) angle over time, the edges of the αR band and the conformation in each frame"
   ],
   [
    "Kayıt aralığı",
@@ -1315,8 +1315,8 @@
    "Nothing changes"
   ],
   [
-   "Yaklaşık 6-7 kat seyrekleşir",
-   "They become about 6-7 times rarer"
+   "Yaklaşık 5 ile 8 kat arasında seyrekleşir",
+   "They become about 5 to 8 times rarer"
   ],
   [
    "Yarıya iner",
@@ -1431,8 +1431,8 @@
    "</b>. The mass almost doubled, but the band shifted only by a ratio close to √2: ν̃ ∝ 1/√μ. This is why the O–H band drops to the 2500-2700 cm⁻¹ region in deuterium exchange experiments."
   ],
   [
-   "fs oldu; önerilen Δt",
-   "fs; the suggested Δt"
+   "fs oldu; grompp\\'un kabul ettiği en uzun Δt (T/5)",
+   "fs; the longest Δt grompp accepts (T/5)"
   ],
   [
    "fs</b>. Bu, MD\\'de hidrojen kütlesini yeniden dağıtma (HMR) hilesidir; tezgâhta deneyin.",
@@ -1627,8 +1627,8 @@
    "Because GROMACS corrects the energy error"
   ],
   [
-   "SHAKE, LINCS ve SETTLE bu bağları sabitler. Geriye kalan en hızlı titreşimler (C=O gibi) yaklaşık 20 fs periyotludur; 2 fs, periyodun onda biridir. HMR ile hidrojen ağırlaştırılırsa 4 fs\\'ye kadar çıkılabilir.",
-   "SHAKE, LINCS and SETTLE fix these bonds. The fastest remaining vibrations (such as C=O) have periods of about 20 fs; 2 fs is one tenth of the period. With HMR, where hydrogen is made heavier, up to 4 fs is possible."
+   "SHAKE, LINCS ve SETTLE bu bağları sabitler. Geriye kalan en hızlı titreşimler (C=O gibi) yaklaşık 20 fs periyotludur; 2 fs, periyodun yaklaşık onda biridir ve grompp\\'un T/5 sınırının (yaklaşık 4 fs) güvenle altındadır. HMR ile hidrojen ağırlaştırılırsa 4 fs\\'ye kadar çıkılabilir.",
+   "SHAKE, LINCS and SETTLE fix these bonds. The fastest remaining vibrations (such as C=O) have periods of about 20 fs; 2 fs is about one tenth of the period and safely below the T/5 limit of grompp (about 4 fs). With HMR, where hydrogen is made heavier, up to 4 fs is possible."
   ],
   [
    "Tezgâhtaki \"enerji hatası\" gerçek bir MD koşusunda neye benzer?",
@@ -1699,8 +1699,8 @@
    "times slower than the real one. This motion is not physical; it is a product of the saving interval. In a trajectory saved every 1 ps, bond vibrations cannot be seen at all; the small jiggles you see are traces of this kind."
   ],
   [
-   "φ açısı",
-   "φ angle"
+   "ψ açısı",
+   "ψ angle"
   ],
   [
    "ps\\'de bir kare",
@@ -2205,6 +2205,38 @@
   [
    "w:'ħω kT\\'nin '+",
    "w:'ħω is '+"
+  ],
+  [
+   "<th>grompp sınırı T/5 (fs)</th>",
+   "<th>grompp limit T/5 (fs)</th>"
+  ],
+  [
+   "<div><div class=\"lbl\">Grafikteki açı</div>",
+   "<div><div class=\"lbl\">Angle in the plot</div>"
+  ],
+  [
+   "aria-label=\"Grafikteki açı\"",
+   "aria-label=\"Angle in the plot\""
+  ],
+  [
+   "aria-pressed=\"true\">ψ (durumları ayırır)</button>",
+   "aria-pressed=\"true\">ψ (separates the states)</button>"
+  ],
+  [
+   "φ açısı",
+   "φ angle"
+  ],
+  [
+   "'αR bandı: −120° ≤ ψ < 50° (φ < 0 iken)'",
+   "'αR band: −120° ≤ ψ < 50° (when φ < 0)'"
+  ],
+  [
+   "'Hesaplanıyor… '",
+   "'Computing… '"
+  ],
+  [
+   "' · ilk 3 titreşim'",
+   "' · first 3 vibrations'"
   ]
  ],
  "keep": [

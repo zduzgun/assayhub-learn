@@ -54,7 +54,8 @@ canvas.plot{background:var(--soft);aspect-ratio:16/6}
 @keyframes flash{0%{background:var(--warm);border-color:var(--gold);box-shadow:0 0 0 6px color-mix(in srgb,var(--warm) 40%,transparent)}100%{background:var(--paper);box-shadow:0 0 0 0 transparent}}
 @media (prefers-reduced-motion: reduce){.btn.flash{animation:none;background:var(--warm)}.btn:active{transform:none}}
 .seg button:focus-visible,.btn:focus-visible,.opt:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.chk{display:flex;gap:8px;align-items:center;font-size:13.5px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13.5px;min-height:32px;cursor:pointer}
+.chk input{width:20px;height:20px;flex:none}
 .read{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:14px;margin:0}
 .read dt{color:var(--muted)}
 .read dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
@@ -82,7 +83,7 @@ canvas.plot{background:var(--soft);aspect-ratio:16/6}
 .chip{all:unset;cursor:pointer;padding:6px 11px;border-radius:999px;border:1px solid var(--line);font-size:13.5px;color:var(--ink);background:var(--paper)}
 .chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)}
 .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-input[type=range]{width:100%;accent-color:var(--accent)}
+input[type=range]{width:100%;height:28px;accent-color:var(--accent)}
 .big{font-family:var(--mono);font-size:28px;font-variant-numeric:tabular-nums}
 .big small{font-size:14px;color:var(--muted)}
 table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
@@ -178,7 +179,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
   <section class="card" aria-labelledby="k2h1">
     <span class="step">1 · Atölye</span>
     <h2 id="k2h1">En yakın kopya: uzaklık hangi yoldan ölçülür?</h2>
-    <p class="small">Periyodik kutuda iki molekül var: A (mavi) ve B (turuncu); soluk olanlar kopyalarıdır. İkisi birbirini çeker (van der Waals çekimi ya da bir hidrojen bağı gibi düşünün): en rahat uzaklık 1,9 σ, daha yakında iterler, 3,9 σ'dan ötede birbirlerini hissetmezler. Bu menzil kutunun yarısından (4 σ) kısa; neden önemli olduğunu 2. tezgâhta göreceksiniz. Hareket gerçekten hesaplanıyor; A'dan çıkan ok, A'ya o anda etkiyen kuvvettir. Gri kesikli çizgi B'ye kutunun içinden ölçülen uzaklık, kırmızı çizgi A'ya en yakın B kopyasına olan uzaklıktır.</p>
+    <p class="small">Periyodik kutuda iki molekül var: A (mavi) ve B (turuncu); soluk olanlar kopyalarıdır. İkisi birbirini çeker (van der Waals çekimi ya da bir hidrojen bağı gibi düşünün): en rahat uzaklık 1,9 σ, daha yakında iterler, 3,9 σ'dan ötede birbirlerini hissetmezler. Bu menzil kutunun yarısından (4 σ) kısa; neden önemli olduğunu 2. tezgâhta göreceksiniz. Hareket gerçekten hesaplanıyor; A'dan çıkan ok, A'ya o anda etkiyen kuvvettir. Hızlar modelin kendi birimindedir (σ/τ; τ modelin zaman birimi): atölyede ekrandaki 1 saniye 1 τ'dur, yani hız fiziksel değil, animasyonun hızıdır. Gri kesikli çizgi B'ye kutunun içinden ölçülen uzaklık, kırmızı çizgi A'ya en yakın B kopyasına olan uzaklıktır.</p>
     <ol class="small steps"><li><b>Fırlat:</b> kutunun üstünde herhangi bir yere basın, sapan gibi geriye çekin ve bırakın; B okun yönünde fırlar. Ya da "Çifti fırlat" düğmesine basın.</li><li><b>İzleyin:</b> moleküllerden biri kenardan çıkıp karşı kenardan girerken gri çizgi sıçrar, kırmızı çizgi ve enerji şeridi sakin kalır.</li><li><b>Karşılaştırın:</b> kuralı "Kutunun içinden (hatalı)" yapın ve bir geçişte enerjiye ne olduğuna bakın.</li></ol>
     <div class="two">
       <div class="stagebox"><canvas id="k2mi" class="stage" aria-label="Birbirini çeken iki molekül ve kopyaları: kutu içi uzaklık, en yakın kopya uzaklığı, A'ya etkiyen kuvvet"></canvas><div class="hint" id="k2miHint">Kutunun üstünde bir yere basın, geriye çekin, bırakın: B ok yönünde fırlar.</div></div>
@@ -286,7 +287,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
     </div>
     <div class="legend"><span><i style="background:var(--warm)"></i>Seçili protein atomu</span><span><i style="background:var(--mid)"></i>Kesme içindeki su</span><span><i style="background:var(--gold)"></i>Listede, kesmenin dışında (tampon)</span><span><i style="background:var(--bad)"></i>Kaçan etkileşim</span></div>
     <div class="change" id="k4chg"><span class="t">Liste 50 adımda bir yenileniyor</span><span>İlk yenilemeden sonra su moleküllerinin aldığı yol burada yazılacak.</span></div>
-    <p class="small">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı MD-ELEC modülünün konusudur.</p>
+    <p class="small">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Gerçek koşuda iki atom da hareket eder; GROMACS tamponu iki atomun birbirine göre alabileceği yola ve izin verilen enerji hatasına (<code>verlet-buffer-tolerance = 0.005</code> kJ/mol/ps/atom) göre seçer. Burada yalnız su hareket ettiği için bir komşunun kesmeye sızması gerçekte gösterilenden biraz daha olasıdır. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı MD-ELEC modülünün konusudur.</p>
 <div class="tw"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>
       <tr><td><code>rvdw</code>, <code>rcoulomb</code></td><td class="n">1,0 nm</td><td>kesme mesafesi</td></tr>
       <tr><td><code>vdw-modifier</code></td><td class="n">Potential-shift-Verlet</td><td>kesmede kaydırılmış potansiyel</td></tr>
@@ -296,7 +297,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
     </tbody></table></div>
     <div class="prose">
       <p><b>Tablodaki 1,106 nm.</b> Koşu dosyasında nstlist 10 ve rlist 1,0 nm yazıyordu. mdrun hızlanmak için listeyi 50 adımda bir yenilemeye karar verdi ve tamponu, izin verilen enerji hatasına göre 0,106 nm'ye çıkardı (kısıtsız deneme koşusunun günlüğü; daha dar S3 kutusunda aynı hesap 1,104 nm verdi). Yukarıdaki "Bu projenin ayarı" düğmesi bu değerlerdir.</p>
-      <p><b>Kutu sınırı.</b> Kesme mesafesi kutu kenarının yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez. Bu projenin 1UBQ kutusunun en kısa kenarı 6,49 nm'dir; yarısı 3,25 nm, kesmenin üç katından fazla.</p>
+      <p><b>Kutu sınırı.</b> Kesme mesafesi en kısa kutu vektörünün yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez (kılavuzun kuralı: kesme, en kısa kutu vektörünün yarısını aşamaz). Tezgâhtaki kare kutuda bu, kenarın yarısıdır. Bu projenin 1UBQ kutusu onikiyüzlüdür: üç kutu vektörü de 6,49 nm, yarısı 3,25 nm, kesmenin üç katından fazla. Üçgen olmayan kutularda GROMACS ayrıca kutu vektörlerinin dik bileşenlerine bakar (a<sub>x</sub>, b<sub>y</sub>, c<sub>z</sub>; bu kutuda en küçüğü 4,59 nm); bu ek sınır burada daha gevşektir, bağlayıcı olan yine 3,25 nm'dir.</p>
     </div>
   </section>
 
@@ -490,7 +491,7 @@ function miDraw(){
   g.fillStyle='#fffefb'; g.font='700 13px '+css('--sans'); g.textAlign='center'; g.fillText('A',ax,ay+4.5); g.fillText('B',V.X(M.b[0]),V.Y(M.b[1])+4.5); g.textAlign='left';
   if(M.aim){ var sp=Math.hypot(M.aim.vx,M.aim.vy), px=V.X(M.b[0]), py=V.Y(M.b[1]);
     g.strokeStyle=str(rgb(muted),0.8); g.lineWidth=1.5; g.setLineDash([3,4]); g.beginPath(); g.moveTo(M.aim.p0[0],M.aim.p0[1]); g.lineTo(M.aim.p[0],M.aim.p[1]); g.stroke(); g.setLineDash([]);
-    if(sp>0.1){ var kk=s*0.35, ex=px+M.aim.vx*kk, ey=py+M.aim.vy*kk; arrowTo(g,px,py,ex,ey,acc,3.2); pill(g,fx(sp,1)+' σ/s',ex,ey-20,paper,acc); } }
+    if(sp>0.1){ var kk=s*0.35, ex=px+M.aim.vx*kk, ey=py+M.aim.vy*kk; arrowTo(g,px,py,ex,ey,acc,3.2); pill(g,fx(sp,1)+' σ/τ',ex,ey-20,paper,acc); } }
   if(M.paused){ pill(g,'Durduruldu',W/2,20,paper,navy); }
   $('k2mi').dataset.b=Math.round(V.X(M.b[0]))+','+Math.round(V.Y(M.b[1]));
   $('k2dIn').textContent=fx(r.dIn,2)+' σ'; $('k2dMin').textContent=fx(n.d,2)+' σ'; $('k2half').textContent=fx(L/2,2)+' σ';
@@ -533,7 +534,7 @@ function miPlot(){
     if(!M.drag) return; var w=V.inv(p[0],p[1]); M[M.drag.k]=[wrapv(w[0]-M.drag.i*M.L),wrapv(w[1]-M.drag.j*M.L)]; M.trailA=[]; M.trailB=[]; var r=miDraw(); miMsg(r); });
   function up(){ c.classList.remove('aiming');
     if(M.aim){ var sp=Math.hypot(M.aim.vx,M.aim.vy); if(sp>0.1){ M.vb=[M.aim.vx,M.aim.vy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';
-      $('k2miChg').innerHTML='<span class="t">B\'yi '+fx(sp,1)+' σ/s ile fırlattınız</span><span>Yavaş fırlatırsanız B, A\'yı da peşinden sürükler; çok hızlı fırlatırsanız çekimden kurtulur. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; } M.aim=null; miDraw(); kick(); }
+      $('k2miChg').innerHTML='<span class="t">B\'yi '+fx(sp,1)+' σ/τ ile fırlattınız</span><span>Yavaş fırlatırsanız B, A\'yı da peşinden sürükler; çok hızlı fırlatırsanız çekimden kurtulur. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; } M.aim=null; miDraw(); kick(); }
     if(M.drag){ M.drag=null; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur'; miMsg(miDraw()); kick(); } }
   c.addEventListener('pointerup',up); c.addEventListener('pointercancel',up); })();
 function miMsg(r){ $('k2miChg').innerHTML=(r.n.i||r.n.j)?'<span class="t">En yakın B artık kutunun dışındaki bir kopya: '+fx(r.n.d,2)+' σ</span><span>Kutunun içinden ölçseydiniz '+fx(r.dIn,2)+' σ bulurdunuz. Bıraktığınızda çekim en yakın kopyaya göre hesaplanacak.</span>'
@@ -549,7 +550,7 @@ $('k2rBox').onclick=function(){ miSetRule('box'); };
 $('k2cell').onchange=function(){ miDraw(); };
 $('k2miPause').onclick=function(){ M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Sürdür':'Durdur'; miDraw(); kick(); };
 $('k2miRand').onclick=function(){ var th=Math.random()*2*Math.PI, sp=1.8+Math.random()*1.2, cx=(M.va[0]+M.vb[0])/2, cy=(M.va[1]+M.vb[1])/2, ux=sp*Math.cos(th)-cx, uy=sp*Math.sin(th)-cy; M.va=[M.va[0]+ux,M.va[1]+uy]; M.vb=[M.vb[0]+ux,M.vb[1]+uy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';
-  $('k2miChg').innerHTML='<span class="t">Çifti '+fx(sp,1)+' σ/s ile rastgele bir yöne fırlattınız</span><span>İki molekül birbirini tutarak birlikte ilerleyecek. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; kick(); };
+  $('k2miChg').innerHTML='<span class="t">Çifti '+fx(sp,1)+' σ/τ ile rastgele bir yöne fırlattınız</span><span>İki molekül birbirini tutarak birlikte ilerleyecek. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; kick(); };
 $('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Durdur'; miSetRule('mi'); };
 
 /* ---------------- 2 · tezgâh: kesme çemberi ---------------- */
@@ -635,6 +636,19 @@ function potDraw(){
   curve(cS,true,shift?2.8:1.8,shift?1:0.55); curve(cP,false,shift?1.8:2.8,shift?0.55:1);
   g.fillStyle=cP; g.beginPath(); g.arc(XI(rc),YI(uc),3.5,0,6.283); g.fill();
   g.restore();
+  /* ikinci büyüteç: kuvvet. İki yöntemde de aynıdır ve r_c'de sıfıra sıçrar */
+  if(W>=860){ var fw=iw, fxx=ix-fw-12, hh=0.004, Fr=function(r){ return -(LJ2.ulj((r+hh)*(r+hh))-LJ2.ulj((r-hh)*(r-hh)))/(2*hh); }, Fc=Fr(rc), fm=0, q3, ink=css('--ink');
+    for(q3=0;q3<=60;q3++) fm=Math.max(fm,Math.abs(Fr(a0+(rc-a0)*q3/60))); fm=Math.max(fm,1e-4)*1.3;
+    var YF=function(f){ return pt+(0.25*fm-f)/(1.25*fm)*(pb-pt); }, XF=function(r){ return fxx+10+(r-a0)/(a1-a0)*(fw-20); };
+    g.fillStyle=css('--paper'); g.strokeStyle=line; g.lineWidth=1; g.beginPath(); if(g.roundRect) g.roundRect(fxx,iy,fw,ih,8); else g.rect(fxx,iy,fw,ih); g.fill(); g.stroke();
+    g.font='600 11.5px '+css('--sans'); g.fillStyle=muted; g.textAlign='left'; g.fillText('kuvvet F = −du/dr, büyütülmüş',fxx+10,iy+15);
+    g.fillStyle=ink; g.fillText('━ iki yöntemde aynı: '+fx(Math.abs(Fc),3)+' ε/σ sıçrar',fxx+10,iy+32);
+    g.save(); g.beginPath(); g.rect(fxx+2,pt-4,fw-4,pb-pt+6); g.clip();
+    g.strokeStyle=line; g.lineWidth=1; g.beginPath(); g.moveTo(fxx,YF(0)); g.lineTo(fxx+fw,YF(0)); g.stroke();
+    g.strokeStyle=acc; g.setLineDash([4,3]); g.beginPath(); g.moveTo(XF(rc),pt-4); g.lineTo(XF(rc),pb); g.stroke(); g.setLineDash([]);
+    g.strokeStyle=ink; g.lineWidth=2.4; g.beginPath(); for(q3=0;q3<=120;q3++){ var r3=a0+(rc-a0)*q3/120, y3=YF(Fr(r3)); if(q3) g.lineTo(XF(r3),y3); else g.moveTo(XF(r3),y3); } g.stroke();
+    g.beginPath(); g.moveTo(XF(rc),YF(0)); g.lineTo(fxx+fw,YF(0)); g.stroke();
+    g.fillStyle=ink; g.beginPath(); g.arc(XF(rc),YF(Fc),3.5,0,6.283); g.fill(); g.restore(); }
 }
 function ePlot(){
   var F=fit($('k2eplot')), g=F.g, W=F.W, H=F.H, h=Q.hist, L=74, R=14, T=18, B=18, muted=css('--muted'), line=css('--line'), cP=css('--ball'), cS=css('--deep'), sh=Q.s.shift;
@@ -710,7 +724,7 @@ function nEval(){
   var okShort=P.some(function(p){return p.r<=2.5;});
   if(common.length>=2 && okShort && S.length>=2){
     var r0=common[0], r1=common[common.length-1], g=function(arr,r){ return arr.filter(function(p){return p.r===r;})[0]; }, p0=g(P,r0), p1=g(P,r1), s0=g(S,r0), s1=g(S,r1);
-    card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi korur; GROMACS da etkileşimi böyle bırakır.');
+    card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi çok daha iyi korur, ama tam korumaz'+(s0.e>1.5*s1.e?' (kaydırılmışta da '+fx(r0,1)+' σ\'daki oynama '+fx(r1,1)+' σ\'dakinin '+fx(s0.e/s1.e,1)+' katı)':'')+': kalan küçük kayma, kuvvetin r<sub>c</sub>\'de hâlâ sıfıra sıçramasından gelir (potansiyel grafiğindeki kuvvet büyüteci). Kesme kısaldıkça bu sıçrama büyür. GROMACS da potansiyeli kesmede böyle kaydırır (Potential-shift).');
   } else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('düz kesmede 2,5 σ ya da daha kısa bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }
 }
 

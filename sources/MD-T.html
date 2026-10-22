@@ -77,7 +77,7 @@ math{font-size:1.08em}
 .ctrl{display:flex;flex-direction:column;gap:14px}
 .field label,.field .lbl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px}
 .field label output,.field .lbl output{font-family:var(--sans);font-variant-numeric:tabular-nums;color:var(--accent)}
-input[type=range]{width:100%;accent-color:var(--accent)}
+input[type=range]{width:100%;height:28px;accent-color:var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{border:1px solid var(--rule);background:#fffefb;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
@@ -193,7 +193,7 @@ td.n{font-variant-numeric:tabular-nums}
 #l2-ir{aspect-ratio:16/5} #l2-mol{aspect-ratio:16/5} #l2-cv{aspect-ratio:16/5} #l2-tr{aspect-ratio:16/6} #l2-bk{aspect-ratio:16/8}
 #l3-strob{aspect-ratio:16/5.5} #l3-phi{aspect-ratio:16/5.5} #l3-book{aspect-ratio:16/7}
 @media (max-width:820px){ #l3-strob,#l3-phi{aspect-ratio:16/10} #l3-book{aspect-ratio:4/3} }
-@media (max-width:820px){ #l1-land,#l1-lad,#l1-rate{aspect-ratio:4/3} #l1-wav{aspect-ratio:16/8} #l2-cv,#l2-mol{aspect-ratio:16/7} #l2-bk{aspect-ratio:4/3} #l2-ir{aspect-ratio:16/8} }
+@media (max-width:820px){ #l1-xt{aspect-ratio:16/7} #l2-tr{aspect-ratio:16/9} #l1-land,#l1-lad,#l1-rate{aspect-ratio:4/3} #l1-wav{aspect-ratio:16/8} #l2-cv,#l2-mol{aspect-ratio:16/7} #l2-bk{aspect-ratio:4/3} #l2-ir{aspect-ratio:16/8} }
 </style>
 </head>
 <body>
@@ -408,13 +408,13 @@ td.n{font-variant-numeric:tabular-nums}
       <div class="fact"><span>İndirgenmiş kütle μ</span><b id="l2-fMu"></b></div>
       <div class="fact"><span>Bant yeri ν̃</span><b id="l2-fNu"></b></div>
       <div class="fact"><span>Titreşim periyodu T</span><b id="l2-fT"></b></div>
-      <div class="fact"><span>Önerilen Δt ≈ T/10</span><b id="l2-fDt"></b></div>
+      <div class="fact"><span>grompp sınırı Δt = T/5</span><b id="l2-fDt"></b></div>
     </div>
     <div class="change" id="l2-chg"><span class="t">Bir şeyi değiştirin</span><span>Atomu, yayı ya da hazır bir bağı değiştirdiğinizde burada öncekiyle karşılaştırma görünür.</span></div>
     <div class="minis">
       <article class="disc" data-prog id="l2-d1"><span class="k">Açık</span><h4>Hidrojeni döteryumla değiştirin</h4><p>Deneysel izotop değişiminin aynısı: aynı bağ, yalnız kütle değişir. Bant nereye kayar?</p><div class="mine" id="l2-md1">O–H'den O–D'ye (ya da C–H'den C–D'ye) geçin.</div></article>
       <article class="disc" data-prog id="l2-d2"><span class="k">Açık</span><h4>Bağı sertleştirin</h4><p>Atomları sabit tutup yalnız k'yi değiştirin, örneğin C–O'dan C=O'ya.</p><div class="mine" id="l2-md2">Aynı atomlarla k'yi en az 1,5 kat değiştirin.</div></article>
-      <article class="disc" id="l2-d3"><span class="k">Açık</span><h4>Hidrojene sahte kütle verin</h4><p>MD'de kullanılan bir hile: hidrojenin kütlesini 3 u yapmak. Titreşim ve önerilen Δt ne olur?</p><div class="mine" id="l2-md3">2. atomu "H (3 u)" yapın.</div></article>
+      <article class="disc" id="l2-d3"><span class="k">Açık</span><h4>Hidrojene sahte kütle verin</h4><p>MD'de kullanılan bir hile: hidrojenin kütlesini 3 u yapmak. Titreşim ve izin verilen Δt ne olur?</p><div class="mine" id="l2-md3">2. atomu "H (3 u)" yapın.</div></article>
     </div>
   </div>
 <div class="lab part" aria-labelledby="l2-h2s">
@@ -425,7 +425,7 @@ td.n{font-variant-numeric:tabular-nums}
       <div style="display:grid;gap:10px;min-width:0">
         <canvas id="l2-cv" width="960" height="300" aria-label="Hesaplanan titreşim"></canvas>
         <canvas id="l2-tr" width="960" height="360" aria-label="Toplam enerjinin göreli hatası, zamana karşı (fs)"></canvas>
-        <p class="small">Üstte: integratörün hesapladığı konumlar, her Δt'de bir nokta. Altta: toplam enerjinin başlangıca göre göreli sapması, 20 titreşim boyunca. Gerçek molekülde bu enerji değişmez; sapmanın tamamı hesaplama aralığından gelen sayısal hatadır.</p>
+        <p class="small">Üstte: integratörün hesapladığı konumlar, her Δt'de bir nokta. Altta: toplam enerjinin başlangıca göre göreli sapması, 20 titreşim boyunca. Gerçek molekülde bu enerji değişmez; sapmanın tamamı hesaplama aralığından gelen sayısal hatadır. Kararlı koşuda hata hep sıfırın altında kalır: bağ en uzun ve hareketsiz hâlden bırakılır, hız-Verlet'in enerjisi bu evreden başlayınca yalnız aşağı salınır.</p>
       </div>
       <div style="display:grid;gap:16px;align-content:start">
         <div>
@@ -466,17 +466,17 @@ td.n{font-variant-numeric:tabular-nums}
     <span class="lab-tag">4 · Proteine dönüş</span>
     <h3 id="l2-h4s">2 fs nereden geliyor?</h3>
     <div class="prose">
-      <p>Bir proteinde bütün bu bağlar aynı anda vardır ve zaman adımını <b>en hızlı</b> titreşim belirler. Uygulamada kaba kural, en hızlı titreşimin periyodunun yaklaşık onda biridir. Tezgâhta bunun karşılığını görebilirsiniz: Δt = T/10 iken enerji hatası yaklaşık %10'dur.</p>
+      <p>Bir proteinde bütün bu bağlar aynı anda vardır ve zaman adımını <b>en hızlı</b> titreşim belirler. Uygulamada sık kullanılan kural, adımı en hızlı titreşimin periyodunun beşte biriyle sınırlamaktır (T/5 kuralı: periyot başına en az beş adım); GROMACS'ın grompp aşaması da bu kuralla uyarır. Bu deneyimle yerleşmiş bir güvenlik payıdır; aşılamayan sınır T/π'dir (çöküş). Tezgâhta karşılığını görebilirsiniz: Δt = T/10 iken enerji hatası yaklaşık %10, T/5'te bunun yaklaşık dört katıdır (hata Δt²'yle büyür). T/5 bir üst sınırdır, rahat bir ayar değildir.</p>
     </div>
     <div class="tw"><table>
-      <thead><tr><th>Bağ</th><th>ν̃ (cm⁻¹)</th><th>Periyot T (fs)</th><th>Çöküş sınırı ≈ T/π (fs)</th><th>T/10 (fs)</th><th>2 fs'de enerji hatası</th></tr></thead>
+      <thead><tr><th>Bağ</th><th>ν̃ (cm⁻¹)</th><th>Periyot T (fs)</th><th>Çöküş sınırı ≈ T/π (fs)</th><th>grompp sınırı T/5 (fs)</th><th>T/10 (fs)</th><th>2 fs'de enerji hatası</th></tr></thead>
       <tbody id="l2-tab"></tbody>
     </table></div>
     <div class="prose">
       <p>H içeren bağlar (O–H, N–H, C–H) en hızlısıdır, çünkü hidrojen çok hafiftir. Onlarla birlikte hesaplanan bir protein için Δt ≈ 0,5 ile 1 fs gerekir. MD programları iki yol kullanır:</p>
-      <p><b>Kısıt:</b> Bu bağların uzunluğu sabitlenir (SHAKE, LINCS, SETTLE). Titreşim hesaptan çıkınca en hızlı kalan titreşimler C=O gibi yaklaşık 20 fs'lik titreşimlerdir ve Δt = 2 fs kullanılabilir.</p>
+      <p><b>Kısıt:</b> Bu bağların uzunluğu sabitlenir (SHAKE, LINCS, SETTLE). Titreşim hesaptan çıkınca en hızlı kalan titreşimler C=O gibi yaklaşık 20 fs'lik titreşimlerdir (bu sayfanın yay sabitiyle; bu projenin ubikitin topolojisinde en hızlı serbest bağ 22,21 fs, T/5 = 4,44 fs) ve Δt = 2 fs rahatça kullanılabilir.</p>
       <p><b>Hidrojen kütlesini yeniden dağıtmak (HMR):</b> Atölyede denediğiniz hile. Bağlı ağır atomdan kütle alınıp hidrojene verilir (toplam kütle değişmez). Titreşimler yavaşlar; kısıtlarla birlikte 4 fs'ye kadar çıkılabilir. Kütleler yapaydır, bu yüzden dinamiğin hızına dair sonuçlar (difüzyon gibi) dikkatle yorumlanmalıdır.</p>
-      <p class="small">Tablodaki son sütun, sayfadaki harmonik modelle şu anda hesaplanmıştır. Gerçek bağlar anharmoniktir ve bir proteinde titreşimler birbirine bağlıdır; bu yüzden sayılar kural niteliğindedir, bir proteinin enerji hatasının kendisi değildir.</p>
+      <p class="small">Tablodaki son sütun, sayfadaki harmonik modelle şu anda hesaplanmıştır. Gerçek bağlar anharmoniktir ve bir proteinde titreşimler birbirine bağlıdır; bu yüzden sayılar kural niteliğindedir, bir proteinin enerji hatasının kendisi değildir. Tablodaki yay sabitleri ders kitabı değerleridir. Bu projenin ubikitin topolojisinde (amber99sb-ildn) periyotlar biraz farklıdır: O–H 8,99 fs, omurga N–H 10,11 fs, omurga C=O 23,83 fs (yaklaşık 1.400 cm⁻¹; bu kuvvet alanının C=O yayı amid I bandını tek başına vermez). Bağ bağ ayrıntı MD-DT modülündedir.</p>
     </div>
   </div>
 <div class="lab part" aria-labelledby="l2-h5s">
@@ -524,11 +524,12 @@ td.n{font-variant-numeric:tabular-nums}
   <div class="lab part" aria-labelledby="l3-h2s">
     <span class="lab-tag">2 · Tezgâh</span>
     <h3 id="l3-h2s">Gerçek bir simülasyonun kaydını seyreltin</h3>
-    <p class="small">Bu kitabın alanin dipeptit pilotunun 1. koşusu: GROMACS 2026.3, 2 fs hesap adımı, 10 ns. Program her 500 adımda bir, yani her 1 ps'de bir kare yazdı (<code>nstxout-compressed = 500</code>) ve yalnız dipeptidi kaydetti. Aşağıda dipeptidin φ açısı ve her karedeki konformasyonu var (αR, β, αL; tanımlar MD-U'daki gibi). Daha seyrek kaydetseydik ne görürdük? Bir kayıt aralığı seçin; sayfa aynı veriyi o aralıkla alt örnekler.</p>
-    <canvas id="l3-phi" width="960" height="330" aria-label="φ açısının zamanla değişimi ve her karedeki konformasyon"></canvas>
+    <p class="small">Bu kitabın alanin dipeptit pilotunun 1. koşusu: GROMACS 2026.3, 2 fs hesap adımı, 10 ns. Program her 500 adımda bir, yani her 1 ps'de bir kare yazdı (<code>nstxout-compressed = 500</code>) ve yalnız dipeptidi kaydetti. Aşağıda dipeptidin ψ açısı (isterseniz φ) ve her karedeki konformasyonu var (αR, β, αL; tanımlar MD-U'daki gibi). αR ile β'yı ψ ayırır: kesikli çizgiler αR bandının sınırlarıdır (−120° ve 50°); alt şeritteki renk değişimleri ψ'nin bu çizgileri geçtiği anlardır. Daha seyrek kaydetseydik ne görürdük? Bir kayıt aralığı seçin; sayfa aynı veriyi o aralıkla alt örnekler.</p>
+    <canvas id="l3-phi" width="960" height="330" aria-label="ψ (ya da φ) açısının zamanla değişimi, αR bandının sınırları ve her karedeki konformasyon"></canvas>
     <div class="dotleg"><span><i style="background:var(--c3)"></i>αR</span><span><i style="background:var(--c2)"></i>β</span><span><i style="background:var(--c1)"></i>αL</span></div>
     <div class="two">
       <div class="ctl">
+        <div><div class="lbl">Grafikteki açı</div><div class="seg" role="group" aria-label="Grafikteki açı"><button type="button" id="l3-angPsi" aria-pressed="true">ψ (durumları ayırır)</button><button type="button" id="l3-angPhi" aria-pressed="false">φ</button></div></div>
         <div><div class="lbl">Kayıt aralığı</div><div class="chips" id="l3-ints"></div></div>
         <p class="small">Hesap her seçimde 2 fs adımla yapılmış aynı koşudur; değişen yalnız dosyaya yazılan karelerdir.</p>
       </div>
@@ -793,7 +794,12 @@ function quiz(box, pfx, QZ){
 var st=document.createElement('style'); st.textContent=(window.ALA&&ALA.CSS)||''; document.head.appendChild(st);
 document.querySelectorAll('[data-ala]').forEach(function(el){ if(window.ALA) el.innerHTML=ALA.svg(el.getAttribute('data-ala'),'aria-hidden="true" focusable="false"'); });
 paint();
-return {fx:fx, sig:sig, tick:tick, sup:sup, big:big, pc:pc, store:store, card:card, quiz:quiz, progress:progress};
+/* tuvaller: çizim boyutu CSS kutusunun en-boy oranına uyar (dar ekranda gerilme olmaz, yazılar okunur kalır) */
+function fitCanvases(list, redraw){
+  function apply(){ var ch=false; list.forEach(function(c){ if(!c) return; var r=c.getBoundingClientRect(); if(!(r.width>0&&r.height>0)) return; var lw=Math.max(520,Math.min(960,Math.round(1.5*r.width))), lh=Math.max(60,Math.round(lw*r.height/r.width)); if(c.width!==lw||c.height!==lh){ c.width=lw; c.height=lh; ch=true; } }); return ch; }
+  apply(); var t=null; window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(function(){ if(apply()) redraw(); },120); });
+}
+return {fx:fx, sig:sig, tick:tick, sup:sup, big:big, pc:pc, store:store, card:card, quiz:quiz, progress:progress, fitCanvases:fitCanvases};
 })();
 </script>
 <script>
@@ -853,7 +859,7 @@ function drawWav(){
   g.fillStyle=css('--muted'); g.font='19px '+css('--sans'); g.fillText('1 Å',30+s+10,Hh-20);
   g.fillText('gri: komşu atomlar, 3 Å arayla',24,32);
   g.textAlign='right'; g.fillStyle=css('--accent'); g.font='600 21px '+css('--sans');
-  g.fillText(P1.p.l+' · λ = '+sig(L)+' Å'+(R>W/2?' (bulut ekrandan büyük)':''),W-24,32); g.textAlign='left';
+  g.fillText(P1.p.l+' · λ = '+sig(L)+' Å'+(R>W/2?' (bulut ekrandan büyük)':''),W-24,W<700?60:32); g.textAlign='left';
 }
 function compare1(){
   if(!prev1) return;
@@ -936,7 +942,7 @@ function drawLadder(s){
   for(var n=0;n<60;n++){ var En=(n+0.5)*x; if(En>top) break; var pn=p0*Math.exp(-n*x), w=Math.sqrt(En/top)*half;
     g.strokeStyle=css('--accent'); g.globalAlpha=0.15+0.85*Math.min(1,pn/Math.max(p0,1e-9)); g.lineWidth=n===0?3:2;
     g.beginPath(); g.moveTo(cx-w,Y(En)); g.lineTo(cx+w,Y(En)); g.stroke(); g.globalAlpha=1;
-    if(n<3 && x>0.35){ g.fillStyle=css('--muted'); g.font='17px '+css('--sans'); g.fillText('n = '+n+' · '+MDT.pc(fx(pn*100,pn>0.01?1:3)),cx+w+10,Y(En)+6); }
+    if(n<3 && x>0.35){ g.fillStyle=css('--muted'); g.font='17px '+css('--sans'); var lt='n = '+n+' · '+MDT.pc(fx(pn*100,pn>0.01?1:3)); g.fillText(lt,Math.min(cx+w+10,W-6-g.measureText(lt).width),Y(En)+6); }
   }
   if(x<=0.35){ g.fillStyle=css('--muted'); g.font='18px '+css('--sans'); g.fillText('basamaklar birbirine çok yakın: neredeyse sürekli, klasik',cx-half*0.6,T+30); }
   g.fillStyle=css('--muted'); g.font='18px '+css('--sans'); g.fillText('basamak aralığı ħω = '+sig(x)+' kT',L+14,Hh-10);
@@ -1095,20 +1101,21 @@ var KEY='ahl-mdt-v2-fma';
 var book={}; (function(){ var o=MDT.store.get(KEY,null); if(o && typeof o==='object') Object.keys(o).forEach(function(k){ var e=o[k]; if(e && isFinite(e.Eb) && isFinite(e.ns) && isFinite(e.n) && e.mid) book[k]=e; }); })();
 function save(){ MDT.store.set(KEY, book); }
 var MCOL={H:'--c1',C:'--c3',M:'--c4',R:'--c5'};
-function runNs(m,Eb,seed){ // 1 ns Langevin, geçişleri sayar
-  var r=rng(seed), c1=Math.exp(-GAM*DT), c2=Math.sqrt((1-c1*c1)*KT300/m*1e-4), x=-X0, v=0, a=Fof(x,Eb)/m*1e-4, st=-1, n=0, N=Math.round(1e6/DT);
-  for(var i=0;i<N;i++){ v+=0.5*DT*a; x+=0.5*DT*v; v=c1*v+c2*gauss(r); x+=0.5*DT*v; a=Fof(x,Eb)/m*1e-4; v+=0.5*DT*a;
-    if(st<0 && x>X0/2){ st=1; n++; } else if(st>0 && x<-X0/2){ st=-1; n++; } }
-  return n;
+function runNs(m,Eb,seed,onProg,done){ // 1 ns Langevin, geçişleri sayar; sayfa donmasın diye parça parça
+  var r=rng(seed), c1=Math.exp(-GAM*DT), c2=Math.sqrt((1-c1*c1)*KT300/m*1e-4), x=-X0, v=0, a=Fof(x,Eb)/m*1e-4, st=-1, n=0, N=Math.round(1e6/DT), i=0, CH=100000;
+  function chunk(){ var end=Math.min(N,i+CH);
+    for(;i<end;i++){ v+=0.5*DT*a; x+=0.5*DT*v; v=c1*v+c2*gauss(r); x+=0.5*DT*v; a=Fof(x,Eb)/m*1e-4; v+=0.5*DT*a;
+      if(st<0 && x>X0/2){ st=1; n++; } else if(st>0 && x<-X0/2){ st=-1; n++; } }
+    if(i<N){ onProg(i/N); setTimeout(chunk,0); } else done(n); }
+  chunk();
 }
 var nsSeed=7001;
 $('ns1').addEventListener('click',function(){
   var b=$('ns1'); b.disabled=true; b.textContent='Hesaplanıyor…';
-  setTimeout(function(){
-    var k=S.m.id+'|'+S.Eb, n=runNs(S.m.m,S.Eb,nsSeed++);
-    var e=book[k]||{mid:S.m.id, Eb:S.Eb, ns:0, n:0}; e.ns+=1; e.n+=n; book[k]=e; save();
-    b.disabled=false; b.textContent='Bu ayarla 1 ns hesapla'; drawRate(); evaluate4();
-  },30);
+  var mid=S.m.id, mm=S.m.m, Eb=S.Eb;
+  runNs(mm,Eb,nsSeed++,function(f){ b.textContent='Hesaplanıyor… '+MDT.pc(fx(100*f,0)); },function(n){
+    var k=mid+'|'+Eb, e=book[k]||{mid:mid, Eb:Eb, ns:0, n:0}; e.ns+=1; e.n+=n; book[k]=e; save();
+    b.disabled=false; b.textContent='Bu ayarla 1 ns hesapla'; drawRate(); evaluate4(); });
 });
 $('clr').addEventListener('click',function(){ book={}; save(); drawRate(); evaluate4(); });
 function fitRate(mid){
@@ -1125,10 +1132,10 @@ function drawRate(){
   g.clearRect(0,0,W,Hh);
   var X=function(e){return L+e/32*(W-L-R);}, ly0=-1, ly1=4, Y=function(r){return T+(ly1-Math.log10(r))/(ly1-ly0)*(Hh-T-B);};
   g.strokeStyle=css('--line'); g.fillStyle=css('--muted'); g.font='18px '+css('--sans'); g.lineWidth=1;
-  for(var k=ly0;k<=ly1;k++){ var yy=Y(Math.pow(10,k)); g.beginPath(); g.moveTo(L,yy); g.lineTo(W-R,yy); g.stroke(); g.textAlign='right'; g.fillText(k<0?'0,1':tick(Math.pow(10,k)),L-10,yy+6); }
+  for(var k=ly0;k<=ly1;k++){ var yy=Y(Math.pow(10,k)); g.beginPath(); g.moveTo(L,yy); g.lineTo(W-R,yy); g.stroke(); g.textAlign='right'; g.fillText(tick(Math.pow(10,k)),L-10,yy+6); }
   [0,5,10,15,20,25,30].forEach(function(e){ g.textAlign='center'; g.fillText(e,X(e),Hh-B+24); });
   g.textAlign='right'; g.fillText('bariyer (kJ/mol)',W-R,Hh-6); g.textAlign='left'; g.fillText('ns başına geçiş',L,24);
-  g.fillText('0 geçiş',8,Hh-B+4);
+  if(W<700){ g.font='14px '+css('--sans'); g.textAlign='left'; g.fillText('0 geçiş',4,Hh-B+26); g.font='18px '+css('--sans'); } else { g.textAlign='right'; g.fillText('0 geçiş',L-10,Hh-B+26); } g.textAlign='left';
   MASSES.forEach(function(ms){ var f=fitRate(ms.id); if(!f || !f.ok) return; g.strokeStyle=css(MCOL[ms.id]); g.setLineDash([7,6]); g.lineWidth=2; g.beginPath();
     var e0=Math.max(1,Math.min.apply(null,f.pts.map(function(p){return p.Eb;}))-2), e1=Math.min(31,Math.max.apply(null,f.pts.map(function(p){return p.Eb;}))+2);
     var r0=Math.exp(f.a+f.s*e0), r1=Math.exp(f.a+f.s*e1); g.moveTo(X(e0),Y(Math.max(0.1,Math.min(1e4,r0)))); g.lineTo(X(e1),Y(Math.max(0.1,Math.min(1e4,r1)))); g.stroke(); g.setLineDash([]); });
@@ -1202,7 +1209,7 @@ var QZ=[
    o:[['Titreşim çok sıcaktır ve bağ kopmak üzeredir',0],['Klasik MD bu titreşimi tam doğru anlatır',0],['Titreşim yavaştır, zaman adımını etkilemez',0],['Titreşim neredeyse tamamen taban düzeyde donmuştur; klasik MD ona yanlış olarak kT kadar enerji verir. Bağı kısıtlamak bu yüzden fiziksel olarak da savunulabilir',1]],
    w:'ħω kT\'nin '+fx(xOHq,0)+' katıdır; üst basamaklara ısıl olarak neredeyse hiç çıkılamaz. Bu titreşimin enerjisi, ısıyla alınıp verilemeyen sıfır nokta enerjisidir.'},
   {s:'Tezgâhta ısı banyosu (300 K) açıkken bariyeri 10\'dan 15 kJ/mol\'e yükseltirseniz geçişler yaklaşık ne olur?',
-   o:[['Hiç değişmez',0],['Yaklaşık 6-7 kat seyrekleşir',1],['Yarıya iner',0],['Tamamen durur',0]],
+   o:[['Hiç değişmez',0],['Yaklaşık 5 ile 8 kat arasında seyrekleşir',1],['Yarıya iner',0],['Tamamen durur',0]],
    w:'Sıklık ∝ e^(−E_b/kT). 5 kJ/mol yaklaşık 2 kT eder: e^(5/2,49) ≈ '+fx(f5,1)+'. Tezgâhın yüzeyinde kuyular da dikleştiği için ölçülen oran biraz daha küçüktür (yaklaşık 6). Defterinizde bunu kendi verinizle görebilirsiniz.'},
   {s:'Bir sistemin atom sayısını 10 katına çıkarırsanız, bir kuvvet hesabının maliyeti biçimsel olarak yaklaşık nasıl değişir?',
    o:[['Kuvvet alanında da DFT\'de de 10 kat',0],['Kuvvet alanında 1000 kat, DFT\'de 10 kat',0],['Kuvvet alanında yaklaşık 10 kat, DFT\'de yaklaşık 1000 kat',1],['İkisinde de değişmez',0]],
@@ -1214,6 +1221,7 @@ var QZ=[
 function renderQuiz(){ MDT.quiz($('quiz'), PFX, QZ); }
 
 /* başlat */
+MDT.fitCanvases(['wav','lad','land','xt','rate'].map($), function(){ drawWav(); update2(); drawLand(); drawXT(); drawRate(); });
 renderParts(); facts1(); drawWav(); mark1();
 $('nn').value=sOf(V.nu); update2();
 renderMasses(); resetSim(); marks3();
@@ -1266,11 +1274,11 @@ function colOf(name){ if(!(name in colorMap)){ colorMap[name]=COLORS[colorN%COLO
 
 /* 1 · atölye */
 function drawIR(){
-  var c=$('ir'), g=c.getContext('2d'), W=c.width, H=c.height, L=30, R=30, T=34, B=54;
+  var c=$('ir'), g=c.getContext('2d'), W=c.width, H=c.height, L=30, R=30, nar=W<700, T=nar?58:34, B=54;
   g.clearRect(0,0,W,H);
   var X=function(nu){return L+(4000-nu)/(4000-500)*(W-L-R);};
   var regions=[[3200,3650,'O–H, N–H'],[2850,3000,'C–H'],[2100,2250,'üçlü bağlar'],[1650,1750,'C=O'],[500,1500,'parmak izi bölgesi']];
-  regions.forEach(function(r,i){ g.fillStyle=css('--line'); g.globalAlpha=0.45; g.fillRect(X(r[1]),T,X(r[0])-X(r[1]),H-B-T); g.globalAlpha=1; g.fillStyle=css('--muted'); g.font='17px '+css('--sans'); g.textAlign='center'; g.fillText(r[2],(X(r[0])+X(r[1]))/2,T-10); });
+  regions.forEach(function(r,i){ g.fillStyle=css('--line'); g.globalAlpha=0.45; g.fillRect(X(r[1]),T,X(r[0])-X(r[1]),H-B-T); g.globalAlpha=1; g.fillStyle=css('--muted'); g.font='17px '+css('--sans'); g.textAlign='center'; g.fillText(r[2],(X(r[0])+X(r[1]))/2,T-10-(nar&&i%2?24:0)); });
   g.strokeStyle=css('--line'); g.lineWidth=1; g.fillStyle=css('--muted'); g.font='19px '+css('--sans'); g.textAlign='center';
   for(var nu=4000;nu>=500;nu-=500){ var xx=X(nu); g.beginPath(); g.moveTo(xx,H-B); g.lineTo(xx,H-B+8); g.stroke(); g.fillText(tick(nu),xx,H-B+30); }
   g.fillText('dalga sayısı ν̃ (cm⁻¹)',W/2,H-6);
@@ -1288,7 +1296,7 @@ function renderControls(){
   ROOT.querySelectorAll('#l2-atA .chip').forEach(function(el){ el.onclick=function(){ setBond(el.getAttribute('data-a'),cB.b,cB.k); }; });
   ROOT.querySelectorAll('#l2-atB .chip').forEach(function(el){ el.onclick=function(){ setBond(cB.a,el.getAttribute('data-b'),cB.k); }; });
   $('kk').value=cB.k; $('kv').innerHTML=tick(cB.k)+' <small>N/m</small>';
-  $('fMu').textContent=fx(cB.mu,3)+' u'; $('fNu').textContent=tick(Math.round(cB.nu))+' cm⁻¹'; $('fT').textContent=fx(cB.T,1)+' fs'; $('fDt').textContent=fx(cB.T/10,2)+' fs';
+  $('fMu').textContent=fx(cB.mu,3)+' u'; $('fNu').textContent=tick(Math.round(cB.nu))+' cm⁻¹'; $('fT').textContent=fx(cB.T,1)+' fs'; $('fDt').textContent=fx(cB.T/5,2)+' fs';
 }
 var disc={1:false,2:false,3:false};
 function compare(){
@@ -1302,7 +1310,7 @@ function compare(){
     body='Yay aynı, yalnız kütle değişti. Bant '+fx(r,3)+' kat '+(r>1?'aşağı':'yukarı')+' kaydı; indirgenmiş kütle oranının karekökü √('+fx(cB.mu,3)+'/'+fx(prev.mu,3)+') = '+fx(s,3)+'. Kütle büyüdükçe titreşim yavaşlar.';
     var hd=(prev.b==='H'&&cB.b==='D')||(prev.b==='D'&&cB.b==='H');
     if(hd && prev.a===cB.a){ disc[1]=true; $('md1').innerHTML='Sizin denemeniz: '+prev.name+' '+tick(Math.round(prev.nu))+' → '+cB.name+' '+tick(Math.round(cB.nu))+' cm⁻¹, oran <b>'+fx(Math.max(r,1/r),3)+'</b>. Kütle neredeyse iki katına çıktı ama bant yalnız √2\'ye yakın bir oranla kaydı: ν̃ ∝ 1/√μ. Döteryum değişimi deneylerinde O–H bandının 2500-2700 cm⁻¹ bölgesine inmesinin nedeni budur.'; }
-    if(cB.b==='H3' && prev.b==='H' && prev.a===cB.a){ disc[3]=true; $('md3').innerHTML='Hidrojene 3 u verince '+prev.name+' periyodu '+fx(prev.T,1)+' → '+fx(cB.T,1)+' fs oldu; önerilen Δt '+fx(prev.T/10,2)+' → <b>'+fx(cB.T/10,2)+' fs</b>. Bu, MD\'de hidrojen kütlesini yeniden dağıtma (HMR) hilesidir; tezgâhta deneyin.'; }
+    if(cB.b==='H3' && prev.b==='H' && prev.a===cB.a){ disc[3]=true; $('md3').innerHTML='Hidrojene 3 u verince '+prev.name+' periyodu '+fx(prev.T,1)+' → '+fx(cB.T,1)+' fs oldu; grompp\'un kabul ettiği en uzun Δt (T/5) '+fx(prev.T/5,2)+' → <b>'+fx(cB.T/5,2)+' fs</b>. Bu, MD\'de hidrojen kütlesini yeniden dağıtma (HMR) hilesidir; tezgâhta deneyin.'; }
   } else if(sameAtoms && !sameK){
     var s2=Math.sqrt(cB.k/prev.k);
     body='Atomlar aynı, yalnız yay sertliği değişti. Bant '+fx(1/r,3)+' kat '+(r<1?'yukarı':'aşağı')+' kaydı; yay sabiti oranının karekökü √('+tick(cB.k)+'/'+tick(prev.k)+') = '+fx(s2,3)+'. Sert bağ hızlı titreşir.';
@@ -1318,7 +1326,7 @@ function setBond(a,b,k){
 $('kk').addEventListener('input',function(){ var k=+$('kk').value; var nb=bondOf(cB.a,cB.b,k); $('kv').innerHTML=tick(k)+' <small>N/m</small>'; if(!pendingPrev) pendingPrev=cB; cB=nb; renderControlsLite(); drawIR(); });
 $('kk').addEventListener('change',function(){ var p=pendingPrev; pendingPrev=null; if(p){ prev=p; compare(); } renderControls(); runNow(); });
 var pendingPrev=null;
-function renderControlsLite(){ $('fMu').textContent=fx(cB.mu,3)+' u'; $('fNu').textContent=tick(Math.round(cB.nu))+' cm⁻¹'; $('fT').textContent=fx(cB.T,1)+' fs'; $('fDt').textContent=fx(cB.T/10,2)+' fs'; }
+function renderControlsLite(){ $('fMu').textContent=fx(cB.mu,3)+' u'; $('fNu').textContent=tick(Math.round(cB.nu))+' cm⁻¹'; $('fT').textContent=fx(cB.T,1)+' fs'; $('fDt').textContent=fx(cB.T/5,2)+' fs'; }
 
 function drawPair(canvas, bond, x, label){
   var g=canvas.getContext('2d'), W=canvas.width, H=canvas.height, cy=H/2+12;
@@ -1371,9 +1379,11 @@ function drawTrace(){
   g.clearRect(0,0,W,H); if(!cur) return;
   var n=cur.n, amp=0; for(var i=0;i<=n;i++){ var e=cur.er[i]; if(isFinite(e)) amp=Math.max(amp,Math.abs(e)); }
   if(amp===0) amp=1e-9; amp=Math.min(amp*1.15,2);
-  var tEnd=n*cur.dt, X=function(i){return L+i/n*(W-L-R);}, Y=function(e){return T+(0.5-Math.max(-amp,Math.min(amp,e))/(2*amp))*(H-T-B);};
+  var lo=0, hi=0; for(i=0;i<=n;i++){ var e1=cur.er[i]; if(isFinite(e1)){ lo=Math.min(lo,e1); hi=Math.max(hi,e1); } }
+  lo=Math.max(-2,lo*1.15); hi=Math.min(2,hi*1.15); if(hi<0.12*(-lo)) hi=0.12*(-lo); if(-lo<0.12*hi) lo=-0.12*hi; if(hi-lo<1e-9){ hi=1e-9; lo=-1e-9; }
+  var tEnd=n*cur.dt, X=function(i){return L+i/n*(W-L-R);}, Y=function(e){return T+(hi-Math.max(lo,Math.min(hi,e)))/(hi-lo)*(H-T-B);};
   g.font='20px '+css('--sans'); g.fillStyle=css('--muted'); g.strokeStyle=css('--line'); g.lineWidth=1;
-  [-amp,0,amp].forEach(function(e){ var yy=Y(e); g.beginPath(); g.moveTo(L,yy); g.lineTo(W-R,yy); g.stroke(); g.textAlign='right'; g.fillText((e>0?'+':e<0?'−':'')+pctTxt(Math.abs(e)),L-10,yy+7); });
+  [lo,0,hi].forEach(function(e){ if(e!==0&&Math.abs(e)<0.2*Math.max(-lo,hi)) return; var yy=Y(e); g.beginPath(); g.moveTo(L,yy); g.lineTo(W-R,yy); g.stroke(); g.textAlign='right'; g.fillText(e===0?'0':(e>0?'+':'−')+pctTxt(Math.abs(e)),L-10,yy+7); });
   g.textAlign='left'; g.fillText('0 fs',L,H-14); g.textAlign='right'; g.fillText(fx(tEnd,0)+' fs',W-R,H-14); g.textAlign='left';
   g.strokeStyle=css('--accent'); g.lineWidth=2; g.beginPath(); var st=false, step=Math.max(1,Math.floor(n/2400));
   for(i=0;i<=n;i+=step){ var e2=cur.er[i]; if(!isFinite(e2)) break; if(st) g.lineTo(X(i),Y(e2)); else { g.moveTo(X(i),Y(e2)); st=true; } }
@@ -1383,7 +1393,7 @@ function drawTrace(){
 function drawBench(){ // hesaplanan konumlar, her Δt'de bir nokta, gerçek eğriyle birlikte
   var c=$('cv'), g=c.getContext('2d'), W=c.width, H=c.height, L=30, R=30, T=44, B=30;
   g.clearRect(0,0,W,H); if(!cur) return;
-  g.fillStyle=css('--muted'); g.font='21px '+css('--sans'); g.fillText(cur.bond.name+' · ilk 3 titreşim: gerçek hareket (çizgi) ve integratörün her Δt\'deki hesabı (nokta)',24,30);
+  g.fillStyle=css('--muted'); g.font='21px '+css('--sans'); g.fillText(cur.bond.name+(W<700?' · ilk 3 titreşim':' · ilk 3 titreşim: gerçek hareket (çizgi) ve integratörün her Δt\'deki hesabı (nokta)'),24,30);
   var tMax=3*cur.bond.T, X=function(t){return L+t/tMax*(W-L-R);}, Y=function(x){return T+(1-(Math.max(-2,Math.min(2,x))+2)/4)*(H-T-B);};
   g.strokeStyle=css('--line'); g.lineWidth=2; g.beginPath();
   for(var i=0;i<=600;i++){ var t=tMax*i/600, xx=Math.cos(cur.bond.wfs*t); if(i) g.lineTo(X(t),Y(xx)); else g.moveTo(X(t),Y(xx)); } g.stroke();
@@ -1441,7 +1451,7 @@ function evaluate(){
 function renderTable(){
   var rows=PRE.map(function(p){return bondOf(p.a,p.b,p.k);}).concat([bondOf('O','D',740), bondOf('O','H3',740)]);
   rows.sort(function(x,y){return x.T-y.T;});
-  $('tab').innerHTML=rows.map(function(b){ var r=simulate(b,2,Math.ceil(20*b.T/2)); return '<tr><td><b>'+b.name+'</b></td><td class="n">'+tick(Math.round(b.nu))+'</td><td class="n">'+fx(b.T,1)+'</td><td class="n">'+fx(b.T/Math.PI,1)+'</td><td class="n">'+fx(b.T/10,1)+'</td><td class="n">'+(r.blew>0?'çöker':pctTxt(r.emax))+'</td></tr>'; }).join('');
+  $('tab').innerHTML=rows.map(function(b){ var r=simulate(b,2,Math.ceil(20*b.T/2)); return '<tr><td><b>'+b.name+'</b></td><td class="n">'+tick(Math.round(b.nu))+'</td><td class="n">'+fx(b.T,1)+'</td><td class="n">'+fx(b.T/Math.PI,1)+'</td><td class="n">'+fx(b.T/5,1)+'</td><td class="n">'+fx(b.T/10,1)+'</td><td class="n">'+(r.blew>0?'çöker':pctTxt(r.emax))+'</td></tr>'; }).join('');
 }
 
 /* 5 · sınav */
@@ -1450,7 +1460,7 @@ var oh2=simulate(OH,2,Math.ceil(20*OH.T/2)).emax;
 var QZ=[
   {s:'IR spektrumunda 1650 cm⁻¹\'de bir bant görüyorsunuz. Bu titreşimin periyodu yaklaşık ne kadardır?',
    o:[['Yaklaşık 2 fs',0],['Yaklaşık '+fx(CO.T,0)+' fs',1],['Yaklaşık 200 fs',0],['Yaklaşık 2 ps',0]],
-   w:'T = 1/(c·ν̃) = 1/(3,0 × 10¹⁰ cm/s × 1650 cm⁻¹) ≈ '+fx(CO.T,1)+' fs. Bu, proteinlerin amid I bandıdır ve büyük ölçüde C=O gerilmesidir.'},
+   w:'T = 1/(c·ν̃) = 1/('+fx(3.0,1)+' × 10¹⁰ cm/s × 1650 cm⁻¹) ≈ '+fx(CO.T,1)+' fs. Bu, proteinlerin amid I bandıdır ve büyük ölçüde C=O gerilmesidir.'},
   {s:'Bir örnekte O–H grupları döteryumla değiştirildi. O–H bandı ('+tick(Math.round(OH.nu))+' cm⁻¹) nereye kayar ve bu bağ için MD\'de izin verilen Δt ne olur?',
    o:[['Bant iki katına çıkar, Δt küçülmeli',0],['Bant hiç değişmez, çünkü bağ aynıdır',0],['Bant yaklaşık '+tick(Math.round(OD.nu))+' cm⁻¹\'e iner; titreşim yavaşladığı için Δt yaklaşık '+fx(OD.T/OH.T,2)+' kat büyüyebilir',1],['Bant yarıya iner, Δt iki katına çıkabilir',0]],
    w:'Yay aynıdır, yalnız kütle değişir: ν̃ ∝ 1/√μ. İndirgenmiş kütle neredeyse iki katına çıkar ama bant yalnız '+fx(OH.nu/OD.nu,2)+' kat iner. Atölyede bunu kendiniz denediniz.'},
@@ -1462,7 +1472,7 @@ var QZ=[
    w:'O–H periyodu yaklaşık '+fx(OH.T,1)+' fs; 2 fs periyot başına yalnız '+fx(OH.T/2,1)+' hesap demektir. Çöküş sınırı T/π ≈ '+fx(OH.T/Math.PI,1)+' fs olduğundan hesap sürer, ama kararlı olmak doğru olmak demek değildir.'},
   {s:'Protein simülasyonlarında 2 fs neden yaygın olarak kullanılabiliyor?',
    o:[['Proteinler yavaş hareket ettiği için',0],['Su molekülleri hareketsiz tutulduğu için',0],['H içeren bağların uzunluğu sabitlendiği (kısıtlandığı) için; en hızlı kalan titreşimler yaklaşık 20 fs\'liktir',1],['GROMACS enerji hatasını düzelttiği için',0]],
-   w:'SHAKE, LINCS ve SETTLE bu bağları sabitler. Geriye kalan en hızlı titreşimler (C=O gibi) yaklaşık 20 fs periyotludur; 2 fs, periyodun onda biridir. HMR ile hidrojen ağırlaştırılırsa 4 fs\'ye kadar çıkılabilir.'},
+   w:'SHAKE, LINCS ve SETTLE bu bağları sabitler. Geriye kalan en hızlı titreşimler (C=O gibi) yaklaşık 20 fs periyotludur; 2 fs, periyodun yaklaşık onda biridir ve grompp\'un T/5 sınırının (yaklaşık 4 fs) güvenle altındadır. HMR ile hidrojen ağırlaştırılırsa 4 fs\'ye kadar çıkılabilir.'},
   {s:'Tezgâhtaki "enerji hatası" gerçek bir MD koşusunda neye benzer?',
    o:[['Molekülün gerçekten ısınmasına',0],['Fiziksel olmayan, tamamen sayısal bir enerji dalgalanmasına; büyük sistemlerde sistemin yapay olarak ısınması ya da soğuması olarak da görülebilir',1],['Deneysel ölçüm hatasına',0],['Kuvvet alanındaki parametre hatasına',0]],
    w:'Yalıtılmış bir sistemde toplam enerji korunur. Sapmanın kaynağı hesaplama aralığıdır; bu yüzden enerji korunumu, zaman adımını denetlemenin en temel yoludur.'}
@@ -1490,6 +1500,7 @@ if('IntersectionObserver' in window){
   new IntersectionObserver(function(es){ visMol=es[0].isIntersecting; if(visMol) kick(); }).observe($('mol'));
   new IntersectionObserver(function(es){ visBench=es[0].isIntersecting; if(visBench) kick(); }).observe($('cv'));
 }
+MDT.fitCanvases(['ir','mol','cv','tr','bk'].map($), function(){ drawIR(); drawPair($('mol'),cB,1,cB.name); drawTrace(); if(cur) drawBench(); drawBook(); });
 renderControls(); drawIR(); runNow(); drawBook(); evaluate(); renderTable(); renderQuiz();
 drawPair($('mol'),cB,1,cB.name); if(reduce){ benchPhase=1e9; drawBench(); } else kick();
 })();
@@ -1565,18 +1576,19 @@ function renderInts(){
   $('ints').innerHTML=INTS.map(function(s){ return '<button type="button" class="chip" data-s="'+s+'" aria-pressed="'+(curK&&curK.s===s)+'">'+tick(s)+' ps</button>'; }).join('');
   ROOT.querySelectorAll('#l3-ints .chip').forEach(function(el){ el.onclick=function(){ pick(+el.getAttribute('data-s'), true); }; });
 }
-var SCOL={aR:'--c3', b:'--c2', aL:'--c1'};
+var SCOL={aR:'--c3', b:'--c2', aL:'--c1'}, ANG='psi';
 function drawPhi(r){
   var c=$('phi'), g=c.getContext('2d'), W=c.width, H=c.height, L=64, R=20, T0=40, Bm=78, band=22;
   g.clearRect(0,0,W,H);
   var X=function(t){return L+t/N*(W-L-R);}, Y=function(d){return T0+(180-d)/360*(H-T0-Bm);};
   g.strokeStyle=css('--line'); g.fillStyle=css('--muted'); g.font='18px '+css('--sans'); g.lineWidth=1;
   [-180,-90,0,90,180].forEach(function(d){ var y=Y(d); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); g.textAlign='right'; g.fillText((d<0?'−':'')+Math.abs(d)+'°',L-8,y+6); });
-  g.textAlign='left'; g.fillText('φ açısı',8,22);
+  g.textAlign='left'; g.fillText(ANG==='psi'?'ψ açısı':'φ açısı',8,22); var AR=ANG==='psi'?D.psi_cdeg:D.phi_cdeg;
+  if(ANG==='psi'){ g.save(); g.setLineDash([10,7]); g.strokeStyle=css('--c3'); g.lineWidth=2.5; [50,-120].forEach(function(d){ var y=Y(d); g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke(); }); g.restore(); g.fillStyle=css('--c3'); g.textAlign='right'; g.fillText('αR bandı: −120° ≤ ψ < 50° (φ < 0 iken)',W-R,22); g.textAlign='left'; g.fillStyle=css('--muted'); }
   g.strokeStyle=css('--ink'); g.lineWidth=r.s>=50?2:1; g.globalAlpha=r.s>=50?1:0.75; g.beginPath(); var pen=false, lastD=null;
-  for(var j=r.s-1;j<N;j+=r.s){ var d=D.phi_cdeg[j]/100, x=X(j+1), y=Y(d); if(pen && Math.abs(d-lastD)<180) g.lineTo(x,y); else g.moveTo(x,y); pen=true; lastD=d; }
+  for(var j=r.s-1;j<N;j+=r.s){ var d=AR[j]/100, x=X(j+1), y=Y(d); if(pen && Math.abs(d-lastD)<180) g.lineTo(x,y); else g.moveTo(x,y); pen=true; lastD=d; }
   g.stroke(); g.globalAlpha=1;
-  if(r.s>=20){ g.fillStyle=css('--ink'); for(j=r.s-1;j<N;j+=r.s){ g.beginPath(); g.arc(X(j+1),Y(D.phi_cdeg[j]/100),r.s>=200?5:3,0,Math.PI*2); g.fill(); } }
+  if(r.s>=20){ g.fillStyle=css('--ink'); for(j=r.s-1;j<N;j+=r.s){ g.beginPath(); g.arc(X(j+1),Y(AR[j]/100),r.s>=200?5:3,0,Math.PI*2); g.fill(); } }
   var yb=H-Bm+18, w=(W-L-R)*r.s/N;
   for(j=r.s-1;j<N;j+=r.s){ g.fillStyle=css(SCOL[ST[j]]); g.fillRect(X(j+1-r.s),yb,Math.max(1,w),band); }
   g.fillStyle=css('--muted'); g.fillText('durum',8,yb+16);
@@ -1624,6 +1636,8 @@ function evaluate(){
   [1,2,3].forEach(function(i){ MDT.card($('k'+i),dk[i]); });
 }
 $('clr').addEventListener('click',function(){ book=[]; MDT.store.set(KEY,[]); drawBook(); evaluate(); });
+function setAng(a){ ANG=a; $('angPsi').setAttribute('aria-pressed',String(a==='psi')); $('angPhi').setAttribute('aria-pressed',String(a==='phi')); if(curK) drawPhi(curK); }
+$('angPsi').addEventListener('click',function(){ setAng('psi'); }); $('angPhi').addEventListener('click',function(){ setAng('phi'); });
 
 /* 4 · proteine dönüş */
 function renderTable(){
@@ -1663,6 +1677,7 @@ var QZ=[
 ];
 
 /* başlat */
+MDT.fitCanvases(['strob','phi','book'].map($), function(){ updateS(false); if(curK) drawPhi(curK); drawBook(); });
 renderBonds(); updateS(false); renderInts(); pick(1,false); drawBook(); evaluate(); renderTable(); MDT.quiz($('quiz'), PFX, QZ);
 })();
 </script>

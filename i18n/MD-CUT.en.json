@@ -1,7 +1,7 @@
 {
  "module": "MD-CUT",
  "lang": "en",
- "source_sha256": "664282e44dcc281451f8c49aebf6d8bc9bd0f526ceefcb143f487d6ddbe0c3f7",
+ "source_sha256": "ff5cdc4f40c20e5cdc4a779bfa3851abbc1504749d3ff92592dfbf50bfeb5dcf",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-CUT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -115,8 +115,8 @@
    "<h2 id=\"k2h1\">The nearest image: along which path is a distance measured?</h2>"
   ],
   [
-   "<p class=\"small\">Periyodik kutuda iki molekül var: A (mavi) ve B (turuncu); soluk olanlar kopyalarıdır. İkisi birbirini çeker (van der Waals çekimi ya da bir hidrojen bağı gibi düşünün): en rahat uzaklık 1,9 σ, daha yakında iterler, 3,9 σ'dan ötede birbirlerini hissetmezler. Bu menzil kutunun yarısından (4 σ) kısa; neden önemli olduğunu 2. tezgâhta göreceksiniz. Hareket gerçekten hesaplanıyor; A'dan çıkan ok, A'ya o anda etkiyen kuvvettir. Gri kesikli çizgi B'ye kutunun içinden ölçülen uzaklık, kırmızı çizgi A'ya en yakın B kopyasına olan uzaklıktır.</p>",
-   "<p class=\"small\">There are two molecules in a periodic box: A (blue) and B (orange); the faded ones are their copies. The two attract each other (think of a van der Waals attraction or a hydrogen bond): the most comfortable distance is 1.9 σ, closer than that they repel, and beyond 3.9 σ they do not feel each other. This range is shorter than half the box (4 σ); you will see why this matters at bench 2. The motion is really computed; the arrow on A is the force acting on A at that moment. The gray dashed line is the distance to B measured inside the box, the red line is the distance from A to the nearest copy of B.</p>"
+   "<p class=\"small\">Periyodik kutuda iki molekül var: A (mavi) ve B (turuncu); soluk olanlar kopyalarıdır. İkisi birbirini çeker (van der Waals çekimi ya da bir hidrojen bağı gibi düşünün): en rahat uzaklık 1,9 σ, daha yakında iterler, 3,9 σ'dan ötede birbirlerini hissetmezler. Bu menzil kutunun yarısından (4 σ) kısa; neden önemli olduğunu 2. tezgâhta göreceksiniz. Hareket gerçekten hesaplanıyor; A'dan çıkan ok, A'ya o anda etkiyen kuvvettir. Hızlar modelin kendi birimindedir (σ/τ; τ modelin zaman birimi): atölyede ekrandaki 1 saniye 1 τ'dur, yani hız fiziksel değil, animasyonun hızıdır. Gri kesikli çizgi B'ye kutunun içinden ölçülen uzaklık, kırmızı çizgi A'ya en yakın B kopyasına olan uzaklıktır.</p>",
+   "<p class=\"small\">There are two molecules in a periodic box: A (blue) and B (orange); the faded ones are their copies. The two attract each other (think of a van der Waals attraction or a hydrogen bond): the most comfortable distance is 1.9 σ, closer than that they repel, and beyond 3.9 σ they do not feel each other. This range is shorter than half the box (4 σ); you will see why this matters at bench 2. The motion is really computed; the arrow on A is the force acting on A at that moment. Speeds are in the model's own units (σ/τ, where τ is the model's time unit): in the workshop 1 second on screen is 1 τ, so the speed is the speed of the animation, not a physical one. The gray dashed line is the distance to B measured inside the box, the red line is the distance from A to the nearest copy of B.</p>"
   ],
   [
    "<ol class=\"small steps\"><li><b>Fırlat:</b> kutunun üstünde herhangi bir yere basın, sapan gibi geriye çekin ve bırakın; B okun yönünde fırlar. Ya da \"Çifti fırlat\" düğmesine basın.</li><li><b>İzleyin:</b> moleküllerden biri kenardan çıkıp karşı kenardan girerken gri çizgi sıçrar, kırmızı çizgi ve enerji şeridi sakin kalır.</li><li><b>Karşılaştırın:</b> kuralı \"Kutunun içinden (hatalı)\" yapın ve bir geçişte enerjiye ne olduğuna bakın.</li></ol>",
@@ -403,8 +403,8 @@
    "<div class=\"change\" id=\"k4chg\"><span class=\"t\">The list is renewed every 50 steps</span><span>After the first renewal, the path taken by the water molecules will be written here.</span></div>"
   ],
   [
-   "<p class=\"small\">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı MD-ELEC modülünün konusudur.</p>",
-   "<p class=\"small\">The atom counts are estimates for three dimensions (about 100 atoms/nm³ in water); the canvas shows a two-dimensional slice. The water motion is computed with the Langevin method, matched to the measured diffusion coefficient of water (0.0023 nm²/ps); the protein atoms are held fixed. The van der Waals attraction beyond the cut-off is not thrown away: GROMACS adds its average contribution separately (DispCorr); the long-range part of electrostatics is the topic of the MD-ELEC module.</p>"
+   "<p class=\"small\">Atom sayıları üç boyut için tahmindir (suda yaklaşık 100 atom/nm³); tuval iki boyutlu bir dilim gösterir. Su hareketi Langevin yöntemiyle, suyun ölçülen difüzyon katsayısına (0,0023 nm²/ps) göre hesaplanır; protein atomları sabit tutulmuştur. Gerçek koşuda iki atom da hareket eder; GROMACS tamponu iki atomun birbirine göre alabileceği yola ve izin verilen enerji hatasına (<code>verlet-buffer-tolerance = 0.005</code> kJ/mol/ps/atom) göre seçer. Burada yalnız su hareket ettiği için bir komşunun kesmeye sızması gerçekte gösterilenden biraz daha olasıdır. Kesmenin dışındaki van der Waals çekimi atılmaz, GROMACS ortalama katkısını ayrıca ekler (DispCorr); elektrostatiğin uzak kısmı MD-ELEC modülünün konusudur.</p>",
+   "<p class=\"small\">The atom counts are estimates for three dimensions (about 100 atoms/nm³ in water); the canvas shows a two-dimensional slice. The water motion is computed with the Langevin method, matched to the measured diffusion coefficient of water (0.0023 nm²/ps); the protein atoms are held fixed. In a real run both atoms move; GROMACS chooses the buffer from the path two atoms can travel relative to each other and from the allowed energy error (<code>verlet-buffer-tolerance = 0.005</code> kJ/mol/ps/atom). Because only the water moves here, a neighbor slipping into the cut-off is in reality somewhat more likely than shown. The van der Waals attraction beyond the cut-off is not thrown away: GROMACS adds its average contribution separately (DispCorr); the long-range part of electrostatics is the topic of the MD-ELEC module.</p>"
   ],
   [
    "<div class=\"tw\"><table><thead><tr><th>Ayar (mdout.mdp ve günlük)</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>",
@@ -435,8 +435,8 @@
    "<p><b>The 1.106 nm in the table.</b> The run file said nstlist 10 and rlist 1.0 nm. To run faster, mdrun decided to renew the list every 50 steps and widened the buffer to 0.106 nm according to the allowed energy error (log of the unrestrained trial run; in the narrower S3 box the same calculation gave 1.104 nm). The \"This project's setting\" button above uses these values.</p>"
   ],
   [
-   "<p><b>Kutu sınırı.</b> Kesme mesafesi kutu kenarının yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez. Bu projenin 1UBQ kutusunun en kısa kenarı 6,49 nm'dir; yarısı 3,25 nm, kesmenin üç katından fazla.</p>",
-   "<p><b>The box limit.</b> If the cut-off exceeds half the box edge, two copies of the same neighbor fall inside the circle, but the program can count only one. This is why GROMACS refuses to run with such a box. The shortest edge of this project's 1UBQ box is 6.49 nm; half of it is 3.25 nm, more than three times the cut-off.</p>"
+   "<p><b>Kutu sınırı.</b> Kesme mesafesi en kısa kutu vektörünün yarısını aşarsa aynı komşunun iki kopyası çemberin içine girer, program ise yalnız birini sayabilir. GROMACS bu yüzden böyle bir kutuyla koşuya izin vermez (kılavuzun kuralı: kesme, en kısa kutu vektörünün yarısını aşamaz). Tezgâhtaki kare kutuda bu, kenarın yarısıdır. Bu projenin 1UBQ kutusu onikiyüzlüdür: üç kutu vektörü de 6,49 nm, yarısı 3,25 nm, kesmenin üç katından fazla. Üçgen olmayan kutularda GROMACS ayrıca kutu vektörlerinin dik bileşenlerine bakar (a<sub>x</sub>, b<sub>y</sub>, c<sub>z</sub>; bu kutuda en küçüğü 4,59 nm); bu ek sınır burada daha gevşektir, bağlayıcı olan yine 3,25 nm'dir.</p>",
+   "<p><b>The box limit.</b> If the cut-off exceeds half the shortest box vector, two copies of the same neighbor fall inside the circle, but the program can count only one. This is why GROMACS refuses to run with such a box (the manual's rule: the cut-off may not exceed half the shortest box vector). In the square box of the bench this is half the edge. This project's 1UBQ box is a dodecahedron: all three box vectors are 6.49 nm long, half of that is 3.25 nm, more than three times the cut-off. For triclinic boxes GROMACS also checks the perpendicular components of the box vectors (a<sub>x</sub>, b<sub>y</sub>, c<sub>z</sub>; the smallest is 4.59 nm in this box); this extra limit is looser here, and the binding one is still 3.25 nm.</p>"
   ],
   [
    "<span class=\"step\">5 · Kendinizi sınayın</span>",
@@ -527,8 +527,8 @@
    "if(M.aim){ var sp=Math.hypot(M.aim.vx,M.aim.vy); if(sp>0.1){ M.vb=[M.aim.vx,M.aim.vy]; miReset(true); M.paused=false; $('k2miPause').textContent='Pause';"
   ],
   [
-   "$('k2miChg').innerHTML='<span class=\"t\">B\\'yi '+fx(sp,1)+' σ/s ile fırlattınız</span><span>Yavaş fırlatırsanız B, A\\'yı da peşinden sürükler; çok hızlı fırlatırsanız çekimden kurtulur. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; } M.aim=null; miDraw(); kick(); }",
-   "$('k2miChg').innerHTML='<span class=\"t\">You launched B at '+fx(sp,1)+' σ/s</span><span>Launched slowly, B drags A along; launched very fast, it escapes the attraction. When one of them crosses the boundary, watch the two lines and the energy strip below.</span>'; } M.aim=null; miDraw(); kick(); }"
+   "$('k2miChg').innerHTML='<span class=\"t\">B\\'yi '+fx(sp,1)+' σ/τ ile fırlattınız</span><span>Yavaş fırlatırsanız B, A\\'yı da peşinden sürükler; çok hızlı fırlatırsanız çekimden kurtulur. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; } M.aim=null; miDraw(); kick(); }",
+   "$('k2miChg').innerHTML='<span class=\"t\">You launched B at '+fx(sp,1)+' σ/τ</span><span>Launched slowly, B drags A along; launched very fast, it escapes the attraction. When one of them crosses the boundary, watch the two lines and the energy strip below.</span>'; } M.aim=null; miDraw(); kick(); }"
   ],
   [
    "if(M.drag){ M.drag=null; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur'; miMsg(miDraw()); kick(); } }",
@@ -571,8 +571,8 @@
    "$('k2miRand').onclick=function(){ var th=Math.random()*2*Math.PI, sp=1.8+Math.random()*1.2, cx=(M.va[0]+M.vb[0])/2, cy=(M.va[1]+M.vb[1])/2, ux=sp*Math.cos(th)-cx, uy=sp*Math.sin(th)-cy; M.va=[M.va[0]+ux,M.va[1]+uy]; M.vb=[M.vb[0]+ux,M.vb[1]+uy]; miReset(true); M.paused=false; $('k2miPause').textContent='Pause';"
   ],
   [
-   "$('k2miChg').innerHTML='<span class=\"t\">Çifti '+fx(sp,1)+' σ/s ile rastgele bir yöne fırlattınız</span><span>İki molekül birbirini tutarak birlikte ilerleyecek. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; kick(); };",
-   "$('k2miChg').innerHTML='<span class=\"t\">You launched the pair at '+fx(sp,1)+' σ/s in a random direction</span><span>The two molecules will move on together, holding on to each other. When one of them crosses the boundary, watch the two lines and the energy strip below.</span>'; kick(); };"
+   "$('k2miChg').innerHTML='<span class=\"t\">Çifti '+fx(sp,1)+' σ/τ ile rastgele bir yöne fırlattınız</span><span>İki molekül birbirini tutarak birlikte ilerleyecek. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; kick(); };",
+   "$('k2miChg').innerHTML='<span class=\"t\">You launched the pair at '+fx(sp,1)+' σ/τ in a random direction</span><span>The two molecules will move on together, holding on to each other. When one of them crosses the boundary, watch the two lines and the energy strip below.</span>'; kick(); };"
   ],
   [
    "$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Durdur'; miSetRule('mi'); };",
@@ -683,8 +683,8 @@
    "$('k2nTab').innerHTML=rows.length?rows.map(function(p){return '<tr><td>'+(p.m==='plain'?'Plain cut-off':'Shifted')+'</td><td class=\"n\">'+fx(p.r,1)+'</td><td class=\"n\">'+sci(p.e)+'</td><td class=\"n\">'+fx(p.np,1)+'</td></tr>';}).join(''):'<tr><td colspan=\"4\" class=\"small\">No measurements yet.</td></tr>';"
   ],
   [
-   "card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi korur; GROMACS da etkileşimi böyle bırakır.');",
-   "card('k2c2',true,'Your measurements: with the plain cut-off the total energy fluctuated by '+sci(p0.e)+' at r<sub>c</sub> = '+fx(r0,1)+' σ and by '+sci(p1.e)+' ε/molecule at '+fx(r1,1)+' σ; with the shifted potential, at the same distances, by '+sci(s0.e)+' and '+sci(s1.e)+'. At the short cut-off the plain cut-off fluctuates '+fx(p0.e/s0.e,0)+' times more. The forces and the trajectory are the same in both methods; the difference is that with the plain cut-off the energy jumps by |u(r<sub>c</sub>)| every time a pair crosses the circle. On the other hand the number of pairs per molecule is '+fx(p0.np,1)+' at '+fx(r0,1)+' σ and '+fx(p1.np,1)+' at '+fx(r1,1)+' σ: a longer cut-off makes the calculation more expensive. The shifted potential conserves energy even with a short cut-off; GROMACS also ends the interaction this way.');"
+   "card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi çok daha iyi korur, ama tam korumaz'+(s0.e>1.5*s1.e?' (kaydırılmışta da '+fx(r0,1)+' σ\\'daki oynama '+fx(r1,1)+' σ\\'dakinin '+fx(s0.e/s1.e,1)+' katı)':'')+': kalan küçük kayma, kuvvetin r<sub>c</sub>\\'de hâlâ sıfıra sıçramasından gelir (potansiyel grafiğindeki kuvvet büyüteci). Kesme kısaldıkça bu sıçrama büyür. GROMACS da potansiyeli kesmede böyle kaydırır (Potential-shift).');",
+   "card('k2c2',true,'Your measurements: with the plain cut-off the total energy fluctuated by '+sci(p0.e)+' at r<sub>c</sub> = '+fx(r0,1)+' σ and by '+sci(p1.e)+' ε/molecule at '+fx(r1,1)+' σ; with the shifted potential, at the same distances, by '+sci(s0.e)+' and '+sci(s1.e)+'. At the short cut-off the plain cut-off fluctuates '+fx(p0.e/s0.e,0)+' times more. The forces and the trajectory are the same in both methods; the difference is that with the plain cut-off the energy jumps by |u(r<sub>c</sub>)| every time a pair crosses the circle. On the other hand the number of pairs per molecule is '+fx(p0.np,1)+' at '+fx(r0,1)+' σ and '+fx(p1.np,1)+' at '+fx(r1,1)+' σ: a longer cut-off makes the calculation more expensive. The shifted potential conserves energy much better even with a short cut-off, but not perfectly'+(s0.e>1.5*s1.e?' (with the shifted potential too, the drift at '+fx(r0,1)+' σ is '+fx(s0.e/s1.e,1)+' times that at '+fx(r1,1)+' σ)':'')+': the small remaining drift comes from the force, which still jumps to zero at r<sub>c</sub> (see the force magnifier in the potential plot). The shorter the cut-off, the larger this jump. GROMACS also shifts the potential at the cut-off this way (Potential-shift).');"
   ],
   [
    "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('düz kesmede 2,5 σ ya da daha kısa bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }",
@@ -825,6 +825,14 @@
   [
    "fx(st.K,st.K<10?1:0)+' kat'",
    "fx(st.K,st.K<10?1:0)+' times'"
+  ],
+  [
+   "g.fillText('kuvvet F = −du/dr, büyütülmüş',fxx+10,iy+15);",
+   "g.fillText('force F = −du/dr, magnified',fxx+10,iy+15);"
+  ],
+  [
+   "g.fillText('━ iki yöntemde aynı: '+fx(Math.abs(Fc),3)+' ε/σ sıçrar',fxx+10,iy+32);",
+   "g.fillText('━ same in both methods: jumps '+fx(Math.abs(Fc),3)+' ε/σ',fxx+10,iy+32);"
   ]
  ],
  "keep": [
