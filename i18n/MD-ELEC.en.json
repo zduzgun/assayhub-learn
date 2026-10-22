@@ -1,7 +1,7 @@
 {
  "module": "MD-ELEC",
  "lang": "en",
- "source_sha256": "e623b8d76aaad11d73f2fb8b886a81725a359be09e40bb0cd1aa47017aa9dcb0",
+ "source_sha256": "82c455c4dd435f28a3c897f61310ce4d16a644cc456f1e076419f4fcdba39dda",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-ELEC 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -47,8 +47,8 @@
    "<p>The salt you add when you make a buffer changes how far the charges in the solution feel each other. Around a charge, ions of the opposite sign gather slightly more densely and ions of the same sign slightly more sparsely. This ion cloud damps the effect of the charge at a distance. The scale of this damping is the <b>Debye length</b>. Below you will first see this cloud, then two experiments you know: the melting temperature of DNA rising with salt, and a protein dissolving with salt and precipitating with too much salt.</p>"
   ],
   [
-   "<h3 class=\"sub\">A · İyon bulutu ve Debye uzunluğu</h3><p>İyonik şiddeti değiştirin (çizim 25 °C içindir). Eğri, merkezdeki tek bir yükün oluşturduğu potansiyeli kT biriminde gösterir: gri kesikli çizgi perdelemesiz suda, kırmızı çizgi tuzlu suda.</p>",
-   "<h3 class=\"sub\">A · The ion cloud and the Debye length</h3><p>Change the ionic strength (the drawing is for 25 °C). The curve shows the potential of a single central charge in units of kT: the gray dashed line in unscreened water, the red line in salt water.</p>"
+   "<h3 class=\"sub\">A · İyon bulutu ve Debye uzunluğu</h3><p>İyonik şiddeti değiştirin (çizim 25 °C içindir). Noktaların sayısı tuzla birlikte logaritmik ölçekte artar; gerçek iyon sayısı değildir. Eğri, merkezdeki tek bir yükün oluşturduğu potansiyeli kT biriminde gösterir: gri kesikli çizgi perdelemesiz suda, kırmızı çizgi tuzlu suda.</p>",
+   "<h3 class=\"sub\">A · The ion cloud and the Debye length</h3><p>Change the ionic strength (the drawing is for 25 °C). The number of dots grows with salt on a logarithmic scale; it is not the real number of ions. The curve shows the potential of a single central charge in units of kT: the gray dashed line in unscreened water, the red line in salt water.</p>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"k3deb\" class=\"stage\" aria-label=\"Merkezdeki yük, çevresindeki iyon bulutu ve Debye uzunluğu çemberi\"></canvas></div>",
@@ -155,8 +155,8 @@
    "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Selected Na⁺</span><span><i style=\"background:var(--muted)\"></i>10 mM and 150 mM (comparison)</span><span>Dot: the helix right now</span></div>"
   ],
   [
-   "<p class=\"small\">T<sub>m</sub> = 81,5 + 0,41 · (%GC) + 16,6 · log₁₀[Na⁺] (uzun DNA; Schildkraut ve Lifson 1965 tuz terimiyle, Primer3'ün kullandığı biçim, uzunluk terimi −600/N atlandı). Kısa oligolarda ve yüksek tuzda T<sub>m</sub> ile log[Na⁺] arasındaki ilişki doğrusal değildir (Owczarzy ve ark. 2004). Açılma, komşu baz çiftleri birlikte açılmayı yeğleyecek biçimde (işbirlikli) canlı hesaplanır; eğrinin genişliği temsilidir.</p>",
-   "<p class=\"small\">T<sub>m</sub> = 81.5 + 0.41 · (%GC) + 16.6 · log₁₀[Na⁺] (long DNA; with the salt term of Schildkraut and Lifson 1965, the form used by Primer3, the length term −600/N omitted). For short oligos and at high salt the relation between T<sub>m</sub> and log[Na⁺] is not linear (Owczarzy et al. 2004). Opening is computed live so that neighboring base pairs prefer to open together (cooperatively); the width of the curve is representative.</p>"
+   "<p class=\"small\">T<sub>m</sub> = 81,5 + 0,41 · (%GC) + 16,6 · log₁₀[Na⁺] (uzun DNA; Schildkraut ve Lifson 1965 tuz terimiyle, Primer3'ün kullandığı biçim, uzunluk terimi −600/N atlandı). Kısa oligolarda ve yüksek tuzda T<sub>m</sub> ile log[Na⁺] arasındaki ilişki doğrusal değildir (Owczarzy ve ark. 2004). Açılma, komşu baz çiftleri birlikte açılmayı yeğleyecek biçimde (işbirlikli) canlı hesaplanır; eğrinin genişliği temsilidir. Eğri, çizimdeki aynı 28 baz çiftlik zincirin denge ortalamasıdır (aktarım matrisiyle tam hesap); lacivert nokta, canlı benzetimin son anlarının ortalamasıdır ve eğrinin çevresinde dalgalanır.</p>",
+   "<p class=\"small\">T<sub>m</sub> = 81.5 + 0.41 · (%GC) + 16.6 · log₁₀[Na⁺] (long DNA; with the salt term of Schildkraut and Lifson 1965, the form used by Primer3, the length term −600/N omitted). For short oligos and at high salt the relation between T<sub>m</sub> and log[Na⁺] is not linear (Owczarzy et al. 2004). Opening is computed live so that neighboring base pairs prefer to open together (cooperatively); the width of the curve is representative. The curve is the equilibrium average of the same 28-base-pair chain shown in the drawing (computed exactly with a transfer matrix); the navy dot is the average of the last moments of the live simulation and fluctuates around the curve.</p>"
   ],
   [
    "<div class=\"prose\"><h3 class=\"sub\">C · Protein tuzla çözünür, fazla tuzla çöker</h3>",
@@ -223,8 +223,8 @@
    "<div class=\"change\" id=\"k3pChg\"><span class=\"t\">Close to pure water</span><span>The molecules stick together through their oppositely charged surfaces.</span></div>"
   ],
   [
-   "<p class=\"small\">Şematik model: iki etki birer temas enerjisiyle yazılır. Yüzey yüklerinin çekimi 3,4 kT · e<sup>−0,5 nm/λ<sub>D</sub></sup> ile tuzla söner; tuzun yapıştırıcı etkisi iyonik şiddetle artar (NaCl için 0,25, amonyum sülfat için 0,8 kT/M). Katsayılar temsilidir, belirli bir proteinin ölçümü değildir; yalnız iki etkinin yönü ve sülfatın klorürden güçlü çöktürmesi ölçümlerle uyumludur. \"Çözünen\" en çok üç moleküllük kümelerdeki moleküllerdir; oran canlı hesaplanır. Amonyum sülfatın iyonik şiddeti derişimin üç katıdır.</p>",
-   "<p class=\"small\">Schematic model: each of the two effects is written as a contact energy. The attraction of surface charges fades with salt as 3.4 kT · e<sup>−0.5 nm/λ<sub>D</sub></sup>; the sticking effect of the salt grows with ionic strength (0.25 kT/M for NaCl, 0.8 kT/M for ammonium sulfate). The coefficients are representative, not a measurement of a particular protein; only the direction of the two effects and the stronger precipitation by sulfate than by chloride agree with measurements. \"Dissolved\" means molecules in clusters of at most three; the fraction is computed live. The ionic strength of ammonium sulfate is three times its concentration.</p>"
+   "<p class=\"small\">Şematik model: iki etki birer temas enerjisiyle yazılır. Yüzey yüklerinin çekimi 3,4 kT · e<sup>−0,5 nm/λ<sub>D</sub></sup> ile tuzla söner; tuzun yapıştırıcı etkisi iyonik şiddetle artar (NaCl için 0,25, amonyum sülfat için 0,8 kT/M). Katsayılar temsilidir, belirli bir proteinin ölçümü değildir; yalnız iki etkinin yönü ve sülfatın klorürden güçlü çöktürmesi ölçümlerle uyumludur. \"Çözünen\" en çok üç moleküllük kümelerdeki moleküllerdir; oran canlı hesaplanır. Alttaki ileti, ilk birkaç saniyelik dengelenmeden sonra ölçülen paya göre yazılır: %80'in üstü çözünüyor, %40'ın altı kümeleniyor ya da çöküyor, arası sınırda. Amonyum sülfatın iyonik şiddeti derişimin üç katıdır.</p>",
+   "<p class=\"small\">Schematic model: each of the two effects is written as a contact energy. The attraction of surface charges fades with salt as 3.4 kT · e<sup>−0.5 nm/λ<sub>D</sub></sup>; the sticking effect of the salt grows with ionic strength (0.25 kT/M for NaCl, 0.8 kT/M for ammonium sulfate). The coefficients are representative, not a measurement of a particular protein; only the direction of the two effects and the stronger precipitation by sulfate than by chloride agree with measurements. \"Dissolved\" means molecules in clusters of at most three; the fraction is computed live. The message below follows the measured fraction after the first few seconds of settling: above 80% dissolving, below 40% clustering or precipitating, borderline in between. The ionic strength of ammonium sulfate is three times its concentration.</p>"
   ],
   [
    "<p><b>Tuz kristalinde durum farklı.</b> Katı NaCl'de iyonlar arasında perdeleyecek su yoktur ve her iyon bütün kristali hisseder. Born-Haber döngüsüyle ölçülen örgü enerjisi yaklaşık 786 kJ/mol'dür. Yalnız en yakın altı komşuyu sayarsanız bu sayıya ulaşamazsınız; uzaktaki bütün iyonların katkısı gerekir. Bu katkının toplamı, en yakın komşu etkileşiminin <b>Madelung sabiti</b> kadar katıdır (NaCl için 1,7476). Atölyede bu toplamı iki boyutlu bir örgüde kendiniz yapacaksınız.</p>",
@@ -327,8 +327,8 @@
    "<h2 id=\"k3h2\">Ewald's trick: splitting one sum into two</h2>"
   ],
   [
-   "<p class=\"small\">Uzaktaki yükleri toplamak zordur, çünkü 1/r yavaş söner. Ewald'ın fikri, her yüke zıt işaretli bir <b>kılıf</b> giydirip sonra bu kılıfları geri almaktır. Aşağıda bir tuz kristalinden alınmış bir iyon sırasıyla altı adımda izleyin; her adımda \"İleri\"ye basın ya da \"Baştan oynat\" ile hepsini sırayla görün. β kaydırıcısı kılıfların genişliğini değiştirir.</p>",
-   "<p class=\"small\">Summing distant charges is hard because 1/r fades slowly. Ewald's idea is to dress every charge in a <b>sleeve</b> of opposite sign and then remove the sleeves again. Follow it below in six steps with a row of ions taken from a salt crystal; press \"Next\" at each step, or see them all in order with \"Play from the start\". The β slider changes the width of the sleeves.</p>"
+   "<p class=\"small\">Uzaktaki yükleri toplamak zordur, çünkü 1/r yavaş söner. Ewald'ın fikri, her yüke zıt işaretli bir <b>kılıf</b> giydirip sonra bu kılıfları geri almaktır. Aşağıda bir tuz kristalinden alınmış bir iyon sırasıyla altı adımda izleyin; her adımda \"İleri\"ye basın ya da \"Baştan oynat\" ile hepsini sırayla görün. β kaydırıcısı kılıfların genişliğini değiştirir. 5. adımda bir ızgara aralığı seçerseniz, uzak kısmın PME'deki gibi ızgara noktalarından nasıl kurulduğunu görürsünüz.</p>",
+   "<p class=\"small\">Summing distant charges is hard because 1/r fades slowly. Ewald's idea is to dress every charge in a <b>sleeve</b> of opposite sign and then remove the sleeves again. Follow it below in six steps with a row of ions taken from a salt crystal; press \"Next\" at each step, or see them all in order with \"Play from the start\". The β slider changes the width of the sleeves. If you choose a grid spacing at step 5, you see how the far part is built from grid points, as in PME.</p>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"k3ew\" class=\"stage\" style=\"aspect-ratio:4/3\" aria-label=\"Ewald ayrışımı adım adım: nokta yükler, kılıflı yükler (yakın kısım) ve yumuşak bulutlar (uzak kısım)\"></canvas></div>",
@@ -407,8 +407,8 @@
    "<button type=\"button\" class=\"btn\" id=\"k3nClr\">Clear the notebook</button>"
   ],
   [
-   "<p class=\"small\">Her ölçüm üç boyutlu NaCl kristalinde bir iyonun bütün kristalle etkileşimini seçtiğiniz yöntemle hesaplar ve kesin değerle karşılaştırır. Coulomb için kesin değer Madelung sabitidir (1,747565); r⁻⁶ için sonsuz kristalin toplamı. Tabloda kesme küresinin net yükü de yazar.</p>",
-   "<p class=\"small\">Each measurement computes the interaction of one ion with the whole three-dimensional NaCl crystal using the method you choose and compares it with the exact value. For Coulomb the exact value is the Madelung constant (1.747565); for r⁻⁶ it is the sum over the infinite crystal. The table also gives the net charge of the cut-off sphere.</p>"
+   "<p class=\"small\">Her ölçüm üç boyutlu NaCl kristalinde bir iyonun bütün kristalle etkileşimini seçtiğiniz yöntemle hesaplar ve kesin değerle karşılaştırır. Coulomb için kesin değer Madelung sabitidir (1,747565); r⁻⁶ için sonsuz kristalin toplamı. Tabloda kesme küresinin net yükü de yazar. Ewald ölçümünde β, yakın kısmın kesmede kalan payı 10⁻⁵ olacak biçimde seçilir (GROMACS'taki <code>ewald-rtol</code> gibi). Bu pay toplamın bağıl hatası değildir: tablodaki Ewald hataları aynı büyüklük düzeyindedir ama 10⁻⁵'e eşit değildir.</p>",
+   "<p class=\"small\">Each measurement computes the interaction of one ion with the whole three-dimensional NaCl crystal using the method you choose and compares it with the exact value. For Coulomb the exact value is the Madelung constant (1.747565); for r⁻⁶ it is the sum over the infinite crystal. The table also gives the net charge of the cut-off sphere. In the Ewald measurement β is chosen so that the share of the near part left at the cut-off is 10⁻⁵ (like <code>ewald-rtol</code> in GROMACS). This share is not the relative error of the sum: the Ewald errors in the table are of the same order of magnitude but not equal to 10⁻⁵.</p>"
   ],
   [
    "<div><div class=\"lbl\">Yöntem</div><div class=\"chips\" id=\"k3nMode\"><button type=\"button\" class=\"chip\" data-m=\"cut\" aria-pressed=\"true\">Coulomb, düz kesme</button><button type=\"button\" class=\"chip\" data-m=\"ewald\" aria-pressed=\"false\">Coulomb, Ewald</button><button type=\"button\" class=\"chip\" data-m=\"r6\" aria-pressed=\"false\">r⁻⁶, düz kesme</button></div></div>",
@@ -431,8 +431,8 @@
    "<canvas id=\"k3book\" class=\"plot\" aria-label=\"Relative error against cut-off distance: plain Coulomb cut-off, Ewald and plain r⁻⁶ cut-off\"></canvas>"
   ],
   [
-   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Coulomb, düz kesme</span><span><i style=\"background:var(--deep)\"></i>Coulomb, Ewald (hata payı 10⁻⁵)</span><span><i style=\"background:var(--gold)\"></i>r⁻⁶, düz kesme</span><span id=\"k3nCount\"></span></div>",
-   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Coulomb, plain cut-off</span><span><i style=\"background:var(--deep)\"></i>Coulomb, Ewald (tolerance 10⁻⁵)</span><span><i style=\"background:var(--gold)\"></i>r⁻⁶, plain cut-off</span><span id=\"k3nCount\"></span></div>"
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Coulomb, düz kesme</span><span><i style=\"background:var(--deep)\"></i>Coulomb, Ewald (kesmede kalan pay ewald-rtol = 10⁻⁵)</span><span><i style=\"background:var(--gold)\"></i>r⁻⁶, düz kesme</span><span id=\"k3nCount\"></span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Coulomb, plain cut-off</span><span><i style=\"background:var(--deep)\"></i>Coulomb, Ewald (share left at the cut-off, ewald-rtol = 10⁻⁵)</span><span><i style=\"background:var(--gold)\"></i>r⁻⁶, plain cut-off</span><span id=\"k3nCount\"></span></div>"
   ],
   [
    "<div class=\"tw\"><table><thead><tr><th>Yöntem</th><th>r<sub>c</sub> (r₀)</th><th>Hesaplanan</th><th>Bağıl hata</th><th>Kürenin net yükü</th></tr></thead><tbody id=\"k3nTab\"></tbody></table></div>",
@@ -483,12 +483,12 @@
    "<dt>In this run's log</dt><dd>0.320163 nm</dd>"
   ],
   [
-   "<dt>6,491 nm kutu vektöründe en az ızgara noktası</dt><dd id=\"k5grid\"></dd>",
-   "<dt>Minimum grid points along the 6.491 nm box vector</dt><dd id=\"k5grid\"></dd>"
+   "<dt>NPT sonundaki 6,47 nm'lik kutu vektöründe en az ızgara noktası</dt><dd id=\"k5grid\"></dd>",
+   "<dt>Minimum grid points along the 6.47 nm box vector at the end of NPT</dt><dd id=\"k5grid\"></dd>"
   ],
   [
-   "<dt>Bu koşuda mdrun'ın seçtiği ızgara</dt><dd>56 × 56 × 56</dd>",
-   "<dt>Grid chosen by mdrun in this run</dt><dd>56 × 56 × 56</dd>"
+   "<dt>Bu koşuda grompp'un seçtiği ızgara</dt><dd>56 × 56 × 56</dd>\n          <dt>Daha dar S3 kutusunda (d = 0,5 nm)</dt><dd>48 × 48 × 48</dd>",
+   "<dt>Grid chosen by grompp in this run</dt><dd>56 × 56 × 56</dd>\n          <dt>In the narrower S3 box (d = 0.5 nm)</dt><dd>48 × 48 × 48</dd>"
   ],
   [
    "<div class=\"change\" id=\"k5chg\"><span class=\"t\">Bu projenin ayarı</span><span>erfc(β · 1,0 nm) = 10⁻⁵ koşulundan 1/β = 0,3202 nm çıkar; koşunun günlüğü de 0,320163 nm yazıyor.</span></div>",
@@ -583,8 +583,8 @@
    "g.fillStyle=muted; g.font='600 12px '+css('--sans'); g.textAlign='center'; g.fillText('1.0 nm',X(0),Y(1.0)+16);"
   ],
   [
-   "g.textAlign='left'; g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'noktalar temsili':'noktalar temsili: kırmızı artı, mavi eksi iyon',10,H-12);",
-   "g.textAlign='left'; g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'dots are representative':'dots are representative: red positive, blue negative ions',10,H-12);"
+   "g.textAlign='left'; g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'noktalar temsili':'noktalar temsili: kırmızı artı, mavi eksi iyon; sayıları tuzla artar',10,H-12);",
+   "g.textAlign='left'; g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'dots are representative':'dots are representative: red positive, blue negative ions; more salt, more dots',10,H-12);"
   ],
   [
    "g.fillStyle=muted; g.textAlign='center'; [0.5,1,1.5,2,2.5,3].forEach(function(r){ g.fillText(fx(r,1),X(r),H-B+16); }); g.fillText('uzaklık r (nm)',(L+W-R)/2,H-3); g.textAlign='left'; g.fillText('merkezdeki yükün potansiyeli (kT)',L+4,T-5);",
@@ -615,8 +615,8 @@
    "g.fillStyle=muted; g.textAlign='center'; [40,50,60,70,80,90,100].forEach(function(t){ g.fillText(t+' °C',X(t),H-B+15); }); g.textAlign='left'; g.fillText('fraction of open base pairs (like a UV melting curve)',L+4,T-5);"
   ],
   [
-   "pill(g,'çözünen '+pc(100*sol,0),W/2,18,paper,sol>0.6?css('--good'):css('--accent'));",
-   "pill(g,'dissolved '+pc(100*sol,0),W/2,18,paper,sol>0.6?css('--good'):css('--accent'));"
+   "pill(g,PR.sol.length<PR_MIN?'çözünen: ölçülüyor':'çözünen '+pc(100*sol,0),W/2,18,paper,PR.sol.length<PR_MIN?css('--muted'):sol>0.6?css('--good'):css('--accent'));",
+   "pill(g,PR.sol.length<PR_MIN?'dissolved: measuring':'dissolved '+pc(100*sol,0),W/2,18,paper,PR.sol.length<PR_MIN?css('--muted'):sol>0.6?css('--good'):css('--accent'));"
   ],
   [
    "g.fillStyle=muted; g.font='12px '+css('--sans'); g.fillText(W<460?'periyodik kutu':'periyodik kutu · noktalar: tuz iyonları (temsili)',8,H-8);",
@@ -637,22 +637,6 @@
   [
    "$('k3pI').textContent=(pI()>=1?fx(pI(),2)+' M':fx(pI()*1000,pI()<0.01?1:0)+' mM'); $('k3pEl').textContent=fx(pEl(),2)+' kT'; $('k3pSo').textContent=fx(pSo(),2)+' kT'; $('k3pE').textContent=fx(pE(),2)+' kT'; $('k3pSol').textContent=sol===null?'ölçülüyor':pc(100*sol,0); }",
    "$('k3pI').textContent=(pI()>=1?fx(pI(),2)+' M':fx(pI()*1000,pI()<0.01?1:0)+' mM'); $('k3pEl').textContent=fx(pEl(),2)+' kT'; $('k3pSo').textContent=fx(pSo(),2)+' kT'; $('k3pE').textContent=fx(pE(),2)+' kT'; $('k3pSol').textContent=sol===null?'measuring':pc(100*sol,0); }"
-  ],
-  [
-   "if(E>2.5) h=el>so?'<span class=\"t\">Moleküller kümeleniyor: zıt yüklü yüzeyler birbirini çekiyor</span><span>Tuz az, Debye uzunluğu '+fx(lamD(pI(),25),1)+' nm; yüzeydeki artı ve eksi bölgeler birbirini perdelenmeden hissediyor. Biraz tuz ekleyin: tuzla çözme.</span>'",
-   "if(E>2.5) h=el>so?'<span class=\"t\">The molecules are clustering: oppositely charged surfaces attract each other</span><span>Little salt, Debye length '+fx(lamD(pI(),25),1)+' nm; the positive and negative patches on the surface feel each other unscreened. Add a little salt: salting in.</span>'"
-  ],
-  [
-   ":'<span class=\"t\">Moleküller çöküyor: tuzun yapıştırıcı etkisi baskın</span><span>'+(PR.salt==='as'?'Amonyum sülfat çöktürmesi budur: iyonlar suyu bağlar, proteinlerin yağsı yüzeyleri birbirine yapışır.':'NaCl ile bu kadar güçlü çöktürme için çok yüksek derişim gerekir.')+'</span>';",
-   ":'<span class=\"t\">The molecules are precipitating: the sticking effect of the salt dominates</span><span>'+(PR.salt==='as'?'This is ammonium sulfate precipitation: the ions tie up the water, and the oily surfaces of the proteins stick together.':'Precipitating this strongly with NaCl takes a very high concentration.')+'</span>';"
-  ],
-  [
-   "else if(E<1.9) h='<span class=\"t\">Moleküller çözünüyor</span><span>Yüzey yüklerinin çekimi tuzla perdelendi, tuzun yapıştırıcı etkisi henüz küçük. Temas enerjisi '+fx(E,2)+' kT.</span>';",
-   "else if(E<1.9) h='<span class=\"t\">The molecules are dissolving</span><span>The attraction of the surface charges is screened by the salt, and the sticking effect of the salt is still small. Contact energy '+fx(E,2)+' kT.</span>';"
-  ],
-  [
-   "else h='<span class=\"t\">Sınırda: küçük kümeler oluşup dağılıyor</span><span>Temas enerjisi '+fx(E,2)+' kT; bu modelde kümeleşme yaklaşık 2,2 kT\\'de başlıyor.</span>';",
-   "else h='<span class=\"t\">Borderline: small clusters form and fall apart</span><span>Contact energy '+fx(E,2)+' kT; in this model clustering starts at about 2.2 kT.</span>';"
   ],
   [
    "var MLAB={circle:'Daire', square:'Kare', evjen:'Kare, sınır yarım'};",
@@ -755,8 +739,8 @@
    "if(ES.play&&!busy){ ES.pt+=dt; if(ES.pt>2.2){ ES.pt=0; if(ES.step<6) esGo(ES.step+1); else { ES.play=false; $('k3sPlay').textContent='Play from the start'; } } busy=true; }"
   ],
   [
-   "$('k3sPrev').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; esGo(ES.step-1); };",
-   "$('k3sPrev').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Play from the start'; esGo(ES.step-1); };"
+   "document.querySelectorAll('[data-esh]').forEach(function(b){ b.onclick=function(){ ES.h=+b.getAttribute('data-esh'); document.querySelectorAll('[data-esh]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); ES.play=false; $('k3sPlay').textContent='Baştan oynat'; if(ES.h>0&&ES.step<5) esGo(5); else { esDraw(); esMsg(); } }; });\n$('k3sPrev').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; esGo(ES.step-1); };",
+   "document.querySelectorAll('[data-esh]').forEach(function(b){ b.onclick=function(){ ES.h=+b.getAttribute('data-esh'); document.querySelectorAll('[data-esh]').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); ES.play=false; $('k3sPlay').textContent='Play from the start'; if(ES.h>0&&ES.step<5) esGo(5); else { esDraw(); esMsg(); } }; });\n$('k3sPrev').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Play from the start'; esGo(ES.step-1); };"
   ],
   [
    "$('k3sNext').onclick=function(){ ES.play=false; $('k3sPlay').textContent='Baştan oynat'; esGo(ES.step+1); };",
@@ -823,8 +807,8 @@
    "var pairs=P5.c*193.42e-24*NA; $('k5cV').innerHTML=fx(P5.c*1000,0)+' <small>mM</small>'; $('k5pairs').textContent=P5.c>0?'≈ '+fx(pairs,1):'0'; $('k5lam').textContent=P5.c>0?fx(lamD(P5.c,25),2)+' nm':'no screening'; }"
   ],
   [
-   "if(proj) t='<span class=\"t\">Bu projenin ayarı</span><span>erfc(β · 1,0 nm) = 10⁻⁵ koşulundan 1/β = '+fx(1/beta,4)+' nm çıkar; koşunun günlüğü de 0,320163 nm yazıyor. Izgara aralığı 0,12 nm\\'yi aşmamalı: 6,491 nm\\'lik kutu vektörü için en az '+Math.ceil(6.491/0.12)+' nokta; mdrun hızlı Fourier dönüşümüne uygun olan 56\\'yı seçti.</span>';",
-   "if(proj) t='<span class=\"t\">This project\\'s setting</span><span>The condition erfc(β · 1.0 nm) = 10⁻⁵ gives 1/β = '+fx(1/beta,4)+' nm; the run\\'s log also says 0.320163 nm. The grid spacing must not exceed 0.12 nm: at least '+Math.ceil(6.491/0.12)+' points for the 6.491 nm box vector; mdrun chose 56, a size suited to the fast Fourier transform.</span>';"
+   "if(proj) t='<span class=\"t\">Bu projenin ayarı</span><span>erfc(β · 1,0 nm) = 10⁻⁵ koşulundan 1/β = '+fx(1/beta,4)+' nm çıkar; koşunun günlüğü de 0,320163 nm yazıyor. Izgara aralığı 0,12 nm\\'yi aşmamalı: NPT sonundaki 6,47 nm\\'lik kutu vektörü için en az '+Math.ceil(BOXV/0.12)+' nokta; grompp hızlı Fourier dönüşümüne uygun olan 56\\'yı seçti (gerçek aralık 0,116 nm). Daha dar S3 kutusunda ızgara 48 × 48 × 48\\'dir.</span>';",
+   "if(proj) t='<span class=\"t\">This project\\'s setting</span><span>The condition erfc(β · 1.0 nm) = 10⁻⁵ gives 1/β = '+fx(1/beta,4)+' nm; the run\\'s log also says 0.320163 nm. The grid spacing must not exceed 0.12 nm: at least '+Math.ceil(BOXV/0.12)+' points for the 6.47 nm box vector at the end of NPT; grompp chose 56, a size suited to the fast Fourier transform (actual spacing 0.116 nm). In the narrower S3 box the grid is 48 × 48 × 48.</span>';"
   ],
   [
    "else t='<span class=\"t\">rcoulomb = '+fx(P5.rc,2)+' nm, ewald-rtol = '+sci(P5.tol)+': 1/β = '+fx(1/beta,3)+' nm</span><span>'+(P5.rc>1?'Kesme uzayınca aynı kesmede kalan pay için bulut genişler; uzak kısım yumuşar ve daha seyrek bir ızgara yeter. gmx tune_pme de kesmeyi büyütürken ızgara aralığını aynı oranda büyütür.':P5.tol<1e-5?'Kesmede kalan payı küçültmek bulutu daraltır: yakın kısım daha doğru olur, ama uzak kısım için daha sık ızgara gerekir.':'Kesmede kalan pay büyüdükçe bulut genişler, yakın kısım daha kaba kesilir.')+'</span>';",
@@ -917,6 +901,50 @@
   [
    "['k3c1','k3c2','k3c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
    "['k3c1','k3c2','k3c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "if(n<PR_MIN) h='<span class=\"t\">Dengeleniyor: moleküller yeni koşula yerleşiyor</span><span>Temas enerjisi '+fx(E,2)+' kT. Çözünen pay birkaç saniyelik ölçümden sonra burada yazılacak.</span>';",
+   "if(n<PR_MIN) h='<span class=\"t\">Settling: the molecules are adjusting to the new condition</span><span>Contact energy '+fx(E,2)+' kT. The dissolved fraction will be written here after a few seconds of measurement.</span>';"
+  ],
+  [
+   "else if(sol<0.4) h=el>so?'<span class=\"t\">Moleküller kümeleniyor: zıt yüklü yüzeyler birbirini çekiyor</span><span>Çözünen pay '+pc(100*sol,0)+'. Tuz az, Debye uzunluğu '+fx(lamD(pI(),25),1)+' nm; yüzeydeki artı ve eksi bölgeler birbirini perdelenmeden hissediyor. Biraz tuz ekleyin: tuzla çözme.</span>'",
+   "else if(sol<0.4) h=el>so?'<span class=\"t\">The molecules are clustering: oppositely charged surfaces attract each other</span><span>Dissolved fraction '+pc(100*sol,0)+'. Little salt, Debye length '+fx(lamD(pI(),25),1)+' nm; the positive and negative patches on the surface feel each other unscreened. Add a little salt: salting in.</span>'"
+  ],
+  [
+   ":'<span class=\"t\">Moleküller çöküyor: tuzun yapıştırıcı etkisi baskın</span><span>Çözünen pay '+pc(100*sol,0)+'. '+(PR.salt==='as'?'Amonyum sülfat çöktürmesi budur: iyonlar suyu bağlar, proteinlerin yağsı yüzeyleri birbirine yapışır.':'NaCl ile bu kadar güçlü çöktürme için çok yüksek derişim gerekir.')+'</span>';",
+   ":'<span class=\"t\">The molecules are precipitating: the sticking effect of the salt dominates</span><span>Dissolved fraction '+pc(100*sol,0)+'. '+(PR.salt==='as'?'This is ammonium sulfate precipitation: the ions tie up the water, and the oily surfaces of the proteins stick together.':'Precipitating this strongly with NaCl takes a very high concentration.')+'</span>';"
+  ],
+  [
+   "else if(sol>0.8) h='<span class=\"t\">Moleküller çözünüyor</span><span>Çözünen pay '+pc(100*sol,0)+'. Yüzey yüklerinin çekimi tuzla perdelendi, tuzun yapıştırıcı etkisi henüz küçük. Temas enerjisi '+fx(E,2)+' kT.</span>';",
+   "else if(sol>0.8) h='<span class=\"t\">The molecules are dissolving</span><span>Dissolved fraction '+pc(100*sol,0)+'. The attraction of the surface charges is screened by the salt, and the sticking effect of the salt is still small. Contact energy '+fx(E,2)+' kT.</span>';"
+  ],
+  [
+   "else h='<span class=\"t\">Sınırda: küçük kümeler oluşup dağılıyor</span><span>Çözünen pay '+pc(100*sol,0)+', temas enerjisi '+fx(E,2)+' kT. Bu modelde kümeleşme yaklaşık 2,2 kT\\'de başlıyor; bu enerjinin yakınında moleküllerin bir kısmı kümede, bir kısmı serbesttir.</span>';",
+   "else h='<span class=\"t\">Borderline: small clusters form and fall apart</span><span>Dissolved fraction '+pc(100*sol,0)+', contact energy '+fx(E,2)+' kT. In this model clustering starts at about 2.2 kT; near this energy some molecules are in clusters and some are free.</span>';"
+  ],
+  [
+   "<div><div class=\"lbl\">5. adımda ızgara aralığı (PME gibi)</div>",
+   "<div><div class=\"lbl\">Grid spacing at step 5 (like PME)</div>"
+  ],
+  [
+   "aria-label=\"5. adımda ızgara aralığı\"",
+   "aria-label=\"Grid spacing at step 5\""
+  ],
+  [
+   "<button type=\"button\" data-esh=\"0\" aria-pressed=\"true\">Yok</button>",
+   "<button type=\"button\" data-esh=\"0\" aria-pressed=\"true\">None</button>"
+  ],
+  [
+   "<button type=\"button\" data-esh=\"0.25\" aria-pressed=\"false\">0,25 r₀</button>",
+   "<button type=\"button\" data-esh=\"0.25\" aria-pressed=\"false\">0.25 r₀</button>"
+  ],
+  [
+   "<button type=\"button\" data-esh=\"0.5\" aria-pressed=\"false\">0,5 r₀</button>",
+   "<button type=\"button\" data-esh=\"0.5\" aria-pressed=\"false\">0.5 r₀</button>"
+  ],
+  [
+   "' <b>Izgara (yeşil):</b> aralık '+fx(ES.h,2)+' r₀; bulutların toplamı ızgara noktalarında örneklenip doğrusal aradeğerlendi, en büyük sapma '+pc(100*ge,ge<0.01?2:0)+'. Aralık bulut genişliğine (1/β = '+fx(1/BZ.beta,2)+' r₀) yaklaştıkça şekil bozulur. PME\\'de bu aralık <code>fourierspacing</code>\\'dir; GROMACS doğrusal değil kübik aradeğerleme kullanır (<code>pme-order = 4</code>).</span>'",
+   "' <b>Grid (green):</b> spacing '+fx(ES.h,2)+' r₀; the sum of the clouds was sampled at the grid points and linearly interpolated, largest deviation '+pc(100*ge,ge<0.01?2:0)+'. As the spacing approaches the cloud width (1/β = '+fx(1/BZ.beta,2)+' r₀), the shape is distorted. In PME this spacing is <code>fourierspacing</code>; GROMACS uses cubic rather than linear interpolation (<code>pme-order = 4</code>).</span>'"
   ]
  ],
  "keep": [
