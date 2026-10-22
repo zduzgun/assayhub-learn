@@ -1,7 +1,7 @@
 {
  "module": "MD-O",
  "lang": "en",
- "source_sha256": "f7d7c9dfb569aea3a1df2482b5afdc9d231fcaeab833e72149be55ac9234c055",
+ "source_sha256": "61bce6ce3931f0a09f575284b799466ce17ebe4752f2e875df021448f131de3f",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-O 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -115,20 +115,20 @@
    "<dt>Isoelectric point (computed)</dt><dd id=\"o1pI\"></dd>"
   ],
   [
-   "<dt>His68'in yüklü olma olasılığı</dt><dd id=\"o1Hq\"></dd>",
-   "<dt>Probability that His68 is charged</dt><dd id=\"o1Hq\"></dd>"
+   "<dt>His68'in yüklü olma olasılığı</dt><dd id=\"o1Hq\"></dd>\n          <dt>Simülasyonun sabit yükü (0 e) ile bu pH'daki ortalama yük farkı</dt><dd id=\"o1dQ\"></dd>",
+   "<dt>Probability that His68 is charged</dt><dd id=\"o1Hq\"></dd>\n          <dt>Difference between the simulation's fixed charge (0 e) and the mean charge at this pH</dt><dd id=\"o1dQ\"></dd>"
   ],
   [
    "<canvas id=\"o1tit\" class=\"plot\" aria-label=\"Ubikitinin net yükü pH'ya karşı: model eğri, ölçülen pKa'larla bant, seçilen pH ve izoelektrik nokta\"></canvas>",
    "<canvas id=\"o1tit\" class=\"plot\" aria-label=\"Net charge of ubiquitin against pH: model curve, band with measured pKa values, chosen pH and isoelectric point\"></canvas>"
   ],
   [
-   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Net yük, model pK<sub>a</sub></span><span><i style=\"background:var(--pale)\"></i>Ubikitinde ölçülen pK<sub>a</sub>'larla bant</span><span><i style=\"background:var(--deep)\"></i>Kesikli: ölçülen kipte aralıkların ortası</span><span><i style=\"background:var(--gold)\"></i>pdb2gmx'in bu projedeki ataması (0 e)</span></div>",
-   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Net charge, model pK<sub>a</sub></span><span><i style=\"background:var(--pale)\"></i>Band with pK<sub>a</sub> values measured in ubiquitin</span><span><i style=\"background:var(--deep)\"></i>Dashed: middle of the ranges in the measured mode</span><span><i style=\"background:var(--gold)\"></i>pdb2gmx's assignment in this project (0 e)</span></div>"
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Net yük, model pK<sub>a</sub></span><span><i style=\"background:var(--pale)\"></i>Ubikitinde ölçülen pK<sub>a</sub>'larla bant</span><span><i style=\"background:var(--deep)\"></i>Kesikli: ölçülen kipte aralıkların ortası</span><span><i style=\"background:var(--gold)\"></i>pdb2gmx'in bu projedeki ataması: 0 e, pH'dan bağımsız (kesikli çizgi; eşkenar dörtgen pH 7)</span></div>",
+   "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>Net charge, model pK<sub>a</sub></span><span><i style=\"background:var(--pale)\"></i>Band with pK<sub>a</sub> values measured in ubiquitin</span><span><i style=\"background:var(--deep)\"></i>Dashed: middle of the ranges in the measured mode</span><span><i style=\"background:var(--gold)\"></i>pdb2gmx's assignment in this project: 0 e, independent of pH (dashed line; diamond at pH 7)</span></div>"
   ],
   [
-   "<p class=\"small\">Hesap: her grubun yükü Henderson-Hasselbalch ile bulunur ve gruplar birbirinden bağımsız sayılır. \"Ubikitinde ölçülen\" kipinde NMR ile ölçülen değerler kullanılır: beş Asp 3,1 ile 3,8, altı Glu 3,8 ile 4,5 arasında (Sundd ve ark. 2002, Biochemistry 41:7586); eğri bandı bu aralıkların iki ucuyla, görünümdeki haleler aralıkların ortasıyla çizilir. Met1'in amino grubu 9,14 (Oregioni ve ark. 2017, Sci Rep 7:43748; 21,5 °C). Ubikitinde ölçülmüş bir değeri bulunmayan gruplar model değerinde kalır. İzoelektrik nokta bu varsayımlarla hesaplanan bir model sonucudur, ölçüm değildir.</p>",
-   "<p class=\"small\">Calculation: the charge of each group comes from Henderson-Hasselbalch, and the groups are treated as independent of each other. The \"Measured in ubiquitin\" mode uses values measured by NMR: the five Asp between 3.1 and 3.8, the six Glu between 3.8 and 4.5 (Sundd et al. 2002, Biochemistry 41:7586); the band is drawn with the two ends of these ranges, the halos in the view with their middles. For the amino group of Met1, 9.14 (Oregioni et al. 2017, Sci Rep 7:43748; 21.5 °C). Groups without a value measured in ubiquitin keep the model value. The isoelectric point is a model result computed under these assumptions, not a measurement.</p>"
+   "<p class=\"small\">Hesap: her grubun yükü Henderson-Hasselbalch ile bulunur ve gruplar birbirinden bağımsız sayılır. \"Ubikitinde ölçülen\" kipinde NMR ile ölçülen değerler kullanılır: beş Asp 3,1 ile 3,8, altı Glu 3,8 ile 4,5 arasında (Sundd ve ark. 2002, Biochemistry 41:7586); eğri bandı bu aralıkların iki ucuyla, görünümdeki haleler aralıkların ortasıyla çizilir. Met1'in amino grubu 9,14 (Oregioni ve ark. 2017, Sci Rep 7:43748; 21,5 °C). Ubikitinde ölçülmüş bir değeri bulunmayan gruplar model değerinde kalır. C-ucunun karboksili de ölçülmüştür (Sundd ve ark. 2002), ama bu hesapta model değerinde (3,67) bırakıldı; pH 7 dolayında etkisi ihmal edilebilir. İzoelektrik nokta bu varsayımlarla hesaplanan bir model sonucudur, ölçüm değildir.</p>",
+   "<p class=\"small\">Calculation: the charge of each group comes from Henderson-Hasselbalch, and the groups are treated as independent of each other. The \"Measured in ubiquitin\" mode uses values measured by NMR: the five Asp between 3.1 and 3.8, the six Glu between 3.8 and 4.5 (Sundd et al. 2002, Biochemistry 41:7586); the band is drawn with the two ends of these ranges, the halos in the view with their middles. For the amino group of Met1, 9.14 (Oregioni et al. 2017, Sci Rep 7:43748; 21.5 °C). Groups without a value measured in ubiquitin keep the model value. The C-terminal carboxyl was measured too (Sundd et al. 2002), but this calculation leaves it at the model value (3.67); around pH 7 its effect is negligible. The isoelectric point is a model result computed under these assumptions, not a measurement.</p>"
   ],
   [
    "<span class=\"step\">2 · Tezgâh</span>",
@@ -207,8 +207,8 @@
    "<div class=\"crash ok\" id=\"o1logBox\" hidden><div class=\"lbl\">pdb2gmx output</div><pre id=\"o1log\"></pre></div>"
   ],
   [
-   "<div class=\"tw\"><table><thead><tr><th>Girdi</th><th><code>-dist</code> (nm)</th><th><code>-angle</code></th><th>His68</th><th>Hidrojen bağı sayısı</th><th>His68'in yükü</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>",
-   "<div class=\"tw\"><table><thead><tr><th>Input</th><th><code>-dist</code> (nm)</th><th><code>-angle</code></th><th>His68</th><th>Number of hydrogen bonds</th><th>Charge of His68</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>"
+   "<div class=\"tw\"><table><thead><tr><th>Girdi</th><th><code>-dist</code> (nm)</th><th><code>-angle</code></th><th>His68</th><th>Hidrojen bağı sayısı</th><th>His68'in yükü</th><th>Proteinin toplam yükü</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>\n      <p class=\"small\">pdb2gmx günlüğündeki \"There are N hydrogen bonds\" toplamı yalnız uzaklık ölçütüyle değişir: gömülü 48 hücrenin hepsinde altı açı için aynıdır (0,25 nm'de 83, 0,30 nm'de 174, 0,60 nm'de 712). Histidin kararı ise uzaklık ve açıyla birlikte verilir; program iki farklı ölçüt kullanır. Toplam yük sütunu pdb2gmx'in yazdığı proteindir (HISE ve HISD ile 0 e); HISH sistemi +1 e yapar ve iyonsuz bir kurulumda grompp'u durdurur (<a href=\"../md-fail/\">MD-FAIL</a>, vaka 3).</p>",
+   "<div class=\"tw\"><table><thead><tr><th>Input</th><th><code>-dist</code> (nm)</th><th><code>-angle</code></th><th>His68</th><th>Number of hydrogen bonds</th><th>Charge of His68</th><th>Total charge of the protein</th></tr></thead><tbody id=\"o1tab\"></tbody></table></div>\n      <p class=\"small\">The \"There are N hydrogen bonds\" total in the pdb2gmx log changes only with the distance criterion: in all 48 embedded cells it is the same for all six angles (83 at 0.25 nm, 174 at 0.30 nm, 712 at 0.60 nm). The histidine decision, by contrast, uses distance and angle together; the program applies two different criteria. The total charge column is the protein as written by pdb2gmx (0 e with HISE and HISD); HISH makes the system +1 e and stops grompp in a setup without ions (<a href=\"../md-fail/\">MD-FAIL</a>, case 3).</p>"
   ],
   [
    "<p class=\"small\">Sonuçlar bu projenin girdisiyle (<code>1UBQ_protein_only.pdb</code> ve kristal sularını da içeren <code>1UBQ.pdb</code>) gerçekten koşulmuş 96 pdb2gmx çalıştırmasından gelir: 8 uzaklık × 6 açı × 2 girdi, GROMACS 2023.3, <code>-ff amber99sb-ildn -water tip3p -ignh</code>. Kural GROMACS 2023 kaynak kodundan (<code>hizzie.cpp</code>): deneme hidrojeni halkanın iki komşu atomundan uzaklaşan yönde 0,1 nm'ye konur; bir oksijen, azota uzaklığı <code>-dist</code>'ten kısa ve hidrojendeki açısı <code>-angle</code>'dan büyükse bağ sayılır. Harita ve akış şeması bu kuralı aynı koordinatlarla tarayıcıda uygular ve kristal susuz 48 çalıştırmanın hepsinde pdb2gmx ile aynı kararı verir. Görünümdeki koni şematiktir (açının ekrana izdüşümü). \"Hidrojen bağı sayısı\", pdb2gmx'in bütün protein için günlüğe yazdığı sayıdır.</p>",
@@ -319,16 +319,16 @@
    "if(Math.abs(d)<0.05) n='pH = pKa: half of the group is protonated, half is not.';"
   ],
   [
-   "else n='pH, pKa\\'dan '+fx(Math.abs(d),2)+' birim '+(d>0?'yukarıda':'aşağıda')+': protonlu ve protonsuz biçimlerin oranı 1\\'e '+(Math.abs(d)>=3?'1.000\\'den fazla':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Asit gruplar protonunu verince eksi yüklenir.':'Baz gruplar proton alınca artı yüklenir.');",
-   "else n='The pH is '+fx(Math.abs(d),2)+' units '+(d>0?'above':'below')+' the pKa: the protonated and deprotonated forms differ by a factor of '+(Math.abs(d)>=3?'more than 1,000':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Acidic groups become negative when they give up their proton.':'Basic groups become positive when they take up a proton.');"
+   "else n='pH, pKa\\'dan '+fx(Math.abs(d),2)+' birim '+(d>0?'yukarıda':'aşağıda')+': protonlu ve protonsuz biçimlerin oranı 1\\'e '+(Math.abs(d)>3?'1.000\\'den fazla':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Asit gruplar protonunu verince eksi yüklenir.':'Baz gruplar proton alınca artı yüklenir.');",
+   "else n='The pH is '+fx(Math.abs(d),2)+' units '+(d>0?'above':'below')+' the pKa: the protonated and deprotonated forms differ by a factor of '+(Math.abs(d)>3?'more than 1,000':NFI.format(Math.round(Math.pow(10,Math.abs(d)))))+'. '+(ACID[HH.g]?'Acidic groups become negative when they give up their proton.':'Basic groups become positive when they take up a proton.');"
   ],
   [
    "g.textAlign='left'; g.fillStyle=muted; g.fillText('protonlu kesir',L+4,T+10); }",
    "g.textAlign='left'; g.fillStyle=muted; g.fillText('protonated fraction',L+4,T+10); }"
   ],
   [
-   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*2.35); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+sc,by); g.stroke(); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('1 nm · döndürmek için sürükleyin',bx+sc+8,by+4); }",
-   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*2.35); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+sc,by); g.stroke(); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('1 nm · drag to rotate',bx+sc+8,by+4); }"
+   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*3.0); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+sc,by); g.stroke(); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('1 nm · döndürmek için sürükleyin',bx+sc+8,by+4); }",
+   "var bx=12, by=H-14, sc=Math.min(W,H)/(2*3.0); g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.moveTo(bx,by); g.lineTo(bx+sc,by); g.stroke(); g.fillStyle=css('--muted'); g.font='12px '+css('--sans'); g.fillText('1 nm · drag to rotate',bx+sc+8,by+4); }"
   ],
   [
    "g.fillStyle=muted; g.textAlign='left'; g.fillText('net yük (e)',L+4,T+10); }",
@@ -359,8 +359,8 @@
    "function tCard(r,pi,P){ if(!T1.play){ if(Math.abs(r.q)<0.1&&T1.mode==='model') card('o1c1',true,'At pH <b>'+fx(T1.pH,2)+'</b> the net charge is '+fx(r.q,2)+' e: with the model pKa values the isoelectric point is <b>'+fx(pi,2)+'</b>. At this pH the protein is not uncharged: about <b>'+fx(r.pos,1)+' positive and '+fx(r.neg,1)+' negative</b> charges balance each other. pdb2gmx, without asking for a pH, assigned every group for neutral pH and found a total of 0 e; on the model curve the charge at pH 7 is '+fx(netQ(7,pkSet('model')).q,2)+' e.');"
   ],
   [
-   "card('o1c2',true,'Ölçülen pKa\\'larla izoelektrik nokta <b>'+fx(pI(pkSet('ubq',false)),2)+'-'+fx(pI(pkSet('ubq',true)),2)+'</b>, modelde '+fx(pI(M),2)+'. Yalnız N-ucunu 8,00\\'den 9,14\\'e çekmek pI\\'yı '+fx(pI(onlyN),2)+'\\'ye taşır: kaymanın neredeyse tamamı oradan gelir, çünkü pI\\'da karboksiller zaten tamamen yüklüdür. Karboksillerin kayması ise düşük pH\\'da görünür: pH 3,5\\'te net yük modelde '+fx(q3m,1)+', ölçülen aralıkla '+fx(Math.min(q3u,q3v),1)+' ile '+fx(Math.max(q3u,q3v),1)+' arası. Bir proteinin içindeki pKa, komşularına göre değişir.'); } } } }",
-   "card('o1c2',true,'With the measured pKa values the isoelectric point is <b>'+fx(pI(pkSet('ubq',false)),2)+'-'+fx(pI(pkSet('ubq',true)),2)+'</b>, '+fx(pI(M),2)+' in the model. Moving only the N-terminus from 8.00 to 9.14 takes the pI to '+fx(pI(onlyN),2)+': almost the whole shift comes from there, because at the pI the carboxyls are already fully charged. The shift of the carboxyls shows at low pH: at pH 3.5 the net charge is '+fx(q3m,1)+' in the model and between '+fx(Math.min(q3u,q3v),1)+' and '+fx(Math.max(q3u,q3v),1)+' with the measured ranges. The pKa inside a protein changes with its neighbors.'); } } } }"
+   "card('o1c2',true,'Ölçülen pKa\\'larla izoelektrik nokta <b>'+fx(pI(pkSet('ubq',false)),2)+' ile '+fx(pI(pkSet('ubq',true)),2)+'</b>, modelde '+fx(pI(M),2)+'. Yalnız N-ucunu 8,00\\'den 9,14\\'e çekmek pI\\'yi '+fx(pI(onlyN),2)+'\\''+datE(fx(pI(onlyN),2))+' taşır: kaymanın neredeyse tamamı oradan gelir, çünkü pI\\'da karboksiller zaten tamamen yüklüdür. Karboksillerin kayması ise düşük pH\\'da görünür: pH 3,5\\'te net yük modelde '+fx(q3m,1)+', ölçülen aralıkla '+fx(Math.min(q3u,q3v),1)+' ile '+fx(Math.max(q3u,q3v),1)+' arası. Bir proteinin içindeki pKa, komşularına göre değişir.'); } } } }",
+   "card('o1c2',true,'With the measured pKa values the isoelectric point is <b>'+fx(pI(pkSet('ubq',false)),2)+' to '+fx(pI(pkSet('ubq',true)),2)+'</b>, '+fx(pI(M),2)+' in the model. Moving only the N-terminus from 8.00 to 9.14 takes the pI to '+fx(pI(onlyN),2)+': almost the whole shift comes from there, because at the pI the carboxyls are already fully charged. The shift of the carboxyls shows at low pH: at pH 3.5 the net charge is '+fx(q3m,1)+' in the model and between '+fx(Math.min(q3u,q3v),1)+' and '+fx(Math.max(q3u,q3v),1)+' with the measured ranges. The pKa inside a protein changes with its neighbors.'); } } } }"
   ],
   [
    "1:'His68\\'in halkasında iki azot var: ND1 ve NE2. Hidrojen hangisinde durur? Üç olasılık var: HID (hidrojen ND1\\'de, yüksüz), HIE (NE2\\'de, yüksüz), HIP (ikisinde birden, +1). Görünüm üçünü sırayla gösteriyor. X-ışını bu hidrojeni görmez; seçimi program yapar.',",
@@ -419,8 +419,8 @@
    "g.save(); g.translate(12,T+(H-T-B)/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('angle at the hydrogen',0,0); g.restore();"
   ],
   [
-   "g.fillStyle=good; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('kabul penceresi',X(x0)+6,Y(180)+15);",
-   "g.fillStyle=good; g.font='600 12px '+css('--sans'); g.textAlign='left'; g.fillText('acceptance window',X(x0)+6,Y(180)+15);"
+   "g.fillStyle=good; g.font='600 12px '+css('--sans'); g.textAlign='left'; var wl='kabul penceresi'; g.fillText(wl,g.measureText(wl).width+12>X(dd)-X(x0)?X(dd)+6:X(x0)+6,Y(180)+15);",
+   "g.fillStyle=good; g.font='600 12px '+css('--sans'); g.textAlign='left'; var wl='acceptance window'; g.fillText(wl,g.measureText(wl).width+12>X(dd)-X(x0)?X(dd)+6:X(x0)+6,Y(180)+15);"
   ],
   [
    "$('o1flow').innerHTML='<svg viewBox=\"0 0 330 178\" role=\"img\" aria-label=\"pdb2gmx histidin kuralı: sonuç '+res+'\">'+",
@@ -451,8 +451,8 @@
    "'<line x1=\"91\" y1=\"114\" x2=\"91\" y2=\"138\" class=\"fl'+on(a&&b)+'\" marker-end=\"url(#o1ar)\"/><text x=\"104\" y=\"132\" class=\"fs\" style=\"text-anchor:start\">yes</text>'+"
   ],
   [
-   "$('o1tab').innerHTML=T2.runs.map(function(x){ return '<tr><td>'+(x.w?'kristal sularıyla':'yalnız protein')+'</td><td class=\"n\">'+fx(+x.d,2)+'</td><td class=\"n\">'+x.a+'°</td><td><b>'+x.his+'</b></td><td class=\"n\">'+NFI.format(x.nhb)+'</td><td class=\"n\">'+(HISQ[x.his]?'+1':'0')+'</td></tr>'; }).join('');",
-   "$('o1tab').innerHTML=T2.runs.map(function(x){ return '<tr><td>'+(x.w?'with crystal waters':'protein only')+'</td><td class=\"n\">'+fx(+x.d,2)+'</td><td class=\"n\">'+x.a+'°</td><td><b>'+x.his+'</b></td><td class=\"n\">'+NFI.format(x.nhb)+'</td><td class=\"n\">'+(HISQ[x.his]?'+1':'0')+'</td></tr>'; }).join('');"
+   "$('o1tab').innerHTML=T2.runs.map(function(x){ return '<tr><td>'+(x.w?'kristal sularıyla':'yalnız protein')+'</td><td class=\"n\">'+fx(+x.d,2)+'</td><td class=\"n\">'+x.a+'°</td><td><b>'+x.his+'</b></td><td class=\"n\">'+NFI.format(x.nhb)+'</td><td class=\"n\">'+(HISQ[x.his]?'+1':'0')+'</td><td class=\"n\">'+(HISQ[x.his]?'+1 e':'0 e')+'</td></tr>'; }).join('');",
+   "$('o1tab').innerHTML=T2.runs.map(function(x){ return '<tr><td>'+(x.w?'with crystal waters':'protein only')+'</td><td class=\"n\">'+fx(+x.d,2)+'</td><td class=\"n\">'+x.a+'°</td><td><b>'+x.his+'</b></td><td class=\"n\">'+NFI.format(x.nhb)+'</td><td class=\"n\">'+(HISQ[x.his]?'+1':'0')+'</td><td class=\"n\">'+(HISQ[x.his]?'+1 e':'0 e')+'</td></tr>'; }).join('');"
   ],
   [
    "if(his==='HISE') n='pdb2gmx de HISE dedi: pencerede ND1\\'e ait bir oksijen yok. Bu bir kanıt değil, kuralın varsayılanıdır.';",
@@ -495,7 +495,7 @@
    "{s:'Which is true for a protein at its isoelectric point?',o:[['None of its groups is charged',0],['The sums of positive and negative charges are equal; many groups are charged',1],['All of its groups are protonated',0],['Its solubility is highest',0]],w:'In ubiquitin at the pI about 12 positive and 12 negative charges balance each other; the net charge is zero, yet the protein still carries many charges.'},"
   ],
   [
-   "{s:'Ubikitinin izoelektrik noktası ölçülen pK<sub>a</sub>\\'larla neden kaydı?',o:[['Asp ve Glu\\'ların pK<sub>a</sub>\\'sı çok düştüğü için',0],['Met1\\'in amino grubunun pK<sub>a</sub>\\'sı 8,00 yerine 9,14 ölçüldüğü için',1],['Arg\\'lerin pK<sub>a</sub>\\'sı düştüğü için',0],['His68 yüklü olduğu için',0]],w:'pI\\'yı en çok, pK<sub>a</sub>\\'sı pI\\'ya yakın gruplar belirler. Karboksiller pI\\'da zaten tamamen yüklüdür; N-ucunun kayması pI\\'yı yaklaşık yarım birim taşır.'},",
+   "{s:'Ubikitinin izoelektrik noktası ölçülen pK<sub>a</sub>\\'larla neden kaydı?',o:[['Asp ve Glu\\'ların pK<sub>a</sub>\\'sı çok düştüğü için',0],['Met1\\'in amino grubunun pK<sub>a</sub>\\'sı 8,00 yerine 9,14 ölçüldüğü için',1],['Arg\\'lerin pK<sub>a</sub>\\'sı düştüğü için',0],['His68 yüklü olduğu için',0]],w:'pI\\'yi en çok, pK<sub>a</sub>\\'sı pI\\'ya yakın gruplar belirler. Karboksiller pI\\'da zaten tamamen yüklüdür; N-ucunun kayması pI\\'yi yaklaşık yarım birim taşır.'},",
    "{s:'Why did the isoelectric point of ubiquitin shift with the measured pK<sub>a</sub> values?',o:[['Because the pK<sub>a</sub> of Asp and Glu dropped a lot',0],['Because the pK<sub>a</sub> of the amino group of Met1 was measured as 9.14 instead of 8.00',1],['Because the pK<sub>a</sub> of the Arg residues dropped',0],['Because His68 is charged',0]],w:'The pI is set mostly by groups whose pK<sub>a</sub> is close to the pI. The carboxyls are already fully charged at the pI; the shift of the N-terminus moves the pI by about half a unit.'},"
   ],
   [
@@ -515,8 +515,8 @@
    "$('o1pH').addEventListener('input',function(){ T1.play=false; $('o1play').textContent='Play the titration (pH 1 → 13)'; T1.pH=+this.value; tRead(); ubqDraw(); titDraw(); });"
   ],
   [
-   "$('o1play').addEventListener('click',function(){ if(T1.play){ T1.play=false; this.textContent='Titrasyonu oynat (pH 1 → 13)'; tRead(); return; } T1.play=true; if(T1.pH>=12.9) T1.pH=1; this.textContent='Durdur'; if(reduce){ T1.pH=13; T1.play=false; $('o1pH').value=13; tRead(); ubqDraw(); titDraw(); this.textContent='Titrasyonu oynat (pH 1 → 13)'; } else kick(); });",
-   "$('o1play').addEventListener('click',function(){ if(T1.play){ T1.play=false; this.textContent='Play the titration (pH 1 → 13)'; tRead(); return; } T1.play=true; if(T1.pH>=12.9) T1.pH=1; this.textContent='Pause'; if(reduce){ T1.pH=13; T1.play=false; $('o1pH').value=13; tRead(); ubqDraw(); titDraw(); this.textContent='Play the titration (pH 1 → 13)'; } else kick(); });"
+   "$('o1play').addEventListener('click',function(){ if(T1.play){ T1.play=false; this.textContent='Titrasyonu oynat (pH 1 → 13)'; tRead(); return; } T1.play=true; T1.pH=1; this.textContent='Durdur'; if(reduce){ T1.pH=13; T1.play=false; $('o1pH').value=13; tRead(); ubqDraw(); titDraw(); this.textContent='Titrasyonu oynat (pH 1 → 13)'; } else kick(); });",
+   "$('o1play').addEventListener('click',function(){ if(T1.play){ T1.play=false; this.textContent='Play the titration (pH 1 → 13)'; tRead(); return; } T1.play=true; T1.pH=1; this.textContent='Stop'; if(reduce){ T1.pH=13; T1.play=false; $('o1pH').value=13; tRead(); ubqDraw(); titDraw(); this.textContent='Play the titration (pH 1 → 13)'; } else kick(); });"
   ],
   [
    "if(T1.play){ T1.pH=Math.min(13,T1.pH+dt*1.1); $('o1pH').value=T1.pH; tRead(); ubqDraw(); titDraw(); if(T1.pH>=13){ T1.play=false; $('o1play').textContent='Titrasyonu oynat (pH 1 → 13)'; tRead(); } else go=true; }",
