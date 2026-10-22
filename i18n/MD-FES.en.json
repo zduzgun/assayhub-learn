@@ -1,7 +1,7 @@
 {
  "module": "MD-FES",
  "lang": "en",
- "source_sha256": "d9928bc25c7d7999cb696fced406fa42531dd25be6ee62bef1ea3fc08fa7946a",
+ "source_sha256": "1d9a11924706e27234619319549cecb91a38cc4e952c9f613ce7b9ca30c9108f",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-FES 0.1.0; insan gözden geçirmesi bekliyor; MD-FES 0.2.0 izleme bölümü eklendi (9 Ekim 2026); Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam); 0.3.0 düzeltmeleri 22 Ekim 2026",
@@ -408,7 +408,7 @@
   ],
   [
    "if(n>=2) card('vc0',true,'Bir koşudan çıkan nüfus oranı, o koşudaki geçiş sayısı kadar kesindir. ΔG büyüdükçe B seyrekleşir ve kısa kalır; koşu B\\'ye birkaç kez girmiyorsa tahmin ya tanımsız kalır ya da tek bir olayın uzunluğuna bağlanır. Deneyde aynı oran çok sayıda molekülden ölçülür; MD\\'de ise sayıyı ancak süre ya da tekrar artırır. Süre yetmiyorsa yöntem değişir: bias, olayı sık hâle getirip sonra ağırlıklarla geri hesaplar (atölye 3). Bu model öğretim içindir; iki durumlu ve belleksizdir, gerçek bir molekülün yavaş serbestlik derecelerini taşımaz.');",
-   "if(n>=2) card('vc0',true,'A population ratio from one run is as precise as the number of transitions in that run. As ΔG grows, B becomes rare and short-lived; if a run does not enter B several times, the estimate either stays undefined or hangs on the length of a single event. In an experiment the same ratio is measured over very many molecules; in MD only more time or more replicas raise the count. If time is not enough, the method changes: bias makes the event frequent and then removes its effect by reweighting (workshop 3). This model is for teaching; it has two states and no memory, and it does not carry the slow degrees of freedom of a real molecule.');"
+   "if(n>=2) card('vc0',true,'A population ratio from one run is as precise as the number of transitions in that run. As ΔG grows, B becomes rare and short-lived; if a run does not enter B several times, the estimate either stays undetermined or hangs on the length of a single event. In an experiment the same ratio is measured over very many molecules; in MD only more time or more replicas raise the count. If time is not enough, the method changes: bias makes the event frequent and then removes its effect by reweighting (workshop 3). This model is for teaching; it has two states and no memory, and it does not carry the slow degrees of freedom of a real molecule.');"
   ],
   [
    "else card('vc0',false,'Şimdiye kadar '+n+' ayar; en az iki farklı ayarla sekiz koşu üretin.'); }",
@@ -599,8 +599,8 @@
    "{k:'cg',n:'Coarse-grained (Martini-like)',gain:'About four heavy atoms become one particle; water is grouped too. The particle count drops roughly five- to tenfold and the time step grows; microseconds become reachable for membranes and large complexes.',loss:'The φ and ψ angles are not defined: the αR, β and αL states of alanine dipeptide cannot be told apart in this model. In proteins, secondary structure is often imposed externally.',as:'The lost detail does not matter for the question asked; the parameters are fitted to target properties (for example partitioning free energies).',rel:'This module\\'s question (the free energy of φ > 0) cannot be asked in this model. This scenario was not computed.'},"
   ],
   [
-   "{k:'imp',n:'Örtük çözücü',gain:'Su molekülleri kaldırılır, çözücünün ortalama etkisi bir süreklilik modeliyle verilir; atom sayısı 22\\'ye iner ve konformasyon değişimi hızlanır.',loss:'Suyun yapısı ve tek tek hidrojen bağları yoktur; konformasyon dengesi açık sudan belirgin biçimde sapabilir.',as:'Çözücünün etkisi ortalama bir alanla temsil edilebilir.',rel:'Bu sayfada koşulmadı; αL\\'nin serbest enerjisi örtük çözücüde başka çıkabilir. Bu senaryo hesaplanmadı.'},",
-   "{k:'imp',n:'Implicit solvent',gain:'The water molecules are removed and the average effect of the solvent is given by a continuum model; the atom count drops to 22 and conformational change speeds up.',loss:'There is no water structure and no individual hydrogen bonds; the conformational balance can deviate markedly from explicit water.',as:'The effect of the solvent can be represented by an average field.',rel:'Not run on this page; the free energy of αL could come out differently in implicit solvent. This scenario was not computed.'},"
+   "{k:'imp',n:'Örtük çözücü',gain:'Su molekülleri kaldırılır, çözücünün ortalama etkisi bir süreklilik modeliyle verilir; atom sayısı 22\\'ye iner ve konformasyon değişimi hızlanır.',loss:'Suyun yapısı ve tek tek hidrojen bağları yoktur; konformasyon dengesi açık sudan belirgin biçimde sapabilir.',as:'Çözücünün etkisi ortalama bir alanla temsil edilebilir.',rel:'Bu sayfada koşulmadı; φ > 0 bölgesinin (αL ve C7ax) serbest enerjisi örtük çözücüde başka çıkabilir. Bu senaryo hesaplanmadı.'},",
+   "{k:'imp',n:'Implicit solvent',gain:'The water molecules are removed and the average effect of the solvent is given by a continuum model; the atom count drops to 22 and conformational change speeds up.',loss:'There is no water structure and no individual hydrogen bonds; the conformational balance can deviate markedly from explicit water.',as:'The effect of the solvent can be represented by an average field.',rel:'Not run on this page; the free energy of the φ > 0 region (αL and C7ax) could come out differently in implicit solvent. This scenario was not computed.'},"
   ],
   [
    "{k:'ml',n:'Öğrenilmiş potansiyel (ML)',gain:'Enerji kuantum hesaplarından öğrenilir; bağ kopması ve polarizasyon gibi klasik kuvvet alanının vermediği etkiler yakalanabilir.',loss:'Klasik kuvvet alanından çok daha yavaştır; eğitim verisinin dışındaki yapılarda hata görünmez biçimde büyüyebilir; örnekleme sorunu ortadan kalkmaz.',as:'Eğitim verisi, simülasyonun gideceği bütün yapıları kapsar.',rel:'φ > 0 bölgesi seyrek olduğu için bir ML modelinin eğitim verisinde de seyrek olabilir. Bu senaryo hesaplanmadı.'}];",
@@ -636,7 +636,7 @@
   ],
   [
    "{s:'\"Bias\\'sız 16 ns\\'lik MD, φ > 0 bölgesinin serbest enerjisini '+fx(U.pooled_dG,1)+' kJ/mol olarak ölçtü.\"', a:2, w:'Sayı hesaplanabiliyor ama dayandığı olay sayısı birkaç tane: ölçüt penceresindeki '+U.pooled_npos+' φ > 0 karesi esas olarak tek bir ziyaretten geliyor ve sekiz koşunun '+(8-U.n_runs_with_pos)+' tanesinde tahmin tanımsız. \"Ölçtü\" demek, olay sayısının taşımadığı bir kesinlik söyler.'},",
-   "{s:'\"16 ns of unbiased MD measured the free energy of the φ > 0 region as '+fx(U.pooled_dG,1)+' kJ/mol.\"', a:2, w:'The number can be computed, but it rests on only a few events: the '+U.pooled_npos+' φ > 0 frames in the measurement window come essentially from a single visit, and in '+(8-U.n_runs_with_pos)+' of the eight runs the estimate is undefined. Saying \"measured\" claims a precision the number of events does not carry.'},"
+   "{s:'\"16 ns of unbiased MD measured the free energy of the φ > 0 region as '+fx(U.pooled_dG,1)+' kJ/mol.\"', a:2, w:'The number can be computed, but it rests on only a few events: the '+U.pooled_npos+' φ > 0 frames in the measurement window come essentially from a single visit, and in '+(8-U.n_runs_with_pos)+' of the eight runs the estimate is not defined. Saying \"measured\" claims a precision the number of events does not carry.'},"
   ],
   [
    "{s:'\"Bias eklendiği için AWH profili bias\\'lı bir topluluğun profilidir; bias\\'sız sistem hakkında bir şey söylemez.\"', a:2, w:'AWH, biası bilinen bir potansiyel olarak ekler ve profili bias\\'ın etkisini ağırlıklarla çıkararak hesaplar; sonuç bias\\'sız topluluğun φ serbest enerjisidir. Bias\\'sız MD\\'nin iyi örneklediği bölgede iki profil karşılaştırıldı: RMS farkı '+fx(R.compare.rms,1)+' kJ/mol.'},",
@@ -756,7 +756,7 @@
   ],
   [
    "o:[['ΔG sonsuzdur',0],['Bu koşudan tahmin tanımsızdır; yalnız bir alt sınır fikri verir',1],['ΔG sıfırdır',0]], w:'Hiç görülmemek \"imkânsız\" demek değildir; süre yetmemiştir. Atölye 2\\'de sekiz koşunun '+(8-U.n_runs_with_pos)+' tanesinde durum buydu.'});",
-   "o:[['ΔG is infinite',0],['The estimate from this run is undefined; it only hints at a lower bound',1],['ΔG is zero',0]], w:'Not being seen does not mean \"impossible\"; the time was not enough. In workshop 2 this was the case in '+(8-U.n_runs_with_pos)+' of the eight runs.'});"
+   "o:[['ΔG is infinite',0],['The estimate from this run is not defined; it only hints at a lower bound',1],['ΔG is zero',0]], w:'Not being seen does not mean \"impossible\"; the time was not enough. In workshop 2 this was the case in '+(8-U.n_runs_with_pos)+' of the eight runs.'});"
   ],
   [
    "Q.push({s:'Tek bir metil grubuyla ayrılan iki ligandın göreli bağlanma serbest enerjisi için en doğrudan yöntem hangisi?',",
@@ -904,7 +904,7 @@
   ],
   [
    "{s:'\"Alanin dipeptidi suda zamanın yaklaşık '+nAcc('%'+fx(100/(1+Math.exp(A.dG_mean/KT)),1))+' φ > 0 bölgesinde (αL ve C7ax) geçirir.\"', a:1, w:'Bu oran bu kuvvet alanının ve su modelinin sonucudur; gerçek molekül için deneysel bir karşılaştırma (örneğin NMR J-bağlaşım sabitleri) gerekir. Farklı kuvvet alanları φ > 0 için farklı nüfuslar verir.'},",
-   "{s:'\"In water, alanine dipeptide spends about '+nAcc('%'+fx(100/(1+Math.exp(A.dG_mean/KT)),1))+' of the time in the φ > 0 region (αL and C7ax).\"', a:1, w:'This fraction is a result of this force field and water model; for the real molecule an experimental comparison (for example NMR J-coupling constants) is needed. Different force fields give different populations for φ > 0.'},"
+   "{s:'\"In water, alanine dipeptide spends about '+fx(100/(1+Math.exp(A.dG_mean/KT)),1)+'%'+' of the time in the φ > 0 region (αL and C7ax).\"', a:1, w:'This fraction is a result of this force field and water model; for the real molecule an experimental comparison (for example NMR J-coupling constants) is needed. Different force fields give different populations for φ > 0.'},"
   ],
   [
    "o:[['İkisi de tanımsız kaldı',0],['Bias\\'sız '+(U.pooled_dG==null?'tanımsız':fx(U.pooled_dG,1))+' kJ/mol (birkaç olaya dayanarak); AWH A1 '+fx(R.awh.A1.dG,1)+', A2 '+fx(R.awh.A2.dG,1)+' kJ/mol',1],['İkisi tam olarak aynı çıktı',0]], w:'Bias\\'sız tahmin birkaç olaya dayandığı için bir sayı olsa da güvenilir değildir. AWH koşuları φ > 0 bölgesine yüzlerce kez girdi ama 4 ns\\'de iki koşu önceden yazılmış ölçütle '+R.agree.verdict+' kaldı; sonuç iki değerin aralığıyla raporlanır.'+(VDD.RES2&&VDD.RES2.ns12?' 12 ns\\'ye sürdürülen aynı koşular aynı ölçütle '+f2Verdict(VDD.RES2.ns12.agree)+' çıktı ('+fx(VDD.RES2.ns12.dG.A1,2)+' ve '+fx(VDD.RES2.ns12.dG.A2,2)+' kJ/mol); 4 ns hükmü kayıtta kalır.':'')});",

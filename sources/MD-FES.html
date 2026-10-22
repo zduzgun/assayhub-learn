@@ -308,6 +308,7 @@ table.flr td{vertical-align:middle} table.flr tr.sel td{background:color-mix(in 
 .mcard.no{opacity:.75}
 .mcard.pick{box-shadow:inset 0 0 0 2px var(--ink)}
 .mcard.cur{background:color-mix(in srgb,var(--s1) 8%,var(--paper))}
+.mfb[hidden]{display:none}
 .mfb{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper);display:grid;gap:8px;animation:pop .35s ease-out}
 .mfb p{margin:0;font-size:14.5px}
 @keyframes pop{from{transform:scale(.97);opacity:0}to{transform:none;opacity:1}}
@@ -819,7 +820,7 @@ var CG={k:'aa',seen:{aa:1},k2:1,V:{yaw:0.5,pitch:0.3}}, CGT={k:1};
 var CGM=[
   {k:'aa',n:'Atomistik (bu sayfa)',gain:'Her atom ve her su molekülü açık; hidrojen bağları, φ/ψ açıları ve yerel çözücü düzeni doğrudan görülür.',loss:'Pahalıdır: 4.582 atomluk bu küçük kutuda iki iş parçacığıyla günde yaklaşık 46 ns (MD-REPRO); seyrek olaylar için bu bile yetmeyebilir (atölye 2).',as:'Kuvvet alanı (amber99sb-ildn) ve su modeli (TIP3P) sistemi yeterince doğru tanımlar.',rel:'Bu modülün bütün koşuları bu düzeyde.'},
   {k:'cg',n:'Kaba taneli (Martini benzeri)',gain:'Yaklaşık dört ağır atom bir parçacık olur; su da gruplanır. Parçacık sayısı kabaca beş ile on kat düşer, zaman adımı büyür; zarlar ve büyük kompleksler mikrosaniyelere erişilir.',loss:'φ ve ψ açıları tanımlı değildir: alanin dipeptidinin αR, β ve αL durumları bu modelde ayırt edilemez. Proteinlerde ikincil yapı çoğu zaman dışarıdan sabitlenir.',as:'Kaybedilen ayrıntı sorulan soru için önemsizdir; parametreler hedeflenen özelliklere (örneğin bölümlenme serbest enerjisi) uydurulmuştur.',rel:'Bu modülün sorusu (φ > 0 serbest enerjisi) bu modelde sorulamaz. Bu senaryo hesaplanmadı.'},
-  {k:'imp',n:'Örtük çözücü',gain:'Su molekülleri kaldırılır, çözücünün ortalama etkisi bir süreklilik modeliyle verilir; atom sayısı 22\'ye iner ve konformasyon değişimi hızlanır.',loss:'Suyun yapısı ve tek tek hidrojen bağları yoktur; konformasyon dengesi açık sudan belirgin biçimde sapabilir.',as:'Çözücünün etkisi ortalama bir alanla temsil edilebilir.',rel:'Bu sayfada koşulmadı; αL\'nin serbest enerjisi örtük çözücüde başka çıkabilir. Bu senaryo hesaplanmadı.'},
+  {k:'imp',n:'Örtük çözücü',gain:'Su molekülleri kaldırılır, çözücünün ortalama etkisi bir süreklilik modeliyle verilir; atom sayısı 22\'ye iner ve konformasyon değişimi hızlanır.',loss:'Suyun yapısı ve tek tek hidrojen bağları yoktur; konformasyon dengesi açık sudan belirgin biçimde sapabilir.',as:'Çözücünün etkisi ortalama bir alanla temsil edilebilir.',rel:'Bu sayfada koşulmadı; φ > 0 bölgesinin (αL ve C7ax) serbest enerjisi örtük çözücüde başka çıkabilir. Bu senaryo hesaplanmadı.'},
   {k:'ml',n:'Öğrenilmiş potansiyel (ML)',gain:'Enerji kuantum hesaplarından öğrenilir; bağ kopması ve polarizasyon gibi klasik kuvvet alanının vermediği etkiler yakalanabilir.',loss:'Klasik kuvvet alanından çok daha yavaştır; eğitim verisinin dışındaki yapılarda hata görünmez biçimde büyüyebilir; örnekleme sorunu ortadan kalkmaz.',as:'Eğitim verisi, simülasyonun gideceği bütün yapıları kapsar.',rel:'φ > 0 bölgesi seyrek olduğu için bir ML modelinin eğitim verisinde de seyrek olabilir. Bu senaryo hesaplanmadı.'}];
 /* gösterim: alanin dipeptidinin ağır atomları ve kaba taneli bir eşleme (öğretim amaçlı; bir Martini topolojisi değildir) */
 var CGB=[[0,1,2,3,4,5],[6,7,8,9,14,15],[10,11,12,13],[16,17,18,19,20,21]];
@@ -941,7 +942,8 @@ function notice(){ var m=VDD.meta, R=VDD.RES;
 
 /* ---------- sınav ---------- */
 var QZ=[];
-function renderQuiz(){ var got={}, LET=['A','B','C','D']; QZ=quizItems();
+function qzSpread(T){ QZ.forEach(function(q,i){ var c=q.o.findIndex(function(x){return x[1]===1;}); var it=q.o.splice(c,1)[0]; q.o.splice(T[i],0,it); }); }
+function renderQuiz(){ var got={}, LET=['A','B','C','D']; QZ=quizItems(); qzSpread([2,0,1,2,0,2,1,0]);
   $('vquiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'"><span class="qb">'+LET[j]+'</span>'+o[0]+'</button>';}).join('')+'</div><p class="why" id="vwhy'+i+'" hidden></p></div>'; }).join('');
   document.querySelectorAll('#vquiz .opt').forEach(function(b){ b.addEventListener('click',function(){
     var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], okk=q.o[j][1]===1;
