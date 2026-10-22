@@ -136,6 +136,9 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
 #prama,#pkm{aspect-ratio:1/1;max-width:480px;cursor:default}
 #pscree{aspect-ratio:4/3}
 #pmode{aspect-ratio:1/1;background:var(--stage);cursor:grab}
+canvas:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=range]:disabled{opacity:.45}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #pamp,#pproj{aspect-ratio:16/6}
 #ppool{aspect-ratio:4/3}
 #pdc{aspect-ratio:1/1;max-width:480px}
@@ -174,7 +177,7 @@ table.st th:first-child,table.st td:first-child{text-align:left}
     <span class="step">Deneysel köprü</span>
     <h2 id="ph0">Tek molekül FRET izi: kaç geçiş var?</h2>
     <div class="prose"><p>Tek molekül FRET deneyinde bir molekülün iki konformasyonu farklı verim değerleri verir ve iz zamanla bu iki düzey arasında atlar. Ölçüm gürültülüdür. Geçiş sayısını ve her durumda kalış süresini nasıl sayarsınız? Aşağıdaki iz öğretim modelidir: iki durumlu bir süreç tarayıcınızda üretilir ve üzerine gürültü eklenir; modeldeki gerçek geçiş sayısı bilinir. Tek eşikle ve iki eşikle (arada bir bant; bant içindeki noktalar bir önceki duruma sayılır) sayımı karşılaştırın.</p></div>
-    <div class="selrow"><span>Sayım:</span><div class="seg" role="group" aria-label="Sayım yöntemi" id="pbm"><button type="button" data-v="one" aria-pressed="true">tek eşik</button><button type="button" data-v="two" aria-pressed="false">iki eşik (bant)</button></div><label for="pbw">Bant genişliği: <b id="pbwv">0,20</b></label><input type="range" id="pbw" min="0" max="40" step="1" value="20"><label for="pbn">Gürültü: <b id="pbnv">0,10</b></label><input type="range" id="pbn" min="2" max="18" step="1" value="10"><button type="button" class="btn" id="pbnew">Yeni iz</button></div>
+    <div class="selrow"><span>Sayım:</span><div class="seg" role="group" aria-label="Sayım yöntemi" id="pbm"><button type="button" data-v="one" aria-pressed="true">tek eşik</button><button type="button" data-v="two" aria-pressed="false">iki eşik (bant)</button></div><label for="pbw">Bant genişliği: <b id="pbwv">0,20</b></label><input type="range" id="pbw" min="5" max="40" step="1" value="20" disabled><label for="pbn">Gürültü: <b id="pbnv">0,10</b></label><input type="range" id="pbn" min="2" max="18" step="1" value="10"><button type="button" class="btn" id="pbnew">Yeni iz</button></div>
     <div class="stagebox"><canvas id="pbridge" class="plot" aria-label="Öğretim modeli: gürültülü iki durumlu FRET izi ve eşikler"></canvas></div>
     <dl class="read" id="pbread"></dl>
     <article class="q" id="pc0"><span class="k">Açık</span><h3>Gürültü geçiş gibi sayılır</h3><p>İki sayım yöntemini ve en az iki gürültü düzeyini deneyin.</p><div class="mine" id="mpc0"></div></article>
@@ -201,9 +204,10 @@ table.st th:first-child,table.st td:first-child{text-align:left}
   <section class="card" aria-labelledby="ph2">
     <span class="step">2 · Atölye ve proteine dönüş: PCA</span>
     <h2 id="ph2">Ubikitin: ilk bileşen hangi hareket?</h2>
-    <div class="prose"><p>MD-MET'in üç bağımsız ubikitin koşusunda (200 ile 2000 ps, koşu başına 901 kare) Cα koordinatları çekirdekle (kalıntı 1 ile 70) kristale hizalandı ve kovaryans matrisinin özvektörleri (temel bileşenler) hesaplandı. İki atom kümesi var: bütün 76 Cα ve yalnız çekirdek. 3B görünüm PC1 boyunca hareketi, koşudaki izdüşüm aralığında gidip gelerek gösterir.</p></div>
+    <div class="prose"><p>MD-MET'in üç bağımsız ubikitin koşusunda (200 ile 2000 ps, koşu başına 901 kare) Cα koordinatları çekirdekle (kalıntı 1 ile 70) kristale hizalandı ve kovaryans matrisinin özvektörleri (temel bileşenler) hesaplandı. İki atom kümesi var: bütün 76 Cα ve yalnız çekirdek. 3B görünüm PC1 boyunca hareketi, koşudaki izdüşüm aralığında gidip gelerek gösterir; duraklatıp kaydırıcıyla bir izdüşüm değerinde durabilirsiniz.</p></div>
+    <div class="selrow"><button type="button" class="btn" id="pplay">Duraklat</button><label for="pps">İzdüşüm: <b id="ppsv">0,0</b> Å</label><input type="range" id="pps" min="0" max="1000" step="1" value="500"></div>
     <div class="selrow"><span>Koşu:</span><div class="seg" role="group" aria-label="Koşu" id="prun"><button type="button" data-v="R1" aria-pressed="true">1</button><button type="button" data-v="R2" aria-pressed="false">2</button><button type="button" data-v="R3" aria-pressed="false">3</button><button type="button" data-v="pool" aria-pressed="false">birleşik</button></div><span>Atomlar:</span><div class="seg" role="group" aria-label="Atom kümesi" id="pset"><button type="button" data-v="A" aria-pressed="true">bütün Cα</button><button type="button" data-v="B" aria-pressed="false">çekirdek Cα</button></div></div>
-    <div class="two eq"><div class="stagebox"><canvas id="pmode" aria-label="PC1 boyunca hareket, 3B Cα zinciri"></canvas></div><div class="stagebox"><canvas id="pscree" class="plot" aria-label="İlk beş bileşenin varyans payı"></canvas></div></div>
+    <div class="two eq"><div class="stagebox"><canvas id="pmode" tabindex="0" aria-label="PC1 boyunca hareket, 3B Cα zinciri; sürükleyerek ya da ok tuşlarıyla döndürülür"></canvas></div><div class="stagebox"><canvas id="pscree" class="plot" aria-label="İlk beş bileşenin varyans payı"></canvas><div class="legend" id="pscleg"></div></div></div>
     <dl class="read" id="pmread"></dl>
     <div class="stagebox"><canvas id="pamp" class="plot" aria-label="PC1'in kalıntı başına genliği"></canvas></div>
     <div class="stagebox"><canvas id="pproj" class="plot" aria-label="PC1 izdüşümü zamanla ve en iyi uyan kosinüs"></canvas></div>
@@ -220,7 +224,7 @@ table.st th:first-child,table.st td:first-child{text-align:left}
     <h2 id="ph3">Birlikte hareket eden kalıntılar mı, hizalamanın izi mi?</h2>
     <div class="prose"><p>Dinamik çapraz korelasyon haritası (DCCM; Ichiye ve Karplus 1991) her kalıntı çiftinin ortalama konumları çevresindeki sapmalarının ne kadar aynı yönde olduğunu gösterir: +1 aynı yönde, −1 zıt yönde. Sapmalar bir hizalamadan sonra hesaplanır. İki hizalamayı (çekirdek Cα ile ve bütün Cα ile kristale) ve üç koşuyu karşılaştırın. Halka 7 ile 11 ve kuyruk 71 ile 76 arasındaki blok çerçeveyle işaretlidir.</p></div>
     <div class="selrow"><span>Koşu:</span><div class="seg" role="group" aria-label="DCCM koşusu" id="pdr"><button type="button" data-v="R1" aria-pressed="true">1</button><button type="button" data-v="R2" aria-pressed="false">2</button><button type="button" data-v="R3" aria-pressed="false">3</button></div><span>Hizalama:</span><div class="seg" role="group" aria-label="DCCM hizalaması" id="pdf"><button type="button" data-v="core" aria-pressed="true">çekirdek Cα</button><button type="button" data-v="all" aria-pressed="false">bütün Cα</button><button type="button" data-v="diff" aria-pressed="false">fark (bütün − çekirdek)</button></div></div>
-    <div class="two eq"><div class="stagebox"><canvas id="pdc" class="plot" aria-label="76 × 76 korelasyon haritası"></canvas></div><dl class="read" id="pdread"></dl></div>
+    <div class="two eq"><div class="stagebox"><canvas id="pdc" class="plot" tabindex="0" aria-label="76 × 76 korelasyon haritası; ok tuşlarıyla hücre seçilir"></canvas><span class="sr" id="pdlive" aria-live="polite"></span></div><dl class="read" id="pdread"></dl></div>
     <article class="q" id="pc6"><span class="k">Açık</span><h3>Korelasyon bir çerçevede hesaplanır</h3><p>İki hizalamaya ve en az iki koşuya bakın.</p><div class="mine" id="mpc6"></div></article>
   </section>
 
@@ -342,6 +346,7 @@ function quant(a,q){ var s=sl(a,0,a.length).sort(function(x,y){return x-y;}), p=
 function proj(V,W,H,bb){ var cx=(bb.lo[0]+bb.hi[0])/2, cy=(bb.lo[1]+bb.hi[1])/2, cz=(bb.lo[2]+bb.hi[2])/2, R=0.5*Math.hypot(bb.hi[0]-bb.lo[0],bb.hi[1]-bb.lo[1],bb.hi[2]-bb.lo[2]);
   var ya=Math.cos(V.yaw), sy=Math.sin(V.yaw), cp=Math.cos(V.pitch), sp=Math.sin(V.pitch), sc=Math.min(W,H)*0.46/R, D=4*R;
   return function(p){ var x=p[0]-cx, y=p[1]-cy, z=p[2]-cz, x1=ya*x+sy*z, z1=-sy*x+ya*z, y1=cp*y-sp*z1, z2=sp*y+cp*z1, k=D/(D-z2); return [W/2+x1*sc*k, H/2-y1*sc*k, z2, k, sc*k]; }; }
+function keyRot(cv,V,draw){ cv.addEventListener('keydown',function(e){ var k=e.key, d=0.12; if(k==='ArrowLeft') V.yaw-=d; else if(k==='ArrowRight') V.yaw+=d; else if(k==='ArrowUp') V.pitch=Math.max(-1.3,V.pitch-d); else if(k==='ArrowDown') V.pitch=Math.min(1.3,V.pitch+d); else return; e.preventDefault(); draw(); }); }
 function dragRot(cv,V,draw){ var drag=null; cv.addEventListener('pointerdown',function(e){ drag={x:e.clientX,y:e.clientY,yaw:V.yaw,pitch:V.pitch}; cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove',function(e){ if(!drag) return; V.yaw=drag.yaw+(e.clientX-drag.x)*0.01; V.pitch=Math.max(-1.3,Math.min(1.3,drag.pitch+(e.clientY-drag.y)*0.01)); draw(); });
   cv.addEventListener('pointerup',function(){ drag=null; }); cv.addEventListener('pointercancel',function(){ drag=null; }); }
@@ -371,10 +376,10 @@ function brDraw(){ var c=$('pbridge'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRec
   $('pbread').innerHTML=dl('Modeldeki gerçek geçiş',String(T.n)+'; ortalama kalış '+fx(T.dw,0)+' kare')+dl('Sayılan geçiş ('+(BR.m==='one'?'tek eşik':'iki eşik, bant '+fx(BR.w,2))+')',String(C.n)+'; ortalama kalış '+fx(C.dw,0)+' kare')+dl('Oran (sayılan / gerçek)',fx(C.n/Math.max(1,T.n),1))+dl('Renkler','yeşil gerçek durum; lacivert ölçülen iz; kızıl sayılan durum (üst ya da alt kenar)');
   BR.seenM[BR.m]=true; BR.seenN[BR.sig.toFixed(2)]=true; brCards(x); }
 function brCards(x){ var nN=Object.keys(BR.seenN).length;
-  if(BR.seenM.one&&BR.seenM.two&&nN>=2){ var T=brTrue(), a=brCount(x,'one',0), bw=BR.w>0?BR.w:0.30, b=brCount(x,'two',bw);
+  if(BR.seenM.one&&BR.seenM.two&&nN>=2){ var T=brTrue(), a=brCount(x,'one',0), bw=BR.w, b=brCount(x,'two',bw);
     card('pc0',true,'Bu izde modeldeki gerçek geçiş '+T.n+'. Gürültü '+fx(BR.sig,2)+' iken tek eşik '+a.n+', '+fx(bw,2)+' genişliğinde bantlı iki eşik '+b.n+' geçiş sayıyor; ortalama kalış süresi tek eşikle '+fx(a.dw,0)+', bantla '+fx(b.dw,0)+' kare (gerçek '+fx(T.dw,0)+'). Eşiğin çevresindeki gürültü, durum değişmeden geçiş gibi sayılır; bant bu geri dönüşleri yutar. Hangi sayımın doğru olduğunu yalnız model söyleyebilir; gerçek ölçümde sınırın nasıl çizildiği yazılır. MD trajektorisinde durum atamasında da aynı sorun var.'); }
   else card('pc0',false,'Şimdiye kadar: '+(BR.seenM.one?'tek eşik ':'')+(BR.seenM.two?'iki eşik ':'')+'· '+nN+' gürültü düzeyi. İki yöntemi ve en az iki gürültü düzeyini deneyin.'); }
-function bridge(){ brGen(); segWire('pbm',function(v){ BR.m=v; brDraw(); });
+function bridge(){ brGen(); segWire('pbm',function(v){ BR.m=v; $('pbw').disabled=(v==='one'); brDraw(); });
   $('pbw').addEventListener('input',function(){ BR.w=+this.value/100; brDraw(); });
   $('pbn').addEventListener('input',function(){ BR.sig=+this.value/100; brDraw(); });
   $('pbnew').onclick=function(){ BR.seed=(BR.seed*48271+11)%2147483647; brGen(); brDraw(); };
@@ -440,7 +445,7 @@ function w1(){ stLoad(); SCOL=[PAL.accent,PAL.c3,PAL.gold];
   segWire('pk',function(v){ ST.k=v; stKm(); });
   stRama(); stKm(); CHARTS.push(stRama); CHARTS.push(stKm); }
 /* ===== atölye 2: PCA (ubikitin, üç koşu) ===== */
-var PC={run:'R1', set:'A', V:{yaw:0.6,pitch:0.25}, ph:0, vis:true, seenS:{}, seenR:{}, D:{}};
+var PC={run:'R1', set:'A', V:{yaw:0.6,pitch:0.25}, ph:0, u:0.5, play:true, vis:true, seenS:{}, seenR:{}, D:{}};
 var RUNS=['R1','R2','R3'], RUNL={R1:'koşu 1',R2:'koşu 2',R3:'koşu 3',pool:'birleşik'}, RCOL;
 function pcLoad(){ ['A','B'].forEach(function(s){ var P=PDD.pc[s], o={m:{},v:{},p:{},n:s==='A'?76:70};
     ['R1','R2','R3','pool'].forEach(function(r){ o.m[r]=i16(P.mean[r],100); o.v[r]=i16(P.v1[r],10000); if(r!=='pool') o.p[r]=i16(P.p1[r],100); });
@@ -455,7 +460,9 @@ function pcLoad(){ ['A','B'].forEach(function(s){ var P=PDD.pc[s], o={m:{},v:{},
 function cosc(p,i){ var T=p.length, a=0, b=0; for(var t=0;t<T;t++){ var c=Math.cos(i*Math.PI*(t+0.5)/T); a+=c*p[t]; b+=p[t]*p[t]; } return 2/T*a*a/b; }
 function pcRange(){ var o=PC.D[PC.set], p=o.p[PC.run]; return [arrMin(p),arrMax(p)]; }
 function pcMode(){ var cv=$('pmode'), f=fit(cv), g=f.g, W=f.W, H=f.H; g.fillStyle=css('--stage'); g.fillRect(0,0,W,H);
-  var o=PC.D[PC.set], n=o.n, M=o.m[PC.run], v=o.v[PC.run], rg=pcRange(), c=(rg[0]+rg[1])/2, h=(rg[1]-rg[0])/2, s=c+h*Math.sin(PC.ph);
+  var o=PC.D[PC.set], n=o.n, M=o.m[PC.run], v=o.v[PC.run], rg=pcRange(), c=(rg[0]+rg[1])/2, h=(rg[1]-rg[0])/2, s;
+  if(PC.play){ s=c+h*Math.sin(PC.ph); PC.u=h>0?(s-rg[0])/(2*h):0.5; $('pps').value=String(Math.round(PC.u*1000)); } else s=rg[0]+PC.u*(rg[1]-rg[0]);
+  $('ppsv').textContent=fx(s,1);
   var lo=[1e9,1e9,1e9], hi=[-1e9,-1e9,-1e9]; for(var k=0;k<n;k++) for(var d=0;d<3;d++){ [rg[0],rg[1]].forEach(function(q){ var x=M[k*3+d]+q*v[k*3+d]; lo[d]=Math.min(lo[d],x); hi[d]=Math.max(hi[d],x); }); }
   var P=proj(PC.V,W,H,{lo:lo,hi:hi});
   function chain(q,col,lw,al){ var S=[]; for(var k=0;k<n;k++) S.push(P([M[k*3]+q*v[k*3],M[k*3+1]+q*v[k*3+1],M[k*3+2]+q*v[k*3+2]])); g.globalAlpha=al; g.strokeStyle=col; g.lineCap='round'; g.lineJoin='round';
@@ -467,15 +474,16 @@ function pcMode(){ var cv=$('pmode'), f=fit(cv), g=f.g, W=f.W, H=f.H; g.fillStyl
 function pcScree(){ var c=$('pscree'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var F=PDD.pc[PC.set].frac, ym=0; ['R1','R2','R3','pool'].forEach(function(r){ ym=Math.max(ym,F[r][0]); }); ym=Math.ceil(ym*10)/10;
   var yt=[]; for(var v=0;v<=ym+1e-9;v+=0.1) yt.push(Math.round(v*10)/10);
-  var p=plot(g,46,12,W-58,H-56,[0.4,5.6],[0,ym],{ylabPad:33,xticks:[1,2,3,4,5],yticks:yt,xlab:'bileşen',ylab:'varyans payı',yfmt:function(v){return pct(v,0);}});
+  var p=plot(g,56,12,W-68,H-56,[0.4,5.6],[0,ym],{ylabPad:43,xticks:[1,2,3,4,5],yticks:yt,xlab:'bileşen',ylab:'varyans payı',yfmt:function(v){return pct(v,0);}});
   var bw=p.W/5*0.5; F[PC.run].forEach(function(x,i){ g.fillStyle=hexA(PAL.navy,0.75); g.fillRect(p.X(i+1)-bw/2,p.Y(x),bw,p.Y(0)-p.Y(x)); });
-  ['R1','R2','R3','pool'].forEach(function(r,j){ if(r===PC.run) return; F[r].forEach(function(x,i){ g.fillStyle=r==='pool'?PAL.muted:RCOL[j]; g.beginPath(); g.arc(p.X(i+1)+bw/2+6,p.Y(x),3.2,0,Math.PI*2); g.fill(); }); }); }
+  ['R1','R2','R3','pool'].forEach(function(r,j){ if(r===PC.run) return; F[r].forEach(function(x,i){ g.fillStyle=r==='pool'?PAL.muted:RCOL[j]; g.beginPath(); g.arc(p.X(i+1)+bw/2+6,p.Y(x),3.2,0,Math.PI*2); g.fill(); }); });
+  $('pscleg').innerHTML='<span><i style="background:'+hexA(PAL.navy,0.75)+';border-radius:2px"></i>sütun: '+RUNL[PC.run]+'</span>'+['R1','R2','R3','pool'].filter(function(r){ return r!==PC.run; }).map(function(r){ return '<span>'+dot(r==='pool'?PAL.muted:RCOL[RUNS.indexOf(r)])+RUNL[r]+'</span>'; }).join(''); }
 function pcAmp(){ var c=$('pamp'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
-  var a=PDD.pc[PC.set].amp[PC.run], n=a.length, sh=a.map(function(x){ return x*x; }), ym=Math.max(0.05,Math.ceil(arrMax(sh)*20)/20), yt=[0,ym/2,ym];
-  var p=plot(g,50,12,W-62,H-56,[0.5,76.5],[0,ym],{ylabPad:37,xticks:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'kalıntı',ylab:'PC1\'deki pay',yfmt:function(v){return pct(v,0);}});
+  var a=PDD.pc[PC.set].amp[PC.run], n=a.length, sh=a.map(function(x){ return x*x; }), mx=arrMax(sh), stp=mx<=0.1?0.02:(mx<=0.3?0.05:0.1), ym=Math.max(stp,Math.ceil(mx/stp-1e-9)*stp), yt=[]; for(var q=0;q<=ym+1e-9;q+=stp) yt.push(Math.round(q*100)/100);
+  var p=plot(g,58,26,W-70,H-70,[0.5,76.5],[0,ym],{ylabPad:45,xticks:W<480?[1,20,40,60,76]:[1,10,20,30,40,50,60,70,76],yticks:yt,xlab:'kalıntı',ylab:'PC1\'deki pay',yfmt:function(v){return pct(v,0);}});
   g.fillStyle=hexA(PAL.gold,0.14); g.fillRect(p.X(6.5),p.T,p.X(11.5)-p.X(6.5),p.H); if(n>70){ g.fillStyle=hexA(PAL.accent,0.10); g.fillRect(p.X(70.5),p.T,p.X(76.5)-p.X(70.5),p.H); }
   var bw=Math.max(1,p.W/76*0.75); for(var i=0;i<n;i++){ g.fillStyle=i>=70?PAL.accent:PAL.navy; g.fillRect(p.X(i+1)-bw/2,p.Y(sh[i]),bw,p.Y(0)-p.Y(sh[i])); }
-  g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('halka 7 ile 11',p.X(6.8),p.T+14); if(n>70){ g.textAlign='right'; g.fillText('kuyruk',p.X(76.3),p.T+14); g.textAlign='left'; } }
+  g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('halka 7 ile 11',p.X(6.6),p.T-7); if(n>70){ g.textAlign='right'; g.fillText('kuyruk',p.X(76.5),p.T-7); g.textAlign='left'; } }
 function pcProj(){ var c=$('pproj'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var o=PC.D[PC.set], list=PC.run==='pool'?RUNS.map(function(r,k){ return {x:sl(o.pp1,k*901,(k+1)*901),col:RCOL[k],r:r}; }):[{x:o.p[PC.run],col:RCOL[RUNS.indexOf(PC.run)],r:PC.run}];
   var lo=1e9, hi=-1e9; list.forEach(function(L){ lo=Math.min(lo,arrMin(L.x)); hi=Math.max(hi,arrMax(L.x)); }); lo=Math.floor(lo/2)*2; hi=Math.ceil(hi/2)*2;
@@ -498,10 +506,13 @@ function pcTab(){ var A=PDD.pc.A, B=PDD.pc.B, h='<table class="st"><thead><tr><t
   ['R1-R2','R1-R3','R2-R3'].forEach(function(k){ h+='<tr><td>koşu '+k.replace(/R/g,'').replace('-',' ile ')+'</td><td>'+fx(A.rmsip[k],2)+'</td><td>'+fx(B.rmsip[k],2)+'</td></tr>'; });
   RUNS.forEach(function(r){ h+='<tr><td>'+RUNL[r]+', iki yarısı</td><td>'+fx(A.halves[r],2)+'</td><td>'+fx(B.halves[r],2)+'</td></tr>'; });
   h+='</tbody></table><p class="small">1 aynı alt uzay, 0 dik alt uzaylar (Amadei, Ceruso, Di Nola 1999). Yarılar: 200 ile 1100 ve 1100 ile 2000 ps.</p>'; $('prmsip').innerHTML=h; }
+/* halka 7 ile 11 (indis 6 ile 10): PC1 genliğinin karesindeki payı */
+function loopShare(a){ var t=0, h=0; for(var i=0;i<a.length;i++){ t+=a[i]*a[i]; if(i>=6&&i<=10) h+=a[i]*a[i]; } return t>0?h/t:0; }
 function pcRead(){ var P=PDD.pc[PC.set], o=PC.D[PC.set], F=P.frac[PC.run], cum=F.reduce(function(a,b){ return a+b; },0), r=PC.run;
   var tail=PC.set==='A'?(r==='pool'?o.tailPool:P.tail[r]):null;
   $('pmread').innerHTML=dl('PC1 varyans payı',pct(F[0],1)+'; ilk beş bileşen birlikte '+pct(cum,1))+
     dl('Kuyruğun (71 ile 76) PC1\'deki payı',tail!=null?pct(tail,1):'çekirdek kümesinde kuyruk yok')+
+    dl('Halka 7 ile 11\'in PC1\'deki payı',pct(loopShare(P.amp[r]),1))+
     dl('Kosinüs içeriği (PC1, PC2, PC3)',r==='pool'?'birleşik izdüşüm bir zaman serisi değil; hesaplanmadı':P.cos[r].map(function(v){ return fx(v,2); }).join(', '))+
     dl('Birleşik PC1 varyansının koşular arası payı',pct(o.btw,1)+'; koşu ortalamaları '+o.rm.map(function(v){ return fx(v,1); }).join(', ')+' Å')+
     dl('Renkler','lacivert zincir PC1 boyunca; gri iki uç; altın halka 7 ile 11'+(PC.set==='A'?'; kalın kısım kuyruk':''));
@@ -517,8 +528,13 @@ function pcCards(){ var A=PDD.pc.A, B=PDD.pc.B, f=function(P){ return RUNS.map(f
 function pcAll(){ pcMode(); pcScree(); pcAmp(); pcProj(); pcPool(); pcRead(); }
 function w2(){ pcLoad(); RCOL=[PAL.navy,PAL.accent,PAL.good];
   segWire('prun',function(v){ PC.run=v; pcAll(); }); segWire('pset',function(v){ PC.set=v; pcAll(); });
-  dragRot($('pmode'),PC.V,pcMode); pcTab(); pcAll();
-  aniAdd({active:function(){ return PC.vis&&!REDUCE; }, tick:function(dt){ PC.ph+=dt*1.6; pcMode(); }}); watchVis($('pmode'),PC,function(){ aniKick(); });
+  dragRot($('pmode'),PC.V,pcMode); keyRot($('pmode'),PC.V,pcMode);
+  /* animasyon: kullanıcı durdurabilir; hareket azaltma tercihinde başta durur */
+  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Duraklat':'Oynat'; pb.setAttribute('aria-pressed',String(!on)); if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }
+  pb.onclick=function(){ setPlay(!PC.play); };
+  $('pps').addEventListener('input',function(){ PC.u=+this.value/1000; if(PC.play) setPlay(false); else pcMode(); });
+  PC.play=!REDUCE; pb.textContent=PC.play?'Duraklat':'Oynat'; pcTab(); pcAll();
+  aniAdd({active:function(){ return PC.vis&&PC.play; }, tick:function(dt){ PC.ph+=dt*1.6; pcMode(); }}); watchVis($('pmode'),PC,function(){ aniKick(); });
   CHARTS.push(pcAll); }
 /* ===== atölye 3: korelasyon haritası (DCCM) ===== */
 var DC={run:'R1', fit:'core', seenF:{}, seenR:{}, M:{}, cur:null};
@@ -547,12 +563,13 @@ function dcRead(M){ var D=PDD.dcs, fitN={core:'çekirdek Cα ile hizalı',all:'b
 function dcCurTxt(M){ var i=DC.cur[0], j=DC.cur[1]; return 'kalıntı '+(i+1)+' ile '+(j+1)+': '+(DC.fit==='diff'?'fark ':'C = ')+fx(M[i*76+j],2); }
 function dcCards(){ var D=PDD.dcs, R=['R1','R2','R3'], nR=R.filter(function(r){ return DC.seenR[r]; }).length;
   var lt=function(f){ return R.map(function(r){ return fx(D[f].loop_tail[r],2); }).join(' / '); }, fs=function(f){ return R.map(function(r){ return pct(D[f].frac_strong[r],1); }).join(' / '); };
-  if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'Halka 7 ile 11 ve kuyruk arasındaki ortalama korelasyon (koşu 1 / 2 / 3) çekirdekle hizalamada '+lt('core')+', bütün Cα ile hizalamada '+lt('all')+'. |C| > 0,5 olan çiftlerin payı çekirdek hizalamasında '+fs('core')+', bütün Cα hizalamasında '+fs('all')+'. Veri aynı; yalnız hizalama değişti. Kuyruk hizalamaya katılınca onun hareketini dengelemek için bütün molekül ters yöne ötelenir (ve biraz döndürülür); uzak bölgeler arasında zıt korelasyon belirir. Koşular arasında da haritalar farklı. Korelasyon bir hizalama çerçevesinde hesaplanan bir eş hareket ölçüsüdür; tek başına iletişim ya da nedensellik göstermez.');
+  if(DC.seenF.core&&DC.seenF.all&&nR>=2) card('pc6',true,'Halka 7 ile 11 ve kuyruk arasındaki ortalama korelasyon (koşu 1 / 2 / 3) çekirdekle hizalamada '+lt('core')+', bütün Cα ile hizalamada '+lt('all')+'. |C| > 0,5 olan çiftlerin payı çekirdek hizalamasında '+fs('core')+', bütün Cα hizalamasında '+fs('all')+'. Veri aynı; yalnız hizalama değişti. Kuyruk hizalamaya katılınca ağırlık merkezi ve en küçük kareler kuyruğu da izler: bütün molekül kuyrukla ters yöne ötelenir (ve biraz döndürülür), uzak bölgeler arasında zıt korelasyon belirir. Kitapta (CH16) çekirdekle hizalı kareler dönme eklenmeden yalnız her karede ağırlık merkezi çıkarılarak yeniden merkezlenince halka ile kuyruk korelasyonu −0,16, −0,21 ve −0,06 çıktı: etkinin büyük kısmı ötelemeden gelir (bu üçüncü harita sayfaya gömülü değildir). Koşular arasında da haritalar farklı. Korelasyon bir hizalama çerçevesinde hesaplanan bir eş hareket ölçüsüdür; tek başına iletişim ya da nedensellik göstermez.');
   else card('pc6',false,'Şimdiye kadar: '+Object.keys(DC.seenF).filter(function(k){ return k!=='diff'; }).length+' hizalama, '+nR+' koşu. İki hizalamaya ve en az iki koşuya bakın.'); }
 function w3(){ dcLoad(); DNEG=rgbA(css('--c3')); DPOS=rgbA(css('--bad')); DMID=rgbA(css('--paper'));
   segWire('pdr',function(v){ DC.run=v; dcDraw(); }); segWire('pdf',function(v){ DC.fit=v; dcDraw(); });
   function pick(e){ var cv=$('pdc'), r=cv.getBoundingClientRect(), G=DC.g, x=e.clientX-r.left-G.pad, y=e.clientY-r.top-4; if(x<0||y<0||x>=G.S||y>=G.S) return; var j=Math.floor(x/G.cs), i=Math.floor(y/G.cs); if(DC.cur&&DC.cur[0]===i&&DC.cur[1]===j) return; DC.cur=[i,j]; dcDraw(); }
   $('pdc').addEventListener('pointermove',pick); $('pdc').addEventListener('pointerdown',pick);
+  $('pdc').addEventListener('keydown',function(e){ var c=DC.cur?DC.cur.slice():[6,70], k=e.key; if(k==='ArrowLeft') c[1]--; else if(k==='ArrowRight') c[1]++; else if(k==='ArrowUp') c[0]--; else if(k==='ArrowDown') c[0]++; else return; e.preventDefault(); c[0]=Math.max(0,Math.min(75,c[0])); c[1]=Math.max(0,Math.min(75,c[1])); DC.cur=c; dcDraw(); $('pdlive').textContent=dcCurTxt(dcMat()); });
   dcDraw(); CHARTS.push(dcDraw); }
 /* ===== tezgâh: iddia denetleyici ===== */
 var CV={kur:'Bu veriyle kurulabilir',ek:'Ek kanıt gerekir',yok:'Bu veriyle kurulamaz'};
@@ -604,7 +621,7 @@ function quizItems(){ var Q=[], B=PDD.st.box, K=PDD.st.core, A=PDD.pc.A, Bs=PDD.
   Q.push({s:'İki koşunun ilk 10 bileşeni arasında RMSIP 0,77 çıktı. Bu ne anlama gelir?',
     o:[['İki koşu aynı hareketleri örnekledi',0],['İki koşunun hiçbir ortak hareketi yok',0],['Alt uzaylar kısmen örtüşüyor; tek koşunun bileşenleri genelleştirilemez',1]], w:'RMSIP 1 aynı, 0 dik alt uzay demektir (Amadei ve ark. 1999). Bu sayfada değerler bütün Cα için '+['R1-R2','R1-R3','R2-R3'].map(function(k){ return fx(A.rmsip[k],2); }).join(', ')+', çekirdek için '+['R1-R2','R1-R3','R2-R3'].map(function(k){ return fx(Bs.rmsip[k],2); }).join(', ')+'.'});
   Q.push({s:'Aynı koşuda halka ile kuyruk arasındaki ortalama korelasyon çekirdek hizalamasında '+fx(D.core.loop_tail.R2,2)+', bütün Cα hizalamasında '+fx(D.all.loop_tail.R2,2)+'. Doğru okuma hangisi?',
-    o:[['Bütün Cα hizalaması daha doğrudur, iletişim vardır',0],['Korelasyon hizalama çerçevesine bağlıdır; kuyruk hizalamaya katılınca zıt korelasyon belirir',1],['Koşu yetersiz olduğu için iki değer farklıdır',0]], w:'Veri aynı, yalnız hizalama değişti. Kuyruğun hareketi hizalamada bütün molekülün dönmesiyle dengelenir ve uzak bölgeler zıt yönde hareket ediyor görünür.'});
+    o:[['Bütün Cα hizalaması daha doğrudur, iletişim vardır',0],['Korelasyon hizalama çerçevesine bağlıdır; kuyruk hizalamaya katılınca zıt korelasyon belirir',1],['Koşu yetersiz olduğu için iki değer farklıdır',0]], w:'Veri aynı, yalnız hizalama değişti. Kuyruk hizalamaya katılınca ağırlık merkezi ve en küçük kareler kuyruğu da izler; bütün molekül kuyrukla ters yöne ötelenir (ve biraz döner), uzak bölgeler zıt yönde hareket ediyor görünür. Kitapta (CH16) dönme eklenmeden yalnız ağırlık merkezi çıkarılınca halka ile kuyruk korelasyonu −0,16, −0,21 ve −0,06 oldu: etkinin büyük kısmı ötelemeden gelir.'});
   Q.push({s:'k-ortalamalar k = 3 ile çalıştırıldığında αL ayrı bir küme olmadı, β/PPII bölgesi ikiye bölündü. Neden?',
     o:[['Yöntem küme içi uzaklığı en aza indirir; kalabalık geniş bölgeyi bölmek, küçük bölgeyi (pay '+pct(M['4'].frac[3],1)+') ayırmaktan çok kazandırır',1],['αL kareleri hatalıdır',0],['k-ortalamalar açıları okuyamaz',0]], w:'k-ortalamalar ne kinetiği ne de durumların önemini bilir; küme sayısı ve uzaklık ölçütü kullanıcının seçimidir. αL ancak k = 4\'te ayrıldı.'});
   return Q; }
