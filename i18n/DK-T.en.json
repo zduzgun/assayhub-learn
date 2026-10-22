@@ -1,7 +1,7 @@
 {
  "module": "DK-T",
  "lang": "en",
- "source_sha256": "35290ae94dc7d823db0316e3efbd7e5ceeeed9744ac0bc7a6fb2fe4bf441f4e1",
+ "source_sha256": "5492c210d3997400062d2b764ee4eb3c5cdc2559010b4ab465e10675d95fd415",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), DK-T 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -183,8 +183,8 @@
    "<div><div class=\"lbl\">Number of repeats (exhaustiveness in Vina)</div><div class=\"seg\" role=\"group\" aria-label=\"Number of repeats\" id=\"t1rp\"><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">1</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"4\" aria-pressed=\"false\">4</button><button type=\"button\" data-v=\"8\" aria-pressed=\"true\">8</button><button type=\"button\" data-v=\"16\" aria-pressed=\"false\">16</button></div></div>"
   ],
   [
-   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"t1go\">Aramayı başlat</button></div>",
-   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"t1go\">Start the search</button></div>"
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"t1go\">Aramayı başlat</button><button type=\"button\" class=\"btn\" id=\"t1stop\" disabled>Durdur</button></div>",
+   "<div class=\"btns\"><button type=\"button\" class=\"btn primary\" id=\"t1go\">Start the search</button><button type=\"button\" class=\"btn\" id=\"t1stop\" disabled>Stop</button></div>"
   ],
   [
    "<dt>Kristale 2 Å'dan yakın bulunan</dt><dd id=\"t1ok\"></dd>",
