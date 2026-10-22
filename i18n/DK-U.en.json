@@ -1,7 +1,7 @@
 {
  "module": "DK-U",
  "lang": "en",
- "source_sha256": "617573ab7fcf5cd95e5ec0515bf4fae4d20019106cf2a0595c160f42bc578641",
+ "source_sha256": "4b8f1494f7a89bf1751f778e2ec775d3825d232f137fe26988db96d56f060cca",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (machine translation, needs human review); Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -39,16 +39,16 @@
    "Single dose versus dose-response"
   ],
   [
-   "Bir birincil taramada bileşikler tek bir derişimde ölçülür: o derişimdeki % inhibisyon, etkinleri etkin olmayanlardan ayırmak içindir. Etkinliğin <b>sıralaması</b> ise tam doz-yanıt eğrisinden (IC50, Ki) gelir. Aşağıdaki etiketli öğretim modelinde dört örnek bileşik vardır (gerçek tarama değil): Ki sırayla 3, 30, 300, 3000 nM. Derişimi kaydırın; soldaki çubuklar o tek derişimdeki % inhibisyonu, sağdaki eğriler tam doz-yanıtı gösterir.",
-   "In a primary screen compounds are measured at a single concentration: the % inhibition at that concentration is for separating actives from inactives. The <b>ranking</b> of potency, by contrast, comes from the full dose-response curve (IC50, Ki). The labeled teaching model below has four example compounds (not a real screen): Ki of 3, 30, 300, 3000 nM in order. Slide the concentration; the bars on the left show the % inhibition at that single concentration, the curves on the right show the full dose-response."
+   "Bir birincil taramada bileşikler tek bir derişimde ölçülür: o derişimdeki % inhibisyon, etkinleri etkin olmayanlardan ayırmak içindir. Etkinliğin <b>sıralaması</b> ise tam doz-yanıt eğrisinden (IC50, Ki) gelir. Aşağıdaki etiketli öğretim modelinde dört örnek bileşik vardır (gerçek tarama değil): Ki sırayla 3, 30, 300, 3000 nM. Model, substrat derişimi Km'nin çok altındayken geçerli olan IC50 ≈ Ki varsayımıyla çizilir (yarışmalı inhibisyonda IC50 = Ki (1 + [S]/Km)). Derişimi kaydırın; soldaki çubuklar o tek derişimdeki % inhibisyonu, sağdaki eğriler tam doz-yanıtı gösterir.",
+   "In a primary screen compounds are measured at a single concentration: the % inhibition at that concentration is for separating actives from inactives. The <b>ranking</b> of potency, by contrast, comes from the full dose-response curve (IC50, Ki). The labeled teaching model below has four example compounds (not a real screen): Ki of 3, 30, 300, 3000 nM in order. The model is drawn with the assumption IC50 ≈ Ki, which holds when the substrate concentration is far below Km (for competitive inhibition IC50 = Ki (1 + [S]/Km)). Slide the concentration; the bars on the left show the % inhibition at that single concentration, the curves on the right show the full dose-response."
   ],
   [
    "Solda dört bileşiğin tek bir derişimdeki yüzde inhibisyonu çubuk olarak, sağda aynı bileşiklerin tam doz-yanıt eğrileri; kesikli çizgi seçili derişimi işaretler",
    "On the left the percent inhibition of four compounds at a single concentration as bars, on the right the full dose-response curves of the same compounds; the dashed line marks the selected concentration"
   ],
   [
-   "Tarama derişimi: <b id=\"s1bD\" class=\"big\" style=\"font-size:18px\">100</b> nM",
-   "Screening concentration: <b id=\"s1bD\" class=\"big\" style=\"font-size:18px\">100</b> nM"
+   "Tarama derişimi: <b id=\"s1bD\" class=\"big\" style=\"font-size:18px\">316</b> nM",
+   "Screening concentration: <b id=\"s1bD\" class=\"big\" style=\"font-size:18px\">316</b> nM"
   ],
   [
    "Tarama derişimi",
@@ -283,14 +283,6 @@
    "Compounds"
   ],
   [
-   "Kısmi (ağır atom sabit)",
-   "Partial (heavy atoms fixed)"
-  ],
-  [
-   "Tek bir yayının bileşikleri genelde: bir seri içinde sıralama çok daha zayıf, bazen ters döner.",
-   "Compounds of a single publication: ranking within a series is generally much weaker, sometimes reversed."
-  ],
-  [
    "Bootstrap %95 aralığı tam set için: Spearman [",
    "Bootstrap 95% interval for the full set: Spearman ["
   ],
@@ -305,38 +297,6 @@
   [
    "hayır",
    "no"
-  ],
-  [
-   "</b>. Ağır atom sabit tutulunca kısmi korelasyon <b>",
-   "</b>. With the heavy-atom count held fixed the partial correlation is <b>"
-  ],
-  [
-   "</b>. İlişkinin önemli kısmı boyuttan gelir; boyuta bölmek çözmez, çünkü ligand verimi (Hopkins ve ark. 2004) afiniteden tanımlıdır, docking skorundan değil.",
-   "</b>. A large part of the relationship comes from size; dividing by size does not fix it, because ligand efficiency (Hopkins et al. 2004) is defined from affinity, not from the docking score."
-  ],
-  [
-   "Skor farkı",
-   "Score difference"
-  ],
-  [
-   "kcal/mol = gürültünün (",
-   "kcal/mol, compared with the seed noise ("
-  ],
-  [
-   ") yaklaşık",
-   "): about"
-  ],
-  [
-   "katı.",
-   "times as large."
-  ],
-  [
-   "<b>Fark gürültüden büyük: anlamlı sayılabilir.</b>",
-   "<b>The difference is larger than the noise: it can be considered meaningful.</b>"
-  ],
-  [
-   "<b>Fark gürültü düzeyinde: güvenilmez.</b>",
-   "<b>The difference is at noise level: unreliable.</b>"
   ],
   [
    "Renklendirmeyi \"ağır atom\" yapınca ilişkinin boyuttan gelen payı görünür.",
@@ -391,10 +351,6 @@
    "frequency"
   ],
   [
-   "Süzgeç açık: AUC yalnız gösterilen set için canlı hesaplanır; bootstrap aralığı tam set içindir.",
-   "Filter on: the AUC is computed live only for the set shown; the bootstrap interval is for the full set."
-  ],
-  [
    "Bir \"cetvel\" (yalnız ağır atom) docking kadar iyi sıralıyorsa, docking o seti gerçekten çözmemiş demektir. Eşleştirilmiş tuzaklarda bu kestirme kalkar.",
    "If a \"ruler\" (heavy atoms only) ranks as well as docking, then docking has not really solved that set. With matched decoys this shortcut is removed."
   ],
@@ -407,28 +363,12 @@
    "</b>, against matched decoys <b>"
   ],
   [
-   "</b>. D2 bileşikleri kimyaca uzaktır (farklı boyut ve yük); docking onları kolayca eler ve bu yüksek AUC gerçek zorluğu gizler. Eşleştirilmiş tuzaklar boyut, yük ve polarlıkta etkinlere benzer, skor daha düşük bir AUC verir. 54 etkinin",
-   "</b>. D2 compounds are chemically distant (different size and charge); docking rejects them easily and this high AUC hides the real difficulty. Matched decoys resemble the actives in size, charge and polarity, so the score gives a lower AUC. Of the 54 actives,"
-  ],
-  [
-   "'i dört özellik eşleşen, amidin taşımayan tuzağa ulaşamadı.",
-   " could not reach a decoy that matched on four properties and carried no amidine."
-  ],
-  [
    "Eşleştirilmiş tuzaklara karşı: docking AUC <b>",
    "Against matched decoys: docking AUC <b>"
   ],
   [
    "</b>, yalnız ağır atom sayısıyla sıralama <b>",
    "</b>, ranking by heavy-atom count alone <b>"
-  ],
-  [
-   "</b>. Boyut eşleştiğinde \"cetvel\" çöker (0,5 yakını) ve docking öne geçer. D2 setinde ise yalnız ağır atom",
-   "</b>. When size is matched the \"ruler\" collapses (near 0.5) and docking pulls ahead. On the D2 set, however, ranking by heavy atoms alone gives"
-  ],
-  [
-   "ile docking kadar iyidir: o yüksek AUC büyük ölçüde boyut farkıdır.",
-   "and is as good as docking: that high AUC is largely a size difference."
   ],
   [
    "Tuzak setini D2 yapıp eşleştirilmişle karşılaştırın.",
@@ -459,14 +399,6 @@
    "</b>; it looks promising. But when the compounds are split by publication (all compounds of one paper on the same side) R2 falls to <b>"
   ],
   [
-   "</b>, hatta ortalamadan kötü. Rastgele bölmede aynı serinin benzer bileşikleri hem eğitimde hem sınamada bulunur (sızıntı); gerçek bir yeni seride kazanç kaybolur. Yalnız ham skorun gruplu R2",
-   "</b>, even worse than the mean. In the random split, similar compounds of the same series appear in both training and test (leakage); on a genuinely new series the gain vanishes. The fact that the raw score alone has a grouped R2 of"
-  ],
-  [
-   "olması da aynı dersi verir.",
-   "also teaches the same lesson."
-  ],
-  [
    "Vurguyu \"Yayına göre gruplu\" yapınca R2 ne oluyor?",
    "What happens to R2 when you set the emphasis to \"Grouped by publication\"?"
   ],
@@ -479,188 +411,8 @@
    "), but is weak at <b>ranking affinity</b> (score-pKi Spearman"
   ],
   [
-   "). Tohum gürültüsü (medyan sd",
-   "). The seed noise (median sd"
-  ],
-  [
-   ") pKi yayılımının (",
-   ") is small next to the spread of pKi ("
-  ],
-  [
-   ") yanında küçük, yani sıralamayı sınırlayan tohum değil.</p>",
-   "), so the seed is not what limits the ranking.</p>"
-  ],
-  [
    "<p class=\"small\">Hesaplanmayanlar: göreli bağlanma serbest enerjisi (RBFE), FEP, MM-GBSA ve başka skor fonksiyonları: <b>Bu senaryo hesaplanmadı</b>. Tam 5 tohumlu set ve GPU forkları da (ortamda GPU yok) hesaplanmadı; tohum gürültüsü 20 bileşiklik örneklemle gösterildi.</p>",
    "<p class=\"small\">Not computed: relative binding free energy (RBFE), FEP, MM-GBSA and other scoring functions: <b>This scenario was not computed</b>. The full 5-seed set and GPU forks (there is no GPU in the environment) were also not computed; the seed noise is shown with a 20-compound sample.</p>"
-  ],
-  [
-   "<p class=\"small\">Bağlantılar: DK-T (poz bulmak), DK-O (kilidin ayrıntıları), MD-U (örnekleme ve belirsizlik). Kaynaklar: Wang ve ark. 2015; Cournia ve ark. 2017; Hopkins ve ark. 2004; Truchon ve Bayly 2007; Mysinger ve ark. 2012 (DUD-E).</p>",
-   "<p class=\"small\">Links: DK-T (finding a pose), DK-O (details of the lock), MD-U (sampling and uncertainty). References: Wang et al. 2015; Cournia et al. 2017; Hopkins et al. 2004; Truchon and Bayly 2007; Mysinger et al. 2012 (DUD-E).</p>"
-  ],
-  [
-   "Eşleştirilmiş tuzaklara karşı AUC (",
-   "Why is the AUC against matched decoys ("
-  ],
-  [
-   "), D2 tuzaklarına karşı AUC\\'den (",
-   ") lower than the AUC against D2 decoys ("
-  ],
-  [
-   ") neden düşük?",
-   ")?"
-  ],
-  [
-   "Eşleştirilmiş tuzaklar boyut ve yükte etkinlere benzer, boyut kestirmesi kalkar",
-   "Matched decoys resemble the actives in size and charge, so the size shortcut is removed"
-  ],
-  [
-   "Eşleştirilmiş tuzaklar daha azdır",
-   "There are fewer matched decoys"
-  ],
-  [
-   "D2 tuzakları yanlış hesaplandı",
-   "The D2 decoys were computed incorrectly"
-  ],
-  [
-   "Eşleştirilmiş tuzaklar dört özellikte etkinlere benzetildiği için skor \"cetvel\" kestirmesini kullanamaz; gerçek zorluk ortaya çıkar.",
-   "Because matched decoys are made to resemble the actives on four properties, the score cannot use the \"ruler\" shortcut; the real difficulty appears."
-  ],
-  [
-   "Yalnız ağır atom sayısıyla sıralama D2 tuzaklarına karşı AUC",
-   "Ranking by heavy-atom count alone gives an AUC against D2 decoys of"
-  ],
-  [
-   "veriyor. Bu ne demek?",
-   "here. What does this mean?"
-  ],
-  [
-   "Bir cetvel docking kadar iyi; yüksek AUC büyük ölçüde boyut farkı",
-   "A ruler is as good as docking; the high AUC is largely a size difference"
-  ],
-  [
-   "Docking mükemmel çalışıyor",
-   "Docking works perfectly"
-  ],
-  [
-   "Ağır atom sayısı afiniteyi ölçer",
-   "Heavy-atom count measures affinity"
-  ],
-  [
-   "Tek bir özellik (boyut) neredeyse docking kadar iyi sıralıyorsa, docking o seti gerçekten çözmemiştir.",
-   "If a single property (size) ranks almost as well as docking, then docking has not really solved that set."
-  ],
-  [
-   "; ağır atom sabitken kısmi",
-   "; with heavy atoms fixed the partial is"
-  ],
-  [
-   "İlişkinin önemli kısmı boyuttan gelir",
-   "A large part of the relationship comes from size"
-  ],
-  [
-   "Skor afiniteyi iyi sıralar",
-   "The score ranks affinity well"
-  ],
-  [
-   "pKi ölçümleri hatalı",
-   "The pKi measurements are wrong"
-  ],
-  [
-   "Boyut sabit tutulunca korelasyon neredeyse kaybolur; zaten zayıf olan ilişkinin çoğu boyut etkisidir.",
-   "When size is held constant the correlation almost disappears; most of the already weak relationship is a size effect."
-  ],
-  [
-   "Ağırlıkları veriye uyarlama rastgele bölmede R2",
-   "Fitting weights to the data gives R2 in the random split:"
-  ],
-  [
-   ", gruplu bölmede",
-   ", and in the grouped split:"
-  ],
-  [
-   "Rastgele bölmede aynı serinin bileşikleri hem eğitimde hem sınamada (sızıntı)",
-   "In the random split, compounds of the same series appear in both training and test (leakage)"
-  ],
-  [
-   "Gruplu bölme yanlıştır",
-   "The grouped split is wrong"
-  ],
-  [
-   "Ridge lambda çok büyük",
-   "The ridge lambda is too large"
-  ],
-  [
-   "Rastgele bölme sızıntı yaratır; gruplu bölme gerçek bir yeni seriyi taklit eder ve kazanç kaybolur.",
-   "The random split creates leakage; the grouped split mimics a genuinely new series and the gain vanishes."
-  ],
-  [
-   "Tohum gürültüsü medyan sd",
-   "The seed noise median sd is"
-  ],
-  [
-   "kcal/mol, pKi yayılımı",
-   "kcal/mol; the pKi spread is"
-  ],
-  [
-   ". Sıralamayı asıl sınırlayan nedir?",
-   ". What really limits the ranking?"
-  ],
-  [
-   "Skor fonksiyonunun afiniteyi zayıf sıralaması (tohum değil)",
-   "The weak ranking of affinity by the scoring function (not the seed)"
-  ],
-  [
-   "Tohum gürültüsü",
-   "Seed noise"
-  ],
-  [
-   "Bileşik sayısı",
-   "The number of compounds"
-  ],
-  [
-   "Tohum gürültüsü pKi yayılımının yanında küçüktür; sınırlayan, skorun afiniteyle zayıf ilişkisidir.",
-   "The seed noise is small next to the spread of pKi; what limits the ranking is the weak link between score and affinity."
-  ],
-  [
-   "\\'i dört eşleştirilmiş tuzağa ulaşamadı. Bunun sebebi?",
-   " could not reach the four matched decoys. Why?"
-  ],
-  [
-   "Bu cebe uygun, amidin taşımayan, yük-eşleşen analog nadirdir",
-   "An analog that fits this pocket, carries no amidine and matches the charge is rare"
-  ],
-  [
-   "Tuzak havuzu küçüktü",
-   "The decoy pool was small"
-  ],
-  [
-   "Hesap hatası",
-   "A computation error"
-  ],
-  [
-   "Tripsin cebine uyan ama amidin/guanidin taşımayan, yükü eşleşen bileşik bulmak zordur; bu yüzden bazı etkinler eşleşmeden kaldı.",
-   "A compound that fits the trypsin pocket but carries no amidine/guanidine and matches the charge is hard to find; that is why some actives remained unmatched."
-  ],
-  [
-   "Docking skoru hangi soruyu daha iyi yanıtlar?",
-   "Which question does the docking score answer better?"
-  ],
-  [
-   "Bu bileşik bağlanıyor mu (ayırma)",
-   "Does this compound bind (separation)"
-  ],
-  [
-   "Bu bileşik ne kadar sıkı bağlanıyor (afinite sıralaması)",
-   "How tightly does this compound bind (affinity ranking)"
-  ],
-  [
-   "İkisini de eşit iyi",
-   "Both equally well"
-  ],
-  [
-   "Bu veride skor ayırmada iş görür, afinite sıralamasında zayıftır.",
-   "On this data the score works for separation and is weak at affinity ranking."
   ],
   [
    "<b>Doğru.</b>",
@@ -675,8 +427,8 @@
    "· correct on first try:"
   ],
   [
-   "Bu sayfadaki bileşik verisi ChEMBL\\'den türetilmiştir ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192. PDB 3PTB (CC0 1.0). AutoDock Vina 1.2.7.",
-   "The compound data on this page are derived from ChEMBL and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192. PDB 3PTB (CC0 1.0). AutoDock Vina 1.2.7."
+   "Bu sayfadaki bileşik verisi (tripsin ve D2 Ki değerleri ile 84 eşleştirilmiş tuzak) ChEMBL 34\\'ten türetilmiştir ve Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) lisansıyla sunulur. Kaynak: Zdrazil B ve ark. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192. PDB 3PTB (CC0 1.0). AutoDock Vina 1.2.7.",
+   "The compound data on this page (the trypsin and D2 Ki values and the 84 matched decoys) are derived from ChEMBL 34 and are provided under the Creative Commons Attribution-ShareAlike 3.0 Unported license (CC BY-SA 3.0). Source: Zdrazil B et al. The ChEMBL Database in 2023. Nucleic Acids Res 2024;52(D1):D1180-D1192. PDB 3PTB (CC0 1.0). AutoDock Vina 1.2.7."
   ],
   [
    "var NF={}; function fx(v,d){ if(d==null)d=2; if(!NF[d]) NF[d]=new Intl.NumberFormat('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }",
@@ -699,28 +451,140 @@
    " · decoys: "
   ],
   [
-   "card('s1c2',true,'Ham skor-pKi Spearman <b>",
-   "card('s1c2',true,'Raw score-pKi Spearman <b>"
+   "<button type=\"button\" class=\"btn\" id=\"s1resplit\">200 başka kat ataması dene</button>",
+   "<button type=\"button\" class=\"btn\" id=\"s1resplit\">Try 200 other fold assignments</button>"
   ],
   [
-   "{s:'Ham skor-pKi Spearman '",
-   "{s:'Raw score-pKi Spearman '"
+   "'Kısmi Pearson (ağır atom sabit)'",
+   "'Partial Pearson (heavy atoms fixed)'"
   ],
   [
-   "'. Yorum?',o:",
-   "'. Interpretation?',o:"
+   "'Sıra tabanlı kısmi (ağır atom sabit)'",
+   "'Rank-based partial (heavy atoms fixed)'"
   ],
   [
-   "'. Neden fark var?',o:",
-   "'. Why the difference?',o:"
+   "'Bu yayında '+n+' bileşik; seri içi Spearman '",
+   "'This publication: '+n+' compounds; within-series Spearman '"
   ],
   [
-   "{s:'54 etkinin '",
-   "{s:'Of the 54 actives, '"
+   "'Bu kadar az bileşikte katsayının belirsizliği çok büyüktür; kısmi korelasyonlar gösterilmedi. '",
+   "'With so few compounds the uncertainty of the coefficient is very large; the partial correlations are not shown. '"
   ],
   [
-   "dot(PAL.bad)+'tuzak'+",
-   "dot(PAL.bad)+'decoy'+"
+   "'En az beş bileşikli '+W.length+' yayında seri içi Spearman en düşük '+fx(lo)+', en yüksek '+fx(hi)+': bir seri içinde sıralama bazen güçlü, bazen zayıf, bazen ters.'",
+   "'Across the '+W.length+' publications with at least five compounds, the within-series Spearman ranges from '+fx(lo)+' to '+fx(hi)+': within a series the ranking is sometimes strong, sometimes weak, sometimes reversed.'"
+  ],
+  [
+   "'Skor-pKi Pearson '+fx(sum.corr.pearson)+', ağır atom sabitken kısmi Pearson <b>'+fx(sum.corr.partial_ha)+'</b>; Spearman '+fx(sum.corr.spearman)+', sıra tabanlı kısmi <b>'+fx(RP)+'</b>. Boyut sabit tutulunca ilişki belirgin biçimde zayıflar: önemli bir kısmı boyuttan gelir. Büyük moleküller hem daha sıkı bağlanır hem daha düşük skor alır.'",
+   "'Score-pKi Pearson '+fx(sum.corr.pearson)+', partial Pearson with heavy atoms fixed <b>'+fx(sum.corr.partial_ha)+'</b>; Spearman '+fx(sum.corr.spearman)+', rank-based partial <b>'+fx(RP)+'</b>. With size held fixed the relationship weakens clearly: a large part of it comes from size. Large molecules both bind more tightly and get a lower score.'"
+  ],
+  [
+   "return c.id+' (ağır atom '+c.ha+', yük '+(c.charge>0?'+':'')+c.charge+', S1 '+(c.s1?'evet':'hayır')+')';",
+   "return c.id+' (heavy atoms '+c.ha+', charge '+(c.charge>0?'+':'')+c.charge+', S1 '+(c.s1?'yes':'no')+')';"
+  ],
+  [
+   "'A ile B aynı bileşik: '",
+   "'A and B are the same compound: '"
+  ],
+  [
+   "'skorlar eşit.'",
+   "'the scores are equal.'"
+  ],
+  [
+   "'pKi değerleri eşit.'",
+   "'the pKi values are equal.'"
+  ],
+  [
+   "'skor sırası pKi sırasıyla aynı.'",
+   "'the score order matches the pKi order.'"
+  ],
+  [
+   "'skor sırası pKi sırasının tersi.'",
+   "'the score order is the reverse of the pKi order.'"
+  ],
+  [
+   "' üç tohumda sd '",
+   "' sd over three seeds '"
+  ],
+  [
+   "'Skor farkı '+fx(df)+' kcal/mol, tohum gürültüsünün ('+fx(noise)+') yaklaşık '+fx(df/noise,1)+' katı. '",
+   "'Score difference '+fx(df)+' kcal/mol, about '+fx(df/noise,1)+' times the seed noise ('+fx(noise)+'). '"
+  ],
+  [
+   "'<b>Fark tohum gürültüsünden büyük: bu sıralama başka bir tohumla da büyük olasılıkla korunur. Bu, bir bağlanma farkı olduğu anlamına gelmez.</b>'",
+   "'<b>The difference is larger than the seed noise: this order would very likely hold with another seed too. That does not mean there is a difference in binding.</b>'"
+  ],
+  [
+   "'<b>Fark tohum gürültüsü düzeyinde: başka bir tohumla sıra değişebilir.</b>'",
+   "'<b>The difference is at the level of the seed noise: the order may change with another seed.</b>'"
+  ],
+  [
+   "' Kendi tohum ölçümü: '",
+   "' Own seed measurement: '"
+  ],
+  [
+   "'. Kitaptaki sayım (CH18): skor farkı gürültünün üç katını aşan 8.314 çiftin %34,9\\'unda pKi sırası terstir.'",
+   "'. The count in the book (CH18): in 34.9% of the 8,314 pairs whose score difference exceeds three times the noise, the pKi order is reversed.'"
+  ],
+  [
+   "'<span>sıfır modellerde yüksek değer etkin sayılır; köşegenin altı ters ilişkidir</span>'",
+   "'<span>null models count a high value as active; below the diagonal means an inverse relationship</span>'"
+  ],
+  [
+   "'Süzgeç açık: yalnız katyonu S1 cebine (Asp189) oturan '+cc.A.length+' etkin kullanılır; tuzaklar süzülmez (analiz planındaki tanım). Bütün AUC\\'ler gösterilen set için canlı hesaplanır. '",
+   "'Filter on: only the '+cc.A.length+' actives whose cation sits in the S1 pocket (Asp189) are used; the decoys are not filtered (the definition in the analysis plan). All AUCs are computed live for the set shown. '"
+  ],
+  [
+   "'Sıfır modellerin AUC\\'si yüksek değer etkin sayılarak hesaplanır; 0,5\\'in altı ters ilişkidir. '",
+   "'The AUC of a null model is computed counting a high value as active; below 0.5 means an inverse relationship. '"
+  ],
+  [
+   "'</b>. D2 bileşikleri kimyaca uzaktır (farklı boyut ve yük); docking onları kolayca eler ve bu yüksek AUC gerçek zorluğu gizler. Eşleştirilmiş tuzaklar boyut, yük ve polarlıkta etkinlere benzer, skor daha düşük bir AUC verir. 54 etkinden '+MT.four+' tanesine dört eşleşmiş tuzak bulundu, '+MT.none+' tanesine hiç bulunamadı (seçim kuralı gereği tuzaklar amidin ya da guanidin taşımaz); eşleşmeyen etkinler için boyut ve yük denetlenmedi.'",
+   "'</b>. D2 compounds are chemically distant (different size and charge); docking rejects them easily and this high AUC hides the real difficulty. Matched decoys resemble the actives in size, charge and polarity, so the score gives a lower AUC. Of the 54 actives, '+MT.four+' got four matched decoys and '+MT.none+' got none (by the selection rule the decoys carry no amidine or guanidine); for the unmatched actives size and charge were not controlled.'"
+  ],
+  [
+   "'</b>. Boyut eşleştiğinde \"cetvel\" çöker (0,5 yakını) ve docking öne geçer. Zayıf tripsin setinde ise ağır atom ('+fx(sum.null_auc.ha.weak,3)+') ve net yük ('+fx(sum.null_auc.charge.weak,3)+') docking\\'i ('+fx(sum.auc.weak.auc,3)+') geçer: orada bir cetvel docking kadar iyidir. D2\\'de ağır atom '+fx(sum.null_auc.ha.d2,3)+' ile docking\\'in ('+fx(sum.auc.d2.auc,3)+') gerisindedir, ama oradaki yüksek AUC\\'nin önemli bir kısmı boyut farkıdır.'",
+   "'</b>. When size is matched the \"ruler\" collapses (near 0.5) and docking pulls ahead. On the weak trypsin set, however, heavy atoms ('+fx(sum.null_auc.ha.weak,3)+') and net charge ('+fx(sum.null_auc.charge.weak,3)+') beat docking ('+fx(sum.auc.weak.auc,3)+'): there a ruler is as good as docking. On D2, heavy atoms at '+fx(sum.null_auc.ha.d2,3)+' fall behind docking ('+fx(sum.auc.d2.auc,3)+'), but a large part of the high AUC there is a size difference.'"
+  ],
+  [
+   "$('s1rsN').textContent=N+' kat ataması: rastgele bölmede R2 ortancası '+fx(q(RS.r,0.5))+' (%95: '+fx(q(RS.r,0.025))+' ile '+fx(q(RS.r,0.975))+'); gruplu bölmede ortanca '+fx(q(RS.g,0.5))+' (%95: '+fx(q(RS.g,0.025))+' ile '+fx(q(RS.g,0.975))+'), atamaların %'+fx(100*ng/N,0)+'\\'ünde eksi. Gruplu R2 atamaların '+lt+' / '+N+' tanesinde rastgele R2\\'den küçük. Tablodaki tek atama dağılımın içinde bir noktadır; atamaya bağlı olmayan sonuç sızıntının yönüdür.';",
+   "$('s1rsN').textContent=N+' fold assignments: median R2 in the random split '+fx(q(RS.r,0.5))+' (95%: '+fx(q(RS.r,0.025))+' to '+fx(q(RS.r,0.975))+'); median in the grouped split '+fx(q(RS.g,0.5))+' (95%: '+fx(q(RS.g,0.025))+' to '+fx(q(RS.g,0.975))+'), negative in '+fx(100*ng/N,0)+'% of assignments. The grouped R2 is smaller than the random R2 in '+lt+' / '+N+' assignments. The single assignment in the table is one point in this distribution; the result that does not depend on the assignment is the direction of the leakage.';"
+  ],
+  [
+   "'</b>: sıfıra yakın, bu atamada eksi, yani ortalamadan bile kötü. Rastgele bölmede aynı serinin benzer bileşikleri hem eğitimde hem sınamada bulunur (sızıntı); gerçek bir yeni seride kazanç kaybolur. Yalnız ham skorun gruplu R2 '",
+   "'</b>: close to zero, and in this assignment negative, that is, even worse than the mean. In the random split, similar compounds of the same series appear in both training and test (leakage); on a genuinely new series the gain vanishes. The fact that the raw score alone has a grouped R2 of '"
+  ],
+  [
+   "' olması da aynı dersi verir. Bu sayılar tek bir kat atamasına aittir; \"200 başka kat ataması dene\" ile dağılıma bakın.'",
+   "' also teaches the same lesson. These numbers belong to a single fold assignment; look at the distribution with \"Try 200 other fold assignments\".'"
+  ],
+  [
+   "'). Tohum gürültüsü (medyan sd '+fx(sum.seed_noise.median_sd)+' kcal/mol) 142 bileşiğin skor yayılımının (sd '+fx(SCSD)+' kcal/mol) yanında küçük; pKi yayılımı ('+fx(sum.pki_sd)+' pKi birimi) 298 K\\'de yaklaşık '+fx(KC*sum.pki_sd)+' kcal/mol\\'e karşılık gelir. Yani sıralamayı sınırlayan tohum değil, büyük ölçüde skor fonksiyonunun kendisidir.</p>'",
+   "'). The seed noise (median sd '+fx(sum.seed_noise.median_sd)+' kcal/mol) is small next to the spread of the scores of the 142 compounds (sd '+fx(SCSD)+' kcal/mol); the pKi spread ('+fx(sum.pki_sd)+' pKi units) corresponds to about '+fx(KC*sum.pki_sd)+' kcal/mol at 298 K. So what limits the ranking is not the seed but, to a large extent, the scoring function itself.</p>'"
+  ],
+  [
+   "'<p class=\"small\">Bağlantılar: <a href=\"../dk-t/\">DK-T</a> (poz bulmak), <a href=\"../dk-o/\">DK-O</a> (kilidin ayrıntıları), <a href=\"../../md/md-u/\">MD-U</a> (örnekleme ve belirsizlik). Kaynaklar: Wang ve ark. 2015; Cournia ve ark. 2017; Hopkins ve ark. 2004; Truchon ve Bayly 2007; Mysinger ve ark. 2012 (DUD-E).</p>'",
+   "'<p class=\"small\">Links: <a href=\"../dk-t/\">DK-T</a> (finding a pose), <a href=\"../dk-o/\">DK-O</a> (details of the lock), <a href=\"../../md/md-u/\">MD-U</a> (sampling and uncertainty). References: Wang et al. 2015; Cournia et al. 2017; Hopkins et al. 2004; Truchon and Bayly 2007; Mysinger et al. 2012 (DUD-E).</p>'"
+  ],
+  [
+   "var QZ; function mkQZ(){ return [\n {s:'Eşleştirilmiş tuzaklara karşı AUC ('+fx(sum.auc.matched.auc,2)+'), D2 tuzaklarına karşı AUC\\'den ('+fx(sum.auc.d2.auc,2)+') neden düşük?',o:[['Eşleştirilmiş tuzaklar daha az sayıdadır; az örnekle AUC düşer',0],['Eşleştirilmiş tuzaklar boyut ve yükte etkinlere benzer; boyut kestirmesi kalkar',1],['D2 tuzakları başka bir reseptör için seçildiğinden yanlış hesaplanmıştır',0]],w:'Eşleştirilmiş tuzaklar (84 tane; D2 54) dört özellikte etkinlere benzetildiği için skor \"cetvel\" kestirmesini kullanamaz; gerçek zorluk ortaya çıkar.'},\n {s:'Zayıf tripsin bileşiklerine karşı yalnız ağır atom sayısıyla sıralama AUC '+fx(sum.null_auc.ha.weak,2)+', docking '+fx(sum.auc.weak.auc,2)+' veriyor. Bu ne demek?',o:[['Docking bu seti iyi çözüyor; ağır atom sayısı rastlantıyla yüksek çıktı',0],['Ağır atom sayısı afiniteyi doğrudan ölçer; docking gereksizdir',0],['Bir cetvel docking kadar iyi sıralıyor; docking bu seti boyuttan öte çözmemiş',1]],w:'Tek bir özellik (boyut) docking kadar iyi sıralıyorsa, docking o seti boyuttan öte çözmemiştir. D2 setinde ağır atom ('+fx(sum.null_auc.ha.d2,2)+') docking\\'in ('+fx(sum.auc.d2.auc,2)+') gerisindedir, ama oradaki yüksek AUC\\'nin önemli bir kısmı yine boyut farkıdır.'},\n {s:'Skor-pKi Pearson '+fx(sum.corr.pearson)+', ağır atom sabitken kısmi Pearson '+fx(sum.corr.partial_ha)+'; Spearman '+fx(sum.corr.spearman)+', sıra tabanlı kısmi '+fx(RP)+'. Yorum?',o:[['İlişkinin önemli kısmı boyuttan gelir; boyut sabitken belirgin biçimde zayıflar',1],['Skor afiniteyi iyi sıralar; boyutu sabitlemek yalnız gürültü ekler',0],['pKi ölçümleri hatalıdır; doğru ölçümle korelasyon güçlenirdi',0]],w:'Boyut sabit tutulunca korelasyon belirgin biçimde zayıflar (aynı türden karşılaştırmayla: Pearson '+fx(sum.corr.pearson)+' → '+fx(sum.corr.partial_ha)+', Spearman '+fx(sum.corr.spearman)+' → '+fx(RP)+'); zaten zayıf olan ilişkinin önemli kısmı boyut etkisidir.'},\n {s:'Ağırlıkları veriye uyarlama rastgele bölmede R2 '+fx(sum.ridge.random.r2,2)+', gruplu bölmede '+fx(sum.ridge.grouped.r2,2)+'. Neden fark var?',o:[['Gruplu bölme yanlıştır; yayınları ayırmak bilgiyi boşa harcar',0],['Rastgele bölmede aynı serinin bileşikleri hem eğitimde hem sınamada bulunur (sızıntı)',1],['Ridge cezası (lambda) çok büyük seçildiği için gruplu R2 düşer',0]],w:'Rastgele bölme sızıntı yaratır; gruplu bölme gerçek bir yeni seriyi taklit eder ve kazanç kaybolur. Bu iki sayı tek bir kat atamasına aittir; kat ataması değişince gruplu R2 sıfır çevresinde oynar, ama rastgele R2\\'den küçük kalır.'},\n {s:'Tohum gürültüsü medyan sd '+fx(sum.seed_noise.median_sd)+' kcal/mol; 142 bileşiğin skor yayılımı (sd) '+fx(SCSD)+' kcal/mol. Sıralamayı asıl sınırlayan nedir?',o:[['Tohum gürültüsü; daha çok tohumla sıralama düzelir',0],['Bileşik sayısı; 142 bileşik sıralama için azdır',0],['Skor fonksiyonunun afiniteyi zayıf sıralaması (tohum değil)',1]],w:'Tohum gürültüsü skor yayılımının yanında küçüktür (ikisi de kcal/mol). Kitaptaki sayımda (CH18) skor farkı gürültünün üç katını aşan çiftlerin %34,9\\'unda bile pKi sırası terstir: sınırlayan, skorun afiniteyle zayıf ilişkisidir.'},\n {s:'54 etkinden yalnız '+MT.four+' tanesine dört eşleştirilmiş tuzak bulundu, '+MT.none+' tanesine hiç bulunamadı. Neden?',o:[['Tuzak havuzu küçüktü ve bu cebe uyan, amidin taşımayan, yükü eşleşen bileşik nadirdir: ikisi birlikte',1],['Eşleştirme kuralı hatalı yazıldı; tuzaklar rastgele seçildi',0],['Etkinlerin çoğu ChEMBL\\'de yanlış etiketlendiği için eşleşme aranmadı',0]],w:'Tuzaklar küçük bir havuzdan seçildi (DUD-E etkin başına 50 tuzak kullanır) ve seçim kuralı gereği amidin ya da guanidin taşımaz; tripsin cebine uyup yükü eşleşen böyle bileşik azdır. Eşleşmeyen etkinler için boyut ve yük denetlenmemiştir.'},\n {s:'Docking skoru hangi soruyu daha iyi yanıtlar?',o:[['İkisini de eşit iyi yanıtlar',0],['Bu bileşik bağlanıyor mu (ayırma)',1],['Bu bileşik ne kadar sıkı bağlanıyor (afinite sıralaması)',0]],w:'Bu veride skor ayırmada iş görür, afinite sıralamasında zayıftır.'}\n]; }",
+   "var QZ; function mkQZ(){ return [\n {s:'Why is the AUC against matched decoys ('+fx(sum.auc.matched.auc,2)+') lower than the AUC against D2 decoys ('+fx(sum.auc.d2.auc,2)+')?',o:[['There are fewer matched decoys; with few samples the AUC drops',0],['Matched decoys resemble the actives in size and charge; the size shortcut is removed',1],['The D2 decoys were computed incorrectly because they were chosen for another receptor',0]],w:'Because the matched decoys (84 of them; D2: 54) are made to resemble the actives on four properties, the score cannot use the \"ruler\" shortcut; the real difficulty appears.'},\n {s:'Against the weak trypsin compounds, ranking by heavy-atom count alone gives an AUC of '+fx(sum.null_auc.ha.weak,2)+', docking '+fx(sum.auc.weak.auc,2)+'. What does this mean?',o:[['Docking solves this set well; the heavy-atom count came out high by chance',0],['Heavy-atom count measures affinity directly; docking is unnecessary',0],['A ruler ranks as well as docking; docking has not solved this set beyond size',1]],w:'If a single property (size) ranks as well as docking, docking has not solved that set beyond size. On the D2 set heavy atoms ('+fx(sum.null_auc.ha.d2,2)+') fall behind docking ('+fx(sum.auc.d2.auc,2)+'), but a large part of the high AUC there is again a size difference.'},\n {s:'Score-pKi Pearson '+fx(sum.corr.pearson)+', partial Pearson with heavy atoms fixed '+fx(sum.corr.partial_ha)+'; Spearman '+fx(sum.corr.spearman)+', rank-based partial '+fx(RP)+'. Interpretation?',o:[['A large part of the relationship comes from size; it weakens clearly when size is fixed',1],['The score ranks affinity well; fixing size only adds noise',0],['The pKi measurements are wrong; with correct measurements the correlation would be stronger',0]],w:'When size is held fixed the correlation weakens clearly (comparing like with like: Pearson '+fx(sum.corr.pearson)+' → '+fx(sum.corr.partial_ha)+', Spearman '+fx(sum.corr.spearman)+' → '+fx(RP)+'); a large part of the already weak relationship is a size effect.'},\n {s:'Fitting weights to the data gives R2 '+fx(sum.ridge.random.r2,2)+' in the random split and '+fx(sum.ridge.grouped.r2,2)+' in the grouped split. Why the difference?',o:[['The grouped split is wrong; separating publications wastes information',0],['In the random split, compounds of the same series appear in both training and test (leakage)',1],['The ridge penalty (lambda) was chosen too large, so the grouped R2 drops',0]],w:'The random split creates leakage; the grouped split mimics a genuinely new series and the gain vanishes. These two numbers belong to a single fold assignment; when the assignment changes, the grouped R2 moves around zero but stays below the random R2.'},\n {s:'The seed noise median sd is '+fx(sum.seed_noise.median_sd)+' kcal/mol; the spread (sd) of the scores of the 142 compounds is '+fx(SCSD)+' kcal/mol. What really limits the ranking?',o:[['Seed noise; with more seeds the ranking would improve',0],['The number of compounds; 142 compounds are too few for ranking',0],['The weak ranking of affinity by the scoring function (not the seed)',1]],w:'The seed noise is small next to the spread of the scores (both in kcal/mol). In the count in the book (CH18), even among the pairs whose score difference exceeds three times the noise, the pKi order is reversed in 34.9%: what limits the ranking is the weak link between score and affinity.'},\n {s:'Of the 54 actives, only '+MT.four+' got four matched decoys and '+MT.none+' got none. Why?',o:[['The decoy pool was small, and compounds that fit this pocket, carry no amidine and match the charge are rare: both together',1],['The matching rule was written wrongly; the decoys were chosen at random',0],['Most actives were mislabeled in ChEMBL, so no match was sought',0]],w:'The decoys were chosen from a small pool (DUD-E uses 50 decoys per active) and by the selection rule carry no amidine or guanidine; few such compounds fit the trypsin pocket and match the charge. For the unmatched actives size and charge were not controlled.'},\n {s:'Which question does the docking score answer better?',o:[['It answers both equally well',0],['Does this compound bind (separation)',1],['How tightly does this compound bind (affinity ranking)',0]],w:'On this data the score works for separation and is weak at affinity ranking.'}\n]; }"
+  ],
+  [
+   "+', boyut sabitken sıra tabanlı kısmi '+fx(RP)+'; Pearson '+fx(sum.corr.pearson)+', kısmi '+",
+   "+', rank-based partial with size fixed '+fx(RP)+'; Pearson '+fx(sum.corr.pearson)+', partial '+"
+  ],
+  [
+   "+dot(PAL.bad)+'tuzak</span>'+",
+   "+dot(PAL.bad)+'decoy</span>'+"
+  ],
+  [
+   "ylab:'% inhibisyon'",
+   "ylab:'% inhibition'"
+  ],
+  [
+   "'Cevaplanan: '",
+   "'Answered: '"
   ]
  ],
  "keep": [
