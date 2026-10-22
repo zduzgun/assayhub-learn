@@ -2,7 +2,7 @@
 
 **English** | [Türkçe](README.tr.md)
 
-AssayHub Learn is a bilingual (English and Turkish) set of interactive teaching modules on molecular dynamics (MD) and molecular docking. The modules run as static web pages in the browser. They accompany a Turkish MD textbook by the repository owner, *Biyomoleküllerin Moleküler Dinamik Simülasyonu* (in preparation, not yet published): each module belongs to a book chapter, and the book's QR codes point to permanent short addresses on the site. AssayHub Learn is open source: the code is licensed under Apache-2.0 and the original educational content under CC BY 4.0 (see [Licence and terms of use](#licence-and-terms-of-use)).
+AssayHub Learn is a bilingual (English and Turkish) set of interactive teaching modules on molecular dynamics (MD) and molecular docking. The modules run as static web pages in the browser. They accompany a Turkish MD textbook by the repository owner, *Biyomoleküler Sistemlerde Moleküler Dinamik Simülasyon* (in preparation, not yet published): each module belongs to a book chapter, and the book's QR codes point to permanent short addresses on the site. AssayHub Learn is open source: the code is licensed under Apache-2.0 and the original educational content under CC BY 4.0 (see [Licence and terms of use](#licence-and-terms-of-use)).
 
 **Status: pilot preview.** All 27 modules are pilot versions. No independent scientific or target-reader review has been done yet. The site is deliberately closed to search engines (`robots.txt` and an `X-Robots-Tag: noindex` header). There are no published releases yet; see [Versions and releases](#versions-and-releases).
 
@@ -162,7 +162,7 @@ Bug reports, corrections to scientific or teaching content, translation fixes an
 ## Versions and releases
 
 - Each module has its own content version in `modules.json` (for example MD-PBC 0.6.1).
-- The site as a whole is described by the release notes in [`docs/CHANGELOG.md`](docs/CHANGELOG.md); the most recent numbered entry is 0.43.0 (15 October 2026). Entries headed "Yayımlanmamış" (unreleased) record documentation changes and carry no version number.
+- The site as a whole is described by the release notes in [`docs/CHANGELOG.md`](docs/CHANGELOG.md); the most recent numbered entry is 0.43.1 (22 October 2026). Entries headed "Yayımlanmamış" (unreleased) record documentation changes and carry no version number.
 - The repository has no git tags and no GitHub releases yet. Archiving released versions (for example on Zenodo with a DOI) is planned but not done.
 
 ## Maintenance and next steps

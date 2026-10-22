@@ -43,7 +43,7 @@ Data taken from or derived from third-party sources keep the licence of that sou
 
 - **Names and logos.** The names "AssayHub" and "AssayHub Learn" and the icon `static/assets/icon.svg` are not licensed. Apache-2.0 (section 6) and CC BY 4.0 (section 2(b)) do not grant trademark rights. You may say that your work is based on AssayHub Learn, but not present it as AssayHub Learn or as endorsed by its author.
 - **The Ala mascot.** The name "Ala", the character design and the drawing code marked "Ala maskot çekirdeği" in `sources/MD-T.html` are not covered by either licence; all rights are reserved.
-- **The companion book.** The book *Biyomoleküllerin Moleküler Dinamik Simülasyonu* is not part of this repository and is not covered by these licences.
+- **The companion book.** The book *Biyomoleküler Sistemlerde Moleküler Dinamik Simülasyon* is not part of this repository and is not covered by these licences.
 
 ## Contributions
 

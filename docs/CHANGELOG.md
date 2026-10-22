@@ -21,6 +21,13 @@ Bu giriş bir sürüm değildir; sürüm numarası, etiket ya da GitHub sürüm�
 - `docs/CODEX_OSS_APPLICATION_DRAFT.md` eklendi: OpenAI Codex for Open Source başvurusu için taslak metinler. Başvuru gönderilmedi.
 - `robots.txt`, `noindex` başlıkları, erişim kuralları ve dağıtım ayarları değişmedi.
 
+## 0.43.1 (22 Ekim 2026) · Kitap adı ve modül alt bilgisi
+
+- Kitabın adı belgelerde güncellendi: yazarın 22 Ekim 2026 kararıyla "Biyomoleküler Sistemlerde Moleküler Dinamik Simülasyon" (önceki ad "Biyomoleküllerin Moleküler Dinamik Simülasyonu"). Değişen dosyalar: `README.md`, `README.tr.md`, `LICENSING.md`. Site sayfaları kitabın adını taşımıyordu; bölüm adları (`book.json`) kitaptaki adlarla birebir aynı olduğu denetlendi.
+- Modül sayfalarının alt bilgisinden "durum: pilot" (İngilizcede "status: pilot") kaldırıldı. 27 modülün hepsi aynı durumdaydı, bu yüzden etiket modüller arasında bilgi taşımıyordu. Aynı satırdaki "Önizleme yayınıdır; bilimsel ve hedef-okur incelemesi yapılmadı." notu korunur; `modules.json`'daki `status` alanı değişmedi ve "planlandı" durumu gösterilmeye devam eder.
+- Modül metinlerindeki "pilot koşu" ifadeleri verinin kaynağını anlatır (alanin dipeptidinin 5 bağımsız koşu × 10 ns kısa koşuları); etiket olmadıkları için değiştirilmedi.
+- `noindex` başlıkları, erişim kuralları, modül kodu ve veriler değişmedi.
+
 ## 0.43.0 (15 Ekim 2026) · Uygulama sayfaları: düzeylere ayrılmış, görselli modül kartları
 
 - /tr/md/, /en/md/ ve docking sayfaları yeniden düzenlendi. Modüller üç düzeyde (Temel, Orta, İleri) toplandı; her düzeyin içinde kitaptaki bölüm sırasıyla dizildi. Sayfanın üstünde düzeylere götüren üç kart ve kısa bir yönlendirme satırı var; "Hesaplar nasıl yapılır?" kutusu kapalı açılır.

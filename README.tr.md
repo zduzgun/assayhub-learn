@@ -2,7 +2,7 @@
 
 [English](README.md) | **Türkçe**
 
-AssayHub Learn, moleküler dinamik (MD) ve moleküler docking üzerine iki dilli (Türkçe ve İngilizce) etkileşimli eğitim modüllerinden oluşur. Modüller tarayıcıda açılan statik web sayfalarıdır. Depo sahibinin hazırladığı Türkçe MD kitabına, *Biyomoleküllerin Moleküler Dinamik Simülasyonu*'na (hazırlık aşamasında, henüz yayımlanmadı) eşlik ederler: her modül bir kitap bölümüne bağlıdır ve kitaptaki karekodlar sitedeki kalıcı kısa adreslere gider. AssayHub Learn açık kaynaktır: kod Apache-2.0, özgün eğitim içeriği CC BY 4.0 lisanslıdır (bkz. [Lisans ve kullanım koşulları](#lisans-ve-kullanım-koşulları)).
+AssayHub Learn, moleküler dinamik (MD) ve moleküler docking üzerine iki dilli (Türkçe ve İngilizce) etkileşimli eğitim modüllerinden oluşur. Modüller tarayıcıda açılan statik web sayfalarıdır. Depo sahibinin hazırladığı Türkçe MD kitabına, *Biyomoleküler Sistemlerde Moleküler Dinamik Simülasyon*'a (hazırlık aşamasında, henüz yayımlanmadı) eşlik ederler: her modül bir kitap bölümüne bağlıdır ve kitaptaki karekodlar sitedeki kalıcı kısa adreslere gider. AssayHub Learn açık kaynaktır: kod Apache-2.0, özgün eğitim içeriği CC BY 4.0 lisanslıdır (bkz. [Lisans ve kullanım koşulları](#lisans-ve-kullanım-koşulları)).
 
 **Durum: pilot önizleme.** 27 modülün hepsi pilot sürümdür. Bağımsız bilimsel ya da hedef okur incelemesi henüz yapılmadı. Site bilerek arama motorlarına kapalıdır (`robots.txt` ve `X-Robots-Tag: noindex` başlığı). Yayımlanmış bir sürüm (release) henüz yok; bkz. [Sürümler](#sürümler).
 
@@ -162,7 +162,7 @@ Hata bildirimleri, bilimsel ya da eğitsel içerik düzeltmeleri, çeviri düzel
 ## Sürümler
 
 - Her modülün `modules.json` içinde kendi içerik sürümü vardır (örneğin MD-PBC 0.6.1).
-- Sitenin bütünü [`docs/CHANGELOG.md`](docs/CHANGELOG.md) dosyasındaki sürüm notlarıyla izlenir; numaralı son kayıt 0.43.0'dır (15 Ekim 2026). "Yayımlanmamış" başlıklı kayıtlar belge değişikliklerini anlatır ve sürüm numarası taşımaz.
+- Sitenin bütünü [`docs/CHANGELOG.md`](docs/CHANGELOG.md) dosyasındaki sürüm notlarıyla izlenir; numaralı son kayıt 0.43.1'dir (22 Ekim 2026). "Yayımlanmamış" başlıklı kayıtlar belge değişikliklerini anlatır ve sürüm numarası taşımaz.
 - Depoda henüz git etiketi (tag) ve GitHub release yoktur. Yayımlanan sürümlerin arşivlenmesi (örneğin Zenodo'da DOI ile) planlandı, ama yapılmadı.
 
 ## Bakım ve sonraki adımlar

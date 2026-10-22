@@ -196,7 +196,7 @@ ${seqNav}`));
     const notice = T(L, m, 'notice');
     const ap = ONAY[m.id] && ONAY[m.id].kim === 'yazar' && ONAY[m.id].tur === 'toplu' ? ONAY[m.id] : null;
     const reviewedNote = L === 'en' && tableInfo[m.id] && !tableInfo[m.id].reviewed ? ` ${esc(ap ? U.mtBulk(enDate(ap.tarih)) : tableInfo[m.id].checked === 'claude' ? U.mtChecked : U.mt)}` : '';
-    const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${esc(U.preview)}${reviewedNote} <a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
+    const foot = `<footer class="ahl-foot">${notice ? `<p class="ahl-notice">${esc(notice)}</p>` : ''}<p>${esc(m.id)} · ${esc(T(L, m, 'title'))} · ${esc(U.version)} ${esc(m.version)} ${m.status && m.status !== 'pilot' ? ` · ${esc(U.statusW)}: ${esc(U.status[m.status] || m.status)}` : ''} · ${esc(U.book)}: ${esc(T(L, m, 'book'))}. ${esc(U.preview)}${reviewedNote} <a href="/${L}/">${esc(U.all)}</a>.</p></footer>`;
     const bOpen = html.indexOf('<body>');
     const bClose = html.lastIndexOf('</body>');
     if (bOpen < 0 || bClose < 0) throw new Error(`${m.id}: <body> etiketi bulunamadı`);
