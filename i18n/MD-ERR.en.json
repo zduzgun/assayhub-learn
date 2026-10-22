@@ -1,7 +1,7 @@
 {
  "module": "MD-ERR",
  "lang": "en",
- "source_sha256": "f8631fd89ac65efccd64eedfc9fa3b627139ab285d9db0ea2f34fcadef98a70b",
+ "source_sha256": "5d3087f0591b4ffdada65ef36080e931ef84cdfa4e1e5c25cdcbf35d45023ec9",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-ERR 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam); 0.1.1 düzeltmeleri 22 Ekim 2026",
