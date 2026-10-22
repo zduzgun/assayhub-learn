@@ -1,7 +1,7 @@
 {
  "module": "DK-U",
  "lang": "en",
- "source_sha256": "4b8f1494f7a89bf1751f778e2ec775d3825d232f137fe26988db96d56f060cca",
+ "source_sha256": "5a17b17723236a0a3c2ebdbafd41b36fcfc8fa78d46399758f66d7312ce18396",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (machine translation, needs human review); Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -543,8 +543,8 @@
    "'</b>. D2 compounds are chemically distant (different size and charge); docking rejects them easily and this high AUC hides the real difficulty. Matched decoys resemble the actives in size, charge and polarity, so the score gives a lower AUC. Of the 54 actives, '+MT.four+' got four matched decoys and '+MT.none+' got none (by the selection rule the decoys carry no amidine or guanidine); for the unmatched actives size and charge were not controlled.'"
   ],
   [
-   "'</b>. Boyut eşleştiğinde \"cetvel\" çöker (0,5 yakını) ve docking öne geçer. Zayıf tripsin setinde ise ağır atom ('+fx(sum.null_auc.ha.weak,3)+') ve net yük ('+fx(sum.null_auc.charge.weak,3)+') docking\\'i ('+fx(sum.auc.weak.auc,3)+') geçer: orada bir cetvel docking kadar iyidir. D2\\'de ağır atom '+fx(sum.null_auc.ha.d2,3)+' ile docking\\'in ('+fx(sum.auc.d2.auc,3)+') gerisindedir, ama oradaki yüksek AUC\\'nin önemli bir kısmı boyut farkıdır.'",
-   "'</b>. When size is matched the \"ruler\" collapses (near 0.5) and docking pulls ahead. On the weak trypsin set, however, heavy atoms ('+fx(sum.null_auc.ha.weak,3)+') and net charge ('+fx(sum.null_auc.charge.weak,3)+') beat docking ('+fx(sum.auc.weak.auc,3)+'): there a ruler is as good as docking. On D2, heavy atoms at '+fx(sum.null_auc.ha.d2,3)+' fall behind docking ('+fx(sum.auc.d2.auc,3)+'), but a large part of the high AUC there is a size difference.'"
+   "'</b>. Boyut eşleştiğinde \"cetvel\" çöker (0,5 yakını) ve docking öne geçer. Zayıf tripsin setinde ise ağır atom ('+fx(sum.null_auc.ha.weak,3)+') ve net yük ('+fx(sum.null_auc.charge.weak,3)+') docking\\'in ('+fx(sum.auc.weak.auc,3)+') üstünde görünür, ama docking\\'in %95 aralığı ('+fx(sum.auc.weak.ci[0],3)+' ile '+fx(sum.auc.weak.ci[1],3)+') bu iki değeri de içerir: aralıklar örtüşür, yani orada bir cetvel docking kadar iyidir. D2\\'de ağır atom '+fx(sum.null_auc.ha.d2,3)+' ile docking\\'in ('+fx(sum.auc.d2.auc,3)+') gerisindedir, ama oradaki yüksek AUC\\'nin önemli bir kısmı boyut farkıdır.'",
+   "'</b>. When size is matched the \"ruler\" collapses (near 0.5) and docking pulls ahead. On the weak trypsin set, however, heavy atoms ('+fx(sum.null_auc.ha.weak,3)+') and net charge ('+fx(sum.null_auc.charge.weak,3)+') look higher than docking ('+fx(sum.auc.weak.auc,3)+'), but the 95% interval of docking ('+fx(sum.auc.weak.ci[0],3)+' to '+fx(sum.auc.weak.ci[1],3)+') contains both values: the intervals overlap, so there a ruler is as good as docking. On D2, heavy atoms at '+fx(sum.null_auc.ha.d2,3)+' fall behind docking ('+fx(sum.auc.d2.auc,3)+'), but a large part of the high AUC there is a size difference.'"
   ],
   [
    "$('s1rsN').textContent=N+' kat ataması: rastgele bölmede R2 ortancası '+fx(q(RS.r,0.5))+' (%95: '+fx(q(RS.r,0.025))+' ile '+fx(q(RS.r,0.975))+'); gruplu bölmede ortanca '+fx(q(RS.g,0.5))+' (%95: '+fx(q(RS.g,0.025))+' ile '+fx(q(RS.g,0.975))+'), atamaların %'+fx(100*ng/N,0)+'\\'ünde eksi. Gruplu R2 atamaların '+lt+' / '+N+' tanesinde rastgele R2\\'den küçük. Tablodaki tek atama dağılımın içinde bir noktadır; atamaya bağlı olmayan sonuç sızıntının yönüdür.';",
