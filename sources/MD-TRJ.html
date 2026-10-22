@@ -34,6 +34,7 @@ h2{font-family:var(--serif);font-weight:400;font-size:24px;margin:0;text-wrap:ba
 .two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px}
 .stagebox{position:relative;min-width:0}
 canvas{width:100%;display:block;border-radius:12px;touch-action:none}
+canvas:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 canvas.plot{background:var(--soft);border-radius:12px}
 .lbl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .ctl{display:grid;gap:16px;align-content:start}
@@ -175,7 +176,7 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <div class="selrow"><label class="chk"><input type="checkbox" id="tbdrift"> Kayma düzeltmesi (hizalamanın karşılığı)</label><label class="chk"><input type="checkbox" id="tbwrap"> Kenar sıçramalarını birleştir (nojump'ın karşılığı)</label><button type="button" class="btn" id="tbnew">Yeni iz üret</button></div>
     <div class="stagebox"><canvas id="tbridge" class="plot" aria-label="Öğretim modeli: görüş alanında hücre izi; kayma ve kenar sıçramaları"></canvas></div>
     <dl class="read" id="tbread"></dl>
-    <article class="q" id="tc0"><span class="k">Açık</span><h3>Hızı ve yolu şişiren iki şey</h3><p>İki düzeltmeyi ayrı ayrı açıp kapatın.</p><div class="mine" id="mtc0"></div></article>
+    <article class="q" id="tc0"><span class="k">Açık</span><h3>Hızı ve yolu bozan iki şey</h3><p>İki düzeltmeyi ayrı ayrı açıp kapatın.</p><div class="mine" id="mtc0"></div></article>
   </section>
 
   <section class="card" aria-labelledby="th1">
@@ -184,14 +185,14 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <div class="prose"><p>REPGRID W1 koşusu on iki yüzlü bir kutuda 1520 su molekülü ve 22 atomluk peptit içerir; 2001 kare, 1 ps aralıkla. Peptidin kendisi yaklaşık 10 Å boyundadır. Aşağıda peptidi beş biçimde görebilirsiniz: <b>ham</b> (mdrun'ın yazdığı gibi), <b>bütün</b> (<code>-pbc mol</code>), <b>sıçramasız</b> (<code>-pbc mol</code> ardından <code>-pbc nojump</code>), <b>ortalanmış</b> (<code>-pbc mol -center</code>) ve <b>hizalanmış</b> (sıçramasız ardından <code>-fit rot+trans</code>). Çizgi kutunun birim hücresidir. Grafikte dört ölçütten birini seçin; her zincirin eğrisi aynı ham karelerden gelir.</p></div>
     <div class="selrow"><span>Zincir:</span><div class="seg" role="group" aria-label="İşlem zinciri" id="tpch"><button type="button" data-v="A0" aria-pressed="true">ham</button><button type="button" data-v="A1" aria-pressed="false">bütün</button><button type="button" data-v="A2" aria-pressed="false">sıçramasız</button><button type="button" data-v="A3" aria-pressed="false">ortalanmış</button><button type="button" data-v="A4" aria-pressed="false">hizalanmış</button></div></div>
     <div class="selrow"><span>Görünüm:</span><div class="seg" role="group" aria-label="Görünüm" id="tpview"><button type="button" data-v="box" aria-pressed="true">bütün kutu</button><button type="button" data-v="mol" aria-pressed="false">moleküle yakın</button></div></div>
-    <div class="two eq"><div class="stagebox"><canvas id="tpep" aria-label="Peptidin 3B görünümü ve kutunun birim hücresi"></canvas></div><dl class="read" id="tpread"></dl></div>
+    <div class="two eq"><div class="stagebox"><canvas id="tpep" tabindex="0" aria-label="Peptidin 3B görünümü ve kutunun birim hücresi; sürükleyerek ya da ok tuşlarıyla döndürülür"></canvas></div><dl class="read" id="tpread"></dl></div>
     <div class="selrow"><button type="button" class="btn primary" id="tpplay">Oynat</button><label for="tpt">Zaman: <b id="tptv">0</b> ps</label><input type="range" id="tpt" min="0" max="500" step="1" value="0"></div>
-    <div class="selrow"><span>Ölçüt:</span><div class="seg" role="group" aria-label="Ölçüt" id="tpm"><button type="button" data-v="ext" aria-pressed="true">en büyük uzanım</button><button type="button" data-v="ee" aria-pressed="false">uç uca uzaklık</button><button type="button" data-v="com" aria-pressed="false">kütle merkezi yer değiştirmesi</button><button type="button" data-v="rmsd" aria-pressed="false">ağır atom RMSD</button></div></div>
+    <div class="selrow"><span>Ölçüt:</span><div class="seg" role="group" aria-label="Ölçüt" id="tpm"><button type="button" data-v="ext" aria-pressed="true">en büyük uzanım</button><button type="button" data-v="ee" aria-pressed="false">uç uca uzaklık</button><button type="button" data-v="com" aria-pressed="false">kütle merkezi yer değiştirmesi</button><button type="button" data-v="rmsd" aria-pressed="false">ağır atom RMSD</button><button type="button" data-v="bond" aria-pressed="false">en uzun bağ</button></div></div>
     <div class="stagebox"><canvas id="tser" class="plot" aria-label="Seçilen ölçütün zamanla değişimi, beş zincir"></canvas><div class="tip"></div></div>
     <div class="legend" id="tsleg"></div>
     <p class="small" id="tsnote"></p>
     <h3 class="sub">Kutunun üç gösterimi</h3>
-    <div class="prose"><p>Aynı kare (1000 ps), su oksijenleri ve peptit, <code>-pbc mol</code> ile üç farklı <code>-ur</code> seçeneğiyle yazıldı. Moleküller aynıdır; yalnız hangi periyodik kopyanın gösterildiği değişir. Görünüm yukarıdan (x, y düzlemi).</p></div>
+    <div class="prose"><p>Aynı kare (1000 ps), su oksijenleri ve peptit, <code>-pbc mol</code> ile üç farklı <code>-ur</code> seçeneğiyle yazıldı. Moleküller aynıdır; yalnız hangi periyodik kopyanın gösterildiği değişir. Görünüm yukarıdan (x, y düzlemi). Lacivert halkalı sular peptide düz koordinatla da 5 Å'dan yakındır; sarı sular kutunun öbür kenarında yazılmıştır ama en küçük görüntü kuralıyla peptidin yanındadır (bir kısmı z yönündeki kaydırmayla yakındır, bu görünümde z yoktur).</p></div>
     <div class="selrow"><div class="seg" role="group" aria-label="Kutu gösterimi" id="tur"><button type="button" data-v="rect" aria-pressed="true">-ur rect (tuğla)</button><button type="button" data-v="tric" aria-pressed="false">-ur tric</button><button type="button" data-v="compact" aria-pressed="false">-ur compact</button></div></div>
     <div class="two eq"><div class="stagebox"><canvas id="tboxv" class="plot" aria-label="Kutu gösterimi: su oksijenlerinin x, y izdüşümü"></canvas></div><dl class="read" id="tboxr"></dl></div>
     <div class="minis">
@@ -206,7 +207,7 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <h2 id="th2">Ubikitin: neye göre, hangi grupla hizalanır?</h2>
     <div class="prose"><p>MD-O'nun RMSF2NS koşusu 1UBQ ubikitinini (76 kalıntı, 1231 atom) suda 2 ns izler; dosyaya yalnız protein, 2 ps aralıkla yazıldı (1001 kare). Proteinin C-ucundaki 71 ile 76 arası kalıntılar esnek bir kuyruktur; kristal yapıda da 73 ile 76 düşük dolulukla kaydedilmiştir (MD-PDB). Aşağıda Cα zincirini üç biçimde görebilir, RMSD'yi farklı hizalama ve ölçüm gruplarıyla karşılaştırabilirsiniz. Kuyruk ayrı renkte çizilir.</p></div>
     <div class="selrow"><span>Zincir:</span><div class="seg" role="group" aria-label="Ubikitin işlem zinciri" id="tuch"><button type="button" data-v="B0" aria-pressed="true">ham</button><button type="button" data-v="B2" aria-pressed="false">bütün ve sıçramasız</button><button type="button" data-v="B3" aria-pressed="false">çekirdekle hizalanmış</button></div></div>
-    <div class="two eq"><div class="stagebox"><canvas id="tubq" aria-label="Ubikitin Cα zinciri 3B; kuyruk 71 ile 76 ayrı renkte"></canvas></div><dl class="read" id="turead"></dl></div>
+    <div class="two eq"><div class="stagebox"><canvas id="tubq" tabindex="0" aria-label="Ubikitin Cα zinciri 3B; kuyruk 71 ile 76 ayrı renkte; sürükleyerek ya da ok tuşlarıyla döndürülür"></canvas></div><dl class="read" id="turead"></dl></div>
     <div class="selrow"><button type="button" class="btn primary" id="tuplay">Oynat</button><label for="tut">Zaman: <b id="tutv">0</b> ps</label><input type="range" id="tut" min="0" max="100" step="1" value="0"></div>
     <div class="selrow"><span>Eğriler:</span><div class="seg" role="group" aria-label="RMSD karşılaştırması" id="tum"><button type="button" data-v="fit" aria-pressed="true">hizalama var mı?</button><button type="button" data-v="grp" aria-pressed="false">hizalama grubu</button><button type="button" data-v="sel" aria-pressed="false">ölçüm seçimi</button><button type="button" data-v="ref" aria-pressed="false">referans</button></div></div>
     <div class="stagebox"><canvas id="tuser" class="plot" aria-label="Ubikitin RMSD eğrileri"></canvas><div class="tip"></div></div>
@@ -288,7 +289,7 @@ function plot(g,L,T,W,H,xr,yr,o){ o=o||{};
 function tipShow(tip,boxW,x,y,html){ if(!tip) return; tip.innerHTML=html; tip.style.display='block'; var tw=tip.offsetWidth, th=tip.offsetHeight; var px=x+14; if(px+tw>boxW) px=x-tw-14; if(px<2) px=2; var py=y-th-10; if(py<2) py=y+18; tip.style.left=px+'px'; tip.style.top=py+'px'; }
 function tipHide(tip){ if(tip) tip.style.display='none'; }
 function dot(c){ return '<i style="background:'+c+'"></i>'; }
-function lin(c){ return '<span class="lin" style="border-color:'+c+'"></span>'; }
+function lin(c,dash){ return '<span class="lin" style="border-color:'+c+(dash&&dash.length?';border-top-style:dashed':'')+'"></span>'; }
 function dl(k,v){ return '<dt>'+k+'</dt><dd>'+v+'</dd>'; }
 function hexRGB(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
 function hexA(h,a){ var c=hexRGB(h); return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')'; }
@@ -349,8 +350,8 @@ function tbDraw(){ var c=$('tbridge'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRec
   var st=tbStats(t), tr=tbStats(TB.d.tru);
   $('tbread').innerHTML=dl('Kenar sıçraması (bu izde)',String(st.jumps))+dl('Ortalama anlık hız',fx(st.v,2)+' µm/kare')+dl('Modeldeki gerçek hız',fx(tr.v,2)+' µm/kare')+dl('Net yer değiştirme (200 kare)',fx(st.net,1)+' µm')+dl('Modeldeki gerçek net yer değiştirme',fx(tr.net,1)+' µm')+dl('Renkler','yeşil başlangıç, sarı bitiş; kesikli kırmızı çizgi kenar sıçraması');
   var k=(TB.fixD?1:0)+''+(TB.fixW?1:0); TB.seen[k]={v:st.v, net:st.net, j:st.jumps};
-  var S=TB.seen; if(S['10']&&S['01']){ var raw=tbStats(tbTrack(false,false)), w=tbStats(tbTrack(false,true)), dd=tbStats(tbTrack(true,true));
-    card('tc0',true,'Ham izde '+raw.jumps+' kenar sıçraması var ve ortalama hız '+fx(raw.v,2)+' µm/kare çıkıyor; modeldeki gerçek değer '+fx(tr.v,2)+'. Sıçramaları birleştirmek hızı '+fx(w.v,2)+' µm/kareye indiriyor. Kayma hızı az değiştiriyor ama net yer değiştirmeyi şişiriyor: sıçramalar birleşmiş izde '+fx(w.net,1)+' µm, kayma da çıkarılınca '+fx(dd.net,1)+' µm (gerçek '+fx(tr.net,1)+'). Sıra da önemli: kaymayı sıçramalar birleşmeden çıkarırsanız sıçramalar kalır. MD\'de karşılıkları: -pbc nojump ve hizalama (-fit).'); }
+  var S=TB.seen; if(S['10']&&S['01']){ var raw=tbStats(tbTrack(false,false)), w=tbStats(tbTrack(false,true)), dd=tbStats(tbTrack(true,true)), d0=tbStats(tbTrack(true,false));
+    card('tc0',true,'Ham izde '+raw.jumps+' kenar sıçraması var ve ortalama hız '+fx(raw.v,2)+' µm/kare çıkıyor; modeldeki gerçek değer '+fx(tr.v,2)+'. Sıçramalar birleşince hız '+fx(w.v,2)+' µm/kare, kayma da çıkarılınca '+fx(dd.v,2)+' µm/kare. Kayma her karede aynı yönde eklenir; bu yüzden net yer değiştirmeyi yanlı kılar: hücrenin yoluna göre yönüne bağlı olarak büyütür ya da küçültür. Bu izde net yer değiştirme, sıçramalar birleşince '+fx(w.net,1)+' µm, kayma da çıkarılınca '+fx(dd.net,1)+' µm (gerçek '+fx(tr.net,1)+'): kayma onu '+(w.net>=dd.net?'büyütmüş':'küçültmüş')+'. '+(raw.jumps?'Yalnız kayma düzeltmesi açıkken izde '+d0.jumps+' sıçrama kalıyor: kaymayı çıkarmak kenar sorununu çözmez, ikisi ayrı adımlardır. ':'Bu izde kenar sıçraması yok; kayma ile kenarın ayrı adımlar olduğunu görmek için yeni bir iz üretin. ')+'MD\'de karşılıkları: -pbc nojump ve hizalama (-fit).'); }
   else card('tc0',false,'Şimdiye kadar baktığınız durum: '+(TB.fixD?'kayma düzeltmesi açık':'kayma düzeltmesi kapalı')+', '+(TB.fixW?'sıçramalar birleşik':'sıçramalar birleşik değil')+'. İki düzeltmeyi ayrı ayrı deneyin.'); }
 function bridge(){ tbGen();
   $('tbdrift').addEventListener('change',function(){ TB.fixD=this.checked; tbDraw(); });
@@ -360,7 +361,7 @@ function bridge(){ tbGen();
 /* ===== atölye 1: periyodik sınırlar (REPGRID W1, alanin dipeptidi) ===== */
 var ELC={C:'#7f8791',N:'#3a6bd0',O:'#d0453a',H:'#e9e7df'};
 var CHN={A0:'ham',A1:'bütün',A2:'sıçramasız',A3:'ortalanmış',A4:'hizalanmış',A5:'hizala sonra bütünle'};
-var MET={ext:'En büyük uzanım (Å)',ee:'Uç uca uzaklık (Å)',com:'Kütle merkezi yer değiştirmesi (Å)',rmsd:'Ağır atom RMSD (Å)'};
+var MET={ext:'En büyük uzanım (Å)',ee:'Uç uca uzaklık (Å)',com:'Kütle merkezi yer değiştirmesi (Å)',rmsd:'Ağır atom RMSD (Å)',bond:'En uzun bağ (Å)'};
 var TP={view:'box', ch:'A0', m:'ext', fi:0, play:false, V:{yaw:0.6,pitch:0.35}, X:{}, S:{}, B:{}, seen:{}, ur:'rect', urSeen:{}};
 function i16(s,sc){ var a=b64i16(s), o=new Float32Array(a.length); for(var i=0;i<a.length;i++) o[i]=a[i]/sc; return o; }
 function arrMax(a){ var m=-Infinity; for(var i=0;i<a.length;i++) if(a[i]>m) m=a[i]; return m; }
@@ -369,6 +370,8 @@ function cntOver(a,t){ var k=0; for(var i=0;i<a.length;i++) if(a[i]>t) k++; retu
 function cntJump(a,t){ var k=0; for(var i=1;i<a.length;i++) if(Math.abs(a[i]-a[i-1])>t) k++; return k; }
 function tpLoad(){ var D=TD.d1; ['A0','A1','A2','A3','A4'].forEach(function(k){ TP.X[k]=i16(D.xyz[k],100); });
   Object.keys(D.ser).forEach(function(k){ TP.S[k]={}; ['ext','ee','com','rmsd'].forEach(function(m){ TP.S[k][m]=i16(D.ser[k][m],100); }); });
+  /* en uzun bağ: 3B görünümdeki karelerden (4 ps aralık) tarayıcıda hesaplanır; hatalı sıra (A5) koordinatları gömülü değildir */
+  ['A0','A1','A2','A3','A4'].forEach(function(k){ var X=TP.X[k], na=D.na, o=new Float32Array(D.nf); for(var f=0;f<D.nf;f++){ var mx=0; D.mol.bonds.forEach(function(b){ var p=(f*na+b[0])*3, q=(f*na+b[1])*3, L=Math.hypot(X[p]-X[q],X[p+1]-X[q+1],X[p+2]-X[q+2]); if(L>mx) mx=L; }); o[f]=mx; } TP.S[k].bond=o; });
   ['rect','tric','compact'].forEach(function(u){ TP.B[u]={w:i16(D.box[u].w,10), p:i16(D.box[u].p,10)}; });
   TP.cell=D.cell; /* Å, satırlar a, b, c */
   ['A0','A1','A2','A3','A4'].forEach(function(k){ var X=TP.X[k], lo=[1e9,1e9,1e9], hi=[-1e9,-1e9,-1e9]; for(var i=0;i<X.length;i+=3) for(var c=0;c<3;c++){ lo[c]=Math.min(lo[c],X[i+c]); hi[c]=Math.max(hi[c],X[i+c]); }
@@ -399,11 +402,13 @@ function tsDraw(){ var c=$('tser'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0
   var m=TP.m, ks=['A0','A1','A2','A3','A4'], ym=0; ks.forEach(function(k){ ym=Math.max(ym,arrMax(TP.S[k][m])); }); ym=Math.ceil(ym/10)*10||10;
   var L=54, T=12, pw=W-L-14, ph=H-T-44, yt=[]; for(var v=0;v<=ym;v+=ym>60?20:10) yt.push(v);
   var p=plot(g,L,T,pw,ph,[0,2000],[0,ym],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:MET[m]});
-  ks.forEach(function(k){ var a=TP.S[k][m], sel=k===TP.ch; g.strokeStyle=TCOL[k]; g.globalAlpha=sel?1:0.55; g.lineWidth=sel?2.2:1.1; g.beginPath();
-    for(var i=0;i<a.length;i++){ var x=p.X(i), y=p.Y(a[i]); if(i===0) g.moveTo(x,y); else g.lineTo(x,y); } g.stroke(); });
+  ks.forEach(function(k){ var a=TP.S[k][m], sel=k===TP.ch, xs=2000/(a.length-1); g.strokeStyle=TCOL[k]; g.globalAlpha=sel?1:0.55; g.lineWidth=sel?2.2:1.1; g.beginPath();
+    for(var i=0;i<a.length;i++){ var x=p.X(i*xs), y=p.Y(a[i]); if(i===0) g.moveTo(x,y); else g.lineTo(x,y); } g.stroke(); });
   g.globalAlpha=1; var tx=p.X(Math.round(TP.fi)*TD.d1.step_ps); g.strokeStyle=PAL.ink; g.setLineDash([3,3]); g.beginPath(); g.moveTo(tx,T); g.lineTo(tx,T+ph); g.stroke(); g.setLineDash([]);
-  $('tsleg').innerHTML=ks.map(function(k){ return '<span>'+lin(TCOL[k])+CHN[k]+' (en çok '+fx(arrMax(TP.S[k][m]),1)+' Å)</span>'; }).join('');
-  var N={ext:'Peptidin atom koordinatlarının eksen başına aralığının en büyüğü. Bütün bir peptit 10 Å civarındadır; daha büyük değer molekülün kutu sınırında bölündüğünü gösterir (eşik 15 Å, plan önceden).',
+  var thr={ext:15,bond:3}[m]; if(thr!=null){ var ty=p.Y(thr); g.strokeStyle=PAL.bad; g.setLineDash([6,4]); g.lineWidth=1; g.beginPath(); g.moveTo(L,ty); g.lineTo(L+pw,ty); g.stroke(); g.setLineDash([]); g.fillStyle=PAL.bad; g.font='12px '+css('--sans'); g.textAlign='right'; g.fillText('eşik '+thr+' Å',L+pw-6,ty-5); g.textAlign='left'; }
+  $('tsleg').innerHTML=ks.map(function(k){ return '<span>'+lin(TCOL[k])+CHN[k]+' (en çok '+fx(arrMax(TP.S[k][m]),m==='bond'?2:1)+' Å)</span>'; }).join('');
+  var N={ext:'Peptidin atom koordinatlarının eksen başına aralığının en büyüğü. Bütün bir peptit 10 Å civarındadır; daha büyük değer molekülün kutu sınırında bölündüğünü gösterir (eşik 15 Å, plan önceden). Ölçü eksenlere göre alındığı için dönmeyle birkaç Å değişir: hizalanmış zincirde en çok '+fx(arrMax(TP.S.A4.ext),1)+' Å, öbür bütün zincirlerde '+fx(arrMax(TP.S.A1.ext),1)+' Å çıkması yapı değişimi değil, peptidin eksenlere göre duruşunun değişmesidir. Dönmeden bağımsız bir denetim için "en uzun bağ" ölçütüne bakın.',
+    bond:'Peptidin '+TD.d1.mol.bonds.length+' kovalent bağından en uzunu; 3B görünümdeki karelerden (4 ps aralık, '+TD.d1.nf+' kare) tarayıcınızda hesaplanır. Bütün, sıçramasız, ortalanmış ve hizalanmış zincirlerde en uzun bağ en çok '+fx(arrMax(TP.S.A1.bond),2)+' Å; 3 Å\'u aşan bir bağ molekülün bölündüğünü gösterir. Ham zincirde bu karelerin '+nLoc(cntOver(TP.S.A0.bond,3))+' bağ 3 Å\'u aşıyor. Bu ölçü dönmeden etkilenmez ve hatalı işlem sırasında uzanım eşiğinden daha sağlamdır: kitap (CH13) bu ölçüyle, "önce hizala, sonra bütünle" zincirinde ham dosyada bölünmüş 554 karenin hiçbirinin birleşmediğini buldu. O zincirin koordinatları bu sayfaya gömülü değildir.',
     ee:'ACE CH3 ile NME CH3 atomları arasındaki düz uzaklık, en küçük görüntü kuralı uygulanmadan. Programların çoğu mesafeyi kutuyu hesaba katarak da ölçebilir; burada ham koordinatın ne verdiğini görüyorsunuz.',
     com:'Kütle merkezinin 0. kareye göre düz uzaklığı. Bütün zincirde molekül kutudan çıkınca karşı yüzden girer; sıçramasız zincir gerçek yolu izler; her karede ortalamak (-center) ve hizalamak yer değiştirmeyi siler.',
     rmsd:'Ağır atomların 0. kareye göre RMSD\'si, ek hizalama yapmadan. Hizalanmamış zincirlerde öteleme de RMSD\'ye girer; yalnız hizalanmış zincirde değer yapısal farkı gösterir.'};
@@ -418,15 +423,26 @@ function tbxDraw(){ var c=$('tboxv'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect
   var lo=[1e9,1e9], hi=[-1e9,-1e9]; ['rect','tric','compact'].forEach(function(u){ var w=TP.B[u].w; for(var i=0;i<w.length;i+=3){ lo[0]=Math.min(lo[0],w[i]); hi[0]=Math.max(hi[0],w[i]); lo[1]=Math.min(lo[1],w[i+1]); hi[1]=Math.max(hi[1],w[i+1]); } });
   var pad=14, sc=Math.min((W-2*pad)/(hi[0]-lo[0]),(H-2*pad)/(hi[1]-lo[1])); function X(v){ return pad+(v-lo[0])*sc; } function Y(v){ return H-pad-(v-lo[1])*sc; }
   var a=TP.cell[0], b=TP.cell[1]; g.strokeStyle=PAL.navy; g.lineWidth=1.2; g.beginPath(); g.moveTo(X(0),Y(0)); g.lineTo(X(a[0]),Y(a[1])); g.lineTo(X(a[0]+b[0]),Y(a[1]+b[1])); g.lineTo(X(b[0]),Y(b[1])); g.closePath(); g.stroke();
-  var B=TP.B[TP.ur], w=B.w, i; g.fillStyle=hexA(PAL.c3,0.5); for(i=0;i<w.length;i+=3){ g.fillRect(X(w[i])-1.2,Y(w[i+1])-1.2,2.4,2.4); }
+  var B=TP.B[TP.ur], w=B.w, i, NR=tbxNear(TP.ur); g.fillStyle=hexA(PAL.c3,0.5); for(i=0;i<w.length;i+=3){ g.fillRect(X(w[i])-1.2,Y(w[i+1])-1.2,2.4,2.4); }
+  g.lineWidth=1.3; g.strokeStyle=PAL.navy; for(i=0;i<w.length;i+=3) if(NR.pl[i/3]){ g.beginPath(); g.arc(X(w[i]),Y(w[i+1]),4.2,0,Math.PI*2); g.stroke(); }
+  g.fillStyle=PAL.gold; for(i=0;i<w.length;i+=3) if(NR.mi[i/3]&&!NR.pl[i/3]){ g.beginPath(); g.arc(X(w[i]),Y(w[i+1]),3.4,0,Math.PI*2); g.fill(); }
   var p=B.p; g.fillStyle=PAL.bad; for(i=0;i<p.length;i+=3){ g.beginPath(); g.arc(X(p[i]),Y(p[i+1]),2.6,0,Math.PI*2); g.fill(); }
   var ext=[0,1,2].map(function(c2){ var mn=1e9,mx=-1e9; for(var k=c2;k<w.length;k+=3){ mn=Math.min(mn,w[k]); mx=Math.max(mx,w[k]); } return [mn,mx]; });
-  var near=tbxNear(TP.ur);
-  $('tboxr').innerHTML=dl('Gösterim','-ur '+TP.ur)+dl('Su oksijeni',String(w.length/3))+dl('x aralığı',fx(ext[0][0],1)+' ile '+fx(ext[0][1],1)+' Å')+dl('y aralığı',fx(ext[1][0],1)+' ile '+fx(ext[1][1],1)+' Å')+dl('z aralığı',fx(ext[2][0],1)+' ile '+fx(ext[2][1],1)+' Å')+dl('Peptide 5 Å yakın su (düz koordinatla)',String(near))+dl('Renkler','mavi su oksijeni, kırmızı peptit, çizgi birim hücrenin x, y izdüşümü');
+  var near=NR.np;
+  $('tboxr').innerHTML=dl('Gösterim','-ur '+TP.ur)+dl('Su oksijeni',String(w.length/3))+dl('x aralığı',fx(ext[0][0],1)+' ile '+fx(ext[0][1],1)+' Å')+dl('y aralığı',fx(ext[1][0],1)+' ile '+fx(ext[1][1],1)+' Å')+dl('z aralığı',fx(ext[2][0],1)+' ile '+fx(ext[2][1],1)+' Å')+dl('Peptide 5 Å yakın su (düz koordinatla)',String(near))+dl('Peptide 5 Å yakın su (en küçük görüntü kuralıyla)',String(NR.nm))+dl('Renkler','mavi nokta su O, kırmızı peptit, lacivert halka düz koordinatla yakın, sarı nokta yalnız en küçük görüntüyle yakın; çizgi birim hücre');
   TP.urSeen[TP.ur]=near;
-  if(TP.urSeen.rect!=null&&TP.urSeen.tric!=null&&TP.urSeen.compact!=null) card('tc3',true,'Aynı 1520 su oksijeni üç gösterimde farklı bölgelere yazılıyor; moleküller ve aralarındaki gerçek uzaklıklar aynı. Kutuyu hesaba katmadan düz koordinatla sayınca peptide 5 Å yakın su: tuğla '+TP.urSeen.rect+', tric '+TP.urSeen.tric+', compact '+TP.urSeen.compact+'. En küçük görüntü kuralıyla ölçen bir araç her gösterimde aynı sayıyı verir; düz koordinatla seçim yapan bir betik vermez. MD-REP\'in 3B sahnesinde sular ilk denemede tuğla biçiminde görünmüştü; -ur tric ile düzeltildi.');
+  if(TP.urSeen.rect!=null&&TP.urSeen.tric!=null&&TP.urSeen.compact!=null) card('tc3',true,'Aynı 1520 su oksijeni üç gösterimde farklı bölgelere yazılıyor; moleküller ve aralarındaki gerçek uzaklıklar aynı. Kutuyu hesaba katmadan düz koordinatla sayınca peptide 5 Å yakın su: tuğla '+TP.urSeen.rect+', tric '+TP.urSeen.tric+', compact '+TP.urSeen.compact+'. En küçük görüntü kuralıyla, yani kutunun periyodik kopyalarına da bakarak sayınca: tuğla '+tbxNear('rect').nm+', tric '+tbxNear('tric').nm+', compact '+tbxNear('compact').nm+'. Kutu bilgisini kullanan bir araç (GROMACS analiz araçları, kutu verilmiş MDAnalysis uzaklık işlevleri) bunu kendiliğinden yapar; düz koordinatla seçim yapan bir betik ya da görüntüleyicide "5 Å içindekileri seç" komutu yapmayabilir. Görüntülemede de aynı seçim önemlidir: -ur rect on iki yüzlü kutuyu tuğla biçiminde gösterir, -ur compact kutuya benzeyen biçimi verir.');
   else card('tc3',false,'Baktığınız gösterimler: '+Object.keys(TP.urSeen).map(function(u){return '-ur '+u;}).join(', ')+'. Üçüne de bakın.'); }
-function tbxNear(u){ var B=TP.B[u], w=B.w, p=B.p, n=0; for(var i=0;i<w.length;i+=3){ for(var j=0;j<p.length;j+=3){ var dx=w[i]-p[j], dy=w[i+1]-p[j+1], dz=w[i+2]-p[j+2]; if(dx*dx+dy*dy+dz*dz<25){ n++; break; } } } return n; }
+/* peptide 5 Å yakın sular: düz koordinatla (pl) ve en küçük görüntü kuralıyla (mi; birim hücrenin 27 kopyası) */
+function tbxNear(u){ TP.near=TP.near||{}; if(TP.near[u]) return TP.near[u];
+  var B=TP.B[u], w=B.w, p=B.p, cl=TP.cell, sh=[], nw=w.length/3, pl=new Uint8Array(nw), mi=new Uint8Array(nw), np=0, nm=0, i, j, s, a, b, c;
+  for(a=-1;a<=1;a++) for(b=-1;b<=1;b++) for(c=-1;c<=1;c++) sh.push([a*cl[0][0]+b*cl[1][0]+c*cl[2][0], a*cl[0][1]+b*cl[1][1]+c*cl[2][1], a*cl[0][2]+b*cl[1][2]+c*cl[2][2]]);
+  for(i=0;i<nw;i++){ for(j=0;j<p.length;j+=3){ var dx=w[3*i]-p[j], dy=w[3*i+1]-p[j+1], dz=w[3*i+2]-p[j+2];
+      if(!pl[i]&&dx*dx+dy*dy+dz*dz<25) pl[i]=1;
+      if(!mi[i]) for(s=0;s<sh.length;s++){ var ex=dx+sh[s][0], ey=dy+sh[s][1], ez=dz+sh[s][2]; if(ex*ex+ey*ey+ez*ez<25){ mi[i]=1; break; } }
+      if(pl[i]&&mi[i]) break; }
+    np+=pl[i]; nm+=mi[i]; }
+  TP.near[u]={pl:pl, mi:mi, np:np, nm:nm}; return TP.near[u]; }
 function pep(){ tpLoad(); TCOL={A0:PAL.bad,A1:PAL.gold,A2:PAL.c3,A3:PAL.muted,A4:PAL.good,A5:PAL.navy};
   segWire('tpview',function(v){ TP.view=v; tpDraw(); });
   segWire('tpch',function(v){ TP.ch=v; tpDraw(); });
@@ -441,6 +457,7 @@ function pep(){ tpLoad(); TCOL={A0:PAL.bad,A1:PAL.gold,A2:PAL.c3,A3:PAL.muted,A4
   var drag=null; cv.addEventListener('pointerdown',function(e){ drag={x:e.clientX,y:e.clientY,yaw:TP.V.yaw,pitch:TP.V.pitch}; cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove',function(e){ if(!drag) return; TP.V.yaw=drag.yaw+(e.clientX-drag.x)*0.01; TP.V.pitch=Math.max(-1.3,Math.min(1.3,drag.pitch+(e.clientY-drag.y)*0.01)); tpDraw(); });
   cv.addEventListener('pointerup',function(){ drag=null; }); cv.addEventListener('pointercancel',function(){ drag=null; });
+  cv.addEventListener('keydown',function(e){ var k=e.key, d=0.12; if(k==='ArrowLeft') TP.V.yaw-=d; else if(k==='ArrowRight') TP.V.yaw+=d; else if(k==='ArrowUp') TP.V.pitch=Math.max(-1.3,TP.V.pitch-d); else if(k==='ArrowDown') TP.V.pitch=Math.min(1.3,TP.V.pitch+d); else return; e.preventDefault(); tpDraw(); });
   tpDraw(); tbxDraw(); CHARTS.push(tpDraw); CHARTS.push(tbxDraw); }
 /* ===== atölye 2 ve proteine dönüş: ubikitin (MD-O RMSF2NS) ===== */
 var UCH={B0:'ham',B2:'bütün ve sıçramasız',B3:'çekirdekle hizalanmış'};
@@ -463,16 +480,16 @@ function tuDraw(){ var cv=$('tubq'), f=fit(cv), g=f.g, W=f.W, H=f.H; g.fillStyle
   var t=fi*D.step_ps, si=t/D.dt;
   pill(g,'t = '+String(t)+' ps · '+UCH[TU.ch],W/2,18,css('--paper'),rstr(rgbA(css('--navy')),0.9));
   $('tutv').textContent=String(t);
-  $('turead').innerHTML=dl('Zincir',UCH[TU.ch])+dl('Zaman',String(t)+' ps (kare '+si+', 0\'dan sayılarak)')+dl('Bu karede 4,5 Å\'dan uzun Cα bağı',String(nb))+dl('Proteinin en büyük uzanımı',fx(TU.E[TU.ch==='B0'?'B0':(TU.ch==='B2'?'B2':'B3')][si],1)+' Å')+dl('50 Å\'dan uzun kare (1001 karede)',String(cntOver(TU.E[TU.ch],50)))+dl('Çekirdek Cα RMSD (çekirdekle hizalı)',fx(TU.R.core_core[si],2)+' Å')+dl('Renkler','yeşil çekirdek 1 ile 70, sarı kuyruk 71 ile 76, kesikli kırmızı bölünmüş bağ; çizgi 0. karenin birim hücresi');
+  $('turead').innerHTML=dl('Zincir',UCH[TU.ch])+dl('Zaman',String(t)+' ps (kare '+si+', 0\'dan sayılarak)')+dl('Bu karede 4,5 Å\'dan uzun Cα bağı',String(nb))+dl('En büyük uzanım (dönmeye duyarlı)',fx(TU.E[TU.ch==='B0'?'B0':(TU.ch==='B2'?'B2':'B3')][si],1)+' Å')+dl('50 Å\'dan uzun kare (1001 karede)',String(cntOver(TU.E[TU.ch],50)))+dl('Çekirdek Cα RMSD (çekirdekle hizalı)',fx(TU.R.core_core[si],2)+' Å')+dl('Renkler','yeşil çekirdek 1 ile 70, sarı kuyruk 71 ile 76, kesikli kırmızı bölünmüş bağ; çizgi 0. karenin birim hücresi');
   tuSer(); }
-var UCOL;
+var UCOL, UDASH={nofit:[7,4],fitall_tail:[2,3]};
 function tuSer(){ var c=$('tuser'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var ks=UMODE[TU.m], ym=0; ks.forEach(function(k){ ym=Math.max(ym,arrMax(TU.R[k])); }); ym=Math.ceil(ym);
   var yt=[]; for(var v=0;v<=ym;v+=(ym>6?2:1)) yt.push(v);
   var L=50, T=12, pw=W-L-14, ph=H-T-44, p=plot(g,L,T,pw,ph,[0,2000],[0,ym],{xticks:[0,500,1000,1500,2000],yticks:yt,xlab:'zaman (ps)',ylab:'Cα RMSD (Å)'});
-  ks.forEach(function(k,ii){ var a=TU.R[k]; g.strokeStyle=UCOL[k]; g.lineWidth=1.6; g.beginPath(); for(var i=0;i<a.length;i++){ var x=p.X(i*2), y=p.Y(a[i]); if(i===0) g.moveTo(x,y); else g.lineTo(x,y); } g.stroke(); });
+  ks.forEach(function(k,ii){ var a=TU.R[k]; g.strokeStyle=UCOL[k]; g.lineWidth=1.6; g.setLineDash(UDASH[k]||[]); g.beginPath(); for(var i=0;i<a.length;i++){ var x=p.X(i*2), y=p.Y(a[i]); if(i===0) g.moveTo(x,y); else g.lineTo(x,y); } g.stroke(); g.setLineDash([]); });
   var tx=p.X(Math.round(TU.fi)*TD.d2.step_ps); g.strokeStyle=PAL.ink; g.setLineDash([3,3]); g.beginPath(); g.moveTo(tx,T); g.lineTo(tx,T+ph); g.stroke(); g.setLineDash([]);
-  $('tuleg').innerHTML=ks.map(function(k){ return '<span>'+lin(UCOL[k])+RN[k]+': ortalama '+fx(arrMean(TU.R[k]),2)+' Å</span>'; }).join('');
+  $('tuleg').innerHTML=ks.map(function(k){ return '<span>'+lin(UCOL[k],UDASH[k])+RN[k]+': ortalama '+fx(arrMean(TU.R[k]),2)+' Å</span>'; }).join('');
   var NT={fit:'Hizalamasız eğri yalnız PBC düzeltilmiş (bütün ve sıçramasız) koordinatlardan; öteleme ve dönme de RMSD\'ye girer.',grp:'Hizalama grubu en küçük kareler uydurmasına katılan atomlardır; ölçüm grubu ayrı seçilebilir. Kuyruk 71 ile 76, çekirdek 1 ile 70.',sel:'Aynı hizalama (çekirdek Cα), üç farklı ölçüm seçimi: Cα, ağır atomlar ve hidrojenler dahil bütün atomlar.',ref:'Referans 0. kare ya da 1UBQ kristal yapısı (yalnız Cα, kalıntı 1 ile 70). Ölçüm ve hizalama çekirdek Cα ile.'};
   $('tunote').textContent=NT[TU.m]+' Bütün eğriler 1001 karenin hepsinden (2 ps aralık); plan pencere atmaz.';
   TU.seen[TU.m]=true; tuCards(); }
@@ -489,7 +506,7 @@ function tuCards(){ var R=TU.R, s=TU.seen;
   if(s.grp) card('tc5',true,'Çekirdekle hizalayınca çekirdeğin kendi RMSD\'si ortalama '+fx(arrMean(R.core_core),2)+' Å, kuyruğunki '+fx(arrMean(R.core_tail),2)+' Å. Bütün Cα ile hizalayınca kuyruk '+fx(arrMean(R.fitall_tail),2)+' Å\'a iner, bütün Cα '+fx(arrMean(R.fitall),2)+' Å verir (çekirdekle hizalamada '+fx(arrMean(R.core_all),2)+'): en küçük kareler hareketli kuyruğu da yakalamaya çalışır ve kuyruğun hareketinin bir kısmı hizalamaya karışır. Hangi grubun hizalanacağı sorudan gelir ve sonuca bakmadan yazılır.');
   if(s.sel&&s.ref) card('tc6',true,'Aynı hizalamayla çekirdek RMSD\'si Cα için '+fx(arrMean(R.core_core),2)+', ağır atomlar için '+fx(arrMean(R.core_heavy),2)+', bütün atomlar için '+fx(arrMean(R.core_allatom),2)+' Å: yan zincirler ve hidrojenler daha çok oynar, bu yüzden seçim sayının parçasıdır. Kristal yapıya göre çekirdek RMSD\'si '+fx(arrMean(R.xtal_core),2)+' Å, 0. kareye göre '+fx(arrMean(R.core_core),2)+' Å. Birim: GROMACS aynı değeri nm ile yazar ('+fx(arrMean(R.core_core)/10,3)+' nm); gmx rms ayrıca varsayılan olarak kütle ağırlıklı hesaplar, bu sayfanın bağımsız denetiminde -mw no gerekti.');
   else if(s.sel||s.ref) card('tc6',false,'"Ölçüm seçimi" ve "referans" eğrilerinin ikisine de bakın.'); }
-function ubq(){ tuLoad(); UCOL={nofit:PAL.bad,fitall:PAL.gold,core_core:PAL.good,core_all:PAL.accent,core_tail:PAL.c3,fitall_tail:PAL.pale,core_heavy:PAL.navy,core_allatom:PAL.gold,xtal_core:PAL.c3};
+function ubq(){ tuLoad(); UCOL={nofit:PAL.bad,fitall:PAL.gold,core_core:PAL.good,core_all:PAL.navy,core_tail:PAL.c3,fitall_tail:PAL.pale,core_heavy:PAL.navy,core_allatom:PAL.gold,xtal_core:PAL.c3};
   segWire('tuch',function(v){ TU.ch=v; tuDraw(); });
   segWire('tum',function(v){ TU.m=v; tuSer(); });
   $('tut').addEventListener('input',function(){ TU.fi=+this.value; tuDraw(); });
@@ -501,6 +518,7 @@ function ubq(){ tuLoad(); UCOL={nofit:PAL.bad,fitall:PAL.gold,core_core:PAL.good
   var drag=null; cv.addEventListener('pointerdown',function(e){ drag={x:e.clientX,y:e.clientY,yaw:TU.V.yaw,pitch:TU.V.pitch}; cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove',function(e){ if(!drag) return; TU.V.yaw=drag.yaw+(e.clientX-drag.x)*0.01; TU.V.pitch=Math.max(-1.3,Math.min(1.3,drag.pitch+(e.clientY-drag.y)*0.01)); tuDraw(); });
   cv.addEventListener('pointerup',function(){ drag=null; }); cv.addEventListener('pointercancel',function(){ drag=null; });
+  cv.addEventListener('keydown',function(e){ var k=e.key, d=0.12; if(k==='ArrowLeft') TU.V.yaw-=d; else if(k==='ArrowRight') TU.V.yaw+=d; else if(k==='ArrowUp') TU.V.pitch=Math.max(-1.3,TU.V.pitch-d); else if(k==='ArrowDown') TU.V.pitch=Math.min(1.3,TU.V.pitch+d); else return; e.preventDefault(); tuDraw(); });
   tuDraw(); trDraw(); CHARTS.push(tuDraw); CHARTS.push(trDraw); }
 /* ===== tezgâh: işlem sırası ===== */
 var OPT=[['ok','bütün, yol sürekli'],['jump','bütün, kütle merkezi sıçrıyor'],['erase','bütün, yer değiştirme siliniyor'],['broken','bazı karelerde hâlâ bölünmüş'],['error','araç hata verip duruyor']];
@@ -508,7 +526,7 @@ var CHAINS=[
   {id:'k1', h:'Peptit: yalnız molekülü bütünle', cmd:'gmx trjconv -f md.xtc -pbc mol', ans:'jump', res:function(){ var S=TP.S.A1; return cntOver(S.ext,15)+' bölünmüş kare; kütle merkezi uzaklığı '+cntJump(S.com,10)+' karede tek adımda 10 Å\'dan fazla değişti. Molekül bütün ama kutudan çıkınca karşı yüzden giriyor.'; }},
   {id:'k2', h:'Peptit: bütünle, sonra sıçramaları kaldır', cmd:'gmx trjconv -f md.xtc -pbc mol -o whole.xtc\ngmx trjconv -f whole.xtc -pbc nojump', ans:'ok', res:function(){ var S=TP.S.A2; return cntOver(S.ext,15)+' bölünmüş kare, '+cntJump(S.com,10)+' sıçrama; 2 ns sonunda net yer değiştirme '+fx(S.com[2000],1)+' Å. Yol ölçen nicelikler (difüzyon) için doğru zincir.'; }},
   {id:'k3', h:'Peptit: bütünle ve her karede ortala', cmd:'gmx trjconv -f md.xtc -pbc mol -center', ans:'erase', res:function(){ var S=TP.S.A3; return cntOver(S.ext,15)+' bölünmüş kare; kütle merkezi en çok '+fx(arrMax(S.com),1)+' Å oynuyor. Görüntü ve yerel yapı için uygun, yer değiştirme ise silindi.'; }},
-  {id:'k4', h:'Peptit: önce hizala, sonra bütünle', cmd:'gmx trjconv -f md.xtc -fit rot+trans -o fit.xtc\ngmx trjconv -f fit.xtc -pbc mol', ans:'broken', res:function(){ var S=TP.S.A5; return '2001 karenin '+nLoc(cntOver(S.ext,15))+' peptit hâlâ 15 Å\'dan uzun (en çok '+fx(arrMax(S.ext),1)+' Å). Hizalama bölünmüş molekülü yanlış bir dönmeyle çevirdi; kutu vektörleri dönmediği için -pbc mol parçaları birleştiremedi.'; }},
+  {id:'k4', h:'Peptit: önce hizala, sonra bütünle', cmd:'gmx trjconv -f md.xtc -fit rot+trans -o fit.xtc\ngmx trjconv -f fit.xtc -pbc mol', ans:'broken', res:function(){ var S=TP.S.A5, n0=cntOver(TP.S.A0.ext,15), n5=cntOver(S.ext,15); return 'Ham dosyada bölünmüş olan '+n0+' karenin hiçbirinde peptit birleşmedi (kitap CH13: bu karelerin her birinde en az bir bağ 3 Å\'dan uzun kaldı). Plandaki 15 Å uzanım eşiği bunların yalnız '+n5+' tanesini yakaladı (en çok '+fx(arrMax(S.ext),1)+' Å); kalan '+(n0-n5)+' karede molekül bölünmüş ama uzanımı eşiğin altında kaldı. Hizalama bölünmüş molekülü yanlış bir dönmeyle çevirdi; kutu vektörleri dönmediği için -pbc mol parçaları birleştiremedi.'; }},
   {id:'k5', h:'Ubikitin: bütünle, sıçramaları kaldır, çekirdekle hizala', cmd:'gmx trjconv -f prod.xtc -pbc mol -o whole.xtc\ngmx trjconv -f whole.xtc -pbc nojump -o nj.xtc\ngmx trjconv -f nj.xtc -fit rot+trans   (hizalama grubu: Cα 1 ile 70)', ans:'ok', res:function(){ return cntOver(TU.E.B3,50)+' bölünmüş kare (eşik 50 Å); çekirdek Cα RMSD\'si ortalama '+fx(arrMean(TU.R.core_core),2)+' Å. Sayfadaki ubikitin RMSD eğrileri bu zincirin ilk iki adımından (bütün ve sıçramasız koordinatlar) hesaplandı; her eğri kendi hizalama grubuyla.'; }},
   {id:'k6', h:'Ubikitin: önce hizala, sonra bütünle', cmd:'gmx trjconv -f prod.xtc -fit rot+trans -o fit.xtc   (bütün Cα)\ngmx trjconv -f fit.xtc -pbc mol', ans:'error', res:function(){ return 'GROMACS '+TU.E.B5.length+' kare yazdıktan sonra "inconsistent shifts over periodic boundaries" ölümcül hatasıyla durdu. Yazılan karelerin '+nLoc(cntOver(TU.E.B5,50))+' protein 50 Å\'dan uzun (en çok '+fx(arrMax(TU.E.B5),1)+' Å). Aynı hatalı sıra peptitte hatasız bitmiş ama yanlış sonuç vermişti: aracın durmaması sonucun doğru olduğu anlamına gelmez.'; }}
 ];
@@ -551,14 +569,14 @@ function quizItems(){ var Q=[], S=TP.S, R=TU.R;
   Q.push({s:'RMSF2NS dosyasında kareler 2 ps aralıkla kayıtlı ve ilk kare 0 ps. 0\'dan sayılarak 500. kare kaçıncı pikosaniyedir?',
     o:[['500 ps',0],['1002 ps',0],['1000 ps',1]], w:'Zaman = kare sırası × kayıt aralığı = 500 × 2 ps = 1000 ps. Kare numarası ile zaman yalnız aralık 1 ps iken aynı sayıdır.'});
   Q.push({s:'"Ham dosyayı önce hizala, sonra -pbc mol uygula" sırası peptitte hatasız bitti, ubikitinde araç durdu. Buradan ne çıkar?',
-    o:[['Peptit sonucu doğrudur, çünkü araç hata vermedi',0],['Sıra yanlıştır; aracın hata vermemesi sonucun doğru olduğunu göstermez',1],['Ubikitin dosyası bozuktur',0]], w:'Peptitte aynı sıra 2001 karenin '+nLoc(cntOver(S.A5.ext,15))+' bölünmüş molekül bıraktı. Doğru sıra: bütünle, sıçramaları kaldır, sonra hizala.'});
+    o:[['Peptit sonucu doğrudur, çünkü araç hata vermedi',0],['Sıra yanlıştır; aracın hata vermemesi sonucun doğru olduğunu göstermez',1],['Ubikitin dosyası bozuktur',0]], w:'Peptitte aynı sıra, ham dosyada bölünmüş olan '+cntOver(S.A0.ext,15)+' karenin hiçbirini birleştirmedi (kitap CH13, bağ uzunluğu denetimi); plandaki 15 Å uzanım eşiği bunların yalnız '+cntOver(S.A5.ext,15)+' tanesini yakaladı. Doğru sıra: bütünle, sıçramaları kaldır, sonra hizala.'});
   return Q; }
 /* ---------- kaynaklar ve sınırlar ---------- */
 function notice(){ var m=TD.meta;
   $('tnotice').innerHTML='<p><b>Veri.</b> İki ham trajektori, bu sitenin önceki modülleri için üretildi. (1) MD-REP, REPGRID W1: alanin dipeptidi, AMBER99SB-ILDN, TIP3P, 1520 su, on iki yüzlü kutu, 2 ns NPT, 1 ps kayıt; md.xtc SHA-256 '+m.d1_xtc.slice(0,12)+'…, md.tpr '+m.d1_tpr.slice(0,12)+'…; başlangıç yapısı mdshare ALA2 (Freie Universität Berlin, CC BY 4.0). (2) MD-O, RMSF2NS: 1UBQ ubikitini, AMBER99SB-ILDN, TIP3P, 2 ns NPT, yalnız protein 2 ps kayıt; prod.xtc '+m.d2_xtc.slice(0,12)+'…, prot.tpr '+m.d2_tpr.slice(0,12)+'…. Kristal referansı RCSB PDB 1UBQ (Vijay-Kumar, Bugg, Cook 1987, J Mol Biol 194:531), dosya '+m.xtal.slice(0,12)+'…. GROMACS 2023.3.</p>'+
   '<p><b>Analiz.</b> Analiz planı hesaplardan önce yazılıp donduruldu (SHA-256 '+m.plan_sha.slice(0,12)+'…); plandan sapma yok. İşlem zincirleri gmx trjconv ile, ölçütler MDAnalysis ile hesaplandı. Bağımsız denetim (gmx distance, gmx rms, gmx traj) '+m.audit_n+' karşılaştırmanın '+nLoc(m.audit_ok)+' kare başına en çok '+fx(m.audit_max,3)+' Å farkla aynı sonucu verdi. Denetimde iki araç varsayılanı ortaya çıktı: gmx rms kütle ağırlıklı hesaplar (-mw yes) ve -fit none ile yalnız bir grup sorar. Sayfadaki sayıların çoğu tarayıcınızda gömülü dizilerden yeniden hesaplanır; değerler 0,01 Å (RMSD için 0,001 Å) duyarlıkla saklandı. 3B görünümde peptit 4 ps, ubikitin 20 ps aralıkla gösterilir; grafikler bütün kareleri kullanır.</p>'+
   '<p><b>Öğretim modeli.</b> Mikroskopi köprüsündeki hücre izi tarayıcıda açık bir modelle üretilir (kalıcılıklı rastgele yürüyüş, sabit kayma, sarmalı görüş alanı); gerçek ölçüm değildir.</p>'+
-  '<p><b>Sınırlar.</b> İki tek koşu, her biri 2 ns; amaç işleme kararlarının sayıya etkisini göstermektir. Ubikitin hareketi, esneklik, denge ya da yakınsama hakkında bir sonuç çıkarılmaz (MD-U, MD-REP). Ubikitin dosyasında su yoktur; su ile ilgili örnekler yalnız peptit kutusundandır. En küçük görüntü kuralıyla su sayımı: Bu senaryo hesaplanmadı.</p>'; }
+  '<p><b>Sınırlar.</b> İki tek koşu, her biri 2 ns; amaç işleme kararlarının sayıya etkisini göstermektir. Ubikitin hareketi, esneklik, denge ya da yakınsama hakkında bir sonuç çıkarılmaz (MD-U, MD-REP). Ubikitin dosyasında su yoktur; su ile ilgili örnekler yalnız peptit kutusundandır. En küçük görüntü kuralıyla su sayımı tek bir karede (1000 ps), gömülü koordinatlar ve birim hücre vektörleriyle tarayıcınızda yapılır; amacı gösterimin etkisini göstermektir, bir solvatasyon ölçüsü değildir (solvatasyon: MD-INT). "Önce hizala, sonra bütünle" zincirinin peptit koordinatları gömülü değildir; bu zincirde bağ uzunluğuyla yapılan bölünme sayımı (554 karenin hiçbiri birleşmedi) kitaptan (CH13) alınmıştır.</p>'; }
 
 /* ---------- sınav ---------- */
 var QZ=[];
