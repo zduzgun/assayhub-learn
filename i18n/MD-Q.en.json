@@ -1,7 +1,7 @@
 {
  "module": "MD-Q",
  "lang": "en",
- "source_sha256": "245e1d77081e5fa817d231a83ac24bebf7293065001076790e1021106a99d9ef",
+ "source_sha256": "194c623700b8bb22751d29020f59b9c676c2b4da649a025e1255e6378488c06d",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-Q 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -67,8 +67,8 @@
    "<div class=\"prose\"><p>Capped alanine (ACE-ALA-NME) is a small peptide; its conformation is summarized by two backbone angles, φ and ψ. For now the question is narrow and measurable: \"In the recorded runs, how much of its time does the molecule spend in the αR region of the φ/ψ plane?\" To measure this number you first have to define region A and the analysis window. Below are the angles of the three mdshare runs (250 ns each); the map is drawn from a subsample 10 ps apart. Change the region definition, the run and the window; if you like, drag on the map to draw your own rectangle.</p></div>"
   ],
   [
-   "<div class=\"selrow\"><span>A bölgesi:</span><div class=\"seg\" role=\"group\" aria-label=\"Bölge tanımı\" id=\"qdef\"><button type=\"button\" data-v=\"mdu\" aria-pressed=\"true\">αR (MD-U tanımı: φ &lt; 0, −120 ≤ ψ &lt; 50)</button><button type=\"button\" data-v=\"dar\" aria-pressed=\"false\">dar: ψ &lt; 30</button><button type=\"button\" data-v=\"genis\" aria-pressed=\"false\">geniş: ψ &lt; 70</button><button type=\"button\" data-v=\"ozel\" aria-pressed=\"false\">kendi dikdörtgeniniz</button></div></div>",
-   "<div class=\"selrow\"><span>Region A:</span><div class=\"seg\" role=\"group\" aria-label=\"Region definition\" id=\"qdef\"><button type=\"button\" data-v=\"mdu\" aria-pressed=\"true\">αR (MD-U definition: φ &lt; 0, −120 ≤ ψ &lt; 50)</button><button type=\"button\" data-v=\"dar\" aria-pressed=\"false\">narrow: ψ &lt; 30</button><button type=\"button\" data-v=\"genis\" aria-pressed=\"false\">wide: ψ &lt; 70</button><button type=\"button\" data-v=\"ozel\" aria-pressed=\"false\">your own rectangle</button></div></div>"
+   "<div class=\"selrow\"><span>A bölgesi:</span><div class=\"seg\" role=\"group\" aria-label=\"Bölge tanımı\" id=\"qdef\"><button type=\"button\" data-v=\"mdu\" aria-pressed=\"true\">αR (MD-U tanımı: φ &lt; 0, −120 ≤ ψ &lt; 50)</button><button type=\"button\" data-v=\"dar\" aria-pressed=\"false\">dar: ψ &lt; 30</button><button type=\"button\" data-v=\"genis\" aria-pressed=\"false\">geniş: ψ &lt; 70</button><button type=\"button\" data-v=\"ozel\" aria-pressed=\"false\">kendi dikdörtgeniniz</button></div></div>\n    <div class=\"selrow\" id=\"qrectrow\"><span>Kendi dikdörtgeniniz (derece; klavyeyle de girilir):</span><label>φ alt <input type=\"number\" id=\"qr_p0\" min=\"-180\" max=\"180\" step=\"1\" value=\"-160\"></label><label>φ üst <input type=\"number\" id=\"qr_p1\" min=\"-180\" max=\"180\" step=\"1\" value=\"-40\"></label><label>ψ alt <input type=\"number\" id=\"qr_s0\" min=\"-180\" max=\"180\" step=\"1\" value=\"-80\"></label><label>ψ üst <input type=\"number\" id=\"qr_s1\" min=\"-180\" max=\"180\" step=\"1\" value=\"20\"></label></div>",
+   "<div class=\"selrow\"><span>Region A:</span><div class=\"seg\" role=\"group\" aria-label=\"Region definition\" id=\"qdef\"><button type=\"button\" data-v=\"mdu\" aria-pressed=\"true\">αR (MD-U definition: φ &lt; 0, −120 ≤ ψ &lt; 50)</button><button type=\"button\" data-v=\"dar\" aria-pressed=\"false\">narrow: ψ &lt; 30</button><button type=\"button\" data-v=\"genis\" aria-pressed=\"false\">wide: ψ &lt; 70</button><button type=\"button\" data-v=\"ozel\" aria-pressed=\"false\">your own rectangle</button></div></div>\n    <div class=\"selrow\" id=\"qrectrow\"><span>Your own rectangle (degrees; can also be typed):</span><label>φ low <input type=\"number\" id=\"qr_p0\" min=\"-180\" max=\"180\" step=\"1\" value=\"-160\"></label><label>φ high <input type=\"number\" id=\"qr_p1\" min=\"-180\" max=\"180\" step=\"1\" value=\"-40\"></label><label>ψ low <input type=\"number\" id=\"qr_s0\" min=\"-180\" max=\"180\" step=\"1\" value=\"-80\"></label><label>ψ high <input type=\"number\" id=\"qr_s1\" min=\"-180\" max=\"180\" step=\"1\" value=\"20\"></label></div>"
   ],
   [
    "<div class=\"selrow\"><span>Koşu:</span><div class=\"seg\" role=\"group\" aria-label=\"Koşu\" id=\"qrun\"><button type=\"button\" data-v=\"0\" aria-pressed=\"true\">1</button><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">2</button><button type=\"button\" data-v=\"2\" aria-pressed=\"false\">3</button><button type=\"button\" data-v=\"all\" aria-pressed=\"false\">üçü birlikte</button></div></div>",
@@ -155,16 +155,16 @@
    "<div class=\"prose\"><p>This table is the output of the chapter. Fill it in for your own study; the quantity row starts from the definition you chose on this page. The text is created only in your browser; it is not sent anywhere.</p></div>"
   ],
   [
-   "<label>Soru (ne öğrenmek istiyorsunuz, hangi karşılaştırmayla?)<textarea id=\"qfq\" rows=\"2\">Örnek: Alanin dipeptidi 300 K'de suda zamanının ne kadarını αR bölgesinde geçiriyor?</textarea></label>",
-   "<label>Question (what do you want to learn, with which comparison?)<textarea id=\"qfq\" rows=\"2\">Example: How much of its time does alanine dipeptide spend in the αR region in water at 300 K?</textarea></label>"
+   "<label>Soru (ne öğrenmek istiyorsunuz, hangi karşılaştırmayla?)<textarea id=\"qfq\" rows=\"2\" placeholder=\"Örnek: Alanin dipeptidi 300 K'de suda zamanının ne kadarını αR bölgesinde geçiriyor?\"></textarea></label>",
+   "<label>Question (what do you want to learn, with which comparison?)<textarea id=\"qfq\" rows=\"2\" placeholder=\"Example: How much of its time does alanine dipeptide spend in the αR region in water at 300 K?\"></textarea></label>"
   ],
   [
-   "<label>Model (kuvvet alanı, su, sınırlar, sıcaklık; dosyalarıyla)<textarea id=\"qfm\" rows=\"2\">Örnek: kaynak beyanı ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; parametre ve topoloji dosyaları elimizde yok.</textarea></label>",
-   "<label>Model (force field, water, boundaries, temperature; with files)<textarea id=\"qfm\" rows=\"2\">Example: source statement ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; we do not have the parameter and topology files.</textarea></label>"
+   "<label>Model (kuvvet alanı, su, sınırlar, sıcaklık; dosyalarıyla)<textarea id=\"qfm\" rows=\"2\" placeholder=\"Örnek: kaynak beyanı ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; parametre ve topoloji dosyaları elimizde yok.\"></textarea></label>",
+   "<label>Model (force field, water, boundaries, temperature; with files)<textarea id=\"qfm\" rows=\"2\" placeholder=\"Example: source statement ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; we do not have the parameter and topology files.\"></textarea></label>"
   ],
   [
-   "<label>Veri (koşular, süre, kayıt aralığı, köken)<textarea id=\"qfd\" rows=\"2\">Örnek: mdshare ALA2, 3 koşu × 250 ns, 1 ps kare; yalnız φ/ψ ve 1. koşunun susuz kareleri.</textarea></label>",
-   "<label>Data (runs, length, recording interval, origin)<textarea id=\"qfd\" rows=\"2\">Example: mdshare ALA2, 3 runs × 250 ns, 1 ps frames; only φ/ψ and the water-free frames of run 1.</textarea></label>"
+   "<label>Veri (koşular, süre, kayıt aralığı, köken)<textarea id=\"qfd\" rows=\"2\" placeholder=\"Örnek: mdshare ALA2, 3 koşu × 250 ns, 1 ps kare; yalnız φ/ψ ve 1. koşunun susuz kareleri.\"></textarea></label>",
+   "<label>Data (runs, length, recording interval, origin)<textarea id=\"qfd\" rows=\"2\" placeholder=\"Example: mdshare ALA2, 3 runs × 250 ns, 1 ps frames; only φ/ψ and the water-free frames of run 1.\"></textarea></label>"
   ],
   [
    "<label>İddia (verinin taşıyabileceği cümle)<textarea id=\"qfc\" rows=\"2\"></textarea></label>",
@@ -343,16 +343,16 @@
    "$('qboxt').textContent='frame '+(k2+1)+' / '+V.n;"
   ],
   [
-   "$('qboxread').innerHTML=dl('Zaman (koşu 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('Durum (MD-U tanımı)',stn)+dl('Bu 400 ps\\'deki αR↔β geçişi',String(V.trans)); }",
-   "$('qboxread').innerHTML=dl('Time (run 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('State (MD-U definition)',stn)+dl('αR↔β crossings in these 400 ps',String(V.trans)); }"
+   "$('qboxread').innerHTML=dl('Zaman (koşu 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('Durum (MD-U tanımı)',stn)+dl('Bu 400 ps\\'deki αR↔β geçişi (yeni durum ≥ 5 ps)',String(V.trans)); }",
+   "$('qboxread').innerHTML=dl('Time (run 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('State (MD-U definition)',stn)+dl('αR↔β crossings in these 400 ps (new state ≥ 5 ps)',String(V.trans)); }"
   ],
   [
    "function setPlay(on){ QW.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
    "function setPlay(on){ QW.play=on; btn.textContent=on?'Pause':'Play'; btn.classList.toggle('primary',!on); if(on) aniKick(); }"
   ],
   [
-   "$('qboxnote').textContent='1. koşunun '+V.start_ps+' ile '+(V.start_ps+V.n-1)+' ps arasındaki 400 karesi (1 ps aralık). Seçim kuralı sayfa yazılmadan önce belirlendi: 250 ns içinde en az iki αR↔β geçişi içeren ilk 400 ps\\'lik pencere. 22 atom her karede ilk kareye hizalandı (molekülün dönmesi çıkarıldı); kareler arası geçiş görüntüde doğrusal ara değerlemeyle yumuşatılır. Kırmızı nokta ve iz, aynı karenin φ/ψ değerini haritada gösterir. Suyun koordinatları bu dosyada yoktur. Sürükleyerek döndürebilirsiniz.';",
-   "$('qboxnote').textContent='The 400 frames of run 1 between '+V.start_ps+' and '+(V.start_ps+V.n-1)+' ps (1 ps apart). The selection rule was set before the page was written: the first 400 ps window within the 250 ns that contains at least two αR↔β crossings. In every frame the 22 atoms were aligned to the first frame (removing the overall rotation of the molecule); transitions between frames are smoothed on screen by linear interpolation. The red dot and trail show the φ/ψ value of the same frame on the map. This file has no water coordinates. Drag to rotate.';"
+   "$('qboxnote').textContent='1. koşunun '+V.start_ps+' ile '+(V.start_ps+V.n-1)+' ps arasındaki 400 karesi (1 ps aralık). Seçim kuralı sayfa yazılmadan önce belirlendi: 250 ns içinde en az iki αR↔β geçişi içeren ilk 400 ps\\'lik pencere. 22 atom her karede ilk kareye hizalandı (molekülün dönmesi çıkarıldı); kareler arası geçiş görüntüde doğrusal ara değerlemeyle yumuşatılır. Kırmızı nokta ve iz, aynı karenin φ/ψ değerini haritada gösterir; yalnız harita 1. koşunun verisini içerdiğinde (koşu 1 ya da üçü birlikte) ve pencere bu 400 ps\\'yi kapsadığında çizilir. Geçiş sayımı: αR ile β arasında, yeni durum en az 5 kare (5 ps) sürünce bir geçiş sayılır; αL kareleri atlanır (MD-CON ile aynı tanım). Ham durum değişimi sayılsaydı sınırdaki gidip gelmeler de girerdi. Suyun koordinatları bu dosyada yoktur. Sürükleyerek döndürebilirsiniz.';",
+   "$('qboxnote').textContent='The 400 frames of run 1 between '+V.start_ps+' and '+(V.start_ps+V.n-1)+' ps (1 ps apart). The selection rule was set before the page was written: the first 400 ps window within the 250 ns that contains at least two αR↔β crossings. In every frame the 22 atoms were aligned to the first frame (removing the overall rotation of the molecule); transitions between frames are smoothed on screen by linear interpolation. The red dot and trail show the φ/ψ value of the same frame on the map; they are drawn only when the map contains the data of run 1 (run 1 or all three) and the window covers these 400 ps. Crossing count: a crossing between αR and β is counted when the new state lasts at least 5 frames (5 ps); αL frames are skipped (same definition as MD-CON). Counting raw state changes would also include back-and-forth flickers at the boundary. This file has no water coordinates. Drag to rotate.';"
   ],
   [
    "var SC=[css('--accent'),css('--pale'),css('--gold')]; $('qtlleg').innerHTML='<span>'+dot(SC[0])+'αR</span><span>'+dot(SC[1])+'β/PPII</span><span>'+dot(SC[2])+'αL</span><span>çerçeve: seçtiğiniz pencere</span>';",
