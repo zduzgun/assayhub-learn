@@ -106,7 +106,7 @@ pre.rec{margin:0;white-space:pre-wrap;word-break:break-word;font:13px/1.55 var(-
 @media (max-width:820px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){.fgrid{grid-template-columns:1fr}}
 .btns .btn.wrapb{white-space:normal;text-align:left}
-@media (max-width:560px){.read dd{white-space:normal;overflow-wrap:anywhere}.read{gap:5px 10px}}
+@media (max-width:560px){.read{grid-template-columns:minmax(0,1fr);gap:1px 0}.read dd{text-align:left;white-space:normal;overflow-wrap:break-word;margin:0 0 7px}}
 .box3{aspect-ratio:1/1;background:var(--stage);cursor:grab}
 h3.sub{font-size:16px;margin:22px 0 6px}
 .bigtag{font-weight:600;font-size:15px;color:var(--accent);text-align:center;border:1.5px dashed var(--accent);border-radius:10px;padding:7px 10px;margin:6px 0 10px}
@@ -243,8 +243,8 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
       <label>Negatif kontrol<select id="rfneg"><option value="aa">aynı koşulun bölmeleri (A ile A)</option><option value="none">yok</option></select></label>
     </div>
     <div class="fgrid one">
-      <label>Soru ve karşılaştırılan koşullar<textarea id="rfq" rows="2">Örnek: 0,15 M NaCl, alanin dipeptidinin αR payını suya göre değiştirir mi?</textarea></label>
-      <label>Birincil ölçüt ve analiz penceresi<textarea id="rfm" rows="2">Örnek: tekrar başına αR payı, 200 ile 2000 ps arası; durum tanımları önceden yazılı.</textarea></label>
+      <label>Soru ve karşılaştırılan koşullar<textarea id="rfq" rows="2" placeholder="Örnek: 0,15 M NaCl, alanin dipeptidinin αR payını suya göre değiştirir mi?"></textarea></label>
+      <label>Birincil ölçüt ve analiz penceresi<textarea id="rfm" rows="2" placeholder="Örnek: tekrar başına αR payı, 200 ile 2000 ps arası; durum tanımları önceden yazılı."></textarea></label>
       <label>İkincil ölçütler (keşif amaçlı)<textarea id="rfs" rows="2"></textarea></label>
     </div>
     <div class="btns"><button type="button" class="btn" id="rfcopy">Metni kopyala</button><span class="small" id="rfmsg"></span></div>
@@ -313,6 +313,7 @@ function hexA(h,a){ var c=hexRGB(h); return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a
 function pct(v,d){ return '%'+fx(v*100,d==null?1:d); }
 
 /* ===== ortak animasyon altyapısı ===== */
+function pEq(p,d){ var m=Math.pow(10,-d); return p<m?'< '+fx(m,d):'= '+fx(p,d); }
 var REDUCE=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
 var ANI={items:[],raf:null,last:null};
 function aniAdd(it){ ANI.items.push(it); }
@@ -406,7 +407,7 @@ function brDraw(){ var c=$('rbridge'), f=fit(c), g=f.g, W=f.W, H=f.H, L=BR.last,
   g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('Kesikli çizgi: %5. Çubuk: "fark bulundu" (p < 0,05) diyen deneylerin payı.',14,y+74);
 }
 function brRead(){ var L=BR.last; if(!L){ $('rbread').innerHTML=dl('Son deney','yok'); return; }
-  $('rbread').innerHTML=dl('Son deney',(L.mode==='tek'?'teknik':'biyolojik')+', n = '+L.n)+dl('Grup ortalamaları farkı (log₂)',fx(L.d,2))+dl('Welch p',fx(L.p,3)+(L.p<0.05?' · fark bulundu':' · fark bulunmadı')); }
+  $('rbread').innerHTML=dl('Son deney',(L.mode==='tek'?'teknik':'biyolojik')+', n = '+L.n)+dl('Grup ortalamaları farkı (log₂)',fx(L.d,2))+dl('Welch p',pEq(L.p,3)+(L.p<0.05?' · fark bulundu':' · fark bulunmadı')); }
 function brCard(){ var n, best=null; [3,6].forEach(function(nn){ var a=BR.cnt[brKey('tek',nn)], b=BR.cnt[brKey('bio',nn)]; if(a&&b&&a.N>=100&&b.N>=100) best=nn; });
   if(best==null){ card('rc0',false); return; } n=best;
   var a=BR.cnt[brKey('tek',n)], b=BR.cnt[brKey('bio',n)], ra=a.k/a.N, rb=b.k/b.N, wa=wilson(a.k,a.N), wb=wilson(b.k,b.N);
@@ -452,7 +453,7 @@ function tsDrawToy(){ var c=$('rtoy'), f=fit(c), g=f.g, W=f.W, H=f.H, S=TS.last;
   for(var i=0;i<n;i++){ var y=top+i*sp; strip(S.A[i],y); g.font='12px '+css('--sans'); g.fillStyle=PAL.muted; g.fillText('tekrar '+(i+1),8,y+sh-1); g.fillStyle=PAL.ink; g.font='12px '+css('--mono'); if(TS.reveal>=1) g.fillText(pct(S.fa[i],0),lab+w+10,y+sh-1); }
   var t2=top+n*sp+gapG; g.font='600 12.5px '+css('--sans'); g.fillStyle=PAL.ink; g.fillText('Grup B (tuz)',8,t2-6);
   for(i=0;i<n;i++){ y=t2+i*sp; strip(S.B[i],y); g.font='12px '+css('--sans'); g.fillStyle=PAL.muted; g.fillText('tekrar '+(i+1),8,y+sh-1); g.fillStyle=PAL.ink; g.font='12px '+css('--mono'); if(TS.reveal>=1) g.fillText(pct(S.fb[i],0),lab+w+10,y+sh-1); }
-  if(TS.reveal>=1){ g.font='13px '+css('--sans'); g.fillStyle=S.p<0.05?PAL.bad:PAL.ink; g.fillText('Ortalamalar: A '+pct(mean(S.fa),1)+', B '+pct(mean(S.fb),1)+' · fark '+fx(100*S.d,1)+' puan · p = '+fx(S.p,3)+(S.p<0.05?' · fark bulundu':' · fark bulunmadı'),8,H-10); }
+  if(TS.reveal>=1){ g.font='13px '+css('--sans'); g.fillStyle=S.p<0.05?PAL.bad:PAL.ink; g.fillText('Ortalamalar: A '+pct(mean(S.fa),1)+', B '+pct(mean(S.fb),1)+' · fark '+fx(100*S.d,1)+' puan · p '+pEq(S.p,3)+(S.p<0.05?' · fark bulundu':' · fark bulunmadı'),8,H-10); }
   g.font='12px '+css('--sans'); g.fillStyle=PAL.muted; g.textAlign='right'; g.fillText('koyu: sol kuyu · açık: sağ kuyu',W-8,14); g.textAlign='left'; }
 function tsDrawP(){ var c=$('rph'), f=fit(c), g=f.g, W=f.W, H=f.H, row=TS.rows[tsKey()]; g.clearRect(0,0,W,H);
   var P=plot(g,48,14,W-62,H-56,[0,1],[0,1],{xticks:[0,0.25,0.5,0.75,1],xfmt:function(t){return fx(t,2);},xlab:'p değeri (bu ayarla yapılan çalışmalar)',noylab:true});
@@ -507,11 +508,12 @@ function toyLab(){
   segWire('rtmet',function(v){ TS.met=v; tsUpdate(); });
   var it={rev:false, active:function(){ return TS.queue>0||this.rev; }, tick:function(dt){
     if(TS.queue>0){ var t0=performance.now(); do { tsStudy(); TS.queue--; } while(TS.queue>0&&performance.now()-t0<14); TS.reveal=1;
-      var row=TS.rows[tsKey()]; $('rtstat').textContent=TS.queue?'Kalan çalışma: '+TS.queue:(row?row.N+' çalışma tamam.':'');
+      var row=TS.rows[tsKey()]; $('rtstat').textContent=TS.queue?'Kalan çalışma: '+TS.queue+' / '+TS.q0+tsEta():(row?row.N+' çalışma tamam.':'');
       if(!TS.queue){ $('rtstop').disabled=true; $('rt100').disabled=false; $('rt1').disabled=false; } tsUpdate(); return; }
     if(this.rev){ TS.reveal=Math.min(1,TS.reveal+dt/0.9); tsDrawToy(); if(TS.reveal>=1){ this.rev=false; tsUpdate(); } } } };
   aniAdd(it);
-  function start(k){ TS.queue+=k; $('rtstop').disabled=false; $('rt100').disabled=true; $('rt1').disabled=true; $('rtstat').textContent='Kalan çalışma: '+TS.queue; if(REDUCE){ while(TS.queue>0){ tsStudy(); TS.queue--; } $('rtstop').disabled=true; $('rt100').disabled=false; $('rt1').disabled=false; tsUpdate(); } else aniKick(); }
+  function tsEta(){ var done=TS.q0-TS.queue, el=(performance.now()-TS.t0)/1000; if(done<1||el<1) return ''; var s=el/done*TS.queue; return ' · '+(s<1?'1 sn\'den az':'yaklaşık '+fx(Math.ceil(s),0)+' sn')+' kaldı'; }
+  function start(k){ TS.queue+=k; TS.q0=TS.queue; TS.t0=performance.now(); $('rtstop').disabled=false; $('rt100').disabled=true; $('rt1').disabled=true; $('rtstat').textContent='Kalan çalışma: '+TS.queue+' / '+TS.q0; aniKick(); }
   $('rt100').onclick=function(){ start(100); };
   $('rt1').onclick=function(){ tsStudy(); if(REDUCE){ TS.reveal=1; tsUpdate(); return; } TS.reveal=0; it.rev=true; tsRead(); tsTable(); tsDrawP(); tsLed(); tsCards(); aniKick(); };
   $('rtstop').onclick=function(){ TS.queue=0; $('rtstop').disabled=true; $('rt100').disabled=false; $('rt1').disabled=false; $('rtstat').textContent='Durduruldu.'; tsUpdate(); };
@@ -728,11 +730,11 @@ function quizItems(){ var Q=[];
     Q.push({s:'REPGRID\'de su grubunun 4 ile 4 bölmelerinde en büyük fark '+fx(mxW,2)+' puan, tuz ile su arasındaki fark '+fx(P.d,2)+' puan çıktı. Bu karşılaştırma ne işe yarar?',
       o:[['Su grubunun hatalı koşulduğunu gösterir',0],['Tuzun etkisini doğrudan ölçer',0],['Aynı koşulun kendi içindeki farkları, bir koşul farkını yorumlamadan önce aşılması gereken gürültü düzeyini gösterir',1]],
       w:'Negatif kontrol (A ile A) gerçek fark olmadığı bilinen bir karşılaştırmadır. Burada gerçek fark, su ile su bölmelerinin en büyük farkından '+(bigger?'büyük':'büyük değil')+'. 4 ile 4\'lük bölmeler 8 ile 8\'den daha gürültülü olduğu için bu kıyas kaba bir ölçektir; hüküm ön kayıtlı testle verilir.'});
-    var vs=['fark var','fark var ama önemli eşiğin altında','eşdeğer (±5 puan içinde)','kararsız'], ord=vs.filter(function(v){ return v!==P.v; }).slice(0,2);
-    var opts=[[P.v,1],[ord[0],0],[ord[1],0]]; var rot=(Math.round(P.p*1000))%3; for(var i=0;i<rot;i++) opts.push(opts.shift());
+    var vs=['fark var','fark var ama önemli eşiğin altında','eşdeğer (±5 puan içinde)','kararsız'], ord=vs.filter(function(v){ return v!==P.v; });
+    var opts=[[P.v,1],[ord[0],0],[ord[1],0],[ord[2],0]]; var rot=(Math.round(P.p*1000))%4; for(var i=0;i<rot;i++) opts.push(opts.shift());
     Q.push({s:'Ön kayıtlı kurala göre (α 0,05, önem eşiği ±5 puan): permütasyon p = '+fx(P.p,4)+', Welch %90 aralığı '+fx(P.lo90,2)+' ile '+fx(P.hi90,2)+' puan. Hüküm hangisidir?',
       o:opts.map(function(o){ return [vText(o[0]),o[1]]; }),
-      w:'Kural: p &lt; 0,05 ise "fark var" (aralık ±5 içindeyse "önemli eşiğin altında"); p ≥ 0,05 ve %90 aralık tümüyle ±5 içindeyse "eşdeğer"; değilse "kararsız". Burada '+(P.p<0.05?'p 0,05\'ten küçük':'p 0,05\'ten büyük')+' ve %90 aralık '+((P.lo90>-5&&P.hi90<5)?'±5 puanın içinde':'±5 puanın dışına taşıyor')+'.'}); }
+      w:'Kural: p &lt; 0,05 ise "fark var" (aralık ±5 içindeyse "önemli eşiğin altında"); p ≥ 0,05 ve %90 aralık tümüyle ±5 içindeyse "eşdeğer"; değilse "kararsız". Burada '+(P.p<0.05?'p 0,05\'ten küçük':'p 0,05\'ten büyük')+' ve %90 aralık '+((P.lo90>-5&&P.hi90<5)?'±5 puanın içinde':'±5 puanın dışına taşıyor')+'.'+(P.v==='kararsız'?' p\'nin büyük olması "eşdeğer" demeye yetmez: eşdeğerlik için %90 aralığın ±5 bandının tümüyle içinde olması gerekir. Bu aralık bandın dışına taştığı için veri 5 puandan büyük etkileri dışlamıyor.':'')}); }
   else Q.push({s:'Bir karşılaştırmada p = 0,30 çıktı. Hangi cümle doğrudur?',
     o:[['İki koşul arasında fark yoktur',0],['Bu veri farkı göstermedi; farkın olmadığını söylemek için önceden seçilmiş bir eşdeğerlik sınırıyla ayrıca test gerekir',1],['Tekrar sayısı yeterlidir',0]],
     w:'Anlamlı olmayan sonuç "fark yok" demek değildir. Eşdeğerlik testi (TOST) önceden seçilen sınırla yapılır (Lakens 2017).'});
