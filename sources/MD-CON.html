@@ -111,7 +111,7 @@ pre.rec{margin:0;white-space:pre-wrap;word-break:break-word;font:13px/1.55 var(-
 @media (max-width:820px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){.fgrid{grid-template-columns:1fr}}
 .btns .btn.wrapb{white-space:normal;text-align:left}
-@media (max-width:560px){.read dd{white-space:normal;overflow-wrap:anywhere}.read{gap:5px 10px}}
+@media (max-width:560px){.read{grid-template-columns:minmax(0,1fr);gap:1px 0}.read dd,#kbread2 dd{text-align:left;white-space:normal;overflow-wrap:break-word;margin:0 0 7px}}
 .box3{aspect-ratio:1/1;background:var(--stage);cursor:grab}
 #ktacf,#kmsd,#kvacf{aspect-ratio:16/7}
 #krama{aspect-ratio:16/9}
@@ -469,17 +469,22 @@ function bridgeRun(tau){
 }
 function bridge(){
   var chips=$('kbtau'); chips.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed',String(+b.getAttribute('data-v')===BR.tau)); });
-  $('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'hedefe üstel yaklaşma, zaman sabiti τ · soluk çizgi: aynı termostatla tek bir kopya';
+  $('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'hedefe üstel yaklaşma, zaman sabiti τ (kesikli) ve 2τ (noktalı) · soluk çizgi: aynı termostatla tek bir kopya';
   var drawn=false, A={tc:0,play:false,vis:false}, btn=$('kbplay');
   function setPlay(on){ A.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }
+  function refCurves(g,pl,tmax){ g.strokeStyle=PAL.muted; g.lineWidth=1.2; g.setLineDash([5,4]); g.beginPath(); g.moveTo(pl.X(0),pl.Y(BR.Tj)); g.lineTo(pl.X(tmax),pl.Y(BR.Tj)); g.stroke();
+    [[1,[5,4]],[2,[1.5,3.5]]].forEach(function(c){ g.setLineDash(c[1]); g.beginPath(); for(var i=0;i<=240;i++){ var t=tmax*i/240, yy=BR.Tj-(BR.Tj-1)*Math.exp(-t/(c[0]*BR.tau)); if(i===0) g.moveTo(pl.X(t),pl.Y(yy)); else g.lineTo(pl.X(t),pl.Y(yy)); } g.stroke(); }); g.setLineDash([]); g.lineWidth=1; }
+  function drawStatic(){ if(drawn) return; var tmax=Math.max(12,6*BR.tau+6), f=fit($('kbridge')), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
+    var tx=[], step=tmax>=40?10:(tmax>=20?5:2); for(var q=0;q<=tmax+1e-9;q+=step) tx.push(q);
+    var pl=plot(g,58,12,W-58-14,H-48,[0,tmax],[0.95,1.6],{xticks:tx,yticks:[1,1.25,1.5],ylab:'ortalama T (hedef 1)',ylabPad:46,xlab:'zaman (oyuncak birim)',yfmt:function(v){return fx(v,2);}});
+    refCurves(g,pl,tmax); $('kbtime').textContent='zaman 0 / '+fx(tmax,0)+' · kopyalar, grafik görünür olunca ya da "Oynat" ile hesaplanır'; }
   function draw(){
     var o=bridgeRun(BR.tau), f=fit($('kbridge')), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
     var tc=Math.min(o.tmax,A.tc);
     var tx=[]; var step=o.tmax>=40?10:(o.tmax>=20?5:2); for(var q=0;q<=o.tmax+1e-9;q+=step) tx.push(q);
     var ymx=1.6; Object.keys(ALG).forEach(function(a){ for(var i=0;i<o.cur[a].length;i++) if(o.cur[a][i]>ymx) ymx=o.cur[a][i]; }); ymx=Math.min(2.4,Math.ceil(ymx*20)/20); var yts=[1,1.25,1.5]; if(ymx>1.8) yts.push(1.75,2); if(ymx>2.2) yts.push(2.25);
     var pl=plot(g,58,12,W-58-14,H-48,[0,o.tmax],[0.95,ymx],{xticks:tx,yticks:yts,ylab:'ortalama T (hedef 1)',ylabPad:46,xlab:'zaman (oyuncak birim)',yfmt:function(v){return fx(v,2);}});
-    g.strokeStyle=PAL.muted; g.setLineDash([5,4]); g.beginPath(); g.moveTo(pl.X(0),pl.Y(BR.Tj)); g.lineTo(pl.X(o.tmax),pl.Y(BR.Tj)); g.stroke();
-    g.beginPath(); for(var i=0;i<o.t.length;i++){ var yy=BR.Tj-(BR.Tj-1)*Math.exp(-o.t[i]/BR.tau); if(i===0) g.moveTo(pl.X(o.t[i]),pl.Y(yy)); else g.lineTo(pl.X(o.t[i]),pl.Y(yy)); } g.stroke(); g.setLineDash([]);
+    refCurves(g,pl,o.tmax);
     g.save(); g.beginPath(); g.rect(pl.L,pl.T,pl.W,pl.H); g.clip();
     Object.keys(ALG).forEach(function(a){ var arr=o.one[a]; g.strokeStyle=hexA(ACOL[a],0.22); g.lineWidth=1; g.beginPath(); for(var i=0;i<arr.length&&o.t[i]<=tc;i++){ var px=pl.X(o.t[i]), py=pl.Y(arr[i]); if(i===0) g.moveTo(px,py); else g.lineTo(px,py); } g.stroke(); });
     g.restore();
@@ -489,7 +494,7 @@ function bridge(){
     $('kbtime').textContent='zaman '+fx(tc,1)+' / '+fx(o.tmax,0)+' ('+fx(tc/BR.tau,2)+' τ)';
     var rows='';
     Object.keys(ALG).forEach(function(a){ var h=o.t63[a], seen=h>=0&&h<=tc; rows+=dl(ALG[a]+': %63 yaklaşma süresi',h<0?'erişmedi':(seen?fx(h,1)+' ('+fx(h/BR.tau,2)+' τ)':'henüz değil'))+dl(ALG[a]+': en yüksek yumuşatılmış T',tc>=o.tmax?fx(o.peak[a],2):'koşu bitince'); });
-    $('kbread').innerHTML=rows+dl('Hedefe üstel yaklaşmada %63 süresi',fx(BR.tau,1)+' (1,00 τ)');
+    $('kbread').innerHTML=rows+dl('Hedefe üstel yaklaşmada %63 süresi',fx(BR.tau,1)+' (1,00 τ)')+dl('Zaman sabiti 2τ olsaydı %63 süresi',fx(2*BR.tau,1)+' (2,00 τ)');
     drawn=true; if(tc>=o.tmax) kcard();
   }
   function start(){ A.tc=REDUCE?1e9:0; if(REDUCE){ draw(); } else { setPlay(true); draw(); } }
@@ -498,11 +503,11 @@ function bridge(){
   $('kbtau').querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ BR.user=true; BR.tau=+b.getAttribute('data-v'); $('kbtau').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); $('kbwait').textContent='hesaplanıyor…'; setTimeout(function(){ bridgeRun(BR.tau); $('kbwait').textContent=''; start(); },10); }); });
   function kcard(){ BR.seen=BR.seen||{}; BR.seen[BR.tau]=true; if(!BR.user) return; var o=bridgeRun(BR.tau), n=Object.keys(BR.seen).length;
     var parts=Object.keys(ALG).map(function(a){ var h=o.t63[a]; return ALG[a]+': <b>'+(h<0?'erişmedi':fx(h/BR.tau,2)+' τ')+'</b>'; }).join('; ');
-    card('kc0',n>=2,'τ = '+fx(BR.tau,0)+' için hedefe %63 yaklaşma süresi, τ cinsinden: '+parts+'. Aynı "τ" sayısı farklı algoritmalarda farklı bir zamana karşılık geliyor; Nosé-Hoover aşıp salınıyor. Kopya sayısı '+BR.M+' ve tek tohum olduğundan küçük farklar gürültü sayılır; <b>τ değerini algoritmalar arasında aynı fiziksel zaman gibi okumayın</b>.'); }
+    card('kc0',n>=2,'τ = '+fx(BR.tau,0)+' için hedefe %63 yaklaşma süresi, τ cinsinden: '+parts+'. Aynı "τ" sayısı farklı algoritmalarda farklı bir zamana karşılık geliyor; Nosé-Hoover aşıp salınıyor. Berendsen ve V-rescale\'de τ, kinetik enerjinin (anlık sıcaklığın) hedefe gevşeme süresidir. Sıçramada konumların potansiyel enerjisi de ısınmak zorundadır ve bu ısıyı kinetik enerjiden çeker; bu yüzden bütün zincir hedefe τ\'dan geç, bu oyuncakta yaklaşık 2τ\'da varır (noktalı eğri: zaman sabiti 2τ). Kopya sayısı '+BR.M+' ve tek tohum olduğundan küçük farklar gürültü sayılır; <b>τ değerini algoritmalar arasında aynı fiziksel zaman gibi okumayın</b>.'); }
   aniAdd({active:function(){ return A.play&&A.vis; },tick:function(dt){ var o=bridgeRun(BR.tau); A.tc+=dt*o.tmax/7; if(A.tc>=o.tmax){ A.tc=o.tmax; setPlay(false); } draw(); }});
-  watchVis($('kbridge'),A,function(){ start(); });
+  drawStatic(); watchVis($('kbridge'),A,function(){ start(); });
   if(REDUCE||!('IntersectionObserver' in window)){ A.tc=1e9; setTimeout(draw,0); }
-  CHARTS.push(function(){ if(drawn) draw(); });
+  CHARTS.push(function(){ if(drawn) draw(); else drawStatic(); });
 }
 /* ===== veri: KONTROLGRID (GROMACS 2023.3) ===== */
 function b64u(s,C){ s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4) s+='='; var b=atob(s), n=b.length, u=new Uint8Array(n); for(var i=0;i<n;i++) u[i]=b.charCodeAt(i); return new C(u.buffer); }
@@ -544,6 +549,7 @@ function tcol(id){ return ACOL[TKEY[TR[id].algo]]; }
 function pcol(id){ return PCOL[PR[id].algo]; }
 
 /* ---------- ortak çubuk grafiği ---------- */
+var BSHORT={'V-rescale':'V-r','Berendsen':'Ber','Langevin':'Lang','C-rescale':'C-r','Nosé-Hoover':'N-H'};
 function barChart(cv,tip,items,o,onClick){
   var f=fit(cv), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H);
   var L=o.left||58, T=12, B=o.bottom||56, pl=plot(g,L,T,W-L-14,H-T-B,[0,items.length],o.yr,{yticks:o.yticks,yfmt:o.yfmt,ylab:o.ylab,ylabPad:o.ylabPad||46,bg:css('--paper')});
@@ -556,7 +562,7 @@ function barChart(cv,tip,items,o,onClick){
     if(it.sel){ g.strokeStyle=PAL.ink; g.lineWidth=2; g.strokeRect(x0,Math.min(y0,y1),w,Math.abs(y0-y1)); g.lineWidth=1; }
     if(it.err!=null&&isFinite(it.err)){ var cx=x0+w/2, ya=pl.Y(it.val+it.err), yb=pl.Y(Math.max(o.yr[0],it.val-it.err)); g.strokeStyle=PAL.ink; g.beginPath(); g.moveTo(cx,ya); g.lineTo(cx,yb); g.moveTo(cx-4,ya); g.lineTo(cx+4,ya); g.moveTo(cx-4,yb); g.lineTo(cx+4,yb); g.stroke(); }
     g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); g.textAlign='center';
-    var lab=it.lab.split('|'); lab.forEach(function(s,k){ g.fillText(s,x0+w/2,pl.T+pl.H+15+k*14); });
+    var lab=it.lab.split('|'); if(g.measureText(lab[0]).width>bw-4) lab[0]=BSHORT[lab[0]]||lab[0]; lab.forEach(function(s,k){ g.fillText(s,x0+w/2,pl.T+pl.H+15+k*14); });
     g.textAlign='left';
     geo.push({x0:x0,x1:x0+w,y:Math.min(y0,y1),it:it});
   });
@@ -600,7 +606,7 @@ function thermo(){
     var q=r.res;
     $('ktread').innerHTML=dl('Koşu',tlabel(curId()))+dl('Analiz süresi',fx(r.n*r.dt/1000,1)+' ns ('+fx(r.n,0)+' kare)')+dl('Ortalama T',fx(S.mean,2)+' K')+dl('SD (ölçülen)',fx(S.sd,2)+' K')+dl('SD (kuram, T√(2/N))',fx(th,2)+' K')+dl('Ölçülen / kuram',fx(S.ratio,2)+' kat · '+verdict(S.ratio))+(r.q?dl('Dört ardışık çeyrekte oran (post hoc)',qrange(r.q)):'')+dl('Çarpıklık',fx(S.skew,2))+dl('TV (normal, kuramsal SD)',fx(S.tv,2))+dl('T otokorelasyon 1/e süresi',fx(q.T_acf_tau_ps,2)+' ps')+dl('Korunan enerji kayması, ilk ns',q.drift_first_kJmol_ns_atom==null?'hesaplanmadı (GROMACS bu terimi yazmadı)':fx(q.drift_first_kJmol_ns_atom,4)+' kJ/mol/ns/atom')+dl('Korunan enerji kayması, son ns',q.drift_last_kJmol_ns_atom==null?'hesaplanmadı (GROMACS bu terimi yazmadı)':fx(q.drift_last_kJmol_ns_atom,4)+' kJ/mol/ns/atom')+dl('Basınç (NVT, kutu sabit)',fx(q.P_mean,0)+' ± '+fx(q.P_sd,0)+' bar');
     var notes={vrescale:'V-rescale, hızları rastgele bir kinetik enerji hedefine doğru ölçekler; kuram kanonik kinetik enerji dağılımını verir.',berendsen:'Berendsen, sıcaklığı hedefe deterministik olarak çeker; rastgelelik yoktur. Bu koşu GROMACS uyarısı kabul edilerek (-maxwarn 1) çalıştırıldı ve bilerek "zorla" etiketiyle gösterilir.',nosehoover:'Nosé-Hoover, tek bir zincirle (leapfrog), τ salınım dönemi olarak; deterministiktir ve bir sürtünme değişkenini zamanla evrimleştirir.',sd:'Langevin (integrator = sd): her parçacığa sürtünme ve rastgele kuvvet uygulanır; tau_t = 1/sürtünme. Bu bir termostat bağlanması değil, integratörün kendisidir.'};
-    $('ktnote').textContent=notes[TR[curId()].algo]+' Tek tohumlu koşu: sapmalar bir algoritma hükmü değil, bu koşunun ölçümüdür.';
+    $('ktnote').textContent=notes[TR[curId()].algo]+' Tek tohumlu koşu: sapmalar bir algoritma hükmü değil, bu koşunun ölçümüdür. NVT basıncı (bu koşuda '+fx(q.P_mean,0)+' bar) termostatın değil hacim seçiminin sonucudur: NVT kutusu, NPT ortalamasından %1,9 büyük tek bir dengeleme karesinden alındı (15,945 nm³); dalgalanmadan hesaplanan κ_T ile beklenen basınç farkı −274 ile −324 bar (CH05).';
     cards();
   }
   function cmp(){
@@ -705,9 +711,9 @@ function baro(){
     g.strokeStyle=PAL.navy; g.lineWidth=2; g.setLineDash([6,4]); g.beginPath(); for(i=0;i<nb;i++){ var cx=pl.X(rng[0]+(i+0.5)*bw), cy=pl.Y(theo[i]); if(i===0) g.moveTo(cx,cy); else g.lineTo(cx,cy); } g.stroke(); g.setLineDash([]); g.lineWidth=1;
     var mp=pl.X(S.mean); g.strokeStyle=PAL.accent; g.lineWidth=2; g.beginPath(); g.moveTo(mp,pl.T); g.lineTo(mp,pl.T+pl.H); g.stroke(); g.lineWidth=1;
     var q=r.res, per=q.V_osc_period_ps;
-    $('kpread').innerHTML=dl('Koşu',plabel(wk.pid))+dl('Analiz süresi',fx(r.n*r.dt/1000,1)+' ns')+dl('Ortalama hacim',fx(S.mean,3)+' nm³')+dl('Hacim SD (ölçülen)',fx(S.sd,3)+' nm³')+dl('Hacim SD (kuram, √(k_B T V κ_T))',fx(th,3)+' nm³')+dl('Ölçülen / kuram',fx(S.ratio,2)+' kat · '+verdict(S.ratio)+' (kuram mdp κ_T ile)')+(r.q?dl('Dört ardışık çeyrekte oran (post hoc)',qrange(r.q)):'')+dl('Hacim otokorelasyon 1/e süresi',fx(q.V_acf_tau_ps,1)+' ps')+dl('Hacim otokorelasyonunun ilk dibi',fx(q.V_acf_dip1,3)+' ('+fx(q.V_acf_dip1_ps,1)+' ps; eşik −0,05)')+dl('Hacim salınım dönemi',isFinite(per)&&per>0?fx(per,0)+' ps':'salınım yok')+dl('Ortalama basınç ± SD',fx(r.sp.mean,1)+' ± '+fx(r.sp.sd,0)+' bar')+(r.pq?dl('Dört çeyrekte ortalama basınç (post hoc)',fx(Math.min.apply(null,r.pq),0)+' ile '+fx(Math.max.apply(null,r.pq),0)+' bar'):'')+dl('Ortalama T ± SD',fx(q.T_mean,2)+' ± '+fx(q.T_sd,2)+' K');
+    $('kpread').innerHTML=dl('Koşu',plabel(wk.pid))+dl('Analiz süresi',fx(r.n*r.dt/1000,1)+' ns')+dl('Ortalama hacim',fx(S.mean,3)+' nm³')+dl('Hacim SD (ölçülen)',fx(S.sd,3)+' nm³')+dl('Hacim SD (kuram, √(k_B T V κ_T))',fx(th,3)+' nm³')+dl('Ölçülen / kuram (mdp κ_T ile)',fx(S.ratio,2)+' kat')+dl('κ, dalgalanmadan (post hoc)',fx(S.sd*S.sd/(1.380649e-23*TREF/1e-22*S.mean)*1e5,2)+' ×10⁻⁵ bar⁻¹')+(r.q?dl('Dört ardışık çeyrekte oran (post hoc)',qrange(r.q)):'')+dl('Hacim otokorelasyon 1/e süresi',fx(q.V_acf_tau_ps,1)+' ps')+dl('Hacim otokorelasyonunun ilk dibi',fx(q.V_acf_dip1,3)+' ('+fx(q.V_acf_dip1_ps,1)+' ps; eşik −0,05)')+dl('Hacim salınım dönemi',isFinite(per)&&per>0?fx(per,0)+' ps':'salınım yok')+dl('Ortalama basınç ± SD',fx(r.sp.mean,1)+' ± '+fx(r.sp.sd,0)+' bar')+(r.pq?dl('Dört çeyrekte ortalama basınç (post hoc)',fx(Math.min.apply(null,r.pq),0)+' ile '+fx(Math.max.apply(null,r.pq),0)+' bar'):'')+dl('Ortalama T ± SD',fx(q.T_mean,2)+' ± '+fx(q.T_sd,2)+' K');
     var notes={crescale:'C-rescale, hacmi (koordinatlarla birlikte) stokastik terim içeren birinci dereceden bir kuralla ölçekler ve kanonik hacim dalgalanması vermesi beklenir.',berendsen:'Berendsen barostat, hacmi deterministik olarak ölçekler; GROMACS uyarısı kabul edilerek (-maxwarn 1) koşuldu ve bilerek "zorla" etiketiyle gösterilir.',parrinello:'Parrinello-Rahman, kutuyu ek bir serbestlik derecesi gibi evrimleştirir; τ_P salınım dönemiyle ilgilidir. Dengelenmiş bir kutudan sürdürülerek başlatıldı.'};
-    $('kpnote').textContent=notes[PR[wk.pid].algo]+' κ_T mdp değeridir (4,5×10⁻⁵ bar⁻¹), gerçek TIP3P sıkıştırılabilirliği değil; kuram yalnız referanstır. Basınç, 1546 atomluk kutuda bu ayarlarla bu büyüklükte dalgalanır.';
+    $('kpnote').textContent=notes[PR[wk.pid].algo]+' κ_T mdp değeridir (4,5×10⁻⁵ bar⁻¹), gerçek TIP3P sıkıştırılabilirliği değil; kuram yalnız referanstır. Ön kayıttaki 0,9 ile 1,1 bandı sıcaklık için seçilmişti; hacim oranı için "uyumlu" ya da "sapıyor" hükmü verilmez. Yorumlanabilir olan, aynı sistemde barostatlar arasındaki farktır (CH05). Basınç, 1546 atomluk kutuda bu ayarlarla bu büyüklükte dalgalanır.';
     cards();
   }
   function cmp(){
@@ -722,8 +728,7 @@ function baro(){
     var br=all.filter(function(r){return r.algo==='berendsen';}), ob=all.filter(function(r){return r.algo!=='berendsen';});
     function rg(a){ var v=a.map(function(r){return r.sv.ratio;}); return fx(Math.min.apply(null,v),2)+' ile '+fx(Math.max.apply(null,v),2); }
     var pm=all.map(function(r){return r.sp.mean;}), qw=Math.max.apply(null,all.filter(function(r){return r.q;}).map(function(r){return Math.max.apply(null,r.q)-Math.min.apply(null,r.q);})), pw=Math.max.apply(null,all.filter(function(r){return r.pq;}).map(function(r){return Math.max.apply(null,r.pq)-Math.min.apply(null,r.pq);}));
-    var nout=all.filter(function(r){return r.sv.ratio<0.9||r.sv.ratio>1.1;}).length;
-    card('kc5',Object.keys(wk.pseenA).length>=2,'Hacim SD / kuram oranı altı koşuda: '+all.map(function(r){ return PNAME[r.algo]+' τ_P '+tauTxt(r.tau)+': <b>'+fx(r.sv.ratio,2)+'</b>'; }).join('; ')+'. Berendsen koşularında oran '+rg(br)+' (kuramın çok altında), öbür '+ob.length+' koşuda '+rg(ob)+'; 0,9 ile 1,1 aralığının dışında kalan koşu <b>'+nout+' / '+all.length+'</b>. Bir koşunun dört çeyreğinde oran en çok '+fx(qw,2)+' birim oynadı (post hoc). Kuramsal SD mdp\'deki κ_T ile hesaplandığından 1,1 üstü oranlar κ_T farkını da içerebilir; gerçek κ_T bu ızgarada ölçülmedi: Bu senaryo hesaplanmadı. Ortalama basınç '+fx(Math.min.apply(null,pm),1)+' ile '+fx(Math.max.apply(null,pm),1)+' bar arasında (hedef 1 bar); tek bir koşunun çeyrek ortalamaları bile en çok '+fx(pw,0)+' bar oynadığı için <b>ortalama basınç farkları bu koşu uzunluğunda barostatları ayırt etmiyor; hacim dalgalanmasının genişliği ise Berendsen\'i öbürlerinden ayırıyor</b>.');
+    card('kc5',Object.keys(wk.pseenA).length>=2,'Hacim SD / kuram oranı altı koşuda: '+all.map(function(r){ return PNAME[r.algo]+' τ_P '+tauTxt(r.tau)+': <b>'+fx(r.sv.ratio,2)+'</b>'; }).join('; ')+'. Berendsen koşularında oran '+rg(br)+' (kuramın çok altında), öbür '+ob.length+' koşuda '+rg(ob)+'; aynı τ_P\'de Berendsen\'in hacim SD\'si öbürlerinin ortalamasının '+[1,5].filter(function(t){ return br.some(function(r){return r.tau===t;})&&ob.some(function(r){return r.tau===t;}); }).map(function(t){ var b=br.filter(function(r){return r.tau===t;})[0].sv.sd, o=ob.filter(function(r){return r.tau===t;}).map(function(r){return r.sv.sd;}); return 'τ_P '+t+' ps\'de <b>'+fx(b/(o.reduce(function(s,x){return s+x;},0)/o.length),2)+'</b> katı'; }).join(', ')+'. 0,9 ile 1,1 bandı ön kayıtta sıcaklık için seçilmişti; hacim oranı için bir hüküm bandı değildir. Bir koşunun dört çeyreğinde oran en çok '+fx(qw,2)+' birim oynadı (post hoc). Kuramsal SD mdp\'deki κ_T ile hesaplandığından 1,1 üstü oranlar κ_T farkını da içerebilir; gerçek κ_T bu ızgarada ölçülmedi: Bu senaryo hesaplanmadı. Ortalama basınç '+fx(Math.min.apply(null,pm),1)+' ile '+fx(Math.max.apply(null,pm),1)+' bar arasında (hedef 1 bar); tek bir koşunun çeyrek ortalamaları bile en çok '+fx(pw,0)+' bar oynadığı için <b>ortalama basınç farkları bu koşu uzunluğunda barostatları ayırt etmiyor; hacim dalgalanmasının genişliği ise Berendsen\'i öbürlerinden ayırıyor</b>.');
     var a=PR[wk.pid].algo, p1=PR['P_'+a+'_1'], p5=PR['P_'+a+'_5'];
     if(p1&&p5){ var sn=wk.pseen['P_'+a+'_1']&&wk.pseen['P_'+a+'_5'];
       var pf=function(r){ var p=r.res.V_osc_period_ps; return (isFinite(p)&&p>0?'tahmini dönem '+fx(p,0)+' ps':'dönem bulunamadı')+', ilk dip '+fx(r.res.V_acf_dip1,2)+' ('+fx(r.res.V_acf_dip1_ps,1)+' ps)'; };
@@ -943,7 +948,7 @@ function vzT(){
     $('k3sl').value=Math.round(V3.tc*10); $('k3t0').textContent=fx(t,1)+' ps';
     $('k3read').innerHTML=[ra,rb].map(function(r,k){ var id=k?V3.b:V3.a, R=TR[id]; return dl(vzNameT(id)+': bu karede ortalama 1 ps yer değiştirme',fx(mdisp(r),3)+' nm')+dl(vzNameT(id)+': pencere ortalaması (80 ps)',fx(r.dm,3)+' nm')+dl(vzNameT(id)+': su difüzyonu (4 ns analizi)',R?fx(R.res['D_1e-5cm2s'],2)+' ×10⁻⁵ cm²/s':'yok'); }).join('');
   }
-  btn.onclick=function(){ setPlay(!V3.play); draw(); };
+  btn.onclick=function(){ V3.once=false; setPlay(!V3.play); draw(); };
   $('k3sa').onchange=function(){ V3.a=this.value; draw(); }; $('k3sb').onchange=function(){ V3.b=this.value; draw(); };
   segWire('k3spd',function(v){ V3.spd=+v; });
   $('k3sl').max=String((r0.n-1)*10); $('k3sl').oninput=function(){ V3.tc=+this.value/10; if(V3.play) setPlay(false); draw(); };
@@ -951,11 +956,11 @@ function vzT(){
     cv.addEventListener('pointerdown',function(e){ d=[e.clientX,e.clientY,V3.V.yaw,V3.V.pitch]; cv.setPointerCapture(e.pointerId); V3.V.user=true; });
     cv.addEventListener('pointermove',function(e){ if(!d) return; V3.V.yaw=d[2]+(e.clientX-d[0])*0.01; V3.V.pitch=Math.max(-1.4,Math.min(1.4,d[3]+(e.clientY-d[1])*0.01)); draw(); });
     cv.addEventListener('pointerup',function(){ d=null; }); cv.addEventListener('pointercancel',function(){ d=null; }); });
-  aniAdd({active:function(){ return V3.vis&&(V3.play||(!REDUCE&&!V3.V.user)); },tick:function(dt){
-    if(!REDUCE&&!V3.V.user) V3.V.yaw+=dt*0.25;
-    if(V3.play){ var n=VZ.T[V3.a].n; V3.tc+=dt*V3.spd; if(V3.tc>n-1) V3.tc=0; }
+  aniAdd({active:function(){ return V3.vis&&(V3.play||(!REDUCE&&!V3.V.user&&(V3.spin||0)<8)); },tick:function(dt){
+    if(!REDUCE&&!V3.V.user){ V3.V.yaw+=dt*0.25; if(!V3.play) V3.spin=(V3.spin||0)+dt; }
+    if(V3.play){ var n=VZ.T[V3.a].n; V3.tc+=dt*V3.spd; if(V3.tc>n-1){ V3.tc=0; if(V3.once){ V3.once=false; setPlay(false); } } }
     draw(); }});
-  watchVis(host,V3,function(){ setPlay(true); });
+  watchVis(host,V3,function(){ V3.once=true; setPlay(true); });
   CHARTS.push(draw); draw();
 }
 
@@ -984,7 +989,7 @@ function vzP(){
     function edge(r){ var a=r.vol.map(function(v){ return Math.cbrt(v); }), s=0; a.forEach(function(x){ s+=x; }); var m=s/a.length, q=0; a.forEach(function(x){ q+=(x-m)*(x-m); }); return Math.sqrt(q/(a.length-1))/m*100; }
     $('k3pread').innerHTML=[[P3.a,ra,Fa],[P3.b,rb,Fb]].map(function(q){ return dl(plabel(q[0])+': bu karede gerçek hacim',fx(q[2].vol,3)+' nm³')+dl(plabel(q[0])+': pencerede hacim aralığı (80 ps)',fx(Math.min.apply(null,q[1].vol),3)+' ile '+fx(Math.max.apply(null,q[1].vol),3)+' nm³')+dl(plabel(q[0])+': kenar uzunluğunun bağıl SD değeri (pencere)','%'+fx(edge(q[1]),2)); }).join('');
   }
-  btn.onclick=function(){ setPlay(!P3.play); draw(); };
+  btn.onclick=function(){ P3.once=false; setPlay(!P3.play); draw(); };
   segWire('k3pk',function(v){ P3.K=+v; draw(); });
   segWire('k3pspd',function(v){ P3.spd=+v; });
   $('k3psl').max=String((ra.n-1)*10); $('k3psl').oninput=function(){ P3.tc=+this.value/10; if(P3.play) setPlay(false); draw(); };
@@ -992,11 +997,11 @@ function vzP(){
     cv.addEventListener('pointerdown',function(e){ d=[e.clientX,e.clientY,P3.V.yaw,P3.V.pitch]; cv.setPointerCapture(e.pointerId); P3.V.user=true; });
     cv.addEventListener('pointermove',function(e){ if(!d) return; P3.V.yaw=d[2]+(e.clientX-d[0])*0.01; P3.V.pitch=Math.max(-1.4,Math.min(1.4,d[3]+(e.clientY-d[1])*0.01)); draw(); });
     cv.addEventListener('pointerup',function(){ d=null; }); cv.addEventListener('pointercancel',function(){ d=null; }); });
-  aniAdd({active:function(){ return P3.vis&&(P3.play||(!REDUCE&&!P3.V.user)); },tick:function(dt){
-    if(!REDUCE&&!P3.V.user) P3.V.yaw+=dt*0.25;
-    if(P3.play){ P3.tc+=dt*P3.spd; if(P3.tc>ra.n-1) P3.tc=0; }
+  aniAdd({active:function(){ return P3.vis&&(P3.play||(!REDUCE&&!P3.V.user&&(P3.spin||0)<8)); },tick:function(dt){
+    if(!REDUCE&&!P3.V.user){ P3.V.yaw+=dt*0.25; if(!P3.play) P3.spin=(P3.spin||0)+dt; }
+    if(P3.play){ P3.tc+=dt*P3.spd; if(P3.tc>ra.n-1){ P3.tc=0; if(P3.once){ P3.once=false; setPlay(false); } } }
     draw(); }});
-  watchVis(host,P3,function(){ setPlay(true); });
+  watchVis(host,P3,function(){ P3.once=true; setPlay(true); });
   CHARTS.push(draw); draw();
 }
 
@@ -1102,7 +1107,7 @@ function quizItems(){
     w:'Kanonik topluluk için beklenen SD oranı 1\'dir; ortalamanın hedefte olması dalgalanmanın doğru olduğunu göstermez. Küçük SD "daha iyi" demek değildir: kuramdan sapmadır.'});
   if(Ls&&Ln&&Dn) Q.push({s:'GROMACS ızgarasında su difüzyonu Nosé-Hoover (τ_T 0,1 ps) için '+fx(Dn.res['D_1e-5cm2s'],2)+', Langevin için τ_T 0,1 ps iken '+fx(Ls.res['D_1e-5cm2s'],2)+' ve τ_T 1,0 ps iken '+fx(Ln.res['D_1e-5cm2s'],2)+' ×10⁻⁵ cm²/s çıktı. Dinamik ölçen bir çalışma için en uygun not hangisi?',
     o:[['Langevin suyu daha doğru verir, çünkü sıcaklık SD oranı 1\'e en yakın olanlardan biri',0],['Fark tek tohumdan geliyor, önemsenmez',0],['Langevin\'de sürtünme katsayısı 1/τ_T\'dir; düşük D ve τ_T ile artışı sürtünmeyle uyumlu, bu yüzden termostat seçimi ve τ_T kayda yazılmalı',1]],
-    w:'Langevin\'de (integrator = sd) sürtünme her parçacığa uygulanır; D, τ_T büyüdükçe arttı ('+fx(Ls.res['D_1e-5cm2s'],2)+' ten '+fx(Ln.res['D_1e-5cm2s'],2)+' e), fark aracın uyum hatasından (en çok '+fx(Math.max(Ls.res.D_err,Ln.res.D_err),2)+') çok büyüktür. Sıcaklık SD oranının 1\'e yakın olması dinamiğin bozulmadığını göstermez.'});
+    w:'Langevin\'de (integrator = sd) sürtünme her parçacığa uygulanır; D, τ_T büyüdükçe arttı ('+fx(Ls.res['D_1e-5cm2s'],2)+' değerinden '+fx(Ln.res['D_1e-5cm2s'],2)+' değerine), fark aracın uyum hatasından (en çok '+fx(Math.max(Ls.res.D_err,Ln.res.D_err),2)+') çok büyüktür. Sıcaklık SD oranının 1\'e yakın olması dinamiğin bozulmadığını göstermez.'});
   if(pb1&&pb5) Q.push({s:'Berendsen barostatta τ_P 1 ps\'den 5 ps\'e çıkınca hacim SD / kuram oranı '+fx(pb1.sv.ratio,2)+' değerinden '+fx(pb5.sv.ratio,2)+' değerine geçti. Bu ne anlama gelir?',
     o:[['Hacim dalgalanması kuramsal değere yaklaştı',0],['Hacim dalgalanması kuramdan daha da küçüldü; ortalama basınç hedefte olsa bile dağılım dar kalıyor',1],['Oran değişmediği için τ_P önemsizdir',0]],
     w:'Oran 1\'den uzaklaştı ve azaldı. Berendsen barostat hacmi deterministik ölçeklediğinden hacim dalgalanması kanonik değerin çok altında kalabilir; bu iki koşuda ölçülen budur (tek tohum).'});

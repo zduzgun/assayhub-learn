@@ -1,7 +1,7 @@
 {
  "module": "MD-REP",
  "lang": "en",
- "source_sha256": "319ef9dbe8064369494545eb326c6bd587f2d8c22ae4ce2e8bb169a514ceeba0",
+ "source_sha256": "9c5d4c12396953bbd8bdf679535468da92889d8bb33f31fa488f93444263b8b2",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-REP 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -279,12 +279,12 @@
    "<label>Negative control<select id=\"rfneg\"><option value=\"aa\">splits of the same condition (A versus A)</option><option value=\"none\">none</option></select></label>"
   ],
   [
-   "<label>Soru ve karşılaştırılan koşullar<textarea id=\"rfq\" rows=\"2\">Örnek: 0,15 M NaCl, alanin dipeptidinin αR payını suya göre değiştirir mi?</textarea></label>",
-   "<label>Question and conditions compared<textarea id=\"rfq\" rows=\"2\">Example: does 0.15 M NaCl change the αR fraction of alanine dipeptide compared with water?</textarea></label>"
+   "<label>Soru ve karşılaştırılan koşullar<textarea id=\"rfq\" rows=\"2\" placeholder=\"Örnek: 0,15 M NaCl, alanin dipeptidinin αR payını suya göre değiştirir mi?\"></textarea></label>",
+   "<label>Question and conditions compared<textarea id=\"rfq\" rows=\"2\" placeholder=\"Example: does 0.15 M NaCl change the αR fraction of alanine dipeptide compared with water?\"></textarea></label>"
   ],
   [
-   "<label>Birincil ölçüt ve analiz penceresi<textarea id=\"rfm\" rows=\"2\">Örnek: tekrar başına αR payı, 200 ile 2000 ps arası; durum tanımları önceden yazılı.</textarea></label>",
-   "<label>Primary measure and analysis window<textarea id=\"rfm\" rows=\"2\">Example: αR fraction per replicate, between 200 and 2000 ps; state definitions written in advance.</textarea></label>"
+   "<label>Birincil ölçüt ve analiz penceresi<textarea id=\"rfm\" rows=\"2\" placeholder=\"Örnek: tekrar başına αR payı, 200 ile 2000 ps arası; durum tanımları önceden yazılı.\"></textarea></label>",
+   "<label>Primary measure and analysis window<textarea id=\"rfm\" rows=\"2\" placeholder=\"Example: αR fraction per replicate, between 200 and 2000 ps; state definitions written in advance.\"></textarea></label>"
   ],
   [
    "<label>İkincil ölçütler (keşif amaçlı)<textarea id=\"rfs\" rows=\"2\"></textarea></label>",
@@ -367,8 +367,8 @@
    "function brRead(){ var L=BR.last; if(!L){ $('rbread').innerHTML=dl('Last experiment','none'); return; }"
   ],
   [
-   "$('rbread').innerHTML=dl('Son deney',(L.mode==='tek'?'teknik':'biyolojik')+', n = '+L.n)+dl('Grup ortalamaları farkı (log₂)',fx(L.d,2))+dl('Welch p',fx(L.p,3)+(L.p<0.05?' · fark bulundu':' · fark bulunmadı')); }",
-   "$('rbread').innerHTML=dl('Last experiment',(L.mode==='tek'?'technical':'biological')+', n = '+L.n)+dl('Difference of group means (log₂)',fx(L.d,2))+dl('Welch p',fx(L.p,3)+(L.p<0.05?' · difference found':' · no difference found')); }"
+   "$('rbread').innerHTML=dl('Son deney',(L.mode==='tek'?'teknik':'biyolojik')+', n = '+L.n)+dl('Grup ortalamaları farkı (log₂)',fx(L.d,2))+dl('Welch p',pEq(L.p,3)+(L.p<0.05?' · fark bulundu':' · fark bulunmadı')); }",
+   "$('rbread').innerHTML=dl('Last experiment',(L.mode==='tek'?'technical':'biological')+', n = '+L.n)+dl('Difference of group means (log₂)',fx(L.d,2))+dl('Welch p',pEq(L.p,3)+(L.p<0.05?' · difference found':' · no difference found')); }"
   ],
   [
    "var cmp=wa[0]>wb[1]?'Teknik tekrarın oranı biyolojik tekrarınkinden belirgin biçimde büyük (iki %95 aralık örtüşmüyor).':(wb[0]>wa[1]?'Bu denemede biyolojik tekrarın oranı daha büyük çıktı; deney sayısını artırıp yeniden bakın.':'İki oranın %95 aralıkları örtüşüyor; deney sayısını artırıp yeniden bakın.');",
@@ -411,8 +411,8 @@
    "for(i=0;i<n;i++){ y=t2+i*sp; strip(S.B[i],y); g.font='12px '+css('--sans'); g.fillStyle=PAL.muted; g.fillText('replicate '+(i+1),8,y+sh-1); g.fillStyle=PAL.ink; g.font='12px '+css('--mono'); if(TS.reveal>=1) g.fillText(pct(S.fb[i],0),lab+w+10,y+sh-1); }"
   ],
   [
-   "if(TS.reveal>=1){ g.font='13px '+css('--sans'); g.fillStyle=S.p<0.05?PAL.bad:PAL.ink; g.fillText('Ortalamalar: A '+pct(mean(S.fa),1)+', B '+pct(mean(S.fb),1)+' · fark '+fx(100*S.d,1)+' puan · p = '+fx(S.p,3)+(S.p<0.05?' · fark bulundu':' · fark bulunmadı'),8,H-10); }",
-   "if(TS.reveal>=1){ g.font='13px '+css('--sans'); g.fillStyle=S.p<0.05?PAL.bad:PAL.ink; g.fillText('Means: A '+pct(mean(S.fa),1)+', B '+pct(mean(S.fb),1)+' · difference '+fx(100*S.d,1)+' points · p = '+fx(S.p,3)+(S.p<0.05?' · difference found':' · no difference found'),8,H-10); }"
+   "if(TS.reveal>=1){ g.font='13px '+css('--sans'); g.fillStyle=S.p<0.05?PAL.bad:PAL.ink; g.fillText('Ortalamalar: A '+pct(mean(S.fa),1)+', B '+pct(mean(S.fb),1)+' · fark '+fx(100*S.d,1)+' puan · p '+pEq(S.p,3)+(S.p<0.05?' · fark bulundu':' · fark bulunmadı'),8,H-10); }",
+   "if(TS.reveal>=1){ g.font='13px '+css('--sans'); g.fillStyle=S.p<0.05?PAL.bad:PAL.ink; g.fillText('Means: A '+pct(mean(S.fa),1)+', B '+pct(mean(S.fb),1)+' · difference '+fx(100*S.d,1)+' points · p '+pEq(S.p,3)+(S.p<0.05?' · difference found':' · no difference found'),8,H-10); }"
   ],
   [
    "g.font='12px '+css('--sans'); g.fillStyle=PAL.muted; g.textAlign='right'; g.fillText('koyu: sol kuyu · açık: sağ kuyu',W-8,14); g.textAlign='left'; }",
@@ -487,12 +487,12 @@
    "function effTxt(){ var th=100*(pLeft(TS.eff)-pLeft(0)); $('rteffv').textContent=TS.eff===0?'the two groups are in the same condition':'theoretical left-well fraction '+fx(100*pLeft(TS.eff),1)+'% instead of '+fx(100*pLeft(0),1)+'% (+'+fx(th,1)+' points)'; }"
   ],
   [
-   "var row=TS.rows[tsKey()]; $('rtstat').textContent=TS.queue?'Kalan çalışma: '+TS.queue:(row?row.N+' çalışma tamam.':'');",
-   "var row=TS.rows[tsKey()]; $('rtstat').textContent=TS.queue?'Studies left: '+TS.queue:(row?row.N+' studies done.':'');"
+   "var row=TS.rows[tsKey()]; $('rtstat').textContent=TS.queue?'Kalan çalışma: '+TS.queue+' / '+TS.q0+tsEta():(row?row.N+' çalışma tamam.':'');",
+   "var row=TS.rows[tsKey()]; $('rtstat').textContent=TS.queue?'Studies left: '+TS.queue+' / '+TS.q0+tsEta():(row?row.N+' studies done.':'');"
   ],
   [
-   "function start(k){ TS.queue+=k; $('rtstop').disabled=false; $('rt100').disabled=true; $('rt1').disabled=true; $('rtstat').textContent='Kalan çalışma: '+TS.queue; if(REDUCE){ while(TS.queue>0){ tsStudy(); TS.queue--; } $('rtstop').disabled=true; $('rt100').disabled=false; $('rt1').disabled=false; tsUpdate(); } else aniKick(); }",
-   "function start(k){ TS.queue+=k; $('rtstop').disabled=false; $('rt100').disabled=true; $('rt1').disabled=true; $('rtstat').textContent='Studies left: '+TS.queue; if(REDUCE){ while(TS.queue>0){ tsStudy(); TS.queue--; } $('rtstop').disabled=true; $('rt100').disabled=false; $('rt1').disabled=false; tsUpdate(); } else aniKick(); }"
+   "function tsEta(){ var done=TS.q0-TS.queue, el=(performance.now()-TS.t0)/1000; if(done<1||el<1) return ''; var s=el/done*TS.queue; return ' · '+(s<1?'1 sn\\'den az':'yaklaşık '+fx(Math.ceil(s),0)+' sn')+' kaldı'; }\n  function start(k){ TS.queue+=k; TS.q0=TS.queue; TS.t0=performance.now(); $('rtstop').disabled=false; $('rt100').disabled=true; $('rt1').disabled=true; $('rtstat').textContent='Kalan çalışma: '+TS.queue+' / '+TS.q0; aniKick(); }",
+   "function tsEta(){ var done=TS.q0-TS.queue, el=(performance.now()-TS.t0)/1000; if(done<1||el<1) return ''; var s=el/done*TS.queue; return ' · '+(s<1?'under 1 s':'about '+fx(Math.ceil(s),0)+' s')+' left'; }\n  function start(k){ TS.queue+=k; TS.q0=TS.queue; TS.t0=performance.now(); $('rtstop').disabled=false; $('rt100').disabled=true; $('rt1').disabled=true; $('rtstat').textContent='Studies left: '+TS.queue+' / '+TS.q0; aniKick(); }"
   ],
   [
    "$('rtstop').onclick=function(){ TS.queue=0; $('rtstop').disabled=true; $('rt100').disabled=false; $('rt1').disabled=false; $('rtstat').textContent='Durduruldu.'; tsUpdate(); };",
@@ -811,16 +811,16 @@
    "w:'The negative control (A versus A) is a comparison known to have no real difference. Here the real difference is '+(bigger?'larger':'not larger')+' than the largest difference of the water versus water splits. Because 4 by 4 splits are noisier than 8 by 8, this comparison is a rough scale; the verdict is given by the preregistered test.'});"
   ],
   [
-   "var vs=['fark var','fark var ama önemli eşiğin altında','eşdeğer (±5 puan içinde)','kararsız'], ord=vs.filter(function(v){ return v!==P.v; }).slice(0,2);",
-   "var vs=['difference','difference, but below the importance threshold','equivalent (within ±5 points)','inconclusive'], ord=vs.filter(function(v){ return v!==P.v; }).slice(0,2);"
+   "var vs=['fark var','fark var ama önemli eşiğin altında','eşdeğer (±5 puan içinde)','kararsız'], ord=vs.filter(function(v){ return v!==P.v; });",
+   "var vs=['difference','difference, but below the importance threshold','equivalent (within ±5 points)','inconclusive'], ord=vs.filter(function(v){ return v!==P.v; });"
   ],
   [
    "Q.push({s:'Ön kayıtlı kurala göre (α 0,05, önem eşiği ±5 puan): permütasyon p = '+fx(P.p,4)+', Welch %90 aralığı '+fx(P.lo90,2)+' ile '+fx(P.hi90,2)+' puan. Hüküm hangisidir?',",
    "Q.push({s:'Under the preregistered rule (α 0.05, importance threshold ±5 points): permutation p = '+fx(P.p,4)+', Welch 90% interval '+fx(P.lo90,2)+' to '+fx(P.hi90,2)+' points. What is the verdict?',"
   ],
   [
-   "w:'Kural: p &lt; 0,05 ise \"fark var\" (aralık ±5 içindeyse \"önemli eşiğin altında\"); p ≥ 0,05 ve %90 aralık tümüyle ±5 içindeyse \"eşdeğer\"; değilse \"kararsız\". Burada '+(P.p<0.05?'p 0,05\\'ten küçük':'p 0,05\\'ten büyük')+' ve %90 aralık '+((P.lo90>-5&&P.hi90<5)?'±5 puanın içinde':'±5 puanın dışına taşıyor')+'.'}); }",
-   "w:'Rule: if p &lt; 0.05, \"difference\" (\"below the importance threshold\" if the interval is within ±5); if p ≥ 0.05 and the whole 90% interval is within ±5, \"equivalent\"; otherwise \"inconclusive\". Here '+(P.p<0.05?'p is below 0.05':'p is above 0.05')+' and the 90% interval '+((P.lo90>-5&&P.hi90<5)?'is within ±5 points':'extends beyond ±5 points')+'.'}); }"
+   "w:'Kural: p &lt; 0,05 ise \"fark var\" (aralık ±5 içindeyse \"önemli eşiğin altında\"); p ≥ 0,05 ve %90 aralık tümüyle ±5 içindeyse \"eşdeğer\"; değilse \"kararsız\". Burada '+(P.p<0.05?'p 0,05\\'ten küçük':'p 0,05\\'ten büyük')+' ve %90 aralık '+((P.lo90>-5&&P.hi90<5)?'±5 puanın içinde':'±5 puanın dışına taşıyor')+'.'+(P.v==='kararsız'?' p\\'nin büyük olması \"eşdeğer\" demeye yetmez: eşdeğerlik için %90 aralığın ±5 bandının tümüyle içinde olması gerekir. Bu aralık bandın dışına taştığı için veri 5 puandan büyük etkileri dışlamıyor.':'')}); }",
+   "w:'Rule: if p &lt; 0.05, \"difference\" (\"below the importance threshold\" if the interval is within ±5); if p ≥ 0.05 and the whole 90% interval is within ±5, \"equivalent\"; otherwise \"inconclusive\". Here '+(P.p<0.05?'p is below 0.05':'p is above 0.05')+' and the 90% interval '+((P.lo90>-5&&P.hi90<5)?'is within ±5 points':'extends beyond ±5 points')+'.'+(P.v==='inconclusive'?' A large p is not enough to say \"equivalent\": equivalence requires the whole 90% interval to lie within the ±5 band. Because this interval extends beyond the band, the data do not rule out effects larger than 5 points.':'')}); }"
   ],
   [
    "else Q.push({s:'Bir karşılaştırmada p = 0,30 çıktı. Hangi cümle doğrudur?',",

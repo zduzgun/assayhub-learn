@@ -1,7 +1,7 @@
 {
  "module": "MD-CON",
  "lang": "en",
- "source_sha256": "a0827011c999749db8b415462310ab4ee188a47755fae983d2a12e53fa4fc6f7",
+ "source_sha256": "188fcecd3fda18b7386be457fff4236fefa1534a41e2d53c3ecf3a839dec72b5",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-CON 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -455,8 +455,8 @@
    "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
   ],
   [
-   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'hedefe üstel yaklaşma, zaman sabiti τ · soluk çizgi: aynı termostatla tek bir kopya';",
-   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'exponential approach to the target, time constant τ · faint line: a single copy with the same thermostat';"
+   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'hedefe üstel yaklaşma, zaman sabiti τ (kesikli) ve 2τ (noktalı) · soluk çizgi: aynı termostatla tek bir kopya';",
+   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'exponential approach to the target, time constant τ (dashed) and 2τ (dotted) · faint line: a single copy with the same thermostat';"
   ],
   [
    "function setPlay(on){ A.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
@@ -475,8 +475,8 @@
    "Object.keys(ALG).forEach(function(a){ var h=o.t63[a], seen=h>=0&&h<=tc; rows+=dl(ALG[a]+': 63% approach time',h<0?'not reached':(seen?fx(h,1)+' ('+fx(h/BR.tau,2)+' τ)':'not yet'))+dl(ALG[a]+': highest smoothed T',tc>=o.tmax?fx(o.peak[a],2):'when the run ends'); });"
   ],
   [
-   "$('kbread').innerHTML=rows+dl('Hedefe üstel yaklaşmada %63 süresi',fx(BR.tau,1)+' (1,00 τ)');",
-   "$('kbread').innerHTML=rows+dl('63% time of an exponential approach to the target',fx(BR.tau,1)+' (1.00 τ)');"
+   "$('kbread').innerHTML=rows+dl('Hedefe üstel yaklaşmada %63 süresi',fx(BR.tau,1)+' (1,00 τ)')+dl('Zaman sabiti 2τ olsaydı %63 süresi',fx(2*BR.tau,1)+' (2,00 τ)');",
+   "$('kbread').innerHTML=rows+dl('63% time of an exponential approach to the target',fx(BR.tau,1)+' (1.00 τ)')+dl('63% time if the time constant were 2τ',fx(2*BR.tau,1)+' (2.00 τ)');"
   ],
   [
    "$('kbtau').querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ BR.user=true; BR.tau=+b.getAttribute('data-v'); $('kbtau').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); }); $('kbwait').textContent='hesaplanıyor…'; setTimeout(function(){ bridgeRun(BR.tau); $('kbwait').textContent=''; start(); },10); }); });",
@@ -487,8 +487,8 @@
    "var parts=Object.keys(ALG).map(function(a){ var h=o.t63[a]; return ALG[a]+': <b>'+(h<0?'not reached':fx(h/BR.tau,2)+' τ')+'</b>'; }).join('; ');"
   ],
   [
-   "card('kc0',n>=2,'τ = '+fx(BR.tau,0)+' için hedefe %63 yaklaşma süresi, τ cinsinden: '+parts+'. Aynı \"τ\" sayısı farklı algoritmalarda farklı bir zamana karşılık geliyor; Nosé-Hoover aşıp salınıyor. Kopya sayısı '+BR.M+' ve tek tohum olduğundan küçük farklar gürültü sayılır; <b>τ değerini algoritmalar arasında aynı fiziksel zaman gibi okumayın</b>.'); }",
-   "card('kc0',n>=2,'For τ = '+fx(BR.tau,0)+', the 63% approach time to the target in units of τ: '+parts+'. The same \"τ\" number corresponds to a different time in different algorithms; Nosé-Hoover overshoots and oscillates. With '+BR.M+' copies and a single seed, small differences count as noise; <b>do not read τ as the same physical time across algorithms</b>.'); }"
+   "card('kc0',n>=2,'τ = '+fx(BR.tau,0)+' için hedefe %63 yaklaşma süresi, τ cinsinden: '+parts+'. Aynı \"τ\" sayısı farklı algoritmalarda farklı bir zamana karşılık geliyor; Nosé-Hoover aşıp salınıyor. Berendsen ve V-rescale\\'de τ, kinetik enerjinin (anlık sıcaklığın) hedefe gevşeme süresidir. Sıçramada konumların potansiyel enerjisi de ısınmak zorundadır ve bu ısıyı kinetik enerjiden çeker; bu yüzden bütün zincir hedefe τ\\'dan geç, bu oyuncakta yaklaşık 2τ\\'da varır (noktalı eğri: zaman sabiti 2τ). Kopya sayısı '+BR.M+' ve tek tohum olduğundan küçük farklar gürültü sayılır; <b>τ değerini algoritmalar arasında aynı fiziksel zaman gibi okumayın</b>.'); }",
+   "card('kc0',n>=2,'For τ = '+fx(BR.tau,0)+', the 63% approach time to the target in units of τ: '+parts+'. The same \"τ\" number corresponds to a different time in different algorithms; Nosé-Hoover overshoots and oscillates. In Berendsen and V-rescale, τ is the relaxation time of the kinetic energy (the instantaneous temperature). In a jump, the potential energy of the positions must heat up too, and it draws this heat from the kinetic energy; so the whole chain reaches the target later than τ, in this toy at about 2τ (dotted curve: time constant 2τ). With '+BR.M+' copies and a single seed, small differences count as noise; <b>do not read τ as the same physical time across algorithms</b>.'); }"
   ],
   [
    "function fxn(v,d){ return v==null?'hesaplanmadı':fx(v,d); }",
@@ -531,8 +531,8 @@
    "var notes={vrescale:'V-rescale scales the velocities toward a random kinetic-energy target; in theory it gives the canonical kinetic-energy distribution.',berendsen:'Berendsen pulls the temperature to the target deterministically; there is no randomness. This run was started by accepting the GROMACS warning (-maxwarn 1) and is deliberately shown with a \"forced\" label.',nosehoover:'Nosé-Hoover with a single chain (leapfrog), τ as the oscillation period; it is deterministic and evolves a friction variable over time.',sd:'Langevin (integrator = sd): friction and a random force act on every particle; tau_t = 1/friction. This is not a thermostat coupling but the integrator itself.'};"
   ],
   [
-   "$('ktnote').textContent=notes[TR[curId()].algo]+' Tek tohumlu koşu: sapmalar bir algoritma hükmü değil, bu koşunun ölçümüdür.';",
-   "$('ktnote').textContent=notes[TR[curId()].algo]+' Single-seed run: deviations are a measurement of this run, not a verdict on the algorithm.';"
+   "$('ktnote').textContent=notes[TR[curId()].algo]+' Tek tohumlu koşu: sapmalar bir algoritma hükmü değil, bu koşunun ölçümüdür. NVT basıncı (bu koşuda '+fx(q.P_mean,0)+' bar) termostatın değil hacim seçiminin sonucudur: NVT kutusu, NPT ortalamasından %1,9 büyük tek bir dengeleme karesinden alındı (15,945 nm³); dalgalanmadan hesaplanan κ_T ile beklenen basınç farkı −274 ile −324 bar (CH05).';",
+   "$('ktnote').textContent=notes[TR[curId()].algo]+' Single-seed run: deviations are a measurement of this run, not a verdict on the algorithm. The NVT pressure ('+fx(q.P_mean,0)+' bar in this run) is a result of the volume choice, not of the thermostat: the NVT box was taken from a single equilibration frame 1.9% larger than the NPT mean (15.945 nm³); with the κ_T computed from the fluctuations the expected pressure difference is −274 to −324 bar (CH05).';"
   ],
   [
    "var items=TORD.map(function(id){ var r=TR[id]; return {id:id,val:r.st.ratio,col:tcol(id),sel:id===curId(),lab:TNAME[r.algo].split(' (')[0].replace('Nosé-Hoover','N-H')+'|'+tauTxt(r.tau),tip:'<b>'+tlabel(id)+'</b><br>SD / kuram '+fx(r.st.ratio,2)+'<br>'+verdict(r.st.ratio)}; });",
@@ -631,16 +631,16 @@
    "var pl=plot(g,62,12,W-62-14,H-48,rng,[0,ym],{xticks:xt,xfmt:function(v){return fx(v,1);},yticks:[0,ym/2,ym],yfmt:function(t){return fx(t*100,0)+'%';},xlab:'volume (nm³)',ylab:'fraction of time',ylabPad:52});"
   ],
   [
-   "$('kpread').innerHTML=dl('Koşu',plabel(wk.pid))+dl('Analiz süresi',fx(r.n*r.dt/1000,1)+' ns')+dl('Ortalama hacim',fx(S.mean,3)+' nm³')+dl('Hacim SD (ölçülen)',fx(S.sd,3)+' nm³')+dl('Hacim SD (kuram, √(k_B T V κ_T))',fx(th,3)+' nm³')+dl('Ölçülen / kuram',fx(S.ratio,2)+' kat · '+verdict(S.ratio)+' (kuram mdp κ_T ile)')+(r.q?dl('Dört ardışık çeyrekte oran (post hoc)',qrange(r.q)):'')+dl('Hacim otokorelasyon 1/e süresi',fx(q.V_acf_tau_ps,1)+' ps')+dl('Hacim otokorelasyonunun ilk dibi',fx(q.V_acf_dip1,3)+' ('+fx(q.V_acf_dip1_ps,1)+' ps; eşik −0,05)')+dl('Hacim salınım dönemi',isFinite(per)&&per>0?fx(per,0)+' ps':'salınım yok')+dl('Ortalama basınç ± SD',fx(r.sp.mean,1)+' ± '+fx(r.sp.sd,0)+' bar')+(r.pq?dl('Dört çeyrekte ortalama basınç (post hoc)',fx(Math.min.apply(null,r.pq),0)+' ile '+fx(Math.max.apply(null,r.pq),0)+' bar'):'')+dl('Ortalama T ± SD',fx(q.T_mean,2)+' ± '+fx(q.T_sd,2)+' K');",
-   "$('kpread').innerHTML=dl('Run',plabel(wk.pid))+dl('Analysis length',fx(r.n*r.dt/1000,1)+' ns')+dl('Mean volume',fx(S.mean,3)+' nm³')+dl('Volume SD (measured)',fx(S.sd,3)+' nm³')+dl('Volume SD (theory, √(k_B T V κ_T))',fx(th,3)+' nm³')+dl('Measured / theory',fx(S.ratio,2)+'× · '+verdict(S.ratio)+' (theory with mdp κ_T)')+(r.q?dl('Ratio in four consecutive quarters (post hoc)',qrange(r.q)):'')+dl('Volume autocorrelation 1/e time',fx(q.V_acf_tau_ps,1)+' ps')+dl('First dip of the volume autocorrelation',fx(q.V_acf_dip1,3)+' ('+fx(q.V_acf_dip1_ps,1)+' ps; threshold −0.05)')+dl('Volume oscillation period',isFinite(per)&&per>0?fx(per,0)+' ps':'no oscillation')+dl('Mean pressure ± SD',fx(r.sp.mean,1)+' ± '+fx(r.sp.sd,0)+' bar')+(r.pq?dl('Mean pressure in four quarters (post hoc)',fx(Math.min.apply(null,r.pq),0)+' to '+fx(Math.max.apply(null,r.pq),0)+' bar'):'')+dl('Mean T ± SD',fx(q.T_mean,2)+' ± '+fx(q.T_sd,2)+' K');"
+   "$('kpread').innerHTML=dl('Koşu',plabel(wk.pid))+dl('Analiz süresi',fx(r.n*r.dt/1000,1)+' ns')+dl('Ortalama hacim',fx(S.mean,3)+' nm³')+dl('Hacim SD (ölçülen)',fx(S.sd,3)+' nm³')+dl('Hacim SD (kuram, √(k_B T V κ_T))',fx(th,3)+' nm³')+dl('Ölçülen / kuram (mdp κ_T ile)',fx(S.ratio,2)+' kat')+dl('κ, dalgalanmadan (post hoc)',fx(S.sd*S.sd/(1.380649e-23*TREF/1e-22*S.mean)*1e5,2)+' ×10⁻⁵ bar⁻¹')+(r.q?dl('Dört ardışık çeyrekte oran (post hoc)',qrange(r.q)):'')+dl('Hacim otokorelasyon 1/e süresi',fx(q.V_acf_tau_ps,1)+' ps')+dl('Hacim otokorelasyonunun ilk dibi',fx(q.V_acf_dip1,3)+' ('+fx(q.V_acf_dip1_ps,1)+' ps; eşik −0,05)')+dl('Hacim salınım dönemi',isFinite(per)&&per>0?fx(per,0)+' ps':'salınım yok')+dl('Ortalama basınç ± SD',fx(r.sp.mean,1)+' ± '+fx(r.sp.sd,0)+' bar')+(r.pq?dl('Dört çeyrekte ortalama basınç (post hoc)',fx(Math.min.apply(null,r.pq),0)+' ile '+fx(Math.max.apply(null,r.pq),0)+' bar'):'')+dl('Ortalama T ± SD',fx(q.T_mean,2)+' ± '+fx(q.T_sd,2)+' K');",
+   "$('kpread').innerHTML=dl('Run',plabel(wk.pid))+dl('Analysis length',fx(r.n*r.dt/1000,1)+' ns')+dl('Mean volume',fx(S.mean,3)+' nm³')+dl('Volume SD (measured)',fx(S.sd,3)+' nm³')+dl('Volume SD (theory, √(k_B T V κ_T))',fx(th,3)+' nm³')+dl('Measured / theory (with mdp κ_T)',fx(S.ratio,2)+'×')+dl('κ from the fluctuation (post hoc)',fx(S.sd*S.sd/(1.380649e-23*TREF/1e-22*S.mean)*1e5,2)+' ×10⁻⁵ bar⁻¹')+(r.q?dl('Ratio in four consecutive quarters (post hoc)',qrange(r.q)):'')+dl('Volume autocorrelation 1/e time',fx(q.V_acf_tau_ps,1)+' ps')+dl('First dip of the volume autocorrelation',fx(q.V_acf_dip1,3)+' ('+fx(q.V_acf_dip1_ps,1)+' ps; threshold −0.05)')+dl('Volume oscillation period',isFinite(per)&&per>0?fx(per,0)+' ps':'no oscillation')+dl('Mean pressure ± SD',fx(r.sp.mean,1)+' ± '+fx(r.sp.sd,0)+' bar')+(r.pq?dl('Mean pressure in four quarters (post hoc)',fx(Math.min.apply(null,r.pq),0)+' to '+fx(Math.max.apply(null,r.pq),0)+' bar'):'')+dl('Mean T ± SD',fx(q.T_mean,2)+' ± '+fx(q.T_sd,2)+' K');"
   ],
   [
    "var notes={crescale:'C-rescale, hacmi (koordinatlarla birlikte) stokastik terim içeren birinci dereceden bir kuralla ölçekler ve kanonik hacim dalgalanması vermesi beklenir.',berendsen:'Berendsen barostat, hacmi deterministik olarak ölçekler; GROMACS uyarısı kabul edilerek (-maxwarn 1) koşuldu ve bilerek \"zorla\" etiketiyle gösterilir.',parrinello:'Parrinello-Rahman, kutuyu ek bir serbestlik derecesi gibi evrimleştirir; τ_P salınım dönemiyle ilgilidir. Dengelenmiş bir kutudan sürdürülerek başlatıldı.'};",
    "var notes={crescale:'C-rescale scales the volume (together with the coordinates) by a first-order rule with a stochastic term and is expected to give the canonical volume fluctuation.',berendsen:'The Berendsen barostat scales the volume deterministically; it was run by accepting the GROMACS warning (-maxwarn 1) and is deliberately shown with a \"forced\" label.',parrinello:'Parrinello-Rahman evolves the box like an extra degree of freedom; τ_P is related to the oscillation period. It was started as a continuation from an equilibrated box.'};"
   ],
   [
-   "$('kpnote').textContent=notes[PR[wk.pid].algo]+' κ_T mdp değeridir (4,5×10⁻⁵ bar⁻¹), gerçek TIP3P sıkıştırılabilirliği değil; kuram yalnız referanstır. Basınç, 1546 atomluk kutuda bu ayarlarla bu büyüklükte dalgalanır.';",
-   "$('kpnote').textContent=notes[PR[wk.pid].algo]+' κ_T is the mdp value (4.5×10⁻⁵ bar⁻¹), not the real TIP3P compressibility; the theory is only a reference. In a 1546-atom box with these settings the pressure fluctuates by this much.';"
+   "$('kpnote').textContent=notes[PR[wk.pid].algo]+' κ_T mdp değeridir (4,5×10⁻⁵ bar⁻¹), gerçek TIP3P sıkıştırılabilirliği değil; kuram yalnız referanstır. Ön kayıttaki 0,9 ile 1,1 bandı sıcaklık için seçilmişti; hacim oranı için \"uyumlu\" ya da \"sapıyor\" hükmü verilmez. Yorumlanabilir olan, aynı sistemde barostatlar arasındaki farktır (CH05). Basınç, 1546 atomluk kutuda bu ayarlarla bu büyüklükte dalgalanır.';",
+   "$('kpnote').textContent=notes[PR[wk.pid].algo]+' κ_T is the mdp value (4.5×10⁻⁵ bar⁻¹), not the real TIP3P compressibility; the theory is only a reference. The 0.9 to 1.1 band of the preregistration was chosen for temperature; no \"consistent\" or \"deviates\" verdict is given for the volume ratio. What can be interpreted is the difference between barostats in the same system (CH05). In a 1546-atom box with these settings the pressure fluctuates by this much.';"
   ],
   [
    "var items=PORD.map(function(id){ var r=PR[id]; return {id:id,val:r.sv.ratio,col:pcol(id),sel:id===wk.pid,lab:PNAME[r.algo].replace('Parrinello-Rahman','P-R')+'|'+tauTxt(r.tau),tip:'<b>'+plabel(id)+'</b><br>hacim SD / kuram '+fx(r.sv.ratio,2)}; });",
@@ -655,8 +655,8 @@
    "function rg(a){ var v=a.map(function(r){return r.sv.ratio;}); return fx(Math.min.apply(null,v),2)+' to '+fx(Math.max.apply(null,v),2); }"
   ],
   [
-   "card('kc5',Object.keys(wk.pseenA).length>=2,'Hacim SD / kuram oranı altı koşuda: '+all.map(function(r){ return PNAME[r.algo]+' τ_P '+tauTxt(r.tau)+': <b>'+fx(r.sv.ratio,2)+'</b>'; }).join('; ')+'. Berendsen koşularında oran '+rg(br)+' (kuramın çok altında), öbür '+ob.length+' koşuda '+rg(ob)+'; 0,9 ile 1,1 aralığının dışında kalan koşu <b>'+nout+' / '+all.length+'</b>. Bir koşunun dört çeyreğinde oran en çok '+fx(qw,2)+' birim oynadı (post hoc). Kuramsal SD mdp\\'deki κ_T ile hesaplandığından 1,1 üstü oranlar κ_T farkını da içerebilir; gerçek κ_T bu ızgarada ölçülmedi: Bu senaryo hesaplanmadı. Ortalama basınç '+fx(Math.min.apply(null,pm),1)+' ile '+fx(Math.max.apply(null,pm),1)+' bar arasında (hedef 1 bar); tek bir koşunun çeyrek ortalamaları bile en çok '+fx(pw,0)+' bar oynadığı için <b>ortalama basınç farkları bu koşu uzunluğunda barostatları ayırt etmiyor; hacim dalgalanmasının genişliği ise Berendsen\\'i öbürlerinden ayırıyor</b>.');",
-   "card('kc5',Object.keys(wk.pseenA).length>=2,'Volume SD / theory ratio in six runs: '+all.map(function(r){ return PNAME[r.algo]+' τ_P '+tauTxt(r.tau)+': <b>'+fx(r.sv.ratio,2)+'</b>'; }).join('; ')+'. In the Berendsen runs the ratio is '+rg(br)+' (far below theory), in the other '+ob.length+' runs '+rg(ob)+'; runs outside the 0.9 to 1.1 range <b>'+nout+' / '+all.length+'</b>. Within a run the ratio moved by at most '+fx(qw,2)+' across four quarters (post hoc). Because the theoretical SD is computed with the mdp κ_T, ratios above 1.1 may also contain the κ_T difference; the real κ_T was not measured in this grid: This scenario was not computed. The mean pressure lies between '+fx(Math.min.apply(null,pm),1)+' and '+fx(Math.max.apply(null,pm),1)+' bar (target 1 bar); since even the quarter averages of a single run moved by up to '+fx(pw,0)+' bar, <b>at this run length the mean-pressure differences do not distinguish the barostats; the width of the volume fluctuation, however, sets Berendsen apart from the others</b>.');"
+   "card('kc5',Object.keys(wk.pseenA).length>=2,'Hacim SD / kuram oranı altı koşuda: '+all.map(function(r){ return PNAME[r.algo]+' τ_P '+tauTxt(r.tau)+': <b>'+fx(r.sv.ratio,2)+'</b>'; }).join('; ')+'. Berendsen koşularında oran '+rg(br)+' (kuramın çok altında), öbür '+ob.length+' koşuda '+rg(ob)+'; aynı τ_P\\'de Berendsen\\'in hacim SD\\'si öbürlerinin ortalamasının '+[1,5].filter(function(t){ return br.some(function(r){return r.tau===t;})&&ob.some(function(r){return r.tau===t;}); }).map(function(t){ var b=br.filter(function(r){return r.tau===t;})[0].sv.sd, o=ob.filter(function(r){return r.tau===t;}).map(function(r){return r.sv.sd;}); return 'τ_P '+t+' ps\\'de <b>'+fx(b/(o.reduce(function(s,x){return s+x;},0)/o.length),2)+'</b> katı'; }).join(', ')+'. 0,9 ile 1,1 bandı ön kayıtta sıcaklık için seçilmişti; hacim oranı için bir hüküm bandı değildir. Bir koşunun dört çeyreğinde oran en çok '+fx(qw,2)+' birim oynadı (post hoc). Kuramsal SD mdp\\'deki κ_T ile hesaplandığından 1,1 üstü oranlar κ_T farkını da içerebilir; gerçek κ_T bu ızgarada ölçülmedi: Bu senaryo hesaplanmadı. Ortalama basınç '+fx(Math.min.apply(null,pm),1)+' ile '+fx(Math.max.apply(null,pm),1)+' bar arasında (hedef 1 bar); tek bir koşunun çeyrek ortalamaları bile en çok '+fx(pw,0)+' bar oynadığı için <b>ortalama basınç farkları bu koşu uzunluğunda barostatları ayırt etmiyor; hacim dalgalanmasının genişliği ise Berendsen\\'i öbürlerinden ayırıyor</b>.');",
+   "card('kc5',Object.keys(wk.pseenA).length>=2,'Volume SD / theory ratio in six runs: '+all.map(function(r){ return PNAME[r.algo]+' τ_P '+tauTxt(r.tau)+': <b>'+fx(r.sv.ratio,2)+'</b>'; }).join('; ')+'. In the Berendsen runs the ratio is '+rg(br)+' (far below theory), in the other '+ob.length+' runs '+rg(ob)+'; at the same τ_P the volume SD of Berendsen is '+[1,5].filter(function(t){ return br.some(function(r){return r.tau===t;})&&ob.some(function(r){return r.tau===t;}); }).map(function(t){ var b=br.filter(function(r){return r.tau===t;})[0].sv.sd, o=ob.filter(function(r){return r.tau===t;}).map(function(r){return r.sv.sd;}); return '<b>'+fx(b/(o.reduce(function(s,x){return s+x;},0)/o.length),2)+'</b> times the mean of the others at τ_P '+t+' ps'; }).join(', ')+'. The 0.9 to 1.1 band was chosen for temperature in the preregistration; it is not a verdict band for the volume ratio. Within a run the ratio moved by at most '+fx(qw,2)+' across four quarters (post hoc). Because the theoretical SD is computed with the mdp κ_T, ratios above 1.1 may also contain the κ_T difference; the real κ_T was not measured in this grid: This scenario was not computed. The mean pressure lies between '+fx(Math.min.apply(null,pm),1)+' and '+fx(Math.max.apply(null,pm),1)+' bar (target 1 bar); since even the quarter averages of a single run moved by up to '+fx(pw,0)+' bar, <b>at this run length the mean-pressure differences do not distinguish the barostats; the width of the volume fluctuation, however, sets Berendsen apart from the others</b>.');"
   ],
   [
    "var pf=function(r){ var p=r.res.V_osc_period_ps; return (isFinite(p)&&p>0?'tahmini dönem '+fx(p,0)+' ps':'dönem bulunamadı')+', ilk dip '+fx(r.res.V_acf_dip1,2)+' ('+fx(r.res.V_acf_dip1_ps,1)+' ps)'; };",
@@ -915,7 +915,7 @@
    "o:[['Langevin describes the water more accurately, because its temperature SD ratio is among the closest to 1',0],['The difference comes from the single seed and does not matter',0],['In Langevin the friction coefficient is 1/τ_T; the low D and its increase with τ_T are consistent with friction, so the thermostat choice and τ_T must be recorded',1]],"
   ],
   [
-   "w:'Langevin\\'de (integrator = sd) sürtünme her parçacığa uygulanır; D, τ_T büyüdükçe arttı ('+fx(Ls.res['D_1e-5cm2s'],2)+' ten '+fx(Ln.res['D_1e-5cm2s'],2)+' e), fark aracın uyum hatasından (en çok '+fx(Math.max(Ls.res.D_err,Ln.res.D_err),2)+') çok büyüktür. Sıcaklık SD oranının 1\\'e yakın olması dinamiğin bozulmadığını göstermez.'});",
+   "w:'Langevin\\'de (integrator = sd) sürtünme her parçacığa uygulanır; D, τ_T büyüdükçe arttı ('+fx(Ls.res['D_1e-5cm2s'],2)+' değerinden '+fx(Ln.res['D_1e-5cm2s'],2)+' değerine), fark aracın uyum hatasından (en çok '+fx(Math.max(Ls.res.D_err,Ln.res.D_err),2)+') çok büyüktür. Sıcaklık SD oranının 1\\'e yakın olması dinamiğin bozulmadığını göstermez.'});",
    "w:'In Langevin (integrator = sd) friction acts on every particle; D grew as τ_T grew (from '+fx(Ls.res['D_1e-5cm2s'],2)+' to '+fx(Ln.res['D_1e-5cm2s'],2)+'), and the difference is much larger than the fit error of the tool (at most '+fx(Math.max(Ls.res.D_err,Ln.res.D_err),2)+'). A temperature SD ratio close to 1 does not show that the dynamics are undistorted.'});"
   ],
   [
@@ -1105,6 +1105,14 @@
   [
    "<select id=\"kftt\"><option value=\"0.1\" selected>0,1</option><option value=\"0.5\">0,5</option><option value=\"1.0\">1,0</option><option value=\"2.0\">2,0</option></select>",
    "<select id=\"kftt\"><option value=\"0.1\" selected>0.1</option><option value=\"0.5\">0.5</option><option value=\"1.0\">1.0</option><option value=\"2.0\">2.0</option></select>"
+  ],
+  [
+   "var pl=plot(g,58,12,W-58-14,H-48,[0,tmax],[0.95,1.6],{xticks:tx,yticks:[1,1.25,1.5],ylab:'ortalama T (hedef 1)',ylabPad:46,xlab:'zaman (oyuncak birim)',yfmt:function(v){return fx(v,2);}});",
+   "var pl=plot(g,58,12,W-58-14,H-48,[0,tmax],[0.95,1.6],{xticks:tx,yticks:[1,1.25,1.5],ylab:'mean T (target 1)',ylabPad:46,xlab:'time (toy units)',yfmt:function(v){return fx(v,2);}});"
+  ],
+  [
+   "$('kbtime').textContent='zaman 0 / '+fx(tmax,0)+' · kopyalar, grafik görünür olunca ya da \"Oynat\" ile hesaplanır';",
+   "$('kbtime').textContent='time 0 / '+fx(tmax,0)+' · the copies are computed when the chart becomes visible or with \"Play\"';"
   ]
  ],
  "keep": [
@@ -1132,6 +1140,8 @@
   "parrinello",
   "hbonds",
   "allbonds",
-  "<span>Barostat:</span>"
+  "<span>Barostat:</span>",
+  "Ber",
+  "Lang"
  ]
 }

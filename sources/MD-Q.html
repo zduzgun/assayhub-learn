@@ -106,7 +106,8 @@ pre.rec{margin:0;white-space:pre-wrap;word-break:break-word;font:13px/1.55 var(-
 @media (max-width:820px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){.fgrid{grid-template-columns:1fr}}
 .btns .btn.wrapb{white-space:normal;text-align:left}
-@media (max-width:560px){.read dd{white-space:normal;overflow-wrap:anywhere}.read{gap:5px 10px}}
+@media (max-width:560px){.read{grid-template-columns:minmax(0,1fr);gap:1px 0}.read dd{text-align:left;white-space:normal;overflow-wrap:break-word;margin:0 0 7px}}
+#qrectrow input{width:5.5em;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);margin-left:4px}
 .box3{aspect-ratio:1/1;background:var(--stage);cursor:grab}
 h3.sub{font-size:16px;margin:22px 0 6px}
 .bigtag{font-weight:600;font-size:15px;color:var(--accent);text-align:center;border:1.5px dashed var(--accent);border-radius:10px;padding:7px 10px;margin:6px 0 10px}
@@ -134,9 +135,9 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
 
 #qbridge{aspect-ratio:16/5.2}
 #qmap{aspect-ratio:1/1;max-width:520px;cursor:crosshair}
-#qtl{aspect-ratio:16/2.4}
+#qtl{aspect-ratio:auto;height:162px}
 #qbox{aspect-ratio:1/1;background:var(--stage);cursor:grab}
-@media (max-width:560px){#qbridge{aspect-ratio:4/3.4}#qtl{aspect-ratio:16/5}}
+@media (max-width:560px){#qbridge{aspect-ratio:4/3.4}}
 .claims{display:grid;gap:10px}
 .claim{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;background:var(--paper)}
 .claim p.s{margin:0;font-family:var(--serif);font-size:16.5px}
@@ -174,6 +175,7 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <h2 id="qh1">Alanin dipeptidi: "αR'de ne kadar zaman geçiyor?"</h2>
     <div class="prose"><p>Uçları kapatılmış alanin (ACE-ALA-NME) küçük bir peptittir; konformasyonu iki omurga açısıyla, φ ve ψ ile özetlenir. Soru şimdilik dar ve ölçülebilir: "Kaydedilen koşularda molekül zamanının ne kadarını φ/ψ düzleminin αR bölgesinde geçiriyor?" Bu sayıyı ölçmek için önce A bölgesini ve analiz penceresini tanımlamanız gerekir. Aşağıda mdshare'in üç koşusunun (her biri 250 ns) açıları var; harita 10 ps aralıklı alt örnekle çizilir. Bölge tanımını, koşuyu ve pencereyi değiştirin; isterseniz haritada sürükleyerek kendi dikdörtgeninizi çizin.</p></div>
     <div class="selrow"><span>A bölgesi:</span><div class="seg" role="group" aria-label="Bölge tanımı" id="qdef"><button type="button" data-v="mdu" aria-pressed="true">αR (MD-U tanımı: φ &lt; 0, −120 ≤ ψ &lt; 50)</button><button type="button" data-v="dar" aria-pressed="false">dar: ψ &lt; 30</button><button type="button" data-v="genis" aria-pressed="false">geniş: ψ &lt; 70</button><button type="button" data-v="ozel" aria-pressed="false">kendi dikdörtgeniniz</button></div></div>
+    <div class="selrow" id="qrectrow"><span>Kendi dikdörtgeniniz (derece; klavyeyle de girilir):</span><label>φ alt <input type="number" id="qr_p0" min="-180" max="180" step="1" value="-160"></label><label>φ üst <input type="number" id="qr_p1" min="-180" max="180" step="1" value="-40"></label><label>ψ alt <input type="number" id="qr_s0" min="-180" max="180" step="1" value="-80"></label><label>ψ üst <input type="number" id="qr_s1" min="-180" max="180" step="1" value="20"></label></div>
     <div class="selrow"><span>Koşu:</span><div class="seg" role="group" aria-label="Koşu" id="qrun"><button type="button" data-v="0" aria-pressed="true">1</button><button type="button" data-v="1" aria-pressed="false">2</button><button type="button" data-v="2" aria-pressed="false">3</button><button type="button" data-v="all" aria-pressed="false">üçü birlikte</button></div></div>
     <div class="selrow"><span>Pencere uzunluğu:</span><div class="seg" role="group" aria-label="Pencere uzunluğu" id="qlen"><button type="button" data-v="1" aria-pressed="false">1 ns</button><button type="button" data-v="10" aria-pressed="false">10 ns</button><button type="button" data-v="25" aria-pressed="true">25 ns</button><button type="button" data-v="100" aria-pressed="false">100 ns</button><button type="button" data-v="250" aria-pressed="false">250 ns</button></div></div>
     <div class="selrow"><label for="qstart">Pencere başı: <b id="qstartv">0</b> ns</label><input type="range" id="qstart" min="0" max="225" step="1" value="0"></div>
@@ -212,9 +214,9 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <h2 id="qh3">Soru, model, veri, nicelik, iddia</h2>
     <div class="prose"><p>Bölümün çıktısı bu tablodur. Kendi çalışmanız için doldurun; nicelik satırı bu sayfada seçtiğiniz tanımla başlar. Metin yalnız tarayıcınızda oluşur; hiçbir yere gönderilmez.</p></div>
     <div class="fgrid one">
-      <label>Soru (ne öğrenmek istiyorsunuz, hangi karşılaştırmayla?)<textarea id="qfq" rows="2">Örnek: Alanin dipeptidi 300 K'de suda zamanının ne kadarını αR bölgesinde geçiriyor?</textarea></label>
-      <label>Model (kuvvet alanı, su, sınırlar, sıcaklık; dosyalarıyla)<textarea id="qfm" rows="2">Örnek: kaynak beyanı ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; parametre ve topoloji dosyaları elimizde yok.</textarea></label>
-      <label>Veri (koşular, süre, kayıt aralığı, köken)<textarea id="qfd" rows="2">Örnek: mdshare ALA2, 3 koşu × 250 ns, 1 ps kare; yalnız φ/ψ ve 1. koşunun susuz kareleri.</textarea></label>
+      <label>Soru (ne öğrenmek istiyorsunuz, hangi karşılaştırmayla?)<textarea id="qfq" rows="2" placeholder="Örnek: Alanin dipeptidi 300 K'de suda zamanının ne kadarını αR bölgesinde geçiriyor?"></textarea></label>
+      <label>Model (kuvvet alanı, su, sınırlar, sıcaklık; dosyalarıyla)<textarea id="qfm" rows="2" placeholder="Örnek: kaynak beyanı ACEMD, AMBER ff99SB-ILDN, TIP3P, 300 K, Langevin, 2 fs; parametre ve topoloji dosyaları elimizde yok."></textarea></label>
+      <label>Veri (koşular, süre, kayıt aralığı, köken)<textarea id="qfd" rows="2" placeholder="Örnek: mdshare ALA2, 3 koşu × 250 ns, 1 ps kare; yalnız φ/ψ ve 1. koşunun susuz kareleri."></textarea></label>
       <label>İddia (verinin taşıyabileceği cümle)<textarea id="qfc" rows="2"></textarea></label>
       <label>Neyi denetlemedim?<textarea id="qfn" rows="2"></textarea></label>
     </div>
@@ -401,14 +403,14 @@ function qwMap(){ var c=$('qmap'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,
   g.strokeStyle=PAL.accent; g.lineWidth=2.5; g.strokeRect(P.X(r.p0),P.Y(r.s1),P.X(r.p1)-P.X(r.p0),P.Y(r.s0)-P.Y(r.s1)); g.lineWidth=1;
   g.fillStyle=PAL.accent; g.font='600 12px '+css('--sans'); g.fillText('A',P.X(r.p0)+5,P.Y(r.s1)+14);
   g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); g.fillText('αR',P.X(-150),P.Y(-30)); g.fillText('β/PPII',P.X(-150),P.Y(150)); g.fillText('αL',P.X(55),P.Y(40));
-  if(QD.viz&&QW.boxOn){ var V=QD.viz, k=Math.round(QW.fi), pp=QW.VPP; g.strokeStyle=hexA(PAL.bad,0.5); g.lineWidth=1.5; g.beginPath(); for(var t=Math.max(0,k-20);t<=k;t++){ var X=P.X(pp[2*t]/100), Y=P.Y(pp[2*t+1]/100); if(t===Math.max(0,k-20)) g.moveTo(X,Y); else g.lineTo(X,Y); } g.stroke(); g.lineWidth=1; g.fillStyle=PAL.bad; g.beginPath(); g.arc(P.X(pp[2*k]/100),P.Y(pp[2*k+1]/100),5,0,7); g.fill(); }
+  if(QD.viz&&QW.boxOn&&(QW.run==='0'||QW.run==='all')&&QW.start*1000<=QD.viz.start_ps&&(QW.start+QW.len)*1000>=QD.viz.start_ps+QD.viz.n){ var V=QD.viz, k=Math.round(QW.fi), pp=QW.VPP; g.strokeStyle=hexA(PAL.bad,0.5); g.lineWidth=1.5; g.beginPath(); for(var t=Math.max(0,k-20);t<=k;t++){ var X=P.X(pp[2*t]/100), Y=P.Y(pp[2*t+1]/100); if(t===Math.max(0,k-20)) g.moveTo(X,Y); else g.lineTo(X,Y); } g.stroke(); g.lineWidth=1; g.fillStyle=PAL.bad; g.beginPath(); g.arc(P.X(pp[2*k]/100),P.Y(pp[2*k+1]/100),5,0,7); g.fill(); }
   QW.P=P; }
-function qwTl(){ var c=$('qtl'), f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H); g.fillStyle=PAL.paper; g.fillRect(0,0,W,H);
+function qwTl(){ var c=$('qtl'); c.style.height=(30+runsSel().length*(c.clientWidth<420?30:44))+'px'; var f=fit(c), g=f.g, W=f.W, H=f.H; g.clearRect(0,0,W,H); g.fillStyle=PAL.paper; g.fillRect(0,0,W,H);
   var rs=runsSel(), L=54, w=W-L-10, top=8, rh=Math.min(40,(H-30)/rs.length-4), cols=Math.floor(w), per=QW.n/cols, SC=[rgbA(css('--accent')),rgbA(css('--pale')),rgbA(css('--gold'))];
   rs.forEach(function(ri,j){ var A=QW.R[ri], y=top+j*(rh+4); g.fillStyle=PAL.muted; g.font='12px '+css('--sans'); g.fillText('koşu '+(ri+1),6,y+rh-5);
     for(var c2=0;c2<cols;c2++){ var a=Math.floor(c2*per), b=Math.floor((c2+1)*per), n=[0,0,0]; for(var i=a;i<b;i++) n[stOf(A[2*i]/100,A[2*i+1]/100)]++; var tot=b-a, col=[0,1,2].reduce(function(s,q){ return s.map(function(v,z){ return v+SC[q][z]*n[q]/tot; }); },[0,0,0]); g.fillStyle=rstr(col.map(Math.round)); g.fillRect(L+c2,y,1.2,rh); } });
   var x0=L+QW.start/250*w, x1=L+(QW.start+QW.len)/250*w, yb=top+rs.length*(rh+4); g.strokeStyle=PAL.ink; g.lineWidth=2; g.strokeRect(x0,top-3,Math.max(2,x1-x0),yb-top+2); g.lineWidth=1;
-  g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); [0,50,100,150,200,250].forEach(function(t){ var x=L+t/250*w; g.textAlign=t===250?'right':(t===0?'left':'center'); g.fillText(t+' ns',x,yb+13); }); g.textAlign='left'; }
+  g.fillStyle=PAL.muted; g.font='11.5px '+css('--sans'); (w<420?[0,100,200]:[0,50,100,150,200,250]).forEach(function(t){ var x=L+t/250*w; g.textAlign=t===250?'right':(t===0?'left':'center'); g.fillText(t+' ns',x,yb+13); }); g.textAlign='left'; }
 function qwRead(){ var rs=runsSel(), ps=rs.map(function(ri){ return pA(ri); }), w=winIdx(), nfr=(w[1]-w[0]);
   var h=rs.map(function(ri,j){ return dl('A payı, koşu '+(ri+1),pct(ps[j],1)); }).join('');
   if(rs.length>1) h+=dl('Üç koşunun ortalaması (aralık)',pct(mean(ps),1)+' ('+pct(Math.min.apply(null,ps),1)+' ile '+pct(Math.max.apply(null,ps),1)+')');
@@ -442,7 +444,7 @@ function qbox(){ var V=QD.viz, cv=$('qbox'); if(!V){ $('qboxnote').textContent='
     var k2=Math.round(fi), phi=QW.VPP[2*k2]/100, psi=QW.VPP[2*k2+1]/100, stn=['αR','β/PPII','αL'][stOf(phi,psi)];
     pill(g,'t = '+String(V.start_ps+k2)+' ps · '+stn,W/2,18,css('--paper'),rstr(rgbA(css('--navy')),0.9));
     $('qboxt').textContent='kare '+(k2+1)+' / '+V.n;
-    $('qboxread').innerHTML=dl('Zaman (koşu 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('Durum (MD-U tanımı)',stn)+dl('Bu 400 ps\'deki αR↔β geçişi',String(V.trans)); }
+    $('qboxread').innerHTML=dl('Zaman (koşu 1)',String(V.start_ps+k2)+' ps')+dl('φ',fx(phi,1)+'°')+dl('ψ',fx(psi,1)+'°')+dl('Durum (MD-U tanımı)',stn)+dl('Bu 400 ps\'deki αR↔β geçişi (yeni durum ≥ 5 ps)',String(V.trans)); }
   QW.boxDraw=draw; var btn=$('qplay');
   function setPlay(on){ QW.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }
   btn.onclick=function(){ setPlay(!QW.play); };
@@ -451,7 +453,7 @@ function qbox(){ var V=QD.viz, cv=$('qbox'); if(!V){ $('qboxnote').textContent='
   var drag=null; cv.addEventListener('pointerdown',function(e){ drag={x:e.clientX,y:e.clientY,yaw:QW.V.yaw,pitch:QW.V.pitch}; cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove',function(e){ if(!drag) return; QW.V.yaw=drag.yaw+(e.clientX-drag.x)*0.01; QW.V.pitch=Math.max(-1.3,Math.min(1.3,drag.pitch+(e.clientY-drag.y)*0.01)); draw(); });
   cv.addEventListener('pointerup',function(){ drag=null; }); cv.addEventListener('pointercancel',function(){ drag=null; });
-  $('qboxnote').textContent='1. koşunun '+V.start_ps+' ile '+(V.start_ps+V.n-1)+' ps arasındaki 400 karesi (1 ps aralık). Seçim kuralı sayfa yazılmadan önce belirlendi: 250 ns içinde en az iki αR↔β geçişi içeren ilk 400 ps\'lik pencere. 22 atom her karede ilk kareye hizalandı (molekülün dönmesi çıkarıldı); kareler arası geçiş görüntüde doğrusal ara değerlemeyle yumuşatılır. Kırmızı nokta ve iz, aynı karenin φ/ψ değerini haritada gösterir. Suyun koordinatları bu dosyada yoktur. Sürükleyerek döndürebilirsiniz.';
+  $('qboxnote').textContent='1. koşunun '+V.start_ps+' ile '+(V.start_ps+V.n-1)+' ps arasındaki 400 karesi (1 ps aralık). Seçim kuralı sayfa yazılmadan önce belirlendi: 250 ns içinde en az iki αR↔β geçişi içeren ilk 400 ps\'lik pencere. 22 atom her karede ilk kareye hizalandı (molekülün dönmesi çıkarıldı); kareler arası geçiş görüntüde doğrusal ara değerlemeyle yumuşatılır. Kırmızı nokta ve iz, aynı karenin φ/ψ değerini haritada gösterir; yalnız harita 1. koşunun verisini içerdiğinde (koşu 1 ya da üçü birlikte) ve pencere bu 400 ps\'yi kapsadığında çizilir. Geçiş sayımı: αR ile β arasında, yeni durum en az 5 kare (5 ps) sürünce bir geçiş sayılır; αL kareleri atlanır (MD-CON ile aynı tanım). Ham durum değişimi sayılsaydı sınırdaki gidip gelmeler de girerdi. Suyun koordinatları bu dosyada yoktur. Sürükleyerek döndürebilirsiniz.';
   draw(); CHARTS.push(draw); }
 function work(){ qwLoad();
   segWire('qdef',function(v){ QW.def=v; qwAll(); });
@@ -461,9 +463,14 @@ function work(){ qwLoad();
   $('qstart').addEventListener('change',function(){ qwRead(); });
   var cv=$('qmap'), dr=null;
   function ang(e){ var r=cv.getBoundingClientRect(), P=QW.P; return [Math.max(-180,Math.min(180,-180+(e.clientX-r.left-P.L)/P.W*360)), Math.max(-180,Math.min(180,180-(e.clientY-r.top-P.T)/P.H*360))]; }
+  function qrSync(){ ['p0','p1','s0','s1'].forEach(function(k){ $('qr_'+k).value=String(Math.round(QW.rect[k])); }); }
+  function qrSetOzel(){ if(QW.def!=='ozel'){ QW.def='ozel'; $('qdef').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed',String(x.getAttribute('data-v')==='ozel')); }); } }
+  ['p0','p1','s0','s1'].forEach(function(k){ $('qr_'+k).addEventListener('change',function(){ var v=['p0','p1','s0','s1'].map(function(q){ var x=Math.round(+$('qr_'+q).value); return isFinite(x)?Math.max(-180,Math.min(180,x)):QW.rect[q]; });
+    var r={p0:Math.min(v[0],v[1]),p1:Math.max(v[0],v[1]),s0:Math.min(v[2],v[3]),s1:Math.max(v[2],v[3])}; if(r.p1===r.p0||r.s1===r.s0){ qrSync(); return; } QW.rect=r; qrSync(); qrSetOzel(); qwAll(); }); });
+  qrSync();
   cv.addEventListener('pointerdown',function(e){ dr=ang(e); cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove',function(e){ if(!dr) return; var b=ang(e); QW.rect={p0:Math.min(dr[0],b[0]),p1:Math.max(dr[0],b[0]),s0:Math.min(dr[1],b[1]),s1:Math.max(dr[1],b[1])}; if(QW.def!=='ozel'){ QW.def='ozel'; $('qdef').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed',String(x.getAttribute('data-v')==='ozel')); }); } qwMap(); });
-  cv.addEventListener('pointerup',function(){ if(dr){ dr=null; QW.rect.p0=Math.round(QW.rect.p0); QW.rect.p1=Math.round(QW.rect.p1); QW.rect.s0=Math.round(QW.rect.s0); QW.rect.s1=Math.round(QW.rect.s1); qwAll(); } });
+  cv.addEventListener('pointerup',function(){ if(dr){ dr=null; QW.rect.p0=Math.round(QW.rect.p0); QW.rect.p1=Math.round(QW.rect.p1); QW.rect.s0=Math.round(QW.rect.s0); QW.rect.s1=Math.round(QW.rect.s1); qrSync(); qwAll(); } });
   var SC=[css('--accent'),css('--pale'),css('--gold')]; $('qtlleg').innerHTML='<span>'+dot(SC[0])+'αR</span><span>'+dot(SC[1])+'β/PPII</span><span>'+dot(SC[2])+'αL</span><span>çerçeve: seçtiğiniz pencere</span>';
   $('qnote').textContent='Harita ve paylar 10 ps aralıklı alt örnekten hesaplanır; tam 1 ps veriyle karşılaştırıldığında fark 250 ns\'lik paylarda 0,1, 25 ns\'lik bloklarda 0,7, 1 ns\'lik pencerelerde 4,6 puana kadar çıkar (Python denetimi); kısa pencerede alt örnek daha kaba bir tahmindir. Durum renkleri MD-U tanımıyla (ψ < 50); A bölgesi sizin seçtiğiniz tanımdır.';
   qbox(); qwAll(); CHARTS.push(qwAll); }

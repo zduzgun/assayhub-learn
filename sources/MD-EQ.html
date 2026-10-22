@@ -129,7 +129,7 @@ p.next a{color:var(--accent)}
 @media (max-width:820px){ #k2scene{aspect-ratio:4/3 !important} #k2miPlot{aspect-ratio:16/14} }
 /* Laboratuvar 3 */
 #k3s6Plot{aspect-ratio:16/4}
-<style>#m1box{aspect-ratio:1/1;cursor:default} td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap} #m1lj{aspect-ratio:16/10} #m1plot{aspect-ratio:16/6} #m1book{aspect-ratio:16/6} #m1em3{aspect-ratio:16/6} .crash{display:grid;gap:8px;border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:8px;padding:12px 14px;background:var(--paper)} .crash pre{margin:0;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;word-break:break-all;color:var(--ink)} .btn:disabled{opacity:.45;cursor:not-allowed} .sub{display:grid;gap:14px;border-top:1px solid var(--line);padding-top:18px;margin-top:4px} .h3{margin:0;font-size:18px;line-height:1.3} #m1pr th{white-space:nowrap} #m1ubq{aspect-ratio:4/3} #m1ux .read{grid-template-columns:1fr;gap:2px} #m1ux .read dt{margin-top:6px} #m1ux .read dd{white-space:normal;text-align:left} #m1ux .ctl{min-width:0} .frs{display:flex;gap:6px;flex-wrap:wrap} .frs span{font-size:12.5px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted)} .frs span.on{background:var(--bad);color:#fff;border-color:var(--bad)} td.dim{opacity:.35} #m1uLogW td,#m1uLogW th{padding:6px 7px} #m1pr .ok{color:var(--good);white-space:nowrap} @media (min-width:821px){ .minis{grid-template-columns:repeat(2,minmax(0,1fr))} } #m1hist{aspect-ratio:16/10} @media (max-width:560px){ #m1ubq{aspect-ratio:1/1} #m1pr th,#m1pr td{padding:7px 5px;font-size:13px;letter-spacing:0} #m1hist{aspect-ratio:4/3.4} #m1plot{aspect-ratio:4/3.2} #m1book,#m1em3{aspect-ratio:4/3} }</style>
+[hidden]{display:none!important} .opt .qb{display:inline-block;min-width:1.4em;height:1.4em;line-height:1.4em;text-align:center;border-radius:4px;background:var(--soft);color:var(--muted);font-weight:600;margin-right:9px} .opt.right .qb{background:var(--good);color:#fff} .opt.wrong .qb{background:var(--bad);color:#fff} #m1box{aspect-ratio:1/1;cursor:default} .seg button:disabled{opacity:.45;cursor:not-allowed} td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap} #m1lj{aspect-ratio:16/10} #m1plot{aspect-ratio:16/6} #m1book{aspect-ratio:16/6} #m1em3{aspect-ratio:16/6} .crash{display:grid;gap:8px;border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:8px;padding:12px 14px;background:var(--paper)} .crash pre{margin:0;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;word-break:break-all;color:var(--ink)} .btn:disabled{opacity:.45;cursor:not-allowed} .sub{display:grid;gap:14px;border-top:1px solid var(--line);padding-top:18px;margin-top:4px} .h3{margin:0;font-size:18px;line-height:1.3} #m1pr th{white-space:nowrap} #m1ubq{aspect-ratio:4/3} #m1ux .read{grid-template-columns:1fr;gap:2px} #m1ux .read dt{margin-top:6px} #m1ux .read dd{white-space:normal;text-align:left} #m1ux .ctl{min-width:0} .frs{display:flex;gap:6px;flex-wrap:wrap} .frs span{font-size:12.5px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted)} .frs span.on{background:var(--bad);color:#fff;border-color:var(--bad)} td.dim{opacity:.35} #m1uLogW td,#m1uLogW th{padding:6px 7px} #m1pr .ok{color:var(--good);white-space:nowrap} @media (min-width:821px){ .minis{grid-template-columns:repeat(2,minmax(0,1fr))} } #m1hist{aspect-ratio:16/10} @media (max-width:560px){ #m1ubq{aspect-ratio:1/1} #m1pr th,#m1pr td{padding:7px 5px;font-size:13px;letter-spacing:0} #m1hist{aspect-ratio:4/3.4} #m1plot{aspect-ratio:4/3.2} #m1book,#m1em3{aspect-ratio:4/3} }</style>
 <div class="wrap">
   <div class="proto">Bu modül bir protein kutusunu dinamiğe hazırlamanın son iki adımını, minimizasyonu ve dengelemeyi anlatır. Atölye ve tezgâhtaki su kutusu tarayıcınızda şimdi hesaplanır; ubikitin sayıları ve görüntüleri bu projenin gerçek GROMACS koşularından gelir.</div>
 
@@ -359,12 +359,11 @@ var WM=(function(){
     var c=Math.cos(TH/2), sn=Math.sin(TH/2); s.x[3*i]=ox; s.y[3*i]=oy; s.z[3*i]=oz;
     s.x[3*i+1]=ox+ROH*(c*u[0]+sn*w[0]); s.y[3*i+1]=oy+ROH*(c*u[1]+sn*w[1]); s.z[3*i+1]=oz+ROH*(c*u[2]+sn*w[2]);
     s.x[3*i+2]=ox+ROH*(c*u[0]-sn*w[0]); s.y[3*i+2]=oy+ROH*(c*u[1]-sn*w[1]); s.z[3*i+2]=oz+ROH*(c*u[2]-sn*w[2]); }
-  /* Verlet komşu listesi (O-O, kesme + 0,2 + 0,15 nm tampon), 10 adımda bir */
-  function nlist(s){ var N=s.N, L=s.L, R=(RCM+0.15)*(RCM+0.15), P=[], i, j; for(i=0;i<N;i++) for(j=i+1;j<N;j++){ var dx=s.x[3*i]-s.x[3*j], dy=s.y[3*i]-s.y[3*j], dz=s.z[3*i]-s.z[3*j]; dx-=L*Math.round(dx/L); dy-=L*Math.round(dy/L); dz-=L*Math.round(dz/L); if(dx*dx+dy*dy+dz*dz<R) P.push(i,j); } s.nl=P; s.nlAge=0; }
+  /* Komşu listesi kullanılmaz: kesme + tampon (0,9 nm) kutu kenarının yarısından (0,78 nm) büyük olduğundan liste hemen bütün çiftleri içerirdi.
+     Kuvvet döngüsü bütün O-O çiftlerini dolaşır ve kesmenin dışındakileri ilk uzaklık sınamasında atlar. */
   /* molekül tabanlı kesme: O-O uzaklığı 0,60-0,75 nm arasında yumuşak geçiş (su nötr olduğu için Coulomb hızla söner) */
   var RS=0.60;
   function forces(s){ var N=s.N, L=s.L, x=s.x, y=s.y, z=s.z, fx=s.fx, fy=s.fy, fz=s.fz, U=0, i,j,a,b; fx.fill(0); fy.fill(0); fz.fill(0);
-    var ex=new Float64Array(9), ey=new Float64Array(9), ez=new Float64Array(9), fq=new Float64Array(9);
     for(i=0;i<N;i++){ var xi=x[3*i], yi=y[3*i], zi=z[3*i];
       for(j=i+1;j<N;j++){ var ddx=xi-x[3*j], ddy=yi-y[3*j], ddz=zi-z[3*j], ox=L*Math.round(ddx/L), oy=L*Math.round(ddy/L), oz=L*Math.round(ddz/L);
         ddx-=ox; ddy-=oy; ddz-=oz; var dOO2=ddx*ddx+ddy*ddy+ddz*ddz; if(dOO2>=RC2) continue;
@@ -523,7 +522,7 @@ function wRead(){ var s=W1.s, ph=W1.phase;
   $('m1T').textContent=W1.mdHist.length?(s.crashed?'sonsuz':NFI.format(Math.round(T)))+' / '+(W1.Tmax>=1e5||s.crashed?'çok büyük':NFI.format(Math.round(W1.Tmax)))+' K':'dinamik yok';
   $('m1msd').textContent=W1.mdHist.length&&!s.crashed?fx(rmsd(),2)+' nm, '+fx(s.t,1)+' ps\'de':'dinamik yok';
   $('m1disp').textContent=W1.mdHist.length?(s.maxDisp>=10?'çok büyük':fx(s.maxDisp,3)+' nm'):'dinamik yok';
-  $('m1em').disabled=(ph==='em'||ph==='md'||ph==='crash'||W1.minimized); $('m1md').disabled=(ph==='em'||ph==='md'||ph==='crash'); $('m1pause').disabled=(ph!=='md');
+  $('m1em').disabled=(ph==='em'||ph==='md'||ph==='crash'||W1.minimized); $('m1md').disabled=(ph==='em'||ph==='md'||ph==='crash'); $('m1pause').disabled=(ph!=='md'); var lk=(ph==='em'||ph==='md'); document.querySelectorAll('[data-ov]').forEach(function(b){ b.disabled=lk; }); $('m1new').disabled=lk;
   if(s.log.length){ $('m1logBox').hidden=false; $('m1log2').textContent=s.log.slice(0,6).join('\n'); } }
 /* 3B çizim: dik izdüşüm, derinliğe göre sıralama ve soluklaşma; tuval sürüklenerek döndürülür */
 var SPR={};
@@ -582,7 +581,8 @@ function wEmFrame(){ var s=W1.s, n=0; while(n<3&&s.fmax>=1000&&s.emTries<3000){ 
   if(s.fmax<1000||s.emTries>=3000){ W1.phase='emDone'; W1.minimized=true; $('m1note').textContent='Minimizasyon '+NFI.format(s.emStep)+' kabul edilen adımda (toplam '+NFI.format(s.emTries)+' deneme) Fmax < 1.000 kJ mol⁻¹ nm⁻¹ ölçütüne ulaştı; en yakın iki atom artık '+fx(dMin(s),3)+' nm. Şimdi dinamiği başlatın.'; return false; }
   return true; }
 function wMdFrame(){ var s=W1.s, n=0; if(W1.paused) return false;
-  while(n<20&&W1.mdLeft>0&&!s.crashed){ var p=new Float64Array(3*s.N); for(var q=0;q<s.N;q++){ p[3*q]=s.x[3*q]; p[3*q+1]=s.y[3*q]; p[3*q+2]=s.z[3*q]; }
+  var t0=performance.now(), p=(W1.pbuf&&W1.pbuf.length===3*s.N)?W1.pbuf:(W1.pbuf=new Float64Array(3*s.N));
+  while(n<20&&W1.mdLeft>0&&!s.crashed&&(n<2||performance.now()-t0<40)){ for(var q=0;q<s.N;q++){ p[3*q]=s.x[3*q]; p[3*q+1]=s.y[3*q]; p[3*q+2]=s.z[3*q]; }
     WM.mdStep(s,DT,300,TAU,'vr'); if(!s.crashed){ trStep(s,p); if(W1.mdLeft%10===0) trSample(s); } n++; W1.mdLeft--; var T=WM.temp(s); if(isFinite(T)&&!s.crashed){ W1.Tmax=Math.max(W1.Tmax,T); W1.mdHist.push([s.t,T]); } }
   if(s.crashed){ W1.phase='crash'; wFinish(true); return false; }
   if(W1.mdLeft<=0){ W1.phase='mdDone'; wFinish(false); return false; }
@@ -698,7 +698,7 @@ function nTab(){ $('m1nTab').innerHTML=N1.book.length?N1.book.map(function(p){ v
 function nEval(){ var B=N1.book, dz=B.filter(function(p){return p.s==='nptD';}), d0=dz.filter(function(p){return p.d===0;})[0], d4=dz.filter(function(p){return p.d>=4;})[0], pr=B.filter(function(p){return p.s.slice(-1)==='P';})[0];
   $('m1nBusy').textContent=B.length?B.length+' ölçüm defterde.':'Ölçüm yok.';
   if(d0&&d4&&pr){ var a=nStats('nptD',0), b=nStats('nptD',d4.d), p=nStats(pr.s,pr.d), q=serOf(pr.s);
-    card('m1c3',true,'NPT yoğunluğu baştan ölçülünce <b>'+fx(a.m,1)+'</b>, ilk '+fx(d4.d,1)+' ps atılınca <b>'+fx(b.m,1)+' kg/m³</b>. Kalan sürenin iki yarısı '+fx(b.h1,1)+' ve '+fx(b.h2,1)+': yoğunluk hâlâ artıyor, 10 ps\'lik NPT onu oturtmaya yetmedi. '+q[1]+': ortalama '+fx(p.m,0)+' bar, standart sapma '+fx(p.sd,0)+' bar. Anlık basınç yüzlerce bar oynar; 1 bar\'lık hedefi tek bir değerden değil, uzun bir ortalamadan okumak gerekir.'); }
+    card('m1c3',true,'NPT yoğunluğu baştan ölçülünce <b>'+fx(a.m,1)+'</b>, ilk '+fx(d4.d,1)+' ps atılınca <b>'+fx(b.m,1)+' kg/m³</b>. Kalan sürenin iki yarısı '+fx(b.h1,1)+' ve '+fx(b.h2,1)+': yoğunluk hâlâ artıyor, 10 ps\'lik NPT onu oturtmaya yetmedi. '+q[1]+': ortalama '+fx(p.m,0)+' bar, standart sapma '+fx(p.sd,0)+' bar.'+(pr.s==='nptP'&&p.m<0?' NPT\'de ortalamanın negatif olmasının bir karşılığı var: barostat negatif basınca kutuyu küçülterek yanıt verir; bu, yoğunluğun hâlâ artmasıyla aynı şeyi söyler (CH11).':'')+' Anlık basınç yüzlerce bar oynar; 1 bar\'lık hedefi tek bir değerden değil, uzun bir ortalamadan okumak gerekir.'); }
   nTab(); }
 
 /* ---------------- proteine dönüş ---------------- */
@@ -723,7 +723,7 @@ var QZ=[
  {s:'NPT\'de anlık basınç −600 ile +200 bar arasında oynuyorsa ne söylenir?',o:[['Barostat bozuktur',0],['Küçük bir kutuda basınç dalgalanması doğal olarak yüzlerce bar\'dır; hedefe uyum uzun bir ortalamadan okunur',1],['Kutu patlayacaktır',0],['Yoğunluk kesin olarak yanlıştır',0]],w:'Bu projenin NPT koşusunda basıncın standart sapması 186 bar idi. Dengeyi yoğunluk gibi daha az dalgalanan büyüklüklerin sürüklenip sürüklenmediğinden de okumak gerekir.'}
 ];
 function renderQuiz(){
-  $('m1quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'">'+o[0]+'</button>';}).join('')+'</div><p class="why" id="m1why'+i+'" hidden></p></div>'; }).join('');
+  $('m1quiz').innerHTML=QZ.map(function(q,i){ return '<div class="qq"><p class="stem">'+(i+1)+'. '+q.s+'</p><div class="opts">'+q.o.map(function(o,j){return '<button type="button" class="opt" data-q="'+i+'" data-j="'+j+'"><span class="qb">'+'ABCD'.charAt(j)+'</span>'+o[0]+'</button>';}).join('')+'</div><p class="why" id="m1why'+i+'" hidden></p></div>'; }).join('');
   var got={};
   document.querySelectorAll('#m1quiz .opt').forEach(function(b){ b.addEventListener('click',function(){
     var i=+b.getAttribute('data-q'), j=+b.getAttribute('data-j'), q=QZ[i], ok=q.o[j][1]===1;
@@ -827,7 +827,7 @@ function uRead(){ var h=UB.hs>=0?UBQ.hs[UB.hs]:null, key=uKey();
   else { $('m1uPairL').textContent='Kırmızı kesikli çift: '+UPAIR[h.id][0]+' ve '+UPAIR[h.id][1]; $('m1uPair').textContent=key?uDist(h.d[key]):'geçiş'; }
   var fk=h?h.f0.indexOf(Math.max.apply(null,h.f0)):-1; $('m1uFL').hidden=$('m1uF').hidden=UB.mode==='s1';
   $('m1uF').textContent=h?(NFI.format(h.f0[fk])+' → '+NFI.format(h.f1[fk])+' kJ mol⁻¹ nm⁻¹ ('+UBQ.a[h.atoms[fk]][2]+')'):'196.569 → 755 kJ mol⁻¹ nm⁻¹ (atom 10895 → 1229)';
-  $('m1uFL').textContent=h?'Turuncu oklu atomlarda en büyük kuvvet (yeniden hesaplanan), önce → sonra':'Kutudaki en büyük kuvvet Fmax (GROMACS), önce → sonra';
+  $('m1uFL').textContent=h?'Turuncu oklu atomlardan en çok itilen atomdaki kuvvet (yeniden hesaplanan), önce → sonra':'Kutudaki en büyük kuvvet Fmax (GROMACS), önce → sonra';
   var rows=h?ULOG[h.id]:[], tb=$('m1uLog');
   if(UB.mode==='s1'&&h){ $('m1uLogW').hidden=false; tb.innerHTML=rows.length?rows.map(function(r){ var cur=UB.fr; function c(v,k){ return '<td class="n'+(k<=cur?'':' dim')+'">'+(v==null?'yok':(v>=1e4?sci(v):fx(v,3)))+'</td>'; } return '<tr><td>'+r[0]+'<br><span class="small">'+r[1]+'</span></td><td class="n">'+fx(r[2],3)+'</td>'+c(r[3],1)+c(r[4],2)+'</tr>'; }).join(''):'<tr><td colspan="4">Su SETTLE ile katı tutulur; LINCS tablosunda yer almaz.</td></tr>'; }
   else $('m1uLogW').hidden=true;
@@ -842,8 +842,8 @@ function uRead(){ var h=UB.hs>=0?UBQ.hs[UB.hs]:null, key=uKey();
 function uCard(){ var h=UB.hs>=0?UBQ.hs[UB.hs]:null, key=uKey(); if(!h||!key) return;
   if(UB.mode==='s0'&&key==='E') UB.seen0[h.id]=true; if(UB.mode==='s1'&&key==='c1') UB.seen1[h.id]=true;
   var both=Object.keys(UB.seen0).filter(function(k){ return UB.seen1[k]&&k!=='sol'; });
-  if(both.length){ var k=both[0], hh=UBQ.hs.filter(function(q){return q.id===k;})[0], r=ULOG[k][0];
-    card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: minimizasyondan önce kırmızı çiftin arası '+uDist(hh.d.S)+'. Minimizasyon bunu <b>'+uDist(hh.d.E)+'</b>\'ye açtı ve buradaki en büyük kuvvet '+NFI.format(Math.max.apply(null,hh.f0))+'\'den '+NFI.format(Math.max.apply(null,hh.f1))+' kJ mol⁻¹ nm⁻¹\'ye indi. Minimizasyon yapılmayan S1\'de aynı yerin '+r[0]+' bağı, olması gereken '+fx(r[2],3)+' nm yerine 1. adımda <b>'+uDist(r[4])+'</b> oldu. Çöken bağlar, minimizasyonun düzelttiği çakışmaların üzerindeydi.'); } }
+  if(both.length){ var k=both[0], hh=UBQ.hs.filter(function(q){return q.id===k;})[0], r=ULOG[k][0], fk=hh.f0.indexOf(Math.max.apply(null,hh.f0)), fk1=hh.f1.indexOf(Math.max.apply(null,hh.f1));
+    card('m1c5',true,'<b>'+UNAME[hh.id]+'</b>: minimizasyondan önce kırmızı çiftin arası '+uDist(hh.d.S)+'. Minimizasyon bunu <b>'+uDist(hh.d.E)+'</b>\'ye açtı ve bu yerde en çok itilen atomdaki ('+UBQ.a[hh.atoms[fk]][2]+') kuvvet '+NFI.format(hh.f0[fk])+' değerinden '+NFI.format(hh.f1[fk])+' kJ mol⁻¹ nm⁻¹ değerine indi'+(fk1!==fk?' (minimizasyondan sonra bu yerdeki en büyük kuvvet '+NFI.format(hh.f1[fk1])+' kJ mol⁻¹ nm⁻¹, başka bir atomda: '+UBQ.a[hh.atoms[fk1]][2]+')':'')+'. Minimizasyon yapılmayan S1\'de aynı yerin '+r[0]+' bağı, olması gereken '+fx(r[2],3)+' nm yerine 1. adımda <b>'+uDist(r[4])+'</b> oldu. Çöken bağlar, minimizasyonun düzelttiği çakışmaların üzerindeydi.'); } }
 function uFrame(){ var go=false;
   if(UB.mode==='s0'&&UB.t!==UB.tT){ var st=0.035; UB.t=UB.tT>UB.t?Math.min(UB.tT,UB.t+st):Math.max(UB.tT,UB.t-st); go=true; }
   if(UB.mode==='s1'&&UB.fr!==UB.frT){ UB.fr=UB.frT>UB.fr?Math.min(UB.frT,UB.fr+0.03):UB.frT; go=true; }

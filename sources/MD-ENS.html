@@ -108,7 +108,7 @@ th{text-transform:none;letter-spacing:0;font-size:13px}
 .two.eq{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .row .btn,.btns .btn{white-space:nowrap}
 @media (max-width:820px){.two.eq{grid-template-columns:1fr}}
-@media (max-width:560px){#e1strip{aspect-ratio:16/10}#e1well{aspect-ratio:16/9}}
+@media (max-width:560px){#e1strip{aspect-ratio:16/10}#e1well{aspect-ratio:16/9}.read{grid-template-columns:minmax(0,1fr);gap:1px 0}.read dd{text-align:left;white-space:normal;overflow-wrap:break-word;margin:0 0 7px}}
 @media (prefers-reduced-motion: reduce){.btn:active,.seg button:active,.chip:active{transform:none}}
 </style>
 <div class="wrap">
@@ -209,6 +209,8 @@ th{text-transform:none;letter-spacing:0;font-size:13px}
     <h2 id="e1h4">Alanin dipeptidi koşuları neyi temsil ediyor?</h2>
     <div class="prose" id="e1ret"></div>
     <div class="tw"><table id="e1rtbl"></table></div>
+    <p class="small">αL sütununda %0,1'in altında kalan paylar, φ = ±180° sınırını aşan tek karelik β etiketleridir; gerçek bir αL ziyareti değildir (CH03). αL'ye uğrayan koşu bu yüzden %0,5 eşiğiyle sayılır.</p>
+    <div class="prose"><p><b>Bir proteinde.</b> Bu dersler proteinlerde daha da önemlidir, çünkü engeller yüksek, koşular ise sistemin büyüklüğüne göre kısadır. Ubikitinde bir ilmeğin iki farklı konformasyonu olduğunu düşünün. Koşu bu iki konformasyon arasında birkaç kez gidip geliyorsa payları hakkında bir şey söylenebilir; hiç gidip gelmiyorsa koşu yalnız başladığı konformasyonu anlatır, tıpkı buradaki αL gibi. O zaman ilk iş daha uzun tek bir koşu değil, farklı başlangıçlardan ve tohumlardan birden fazla koşudur (CH06, MD-REP); payların ne kadar güvenilir olduğunun hesabı CH17 ve CH18'in, gerekirse gelişmiş örneklemenin konusudur. Bu modülde ubikitin koşusu yapılmadı (Bu senaryo hesaplanmadı).</p></div>
   </section>
 
   <section class="card" aria-labelledby="e1h5">
@@ -310,6 +312,10 @@ function pooled(v){ var a=new Float64Array(NRUN*RUN[0].n); for(var r=0;r<NRUN;r+
 function erf(x){ var s=x<0?-1:1; x=Math.abs(x); var t=1/(1+0.3275911*x), y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x); return s*y; }
 function Phi(z){ return 0.5*(1+erf(z/Math.SQRT2)); }
 function theorySD(){ return TREF*Math.sqrt(2/DOF); }
+function ac1(a){ var n=a.length,m=0,i; for(i=0;i<n;i++) m+=a[i]; m/=n; var v=0,c=0; for(i=0;i<n;i++){ var d=a[i]-m; v+=d*d; if(i) c+=d*(a[i-1]-m); } return c/v; }
+var FLX=null; function flx(){ if(FLX) return FLX; var tp=stats(pooled('T')), tA=RUN.map(function(r){return ac1(r.T);}), pA=RUN.map(function(r){return ac1(r.P);}); FLX={tsd:tp.sd, n:tp.n, tac:[Math.min.apply(null,tA),Math.max.apply(null,tA)], pac:[Math.min.apply(null,pA),Math.max.apply(null,pA)]}; return FLX; }
+/* 4 serbestlik dereceli ki-kare dağılımının %2,5 ve %97,5 çeyreklikleri (beş koşu) */
+var CHI4=[0.4844,11.143];
 function niceMax(m){ var S=[0.04,0.08,0.12,0.16,0.2,0.24,0.3,0.4,0.6,0.8,1]; for(var i=0;i<S.length;i++) if(S[i]>=m*1.06) return S[i]; return 1; }
 function pfmt(t){ var p=t*100; return fx(p,Math.abs(p-Math.round(p))<1e-9?0:1)+' %'; }
 var RCOL=[];
@@ -415,12 +421,12 @@ function workshop(){
       card('e1c1',wk.runs==='all',t);
     }
     if(v==='T'){
-      var th=theorySD(); var all=RUN.map(function(r){return stats(r.T).sd;});
-      card('e1c2',$('e1theo').checked,'Seçili karelerde sıcaklık: ortalama <b>'+fx(S.mean,2)+' K</b>, SD <b>'+fx(S.sd,2)+' K</b>, en düşük '+fx(S.min,1)+' K, en yüksek '+fx(S.max,1)+' K. Kanonik topluluk için beklenen SD, T·√(2/N) = <b>'+fx(th,2)+' K</b> (N = '+fx(DOF,0)+' serbestlik derecesi). Beş koşunun SD değerleri '+fx(Math.min.apply(null,all),2)+' ile '+fx(Math.max.apply(null,all),2)+' K arasında. <b>Termostat ortalamayı tutar, anlık sıcaklığı değil;</b> dalgalanmanın kuramla aynı büyüklükte olması beklenen davranıştır.');
+      var th=theorySD(), F=flx(); var all=RUN.map(function(r){return stats(r.T).sd;});
+      card('e1c2',$('e1theo').checked,'Seçili karelerde sıcaklık: ortalama <b>'+fx(S.mean,2)+' K</b>, SD <b>'+fx(S.sd,2)+' K</b>, en düşük '+fx(S.min,1)+' K, en yüksek '+fx(S.max,1)+' K. Kanonik topluluk için beklenen SD, T·√(2/N) = <b>'+fx(th,2)+' K</b> (N = '+fx(DOF,0)+' serbestlik derecesi). Beş koşunun SD değerleri '+fx(Math.min.apply(null,all),2)+' ile '+fx(Math.max.apply(null,all),2)+' K arasında. Birleşik SD <b>'+fx(F.tsd,2)+' K</b>, kuramın <b>'+fx(F.tsd/th,2)+' katı</b>: dalgalanma kanonik beklentiyle aynı büyüklükte, ama yaklaşık %'+fx(100*(F.tsd/th-1),0)+' büyük. Bu fark örnekleme gürültüsü değil: ardışık 1 ps\'lik sıcaklıkların otokorelasyonu '+fx(F.tac[0],3)+' ile '+fx(F.tac[1],3)+', '+fx(F.n,0)+' karede SD tahmininin göreli hatası yaklaşık %'+fx(100/Math.sqrt(2*(F.n-1)),1)+'. Kaynağı ayrılmadı: aynı sistem MD-CON\'daki GROMACS ızgarasında V-rescale ile 0,99 oran verdi; iki kurulum program sürümü, termostatın uygulanma aralığı, sıcaklık grubu sayısı, topluluk ve kayıt aralığı bakımından farklı (CH03, CH05). <b>Termostat ortalamayı tutar, anlık sıcaklığı değil;</b> 7 ile 8 K\'lik bir dalgalanma bir sorun işareti değildir.');
     }
     if(v==='P'){
-      var rm=RUN.map(function(r){return stats(r.P).mean;}), mu=rm.reduce(function(s,x){return s+x;},0)/rm.length, sdr=Math.sqrt(rm.reduce(function(s,x){return s+(x-mu)*(x-mu);},0)/(rm.length-1)), sdAll=stats(RUN[0].P).sd, naive=sdAll/Math.sqrt(RUN[0].n);
-      card('e1c3',true,'Seçili karelerde basınç: ortalama <b>'+fx(S.mean,1)+' bar</b>, SD <b>'+fx(S.sd,0)+' bar</b>, en düşük '+fx(S.min,0)+', en yüksek '+fx(S.max,0)+' bar; hedef 1 bar. Beş koşunun ortalamaları <b>'+fx(Math.min.apply(null,rm),1)+' ile '+fx(Math.max.apply(null,rm),1)+' bar</b> arasında (koşular arası SD '+fx(sdr,1)+' bar). Kareler bağımsız olsaydı tek koşunun ortalaması için hata çubuğu '+fx(naive,1)+' bar olurdu; gerçek saçılım '+fx(sdr/naive,1)+' kat büyük, çünkü ardışık kareler bağımsız değil (MD-U). <b>Tek karedeki basınç anlamlı değildir; ortalama anlamlıdır.</b>');
+      var rm=RUN.map(function(r){return stats(r.P).mean;}), mu=rm.reduce(function(s,x){return s+x;},0)/rm.length, sdr=Math.sqrt(rm.reduce(function(s,x){return s+(x-mu)*(x-mu);},0)/(rm.length-1)), sdAll=stats(RUN[0].P).sd, naive=sdAll/Math.sqrt(RUN[0].n), F=flx();
+      card('e1c3',true,'Seçili karelerde basınç: ortalama <b>'+fx(S.mean,1)+' bar</b>, SD <b>'+fx(S.sd,0)+' bar</b>, en düşük '+fx(S.min,0)+', en yüksek '+fx(S.max,0)+' bar; hedef 1 bar. Beş koşunun ortalamaları <b>'+fx(Math.min.apply(null,rm),1)+' ile '+fx(Math.max.apply(null,rm),1)+' bar</b> arasında (koşular arası SD '+fx(sdr,1)+' bar). Kareler bağımsız olsaydı tek koşunun ortalaması için hata çubuğu '+fx(naive,1)+' bar olurdu; koşular arası saçılım bunun yaklaşık '+fx(sdr/naive,1)+' katı. Yalnız beş koşu olduğu için bu oran belirsiz: koşular arası SD\'nin %95 aralığı '+fx(sdr*Math.sqrt((NRUN-1)/CHI4[1]),1)+' ile '+fx(sdr*Math.sqrt((NRUN-1)/CHI4[0]),1)+' bar. Ardışık 1 ps\'lik basınç kareleri neredeyse bağımsız (gecikme-1 otokorelasyonu '+fx(F.pac[0],2)+' ile '+fx(F.pac[1],2)+'); kare korelasyonu bu farkın yalnız küçük bir kısmını açıklayabilir, farkın kaynağı bu sayfada ayrılmadı. Korelasyonlu bir serinin hatası MD-U\'da. <b>Tek karedeki basınç anlamlı değildir; ortalama anlamlıdır.</b>');
     }
     if(wk.user&&(v==='psi'||v==='phi')&&wk.runs!=='all'){ wk.seen[wk.runs]=true; }
     if(Object.keys(wk.seen).length>=3||FOUND.e1c4){
@@ -776,8 +782,8 @@ function buildQuiz(){
     o:[['Dağılımın zirvesidir; molekül en çok bu açıda bulunur',0],['Molekülün tipik yapısı değil; iki yığılmanın arasına düşen bir ağırlık merkezi',1],['İyi bir temsildir, çünkü standart sapma küçüktür',0]],
     w:'ψ dağılımı iki yerde yığılıyor (αR ve β). Ortalama bu yığılmaların arasına düşer ve molekül oraya neredeyse hiç uğramaz. Ayrıca açılarda ortalama pencere seçimine bağlıdır; dağılıma bakmak daha güvenilirdir.'},
    {s:'Anlık sıcaklık, 300 K civarında '+fx(tS.sd,2)+' K standart sapmayla dalgalanıyor; kanonik beklenti '+fx(th,2)+' K. Bu ne demek?',
-    o:[['Termostat bozuk, sapma sıfır olmalıydı',0],['Sistemin ortalama sıcaklığı 300 K değil',0],['Dalgalanma kanonik topluluğun doğal dalgalanmasıyla uyumlu; termostat ortalamayı tutuyor',1]],
-    w:'Kanonik toplulukta anlık sıcaklık dalgalanır: SD yaklaşık T√(2/N). Termostat ortalamayı hedefte tutar, anlık değerleri sabitlemez. Serbestlik derecesi azaldıkça dalgalanma büyür.'},
+    o:[['Termostat bozuk, sapma sıfır olmalıydı',0],['Sistemin ortalama sıcaklığı 300 K değil',0],['Dalgalanma kanonik topluluğun doğal dalgalanmasıyla aynı büyüklükte (yaklaşık %'+fx(100*(tS.sd/th-1),0)+' fazla; kaynağı ayrılmadı); termostat ortalamayı tutuyor',1]],
+    w:'Kanonik toplulukta anlık sıcaklık dalgalanır: SD yaklaşık T√(2/N). Termostat ortalamayı hedefte tutar, anlık değerleri sabitlemez. Serbestlik derecesi azaldıkça dalgalanma büyür. Burada ölçülen SD kuramın '+fx(tS.sd/th,2)+' katı; '+fx(tS.n,0)+' karede bu fark gürültü değil, ama kaynağı bu veride ayrılmadı (CH03). Anlık sıcaklık hiç oynamasaydı, asıl o şüphe uyandırırdı.'},
    {s:'Hedef basınç 1 bar iken tek karede '+fx(pS.max,0)+' bar görüldü ve basıncın SD değeri '+fx(pS.sd,0)+' bar. Koşu bozuk mu?',
     o:[['Hayır; anlık basınç bu kadar dalgalanır, anlamlı olan zaman ortalamasıdır',1],['Evet, barostat başarısız olmuş',0],['Hayır, ama bu kareler silinmeli',0]],
     w:'Küçük bir sistemde anlık basınç yüzlerce bar dalgalanır. Beş koşunun ortalamaları '+fx(Math.min.apply(null,rm),1)+' ile '+fx(Math.max.apply(null,rm),1)+' bar arasında, yani hedefe yakın.'},
