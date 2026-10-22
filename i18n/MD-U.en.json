@@ -1,10 +1,10 @@
 {
  "module": "MD-U",
  "lang": "en",
- "source_sha256": "e83d736c938f39ab61a230d89f16b9f9915031ce4801d5d6193403ef84b5ec06",
+ "source_sha256": "f6cc5daee0723a655fa280dcb3deea0a127ff1200d520ca0ac149c9c89633b10",
  "reviewed": false,
  "checked": "claude",
- "translator": "Claude (AI), MD-U 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
+ "translator": "Claude (AI), MD-U 0.2.0, 0.3.0 düzeltmeleri; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam), 0.3.0 eklemeleri 22 Ekim 2026",
  "pairs": [
   [
    "<title>Örnekleme ve Belirsizlik</title>",
@@ -59,10 +59,6 @@
    "<dt>Frames per experiment, N</dt><dd id=\"u1bN\"></dd>"
   ],
   [
-   "<dt>\"Her kare bağımsız\" hata çubuğu (ortalama)</dt><dd id=\"u1bNa\"></dd>",
-   "<dt>\"Every frame independent\" error bar (mean)</dt><dd id=\"u1bNa\"></dd>"
-  ],
-  [
    "<dt>20 ortalamanın gerçek saçılımı (SD)</dt><dd id=\"u1bSd\"></dd>",
    "<dt>True scatter of the 20 means (SD)</dt><dd id=\"u1bSd\"></dd>"
   ],
@@ -71,20 +67,8 @@
    "<dt>Error bars that catch the true mean</dt><dd id=\"u1bCov\"></dd>"
   ],
   [
-   "<p class=\"small\">Model: hız, ortalamaya dönen bir rastgele süreçtir (Ornstein-Uhlenbeck; ilişki süresi 30 s, ortalama 1,0 µm/dk, standart sapma 0,4 µm/dk), tarayıcıda her deney için yeniden üretilir. Sayılar bir öğretim modeline aittir, gerçek bir göç deneyine değil. %95 hata çubuğu: ortalama ± 1,96 · s / √N.</p>",
-   "<p class=\"small\">Model: the speed is a mean-reverting random process (Ornstein-Uhlenbeck; correlation time 30 s, mean 1.0 µm/min, standard deviation 0.4 µm/min), generated anew in the browser for every experiment. The numbers belong to a teaching model, not to a real migration experiment. 95% error bar: mean ± 1.96 · s / √N.</p>"
-  ],
-  [
    "<span class=\"step\">1 · Atölye</span>",
    "<span class=\"step\">1 · Workshop</span>"
-  ],
-  [
-   "<h2 id=\"u1h1\">Sakin eğri, gezen açılar</h2>",
-   "<h2 id=\"u1h1\">A calm curve, wandering angles</h2>"
-  ],
-  [
-   "<div class=\"prose\"><p>Alanin dipeptidi 22 atomluk küçük bir moleküldür; bütün esnekliği iki açıdadır: φ ve ψ. Bu projede su içinde beş bağımsız koşusu yapıldı, her biri 10 ns, 1 ps'de bir kare. Durumlar koşulardan önce yazılıp donduruldu: αL (φ ≥ 0), αR (φ &lt; 0 ve −120 ≤ ψ &lt; 50) ve geri kalanı, β/PPII. Bir koşu ve bir zaman penceresi seçin: RMSD ne diyor, açılar ne diyor?</p></div>",
-   "<div class=\"prose\"><p>Alanine dipeptide is a small molecule of 22 atoms; all of its flexibility lies in two angles: φ and ψ. In this project five independent runs were performed in water, 10 ns each, one frame per ps. The states were written down and frozen before the runs: αL (φ ≥ 0), αR (φ &lt; 0 and −120 ≤ ψ &lt; 50) and the rest, β/PPII. Choose a run and a time window: what does the RMSD say, and what do the angles say?</p></div>"
   ],
   [
    "<div class=\"stagebox\"><canvas id=\"u1mol\" class=\"stage\" aria-label=\"Alanin dipeptidi, seçili zamandaki gerçek kare; φ ve ψ bağları vurgulu; sürükleyerek döndürülebilir\"></canvas></div>",
@@ -135,16 +119,8 @@
    "<dt>αR fraction, whole run (with this boundary)</dt><dd id=\"u1spP\"></dd>"
   ],
   [
-   "<dt>Önceden yazılmış sınırlar</dt><dd>ψ = 50 (ana), 30 ve 70 (duyarlılık)</dd>",
-   "<dt>Boundaries written in advance</dt><dd>ψ = 50 (main), 30 and 70 (sensitivity)</dd>"
-  ],
-  [
    "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>αR</span><span><i style=\"background:var(--deep)\"></i>β/PPII</span><span><i style=\"background:var(--gold)\"></i>αL</span><span><i style=\"background:var(--muted)\"></i>RMSD (ağır atomlar, minimize yapıya)</span></div>",
    "<div class=\"legend\"><span><i style=\"background:var(--accent)\"></i>αR</span><span><i style=\"background:var(--deep)\"></i>β/PPII</span><span><i style=\"background:var(--gold)\"></i>αL</span><span><i style=\"background:var(--muted)\"></i>RMSD (heavy atoms, to the minimized structure)</span></div>"
-  ],
-  [
-   "<article class=\"q\" id=\"u1c1\"><span class=\"k\">Açık</span><h3>RMSD neyi göremiyor?</h3><p>Bir pencerede RMSD'nin ne kadar sakin kaldığını ve aynı pencerede durumun kaç kez değiştiğini karşılaştırın.</p><div class=\"mine\" id=\"mu1c1\">Pencereyi en az bir kez taşıyın ya da boyunu değiştirin.</div></article>",
-   "<article class=\"q\" id=\"u1c1\"><span class=\"k\">Open</span><h3>What can RMSD not see?</h3><p>In a window, compare how calm the RMSD stays with how many times the state changes in the same window.</p><div class=\"mine\" id=\"mu1c1\">Move the window at least once, or change its length.</div></article>"
   ],
   [
    "<span class=\"step\">2 · Tezgâh</span>",
@@ -223,10 +199,6 @@
    "<p class=\"small\">The definitions were frozen before the runs (PROTOCOL_2026-09-26.md). Block averaging: B = 2^k frames, at least 16 blocks; g_B = B · s²(block means) / σ²(frames). Autocorrelation: τ_int(M) = ½ + Σρ(k), stopping at the first M with M ≥ 5 · τ_int; g = 2 τ_int. The page computes these numbers right now; they are identical to the project's Python analysis (analysis.py). For the method see Grossfield et al. 2018, Living J Comput Mol Sci 1:5067.</p>"
   ],
   [
-   "<article class=\"q\" id=\"u1c2\"><span class=\"k\">Açık</span><h3>10.000 kare kaç ölçüm eder?</h3><p>αR ya da β için blok boyunu plato görünene kadar büyütün.</p><div class=\"mine\" id=\"mu1c2\">Blok boyunu en az 128 kareye çıkarın.</div></article>",
-   "<article class=\"q\" id=\"u1c2\"><span class=\"k\">Open</span><h3>How many measurements are 10,000 frames worth?</h3><p>For αR or β, increase the block size until a plateau appears.</p><div class=\"mine\" id=\"mu1c2\">Raise the block size to at least 128 frames.</div></article>"
-  ],
-  [
    "<article class=\"q\" id=\"u1c3\"><span class=\"k\">Açık</span><h3>Hata çubuğu ne zaman kurulamaz?</h3><p>Çok az ziyaret edilen bir duruma bakın.</p><div class=\"mine\" id=\"mu1c3\">αL'yi, αL'ye en fazla iki kez girilen bir koşuda seçin.</div></article>",
    "<article class=\"q\" id=\"u1c3\"><span class=\"k\">Open</span><h3>When can no error bar be built?</h3><p>Look at a state that is visited very rarely.</p><div class=\"mine\" id=\"mu1c3\">Choose αL in a run where αL was entered at most twice.</div></article>"
   ],
@@ -299,20 +271,8 @@
    "<h2 id=\"u1h4\">How many replicas does each of this project's results rest on?</h2>"
   ],
   [
-   "<div class=\"prose\"><p>Alanin dipeptidinde αR'nin belleği 45-115 ps sürdü; 10 ns'lik bir koşuda 126-206 durum değişimi sayıldı ve hata çubuğu yine de genişti. Bir proteinde ilginç hareketler çoğu zaman bundan çok daha yavaştır. Aşağıdaki tablo bu kitabın kendi koşularını aynı gözle okur.</p></div>",
-   "<div class=\"prose\"><p>In alanine dipeptide the memory of αR lasted 45-115 ps; in a 10 ns run 126-206 state changes were counted, and the error bar was still wide. In a protein, the interesting motions are often much slower than this. The table below reads this book's own runs with the same eye.</p></div>"
-  ],
-  [
    "<div class=\"tw\" id=\"u1pTab\"><table><thead><tr><th>Sonuç</th><th>Dayandığı koşu</th><th>Belirsizlik hakkında bildiğimiz</th></tr></thead><tbody>",
    "<div class=\"tw\" id=\"u1pTab\"><table><thead><tr><th>Result</th><th>Runs it rests on</th><th>What we know about the uncertainty</th></tr></thead><tbody>"
-  ],
-  [
-   "<tr><td>Alanin dipeptidi, αR payı (bu sayfa)</td><td>5 bağımsız koşu × 10 ns</td><td>0,254; %95 aralık 0,179-0,329. αL için aralık sıfırı içerir (−0,008 ile 0,026).</td></tr>",
-   "<tr><td>Alanine dipeptide, αR fraction (this page)</td><td>5 independent runs × 10 ns</td><td>0.254; 95% interval 0.179-0.329. For αL the interval includes zero (−0.008 to 0.026).</td></tr>"
-  ],
-  [
-   "<tr><td>Ubikitin, kristal B ile MD dalgalanması (MD-PDB)</td><td>1 koşu × 2 ns</td><td>Koşunun iki yarısı arasında r 0,86; 1-72 kalıntılarında kristal B ile r 0,59. Tek koşu; koşular arası hata ölçülmedi.</td></tr>",
-   "<tr><td>Ubiquitin, crystal B against MD fluctuation (MD-PDB)</td><td>1 run × 2 ns</td><td>r 0.86 between the two halves of the run; r 0.59 with crystal B for residues 1-72. A single run; no between-run error was measured.</td></tr>"
   ],
   [
    "<tr><td>Ubikitin, zaman adımı ızgarası (MD-DT)</td><td>24 koşu × 20 ps, her ayar tek tohum</td><td>Ayarlar arasındaki küçük farklar için tekrar yok; sayfa bunu \"bu kısa deneyin sonucu\" diye yazar.</td></tr>",
@@ -359,24 +319,12 @@
    "$('u1bNa').textContent='± '+fx(S.h,3)+' µm/min'; $('u1bSd').textContent=fx(S.sdm,3)+' µm/min (about ± '+fx(1.96*S.sdm,3)+' for 95%)'; $('u1bCov').textContent=S.cov+' / 20';"
   ],
   [
-   "$('u1bNote').textContent=S.dt<30?'Kare sayısı arttıkça \"her kare bağımsız\" hata çubuğu daraldı ('+NFI.format(S.n)+' kare), ama 20 deneyin ortalamaları bu çubuklardan çok daha fazla saçılıyor: '+S.cov+' / 20 çubuk gerçek ortalamayı yakaladı. Kareler 30 s içinde birbirine benzer; fazladan kare yeni bilgi getirmiyor.':'Kareler artık ilişki süresinden (30 s) seyrek: her kare yaklaşık bağımsız. Hata çubuğu genişledi ama dürüst: '+S.cov+' / 20 çubuk gerçek ortalamayı yakaladı. Aynı 10 dakikadan çıkan bilgi kare aralığına pek bağlı değil; çubuğu değiştiren, bağımsızlık varsayımı.'; brDraw(S); }",
-   "$('u1bNote').textContent=S.dt<30?'As the number of frames grew, the \"every frame independent\" error bar narrowed ('+NFI.format(S.n)+' frames), but the means of the 20 experiments scatter much more than these bars: '+S.cov+' / 20 bars caught the true mean. Within 30 s the frames resemble each other; extra frames bring no new information.':'The frames are now sparser than the correlation time (30 s): each frame is roughly independent. The error bar widened, but it is honest: '+S.cov+' / 20 bars caught the true mean. The information in the same 10 minutes hardly depends on the frame interval; what changes the bar is the independence assumption.'; brDraw(S); }"
-  ],
-  [
    "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('1. deney: hız izi ve çekilen kareler (10 dk)',L+6,T1+13);",
    "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Experiment 1: speed trace and frames taken (10 min)',L+6,T1+13);"
   ],
   [
    "g.save(); g.translate(11,T1+h1/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('µm/dk',0,0); g.restore();",
    "g.save(); g.translate(11,T1+h1/2); g.rotate(-Math.PI/2); g.textAlign='center'; g.fillText('µm/min',0,0); g.restore();"
-  ],
-  [
-   "g.fillStyle=css('--muted'); g.fillText('20 deneyin ortalaması ve \"her kare bağımsız\" %95 çubuğu; kesikli: gerçek ortalama',L+6,T2+13);",
-   "g.fillStyle=css('--muted'); g.fillText('Means of 20 experiments and the \"every frame independent\" 95% bar; dashed: true mean',L+6,T2+13);"
-  ],
-  [
-   "if(A1.moved&&tr>=5) card('u1c1',true,'Koşu '+(A1.run+1)+', '+fx(w[0]/1000,1)+'-'+fx(w[1]/1000,1)+' ns: RMSD ortanca '+fx(med,3)+' nm, en büyük '+fx(mx,3)+' nm. Aynı pencerede durum '+NFI.format(tr)+' kez değişti; αR payı '+fx(frac(s,0,w[0],w[1]),2)+'. RMSD bütün atomların ortalama sapmasıdır; molekülün hangi durumda olduğunu ayırt etmek için yapılmamıştır. Sakin bir RMSD eğrisi, örneklemenin bittiğini söylemez.');",
-   "if(A1.moved&&tr>=5) card('u1c1',true,'Run '+(A1.run+1)+', '+fx(w[0]/1000,1)+'-'+fx(w[1]/1000,1)+' ns: RMSD median '+fx(med,3)+' nm, largest '+fx(mx,3)+' nm. In the same window the state changed '+NFI.format(tr)+(tr==1?' time':' times')+'; αR fraction '+fx(frac(s,0,w[0],w[1]),2)+'. RMSD is the mean deviation of all the atoms; it was not made to tell which state the molecule is in. A calm RMSD curve does not say that sampling is finished.');"
   ],
   [
    "$('u1sNote').textContent='Bu koşuda sınır 30° ile 70° arasında kayınca αR payı '+fx(p30,3)+' ile '+fx(p70,3)+' arasında değişir. Sınır veriye bakıldıktan sonra seçilseydi, istenen sonuca göre ayarlanabilirdi; bu yüzden protokolde koşulardan önce yazıldı ve sayfanın bütün sonraki hesapları ψ = 50° ile yapılır.'; }",
@@ -407,14 +355,6 @@
    "$('u1eEn').textContent='± '+fx(nv,4); $('u1eEc').textContent=gs?'± '+fx(Math.sqrt(gs)*nv,4)+(few?' (unreliable)':''):'cannot be computed';"
   ],
   [
-   "$('u1eNote').textContent=few?SN[T2.st]+' bu koşuda yalnız '+d.v+' kez ziyaret edildi ('+NFI.format(Math.round(d.p*NFR))+' kare). Otokorelasyon ve blok yöntemi, durumun defalarca girilip çıkıldığını varsayar; birkaç ziyaretten ne pay ne de hatası güvenilir hesaplanır. Sayfa bu koşuda '+SN[T2.st]+' için hata çubuğu çizmez.':'Blok boyu büyüdükçe g_B önce B ile birlikte büyür (kareler hâlâ ilişkili), sonra bir düzlüğe yaklaşır. Düzlükteki değer g\\'dir: '+(gs?'otokorelasyonla '+fx(gs,0)+' kare':'')+'. Hata √g kat, yani yaklaşık '+(gs?fx(Math.sqrt(gs),0):'?')+' kat büyür.';",
-   "$('u1eNote').textContent=few?'In this run '+SN[T2.st]+' was visited only '+d.v+(d.v==1?' time':' times')+' ('+NFI.format(Math.round(d.p*NFR))+' frames). Autocorrelation and block averaging assume that the state is entered and left many times; from a few visits neither the fraction nor its error can be computed reliably. The page draws no error bar for '+SN[T2.st]+' in this run.':'As the block size grows, g_B first grows along with B (the frames are still correlated), then approaches a flat level. The value on the flat level is g: '+(gs?fx(gs,0)+' frames by autocorrelation':'')+'. The error grows by a factor of √g, that is, about '+(gs?fx(Math.sqrt(gs),0):'?')+' times.';"
-  ],
-  [
-   "if(T2.k>=7&&T2.st!==2&&!few&&gs) card('u1c2',true,'Koşu '+(T2.run+1)+', '+SN[T2.st]+': blok boyu '+NFI.format(1<<Math.min(T2.k,d.gb.gB.length-1))+' karede g_B = '+fx(gB,0)+', otokorelasyonla g = '+fx(gs,0)+'. 10.000 kare yaklaşık '+NFI.format(Math.round(NFR/gs))+' bağımsız ölçüm eder. \"Her kare bağımsız\" hata ± '+fx(nv,4)+', düzeltilmiş hata ± '+fx(Math.sqrt(gs)*nv,3)+': '+fx(Math.sqrt(gs),0)+' kat.');",
-   "if(T2.k>=7&&T2.st!==2&&!few&&gs) card('u1c2',true,'Run '+(T2.run+1)+', '+SN[T2.st]+': at a block size of '+NFI.format(1<<Math.min(T2.k,d.gb.gB.length-1))+' frames g_B = '+fx(gB,0)+', by autocorrelation g = '+fx(gs,0)+'. 10,000 frames are worth about '+NFI.format(Math.round(NFR/gs))+' independent measurements. The \"every frame independent\" error is ± '+fx(nv,4)+', the corrected error ± '+fx(Math.sqrt(gs)*nv,3)+': '+fx(Math.sqrt(gs),0)+' times larger.');"
-  ],
-  [
    "if(T2.st===2&&d.v<=2) card('u1c3',true,'Koşu '+(T2.run+1)+', αL: 10.000 karenin '+NFI.format(Math.round(d.p*NFR))+'\\'i, '+d.v+' ziyaret. Hesap yine bir sayı üretiyor ('+(gs?'g = '+fx(gs,1)+', N_eff = '+NFI.format(Math.round(NFR/gs)):'g hesaplanamaz')+'), ama bu sayı hiçbir şey ölçmüyor: bir durumu birkaç kez görmek, o durumda ne kadar kalındığının dağılımı hakkında bilgi vermez. Böyle bir durum için dürüst cevap \"hata çubuğu kurulamaz\"dır.');",
    "if(T2.st===2&&d.v<=2) card('u1c3',true,'Run '+(T2.run+1)+', αL: '+NFI.format(Math.round(d.p*NFR))+' of 10,000 frames, '+d.v+(d.v==1?' visit':' visits')+'. The calculation still produces a number ('+(gs?'g = '+fx(gs,1)+', N_eff = '+NFI.format(Math.round(NFR/gs)):'g cannot be computed')+'), but this number measures nothing: seeing a state a few times says nothing about the distribution of how long it is occupied. For such a state the honest answer is \"no error bar can be built\".');"
   ],
@@ -431,16 +371,8 @@
    "if(!d.gs.r){ g.fillText('This state was never seen or always seen: cannot be computed.',L+8,H/2); return; }"
   ],
   [
-   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Blok ortalaması: g_B',L,14);",
-   "g.font='11.5px '+css('--sans'); g.fillStyle=css('--muted'); g.fillText('Block averaging: g_B',L,14);"
-  ],
-  [
    "if(!d.gb.gB.length){ g.fillText('Hesaplanamaz.',L+8,H/2); return; }",
    "if(!d.gb.gB.length){ g.fillText('Cannot be computed.',L+8,H/2); return; }"
-  ],
-  [
-   "if(d.gs.g){ var yg=Y(d.gs.g); g.strokeStyle=css('--ink'); g.setLineDash([5,4]); g.beginPath(); g.moveTo(L,yg); g.lineTo(W-R,yg); g.stroke(); g.setLineDash([]); g.fillStyle=css('--ink'); g.fillText('otokorelasyon: g = '+fx(d.gs.g,0),L+6,yg-5); }",
-   "if(d.gs.g){ var yg=Y(d.gs.g); g.strokeStyle=css('--ink'); g.setLineDash([5,4]); g.beginPath(); g.moveTo(L,yg); g.lineTo(W-R,yg); g.stroke(); g.setLineDash([]); g.fillStyle=css('--ink'); g.fillText('autocorrelation: g = '+fx(d.gs.g,0),L+6,yg-5); }"
   ],
   [
    "g.fillStyle=css('--muted'); g.textAlign='center'; d.gb.B.forEach(function(b,i){ if(i%2===0||i===d.gb.B.length-1) g.fillText(NFI.format(b),X(i),H-12); }); g.fillText('blok boyu (kare)',L+(W-L-R)/2,H-1); g.textAlign='left'; }",
@@ -457,10 +389,6 @@
   [
    "$('u1fM').textContent=fx(b.mean,3); $('u1fC').textContent=fx(b.lo,3)+' ile '+fx(b.hi,3)+' (± '+fx(b.hi-b.mean,3)+'; t = '+fx(b.t,3)+')'; $('u1fT').textContent=n+' × '+D3.L+' ns = '+(n*D3.L)+' ns';",
    "$('u1fM').textContent=fx(b.mean,3); $('u1fC').textContent=fx(b.lo,3)+' to '+fx(b.hi,3)+' (± '+fx(b.hi-b.mean,3)+'; t = '+fx(b.t,3)+')'; $('u1fT').textContent=n+' × '+D3.L+' ns = '+(n*D3.L)+' ns';"
-  ],
-  [
-   "$('u1fNote').textContent=(b.lo<0?'Aralık sıfırın altına iniyor: bu veriden '+SN[D3.st]+' payı için bir alt sınır verilemez; pay sıfır olabilir. ':'')+(n<5?'Koşu sayısı azaldıkça t büyür ('+fx(b.t,3)+'): az tekrarla aralık hızla genişler. ':'')+(D3.L<5?'Kısa pencereler her koşunun başından alınır; koşular aynı yapıdan başladığı için ilk nanosaniyeler birbirine daha çok benzeyebilir ya da hep aynı yöne sapabilir.':'');",
-   "$('u1fNote').textContent=(b.lo<0?'The interval drops below zero: from these data no lower bound can be given for the '+SN[D3.st]+' fraction; the fraction could be zero. ':'')+(n<5?'As the number of runs falls, t grows ('+fx(b.t,3)+'): with few replicas the interval widens quickly. ':'')+(D3.L<5?'Short windows are taken from the start of each run; because the runs started from the same structure, the first nanoseconds may resemble each other more, or all drift the same way.':'');"
   ],
   [
    "if(w.ce){ g.strokeStyle=col; g.lineWidth=2; g.beginPath(); g.moveTo(x,Y(w.p-1.96*w.ce)); g.lineTo(x,Y(w.p+1.96*w.ce)); g.stroke(); } else { g.fillStyle=css('--bad'); g.fillText('çubuk yok',x-22,Y(w.p)-10); }",
@@ -507,16 +435,8 @@
    "{s:'A run produced 10,000 frames and g = 200 was found for the αR indicator (g is dimensionless). What is the effective sample size, roughly?',o:[['10,000',0],['200',0],['50',1],['100',0]],w:'N_eff = N / g = 10,000 / 200 = 50. The error is √200 ≈ 14 times what you would find if the frames were counted as independent.'},"
   ],
   [
-   "{s:'RMSD eğrisi koşunun başından sonuna düz ve küçük. Bu ne gösterir?',o:[['Örnekleme tamamlandı',0],['Molekül dengeye ulaştı',0],['Yalnız ortalama atom sapmasının küçük kaldığını; açıların ve durumların nasıl gezdiği ayrıca bakılmadan bilinmez',1],['Hata çubuğu küçüktür',0]],w:'Alanin dipeptidinde RMSD ortanca 0,05 nm civarında kalırken durum 126-206 kez değişti. RMSD, soruyu soran niceliğin (burada durum payının) yerine geçmez.'},",
-   "{s:'The RMSD curve is flat and small from the start of the run to the end. What does this show?',o:[['Sampling is complete',0],['The molecule has reached equilibrium',0],['Only that the mean atomic deviation stayed small; how the angles and states wander cannot be known without looking separately',1],['The error bar is small',0]],w:'In alanine dipeptide the state changed 126-206 times while the RMSD stayed around a median of 0.05 nm. RMSD does not stand in for the quantity the question is about (here, the state fraction).'},"
-  ],
-  [
    "{s:'Aynı lizattan üç kuyu ölçtünüz. Bu, MD\\'de hangisine benzer?',o:[['Beş bağımsız koşu',0],['Tek bir koşunun art arda üç karesi',1],['Farklı kuvvet alanlarıyla üç koşu',0],['Üç farklı protein',0]],w:'Art arda kareler aynı \"örnekten\" gelir ve birbirine bağlıdır; bağımsız tekrar yerine geçmez (sözde tekrar).'},",
    "{s:'You measured three wells from the same lysate. What does this resemble in MD?',o:[['Five independent runs',0],['Three consecutive frames of a single run',1],['Three runs with different force fields',0],['Three different proteins',0]],w:'Consecutive frames come from the same \"sample\" and are linked to each other; they do not stand in for independent replicates (pseudoreplication).'},"
-  ],
-  [
-   "{s:'αL durumu bir koşuda yalnız iki kez ziyaret edildi. Bu koşudan αL payı için hata çubuğu nasıl verilmeli?',o:[['√(p(1 − p)/N) ile',0],['Otokorelasyon düzeltmesiyle',0],['Verilmemeli: birkaç ziyaretten ne pay ne hata güvenilir hesaplanır',1],['Blok boyunu büyüterek',0]],w:'Yöntemler durumun defalarca girilip çıkıldığını varsayar. Bu projede bir koşuda N_eff, N\\'den büyük çıktı: sayı üretildi ama yalnız iki ziyarete dayandığı için güvenilir değil.'},",
-   "{s:'The αL state was visited only twice in a run. How should an error bar for the αL fraction be given from this run?',o:[['With √(p(1 − p)/N)',0],['With the autocorrelation correction',0],['It should not be given: from a few visits neither the fraction nor the error can be computed reliably',1],['By increasing the block size',0]],w:'The methods assume that the state is entered and left many times. In this project N_eff came out larger than N in one run: a number was produced, but it rests on only two visits and is not reliable.'},"
   ],
   [
    "{s:'Beş koşunun αR payları 0,219, 0,347, 0,244, 0,188 ve 0,271. %95 aralığı hesaplarken neden 1,96 yerine 2,776 kullanılır?',o:[['Payların ortalaması küçük olduğu için',0],['Standart sapma yalnız 5 değerden tahmin edildiği için t dağılımı (4 serbestlik) kullanılır',1],['Koşular 10 ns olduğu için',0],['Otokorelasyon yüzünden',0]],w:'Az sayıda tekrarla standart sapmanın kendisi belirsizdir; t dağılımı bunu hesaba katar. Aralık 0,179 ile 0,329 çıkar.'},",
@@ -549,6 +469,254 @@
   [
    "['u1c1','u1c2','u1c3','u1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });",
    "['u1c1','u1c2','u1c3','u1c4'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
+  ],
+  [
+   "<div><div class=\"lbl\">Hata çubuğu</div><div class=\"seg\" role=\"group\" aria-label=\"Hata çubuğu\" id=\"u1bmode\"><button type=\"button\" data-m=\"0\" aria-pressed=\"true\">Her kare bağımsız</button><button type=\"button\" data-m=\"1\" aria-pressed=\"false\">√g ile düzeltilmiş</button></div></div>",
+   "<div><div class=\"lbl\">Error bar</div><div class=\"seg\" role=\"group\" aria-label=\"Error bar\" id=\"u1bmode\"><button type=\"button\" data-m=\"0\" aria-pressed=\"true\">Every frame independent</button><button type=\"button\" data-m=\"1\" aria-pressed=\"false\">Corrected by √g</button></div></div>"
+  ],
+  [
+   "<dt>Hata çubuğu, ortalama yarı genişlik (%95)</dt><dd id=\"u1bNa\"></dd>",
+   "<dt>Error bar, mean half-width (95%)</dt><dd id=\"u1bNa\"></dd>"
+  ],
+  [
+   "<dt>Uzun dönemde yakalama (1.000 deney)</dt><dd id=\"u1bLong\"></dd>",
+   "<dt>Long-run capture (1,000 experiments)</dt><dd id=\"u1bLong\"></dd>"
+  ],
+  [
+   "<p class=\"small\">Model: hız, ortalamaya dönen bir rastgele süreçtir (Ornstein-Uhlenbeck; ilişki süresi 30 s, ortalama 1,0 µm/dk, standart sapma 0,4 µm/dk), tarayıcıda her deney için yeniden üretilir. Sayılar bir öğretim modeline aittir, gerçek bir göç deneyine değil. %95 hata çubuğu: ortalama ± t · s / √N; t, N − 1 serbestlikle alınır (N = 5 için 2,776; N büyüdükçe 1,96'ya yaklaşır). Düzeltilmiş çubuk ayrıca √g ile çarpılır; bu modelde g = (1 + ρ) / (1 − ρ), ρ = e^(−Δt / 30 s). Uzun dönem satırı aynı modelden sabit tohumlu 1.000 deneyle hesaplanır.</p>",
+   "<p class=\"small\">Model: the speed is a mean-reverting random process (Ornstein-Uhlenbeck; correlation time 30 s, mean 1.0 µm/min, standard deviation 0.4 µm/min), generated anew in the browser for every experiment. The numbers belong to a teaching model, not to a real migration experiment. 95% error bar: mean ± t · s / √N; t is taken with N − 1 degrees of freedom (2.776 for N = 5; it approaches 1.96 as N grows). The corrected bar is further multiplied by √g; in this model g = (1 + ρ) / (1 − ρ), ρ = e^(−Δt / 30 s). The long-run row is computed from the same model with 1,000 experiments from a fixed seed.</p>"
+  ],
+  [
+   "<h2 id=\"u1h1\">İki düzeyli RMSD, gezen açılar</h2>",
+   "<h2 id=\"u1h1\">Two-level RMSD, wandering angles</h2>"
+  ],
+  [
+   "<div class=\"prose\"><p>Alanin dipeptidi 22 atomluk küçük bir moleküldür; bütün esnekliği iki açıdadır: φ ve ψ. Bu projede su içinde beş bağımsız koşusu yapıldı, her biri 10 ns, 1 ps'de bir kare. Durumlar koşulardan önce yazılıp donduruldu: αL (φ ≥ 0), αR (φ &lt; 0 ve −120 ≤ ψ &lt; 50) ve geri kalanı, β/PPII. RMSD her karenin minimize başlangıç yapısından uzaklığıdır; o yapı β/PPII bölgesindedir (φ = −88°, ψ = 129°). Bir koşu ve bir zaman penceresi seçin: RMSD ne diyor, açılar ne diyor?</p></div>",
+   "<div class=\"prose\"><p>Alanine dipeptide is a small molecule of 22 atoms; all of its flexibility lies in two angles: φ and ψ. In this project five independent runs were performed in water, 10 ns each, one frame per ps. The states were written down and frozen before the runs: αL (φ ≥ 0), αR (φ &lt; 0 and −120 ≤ ψ &lt; 50) and the rest, β/PPII. RMSD is the distance of each frame from the minimized starting structure; that structure lies in the β/PPII region (φ = −88°, ψ = 129°). Choose a run and a time window: what does the RMSD say, and what do the angles say?</p></div>"
+  ],
+  [
+   "<dt>RMSD ortancası, duruma göre (αR / β / αL)</dt><dd id=\"u1rS\"></dd>",
+   "<dt>RMSD median by state (αR / β / αL)</dt><dd id=\"u1rS\"></dd>"
+  ],
+  [
+   "<canvas id=\"u1rh\" class=\"plot\" aria-label=\"Seçili penceredeki RMSD değerlerinin dağılımı, duruma göre renkli: β/PPII alt düzeyde, αR ve αL üst düzeyde üst üste\"></canvas>",
+   "<canvas id=\"u1rh\" class=\"plot\" aria-label=\"Distribution of the RMSD values in the selected window, colored by state: β/PPII at the lower level, αR and αL overlapping at the upper level\"></canvas>"
+  ],
+  [
+   "<dt>Önceden yazılmış sınırlar</dt><dd>ψ = 50° (ana), 30° ve 70° (duyarlılık)</dd>",
+   "<dt>Boundaries written in advance</dt><dd>ψ = 50° (main), 30° and 70° (sensitivity)</dd>"
+  ],
+  [
+   "<article class=\"q\" id=\"u1c1\"><span class=\"k\">Açık</span><h3>RMSD neyi göremiyor?</h3><p>Bir pencerede RMSD'nin hangi düzeyde olduğunu ve aynı pencerede durumun kaç kez değiştiğini karşılaştırın.</p><div class=\"mine\" id=\"mu1c1\">Pencereyi en az bir kez taşıyın ya da boyunu değiştirin.</div></article>",
+   "<article class=\"q\" id=\"u1c1\"><span class=\"k\">Open</span><h3>What can RMSD not see?</h3><p>In a window, compare the level the RMSD is at with how many times the state changes in the same window.</p><div class=\"mine\" id=\"mu1c1\">Move the window at least once, or change its length.</div></article>"
+  ],
+  [
+   "<article class=\"q\" id=\"u1c2\"><span class=\"k\">Açık</span><h3>10.000 kare kaç ölçüm eder?</h3><p>αR ya da β için blok boyunu en büyük değere kadar büyütün: g_B bir düzlüğe oturuyor mu?</p><div class=\"mine\" id=\"mu1c2\">Blok boyunu 512 kareye çıkarın.</div></article>",
+   "<article class=\"q\" id=\"u1c2\"><span class=\"k\">Open</span><h3>How many measurements are 10,000 frames worth?</h3><p>For αR or β, increase the block size to its largest value: does g_B settle on a flat level?</p><div class=\"mine\" id=\"mu1c2\">Raise the block size to 512 frames.</div></article>"
+  ],
+  [
+   "<div class=\"prose\"><p>Alanin dipeptidinde αR'nin belleği 46 ile 114 ps sürdü; 10 ns'lik bir koşuda 126 ile 206 durum değişimi sayıldı ve hata çubuğu yine de genişti. Bir proteinde ilginç hareketler çoğu zaman bundan çok daha yavaştır. Aşağıdaki tablo bu kitabın kendi koşularını aynı gözle okur.</p></div>",
+   "<div class=\"prose\"><p>In alanine dipeptide the memory of αR lasted 46 to 114 ps; in a 10 ns run 126 to 206 state changes were counted, and the error bar was still wide. In a protein, the interesting motions are often much slower than this. The table below reads this book's own runs with the same eye.</p></div>"
+  ],
+  [
+   "<tr><td>Alanin dipeptidi, αR payı (bu sayfa)</td><td>5 bağımsız koşu × 10 ns</td><td>0,254; %95 aralık 0,179 ile 0,329. αL için aralık sıfırı içerir (−0,008 ile 0,026).</td></tr>",
+   "<tr><td>Alanine dipeptide, αR fraction (this page)</td><td>5 independent runs × 10 ns</td><td>0.254; 95% interval 0.179 to 0.329. For αL the interval includes zero (−0.008 to 0.026).</td></tr>"
+  ],
+  [
+   "<tr><td>Ubikitin, kristal B ile MD dalgalanması (MD-PDB)</td><td>1 koşu × 2 ns</td><td>Koşunun iki yarısı arasında r 0,86; 1 ile 72 arasındaki kalıntılarda kristal B ile r 0,59. Tek koşu; koşular arası hata ölçülmedi.</td></tr>",
+   "<tr><td>Ubiquitin, crystal B against MD fluctuation (MD-PDB)</td><td>1 run × 2 ns</td><td>r 0.86 between the two halves of the run; r 0.59 with crystal B for residues 1 to 72. A single run; no between-run error was measured.</td></tr>"
+  ],
+  [
+   "' / 1.000)'",
+   "' / 1,000)'"
+  ],
+  [
+   "'Bu öğretim modelinde g bilinir: g = (1 + ρ) / (1 − ρ), ρ = e^(−Δt / 30 s); bu kare aralığında g = '",
+   "'In this teaching model g is known: g = (1 + ρ) / (1 − ρ), ρ = e^(−Δt / 30 s); at this frame interval g = '"
+  ],
+  [
+   "'. Çubuk √g = '",
+   "'. The bar was widened by a factor of √g = '"
+  ],
+  [
+   "' kat genişletildi: '",
+   "': '"
+  ],
+  [
+   "' / 20 çubuk gerçek ortalamayı yakaladı, 1.000 deneyde '",
+   "' / 20 bars caught the true mean; in 1,000 experiments, '"
+  ],
+  [
+   "'. Gerçek bir MD koşusunda g bilinmez; veriden tahmin edilir (2 · Tezgâh) ve tahminin kendisi de belirsizdir.'",
+   "'. In a real MD run g is not known; it is estimated from the data (2 · Bench), and the estimate itself is uncertain.'"
+  ],
+  [
+   "'Kare sayısı arttıkça \"her kare bağımsız\" hata çubuğu daraldı ('",
+   "'As the number of frames grew, the \"every frame independent\" error bar narrowed ('"
+  ],
+  [
+   "' kare), ama 20 deneyin ortalamaları bu çubuklardan çok daha fazla saçılıyor: '",
+   "' frames), but the means of the 20 experiments scatter much more than these bars: '"
+  ],
+  [
+   "'. Kareler 30 s içinde birbirine benzer; fazladan kare yeni bilgi getirmiyor. \"√g ile düzeltilmiş\" çubuğu deneyin.'",
+   "'. Within 30 s the frames resemble each other; extra frames bring no new information. Try the \"Corrected by √g\" bar.'"
+  ],
+  [
+   "'Kare aralığı ilişki süresine (30 s) eşit: ardışık iki kare arasındaki ilişki hâlâ e⁻¹ ≈ 0,37. \"Her kare bağımsız\" çubuk yine dar kalıyor: '",
+   "'The frame interval equals the correlation time (30 s): the correlation between two consecutive frames is still e⁻¹ ≈ 0.37. The \"every frame independent\" bar is still too narrow: '"
+  ],
+  [
+   "'Kareler artık ilişki süresinden (30 s) seyrek, yani yaklaşık bağımsız; çubuk t ile ('",
+   "'The frames are now sparser than the correlation time (30 s), so roughly independent; because the bar is built with t ('"
+  ],
+  [
+   "' serbestlik) kurulduğu için 1.000 deneyde '",
+   "' degrees of freedom), it catches the true mean in '"
+  ],
+  [
+   "' yakalıyor. Ama yalnız '",
+   "' of 1,000 experiments. But only '"
+  ],
+  [
+   "' kare kaldı: ortalamanın beklenen saçılımı büyür ve çubuk genişler. Kare atmak bağımsızlık getirir, bilgi getirmez; aynı 10 dakikadan daha az bilgi çıkar.'",
+   "' frames are left: the expected scatter of the mean grows and the bar widens. Dropping frames brings independence, not information; less information comes out of the same 10 minutes.'"
+  ],
+  [
+   "'20 deneyin ortalaması ve √g ile düzeltilmiş %95 çubuğu; kesikli: gerçek ortalama'",
+   "'Means of 20 experiments and the 95% bar corrected by √g; dashed: true mean'"
+  ],
+  [
+   "'20 deneyin ortalaması ve \"her kare bağımsız\" %95 çubuğu; kesikli: gerçek ortalama'",
+   "'Means of 20 experiments and the \"every frame independent\" 95% bar; dashed: true mean'"
+  ],
+  [
+   "' ile '",
+   "' to '"
+  ],
+  [
+   "'yok'",
+   "'none'"
+  ],
+  [
+   "'Koşu '",
+   "'Run '"
+  ],
+  [
+   "' ns: durum '",
+   "' ns: the state changed '"
+  ],
+  [
+   "' kez değişti; αR payı '",
+   "' times; αR fraction '"
+  ],
+  [
+   "'. RMSD ortancası '",
+   "'. Median RMSD in '"
+  ],
+  [
+   "' karelerinde '",
+   "' frames '"
+  ],
+  [
+   "'. RMSD minimize başlangıç yapısından uzaklıktır ve o yapı β/PPII bölgesindedir; bu yüzden RMSD iki düzeylidir ve αR\\'ye geçişi görür. Ama αR ile αL\\'yi ayırmaz: ikisi de yalnız \"başvurudan uzak\"tır'",
+   "'. RMSD is the distance from the minimized starting structure, and that structure lies in the β/PPII region; so RMSD has two levels and sees the move into αR. But it does not separate αR from αL: both are simply \"far from the reference\"'"
+  ],
+  [
+   "' (αL için koşu 1\\'de 2,9 ile 3,2 ns arasındaki ziyarete bakın)'",
+   "' (for αL, look at the visit between 2.9 and 3.2 ns in run 1)'"
+  ],
+  [
+   "'. RMSD\\'nin küçük ve sınırlı kalması molekülün dağılmadığını söyler; hangi durumun ne sıklıkla ziyaret edildiğini, yani örneklemeyi söylemez.'",
+   "'. An RMSD that stays small and bounded says that the molecule did not fall apart; it does not say which state is visited how often, that is, the sampling.'"
+  ],
+  [
+   "'RMSD dağılımı, duruma göre renkli'",
+   "'RMSD distribution, colored by state'"
+  ],
+  [
+   "'RMSD dağılımı, seçili pencere (5 ps\\'de bir değer), duruma göre renkli'",
+   "'RMSD distribution, selected window (one value every 5 ps), colored by state'"
+  ],
+  [
+   "'Blok ortalaması: g_B (iki eksen de logaritmik)'",
+   "'Block averaging: g_B (both axes logarithmic)'"
+  ],
+  [
+   "'otokorelasyon: g = '",
+   "'autocorrelation: g = '"
+  ],
+  [
+   "'kurulamaz: bütün paylar 0'",
+   "'cannot be built: all fractions are 0'"
+  ],
+  [
+   "'Seçili koşuların hiçbirinde bu pencerede '",
+   "'In none of the selected runs was '"
+  ],
+  [
+   "' görülmedi. Bütün paylar 0 olduğu için standart sapma da 0 çıkar ve aralık sıfır genişlikte görünür; bu bir kesinlik değil, bilgi yokluğudur. Koşular arası saçılımdan bu süreyle bir aralık kurulamaz; defter bu denemeyi yazmaz.'",
+   "' seen in this window. Since all the fractions are 0, the standard deviation is also 0 and the interval looks zero-wide; this is not precision but absence of information. No interval can be built from the scatter between runs of this length; the notebook does not record this trial.'"
+  ],
+  [
+   "'Aralık 1\\'in üstüne çıkıyor, yani payın alabileceği 0 ile 1 aralığını aşıyor: bu kadar az veriyle t aralığı anlamını yitirir. '",
+   "'The interval rises above 1, beyond the 0 to 1 range a fraction can take: with this little data the t interval loses its meaning. '"
+  ],
+  [
+   "'Aralık sıfırın altına iniyor: bu veriden '",
+   "'The interval drops below zero: from these data no lower bound can be given for the '"
+  ],
+  [
+   "' payı için bir alt sınır verilemez; pay sıfır olabilir. '",
+   "' fraction; the fraction could be zero. '"
+  ],
+  [
+   "'Koşu sayısı azaldıkça t büyür ('",
+   "'As the number of runs falls, t grows ('"
+  ],
+  [
+   "'): az tekrarla aralık hızla genişler. '",
+   "'): with few replicas the interval widens quickly. '"
+  ],
+  [
+   "'Kısa pencereler her koşunun başından alınır; koşular aynı yapıdan başladığı için ilk nanosaniyeler birbirine daha çok benzeyebilir ya da hep aynı yöne sapabilir.'",
+   "'Short windows are taken from the start of each run; because the runs started from the same structure, the first nanoseconds may resemble each other more, or all drift the same way.'"
+  ],
+  [
+   "', ölçek dışı)'",
+   "', off scale)'"
+  ],
+  [
+   "$('u1eNote').textContent=few?SN[T2.st]+' bu koşuda yalnız '+d.v+' kez ziyaret edildi ('+NFI.format(Math.round(d.p*NFR))+' kare). Otokorelasyon ve blok yöntemi, durumun defalarca girilip çıkıldığını varsayar; birkaç ziyaretten ne pay ne de hatası güvenilir hesaplanır. Sayfa bu koşuda '+SN[T2.st]+' için hata çubuğu çizmez.':(!last?'Blok boyu büyüdükçe g_B önce B ile birlikte büyür (kareler hâlâ ilişkili). Blok boyunu en büyük değere ('+NFI.format(Bmax)+' kare) kadar büyütün: g_B bir düzlüğe oturuyor mu? Düzlükteki değer g\\'dir.'",
+   "$('u1eNote').textContent=few?'In this run '+SN[T2.st]+' was visited only '+d.v+(d.v==1?' time':' times')+' ('+NFI.format(Math.round(d.p*NFR))+' frames). Autocorrelation and block averaging assume that the state is entered and left many times; from a few visits neither the fraction nor its error can be computed reliably. The page draws no error bar for '+SN[T2.st]+' in this run.':(!last?'As the block size grows, g_B first grows along with B (the frames are still correlated). Increase the block size to its largest value ('+NFI.format(Bmax)+' frames): does g_B settle on a flat level? The value on the flat level is g.'"
+  ],
+  [
+   ":(d.gb.plateau?'g_B son iki blok boyunda bir düzlüğe oturdu ('+fx(gPrev,1)+' ve '+fx(gLast,1)+'; fark %20\\'nin altında). Düzlükteki değer g\\'dir'",
+   ":(d.gb.plateau?'g_B settled on a flat level over the last two block sizes ('+fx(gPrev,1)+' and '+fx(gLast,1)+'; difference below 20%). The value on the flat level is g'"
+  ],
+  [
+   ":'En büyük blok boyunda bile g_B hâlâ yükseliyor ('+fx(gPrev,1)+' → '+fx(gLast,1)+'; plato yok). Gerçek bellek bloklardan uzun olabilir; buradan çıkan g ve hata bir alt sınırdır')",
+   ":'Even at the largest block size g_B is still rising ('+fx(gPrev,1)+' → '+fx(gLast,1)+'; no plateau). The true memory may be longer than the blocks; the g and the error obtained here are a lower bound')"
+  ],
+  [
+   "+(gs?'; otokorelasyonla g = '+fx(gs,0)+' kare. Hata √g kat, yani yaklaşık '+fx(Math.sqrt(gs),0)+' kat büyür.':'.'));",
+   "+(gs?'; by autocorrelation g = '+fx(gs,0)+' frames. The error grows by a factor of √g, that is, about '+fx(Math.sqrt(gs),0)+' times.':'.'));"
+  ],
+  [
+   "if(last&&T2.st!==2&&!few&&gs) card('u1c2',true,'Koşu '+(T2.run+1)+', '+SN[T2.st]+': en büyük blok boyunda ('+NFI.format(Bmax)+' kare) g_B = '+fx(gB,0)+(d.gb.plateau?' (plato var)':' (plato yok: g_B hâlâ yükseliyor)')+', otokorelasyonla g = '+fx(gs,0)+'. 10.000 kare yaklaşık '+NFI.format(Math.round(NFR/gs))+' bağımsız ölçüm eder. \"Her kare bağımsız\" hata ± '+fx(nv,4)+', düzeltilmiş hata ± '+fx(Math.sqrt(gs)*nv,3)+': '+fx(Math.sqrt(gs),0)+' kat.'+(d.gb.plateau?'':' Plato yoksa gerçek bellek daha uzun olabilir; g ve düzeltilmiş hata bir alt sınırdır.'));",
+   "if(last&&T2.st!==2&&!few&&gs) card('u1c2',true,'Run '+(T2.run+1)+', '+SN[T2.st]+': at the largest block size ('+NFI.format(Bmax)+' frames) g_B = '+fx(gB,0)+(d.gb.plateau?' (plateau)':' (no plateau: g_B is still rising)')+', by autocorrelation g = '+fx(gs,0)+'. 10,000 frames are worth about '+NFI.format(Math.round(NFR/gs))+' independent measurements. The \"every frame independent\" error is ± '+fx(nv,4)+', the corrected error ± '+fx(Math.sqrt(gs)*nv,3)+': '+fx(Math.sqrt(gs),0)+' times larger.'+(d.gb.plateau?'':' Without a plateau the true memory may be longer; g and the corrected error are a lower bound.'));"
+  ],
+  [
+   "{s:'RMSD eğrisi koşunun başından sonuna düz ve küçük. Bu ne gösterir?',o:[['Örnekleme tamamlandı',0],['Molekül dengeye ulaştı',0],['Yalnız molekülün başvuru yapısından pek uzaklaşmadığını; hangi durumların ne sıklıkla ziyaret edildiği ayrıca bakılmadan bilinmez',1],['Hata çubuğu küçüktür',0]],w:'RMSD başvuru yapısından uzaklıktır. Alanin dipeptidinde iki düzeyi vardır: ortancası αR karelerinde 0,112 nm, β/PPII karelerinde 0,041 nm; yani αR\\'ye geçişi görür. Ama αL karelerinde de 0,113 nm\\'dir: αR ile αL\\'yi ayırmaz. Beş koşuda durum 126 ile 206 kez değişti; hangi biçimin ne sıklıkla ziyaret edildiği, yani örnekleme, RMSD\\'den okunamaz.'},",
+   "{s:'The RMSD curve is flat and small from the start of the run to the end. What does this show?',o:[['Sampling is complete',0],['The molecule has reached equilibrium',0],['Only that the molecule did not move far from the reference structure; which states are visited how often cannot be known without looking separately',1],['The error bar is small',0]],w:'RMSD is the distance from the reference structure. In alanine dipeptide it has two levels: its median is 0.112 nm in αR frames and 0.041 nm in β/PPII frames, so it sees the move into αR. But in αL frames it is also 0.113 nm: it does not separate αR from αL. Across the five runs the state changed 126 to 206 times; which shape is visited how often, that is, the sampling, cannot be read from the RMSD.'},"
+  ],
+  [
+   "{s:'αL durumu bir koşuda yalnız iki kez ziyaret edildi. Bu koşudan αL payı için hata çubuğu nasıl verilmeli?',o:[['√(p(1 − p)/N) ile',0],['Otokorelasyon düzeltmesiyle',0],['Verilmemeli: birkaç ziyaretten ne pay ne hata güvenilir hesaplanır',1],['Blok boyunu büyüterek',0]],w:'Yöntemler durumun defalarca girilip çıkıldığını varsayar. Bu projede üç koşuda αL için N_eff, N\\'den büyük çıktı: sayı üretildi ama bir iki kareye dayandığı için güvenilir değil.'},",
+   "{s:'The αL state was visited only twice in a run. How should an error bar for the αL fraction be given from this run?',o:[['With √(p(1 − p)/N)',0],['With the autocorrelation correction',0],['It should not be given: from a few visits neither the fraction nor the error can be computed reliably',1],['By increasing the block size',0]],w:'The methods assume that the state is entered and left many times. In this project N_eff for αL came out larger than N in three runs: a number was produced, but it rests on one or two frames and is not reliable.'},"
+  ],
+  [
+   "'20 ortalama ve %95 çubuğu; kesikli: gerçek ortalama'",
+   "'20 means and 95% bars; dashed: true mean'"
   ]
  ],
  "keep": [
