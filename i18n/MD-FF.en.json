@@ -1,7 +1,7 @@
 {
  "module": "MD-FF",
  "lang": "en",
- "source_sha256": "0cc6e006a23e44bd48fd47e72054e0f5820ca09208957caf9b361ca2237881b6",
+ "source_sha256": "e0e5094d85ccfd20494702f2b910567850cdfea66e61ca758c480334b3a6d015",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-FF 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -95,8 +95,8 @@
    "<div class=\"selrow\"><span>Measure:</span><div class=\"seg\" role=\"group\" aria-label=\"Measure\" id=\"vdm\"><button type=\"button\" data-v=\"p_aR\" aria-pressed=\"true\">αR</button><button type=\"button\" data-v=\"p_bp\" aria-pressed=\"false\">β/PPII</button><button type=\"button\" data-v=\"p_aL\" aria-pressed=\"false\">αL</button><button type=\"button\" data-v=\"trans_per_ns\" aria-pressed=\"false\">Transitions/ns</button></div></div>"
   ],
   [
-   "<div class=\"stagebox\"><canvas id=\"vdots\" class=\"plot\" aria-label=\"Kuvvet alanı başına tekrar değerleri\"></canvas></div>",
-   "<div class=\"stagebox\"><canvas id=\"vdots\" class=\"plot\" aria-label=\"Replica values per force field\"></canvas></div>"
+   "<div class=\"stagebox\"><canvas id=\"vdots\" class=\"plot\" aria-label=\"Kuvvet alanı başına tekrar değerleri\"></canvas></div>\n    <p class=\"small\">Durum paylarında noktanın büyüklüğü o tekrarın αR↔β/PPII geçiş hızıdır (/ns): küçük nokta az geçiş demektir. 1,8 ns'lik pencerede bir ya da iki kez geçen bir tekrar, neredeyse tek bir havza ziyaretidir ve payı bu yüzden az bilgi taşır.</p>",
+   "<div class=\"stagebox\"><canvas id=\"vdots\" class=\"plot\" aria-label=\"Replica values per force field\"></canvas></div>\n    <p class=\"small\">For the state fractions, the size of a dot is that replica's αR↔β/PPII transition rate (/ns): a small dot means few transitions. A replica that crosses once or twice in the 1.8 ns window is almost a single basin visit, so its fraction carries little information.</p>"
   ],
   [
    "<div class=\"btns\"><button type=\"button\" class=\"btn\" id=\"vcomp\">Önceden yazılmış hükümleri göster</button></div>",
@@ -287,8 +287,8 @@
    "var KAR={VB93:['Vuister and Bax 1993',6.51,-1.76,1.60],HB97:['Hu and Bax 1997',7.09,-1.42,1.55],V07:['Vögeli et al. 2007',7.97,-1.26,0.63]};"
   ],
   [
-   "$('vbleg').innerHTML='<span>'+lin(PAL.accent)+KAR[BR.k][0]+'</span><span>'+lin(PAL.muted)+'öbür iki parametre seti</span><span><i style=\"background:'+hexA(PAL.navy,0.35)+'\"></i>φ dağılımı: '+FFN[BR.ff]+'</span><span>'+lin(PAL.accent)+'kesikli: ⟨J⟩</span>'; }",
-   "$('vbleg').innerHTML='<span>'+lin(PAL.accent)+KAR[BR.k][0]+'</span><span>'+lin(PAL.muted)+'the other two parameter sets</span><span><i style=\"background:'+hexA(PAL.navy,0.35)+'\"></i>φ distribution: '+FFN[BR.ff]+'</span><span>'+lin(PAL.accent)+'dashed: ⟨J⟩</span>'; }"
+   "$('vbleg').innerHTML='<span>'+lin(PAL.accent)+KAR[BR.k][0]+'</span><span>'+lin(PAL.muted)+'öbür iki parametre seti</span><span><i style=\"background:'+hexA(PAL.navy,0.35)+'\"></i>φ dağılımı: '+FFN[BR.ff]+' (çubuk yüksekliği göreli sıklık, Hz değil)</span><span>'+lin(PAL.accent)+'kesikli: ⟨J⟩</span>'; }",
+   "$('vbleg').innerHTML='<span>'+lin(PAL.accent)+KAR[BR.k][0]+'</span><span>'+lin(PAL.muted)+'the other two parameter sets</span><span><i style=\"background:'+hexA(PAL.navy,0.35)+'\"></i>φ distribution: '+FFN[BR.ff]+' (bar height is relative frequency, not Hz)</span><span>'+lin(PAL.accent)+'dashed: ⟨J⟩</span>'; }"
   ],
   [
    "$('vbread').innerHTML=dl('Parametre seti',KAR[k][0]+': A '+fx(KAR[k][1],2)+', B '+fx(KAR[k][2],2)+', C '+fx(KAR[k][3],2)+' Hz; θ = φ − 60°')+dl('⟨J⟩, '+FFN[BR.ff],fx(J[0],2)+' Hz (tekrarlar arası SD '+fx(J[1],2)+'; '+J[2].length+' tekrar)')+dl('Aynı kuvvet alanında yalnız αR / PPII / β kareleri',fx(stJ(BR.ff,k,'aR'),2)+' / '+fx(stJ(BR.ff,k,'pp'),2)+' / '+fx(stJ(BR.ff,k,'be'),2)+' Hz');",
@@ -403,8 +403,8 @@
    "{k:'M2', t:'M2 · OPLS-AA topology, 3-site water coordinates', d:'The OPLS-AA topology defines TIP4P (4 sites); the box was filled with the 3-site spc216.gro.', cmd:'gmx solvate -cs spc216.gro; gmx grompp -f em.mdp -c start.gro -p topol.top', o:['The topology expects 4 sites per molecule, the coordinate file has 3; the atom counts do not match','The box is too small','OPLS-AA cannot be used with water'], a:0, w:'TIP4P has a fourth, massless site (MW) that carries the charge. The topology contains 1520 × 4 + 22 atoms, the file 1520 × 3 + 22. Coordinates must be generated with the chosen water model (tip4p.gro for TIP4P).'},"
   ],
   [
-   "{k:'M3', t:'M3 · charmm27, AMBER ayarlarıyla', d:'charmm27 topolojisi, CHARMM için önerilen kuvvet geçişi (1,0 ile 1,2 nm) yerine AMBER koşularının ortak ayarlarıyla (1,0 nm kesme, DispCorr EnerPres).', cmd:'gmx grompp -f em.mdp (common.mdp) -c start.gro -p topol.top', o:['grompp bunu reddeder','grompp kabul eder; kuvvet alanının parametrize edildiği bağsız ayarlar kullanıcının sorumluluğundadır','grompp ayarları kendiliğinden CHARMM önerisine çevirir'], a:1, w:'grompp kesme ve geçiş ayarlarının bir kuvvet alanına uygun olup olmadığını denetlemez. Bu uyumsuzluk sessizdir (MD-FAIL). Bu sayfada C27 koşuları önerilen ayarlarla yapıldı; AMBER ayarlarıyla koşulan bir C27: Bu senaryo hesaplanmadı.'}",
-   "{k:'M3', t:'M3 · charmm27 with AMBER settings', d:'The charmm27 topology with the common settings of the AMBER runs (1.0 nm cut-off, DispCorr EnerPres) instead of the force switch recommended for CHARMM (1.0 to 1.2 nm).', cmd:'gmx grompp -f em.mdp (common.mdp) -c start.gro -p topol.top', o:['grompp rejects it','grompp accepts it; the nonbonded settings the force field was parametrized with are the user\\'s responsibility','grompp converts the settings to the CHARMM recommendation by itself'], a:1, w:'grompp does not check whether cut-off and switching settings suit a force field. This mismatch is silent (MD-FAIL). On this page the C27 runs used the recommended settings; a C27 run with AMBER settings: This scenario was not computed.'}"
+   "{k:'M3', t:'M3 · charmm27, AMBER ayarlarıyla', d:'charmm27 topolojisi, CHARMM için önerilen kuvvet geçişi (1,0 ile 1,2 nm) yerine AMBER koşularının ortak ayarlarıyla (1,0 nm kesme, DispCorr EnerPres).', cmd:'gmx grompp -f em.mdp (common.mdp) -c start.gro -p topol.top', o:['grompp bunu reddeder','grompp kabul eder; kuvvet alanının parametrize edildiği bağsız ayarlar kullanıcının sorumluluğundadır','grompp ayarları kendiliğinden CHARMM önerisine çevirir'], a:1, w:'grompp kesme ve geçiş ayarlarının bir kuvvet alanına uygun olup olmadığını denetlemez. Bu uyumsuzluk sessizdir (MD-FAIL). Bu sayfada C27 koşuları önerilen ayarlarla yapıldı; AMBER ayarlarıyla koşulan bir C27: Bu senaryo hesaplanmadı.<br><b>Sessizce değişen satırlar</b> (C27 koşuları → M3): kesme (rvdw) 1,2 → 1,0 nm; vdw-modifier = force-switch, 1,0 ile 1,2 nm → kuvvet geçişi yok; DispCorr kapalı → EnerPres. Bu satırların hiçbiri grompp\\'ta bir ileti üretmedi.'}",
+   "{k:'M3', t:'M3 · charmm27 with AMBER settings', d:'The charmm27 topology with the common settings of the AMBER runs (1.0 nm cut-off, DispCorr EnerPres) instead of the force switch recommended for CHARMM (1.0 to 1.2 nm).', cmd:'gmx grompp -f em.mdp (common.mdp) -c start.gro -p topol.top', o:['grompp rejects it','grompp accepts it; the nonbonded settings the force field was parametrized with are the user\\'s responsibility','grompp converts the settings to the CHARMM recommendation by itself'], a:1, w:'grompp does not check whether cut-off and switching settings suit a force field. This mismatch is silent (MD-FAIL). On this page the C27 runs used the recommended settings; a C27 run with AMBER settings: This scenario was not computed.<br><b>Lines that changed silently</b> (C27 runs → M3): cut-off (rvdw) 1.2 → 1.0 nm; vdw-modifier = force-switch, 1.0 to 1.2 nm → no force switch; DispCorr off → EnerPres. None of these lines produced a message in grompp.'}"
   ],
   [
    "function hlmsg(s){ return esc(s).replace(/(Fatal error:|ERROR \\d+|WARNING \\d+|NOTE \\d+)/g,'<span class=\"hl\">$1</span>'); }",
