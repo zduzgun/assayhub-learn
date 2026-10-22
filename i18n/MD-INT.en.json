@@ -1,7 +1,7 @@
 {
  "module": "MD-INT",
  "lang": "en",
- "source_sha256": "7749c81b9fbd2d1bc62338620a49e24eec8cb3eac90ec21fa90b982f70d66a3f",
+ "source_sha256": "8d0e7583e71daa3cd752b158fc14e8f81e3ff794614bc7bce281be8125d9bb54",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-INT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -615,8 +615,8 @@
    "Q.push({s:'The occupancy of the K11-E34 salt bridge with a 4.0 Å threshold is '+occs('K11-E34')+' in the three runs. Which reading is correct?',"
   ],
   [
-   "o:[['Köprü kalıcıdır; 3. koşu hatalıdır',0],['Ortalama '+pct(km,0)+' olduğuna göre köprü korunan bir etkileşimdir; rapora bu tek sayı yeter',0],['Bağımsız koşular farklı alt durumlar örnekleyebilir; tek koşudan genel bir sonuç çıkmaz',1]], w:'Ortalama doğru hesaplanır ('+pct(km,0)+'), ama koşular '+occs('K11-E34')+' iken tek sayı bu yayılımı gizler ve \"korunan etkileşim\" demeye yetmez. Üç koşu aynı hazırlıktan, yalnız başlangıç hızlarıyla ayrılıyor. Yayılım, 2 ns\\'lik bir koşunun bu köprünün açılıp kapanmasını yeterince örneklemediğini gösterir (MD-U, MD-REP).'});",
-   "o:[['The bridge is permanent; run 3 is wrong',0],['Since the mean is '+pct(km,0)+', the bridge is a conserved interaction; this single number is enough for the report',0],['Independent runs can sample different substates; no general conclusion follows from one run',1]], w:'The mean is computed correctly ('+pct(km,0)+'), but with the runs at '+occs('K11-E34')+' a single number hides this spread and is not enough to call it a \"conserved interaction\". The three runs come from the same preparation and differ only in their initial velocities. The spread shows that a 2 ns run does not sample the opening and closing of this bridge sufficiently (MD-U, MD-REP).'});"
+   "o:[['Köprü kalıcıdır; 3. koşu hatalıdır',0],['Ortalama '+pct(km,0)+' olduğuna göre köprü korunan bir etkileşimdir; rapora bu tek sayı yeter',0],['Bağımsız koşular farklı alt durumlar örnekleyebilir; tek koşudan genel bir sonuç çıkmaz',1]], w:'Ortalama doğru hesaplanır ('+pct(km,0)+'), ama koşular '+occs('K11-E34')+' iken tek sayı bu yayılımı gizler ve \"korunan etkileşim\" demeye yetmez. R2 ve R3 aynı hazırlıktan, yalnız başlangıç hızlarıyla ayrılıyor; R1\\'in iki dengeleme adımı ise başka bir makinede yapılmıştı. Yayılım, 2 ns\\'lik bir koşunun bu köprünün açılıp kapanmasını yeterince örneklemediğini gösterir (MD-U, MD-REP).'});",
+   "o:[['The bridge is permanent; run 3 is wrong',0],['Since the mean is '+pct(km,0)+', the bridge is a conserved interaction; this single number is enough for the report',0],['Independent runs can sample different substates; no general conclusion follows from one run',1]], w:'The mean is computed correctly ('+pct(km,0)+'), but with the runs at '+occs('K11-E34')+' a single number hides this spread and is not enough to call it a \"conserved interaction\". R2 and R3 come from the same preparation and differ only in their initial velocities; the two equilibration steps of R1, however, were done on another machine. The spread shows that a 2 ns run does not sample the opening and closing of this bridge sufficiently (MD-U, MD-REP).'});"
   ],
   [
    "Q.push({s:'Bir proton çifti zamanının %10\\'unu 3 Å\\'da, kalanını 7 Å\\'da geçiriyor. NOE ölçümü için ne beklenir?',",
