@@ -1,7 +1,7 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "77ad3e7a59a5852c3c1de22c8c98c8af60d5245ae4102aea8b80791bd7568413",
+ "source_sha256": "c3d9ce272b19227f9eb05436d6207d061f14478404d2a9af26dd35662f91fe1a",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -871,8 +871,8 @@
    "$('nClr').onclick=function(){ if(busy) return; book=[]; save(); nAll_render(); $('nBusy').textContent='Notebook cleared.'; };"
   ],
   [
-   "var g=$('gal'), html='<span></span>'+NS.map(function(N){return '<span class=\"hd\">'+N+' molekül</span>';}).join('');",
-   "var g=$('gal'), html='<span></span>'+NS.map(function(N){return '<span class=\"hd\">'+N+' molecules</span>';}).join('');"
+   "var g=$('gal'), html='<span class=\"hdl\">molekül sayısı</span>'+NS.map(function(N){return '<span class=\"hd\">'+N+'<span class=\"hdw\"> molekül</span></span>';}).join('');",
+   "var g=$('gal'), html='<span class=\"hdl\">number of molecules</span>'+NS.map(function(N){return '<span class=\"hd\">'+N+'<span class=\"hdw\"> molecules</span></span>';}).join('');"
   ],
   [
    "[['vac','Damla'],['pbc','Periyodik']].forEach(function(r){ html+='<span class=\"rl\">'+r[1]+'</span>'+NS.map(function(N){ var p=book.filter(function(q){return q.m===r[0]&&q.N===N;})[0];",
