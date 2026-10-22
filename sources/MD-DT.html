@@ -119,6 +119,8 @@ code{font-family:var(--mono);font-size:.92em}
 @media (max-width:820px){ .two,.minis,.bridge{grid-template-columns:1fr} canvas.plot{aspect-ratio:16/10} #book{aspect-ratio:4/3} }
 /* Laboratuvar 2 */
 .read dd{white-space:nowrap}
+.read.wrapv{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+.read.wrapv dd{white-space:normal;overflow-wrap:break-word}
 #k2miPlot{aspect-ratio:16/8}
 ol.steps{margin:6px 0 14px;padding-left:22px;display:grid;gap:4px}
 header.lab2,header.lab3{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
@@ -187,7 +189,7 @@ p.next a{color:var(--accent)}
         <div><label class="lbl" for="d1dt">Zaman adımı, Δt</label><div class="big" id="d1dtV"></div><input type="range" id="d1dt" min="0.5" max="6" step="0.1" value="2"></div>
         <div><div class="lbl">Kısıtlar</div><div class="seg" role="group" aria-label="Kısıt düzeni" id="d1con"><button type="button" data-c="none" aria-pressed="true">Yok</button><button type="button" data-c="h" aria-pressed="false">H bağları</button><button type="button" data-c="all" aria-pressed="false">Tüm bağlar</button></div></div>
         <label class="chk"><input type="checkbox" id="d1hmr"> Hidrojen kütlesini yeniden dağıt (HMR: H 1,008 → 3,024 u, fark bağlı ağır atomdan)</label>
-        <dl class="read">
+        <dl class="read wrapv">
           <dt>Serbest bağ / kısıtlı bağ</dt><dd id="d1nFree"></dd>
           <dt>Periyodu 5 · Δt'den kısa serbest bağ</dt><dd id="d1nBad"></dd>
           <dt id="d1nBadOL">Aynı ayarda HMR ile</dt><dd id="d1nBadO"></dd>
