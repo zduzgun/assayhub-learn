@@ -31,7 +31,9 @@ export function runLangTests() {
   const extra = [
     [topLanguage('tr-TR,tr;q=0.9'), 'tr'], [topLanguage(''), null], [readCookie('a=1;assayhub_lang=EN'), 'en'],
     [prefixedPath('/', 'tr'), '/tr/'], [prefixedPath('/l/DK-T', 'en'), '/en/l/DK-T'], [prefixedPath('/docking/dk-o/', 'tr'), '/tr/docking/dk-o/'],
-    [prefixedPath('/md', 'en'), '/en/md'], [prefixedPath('/tr/', 'en'), null], [prefixedPath('/assets/learn.css', 'en'), null], [prefixedPath('/lab', 'en'), null]
+    [prefixedPath('/md', 'en'), '/en/md'], [prefixedPath('/book', 'tr'), '/tr/book'], [prefixedPath('/glossary/', 'en'), '/en/glossary/'],
+    [prefixedPath('/kitap', 'tr'), '/tr/kitap'], [prefixedPath('/sozluk', 'tr'), '/tr/sozluk'],
+    [prefixedPath('/tr/', 'en'), null], [prefixedPath('/assets/learn.css', 'en'), null], [prefixedPath('/lab', 'en'), null]
   ];
   extra.forEach(([got, want], i) => { if (got !== want) fails.push(`ek ${i}: ${JSON.stringify(got)} != ${JSON.stringify(want)}`); });
   return { total: cases.length + extra.length, fails };

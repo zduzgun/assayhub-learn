@@ -371,14 +371,14 @@ ${js}
 `));
   }
   // dile özgü 404
-  write(join(L, '404.html'), page(L, null, `${U.nfTitle} · AssayHub Learn`, esc(U.tagline), `
+  write(join(L, '404.html'), page(L, '404.html', `${U.nfTitle} · AssayHub Learn`, esc(U.tagline), `
 <div class="mast"><p class="eyebrow">404</p><h1>${esc(U.nfH)}</h1><p class="deck">${U.nfP}</p><p class="deck">${U.bkLink}</p></div>`));
 }
 // dil öneksiz 404 (iki dilde) static/404.html dosyasındadır.
 
 /* ---------- kısa adresler ve işlev yolları ---------- */
 const lines = ['# modules.json dosyasından üretilir; elle düzenlemeyin.', '# 302 bilinçli seçim: hedef sayfa değişebilir, karekod değişmez.',
-  '# Dil öneksiz adresler (/, /l/*, /docking/*, /md/*) functions/ tarafından ziyaretçinin diline yönlendirilir.'];
+  '# Dil öneksiz adresler (/, /l/*, /docking/*, /md/*, /book/*, /glossary/*, /kitap/*, /sozluk/*) functions/ tarafından ziyaretçinin diline yönlendirilir.'];
 for (const L of LANGS) {
   for (const m of M.modules) {
     const target = m.path ? `/${L}/${m.path}` : `/${L}/${appOf(m.app).path}#${m.id}`;
@@ -386,11 +386,11 @@ for (const L of LANGS) {
     lines.push(`/${L}/l/${m.id.toLowerCase()} ${target} 302`);
   }
   for (const a of M.apps) lines.push(`/${L}/l/${a.id} /${L}/${a.path} 302`);
-  lines.push(`/${L}/l/book /${L}/book/ 302`, `/${L}/l/glossary /${L}/glossary/ 302`);
+  lines.push(`/${L}/l/book /${L}/book/ 302`, `/${L}/l/glossary /${L}/glossary/ 302`, `/${L}/l/kitap /${L}/book/ 302`, `/${L}/l/sozluk /${L}/glossary/ 302`);
+  lines.push(`/${L}/kitap /${L}/book/ 302`, `/${L}/kitap/ /${L}/book/ 302`, `/${L}/sozluk /${L}/glossary/ 302`, `/${L}/sozluk/ /${L}/glossary/ 302`);
 }
-lines.push('/tr/kitap /tr/book/ 302', '/tr/kitap/ /tr/book/ 302', '/tr/sozluk /tr/glossary/ 302', '/tr/sozluk/ /tr/glossary/ 302', '/tr/l/sozluk /tr/glossary/ 302');
 writeFileSync(join(DIST, '_redirects'), lines.join('\n') + '\n');
-writeFileSync(join(DIST, '_routes.json'), JSON.stringify({ version: 1, include: ['/', '/l/*', '/docking', '/docking/*', '/md', '/md/*'], exclude: [] }, null, 2));
+writeFileSync(join(DIST, '_routes.json'), JSON.stringify({ version: 1, include: ['/', '/l/*', '/docking', '/docking/*', '/md', '/md/*', '/book', '/book/*', '/glossary', '/glossary/*', '/kitap', '/kitap/*', '/sozluk', '/sozluk/*'], exclude: [] }, null, 2));
 
 // modül sayfalarına "bu modüldeki terimler" kutusu (sözlük bağlantılarının tersi): önce terimin bölümüne ait olanlar, sonra modüldeki eşleşme sayısı
 for (const m of M.modules) {
