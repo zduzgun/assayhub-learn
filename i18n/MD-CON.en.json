@@ -1,7 +1,7 @@
 {
  "module": "MD-CON",
  "lang": "en",
- "source_sha256": "237e8d8b93689c2fef1bff6eebbaf92f9de84cf1f1e3c4a74c166d60a7d33502",
+ "source_sha256": "5050b882aa0851a34b3c67f74b1f23e49c2617da8dc344a07a624021d8937067",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-CON 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -39,8 +39,8 @@
    "<h2 id=\"kh0\">Temperature jump: the same τ, a different time</h2>"
   ],
   [
-   "<div class=\"prose\"><p>Bir örneği laboratuvarda başka bir sıcaklığa getirdiğinizde (bir NMR probunun yeni sıcaklığa alınması ya da sıcaklık sıçraması deneyi) sıcaklık bir zaman sabitiyle yeni değere yaklaşır. Termostat da hedef sıcaklığı bir anda değiştirdiğinizde sistemi bir zaman sabitiyle yeni hedefe çeker, ama \"τ\" olarak yazdığınız sayı her algoritmada aynı fiziksel zamanı anlatmaz. Aşağıda 16 parçacıklı bir zincirden 160 kopya (hepsi aynı hedefe, T = 1 → 1,5) ortalaması çizilir; kesikli çizgi τ zaman sabitli üstel yaklaşmadır. Zaman birimi oyuncak birimdir (harmonik yaklaşımda zincirin titreşim dönemleri yaklaşık 2,8 ile 6,3 birim arasındadır).</p></div>",
-   "<div class=\"prose\"><p>When you bring a sample in the laboratory to another temperature (moving an NMR probe to a new temperature, or a temperature-jump experiment), the temperature approaches the new value with a time constant. A thermostat likewise pulls the system to a new target with a time constant when you change the target temperature abruptly, but the number you write as \"τ\" does not describe the same physical time in every algorithm. Below, the average of 160 copies of a 16-particle chain is drawn (all toward the same target, T = 1 → 1.5); the dashed line is an exponential approach with time constant τ. The time unit is a toy unit (in the harmonic approximation the vibration periods of the chain lie between about 2.8 and 6.3 units).</p></div>"
+   "<div class=\"prose\"><p>Bir örneği laboratuvarda başka bir sıcaklığa getirdiğinizde (bir NMR probunun yeni sıcaklığa alınması ya da sıcaklık sıçraması deneyi) sıcaklık bir zaman sabitiyle yeni değere yaklaşır. Termostat da hedef sıcaklığı bir anda değiştirdiğinizde sistemi bir zaman sabitiyle yeni hedefe çeker, ama \"τ\" olarak yazdığınız sayı her algoritmada aynı fiziksel zamanı anlatmaz. Aşağıda 16 parçacıklı bir zincirden 160 kopya (hepsi aynı hedefe, T = 1 → 1,5) ortalaması (9 noktalı merkezli kayan ortalama) çizilir; kesikli çizgi τ zaman sabitli üstel yaklaşmadır. Zaman birimi oyuncak birimdir (harmonik yaklaşımda zincirin titreşim dönemleri yaklaşık 2,8 ile 6,3 birim arasındadır).</p></div>",
+   "<div class=\"prose\"><p>When you bring a sample in the laboratory to another temperature (moving an NMR probe to a new temperature, or a temperature-jump experiment), the temperature approaches the new value with a time constant. A thermostat likewise pulls the system to a new target with a time constant when you change the target temperature abruptly, but the number you write as \"τ\" does not describe the same physical time in every algorithm. Below, the average of 160 copies of a 16-particle chain (all toward the same target, T = 1 → 1.5; 9-point centered moving average) is drawn; the dashed line is an exponential approach with time constant τ. The time unit is a toy unit (in the harmonic approximation the vibration periods of the chain lie between about 2.8 and 6.3 units).</p></div>"
   ],
   [
    "<div class=\"selrow\"><span>Termostat τ:</span><div class=\"seg\" role=\"group\" aria-label=\"Bağlanma süresi\" id=\"kbtau\"><button type=\"button\" data-v=\"1\" aria-pressed=\"false\">1</button><button type=\"button\" data-v=\"3\" aria-pressed=\"true\">3</button><button type=\"button\" data-v=\"10\" aria-pressed=\"false\">10</button></div><span class=\"small\" id=\"kbwait\"></span></div>",
@@ -455,8 +455,8 @@
    "function pct(v,d){ return fx(v*100,d==null?1:d)+'%'; }"
   ],
   [
-   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'hedefe üstel yaklaşma, zaman sabiti τ (kesikli) ve 2τ (noktalı) · soluk çizgi: aynı termostatla tek bir kopya';",
-   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'exponential approach to the target, time constant τ (dashed) and 2τ (dotted) · faint line: a single copy with the same thermostat';"
+   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'hedefe üstel yaklaşma, zaman sabiti τ (kesikli) ve 2τ (noktalı) · kalın çizgi: 160 kopya ortalaması (9 noktalı merkezli kayan ortalama) · soluk çizgi: aynı termostatla tek bir kopya';",
+   "$('kbleg').innerHTML=Object.keys(ALG).map(function(a){return lin(ACOL[a])+ALG[a];}).join(' ')+lin(PAL.muted)+'exponential approach to the target, time constant τ (dashed) and 2τ (dotted) · thick line: 160-copy average (9-point centered moving average) · faint line: a single copy with the same thermostat';"
   ],
   [
    "function setPlay(on){ A.play=on; btn.textContent=on?'Duraklat':'Oynat'; btn.classList.toggle('primary',!on); if(on) aniKick(); }",
