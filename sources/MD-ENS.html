@@ -317,7 +317,7 @@ var FLX=null; function flx(){ if(FLX) return FLX; var tp=stats(pooled('T')), tA=
 /* 4 serbestlik dereceli ki-kare dağılımının %2,5 ve %97,5 çeyreklikleri (beş koşu) */
 var CHI4=[0.4844,11.143];
 function niceMax(m){ var S=[0.04,0.08,0.12,0.16,0.2,0.24,0.3,0.4,0.6,0.8,1]; for(var i=0;i<S.length;i++) if(S[i]>=m*1.06) return S[i]; return 1; }
-function pfmt(t){ var p=t*100; return fx(p,Math.abs(p-Math.round(p))<1e-9?0:1)+' %'; }
+function pfmt(t){ var p=t*100; return '%'+fx(p,Math.abs(p-Math.round(p))<1e-9?0:1); }
 var RCOL=[];
 function runColors(){ RCOL=[PAL.bad,PAL.c3,PAL.gold,PAL.good,PAL.prot]; }
 
@@ -356,7 +356,7 @@ function bridge(){
 }
 
 /* ---------- 1. atölye ---------- */
-var wk={v:'psi',runs:0,seen:{},user:false};
+var wk={v:'psi',runs:0,seen:{0:true},user:false};
 function curArr(){ return wk.runs==='all'?pooled(wk.v):RUN[wk.runs][wk.v]; }
 function workshop(){
   var ch=$('e1runs'), labels=['1','2','3','4','5'];
@@ -570,7 +570,7 @@ function thFromSlider(s){ return Math.round(0.08*Math.pow(12.5,s/100)*1000)/1000
 function sliderFromTh(t){ return 100*Math.log(t/0.08)/Math.log(12.5); }
 function bench(){
   var sel=$('e1seed'); SEEDS.forEach(function(s){ var o=document.createElement('option'); o.value=s; o.textContent=s; sel.appendChild(o); });
-  var S={stop:0,th:0.15,spf:5,st:0,ens:false,seed:7,play:false,vis:false,flag:false,n:0,x:-1,v:0,f:0,rng:null,side:-1,cross:0,sx:0,nr:0,cnt:null,ct:0,c1:0,c2:0,B:null,tr:null,trail:[],E:null,tRead:0,tCard:0};
+  var S={stop:0,th:0.15,spf:5,st:0,ens:false,seed:7,play:false,vis:false,flag:false,n:0,x:-1,v:0,f:0,rng:null,side:-1,cross:0,sx:0,nr:0,cnt:null,ct:0,c1:0,c2:0,B:null,tr:null,trail:[],E:null,tRead:0,tCard:0,seenLo:false,seenHi:false};
   SM=S;
   function consts(){ S.c1=Math.exp(-0.01); S.c2=Math.sqrt(1-S.c1*S.c1)*Math.sqrt(S.th); }
   function setStale(t){ $('e1stale').textContent=t; }
@@ -662,12 +662,13 @@ function bench(){
   }
   function cardEns(){
     if(!S.E||S.n<2000) return;
+    if(S.n>=20000){ if(S.th<=0.2) S.seenLo=true; if(S.th>=0.3) S.seenHi=true; }
     var e=ensStats(), tm=S.sx/S.n, B=S.B, closeE=Math.abs(e.m-B.mean)<0.2, closeS=Math.abs(tm-B.mean)<0.2;
     var t='<b>'+fx(S.n,0)+' adımda:</b> topluluk ortalaması '+fx(e.m,2)+', tek yolun zaman ortalaması '+fx(tm,2)+', Boltzmann ortalaması '+fx(B.mean,2)+'. Topluluğun sağ kuyudaki payı '+pct(e.p,0)+', denge payı '+pct(B.pright,0)+'; tek yol '+(S.cross===0?'hâlâ başladığı kuyuda (hiç geçiş yok).':S.cross+' geçiş yaptı.')+' ';
     if(closeE&&!closeS) t+='<b>Topluluk dengeye vardı, tek yol henüz varmadı:</b> topluluk, her parçacığın engeli aşmasını aynı anda bekler; tek yol bunu bir kez, çok daha uzun sürede yapmak zorunda.';
     else if(closeE&&closeS) t+='<b>İkisi de Boltzmann ortalamasına yakın:</b> bu sıcaklıkta engel sık aşılıyor, zaman ortalaması topluluk ortalamasına yaklaşabiliyor.';
     else t+='<b>İkisi de henüz dengeye varmadı:</b> bu sıcaklıkta engel o kadar nadir aşılıyor ki topluluk bile başlangıç kuyusunda takılı. Sıcaklığı yükseltmeyi ya da daha uzun beklemeyi deneyin.';
-    card('e1c8',S.n>=20000,t);
+    card('e1c8',S.seenLo&&S.seenHi,t);
   }
   /* ---- kontroller ---- */
   var btn=$('e1sim');

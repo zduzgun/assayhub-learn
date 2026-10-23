@@ -1,7 +1,7 @@
 {
  "module": "DK-U",
  "lang": "en",
- "source_sha256": "5a17b17723236a0a3c2ebdbafd41b36fcfc8fa78d46399758f66d7312ce18396",
+ "source_sha256": "144bc207be1b30279e69b8d698e86afdf34d872a79a4e861cad65d444607000e",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (machine translation, needs human review); Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",

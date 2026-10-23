@@ -1,7 +1,7 @@
 {
  "module": "MD-SOLV",
  "lang": "en",
- "source_sha256": "a7057c384e7fc7af2fe45b9265400a06af8884cf0fcb1a395859ad5c2ce248d8",
+ "source_sha256": "933262e40b25eca22d36ed0cc6cb99d8f388f14ca082065d207644f0793a73cd",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-SOLV 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -427,7 +427,7 @@
    "$('yrread').innerHTML=dl('Pair',PN[IO.pair]+'; 0.005 nm bins, 200 to 2000 ps')+ks.map(function(k){ var s=VDD.salt[k], gg=s.rdf[IO.pair], q=firstPk(gg), extra='';"
   ],
   [
-   "if(IO.pair==='NaCl') extra='; temas çifti payı '+fx(100*s.cip,1)+' % (bu iyon parametreleriyle)'; if(IO.pair==='NaOW') extra='; 0,32 nm içinde '+fx(s.coord,2)+' su';",
+   "if(IO.pair==='NaCl') extra='; temas çifti payı %'+fx(100*s.cip,1)+' (bu iyon parametreleriyle)'; if(IO.pair==='NaOW') extra='; 0,32 nm içinde '+fx(s.coord,2)+' su';",
    "if(IO.pair==='NaCl') extra='; contact pair fraction '+fx(100*s.cip,1)+'% (with these ion parameters)'; if(IO.pair==='NaOW') extra='; '+fx(s.coord,2)+' waters within 0.32 nm';"
   ],
   [
@@ -435,7 +435,7 @@
    "return dl(SN[k]+' ('+s.npair+' pairs)','first peak '+fx(r[q[0]],3)+' nm, g '+fx(gg[q[0]],1)+'; first minimum '+fx(r[q[1]],3)+' nm'+extra); }).join(''); }"
   ],
   [
-   "card('yc2',true,'Na⁺-Cl⁻ ilk tepesi '+fx(arrMin(pk),3)+' ile '+fx(arrMax(pk),3)+' nm\\'de, Na⁺-su O tepesi '+fx(arrMin(po),3)+' ile '+fx(arrMax(po),3)+' nm\\'de; tepe yerleri derişimle pek az oynuyor. Temas çifti payı (0,35 nm içinde bir Cl⁻ bulunan Na⁺ oranı) '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+'; Na⁺ çevresindeki su sayısı (0,32 nm) '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) kutu ortalamasına bölünür: tepe yüksekliği o çiftin kaç kez temas ettiğini değil, ortalamaya göre ne kadar yoğunlaştığını söyler; 6 çiftlik kutuda eğri az sayıda iyondan gelir. Her derişimde tek koşu yapıldı; eğilim betimleyicidir, belirsizliği hesaplanmadı. Bu sayılar NaCl\\'nin değil, bu modelin özellikleridir. İyonlar amber99sb-ildn dağıtımındaki eski AMBER parametreleridir (Na⁺ σ 0,3328 nm, Cl⁻ σ 0,4401 nm); bu ailenin eski iyon parametreleriyle yapılan uzun koşularda çözünürlük sınırının çok altında tuz kristalleri bildirilmiştir (Joung ve Cheatham 2008; Auffinger ve ark. 2007). Bu yüzden yüksek temas payı \"1 M NaCl\\'de iyonların yarısı çiftlenir\" diye değil, \"bu parametrelerle 2 ns\\'de böyle görüldü\" diye raporlanır. Kristalleşme aranmadı; başka iyon parametreleriyle: Bu senaryo hesaplanmadı.'); }",
+   "card('yc2',true,'Na⁺-Cl⁻ ilk tepesi '+fx(arrMin(pk),3)+' ile '+fx(arrMax(pk),3)+' nm\\'de, Na⁺-su O tepesi '+fx(arrMin(po),3)+' ile '+fx(arrMax(po),3)+' nm\\'de; tepe yerleri derişimle pek az oynuyor. Temas çifti payı (0,35 nm içinde bir Cl⁻ bulunan Na⁺ oranı) '+ks.map(function(k){ return SN[k]+' %'+fx(100*S[k].cip,1); }).join(', ')+'; Na⁺ çevresindeki su sayısı (0,32 nm) '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) kutu ortalamasına bölünür: tepe yüksekliği o çiftin kaç kez temas ettiğini değil, ortalamaya göre ne kadar yoğunlaştığını söyler; 6 çiftlik kutuda eğri az sayıda iyondan gelir. Her derişimde tek koşu yapıldı; eğilim betimleyicidir, belirsizliği hesaplanmadı. Bu sayılar NaCl\\'nin değil, bu modelin özellikleridir. İyonlar amber99sb-ildn dağıtımındaki eski AMBER parametreleridir (Na⁺ σ 0,3328 nm, Cl⁻ σ 0,4401 nm); bu ailenin eski iyon parametreleriyle yapılan uzun koşularda çözünürlük sınırının çok altında tuz kristalleri bildirilmiştir (Joung ve Cheatham 2008; Auffinger ve ark. 2007). Bu yüzden yüksek temas payı \"1 M NaCl\\'de iyonların yarısı çiftlenir\" diye değil, \"bu parametrelerle 2 ns\\'de böyle görüldü\" diye raporlanır. Kristalleşme aranmadı; başka iyon parametreleriyle: Bu senaryo hesaplanmadı.'); }",
    "card('yc2',true,'The first Na⁺-Cl⁻ peak lies at '+fx(arrMin(pk),3)+' to '+fx(arrMax(pk),3)+' nm and the Na⁺-water O peak at '+fx(arrMin(po),3)+' to '+fx(arrMax(po),3)+' nm; the peak positions barely move with concentration. Contact pair fraction (fraction of Na⁺ with a Cl⁻ within 0.35 nm): '+ks.map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+'%'; }).join(', ')+'; waters around Na⁺ (0.32 nm): '+ks.map(function(k){ return SN[k]+' '+fx(S[k].coord,2); }).join(', ')+'. g(r) is divided by the box average: the peak height tells how strongly the pair is concentrated relative to the average, not how often it is in contact; in the 6-pair box the curve comes from few ions. Each concentration was run once; the trend is descriptive and its uncertainty was not computed. These numbers are properties of this model, not of NaCl. The ions are the old AMBER parameters in the amber99sb-ildn distribution (Na⁺ σ 0.3328 nm, Cl⁻ σ 0.4401 nm); in long runs with the old ion parameters of this family, salt crystals have been reported far below the solubility limit (Joung and Cheatham 2008; Auffinger et al. 2007). So a high contact fraction is reported not as \"half of the ions pair up in 1 M NaCl\" but as \"this is what was seen with these parameters in 2 ns\". Crystallization was not looked for; with other ion parameters: This scenario was not computed.'); }"
   ],
   [
@@ -579,7 +579,7 @@
    "function raRead(){ var s=stFrac(raNames()), nm=RA.rep<0?'all replicas ('+envNames(RA.env).length+')':envNames(RA.env)[RA.rep];"
   ],
   [
-   "$('yaread').innerHTML=dl('Seçim',ENV[RA.env]+', '+nm+'; '+fmtI(s.n)+' kare')+dl('αR',fx(s.aR,1)+' %')+dl('β/PPII',fx(s.bp,1)+' %')+dl('αL',fx(s.aL,1)+' %'); }",
+   "$('yaread').innerHTML=dl('Seçim',ENV[RA.env]+', '+nm+'; '+fmtI(s.n)+' kare')+dl('αR','%'+fx(s.aR,1))+dl('β/PPII','%'+fx(s.bp,1))+dl('αL','%'+fx(s.aL,1)); }",
    "$('yaread').innerHTML=dl('Selection',ENV[RA.env]+', '+nm+'; '+fmtI(s.n)+' frames')+dl('αR',fx(s.aR,1)+'%')+dl('β/PPII',fx(s.bp,1)+'%')+dl('αL',fx(s.aL,1)+'%'); }"
   ],
   [
@@ -603,12 +603,12 @@
    "$('yctab').innerHTML='<table class=\"st\"><thead><tr><th>8 M urea vs water (αR, points)</th><th>Δ</th><th>Welch 95%</th><th>Welch 90%</th><th>p (permutation)</th><th>Verdict</th></tr></thead><tbody><tr><td>n = '+VDD.ureps.length+' and '+VDD.wreps.length+'</td><td>'+fx(c.delta,1)+'</td><td>'+fx(c.ci95[0],1)+' to '+fx(c.ci95[1],1)+'</td><td>'+fx(c.ci90[0],1)+' to '+fx(c.ci90[1],1)+'</td><td>'+fx(c.p,4)+' ('+c.count+' / '+c.total+')</td><td><span class=\"vtag\">'+VEN(c.verdict)+'</span></td></tr></tbody></table><p class=\"small\">The verdict labels and the ±5 point threshold were written before the runs; one comparison, no correction. The water replicas are the MD-REP runs W1 to W8.</p>'; RA.comp=true; raCards(); }"
   ],
   [
-   "card('yc6',true,'Önceden yazılmış kurala göre hüküm: \"'+c.verdict+'\" (αR farkı '+fx(c.delta,1)+' puan, Welch %90 '+fx(c.ci90[0],1)+' ile '+fx(c.ci90[1],1)+', permütasyon p '+fx(c.p,3)+'). Keşif ölçütleri: β/PPII su '+fx(b[0],1)+' %, üre '+fx(b[1],1)+' %; geçiş su '+fx(t[0],1)+', üre '+fx(t[1],1)+' /ns. Hüküm yalnız alanin dipeptidinin αR payı, bu kuvvet alanı ile üre dosyası, 2 ns\\'lik tekrarlar ve bu tekrar sayısı için geçerlidir. Alanin dipeptidinin katlanmış bir durumu yoktur; bu sonuç bir proteinin üreyle açılması hakkında doğrudan bir şey söylemez.'); }",
+   "card('yc6',true,'Önceden yazılmış kurala göre hüküm: \"'+c.verdict+'\" (αR farkı '+fx(c.delta,1)+' puan, Welch %90 '+fx(c.ci90[0],1)+' ile '+fx(c.ci90[1],1)+', permütasyon p '+fx(c.p,3)+'). Keşif ölçütleri: β/PPII su %'+fx(b[0],1)+', üre %'+fx(b[1],1)+'; geçiş su '+fx(t[0],1)+', üre '+fx(t[1],1)+' /ns. Hüküm yalnız alanin dipeptidinin αR payı, bu kuvvet alanı ile üre dosyası, 2 ns\\'lik tekrarlar ve bu tekrar sayısı için geçerlidir. Alanin dipeptidinin katlanmış bir durumu yoktur; bu sonuç bir proteinin üreyle açılması hakkında doğrudan bir şey söylemez.'); }",
    "card('yc6',true,'Verdict by the rule written in advance: \"'+VEN(c.verdict)+'\" (αR difference '+fx(c.delta,1)+' points, Welch 90% '+fx(c.ci90[0],1)+' to '+fx(c.ci90[1],1)+', permutation p '+fx(c.p,3)+'). Exploratory measures: β/PPII water '+fx(b[0],1)+'%, urea '+fx(b[1],1)+'%; transitions water '+fx(t[0],1)+', urea '+fx(t[1],1)+' /ns. The verdict holds only for the αR fraction of alanine dipeptide, this force field and urea file, 2 ns replicas and this number of replicas. Alanine dipeptide has no folded state; this result says nothing directly about the unfolding of a protein by urea.'); }"
   ],
   [
-   "else card('yc6',false,'Her iki ortamdan en az bir harita açın ('+ne+' / 2) ve hükmü gösterin.'); }",
-   "else card('yc6',false,'Open at least one map from each environment ('+ne+' / 2) and show the verdict.'); }"
+   "else card('yc6',false,'Her iki ortamdan birer tekrar açın ('+ne+' / 2) ve hükmü gösterin.'); }",
+   "else card('yc6',false,'Open one replica from each environment ('+ne+' / 2) and show the verdict.'); }"
   ],
   [
    "function w2(){ (function(){ var v=VDD.ureps.map(function(k){ return VDD.urea[k].molarity; }); $('yureal').textContent=fx(arrMin(v),2)+RNG+fx(arrMax(v),2); })(); ureaDraw(); ureaRead(); $('yitp').innerHTML=esc(VDD.u0.itp_angles).replace(/^(\\s+\\d.*)$/gm,'<span class=\"add\">$1</span>'); ureaQ(); ureaCard();",
@@ -651,7 +651,7 @@
    "{s:'\"Urea acts by forming direct bonds with alanine dipeptide.\"', a:2, w:'R (= '+fx(arrMean(VDD.ureps.map(function(k){ return VDD.urea[k].R; })),2)+') only describes relative abundance within 0.5 nm; it does not separate direct interaction from an indirect effect (through water). Hydrogen bonds or an energy decomposition were not computed on this page.'},"
   ],
   [
-   "{s:'\"Gerçek NaCl çözeltilerinde temas iyon çifti payı bu sayfadaki değerlerdedir.\"', a:2, w:'Temas payı ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+' %'; }).join(', ')+') bu iyon parametrelerine, su modeline ve 0,35 nm eşiğine bağlıdır; kullanılan eski AMBER iyon setiyle tuz kümeleşmesi bildirilmiştir (Joung ve Cheatham 2008); her derişimde tek koşu var ve deneysel bir ölçümle karşılaştırma yapılmadı.'}",
+   "{s:'\"Gerçek NaCl çözeltilerinde temas iyon çifti payı bu sayfadaki değerlerdedir.\"', a:2, w:'Temas payı ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' %'+fx(100*S[k].cip,1); }).join(', ')+') bu iyon parametrelerine, su modeline ve 0,35 nm eşiğine bağlıdır; kullanılan eski AMBER iyon setiyle tuz kümeleşmesi bildirilmiştir (Joung ve Cheatham 2008); her derişimde tek koşu var ve deneysel bir ölçümle karşılaştırma yapılmadı.'}",
    "{s:'\"In real NaCl solutions the contact ion pair fraction has the values on this page.\"', a:2, w:'The contact fraction ('+SK.filter(function(k){ return S[k]; }).map(function(k){ return SN[k]+' '+fx(100*S[k].cip,1)+'%'; }).join(', ')+') depends on these ion parameters, the water model and the 0.35 nm threshold; salt clustering has been reported with the old AMBER ion set used here (Joung and Cheatham 2008); each concentration has a single run and no comparison with an experimental measurement was made.'}"
   ],
   [

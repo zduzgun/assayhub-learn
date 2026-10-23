@@ -1,7 +1,7 @@
 {
  "module": "MD-ENS",
  "lang": "en",
- "source_sha256": "7e5f4cfa5e6ce67dbfb31de22eaef2a5a2305ac139ba6398db5d120cc47a03ba",
+ "source_sha256": "bd89995eb93a81632a5487e291bf74f82b9c220926da6cf0f1fd7f815bd25d53",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-ENS 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -271,7 +271,7 @@
    "P:{name:'pressure',unit:'bar',rng:[-3000,3000],nb:40,ticks:[-3000,-1500,0,1500,3000],d:1,lab:'P (bar)'}"
   ],
   [
-   "function pfmt(t){ var p=t*100; return fx(p,Math.abs(p-Math.round(p))<1e-9?0:1)+' %'; }",
+   "function pfmt(t){ var p=t*100; return '%'+fx(p,Math.abs(p-Math.round(p))<1e-9?0:1); }",
    "function pfmt(t){ var p=t*100; return fx(p,Math.abs(p-Math.round(p))<1e-9?0:1)+'%'; }"
   ],
   [

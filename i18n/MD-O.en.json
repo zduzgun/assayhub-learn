@@ -1,7 +1,7 @@
 {
  "module": "MD-O",
  "lang": "en",
- "source_sha256": "977bdb51c656d561e9a6e4d3c288b4228e527fb4aed9be27de7e66a2827984b5",
+ "source_sha256": "33c9206aa1ea6972ec0b00961ad9e28e81b881105058a67e7160383cb5e67ec8",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-O 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -299,6 +299,10 @@
    "var NF={}; function fx(v,d){ if(!NF[d]) NF[d]=new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); return (v<0&&Math.abs(v)>=0.5*Math.pow(10,-d)?'−':'')+NF[d].format(Math.abs(v)); }"
   ],
   [
+   "function pc(v,d){ return '%'+fx(v,d); }",
+   "function pc(v,d){ return fx(v,d)+'%'; }"
+  ],
+  [
    "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Keşfedildi':'Açık'; $('o1progN').textContent=Object.keys(FOUND).length+' / 4'; }",
    "function card(id,done,html){ var q=$(id); if(html!=null&&(done||!FOUND[id])&&CH[id]!==html){ CH[id]=html; $('m'+id).innerHTML=html; } if(done&&!FOUND[id]) FOUND[id]=true; q.classList.toggle('done',!!FOUND[id]); q.querySelector('.k').textContent=FOUND[id]?'Discovered':'Open'; $('o1progN').textContent=Object.keys(FOUND).length+' / 4'; }"
   ],
@@ -355,8 +359,8 @@
    "else n+=(r.q>0?'Net positive charge ':'Net negative charge ')+fx(Math.abs(r.q),2)+' e. At this pH His68 is charged with a probability of '+fx(100*hq,0)+'%.';"
   ],
   [
-   "function tCard(r,pi,P){ if(!T1.play){ if(Math.abs(r.q)<0.1&&T1.mode==='model') card('o1c1',true,'pH <b>'+fx(T1.pH,2)+'</b>\\'te net yük '+fx(r.q,2)+' e: model pKa\\'larla izoelektrik nokta <b>'+fx(pi,2)+'</b>. Bu pH\\'da protein yüksüz değildir: yaklaşık <b>'+fx(r.pos,1)+' artı ve '+fx(r.neg,1)+' eksi</b> yük birbirini dengeler. pdb2gmx ise pH sormadan bütün grupları nötr pH\\'ya göre atadı ve toplam 0 e buldu; model eğrisinde pH 7\\'deki yük '+fx(netQ(7,pkSet('model')).q,2)+' e.');",
-   "function tCard(r,pi,P){ if(!T1.play){ if(Math.abs(r.q)<0.1&&T1.mode==='model') card('o1c1',true,'At pH <b>'+fx(T1.pH,2)+'</b> the net charge is '+fx(r.q,2)+' e: with the model pKa values the isoelectric point is <b>'+fx(pi,2)+'</b>. At this pH the protein is not uncharged: about <b>'+fx(r.pos,1)+' positive and '+fx(r.neg,1)+' negative</b> charges balance each other. pdb2gmx, without asking for a pH, assigned every group for neutral pH and found a total of 0 e; on the model curve the charge at pH 7 is '+fx(netQ(7,pkSet('model')).q,2)+' e.');"
+   "function tCard(r,pi,P){ if(!T1.play){ if(Math.abs(r.q)<0.1) card('o1c1',true,'pH <b>'+fx(T1.pH,2)+'</b>\\'te net yük '+fx(r.q,2)+' e: model pKa\\'larla izoelektrik nokta <b>'+fx(pI(pkSet('model')),2)+'</b>. Bu pH\\'da protein yüksüz değildir: yaklaşık <b>'+fx(r.pos,1)+' artı ve '+fx(r.neg,1)+' eksi</b> yük birbirini dengeler. pdb2gmx ise pH sormadan bütün grupları nötr pH\\'ya göre atadı ve toplam 0 e buldu; model eğrisinde pH 7\\'deki yük '+fx(netQ(7,pkSet('model')).q,2)+' e.');",
+   "function tCard(r,pi,P){ if(!T1.play){ if(Math.abs(r.q)<0.1) card('o1c1',true,'At pH <b>'+fx(T1.pH,2)+'</b> the net charge is '+fx(r.q,2)+' e: with the model pKa values the isoelectric point is <b>'+fx(pI(pkSet('model')),2)+'</b>. At this pH the protein is not uncharged: about <b>'+fx(r.pos,1)+' positive and '+fx(r.neg,1)+' negative</b> charges balance each other. pdb2gmx, without asking for a pH, assigned every group for neutral pH and found a total of 0 e; on the model curve the charge at pH 7 is '+fx(netQ(7,pkSet('model')).q,2)+' e.');"
   ],
   [
    "card('o1c2',true,'Ölçülen pKa\\'larla izoelektrik nokta <b>'+fx(pI(pkSet('ubq',false)),2)+' ile '+fx(pI(pkSet('ubq',true)),2)+'</b>, modelde '+fx(pI(M),2)+'. Yalnız N-ucunu 8,00\\'den 9,14\\'e çekmek pI\\'yi '+fx(pI(onlyN),2)+'\\''+datE(fx(pI(onlyN),2))+' taşır: kaymanın neredeyse tamamı oradan gelir, çünkü pI\\'da karboksiller zaten tamamen yüklüdür. Karboksillerin kayması ise düşük pH\\'da görünür: pH 3,5\\'te net yük modelde '+fx(q3m,1)+', ölçülen aralıkla '+fx(Math.min(q3u,q3v),1)+' ile '+fx(Math.max(q3u,q3v),1)+' arası. Bir proteinin içindeki pKa, komşularına göre değişir.'); } } } }",
@@ -471,8 +475,8 @@
    "n+=gd===his?' The map shows the same result.':' (With this setting the map shows '+gd+'.)';"
   ],
   [
-   "if(ks.length>=2){ var e=hs.HISE, o=hs.HISD||hs.HISH; if(e&&o) card('o1c3',true,'<b>'+fx(+e.d,2)+' nm, '+e.a+'°</b> ile pdb2gmx His68\\'e <b>HISE</b> verdi; <b>'+fx(+o.d,2)+' nm, '+o.a+'°</b> ile <b>'+o.his+'</b>'+(o.his==='HISH'?' (yüklü, +1 e)':'')+'. Varsayılan ölçütte (0,30 nm, 135°) iki azotun da ortağı yok, HISE kuralın varsayılanından geliyor. ND1\\'in \"ortağı\" '+lab(nearA(C1,o.a).j)+', '+fx(nearA(C1,o.a).d,3)+' nm uzakta: gerçek bir hidrojen bağı için alışılmış 0,30 nm sınırının bir buçuk katından fazla. Halkanın yanında ise kristal yapıda bir su duruyor (su 112, NE2\\'den 0,364 nm); pdb2gmx suyu bu hesaba katmaz.'); }",
-   "if(ks.length>=2){ var e=hs.HISE, o=hs.HISD||hs.HISH; if(e&&o) card('o1c3',true,'With <b>'+fx(+e.d,2)+' nm, '+e.a+'°</b> pdb2gmx gave His68 <b>HISE</b>; with <b>'+fx(+o.d,2)+' nm, '+o.a+'°</b> it gave <b>'+o.his+'</b>'+(o.his==='HISH'?' (charged, +1 e)':'')+'. With the default criterion (0.30 nm, 135°) neither nitrogen has a partner, and HISE comes from the rule\\'s default. The \"partner\" of ND1, '+lab(nearA(C1,o.a).j)+', is '+fx(nearA(C1,o.a).d,3)+' nm away: more than one and a half times the usual 0.30 nm limit for a real hydrogen bond. Next to the ring, in the crystal structure, there is a water (water 112, 0.364 nm from NE2); pdb2gmx leaves water out of this calculation.'); }"
+   "if(ks.length>=2){ var e=hs.HISE||hs.HISD, o=hs.HISE?(hs.HISD||hs.HISH):hs.HISH; card('o1c3',true,'<b>'+fx(+e.d,2)+' nm, '+e.a+'°</b> ile pdb2gmx His68\\'e <b>'+e.his+'</b> verdi; <b>'+fx(+o.d,2)+' nm, '+o.a+'°</b> ile <b>'+o.his+'</b>'+(o.his==='HISH'?' (yüklü, +1 e)':'')+'. Varsayılan ölçütte (0,30 nm, 135°) iki azotun da ortağı yok, HISE kuralın varsayılanından geliyor. ND1\\'in \"ortağı\" '+lab(nearA(C1,o.a).j)+', '+fx(nearA(C1,o.a).d,3)+' nm uzakta: gerçek bir hidrojen bağı için alışılmış 0,30 nm sınırının bir buçuk katından fazla. Halkanın yanında ise kristal yapıda bir su duruyor (su 112, NE2\\'den 0,364 nm); pdb2gmx suyu bu hesaba katmaz.'); }",
+   "if(ks.length>=2){ var e=hs.HISE||hs.HISD, o=hs.HISE?(hs.HISD||hs.HISH):hs.HISH; card('o1c3',true,'With <b>'+fx(+e.d,2)+' nm, '+e.a+'°</b> pdb2gmx gave His68 <b>'+e.his+'</b>; with <b>'+fx(+o.d,2)+' nm, '+o.a+'°</b> it gave <b>'+o.his+'</b>'+(o.his==='HISH'?' (charged, +1 e)':'')+'. With the default criterion (0.30 nm, 135°) neither nitrogen has a partner, and HISE comes from the rule\\'s default. The \"partner\" of ND1, '+lab(nearA(C1,o.a).j)+', is '+fx(nearA(C1,o.a).d,3)+' nm away: more than one and a half times the usual 0.30 nm limit for a real hydrogen bond. Next to the ring, in the crystal structure, there is a water (water 112, 0.364 nm from NE2); pdb2gmx leaves water out of this calculation.'); }"
   ],
   [
    "if(pairs.length){ var p=pairs[pairs.length-1]; card('o1c4',true,'Aynı ölçütle (<b>'+fx(+p[0].d,2)+' nm, '+p[0].a+'°</b>) kristal sularıyla '+p[0].his+' ve '+NFI.format(p[0].nhb)+' hidrojen bağı, onlarsız '+p[1].his+' ve '+NFI.format(p[1].nhb)+'. pdb2gmx suları ayrı bir zincir olarak işler ve histidin kararını yalnız proteinin kendi zincirinde verir; su 112, NE2\\'nin 0,364 nm yanında dursa da karara girmez.'); } }",

@@ -402,7 +402,7 @@ function workshop(){
     return 'Bu yayında '+n+' bileşik; seri içi Spearman '+(sp==null?'-':fx(sp))+'. '+(n<10?'Bu kadar az bileşikte katsayının belirsizliği çok büyüktür; kısmi korelasyonlar gösterilmedi. ':'')+'En az beş bileşikli '+W.length+' yayında seri içi Spearman en düşük '+fx(lo)+', en yüksek '+fx(hi)+': bir seri içinde sıralama bazen güçlü, bazen zayıf, bazen ters.'; }
   function hover(mx,my){ if(!geom) return; var best=null,bd=81; for(var i=0;i<P.length;i++){ var dx=P[i].x-mx,dy=P[i].y-my,dd=dx*dx+dy*dy; if(dd<bd){bd=dd;best=P[i];} } draw(); if(best){ var f=fit($('s1scatter')),g=f.g; g.strokeStyle=css('--ink'); g.lineWidth=2; g.beginPath(); g.arc(best.x,best.y,6.5,0,7); g.stroke(); g.lineWidth=1; var c=best.c; tipShow(tip,f.W,best.x,best.y,'<b>'+c.id+'</b><br>pKi '+fx(c.pki)+' · skor '+fx(c.median)+'<br>ağır atom '+c.ha+' · yük '+(c.charge>=0?'+':'')+c.charge+'<br>S1: '+(c.s1?'evet':'hayır')); } else tipHide(tip); }
   var cv=$('s1scatter'); cv.addEventListener('pointermove',function(e){ var r=cv.getBoundingClientRect(); hover(e.clientX-r.left,e.clientY-r.top); }); cv.addEventListener('pointerleave',function(){ tipHide(tip); draw(); });
-  segWire('s1col',function(v){ wk.color=v; legend(); draw(); if(v==='ha') card('s1c2',true,'Skor-pKi Pearson '+fx(sum.corr.pearson)+', ağır atom sabitken kısmi Pearson <b>'+fx(sum.corr.partial_ha)+'</b>; Spearman '+fx(sum.corr.spearman)+', sıra tabanlı kısmi <b>'+fx(RP)+'</b>. Boyut sabit tutulunca ilişki belirgin biçimde zayıflar: önemli bir kısmı boyuttan gelir. Büyük moleküller hem daha sıkı bağlanır hem daha düşük skor alır.'); });
+  segWire('s1col',function(v){ wk.color=v; legend(); draw(); if(v) card('s1c2',true,'Skor-pKi Pearson '+fx(sum.corr.pearson)+', ağır atom sabitken kısmi Pearson <b>'+fx(sum.corr.partial_ha)+'</b>; Spearman '+fx(sum.corr.spearman)+', sıra tabanlı kısmi <b>'+fx(RP)+'</b>. Boyut sabit tutulunca ilişki belirgin biçimde zayıflar: önemli bir kısmı boyuttan gelir. Büyük moleküller hem daha sıkı bağlanır hem daha düşük skor alır.'); });
   $('s1doc').onchange=function(){ wk.doc=this.value; draw(); };
   // kart s1c1
   function opt(s){ tri.forEach(function(t,i){ var o=document.createElement('option'); o.value=i; o.textContent=t.id+' (pKi '+fx(t.pki,1)+')'; s.appendChild(o); }); }
@@ -419,7 +419,7 @@ function workshop(){
 }
 
 /* ---------- 3. TEZGAH ---------- */
-var bn={set:'matched',s1only:false,seen:{}};
+var bn={set:'matched',s1only:false,seen:{matched:true}};
 function bench(){
   function negs(){ return bn.set==='weak'?weak:bn.set==='d2'?d2:D.dec; }
   function cur(){ var A=act.slice(), N=negs().slice(); if(bn.s1only){ A=A.filter(function(c){return c.s1;}); } return {A:A,N:N}; }

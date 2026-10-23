@@ -1,7 +1,7 @@
 {
  "module": "MD-PCA",
  "lang": "en",
- "source_sha256": "bccaef22405574191e39d13ac6ae009295ec84ed7268817592337b4f56a68eb6",
+ "source_sha256": "c7e1718d46ff572b5c2b8e1a7ba7cdb260e7bf283590136170be046dadfe42ec",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PCA 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -743,8 +743,8 @@
    "window.MDPCA={ST:ST,PC:PC,DC:DC,BR:BR,cosc:cosc,dcStats:dcStats,dcUpper:dcUpper,stCore:stCore,brCount:brCount,arrMean:arrMean,pear:pear,FOUND:FOUND}; /* for testing */"
   ],
   [
-   "  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Duraklat':'Oynat'; pb.setAttribute('aria-pressed',String(!on)); if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }",
-   "  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Pause':'Play'; pb.setAttribute('aria-pressed',String(!on)); if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }"
+   "  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Duraklat':'Oynat'; if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }",
+   "  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Pause':'Play'; if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }"
   ],
   [
    "  $('pscleg').innerHTML='<span><i style=\"background:'+hexA(PAL.navy,0.75)+';border-radius:2px\"></i>sütun: '+RUNL[PC.run]+'</span>'+['R1','R2','R3','pool'].filter(function(r){ return r!==PC.run; }).map(function(r){ return '<span>'+dot(r==='pool'?PAL.muted:RCOL[RUNS.indexOf(r)])+RUNL[r]+'</span>'; }).join(''); }",

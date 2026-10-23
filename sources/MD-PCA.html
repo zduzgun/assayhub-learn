@@ -530,7 +530,7 @@ function w2(){ pcLoad(); RCOL=[PAL.navy,PAL.accent,PAL.good];
   segWire('prun',function(v){ PC.run=v; pcAll(); }); segWire('pset',function(v){ PC.set=v; pcAll(); });
   dragRot($('pmode'),PC.V,pcMode); keyRot($('pmode'),PC.V,pcMode);
   /* animasyon: kullanıcı durdurabilir; hareket azaltma tercihinde başta durur */
-  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Duraklat':'Oynat'; pb.setAttribute('aria-pressed',String(!on)); if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }
+  var pb=$('pplay'); function setPlay(on){ PC.play=on; pb.textContent=on?'Duraklat':'Oynat'; if(on){ PC.ph=Math.asin(Math.max(-1,Math.min(1,2*PC.u-1))); aniKick(); } pcMode(); }
   pb.onclick=function(){ setPlay(!PC.play); };
   $('pps').addEventListener('input',function(){ PC.u=+this.value/1000; if(PC.play) setPlay(false); else pcMode(); });
   PC.play=!REDUCE; pb.textContent=PC.play?'Duraklat':'Oynat'; pcTab(); pcAll();
