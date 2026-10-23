@@ -1,7 +1,7 @@
 {
  "module": "MD-U",
  "lang": "en",
- "source_sha256": "f6cc5daee0723a655fa280dcb3deea0a127ff1200d520ca0ac149c9c89633b10",
+ "source_sha256": "f999d52f7c532f941b794e465a00083069d6f09019faf6fb45b58fc18bd23260",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-U 0.2.0, 0.3.0 düzeltmeleri; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam), 0.3.0 eklemeleri 22 Ekim 2026",

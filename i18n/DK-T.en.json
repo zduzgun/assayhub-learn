@@ -1,7 +1,7 @@
 {
  "module": "DK-T",
  "lang": "en",
- "source_sha256": "5492c210d3997400062d2b764ee4eb3c5cdc2559010b4ab465e10675d95fd415",
+ "source_sha256": "f836a58efab2c61d1a99faca034a950afbbf506ce81bcf6060160cc4a50a6364",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), DK-T 0.2.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",

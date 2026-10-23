@@ -1,7 +1,7 @@
 {
  "module": "DK-O",
  "lang": "en",
- "source_sha256": "7573b8fac24fd63459c7ac23691b2048f33106789e319a1ee8c24f8fdbe609a7",
+ "source_sha256": "b67d747c62ff669a0a203a974f144938c6ff29d937dcfd6746742ecb64e59116",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), DK-O 0.3.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",

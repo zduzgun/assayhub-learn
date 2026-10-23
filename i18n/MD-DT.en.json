@@ -1,7 +1,7 @@
 {
  "module": "MD-DT",
  "lang": "en",
- "source_sha256": "567871c56910ede6db89a16755d72b6839b36828977ddc3ff33308a377fc7b47",
+ "source_sha256": "f12c559e30a99142c9b1a2327bacacbe00f836e60f4dfc7fd38b0bb8f96f9fa8",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-DT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
