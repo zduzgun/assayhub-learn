@@ -1,7 +1,7 @@
 {
  "module": "MD-T",
  "lang": "en",
- "source_sha256": "de7a0c0285160c1347c2ce68eeafe8293088b13ce9a04ad220d60bd3f2ae3771",
+ "source_sha256": "d4e1ce27993c1cc10e1ef8ed0fb8bd5f134c142466af7ca5c9fd0cce307361e3",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-T 0.2.0 keşif sürümü; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -111,8 +111,8 @@
    "<b>MD</b><span>Molecular Dynamics in Biomolecular Systems · Basic level</span>"
   ],
   [
-   "<span id=\"progText\">Keşifler: 0 / 9</span><span class=\"dots\" id=\"progDots\" aria-hidden=\"true\"><i data-card=\"l1-w1\"></i><i data-card=\"l1-v1\"></i><i data-card=\"l1-f2\"></i><i data-card=\"l2-d1\"></i><i data-card=\"l2-d2\"></i><i data-card=\"l2-q2\"></i><i data-card=\"l3-s1\"></i><i data-card=\"l3-s2\"></i><i data-card=\"l3-k2\"></i></span>",
-   "<span id=\"progText\">Discoveries: 0 / 9</span><span class=\"dots\" id=\"progDots\" aria-hidden=\"true\"><i data-card=\"l1-w1\"></i><i data-card=\"l1-v1\"></i><i data-card=\"l1-f2\"></i><i data-card=\"l2-d1\"></i><i data-card=\"l2-d2\"></i><i data-card=\"l2-q2\"></i><i data-card=\"l3-s1\"></i><i data-card=\"l3-s2\"></i><i data-card=\"l3-k2\"></i></span>"
+   "<span id=\"progText\">Ana keşifler: 0 / 9</span><span class=\"dots\" id=\"progDots\" aria-hidden=\"true\"><i data-card=\"l1-w1\"></i><i data-card=\"l1-v1\"></i><i data-card=\"l1-f2\"></i><i data-card=\"l2-d1\"></i><i data-card=\"l2-d2\"></i><i data-card=\"l2-q2\"></i><i data-card=\"l3-s1\"></i><i data-card=\"l3-s2\"></i><i data-card=\"l3-k2\"></i></span>",
+   "<span id=\"progText\">Key discoveries: 0 / 9</span><span class=\"dots\" id=\"progDots\" aria-hidden=\"true\"><i data-card=\"l1-w1\"></i><i data-card=\"l1-v1\"></i><i data-card=\"l1-f2\"></i><i data-card=\"l2-d1\"></i><i data-card=\"l2-d2\"></i><i data-card=\"l2-q2\"></i><i data-card=\"l3-s1\"></i><i data-card=\"l3-s2\"></i><i data-card=\"l3-k2\"></i></span>"
   ],
   [
    "Bölüm 02 · Etkileşimli sürüm",
@@ -943,12 +943,12 @@
    "Next module, MD-PBC: instead of a single particle as on this page, we will put thousands of atoms into a small box and decide what happens at the edge of the box."
   ],
   [
-   "<b>Bu sayfa hakkında.</b> CH02 için etkileşimli sürüm. Bu sayfadaki sayılar tarayıcınızda şu anda hesaplanıyor; 3. laboratuvarın verisi bu projenin alanin dipeptit pilotundan (GROMACS 2026.3) gelir. Laboratuvar 1 ve 2'deki modeller öğretim modelleridir; ayrıntıları her laboratuvarın altında yazar. Bilimsel ve hedef okur incelemesi yapılmadı.",
-   "<b>About this page.</b> Interactive edition for CH02. The numbers on this page are being computed in your browser right now; the data of Lab 3 come from this project's alanine dipeptide pilot (GROMACS 2026.3). The models in Labs 1 and 2 are teaching models; their details are given below each lab. No scientific or target-reader review has been carried out."
+   "<b>Bu sayfa hakkında.</b> CH02 için etkileşimli sürüm. Bu sayfadaki sayılar tarayıcınızda şu anda hesaplanıyor; 3. laboratuvarın verisi bu projenin alanin dipeptit pilotundan (GROMACS 2026.3) gelir. Laboratuvar 1 ve 2'deki modeller öğretim modelleridir; ayrıntıları her laboratuvarın altında yazar.",
+   "<b>About this page.</b> Interactive edition for CH02. The numbers on this page are being computed in your browser right now; the data of Lab 3 come from this project's alanine dipeptide pilot (GROMACS 2026.3). The models in Labs 1 and 2 are teaching models; their details are given below each lab."
   ],
   [
-   "Keşifler:",
-   "Discoveries:"
+   "Ana keşifler:",
+   "Key discoveries:"
   ],
   [
    "Keşfedildi",

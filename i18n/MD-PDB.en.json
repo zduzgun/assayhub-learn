@@ -1,7 +1,7 @@
 {
  "module": "MD-PDB",
  "lang": "en",
- "source_sha256": "850495357ce8cd492e58bce3b36db340bd1880517d0e1601151c2fcb8a6d5c8b",
+ "source_sha256": "97b3190c1b72ed33de5ec942742d7b53cef6214aabd6ece7770050e64b749a5c",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PDB 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",

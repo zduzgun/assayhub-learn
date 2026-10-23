@@ -1,7 +1,7 @@
 {
  "module": "MD-Q",
  "lang": "en",
- "source_sha256": "194c623700b8bb22751d29020f59b9c676c2b4da649a025e1255e6378488c06d",
+ "source_sha256": "720b8e016437f1aea791227c5b8c2c628f0bdbd230e01f5253f8d7bc26d465b9",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-Q 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -103,12 +103,12 @@
    "<div class=\"two eq\"><div class=\"stagebox\"><canvas id=\"qbox\" aria-label=\"Real frames of run 1: alanine dipeptide, 22 atoms, aligned to the first frame\"></canvas></div><dl class=\"read\" id=\"qboxread\"></dl></div>"
   ],
   [
-   "<article class=\"q\" id=\"qc1\"><span class=\"k\">Açık</span><h3>Tanım sayıyı değiştirir mi?</h3><p>Aynı koşu ve pencerede en az iki farklı A bölgesi tanımı deneyin.</p><div class=\"mine\" id=\"mqc1\"></div></article>",
-   "<article class=\"q\" id=\"qc1\"><span class=\"k\">Open</span><h3>Does the definition change the number?</h3><p>Try at least two different definitions of region A on the same run and window.</p><div class=\"mine\" id=\"mqc1\"></div></article>"
+   "<article class=\"q\" id=\"qc1\"><span class=\"k\">Açık</span><h3>Tanım sayıyı değiştirir mi?</h3><p>Tek bir koşuda ve aynı pencerede en az iki farklı A bölgesi tanımı deneyin.</p><div class=\"mine\" id=\"mqc1\"></div></article>",
+   "<article class=\"q\" id=\"qc1\"><span class=\"k\">Open</span><h3>Does the definition change the number?</h3><p>Try at least two different definitions of region A on a single run and the same window.</p><div class=\"mine\" id=\"mqc1\"></div></article>"
   ],
   [
-   "<article class=\"q\" id=\"qc2\"><span class=\"k\">Açık</span><h3>Pencere sayıyı değiştirir mi?</h3><p>Aynı tanım ve koşuyla en az iki farklı pencereye bakın (örneğin ilk 25 ns ve son 100 ns).</p><div class=\"mine\" id=\"mqc2\"></div></article>",
-   "<article class=\"q\" id=\"qc2\"><span class=\"k\">Open</span><h3>Does the window change the number?</h3><p>With the same definition and run, look at at least two different windows (for example the first 25 ns and the last 100 ns).</p><div class=\"mine\" id=\"mqc2\"></div></article>"
+   "<article class=\"q\" id=\"qc2\"><span class=\"k\">Açık</span><h3>Pencere sayıyı değiştirir mi?</h3><p>Aynı tanım ve tek bir koşuyla en az iki farklı pencereye bakın (örneğin ilk 25 ns ve son 100 ns).</p><div class=\"mine\" id=\"mqc2\"></div></article>",
+   "<article class=\"q\" id=\"qc2\"><span class=\"k\">Open</span><h3>Does the window change the number?</h3><p>With the same definition and a single run, look at at least two different windows (for example the first 25 ns and the last 100 ns).</p><div class=\"mine\" id=\"mqc2\"></div></article>"
   ],
   [
    "<article class=\"q\" id=\"qc3\"><span class=\"k\">Açık</span><h3>Üç koşu aynı sayıyı mı verir?</h3><p>\"Üçü birlikte\" seçeneğiyle aynı pencerede üç koşunun payına bakın.</p><div class=\"mine\" id=\"mqc3\"></div></article>",

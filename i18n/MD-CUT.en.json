@@ -1,7 +1,7 @@
 {
  "module": "MD-CUT",
  "lang": "en",
- "source_sha256": "ff5cdc4f40c20e5cdc4a779bfa3851abbc1504749d3ff92592dfbf50bfeb5dcf",
+ "source_sha256": "3d688fc32db94813d7f3652f40c863cb04a7b419852b6a317558e4d87a743841",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-CUT 0.1.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -563,8 +563,8 @@
    "$('k2mPlace').onclick=function(){ M.mode='place'; $('k2mPlace').setAttribute('aria-pressed','true'); $('k2mLaunch').setAttribute('aria-pressed','false'); $('k2miHint').hidden=false; $('k2miHint').textContent='Grab A or B, move it, let go.'; };"
   ],
   [
-   "$('k2miPause').onclick=function(){ M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Sürdür':'Durdur'; miDraw(); kick(); };",
-   "$('k2miPause').onclick=function(){ M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Resume':'Pause'; miDraw(); kick(); };"
+   "$('k2miPause').onclick=function(){ M.user=true; M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Sürdür':'Durdur'; miDraw(); kick(); };",
+   "$('k2miPause').onclick=function(){ M.user=true; M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Resume':'Pause'; miDraw(); kick(); };"
   ],
   [
    "$('k2miRand').onclick=function(){ var th=Math.random()*2*Math.PI, sp=1.8+Math.random()*1.2, cx=(M.va[0]+M.vb[0])/2, cy=(M.va[1]+M.vb[1])/2, ux=sp*Math.cos(th)-cx, uy=sp*Math.sin(th)-cy; M.va=[M.va[0]+ux,M.va[1]+uy]; M.vb=[M.vb[0]+ux,M.vb[1]+uy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';",
@@ -575,8 +575,8 @@
    "$('k2miChg').innerHTML='<span class=\"t\">You launched the pair at '+fx(sp,1)+' σ/τ in a random direction</span><span>The two molecules will move on together, holding on to each other. When one of them crosses the boundary, watch the two lines and the energy strip below.</span>'; kick(); };"
   ],
   [
-   "$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Durdur'; miSetRule('mi'); };",
-   "$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Pause'; miSetRule('mi'); };"
+   "$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=reduce; $('k2miPause').textContent=reduce?'Sürdür':'Durdur'; miSetRule('mi'); };",
+   "$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=reduce; $('k2miPause').textContent=reduce?'Resume':'Pause'; miSetRule('mi'); };"
   ],
   [
    "$('k2liqChg').innerHTML='<span class=\"t\">Bir komşu '+(e.type==='in'?'çembere girdi':'çemberden çıktı')+' (r = '+fx(S.rc,2)+' σ)</span><span>'+(sh",
@@ -687,8 +687,8 @@
    "card('k2c2',true,'Your measurements: with the plain cut-off the total energy fluctuated by '+sci(p0.e)+' at r<sub>c</sub> = '+fx(r0,1)+' σ and by '+sci(p1.e)+' ε/molecule at '+fx(r1,1)+' σ; with the shifted potential, at the same distances, by '+sci(s0.e)+' and '+sci(s1.e)+'. At the short cut-off the plain cut-off fluctuates '+fx(p0.e/s0.e,0)+' times more. The forces and the trajectory are the same in both methods; the difference is that with the plain cut-off the energy jumps by |u(r<sub>c</sub>)| every time a pair crosses the circle. On the other hand the number of pairs per molecule is '+fx(p0.np,1)+' at '+fx(r0,1)+' σ and '+fx(p1.np,1)+' at '+fx(r1,1)+' σ: a longer cut-off makes the calculation more expensive. The shifted potential conserves energy much better even with a short cut-off, but not perfectly'+(s0.e>1.5*s1.e?' (with the shifted potential too, the drift at '+fx(r0,1)+' σ is '+fx(s0.e/s1.e,1)+' times that at '+fx(r1,1)+' σ)':'')+': the small remaining drift comes from the force, which still jumps to zero at r<sub>c</sub> (see the force magnifier in the potential plot). The shorter the cut-off, the larger this jump. GROMACS also shifts the potential at the cut-off this way (Potential-shift).');"
   ],
   [
-   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('düz kesmede 2,5 σ ya da daha kısa bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }",
-   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('the same two or more cut-off distances in both methods'); if(!okShort) need.push('a plain cut-off measurement at 2.5 σ or shorter'); card('k2c2',false,'Needed: '+need.join('; ')+'.'); }"
+   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('her iki yöntemde 2,5 σ ya da daha kısa ortak bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }",
+   "} else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('the same two or more cut-off distances in both methods'); if(!okShort) need.push('a shared measurement at 2.5 σ or shorter in both methods'); card('k2c2',false,'Needed: '+need.join('; ')+'.'); }"
   ],
   [
    "P4.ev.forEach(function(e){ var w=P4.w[e.i], f=(P4.clock-e.t)/1.2; g.strokeStyle=str(rgb(bad),1-f); g.lineWidth=3; g.beginPath(); g.arc(X(w.x),Y(w.y),rw+4+f*rw*2.5,0,6.283); g.stroke(); if(f<0.7){ g.globalAlpha=1-f/0.7; pill(g,'listede yoktu',X(w.x),Y(w.y)-rw-14,paper,bad); g.globalAlpha=1; } });",
@@ -819,8 +819,8 @@
    "['k2c1','k2c2','k2c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Open'; });"
   ],
   [
-   "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Sürdür'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();",
-   "ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Resume'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Resume'; } p4Draw(); p4Msg(); renderQuiz(); kick();"
+   "ratioTable(); fretUpd(); miReset(false); if(reduce){ M.paused=true; $('k2miPause').textContent='Sürdür'; Q.paused=true; $('k2qPause').textContent='Sürdür'; } miDraw(); miPlot(); qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();",
+   "ratioTable(); fretUpd(); miReset(false); if(reduce){ M.paused=true; $('k2miPause').textContent='Resume'; Q.paused=true; $('k2qPause').textContent='Resume'; } miDraw(); miPlot(); qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Resume'; } p4Draw(); p4Msg(); renderQuiz(); kick();"
   ],
   [
    "fx(st.K,st.K<10?1:0)+' kat'",

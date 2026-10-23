@@ -391,7 +391,7 @@ h3.sub{font-family:var(--serif);font-weight:400;font-size:19px;margin:18px 0 6px
       </div>
     </div>
     <p class="busy" id="k6note" aria-live="polite"></p>
-    <p class="small">Su ve atom sayısı bu projenin iki gerçek hazırlığından ayarlandı: d = 1,0 nm'de 193,42 nm³ ve 5.902 su, d = 0,5 nm'de 117,10 nm³ ve 3.378 su (onikiyüzlü). Buradan su için nm³ başına 33,07 molekül ve proteinin kapladığı yaklaşık 14,96 nm³ çıkar. Maliyet atom sayısıyla orantılı alındı (PME ile yaklaşık doğrusal). Kesit iki boyutludur ve protein şematiktir; boşluk, iki taslağın en yakın noktaları arasındadır. "En az" satırı proteinin bir tam turundaki en kötü durumdur; gerçek protein 10 ps'de bu kadar dönmez: bu projenin dar kutusunda (S3) ölçülen en kısa uzaklık 1,26 nm idi (aşağıda, proteine dönüş).</p>
+    <p class="small">Su ve atom sayısı bu projenin iki gerçek hazırlığından ayarlandı: d = 1,0 nm'de 193,42 nm³ ve 5.902 su, d = 0,5 nm'de 117,10 nm³ ve 3.378 su (onikiyüzlü). Buradan su için nm³ başına 33,07 molekül ve proteinin kapladığı yaklaşık 14,93 nm³ çıkar. Maliyet atom sayısıyla orantılı alındı (PME ile yaklaşık doğrusal). Kesit iki boyutludur ve protein şematiktir; boşluk, iki taslağın en yakın noktaları arasındadır. "En az" satırı proteinin bir tam turundaki en kötü durumdur; gerçek protein 10 ps'de bu kadar dönmez: bu projenin dar kutusunda (S3) ölçülen en kısa uzaklık 1,26 nm idi (aşağıda, proteine dönüş).</p>
   </section>
 
   <section class="card" aria-labelledby="k6h2">
@@ -851,8 +851,8 @@ $('lPause').onclick=function(){ Q.paused=!Q.paused; $('lPause').textContent=Q.pa
    3 · DEFTER: örneğin boyutu ve molekül başına enerji
    ===================================================================== */
 var NS=[25,49,100,196,400], RHO=0.82, nMode='vac', nN=49, nAxis='n', seenInv=false, KEY='ahl-mdpbc-lab1-v2', book=[], busy=false, queue=[];
-try{ var raw=localStorage.getItem(KEY); if(raw){ var bb=JSON.parse(raw); if(Array.isArray(bb)) book=bb.filter(function(p){return p&&(p.m==='vac'||p.m==='pbc')&&NS.indexOf(p.N)>=0&&isFinite(p.u)&&p.snap;}); } }catch(e){}
-function save(){ try{ localStorage.setItem(KEY,JSON.stringify(book)); }catch(e){} }
+try{ var raw=localStorage.getItem(KEY); if(raw){ var bb=JSON.parse(raw); if(Array.isArray(bb)) book=bb.filter(function(p){return p&&(p.m==='vac'||p.m==='pbc')&&NS.indexOf(p.N)>=0&&isFinite(p.u)&&p.snap;}); } seenInv=localStorage.getItem(KEY+'-inv')==='1'; }catch(e){}
+function save(){ if(!book.length) seenInv=false; try{ localStorage.setItem(KEY,JSON.stringify(book)); localStorage.setItem(KEY+'-inv',seenInv?'1':''); }catch(e){} }
 function nChips(){ $('nN').innerHTML=NS.map(function(n){return '<button type="button" class="chip" data-n="'+n+'" aria-pressed="'+(n===nN)+'">'+n+'</button>';}).join('');
   document.querySelectorAll('#nN .chip').forEach(function(b){ b.onclick=function(){ nN=+b.getAttribute('data-n'); nChips(); }; });
   document.querySelectorAll('#nMode .chip').forEach(function(b){ b.setAttribute('aria-pressed',String(b.getAttribute('data-m')===nMode)); b.onclick=function(){ nMode=b.getAttribute('data-m'); nChips(); }; }); }
@@ -880,7 +880,7 @@ $('nRun').onclick=function(){ if(busy) return; queue=[[nMode,nN]]; runQueue(); }
 $('nAll').onclick=function(){ if(busy) return; queue=NS.filter(function(N){ return !book.some(function(p){return p.m===nMode&&p.N===N;}); }).map(function(N){return [nMode,N];});
   if(!queue.length){ $('nBusy').textContent='Bu örnekte bütün molekül sayıları zaten ölçüldü.'; return; } runQueue(); };
 $('nClr').onclick=function(){ if(busy) return; book=[]; save(); nAll_render(); $('nBusy').textContent='Defter temizlendi.'; };
-function setAx(a){ nAxis=a; if(a==='inv') seenInv=true; $('axN').setAttribute('aria-pressed',String(a==='n')); $('axI').setAttribute('aria-pressed',String(a==='inv')); nDraw(); nEval(); }
+function setAx(a){ nAxis=a; if(a==='inv'){ seenInv=true; save(); } $('axN').setAttribute('aria-pressed',String(a==='n')); $('axI').setAttribute('aria-pressed',String(a==='inv')); nDraw(); nEval(); }
 $('axN').onclick=function(){setAx('n');}; $('axI').onclick=function(){setAx('inv');};
 
 /* küçük resimler: hepsi aynı ölçekte */
@@ -1182,11 +1182,11 @@ function axisY(g,L,R,T,H,B,W,vals,Y,fmt,line,muted){ g.font='12px '+css('--sans'
 
 /* ---------------- sabitler ---------------- */
 var NA=6.02214076e23, MW=8565, DIAM=4.491, RH=1.539, KT=1.380649e-23*298.15;
-var V0=193.42, W0=5902, V3=117.10, W3=3378, RHOW=(W0-W3)/(V0-V3), VP=V0-W0/RHOW, NPROT=1231, ATOM0=NPROT+3*W0;
-var ETA={tip3p:0.321e-3, exp:0.896e-3};
-function dInf(w){ return KT/(6*Math.PI*ETA[w]*RH*1e-9)*1e12; } /* µm²/s */
 function boxL(d){ return DIAM+2*d; }
 function boxV(L,bt){ return bt==='dod'?L*L*L*Math.SQRT1_2:L*L*L; }
+var V0=boxV(boxL(1.0),'dod'), W0=5902, V3=boxV(boxL(0.5),'dod'), W3=3378, RHOW=(W0-W3)/(V0-V3), VP=V0-W0/RHOW, NPROT=1231, ATOM0=NPROT+3*W0;
+var ETA={tip3p:0.321e-3, exp:0.896e-3};
+function dInf(w){ return KT/(6*Math.PI*ETA[w]*RH*1e-9)*1e12; } /* µm²/s */
 function concM(V){ return 1/(NA*V*1e-24); }
 function nWat(V){ return Math.max(0,Math.round(RHOW*(V-VP))); }
 var NFI=new Intl.NumberFormat('tr-TR');

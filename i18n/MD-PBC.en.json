@@ -1,7 +1,7 @@
 {
  "module": "MD-PBC",
  "lang": "en",
- "source_sha256": "c3d9ce272b19227f9eb05436d6207d061f14478404d2a9af26dd35662f91fe1a",
+ "source_sha256": "efe1722044b5fdb50cf9dc04688d81dcdaf7e9aab7d180322fbe3de7f129a97d",
  "reviewed": false,
  "checked": "claude",
  "translator": "Claude (AI), MD-PBC 0.6.0; insan gözden geçirmesi bekliyor; Claude denetimi 9 Ekim 2026 (terim, dil bilgisi, anlam)",
@@ -523,8 +523,8 @@
    "<div class=\"btns\" id=\"k6pre\"><button type=\"button\" class=\"btn\" data-d=\"0.5\">S3: 0.5 nm</button><button type=\"button\" class=\"btn\" data-d=\"1\">S0: 1.0 nm</button><button type=\"button\" class=\"btn\" data-d=\"1.5\">1.5 nm</button></div>"
   ],
   [
-   "<p class=\"small\">Su ve atom sayısı bu projenin iki gerçek hazırlığından ayarlandı: d = 1,0 nm'de 193,42 nm³ ve 5.902 su, d = 0,5 nm'de 117,10 nm³ ve 3.378 su (onikiyüzlü). Buradan su için nm³ başına 33,07 molekül ve proteinin kapladığı yaklaşık 14,96 nm³ çıkar. Maliyet atom sayısıyla orantılı alındı (PME ile yaklaşık doğrusal). Kesit iki boyutludur ve protein şematiktir; boşluk, iki taslağın en yakın noktaları arasındadır. \"En az\" satırı proteinin bir tam turundaki en kötü durumdur; gerçek protein 10 ps'de bu kadar dönmez: bu projenin dar kutusunda (S3) ölçülen en kısa uzaklık 1,26 nm idi (aşağıda, proteine dönüş).</p>",
-   "<p class=\"small\">The numbers of water molecules and atoms were calibrated from this project's two real preparations: at d = 1.0 nm 193.42 nm³ and 5,902 waters, at d = 0.5 nm 117.10 nm³ and 3,378 waters (dodecahedron). This gives 33.07 water molecules per nm³ and about 14.96 nm³ taken up by the protein. The cost was taken as proportional to the number of atoms (roughly linear with PME). The section is two-dimensional and the protein is schematic; the gap is measured between the closest points of the two outlines. The \"smallest\" row is the worst case over one full turn of the protein; the real protein does not turn this far in 10 ps: the shortest distance measured in this project's narrow box (S3) was 1.26 nm (below, back to the protein).</p>"
+   "<p class=\"small\">Su ve atom sayısı bu projenin iki gerçek hazırlığından ayarlandı: d = 1,0 nm'de 193,42 nm³ ve 5.902 su, d = 0,5 nm'de 117,10 nm³ ve 3.378 su (onikiyüzlü). Buradan su için nm³ başına 33,07 molekül ve proteinin kapladığı yaklaşık 14,93 nm³ çıkar. Maliyet atom sayısıyla orantılı alındı (PME ile yaklaşık doğrusal). Kesit iki boyutludur ve protein şematiktir; boşluk, iki taslağın en yakın noktaları arasındadır. \"En az\" satırı proteinin bir tam turundaki en kötü durumdur; gerçek protein 10 ps'de bu kadar dönmez: bu projenin dar kutusunda (S3) ölçülen en kısa uzaklık 1,26 nm idi (aşağıda, proteine dönüş).</p>",
+   "<p class=\"small\">The numbers of water molecules and atoms were calibrated from this project's two real preparations: at d = 1.0 nm 193.42 nm³ and 5,902 waters, at d = 0.5 nm 117.10 nm³ and 3,378 waters (dodecahedron). This gives 33.07 water molecules per nm³ and about 14.93 nm³ taken up by the protein. The cost was taken as proportional to the number of atoms (roughly linear with PME). The section is two-dimensional and the protein is schematic; the gap is measured between the closest points of the two outlines. The \"smallest\" row is the worst case over one full turn of the protein; the real protein does not turn this far in 10 ps: the shortest distance measured in this project's narrow box (S3) was 1.26 nm (below, back to the protein).</p>"
   ],
   [
    "<h2 id=\"k6h2\">Protein kendi akışına çarpar: periyodik kutuda su</h2>",

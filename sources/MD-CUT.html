@@ -548,10 +548,10 @@ $('k2mPlace').onclick=function(){ M.mode='place'; $('k2mPlace').setAttribute('ar
 $('k2rMi').onclick=function(){ miSetRule('mi'); };
 $('k2rBox').onclick=function(){ miSetRule('box'); };
 $('k2cell').onchange=function(){ miDraw(); };
-$('k2miPause').onclick=function(){ M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Sürdür':'Durdur'; miDraw(); kick(); };
+$('k2miPause').onclick=function(){ M.user=true; M.paused=!M.paused; $('k2miPause').textContent=M.paused?'Sürdür':'Durdur'; miDraw(); kick(); };
 $('k2miRand').onclick=function(){ var th=Math.random()*2*Math.PI, sp=1.8+Math.random()*1.2, cx=(M.va[0]+M.vb[0])/2, cy=(M.va[1]+M.vb[1])/2, ux=sp*Math.cos(th)-cx, uy=sp*Math.sin(th)-cy; M.va=[M.va[0]+ux,M.va[1]+uy]; M.vb=[M.vb[0]+ux,M.vb[1]+uy]; miReset(true); M.paused=false; $('k2miPause').textContent='Durdur';
   $('k2miChg').innerHTML='<span class="t">Çifti '+fx(sp,1)+' σ/τ ile rastgele bir yöne fırlattınız</span><span>İki molekül birbirini tutarak birlikte ilerleyecek. Biri sınırdan geçerken iki çizgiye ve alttaki enerji şeridine bakın.</span>'; kick(); };
-$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=false; $('k2miPause').textContent='Durdur'; miSetRule('mi'); };
+$('k2miReset').onclick=function(){ M.a=MI0.a.slice(); M.b=MI0.b.slice(); M.va=MI0.va.slice(); M.vb=MI0.vb.slice(); M.t=0; miReset(false); M.paused=reduce; $('k2miPause').textContent=reduce?'Sürdür':'Durdur'; miSetRule('mi'); };
 
 /* ---------------- 2 · tezgâh: kesme çemberi ---------------- */
 /* Tek bir hareket hesaplanır; kuvvetler iki yöntemde aynı olduğu için iki enerji aynı yörüngeden sayılır:
@@ -721,11 +721,11 @@ function nDraw(){
 function nEval(){
   var P=book.filter(function(p){return p.m==='plain';}), S=book.filter(function(p){return p.m==='shift';});
   var common=P.map(function(p){return p.r;}).filter(function(r){ return S.some(function(q){return q.r===r;}); }).sort(function(a,b){return a-b;});
-  var okShort=P.some(function(p){return p.r<=2.5;});
+  var okShort=common.length>0 && common[0]<=2.5;
   if(common.length>=2 && okShort && S.length>=2){
     var r0=common[0], r1=common[common.length-1], g=function(arr,r){ return arr.filter(function(p){return p.r===r;})[0]; }, p0=g(P,r0), p1=g(P,r1), s0=g(S,r0), s1=g(S,r1);
     card('k2c2',true,'Sizin ölçümleriniz: düz kesmede toplam enerji r<sub>c</sub> = '+fx(r0,1)+' σ\'da '+sci(p0.e)+', '+fx(r1,1)+' σ\'da '+sci(p1.e)+' ε/molekül oynadı; kaydırılmış potansiyelde aynı mesafelerde '+sci(s0.e)+' ve '+sci(s1.e)+'. Kısa kesmede düz kesme '+fx(p0.e/s0.e,0)+' kat daha çok oynuyor. İki yöntemde kuvvetler ve yörünge aynıdır; fark, düz kesmede bir çift çemberden her geçtiğinde enerjinin |u(r<sub>c</sub>)| kadar sıçramasıdır. Öte yandan molekül başına çift sayısı '+fx(r0,1)+' σ\'da '+fx(p0.np,1)+', '+fx(r1,1)+' σ\'da '+fx(p1.np,1)+': kesmeyi uzatmak hesabı pahalılaştırır. Kaydırılmış potansiyel kısa bir kesmeyle de enerjiyi çok daha iyi korur, ama tam korumaz'+(s0.e>1.5*s1.e?' (kaydırılmışta da '+fx(r0,1)+' σ\'daki oynama '+fx(r1,1)+' σ\'dakinin '+fx(s0.e/s1.e,1)+' katı)':'')+': kalan küçük kayma, kuvvetin r<sub>c</sub>\'de hâlâ sıfıra sıçramasından gelir (potansiyel grafiğindeki kuvvet büyüteci). Kesme kısaldıkça bu sıçrama büyür. GROMACS da potansiyeli kesmede böyle kaydırır (Potential-shift).');
-  } else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('düz kesmede 2,5 σ ya da daha kısa bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }
+  } else { var need=[]; if(P.length<2||S.length<2||common.length<2) need.push('her iki yöntemde aynı en az iki kesme mesafesi'); if(!okShort) need.push('her iki yöntemde 2,5 σ ya da daha kısa ortak bir ölçüm'); card('k2c2',false,'Gerekenler: '+need.join('; ')+'.'); }
 }
 
 /* ---------------- 4 · proteine dönüş: kesme ve komşu listesi, gerçek birimlerle ---------------- */
@@ -851,7 +851,7 @@ var rT=null; window.addEventListener('resize',function(){ clearTimeout(rT); rT=s
 
 /* başlangıç */
 ['k2c1','k2c2','k2c3'].forEach(function(id){ $(id).querySelector('.k').textContent='Açık'; });
-ratioTable(); fretUpd(); miReset(false); miDraw(); miPlot(); if(reduce){ Q.paused=true; $('k2qPause').textContent='Sürdür'; } qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();
+ratioTable(); fretUpd(); miReset(false); if(reduce){ M.paused=true; $('k2miPause').textContent='Sürdür'; Q.paused=true; $('k2qPause').textContent='Sürdür'; } miDraw(); miPlot(); qSet(null); nChips(); nDraw(); nEval(); p4Init(); if(reduce){ P4.paused=true; $('k4pause').textContent='Sürdür'; } p4Draw(); p4Msg(); renderQuiz(); kick();
 })();
 </script>
 </body>

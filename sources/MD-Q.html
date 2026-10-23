@@ -190,8 +190,8 @@ td.hl{background:color-mix(in srgb,var(--gold) 14%,var(--paper))}
     <div class="two eq"><div class="stagebox"><canvas id="qbox" aria-label="1. koşunun gerçek kareleri: alanin dipeptidi 22 atom, ilk kareye hizalı"></canvas></div><dl class="read" id="qboxread"></dl></div>
     <p class="small" id="qboxnote"></p>
     <div class="minis">
-      <article class="q" id="qc1"><span class="k">Açık</span><h3>Tanım sayıyı değiştirir mi?</h3><p>Aynı koşu ve pencerede en az iki farklı A bölgesi tanımı deneyin.</p><div class="mine" id="mqc1"></div></article>
-      <article class="q" id="qc2"><span class="k">Açık</span><h3>Pencere sayıyı değiştirir mi?</h3><p>Aynı tanım ve koşuyla en az iki farklı pencereye bakın (örneğin ilk 25 ns ve son 100 ns).</p><div class="mine" id="mqc2"></div></article>
+      <article class="q" id="qc1"><span class="k">Açık</span><h3>Tanım sayıyı değiştirir mi?</h3><p>Tek bir koşuda ve aynı pencerede en az iki farklı A bölgesi tanımı deneyin.</p><div class="mine" id="mqc1"></div></article>
+      <article class="q" id="qc2"><span class="k">Açık</span><h3>Pencere sayıyı değiştirir mi?</h3><p>Aynı tanım ve tek bir koşuyla en az iki farklı pencereye bakın (örneğin ilk 25 ns ve son 100 ns).</p><div class="mine" id="mqc2"></div></article>
       <article class="q" id="qc3"><span class="k">Açık</span><h3>Üç koşu aynı sayıyı mı verir?</h3><p>"Üçü birlikte" seçeneğiyle aynı pencerede üç koşunun payına bakın.</p><div class="mine" id="mqc3"></div></article>
       <article class="q" id="qc4"><span class="k">Açık</span><h3>Adım, kare, koşu</h3><p>Üç koşuyu birlikte ve pencereyi 250 ns yapın; okumadaki sayımlara bakın.</p><div class="mine" id="mqc4"></div></article>
     </div>
@@ -416,15 +416,15 @@ function qwRead(){ var rs=runsSel(), ps=rs.map(function(ri){ return pA(ri); }), 
   if(rs.length>1) h+=dl('Üç koşunun ortalaması (aralık)',pct(mean(ps),1)+' ('+pct(Math.min.apply(null,ps),1)+' ile '+pct(Math.max.apply(null,ps),1)+')');
   h+=dl('Pencere',fx(QW.start,0)+' ile '+fx(QW.start+QW.len,0)+' ns')+dl('Kaynakta kayıtlı kare (1 ps)',fmtInt(QW.len*1000*rs.length))+dl('Bu sayfadaki alt örnek (10 ps)',fmtInt(nfr*rs.length))+dl('Entegrasyon adımı (2 fs, kaynak beyanı)',fmtInt(QW.len*1e6/2*rs.length))+dl('Koşu (kaynak: bağımsız)',String(rs.length));
   $('qread').innerHTML=h;
-  var key=QW.def+'|'+QW.run+'|'+QW.start+'|'+QW.len; QW.seen[key]={def:QW.def,run:QW.run,start:QW.start,len:QW.len,ps:ps,rect:QW.def==='ozel'?JSON.parse(JSON.stringify(QW.rect)):null}; qwCards(); if(QK&&QK.ready) qkRender(); if(typeof qfBuild==='function') qfBuild(); }
+  var dkey=QW.def==='ozel'?'ozel:'+QW.rect.p0+':'+QW.rect.p1+':'+QW.rect.s0+':'+QW.rect.s1:QW.def, key=dkey+'|'+QW.run+'|'+QW.start+'|'+QW.len; QW.seen[key]={def:QW.def,dkey:dkey,run:QW.run,start:QW.start,len:QW.len,ps:ps,rect:QW.def==='ozel'?JSON.parse(JSON.stringify(QW.rect)):null}; qwCards(); if(QK&&QK.ready) qkRender(); if(typeof qfBuild==='function') qfBuild(); }
 function fmtInt(n){ return new Intl.NumberFormat('tr-TR').format(Math.round(n)); }
 function wtxt(s){ return fx(s.start,0)+' ile '+fx(s.start+s.len,0)+' ns'; }
 function qwCards(){ var S=Object.keys(QW.seen).map(function(k){return QW.seen[k];});
-  var c1=null; S.forEach(function(a){ S.forEach(function(b){ if(!c1&&a.run===b.run&&a.start===b.start&&a.len===b.len&&a.def!==b.def&&a.run!=='all') c1=[a,b]; }); });
+  var c1=null; S.forEach(function(a){ S.forEach(function(b){ if(!c1&&a.run===b.run&&a.start===b.start&&a.len===b.len&&a.dkey!==b.dkey&&a.run!=='all') c1=[a,b]; }); });
   if(c1){ var grp=S.filter(function(s){ return s.run===c1[0].run&&s.start===c1[0].start&&s.len===c1[0].len&&s.run!=='all'; }); var vals=grp.map(function(s){return s.ps[0];});
     card('qc1',true,'Koşu '+(+c1[0].run+1)+', '+wtxt(c1[0])+': '+grp.map(function(s){ return DEFN[s.def]+' '+pct(s.ps[0],1); }).join('; ')+'. Aynı kareler, farklı tanım: pay '+fx(100*(Math.max.apply(null,vals)-Math.min.apply(null,vals)),1)+' puan oynadı. Bu yüzden "αR payı" bir sayıdan önce bir tanımdır; tanım sonuca bakmadan yazılır ve duyarlılığı (ψ sınırı 30 ve 70) ayrıca raporlanır.'); } else card('qc1',false);
-  var c2=null; S.forEach(function(a){ S.forEach(function(b){ if(!c2&&a.def===b.def&&a.run===b.run&&a.run!=='all'&&a.def!=='ozel'&&(a.start!==b.start||a.len!==b.len)) c2=[a,b]; }); });
-  if(c2){ var g2=S.filter(function(s){ return s.def===c2[0].def&&s.run===c2[0].run; }).slice(0,4);
+  var c2=null; S.forEach(function(a){ S.forEach(function(b){ if(!c2&&a.dkey===b.dkey&&a.run===b.run&&a.run!=='all'&&(a.start!==b.start||a.len!==b.len)) c2=[a,b]; }); });
+  if(c2){ var g2=S.filter(function(s){ return s.dkey===c2[0].dkey&&s.run===c2[0].run; }).slice(0,4);
     card('qc2',true,'Koşu '+(+c2[0].run+1)+', '+DEFN[c2[0].def]+': '+g2.map(function(s){ return wtxt(s)+' '+pct(s.ps[0],1); }).join('; ')+'. Aynı koşunun farklı pencereleri farklı sayılar veriyor. İki pencerenin birbirine yakın ya da uzak olması tek başına "denge" kanıtı değildir: pencere de tanım gibi önceden yazılır.'); } else card('qc2',false);
   var c3=S.filter(function(s){ return s.run==='all'; })[0];
   if(c3){ card('qc3',true,DEFN[c3.def]+', '+wtxt(c3)+': koşu 1 '+pct(c3.ps[0],1)+', koşu 2 '+pct(c3.ps[1],1)+', koşu 3 '+pct(c3.ps[2],1)+' (aralık '+fx(100*(Math.max.apply(null,c3.ps)-Math.min.apply(null,c3.ps)),1)+' puan). Koşu, karelerin değil tekrarın birimidir; bu sayfada üç koşunun bağımsızlığı yalnız kaynağın beyanıdır, üretim kayıtları elimizde yok. Koşular arası farkın nasıl test edileceği MD-REP\'te, örnekleme belirsizliği MD-U\'da.'); } else card('qc3',false);
