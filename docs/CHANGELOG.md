@@ -21,6 +21,32 @@ Bu giriş bir sürüm değildir; sürüm numarası, etiket ya da GitHub sürüm�
 - `docs/CODEX_OSS_APPLICATION_DRAFT.md` eklendi: OpenAI Codex for Open Source başvurusu için taslak metinler. Başvuru gönderilmedi.
 - `robots.txt`, `noindex` başlıkları, erişim kuralları ve dağıtım ayarları değişmedi.
 
+## 0.45.1 (23 Ekim 2026) · agy incelemesi düzeltmeleri
+
+Bulgular agy (Antigravity) tarafından bulundu, Claude tarafından denetlendi, agy tarafından uygulandı.
+
+Ortak ve altyapı değişiklikleri:
+
+- `lib/lang.js`, `tools/build.mjs` ve `tools/test-lang.mjs`: dil öneksiz `/book`, `/glossary`, `/kitap`, `/sozluk` adresleri ziyaretçinin diline yönlenecek biçimde `prefixedPath` ve `_routes.json` güncellendi; `/en/l/sozluk`, `/tr/l/kitap`, `/en/l/kitap`, `/en/kitap` ve `/en/sozluk` yönlendirmeleri `_redirects` dosyasına eklendi.
+- `tools/build.mjs` ve `static/404.html`: 404 sayfalarına dil değiştirici ile kitap bölümleri ve sözlük bağlantıları eklendi.
+- `sources/DK-T.html`, `sources/DK-O.html`, `sources/MD-DT.html`, `sources/MD-O.html`, `sources/MD-PDB.html` ve `sources/MD-U.html`: kapanmamış `<style>` etiketi düzeltildi; geçerli kurallar korundu, kullanılmayan kalıntı CSS temizlendi (DK-T 0.3.1, DK-O 0.4.1, MD-DT 0.2.1, MD-O 0.2.3, MD-PDB 0.2.1, MD-U 0.3.1).
+- `modules.json`, `README.tr.md`, `README.md` ve `NOTICE.md`: düzenlenen 16 modülün yama sürümleri artırıldı; `README.tr.md` içindeki `U+0307` birleştirici noktalı "ileri" başlıkları düzeltildi; README örneklerindeki `MD-PBC` sürümü güncellendi; `NOTICE.md` GROMACS satırına 2023.3 ile birlikte 2026.3 eklendi.
+
+Modül düzeltmeleri:
+
+- **DK-U (0.3.1):** S1 kontrol listesinde başlangıçta seçili olan renklendirme (`ha`) ve tuzak kümesi (`matched`) düğmelerine tıklandığında ilgili maddelerin (`s1c2`, `s1c4`) işaretlenmesi sağlandı.
+- **MD-Q (0.2.1):** `QW.seen` anahtarına özel dikdörtgen koordinatları eklendi; `qc1` ve `qc2` kart metinleri ile açılma koşulları uyumlu hale getirildi.
+- **MD-T (0.3.1):** İlerleme sayacının saydığı 5 keşif kartı açıkça belirtildi ve sayfa yenilendiğinde kaydedilmiş kartların "Keşfedildi" durumunun geri yüklenmesi sağlandı; "Bilimsel ve hedef okur incelemesi yapılmadı." cümlesi ve mükerrer `.topline` marka satırı kaldırıldı.
+- **MD-ENS (0.2.3):** Kontrol listesi `e1c4` ve `e1c8` maddelerinin kart metinleri ile açılma koşulları uyumlu hale getirildi; yüzde biçimi tekilleştirildi (Türkçe `%32,8`, İngilizce `32.8%`).
+- **MD-PBC (0.7.1):** Lab 2.1 sabitleri Lab 1.4 ile aynı hesaptan (`boxV(boxL(...),'dod')`) türetilerek 14,96 nm³ ile 14,93 nm³ tutarsızlığı giderildi ve Lab 2.1 su/atom sayıları Lab 1.4 ile eşitlendi; Lab 1.4 3B sahnesinde başlangıçtaki görünüm `seenInv` kümesine eklendi.
+- **MD-CUT (0.1.4):** `k2c2` kontrol maddesinin koşulu ortak ölçülen en küçük mesafeye göre kuruldu; `prefers-reduced-motion` açıkken `k2miPause` düğmesinin simülasyonu başlatabilmesi sağlandı.
+- **MD-CON (0.1.3):** "Bilimsel ve İngilizce onay bekliyor." cümlesi kaldırıldı; `t63` kontrol maddesinin koşulu ile kaydırıcıların `aria-label` nitelikleri kart metniyle uyumlu hale getirildi.
+- **MD-O (0.2.3):** Kontrol listesi `o1c1` ve `o1c3` maddelerinin açılma koşulları kart metniyle uyumlu hale getirildi; Türkçe yüzde yazımları `%X` biçimine getirildi.
+- **MD-PDB (0.2.1):** Uzun pozlama kipinde 3B sahneyi sürükleme işlemi, birikimi yeni bakışla yeniden başlatacak biçimde düzeltildi.
+- **MD-FF (0.1.2):** Türkçe yüzde yazımları `%X` biçimine getirildi; 2. laboratuvar su modelleri alt notunda öz difüzyon katsayısı için iki birim (`cm²/s` ve `m²/s`) birlikte verildi.
+- **MD-SOLV (0.1.3):** 2. laboratuvar `yc6` kontrol maddesinin kart metni ile açılma koşulu uyumlu hale getirildi; Türkçe yüzde yazımları `%X` biçimine getirildi.
+- **MD-PCA (0.2.1):** `#pplay` oynat/duraklat düğmesindeki `aria-pressed` niteliği kaldırıldı; yalnız düğme metni değişir.
+
 ## 0.45.0 (22 Ekim 2026) · Site yayında: arama motorlarına açıldı, önizleme notları kaldırıldı
 
 Proje sahibinin kararıyla site önizlemeden çıkarıldı.

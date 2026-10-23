@@ -31,7 +31,7 @@
       "title": "Docking: bir pozu bulmak ve doğrulamak",
       "path": "docking/dk-t/",
       "source": "sources/DK-T.html",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "status": "pilot",
       "book": "CH02 sonrası",
       "goals": [
@@ -68,7 +68,7 @@
       "title": "Gerçek kilit: sonuç kilidin hangi ayrıntısına bağlı?",
       "path": "docking/dk-o/",
       "source": "sources/DK-O.html",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "status": "pilot",
       "book": "CH07 ve CH09",
       "goals": [
@@ -113,7 +113,7 @@
       "title": "Skor neyi sıralar?",
       "path": "docking/dk-u/",
       "source": "sources/DK-U.html",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "status": "pilot",
       "book": "CH18 ve CH19",
       "goals": [
@@ -154,7 +154,7 @@
       "title": "Enerji, kuvvetler ve sayısal hareket",
       "path": "md/md-t/",
       "source": "sources/MD-T.html",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "status": "pilot",
       "book": "CH02",
       "goals": [
@@ -189,7 +189,7 @@
       "title": "Kenarsız kutu: periyodik sınır",
       "path": "md/md-pbc/",
       "source": "sources/MD-PBC.html",
-      "version": "0.7.0",
+      "version": "0.7.1",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -238,7 +238,7 @@
       "title": "En yakın kopya ve kesme",
       "path": "md/md-cut/",
       "source": "sources/MD-CUT.html",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "status": "pilot",
       "book": "CH04",
       "goals": [
@@ -347,7 +347,7 @@
       "app": "md",
       "level": "orta",
       "title": "Bir proteini MD'ye hazırlamak: ubikitin (1UBQ)",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "status": "pilot",
       "book": "CH07",
       "goals": [
@@ -382,7 +382,7 @@
       "app": "md",
       "level": "orta",
       "title": "Yapı dosyası: doluluk, B faktörü ve kristal suları (1UBQ)",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "pilot",
       "book": "CH07",
       "goals": [
@@ -421,7 +421,7 @@
       "app": "md",
       "level": "orta",
       "title": "Proteinde zaman adımı: kısıtlar, kütle ve hız (1UBQ)",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "pilot",
       "book": "CH02",
       "goals": [
@@ -458,7 +458,7 @@
       "app": "md",
       "level": "uzman",
       "title": "Örnekleme ve belirsizlik: alanin dipeptidi",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "status": "pilot",
       "book": "CH17",
       "goals": [
@@ -495,7 +495,7 @@
       "app": "md",
       "level": "temel",
       "title": "Topluluk, dağılım ve ortalama: bir MD koşusu neyi temsil eder?",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "status": "pilot",
       "book": "CH03",
       "goals": [
@@ -534,7 +534,7 @@
       "app": "md",
       "level": "temel",
       "title": "Soruyu bozmadan simülasyon kontrolü: termostat ve barostat neyi sabit tutar, neyi bozar?",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "status": "pilot",
       "book": "CH05",
       "goals": [
@@ -620,7 +620,7 @@
       "app": "md",
       "level": "temel",
       "title": "Bu veri hangi cümleyi taşır? Biyolojik sorudan ölçülebilir MD çalışmasına",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "pilot",
       "book": "CH01",
       "goals": [
@@ -743,7 +743,7 @@
       "app": "md",
       "level": "orta",
       "title": "Durum bir tanımdır, bileşen bir yöntem sonucudur: durumlar ve kolektif hareketler",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "pilot",
       "book": "CH16",
       "goals": [
@@ -864,7 +864,7 @@
       "app": "md",
       "level": "orta",
       "title": "Kuvvet alanı bir modeldir: kuvvet alanı ve model uyumu",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "status": "pilot",
       "book": "CH08",
       "goals": [
@@ -903,7 +903,7 @@
       "app": "md",
       "level": "orta",
       "title": "Çözücü de modelin parçası: iyonlar ve yardımcı çözücü",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "status": "pilot",
       "book": "CH10",
       "goals": [

@@ -27,6 +27,6 @@ Bu yazılımlar sitede çalışmaz; yalnız modüllerdeki verileri üretmek içi
 | RDKit | 2026.03.6 (DK-O), 2025.09.6 (DK-U) | BSD-3-Clause |
 | gemmi | 0.7.5 | MPL-2.0 |
 | NumPy | 2.4.4 | BSD-3-Clause ve uyumlu |
-| GROMACS | 2023.3 (Ubuntu paketi; MD modüllerinin koşuları) | LGPL-2.1 (paketin telif dosyasına göre) |
+| GROMACS | 2023.3 ve 2026.3 (MD modüllerinin koşuları) | LGPL-2.1 (paketin telif dosyasına göre) |
 
 Not: DK-U verisi üretilirken çalışma alanında RDKit, başka bir paketin bağımlılığı nedeniyle 2025.09.6 sürümüne düşürülmüştü; DK-U sayfası ve tarama protokolü buna göre düzeltildi (bkz. `docs/CHANGELOG.md`).
